@@ -93,14 +93,46 @@ describe('architecture lint rules', () => {
     ])
   })
 
-  it('accepts React, Three.js, the DOM, Math.random, and the clock in src/app', async () => {
+  it('accepts React, the DOM, Math.random, and the clock in src/app', async () => {
     const code = [
       'import { useState } from "react"',
-      'import * as THREE from "three"',
-      'export const a = [useState, THREE, Math.random(), Date.now(), new Date(), document.title, window.innerWidth]',
+      'export const a = [useState, Math.random(), Date.now(), new Date(), document.title, window.innerWidth]',
       '',
     ].join('\n')
     expect(await ruleIds(code, 'src/app/x.tsx')).toEqual([])
+  })
+
+  it('accepts Three.js and React Three Fiber inside a scene folder', async () => {
+    const code = [
+      'import * as THREE from "three"',
+      'import { Canvas } from "@react-three/fiber"',
+      'import { OrbitControls } from "three/addons/controls/OrbitControls.js"',
+      'import { helper } from "./helper"',
+      'export const a = [THREE, Canvas, OrbitControls, helper]',
+      '',
+    ].join('\n')
+    expect(await ruleIds(code, 'src/app/explore/scene/x.tsx')).toEqual([])
+    expect(await ruleIds(code, 'src/app/learn/scene/x.test.ts')).toEqual([])
+  })
+
+  it.each(['three', 'three/addons/controls/OrbitControls.js', '@react-three/fiber'])(
+    'rejects importing %s in src/app outside a scene folder',
+    async (source) => {
+      const code = `import * as m from "${source}"\nexport const v = m\n`
+      expect(await ruleIds(code, 'src/app/pages/x.tsx')).toEqual(['no-restricted-imports'])
+      expect(await ruleIds(code, 'src/main.tsx')).toEqual(['no-restricted-imports'])
+    },
+  )
+
+  it('rejects a static import of a scene module outside a scene folder, but allows type imports and lazy loading', async () => {
+    const eager = 'import { MoleculeViewer } from "@/app/explore/scene/MoleculeViewer"\nexport const v = MoleculeViewer\n'
+    expect(await ruleIds(eager, 'src/app/pages/x.tsx')).toEqual(['no-restricted-imports'])
+    const relative = 'import { MoleculeViewer } from "./scene/MoleculeViewer"\nexport const v = MoleculeViewer\n'
+    expect(await ruleIds(relative, 'src/app/explore/x.tsx')).toEqual(['no-restricted-imports'])
+    const typeOnly = 'import type { ViewHandle } from "@/app/explore/scene/MoleculeViewer"\nexport type V = ViewHandle\n'
+    expect(await ruleIds(typeOnly, 'src/app/pages/x.tsx')).toEqual([])
+    const lazy = 'export const load = () => import("@/app/explore/scene/MoleculeViewer")\n'
+    expect(await ruleIds(lazy, 'src/app/pages/x.tsx')).toEqual([])
   })
 
   it('accepts Math.random and the clock in chem-data and mechanisms', async () => {

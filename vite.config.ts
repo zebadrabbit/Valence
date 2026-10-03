@@ -11,6 +11,11 @@ export default defineConfig({
       '@': path.resolve(import.meta.dirname, './src'),
     },
   },
+  build: {
+    // The lazy 3D chunk (three and @react-three/fiber) is a little over 900 kB minified and does
+    // not tree-shake further. Raise the limit so the warning keeps its meaning for other chunks.
+    chunkSizeWarningLimit: 1000,
+  },
   test: {
     environment: 'node',
     include: ['src/**/*.test.ts'],

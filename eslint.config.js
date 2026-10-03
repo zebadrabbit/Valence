@@ -12,6 +12,8 @@ const PURE = ['src/engine/**/*.{ts,tsx}', 'src/chem-data/**/*.{ts,tsx}', 'src/me
 const NO_NETWORK = 'No network at runtime: all chem-data is bundled.'
 const NO_DOM = 'engine/, chem-data/ and mechanisms/ must not touch the DOM.'
 const NO_CLOCK = 'engine/ must not read the clock: take time as an argument.'
+const NO_EAGER_THREE =
+  'Three.js is imported only inside a scene/ folder, which the app loads lazily. A static import anywhere else puts about 900 kB into an eagerly loaded chunk.'
 
 const NETWORK_GLOBALS = [
   { name: 'fetch', message: NO_NETWORK },
@@ -75,6 +77,30 @@ export default defineConfig(
         },
       ],
       'no-restricted-globals': ['error', ...NETWORK_GLOBALS, ...DOM_GLOBALS],
+    },
+  },
+
+  // Three.js stays in the lazily loaded scene/ folders.
+  // (The pure folders have their own, stricter block above.)
+  {
+    files: ['src/app/**/*.{ts,tsx}', 'src/main.tsx'],
+    ignores: ['src/app/**/scene/**'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [{ name: 'three', message: NO_EAGER_THREE }],
+          patterns: [
+            { group: ['three/*', '@react-three/*'], message: NO_EAGER_THREE },
+            {
+              // A value import of a scene module would drag Three.js along with it.
+              regex: '/scene/',
+              allowTypeImports: true,
+              message: 'Import scene/ modules with import type, or load them with React.lazy(() => import(...)).',
+            },
+          ],
+        },
+      ],
     },
   },
 
