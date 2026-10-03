@@ -7,3 +7,4 @@ coverage/
 *.local
 .DS_Store
 .claude/settings.local.json
+src/chem-data/denylist.local.json
