@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { NavLink, Outlet } from 'react-router'
+import { useEffect, useState } from 'react'
+import { NavLink, Outlet, useLocation } from 'react-router'
 import { Atom, FlaskConical, GraduationCap, House, Info, PanelLeftClose, PanelLeftOpen, Settings } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
@@ -15,6 +15,15 @@ const NAV = [
 export function Layout() {
   // The rail starts collapsed on narrow screens.
   const [expanded, setExpanded] = useState(() => window.matchMedia('(min-width: 768px)').matches)
+
+  // After each navigation, focus the new page's h1 so keyboard and screen-reader users land on it.
+  // Not on first load, and not when the link asked to stay put (a toggle within one page).
+  const location = useLocation()
+  const [firstLocation] = useState(location)
+  useEffect(() => {
+    if (location === firstLocation || (location.state as { keepFocus?: boolean } | null)?.keepFocus) return
+    document.querySelector<HTMLElement>('main h1')?.focus()
+  }, [location, firstLocation])
 
   return (
     <div className="flex min-h-screen bg-background text-foreground">
