@@ -102,7 +102,7 @@ function PaletteBody({ onChoose }: { onChoose(to: string): void }) {
         <input
           role="combobox"
           aria-label="Search molecules, labs and pages"
-          aria-expanded="true"
+          aria-expanded={results.length > 0}
           aria-controls={listId}
           aria-activedescendant={activeId}
           aria-autocomplete="list"

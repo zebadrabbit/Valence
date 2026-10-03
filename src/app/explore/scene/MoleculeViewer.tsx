@@ -285,6 +285,8 @@ function Controls({ radius, reducedMotion, viewRef }: { radius: number; reducedM
   const invalidate = useThree((s) => s.invalidate)
   const aspect = useThree((s) => s.size.width / s.size.height)
   const controls = useMemo(() => new OrbitControls(camera), [camera])
+  /** The distance the molecule was last framed at. */
+  const framed = useRef<number>(null)
 
   // Attach to the canvas. With frameloop="demand" nothing draws unless asked,
   // so every camera change requests one frame.
@@ -300,13 +302,16 @@ function Controls({ radius, reducedMotion, viewRef }: { radius: number; reducedM
   }, [controls, canvas, invalidate])
 
   // Frame the molecule: on load, when the view changes its size, and when the canvas changes shape.
-  // Only the distance is set, so the direction the learner has turned the model to is kept.
+  // Only the distance is set, so the direction the learner has turned the model to is kept, and
+  // it is set to the same fraction of the framing distance as before, so their zoom is kept too.
   useEffect(() => {
     if (!(aspect > 0)) return
     const distance = framingDistance(radius, FOV, aspect)
-    camera.position.setLength(distance)
+    const zoom = framed.current ? camera.position.length() / framed.current : 1
+    framed.current = distance
     controls.minDistance = radius * 1.1
     controls.maxDistance = distance * 4
+    camera.position.setLength(Math.min(Math.max(distance * zoom, controls.minDistance), controls.maxDistance))
     // What reset() goes back to.
     controls.target0.set(0, 0, 0)
     controls.position0.set(...HOME).setLength(distance)

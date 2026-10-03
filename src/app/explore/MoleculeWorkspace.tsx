@@ -3,11 +3,12 @@ import { Check, Eye, EyeOff } from 'lucide-react'
 import { useAppState } from '@/app/AppState'
 import { VALENCE_LEVELS, type Prefs } from '@/app/preferences'
 import { Button } from '@/components/ui/button'
-import { atomNames, bondNames, describeLonePairs, describeMolecule } from '@/chem-data/describe'
+import { atomNames, bondNames, describeLonePairs, describeMoleculeParts } from '@/chem-data/describe'
 import { measure } from '@/chem-data/measure'
 import { registry } from '@/chem-data/registry'
 import type { Molecule } from '@/chem-data/schema'
 import { measurementText } from './format'
+import { Formula } from './Formula'
 import { Inspector } from './Inspector'
 import { EMPTY_SELECTION, selectionReducer, selectionStatus } from './selection'
 import { ViewerPanel } from './ViewerPanel'
@@ -28,7 +29,8 @@ export function MoleculeWorkspace({ molecule }: { molecule: Molecule }) {
 
   const atoms = atomNames(molecule, registry.elements)
   const bonds = bondNames(molecule, registry.elements)
-  const description = `${describeMolecule(molecule, registry.elements)} ${describeLonePairs(molecule, registry.elements)}`
+  const { lead, formula, rest } = describeMoleculeParts(molecule, registry.elements)
+  const lonePairs = describeLonePairs(molecule, registry.elements)
   const measurement = measure(molecule, selection.atoms)
   const nothingSelected = selection.atoms.length === 0 && selection.bond === null
 
@@ -65,25 +67,33 @@ export function MoleculeWorkspace({ molecule }: { molecule: Molecule }) {
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
         <div className="min-w-0 flex-1">
           <ViewerPanel molecule={molecule} selection={selection} dispatch={dispatch} describedBy={descriptionId} />
+          {/* Outside the panels that can be hidden, so the selection is always announced. */}
+          <p role="status" className="mt-2 text-sm">
+            {selectionStatus(selection, atoms, bonds)}
+            {/* The measurement is announced with the selection that produced it. */}
+            {measurement && ` ${measurementText(measurement, atoms)}`}
+          </p>
           {/* The viewer's description for assistive technology. A browser does not read it out of a closed
-              <details>, so it has its own hidden copy, which is exposed only through aria-describedby. */}
+              <details>, so it has its own hidden copy, which is exposed only through aria-describedby.
+              The hidden copy has the formula in plain characters; the visible one typesets it. */}
           <p id={descriptionId} hidden>
-            {description}
+            {lead}
+            {formula}
+            {rest} {lonePairs}
           </p>
           <details className="mt-2 max-w-prose text-sm">
             <summary className="w-fit cursor-pointer rounded-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring">
               Text description
             </summary>
-            <p className="mt-1 text-muted-foreground">{description}</p>
+            <p className="mt-1 text-muted-foreground">
+              {lead}
+              <Formula molecule={molecule} />
+              {rest} {lonePairs}
+            </p>
           </details>
         </div>
 
         <section id={listId} hidden={!showList} aria-label="Atoms and bonds" className="shrink-0 rounded-lg border bg-card p-3 lg:w-64">
-          <p role="status" className="mb-2 text-sm">
-            {selectionStatus(selection, atoms, bonds)}
-            {/* The measurement is announced with the selection that produced it. */}
-            {measurement && ` ${measurementText(measurement, atoms)}`}
-          </p>
           {/* Stays focusable when disabled: pressing it disables it, and keyboard focus must not drop to the page. */}
           <Button
             variant="outline"
@@ -95,7 +105,8 @@ export function MoleculeWorkspace({ molecule }: { molecule: Molecule }) {
           >
             Clear selection
           </Button>
-          <div className="grid gap-3 lg:max-h-[19rem] lg:overflow-y-auto">
+          {/* On a wide screen the lists scroll in a bordered box; the counts in the headings say how much there is. */}
+          <div className="grid gap-3 lg:max-h-[23rem] lg:overflow-y-auto lg:rounded-md lg:border lg:p-1">
             <ToggleList
               heading="Atoms"
               names={atoms}
@@ -138,7 +149,9 @@ function PanelToggle(props: { label: string; controls: string; shown: boolean; o
 function ToggleList(props: { heading: string; names: readonly string[]; pressed(index: number): boolean; onToggle(index: number): void }) {
   return (
     <div>
-      <h2 className="mb-1 text-sm font-medium">{props.heading}</h2>
+      <h2 className="mb-1 text-sm font-medium">
+        {props.heading} ({props.names.length})
+      </h2>
       {/* p-1 leaves room for the focus ring inside the scrolling box. */}
       <ul className="grid gap-1 p-1">
         {props.names.map((name, i) => {
