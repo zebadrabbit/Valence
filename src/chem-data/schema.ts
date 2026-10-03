@@ -191,6 +191,8 @@ export const moDiagramSchema = z.strictObject({
       }),
     )
     .min(1),
+  /** What the diagram shows that the molecule's Lewis structure does not; covered by the record's source. */
+  callout: text.optional(),
   sourceId: id,
 })
 

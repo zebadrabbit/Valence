@@ -1,0 +1,72 @@
+import { describe, expect, it } from 'vitest'
+import { HYBRIDIZATION, deriveAtoms } from './derive'
+import { dot } from './geometry'
+import { DELOCALISED_PAIR_NOTE, hybridLobes } from './hybrid'
+import { registry } from './registry'
+
+const { elements } = registry
+const moleculeOf = (id: string) => {
+  const found = registry.molecules.find((m) => m.id === id)
+  if (!found) throw new Error(`no molecule ${id}`)
+  return found
+}
+/** The lobes of the first atom of the element in the molecule. */
+const lobesOf = (id: string, symbol: string) => {
+  const molecule = moleculeOf(id)
+  return hybridLobes(molecule, molecule.atoms.findIndex((a) => a.element === symbol), elements)
+}
+const count = (id: string, symbol: string) => {
+  const lobes = lobesOf(id, symbol)
+  return lobes && [lobes.hybridization, lobes.bonds.length, lobes.lonePairs.length]
+}
+
+describe('hybridLobes', () => {
+  it('gives the carbons of methane, ethene and ethyne four, three and two lobes', () => {
+    expect(count('methane', 'C')).toEqual(['sp³', 4, 0])
+    expect(count('ethene', 'C')).toEqual(['sp²', 3, 0])
+    expect(count('ethyne', 'C')).toEqual(['sp', 2, 0])
+  })
+
+  it('puts lone pairs in hybrid lobes', () => {
+    expect(count('water', 'O')).toEqual(['sp³', 2, 2])
+    expect(count('ammonia', 'N')).toEqual(['sp³', 3, 1])
+    expect(count('formaldehyde', 'O')).toEqual(['sp²', 1, 2])
+    expect(count('nitrogen', 'N')).toEqual(['sp', 1, 1])
+  })
+
+  it('spreads the lobes of methane at the tetrahedral angle', () => {
+    const { bonds } = lobesOf('methane', 'C')!
+    for (const a of bonds) for (const b of bonds) if (a !== b) expect(dot(a, b)).toBeCloseTo(-1 / 3, 2)
+  })
+
+  it('has none for hydrogen, for a terminal halogen, or for steric numbers 5 and 6', () => {
+    expect(lobesOf('methane', 'H')).toBeNull()
+    expect(lobesOf('hydrogen-chloride', 'Cl')).toBeNull()
+    expect(lobesOf('phosphorus-pentachloride', 'P')).toBeNull()
+    expect(lobesOf('sulfur-hexafluoride', 'S')).toBeNull()
+    expect(lobesOf('xenon-tetrafluoride', 'Xe')).toBeNull()
+  })
+
+  it('leaves the delocalised lone pair of an amide or urea nitrogen without a lobe, and says why', () => {
+    for (const id of ['acetamide', 'urea']) {
+      const lobes = lobesOf(id, 'N')!
+      expect([lobes.hybridization, lobes.bonds.length, lobes.lonePairs.length]).toEqual(['sp²', 3, 0])
+      expect(lobes.note).toBe(DELOCALISED_PAIR_NOTE)
+    }
+    expect(lobesOf('ammonia', 'N')!.note).toBeUndefined()
+  })
+
+  it('draws lobes for every sp, sp² and sp³ atom in the library and for no other, one per electron domain', () => {
+    const drawn = [HYBRIDIZATION[2], HYBRIDIZATION[3], HYBRIDIZATION[4]]
+    for (const molecule of registry.molecules) {
+      deriveAtoms(molecule, elements).forEach((derived, i) => {
+        const lobes = hybridLobes(molecule, i, elements)
+        const where = `${molecule.id} atom ${i}`
+        expect(lobes !== null, where).toBe(drawn.includes(derived.hybridization))
+        if (!lobes) return
+        expect(molecule.atoms[i]!.element, where).not.toBe('H')
+        expect(lobes.bonds.length + lobes.lonePairs.length, where).toBe(drawn.indexOf(lobes.hybridization) + 2)
+      })
+    }
+  })
+})

@@ -92,6 +92,24 @@ export function describeMolecule(molecule: Molecule, elements: readonly Element[
   return sentences.join(' ')
 }
 
+/**
+ * The lone pairs of the Lewis structure in words, for the text alternative of the Lewis view:
+ * "Lone pairs: 1 on the sulfur atom, 2 on Oxygen 1 and 3 on Oxygen 2." Atoms of one element
+ * that all hold the same number share a phrase; otherwise each is named as in atomNames.
+ */
+export function describeLonePairs(molecule: Molecule, elements: readonly Element[]): string {
+  const names = atomNames(molecule, elements)
+  const phrases = [...new Set(molecule.atoms.map((a) => a.element))].flatMap((symbol) => {
+    const mine = molecule.atoms.flatMap((atom, i) => (atom.element === symbol ? [{ pairs: atom.lonePairs, name: names[i]! }] : []))
+    if (mine.every((a) => a.pairs === mine[0]!.pairs)) {
+      const name = elements.find((e) => e.symbol === symbol)!.name.toLowerCase()
+      return mine[0]!.pairs === 0 ? [] : [`${mine[0]!.pairs} on ${mine.length === 1 ? 'the' : 'each'} ${name} atom`]
+    }
+    return mine.filter((a) => a.pairs > 0).map((a) => `${a.pairs} on ${a.name}`)
+  })
+  return phrases.length === 0 ? 'No lone pairs.' : `Lone pairs: ${listFormat.format(phrases)}.`
+}
+
 /** A name for each atom, numbered per element in file order: "Carbon 1", "Oxygen 1", "Oxygen 2". */
 export function atomNames(molecule: Molecule, elements: readonly Element[]): string[] {
   const seen = new Map<string, number>()

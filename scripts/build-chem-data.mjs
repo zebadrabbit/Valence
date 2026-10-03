@@ -511,8 +511,20 @@ const MO_SOURCE_ID = 'openstax-chem2e-8.4'
 // The research file spells the labels out; the app shows the symbols.
 const MO_LABELS = { sigma2s: 'σ2s', 'sigma*2s': 'σ*2s', sigma2p: 'σ2p', 'sigma*2p': 'σ*2p', pi2p: 'π2p', 'pi*2p': 'π*2p' }
 
+// The research note on a molecule's Lewis structure that its MO diagram must carry as a callout
+// (spec 6.4). The note points at the research file's own mo[] list, which the app text leaves out.
+const MO_CALLOUT_FOR = ['oxygen']
+const MO_CALLOUT_POINTER = ' (see mo[])'
+
+function moCallout(expected, id) {
+  const note = expected.molecules.find((m) => m.id === id)?.notes
+  if (typeof note !== 'string' || !note.includes(MO_CALLOUT_POINTER)) fail(`expected.json: ${id} has no Lewis and MO note`)
+  return `The ${note.replace(MO_CALLOUT_POINTER, '')}`
+}
+
 function buildMoDiagrams(molecules) {
-  const research = readJson('expected.json').mo
+  const expected = readJson('expected.json')
+  const research = expected.mo
   if (research.map((d) => d.id).join() !== 'oxygen,nitrogen') fail('expected.json: expected MO diagrams for oxygen and nitrogen')
   const [{ sourceUrl: url, citation }] = research
   const diagrams = research.map((d) => {
@@ -530,6 +542,7 @@ function buildMoDiagrams(molecules) {
         electrons: l.electrons,
         type: l.type,
       })),
+      ...(MO_CALLOUT_FOR.includes(d.id) ? { callout: moCallout(expected, d.id) } : {}),
       sourceId: MO_SOURCE_ID,
     }
   })

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { atomNames, bondNames, describeMolecule } from './describe'
+import { atomNames, bondNames, describeLonePairs, describeMolecule } from './describe'
 import { formulaElements } from './formula'
 import { registry } from './registry'
 import type { Molecule } from './schema'
@@ -126,5 +126,22 @@ describe('atomNames and bondNames', () => {
       const names = [...atomNames(m, registry.elements), ...bondNames(m, registry.elements)]
       expect([m.id, new Set(names).size]).toEqual([m.id, m.atoms.length + m.bonds.length])
     }
+  })
+})
+
+describe('describeLonePairs', () => {
+  const said = (id: string) => describeLonePairs(moleculeOf(id), registry.elements)
+
+  it('counts the lone pairs of water and of xenon tetrafluoride', () => {
+    expect(said('water')).toBe('Lone pairs: 2 on the oxygen atom.')
+    expect(said('xenon-tetrafluoride')).toBe('Lone pairs: 2 on the xenon atom and 3 on each fluorine atom.')
+  })
+
+  it('names the atoms of an element that hold different numbers', () => {
+    expect(said('sulfur-dioxide')).toBe('Lone pairs: 1 on the sulfur atom, 2 on Oxygen 1, and 3 on Oxygen 2.')
+  })
+
+  it('says when there are none', () => {
+    expect(said('methane')).toBe('No lone pairs.')
   })
 })

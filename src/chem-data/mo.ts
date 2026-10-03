@@ -16,3 +16,20 @@ export function unpairedElectrons(diagram: MoDiagram): number {
     0,
   )
 }
+
+/**
+ * The electrons in each orbital of one level, filled by Hund's rule: one electron goes into
+ * every orbital of the level before any orbital takes a second. A level of two orbitals
+ * holding three electrons gives [2, 1].
+ */
+export function orbitalOccupancy(degeneracy: number, electrons: number): number[] {
+  if (electrons < 0 || electrons > 2 * degeneracy) {
+    throw new Error(`${electrons} electrons do not fit ${degeneracy} orbitals`)
+  }
+  return Array.from({ length: degeneracy }, (_, i) => (i < electrons ? 1 : 0) + (i < electrons - degeneracy ? 1 : 0))
+}
+
+/** The occupied levels in energy order with their electron counts, to write as (σ2s)² (σ*2s)² and so on. */
+export function moConfiguration(diagram: MoDiagram): { label: string; electrons: number }[] {
+  return diagram.levels.filter((level) => level.electrons > 0).map(({ label, electrons }) => ({ label, electrons }))
+}

@@ -30,7 +30,7 @@ const around = (axis: Vec3, side: Vec3, polar: number, azimuth: number): Vec3 =>
   )
 
 /** Unit vectors from one atom to the atoms it is bonded to. */
-function bondDirections(molecule: Molecule, index: number): Vec3[] {
+export function bondDirections(molecule: Molecule, index: number): Vec3[] {
   const here = molecule.atoms[index]!.position
   return molecule.bonds
     .filter((b) => b.a === index || b.b === index)
