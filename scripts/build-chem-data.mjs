@@ -31,8 +31,9 @@ const toJson = (value) => JSON.stringify(value, null, 2) + '\n'
 // spec exempts from citation.
 
 // id, PubChem CID, display name, formula, topic. The order here is the library order.
-// The formula is written the way general chemistry texts write it, in plain
-// digits and without the charge; the build checks it against the atom list.
+// The formula is written the way general chemistry texts write it (condensed
+// for organic molecules), in plain digits and without the charge; the build
+// checks it against the atom list.
 const LIBRARY = [
   ['water', 962, 'Water', 'H2O', 'basics'],
   ['carbon-dioxide', 280, 'Carbon dioxide', 'CO2', 'basics'],
@@ -50,20 +51,20 @@ const LIBRARY = [
   ['ethane', 6324, 'Ethane', 'C2H6', 'organic'],
   ['ethene', 6325, 'Ethene', 'C2H4', 'organic'],
   ['ethyne', 6326, 'Ethyne', 'C2H2', 'organic'],
-  ['ethanol', 702, 'Ethanol', 'C2H6O', 'organic'],
-  ['acetic-acid', 176, 'Acetic acid', 'C2H4O2', 'organic'],
-  ['acetone', 180, 'Acetone', 'C3H6O', 'organic'],
+  ['ethanol', 702, 'Ethanol', 'C2H5OH', 'organic'],
+  ['acetic-acid', 176, 'Acetic acid', 'CH3COOH', 'organic'],
+  ['acetone', 180, 'Acetone', 'CH3COCH3', 'organic'],
   ['formaldehyde', 712, 'Formaldehyde', 'CH2O', 'organic'],
-  ['methylamine', 6329, 'Methylamine', 'CH5N', 'organic'],
-  ['ethyl-acetate', 8857, 'Ethyl acetate', 'C4H8O2', 'organic'],
-  ['acetamide', 178, 'Acetamide', 'C2H5NO', 'organic'],
+  ['methylamine', 6329, 'Methylamine', 'CH3NH2', 'organic'],
+  ['ethyl-acetate', 8857, 'Ethyl acetate', 'CH3COOC2H5', 'organic'],
+  ['acetamide', 178, 'Acetamide', 'CH3CONH2', 'organic'],
   ['benzene', 241, 'Benzene', 'C6H6', 'organic'],
   ['beta-d-glucopyranose', 64689, 'β-D-Glucopyranose', 'C6H12O6', 'biomolecules'],
-  ['glycine', 750, 'Glycine', 'C2H5NO2', 'biomolecules'],
-  ['glycine-zwitterion', 5257127, 'Glycine', 'C2H5NO2', 'biomolecules'],
-  ['alanine', 5950, 'L-Alanine', 'C3H7NO2', 'biomolecules'],
-  ['alanine-zwitterion', 7311724, 'L-Alanine', 'C3H7NO2', 'biomolecules'],
-  ['urea', 1176, 'Urea', 'CH4N2O', 'biomolecules'],
+  ['glycine', 750, 'Glycine', 'NH2CH2COOH', 'biomolecules'],
+  ['glycine-zwitterion', 5257127, 'Glycine', 'NH3CH2COO', 'biomolecules'],
+  ['alanine', 5950, 'L-Alanine', 'CH3CH(NH2)COOH', 'biomolecules'],
+  ['alanine-zwitterion', 7311724, 'L-Alanine', 'CH3CH(NH3)COO', 'biomolecules'],
+  ['urea', 1176, 'Urea', 'CO(NH2)2', 'biomolecules'],
   ['hydronium', 123332, 'Hydronium ion', 'H3O', 'mechanism'],
   ['bicarbonate', 769, 'Bicarbonate ion', 'HCO3', 'mechanism'],
   ['carbonic-acid', 767, 'Carbonic acid', 'H2CO3', 'mechanism'],
@@ -361,6 +362,18 @@ function summary(atoms, bonds, elementOf) {
     .join('\n')
 }
 
+/** The element symbols a formula writes, one per atom. Handles one level of parentheses with a multiplier, as in CO(NH2)2. */
+function formulaElements(formula) {
+  const expand = (text) =>
+    [...text.matchAll(/([A-Z][a-z]?)(\d*)/g)].flatMap(([, element, count]) => Array(Number(count || 1)).fill(element))
+  const outside = formula.replace(/\([^()]*\)\d*/g, '')
+  if (/[()]/.test(outside)) fail(`the formula ${formula} has unbalanced or nested parentheses`)
+  const groups = [...formula.matchAll(/\(([^()]*)\)(\d*)/g)].flatMap(([, inner, times]) =>
+    Array.from({ length: Number(times || 1) }, () => expand(inner)).flat(),
+  )
+  return [...expand(outside), ...groups]
+}
+
 function buildMolecules(elements) {
   const geometry = readJson('geometry.json').molecules
   const pubchem = readJson('pubchem.json')
@@ -423,7 +436,7 @@ function buildMolecules(elements) {
       fail(`${id}: expected ${AROMATIC_RING[id]} aromatic bonds`)
     }
 
-    const written = [...formula.matchAll(/([A-Z][a-z]?)(\d*)/g)].flatMap(([, element, count]) => Array(Number(count || 1)).fill(element))
+    const written = formulaElements(formula)
     if (written.sort().join() !== atoms.map((a) => a.element).sort().join()) {
       fail(`${id}: the formula ${formula} does not match the atom list`)
     }

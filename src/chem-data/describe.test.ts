@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { describeMolecule } from './describe'
+import { formulaElements } from './formula'
 import { registry } from './registry'
 import type { Molecule } from './schema'
 
@@ -27,7 +28,7 @@ describe('describeMolecule', () => {
 
   it('describes the glycine zwitterion with its variant and formal charges', () => {
     expect(describeById('glycine-zwitterion')).toBe(
-      'Glycine (zwitterion), formula C2H5NO2. It has 10 atoms, joined by 8 single bonds and 1 double bond; ' +
+      'Glycine (zwitterion), formula NH3CH2COO. It has 10 atoms, joined by 8 single bonds and 1 double bond; ' +
         'the double bond and one single bond to oxygen are drawn as one of two equivalent resonance structures, ' +
         'and the two real bonds are equal. ' +
         'Formal charges: oxygen minus 1, nitrogen plus 1. ' +
@@ -76,8 +77,8 @@ describe('describeMolecule', () => {
 
 describe('the formula in a description', () => {
   it.each([
-    ['ethanol', 'C2H6O'],
-    ['acetamide', 'C2H5NO'],
+    ['ethanol', 'C2H5OH'],
+    ['acetamide', 'CH3CONH2'],
     ['beta-d-glucopyranose', 'C6H12O6'],
     ['carbon-dioxide', 'CO2'],
     // As textbooks write them, not in Hill order (ClH, H3N, F4Xe).
@@ -93,9 +94,7 @@ describe('the formula in a description', () => {
 
   it('has the same element counts as the atom list for every molecule', () => {
     for (const molecule of registry.molecules) {
-      const written = [...molecule.formula.matchAll(/([A-Z][a-z]?)(\d*)/g)].flatMap(([, symbol, count]) =>
-        Array<string>(Number(count || 1)).fill(symbol!),
-      )
+      const written = formulaElements(molecule.formula)
       expect(written.sort(), molecule.id).toEqual(molecule.atoms.map((a) => a.element).sort())
     }
   })

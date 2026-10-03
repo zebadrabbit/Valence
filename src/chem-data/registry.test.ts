@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { formulaElements } from './formula'
 import { registry } from './registry'
 import { validateRegistry } from './validate'
 
@@ -83,6 +84,25 @@ describe('the real chem-data registry', () => {
   it('gives no molecule the name of an element', () => {
     const elementNames = new Set(registry.elements.map((e) => e.name))
     for (const m of registry.molecules) expect(elementNames.has(m.name), m.id).toBe(false)
+  })
+
+  it('writes every formula with the element counts of its atom list, parentheses included', () => {
+    expect(formulaElements('CO(NH2)2').sort()).toEqual(['C', 'H', 'H', 'H', 'H', 'N', 'N', 'O'])
+    expect(() => formulaElements('C((OH)2)3')).toThrow()
+    for (const m of registry.molecules) {
+      expect(formulaElements(m.formula).sort(), m.id).toEqual(m.atoms.map((a) => a.element).sort())
+    }
+  })
+
+  it('writes the organic molecules in condensed form', () => {
+    const formula = (id: string) => registry.molecules.find((m) => m.id === id)?.formula
+    expect(['ethanol', 'urea', 'alanine-zwitterion', 'ethyl-acetate', 'glycine'].map(formula)).toEqual([
+      'C2H5OH',
+      'CO(NH2)2',
+      'CH3CH(NH3)COO',
+      'CH3COOC2H5',
+      'NH2CH2COOH',
+    ])
   })
 
   it('keeps the 90°, 120° and 180° angles of PCl5 (spec 6.5)', () => {
