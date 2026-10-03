@@ -45,7 +45,10 @@ const CLEAR = [20, 27] as const
 /** Lone-pair dots sit this far outside the symbol's clear radius, and this far to each side of their direction. */
 const PAIR_GAP = 10
 const PAIR_SPREAD = 7
-const CHARGE_GAP = 20
+/** The charge's centre is this far outside the clear radius: far enough that its circle misses the dots of a lone pair 30° away. */
+const CHARGE_GAP = 25
+/** The formal charge is written in a circle of this radius, so a minus sign is not lost among the lone-pair dots. */
+export const CHARGE_RADIUS = 13
 /** Distance between the parallel lines of a double or triple bond, and from an aromatic bond to its dashed line. */
 const LINE_SPACING = 10
 const AROMATIC_SPACING = 13
@@ -118,11 +121,24 @@ const CHARGE_ROOM = (40 * Math.PI) / 180
 
 /**
  * Where to write the formal charge: the first candidate direction with room round it, or,
- * when the atom is crowded, the one furthest from every bond and lone pair.
+ * when the atom is crowded, the middle of the widest gap between its bonds and lone pairs
+ * (of equal gaps, the one nearest the upper right).
  */
 export function chargeAngle(occupied: readonly number[]): number {
   const room = (angle: number) => Math.min(Math.PI, ...occupied.map((other) => between(angle, other)))
-  return CHARGE_ANGLES.find((angle) => room(angle) >= CHARGE_ROOM) ?? CHARGE_ANGLES.reduce((best, angle) => (room(angle) > room(best) + 1e-9 ? angle : best))
+  const open = CHARGE_ANGLES.find((angle) => room(angle) >= CHARGE_ROOM)
+  if (open !== undefined) return open
+  const sorted = occupied.map(turn).sort((a, b) => a - b)
+  const gaps = sorted.map((start, i) => {
+    const size = turn(sorted[(i + 1) % sorted.length]! - start)
+    return { size, middle: start + size / 2 }
+  })
+  const best = gaps.reduce((a, b) => {
+    if (Math.abs(a.size - b.size) > SAME) return a.size > b.size ? a : b
+    return between(b.middle, CHARGE_ANGLES[0]!) < between(a.middle, CHARGE_ANGLES[0]!) ? b : a
+  })
+  // -180° to 180°, as the candidates are written.
+  return Math.atan2(Math.sin(best.middle), Math.cos(best.middle))
 }
 
 /**
@@ -195,7 +211,7 @@ export function lewisLayout(molecule: Molecule): LewisLayout {
   })
 
   // Everything drawn round an atom fits inside this reach: the charge, or the lone-pair dots.
-  const reach = (atom: LewisAtom) => atom.clear + CHARGE_GAP + FONT_SIZE / 2
+  const reach = (atom: LewisAtom) => atom.clear + CHARGE_GAP + Math.max(FONT_SIZE / 2, CHARGE_RADIUS)
   const corners = atoms.flatMap((atom): Point[] => [
     [atom.position[0] - reach(atom), atom.position[1] - reach(atom)],
     [atom.position[0] + reach(atom), atom.position[1] + reach(atom)],

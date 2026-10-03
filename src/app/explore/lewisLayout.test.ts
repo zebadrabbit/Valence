@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { registry } from '@/chem-data/registry'
-import { UNIT, bondLines, chargeAngle, fitViewBox, gapAngles, lewisLayout, type Point } from './lewisLayout'
+import { CHARGE_RADIUS, DOT_RADIUS, UNIT, bondLines, chargeAngle, fitViewBox, gapAngles, lewisLayout, type Point } from './lewisLayout'
 
 const deg = (radians: number) => Math.round((radians * 180) / Math.PI)
 const rad = (degrees: number) => (degrees * Math.PI) / 180
@@ -93,9 +93,12 @@ describe('chargeAngle', () => {
     expect(deg(chargeAngle([rad(30), rad(150), rad(-90)]))).toBe(-45)
   })
 
-  it('takes the roomiest place on a crowded atom', () => {
+  it('takes the middle of the widest gap on a crowded atom', () => {
     // A bond and three lone pairs at right angles, turned 30°: every candidate is within 40° of something.
-    expect(deg(chargeAngle([rad(210), rad(300), rad(30), rad(120)]))).toBe(-90)
+    // The four gaps are equal, so the one nearest the upper right wins, 45° from its neighbours.
+    expect(deg(chargeAngle([rad(210), rad(300), rad(30), rad(120)]))).toBe(-15)
+    // Unequal gaps: the widest one, wherever it is.
+    expect(deg(chargeAngle([20, 70, 110, 160, 200, 256, 300, 340].map(rad)))).toBe(-132)
   })
 })
 
@@ -222,6 +225,14 @@ describe('lewisLayout', () => {
           expect(inside(mark), `${molecule.id} atom ${i}`).toBe(true)
         }
         expect(inside(atom.position)).toBe(true)
+        // The circle round a charge touches neither the symbol nor the atom's own lone-pair dots.
+        if (atom.charge) {
+          expect(['+', '−'], `${molecule.id} atom ${i}`).toContain(atom.charge.text)
+          expect(distance(atom.charge.position, atom.position) - CHARGE_RADIUS, `${molecule.id} atom ${i}`).toBeGreaterThanOrEqual(atom.clear)
+          for (const dot of atom.lonePairs.flat()) {
+            expect(distance(dot, atom.charge.position), `${molecule.id} atom ${i}`).toBeGreaterThan(CHARGE_RADIUS + DOT_RADIUS)
+          }
+        }
       })
       for (const bond of bonds) expect(bond.length, molecule.id).toBeGreaterThan(0.1 * UNIT)
     }
