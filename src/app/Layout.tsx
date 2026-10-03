@@ -18,12 +18,17 @@ export function Layout() {
 
   return (
     <div className="flex min-h-screen bg-background text-foreground">
-      <a
-        href="#main"
+      <button
+        type="button"
+        onClick={(e) => {
+          // Hash router: an href="#main" would be read as the route /main.
+          e.preventDefault()
+          document.getElementById('main')?.focus()
+        }}
         className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-10 focus:rounded-md focus:bg-background focus:px-3 focus:py-2 focus:ring-2"
       >
         Skip to content
-      </a>
+      </button>
 
       <nav
         id="rail"
