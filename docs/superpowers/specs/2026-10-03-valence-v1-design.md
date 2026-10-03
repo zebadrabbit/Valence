@@ -90,7 +90,7 @@ In the UI, each inspector card, station result, and energy panel has a "Sources"
 | --- | --- |
 | 3D coordinates for the Basics and VSEPR showcase groups (section 6.1) | Built by a script from cited experimental gas-phase bond lengths and angles (NIST CCCBDB experimental geometry pages, which hold all 13), so the model, the measure tool, and the card agree. Labelled "experimental (gas phase)". Includes BF₃, SF₆, XeF₄, and PCl₅, which have no PubChem 3D record |
 | 3D coordinates for all other molecules and polyatomic ions | PubChem 3D SDF, fetched once and committed. Only a `record_type=3d` record is accepted; a 2D record is never used for 3D. Labelled "computed conformer (PubChem3D, MMFF94s force field); not an experimental structure" |
-| 2D layout positions for the Lewis view | PubChem 2D SDF (drawing units), for all molecules except sulfur dioxide, whose octet resonance form has an authored bent drawing |
+| 2D layout positions for the Lewis view | PubChem 2D SDF (drawing units), except for four authored drawings: sulfur dioxide, whose octet resonance form is drawn bent; ammonia and hydronium, drawn with the hydrogens to the sides and below so the lone pair sits on top; and carbon dioxide, drawn horizontal |
 | Atomic weights | CIAAW abridged standard atomic weights |
 | Electron configurations and ionization energies | NIST Atomic Spectra Database. Ionization energies are stored in eV as published and converted to kJ/mol in code |
 | Pauling electronegativity | PubChem periodic table |

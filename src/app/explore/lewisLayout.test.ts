@@ -177,8 +177,30 @@ describe('lewisLayout', () => {
     expect(molecule.bonds.filter((b) => b.aromatic)).toHaveLength(6)
   })
 
-  it('draws carbon dioxide straight with two double bonds and two lone pairs on each oxygen', () => {
+  it.each(['ammonia', 'hydronium'])('draws %s with its lone pair on top and the hydrogens to the sides and below', (id) => {
+    const [centre, ...hydrogens] = layoutOf(id).layout.atoms
+    const [x, y] = centre!.position
+    // Not the flat Y of a trigonal planar molecule: no hydrogen is above the central atom.
+    for (const h of hydrogens) expect(h.position[1]).toBeGreaterThanOrEqual(y)
+    expect(hydrogens.map((h) => h.position[0] - x).sort((a, b) => a - b)).toEqual([-UNIT, 0, UNIT])
+    // The pair is straight above, opposite the hydrogen below.
+    const [[a, b]] = centre!.lonePairs as [[Point, Point]]
+    expect(centre!.lonePairs).toHaveLength(1)
+    expect(midpoint(a, b)[0]).toBeCloseTo(x)
+    expect(midpoint(a, b)[1]).toBeLessThan(y - centre!.clear)
+  })
+
+  it('writes the charge of hydronium clear of its lone pair and its bonds', () => {
+    const [oxygen] = layoutOf('hydronium').layout.atoms
+    expect(oxygen!.charge?.text).toBe('+')
+    expect(oxygen!.charge!.position[0]).toBeGreaterThan(oxygen!.position[0])
+    expect(oxygen!.charge!.position[1]).toBeLessThan(oxygen!.position[1])
+  })
+
+  it('draws carbon dioxide horizontal, with two double bonds and two lone pairs on each oxygen', () => {
     const { atoms, bonds } = layoutOf('carbon-dioxide').layout
+    expect(new Set(atoms.map((a) => a.position[1])).size).toBe(1)
+    expect(atoms.map((a) => a.position[0]).sort((a, b) => a - b)).toEqual([-UNIT, 0, UNIT])
     expect(bonds.map((b) => b.lines.length)).toEqual([2, 2])
     expect(atoms.map((a) => `${a.symbol}${a.lonePairs.length}`).sort()).toEqual(['C0', 'O2', 'O2'])
   })

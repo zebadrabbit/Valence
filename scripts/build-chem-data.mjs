@@ -120,15 +120,39 @@ const AROMATIC_RING = { benzene: 6 }
 // two-double-bond form of the research file. Atom order is S, O, O.
 const SO2 = { atoms: 'S,O,O', bonds: '0-1:2,0-2:2', orders: [2, 1], formalCharges: [1, 0, -1] }
 
-// PubChem's 2D record draws sulfur dioxide as a straight line, which would show
-// the VSEPR showcase's bent molecule as linear in the Lewis view. The drawing
-// is authored instead: S at the origin, the oxygens at 120° to each other, unit
-// bond lengths, in the drawing units of the other files. Same atom order as SO2.
-const SO2_DRAWING = [
+// Authored 2D drawings, where PubChem's 2D record would teach the wrong picture in the Lewis
+// view. Unit bond lengths, y up, in the drawing units of the other files; `atoms` is the atom
+// order the positions are written for, which the build checks.
+// - Sulfur dioxide: PubChem draws it as a straight line. Here the oxygens are at 120° to each other.
+// - Ammonia and hydronium: PubChem draws a flat Y, which reads as trigonal planar. Here the three
+//   hydrogens are to the sides and below, which leaves the top for the lone pair.
+// - Carbon dioxide: PubChem draws it on a slant. Here it is horizontal.
+const SIDES_AND_BELOW = [
   [0, 0],
-  [-0.866, -0.5],
-  [0.866, -0.5],
+  [-1, 0],
+  [1, 0],
+  [0, -1],
 ]
+const DRAWINGS = {
+  'sulfur-dioxide': {
+    atoms: SO2.atoms,
+    positions: [
+      [0, 0],
+      [-0.866, -0.5],
+      [0.866, -0.5],
+    ],
+  },
+  ammonia: { atoms: 'N,H,H,H', positions: SIDES_AND_BELOW },
+  hydronium: { atoms: 'O,H,H,H', positions: SIDES_AND_BELOW },
+  'carbon-dioxide': {
+    atoms: 'C,O,O',
+    positions: [
+      [0, 0],
+      [1, 0],
+      [-1, 0],
+    ],
+  },
+}
 
 // The element sources this app cites, by their id in the research file.
 // `readVia` names the research source for the copy that was actually read
@@ -155,10 +179,9 @@ const ELEMENT_SOURCES = [
   { id: 'jmol-pal-source' },
 ]
 
-const ELEMENT_NOTES = {
-  Xe: [
-    "The electronegativity is the value PubChem lists. It is a later estimate, not part of Pauling's original scale, and no primary source was traced.",
-  ],
+// Shown under the electronegativity itself, not among the element's other notes.
+const ELECTRONEGATIVITY_NOTES = {
+  Xe: "The value PubChem lists. It is a later estimate, not part of Pauling's original scale, and no primary source was traced.",
 }
 
 // ---------------------------------------------------------------------------
@@ -200,7 +223,7 @@ function buildElements() {
     const viaMantina = e.vdwRadiusA.sourceId === 'mantina-2009' || e.vdwRadiusA.verifiedVia?.includes('mantina-2009-pmc')
     if (!viaMantina) fail(`${where}: van der Waals radius was not checked against Mantina 2009`)
 
-    const notes = [...(ELEMENT_NOTES[e.symbol] ?? [])]
+    const notes = []
     if (e.covalentRadiusAlternatives) {
       const label = (a) => a.label.replace('sp3', 'sp³').replace('sp2', 'sp²')
       const list = e.covalentRadiusAlternatives.map((a) => `${label(a)} ${a.value.toFixed(2)} Å`).join(', ')
@@ -221,7 +244,10 @@ function buildElements() {
       name: e.name,
       atomicNumber: e.atomicNumber,
       atomicWeight: { ...cite(e.atomicWeight.value, e.atomicWeight.sourceId), published: e.atomicWeight.valueAsPublished },
-      electronegativity: cite(e.electronegativity.value, e.electronegativity.sourceId),
+      electronegativity: {
+        ...cite(e.electronegativity.value, e.electronegativity.sourceId),
+        ...(ELECTRONEGATIVITY_NOTES[e.symbol] ? { note: ELECTRONEGATIVITY_NOTES[e.symbol] } : {}),
+      },
       configuration: cite(e.configuration, e.configurationSourceId),
       shells: cite(e.shells, e.configurationSourceId),
       ionizationEnergiesEv: cite(
@@ -427,6 +453,8 @@ function buildMolecules(elements) {
       }
     }
     const elementOf = (i) => structure.atoms[i].element
+    const authored = DRAWINGS[id]
+    if (authored && elementList(structure) !== authored.atoms) fail(`${id}: the authored drawing is written for the atoms ${authored.atoms}`)
 
     const atoms = structure.atoms.map((atom, i) => {
       const electrons = valence.get(atom.element) ?? fail(`${id}: element ${atom.element} is not in elements.json`)
@@ -436,7 +464,7 @@ function buildMolecules(elements) {
       }
       const flat = drawing.atoms[structure.to2d[i]]
       // 2D positions are PubChem drawing units with y pointing up.
-      const position2d = id === 'sulfur-dioxide' ? SO2_DRAWING[i] : [flat.x, flat.y]
+      const position2d = authored ? authored.positions[i] : [flat.x, flat.y]
       return { element: atom.element, position: atom.position, position2d, formalCharge: atom.formalCharge, lonePairs }
     })
 
@@ -497,7 +525,7 @@ function buildMolecules(elements) {
     }
   })
 
-  for (const id of [...Object.keys(VARIANTS), ...Object.keys(DISPLAY_FORMULAS), ...Object.keys(NOTES), ...RESONANCE_PAIR, ...Object.keys(AROMATIC_RING)]) {
+  for (const id of [...Object.keys(VARIANTS), ...Object.keys(DISPLAY_FORMULAS), ...Object.keys(NOTES), ...Object.keys(DRAWINGS), ...RESONANCE_PAIR, ...Object.keys(AROMATIC_RING)]) {
     if (!molecules.some((m) => m.id === id)) fail(`an authored table names "${id}", which is not in the library`)
   }
   if (molecules.length !== 33) fail(`expected 33 structures, built ${molecules.length}`)

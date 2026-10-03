@@ -14,7 +14,7 @@
         0
       ],
       "position2d": [
-        2.866,
+        0,
         0
       ],
       "formalCharge": 0,
@@ -28,8 +28,8 @@
         1.162
       ],
       "position2d": [
-        3.7321,
-        0.5
+        1,
+        0
       ],
       "formalCharge": 0,
       "lonePairs": 2
@@ -42,8 +42,8 @@
         -1.162
       ],
       "position2d": [
-        2,
-        -0.5
+        -1,
+        0
       ],
       "formalCharge": 0,
       "lonePairs": 2

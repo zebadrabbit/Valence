@@ -124,6 +124,13 @@ describe('the real chem-data registry', () => {
     expect(Math.abs(angle2d('carbon-dioxide', 'C') - 180)).toBeLessThan(1)
   })
 
+  it('carries the caveat about the xenon electronegativity on the value itself', () => {
+    const noted = registry.elements.filter((e) => e.electronegativity.note)
+    expect(noted.map((e) => e.symbol)).toEqual(['Xe'])
+    expect(noted[0]!.electronegativity.note).toMatch(/no primary source was traced/)
+    expect(noted[0]!.notes?.join(' ')).not.toMatch(/electronegativity/i)
+  })
+
   it('keeps the 90°, 120° and 180° angles of PCl5 (spec 6.5)', () => {
     const pcl5 = registry.molecules.find((m) => m.id === 'phosphorus-pentachloride')
     const counts: Record<number, number> = {}

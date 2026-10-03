@@ -21,7 +21,9 @@ export function AtomCard(props: { name: string; atom: Molecule['atoms'][number];
         <Row label="Element">{element.name}</Row>
         <Row label="Atomic number">{element.atomicNumber}</Row>
         <Row label="Atomic mass">{element.atomicWeight.published ?? element.atomicWeight.value} u</Row>
-        <Row label="Electronegativity">{element.electronegativity.value} (Pauling)</Row>
+        <Row label="Electronegativity" note={element.electronegativity.note}>
+          {element.electronegativity.value} (Pauling)
+        </Row>
         <Row label="Valence electrons">{valenceElectrons(element)}</Row>
         <Row label="Formal charge">{signed(atom.formalCharge)}</Row>
         <Row label="Lone pairs">{atom.lonePairs}</Row>

@@ -543,7 +543,8 @@
     },
     "electronegativity": {
       "value": 2.6,
-      "sourceId": "pubchem-ptable"
+      "sourceId": "pubchem-ptable",
+      "note": "The value PubChem lists. It is a later estimate, not part of Pauling's original scale, and no primary source was traced."
     },
     "configuration": {
       "value": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6",
@@ -581,7 +582,6 @@
       "sourceId": "jmol-pal-source"
     },
     "notes": [
-      "The electronegativity is the value PubChem lists. It is a later estimate, not part of Pauling's original scale, and no primary source was traced.",
       "NIST marks ionization energies 2 and 3 as interpolated/extrapolated (semi-empirical), not measured."
     ],
     "sourceId": "ciaaw-abridged-2024"
