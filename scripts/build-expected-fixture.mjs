@@ -2,12 +2,17 @@
 //
 //   npm run build:expected
 //
-// Reads docs/research/phase-2/expected.json (the hand-written expected-values
-// table) and writes src/chem-data/expected-values.fixture.json.
+// Reads docs/research/phase-2/expected.json (the research table, whose derived
+// values were recomputed by a research script) and writes
+// src/chem-data/expected-values.fixture.json.
 //
-// The fixture is an independent oracle: it comes from the research file and
-// the rules below, never from src/chem-data/derive.ts. If a derive test fails,
-// work out which side is right; do not regenerate one from the other.
+// The fixture is generated from the research table and the rules below; it
+// shares no code with src/chem-data/derive.ts. It is not fully independent:
+// rules (a) and (b) restate two conventions derive.ts also implements, and
+// build-chem-data.mjs already makes the stored Lewis structures equal the
+// research table. The hand-written checks are the named cases in
+// derive.test.ts. If a derive test fails, work out which side is right; do not
+// regenerate one from the other.
 //
 // The research file records the research as gathered. Two project conventions
 // decided afterwards differ from it (docs/research/phase-2/README.md, spec 6.3):
