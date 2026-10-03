@@ -136,7 +136,7 @@
       "sourceId": "jmol-pal-source"
     },
     "notes": [
-      "The source gives one covalent radius per hybridization: sp3 0.76 Å, sp2 0.73 Å, sp 0.69 Å. The sp3 value is stored."
+      "The source gives one covalent radius per hybridization: sp³ 0.76 Å, sp² 0.73 Å, sp 0.69 Å. The sp³ value is stored."
     ],
     "sourceId": "ciaaw-abridged-2024"
   },
@@ -185,7 +185,7 @@
       "sourceId": "jmol-pal-source"
     },
     "notes": [
-      "NIST marks ionization energy 2, 3 as interpolated/extrapolated (semi-empirical), not measured."
+      "NIST marks ionization energies 2 and 3 as interpolated/extrapolated (semi-empirical), not measured."
     ],
     "sourceId": "ciaaw-abridged-2024"
   },
@@ -571,7 +571,7 @@
     },
     "notes": [
       "The electronegativity is the value PubChem lists. It is a later estimate, not part of Pauling's original scale, and no primary source was traced.",
-      "NIST marks ionization energy 2, 3 as interpolated/extrapolated (semi-empirical), not measured."
+      "NIST marks ionization energies 2 and 3 as interpolated/extrapolated (semi-empirical), not measured."
     ],
     "sourceId": "ciaaw-abridged-2024"
   }

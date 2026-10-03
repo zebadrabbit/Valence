@@ -6,7 +6,7 @@
   },
   {
     "id": "nist-asd-ie",
-    "url": "https://physics.nist.gov/PhysRefData/ASD/ionEnergy.html",
+    "url": "https://physics.nist.gov/cgi-bin/ASD/ie.pl?spectra=H+B+C+N+O+F+Na+P+S+Cl+Xe&submit=Retrieve+Data&units=1&format=2&order=0&at_num_out=on&sp_name_out=on&ion_charge_out=on&el_name_out=on&seq_out=on&shells_out=on&conf_out=on&level_out=on&ion_conf_out=on&e_out=0&unc_out=on&biblio=on",
     "citation": "Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, Ground States and Ionization Energies. National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F"
   },
   {
@@ -102,102 +102,102 @@
   {
     "id": "pubchem-cid-6324",
     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/6324",
-    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 6324; URL: https://pubchem.ncbi.nlm.nih.gov/compound/6324#section=3D-Conformer"
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 6324; URL: https://pubchem.ncbi.nlm.nih.gov/compound/6324#section=3D-Conformer (retrieved 2026-10-03)"
   },
   {
     "id": "pubchem-cid-6325",
     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/6325",
-    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 6325; URL: https://pubchem.ncbi.nlm.nih.gov/compound/6325#section=3D-Conformer"
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 6325; URL: https://pubchem.ncbi.nlm.nih.gov/compound/6325#section=3D-Conformer (retrieved 2026-10-03)"
   },
   {
     "id": "pubchem-cid-6326",
     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/6326",
-    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 6326; URL: https://pubchem.ncbi.nlm.nih.gov/compound/6326#section=3D-Conformer"
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 6326; URL: https://pubchem.ncbi.nlm.nih.gov/compound/6326#section=3D-Conformer (retrieved 2026-10-03)"
   },
   {
     "id": "pubchem-cid-702",
     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/702",
-    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 702; URL: https://pubchem.ncbi.nlm.nih.gov/compound/702#section=3D-Conformer"
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 702; URL: https://pubchem.ncbi.nlm.nih.gov/compound/702#section=3D-Conformer (retrieved 2026-10-03)"
   },
   {
     "id": "pubchem-cid-176",
     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/176",
-    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 176; URL: https://pubchem.ncbi.nlm.nih.gov/compound/176#section=3D-Conformer"
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 176; URL: https://pubchem.ncbi.nlm.nih.gov/compound/176#section=3D-Conformer (retrieved 2026-10-03)"
   },
   {
     "id": "pubchem-cid-180",
     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/180",
-    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 180; URL: https://pubchem.ncbi.nlm.nih.gov/compound/180#section=3D-Conformer"
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 180; URL: https://pubchem.ncbi.nlm.nih.gov/compound/180#section=3D-Conformer (retrieved 2026-10-03)"
   },
   {
     "id": "pubchem-cid-712",
     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/712",
-    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 712; URL: https://pubchem.ncbi.nlm.nih.gov/compound/712#section=3D-Conformer"
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 712; URL: https://pubchem.ncbi.nlm.nih.gov/compound/712#section=3D-Conformer (retrieved 2026-10-03)"
   },
   {
     "id": "pubchem-cid-6329",
     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/6329",
-    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 6329; URL: https://pubchem.ncbi.nlm.nih.gov/compound/6329#section=3D-Conformer"
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 6329; URL: https://pubchem.ncbi.nlm.nih.gov/compound/6329#section=3D-Conformer (retrieved 2026-10-03)"
   },
   {
     "id": "pubchem-cid-8857",
     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/8857",
-    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 8857; URL: https://pubchem.ncbi.nlm.nih.gov/compound/8857#section=3D-Conformer"
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 8857; URL: https://pubchem.ncbi.nlm.nih.gov/compound/8857#section=3D-Conformer (retrieved 2026-10-03)"
   },
   {
     "id": "pubchem-cid-178",
     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/178",
-    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 178; URL: https://pubchem.ncbi.nlm.nih.gov/compound/178#section=3D-Conformer"
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 178; URL: https://pubchem.ncbi.nlm.nih.gov/compound/178#section=3D-Conformer (retrieved 2026-10-03)"
   },
   {
     "id": "pubchem-cid-241",
     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/241",
-    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 241; URL: https://pubchem.ncbi.nlm.nih.gov/compound/241#section=3D-Conformer"
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 241; URL: https://pubchem.ncbi.nlm.nih.gov/compound/241#section=3D-Conformer (retrieved 2026-10-03)"
   },
   {
     "id": "pubchem-cid-64689",
     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/64689",
-    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 64689; URL: https://pubchem.ncbi.nlm.nih.gov/compound/64689#section=3D-Conformer"
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 64689; URL: https://pubchem.ncbi.nlm.nih.gov/compound/64689#section=3D-Conformer (retrieved 2026-10-03)"
   },
   {
     "id": "pubchem-cid-750",
     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/750",
-    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 750; URL: https://pubchem.ncbi.nlm.nih.gov/compound/750#section=3D-Conformer"
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 750; URL: https://pubchem.ncbi.nlm.nih.gov/compound/750#section=3D-Conformer (retrieved 2026-10-03)"
   },
   {
     "id": "pubchem-cid-5257127",
     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/5257127",
-    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 5257127; URL: https://pubchem.ncbi.nlm.nih.gov/compound/5257127#section=3D-Conformer"
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 5257127; URL: https://pubchem.ncbi.nlm.nih.gov/compound/5257127#section=3D-Conformer (retrieved 2026-10-03)"
   },
   {
     "id": "pubchem-cid-5950",
     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/5950",
-    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 5950; URL: https://pubchem.ncbi.nlm.nih.gov/compound/5950#section=3D-Conformer"
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 5950; URL: https://pubchem.ncbi.nlm.nih.gov/compound/5950#section=3D-Conformer (retrieved 2026-10-03)"
   },
   {
     "id": "pubchem-cid-7311724",
     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/7311724",
-    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 7311724; URL: https://pubchem.ncbi.nlm.nih.gov/compound/7311724#section=3D-Conformer"
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 7311724; URL: https://pubchem.ncbi.nlm.nih.gov/compound/7311724#section=3D-Conformer (retrieved 2026-10-03)"
   },
   {
     "id": "pubchem-cid-1176",
     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/1176",
-    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 1176; URL: https://pubchem.ncbi.nlm.nih.gov/compound/1176#section=3D-Conformer"
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 1176; URL: https://pubchem.ncbi.nlm.nih.gov/compound/1176#section=3D-Conformer (retrieved 2026-10-03)"
   },
   {
     "id": "pubchem-cid-123332",
     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/123332",
-    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 123332; URL: https://pubchem.ncbi.nlm.nih.gov/compound/123332#section=3D-Conformer"
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 123332; URL: https://pubchem.ncbi.nlm.nih.gov/compound/123332#section=3D-Conformer (retrieved 2026-10-03)"
   },
   {
     "id": "pubchem-cid-769",
     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/769",
-    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 769; URL: https://pubchem.ncbi.nlm.nih.gov/compound/769#section=3D-Conformer"
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 769; URL: https://pubchem.ncbi.nlm.nih.gov/compound/769#section=3D-Conformer (retrieved 2026-10-03)"
   },
   {
     "id": "pubchem-cid-767",
     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/767",
-    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 767; URL: https://pubchem.ncbi.nlm.nih.gov/compound/767#section=3D-Conformer"
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 767; URL: https://pubchem.ncbi.nlm.nih.gov/compound/767#section=3D-Conformer (retrieved 2026-10-03)"
   },
   {
     "id": "openstax-chem2e-8.4",

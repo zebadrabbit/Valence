@@ -152,7 +152,8 @@ function buildElements() {
   const lookup = (id) => known.get(id) ?? fail(`elements.json has no source "${id}"`)
   const sources = ELEMENT_SOURCES.map(({ id, readVia, said }) => {
     const source = lookup(id)
-    if (!readVia) return { id, url: source.url, citation: source.citation }
+    // dataUrl, where the research file has one, is the page that shows the values.
+    if (!readVia) return { id, url: source.dataUrl ?? source.url, citation: source.citation }
     return { id, url: lookup(readVia).url, citation: `${source.citation} (${source.url}) ${said}` }
   })
   const allowed = new Set(sources.map((s) => s.id))
@@ -182,15 +183,18 @@ function buildElements() {
 
     const notes = [...(ELEMENT_NOTES[e.symbol] ?? [])]
     if (e.covalentRadiusAlternatives) {
-      const list = e.covalentRadiusAlternatives.map((a) => `${a.label} ${a.value.toFixed(2)} Å`).join(', ')
-      notes.push(`The source gives one covalent radius per hybridization: ${list}. The sp3 value is stored.`)
+      const label = (a) => a.label.replace('sp3', 'sp³').replace('sp2', 'sp²')
+      const list = e.covalentRadiusAlternatives.map((a) => `${label(a)} ${a.value.toFixed(2)} Å`).join(', ')
+      notes.push(`The source gives one covalent radius per hybridization: ${list}. The sp³ value is stored.`)
     }
     const flagged = Object.groupBy(
       e.ionizationEnergiesEV.filter((ie) => ie.nistFlag !== 'measured'),
       (ie) => ie.nistFlag,
     )
     for (const [flag, list] of Object.entries(flagged)) {
-      notes.push(`NIST marks ionization energy ${list.map((ie) => ie.order).join(', ')} as ${flag}, not measured.`)
+      const orders = list.map((ie) => ie.order)
+      const which = orders.length === 1 ? `energy ${orders[0]}` : `energies ${orders.slice(0, -1).join(', ')} and ${orders.at(-1)}`
+      notes.push(`NIST marks ionization ${which} as ${flag}, not measured.`)
     }
 
     return {
@@ -334,13 +338,13 @@ function cccbdbSource(id, geo) {
   return { id: `cccbdb-${id}`, url: [...urls][0], citation }
 }
 
-function pubchemSource(cid, entry, pattern) {
+function pubchemSource(cid, entry, pattern, retrieved) {
   if (!pattern.includes('<cid>')) fail('pubchem.json: perRecordCitationPattern has no <cid>')
   const wording = pattern.replace(/ \(or [^)]*\)$/, '').replaceAll('<cid>', String(cid))
   return {
     id: `pubchem-cid-${cid}`,
     url: entry.recordUrl,
-    citation: `PubChem, National Library of Medicine (NCBI). ${wording}`,
+    citation: `PubChem, National Library of Medicine (NCBI). ${wording} (retrieved ${retrieved})`,
   }
 }
 
@@ -374,7 +378,7 @@ function buildMolecules(elements) {
     const geo = geometry.find((g) => g.pubchemCid === cid)
     if (isExperimental !== (geo !== undefined)) fail(`${id}: topic "${topic}" and geometry.json disagree`)
 
-    const source = isExperimental ? cccbdbSource(id, geo) : pubchemSource(cid, entry, pubchem.perRecordCitationPattern)
+    const source = isExperimental ? cccbdbSource(id, geo) : pubchemSource(cid, entry, pubchem.perRecordCitationPattern, pubchem.retrieved)
     sources.push(source)
     if (!isExperimental && !entry.has3d) fail(`${id}: PubChem has no 3D record`)
     const structure = isExperimental
