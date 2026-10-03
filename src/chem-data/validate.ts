@@ -8,7 +8,7 @@ export interface ValidateOptions {
 }
 
 // Keys whose strings are identifiers or codes, not prose.
-const CODE_KEYS = new Set(['id', 'formula', 'hex', 'element', 'symbol', 'unit', 'precipitate', 'gas', 'variantGroup'])
+const CODE_KEYS = new Set(['id', 'formula', 'displayFormula', 'hex', 'element', 'symbol', 'unit', 'precipitate', 'gas', 'variantGroup'])
 const isProseKey = (key: string) => !CODE_KEYS.has(key) && !/Ids?$/.test(key)
 
 type Visit = (key: string, text: string, path: string) => void
@@ -87,6 +87,9 @@ function checkStructure(registry: Registry): string[] {
   for (const molecule of registry.molecules) {
     if ((molecule.variantGroup === undefined) !== (molecule.variantLabel === undefined)) {
       errors.push(`molecule "${molecule.id}": variantGroup and variantLabel must be given together`)
+    }
+    if (molecule.displayFormula !== undefined && molecule.displayFormula.replace(/[+-]/g, '') !== molecule.formula) {
+      errors.push(`molecule "${molecule.id}": displayFormula must be the formula with charge markers added`)
     }
     const joined = new Set<string>()
     for (const bond of molecule.bonds) {

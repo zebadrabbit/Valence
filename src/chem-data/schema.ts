@@ -153,6 +153,14 @@ export const moleculeSchema = z.strictObject({
   name: text,
   /** Authored, as a textbook writes it, in plain digits and without the charge: "NH3". */
   formula: text,
+  /**
+   * Authored, for a species whose net charge hides charges inside it (a zwitterion): the formula
+   * with a "+" or "-" after each charged group, as in "CH3CH(NH3+)COO-". Shown in place of `formula`.
+   */
+  displayFormula: z
+    .string()
+    .regex(/[+-]/)
+    .optional(),
   pubchemCid: z.number().int().positive(),
   topic: z.enum(['basics', 'vsepr', 'organic', 'biomolecules', 'mechanism']),
   variantGroup: id.optional(),

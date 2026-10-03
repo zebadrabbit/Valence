@@ -2,6 +2,7 @@
   "id": "glycine-zwitterion",
   "name": "Glycine",
   "formula": "NH3CH2COO",
+  "displayFormula": "+NH3CH2COO-",
   "pubchemCid": 5257127,
   "topic": "biomolecules",
   "variantGroup": "glycine",

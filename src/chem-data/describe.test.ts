@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { describeMolecule } from './describe'
+import { atomNames, bondNames, describeMolecule } from './describe'
 import { formulaElements } from './formula'
 import { registry } from './registry'
 import type { Molecule } from './schema'
@@ -96,6 +96,35 @@ describe('the formula in a description', () => {
     for (const molecule of registry.molecules) {
       const written = formulaElements(molecule.formula)
       expect(written.sort(), molecule.id).toEqual(molecule.atoms.map((a) => a.element).sort())
+    }
+  })
+})
+
+describe('atomNames and bondNames', () => {
+  it('numbers atoms per element in file order', () => {
+    expect(atomNames(moleculeOf('carbon-dioxide'), registry.elements)).toEqual(['Carbon 1', 'Oxygen 1', 'Oxygen 2'])
+    expect(atomNames(moleculeOf('hydrogen-chloride'), registry.elements)).toEqual(['Hydrogen 1', 'Chlorine 1'])
+  })
+
+  it('names a bond by its two atoms and its kind', () => {
+    expect(bondNames(moleculeOf('carbon-dioxide'), registry.elements)).toEqual([
+      'Carbon 1 to Oxygen 1, double bond',
+      'Carbon 1 to Oxygen 2, double bond',
+    ])
+    expect(bondNames(moleculeOf('nitrogen'), registry.elements)).toEqual(['Nitrogen 1 to Nitrogen 2, triple bond'])
+    expect(bondNames(moleculeOf('water'), registry.elements)[0]).toBe('Oxygen 1 to Hydrogen 1, single bond')
+  })
+
+  it('calls the ring bonds of benzene aromatic, not single or double', () => {
+    const names = bondNames(moleculeOf('benzene'), registry.elements)
+    expect(names.filter((n) => n.endsWith(', aromatic bond'))).toHaveLength(6)
+    expect(names.filter((n) => n.endsWith(', single bond'))).toHaveLength(6)
+  })
+
+  it('gives every atom and bond of every library molecule a distinct name', () => {
+    for (const m of registry.molecules) {
+      const names = [...atomNames(m, registry.elements), ...bondNames(m, registry.elements)]
+      expect([m.id, new Set(names).size]).toEqual([m.id, m.atoms.length + m.bonds.length])
     }
   })
 })

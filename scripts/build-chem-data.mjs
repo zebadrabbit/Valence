@@ -81,6 +81,13 @@ const VARIANTS = {
   'alanine-zwitterion': ['alanine', 'Zwitterion'],
 }
 
+// A zwitterion's net charge is zero, so its formula alone would hide the two charges.
+// The display formula marks each charged group; the build checks it against the formula.
+const DISPLAY_FORMULAS = {
+  'glycine-zwitterion': '+NH3CH2COO-',
+  'alanine-zwitterion': 'CH3CH(NH3+)COO-',
+}
+
 const CONFORMER = 'One conformer of many.'
 const ZWITTERION = 'The form found in water and in the solid; the model is a computed conformer.'
 const NOTES = {
@@ -465,11 +472,17 @@ function buildMolecules(elements) {
       fail(`${id}: the built Lewis structure differs from expected.json`)
     }
 
+    const displayFormula = DISPLAY_FORMULAS[id]
+    if (displayFormula && displayFormula.replace(/[+-]/g, '') !== formula) {
+      fail(`${id}: the display formula ${displayFormula} is not ${formula} with charge markers`)
+    }
+
     const variant = VARIANTS[id]
     return {
       id,
       name,
       formula,
+      ...(displayFormula ? { displayFormula } : {}),
       pubchemCid: cid,
       topic,
       ...(variant ? { variantGroup: variant[0], variantLabel: variant[1] } : {}),
@@ -483,7 +496,7 @@ function buildMolecules(elements) {
     }
   })
 
-  for (const id of [...Object.keys(VARIANTS), ...Object.keys(NOTES), ...RESONANCE_PAIR, ...Object.keys(AROMATIC_RING)]) {
+  for (const id of [...Object.keys(VARIANTS), ...Object.keys(DISPLAY_FORMULAS), ...Object.keys(NOTES), ...RESONANCE_PAIR, ...Object.keys(AROMATIC_RING)]) {
     if (!molecules.some((m) => m.id === id)) fail(`an authored table names "${id}", which is not in the library`)
   }
   if (molecules.length !== 33) fail(`expected 33 structures, built ${molecules.length}`)

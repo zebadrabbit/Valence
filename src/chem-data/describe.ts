@@ -91,3 +91,21 @@ export function describeMolecule(molecule: Molecule, elements: readonly Element[
   }
   return sentences.join(' ')
 }
+
+/** A name for each atom, numbered per element in file order: "Carbon 1", "Oxygen 1", "Oxygen 2". */
+export function atomNames(molecule: Molecule, elements: readonly Element[]): string[] {
+  const seen = new Map<string, number>()
+  return molecule.atoms.map(({ element: symbol }) => {
+    const element = elements.find((e) => e.symbol === symbol)
+    if (!element) throw new Error(`no element data for ${symbol}`)
+    const n = (seen.get(symbol) ?? 0) + 1
+    seen.set(symbol, n)
+    return `${element.name} ${n}`
+  })
+}
+
+/** A name for each bond from its atoms' names and its kind: "Carbon 1 to Oxygen 2, double bond". */
+export function bondNames(molecule: Molecule, elements: readonly Element[]): string[] {
+  const names = atomNames(molecule, elements)
+  return molecule.bonds.map((b) => `${names[b.a]} to ${names[b.b]}, ${BOND_KINDS[b.aromatic ? 3 : b.order - 1]} bond`)
+}

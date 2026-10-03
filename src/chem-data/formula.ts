@@ -12,3 +12,23 @@ export function formulaElements(formula: string): string[] {
   if (/[()]/.test(outside)) throw new Error(`formula "${formula}" has unbalanced or nested parentheses`)
   return [...expand(outside), ...groups.flatMap(([, inner, times]) => Array.from({ length: Number(times || 1) }, () => expand(inner!)).flat())]
 }
+
+export type FormulaPart = { kind: 'text' | 'subscript' | 'superscript'; text: string }
+
+/**
+ * A written formula as display parts: every digit run is a subscript, a "+" or
+ * "-" written inside the formula (a zwitterion's display formula) is a
+ * superscript, and a net charge is added as a final superscript, "+", "−" or "2−".
+ */
+// ponytail: every digit is a count. A leading coefficient ("2H2O") or a hydrate dot would need a real tokenizer.
+export function formulaParts(formula: string, charge = 0): FormulaPart[] {
+  const parts = [...formula.matchAll(/\d+|[+-]|[^\d+-]+/g)].map(([text]): FormulaPart => {
+    if (text === '+' || text === '-') return { kind: 'superscript', text: text === '+' ? '+' : '−' }
+    return { kind: /\d/.test(text) ? 'subscript' : 'text', text }
+  })
+  if (charge !== 0) {
+    const size = Math.abs(charge)
+    parts.push({ kind: 'superscript', text: `${size === 1 ? '' : size}${charge > 0 ? '+' : '−'}` })
+  }
+  return parts
+}

@@ -295,6 +295,15 @@ describe('validateRegistry', () => {
       expect(validateRegistry(r)).toContain('molecule "water": variantGroup and variantLabel must be given together')
     })
 
+    it('rejects a display formula that is not the formula with charge markers', () => {
+      const r = validRegistry()
+      const m = r.molecules[0]!
+      m.displayFormula = `${m.formula}+`
+      expect(validateRegistry(r)).toEqual([])
+      m.displayFormula = 'XeF4+'
+      expect(validateRegistry(r)).toContain('molecule "water": displayFormula must be the formula with charge markers added')
+    })
+
     it('rejects two bonds joining the same pair of atoms, in either order; accepts distinct bonds', () => {
       const r = validRegistry()
       const m = r.molecules[0]!
