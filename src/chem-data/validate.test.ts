@@ -46,7 +46,11 @@ function hydrogenPeroxide() {
     ],
     geometrySource: 'cited-experimental',
     measurements: {
-      lengths: [{ atoms: [0, 1], value: 1.475, sourceId: 's1' }],
+      lengths: [
+        { atoms: [0, 1], value: 1.475, sourceId: 's1' },
+        { atoms: [0, 2], value: 0.95, sourceId: 's1' },
+        { atoms: [1, 3], value: 0.95, sourceId: 's1' },
+      ],
       angles: [{ atoms: [2, 0, 1], value: 94.8, sourceId: 's1' }],
       dihedrals: [{ atoms: [2, 0, 1, 3], value: 119.8, sourceId: 's1' }],
     },
@@ -295,6 +299,14 @@ describe('validateRegistry', () => {
           { a: 0, b: 2, order: 2, aromatic: false },
         ],
         geometrySource: 'cited-experimental',
+        measurements: {
+          lengths: [
+            { atoms: [0, 1], value: 1.162, sourceId: 's1' },
+            { atoms: [0, 2], value: 1.162, sourceId: 's1' },
+          ],
+          angles: [{ atoms: [1, 0, 2], value: 180, sourceId: 's1' }],
+          dihedrals: [],
+        },
         sourceId: 's1',
       })
       expect(validateRegistry(r)).toEqual([])
@@ -327,6 +339,7 @@ describe('validateRegistry', () => {
       water.atoms[0]!.lonePairs = 1
       water.atoms.push({ element: 'H', position: [0, 0, 0.96], position2d: [0, 1], formalCharge: 0, lonePairs: 0 })
       water.bonds.push({ a: 0, b: 3, order: 1, aromatic: false })
+      water.measurements!.lengths.push({ atoms: [0, 3], value: 0.96, sourceId: 's1' })
       water.charge = 1
       expect(validateRegistry(r)).toEqual([])
     })
@@ -386,10 +399,39 @@ describe('validateRegistry', () => {
       expect(validateRegistry(r)).toEqual(['molecule "water": angle 1-0-7 refers to a missing atom'])
     })
 
-    it('does not check a computed conformer against measurements', () => {
+    it('accepts a computed conformer with no measurements', () => {
       const r = validRegistry()
       r.molecules[0]!.geometrySource = 'pubchem-computed'
-      r.molecules[0]!.measurements!.lengths[0]!.value = 2
+      delete r.molecules[0]!.measurements
+      expect(validateRegistry(r)).toEqual([])
+    })
+
+    it('rejects measurements on a computed conformer instead of ignoring them', () => {
+      const r = validRegistry()
+      r.molecules[0]!.geometrySource = 'pubchem-computed'
+      expect(validateRegistry(r)).toEqual(['molecule "water": a computed conformer must not carry measurements'])
+    })
+
+    it('rejects a cited-experimental molecule with no measurements', () => {
+      const r = validRegistry()
+      delete r.molecules[0]!.measurements
+      expect(validateRegistry(r)).toEqual(['molecule "water": cited experimental geometry needs measurements'])
+    })
+
+    it('rejects a cited-experimental molecule with a bond that has no cited length', () => {
+      const r = validRegistry()
+      r.molecules[0]!.measurements!.lengths.pop()
+      expect(validateRegistry(r)).toEqual(['molecule "water": bond 0-2 has no cited length'])
+      r.molecules[0]!.measurements = { lengths: [], angles: [], dihedrals: [] }
+      expect(validateRegistry(r)).toEqual([
+        'molecule "water": bond 0-1 has no cited length',
+        'molecule "water": bond 0-2 has no cited length',
+      ])
+    })
+
+    it('matches a cited length to its bond in either atom order', () => {
+      const r = validRegistry()
+      r.molecules[0]!.measurements!.lengths[1]!.atoms = [2, 0]
       expect(validateRegistry(r)).toEqual([])
     })
   })

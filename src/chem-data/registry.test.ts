@@ -74,4 +74,11 @@ describe('the real chem-data registry', () => {
       expect([m.id, m.measurements !== undefined]).toEqual([m.id, experimental])
     }
   })
+
+  it('keeps the 90°, 120° and 180° angles of PCl5 (spec 6.5)', () => {
+    const pcl5 = registry.molecules.find((m) => m.id === 'phosphorus-pentachloride')
+    const counts: Record<number, number> = {}
+    for (const { value } of pcl5?.measurements?.angles ?? []) counts[value] = (counts[value] ?? 0) + 1
+    expect(counts).toEqual({ 90: 6, 120: 3, 180: 1 })
+  })
 })

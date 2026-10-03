@@ -164,15 +164,28 @@ function checkMoDiagrams(registry: Registry): string[] {
   return errors
 }
 
-// Cited experimental values must be reproduced by the stored coordinates (spec 6.5).
+// Cited experimental values must be reproduced by the stored coordinates (spec 6.5),
+// and every bond of a cited-experimental molecule must have a cited length.
 const LENGTH_TOLERANCE = 0.01
 const ANGLE_TOLERANCE = 1
 
 function checkMeasurements(registry: Registry): string[] {
   const errors: string[] = []
   for (const molecule of registry.molecules) {
-    if (molecule.geometrySource !== 'cited-experimental' || !molecule.measurements) continue
+    if (molecule.geometrySource !== 'cited-experimental') {
+      if (molecule.measurements) errors.push(`molecule "${molecule.id}": a computed conformer must not carry measurements`)
+      continue
+    }
+    if (!molecule.measurements) {
+      errors.push(`molecule "${molecule.id}": cited experimental geometry needs measurements`)
+      continue
+    }
     const { lengths, angles, dihedrals } = molecule.measurements
+    for (const { a, b } of molecule.bonds) {
+      if (!lengths.some(({ atoms: [x, y] }) => (x === a && y === b) || (x === b && y === a))) {
+        errors.push(`molecule "${molecule.id}": bond ${a}-${b} has no cited length`)
+      }
+    }
     const at = (i: number) => molecule.atoms[i]?.position
     const report = (kind: string, unit: string, atoms: readonly number[], cited: number, measured: number | undefined) => {
       const label = `molecule "${molecule.id}": ${kind} ${atoms.join('-')}`
