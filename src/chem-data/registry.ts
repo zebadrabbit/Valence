@@ -8,5 +8,6 @@ export const registry = registrySchema.parse({
   reagents: [],
   observations: [],
   stations: [],
+  elements: [],
   molecules: [],
 })

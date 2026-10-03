@@ -1,9 +1,87 @@
 import { describe, expect, it } from 'vitest'
+import type { Molecule } from './schema'
 import { validateRegistry } from './validate'
 
 const hazards = { signalWord: 'Warning', statements: ['Harmful if swallowed'], note: 'Dilute solution.', sourceId: 's1' }
 
+// Only the shells matter to the validator; the other values are placeholders.
+function element(symbol: string, atomicNumber: number, shells: number[]) {
+  const one = { value: 1, sourceId: 's1' }
+  return {
+    symbol,
+    name: symbol,
+    atomicNumber,
+    atomicWeight: one,
+    electronegativity: one,
+    configuration: { value: '1s1', sourceId: 's1' },
+    shells: { value: shells, sourceId: 's1' },
+    ionizationEnergiesEv: { value: [1], sourceId: 's1' },
+    covalentRadius: one,
+    vdwRadius: one,
+    ionicRadii: [{ charge: 1, coordination: 6, value: 1, sourceId: 's1' }],
+    color: { value: '#FF8000', sourceId: 's1' },
+    sourceId: 's1',
+  }
+}
+
+// Hydrogen peroxide with its cited gas-phase geometry: the only fixture with a dihedral.
+function hydrogenPeroxide() {
+  const molecule = {
+    id: 'h2o2',
+    name: 'Hydrogen peroxide',
+    pubchemCid: 784,
+    topic: 'basics',
+    charge: 0,
+    atoms: [
+      { element: 'O', position: [-0.028139, 0, 0.7375], position2d: [0, 0], formalCharge: 0, lonePairs: 2 },
+      { element: 'O', position: [-0.028139, 0, -0.7375], position2d: [1, 0], formalCharge: 0, lonePairs: 2 },
+      { element: 'H', position: [0.446625, 0.819011, 0.816994], position2d: [0, 1], formalCharge: 0, lonePairs: 0 },
+      { element: 'H', position: [0.446625, -0.819011, -0.816994], position2d: [1, -1], formalCharge: 0, lonePairs: 0 },
+    ],
+    bonds: [
+      { a: 0, b: 1, order: 1, aromatic: false },
+      { a: 0, b: 2, order: 1, aromatic: false },
+      { a: 1, b: 3, order: 1, aromatic: false },
+    ],
+    geometrySource: 'cited-experimental',
+    measurements: {
+      lengths: [{ atoms: [0, 1], value: 1.475, sourceId: 's1' }],
+      angles: [{ atoms: [2, 0, 1], value: 94.8, sourceId: 's1' }],
+      dihedrals: [{ atoms: [2, 0, 1, 3], value: 119.8, sourceId: 's1' }],
+    },
+    sourceId: 's1',
+  } satisfies Molecule
+  return molecule
+}
+
 function validRegistry() {
+  const water = {
+    id: 'water',
+    name: 'Water',
+    pubchemCid: 962,
+    topic: 'basics',
+    charge: 0,
+    atoms: [
+      { element: 'O', position: [0, 0, 0], position2d: [0, 0], formalCharge: 0, lonePairs: 2 },
+      { element: 'H', position: [0.757, 0.586, 0], position2d: [1, 0.5], formalCharge: 0, lonePairs: 0 },
+      { element: 'H', position: [-0.757, 0.586, 0], position2d: [-1, 0.5], formalCharge: 0, lonePairs: 0 },
+    ],
+    bonds: [
+      { a: 0, b: 1, order: 1, aromatic: false },
+      { a: 0, b: 2, order: 1, aromatic: false },
+    ],
+    geometrySource: 'cited-experimental',
+    measurements: {
+      lengths: [
+        { atoms: [0, 1], value: 0.957, sourceId: 's1' },
+        { atoms: [0, 2], value: 0.957, sourceId: 's1' },
+      ],
+      angles: [{ atoms: [1, 0, 2], value: 104.5, sourceId: 's1' }],
+      dihedrals: [],
+    },
+    sourceId: 's1',
+  } satisfies Molecule
+  const molecules: Molecule[] = [water]
   return {
     sources: [{ id: 's1', url: 'https://pubchem.ncbi.nlm.nih.gov/', citation: 'PubChem' }],
     species: [
@@ -65,25 +143,8 @@ function validRegistry() {
         notes: ['Spectator ions keep their colour at room temperature.'],
       },
     ],
-    molecules: [
-      {
-        id: 'water',
-        name: 'Water',
-        pubchemCid: 962,
-        topic: 'basics',
-        atoms: [
-          { element: 'O', position: [0, 0, 0], position2d: [0, 0], formalCharge: 0, lonePairs: 2 },
-          { element: 'H', position: [0.757, 0.586, 0], position2d: [1, 0.5], formalCharge: 0, lonePairs: 0 },
-          { element: 'H', position: [-0.757, 0.586, 0], position2d: [-1, 0.5], formalCharge: 0, lonePairs: 0 },
-        ],
-        bonds: [
-          { a: 0, b: 1, order: 1, aromatic: false },
-          { a: 0, b: 2, order: 1, aromatic: false },
-        ],
-        geometrySource: 'cited-experimental',
-        sourceId: 's1',
-      },
-    ],
+    elements: [element('H', 1, [1]), element('C', 6, [2, 4]), element('O', 8, [2, 6])],
+    molecules,
   }
 }
 
@@ -93,7 +154,7 @@ describe('validateRegistry', () => {
   })
 
   it('accepts an empty registry', () => {
-    const empty = { sources: [], species: [], reagents: [], observations: [], stations: [], molecules: [] }
+    const empty = { sources: [], species: [], reagents: [], observations: [], stations: [], elements: [], molecules: [] }
     expect(validateRegistry(empty)).toEqual([])
   })
 
@@ -112,7 +173,7 @@ describe('validateRegistry', () => {
     expect(validateRegistry({ ...validRegistry(), extra: 1 }).some((e) => e.startsWith('schema:'))).toBe(true)
   })
 
-  it.each(['sources', 'species', 'reagents', 'observations', 'stations', 'molecules'])(
+  it.each(['sources', 'species', 'reagents', 'observations', 'stations', 'elements', 'molecules'])(
     'rejects an unknown key on a %s record',
     (key) => {
       const r = validRegistry() as Record<string, unknown>
@@ -208,14 +269,15 @@ describe('validateRegistry', () => {
         name: 'Carbon dioxide',
         pubchemCid: 280,
         topic: 'basics',
+        charge: 0,
         atoms: [
           { element: 'C', position: [0, 0, 0], position2d: [0, 0], formalCharge: 0, lonePairs: 0 },
           { element: 'O', position: [1.162, 0, 0], position2d: [1, 0], formalCharge: 0, lonePairs: 2 },
           { element: 'O', position: [-1.162, 0, 0], position2d: [-1, 0], formalCharge: 0, lonePairs: 2 },
         ],
         bonds: [
-          { a: 0, b: 1, order: 1, aromatic: false },
-          { a: 0, b: 2, order: 1, aromatic: false },
+          { a: 0, b: 1, order: 2, aromatic: false },
+          { a: 0, b: 2, order: 2, aromatic: false },
         ],
         geometrySource: 'cited-experimental',
         sourceId: 's1',
@@ -224,7 +286,106 @@ describe('validateRegistry', () => {
     })
   })
 
+  describe('elements and Lewis structures', () => {
+    it('rejects duplicate element symbols', () => {
+      const r = validRegistry()
+      r.elements.push(element('O', 8, [2, 6]))
+      expect(validateRegistry(r)).toContain('elements: duplicate id "O"')
+    })
+
+    it('rejects an atom whose element is not in the registry', () => {
+      const r = validRegistry()
+      r.molecules[0]!.atoms[1]!.element = 'D'
+      expect(validateRegistry(r)).toContain('molecule "water": atom 1 has unknown element "D"')
+    })
+
+    it('rejects a stored formal charge that the lone pairs and bond orders do not give', () => {
+      const r = validRegistry()
+      r.molecules[0]!.atoms[0]!.lonePairs = 1
+      expect(validateRegistry(r)).toContain('molecule "water": atom 0 (O) has formal charge 0, expected 2')
+    })
+
+    it('accepts an ion whose formal charges sum to its charge', () => {
+      const r = validRegistry()
+      const water = r.molecules[0]!
+      water.atoms[0]!.formalCharge = 1
+      water.atoms[0]!.lonePairs = 1
+      water.atoms.push({ element: 'H', position: [0, 0, 0.96], position2d: [0, 1], formalCharge: 0, lonePairs: 0 })
+      water.bonds.push({ a: 0, b: 3, order: 1, aromatic: false })
+      water.charge = 1
+      expect(validateRegistry(r)).toEqual([])
+    })
+
+    it('rejects formal charges that do not sum to the charge', () => {
+      const r = validRegistry()
+      r.molecules[0]!.charge = 1
+      expect(validateRegistry(r)).toContain('molecule "water": formal charges sum to 0, but charge is 1')
+    })
+  })
+
+  describe('cited experimental measurements', () => {
+    it('accepts lengths within 0.01 Å and angles and dihedrals within 1°', () => {
+      const r = validRegistry()
+      const m = hydrogenPeroxide()
+      m.measurements!.lengths[0]!.value = 1.484
+      m.measurements!.angles[0]!.value = 95.7
+      m.measurements!.dihedrals[0]!.value = 120.7
+      r.molecules.push(m)
+      expect(validateRegistry(r)).toEqual([])
+    })
+
+    it('rejects a cited length the coordinates miss by more than 0.01 Å', () => {
+      const r = validRegistry()
+      r.molecules[0]!.measurements!.lengths[1]!.value = 0.97
+      expect(validateRegistry(r)).toEqual(['molecule "water": length 0-2 measures 0.957 Å, cited 0.97 Å'])
+    })
+
+    it('rejects a cited angle the coordinates miss by more than 1°', () => {
+      const r = validRegistry()
+      r.molecules[0]!.measurements!.angles[0]!.value = 109.5
+      expect(validateRegistry(r)).toEqual(['molecule "water": angle 1-0-2 measures 104.512 °, cited 109.5 °'])
+    })
+
+    it('rejects a cited dihedral the coordinates miss by more than 1°, including its mirror image', () => {
+      const r = validRegistry()
+      const m = hydrogenPeroxide()
+      m.measurements!.dihedrals[0]!.value = -119.8
+      r.molecules.push(m)
+      expect(validateRegistry(r)).toEqual(['molecule "h2o2": dihedral 2-0-1-3 measures 119.800 °, cited -119.8 °'])
+    })
+
+    it('treats a dihedral of -179.5° as 0.5° from 180°', () => {
+      const r = validRegistry()
+      const m = hydrogenPeroxide()
+      // Rotate the second hydrogen to just past anti.
+      const t = (-0.5 * Math.PI) / 180
+      const [x, y] = [0.446625 + 0.028139, 0.819011]
+      m.atoms[3]!.position = [-(x * Math.cos(t) - y * Math.sin(t)) - 0.028139, -(x * Math.sin(t) + y * Math.cos(t)), -0.816994]
+      m.measurements!.dihedrals[0]!.value = 180
+      expect(validateRegistry({ ...r, molecules: [m] })).toEqual([])
+    })
+
+    it('rejects a measurement that names a missing atom', () => {
+      const r = validRegistry()
+      r.molecules[0]!.measurements!.angles[0]!.atoms = [1, 0, 7]
+      expect(validateRegistry(r)).toEqual(['molecule "water": angle 1-0-7 refers to a missing atom'])
+    })
+
+    it('does not check a computed conformer against measurements', () => {
+      const r = validRegistry()
+      r.molecules[0]!.geometrySource = 'pubchem-computed'
+      r.molecules[0]!.measurements!.lengths[0]!.value = 2
+      expect(validateRegistry(r)).toEqual([])
+    })
+  })
+
   describe('condition 4: institution-specific text', () => {
+    it('treats a hex colour as a code, not prose', () => {
+      // "FF8000" has the letters-then-digits shape of a course number.
+      expect(validRegistry().elements[0]!.color.value).toBe('#FF8000')
+      expect(validateRegistry(validRegistry())).toEqual([])
+    })
+
     it('rejects a location in a note', () => {
       const r = validRegistry()
       r.stations[0]!.notes.push('Reagents are kept in Room 214.')

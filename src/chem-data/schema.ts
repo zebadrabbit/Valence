@@ -15,13 +15,15 @@ export const sourceSchema = z.strictObject({
   citation: text,
 })
 
+const hex = z.string().regex(/^#[0-9a-fA-F]{6}$/)
+
 export const speciesSchema = z.strictObject({
   id,
   formula: text,
   composition: z.record(z.string(), z.number().int().positive()),
   charge: z.number().int(),
   state: z.enum(['aq', 's', 'l', 'g']),
-  solutionColor: cited(z.strictObject({ name: text, hex: z.string().regex(/^#[0-9a-fA-F]{6}$/) })).optional(),
+  solutionColor: cited(z.strictObject({ name: text, hex })).optional(),
   sourceId: id,
 })
 
@@ -86,6 +88,33 @@ export const stationSchema = z.strictObject({
   notes: z.array(text),
 })
 
+// The record sourceId covers symbol, name and atomic number. Radii are in Å.
+export const elementSchema = z.strictObject({
+  symbol: text,
+  name: text,
+  atomicNumber: z.number().int().positive(),
+  atomicWeight: cited(z.number().positive()),
+  electronegativity: cited(z.number().positive()),
+  configuration: cited(text),
+  /** Electrons per shell, innermost first. */
+  shells: cited(z.array(z.number().int().positive()).min(1)),
+  /** First, second, ... ionization energies in eV, as published. */
+  ionizationEnergiesEv: cited(z.array(z.number().positive()).min(1)),
+  covalentRadius: cited(z.number().positive()),
+  vdwRadius: cited(z.number().positive()),
+  ionicRadii: z.array(
+    z.strictObject({
+      charge: z.number().int(),
+      coordination: z.number().int().positive(),
+      value: z.number().positive(),
+      sourceId: id,
+    }),
+  ),
+  color: cited(hex),
+  notes: z.array(text).optional(),
+  sourceId: id,
+})
+
 const atomSchema = z.strictObject({
   element: text,
   position: z.tuple([z.number(), z.number(), z.number()]),
@@ -102,6 +131,23 @@ const bondSchema = z.strictObject({
   resonanceNote: text.optional(),
 })
 
+const atomIndex = z.number().int().min(0)
+
+// Cited experimental values. Every symmetry-equivalent atom set is its own
+// entry, so the validator checks each one against the stored coordinates.
+const measurementsSchema = z.strictObject({
+  /** Å between atoms [a, b]. */
+  lengths: z.array(z.strictObject({ atoms: z.tuple([atomIndex, atomIndex]), value: z.number().positive(), sourceId: id })),
+  /** Degrees at the middle atom of [a, vertex, c]. */
+  angles: z.array(
+    z.strictObject({ atoms: z.tuple([atomIndex, atomIndex, atomIndex]), value: z.number(), sourceId: id }),
+  ),
+  /** Signed degrees about the b-c axis of [a, b, c, d]. */
+  dihedrals: z.array(
+    z.strictObject({ atoms: z.tuple([atomIndex, atomIndex, atomIndex, atomIndex]), value: z.number(), sourceId: id }),
+  ),
+})
+
 export const moleculeSchema = z.strictObject({
   id,
   name: text,
@@ -109,9 +155,13 @@ export const moleculeSchema = z.strictObject({
   topic: z.enum(['basics', 'vsepr', 'organic', 'biomolecules', 'mechanism']),
   variantGroup: id.optional(),
   variantLabel: text.optional(),
+  /** Net charge of the species. */
+  charge: z.number().int(),
   atoms: z.array(atomSchema).min(1),
   bonds: z.array(bondSchema),
-  geometrySource: z.enum(['pubchem-computed', 'ideal-vsepr', 'cited-experimental']),
+  geometrySource: z.enum(['pubchem-computed', 'cited-experimental']),
+  measurements: measurementsSchema.optional(),
+  notes: z.array(text).optional(),
   sourceId: id,
 })
 
@@ -121,6 +171,7 @@ export const registrySchema = z.strictObject({
   reagents: z.array(reagentSchema),
   observations: z.array(observationSchema),
   stations: z.array(stationSchema),
+  elements: z.array(elementSchema),
   molecules: z.array(moleculeSchema),
 })
 
@@ -129,5 +180,6 @@ export type Species = z.infer<typeof speciesSchema>
 export type Reagent = z.infer<typeof reagentSchema>
 export type Observation = z.infer<typeof observationSchema>
 export type Station = z.infer<typeof stationSchema>
+export type Element = z.infer<typeof elementSchema>
 export type Molecule = z.infer<typeof moleculeSchema>
 export type Registry = z.infer<typeof registrySchema>
