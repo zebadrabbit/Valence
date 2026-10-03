@@ -5,20 +5,27 @@ import './index.css'
 import { AppStateProvider } from '@/app/AppState'
 import { Layout } from '@/app/Layout'
 import { About } from '@/app/pages/About'
-import { Explore } from '@/app/pages/Explore'
 import { Home } from '@/app/pages/Home'
 import { Lab } from '@/app/pages/Lab'
 import { Learn } from '@/app/pages/Learn'
 import { NotFound } from '@/app/pages/NotFound'
 import { Settings } from '@/app/pages/Settings'
 
+// The Explore routes load lazily so the molecule data stays out of the main chunk.
+// The router finishes a navigation only once the chunk has loaded.
 const router = createHashRouter([
   {
     path: '/',
     element: <Layout />,
+    // Shown only when the app is opened directly on a lazy route.
+    hydrateFallbackElement: <p className="p-6 text-muted-foreground">Loading…</p>,
     children: [
       { index: true, element: <Home /> },
-      { path: 'explore', element: <Explore /> },
+      { path: 'explore', lazy: async () => ({ Component: (await import('@/app/pages/Explore')).Explore }) },
+      {
+        path: 'explore/:id',
+        lazy: async () => ({ Component: (await import('@/app/pages/MoleculePage')).MoleculePage }),
+      },
       { path: 'lab', element: <Lab /> },
       { path: 'learn', element: <Learn /> },
       { path: 'settings', element: <Settings /> },
