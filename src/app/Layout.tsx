@@ -1,16 +1,9 @@
 import { useEffect, useState } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router'
-import { Atom, FlaskConical, GraduationCap, House, Info, PanelLeftClose, PanelLeftOpen, Settings } from 'lucide-react'
+import { PanelLeftClose, PanelLeftOpen } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-
-const NAV = [
-  { to: '/', label: 'Home', icon: House },
-  { to: '/explore', label: 'Explore', icon: Atom },
-  { to: '/lab', label: 'Lab', icon: FlaskConical },
-  { to: '/learn', label: 'Learn', icon: GraduationCap },
-  { to: '/settings', label: 'Settings', icon: Settings },
-  { to: '/about', label: 'About', icon: Info },
-]
+import { NAV } from './nav'
+import { CommandPalette } from './palette/CommandPalette'
 
 export function Layout() {
   // The rail starts collapsed on narrow screens.
@@ -46,7 +39,7 @@ export function Layout() {
       >
         <Button
           variant="ghost"
-          className="mb-2 justify-start"
+          className="justify-start"
           aria-expanded={expanded}
           aria-controls="rail"
           onClick={() => setExpanded(!expanded)}
@@ -54,6 +47,8 @@ export function Layout() {
           {expanded ? <PanelLeftClose aria-hidden="true" /> : <PanelLeftOpen aria-hidden="true" />}
           <span className={expanded ? '' : 'sr-only'}>{expanded ? 'Collapse menu' : 'Expand menu'}</span>
         </Button>
+
+        <CommandPalette expanded={expanded} />
 
         {NAV.map(({ to, label, icon: Icon }) => (
           <NavLink

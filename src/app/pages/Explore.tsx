@@ -11,7 +11,8 @@ export function Explore() {
     <>
       <PageHeader title="Explore" />
       <p className="mb-6 max-w-prose text-muted-foreground">
-        Choose a molecule to see its structure and select its atoms and bonds.
+        Choose a molecule to turn it in 3D or view its Lewis structure, read about its atoms and bonds, and measure
+        lengths and angles.
       </p>
       <div className="grid gap-6">
         {groups.map((group) => (

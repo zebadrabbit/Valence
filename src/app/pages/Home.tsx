@@ -1,13 +1,9 @@
 import { Link } from 'react-router'
 import { useAppState } from '@/app/AppState'
 import { PageHeader } from '@/app/PageHeader'
-import { ENTRY, peekStatus, type ActivityStatus } from '@/app/progress/storage'
-
-const ACTIVITIES = [
-  { entry: ENTRY.titration, kind: 'Lab', title: 'Standardization of a base by titration', to: '/lab' },
-  { entry: ENTRY.aqueous, kind: 'Lab', title: 'Reactions in aqueous solution', to: '/lab' },
-  { entry: ENTRY.mechanism, kind: 'Mechanism', title: 'HCl + NaHCO₃, step by step', to: '/learn' },
-]
+import { ACTIVITIES } from '@/app/activities'
+import { peekStatus, type ActivityStatus } from '@/app/progress/storage'
+import { LIBRARY_INDEX } from '@/chem-data/libraryIndex'
 
 const STATUS_LABEL: Record<ActivityStatus, string> = {
   'not-started': 'Not started',
@@ -23,9 +19,19 @@ export function Home() {
       <PageHeader title="Home" />
       <p className="mb-6 max-w-prose text-muted-foreground">
         Valence is a molecule explorer and virtual general-chemistry lab. No account is needed; your progress is saved
-        in this browser.
+        in this browser. Search in the menu (Ctrl+K, or ⌘K on a Mac) jumps to any molecule, lab or page.
       </p>
       <ul className="grid max-w-3xl gap-3">
+        <li className="rounded-lg border bg-card p-4">
+          <p className="text-sm text-muted-foreground">Explorer</p>
+          <Link to="/explore" className="font-medium underline-offset-4 hover:underline">
+            Molecule explorer
+          </Link>
+          <p className="mt-1 text-sm">
+            {LIBRARY_INDEX.length} molecules to turn in 3D or view as Lewis structures, with cards for each atom and bond and a
+            tool for measuring lengths and angles.
+          </p>
+        </li>
         {ACTIVITIES.map((activity) => (
           <li key={activity.entry} className="rounded-lg border bg-card p-4">
             <p className="text-sm text-muted-foreground">{activity.kind}</p>
