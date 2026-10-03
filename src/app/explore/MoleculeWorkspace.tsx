@@ -7,7 +7,6 @@ import { atomNames, bondNames, describeLonePairs, describeMolecule } from '@/che
 import { measure } from '@/chem-data/measure'
 import { registry } from '@/chem-data/registry'
 import type { Molecule } from '@/chem-data/schema'
-import { FOCUS_RING } from './focusRing'
 import { measurementText } from './format'
 import { Inspector } from './Inspector'
 import { EMPTY_SELECTION, selectionReducer, selectionStatus } from './selection'
@@ -45,7 +44,7 @@ export function MoleculeWorkspace({ molecule }: { molecule: Molecule }) {
           {/* The same preference as on the Settings page. */}
           <select
             id={levelId}
-            className="h-8 rounded-md border bg-background px-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-foreground/60"
+            className="h-8 rounded-md border bg-background px-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
             aria-describedby={levelHintId}
             value={level}
             onChange={(e) => updatePrefs({ valenceLevel: Number(e.target.value) as Prefs['valenceLevel'] })}
@@ -89,7 +88,7 @@ export function MoleculeWorkspace({ molecule }: { molecule: Molecule }) {
           <Button
             variant="outline"
             size="sm"
-            className={`mb-3 aria-disabled:pointer-events-none aria-disabled:opacity-50 ${FOCUS_RING}`}
+            className="mb-3 aria-disabled:pointer-events-none aria-disabled:opacity-50"
             disabled={nothingSelected}
             focusableWhenDisabled
             onClick={() => dispatch({ type: 'clear' })}
@@ -129,7 +128,7 @@ const LEVEL_HINT: Record<Prefs['valenceLevel'], string> = {
 
 function PanelToggle(props: { label: string; controls: string; shown: boolean; onChange(shown: boolean): void }) {
   return (
-    <Button variant="outline" size="sm" className={FOCUS_RING} aria-expanded={props.shown} aria-controls={props.controls} onClick={() => props.onChange(!props.shown)}>
+    <Button variant="outline" size="sm" aria-expanded={props.shown} aria-controls={props.controls} onClick={() => props.onChange(!props.shown)}>
       {props.shown ? <Eye aria-hidden="true" /> : <EyeOff aria-hidden="true" />}
       {props.label}
     </Button>
@@ -148,7 +147,7 @@ function ToggleList(props: { heading: string; names: readonly string[]; pressed(
             <li key={i}>
               <Button
                 variant={pressed ? 'default' : 'ghost'}
-                className={`h-auto min-h-8 w-full justify-start py-1 text-left whitespace-normal ${FOCUS_RING}`}
+                className="h-auto min-h-8 w-full justify-start py-1 text-left whitespace-normal"
                 aria-pressed={pressed}
                 onClick={() => props.onToggle(i)}
               >

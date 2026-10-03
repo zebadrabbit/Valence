@@ -1,7 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { CornerDownLeft, Search } from 'lucide-react'
 import { useNavigate } from 'react-router'
-import { FOCUS_RING } from '@/app/explore/focusRing'
 import { FormulaParts } from '@/app/explore/Formula'
 import { Button } from '@/components/ui/button'
 import { formulaParts } from '@/chem-data/formula'
@@ -44,7 +43,7 @@ export function CommandPalette({ expanded }: { expanded: boolean }) {
     <>
       <Button
         variant="ghost"
-        className={`mb-2 justify-start ${FOCUS_RING}`}
+        className="mb-2 justify-start"
         aria-haspopup="dialog"
         aria-keyshortcuts="Control+K Meta+K"
         title={expanded ? undefined : `Search (${SHORTCUT})`}
@@ -97,7 +96,7 @@ function PaletteBody({ onChoose }: { onChoose(to: string): void }) {
 
   return (
     <div className="flex max-h-[70vh] flex-col">
-      <div className="flex items-center gap-2 rounded-t-lg border-b px-3 focus-within:ring-2 focus-within:ring-foreground/60 focus-within:ring-inset">
+      <div className="flex items-center gap-2 rounded-t-lg border-b px-3 focus-within:ring-2 focus-within:ring-ring focus-within:ring-inset">
         <Search aria-hidden="true" className="size-4 shrink-0 text-muted-foreground" />
         {/* Focus stays in the field; aria-activedescendant tells assistive technology which option the arrows are on. */}
         <input

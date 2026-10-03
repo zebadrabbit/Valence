@@ -1,6 +1,5 @@
 import { Check, ExternalLink } from 'lucide-react'
 import { Link, useParams } from 'react-router'
-import { FOCUS_RING } from '@/app/explore/focusRing'
 import { Formula } from '@/app/explore/Formula'
 import { MoleculeWorkspace } from '@/app/explore/MoleculeWorkspace'
 import { PageHeader } from '@/app/PageHeader'
@@ -56,7 +55,7 @@ export function MoleculePage() {
                   replace
                   state={{ keepFocus: true }}
                   aria-current={current ? 'true' : undefined}
-                  className={buttonVariants({ variant: current ? 'secondary' : 'outline', size: 'sm', className: FOCUS_RING })}
+                  className={buttonVariants({ variant: current ? 'secondary' : 'outline', size: 'sm' })}
                 >
                   {current && <Check aria-hidden="true" />}
                   {variant.variantLabel}

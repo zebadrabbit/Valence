@@ -8,7 +8,7 @@ import { cited, measurementValue } from './format'
 // The pieces every inspector card is built from.
 
 const SUMMARY =
-  'w-fit cursor-pointer rounded-sm text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-foreground/60'
+  'w-fit cursor-pointer rounded-sm text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring'
 
 export function Card({ heading, children }: { heading: string; children: ReactNode }) {
   const headingId = useId()

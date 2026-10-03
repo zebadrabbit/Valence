@@ -3,7 +3,6 @@ import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Check, RotateCcw, ZoomIn, Zo
 import { useAppState } from '@/app/AppState'
 import { Button } from '@/components/ui/button'
 import type { Molecule } from '@/chem-data/schema'
-import { FOCUS_RING } from './focusRing'
 import { LewisView } from './LewisView'
 import type { ViewHandle } from './scene/MoleculeViewer'
 import type { Selection, SelectionAction } from './selection'
@@ -35,7 +34,7 @@ export function ViewerPanel(props: { molecule: Molecule; selection: Selection; d
     <>
       <div role="group" aria-label="View" className="mb-2 flex flex-wrap gap-1">
         {VIEWS.map(({ id, label }) => (
-          <Button key={id} variant={view === id ? 'secondary' : 'outline'} size="sm" className={FOCUS_RING} aria-pressed={view === id} onClick={() => setView(id)}>
+          <Button key={id} variant={view === id ? 'secondary' : 'outline'} size="sm" aria-pressed={view === id} onClick={() => setView(id)}>
             {/* The tick, not the colour alone, marks the current view. */}
             {view === id && <Check aria-hidden="true" />}
             {label}
@@ -82,7 +81,7 @@ export function ViewerPanel(props: { molecule: Molecule; selection: Selection; d
               key={label}
               variant="outline"
               size="icon-sm"
-              className={FOCUS_RING}
+             
               aria-label={label}
               title={label}
               onClick={() => camera.current && act(camera.current)}
