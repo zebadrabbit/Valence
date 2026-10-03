@@ -1,0 +1,127 @@
+{
+  "id": "carbonic-acid",
+  "name": "Carbonic acid",
+  "pubchemCid": 767,
+  "topic": "mechanism",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        -0.6954,
+        -1.1061,
+        0
+      ],
+      "position2d": [
+        4.269,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -0.6949,
+        1.1064,
+        0
+      ],
+      "position2d": [
+        2.5369,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        1.3055,
+        -0.0003,
+        0.0001
+      ],
+      "position2d": [
+        3.403,
+        -0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "C",
+      "position": [
+        0.0847,
+        0,
+        -0.0001
+      ],
+      "position2d": [
+        3.403,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.1635,
+        -1.9304,
+        0.0001
+      ],
+      "position2d": [
+        4.8059,
+        0.44
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.1627,
+        1.9305,
+        0.0001
+      ],
+      "position2d": [
+        2,
+        0.44
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 3,
+      "order": 2,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-767"
+}

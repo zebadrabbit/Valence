@@ -1,0 +1,127 @@
+{
+  "id": "ethene",
+  "name": "Ethene",
+  "pubchemCid": 6325,
+  "topic": "organic",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "C",
+      "position": [
+        -0.6672,
+        0,
+        0
+      ],
+      "position2d": [
+        2,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.6672,
+        0,
+        0
+      ],
+      "position2d": [
+        3,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.2213,
+        -0.929,
+        0.0708
+      ],
+      "position2d": [
+        1.69,
+        0.5369
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.2212,
+        0.929,
+        -0.0708
+      ],
+      "position2d": [
+        1.69,
+        -0.5369
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.2213,
+        0.929,
+        -0.0708
+      ],
+      "position2d": [
+        3.31,
+        -0.5369
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.2213,
+        -0.929,
+        0.0708
+      ],
+      "position2d": [
+        3.31,
+        0.5369
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-6325"
+}

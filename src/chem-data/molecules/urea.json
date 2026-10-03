@@ -1,0 +1,167 @@
+{
+  "id": "urea",
+  "name": "Urea",
+  "pubchemCid": 1176,
+  "topic": "biomolecules",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        -1.3042,
+        -0.0008,
+        0.0001
+      ],
+      "position2d": [
+        4.269,
+        0.595
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "N",
+      "position": [
+        0.6903,
+        -1.1479,
+        0.0001
+      ],
+      "position2d": [
+        2.5369,
+        0.595
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "N",
+      "position": [
+        0.6888,
+        1.1489,
+        0.0001
+      ],
+      "position2d": [
+        3.403,
+        -0.905
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.0749,
+        -0.0001,
+        -0.0003
+      ],
+      "position2d": [
+        3.403,
+        0.095
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.7041,
+        -1.1111,
+        -0.0002
+      ],
+      "position2d": [
+        2,
+        0.285
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.2605,
+        -2.0669,
+        0.0001
+      ],
+      "position2d": [
+        2.5369,
+        1.215
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.2578,
+        2.0672,
+        0.0002
+      ],
+      "position2d": [
+        3.9399,
+        -1.215
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.7026,
+        1.1134,
+        0
+      ],
+      "position2d": [
+        2.866,
+        -1.215
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 3,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-1176"
+}

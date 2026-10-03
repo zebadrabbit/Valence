@@ -1,0 +1,61 @@
+{
+  "id": "nitrogen",
+  "name": "Nitrogen",
+  "pubchemCid": 947,
+  "topic": "basics",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "N",
+      "position": [
+        0,
+        0,
+        0.549
+      ],
+      "position2d": [
+        2,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "N",
+      "position": [
+        0,
+        0,
+        -0.549
+      ],
+      "position2d": [
+        3,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 3,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "cited-experimental",
+  "measurements": {
+    "lengths": [
+      {
+        "atoms": [
+          0,
+          1
+        ],
+        "value": 1.098,
+        "sourceId": "cccbdb-nitrogen"
+      }
+    ],
+    "angles": [],
+    "dihedrals": []
+  },
+  "sourceId": "cccbdb-nitrogen"
+}

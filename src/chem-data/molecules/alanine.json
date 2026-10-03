@@ -1,0 +1,269 @@
+{
+  "id": "alanine",
+  "name": "L-Alanine",
+  "pubchemCid": 5950,
+  "topic": "biomolecules",
+  "variantGroup": "alanine",
+  "variantLabel": "Neutral",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        1.4573,
+        -1.0438,
+        0.2682
+      ],
+      "position2d": [
+        5.135,
+        -0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        1.2492,
+        1.1165,
+        -0.4047
+      ],
+      "position2d": [
+        4.269,
+        1.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "N",
+      "position": [
+        -1.4105,
+        1.1507,
+        0.1821
+      ],
+      "position2d": [
+        2.5369,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.7085,
+        -0.1136,
+        0.3937
+      ],
+      "position2d": [
+        3.403,
+        -0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.3345,
+        -1.2,
+        -0.4702
+      ],
+      "position2d": [
+        3.403,
+        -1.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.747,
+        0.0903,
+        0.0308
+      ],
+      "position2d": [
+        4.269,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.7666,
+        -0.3737,
+        1.4558
+      ],
+      "position2d": [
+        3.403,
+        0.37
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.858,
+        -2.1695,
+        -0.2878
+      ],
+      "position2d": [
+        2.783,
+        -1.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.4023,
+        -1.3127,
+        -0.2521
+      ],
+      "position2d": [
+        3.403,
+        -1.87
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.2248,
+        -0.9797,
+        -1.5384
+      ],
+      "position2d": [
+        4.023,
+        -1.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.3916,
+        1.042,
+        0.4376
+      ],
+      "position2d": [
+        2,
+        -0.06
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.4071,
+        1.3875,
+        -0.8099
+      ],
+      "position2d": [
+        2.5369,
+        0.87
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.4062,
+        -0.9341,
+        0.0447
+      ],
+      "position2d": [
+        5.672,
+        0.06
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 5,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-5950"
+}

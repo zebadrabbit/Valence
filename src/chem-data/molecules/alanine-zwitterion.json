@@ -1,0 +1,274 @@
+{
+  "id": "alanine-zwitterion",
+  "name": "L-Alanine",
+  "pubchemCid": 7311724,
+  "topic": "biomolecules",
+  "variantGroup": "alanine",
+  "variantLabel": "Zwitterion",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        1.3755,
+        1.1088,
+        -0.0992
+      ],
+      "position2d": [
+        5.135,
+        -0.25
+      ],
+      "formalCharge": -1,
+      "lonePairs": 3
+    },
+    {
+      "element": "O",
+      "position": [
+        1.318,
+        -1.1721,
+        -0.0394
+      ],
+      "position2d": [
+        4.269,
+        1.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "N",
+      "position": [
+        -1.3576,
+        1.2499,
+        -0.112
+      ],
+      "position2d": [
+        2.5369,
+        0.25
+      ],
+      "formalCharge": 1,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.6842,
+        0.0053,
+        0.3736
+      ],
+      "position2d": [
+        3.403,
+        -0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.4689,
+        -1.1785,
+        -0.1717
+      ],
+      "position2d": [
+        3.403,
+        -1.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.8173,
+        -0.0134,
+        0.0486
+      ],
+      "position2d": [
+        4.269,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.7822,
+        0.0337,
+        1.4649
+      ],
+      "position2d": [
+        3.403,
+        0.37
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.9022,
+        2.0905,
+        0.268
+      ],
+      "position2d": [
+        2,
+        0.56
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.3455,
+        1.2837,
+        0.1736
+      ],
+      "position2d": [
+        2.2269,
+        -0.2869
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.3271,
+        1.3206,
+        -1.1379
+      ],
+      "position2d": [
+        2.8469,
+        0.7869
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.1042,
+        -2.1203,
+        0.2522
+      ],
+      "position2d": [
+        2.783,
+        -1.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.5334,
+        -1.0988,
+        0.0746
+      ],
+      "position2d": [
+        3.403,
+        -1.87
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.3749,
+        -1.2478,
+        -1.2612
+      ],
+      "position2d": [
+        4.023,
+        -1.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 5,
+      "order": 1,
+      "aromatic": false,
+      "resonanceNote": "one of two equivalent resonance structures; effective order 1.5"
+    },
+    {
+      "a": 1,
+      "b": 5,
+      "order": 2,
+      "aromatic": false,
+      "resonanceNote": "one of two equivalent resonance structures; effective order 1.5"
+    },
+    {
+      "a": 2,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "The form found in water and in the solid; the model is a computed conformer."
+  ],
+  "sourceId": "pubchem-cid-7311724"
+}

@@ -1,0 +1,267 @@
+{
+  "id": "phosphorus-pentachloride",
+  "name": "Phosphorus pentachloride",
+  "pubchemCid": 24819,
+  "topic": "vsepr",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "P",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "position2d": [
+        2.9945,
+        -0.0323
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "Cl",
+      "position": [
+        0,
+        2.02,
+        0
+      ],
+      "position2d": [
+        3.8606,
+        0.4677
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "Cl",
+      "position": [
+        -1.749371,
+        -1.01,
+        0
+      ],
+      "position2d": [
+        2,
+        0.0722
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "Cl",
+      "position": [
+        1.749371,
+        -1.01,
+        0
+      ],
+      "position2d": [
+        2.5878,
+        -0.9458
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "Cl",
+      "position": [
+        0,
+        0,
+        2.124
+      ],
+      "position2d": [
+        2.7866,
+        0.9458
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "Cl",
+      "position": [
+        0,
+        0,
+        -2.124
+      ],
+      "position2d": [
+        3.7377,
+        -0.7014
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "cited-experimental",
+  "measurements": {
+    "lengths": [
+      {
+        "atoms": [
+          0,
+          4
+        ],
+        "value": 2.124,
+        "sourceId": "cccbdb-phosphorus-pentachloride"
+      },
+      {
+        "atoms": [
+          0,
+          5
+        ],
+        "value": 2.124,
+        "sourceId": "cccbdb-phosphorus-pentachloride"
+      },
+      {
+        "atoms": [
+          0,
+          1
+        ],
+        "value": 2.02,
+        "sourceId": "cccbdb-phosphorus-pentachloride"
+      },
+      {
+        "atoms": [
+          0,
+          2
+        ],
+        "value": 2.02,
+        "sourceId": "cccbdb-phosphorus-pentachloride"
+      },
+      {
+        "atoms": [
+          0,
+          3
+        ],
+        "value": 2.02,
+        "sourceId": "cccbdb-phosphorus-pentachloride"
+      }
+    ],
+    "angles": [
+      {
+        "atoms": [
+          1,
+          0,
+          2
+        ],
+        "value": 120,
+        "sourceId": "cccbdb-phosphorus-pentachloride"
+      },
+      {
+        "atoms": [
+          1,
+          0,
+          3
+        ],
+        "value": 120,
+        "sourceId": "cccbdb-phosphorus-pentachloride"
+      },
+      {
+        "atoms": [
+          2,
+          0,
+          3
+        ],
+        "value": 120,
+        "sourceId": "cccbdb-phosphorus-pentachloride"
+      },
+      {
+        "atoms": [
+          4,
+          0,
+          1
+        ],
+        "value": 90,
+        "sourceId": "cccbdb-phosphorus-pentachloride"
+      },
+      {
+        "atoms": [
+          4,
+          0,
+          2
+        ],
+        "value": 90,
+        "sourceId": "cccbdb-phosphorus-pentachloride"
+      },
+      {
+        "atoms": [
+          4,
+          0,
+          3
+        ],
+        "value": 90,
+        "sourceId": "cccbdb-phosphorus-pentachloride"
+      },
+      {
+        "atoms": [
+          5,
+          0,
+          1
+        ],
+        "value": 90,
+        "sourceId": "cccbdb-phosphorus-pentachloride"
+      },
+      {
+        "atoms": [
+          5,
+          0,
+          2
+        ],
+        "value": 90,
+        "sourceId": "cccbdb-phosphorus-pentachloride"
+      },
+      {
+        "atoms": [
+          5,
+          0,
+          3
+        ],
+        "value": 90,
+        "sourceId": "cccbdb-phosphorus-pentachloride"
+      },
+      {
+        "atoms": [
+          4,
+          0,
+          5
+        ],
+        "value": 180,
+        "sourceId": "cccbdb-phosphorus-pentachloride"
+      }
+    ],
+    "dihedrals": []
+  },
+  "notes": [
+    "Gas-phase structure. The axial and equatorial P–Cl bond lengths differ."
+  ],
+  "sourceId": "cccbdb-phosphorus-pentachloride"
+}

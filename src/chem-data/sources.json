@@ -1,1 +1,202 @@
-[]
+[
+  {
+    "id": "ciaaw-abridged-2024",
+    "url": "https://www.ciaaw.org/abridged-atomic-weights.htm",
+    "citation": "IUPAC Commission on Isotopic Abundances and Atomic Weights (CIAAW), Abridged Standard Atomic Weights 2024."
+  },
+  {
+    "id": "nist-asd-ie",
+    "url": "https://physics.nist.gov/PhysRefData/ASD/ionEnergy.html",
+    "citation": "Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, Ground States and Ionization Energies. National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F"
+  },
+  {
+    "id": "pubchem-ptable",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/periodic-table/",
+    "citation": "PubChem Periodic Table of Elements, National Center for Biotechnology Information (Pauling electronegativity column; data at https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON)."
+  },
+  {
+    "id": "cordero-2008",
+    "url": "https://en.wikipedia.org/wiki/Covalent_radius",
+    "citation": "Cordero, B.; Gomez, V.; Platero-Prats, A. E.; Reves, M.; Echeverria, J.; Cremades, E.; Barragan, F.; Alvarez, S. Covalent radii revisited. Dalton Trans. 2008, (21), 2832-2838. (https://doi.org/10.1039/b801115j) The paper is paywalled and was not read: the values were checked only through secondary transcriptions that agree with each other (Wikipedia's covalent radius table, linked here, and the Open Babel element table)."
+  },
+  {
+    "id": "mantina-2009",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3658832/",
+    "citation": "Mantina, M.; Chamberlin, A. C.; Valero, R.; Cramer, C. J.; Truhlar, D. G. Consistent van der Waals Radii for the Whole Main Group. J. Phys. Chem. A 2009, 113 (19), 5806-5812. (https://doi.org/10.1021/jp8111556) Read as the free author manuscript (PMC3658832), linked here."
+  },
+  {
+    "id": "shannon-1976",
+    "url": "http://abulafia.mt.ic.ac.uk/shannon/ptable.php",
+    "citation": "Shannon, R. D. Revised effective ionic radii and systematic studies of interatomic distances in halides and chalcogenides. Acta Crystallogr. A 1976, 32, 751-767. (https://doi.org/10.1107/S0567739476001551) The paper was not read: the values were checked only through a secondary transcription, the Database of Ionic Radii (Atomistic Simulation Group, Imperial College London), linked here."
+  },
+  {
+    "id": "jmol-pal-source",
+    "url": "https://github.com/BobHanson/Jmol-SwingJS/blob/master/src/org/jmol/c/PAL.java",
+    "citation": "Jmol source code, org.jmol.c.PAL, array argbsCpk: default element (CPK-style) colours. Same values as the PubChem periodic table CPKHexColor column."
+  },
+  {
+    "id": "cccbdb-water",
+    "url": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7732185",
+    "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Hoy, A.R.; Bunker, P.R., J. Mol. Spectrosc. 74, 1-8 (1979) (doi:10.1016/0022-2852(79)90019-5)"
+  },
+  {
+    "id": "cccbdb-carbon-dioxide",
+    "url": "https://cccbdb.nist.gov/expgeom2x.asp?casno=124389",
+    "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Herzberg, G., Electronic Spectra and Electronic Structure of Polyatomic Molecules, Van Nostrand, New York, 1966"
+  },
+  {
+    "id": "cccbdb-ammonia",
+    "url": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7664417",
+    "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Herzberg, G., Electronic Spectra and Electronic Structure of Polyatomic Molecules, Van Nostrand, New York, 1966"
+  },
+  {
+    "id": "cccbdb-methane",
+    "url": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74828",
+    "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03). r(C-H): Hirota, E., J. Mol. Spectrosc. 77, 213-221 (1979) (doi:10.1016/0022-2852(79)90103-6) | a(H-C-H): Sverdlov, L.M.; Kovner, M.A.; Krainov, E.P., Vibrational Spectra of Polyatomic Molecules, Wiley, New York, 1974. (Exact tetrahedral angle, arccos(-1/3) = 109.4712 deg.)"
+  },
+  {
+    "id": "cccbdb-oxygen",
+    "url": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7782447",
+    "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Huber, K.P.; Herzberg, G., Molecular Spectra and Molecular Structure IV. Constants of Diatomic Molecules, Van Nostrand Reinhold, 1979 (doi:10.1007/978-1-4757-0961-2)"
+  },
+  {
+    "id": "cccbdb-nitrogen",
+    "url": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7727379",
+    "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Huber, K.P.; Herzberg, G., Molecular Spectra and Molecular Structure IV. Constants of Diatomic Molecules, Van Nostrand Reinhold, 1979 (doi:10.1007/978-1-4757-0961-2)"
+  },
+  {
+    "id": "cccbdb-hydrogen-chloride",
+    "url": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7647010",
+    "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: NIST Diatomic Spectral Database (doi:10.18434/T4T59X); comment 're 1H 35Cl'"
+  },
+  {
+    "id": "cccbdb-hydrogen-peroxide",
+    "url": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7722841",
+    "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Redington, R.L.; Olson, W.B.; Cross, P.C., J. Chem. Phys. 36, 1311-1326 (1962) (doi:10.1063/1.1732733)"
+  },
+  {
+    "id": "cccbdb-boron-trifluoride",
+    "url": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7637072",
+    "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Kuchitsu, K. (ed.), Structure of Free Polyatomic Molecules - Basic Data, Springer, Berlin, 1998 (doi:10.1007/978-3-642-45748-7)"
+  },
+  {
+    "id": "cccbdb-sulfur-dioxide",
+    "url": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7446095",
+    "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Herzberg, G., Electronic Spectra and Electronic Structure of Polyatomic Molecules, Van Nostrand, New York, 1966"
+  },
+  {
+    "id": "cccbdb-sulfur-hexafluoride",
+    "url": "https://cccbdb.nist.gov/expgeom2x.asp?casno=2551624",
+    "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03). r(S-F): Kuchitsu, K. (ed.), Structure of Free Polyatomic Molecules - Basic Data, Springer, Berlin, 1998 (doi:10.1007/978-3-642-45748-7) | a(F-S-F) cis, a(F-S-F) trans: Kuchitsu, K. (ed.), Structure of Free Polyatomic Molecules - Basic Data, Springer, Berlin, 1998 (doi:10.1007/978-3-642-45748-7); comment 'symmetry'"
+  },
+  {
+    "id": "cccbdb-xenon-tetrafluoride",
+    "url": "https://cccbdb.nist.gov/expgeom2x.asp?casno=13709610",
+    "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03). r(Xe-F): Buerger, H.; Ma, S.; Breidung, J.; Thiel, W., J. Chem. Phys. 104, 4945-4953 (1996) (doi:10.1063/1.471266); comment 'r0' | a(F-Xe-F) cis: point group D4h, aFXeF = 90, comment 'by symmetry' | a(F-Xe-F) trans: point group D4h, aFXeF = 180, comment 'by symmetry'"
+  },
+  {
+    "id": "cccbdb-phosphorus-pentachloride",
+    "url": "https://cccbdb.nist.gov/expgeom2x.asp?casno=10026138",
+    "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03). r(P-Cl) axial: Gurvich, L.V.; Veyts, I.V.; Alcock, C.B., Thermodynamic Properties of Individual Substances, 4th ed., Hemisphere, New York, 1989; comment 'axial' | r(P-Cl) equatorial: Gurvich, L.V.; Veyts, I.V.; Alcock, C.B., Thermodynamic Properties of Individual Substances, 4th ed., Hemisphere, New York, 1989; comment 'equatorial' | a(Cl_eq-P-Cl_eq), a(Cl_ax-P-Cl_eq), a(Cl_ax-P-Cl_ax): Gurvich, L.V.; Veyts, I.V.; Alcock, C.B., Thermodynamic Properties of Individual Substances, 4th ed., Hemisphere, New York, 1989. Angle is fixed by the point-group symmetry stated on the same page. (D3h)"
+  },
+  {
+    "id": "pubchem-cid-6324",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/6324",
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 6324; URL: https://pubchem.ncbi.nlm.nih.gov/compound/6324#section=3D-Conformer"
+  },
+  {
+    "id": "pubchem-cid-6325",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/6325",
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 6325; URL: https://pubchem.ncbi.nlm.nih.gov/compound/6325#section=3D-Conformer"
+  },
+  {
+    "id": "pubchem-cid-6326",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/6326",
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 6326; URL: https://pubchem.ncbi.nlm.nih.gov/compound/6326#section=3D-Conformer"
+  },
+  {
+    "id": "pubchem-cid-702",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/702",
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 702; URL: https://pubchem.ncbi.nlm.nih.gov/compound/702#section=3D-Conformer"
+  },
+  {
+    "id": "pubchem-cid-176",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/176",
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 176; URL: https://pubchem.ncbi.nlm.nih.gov/compound/176#section=3D-Conformer"
+  },
+  {
+    "id": "pubchem-cid-180",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/180",
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 180; URL: https://pubchem.ncbi.nlm.nih.gov/compound/180#section=3D-Conformer"
+  },
+  {
+    "id": "pubchem-cid-712",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/712",
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 712; URL: https://pubchem.ncbi.nlm.nih.gov/compound/712#section=3D-Conformer"
+  },
+  {
+    "id": "pubchem-cid-6329",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/6329",
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 6329; URL: https://pubchem.ncbi.nlm.nih.gov/compound/6329#section=3D-Conformer"
+  },
+  {
+    "id": "pubchem-cid-8857",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/8857",
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 8857; URL: https://pubchem.ncbi.nlm.nih.gov/compound/8857#section=3D-Conformer"
+  },
+  {
+    "id": "pubchem-cid-178",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/178",
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 178; URL: https://pubchem.ncbi.nlm.nih.gov/compound/178#section=3D-Conformer"
+  },
+  {
+    "id": "pubchem-cid-241",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/241",
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 241; URL: https://pubchem.ncbi.nlm.nih.gov/compound/241#section=3D-Conformer"
+  },
+  {
+    "id": "pubchem-cid-64689",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/64689",
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 64689; URL: https://pubchem.ncbi.nlm.nih.gov/compound/64689#section=3D-Conformer"
+  },
+  {
+    "id": "pubchem-cid-750",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/750",
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 750; URL: https://pubchem.ncbi.nlm.nih.gov/compound/750#section=3D-Conformer"
+  },
+  {
+    "id": "pubchem-cid-5257127",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/5257127",
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 5257127; URL: https://pubchem.ncbi.nlm.nih.gov/compound/5257127#section=3D-Conformer"
+  },
+  {
+    "id": "pubchem-cid-5950",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/5950",
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 5950; URL: https://pubchem.ncbi.nlm.nih.gov/compound/5950#section=3D-Conformer"
+  },
+  {
+    "id": "pubchem-cid-7311724",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/7311724",
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 7311724; URL: https://pubchem.ncbi.nlm.nih.gov/compound/7311724#section=3D-Conformer"
+  },
+  {
+    "id": "pubchem-cid-1176",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/1176",
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 1176; URL: https://pubchem.ncbi.nlm.nih.gov/compound/1176#section=3D-Conformer"
+  },
+  {
+    "id": "pubchem-cid-123332",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/123332",
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 123332; URL: https://pubchem.ncbi.nlm.nih.gov/compound/123332#section=3D-Conformer"
+  },
+  {
+    "id": "pubchem-cid-769",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/769",
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 769; URL: https://pubchem.ncbi.nlm.nih.gov/compound/769#section=3D-Conformer"
+  },
+  {
+    "id": "pubchem-cid-767",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/767",
+    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 767; URL: https://pubchem.ncbi.nlm.nih.gov/compound/767#section=3D-Conformer"
+  }
+]

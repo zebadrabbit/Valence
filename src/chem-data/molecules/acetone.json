@@ -1,0 +1,207 @@
+{
+  "id": "acetone",
+  "name": "Acetone",
+  "pubchemCid": 180,
+  "topic": "organic",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        0.0003,
+        -1.3171,
+        -0.0002
+      ],
+      "position2d": [
+        3.7321,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "C",
+      "position": [
+        0,
+        -0.0872,
+        0.0006
+      ],
+      "position2d": [
+        2.866,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.281,
+        0.7024,
+        -0.0002
+      ],
+      "position2d": [
+        2,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.2813,
+        0.7019,
+        -0.0002
+      ],
+      "position2d": [
+        2.866,
+        -0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.3279,
+        1.3235,
+        -0.898
+      ],
+      "position2d": [
+        2.31,
+        1.2869
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.326,
+        1.3282,
+        0.8945
+      ],
+      "position2d": [
+        1.4631,
+        1.06
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.1351,
+        0.0196,
+        0.0027
+      ],
+      "position2d": [
+        1.69,
+        0.2131
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.1352,
+        0.0187,
+        0.0027
+      ],
+      "position2d": [
+        2.246,
+        -0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.3284,
+        1.323,
+        -0.898
+      ],
+      "position2d": [
+        2.866,
+        -1.37
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.3266,
+        1.3278,
+        0.8945
+      ],
+      "position2d": [
+        3.486,
+        -0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-180"
+}

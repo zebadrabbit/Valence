@@ -1,0 +1,147 @@
+{
+  "id": "methylamine",
+  "name": "Methylamine",
+  "pubchemCid": 6329,
+  "topic": "organic",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "N",
+      "position": [
+        -0.7154,
+        0,
+        0
+      ],
+      "position2d": [
+        2.5369,
+        0.06
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "C",
+      "position": [
+        0.7154,
+        0,
+        0
+      ],
+      "position2d": [
+        3.403,
+        0.56
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.1069,
+        0.0916,
+        1.0174
+      ],
+      "position2d": [
+        3.713,
+        0.0231
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.0996,
+        0.8349,
+        -0.593
+      ],
+      "position2d": [
+        3.9399,
+        0.87
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.0996,
+        -0.9274,
+        -0.4345
+      ],
+      "position2d": [
+        3.093,
+        1.0969
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.0625,
+        0.8564,
+        0.4294
+      ],
+      "position2d": [
+        2,
+        0.37
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.0625,
+        -0.7661,
+        0.5753
+      ],
+      "position2d": [
+        2.5369,
+        -0.56
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-6329"
+}

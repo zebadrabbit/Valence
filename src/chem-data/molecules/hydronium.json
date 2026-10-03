@@ -1,0 +1,87 @@
+{
+  "id": "hydronium",
+  "name": "Hydronium ion",
+  "pubchemCid": 123332,
+  "topic": "mechanism",
+  "charge": 1,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "position2d": [
+        2.5369,
+        0.155
+      ],
+      "formalCharge": 1,
+      "lonePairs": 1
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.8619,
+        -0.3262,
+        0.3643
+      ],
+      "position2d": [
+        3.0739,
+        0.465
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.1274,
+        0.8014,
+        -0.5688
+      ],
+      "position2d": [
+        2,
+        0.465
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.4819,
+        -0.7164,
+        -0.4864
+      ],
+      "position2d": [
+        2.5369,
+        -0.465
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-123332"
+}

@@ -1,0 +1,99 @@
+{
+  "id": "carbon-dioxide",
+  "name": "Carbon dioxide",
+  "pubchemCid": 280,
+  "topic": "basics",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "C",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "position2d": [
+        2.866,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "O",
+      "position": [
+        0,
+        0,
+        1.162
+      ],
+      "position2d": [
+        3.7321,
+        0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        0,
+        0,
+        -1.162
+      ],
+      "position2d": [
+        2,
+        -0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 2,
+      "order": 2,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "cited-experimental",
+  "measurements": {
+    "lengths": [
+      {
+        "atoms": [
+          0,
+          1
+        ],
+        "value": 1.162,
+        "sourceId": "cccbdb-carbon-dioxide"
+      },
+      {
+        "atoms": [
+          0,
+          2
+        ],
+        "value": 1.162,
+        "sourceId": "cccbdb-carbon-dioxide"
+      }
+    ],
+    "angles": [
+      {
+        "atoms": [
+          1,
+          0,
+          2
+        ],
+        "value": 180,
+        "sourceId": "cccbdb-carbon-dioxide"
+      }
+    ],
+    "dihedrals": []
+  },
+  "sourceId": "cccbdb-carbon-dioxide"
+}

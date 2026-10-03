@@ -1,0 +1,337 @@
+{
+  "id": "sulfur-hexafluoride",
+  "name": "Sulfur hexafluoride",
+  "pubchemCid": 17358,
+  "topic": "vsepr",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "S",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "position2d": [
+        2.866,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "F",
+      "position": [
+        0,
+        0,
+        1.561
+      ],
+      "position2d": [
+        3.7321,
+        0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "F",
+      "position": [
+        0,
+        0,
+        -1.561
+      ],
+      "position2d": [
+        2,
+        -0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "F",
+      "position": [
+        1.561,
+        0,
+        0
+      ],
+      "position2d": [
+        2,
+        0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "F",
+      "position": [
+        -1.561,
+        0,
+        0
+      ],
+      "position2d": [
+        2.866,
+        -1
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "F",
+      "position": [
+        0,
+        1.561,
+        0
+      ],
+      "position2d": [
+        2.866,
+        1
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "F",
+      "position": [
+        0,
+        -1.561,
+        0
+      ],
+      "position2d": [
+        3.7321,
+        -0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "cited-experimental",
+  "measurements": {
+    "lengths": [
+      {
+        "atoms": [
+          0,
+          1
+        ],
+        "value": 1.561,
+        "sourceId": "cccbdb-sulfur-hexafluoride"
+      },
+      {
+        "atoms": [
+          0,
+          2
+        ],
+        "value": 1.561,
+        "sourceId": "cccbdb-sulfur-hexafluoride"
+      },
+      {
+        "atoms": [
+          0,
+          3
+        ],
+        "value": 1.561,
+        "sourceId": "cccbdb-sulfur-hexafluoride"
+      },
+      {
+        "atoms": [
+          0,
+          4
+        ],
+        "value": 1.561,
+        "sourceId": "cccbdb-sulfur-hexafluoride"
+      },
+      {
+        "atoms": [
+          0,
+          5
+        ],
+        "value": 1.561,
+        "sourceId": "cccbdb-sulfur-hexafluoride"
+      },
+      {
+        "atoms": [
+          0,
+          6
+        ],
+        "value": 1.561,
+        "sourceId": "cccbdb-sulfur-hexafluoride"
+      }
+    ],
+    "angles": [
+      {
+        "atoms": [
+          1,
+          0,
+          3
+        ],
+        "value": 90,
+        "sourceId": "cccbdb-sulfur-hexafluoride"
+      },
+      {
+        "atoms": [
+          1,
+          0,
+          4
+        ],
+        "value": 90,
+        "sourceId": "cccbdb-sulfur-hexafluoride"
+      },
+      {
+        "atoms": [
+          1,
+          0,
+          5
+        ],
+        "value": 90,
+        "sourceId": "cccbdb-sulfur-hexafluoride"
+      },
+      {
+        "atoms": [
+          1,
+          0,
+          6
+        ],
+        "value": 90,
+        "sourceId": "cccbdb-sulfur-hexafluoride"
+      },
+      {
+        "atoms": [
+          2,
+          0,
+          3
+        ],
+        "value": 90,
+        "sourceId": "cccbdb-sulfur-hexafluoride"
+      },
+      {
+        "atoms": [
+          2,
+          0,
+          4
+        ],
+        "value": 90,
+        "sourceId": "cccbdb-sulfur-hexafluoride"
+      },
+      {
+        "atoms": [
+          2,
+          0,
+          5
+        ],
+        "value": 90,
+        "sourceId": "cccbdb-sulfur-hexafluoride"
+      },
+      {
+        "atoms": [
+          2,
+          0,
+          6
+        ],
+        "value": 90,
+        "sourceId": "cccbdb-sulfur-hexafluoride"
+      },
+      {
+        "atoms": [
+          3,
+          0,
+          5
+        ],
+        "value": 90,
+        "sourceId": "cccbdb-sulfur-hexafluoride"
+      },
+      {
+        "atoms": [
+          3,
+          0,
+          6
+        ],
+        "value": 90,
+        "sourceId": "cccbdb-sulfur-hexafluoride"
+      },
+      {
+        "atoms": [
+          4,
+          0,
+          5
+        ],
+        "value": 90,
+        "sourceId": "cccbdb-sulfur-hexafluoride"
+      },
+      {
+        "atoms": [
+          4,
+          0,
+          6
+        ],
+        "value": 90,
+        "sourceId": "cccbdb-sulfur-hexafluoride"
+      },
+      {
+        "atoms": [
+          1,
+          0,
+          2
+        ],
+        "value": 180,
+        "sourceId": "cccbdb-sulfur-hexafluoride"
+      },
+      {
+        "atoms": [
+          3,
+          0,
+          4
+        ],
+        "value": 180,
+        "sourceId": "cccbdb-sulfur-hexafluoride"
+      },
+      {
+        "atoms": [
+          5,
+          0,
+          6
+        ],
+        "value": 180,
+        "sourceId": "cccbdb-sulfur-hexafluoride"
+      }
+    ],
+    "dihedrals": []
+  },
+  "sourceId": "cccbdb-sulfur-hexafluoride"
+}

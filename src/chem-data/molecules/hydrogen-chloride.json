@@ -1,0 +1,61 @@
+{
+  "id": "hydrogen-chloride",
+  "name": "Hydrogen chloride",
+  "pubchemCid": 313,
+  "topic": "basics",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "H",
+      "position": [
+        0,
+        0,
+        1.239748
+      ],
+      "position2d": [
+        3,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "Cl",
+      "position": [
+        0,
+        0,
+        -0.035252
+      ],
+      "position2d": [
+        2,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "cited-experimental",
+  "measurements": {
+    "lengths": [
+      {
+        "atoms": [
+          0,
+          1
+        ],
+        "value": 1.275,
+        "sourceId": "cccbdb-hydrogen-chloride"
+      }
+    ],
+    "angles": [],
+    "dihedrals": []
+  },
+  "sourceId": "cccbdb-hydrogen-chloride"
+}

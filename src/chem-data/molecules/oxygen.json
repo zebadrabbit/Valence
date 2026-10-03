@@ -1,0 +1,61 @@
+{
+  "id": "oxygen",
+  "name": "Oxygen",
+  "pubchemCid": 977,
+  "topic": "basics",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        0,
+        0,
+        0.604
+      ],
+      "position2d": [
+        2,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        0,
+        0,
+        -0.604
+      ],
+      "position2d": [
+        3,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 2,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "cited-experimental",
+  "measurements": {
+    "lengths": [
+      {
+        "atoms": [
+          0,
+          1
+        ],
+        "value": 1.208,
+        "sourceId": "cccbdb-oxygen"
+      }
+    ],
+    "angles": [],
+    "dihedrals": []
+  },
+  "sourceId": "cccbdb-oxygen"
+}

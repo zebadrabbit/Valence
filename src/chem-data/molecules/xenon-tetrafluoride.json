@@ -1,0 +1,200 @@
+{
+  "id": "xenon-tetrafluoride",
+  "name": "Xenon tetrafluoride",
+  "pubchemCid": 123324,
+  "topic": "vsepr",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "Xe",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "position2d": [
+        2.7071,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "F",
+      "position": [
+        1.935,
+        0,
+        0
+      ],
+      "position2d": [
+        3.4142,
+        0.7071
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "F",
+      "position": [
+        -1.935,
+        0,
+        0
+      ],
+      "position2d": [
+        2,
+        -0.7071
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "F",
+      "position": [
+        0,
+        1.935,
+        0
+      ],
+      "position2d": [
+        2,
+        0.7071
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "F",
+      "position": [
+        0,
+        -1.935,
+        0
+      ],
+      "position2d": [
+        3.4142,
+        -0.7071
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "cited-experimental",
+  "measurements": {
+    "lengths": [
+      {
+        "atoms": [
+          0,
+          1
+        ],
+        "value": 1.935,
+        "sourceId": "cccbdb-xenon-tetrafluoride"
+      },
+      {
+        "atoms": [
+          0,
+          2
+        ],
+        "value": 1.935,
+        "sourceId": "cccbdb-xenon-tetrafluoride"
+      },
+      {
+        "atoms": [
+          0,
+          3
+        ],
+        "value": 1.935,
+        "sourceId": "cccbdb-xenon-tetrafluoride"
+      },
+      {
+        "atoms": [
+          0,
+          4
+        ],
+        "value": 1.935,
+        "sourceId": "cccbdb-xenon-tetrafluoride"
+      }
+    ],
+    "angles": [
+      {
+        "atoms": [
+          1,
+          0,
+          3
+        ],
+        "value": 90,
+        "sourceId": "cccbdb-xenon-tetrafluoride"
+      },
+      {
+        "atoms": [
+          1,
+          0,
+          4
+        ],
+        "value": 90,
+        "sourceId": "cccbdb-xenon-tetrafluoride"
+      },
+      {
+        "atoms": [
+          2,
+          0,
+          3
+        ],
+        "value": 90,
+        "sourceId": "cccbdb-xenon-tetrafluoride"
+      },
+      {
+        "atoms": [
+          2,
+          0,
+          4
+        ],
+        "value": 90,
+        "sourceId": "cccbdb-xenon-tetrafluoride"
+      },
+      {
+        "atoms": [
+          1,
+          0,
+          2
+        ],
+        "value": 180,
+        "sourceId": "cccbdb-xenon-tetrafluoride"
+      },
+      {
+        "atoms": [
+          3,
+          0,
+          4
+        ],
+        "value": 180,
+        "sourceId": "cccbdb-xenon-tetrafluoride"
+      }
+    ],
+    "dihedrals": []
+  },
+  "sourceId": "cccbdb-xenon-tetrafluoride"
+}

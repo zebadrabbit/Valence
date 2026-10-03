@@ -1,0 +1,145 @@
+{
+  "id": "ammonia",
+  "name": "Ammonia",
+  "pubchemCid": 222,
+  "topic": "basics",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "N",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "position2d": [
+        2.5369,
+        0.155
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "H",
+      "position": [
+        0,
+        0.937347,
+        -0.381477
+      ],
+      "position2d": [
+        3.0739,
+        0.465
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.811766,
+        -0.468673,
+        -0.381477
+      ],
+      "position2d": [
+        2,
+        0.465
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.811766,
+        -0.468673,
+        -0.381477
+      ],
+      "position2d": [
+        2.5369,
+        -0.465
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "cited-experimental",
+  "measurements": {
+    "lengths": [
+      {
+        "atoms": [
+          0,
+          1
+        ],
+        "value": 1.012,
+        "sourceId": "cccbdb-ammonia"
+      },
+      {
+        "atoms": [
+          0,
+          2
+        ],
+        "value": 1.012,
+        "sourceId": "cccbdb-ammonia"
+      },
+      {
+        "atoms": [
+          0,
+          3
+        ],
+        "value": 1.012,
+        "sourceId": "cccbdb-ammonia"
+      }
+    ],
+    "angles": [
+      {
+        "atoms": [
+          1,
+          0,
+          2
+        ],
+        "value": 106.67,
+        "sourceId": "cccbdb-ammonia"
+      },
+      {
+        "atoms": [
+          1,
+          0,
+          3
+        ],
+        "value": 106.67,
+        "sourceId": "cccbdb-ammonia"
+      },
+      {
+        "atoms": [
+          2,
+          0,
+          3
+        ],
+        "value": 106.67,
+        "sourceId": "cccbdb-ammonia"
+      }
+    ],
+    "dihedrals": []
+  },
+  "sourceId": "cccbdb-ammonia"
+}

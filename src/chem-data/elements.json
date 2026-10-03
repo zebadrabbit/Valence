@@ -1,0 +1,578 @@
+[
+  {
+    "symbol": "H",
+    "name": "Hydrogen",
+    "atomicNumber": 1,
+    "atomicWeight": {
+      "value": 1.008,
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    "electronegativity": {
+      "value": 2.2,
+      "sourceId": "pubchem-ptable"
+    },
+    "configuration": {
+      "value": "1s1",
+      "sourceId": "nist-asd-ie"
+    },
+    "shells": {
+      "value": [
+        1
+      ],
+      "sourceId": "nist-asd-ie"
+    },
+    "ionizationEnergiesEv": {
+      "value": [
+        13.598434599702
+      ],
+      "sourceId": "nist-asd-ie"
+    },
+    "covalentRadius": {
+      "value": 0.31,
+      "sourceId": "cordero-2008"
+    },
+    "vdwRadius": {
+      "value": 1.1,
+      "sourceId": "mantina-2009"
+    },
+    "ionicRadii": [],
+    "color": {
+      "value": "#FFFFFF",
+      "sourceId": "jmol-pal-source"
+    },
+    "notes": [
+      "NIST marks ionization energy 1 as theoretical, not measured."
+    ],
+    "sourceId": "ciaaw-abridged-2024"
+  },
+  {
+    "symbol": "B",
+    "name": "Boron",
+    "atomicNumber": 5,
+    "atomicWeight": {
+      "value": 10.81,
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    "electronegativity": {
+      "value": 2.04,
+      "sourceId": "pubchem-ptable"
+    },
+    "configuration": {
+      "value": "1s2 2s2 2p1",
+      "sourceId": "nist-asd-ie"
+    },
+    "shells": {
+      "value": [
+        2,
+        3
+      ],
+      "sourceId": "nist-asd-ie"
+    },
+    "ionizationEnergiesEv": {
+      "value": [
+        8.298019,
+        25.15483,
+        37.93059
+      ],
+      "sourceId": "nist-asd-ie"
+    },
+    "covalentRadius": {
+      "value": 0.84,
+      "sourceId": "cordero-2008"
+    },
+    "vdwRadius": {
+      "value": 1.92,
+      "sourceId": "mantina-2009"
+    },
+    "ionicRadii": [],
+    "color": {
+      "value": "#FFB5B5",
+      "sourceId": "jmol-pal-source"
+    },
+    "sourceId": "ciaaw-abridged-2024"
+  },
+  {
+    "symbol": "C",
+    "name": "Carbon",
+    "atomicNumber": 6,
+    "atomicWeight": {
+      "value": 12.011,
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    "electronegativity": {
+      "value": 2.55,
+      "sourceId": "pubchem-ptable"
+    },
+    "configuration": {
+      "value": "1s2 2s2 2p2",
+      "sourceId": "nist-asd-ie"
+    },
+    "shells": {
+      "value": [
+        2,
+        4
+      ],
+      "sourceId": "nist-asd-ie"
+    },
+    "ionizationEnergiesEv": {
+      "value": [
+        11.260288,
+        24.383143,
+        47.88778
+      ],
+      "sourceId": "nist-asd-ie"
+    },
+    "covalentRadius": {
+      "value": 0.76,
+      "sourceId": "cordero-2008"
+    },
+    "vdwRadius": {
+      "value": 1.7,
+      "sourceId": "mantina-2009"
+    },
+    "ionicRadii": [],
+    "color": {
+      "value": "#909090",
+      "sourceId": "jmol-pal-source"
+    },
+    "notes": [
+      "The source gives one covalent radius per hybridization: sp3 0.76 Å, sp2 0.73 Å, sp 0.69 Å. The sp3 value is stored."
+    ],
+    "sourceId": "ciaaw-abridged-2024"
+  },
+  {
+    "symbol": "N",
+    "name": "Nitrogen",
+    "atomicNumber": 7,
+    "atomicWeight": {
+      "value": 14.007,
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    "electronegativity": {
+      "value": 3.04,
+      "sourceId": "pubchem-ptable"
+    },
+    "configuration": {
+      "value": "1s2 2s2 2p3",
+      "sourceId": "nist-asd-ie"
+    },
+    "shells": {
+      "value": [
+        2,
+        5
+      ],
+      "sourceId": "nist-asd-ie"
+    },
+    "ionizationEnergiesEv": {
+      "value": [
+        14.53413,
+        29.60125,
+        47.4453
+      ],
+      "sourceId": "nist-asd-ie"
+    },
+    "covalentRadius": {
+      "value": 0.71,
+      "sourceId": "cordero-2008"
+    },
+    "vdwRadius": {
+      "value": 1.55,
+      "sourceId": "mantina-2009"
+    },
+    "ionicRadii": [],
+    "color": {
+      "value": "#3050F8",
+      "sourceId": "jmol-pal-source"
+    },
+    "notes": [
+      "NIST marks ionization energy 2, 3 as interpolated/extrapolated (semi-empirical), not measured."
+    ],
+    "sourceId": "ciaaw-abridged-2024"
+  },
+  {
+    "symbol": "O",
+    "name": "Oxygen",
+    "atomicNumber": 8,
+    "atomicWeight": {
+      "value": 15.999,
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    "electronegativity": {
+      "value": 3.44,
+      "sourceId": "pubchem-ptable"
+    },
+    "configuration": {
+      "value": "1s2 2s2 2p4",
+      "sourceId": "nist-asd-ie"
+    },
+    "shells": {
+      "value": [
+        2,
+        6
+      ],
+      "sourceId": "nist-asd-ie"
+    },
+    "ionizationEnergiesEv": {
+      "value": [
+        13.618055,
+        35.12112,
+        54.93554
+      ],
+      "sourceId": "nist-asd-ie"
+    },
+    "covalentRadius": {
+      "value": 0.66,
+      "sourceId": "cordero-2008"
+    },
+    "vdwRadius": {
+      "value": 1.52,
+      "sourceId": "mantina-2009"
+    },
+    "ionicRadii": [
+      {
+        "charge": -2,
+        "coordination": 6,
+        "value": 1.4,
+        "sourceId": "shannon-1976"
+      }
+    ],
+    "color": {
+      "value": "#FF0D0D",
+      "sourceId": "jmol-pal-source"
+    },
+    "notes": [
+      "NIST marks ionization energy 3 as interpolated/extrapolated (semi-empirical), not measured."
+    ],
+    "sourceId": "ciaaw-abridged-2024"
+  },
+  {
+    "symbol": "F",
+    "name": "Fluorine",
+    "atomicNumber": 9,
+    "atomicWeight": {
+      "value": 18.998,
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    "electronegativity": {
+      "value": 3.98,
+      "sourceId": "pubchem-ptable"
+    },
+    "configuration": {
+      "value": "1s2 2s2 2p5",
+      "sourceId": "nist-asd-ie"
+    },
+    "shells": {
+      "value": [
+        2,
+        7
+      ],
+      "sourceId": "nist-asd-ie"
+    },
+    "ionizationEnergiesEv": {
+      "value": [
+        17.42282,
+        34.97081,
+        62.70798
+      ],
+      "sourceId": "nist-asd-ie"
+    },
+    "covalentRadius": {
+      "value": 0.57,
+      "sourceId": "cordero-2008"
+    },
+    "vdwRadius": {
+      "value": 1.47,
+      "sourceId": "mantina-2009"
+    },
+    "ionicRadii": [
+      {
+        "charge": -1,
+        "coordination": 6,
+        "value": 1.33,
+        "sourceId": "shannon-1976"
+      }
+    ],
+    "color": {
+      "value": "#90E050",
+      "sourceId": "jmol-pal-source"
+    },
+    "notes": [
+      "NIST marks ionization energy 3 as interpolated/extrapolated (semi-empirical), not measured."
+    ],
+    "sourceId": "ciaaw-abridged-2024"
+  },
+  {
+    "symbol": "Na",
+    "name": "Sodium",
+    "atomicNumber": 11,
+    "atomicWeight": {
+      "value": 22.99,
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    "electronegativity": {
+      "value": 0.93,
+      "sourceId": "pubchem-ptable"
+    },
+    "configuration": {
+      "value": "1s2 2s2 2p6 3s1",
+      "sourceId": "nist-asd-ie"
+    },
+    "shells": {
+      "value": [
+        2,
+        8,
+        1
+      ],
+      "sourceId": "nist-asd-ie"
+    },
+    "ionizationEnergiesEv": {
+      "value": [
+        5.13907696,
+        47.28636,
+        71.62
+      ],
+      "sourceId": "nist-asd-ie"
+    },
+    "covalentRadius": {
+      "value": 1.66,
+      "sourceId": "cordero-2008"
+    },
+    "vdwRadius": {
+      "value": 2.27,
+      "sourceId": "mantina-2009"
+    },
+    "ionicRadii": [
+      {
+        "charge": 1,
+        "coordination": 6,
+        "value": 1.02,
+        "sourceId": "shannon-1976"
+      }
+    ],
+    "color": {
+      "value": "#AB5CF2",
+      "sourceId": "jmol-pal-source"
+    },
+    "notes": [
+      "NIST marks ionization energy 3 as interpolated/extrapolated (semi-empirical), not measured."
+    ],
+    "sourceId": "ciaaw-abridged-2024"
+  },
+  {
+    "symbol": "P",
+    "name": "Phosphorus",
+    "atomicNumber": 15,
+    "atomicWeight": {
+      "value": 30.974,
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    "electronegativity": {
+      "value": 2.19,
+      "sourceId": "pubchem-ptable"
+    },
+    "configuration": {
+      "value": "1s2 2s2 2p6 3s2 3p3",
+      "sourceId": "nist-asd-ie"
+    },
+    "shells": {
+      "value": [
+        2,
+        8,
+        5
+      ],
+      "sourceId": "nist-asd-ie"
+    },
+    "ionizationEnergiesEv": {
+      "value": [
+        10.486686,
+        19.76949,
+        30.20264
+      ],
+      "sourceId": "nist-asd-ie"
+    },
+    "covalentRadius": {
+      "value": 1.07,
+      "sourceId": "cordero-2008"
+    },
+    "vdwRadius": {
+      "value": 1.8,
+      "sourceId": "mantina-2009"
+    },
+    "ionicRadii": [],
+    "color": {
+      "value": "#FF8000",
+      "sourceId": "jmol-pal-source"
+    },
+    "notes": [
+      "NIST marks ionization energy 2 as interpolated/extrapolated (semi-empirical), not measured."
+    ],
+    "sourceId": "ciaaw-abridged-2024"
+  },
+  {
+    "symbol": "S",
+    "name": "Sulfur",
+    "atomicNumber": 16,
+    "atomicWeight": {
+      "value": 32.06,
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    "electronegativity": {
+      "value": 2.58,
+      "sourceId": "pubchem-ptable"
+    },
+    "configuration": {
+      "value": "1s2 2s2 2p6 3s2 3p4",
+      "sourceId": "nist-asd-ie"
+    },
+    "shells": {
+      "value": [
+        2,
+        8,
+        6
+      ],
+      "sourceId": "nist-asd-ie"
+    },
+    "ionizationEnergiesEv": {
+      "value": [
+        10.3600167,
+        23.33788,
+        34.86
+      ],
+      "sourceId": "nist-asd-ie"
+    },
+    "covalentRadius": {
+      "value": 1.05,
+      "sourceId": "cordero-2008"
+    },
+    "vdwRadius": {
+      "value": 1.8,
+      "sourceId": "mantina-2009"
+    },
+    "ionicRadii": [
+      {
+        "charge": -2,
+        "coordination": 6,
+        "value": 1.84,
+        "sourceId": "shannon-1976"
+      }
+    ],
+    "color": {
+      "value": "#FFFF30",
+      "sourceId": "jmol-pal-source"
+    },
+    "notes": [
+      "NIST marks ionization energy 3 as interpolated/extrapolated (semi-empirical), not measured."
+    ],
+    "sourceId": "ciaaw-abridged-2024"
+  },
+  {
+    "symbol": "Cl",
+    "name": "Chlorine",
+    "atomicNumber": 17,
+    "atomicWeight": {
+      "value": 35.45,
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    "electronegativity": {
+      "value": 3.16,
+      "sourceId": "pubchem-ptable"
+    },
+    "configuration": {
+      "value": "1s2 2s2 2p6 3s2 3p5",
+      "sourceId": "nist-asd-ie"
+    },
+    "shells": {
+      "value": [
+        2,
+        8,
+        7
+      ],
+      "sourceId": "nist-asd-ie"
+    },
+    "ionizationEnergiesEv": {
+      "value": [
+        12.967633,
+        23.81364,
+        39.8
+      ],
+      "sourceId": "nist-asd-ie"
+    },
+    "covalentRadius": {
+      "value": 1.02,
+      "sourceId": "cordero-2008"
+    },
+    "vdwRadius": {
+      "value": 1.75,
+      "sourceId": "mantina-2009"
+    },
+    "ionicRadii": [
+      {
+        "charge": -1,
+        "coordination": 6,
+        "value": 1.81,
+        "sourceId": "shannon-1976"
+      }
+    ],
+    "color": {
+      "value": "#1FF01F",
+      "sourceId": "jmol-pal-source"
+    },
+    "notes": [
+      "NIST marks ionization energy 3 as interpolated/extrapolated (semi-empirical), not measured."
+    ],
+    "sourceId": "ciaaw-abridged-2024"
+  },
+  {
+    "symbol": "Xe",
+    "name": "Xenon",
+    "atomicNumber": 54,
+    "atomicWeight": {
+      "value": 131.29,
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    "electronegativity": {
+      "value": 2.6,
+      "sourceId": "pubchem-ptable"
+    },
+    "configuration": {
+      "value": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6",
+      "sourceId": "nist-asd-ie"
+    },
+    "shells": {
+      "value": [
+        2,
+        8,
+        18,
+        18,
+        8
+      ],
+      "sourceId": "nist-asd-ie"
+    },
+    "ionizationEnergiesEv": {
+      "value": [
+        12.1298437,
+        20.975,
+        31.05
+      ],
+      "sourceId": "nist-asd-ie"
+    },
+    "covalentRadius": {
+      "value": 1.4,
+      "sourceId": "cordero-2008"
+    },
+    "vdwRadius": {
+      "value": 2.16,
+      "sourceId": "mantina-2009"
+    },
+    "ionicRadii": [],
+    "color": {
+      "value": "#429EB0",
+      "sourceId": "jmol-pal-source"
+    },
+    "notes": [
+      "The electronegativity is the value PubChem lists. It is a later estimate, not part of Pauling's original scale, and no primary source was traced.",
+      "NIST marks ionization energy 2, 3 as interpolated/extrapolated (semi-empirical), not measured."
+    ],
+    "sourceId": "ciaaw-abridged-2024"
+  }
+]

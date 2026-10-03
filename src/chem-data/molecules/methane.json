@@ -1,0 +1,200 @@
+{
+  "id": "methane",
+  "name": "Methane",
+  "pubchemCid": 297,
+  "topic": "basics",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "C",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "position2d": [
+        2.5369,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.62758,
+        0.62758,
+        0.62758
+      ],
+      "position2d": [
+        3.0739,
+        0.31
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.62758,
+        -0.62758,
+        -0.62758
+      ],
+      "position2d": [
+        2,
+        -0.31
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.62758,
+        0.62758,
+        -0.62758
+      ],
+      "position2d": [
+        2.2269,
+        0.5369
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.62758,
+        -0.62758,
+        0.62758
+      ],
+      "position2d": [
+        2.8469,
+        -0.5369
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "cited-experimental",
+  "measurements": {
+    "lengths": [
+      {
+        "atoms": [
+          0,
+          1
+        ],
+        "value": 1.087,
+        "sourceId": "cccbdb-methane"
+      },
+      {
+        "atoms": [
+          0,
+          2
+        ],
+        "value": 1.087,
+        "sourceId": "cccbdb-methane"
+      },
+      {
+        "atoms": [
+          0,
+          3
+        ],
+        "value": 1.087,
+        "sourceId": "cccbdb-methane"
+      },
+      {
+        "atoms": [
+          0,
+          4
+        ],
+        "value": 1.087,
+        "sourceId": "cccbdb-methane"
+      }
+    ],
+    "angles": [
+      {
+        "atoms": [
+          1,
+          0,
+          2
+        ],
+        "value": 109.471,
+        "sourceId": "cccbdb-methane"
+      },
+      {
+        "atoms": [
+          1,
+          0,
+          3
+        ],
+        "value": 109.471,
+        "sourceId": "cccbdb-methane"
+      },
+      {
+        "atoms": [
+          1,
+          0,
+          4
+        ],
+        "value": 109.471,
+        "sourceId": "cccbdb-methane"
+      },
+      {
+        "atoms": [
+          2,
+          0,
+          3
+        ],
+        "value": 109.471,
+        "sourceId": "cccbdb-methane"
+      },
+      {
+        "atoms": [
+          2,
+          0,
+          4
+        ],
+        "value": 109.471,
+        "sourceId": "cccbdb-methane"
+      },
+      {
+        "atoms": [
+          3,
+          0,
+          4
+        ],
+        "value": 109.471,
+        "sourceId": "cccbdb-methane"
+      }
+    ],
+    "dihedrals": []
+  },
+  "sourceId": "cccbdb-methane"
+}

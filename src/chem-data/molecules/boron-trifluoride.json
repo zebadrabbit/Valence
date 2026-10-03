@@ -1,0 +1,145 @@
+{
+  "id": "boron-trifluoride",
+  "name": "Boron trifluoride",
+  "pubchemCid": 6356,
+  "topic": "vsepr",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "B",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "position2d": [
+        2.866,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "F",
+      "position": [
+        0,
+        1.307,
+        0
+      ],
+      "position2d": [
+        3.7321,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "F",
+      "position": [
+        -1.131895,
+        -0.6535,
+        0
+      ],
+      "position2d": [
+        2,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "F",
+      "position": [
+        1.131895,
+        -0.6535,
+        0
+      ],
+      "position2d": [
+        2.866,
+        -0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "cited-experimental",
+  "measurements": {
+    "lengths": [
+      {
+        "atoms": [
+          0,
+          1
+        ],
+        "value": 1.307,
+        "sourceId": "cccbdb-boron-trifluoride"
+      },
+      {
+        "atoms": [
+          0,
+          2
+        ],
+        "value": 1.307,
+        "sourceId": "cccbdb-boron-trifluoride"
+      },
+      {
+        "atoms": [
+          0,
+          3
+        ],
+        "value": 1.307,
+        "sourceId": "cccbdb-boron-trifluoride"
+      }
+    ],
+    "angles": [
+      {
+        "atoms": [
+          1,
+          0,
+          2
+        ],
+        "value": 120,
+        "sourceId": "cccbdb-boron-trifluoride"
+      },
+      {
+        "atoms": [
+          1,
+          0,
+          3
+        ],
+        "value": 120,
+        "sourceId": "cccbdb-boron-trifluoride"
+      },
+      {
+        "atoms": [
+          2,
+          0,
+          3
+        ],
+        "value": 120,
+        "sourceId": "cccbdb-boron-trifluoride"
+      }
+    ],
+    "dihedrals": []
+  },
+  "sourceId": "cccbdb-boron-trifluoride"
+}

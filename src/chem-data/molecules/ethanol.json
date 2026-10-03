@@ -1,0 +1,190 @@
+{
+  "id": "ethanol",
+  "name": "Ethanol",
+  "pubchemCid": 702,
+  "topic": "organic",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        -1.1712,
+        0.2997,
+        0
+      ],
+      "position2d": [
+        3.7321,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.0463,
+        -0.5665,
+        0
+      ],
+      "position2d": [
+        2.866,
+        -0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.2175,
+        0.2668,
+        0
+      ],
+      "position2d": [
+        2,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.0958,
+        -1.212,
+        0.8819
+      ],
+      "position2d": [
+        2.4675,
+        -0.7249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.0952,
+        -1.1938,
+        -0.8946
+      ],
+      "position2d": [
+        3.2646,
+        -0.7249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.105,
+        -0.372,
+        -0.0177
+      ],
+      "position2d": [
+        2.31,
+        0.7869
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.2426,
+        0.9307,
+        -0.8704
+      ],
+      "position2d": [
+        1.4631,
+        0.56
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.2616,
+        0.9052,
+        0.8886
+      ],
+      "position2d": [
+        1.69,
+        -0.2869
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.1291,
+        0.8364,
+        0.8099
+      ],
+      "position2d": [
+        4.269,
+        -0.06
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "One conformer of many."
+  ],
+  "sourceId": "pubchem-cid-702"
+}

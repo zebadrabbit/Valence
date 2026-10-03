@@ -1,0 +1,496 @@
+{
+  "id": "beta-d-glucopyranose",
+  "name": "β-D-Glucopyranose",
+  "pubchemCid": 64689,
+  "topic": "biomolecules",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        -0.6679,
+        1.1587,
+        0.257
+      ],
+      "position2d": [
+        4.269,
+        1
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -0.887,
+        -2.4483,
+        -0.3388
+      ],
+      "position2d": [
+        2.5369,
+        -1
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        1.8623,
+        -2.0693,
+        0.4696
+      ],
+      "position2d": [
+        4.269,
+        -2
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        2.8609,
+        0.5414,
+        -0.4619
+      ],
+      "position2d": [
+        6.001,
+        -1
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        1.1222,
+        2.6552,
+        0.2574
+      ],
+      "position2d": [
+        6.001,
+        1
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -3.3742,
+        0.9717,
+        -0.1865
+      ],
+      "position2d": [
+        2.5369,
+        2
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.3727,
+        -1.247,
+        0.23
+      ],
+      "position2d": [
+        3.403,
+        -0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.0856,
+        -1.0709,
+        -0.194
+      ],
+      "position2d": [
+        4.269,
+        -1
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.2211,
+        -0.0621,
+        -0.2375
+      ],
+      "position2d": [
+        3.403,
+        0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.6082,
+        0.3151,
+        0.1839
+      ],
+      "position2d": [
+        5.135,
+        -0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.6388,
+        1.4132,
+        -0.2534
+      ],
+      "position2d": [
+        5.135,
+        0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.655,
+        -0.1577,
+        0.274
+      ],
+      "position2d": [
+        2.5369,
+        1
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.4248,
+        -1.3522,
+        1.3206
+      ],
+      "position2d": [
+        3.403,
+        -1.12
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.2066,
+        -1.2487,
+        -1.2697
+      ],
+      "position2d": [
+        4.8059,
+        -1.31
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.2548,
+        -0.0098,
+        -1.3343
+      ],
+      "position2d": [
+        3.403,
+        1.12
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.7952,
+        0.3598,
+        1.2636
+      ],
+      "position2d": [
+        5.672,
+        -0.19
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.5967,
+        1.5141,
+        -1.344
+      ],
+      "position2d": [
+        5.135,
+        1.12
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.6916,
+        -0.1535,
+        1.3685
+      ],
+      "position2d": [
+        1.9264,
+        1.1077
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.1564,
+        -1.0581,
+        -0.0922
+      ],
+      "position2d": [
+        2.3249,
+        0.4174
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.8514,
+        -2.3615,
+        -1.3066
+      ],
+      "position2d": [
+        2,
+        -0.69
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.4973,
+        -2.9356,
+        0.22
+      ],
+      "position2d": [
+        4.8059,
+        -2.31
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.7165,
+        0.4989,
+        -1.4227
+      ],
+      "position2d": [
+        6.538,
+        -0.69
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.4876,
+        2.5033,
+        1.1448
+      ],
+      "position2d": [
+        6.001,
+        1.62
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.9192,
+        1.7652,
+        0.144
+      ],
+      "position2d": [
+        2,
+        2.31
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 19,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 20,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 21,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 22,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 23,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 14,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 15,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 10,
+      "b": 16,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 11,
+      "b": 17,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 11,
+      "b": 18,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "One conformer of many."
+  ],
+  "sourceId": "pubchem-cid-64689"
+}

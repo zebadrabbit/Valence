@@ -1,0 +1,209 @@
+{
+  "id": "glycine",
+  "name": "Glycine",
+  "pubchemCid": 750,
+  "topic": "biomolecules",
+  "variantGroup": "glycine",
+  "variantLabel": "Neutral",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        -1.6487,
+        0.6571,
+        -0.0104
+      ],
+      "position2d": [
+        2.5369,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -0.4837,
+        -1.2934,
+        -0.0005
+      ],
+      "position2d": [
+        3.403,
+        -0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "N",
+      "position": [
+        1.9006,
+        -0.0812,
+        -0.009
+      ],
+      "position2d": [
+        5.135,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "C",
+      "position": [
+        0.7341,
+        0.7867,
+        0.0079
+      ],
+      "position2d": [
+        4.269,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.5023,
+        -0.0691,
+        0.012
+      ],
+      "position2d": [
+        3.403,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.7326,
+        1.4215,
+        -0.8824
+      ],
+      "position2d": [
+        4.6675,
+        1.225
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.7464,
+        1.4088,
+        0.9069
+      ],
+      "position2d": [
+        3.8705,
+        1.225
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.8743,
+        -0.6844,
+        -0.8301
+      ],
+      "position2d": [
+        5.672,
+        0.56
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.8887,
+        -0.6969,
+        0.8031
+      ],
+      "position2d": [
+        5.135,
+        -0.37
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.4447,
+        0.0839,
+        -0.026
+      ],
+      "position2d": [
+        2,
+        0.44
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 4,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-750"
+}

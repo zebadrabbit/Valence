@@ -1,0 +1,104 @@
+{
+  "id": "sulfur-dioxide",
+  "name": "Sulfur dioxide",
+  "pubchemCid": 1119,
+  "topic": "vsepr",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "S",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "position2d": [
+        2.866,
+        0
+      ],
+      "formalCharge": 1,
+      "lonePairs": 1
+    },
+    {
+      "element": "O",
+      "position": [
+        0,
+        1.237012,
+        -0.721404
+      ],
+      "position2d": [
+        3.7321,
+        0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        0,
+        -1.237012,
+        -0.721404
+      ],
+      "position2d": [
+        2,
+        -0.5
+      ],
+      "formalCharge": -1,
+      "lonePairs": 3
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 2,
+      "aromatic": false,
+      "resonanceNote": "one of two equivalent resonance structures; effective order 1.5"
+    },
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false,
+      "resonanceNote": "one of two equivalent resonance structures; effective order 1.5"
+    }
+  ],
+  "geometrySource": "cited-experimental",
+  "measurements": {
+    "lengths": [
+      {
+        "atoms": [
+          0,
+          1
+        ],
+        "value": 1.432,
+        "sourceId": "cccbdb-sulfur-dioxide"
+      },
+      {
+        "atoms": [
+          0,
+          2
+        ],
+        "value": 1.432,
+        "sourceId": "cccbdb-sulfur-dioxide"
+      }
+    ],
+    "angles": [
+      {
+        "atoms": [
+          1,
+          0,
+          2
+        ],
+        "value": 119.5,
+        "sourceId": "cccbdb-sulfur-dioxide"
+      }
+    ],
+    "dihedrals": []
+  },
+  "notes": [
+    "Drawn in the octet-obeying resonance form (one S=O, one S–O, formal charges +1 on S and −1 on one O), as in OpenStax Chemistry 2e."
+  ],
+  "sourceId": "cccbdb-sulfur-dioxide"
+}
