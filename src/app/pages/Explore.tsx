@@ -1,12 +1,42 @@
+import { Link } from 'react-router'
+import { Formula } from '@/app/explore/Formula'
 import { PageHeader } from '@/app/PageHeader'
+import { libraryGroups } from '@/chem-data/library'
+import { registry } from '@/chem-data/registry'
+
+const groups = libraryGroups(registry.molecules)
 
 export function Explore() {
   return (
     <>
       <PageHeader title="Explore" />
-      <p className="max-w-prose text-muted-foreground">
-        The molecule explorer is not built yet. It will show about 30 molecules in 3D and explain every atom and bond.
+      <p className="mb-6 max-w-prose text-muted-foreground">
+        Choose a molecule to see its structure and select its atoms and bonds.
       </p>
+      <div className="grid gap-6">
+        {groups.map((group) => (
+          <section key={group.id} aria-labelledby={`topic-${group.id}`}>
+            <h2 id={`topic-${group.id}`} className="mb-2 text-lg font-medium">
+              {group.label}
+            </h2>
+            <ul className="grid grid-cols-[repeat(auto-fill,minmax(11rem,1fr))] gap-3">
+              {group.entries.map((molecule) => (
+                <li key={molecule.id}>
+                  <Link
+                    to={`/explore/${molecule.id}`}
+                    className="block h-full rounded-lg border bg-card p-3 outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    <span className="block font-medium">{molecule.name}</span>
+                    <span className="block text-sm text-muted-foreground">
+                      <Formula molecule={molecule} />
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
     </>
   )
 }
