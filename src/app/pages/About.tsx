@@ -1,5 +1,6 @@
 import { PageHeader } from '@/app/PageHeader'
-import { registry } from '@/chem-data/registry'
+// The sources alone: importing the registry here would pull every molecule into the main chunk.
+import sources from '@/chem-data/sources.json'
 
 export function About() {
   return (
@@ -43,19 +44,15 @@ export function About() {
             </a>
             .
           </p>
-          {registry.sources.length === 0 ? (
-            <p className="text-muted-foreground">No chemistry data is bundled yet.</p>
-          ) : (
-            <ul className="list-disc pl-5">
-              {registry.sources.map((source) => (
-                <li key={source.id}>
-                  <a href={source.url} className="underline underline-offset-4" rel="noreferrer">
-                    {source.citation}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          )}
+          <ul className="list-disc pl-5">
+            {sources.map((source) => (
+              <li key={source.id}>
+                <a href={source.url} className="underline underline-offset-4" rel="noreferrer">
+                  {source.citation}
+                </a>
+              </li>
+            ))}
+          </ul>
         </section>
 
         <section aria-labelledby="licence-heading">
