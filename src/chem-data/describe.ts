@@ -6,7 +6,7 @@ import type { Element, Molecule } from './schema'
 // parenthesised formula in a name such as "Oxygen (O₂)" is dropped. The formula
 // is the authored one, written as textbooks write it (NH3, not Hill's H3N).
 
-const BOND_KINDS = ['single', 'double', 'triple', 'aromatic'] as const
+export const BOND_KINDS = ['single', 'double', 'triple', 'aromatic'] as const
 
 const listFormat = new Intl.ListFormat('en', { type: 'conjunction' })
 const counted = (n: number, noun: string) => `${n} ${noun}${n === 1 ? '' : 's'}`

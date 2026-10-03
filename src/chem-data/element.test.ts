@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { evToKjPerMol, valenceElectrons } from './element'
+import { configurationParts, evToKjPerMol, valenceElectrons } from './element'
 import { registry } from './registry'
 
 const element = (symbol: string) => {
@@ -29,5 +29,30 @@ describe('valenceElectrons', () => {
     ['Xe', 8],
   ])('%s has %i', (symbol, expected) => {
     expect(valenceElectrons(element(symbol))).toBe(expected)
+  })
+})
+
+describe('configurationParts', () => {
+  it('splits each subshell from its electron count', () => {
+    expect(configurationParts('1s2 2s2 2p2')).toEqual([
+      { subshell: '1s', electrons: '2' },
+      { subshell: '2s', electrons: '2' },
+      { subshell: '2p', electrons: '2' },
+    ])
+  })
+
+  it('keeps a two-digit count whole', () => {
+    expect(configurationParts(element('Xe').configuration.value).at(2 + 3)).toEqual({ subshell: '3d', electrons: '10' })
+  })
+
+  it('reads every stored configuration, and the counts sum to the atomic number', () => {
+    for (const e of registry.elements) {
+      const total = configurationParts(e.configuration.value).reduce((sum, part) => sum + Number(part.electrons), 0)
+      expect([e.symbol, total]).toEqual([e.symbol, e.atomicNumber])
+    }
+  })
+
+  it('rejects text that is not a configuration', () => {
+    expect(() => configurationParts('[He] 2s2')).toThrow(/unreadable/)
   })
 })

@@ -13,3 +13,12 @@ export function evToKjPerMol(ev: number): number {
 export function valenceElectrons(element: Element): number {
   return element.shells.value.at(-1) ?? 0
 }
+
+/** A stored configuration such as "1s2 2s2 2p2" as subshells with their electron counts, for superscript display. */
+export function configurationParts(configuration: string): { subshell: string; electrons: string }[] {
+  return configuration.split(' ').map((term) => {
+    const match = /^(\d[spdf])(\d+)$/.exec(term)
+    if (!match) throw new Error(`unreadable configuration term "${term}"`)
+    return { subshell: match[1]!, electrons: match[2]! }
+  })
+}
