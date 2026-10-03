@@ -1,0 +1,3965 @@
+[
+  {
+    "id": "water",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "bent",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "H",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "carbon-dioxide",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 4,
+        "geometry": "linear",
+        "hybridization": "sp"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "terminal atom",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "terminal atom",
+        "hybridization": "sp²"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 2,
+        "aromatic": false,
+        "sigmaPi": "1 σ + 1 π"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 2,
+        "aromatic": false,
+        "sigmaPi": "1 σ + 1 π"
+      }
+    ]
+  },
+  {
+    "id": "ammonia",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "N",
+        "formalCharge": 0,
+        "lonePairs": 1,
+        "oxidationState": -3,
+        "geometry": "trigonal pyramidal",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "H",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "methane",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -4,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "oxygen",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": 0,
+        "geometry": "terminal atom",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": 0,
+        "geometry": "terminal atom",
+        "hybridization": "sp²"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "O",
+          "O"
+        ],
+        "order": 2,
+        "aromatic": false,
+        "sigmaPi": "1 σ + 1 π"
+      }
+    ]
+  },
+  {
+    "id": "nitrogen",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "N",
+        "formalCharge": 0,
+        "lonePairs": 1,
+        "oxidationState": 0,
+        "geometry": "terminal atom",
+        "hybridization": "sp"
+      },
+      {
+        "element": "N",
+        "formalCharge": 0,
+        "lonePairs": 1,
+        "oxidationState": 0,
+        "geometry": "terminal atom",
+        "hybridization": "sp"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "N",
+          "N"
+        ],
+        "order": 3,
+        "aromatic": false,
+        "sigmaPi": "1 σ + 2 π"
+      }
+    ]
+  },
+  {
+    "id": "hydrogen-chloride",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "Cl",
+        "formalCharge": 0,
+        "lonePairs": 3,
+        "oxidationState": -1,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "Cl",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "hydrogen-peroxide",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -1,
+        "geometry": "bent",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -1,
+        "geometry": "bent",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "O",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "boron-trifluoride",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "B",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 3,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "F",
+        "formalCharge": 0,
+        "lonePairs": 3,
+        "oxidationState": -1,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      },
+      {
+        "element": "F",
+        "formalCharge": 0,
+        "lonePairs": 3,
+        "oxidationState": -1,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      },
+      {
+        "element": "F",
+        "formalCharge": 0,
+        "lonePairs": 3,
+        "oxidationState": -1,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "B",
+          "F"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "B",
+          "F"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "B",
+          "F"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "sulfur-dioxide",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "S",
+        "formalCharge": 1,
+        "lonePairs": 1,
+        "oxidationState": 4,
+        "geometry": "bent",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "terminal atom",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "O",
+        "formalCharge": -1,
+        "lonePairs": 3,
+        "oxidationState": -2,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "O",
+          "S"
+        ],
+        "order": 2,
+        "aromatic": false,
+        "sigmaPi": "1 σ + 1 π"
+      },
+      {
+        "elements": [
+          "O",
+          "S"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "sulfur-hexafluoride",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "S",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 6,
+        "geometry": "octahedral",
+        "hybridization": "sp³d² (textbook label)"
+      },
+      {
+        "element": "F",
+        "formalCharge": 0,
+        "lonePairs": 3,
+        "oxidationState": -1,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      },
+      {
+        "element": "F",
+        "formalCharge": 0,
+        "lonePairs": 3,
+        "oxidationState": -1,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      },
+      {
+        "element": "F",
+        "formalCharge": 0,
+        "lonePairs": 3,
+        "oxidationState": -1,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      },
+      {
+        "element": "F",
+        "formalCharge": 0,
+        "lonePairs": 3,
+        "oxidationState": -1,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      },
+      {
+        "element": "F",
+        "formalCharge": 0,
+        "lonePairs": 3,
+        "oxidationState": -1,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      },
+      {
+        "element": "F",
+        "formalCharge": 0,
+        "lonePairs": 3,
+        "oxidationState": -1,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "F",
+          "S"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "F",
+          "S"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "F",
+          "S"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "F",
+          "S"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "F",
+          "S"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "F",
+          "S"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "xenon-tetrafluoride",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "Xe",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": 4,
+        "geometry": "square planar",
+        "hybridization": "sp³d² (textbook label)"
+      },
+      {
+        "element": "F",
+        "formalCharge": 0,
+        "lonePairs": 3,
+        "oxidationState": -1,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      },
+      {
+        "element": "F",
+        "formalCharge": 0,
+        "lonePairs": 3,
+        "oxidationState": -1,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      },
+      {
+        "element": "F",
+        "formalCharge": 0,
+        "lonePairs": 3,
+        "oxidationState": -1,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      },
+      {
+        "element": "F",
+        "formalCharge": 0,
+        "lonePairs": 3,
+        "oxidationState": -1,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "F",
+          "Xe"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "F",
+          "Xe"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "F",
+          "Xe"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "F",
+          "Xe"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "phosphorus-pentachloride",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "P",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 5,
+        "geometry": "trigonal bipyramidal",
+        "hybridization": "sp³d (textbook label)"
+      },
+      {
+        "element": "Cl",
+        "formalCharge": 0,
+        "lonePairs": 3,
+        "oxidationState": -1,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      },
+      {
+        "element": "Cl",
+        "formalCharge": 0,
+        "lonePairs": 3,
+        "oxidationState": -1,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      },
+      {
+        "element": "Cl",
+        "formalCharge": 0,
+        "lonePairs": 3,
+        "oxidationState": -1,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      },
+      {
+        "element": "Cl",
+        "formalCharge": 0,
+        "lonePairs": 3,
+        "oxidationState": -1,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      },
+      {
+        "element": "Cl",
+        "formalCharge": 0,
+        "lonePairs": 3,
+        "oxidationState": -1,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "Cl",
+          "P"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "Cl",
+          "P"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "Cl",
+          "P"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "Cl",
+          "P"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "Cl",
+          "P"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "ethane",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -3,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -3,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "ethene",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -2,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -2,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 2,
+        "aromatic": false,
+        "sigmaPi": "1 σ + 1 π"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "ethyne",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -1,
+        "geometry": "linear",
+        "hybridization": "sp"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -1,
+        "geometry": "linear",
+        "hybridization": "sp"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 3,
+        "aromatic": false,
+        "sigmaPi": "1 σ + 2 π"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "ethanol",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -3,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -1,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "bent",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "acetic-acid",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -3,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 3,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "terminal atom",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "bent",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 2,
+        "aromatic": false,
+        "sigmaPi": "1 σ + 1 π"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "acetone",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -3,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 2,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -3,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "terminal atom",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 2,
+        "aromatic": false,
+        "sigmaPi": "1 σ + 1 π"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "formaldehyde",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 0,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "terminal atom",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 2,
+        "aromatic": false,
+        "sigmaPi": "1 σ + 1 π"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "methylamine",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -2,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "N",
+        "formalCharge": 0,
+        "lonePairs": 1,
+        "oxidationState": -3,
+        "geometry": "trigonal pyramidal",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "C",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "ethyl-acetate",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -3,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 3,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "terminal atom",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "bent",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -1,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -3,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 2,
+        "aromatic": false,
+        "sigmaPi": "1 σ + 1 π"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "acetamide",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -3,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 3,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "terminal atom",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "N",
+        "formalCharge": 0,
+        "lonePairs": 1,
+        "oxidationState": -3,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 2,
+        "aromatic": false,
+        "sigmaPi": "1 σ + 1 π"
+      },
+      {
+        "elements": [
+          "C",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "benzene",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -1,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -1,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -1,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -1,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -1,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -1,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 2,
+        "aromatic": true,
+        "sigmaPi": "1 σ + delocalised π (aromatic, effective order 1.5)"
+      },
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 1,
+        "aromatic": true,
+        "sigmaPi": "1 σ + delocalised π (aromatic, effective order 1.5)"
+      },
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 2,
+        "aromatic": true,
+        "sigmaPi": "1 σ + delocalised π (aromatic, effective order 1.5)"
+      },
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 1,
+        "aromatic": true,
+        "sigmaPi": "1 σ + delocalised π (aromatic, effective order 1.5)"
+      },
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 2,
+        "aromatic": true,
+        "sigmaPi": "1 σ + delocalised π (aromatic, effective order 1.5)"
+      },
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 1,
+        "aromatic": true,
+        "sigmaPi": "1 σ + delocalised π (aromatic, effective order 1.5)"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "beta-d-glucopyranose",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 0,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 0,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 0,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 0,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -1,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "bent",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "bent",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "bent",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "bent",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "bent",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "bent",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "glycine",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "N",
+        "formalCharge": 0,
+        "lonePairs": 1,
+        "oxidationState": -3,
+        "geometry": "trigonal pyramidal",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -1,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 3,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "terminal atom",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "bent",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "C",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 2,
+        "aromatic": false,
+        "sigmaPi": "1 σ + 1 π"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "glycine-zwitterion",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "N",
+        "formalCharge": 1,
+        "lonePairs": 0,
+        "oxidationState": -3,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -1,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 3,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "terminal atom",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "O",
+        "formalCharge": -1,
+        "lonePairs": 3,
+        "oxidationState": -2,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "C",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 2,
+        "aromatic": false,
+        "sigmaPi": "1 σ + 1 π"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "alanine",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "N",
+        "formalCharge": 0,
+        "lonePairs": 1,
+        "oxidationState": -3,
+        "geometry": "trigonal pyramidal",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 0,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 3,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -3,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "terminal atom",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "bent",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "C",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 2,
+        "aromatic": false,
+        "sigmaPi": "1 σ + 1 π"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "alanine-zwitterion",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "N",
+        "formalCharge": 1,
+        "lonePairs": 0,
+        "oxidationState": -3,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 0,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 3,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": -3,
+        "geometry": "tetrahedral",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "terminal atom",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "O",
+        "formalCharge": -1,
+        "lonePairs": 3,
+        "oxidationState": -2,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "C",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "C"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 2,
+        "aromatic": false,
+        "sigmaPi": "1 σ + 1 π"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "H"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "urea",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 4,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "terminal atom",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "N",
+        "formalCharge": 0,
+        "lonePairs": 1,
+        "oxidationState": -3,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "N",
+        "formalCharge": 0,
+        "lonePairs": 1,
+        "oxidationState": -3,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 2,
+        "aromatic": false,
+        "sigmaPi": "1 σ + 1 π"
+      },
+      {
+        "elements": [
+          "C",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "N"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "hydronium",
+    "charge": 1,
+    "atoms": [
+      {
+        "element": "O",
+        "formalCharge": 1,
+        "lonePairs": 1,
+        "oxidationState": -2,
+        "geometry": "trigonal pyramidal",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "H",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "bicarbonate",
+    "charge": -1,
+    "atoms": [
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 4,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "terminal atom",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "O",
+        "formalCharge": -1,
+        "lonePairs": 3,
+        "oxidationState": -2,
+        "geometry": "terminal atom",
+        "hybridization": "not assigned (terminal atom)"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "bent",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 2,
+        "aromatic": false,
+        "sigmaPi": "1 σ + 1 π"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  },
+  {
+    "id": "carbonic-acid",
+    "charge": 0,
+    "atoms": [
+      {
+        "element": "C",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 4,
+        "geometry": "trigonal planar",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "terminal atom",
+        "hybridization": "sp²"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "bent",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "O",
+        "formalCharge": 0,
+        "lonePairs": 2,
+        "oxidationState": -2,
+        "geometry": "bent",
+        "hybridization": "sp³"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      },
+      {
+        "element": "H",
+        "formalCharge": 0,
+        "lonePairs": 0,
+        "oxidationState": 1,
+        "geometry": "terminal atom",
+        "hybridization": "none (1s)"
+      }
+    ],
+    "bonds": [
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 2,
+        "aromatic": false,
+        "sigmaPi": "1 σ + 1 π"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "C",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      },
+      {
+        "elements": [
+          "H",
+          "O"
+        ],
+        "order": 1,
+        "aromatic": false,
+        "sigmaPi": "1 σ"
+      }
+    ]
+  }
+]
