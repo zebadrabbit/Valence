@@ -1,0 +1,276 @@
+import { describe, expect, it } from 'vitest'
+import {
+  AROMATIC_ORDER_LABEL,
+  D_ORBITAL_NOTE,
+  HYBRIDIZATION_HYDROGEN,
+  HYBRIDIZATION_NOT_ASSIGNED,
+  ORGANIC_OXYGEN_NOTE,
+  TERMINAL_ATOM,
+  deriveAtoms,
+  deriveBonds,
+} from './derive'
+// The answer key: written by `npm run build:expected` from the hand-written
+// research table, never from derive.ts. See scripts/build-expected-fixture.mjs.
+import expected from './expected-values.fixture.json'
+import { registry } from './registry'
+import type { Molecule } from './schema'
+
+const { elements, molecules } = registry
+
+function molecule(id: string): Molecule {
+  const found = molecules.find((m) => m.id === id)
+  if (!found) throw new Error(`no molecule ${id}`)
+  return found
+}
+
+/** Stored and derived values of every atom, with its bonds, for picking atoms by description. */
+function atomsOf(id: string) {
+  const m = molecule(id)
+  const derived = deriveAtoms(m, elements)
+  return m.atoms.map((atom, i) => ({
+    ...atom,
+    ...derived[i]!,
+    bonds: m.bonds
+      .filter((b) => b.a === i || b.b === i)
+      .map((b) => ({ order: b.order, to: m.atoms[b.a === i ? b.b : b.a]!.element })),
+  }))
+}
+
+const only = <T>(items: T[]): T => {
+  expect(items).toHaveLength(1)
+  return items[0]!
+}
+
+// Compared as sorted lists of strings, so neither atom order nor key order matters.
+const multiset = (tuples: (string | number | boolean)[][]) => tuples.map((t) => t.join(' | ')).sort()
+
+describe('derived values against the expected-values table', () => {
+  it('covers exactly the structures in the registry', () => {
+    expect(expected.map((e) => e.id).sort()).toEqual(molecules.map((m) => m.id).sort())
+  })
+
+  describe.each(expected)('$id', (want) => {
+    const m = molecule(want.id)
+
+    it('has the expected charge', () => {
+      expect(m.charge).toBe(want.charge)
+    })
+
+    it('stores the expected formal charge and lone pairs on every atom', () => {
+      expect(multiset(m.atoms.map((a) => [a.element, a.formalCharge, a.lonePairs])), want.id).toEqual(
+        multiset(want.atoms.map((a) => [a.element, a.formalCharge, a.lonePairs])),
+      )
+    })
+
+    it('derives the expected oxidation state, geometry and hybridization for every atom', () => {
+      const derived = deriveAtoms(m, elements)
+      const got = m.atoms.map((a, i) => {
+        const d = derived[i]!
+        return [a.element, a.formalCharge, a.lonePairs, d.oxidationState, d.geometry, d.hybridization]
+      })
+      expect(multiset(got), want.id).toEqual(
+        multiset(
+          want.atoms.map((a) => [a.element, a.formalCharge, a.lonePairs, a.oxidationState, a.geometry, a.hybridization]),
+        ),
+      )
+    })
+
+    it('derives the expected order and sigma/pi composition for every bond', () => {
+      const derived = deriveBonds(m, elements)
+      const got = m.bonds.map((b, i) => [
+        [m.atoms[b.a]!.element, m.atoms[b.b]!.element].sort().join('-'),
+        b.order,
+        b.aromatic,
+        derived[i]!.sigmaPi,
+      ])
+      expect(multiset(got), want.id).toEqual(
+        multiset(want.bonds.map((b) => [b.elements.join('-'), b.order, b.aromatic, b.sigmaPi])),
+      )
+    })
+
+    it('has oxidation states that sum to the charge', () => {
+      const sum = deriveAtoms(m, elements).reduce((total, a) => total + a.oxidationState, 0)
+      expect(sum).toBe(m.charge)
+    })
+  })
+})
+
+describe('named cases (spec 6.5)', () => {
+  it('H2O2: each oxygen is -1', () => {
+    const oxygens = atomsOf('hydrogen-peroxide').filter((a) => a.element === 'O')
+    expect(oxygens.map((a) => a.oxidationState)).toEqual([-1, -1])
+  })
+
+  it('acetamide: N is sp² and trigonal planar', () => {
+    const n = only(atomsOf('acetamide').filter((a) => a.element === 'N'))
+    expect(n).toMatchObject({ resonanceOverride: true, hybridization: 'sp²', geometry: 'trigonal planar' })
+  })
+
+  it('urea: both N are sp² and trigonal planar', () => {
+    const nitrogens = atomsOf('urea').filter((a) => a.element === 'N')
+    expect(nitrogens).toHaveLength(2)
+    for (const n of nitrogens) {
+      expect(n).toMatchObject({ resonanceOverride: true, hybridization: 'sp²', geometry: 'trigonal planar' })
+    }
+  })
+
+  it('methylamine: an amine N with no neighbouring double bond stays sp³ and trigonal pyramidal', () => {
+    const n = only(atomsOf('methylamine').filter((a) => a.element === 'N'))
+    expect(n).toMatchObject({ resonanceOverride: false, hybridization: 'sp³', geometry: 'trigonal pyramidal' })
+  })
+
+  it('acetic acid: the O-H oxygen is sp³ and bent, with the organic-chemistry note', () => {
+    const oh = only(atomsOf('acetic-acid').filter((a) => a.element === 'O' && a.bondedAtoms === 2))
+    expect(oh).toMatchObject({
+      resonanceOverride: false,
+      hybridization: 'sp³',
+      geometry: 'bent',
+      electronGeometry: 'tetrahedral',
+      hybridizationNote: ORGANIC_OXYGEN_NOTE,
+    })
+  })
+
+  it('ethyl acetate: the ester oxygen is sp³ and bent, with the organic-chemistry note', () => {
+    const ester = only(atomsOf('ethyl-acetate').filter((a) => a.element === 'O' && a.bondedAtoms === 2))
+    expect(ester).toMatchObject({ hybridization: 'sp³', geometry: 'bent', hybridizationNote: ORGANIC_OXYGEN_NOTE })
+  })
+
+  it('ethanol and water: an oxygen with no neighbouring C=O carries no note', () => {
+    for (const id of ['ethanol', 'water']) {
+      const o = only(atomsOf(id).filter((a) => a.element === 'O'))
+      expect(o).toMatchObject({ hybridization: 'sp³', geometry: 'bent' })
+      expect(o.hybridizationNote).toBeUndefined()
+    }
+  })
+
+  it('SF6: a terminal halogen is "not assigned (terminal atom)" with geometry "terminal atom"', () => {
+    const fluorines = atomsOf('sulfur-hexafluoride').filter((a) => a.element === 'F')
+    expect(fluorines).toHaveLength(6)
+    for (const f of fluorines) {
+      expect(f).toMatchObject({
+        hybridization: HYBRIDIZATION_NOT_ASSIGNED,
+        geometry: TERMINAL_ATOM,
+        electronGeometry: null,
+        oxidationState: -1,
+      })
+    }
+  })
+
+  it('bicarbonate: the singly bonded O- is "not assigned (terminal atom)"', () => {
+    const o = only(atomsOf('bicarbonate').filter((a) => a.formalCharge === -1))
+    expect(o).toMatchObject({ element: 'O', hybridization: HYBRIDIZATION_NOT_ASSIGNED, geometry: TERMINAL_ATOM })
+  })
+
+  it('SO2: S is +4, bent, sp², formal charge +1', () => {
+    const s = only(atomsOf('sulfur-dioxide').filter((a) => a.element === 'S'))
+    expect(s).toMatchObject({ oxidationState: 4, geometry: 'bent', hybridization: 'sp²', formalCharge: 1, lonePairs: 1 })
+  })
+
+  it('SF6: S is octahedral, with the d-orbital note', () => {
+    const s = only(atomsOf('sulfur-hexafluoride').filter((a) => a.element === 'S'))
+    expect(s).toMatchObject({
+      geometry: 'octahedral',
+      hybridization: 'sp³d² (textbook label)',
+      hybridizationNote: D_ORBITAL_NOTE,
+      oxidationState: 6,
+    })
+  })
+
+  it('XeF4: Xe is square planar with two lone pairs', () => {
+    const xe = only(atomsOf('xenon-tetrafluoride').filter((a) => a.element === 'Xe'))
+    expect(xe).toMatchObject({
+      geometry: 'square planar',
+      electronGeometry: 'octahedral',
+      lonePairs: 2,
+      hybridization: 'sp³d² (textbook label)',
+    })
+  })
+
+  it('PCl5: P is trigonal bipyramidal', () => {
+    const p = only(atomsOf('phosphorus-pentachloride').filter((a) => a.element === 'P'))
+    expect(p).toMatchObject({
+      geometry: 'trigonal bipyramidal',
+      hybridization: 'sp³d (textbook label)',
+      hybridizationNote: D_ORBITAL_NOTE,
+    })
+  })
+
+  it('benzene: all six ring bonds are aromatic and display order 1.5', () => {
+    const m = molecule('benzene')
+    const derived = deriveBonds(m, elements)
+    const ring = m.bonds.flatMap((b, i) =>
+      m.atoms[b.a]!.element === 'C' && m.atoms[b.b]!.element === 'C' ? [{ ...b, ...derived[i]! }] : [],
+    )
+    expect(ring).toHaveLength(6)
+    for (const bond of ring) {
+      expect(bond).toMatchObject({ aromatic: true, displayOrder: 1.5, orderLabel: AROMATIC_ORDER_LABEL })
+    }
+  })
+
+  it('hydrogen is "none (1s)"', () => {
+    const hydrogens = atomsOf('methane').filter((a) => a.element === 'H')
+    expect(hydrogens.map((h) => h.hybridization)).toEqual(Array(4).fill(HYBRIDIZATION_HYDROGEN))
+  })
+
+  it('acetone: the carbonyl O is sp²', () => {
+    const o = only(atomsOf('acetone').filter((a) => a.element === 'O'))
+    expect(o).toMatchObject({ hybridization: 'sp²', geometry: TERMINAL_ATOM })
+  })
+
+  it('N2: N is sp', () => {
+    expect(atomsOf('nitrogen').map((a) => a.hybridization)).toEqual(['sp', 'sp'])
+  })
+
+  it('O2 and CO2: O is sp²', () => {
+    for (const id of ['oxygen', 'carbon-dioxide']) {
+      const oxygens = atomsOf(id).filter((a) => a.element === 'O')
+      expect(oxygens.map((a) => a.hybridization)).toEqual(['sp²', 'sp²'])
+    }
+  })
+})
+
+describe('deriveBonds', () => {
+  it('gives a non-aromatic bond its stored order and no label', () => {
+    const m = molecule('carbon-dioxide')
+    for (const bond of deriveBonds(m, elements)) {
+      expect(bond).toMatchObject({ displayOrder: 2, sigmaPi: '1 σ + 1 π', electronegativityDifference: 0.89 })
+      expect(bond.orderLabel).toBeUndefined()
+    }
+  })
+
+  it('measures length from the stored coordinates', () => {
+    const lengths = deriveBonds(molecule('water'), elements).map((b) => b.length)
+    expect(lengths[0]).toBeCloseTo(0.958, 3)
+    expect(lengths[1]).toBeCloseTo(0.958, 3)
+  })
+})
+
+describe('deriveAtoms on structures outside the library', () => {
+  const atom = (element: string, lonePairs: number) => ({
+    element,
+    position: [0, 0, 0] as [number, number, number],
+    position2d: [0, 0] as [number, number],
+    formalCharge: 0,
+    lonePairs,
+  })
+  const star = (centre: ReturnType<typeof atom>, ligands: number): Molecule => ({
+    ...molecule('water'),
+    id: 'test',
+    atoms: [centre, ...Array.from({ length: ligands }, () => atom('F', 3))],
+    bonds: Array.from({ length: ligands }, (_, i) => ({ a: 0, b: i + 1, order: 1 as const, aromatic: false })),
+    measurements: undefined,
+  })
+
+  it.each([
+    ['seesaw', 'S', 1, 4],
+    ['T-shaped', 'Cl', 2, 3],
+    ['linear', 'Xe', 3, 2],
+    ['square pyramidal', 'Cl', 1, 5],
+  ])('looks up %s', (geometry, element, lonePairs, ligands) => {
+    expect(deriveAtoms(star(atom(element, lonePairs), ligands), elements)[0]!.geometry).toBe(geometry)
+  })
+
+  it('throws on a steric number and lone-pair combination it does not know', () => {
+    expect(() => deriveAtoms(star(atom('Xe', 0), 7), elements)).toThrow(/test: atom 0 \(Xe\) has no entry for 7/)
+  })
+})
