@@ -6,11 +6,11 @@ Valence recreates common general chemistry bench labs so anyone can perform them
 
 ## Status
 
-Phase 1 of 5 (foundation) is built: the app shell, themes, guest progress storage, and the chemistry-data validator. Phase 2A (chemistry data: elements, 33 molecule structures, molecular orbital diagrams, and the pure functions that derive from them) is built. Phase 2B, the 3D explorer, is next, followed by the labs and the mechanism timeline.
+Phases 1 and 2 of 5 are built. Phase 1 is the foundation: the app shell, themes, guest progress storage, and the chemistry-data validator. Phase 2 is the molecule explorer: 31 molecules in 3D and as Lewis structures, with atom, bond and measurement cards, three valence display levels, and a Ctrl+K search. Phase 3, the titration lab, is next, followed by the aqueous reactions lab and the mechanism timeline.
 
 - [v1 design spec](docs/superpowers/specs/2026-10-03-valence-v1-design.md): what is being built first.
 - [Original design document](Chem%20Lab%20Explorer%20-%20Design%20Document.md): the full vision, including labs planned after v1.
-- [Information for institutional reviewers](docs/for-institutions.md): IT, privacy, and procurement facts.
+- [Information for institutional reviewers](docs/for-institutions.md): IT, privacy, accessibility, procurement, and curriculum facts.
 
 ## Development
 
