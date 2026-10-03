@@ -85,7 +85,14 @@ const MIN_HEAVY_BOND = 1.05
 function checkGeometry(registry: Registry): string[] {
   const errors: string[] = []
   for (const molecule of registry.molecules) {
+    if ((molecule.variantGroup === undefined) !== (molecule.variantLabel === undefined)) {
+      errors.push(`molecule "${molecule.id}": variantGroup and variantLabel must be given together`)
+    }
+    const joined = new Set<string>()
     for (const bond of molecule.bonds) {
+      const pair = `${Math.min(bond.a, bond.b)}-${Math.max(bond.a, bond.b)}`
+      if (joined.has(pair)) errors.push(`molecule "${molecule.id}": duplicate bond ${pair}`)
+      joined.add(pair)
       const a = molecule.atoms[bond.a]
       const b = molecule.atoms[bond.b]
       const label = `molecule "${molecule.id}": bond ${bond.a}-${bond.b}`

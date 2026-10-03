@@ -280,6 +280,26 @@ describe('validateRegistry', () => {
       expect(validateRegistry(r)).toContain('molecule "water": bond 0-9 refers to a missing atom')
     })
 
+    it('rejects a variantGroup without a variantLabel, and the reverse; accepts both or neither', () => {
+      const r = validRegistry()
+      const m = r.molecules[0]!
+      expect(validateRegistry(r)).toEqual([])
+      m.variantGroup = 'water'
+      expect(validateRegistry(r)).toContain('molecule "water": variantGroup and variantLabel must be given together')
+      m.variantLabel = 'Neutral'
+      expect(validateRegistry(r)).toEqual([])
+      delete m.variantGroup
+      expect(validateRegistry(r)).toContain('molecule "water": variantGroup and variantLabel must be given together')
+    })
+
+    it('rejects two bonds joining the same pair of atoms, in either order; accepts distinct bonds', () => {
+      const r = validRegistry()
+      const m = r.molecules[0]!
+      expect(validateRegistry(r).join('\n')).not.toMatch(/duplicate bond/)
+      m.bonds.push({ a: 1, b: 0, order: 1, aromatic: false })
+      expect(validateRegistry(r)).toContain('molecule "water": duplicate bond 0-1')
+    })
+
     it('accepts a linear molecule with every z equal to 0', () => {
       const r = validRegistry()
       r.molecules.push({
