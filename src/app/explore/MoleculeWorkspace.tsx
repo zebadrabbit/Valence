@@ -85,7 +85,15 @@ export function MoleculeWorkspace({ molecule }: { molecule: Molecule }) {
             {/* The measurement is announced with the selection that produced it. */}
             {measurement && ` ${measurementText(measurement, atoms)}`}
           </p>
-          <Button variant="outline" size="sm" className={`mb-3 ${FOCUS_RING}`} disabled={nothingSelected} onClick={() => dispatch({ type: 'clear' })}>
+          {/* Stays focusable when disabled: pressing it disables it, and keyboard focus must not drop to the page. */}
+          <Button
+            variant="outline"
+            size="sm"
+            className={`mb-3 aria-disabled:pointer-events-none aria-disabled:opacity-50 ${FOCUS_RING}`}
+            disabled={nothingSelected}
+            focusableWhenDisabled
+            onClick={() => dispatch({ type: 'clear' })}
+          >
             Clear selection
           </Button>
           <div className="grid gap-3 lg:max-h-[19rem] lg:overflow-y-auto">

@@ -25,7 +25,7 @@ export function Explore() {
                 <li key={molecule.id}>
                   <Link
                     to={`/explore/${molecule.id}`}
-                    className="block h-full rounded-lg border bg-card p-3 outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring"
+                    className="block h-full rounded-lg border bg-card p-3 outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-foreground/60"
                   >
                     <span className="block font-medium">{molecule.name}</span>
                     <span className="block text-sm text-muted-foreground">
