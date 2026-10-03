@@ -1,23 +1,14 @@
 // View maths for the 3D scene, on plain tuples so Vitest runs it in node. The
 // React Three Fiber components pass the results straight to mesh props.
 
-import { cross, distance, dot, sub, type Vec3 } from '@/chem-data/geometry'
+import { add, cross, distance, dot, normalize, scale, sub, type Vec3 } from '@/chem-data/geometry'
 
 /** x, y, z, w: the order THREE.Quaternion.set() and the R3F quaternion prop take. */
 export type Quat = readonly [number, number, number, number]
 
-const add = (a: Vec3, b: Vec3): Vec3 => [a[0] + b[0], a[1] + b[1], a[2] + b[2]]
-const scale = (a: Vec3, k: number): Vec3 => [a[0] * k, a[1] * k, a[2] * k]
-
 /** The point the fraction `t` of the way from a to b. */
 export const lerp = (a: Vec3, b: Vec3, t: number): Vec3 => add(a, scale(sub(b, a), t))
 
-/** Unit vector. Throws on a zero vector: two atoms at one point is a data error. */
-function normalize(a: Vec3): Vec3 {
-  const length = Math.hypot(...a)
-  if (length === 0) throw new Error('cannot normalize a zero vector')
-  return scale(a, 1 / length)
-}
 
 /** The unit vector pointing from a to b. */
 export const direction = (a: Vec3, b: Vec3): Vec3 => normalize(sub(b, a))

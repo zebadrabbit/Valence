@@ -7,6 +7,16 @@ export const cross = (a: Vec3, b: Vec3): Vec3 => [
   a[2] * b[0] - a[0] * b[2],
   a[0] * b[1] - a[1] * b[0],
 ]
+export const add = (a: Vec3, b: Vec3): Vec3 => [a[0] + b[0], a[1] + b[1], a[2] + b[2]]
+export const scale = (a: Vec3, k: number): Vec3 => [a[0] * k, a[1] * k, a[2] * k]
+
+/** Unit vector. Throws on a zero vector: two atoms at one point is a data error. */
+export function normalize(a: Vec3): Vec3 {
+  const length = Math.hypot(...a)
+  if (length === 0) throw new Error('cannot normalize a zero vector')
+  return scale(a, 1 / length)
+}
+
 const DEG = 180 / Math.PI
 
 export function distance(a: Vec3, b: Vec3): number {

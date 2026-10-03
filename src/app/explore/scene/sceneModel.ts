@@ -1,7 +1,7 @@
 // What the 3D scene draws for one molecule in one view, as plain data: sizes
 // and colours from the element table, positions from the structure file.
 
-import { distance, dot, type Vec3 } from '@/chem-data/geometry'
+import { distance, dot, scale, type Vec3 } from '@/chem-data/geometry'
 import type { Element, Molecule } from '@/chem-data/schema'
 import { hybridLobes } from '@/chem-data/hybrid'
 import { lonePairDirections } from '@/chem-data/lonePairs'
@@ -48,7 +48,6 @@ export const LOBE_WIDTH = 0.34
 /** The dark edge drawn round every shape, as a fraction of the scene radius (about 2 px on screen). */
 const OUTLINE_FRACTION = 0.012
 
-const scale = (v: Vec3, k: number): Vec3 => [v[0] * k, v[1] * k, v[2] * k]
 
 /** Positions are in the viewing frame: origin at the centroid, x along the molecule's longest spread. */
 export type SceneAtom = { position: Vec3; radius: number; pickRadius: number; color: string }

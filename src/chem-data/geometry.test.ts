@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { angleDeg, dihedralDeg, distance, type Vec3 } from './geometry'
+import { add, angleDeg, dihedralDeg, distance, normalize, scale, type Vec3 } from './geometry'
 
 const origin: Vec3 = [0, 0, 0]
 
@@ -54,5 +54,18 @@ describe('dihedralDeg', () => {
     expect(dihedralDeg(h1, o1, o2, h2)).toBeCloseTo(119.8, 1)
     expect(angleDeg(h1, o1, o2)).toBeCloseTo(94.8, 1)
     expect(distance(o1, o2)).toBeCloseTo(1.475, 3)
+  })
+})
+
+describe('add, scale and normalize', () => {
+  it('adds and scales by component', () => {
+    expect(add([1, 2, 3], [4, 5, 6])).toEqual([5, 7, 9])
+    expect(scale([1, -2, 3], 2)).toEqual([2, -4, 6])
+  })
+
+  it('normalizes to length 1 and refuses a zero vector', () => {
+    expect(normalize([0, 0, 5])).toEqual([0, 0, 1])
+    expect(Math.hypot(...normalize([3, -2, 4]))).toBeCloseTo(1)
+    expect(() => normalize([0, 0, 0])).toThrow(/zero vector/)
   })
 })

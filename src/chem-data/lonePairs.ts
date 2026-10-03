@@ -1,5 +1,5 @@
 import { ELECTRON_GEOMETRY, deriveAtoms } from './derive'
-import { cross, dot, sub, type Vec3 } from './geometry'
+import { add, cross, dot, normalize as unit, scale, sub, type Vec3 } from './geometry'
 import type { Element, Molecule } from './schema'
 
 // Where to draw an atom's lone pairs (spec 6.4): unit vectors from the atom,
@@ -17,9 +17,6 @@ const AXES: readonly Vec3[] = [
   [0, 0, 1],
 ]
 
-const scale = (v: Vec3, k: number): Vec3 => [v[0] * k, v[1] * k, v[2] * k]
-const add = (a: Vec3, b: Vec3): Vec3 => [a[0] + b[0], a[1] + b[1], a[2] + b[2]]
-const unit = (v: Vec3): Vec3 => scale(v, 1 / Math.hypot(...v))
 /** The part of v at right angles to the unit vector axis. */
 const across = (v: Vec3, axis: Vec3): Vec3 => sub(v, scale(axis, dot(v, axis)))
 /** The unit vector at `polar` radians from axis, turned `azimuth` radians about it from side. */
