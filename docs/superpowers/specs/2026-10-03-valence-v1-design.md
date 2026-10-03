@@ -28,6 +28,7 @@ Success for v1: a learner with no account can open the site, complete both labs 
 | RDKit.js | In the browser | Not in the browser | It exposes no per-atom hybridization, oxidation state, or VSEPR; a fixed library needs none of it at runtime |
 | Accounts | Supabase schema in phase 1, accounts in phase 5 | Deferred; guest-only | Nothing to sync until labs exist. A self-hosted Supabase already runs on the dev server when wanted |
 | Repo | Monorepo, six packages | One Vite app with folders | One consumer in v1 |
+| UI primitives | shadcn/ui on Radix | shadcn/ui on Base UI | Base UI is the current shadcn/ui default; the project follows current tool defaults |
 | Web Workers | Simulation in workers | Main thread | The models are microseconds of arithmetic |
 | Titration noise | Technique errors only | Technique errors plus small seeded glassware variation | Otherwise three good trials are identical and relative deviation teaches nothing |
 
