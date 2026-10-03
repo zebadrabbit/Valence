@@ -2,9 +2,12 @@ import { useId, useReducer, useState } from 'react'
 import { Check, Eye, EyeOff } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { atomNames, bondNames, describeMolecule } from '@/chem-data/describe'
+import { measure } from '@/chem-data/measure'
 import { registry } from '@/chem-data/registry'
 import type { Molecule } from '@/chem-data/schema'
 import { FOCUS_RING } from './focusRing'
+import { measurementText } from './format'
+import { Inspector } from './Inspector'
 import { EMPTY_SELECTION, selectionReducer, selectionStatus } from './selection'
 import { ViewerPanel } from './ViewerPanel'
 
@@ -20,6 +23,7 @@ export function MoleculeWorkspace({ molecule }: { molecule: Molecule }) {
   const atoms = atomNames(molecule, registry.elements)
   const bonds = bondNames(molecule, registry.elements)
   const description = describeMolecule(molecule, registry.elements)
+  const measurement = measure(molecule, selection.atoms)
   const nothingSelected = selection.atoms.length === 0 && selection.bond === null
 
   return (
@@ -48,6 +52,8 @@ export function MoleculeWorkspace({ molecule }: { molecule: Molecule }) {
         <section id={listId} hidden={!showList} aria-label="Atoms and bonds" className="shrink-0 rounded-lg border bg-card p-3 lg:w-64">
           <p role="status" className="mb-2 text-sm">
             {selectionStatus(selection, atoms, bonds)}
+            {/* The measurement is announced with the selection that produced it. */}
+            {measurement && ` ${measurementText(measurement, atoms)}`}
           </p>
           <Button variant="outline" size="sm" className={`mb-3 ${FOCUS_RING}`} disabled={nothingSelected} onClick={() => dispatch({ type: 'clear' })}>
             Clear selection
@@ -68,13 +74,8 @@ export function MoleculeWorkspace({ molecule }: { molecule: Molecule }) {
           </div>
         </section>
 
-        <aside id={inspectorId} hidden={!showInspector} aria-label="Inspector" className="grid shrink-0 gap-3 lg:w-64">
-          <PlaceholderCard heading="Atom or bond">
-            Select an atom or a bond to see its details here. The detail cards are not built yet.
-          </PlaceholderCard>
-          <PlaceholderCard heading="Measure">
-            Select three atoms for a bond angle, or four for a dihedral. The measure tool is not built yet.
-          </PlaceholderCard>
+        <aside id={inspectorId} hidden={!showInspector} aria-label="Inspector" className="grid min-w-0 shrink-0 gap-3 lg:w-72">
+          <Inspector molecule={molecule} selection={selection} atomNames={atoms} />
         </aside>
       </div>
     </>
@@ -115,14 +116,5 @@ function ToggleList(props: { heading: string; names: readonly string[]; pressed(
         })}
       </ul>
     </div>
-  )
-}
-
-function PlaceholderCard({ heading, children }: { heading: string; children: string }) {
-  return (
-    <section className="rounded-lg border bg-card p-3">
-      <h2 className="mb-1 text-sm font-medium">{heading}</h2>
-      <p className="text-sm text-muted-foreground">{children}</p>
-    </section>
   )
 }
