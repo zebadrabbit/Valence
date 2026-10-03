@@ -1,6 +1,7 @@
 {
   "id": "ethene",
   "name": "Ethene",
+  "formula": "C2H4",
   "pubchemCid": 6325,
   "topic": "organic",
   "charge": 0,

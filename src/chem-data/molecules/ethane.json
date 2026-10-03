@@ -1,6 +1,7 @@
 {
   "id": "ethane",
   "name": "Ethane",
+  "formula": "C2H6",
   "pubchemCid": 6324,
   "topic": "organic",
   "charge": 0,

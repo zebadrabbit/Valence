@@ -1,6 +1,7 @@
 {
   "id": "acetone",
   "name": "Acetone",
+  "formula": "C3H6O",
   "pubchemCid": 180,
   "topic": "organic",
   "charge": 0,

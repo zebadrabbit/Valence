@@ -1,6 +1,7 @@
 {
   "id": "sulfur-dioxide",
   "name": "Sulfur dioxide",
+  "formula": "SO2",
   "pubchemCid": 1119,
   "topic": "vsepr",
   "charge": 0,

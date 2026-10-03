@@ -151,6 +151,8 @@ const measurementsSchema = z.strictObject({
 export const moleculeSchema = z.strictObject({
   id,
   name: text,
+  /** Authored, as a textbook writes it, in plain digits and without the charge: "NH3". */
+  formula: text,
   pubchemCid: z.number().int().positive(),
   topic: z.enum(['basics', 'vsepr', 'organic', 'biomolecules', 'mechanism']),
   variantGroup: id.optional(),

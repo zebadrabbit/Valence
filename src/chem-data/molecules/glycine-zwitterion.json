@@ -1,6 +1,7 @@
 {
   "id": "glycine-zwitterion",
   "name": "Glycine",
+  "formula": "C2H5NO2",
   "pubchemCid": 5257127,
   "topic": "biomolecules",
   "variantGroup": "glycine",

@@ -1,6 +1,7 @@
 {
   "id": "alanine-zwitterion",
   "name": "L-Alanine",
+  "formula": "C3H7NO2",
   "pubchemCid": 7311724,
   "topic": "biomolecules",
   "variantGroup": "alanine",

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { describeMolecule, hillFormula } from './describe'
+import { describeMolecule } from './describe'
 import { registry } from './registry'
 import type { Molecule } from './schema'
 
@@ -37,7 +37,7 @@ describe('describeMolecule', () => {
 
   it('states the charge of an ion and describes a molecule with no central atom', () => {
     expect(describeById('hydronium')).toMatch(/^Hydronium ion, formula H3O with a charge of plus 1\. /)
-    expect(describeById('bicarbonate')).toMatch(/, formula CHO3 with a charge of minus 1\. /)
+    expect(describeById('bicarbonate')).toMatch(/, formula HCO3 with a charge of minus 1\. /)
     expect(describeById('oxygen')).toBe('Oxygen, formula O2. It has 2 atoms, joined by 1 double bond.')
   })
 
@@ -49,17 +49,29 @@ describe('describeMolecule', () => {
   })
 })
 
-describe('hillFormula', () => {
+describe('the formula in a description', () => {
   it.each([
     ['ethanol', 'C2H6O'],
     ['acetamide', 'C2H5NO'],
     ['beta-d-glucopyranose', 'C6H12O6'],
     ['carbon-dioxide', 'CO2'],
-    // No carbon: strictly alphabetical, so hydrogen is not first.
-    ['hydrogen-chloride', 'ClH'],
-    ['ammonia', 'H3N'],
-    ['xenon-tetrafluoride', 'F4Xe'],
+    // As textbooks write them, not in Hill order (ClH, H3N, F4Xe).
+    ['hydrogen-chloride', 'HCl'],
+    ['ammonia', 'NH3'],
+    ['xenon-tetrafluoride', 'XeF4'],
+    ['sulfur-hexafluoride', 'SF6'],
+    ['phosphorus-pentachloride', 'PCl5'],
+    ['carbonic-acid', 'H2CO3'],
   ])('writes %s as %s', (id, formula) => {
-    expect(hillFormula(moleculeOf(id))).toBe(formula)
+    expect(describeById(id)).toContain(`, formula ${formula}. `)
+  })
+
+  it('has the same element counts as the atom list for every molecule', () => {
+    for (const molecule of registry.molecules) {
+      const written = [...molecule.formula.matchAll(/([A-Z][a-z]?)(\d*)/g)].flatMap(([, symbol, count]) =>
+        Array<string>(Number(count || 1)).fill(symbol!),
+      )
+      expect(written.sort(), molecule.id).toEqual(molecule.atoms.map((a) => a.element).sort())
+    }
   })
 })

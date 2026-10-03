@@ -1,6 +1,7 @@
 {
   "id": "ethyl-acetate",
   "name": "Ethyl acetate",
+  "formula": "C4H8O2",
   "pubchemCid": 8857,
   "topic": "organic",
   "charge": 0,

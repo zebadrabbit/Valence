@@ -1,6 +1,7 @@
 {
   "id": "hydronium",
   "name": "Hydronium ion",
+  "formula": "H3O",
   "pubchemCid": 123332,
   "topic": "mechanism",
   "charge": 1,

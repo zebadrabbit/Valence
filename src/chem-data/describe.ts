@@ -2,7 +2,8 @@ import { deriveAtoms } from './derive'
 import type { Element, Molecule } from './schema'
 
 // Plain text for screen readers (spec 11): no symbols a reader might skip, so
-// a charge is written "plus 1" and a formula uses ordinary digits.
+// a charge is written "plus 1" and a formula uses ordinary digits. The formula
+// is the authored one, written as textbooks write it (NH3, not Hill's H3N).
 
 const BOND_KINDS = ['single', 'double', 'triple', 'aromatic'] as const
 
@@ -10,23 +11,9 @@ const listFormat = new Intl.ListFormat('en', { type: 'conjunction' })
 const counted = (n: number, noun: string) => `${n} ${noun}${n === 1 ? '' : 's'}`
 const signed = (charge: number) => `${charge > 0 ? 'plus' : 'minus'} ${Math.abs(charge)}`
 
-/** Hill order: carbon, then hydrogen, then the rest alphabetically; all alphabetical when there is no carbon. */
-function hillOrder(symbols: readonly string[]): string[] {
-  const sorted = [...new Set(symbols)].sort()
-  if (!sorted.includes('C')) return sorted
-  return [...['C', 'H'].filter((s) => sorted.includes(s)), ...sorted.filter((s) => s !== 'C' && s !== 'H')]
-}
-
-/** Each distinct symbol with its count, in Hill order. */
+/** Each distinct symbol with its count, alphabetically. */
 function tally(symbols: readonly string[]): [symbol: string, count: number][] {
-  return hillOrder(symbols).map((symbol) => [symbol, symbols.filter((s) => s === symbol).length])
-}
-
-/** The molecular formula in Hill order, without the charge: "C2H5NO2". */
-export function hillFormula(molecule: Molecule): string {
-  return tally(molecule.atoms.map((a) => a.element))
-    .map(([symbol, count]) => (count === 1 ? symbol : `${symbol}${count}`))
-    .join('')
+  return [...new Set(symbols)].sort().map((symbol) => [symbol, symbols.filter((s) => s === symbol).length])
 }
 
 /**
@@ -46,7 +33,7 @@ export function describeMolecule(molecule: Molecule, elements: readonly Element[
 
   const variant = molecule.variantLabel ? ` (${molecule.variantLabel.toLowerCase()})` : ''
   const charge = molecule.charge === 0 ? '' : ` with a charge of ${signed(molecule.charge)}`
-  const sentences = [`${molecule.name}${variant}, formula ${hillFormula(molecule)}${charge}.`]
+  const sentences = [`${molecule.name}${variant}, formula ${molecule.formula}${charge}.`]
 
   const kinds = BOND_KINDS.flatMap((kind, i) => {
     const count = bonds.filter((b) => (b.aromatic ? kind === 'aromatic' : b.order === i + 1)).length

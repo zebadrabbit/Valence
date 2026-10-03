@@ -1,6 +1,7 @@
 {
   "id": "formaldehyde",
   "name": "Formaldehyde",
+  "formula": "CH2O",
   "pubchemCid": 712,
   "topic": "organic",
   "charge": 0,

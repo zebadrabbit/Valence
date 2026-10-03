@@ -1,6 +1,7 @@
 {
   "id": "hydrogen-peroxide",
   "name": "Hydrogen peroxide",
+  "formula": "H2O2",
   "pubchemCid": 784,
   "topic": "basics",
   "charge": 0,

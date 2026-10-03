@@ -1,6 +1,7 @@
 {
   "id": "beta-d-glucopyranose",
   "name": "β-D-Glucopyranose",
+  "formula": "C6H12O6",
   "pubchemCid": 64689,
   "topic": "biomolecules",
   "charge": 0,

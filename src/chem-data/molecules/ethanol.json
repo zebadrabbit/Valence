@@ -1,6 +1,7 @@
 {
   "id": "ethanol",
   "name": "Ethanol",
+  "formula": "C2H6O",
   "pubchemCid": 702,
   "topic": "organic",
   "charge": 0,

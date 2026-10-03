@@ -1,6 +1,7 @@
 {
   "id": "urea",
   "name": "Urea",
+  "formula": "CH4N2O",
   "pubchemCid": 1176,
   "topic": "biomolecules",
   "charge": 0,

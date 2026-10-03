@@ -1,6 +1,7 @@
 {
   "id": "acetic-acid",
   "name": "Acetic acid",
+  "formula": "C2H4O2",
   "pubchemCid": 176,
   "topic": "organic",
   "charge": 0,

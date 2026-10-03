@@ -30,41 +30,43 @@ const toJson = (value) => JSON.stringify(value, null, 2) + '\n'
 // Authored tables. These are authored structure and display text, which the
 // spec exempts from citation.
 
-// id, PubChem CID, display name, topic. The order here is the library order.
+// id, PubChem CID, display name, formula, topic. The order here is the library order.
+// The formula is written the way general chemistry texts write it, in plain
+// digits and without the charge; the build checks it against the atom list.
 const LIBRARY = [
-  ['water', 962, 'Water', 'basics'],
-  ['carbon-dioxide', 280, 'Carbon dioxide', 'basics'],
-  ['ammonia', 222, 'Ammonia', 'basics'],
-  ['methane', 297, 'Methane', 'basics'],
-  ['oxygen', 977, 'Oxygen', 'basics'],
-  ['nitrogen', 947, 'Nitrogen', 'basics'],
-  ['hydrogen-chloride', 313, 'Hydrogen chloride', 'basics'],
-  ['hydrogen-peroxide', 784, 'Hydrogen peroxide', 'basics'],
-  ['boron-trifluoride', 6356, 'Boron trifluoride', 'vsepr'],
-  ['sulfur-dioxide', 1119, 'Sulfur dioxide', 'vsepr'],
-  ['sulfur-hexafluoride', 17358, 'Sulfur hexafluoride', 'vsepr'],
-  ['xenon-tetrafluoride', 123324, 'Xenon tetrafluoride', 'vsepr'],
-  ['phosphorus-pentachloride', 24819, 'Phosphorus pentachloride', 'vsepr'],
-  ['ethane', 6324, 'Ethane', 'organic'],
-  ['ethene', 6325, 'Ethene', 'organic'],
-  ['ethyne', 6326, 'Ethyne', 'organic'],
-  ['ethanol', 702, 'Ethanol', 'organic'],
-  ['acetic-acid', 176, 'Acetic acid', 'organic'],
-  ['acetone', 180, 'Acetone', 'organic'],
-  ['formaldehyde', 712, 'Formaldehyde', 'organic'],
-  ['methylamine', 6329, 'Methylamine', 'organic'],
-  ['ethyl-acetate', 8857, 'Ethyl acetate', 'organic'],
-  ['acetamide', 178, 'Acetamide', 'organic'],
-  ['benzene', 241, 'Benzene', 'organic'],
-  ['beta-d-glucopyranose', 64689, 'β-D-Glucopyranose', 'biomolecules'],
-  ['glycine', 750, 'Glycine', 'biomolecules'],
-  ['glycine-zwitterion', 5257127, 'Glycine', 'biomolecules'],
-  ['alanine', 5950, 'L-Alanine', 'biomolecules'],
-  ['alanine-zwitterion', 7311724, 'L-Alanine', 'biomolecules'],
-  ['urea', 1176, 'Urea', 'biomolecules'],
-  ['hydronium', 123332, 'Hydronium ion', 'mechanism'],
-  ['bicarbonate', 769, 'Hydrogen carbonate ion (bicarbonate)', 'mechanism'],
-  ['carbonic-acid', 767, 'Carbonic acid', 'mechanism'],
+  ['water', 962, 'Water', 'H2O', 'basics'],
+  ['carbon-dioxide', 280, 'Carbon dioxide', 'CO2', 'basics'],
+  ['ammonia', 222, 'Ammonia', 'NH3', 'basics'],
+  ['methane', 297, 'Methane', 'CH4', 'basics'],
+  ['oxygen', 977, 'Oxygen', 'O2', 'basics'],
+  ['nitrogen', 947, 'Nitrogen', 'N2', 'basics'],
+  ['hydrogen-chloride', 313, 'Hydrogen chloride', 'HCl', 'basics'],
+  ['hydrogen-peroxide', 784, 'Hydrogen peroxide', 'H2O2', 'basics'],
+  ['boron-trifluoride', 6356, 'Boron trifluoride', 'BF3', 'vsepr'],
+  ['sulfur-dioxide', 1119, 'Sulfur dioxide', 'SO2', 'vsepr'],
+  ['sulfur-hexafluoride', 17358, 'Sulfur hexafluoride', 'SF6', 'vsepr'],
+  ['xenon-tetrafluoride', 123324, 'Xenon tetrafluoride', 'XeF4', 'vsepr'],
+  ['phosphorus-pentachloride', 24819, 'Phosphorus pentachloride', 'PCl5', 'vsepr'],
+  ['ethane', 6324, 'Ethane', 'C2H6', 'organic'],
+  ['ethene', 6325, 'Ethene', 'C2H4', 'organic'],
+  ['ethyne', 6326, 'Ethyne', 'C2H2', 'organic'],
+  ['ethanol', 702, 'Ethanol', 'C2H6O', 'organic'],
+  ['acetic-acid', 176, 'Acetic acid', 'C2H4O2', 'organic'],
+  ['acetone', 180, 'Acetone', 'C3H6O', 'organic'],
+  ['formaldehyde', 712, 'Formaldehyde', 'CH2O', 'organic'],
+  ['methylamine', 6329, 'Methylamine', 'CH5N', 'organic'],
+  ['ethyl-acetate', 8857, 'Ethyl acetate', 'C4H8O2', 'organic'],
+  ['acetamide', 178, 'Acetamide', 'C2H5NO', 'organic'],
+  ['benzene', 241, 'Benzene', 'C6H6', 'organic'],
+  ['beta-d-glucopyranose', 64689, 'β-D-Glucopyranose', 'C6H12O6', 'biomolecules'],
+  ['glycine', 750, 'Glycine', 'C2H5NO2', 'biomolecules'],
+  ['glycine-zwitterion', 5257127, 'Glycine', 'C2H5NO2', 'biomolecules'],
+  ['alanine', 5950, 'L-Alanine', 'C3H7NO2', 'biomolecules'],
+  ['alanine-zwitterion', 7311724, 'L-Alanine', 'C3H7NO2', 'biomolecules'],
+  ['urea', 1176, 'Urea', 'CH4N2O', 'biomolecules'],
+  ['hydronium', 123332, 'Hydronium ion', 'H3O', 'mechanism'],
+  ['bicarbonate', 769, 'Hydrogen carbonate ion (bicarbonate)', 'HCO3', 'mechanism'],
+  ['carbonic-acid', 767, 'Carbonic acid', 'H2CO3', 'mechanism'],
 ]
 
 // The Basics and VSEPR groups use cited experimental geometry; the rest use PubChem 3D.
@@ -342,7 +344,7 @@ function pubchemSource(cid, entry, pattern) {
   }
 }
 
-/** A canonical, order-free summary of a structure, for comparing with the hand-written expected table. */
+/** A canonical, order-free summary of a structure, for comparing with the research table. */
 function summary(atoms, bonds, elementOf) {
   return [
     ...atoms.map((a) => `atom ${a.element} charge ${a.formalCharge} lone pairs ${a.lonePairs}`),
@@ -365,7 +367,7 @@ function buildMolecules(elements) {
   if (LIBRARY.map(([id]) => id).sort().join() !== expectedIds) fail('the library table and expected.json list different ids')
 
   const sources = []
-  const molecules = LIBRARY.map(([id, cid, name, topic]) => {
+  const molecules = LIBRARY.map(([id, cid, name, formula, topic]) => {
     const entry = pubchem.entries.find((e) => e.cid === cid) ?? fail(`${id}: no pubchem.json entry for CID ${cid}`)
     const drawing = readSdf(entry.id, '2d')
     const isExperimental = EXPERIMENTAL_TOPICS.has(topic)
@@ -417,6 +419,11 @@ function buildMolecules(elements) {
       fail(`${id}: expected ${AROMATIC_RING[id]} aromatic bonds`)
     }
 
+    const written = [...formula.matchAll(/([A-Z][a-z]?)(\d*)/g)].flatMap(([, element, count]) => Array(Number(count || 1)).fill(element))
+    if (written.sort().join() !== atoms.map((a) => a.element).sort().join()) {
+      fail(`${id}: the formula ${formula} does not match the atom list`)
+    }
+
     const charge = atoms.reduce((sum, a) => sum + a.formalCharge, 0)
     const table = expected.find((m) => m.id === id)
     const element = (label) => label.replace(/\d+$/, '')
@@ -433,6 +440,7 @@ function buildMolecules(elements) {
     return {
       id,
       name,
+      formula,
       pubchemCid: cid,
       topic,
       ...(variant ? { variantGroup: variant[0], variantLabel: variant[1] } : {}),

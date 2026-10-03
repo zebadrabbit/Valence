@@ -1,6 +1,7 @@
 {
   "id": "water",
   "name": "Water",
+  "formula": "H2O",
   "pubchemCid": 962,
   "topic": "basics",
   "charge": 0,

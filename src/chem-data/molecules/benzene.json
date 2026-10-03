@@ -1,6 +1,7 @@
 {
   "id": "benzene",
   "name": "Benzene",
+  "formula": "C6H6",
   "pubchemCid": 241,
   "topic": "organic",
   "charge": 0,

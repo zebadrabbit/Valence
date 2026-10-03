@@ -29,6 +29,7 @@ function hydrogenPeroxide() {
   const molecule = {
     id: 'h2o2',
     name: 'Hydrogen peroxide',
+    formula: 'H2O2',
     pubchemCid: 784,
     topic: 'basics',
     charge: 0,
@@ -58,6 +59,7 @@ function validRegistry() {
   const water = {
     id: 'water',
     name: 'Water',
+    formula: 'H2O',
     pubchemCid: 962,
     topic: 'basics',
     charge: 0,
@@ -279,6 +281,7 @@ describe('validateRegistry', () => {
       r.molecules.push({
         id: 'co2',
         name: 'Carbon dioxide',
+        formula: 'CO2',
         pubchemCid: 280,
         topic: 'basics',
         charge: 0,

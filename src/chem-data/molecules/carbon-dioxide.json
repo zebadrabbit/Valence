@@ -1,6 +1,7 @@
 {
   "id": "carbon-dioxide",
   "name": "Carbon dioxide",
+  "formula": "CO2",
   "pubchemCid": 280,
   "topic": "basics",
   "charge": 0,

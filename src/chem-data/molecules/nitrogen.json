@@ -1,6 +1,7 @@
 {
   "id": "nitrogen",
   "name": "Nitrogen",
+  "formula": "N2",
   "pubchemCid": 947,
   "topic": "basics",
   "charge": 0,

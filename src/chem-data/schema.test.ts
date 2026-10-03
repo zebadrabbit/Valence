@@ -102,6 +102,7 @@ describe('moleculeSchema', () => {
   const molecule = {
     id: 'h2',
     name: 'Hydrogen',
+    formula: 'H2',
     pubchemCid: 783,
     topic: 'basics',
     charge: 0,
@@ -137,6 +138,7 @@ describe('moleculeSchema', () => {
     const molecule = {
       id: 'h2',
       name: 'Hydrogen',
+      formula: 'H2',
       pubchemCid: 783,
       topic: 'basics',
       charge: 0,

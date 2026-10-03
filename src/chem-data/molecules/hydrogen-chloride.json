@@ -1,6 +1,7 @@
 {
   "id": "hydrogen-chloride",
   "name": "Hydrogen chloride",
+  "formula": "HCl",
   "pubchemCid": 313,
   "topic": "basics",
   "charge": 0,

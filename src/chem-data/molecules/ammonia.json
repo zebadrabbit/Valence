@@ -1,6 +1,7 @@
 {
   "id": "ammonia",
   "name": "Ammonia",
+  "formula": "NH3",
   "pubchemCid": 222,
   "topic": "basics",
   "charge": 0,

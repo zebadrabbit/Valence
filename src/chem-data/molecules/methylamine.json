@@ -1,6 +1,7 @@
 {
   "id": "methylamine",
   "name": "Methylamine",
+  "formula": "CH5N",
   "pubchemCid": 6329,
   "topic": "organic",
   "charge": 0,

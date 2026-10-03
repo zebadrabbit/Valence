@@ -1,6 +1,7 @@
 {
   "id": "methane",
   "name": "Methane",
+  "formula": "CH4",
   "pubchemCid": 297,
   "topic": "basics",
   "charge": 0,

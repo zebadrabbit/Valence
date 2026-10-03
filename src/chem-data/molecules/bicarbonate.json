@@ -1,6 +1,7 @@
 {
   "id": "bicarbonate",
   "name": "Hydrogen carbonate ion (bicarbonate)",
+  "formula": "HCO3",
   "pubchemCid": 769,
   "topic": "mechanism",
   "charge": -1,

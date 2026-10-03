@@ -1,6 +1,7 @@
 {
   "id": "alanine",
   "name": "L-Alanine",
+  "formula": "C3H7NO2",
   "pubchemCid": 5950,
   "topic": "biomolecules",
   "variantGroup": "alanine",

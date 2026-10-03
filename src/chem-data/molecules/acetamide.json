@@ -1,6 +1,7 @@
 {
   "id": "acetamide",
   "name": "Acetamide",
+  "formula": "C2H5NO",
   "pubchemCid": 178,
   "topic": "organic",
   "charge": 0,

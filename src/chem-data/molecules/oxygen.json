@@ -1,6 +1,7 @@
 {
   "id": "oxygen",
   "name": "Oxygen",
+  "formula": "O2",
   "pubchemCid": 977,
   "topic": "basics",
   "charge": 0,

@@ -1,6 +1,7 @@
 {
   "id": "carbonic-acid",
   "name": "Carbonic acid",
+  "formula": "H2CO3",
   "pubchemCid": 767,
   "topic": "mechanism",
   "charge": 0,
