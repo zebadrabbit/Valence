@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { angleDeg } from './geometry'
 import { formulaElements } from './formula'
 import { registry } from './registry'
 import { validateRegistry } from './validate'
@@ -103,6 +104,18 @@ describe('the real chem-data registry', () => {
       'CH3COOC2H5',
       'NH2CH2COOH',
     ])
+  })
+
+  it('draws sulfur dioxide bent and carbon dioxide straight in 2D', () => {
+    const angle2d = (id: string, centre: string) => {
+      const atoms = registry.molecules.find((m) => m.id === id)!.atoms
+      const at = (element: string) => atoms.filter((a) => a.element === element).map((a) => [...a.position2d, 0] as const)
+      const [o1, o2] = at('O')
+      return angleDeg(o1!, at(centre)[0]!, o2!)
+    }
+    expect(angle2d('sulfur-dioxide', 'S')).toBeGreaterThan(110)
+    expect(angle2d('sulfur-dioxide', 'S')).toBeLessThan(130)
+    expect(Math.abs(angle2d('carbon-dioxide', 'C') - 180)).toBeLessThan(1)
   })
 
   it('keeps the 90°, 120° and 180° angles of PCl5 (spec 6.5)', () => {

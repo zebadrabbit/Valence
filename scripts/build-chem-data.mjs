@@ -113,6 +113,16 @@ const AROMATIC_RING = { benzene: 6 }
 // two-double-bond form of the research file. Atom order is S, O, O.
 const SO2 = { atoms: 'S,O,O', bonds: '0-1:2,0-2:2', orders: [2, 1], formalCharges: [1, 0, -1] }
 
+// PubChem's 2D record draws sulfur dioxide as a straight line, which would show
+// the VSEPR showcase's bent molecule as linear in the Lewis view. The drawing
+// is authored instead: S at the origin, the oxygens at 120° to each other, unit
+// bond lengths, in the drawing units of the other files. Same atom order as SO2.
+const SO2_DRAWING = [
+  [0, 0],
+  [-0.866, -0.5],
+  [0.866, -0.5],
+]
+
 // The element sources this app cites, by their id in the research file.
 // `readVia` names the research source for the copy that was actually read
 // when the cited paper was not; the link then goes to that copy.
@@ -417,7 +427,8 @@ function buildMolecules(elements) {
       }
       const flat = drawing.atoms[structure.to2d[i]]
       // 2D positions are PubChem drawing units with y pointing up.
-      return { element: atom.element, position: atom.position, position2d: [flat.x, flat.y], formalCharge: atom.formalCharge, lonePairs }
+      const position2d = id === 'sulfur-dioxide' ? SO2_DRAWING[i] : [flat.x, flat.y]
+      return { element: atom.element, position: atom.position, position2d, formalCharge: atom.formalCharge, lonePairs }
     })
 
     const isTerminalO = (i) => elementOf(i) === 'O' && degree[i] === 1
