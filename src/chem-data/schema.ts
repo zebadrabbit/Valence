@@ -4,28 +4,28 @@ const id = z.string().min(1)
 const text = z.string().min(1)
 
 /** An individually cited value: `{ value, sourceId }`. */
-export const cited = <T extends z.ZodType>(value: T) => z.object({ value, sourceId: id })
+export const cited = <T extends z.ZodType>(value: T) => z.strictObject({ value, sourceId: id })
 
 /** A model parameter, exempt from citation: `{ value, rationale }`. */
-export const param = <T extends z.ZodType>(value: T) => z.object({ value, rationale: text })
+export const param = <T extends z.ZodType>(value: T) => z.strictObject({ value, rationale: text })
 
-export const sourceSchema = z.object({
+export const sourceSchema = z.strictObject({
   id,
   url: z.string().regex(/^https?:\/\//, 'must be an http(s) URL'),
   citation: text,
 })
 
-export const speciesSchema = z.object({
+export const speciesSchema = z.strictObject({
   id,
   formula: text,
   composition: z.record(z.string(), z.number().int().positive()),
   charge: z.number().int(),
   state: z.enum(['aq', 's', 'l', 'g']),
-  solutionColor: cited(z.object({ name: text, hex: z.string().regex(/^#[0-9a-fA-F]{6}$/) })).optional(),
+  solutionColor: cited(z.strictObject({ name: text, hex: z.string().regex(/^#[0-9a-fA-F]{6}$/) })).optional(),
   sourceId: id,
 })
 
-const hazardsSchema = z.object({
+const hazardsSchema = z.strictObject({
   signalWord: z.enum(['Danger', 'Warning', 'None']),
   statements: z.array(text),
   note: text,
@@ -42,7 +42,7 @@ export const reagentSchema = z
     molarity: z.number().positive().optional(),
     molarMass: cited(z.number().positive()).optional(),
     appearance: cited(text).optional(),
-    ions: z.array(z.object({ speciesId: id, ratio: z.number().int().positive() })),
+    ions: z.array(z.strictObject({ speciesId: id, ratio: z.number().int().positive() })),
     hazards: hazardsSchema,
     sourceId: id,
   })
@@ -61,7 +61,7 @@ export const reagentSchema = z
     }
   })
 
-export const observationSchema = z.object({
+export const observationSchema = z.strictObject({
   productId: id,
   color: text,
   texture: text.optional(),
@@ -69,14 +69,14 @@ export const observationSchema = z.object({
   sourceId: id,
 })
 
-const amountSchema = z.object({ value: z.number().positive(), unit: z.enum(['mL', 'g']) })
+const amountSchema = z.strictObject({ value: z.number().positive(), unit: z.enum(['mL', 'g']) })
 
-export const stationSchema = z.object({
+export const stationSchema = z.strictObject({
   id,
   reagentIds: z.tuple([id, id]),
   amounts: z.tuple([amountSchema, amountSchema]),
   observationTools: z.array(z.enum(['eye', 'waft', 'litmus', 'touch', 'thermometer', 'splint'])).min(1),
-  expected: z.object({
+  expected: z.strictObject({
     precipitate: id.nullable(),
     gas: id.nullable(),
     temperature: z.enum(['none', 'warm', 'hot']),
@@ -86,7 +86,7 @@ export const stationSchema = z.object({
   notes: z.array(text),
 })
 
-const atomSchema = z.object({
+const atomSchema = z.strictObject({
   element: text,
   position: z.tuple([z.number(), z.number(), z.number()]),
   position2d: z.tuple([z.number(), z.number()]),
@@ -94,7 +94,7 @@ const atomSchema = z.object({
   lonePairs: z.number().int().min(0),
 })
 
-const bondSchema = z.object({
+const bondSchema = z.strictObject({
   a: z.number().int().min(0),
   b: z.number().int().min(0),
   order: z.union([z.literal(1), z.literal(2), z.literal(3)]),
@@ -102,7 +102,7 @@ const bondSchema = z.object({
   resonanceNote: text.optional(),
 })
 
-export const moleculeSchema = z.object({
+export const moleculeSchema = z.strictObject({
   id,
   name: text,
   pubchemCid: z.number().int().positive(),
@@ -115,7 +115,7 @@ export const moleculeSchema = z.object({
   sourceId: id,
 })
 
-export const registrySchema = z.object({
+export const registrySchema = z.strictObject({
   sources: z.array(sourceSchema),
   species: z.array(speciesSchema),
   reagents: z.array(reagentSchema),

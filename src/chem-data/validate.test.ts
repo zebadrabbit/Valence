@@ -105,6 +105,13 @@ describe('validateRegistry', () => {
     })
   })
 
+  it('rejects an unknown key instead of silently dropping it', () => {
+    const r = validRegistry() as Record<string, unknown>
+    r.sources = [{ id: 's1', url: 'https://pubchem.ncbi.nlm.nih.gov/', citation: 'PubChem', storage: 'Room 214' }]
+    expect(validateRegistry(r).some((e) => e.startsWith('schema:'))).toBe(true)
+    expect(validateRegistry({ ...validRegistry(), extra: 1 }).some((e) => e.startsWith('schema:'))).toBe(true)
+  })
+
   describe('condition 1: sources', () => {
     it('rejects a record with no sourceId', () => {
       const r = validRegistry()

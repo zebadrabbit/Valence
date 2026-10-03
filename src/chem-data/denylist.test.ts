@@ -10,6 +10,8 @@ describe('findInstitutionText', () => {
     'NIST 2022',
     'at 298 K',
     'about 800 nm',
+    'KOH 250 mL',
+    'UV 254 nm',
     'computed model (MMFF94s, PubChem3D)',
     'shelf life of 2 years',
     'White BaSO4; liquid stays blue',
@@ -17,7 +19,7 @@ describe('findInstitutionText', () => {
     expect(findInstitutionText(text, [])).toBeNull()
   })
 
-  it.each(['Room 214', 'CHEM 1411', 'CHEM1411', 'cabinet B3', 'Stored in stockroom 4', 'building C-12'])(
+  it.each(['Room 214', 'CHEM 1411', 'CHEM1411', 'Chem 1411', 'CHEM-1411', 'CHEM_1411', 'cabinet B3', 'Stored in stockroom 4', 'building C-12'])(
     'flags institution-specific text: %s',
     (text) => {
       expect(findInstitutionText(text, [])).not.toBeNull()

@@ -26,8 +26,10 @@ function download(filename: string, text: string) {
   const link = document.createElement('a')
   link.href = url
   link.download = filename
+  document.body.append(link)
   link.click()
-  URL.revokeObjectURL(url)
+  link.remove()
+  setTimeout(() => URL.revokeObjectURL(url), 1000)
 }
 
 export function Settings() {

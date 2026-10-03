@@ -7,7 +7,7 @@ Each section states only what is true of the current version. Sections for acces
 ## IT and security
 
 - **What it is:** a static website (HTML, CSS, JavaScript). There is no server-side code, database, or API.
-- **Install:** none. It runs in a current version of Chrome, Edge, Firefox, or Safari.
+- **Install:** none. It is built with standard web features for current desktop browsers. Browser-by-browser testing has not been completed; this section will list the browsers checked once it has.
 - **Accounts:** none. There is no sign-in of any kind.
 - **Network:** after the page loads, the app makes no network requests. Fonts and all data are bundled; nothing is loaded from a third-party CDN.
 - **Storage:** preferences and learning progress are stored in the browser's `localStorage` under keys beginning `valence:`. Nothing is stored anywhere else.
