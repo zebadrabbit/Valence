@@ -7,6 +7,10 @@ interface AppState {
   /** False when localStorage is unavailable and progress lasts only for this session. */
   persistent: boolean
   prefs: Prefs
+  /** The theme in effect: the learner's choice, or the system's when set to System. */
+  dark: boolean
+  /** True when motion should be avoided: the learner's choice, or the system's. */
+  reducedMotion: boolean
   updatePrefs(patch: Partial<Prefs>): void
   resetAll(): void
 }
@@ -48,7 +52,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <AppStateContext.Provider value={{ store, persistent, prefs, updatePrefs, resetAll }}>
+    <AppStateContext.Provider value={{ store, persistent, prefs, dark, reducedMotion, updatePrefs, resetAll }}>
       {children}
     </AppStateContext.Provider>
   )
