@@ -1,0 +1,219 @@
+[
+  {
+    "id": "water",
+    "name": "Water",
+    "formula": "H2O",
+    "charge": 0,
+    "topic": "basics"
+  },
+  {
+    "id": "carbon-dioxide",
+    "name": "Carbon dioxide",
+    "formula": "CO2",
+    "charge": 0,
+    "topic": "basics"
+  },
+  {
+    "id": "ammonia",
+    "name": "Ammonia",
+    "formula": "NH3",
+    "charge": 0,
+    "topic": "basics"
+  },
+  {
+    "id": "methane",
+    "name": "Methane",
+    "formula": "CH4",
+    "charge": 0,
+    "topic": "basics"
+  },
+  {
+    "id": "oxygen",
+    "name": "Oxygen (O₂)",
+    "formula": "O2",
+    "charge": 0,
+    "topic": "basics"
+  },
+  {
+    "id": "nitrogen",
+    "name": "Nitrogen (N₂)",
+    "formula": "N2",
+    "charge": 0,
+    "topic": "basics"
+  },
+  {
+    "id": "hydrogen-chloride",
+    "name": "Hydrogen chloride",
+    "formula": "HCl",
+    "charge": 0,
+    "topic": "basics"
+  },
+  {
+    "id": "hydrogen-peroxide",
+    "name": "Hydrogen peroxide",
+    "formula": "H2O2",
+    "charge": 0,
+    "topic": "basics"
+  },
+  {
+    "id": "boron-trifluoride",
+    "name": "Boron trifluoride",
+    "formula": "BF3",
+    "charge": 0,
+    "topic": "vsepr"
+  },
+  {
+    "id": "sulfur-dioxide",
+    "name": "Sulfur dioxide",
+    "formula": "SO2",
+    "charge": 0,
+    "topic": "vsepr"
+  },
+  {
+    "id": "sulfur-hexafluoride",
+    "name": "Sulfur hexafluoride",
+    "formula": "SF6",
+    "charge": 0,
+    "topic": "vsepr"
+  },
+  {
+    "id": "xenon-tetrafluoride",
+    "name": "Xenon tetrafluoride",
+    "formula": "XeF4",
+    "charge": 0,
+    "topic": "vsepr"
+  },
+  {
+    "id": "phosphorus-pentachloride",
+    "name": "Phosphorus pentachloride",
+    "formula": "PCl5",
+    "charge": 0,
+    "topic": "vsepr"
+  },
+  {
+    "id": "ethane",
+    "name": "Ethane",
+    "formula": "C2H6",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "ethene",
+    "name": "Ethene",
+    "formula": "C2H4",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "ethyne",
+    "name": "Ethyne",
+    "formula": "C2H2",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "ethanol",
+    "name": "Ethanol",
+    "formula": "C2H5OH",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "acetic-acid",
+    "name": "Acetic acid",
+    "formula": "CH3COOH",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "acetone",
+    "name": "Acetone",
+    "formula": "CH3COCH3",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "formaldehyde",
+    "name": "Formaldehyde",
+    "formula": "CH2O",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "methylamine",
+    "name": "Methylamine",
+    "formula": "CH3NH2",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "ethyl-acetate",
+    "name": "Ethyl acetate",
+    "formula": "CH3COOC2H5",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "acetamide",
+    "name": "Acetamide",
+    "formula": "CH3CONH2",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "benzene",
+    "name": "Benzene",
+    "formula": "C6H6",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "beta-d-glucopyranose",
+    "name": "β-D-Glucopyranose",
+    "formula": "C6H12O6",
+    "charge": 0,
+    "topic": "biomolecules"
+  },
+  {
+    "id": "glycine",
+    "name": "Glycine",
+    "formula": "NH2CH2COOH",
+    "charge": 0,
+    "topic": "biomolecules"
+  },
+  {
+    "id": "alanine",
+    "name": "L-Alanine",
+    "formula": "CH3CH(NH2)COOH",
+    "charge": 0,
+    "topic": "biomolecules"
+  },
+  {
+    "id": "urea",
+    "name": "Urea",
+    "formula": "CO(NH2)2",
+    "charge": 0,
+    "topic": "biomolecules"
+  },
+  {
+    "id": "hydronium",
+    "name": "Hydronium ion",
+    "formula": "H3O",
+    "charge": 1,
+    "topic": "mechanism"
+  },
+  {
+    "id": "bicarbonate",
+    "name": "Bicarbonate ion",
+    "formula": "HCO3",
+    "charge": -1,
+    "topic": "mechanism"
+  },
+  {
+    "id": "carbonic-acid",
+    "name": "Carbonic acid",
+    "formula": "H2CO3",
+    "charge": 0,
+    "topic": "mechanism"
+  }
+]

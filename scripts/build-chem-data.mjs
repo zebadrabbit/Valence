@@ -3,7 +3,7 @@
 //   npm run build:data
 //
 // Reads docs/research/phase-2/ and writes, under src/chem-data/:
-//   elements.json, sources.json, mo-diagrams.json, molecules/<id>.json, molecules/index.ts
+//   elements.json, sources.json, mo-diagrams.json, library-index.json, molecules/<id>.json, molecules/index.ts
 //
 // Deterministic: the same inputs give byte-identical outputs. Anything
 // unexpected in the inputs stops the build with a message and writes nothing.
@@ -563,6 +563,14 @@ function moleculeIndex(molecules) {
   ].join('\n')
 }
 
+// What the search needs for each library entry, so the app shell can list the molecules without
+// loading their structure files. One row per entry: the first file of a variant group stands for it.
+function libraryIndex(molecules) {
+  return molecules
+    .filter((m, i) => !m.variantGroup || molecules.findIndex((other) => other.variantGroup === m.variantGroup) === i)
+    .map(({ id, name, formula, charge, topic }) => ({ id, name, formula, charge, topic }))
+}
+
 function main() {
   const { elements, sources: elementSources } = buildElements()
   const { molecules, sources: moleculeSources } = buildMolecules(elements)
@@ -578,6 +586,7 @@ function main() {
   writeFileSync(join(moleculeDir, 'index.ts'), moleculeIndex(molecules))
   writeFileSync(join(out, 'elements.json'), toJson(elements))
   writeFileSync(join(out, 'mo-diagrams.json'), toJson(diagrams))
+  writeFileSync(join(out, 'library-index.json'), toJson(libraryIndex(molecules)))
   writeFileSync(join(out, 'sources.json'), toJson(sources))
   process.stdout.write(`Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${sources.length} sources.\n`)
 }
