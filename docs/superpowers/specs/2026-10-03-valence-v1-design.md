@@ -88,10 +88,14 @@ In the UI, each inspector card, station result, and energy panel has a "Sources"
 
 | Data | Source |
 | --- | --- |
-| 3D coordinates for the Basics and VSEPR showcase groups (section 6.1) | Built by a script from cited experimental bond lengths and angles (NIST CCCBDB, or a cited diffraction value where CCCBDB has none), so the model, the measure tool, and the card agree. Includes BF₃, SF₆, XeF₄, and PCl₅, which have no PubChem 3D record |
-| 3D coordinates for all other molecules and polyatomic ions | PubChem 3D SDF, fetched once by a script and committed. The script requests `record_type=3d` and fails on HTTP 404; it never falls back to a 2D record. Labelled "computed model (MMFF94s, PubChem3D)" |
-| Element data: mass, electronegativity, configuration, ionization energies | CRC Handbook |
-| Ionic radii; van der Waals radii | Shannon 1976; Bondi 1964 |
+| 3D coordinates for the Basics and VSEPR showcase groups (section 6.1) | Built by a script from cited experimental gas-phase bond lengths and angles (NIST CCCBDB experimental geometry pages, which hold all 13), so the model, the measure tool, and the card agree. Labelled "experimental (gas phase)". Includes BF₃, SF₆, XeF₄, and PCl₅, which have no PubChem 3D record |
+| 3D coordinates for all other molecules and polyatomic ions | PubChem 3D SDF, fetched once and committed. Only a `record_type=3d` record is accepted; a 2D record is never used for 3D. Labelled "computed conformer (PubChem3D, MMFF94s force field); not an experimental structure" |
+| 2D layout positions for the Lewis view | PubChem 2D SDF (drawing units), for all molecules |
+| Atomic weights | CIAAW abridged standard atomic weights |
+| Electron configurations and ionization energies | NIST Atomic Spectra Database. Ionization energies are stored in eV as published and converted to kJ/mol in code |
+| Pauling electronegativity | PubChem periodic table |
+| Covalent radii; van der Waals radii; ionic radii | Cordero 2008; Mantina 2009 (which tabulates Bondi's values and supplies hydrogen and boron); Shannon 1976. Where a paywalled paper was checked only through secondary transcriptions, the source entry says so and links the copy that was read |
+| Display colours of elements | Jmol CPK colour table |
 | Formation enthalpies and free energies of aqueous ions and of NaHCO₃(s) | NBS tables (Wagman 1982) |
 | True H₂CO₃ acidity, CO₂ hydration equilibrium, dehydration rate | Primary literature (for example Adamczyk et al., *Science* 2009; Wang et al., *J. Phys. Chem. A* 2010) |
 | pKa (including phenolphthalein), Kw | CRC Handbook or IUPAC compilations |
@@ -118,7 +122,9 @@ In the UI, each inspector card, station result, and energy panel has a "Sources"
 - `expected`: `{ precipitate: species ID or none, precipitateColor, liquidColor, gas: species ID or none, odor, temperature: none | warm | hot, toolResults }`.
 - `paletteSpecies` (correct species plus distractors), `hints`, `notes`.
 
-**Molecule:** `id`, `name`, `pubchemCid`, `topic`, optional `variantGroup` and `variantLabel` (for neutral and zwitterion forms), atoms (element, 3D position, 2D position, formal charge, lone pairs), bonds (atom pair, integer order in the Kekulé form, aromatic flag, optional `resonanceNote`), `geometrySource` (PubChem computed, ideal VSEPR, or cited experimental), optional experimental lengths and angles, `sourceId`.
+**Element:** `symbol`, `name`, `atomicNumber`, and cited values for atomic weight, electronegativity, configuration, shell counts, ionization energies (eV), covalent and van der Waals radii, ionic radii where relevant, and display colour.
+
+**Molecule:** `id`, `name`, `pubchemCid`, `topic`, optional `variantGroup` and `variantLabel` (for neutral and zwitterion forms), atoms (element, 3D position, 2D position, formal charge, lone pairs), bonds (atom pair, integer order in the Kekulé form, aromatic flag, optional `resonanceNote`), `geometrySource` (PubChem computed or cited experimental), optional cited experimental lengths and angles, optional `notes`, `sourceId`. Display names are authored by hand; PubChem supplies only the CID and link.
 
 Molecule files hold curated inputs only. Oxidation state, steric number, hybridization, and VSEPR geometry are derived by pure functions in `chem-data/derive.ts` and are not stored.
 
@@ -133,10 +139,16 @@ The library is the 31 entries below. Glycine and alanine each have a neutral and
 - **Basics (8):** H₂O, CO₂, NH₃, CH₄, O₂, N₂, HCl, H₂O₂.
 - **VSEPR showcase (5):** BF₃, SO₂, SF₆, XeF₄, PCl₅.
 - **Organic functional groups (11):** ethane, ethene, ethyne, ethanol, acetic acid, acetone, formaldehyde, methylamine, ethyl acetate, acetamide, benzene.
-- **Biomolecules (4):** β-D-glucopyranose (CID 64689), glycine (zwitterion CID 5257127), alanine (zwitterion CID confirmed when the fetch script is written), urea.
+- **Biomolecules (4):** β-D-glucopyranose (CID 64689), glycine (CID 750; zwitterion CID 5257127), L-alanine (CID 5950; zwitterion CID 7311724), urea.
 - **Mechanism species (3):** H₃O⁺, HCO₃⁻, H₂CO₃.
 
-No salts in the library: ionic compounds are not molecules. PCl₅ carries a "gas-phase structure" note and separate axial and equatorial bond lengths.
+No salts in the library: ionic compounds are not molecules. Notes carried by individual molecules:
+
+- **PCl₅:** "gas-phase structure", with separate axial and equatorial bond lengths.
+- **H₂O₂:** the H–O–O angle of 94.8° is the 1962 measurement NIST lists; later measurements give about 100–102°.
+- **SO₂:** drawn in the octet-obeying resonance form (one S=O, one S–O, formal charges +1 on S and −1 on one O), as in OpenStax Chemistry 2e.
+- **HCO₃⁻:** the two unprotonated C–O bonds are equivalent in the real ion; the computed conformer shows them at different lengths.
+- **Zwitterions:** the form found in water and in the solid; the model is a computed conformer.
 
 ### 6.2 Views
 
@@ -148,13 +160,17 @@ Inspectors open when an atom or bond is selected. Beside the canvas, a DOM list 
 
 **Atom card**, base layer: symbol, atomic number, mass, electronegativity, valence electrons, formal charge, oxidation state, hybridization, VSEPR geometry. Expanded layer: electron configuration, ionization energies, atomic and ionic radii.
 
-**Bond card:** length, order, polarity as Pauling electronegativity difference (labelled "a rough guide"), σ/π composition. Aromatic bonds show "aromatic (delocalised), order 1.5". A bond with a `resonanceNote` shows it: the carboxylate C–O bonds of the zwitterions and the two unprotonated C–O bonds of HCO₃⁻ read "one of two equivalent resonance structures; effective order 1.5".
+**Bond card:** length, order, polarity as Pauling electronegativity difference (labelled "a rough guide"), σ/π composition. Aromatic bonds show "aromatic (delocalised), order 1.5". A bond with a `resonanceNote` shows it: the carboxylate C–O bonds of the zwitterions, the two unprotonated C–O bonds of HCO₃⁻, and both S–O bonds of SO₂ read "one of two equivalent resonance structures; effective order 1.5".
 
 Derived values:
 
 - **Oxidation state:** valence electrons minus (lone-pair electrons + bonding electrons assigned to the atom). Each bond's electrons go to the more electronegative atom (Pauling) and are split equally between atoms of the same element.
-- **VSEPR geometry:** shown only for atoms bonded to two or more atoms; other atoms show "terminal atom". Computed from the steric number (bonded atoms + lone pairs) by lookup. An atom covered by the resonance override below does not count its delocalised lone pair as a domain, so amide and urea nitrogens are trigonal planar.
-- **Hybridization:** from the steric number. Resonance override: a lone-pair atom adjacent to a π system (amide N, urea N, carboxylic and ester O) is sp². Hydrogen shows "none (1s)". For steric numbers 5 and 6 the card reads "sp³d (textbook label; real d-orbital involvement is negligible)" or the sp³d² equivalent.
+- **VSEPR geometry:** shown only for atoms bonded to two or more atoms; other atoms show "terminal atom". Computed from the steric number (bonded atoms + lone pairs) by lookup. A nitrogen covered by the resonance override below does not count its delocalised lone pair as a domain, so amide and urea nitrogens are trigonal planar.
+- **Hybridization:** from the steric number, following general chemistry textbooks.
+  - Resonance override, nitrogen only: a nitrogen with a lone pair that is bonded to an atom carrying a double bond (amide N, urea N) is sp². The planar shape is visible in the 3D model.
+  - Oxygens are not overridden. The O–H and ester oxygens of acids and esters are sp³ and bent, as in OpenStax Chemistry 2e. Their card adds: "organic chemistry describes this oxygen as sp², because one lone pair is delocalised into the neighbouring C=O".
+  - Terminal atoms: a terminal atom with a double or triple bond shows its value (carbonyl O is sp², the N of N₂ is sp). Hydrogen shows "none (1s)". Any other terminal atom (halogens, singly bonded O⁻) shows "not assigned (terminal atom)".
+  - Steric numbers 5 and 6 read "sp³d (textbook label)" and "sp³d² (textbook label)", with the expanded note "real d-orbital involvement is negligible".
 - **Lengths and angles:** measured from the stored coordinates and labelled with `geometrySource`. Flexible molecules (ethanol, glucose, ethyl acetate) carry the note "one conformer of many".
 
 **Measure tool:** select three atoms for a bond angle, four for a dihedral.
@@ -174,7 +190,7 @@ Hybrid lobes are the last item of the Explorer phase and the first to cut if the
 - A test asserts the bundled registry contains every library ID and that every file passes the validator.
 - The validator checks every atom's stored formal charge against valence electrons minus lone-pair electrons minus the sum of bond orders.
 - Oxidation states sum to each species' charge.
-- A hand-written expected-values table in the test suite covers every atom of the Basics, VSEPR, and Mechanism groups and every non-hydrogen atom of the rest (oxidation state, hybridization, VSEPR geometry; order per bond). It includes: H₂O₂ (O is −1); acetamide and urea N (sp², trigonal planar); a terminal atom (no geometry shown); SO₂ with the Lewis structure used stated (S is +4, bent); SF₆ (octahedral); XeF₄ (square planar); PCl₅ (trigonal bipyramidal; angles 90°, 120°, 180°); benzene (all bonds aromatic).
+- A hand-written expected-values table in the test suite covers every atom of the Basics, VSEPR, and Mechanism groups and every non-hydrogen atom of the rest (oxidation state, hybridization, VSEPR geometry; order per bond). It includes: H₂O₂ (O is −1); acetamide and urea N (sp², trigonal planar); the O–H oxygen of acetic acid (sp³, bent); a terminal halogen (hybridization not assigned, no geometry shown); SO₂ in the octet resonance form (S is +4, bent); SF₆ (octahedral); XeF₄ (square planar); PCl₅ (trigonal bipyramidal; angles 90°, 120°, 180°); benzene (all bonds aromatic). Atoms are matched to the table per molecule as a set, so the test does not depend on atom order.
 - For molecules whose `geometrySource` is cited experimental, lengths measured from the stored coordinates match the cited values within 0.01 Å and angles within 1°.
 - Lone-pair directions for H₂O and NH₃ match the tetrahedral positions within 5°. The O₂ diagram has two unpaired electrons and bond order 2; N₂ has bond order 3.
 - `describeMolecule` (the text description for screen readers) is tested for three molecules.
@@ -417,7 +433,7 @@ Rules: state only what is true and tested when written. The docs never say "FERP
 
 1. **Foundation.** App shell, navigation, tokens, themes, hash routing, progress storage, settings and About pages, chem-data types and validator, seeded RNG, lint rules.
    - Done when: the validator rejects each of its four failure conditions; the lint rules reject a React import and a `Math.random` call in `engine/`; progress survives a reload.
-2. **Explorer.** Section 6, plus the command palette over molecules (later phases add their entries). Done when 6.5 passes.
+2. **Explorer.** Section 6, plus the command palette over molecules (later phases add their entries). Built as two plans: 2A, the data and derived values (elements, molecule files, derive and describe functions, MO data); then 2B, the 3D viewer, inspectors, measure tool, valence levels, and palette. Done when 6.5 passes.
 3. **Titration lab.** Section 7, including the shared lab shell (mode switch, primer, notebook, check flow) reused by phase 4, and the narrow-viewport lab page. The endpoint acceptance test is the first task. Done when 7.4 passes.
 4. **Aqueous reactions lab.** Section 8. Done when 8.4 passes.
 5. **Mechanism timeline.** Section 9. Done when 9.3 passes.

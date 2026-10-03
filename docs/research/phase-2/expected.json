@@ -1,0 +1,6577 @@
+{
+ "conventions": [
+  {
+   "id": "lewis-structures",
+   "topic": "Lewis structures",
+   "choice": "One Kekule/Lewis structure per file with integer bond orders, explicit hydrogens, explicit lone-pair counts and formal charges. Octet-obeying forms are used wherever one exists (SO2, HCO3-, zwitterion carboxylates); expanded valence shells only where unavoidable (SF6, PCl5, XeF4); BF3 keeps an incomplete octet (three single bonds, no B=F).",
+   "why": "Matches OpenStax Chemistry 2e 7.3/7.4/8.3. The validator formula (valence - lone-pair electrons - sum of bond orders) reproduces every stored formal charge.",
+   "sources": [
+    "openstax-chem2e-7.3",
+    "openstax-chem2e-7.4"
+   ]
+  },
+  {
+   "id": "so2-lewis",
+   "topic": "(a) SO2 Lewis structure",
+   "choice": "RECOMMENDED: octet-obeying resonance form. S1 (formal charge +1, one lone pair) double-bonded to O1 (two lone pairs, 0) and single-bonded to O2 (three lone pairs, -1). Both S-O bonds carry the resonance note (effective order 1.5). S: oxidation state +4, steric number 3, bent, sp2.",
+   "why": "OpenStax Chemistry 2e Example 8.4 draws exactly these two resonance structures (verified from the figure description: S with one lone pair and a positive sign, single-bonded O with three lone pairs and a negative sign, the other O double-bonded). The Purdue/Bodner general chemistry review also presents SO2 as two resonance structures differing in which O holds the double bond. The alternative (O=S=O, zero formal charges, 10 electrons on S) is the \"minimise formal charge\" convention that texts such as Brown et al. apply to sulfate; it gives the same oxidation state (+4), steric number (3), geometry (bent) and hybridization (sp2), so only the stored bond orders, lone pairs, formal charges and the resonance note differ. The octet form is preferred because it predicts the observed equal S-O bonds via resonance without invoking d orbitals, and it is what the cited open textbook shows. Verification addendum: the competing O=S=O convention is shown for SO2 itself in a McMaster University general chemistry lecture slide (source mcmaster-chem1a3-so2), and PubChem CID 1119 stores SO2 as O=S=O; a learner who has seen that form should be told both are in use. Note the McMaster slide says each atom 'has an octet' in O=S=O, which is not correct for S (10 electrons).",
+   "sources": [
+    "openstax-chem2e-8.3",
+    "purdue-lewis",
+    "wikipedia-so2",
+    "libretexts-brown-8.7",
+    "mcmaster-chem1a3-so2"
+   ]
+  },
+  {
+   "id": "oxidation-state",
+   "topic": "Oxidation state rule",
+   "choice": "valence electrons - (lone-pair electrons + bonding electrons assigned to the atom); each bond's electrons go wholly to the atom with the higher Pauling electronegativity and are split equally between atoms of the same element. Computed on the single stored Lewis structure.",
+   "why": "This is the spec rule (6.3). It reproduces the OpenStax 4.2 guideline results for every species here (H +1, O -2 except -1 in H2O2 and 0 in O2, halogens -1) and sums to the species charge in all 33 files. Resonance-equivalent atoms (the two O of SO2, of a carboxylate, of HCO3-) get the same value whichever resonance form is stored. IUPAC (2016) recommends Allen rather than Pauling electronegativities; for every bond type in this library (C-H, N-H, O-H, C-N, C-O, H-Cl, B-F, S-O, S-F, Xe-F, P-Cl) both scales give the same direction, so the results are identical. No bond in the library joins two different elements with equal Pauling values (the script checks this). Closest pairs among the ten elements: H 2.20 / P 2.19 (0.01), S 2.58 / Xe 2.60 (0.02), C 2.55 / S 2.58 (0.03); none of these pairs is bonded in this library.",
+   "sources": [
+    "openstax-chem2e-4.2",
+    "pubchem-periodic-table",
+    "iupac-os-2016",
+    "wikipedia-oxidation-state"
+   ]
+  },
+  {
+   "id": "steric-number",
+   "topic": "Steric number",
+   "choice": "stericNumber = bonded atoms + lone pairs counted on the stored Lewis structure. effectiveStericNumber = the same minus one for an atom covered by the resonance override. Geometry and hybridization are looked up from effectiveStericNumber. Both numbers are given for every atom so the atom card can show either.",
+   "why": "Spec 6.3 says the delocalised lone pair \"does not count as a domain\"; keeping both numbers makes the override visible and testable.",
+   "sources": [
+    "openstax-chem2e-7.6"
+   ]
+  },
+  {
+   "id": "geometry-names",
+   "topic": "VSEPR geometry vocabulary",
+   "choice": "(bonded atoms, effective lone pairs) -> (2,0) linear; (3,0) trigonal planar; (2,1) bent; (4,0) tetrahedral; (3,1) trigonal pyramidal; (2,2) bent; (5,0) trigonal bipyramidal; (6,0) octahedral; (4,2) square planar. Atoms bonded to fewer than two atoms read \"terminal atom\". electronGeometry is also given because \"bent\" covers both the ~120 degree (trigonal planar parent) and ~109.5 degree (tetrahedral parent) cases.",
+   "why": "OpenStax 7.6 names (\"bent or angular\"). Only the combinations that occur in the library are listed; the implementation should add the rest of the table (seesaw, T-shaped, square pyramidal, linear from 5 domains) for completeness.",
+   "sources": [
+    "openstax-chem2e-7.6"
+   ]
+  },
+  {
+   "id": "resonance-notes",
+   "topic": "(b) Which bonds get a resonanceNote",
+   "choice": "Note \"one of two equivalent resonance structures; effective order 1.5\" on exactly eight bonds: both S-O bonds of SO2; both carboxylate C-O bonds of glycine zwitterion and of alanine zwitterion; the two unprotonated C-O bonds (C1=O1, C1-O2) of HCO3-. Benzene uses the aromatic flag on all six ring bonds instead of a note. NO note on: the C=O / C-OH bonds of acetic acid, neutral glycine, neutral alanine, H2CO3 and the C1-O3 (C-OH) bond of HCO3-; the ester C-O of ethyl acetate; the amide C-N and C=O of acetamide and urea; the O=O bond of O2.",
+   "why": "The 1.5 figure is only correct when the two contributing structures are equivalent by symmetry (OpenStax 7.4: the real structure is the average of identical resonance forms). In acids, esters and amides the charge-separated contributor is minor, so the bond orders are not 1.5 and that note text would be wrong. Optional extra, not in the spec: a differently worded note on the amide C-N bonds of acetamide and urea (\"partial double-bond character from resonance; rotation restricted\") would be accurate and is supported by OpenStax Organic 26.4, but it needs a second note string.",
+   "sources": [
+    "openstax-chem2e-7.4",
+    "openstax-organic-26.4"
+   ]
+  },
+  {
+   "id": "resonance-override",
+   "topic": "(c) Resonance override atoms",
+   "choice": "Computable rule: an atom with at least one lone pair, with no multiple bond of its own, single-bonded to an atom that has a double or triple bond to some other atom. Such an atom is sp2 and one lone pair is not counted as a domain. In this library that selects exactly 14 atoms: SO2 O2 (the single-bonded O-); acetic acid O2 (hydroxyl O); ethyl acetate O2 (ester O); acetamide N1; urea N1 and N2; glycine O2 and alanine O2 (hydroxyl O, neutral forms); glycine zwitterion O2 and alanine zwitterion O2 (carboxylate O-); HCO3- O2 (O-) and O3 (hydroxyl O); H2CO3 O2 and O3 (both hydroxyl O). It does NOT select: amine N of neutral glycine/alanine or methylamine, O of ethanol, any O of glucose, O of H2O2, halogens, ring atoms of benzene.",
+   "why": "Conventional status, atom by atom. Amide and urea N (3 atoms): standard in organic chemistry and backed by experiment (planar amide; OpenStax Organic 24.3 and 26.4); the override changes both geometry (trigonal pyramidal -> trigonal planar) and hybridization. Carboxylic, carbonic and ester -O- (8 atoms): sp2 is the organic-chemistry description (LibreTexts Smith 17.6 states it outright); the geometry word stays \"bent\", only hybridization (sp3 -> sp2) and the parent electron geometry change. TEXTBOOKS DISAGREE HERE: OpenStax Chemistry 2e Example 7.16 (general chemistry) treats the O-H oxygen of glycine as four regions, tetrahedral electron-pair geometry, bent (109 degrees), i.e. sp3; the same example gives the amine N as trigonal pyramidal, which agrees with this table. Terminal O- of carboxylate, HCO3- and SO2 (5 atoms): no geometry is shown; sp2 keeps the two resonance-equivalent oxygens labelled identically, which is the reason to apply the override to them. General chemistry texts rarely assign hybridization to these atoms at all. Verification addendum: an explicit general chemistry statement of the amide N as sp2 / trigonal planar, and of the general rule that an atom whose lone pair is delocalised must be sp2 (or sp), is in the Penn State Chem 110 page (source psu-chem110-delocalized-pi). The disagreement with OpenStax Chemistry 2e Example 7.16 for the carboxylic O-H oxygen stands; the no-override values are stored per atom in withoutResonanceOverride.",
+   "sources": [
+    "openstax-organic-24.3",
+    "openstax-organic-26.4",
+    "libretexts-smith-17.6",
+    "libretexts-morsch-20.2",
+    "openstax-chem2e-7.6",
+    "psu-chem110-delocalized-pi"
+   ]
+  },
+  {
+   "id": "terminal-atoms",
+   "topic": "(d) Hybridization of terminal atoms",
+   "choice": "RECOMMENDED rule: geometry is \"terminal atom\" for every atom bonded to fewer than two atoms. Hybridization: hydrogen -> \"none (1s)\"; a terminal atom that has a multiple bond or is covered by the resonance override -> from its (effective) steric number (carbonyl O, CO2 O, O2 O, carboxylate/SO2 O- = sp2; N2 N = sp); a terminal atom with only a single bond and no override (in this library only the halogens: F in BF3, SF6, XeF4; Cl in HCl, PCl5) -> \"not assigned (terminal atom)\". The JSON also carries hybridizationByStericNumberOnly (sp3 for those halogens) so the simpler alternative rule \"always use the steric number\" can be tested instead if the owner prefers it. NOTE (verification): hybridizationByStericNumberOnly is computed from effectiveStericNumber, i.e. the resonance override is still applied; it differs from hybridization only for the 16 terminal halogens. For the 14 override atoms it reads sp2 although their raw stericNumber is 4. The value with no override at all is given per override atom in withoutResonanceOverride.",
+   "why": "A pi bond needs an unhybridized p orbital, so the hybridization of a multiply bonded terminal atom is fixed by the same argument used for central atoms and textbooks do state it (Purdue: sp2 on both C and O of formaldehyde; LibreTexts: carbonyl C and O both sp2). For singly bonded halogens there is no geometric evidence and textbooks split: OpenStax 8.1 describes HCl as overlap of the H 1s with a Cl p orbital (no hybridization), while some courses write sp3 from the steric number (this second half is NOT backed by any fetched source). Showing \"sp3\" for the F atoms of SF6 would be a claim an instructor could dispute; \"not assigned\" cannot be wrong.",
+   "sources": [
+    "purdue-hybrid",
+    "libretexts-smith-17.6",
+    "openstax-chem2e-8.1"
+   ]
+  },
+  {
+   "id": "hypervalent-labels",
+   "topic": "Steric numbers 5 and 6",
+   "choice": "Expected strings here are \"sp3d (textbook label)\" and \"sp3d2 (textbook label)\" as the task brief states; spec 6.3 words the card text as \"sp3d (textbook label; real d-orbital involvement is negligible)\". Tests should match on the prefix or the implementation plan should fix one exact string.",
+   "why": "OpenStax 8.2 teaches sp3d and sp3d2 (SF6 is its sp3d2 example); the caveat is the spec owner's addition.",
+   "sources": [
+    "openstax-chem2e-8.2"
+   ]
+  },
+  {
+   "id": "sigma-pi",
+   "topic": "Sigma/pi composition",
+   "choice": "order 1 = 1 sigma; order 2 = 1 sigma + 1 pi; order 3 = 1 sigma + 2 pi, taken from the stored integer order. Aromatic bonds: \"1 sigma + delocalised pi (aromatic, effective order 1.5)\". Bonds with a resonance note keep the composition of their stored order and show the note.",
+   "why": "OpenStax 8.1/8.3: a single bond is a sigma bond, a double bond is one sigma and one pi, a triple bond is one sigma and two pi.",
+   "sources": [
+    "openstax-chem2e-8.1",
+    "openstax-chem2e-8.3"
+   ]
+  },
+  {
+   "id": "o2-lewis-vs-mo",
+   "topic": "O2",
+   "choice": "Lewis file stores O=O with two lone pairs on each O (all electrons paired). The MO record gives two unpaired electrons and bond order 2.",
+   "why": "OpenStax 8.4 opens with exactly this discrepancy; spec 6.4 requires the callout.",
+   "sources": [
+    "openstax-chem2e-8.4"
+   ]
+  },
+  {
+   "id": "mo-levels",
+   "topic": "MO levels",
+   "choice": "Valence levels only (2s- and 2p-derived). The degenerate pi pair is one level with degeneracy 2. Empty antibonding levels are included with electrons 0 so the diagram can draw them. Labels drop the axis subscripts OpenStax uses (sigma2px, pi2py/pi2pz).",
+   "why": "Matches spec 5.3 MO diagram shape and OpenStax Figure 8.37 / Table 8.3.",
+   "sources": [
+    "openstax-chem2e-8.4"
+   ]
+  },
+  {
+   "id": "labels-and-ids",
+   "topic": "Atom labels and molecule ids",
+   "choice": "Labels are element symbol + per-element index (C1, C2, O1, H1 ...), unique within a molecule; heavy atoms first, then hydrogens. Molecule ids are proposed kebab-case names (the project has no molecule registry yet); rename freely, nothing depends on them.",
+   "why": "Readable in test tables; the notes field of each molecule says which atom is which.",
+   "sources": []
+  },
+  {
+   "id": "script-checks",
+   "topic": "What the checking script verified",
+   "choice": "build_expected.py recomputes, from the atom and bond lists alone: formal charge per atom and its sum; valence-shell electron count (8, or 2 for H; the only exceptions are B in BF3 = 6, P in PCl5 = 10, S in SF6 = 12, Xe in XeF4 = 12); oxidation state per atom by the Pauling rule and its sum; steric number, override, geometry and hybridization by the rules above; element composition against a hand-written molecular formula; the override atom set against a hand-written list; MO electron totals, bond order, unpaired count and aufbau filling. It refuses to write expected.json on any mismatch.",
+   "why": "Spec 6.5 acceptance mirrors these checks.",
+   "sources": []
+  }
+ ],
+ "sources": [
+  {
+   "id": "openstax-chem2e-8.4",
+   "url": "https://openstax.org/books/chemistry-2e/pages/8-4-molecular-orbital-theory",
+   "citation": "Flowers et al., Chemistry 2e (OpenStax, 2019), 8.4 Molecular Orbital Theory",
+   "usedFor": "MO order, electron configurations (Table 8.3), O2 bond order 2 and two unpaired electrons (Example 8.6), N2 bond order 3 and diamagnetic, s-p mixing explanation"
+  },
+  {
+   "id": "openstax-chem2e-8.3",
+   "url": "https://openstax.org/books/chemistry-2e/pages/8-3-multiple-bonds",
+   "citation": "Flowers et al., Chemistry 2e (OpenStax, 2019), 8.3 Multiple Bonds, Example 8.4",
+   "usedFor": "SO2 drawn as two octet-obeying resonance structures (S +, single-bonded O -); S is sp2"
+  },
+  {
+   "id": "openstax-chem2e-8.2",
+   "url": "https://openstax.org/books/chemistry-2e/pages/8-2-hybrid-atomic-orbitals",
+   "citation": "Flowers et al., Chemistry 2e (OpenStax, 2019), 8.2 Hybrid Atomic Orbitals",
+   "usedFor": "hybridization from electron-pair geometry; sp3d and sp3d2 labels (SF6 = sp3d2); urea carbon sp2 (Example 8.3); acetic acid carbons sp3 and sp2"
+  },
+  {
+   "id": "openstax-chem2e-8.1",
+   "url": "https://openstax.org/books/chemistry-2e/pages/8-1-valence-bond-theory",
+   "citation": "Flowers et al., Chemistry 2e (OpenStax, 2019), 8.1 Valence Bond Theory",
+   "usedFor": "sigma and pi bonds; HCl described as overlap of an s orbital with a p orbital (no hybridization assigned to the terminal Cl)"
+  },
+  {
+   "id": "openstax-chem2e-7.6",
+   "url": "https://openstax.org/books/chemistry-2e/pages/7-6-molecular-structure-and-polarity",
+   "citation": "Flowers et al., Chemistry 2e (OpenStax, 2019), 7.6 Molecular Structure and Polarity",
+   "usedFor": "VSEPR geometry names; XeF4 square planar (Example 7.15); glycine local geometries (Example 7.16), where the O-H oxygen is treated as tetrahedral electron-pair geometry, bent (109 degrees) and N as trigonal pyramidal"
+  },
+  {
+   "id": "openstax-chem2e-7.3",
+   "url": "https://openstax.org/books/chemistry-2e/pages/7-3-lewis-symbols-and-structures",
+   "citation": "Flowers et al., Chemistry 2e (OpenStax, 2019), 7.3 Lewis Symbols and Structures",
+   "usedFor": "Lewis structure procedure; electron-deficient (BF3) and hypervalent (PCl5, SF6) molecules"
+  },
+  {
+   "id": "openstax-chem2e-7.4",
+   "url": "https://openstax.org/books/chemistry-2e/pages/7-4-formal-charges-and-resonance",
+   "citation": "Flowers et al., Chemistry 2e (OpenStax, 2019), 7.4 Formal Charges and Resonance",
+   "usedFor": "formal charge formula; equivalent resonance structures average (carbonate example)"
+  },
+  {
+   "id": "openstax-chem2e-4.2",
+   "url": "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
+   "citation": "Flowers et al., Chemistry 2e (OpenStax, 2019), 4.2 Classifying Chemical Reactions",
+   "usedFor": "oxidation number guidelines: H +1 with nonmetals, O -2 normally and -1 in peroxides, halogens -1, sum equals charge"
+  },
+  {
+   "id": "purdue-lewis",
+   "url": "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch8/lewis.html",
+   "citation": "Bodner Research Web, Purdue University, General Chemistry topic review: Lewis Structures (section \"Resonance Hybrids\")",
+   "usedFor": "second general chemistry source showing SO2 as two resonance structures that differ only in which O carries the double bond"
+  },
+  {
+   "id": "purdue-hybrid",
+   "url": "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch8/hybrid.html",
+   "citation": "Bodner Research Web, Purdue University, General Chemistry topic review: Hybrid Atomic Orbitals",
+   "usedFor": "formaldehyde: sp2 hybrids on both the carbon and the (terminal) oxygen"
+  },
+  {
+   "id": "wikipedia-so2",
+   "url": "https://en.wikipedia.org/wiki/Sulfur_dioxide",
+   "citation": "Wikipedia, Sulfur dioxide, section \"Structure and bonding\"",
+   "usedFor": "tertiary confirmation: two resonance structures, S-O bond order 1.5, S oxidation state +4 and formal charge +1, no d-orbital participation needed"
+  },
+  {
+   "id": "libretexts-brown-8.7",
+   "url": "https://chem.libretexts.org/Bookshelves/General_Chemistry/Map%3A_Chemistry_-_The_Central_Science_(Brown_et_al.)/08%3A_Basic_Concepts_of_Chemical_Bonding/8.07%3A_Exceptions_to_the_Octet_Rule",
+   "citation": "LibreTexts, Map: Chemistry - The Central Science (Brown et al.), 8.7 Exceptions to the Octet Rule",
+   "usedFor": "shows the competing convention: for sulfate, an expanded-octet structure with S=O double bonds that minimises formal charge is drawn alongside the octet structure"
+  },
+  {
+   "id": "openstax-organic-26.4",
+   "url": "https://openstax.org/books/organic-chemistry/pages/26-4-peptides-and-proteins",
+   "citation": "McMurry, Organic Chemistry: A Tenth Edition (OpenStax, 2023), 26.4 Peptides and Proteins",
+   "usedFor": "amide nitrogen lone pair delocalised into the carbonyl; amide bond planar; partial C-N double-bond character"
+  },
+  {
+   "id": "openstax-organic-24.3",
+   "url": "https://openstax.org/books/organic-chemistry/pages/24-3-basicity-of-amines",
+   "citation": "McMurry, Organic Chemistry: A Tenth Edition (OpenStax, 2023), 24.3 Basicity of Amines",
+   "usedFor": "amide N lone pair delocalised by orbital overlap with the carbonyl group"
+  },
+  {
+   "id": "openstax-organic-20.2",
+   "url": "https://openstax.org/books/organic-chemistry/pages/20-2-structure-and-properties-of-carboxylic-acids",
+   "citation": "McMurry, Organic Chemistry: A Tenth Edition (OpenStax, 2023), 20.2 Structure and Properties of Carboxylic Acids",
+   "usedFor": "carboxyl carbon sp2, planar carboxylic acid group, about 120 degree angles"
+  },
+  {
+   "id": "openstax-organic-1.10",
+   "url": "https://openstax.org/books/organic-chemistry/pages/1-10-hybridization-of-nitrogen-oxygen-phosphorus-and-sulfur",
+   "citation": "McMurry, Organic Chemistry: A Tenth Edition (OpenStax, 2023), 1.10 Hybridization of Nitrogen, Oxygen, Phosphorus, and Sulfur",
+   "usedFor": "methylamine N and alcohol O described as sp3"
+  },
+  {
+   "id": "openstax-organic-15.2",
+   "url": "https://openstax.org/books/organic-chemistry/pages/15-2-structure-and-stability-of-benzene",
+   "citation": "McMurry, Organic Chemistry: A Tenth Edition (OpenStax, 2023), 15.2 Structure and Stability of Benzene",
+   "usedFor": "benzene: all C-C bonds identical (139 pm), all carbons sp2, 120 degree angles"
+  },
+  {
+   "id": "libretexts-smith-17.6",
+   "url": "https://chem.libretexts.org/Bookshelves/Organic_Chemistry/Map%3A_Organic_Chemistry_(Smith)/17%3A_Carboxylic_Acids_and_the_Acidity_of_the_OH_Bond/17.06%3A_Structure_and_Bonding",
+   "citation": "LibreTexts, Map: Organic Chemistry (Smith), 17.6 Structure and Bonding",
+   "usedFor": "explicit statement that the carbonyl C and O are sp2 and that the hydroxyl oxygen of a carboxylic acid is also sp2, with a lone pair conjugated to the carbonyl pi system"
+  },
+  {
+   "id": "libretexts-morsch-20.2",
+   "url": "https://chem.libretexts.org/Bookshelves/Organic_Chemistry/Organic_Chemistry_(Morsch_et_al.)/20%3A_Carboxylic_Acids_and_Nitriles/20.02%3A_Structure_and_Properties_of_Carboxylic_Acids",
+   "citation": "LibreTexts, Organic Chemistry (Morsch et al.), 20.2 Structure and Properties of Carboxylic Acids",
+   "usedFor": "carbonyl C and O both sp2; hydroxyl O lone pair conjugated with the carbonyl pi system"
+  },
+  {
+   "id": "pubchem-periodic-table",
+   "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON",
+   "citation": "PubChem Periodic Table (NCBI), Electronegativity (Pauling scale) column",
+   "usedFor": "Pauling electronegativities used by the checking script: H 2.20, B 2.04, C 2.55, N 3.04, O 3.44, F 3.98, P 2.19, S 2.58, Cl 3.16, Xe 2.60"
+  },
+  {
+   "id": "iupac-os-2016",
+   "url": "https://iupac.org/recommendation/comprehensive-definition-of-oxidation-state/",
+   "citation": "Karen, P.; McArdle, P.; Takats, J. Comprehensive definition of oxidation state (IUPAC Recommendations 2016). Pure Appl. Chem. 2016, 88, 831-839. doi:10.1515/pac-2015-1204",
+   "usedFor": "oxidation state defined via the ionic approximation of bonds; publication details (PAC Aug 2016, 88(8), pp. 831-839; doi:10.1515/pac-2015-1204). This page names only the corresponding author (Pavel Karen) and does NOT mention Allen electronegativities; that statement and the full author list are verified from wikipedia-oxidation-state. The paper itself and the Gold Book entry were not readable (De Gruyter returned an empty HTTP 202, Gold Book HTTP 403)."
+  },
+  {
+   "id": "wikipedia-oxidation-state",
+   "url": "https://en.wikipedia.org/wiki/Oxidation_state",
+   "citation": "Wikipedia, Oxidation state, section on the IUPAC definition and Allen electronegativity table",
+   "usedFor": "statement that the IUPAC simple estimate of the ionic approximation uses Allen electronegativities; Allen values H 2.300, B 2.051, C 2.544, N 3.066, O 3.610, F 4.193, P 2.253, S 2.589, Cl 2.869, Xe 2.582; full reference Karen, McArdle, Takats, Pure Appl. Chem. 2016, 88(8), 831-839"
+  },
+  {
+   "id": "mcmaster-chem1a3-so2",
+   "url": "https://chemistry.mcmaster.ca/~aph/chem1a3/lectures/lec07/tsld022.htm",
+   "citation": "McMaster University, Chem 1A3 lecture 7 slide 'Sulfur Dioxide, SO2'",
+   "usedFor": "a general chemistry lecture that shows the competing convention for SO2 itself: 'A BETTER representation of SO2 is made by forming 2 double bonds O = S = O ... formal charge = 0'"
+  },
+  {
+   "id": "psu-chem110-delocalized-pi",
+   "url": "https://oer.hax.psu.edu/kms723/sites/chem110/lesson-1/hybridization/delocalized-pi-bonding",
+   "citation": "Penn State, Chemistry 110 open course, 'Delocalized pi bonding'",
+   "usedFor": "general chemistry statement of the resonance override: amide H-N-H angle 121.6 degrees, trigonal planar from sp2 hybridization with the lone pair in the remaining p orbital; 'If electrons on an atom are delocalized (involved in resonance), they will be in a p orbital. That means the atom must be sp2 or sp hybridized.'"
+  }
+ ],
+ "electronegativityUsed": {
+  "H": 2.2,
+  "B": 2.04,
+  "C": 2.55,
+  "N": 3.04,
+  "O": 3.44,
+  "F": 3.98,
+  "P": 2.19,
+  "S": 2.58,
+  "Cl": 3.16,
+  "Xe": 2.6
+ },
+ "resonanceOverrideAtoms": [
+  {
+   "molecule": "sulfur-dioxide",
+   "atom": "O2"
+  },
+  {
+   "molecule": "acetic-acid",
+   "atom": "O2"
+  },
+  {
+   "molecule": "ethyl-acetate",
+   "atom": "O2"
+  },
+  {
+   "molecule": "acetamide",
+   "atom": "N1"
+  },
+  {
+   "molecule": "glycine",
+   "atom": "O2"
+  },
+  {
+   "molecule": "glycine-zwitterion",
+   "atom": "O2"
+  },
+  {
+   "molecule": "alanine",
+   "atom": "O2"
+  },
+  {
+   "molecule": "alanine-zwitterion",
+   "atom": "O2"
+  },
+  {
+   "molecule": "urea",
+   "atom": "N1"
+  },
+  {
+   "molecule": "urea",
+   "atom": "N2"
+  },
+  {
+   "molecule": "bicarbonate",
+   "atom": "O2"
+  },
+  {
+   "molecule": "bicarbonate",
+   "atom": "O3"
+  },
+  {
+   "molecule": "carbonic-acid",
+   "atom": "O2"
+  },
+  {
+   "molecule": "carbonic-acid",
+   "atom": "O3"
+  }
+ ],
+ "molecules": [
+  {
+   "id": "water",
+   "name": "water (H2O)",
+   "charge": 0,
+   "composition": {
+    "O": 1,
+    "H": 2
+   },
+   "atoms": [
+    {
+     "label": "O1",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 2,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "bent",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "O1",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.24
+    },
+    {
+     "a": "O1",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.24
+    }
+   ],
+   "octetExceptions": [],
+   "notes": ""
+  },
+  {
+   "id": "carbon-dioxide",
+   "name": "carbon dioxide (CO2)",
+   "charge": 0,
+   "composition": {
+    "C": 1,
+    "O": 2
+   },
+   "atoms": [
+    {
+     "label": "C1",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 4,
+     "bondedAtoms": 2,
+     "stericNumber": 2,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 2,
+     "electronGeometry": "linear",
+     "geometry": "linear",
+     "hybridization": "sp",
+     "hybridizationByStericNumberOnly": "sp",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O1",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 1,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O2",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 1,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    }
+   ],
+   "bonds": [
+    {
+     "a": "C1",
+     "b": "O1",
+     "order": 2,
+     "aromatic": false,
+     "sigmaPi": "1 sigma + 1 pi",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C1",
+     "b": "O2",
+     "order": 2,
+     "aromatic": false,
+     "sigmaPi": "1 sigma + 1 pi",
+     "paulingDifference": 0.89
+    }
+   ],
+   "octetExceptions": [],
+   "notes": ""
+  },
+  {
+   "id": "ammonia",
+   "name": "ammonia (NH3)",
+   "charge": 0,
+   "composition": {
+    "N": 1,
+    "H": 3
+   },
+   "atoms": [
+    {
+     "label": "N1",
+     "element": "N",
+     "formalCharge": 0,
+     "lonePairs": 1,
+     "oxidationState": -3,
+     "bondedAtoms": 3,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "trigonal pyramidal",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H3",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "N1",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.84
+    },
+    {
+     "a": "N1",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.84
+    },
+    {
+     "a": "N1",
+     "b": "H3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.84
+    }
+   ],
+   "octetExceptions": [],
+   "notes": ""
+  },
+  {
+   "id": "methane",
+   "name": "methane (CH4)",
+   "charge": 0,
+   "composition": {
+    "C": 1,
+    "H": 4
+   },
+   "atoms": [
+    {
+     "label": "C1",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -4,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H3",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H4",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "C1",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C1",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C1",
+     "b": "H3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C1",
+     "b": "H4",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    }
+   ],
+   "octetExceptions": [],
+   "notes": ""
+  },
+  {
+   "id": "oxygen",
+   "name": "oxygen (O2)",
+   "charge": 0,
+   "composition": {
+    "O": 2
+   },
+   "atoms": [
+    {
+     "label": "O1",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": 0,
+     "bondedAtoms": 1,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O2",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": 0,
+     "bondedAtoms": 1,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    }
+   ],
+   "bonds": [
+    {
+     "a": "O1",
+     "b": "O2",
+     "order": 2,
+     "aromatic": false,
+     "sigmaPi": "1 sigma + 1 pi",
+     "paulingDifference": 0.0
+    }
+   ],
+   "octetExceptions": [],
+   "notes": "Lewis structure shows all electrons paired; the MO diagram (see mo[]) shows two unpaired electrons."
+  },
+  {
+   "id": "nitrogen",
+   "name": "nitrogen (N2)",
+   "charge": 0,
+   "composition": {
+    "N": 2
+   },
+   "atoms": [
+    {
+     "label": "N1",
+     "element": "N",
+     "formalCharge": 0,
+     "lonePairs": 1,
+     "oxidationState": 0,
+     "bondedAtoms": 1,
+     "stericNumber": 2,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 2,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp",
+     "hybridizationByStericNumberOnly": "sp",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "N2",
+     "element": "N",
+     "formalCharge": 0,
+     "lonePairs": 1,
+     "oxidationState": 0,
+     "bondedAtoms": 1,
+     "stericNumber": 2,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 2,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp",
+     "hybridizationByStericNumberOnly": "sp",
+     "valenceShellElectrons": 8
+    }
+   ],
+   "bonds": [
+    {
+     "a": "N1",
+     "b": "N2",
+     "order": 3,
+     "aromatic": false,
+     "sigmaPi": "1 sigma + 2 pi",
+     "paulingDifference": 0.0
+    }
+   ],
+   "octetExceptions": [],
+   "notes": ""
+  },
+  {
+   "id": "hydrogen-chloride",
+   "name": "hydrogen chloride (HCl)",
+   "charge": 0,
+   "composition": {
+    "Cl": 1,
+    "H": 1
+   },
+   "atoms": [
+    {
+     "label": "Cl1",
+     "element": "Cl",
+     "formalCharge": 0,
+     "lonePairs": 3,
+     "oxidationState": -1,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "not assigned (terminal atom)",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "H1",
+     "b": "Cl1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.96
+    }
+   ],
+   "octetExceptions": [],
+   "notes": ""
+  },
+  {
+   "id": "hydrogen-peroxide",
+   "name": "hydrogen peroxide (H2O2)",
+   "charge": 0,
+   "composition": {
+    "O": 2,
+    "H": 2
+   },
+   "atoms": [
+    {
+     "label": "O1",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -1,
+     "bondedAtoms": 2,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "bent",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O2",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -1,
+     "bondedAtoms": 2,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "bent",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "O1",
+     "b": "O2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "O1",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.24
+    },
+    {
+     "a": "O2",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.24
+    }
+   ],
+   "octetExceptions": [],
+   "notes": "O-O bond electrons are split equally, so each O is -1."
+  },
+  {
+   "id": "boron-trifluoride",
+   "name": "boron trifluoride (BF3)",
+   "charge": 0,
+   "composition": {
+    "B": 1,
+    "F": 3
+   },
+   "atoms": [
+    {
+     "label": "B1",
+     "element": "B",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 3,
+     "bondedAtoms": 3,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 6
+    },
+    {
+     "label": "F1",
+     "element": "F",
+     "formalCharge": 0,
+     "lonePairs": 3,
+     "oxidationState": -1,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "not assigned (terminal atom)",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "F2",
+     "element": "F",
+     "formalCharge": 0,
+     "lonePairs": 3,
+     "oxidationState": -1,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "not assigned (terminal atom)",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "F3",
+     "element": "F",
+     "formalCharge": 0,
+     "lonePairs": 3,
+     "oxidationState": -1,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "not assigned (terminal atom)",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    }
+   ],
+   "bonds": [
+    {
+     "a": "B1",
+     "b": "F1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.94
+    },
+    {
+     "a": "B1",
+     "b": "F2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.94
+    },
+    {
+     "a": "B1",
+     "b": "F3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.94
+    }
+   ],
+   "octetExceptions": [
+    "B1"
+   ],
+   "notes": "Boron has an incomplete octet (6 electrons)."
+  },
+  {
+   "id": "sulfur-dioxide",
+   "name": "sulfur dioxide (SO2)",
+   "charge": 0,
+   "composition": {
+    "S": 1,
+    "O": 2
+   },
+   "atoms": [
+    {
+     "label": "S1",
+     "element": "S",
+     "formalCharge": 1,
+     "lonePairs": 1,
+     "oxidationState": 4,
+     "bondedAtoms": 2,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "bent",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O1",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 1,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O2",
+     "element": "O",
+     "formalCharge": -1,
+     "lonePairs": 3,
+     "oxidationState": -2,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": true,
+     "effectiveStericNumber": 3,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8,
+     "withoutResonanceOverride": {
+      "stericNumber": 4,
+      "electronGeometry": null,
+      "geometry": "terminal atom",
+      "hybridization": "sp3"
+     }
+    }
+   ],
+   "bonds": [
+    {
+     "a": "S1",
+     "b": "O1",
+     "order": 2,
+     "aromatic": false,
+     "sigmaPi": "1 sigma + 1 pi",
+     "resonanceNote": "one of two equivalent resonance structures; effective order 1.5",
+     "effectiveOrder": 1.5,
+     "paulingDifference": 0.86
+    },
+    {
+     "a": "S1",
+     "b": "O2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "resonanceNote": "one of two equivalent resonance structures; effective order 1.5",
+     "effectiveOrder": 1.5,
+     "paulingDifference": 0.86
+    }
+   ],
+   "octetExceptions": [],
+   "notes": "Octet-obeying resonance form with formal charges (S +1, single-bonded O -1), as drawn in OpenStax Chemistry 2e Example 8.4. Both S-O bonds carry the resonance note. O2 is sp2 by the resonance override."
+  },
+  {
+   "id": "sulfur-hexafluoride",
+   "name": "sulfur hexafluoride (SF6)",
+   "charge": 0,
+   "composition": {
+    "S": 1,
+    "F": 6
+   },
+   "atoms": [
+    {
+     "label": "S1",
+     "element": "S",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 6,
+     "bondedAtoms": 6,
+     "stericNumber": 6,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 6,
+     "electronGeometry": "octahedral",
+     "geometry": "octahedral",
+     "hybridization": "sp3d2 (textbook label)",
+     "hybridizationByStericNumberOnly": "sp3d2 (textbook label)",
+     "valenceShellElectrons": 12
+    },
+    {
+     "label": "F1",
+     "element": "F",
+     "formalCharge": 0,
+     "lonePairs": 3,
+     "oxidationState": -1,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "not assigned (terminal atom)",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "F2",
+     "element": "F",
+     "formalCharge": 0,
+     "lonePairs": 3,
+     "oxidationState": -1,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "not assigned (terminal atom)",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "F3",
+     "element": "F",
+     "formalCharge": 0,
+     "lonePairs": 3,
+     "oxidationState": -1,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "not assigned (terminal atom)",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "F4",
+     "element": "F",
+     "formalCharge": 0,
+     "lonePairs": 3,
+     "oxidationState": -1,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "not assigned (terminal atom)",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "F5",
+     "element": "F",
+     "formalCharge": 0,
+     "lonePairs": 3,
+     "oxidationState": -1,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "not assigned (terminal atom)",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "F6",
+     "element": "F",
+     "formalCharge": 0,
+     "lonePairs": 3,
+     "oxidationState": -1,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "not assigned (terminal atom)",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    }
+   ],
+   "bonds": [
+    {
+     "a": "S1",
+     "b": "F1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.4
+    },
+    {
+     "a": "S1",
+     "b": "F2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.4
+    },
+    {
+     "a": "S1",
+     "b": "F3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.4
+    },
+    {
+     "a": "S1",
+     "b": "F4",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.4
+    },
+    {
+     "a": "S1",
+     "b": "F5",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.4
+    },
+    {
+     "a": "S1",
+     "b": "F6",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.4
+    }
+   ],
+   "octetExceptions": [
+    "S1"
+   ],
+   "notes": "Expanded valence shell on S (12 electrons)."
+  },
+  {
+   "id": "xenon-tetrafluoride",
+   "name": "xenon tetrafluoride (XeF4)",
+   "charge": 0,
+   "composition": {
+    "Xe": 1,
+    "F": 4
+   },
+   "atoms": [
+    {
+     "label": "Xe1",
+     "element": "Xe",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": 4,
+     "bondedAtoms": 4,
+     "stericNumber": 6,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 6,
+     "electronGeometry": "octahedral",
+     "geometry": "square planar",
+     "hybridization": "sp3d2 (textbook label)",
+     "hybridizationByStericNumberOnly": "sp3d2 (textbook label)",
+     "valenceShellElectrons": 12
+    },
+    {
+     "label": "F1",
+     "element": "F",
+     "formalCharge": 0,
+     "lonePairs": 3,
+     "oxidationState": -1,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "not assigned (terminal atom)",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "F2",
+     "element": "F",
+     "formalCharge": 0,
+     "lonePairs": 3,
+     "oxidationState": -1,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "not assigned (terminal atom)",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "F3",
+     "element": "F",
+     "formalCharge": 0,
+     "lonePairs": 3,
+     "oxidationState": -1,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "not assigned (terminal atom)",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "F4",
+     "element": "F",
+     "formalCharge": 0,
+     "lonePairs": 3,
+     "oxidationState": -1,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "not assigned (terminal atom)",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    }
+   ],
+   "bonds": [
+    {
+     "a": "Xe1",
+     "b": "F1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.38
+    },
+    {
+     "a": "Xe1",
+     "b": "F2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.38
+    },
+    {
+     "a": "Xe1",
+     "b": "F3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.38
+    },
+    {
+     "a": "Xe1",
+     "b": "F4",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.38
+    }
+   ],
+   "octetExceptions": [
+    "Xe1"
+   ],
+   "notes": "Expanded valence shell on Xe (12 electrons); the two lone pairs are trans (octahedral electron geometry)."
+  },
+  {
+   "id": "phosphorus-pentachloride",
+   "name": "phosphorus pentachloride (PCl5)",
+   "charge": 0,
+   "composition": {
+    "P": 1,
+    "Cl": 5
+   },
+   "atoms": [
+    {
+     "label": "P1",
+     "element": "P",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 5,
+     "bondedAtoms": 5,
+     "stericNumber": 5,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 5,
+     "electronGeometry": "trigonal bipyramidal",
+     "geometry": "trigonal bipyramidal",
+     "hybridization": "sp3d (textbook label)",
+     "hybridizationByStericNumberOnly": "sp3d (textbook label)",
+     "valenceShellElectrons": 10
+    },
+    {
+     "label": "Cl1",
+     "element": "Cl",
+     "formalCharge": 0,
+     "lonePairs": 3,
+     "oxidationState": -1,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "not assigned (terminal atom)",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "Cl2",
+     "element": "Cl",
+     "formalCharge": 0,
+     "lonePairs": 3,
+     "oxidationState": -1,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "not assigned (terminal atom)",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "Cl3",
+     "element": "Cl",
+     "formalCharge": 0,
+     "lonePairs": 3,
+     "oxidationState": -1,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "not assigned (terminal atom)",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "Cl4",
+     "element": "Cl",
+     "formalCharge": 0,
+     "lonePairs": 3,
+     "oxidationState": -1,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "not assigned (terminal atom)",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "Cl5",
+     "element": "Cl",
+     "formalCharge": 0,
+     "lonePairs": 3,
+     "oxidationState": -1,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "not assigned (terminal atom)",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    }
+   ],
+   "bonds": [
+    {
+     "a": "P1",
+     "b": "Cl1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.97
+    },
+    {
+     "a": "P1",
+     "b": "Cl2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.97
+    },
+    {
+     "a": "P1",
+     "b": "Cl3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.97
+    },
+    {
+     "a": "P1",
+     "b": "Cl4",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.97
+    },
+    {
+     "a": "P1",
+     "b": "Cl5",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.97
+    }
+   ],
+   "octetExceptions": [
+    "P1"
+   ],
+   "notes": "Gas-phase structure. Suggested labelling: Cl1-Cl3 equatorial, Cl4-Cl5 axial. Ideal angles: eq-eq 120, ax-eq 90, ax-ax 180 degrees. Expanded valence shell on P (10 electrons)."
+  },
+  {
+   "id": "ethane",
+   "name": "ethane (C2H6)",
+   "charge": 0,
+   "composition": {
+    "C": 2,
+    "H": 6
+   },
+   "atoms": [
+    {
+     "label": "C1",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -3,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C2",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -3,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H3",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H4",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H5",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H6",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "C1",
+     "b": "C2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C1",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C1",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C1",
+     "b": "H3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C2",
+     "b": "H4",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C2",
+     "b": "H5",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C2",
+     "b": "H6",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    }
+   ],
+   "octetExceptions": [],
+   "notes": ""
+  },
+  {
+   "id": "ethene",
+   "name": "ethene (C2H4)",
+   "charge": 0,
+   "composition": {
+    "C": 2,
+    "H": 4
+   },
+   "atoms": [
+    {
+     "label": "C1",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -2,
+     "bondedAtoms": 3,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C2",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -2,
+     "bondedAtoms": 3,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H3",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H4",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "C1",
+     "b": "C2",
+     "order": 2,
+     "aromatic": false,
+     "sigmaPi": "1 sigma + 1 pi",
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C1",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C1",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C2",
+     "b": "H3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C2",
+     "b": "H4",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    }
+   ],
+   "octetExceptions": [],
+   "notes": ""
+  },
+  {
+   "id": "ethyne",
+   "name": "ethyne (C2H2)",
+   "charge": 0,
+   "composition": {
+    "C": 2,
+    "H": 2
+   },
+   "atoms": [
+    {
+     "label": "C1",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -1,
+     "bondedAtoms": 2,
+     "stericNumber": 2,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 2,
+     "electronGeometry": "linear",
+     "geometry": "linear",
+     "hybridization": "sp",
+     "hybridizationByStericNumberOnly": "sp",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C2",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -1,
+     "bondedAtoms": 2,
+     "stericNumber": 2,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 2,
+     "electronGeometry": "linear",
+     "geometry": "linear",
+     "hybridization": "sp",
+     "hybridizationByStericNumberOnly": "sp",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "C1",
+     "b": "C2",
+     "order": 3,
+     "aromatic": false,
+     "sigmaPi": "1 sigma + 2 pi",
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C1",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C2",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    }
+   ],
+   "octetExceptions": [],
+   "notes": ""
+  },
+  {
+   "id": "ethanol",
+   "name": "ethanol (CH3CH2OH)",
+   "charge": 0,
+   "composition": {
+    "C": 2,
+    "O": 1,
+    "H": 6
+   },
+   "atoms": [
+    {
+     "label": "C1",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -3,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C2",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -1,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O1",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 2,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "bent",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H3",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H4",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H5",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H6",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "C1",
+     "b": "C2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C2",
+     "b": "O1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C1",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C1",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C1",
+     "b": "H3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C2",
+     "b": "H4",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C2",
+     "b": "H5",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "O1",
+     "b": "H6",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.24
+    }
+   ],
+   "octetExceptions": [],
+   "notes": "C1 = CH3, C2 = CH2."
+  },
+  {
+   "id": "acetic-acid",
+   "name": "acetic acid (CH3COOH)",
+   "charge": 0,
+   "composition": {
+    "C": 2,
+    "O": 2,
+    "H": 4
+   },
+   "atoms": [
+    {
+     "label": "C1",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -3,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C2",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 3,
+     "bondedAtoms": 3,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O1",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 1,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O2",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 2,
+     "stericNumber": 4,
+     "resonanceOverride": true,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "bent",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8,
+     "withoutResonanceOverride": {
+      "stericNumber": 4,
+      "electronGeometry": "tetrahedral",
+      "geometry": "bent",
+      "hybridization": "sp3"
+     }
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H3",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H4",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "C1",
+     "b": "C2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C2",
+     "b": "O1",
+     "order": 2,
+     "aromatic": false,
+     "sigmaPi": "1 sigma + 1 pi",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C2",
+     "b": "O2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C1",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C1",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C1",
+     "b": "H3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "O2",
+     "b": "H4",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.24
+    }
+   ],
+   "octetExceptions": [],
+   "notes": "O1 = carbonyl O, O2 = hydroxyl O (resonance override: sp2, one lone pair delocalised; geometry bent)."
+  },
+  {
+   "id": "acetone",
+   "name": "acetone (CH3COCH3)",
+   "charge": 0,
+   "composition": {
+    "C": 3,
+    "O": 1,
+    "H": 6
+   },
+   "atoms": [
+    {
+     "label": "C1",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -3,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C2",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 2,
+     "bondedAtoms": 3,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C3",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -3,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O1",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 1,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H3",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H4",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H5",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H6",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "C1",
+     "b": "C2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C2",
+     "b": "C3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C2",
+     "b": "O1",
+     "order": 2,
+     "aromatic": false,
+     "sigmaPi": "1 sigma + 1 pi",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C1",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C1",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C1",
+     "b": "H3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C3",
+     "b": "H4",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C3",
+     "b": "H5",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C3",
+     "b": "H6",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    }
+   ],
+   "octetExceptions": [],
+   "notes": ""
+  },
+  {
+   "id": "formaldehyde",
+   "name": "formaldehyde (H2CO)",
+   "charge": 0,
+   "composition": {
+    "C": 1,
+    "O": 1,
+    "H": 2
+   },
+   "atoms": [
+    {
+     "label": "C1",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 0,
+     "bondedAtoms": 3,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O1",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 1,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "C1",
+     "b": "O1",
+     "order": 2,
+     "aromatic": false,
+     "sigmaPi": "1 sigma + 1 pi",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C1",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C1",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    }
+   ],
+   "octetExceptions": [],
+   "notes": ""
+  },
+  {
+   "id": "methylamine",
+   "name": "methylamine (CH3NH2)",
+   "charge": 0,
+   "composition": {
+    "C": 1,
+    "N": 1,
+    "H": 5
+   },
+   "atoms": [
+    {
+     "label": "C1",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -2,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "N1",
+     "element": "N",
+     "formalCharge": 0,
+     "lonePairs": 1,
+     "oxidationState": -3,
+     "bondedAtoms": 3,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "trigonal pyramidal",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H3",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H4",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H5",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "C1",
+     "b": "N1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.49
+    },
+    {
+     "a": "C1",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C1",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C1",
+     "b": "H3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "N1",
+     "b": "H4",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.84
+    },
+    {
+     "a": "N1",
+     "b": "H5",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.84
+    }
+   ],
+   "octetExceptions": [],
+   "notes": ""
+  },
+  {
+   "id": "ethyl-acetate",
+   "name": "ethyl acetate (CH3COOCH2CH3)",
+   "charge": 0,
+   "composition": {
+    "C": 4,
+    "O": 2,
+    "H": 8
+   },
+   "atoms": [
+    {
+     "label": "C1",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -3,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C2",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 3,
+     "bondedAtoms": 3,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O1",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 1,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O2",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 2,
+     "stericNumber": 4,
+     "resonanceOverride": true,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "bent",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8,
+     "withoutResonanceOverride": {
+      "stericNumber": 4,
+      "electronGeometry": "tetrahedral",
+      "geometry": "bent",
+      "hybridization": "sp3"
+     }
+    },
+    {
+     "label": "C3",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -1,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C4",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -3,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H3",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H4",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H5",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H6",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H7",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H8",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "C1",
+     "b": "C2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C2",
+     "b": "O1",
+     "order": 2,
+     "aromatic": false,
+     "sigmaPi": "1 sigma + 1 pi",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C2",
+     "b": "O2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "O2",
+     "b": "C3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C3",
+     "b": "C4",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C1",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C1",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C1",
+     "b": "H3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C3",
+     "b": "H4",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C3",
+     "b": "H5",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C4",
+     "b": "H6",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C4",
+     "b": "H7",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C4",
+     "b": "H8",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    }
+   ],
+   "octetExceptions": [],
+   "notes": "C1 = acyl CH3, C2 = carbonyl C, O1 = carbonyl O, O2 = ester (alkoxy) O (resonance override), C3 = OCH2, C4 = ethyl CH3."
+  },
+  {
+   "id": "acetamide",
+   "name": "acetamide (CH3CONH2)",
+   "charge": 0,
+   "composition": {
+    "C": 2,
+    "O": 1,
+    "N": 1,
+    "H": 5
+   },
+   "atoms": [
+    {
+     "label": "C1",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -3,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C2",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 3,
+     "bondedAtoms": 3,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O1",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 1,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "N1",
+     "element": "N",
+     "formalCharge": 0,
+     "lonePairs": 1,
+     "oxidationState": -3,
+     "bondedAtoms": 3,
+     "stericNumber": 4,
+     "resonanceOverride": true,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8,
+     "withoutResonanceOverride": {
+      "stericNumber": 4,
+      "electronGeometry": "tetrahedral",
+      "geometry": "trigonal pyramidal",
+      "hybridization": "sp3"
+     }
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H3",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H4",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H5",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "C1",
+     "b": "C2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C2",
+     "b": "O1",
+     "order": 2,
+     "aromatic": false,
+     "sigmaPi": "1 sigma + 1 pi",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C2",
+     "b": "N1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.49
+    },
+    {
+     "a": "C1",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C1",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C1",
+     "b": "H3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "N1",
+     "b": "H4",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.84
+    },
+    {
+     "a": "N1",
+     "b": "H5",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.84
+    }
+   ],
+   "octetExceptions": [],
+   "notes": "N1 is covered by the resonance override: sp2, trigonal planar."
+  },
+  {
+   "id": "benzene",
+   "name": "benzene (C6H6)",
+   "charge": 0,
+   "composition": {
+    "C": 6,
+    "H": 6
+   },
+   "atoms": [
+    {
+     "label": "C1",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -1,
+     "bondedAtoms": 3,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C2",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -1,
+     "bondedAtoms": 3,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C3",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -1,
+     "bondedAtoms": 3,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C4",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -1,
+     "bondedAtoms": 3,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C5",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -1,
+     "bondedAtoms": 3,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C6",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -1,
+     "bondedAtoms": 3,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H3",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H4",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H5",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H6",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "C1",
+     "b": "C2",
+     "order": 2,
+     "aromatic": true,
+     "sigmaPi": "1 sigma + delocalised pi (aromatic, effective order 1.5)",
+     "displayOrder": 1.5,
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C2",
+     "b": "C3",
+     "order": 1,
+     "aromatic": true,
+     "sigmaPi": "1 sigma + delocalised pi (aromatic, effective order 1.5)",
+     "displayOrder": 1.5,
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C3",
+     "b": "C4",
+     "order": 2,
+     "aromatic": true,
+     "sigmaPi": "1 sigma + delocalised pi (aromatic, effective order 1.5)",
+     "displayOrder": 1.5,
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C4",
+     "b": "C5",
+     "order": 1,
+     "aromatic": true,
+     "sigmaPi": "1 sigma + delocalised pi (aromatic, effective order 1.5)",
+     "displayOrder": 1.5,
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C5",
+     "b": "C6",
+     "order": 2,
+     "aromatic": true,
+     "sigmaPi": "1 sigma + delocalised pi (aromatic, effective order 1.5)",
+     "displayOrder": 1.5,
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C6",
+     "b": "C1",
+     "order": 1,
+     "aromatic": true,
+     "sigmaPi": "1 sigma + delocalised pi (aromatic, effective order 1.5)",
+     "displayOrder": 1.5,
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C1",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C2",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C3",
+     "b": "H3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C4",
+     "b": "H4",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C5",
+     "b": "H5",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C6",
+     "b": "H6",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    }
+   ],
+   "octetExceptions": [],
+   "notes": "Kekule form stored; all six ring bonds carry the aromatic flag and display as \"aromatic (delocalised), order 1.5\"."
+  },
+  {
+   "id": "beta-d-glucopyranose",
+   "name": "beta-D-glucopyranose (C6H12O6)",
+   "charge": 0,
+   "composition": {
+    "C": 6,
+    "O": 6,
+    "H": 12
+   },
+   "atoms": [
+    {
+     "label": "C1",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C2",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 0,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C3",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 0,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C4",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 0,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C5",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 0,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C6",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -1,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O1",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 2,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "bent",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O2",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 2,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "bent",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O3",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 2,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "bent",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O4",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 2,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "bent",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O5",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 2,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "bent",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O6",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 2,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "bent",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H3",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H4",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H5",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H6",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H7",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H8",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H9",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H10",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H11",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H12",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "C1",
+     "b": "C2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C2",
+     "b": "C3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C3",
+     "b": "C4",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C4",
+     "b": "C5",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C5",
+     "b": "C6",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C5",
+     "b": "O5",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "O5",
+     "b": "C1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C1",
+     "b": "O1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C2",
+     "b": "O2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C3",
+     "b": "O3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C4",
+     "b": "O4",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C6",
+     "b": "O6",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C1",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C2",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C3",
+     "b": "H3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C4",
+     "b": "H4",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C5",
+     "b": "H5",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C6",
+     "b": "H6",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C6",
+     "b": "H7",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "O1",
+     "b": "H8",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.24
+    },
+    {
+     "a": "O2",
+     "b": "H9",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.24
+    },
+    {
+     "a": "O3",
+     "b": "H10",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.24
+    },
+    {
+     "a": "O4",
+     "b": "H11",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.24
+    },
+    {
+     "a": "O6",
+     "b": "H12",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.24
+    }
+   ],
+   "octetExceptions": [],
+   "notes": "Carbons numbered as in carbohydrate nomenclature: C1 = anomeric carbon, C6 = CH2OH. O5 = ring oxygen (C1-O5-C5); O1-O4 and O6 are the hydroxyl oxygens on C1-C4 and C6. Stereochemistry (beta at C1, D series) lives in the 3D coordinates, not in this connectivity table."
+  },
+  {
+   "id": "glycine",
+   "name": "glycine, neutral form (H2NCH2COOH)",
+   "charge": 0,
+   "composition": {
+    "N": 1,
+    "C": 2,
+    "O": 2,
+    "H": 5
+   },
+   "atoms": [
+    {
+     "label": "N1",
+     "element": "N",
+     "formalCharge": 0,
+     "lonePairs": 1,
+     "oxidationState": -3,
+     "bondedAtoms": 3,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "trigonal pyramidal",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C1",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -1,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C2",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 3,
+     "bondedAtoms": 3,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O1",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 1,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O2",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 2,
+     "stericNumber": 4,
+     "resonanceOverride": true,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "bent",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8,
+     "withoutResonanceOverride": {
+      "stericNumber": 4,
+      "electronGeometry": "tetrahedral",
+      "geometry": "bent",
+      "hybridization": "sp3"
+     }
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H3",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H4",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H5",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "N1",
+     "b": "C1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.49
+    },
+    {
+     "a": "C1",
+     "b": "C2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C2",
+     "b": "O1",
+     "order": 2,
+     "aromatic": false,
+     "sigmaPi": "1 sigma + 1 pi",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C2",
+     "b": "O2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "N1",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.84
+    },
+    {
+     "a": "N1",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.84
+    },
+    {
+     "a": "C1",
+     "b": "H3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C1",
+     "b": "H4",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "O2",
+     "b": "H5",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.24
+    }
+   ],
+   "octetExceptions": [],
+   "notes": "C1 = alpha carbon, C2 = carboxyl carbon, O1 = carbonyl O, O2 = hydroxyl O (resonance override). The amine N is not adjacent to the pi system and stays sp3."
+  },
+  {
+   "id": "glycine-zwitterion",
+   "name": "glycine, zwitterion (+H3NCH2COO-)",
+   "charge": 0,
+   "composition": {
+    "N": 1,
+    "C": 2,
+    "O": 2,
+    "H": 5
+   },
+   "atoms": [
+    {
+     "label": "N1",
+     "element": "N",
+     "formalCharge": 1,
+     "lonePairs": 0,
+     "oxidationState": -3,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C1",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -1,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C2",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 3,
+     "bondedAtoms": 3,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O1",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 1,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O2",
+     "element": "O",
+     "formalCharge": -1,
+     "lonePairs": 3,
+     "oxidationState": -2,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": true,
+     "effectiveStericNumber": 3,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8,
+     "withoutResonanceOverride": {
+      "stericNumber": 4,
+      "electronGeometry": null,
+      "geometry": "terminal atom",
+      "hybridization": "sp3"
+     }
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H3",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H4",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H5",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "N1",
+     "b": "C1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.49
+    },
+    {
+     "a": "C1",
+     "b": "C2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C2",
+     "b": "O1",
+     "order": 2,
+     "aromatic": false,
+     "sigmaPi": "1 sigma + 1 pi",
+     "resonanceNote": "one of two equivalent resonance structures; effective order 1.5",
+     "effectiveOrder": 1.5,
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C2",
+     "b": "O2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "resonanceNote": "one of two equivalent resonance structures; effective order 1.5",
+     "effectiveOrder": 1.5,
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "N1",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.84
+    },
+    {
+     "a": "N1",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.84
+    },
+    {
+     "a": "N1",
+     "b": "H3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.84
+    },
+    {
+     "a": "C1",
+     "b": "H4",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C1",
+     "b": "H5",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    }
+   ],
+   "octetExceptions": [],
+   "notes": "Net charge 0 (N +1, O2 -1). Both carboxylate C-O bonds carry the resonance note. O2 is sp2 by the resonance override."
+  },
+  {
+   "id": "alanine",
+   "name": "alanine, neutral form (CH3CH(NH2)COOH)",
+   "charge": 0,
+   "composition": {
+    "N": 1,
+    "C": 3,
+    "O": 2,
+    "H": 7
+   },
+   "atoms": [
+    {
+     "label": "N1",
+     "element": "N",
+     "formalCharge": 0,
+     "lonePairs": 1,
+     "oxidationState": -3,
+     "bondedAtoms": 3,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "trigonal pyramidal",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C1",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 0,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C2",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 3,
+     "bondedAtoms": 3,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C3",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -3,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O1",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 1,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O2",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 2,
+     "stericNumber": 4,
+     "resonanceOverride": true,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "bent",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8,
+     "withoutResonanceOverride": {
+      "stericNumber": 4,
+      "electronGeometry": "tetrahedral",
+      "geometry": "bent",
+      "hybridization": "sp3"
+     }
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H3",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H4",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H5",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H6",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H7",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "N1",
+     "b": "C1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.49
+    },
+    {
+     "a": "C1",
+     "b": "C2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C1",
+     "b": "C3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C2",
+     "b": "O1",
+     "order": 2,
+     "aromatic": false,
+     "sigmaPi": "1 sigma + 1 pi",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C2",
+     "b": "O2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "N1",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.84
+    },
+    {
+     "a": "N1",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.84
+    },
+    {
+     "a": "C1",
+     "b": "H3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C3",
+     "b": "H4",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C3",
+     "b": "H5",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C3",
+     "b": "H6",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "O2",
+     "b": "H7",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.24
+    }
+   ],
+   "octetExceptions": [],
+   "notes": "C1 = alpha carbon, C2 = carboxyl carbon, C3 = methyl carbon, O1 = carbonyl O, O2 = hydroxyl O (resonance override). L/D configuration lives in the 3D coordinates."
+  },
+  {
+   "id": "alanine-zwitterion",
+   "name": "alanine, zwitterion (CH3CH(NH3+)COO-)",
+   "charge": 0,
+   "composition": {
+    "N": 1,
+    "C": 3,
+    "O": 2,
+    "H": 7
+   },
+   "atoms": [
+    {
+     "label": "N1",
+     "element": "N",
+     "formalCharge": 1,
+     "lonePairs": 0,
+     "oxidationState": -3,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C1",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 0,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C2",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 3,
+     "bondedAtoms": 3,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "C3",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": -3,
+     "bondedAtoms": 4,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "tetrahedral",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O1",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 1,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O2",
+     "element": "O",
+     "formalCharge": -1,
+     "lonePairs": 3,
+     "oxidationState": -2,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": true,
+     "effectiveStericNumber": 3,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8,
+     "withoutResonanceOverride": {
+      "stericNumber": 4,
+      "electronGeometry": null,
+      "geometry": "terminal atom",
+      "hybridization": "sp3"
+     }
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H3",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H4",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H5",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H6",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H7",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "N1",
+     "b": "C1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.49
+    },
+    {
+     "a": "C1",
+     "b": "C2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C1",
+     "b": "C3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.0
+    },
+    {
+     "a": "C2",
+     "b": "O1",
+     "order": 2,
+     "aromatic": false,
+     "sigmaPi": "1 sigma + 1 pi",
+     "resonanceNote": "one of two equivalent resonance structures; effective order 1.5",
+     "effectiveOrder": 1.5,
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C2",
+     "b": "O2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "resonanceNote": "one of two equivalent resonance structures; effective order 1.5",
+     "effectiveOrder": 1.5,
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "N1",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.84
+    },
+    {
+     "a": "N1",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.84
+    },
+    {
+     "a": "N1",
+     "b": "H3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.84
+    },
+    {
+     "a": "C1",
+     "b": "H4",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C3",
+     "b": "H5",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C3",
+     "b": "H6",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    },
+    {
+     "a": "C3",
+     "b": "H7",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.35
+    }
+   ],
+   "octetExceptions": [],
+   "notes": "C1 = alpha carbon, C2 = carboxylate carbon, C3 = methyl carbon. Net charge 0 (N +1, O2 -1). Both carboxylate C-O bonds carry the resonance note. O2 is sp2 by the resonance override. L/D configuration lives in the 3D coordinates."
+  },
+  {
+   "id": "urea",
+   "name": "urea (CO(NH2)2)",
+   "charge": 0,
+   "composition": {
+    "C": 1,
+    "O": 1,
+    "N": 2,
+    "H": 4
+   },
+   "atoms": [
+    {
+     "label": "C1",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 4,
+     "bondedAtoms": 3,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O1",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 1,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "N1",
+     "element": "N",
+     "formalCharge": 0,
+     "lonePairs": 1,
+     "oxidationState": -3,
+     "bondedAtoms": 3,
+     "stericNumber": 4,
+     "resonanceOverride": true,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8,
+     "withoutResonanceOverride": {
+      "stericNumber": 4,
+      "electronGeometry": "tetrahedral",
+      "geometry": "trigonal pyramidal",
+      "hybridization": "sp3"
+     }
+    },
+    {
+     "label": "N2",
+     "element": "N",
+     "formalCharge": 0,
+     "lonePairs": 1,
+     "oxidationState": -3,
+     "bondedAtoms": 3,
+     "stericNumber": 4,
+     "resonanceOverride": true,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8,
+     "withoutResonanceOverride": {
+      "stericNumber": 4,
+      "electronGeometry": "tetrahedral",
+      "geometry": "trigonal pyramidal",
+      "hybridization": "sp3"
+     }
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H3",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H4",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "C1",
+     "b": "O1",
+     "order": 2,
+     "aromatic": false,
+     "sigmaPi": "1 sigma + 1 pi",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C1",
+     "b": "N1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.49
+    },
+    {
+     "a": "C1",
+     "b": "N2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.49
+    },
+    {
+     "a": "N1",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.84
+    },
+    {
+     "a": "N1",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.84
+    },
+    {
+     "a": "N2",
+     "b": "H3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.84
+    },
+    {
+     "a": "N2",
+     "b": "H4",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.84
+    }
+   ],
+   "octetExceptions": [],
+   "notes": "Both N are covered by the resonance override: sp2, trigonal planar."
+  },
+  {
+   "id": "hydronium",
+   "name": "hydronium ion (H3O+)",
+   "charge": 1,
+   "composition": {
+    "O": 1,
+    "H": 3
+   },
+   "atoms": [
+    {
+     "label": "O1",
+     "element": "O",
+     "formalCharge": 1,
+     "lonePairs": 1,
+     "oxidationState": -2,
+     "bondedAtoms": 3,
+     "stericNumber": 4,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 4,
+     "electronGeometry": "tetrahedral",
+     "geometry": "trigonal pyramidal",
+     "hybridization": "sp3",
+     "hybridizationByStericNumberOnly": "sp3",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H3",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "O1",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.24
+    },
+    {
+     "a": "O1",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.24
+    },
+    {
+     "a": "O1",
+     "b": "H3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.24
+    }
+   ],
+   "octetExceptions": [],
+   "notes": ""
+  },
+  {
+   "id": "bicarbonate",
+   "name": "hydrogen carbonate ion (HCO3-)",
+   "charge": -1,
+   "composition": {
+    "C": 1,
+    "O": 3,
+    "H": 1
+   },
+   "atoms": [
+    {
+     "label": "C1",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 4,
+     "bondedAtoms": 3,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O1",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 1,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O2",
+     "element": "O",
+     "formalCharge": -1,
+     "lonePairs": 3,
+     "oxidationState": -2,
+     "bondedAtoms": 1,
+     "stericNumber": 4,
+     "resonanceOverride": true,
+     "effectiveStericNumber": 3,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8,
+     "withoutResonanceOverride": {
+      "stericNumber": 4,
+      "electronGeometry": null,
+      "geometry": "terminal atom",
+      "hybridization": "sp3"
+     }
+    },
+    {
+     "label": "O3",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 2,
+     "stericNumber": 4,
+     "resonanceOverride": true,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "bent",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8,
+     "withoutResonanceOverride": {
+      "stericNumber": 4,
+      "electronGeometry": "tetrahedral",
+      "geometry": "bent",
+      "hybridization": "sp3"
+     }
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "C1",
+     "b": "O1",
+     "order": 2,
+     "aromatic": false,
+     "sigmaPi": "1 sigma + 1 pi",
+     "resonanceNote": "one of two equivalent resonance structures; effective order 1.5",
+     "effectiveOrder": 1.5,
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C1",
+     "b": "O2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "resonanceNote": "one of two equivalent resonance structures; effective order 1.5",
+     "effectiveOrder": 1.5,
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C1",
+     "b": "O3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "O3",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.24
+    }
+   ],
+   "octetExceptions": [],
+   "notes": "O1/O2 = the two unprotonated oxygens (their C-O bonds carry the resonance note); O3 = hydroxyl O (resonance override; its C-O bond has no note)."
+  },
+  {
+   "id": "carbonic-acid",
+   "name": "carbonic acid (H2CO3)",
+   "charge": 0,
+   "composition": {
+    "C": 1,
+    "O": 3,
+    "H": 2
+   },
+   "atoms": [
+    {
+     "label": "C1",
+     "element": "C",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 4,
+     "bondedAtoms": 3,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "trigonal planar",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O1",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 1,
+     "stericNumber": 3,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 3,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8
+    },
+    {
+     "label": "O2",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 2,
+     "stericNumber": 4,
+     "resonanceOverride": true,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "bent",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8,
+     "withoutResonanceOverride": {
+      "stericNumber": 4,
+      "electronGeometry": "tetrahedral",
+      "geometry": "bent",
+      "hybridization": "sp3"
+     }
+    },
+    {
+     "label": "O3",
+     "element": "O",
+     "formalCharge": 0,
+     "lonePairs": 2,
+     "oxidationState": -2,
+     "bondedAtoms": 2,
+     "stericNumber": 4,
+     "resonanceOverride": true,
+     "effectiveStericNumber": 3,
+     "electronGeometry": "trigonal planar",
+     "geometry": "bent",
+     "hybridization": "sp2",
+     "hybridizationByStericNumberOnly": "sp2",
+     "valenceShellElectrons": 8,
+     "withoutResonanceOverride": {
+      "stericNumber": 4,
+      "electronGeometry": "tetrahedral",
+      "geometry": "bent",
+      "hybridization": "sp3"
+     }
+    },
+    {
+     "label": "H1",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    },
+    {
+     "label": "H2",
+     "element": "H",
+     "formalCharge": 0,
+     "lonePairs": 0,
+     "oxidationState": 1,
+     "bondedAtoms": 1,
+     "stericNumber": 1,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 1,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "none (1s)",
+     "valenceShellElectrons": 2
+    }
+   ],
+   "bonds": [
+    {
+     "a": "C1",
+     "b": "O1",
+     "order": 2,
+     "aromatic": false,
+     "sigmaPi": "1 sigma + 1 pi",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C1",
+     "b": "O2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "C1",
+     "b": "O3",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 0.89
+    },
+    {
+     "a": "O2",
+     "b": "H1",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.24
+    },
+    {
+     "a": "O3",
+     "b": "H2",
+     "order": 1,
+     "aromatic": false,
+     "sigmaPi": "1 sigma",
+     "paulingDifference": 1.24
+    }
+   ],
+   "octetExceptions": [],
+   "notes": "O2 and O3 = hydroxyl O (resonance override). No resonance note on any bond: the contributing structures are not equivalent."
+  }
+ ],
+ "mo": [
+  {
+   "id": "oxygen",
+   "levels": [
+    {
+     "label": "sigma2s",
+     "degeneracy": 1,
+     "electrons": 2,
+     "type": "bonding"
+    },
+    {
+     "label": "sigma*2s",
+     "degeneracy": 1,
+     "electrons": 2,
+     "type": "antibonding"
+    },
+    {
+     "label": "sigma2p",
+     "degeneracy": 1,
+     "electrons": 2,
+     "type": "bonding"
+    },
+    {
+     "label": "pi2p",
+     "degeneracy": 2,
+     "electrons": 4,
+     "type": "bonding"
+    },
+    {
+     "label": "pi*2p",
+     "degeneracy": 2,
+     "electrons": 2,
+     "type": "antibonding"
+    },
+    {
+     "label": "sigma*2p",
+     "degeneracy": 1,
+     "electrons": 0,
+     "type": "antibonding"
+    }
+   ],
+   "bondOrder": 2,
+   "unpaired": 2,
+   "magnetism": "paramagnetic",
+   "valenceConfiguration": "(sigma2s)2 (sigma*2s)2 (sigma2px)2 (pi2py, pi2pz)4 (pi*2py, pi*2pz)2",
+   "orderNote": "O2 (also F2, Ne2): negligible s-p mixing, so sigma2p lies BELOW pi2p. The two pi*2p electrons occupy the two degenerate orbitals singly with parallel spins (Hund's rule).",
+   "sourceUrl": "https://openstax.org/books/chemistry-2e/pages/8-4-molecular-orbital-theory",
+   "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 8.4 Molecular Orbital Theory (Figure 8.37, Table 8.3, Example 8.6)."
+  },
+  {
+   "id": "nitrogen",
+   "levels": [
+    {
+     "label": "sigma2s",
+     "degeneracy": 1,
+     "electrons": 2,
+     "type": "bonding"
+    },
+    {
+     "label": "sigma*2s",
+     "degeneracy": 1,
+     "electrons": 2,
+     "type": "antibonding"
+    },
+    {
+     "label": "pi2p",
+     "degeneracy": 2,
+     "electrons": 4,
+     "type": "bonding"
+    },
+    {
+     "label": "sigma2p",
+     "degeneracy": 1,
+     "electrons": 2,
+     "type": "bonding"
+    },
+    {
+     "label": "pi*2p",
+     "degeneracy": 2,
+     "electrons": 0,
+     "type": "antibonding"
+    },
+    {
+     "label": "sigma*2p",
+     "degeneracy": 1,
+     "electrons": 0,
+     "type": "antibonding"
+    }
+   ],
+   "bondOrder": 3,
+   "unpaired": 0,
+   "magnetism": "diamagnetic",
+   "valenceConfiguration": "(sigma2s)2 (sigma*2s)2 (pi2py, pi2pz)4 (sigma2px)2",
+   "orderNote": "N2 (and Li2 through N2): s-p mixing raises sigma2p ABOVE pi2p.",
+   "sourceUrl": "https://openstax.org/books/chemistry-2e/pages/8-4-molecular-orbital-theory",
+   "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 8.4 Molecular Orbital Theory (Figure 8.37, Table 8.3, Example 8.6)."
+  }
+ ],
+ "verification": {
+  "verifiedOn": "2026-10-03",
+  "method": "Independent script verify-expected/verify.py (written without reference to build_expected.py's logic, using electronegativities fetched fresh from PubChem) recomputed every derived value from the atom and bond lists; every structure was compared with its PubChem 2D SDF record by graph isomorphism; all 21 cited URLs were re-fetched with curl and the cited statements located in the page text (figure content via alt text).",
+  "computedChecks": {
+   "assertions": 3946,
+   "failures": 0,
+   "covers": "per atom (234): formal charge, valence-shell electron count and octetExceptions list, oxidation state (Pauling rule), bondedAtoms, stericNumber, resonanceOverride (rule re-implemented), effectiveStericNumber, electronGeometry, geometry, hybridization, label/element agreement. Per bond (203): endpoints exist, no duplicates, sigmaPi string, paulingDifference. Per molecule (33): formal charges and oxidation states sum to charge, composition field, composition and net charge and charged-atom set against PubChem, connectivity and bond orders against PubChem. Override atom list (14). MO: electron totals 12 and 10, bond order, unpaired count, aufbau filling, star/type agreement."
+  },
+  "pubchemComparison": {
+   "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/<cids>/SDF",
+   "cidsUsed": {
+    "water": 962,
+    "carbon-dioxide": 280,
+    "ammonia": 222,
+    "methane": 297,
+    "oxygen": 977,
+    "nitrogen": 947,
+    "hydrogen-chloride": 313,
+    "hydrogen-peroxide": 784,
+    "boron-trifluoride": 6356,
+    "sulfur-dioxide": 1119,
+    "sulfur-hexafluoride": 17358,
+    "xenon-tetrafluoride": 123324,
+    "phosphorus-pentachloride": 24819,
+    "ethane": 6324,
+    "ethene": 6325,
+    "ethyne": 6326,
+    "ethanol": 702,
+    "acetic-acid": 176,
+    "acetone": 180,
+    "formaldehyde": 712,
+    "methylamine": 6329,
+    "ethyl-acetate": 8857,
+    "acetamide": 178,
+    "benzene": 241,
+    "beta-d-glucopyranose": 64689,
+    "glycine": 750,
+    "glycine-zwitterion": 5257127,
+    "alanine": 5950,
+    "alanine-zwitterion": 7311724,
+    "urea": 1176,
+    "hydronium": 123332,
+    "bicarbonate": 769,
+    "carbonic-acid": 767
+   },
+   "result": "32 of 33 structures are isomorphic to the PubChem record including bond orders and formal-charge placement. sulfur-dioxide has the same connectivity but PubChem stores O=S=O; this is the documented convention choice, not an error. These CIDs were chosen by the verifier to check structures; they are not part of the original file and alanine's CIDs (5950 L-alanine, 7311724 L-alanine zwitterion) should be re-confirmed when the fetch script is written, as the spec says."
+  },
+  "electronegativity": {
+   "pauling": "All ten values match PubChem periodic table and Wikipedia data page.",
+   "allen": "Fetched from https://en.wikipedia.org/wiki/Oxidation_state ; same bond direction as Pauling for C-H, N-H, O-H, C-N, C-O, H-Cl, B-F, S-O, S-F, Xe-F, P-Cl.",
+   "crc": "Not checked (paywalled)."
+  },
+  "sourceClaimsConfirmed": [
+   {
+    "source": "openstax-chem2e-8.4",
+    "confirmed": "Table 8.3 valence configurations of N2 and O2 match valenceConfiguration strings and level order exactly; text: sigma-p above pi-p for Li through N; O2, F2, Ne2 negligible s-p mixing; Example 8.6 is the O2 diagram; 'N2 has a bond order of 3 and is diamagnetic'; O2 two unpaired electrons; Figure 8.37 exists",
+    "claims": 8
+   },
+   {
+    "source": "libretexts Brown 9.8 (second source, https://chem.libretexts.org/Bookshelves/General_Chemistry/Map%3A_Chemistry_-_The_Central_Science_(Brown_et_al.)/09%3A_Molecular_Geometry_and_Bonding_Theories/9.08%3A_Second-Row_Diatomic_Molecules)",
+    "confirmed": "O2: 12 valence electrons, 8 bonding and 4 antibonding, bond order 2, two unpaired electrons, paramagnetic",
+    "claims": 3
+   },
+   {
+    "source": "openstax-chem2e-8.3",
+    "confirmed": "Example 8.4 SO2 figure alt text: S one lone pair and positive sign, single-bonded O three lone pairs and negative sign, other O double-bonded with two lone pairs; S sp2; acetylene one sigma and two pi",
+    "claims": 5
+   },
+   {
+    "source": "openstax-chem2e-8.2",
+    "confirmed": "SF6 sulfur sp3d2; sp3d for trigonal bipyramidal; Example 8.3 urea carbon sp2; acetic acid carbons sp3 and sp2",
+    "claims": 4
+   },
+   {
+    "source": "openstax-chem2e-8.1",
+    "confirmed": "HCl as s-p overlap; double bond one sigma one pi; triple bond one sigma two pi",
+    "claims": 3
+   },
+   {
+    "source": "openstax-chem2e-7.6",
+    "confirmed": "Example 7.15 XeF4: six regions, two lone pairs, octahedral, square planar; Example 7.16 glycine: N trigonal pyramidal, CH2 tetrahedral, CO2 carbon trigonal planar, O-H oxygen tetrahedral electron geometry and bent (109 degrees); 'bent or angular'",
+    "claims": 7
+   },
+   {
+    "source": "openstax-chem2e-7.3",
+    "confirmed": "BF3 best structure three single bonds with electron-deficient B; PCl5 and SF6 hypervalent Lewis structures (Figure 7.12)",
+    "claims": 3
+   },
+   {
+    "source": "openstax-chem2e-7.4",
+    "confirmed": "formal charge formula; resonance = average of forms; carbonate example",
+    "claims": 3
+   },
+   {
+    "source": "openstax-chem2e-4.2",
+    "confirmed": "H +1 with nonmetals; O -2, -1 in peroxides; halogens -1; sum equals charge",
+    "claims": 4
+   },
+   {
+    "source": "purdue-lewis",
+    "confirmed": "SO2 as two resonance structures differing only in which O holds the double bond (figure itself is an image with no alt text)",
+    "claims": 1
+   },
+   {
+    "source": "purdue-hybrid",
+    "confirmed": "formaldehyde: sp2 hybrids on both C and O",
+    "claims": 1
+   },
+   {
+    "source": "wikipedia-so2",
+    "confirmed": "two resonance structures, bond order 1.5, S oxidation state +4, formal charge +1, no d-orbital participation needed",
+    "claims": 4
+   },
+   {
+    "source": "libretexts-brown-8.7",
+    "confirmed": "sulfate drawn both octet and expanded-octet; page does not mention SO2",
+    "claims": 1
+   },
+   {
+    "source": "openstax-organic-26.4",
+    "confirmed": "amide N lone pair delocalised, partial C-N double-bond character, amide bond planar",
+    "claims": 3
+   },
+   {
+    "source": "openstax-organic-24.3",
+    "confirmed": "amide stabilised by delocalisation of N lone pair through orbital overlap with carbonyl",
+    "claims": 1
+   },
+   {
+    "source": "openstax-organic-20.2",
+    "confirmed": "carboxyl carbon sp2, planar, about 120 degrees",
+    "claims": 2
+   },
+   {
+    "source": "openstax-organic-1.10",
+    "confirmed": "methylamine N sp3; methanol O sp3",
+    "claims": 2
+   },
+   {
+    "source": "openstax-organic-15.2",
+    "confirmed": "benzene C-C all 139 pm, 120 degrees, all C sp2",
+    "claims": 3
+   },
+   {
+    "source": "libretexts-smith-17.6",
+    "confirmed": "carbonyl C and O sp2; hydroxyl oxygen also sp2 with lone pair conjugated",
+    "claims": 2
+   },
+   {
+    "source": "libretexts-morsch-20.2",
+    "confirmed": "carbonyl C and O sp2; hydroxyl O lone pair conjugated with carbonyl pi system",
+    "claims": 2
+   },
+   {
+    "source": "pubchem-periodic-table",
+    "confirmed": "all ten Pauling values identical to electronegativityUsed; also identical on Wikipedia 'Electronegativities of the elements (data page)'",
+    "claims": 20
+   },
+   {
+    "source": "iupac-os-2016",
+    "confirmed": "ionic approximation; PAC 88(8) 831-839; doi (Allen and co-authors NOT on this page)",
+    "claims": 3
+   }
+  ],
+  "corrections": [
+   {
+    "item": "conventions[oxidation-state].why, closest electronegativity pair",
+    "was": "Closest pair: C 2.55 / S 2.58, which never bond here.",
+    "shouldBe": "Closest pairs among the ten elements: H 2.20 / P 2.19 (0.01), S 2.58 / Xe 2.60 (0.02), C 2.55 / S 2.58 (0.03); none of these pairs is bonded in this library.",
+    "evidence": "Values in the file's own electronegativityUsed table, re-fetched from https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON: H 2.2 and P 2.19 differ by 0.01, less than C/S 0.03. Verify script confirms no H-P, S-Xe or C-S bond exists in any of the 33 structures, so no oxidation state changes."
+   },
+   {
+    "item": "hybridizationByStericNumberOnly on the 14 resonance-override atoms (field meaning)",
+    "was": "Field name and the terminal-atoms convention imply 'hybridization from the steric number alone'; the 14 override atoms have stericNumber 4 but the field reads sp2",
+    "shouldBe": "Values kept; convention text now states the field uses effectiveStericNumber (override applied). Added withoutResonanceOverride {stericNumber 4, electronGeometry tetrahedral, geometry, hybridization sp3} to each of the 14 atoms so the no-override alternative (the OpenStax Chemistry 2e Example 7.16 treatment) can be tested.",
+    "evidence": "build_expected.py line 327-328 sets the field from HYB_BY_SN[eff_sn]. OpenStax 7.6 Example 7.16 (https://openstax.org/books/chemistry-2e/pages/7-6-molecular-structure-and-polarity) re-fetched: 'oxygen (OH)—four regions of electron density; tetrahedral ... two bonds, two lone pairs; bent (109°)'."
+   },
+   {
+    "item": "sources[iupac-os-2016].usedFor (citation URL does not contain the value)",
+    "was": "oxidation state = charge after ionic approximation of heteronuclear bonds; IUPAC uses Allen electronegativities, the spec uses Pauling (found via search result and the Wikipedia Oxidation state page; the Gold Book page itself returned HTTP 403 to curl)",
+    "shouldBe": "oxidation state defined via the ionic approximation of bonds; publication details (PAC Aug 2016, 88(8), pp. 831-839; doi:10.1515/pac-2015-1204). This page names only the corresponding author (Pavel Karen) and does NOT mention Allen electronegativities; that statement and the full author list are verified from wikipedia-oxidation-state. The paper itself and the Gold Book entry were not readable (De Gruyter returned an empty HTTP 202, Gold Book HTTP 403). Added source wikipedia-oxidation-state.",
+    "evidence": "Re-fetched https://iupac.org/recommendation/comprehensive-definition-of-oxidation-state/ : text contains 'ionic approximation' and '88(8), pp. 831-839; doi:10.1515/pac-2015-1204' but no occurrence of 'Allen', 'McArdle' or 'Takats'. https://en.wikipedia.org/wiki/Oxidation_state contains 'for a simple estimate for the ionic approximation, we can use Allen electronegativities' and the Allen table; my script confirmed Allen and Pauling give the same direction for all 11 heteronuclear bond types in the library."
+   },
+   {
+    "item": "conventions[so2-lewis]: evidence for the competing expanded-octet form",
+    "was": "Competing convention documented only by analogy with sulfate (LibreTexts Brown 8.7); stated gap 'no general chemistry page found that draws SO2 as O=S=O'",
+    "shouldBe": "Added source mcmaster-chem1a3-so2 and an addendum; recommendation (octet resonance form, S +1 / O -1, S oxidation state +4, bent, sp2) unchanged.",
+    "evidence": "Fetched https://chemistry.mcmaster.ca/~aph/chem1a3/lectures/lec07/tsld022.htm : 'A BETTER representation of SO2 is made by forming 2 double bonds O = S = O Each atom has - OCTET - formal charge = 0'. PubChem CID 1119 SMILES is O=S=O. OpenStax 8.3 Example 8.4 alt text re-fetched and matches the stored structure exactly."
+   },
+   {
+    "item": "conventions[resonance-override]: source for amide/urea N = sp2",
+    "was": "No fetched source said the amide N is sp2 in those words (stated gap); sp2 label was an inference from OpenStax Organic 24.3/26.4",
+    "shouldBe": "Added source psu-chem110-delocalized-pi, which states it outright; values unchanged.",
+    "evidence": "Fetched https://oer.hax.psu.edu/kms723/sites/chem110/lesson-1/hybridization/delocalized-pi-bonding : 'The bond angles are about 120 degrees. This corresponds to a trigonal planar geometry which results from sp^2 hybridization ... That orbital holds the lone pair ... If electrons on an atom are delocalized (involved in resonance), they will be in a p orbital. That means the atom must be sp^2 or sp hybridized.'"
+   },
+   {
+    "item": "conventions[terminal-atoms].why, claim that textbooks split on halogen hybridization",
+    "was": "'...while other texts write sp3' stated as fact",
+    "shouldBe": "Marked as not backed by a fetched source. The 'not assigned (terminal atom)' recommendation is unaffected because it does not depend on that claim.",
+    "evidence": "OpenStax 8.1 re-fetched: 'the overlap of an s orbital and a p orbital (as in HCl)' supports the first half only. No source in the file, and none I fetched, states a terminal halogen is sp3."
+   },
+   {
+    "item": "molecules[alanine].notes",
+    "was": "C1 = alpha carbon, C2 = carboxyl carbon, C3 = methyl carbon, O2 = hydroxyl O (resonance override). L/D configuration lives in the 3D coordinates.",
+    "shouldBe": "C1 = alpha carbon, C2 = carboxyl carbon, C3 = methyl carbon, O1 = carbonyl O, O2 = hydroxyl O (resonance override). L/D configuration lives in the 3D coordinates.",
+    "evidence": "Note omitted the O1 assignment that the glycine note gives; bond list has C2=O1 (order 2) and C2-O2-H7."
+   },
+   {
+    "item": "molecules[alanine-zwitterion].notes",
+    "was": "Net charge 0 (N +1, O2 -1). Both carboxylate C-O bonds carry the resonance note.",
+    "shouldBe": "C1 = alpha carbon, C2 = carboxylate carbon, C3 = methyl carbon. Net charge 0 (N +1, O2 -1). Both carboxylate C-O bonds carry the resonance note. O2 is sp2 by the resonance override. L/D configuration lives in the 3D coordinates.",
+    "evidence": "Inconsistent with glycine-zwitterion note, which states the O2 override; atom data already had resonanceOverride true and hybridization sp2 for O2 (recomputed by verify.py)."
+   }
+  ],
+  "noChemistryValueChanged": "No formal charge, lone-pair count, bond order, oxidation state, steric number, geometry, hybridization or MO value was found wrong. All corrections are to prose, citations, and one field definition.",
+  "reviewerConcerns": [
+   "Carboxylic/ester/carbonic O-H oxygens (8 atoms) shown as sp2 with trigonal-planar electron geometry contradicts the project's own general chemistry text (OpenStax Chemistry 2e Example 7.16: tetrahedral, bent 109 degrees). This is the value most likely to draw an instructor objection. It follows spec 6.3; the owner should decide, and the no-override values are in withoutResonanceOverride.",
+   "Terminal O- atoms (5 atoms: SO2 O2, both zwitterion O2, HCO3- O2) and terminal O/N of CO2, O2, N2 are given a hybridization by analogy with formaldehyde O (Purdue) and the carboxylic O (Smith); no fetched source assigns these specific atoms.",
+   "SO2: both conventions are in real use (OpenStax octet form; McMaster and PubChem O=S=O). The stored form is defensible and matches the cited text.",
+   "MO labels: OpenStax writes the antibonding star after the subscript (sigma 2s*) and keeps axis subscripts (sigma 2px, pi 2py, pi 2pz); the file writes sigma*2s and drops the axes. Notation only.",
+   "hypervalent label string differs between the task brief ('sp3d (textbook label)') and spec 6.3 ('sp3d (textbook label; real d-orbital involvement is negligible)'); tests should fix one."
+  ],
+  "unverifiable": [
+   "Pauling electronegativities against the CRC Handbook (spec 5.2 names CRC; paywalled). Confirmed only against PubChem and Wikipedia.",
+   "IUPAC 2016 recommendation paper and Gold Book entry O04365 themselves (De Gruyter returned empty HTTP 202, Gold Book HTTP 403); the Allen statement is confirmed only via Wikipedia.",
+   "Figure content that exists only as images without descriptive alt text: Purdue SO2 resonance figure (formal charges and lone pairs not confirmable; only the surrounding text), Purdue formaldehyde figure, LibreTexts Smith/Morsch figures, OpenStax Figure 8.37 beyond its alt text and caption.",
+   "Hybridization label for singly bonded terminal halogens (no source either way beyond OpenStax 8.1's s-p overlap description of HCl).",
+   "sp2 label specifically for the ester O of ethyl acetate, the O-H oxygens of H2CO3 and HCO3-, and terminal O- atoms: no source fetched for these species; they follow from the computable rule and the Penn State general statement.",
+   "Hybridization of terminal atoms in CO2 (O), O2 (O) and N2 (N): no source fetched that states these; rule-derived.",
+   "Experimental C-O-H angle in carboxylic acids, which would settle sp2 vs sp3 for the hydroxyl O: not fetched.",
+   "Stereochemistry of glucose and alanine: not encoded in the file (connectivity only), so not checked."
+  ],
+  "sourceClaimsCount": 85
+ }
+}

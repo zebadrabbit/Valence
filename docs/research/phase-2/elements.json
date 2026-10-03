@@ -1,0 +1,1360 @@
+{
+  "generated": "2026-10-03",
+  "notes": [
+    "kJ/mol ionization energies are derived: NIST ASD publishes eV (no kJ/mol option); converted with the exact CODATA factor 96.48533212331 kJ/mol per eV and rounded to 0.1 kJ/mol (to 1 kJ/mol where the NIST uncertainty exceeds 0.5 kJ/mol).",
+    "nistFlag: NIST marks values in square brackets as interpolated/extrapolated or semi-empirical and values in parentheses as theoretical; unmarked values are experimental.",
+    "sourceId is the source to cite in the app; verifiedVia lists the page the value was actually read from when the cited primary paper is paywalled.",
+    "Shannon values are effective ionic radii (not crystal radii), coordination number 6.",
+    "valenceElectrons and shells are derived from the NIST ground-state configuration.",
+    "Xe third ionization energy: NIST's eV output (31.05) converts to 2995.87 -> 2996 kJ/mol; NIST's cm-1 output (250400 +/- 300) converts to 2995.45 -> 2995 kJ/mol. The two differ only by NIST's own rounding and both lie well inside the +/- 4 kJ/mol uncertainty. 2996 is kept because it follows from the stored eV value."
+  ],
+  "sourceRecommendation": {
+    "atomicNumber": "CIAAW (or NIST ASD)",
+    "atomicWeight": "CIAAW abridged 2024; freely linkable. Whether a given CRC edition prints the same abridged values was NOT checked (no CRC access).",
+    "electronegativity": "PubChem periodic table as the link; name Allred 1961 / Pauling in the citation text. CRC values (per Wikipedia transcription of the 84th ed.) are identical. Exception: do not attribute the Xe value (2.6) to Allred 1961 or Pauling; neither research pass traced it to a primary source. Cite PubChem alone for Xe and label it an estimate.",
+    "configurationAndIonizationEnergies": "NIST ASD. Whether CRC prints the same numbers was NOT checked; NIST ASD is updated over time, so older printed tables and textbooks can differ for the less well-known higher ionization energies (S III, Cl III, Xe II, Xe III carry uncertainties of 0.4 to 11 kJ/mol).",
+    "covalentRadius": "Cordero 2008 DOI",
+    "vdwRadius": "Bondi 1964 DOI, Mantina 2009 DOI for B (free full text on PMC)",
+    "ionicRadius": "Shannon 1976 DOI plus the Imperial College database link",
+    "color": "Jmol source (PAL.java argbsCpk) or PubChem CPKHexColor, both read directly; the Jmol colors web page could not be read by automated fetch."
+  },
+  "sources": [
+    {
+      "id": "ciaaw-abridged-2024",
+      "url": "https://www.ciaaw.org/abridged-atomic-weights.htm",
+      "citation": "IUPAC Commission on Isotopic Abundances and Atomic Weights (CIAAW), Abridged Standard Atomic Weights 2024."
+    },
+    {
+      "id": "nist-atomic-weights",
+      "url": "https://physics.nist.gov/cgi-bin/Compositions/stand_alone.pl?ele=&all=all&ascii=ascii2&isotype=some",
+      "citation": "NIST, Atomic Weights and Isotopic Compositions with Relative Atomic Masses (cross-check only; gives intervals for H, B, C, N, O, S, Cl)."
+    },
+    {
+      "id": "nist-asd-ie",
+      "url": "https://physics.nist.gov/PhysRefData/ASD/ionEnergy.html",
+      "citation": "Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, Ground States and Ionization Energies. National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F",
+      "dataUrl": "https://physics.nist.gov/cgi-bin/ASD/ie.pl?spectra=H+B+C+N+O+F+Na+P+S+Cl+Xe&submit=Retrieve+Data&units=1&format=2&order=0&at_num_out=on&sp_name_out=on&ion_charge_out=on&el_name_out=on&seq_out=on&shells_out=on&conf_out=on&level_out=on&ion_conf_out=on&e_out=0&unc_out=on&biblio=on",
+      "note": "url is the query form and does not itself show any value; dataUrl is the query that returns the values used here (CSV, eV). Notation help (square brackets, parentheses, [Cd] core): https://physics.nist.gov/PhysRefData/ASD/Html/iehelp.html"
+    },
+    {
+      "id": "codata-2022",
+      "url": "https://physics.nist.gov/cgi-bin/cuu/Value?na",
+      "citation": "CODATA 2022 recommended values: Avogadro constant 6.02214076e23 mol^-1 and elementary charge 1.602176634e-19 C (https://physics.nist.gov/cgi-bin/cuu/Value?e), both exact; 1 eV = 96.48533212 kJ/mol. The same factor is the Faraday constant, 96 485.332 12... C/mol (exact), shown directly at https://physics.nist.gov/cgi-bin/cuu/Value?f"
+    },
+    {
+      "id": "pubchem-ptable",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/periodic-table/",
+      "citation": "PubChem Periodic Table of Elements, National Center for Biotechnology Information (Pauling electronegativity column; data at https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON)."
+    },
+    {
+      "id": "allred-1961",
+      "url": "https://doi.org/10.1016/0022-1902(61)80142-5",
+      "citation": "Allred, A. L. Electronegativity values from thermochemical data. J. Inorg. Nucl. Chem. 1961, 17, 215-221. (Primary source of the revised Pauling values; paywalled, not read.)"
+    },
+    {
+      "id": "wikipedia-en-data",
+      "url": "https://en.wikipedia.org/wiki/Electronegativities_of_the_elements_(data_page)",
+      "citation": "Wikipedia, Electronegativities of the elements (data page): transcribes WebElements, CRC Handbook 84th ed. and Lange values. Cross-check only."
+    },
+    {
+      "id": "cordero-2008",
+      "url": "https://doi.org/10.1039/b801115j",
+      "citation": "Cordero, B.; Gomez, V.; Platero-Prats, A. E.; Reves, M.; Echeverria, J.; Cremades, E.; Barragan, F.; Alvarez, S. Covalent radii revisited. Dalton Trans. 2008, (21), 2832-2838."
+    },
+    {
+      "id": "wikipedia-covalent-radius",
+      "url": "https://en.wikipedia.org/wiki/Covalent_radius",
+      "citation": "Wikipedia, Covalent radius: table transcribed from Cordero et al. 2008. Cross-check only."
+    },
+    {
+      "id": "openbabel-elementtable",
+      "url": "https://github.com/openbabel/openbabel/blob/master/src/elementtable.h",
+      "citation": "Open Babel elementtable.h: covalent radii from doi:10.1039/b801115j, van der Waals radii from doi:10.1021/jp8111556. Cross-check only."
+    },
+    {
+      "id": "bondi-1964",
+      "url": "https://doi.org/10.1021/j100785a001",
+      "citation": "Bondi, A. van der Waals Volumes and Radii. J. Phys. Chem. 1964, 68 (3), 441-451."
+    },
+    {
+      "id": "mantina-2009",
+      "url": "https://doi.org/10.1021/jp8111556",
+      "citation": "Mantina, M.; Chamberlin, A. C.; Valero, R.; Cramer, C. J.; Truhlar, D. G. Consistent van der Waals Radii for the Whole Main Group. J. Phys. Chem. A 2009, 113 (19), 5806-5812."
+    },
+    {
+      "id": "mantina-2009-pmc",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3658832/",
+      "citation": "Free author manuscript of Mantina et al. 2009 (PMC3658832); Table 12 reproduces the Bondi radii and marks which values are new."
+    },
+    {
+      "id": "shannon-1976",
+      "url": "https://doi.org/10.1107/S0567739476001551",
+      "citation": "Shannon, R. D. Revised effective ionic radii and systematic studies of interatomic distances in halides and chalcogenides. Acta Crystallogr. A 1976, 32, 751-767."
+    },
+    {
+      "id": "shannon-db-imperial",
+      "url": "http://abulafia.mt.ic.ac.uk/shannon/ptable.php",
+      "citation": "Database of Ionic Radii (Atomistic Simulation Group, Imperial College London), transcribed from Shannon 1976."
+    },
+    {
+      "id": "jmol-colors",
+      "url": "https://jmol.sourceforge.net/jscolors/",
+      "citation": "Jmol colors page (human-readable table of the default element colours). NOT verified by either research pass: the page returned HTTP 403 to curl and its table was not visible to WebFetch. Open it in a browser before citing it; until then cite jmol-pal-source."
+    },
+    {
+      "id": "jmol-pal-source",
+      "url": "https://github.com/BobHanson/Jmol-SwingJS/blob/master/src/org/jmol/c/PAL.java",
+      "citation": "Jmol source code, org.jmol.c.PAL, array argbsCpk: default element (CPK-style) colours. Same values as the PubChem periodic table CPKHexColor column."
+    }
+  ],
+  "elements": [
+    {
+      "symbol": "H",
+      "name": "Hydrogen",
+      "atomicNumber": 1,
+      "atomicNumberSourceId": "ciaaw-abridged-2024",
+      "atomicWeight": {
+        "value": 1.008,
+        "valueAsPublished": "1.0080",
+        "uncertainty": 0.0002,
+        "sourceId": "ciaaw-abridged-2024"
+      },
+      "electronegativity": {
+        "value": 2.2,
+        "scale": "Pauling",
+        "sourceId": "pubchem-ptable",
+        "corroboratedBy": [
+          "wikipedia-en-data"
+        ]
+      },
+      "configuration": "1s1",
+      "configurationCondensed": "1s1",
+      "configurationSourceId": "nist-asd-ie",
+      "nistGroundShells": "1s",
+      "shells": [
+        1
+      ],
+      "ionizationEnergiesKJmol": [
+        {
+          "order": 1,
+          "value": 1312.0,
+          "uncertainty": 1.2e-09,
+          "derivedFromEV": "13.598434599702",
+          "nistFlag": "theoretical",
+          "sourceId": "nist-asd-ie"
+        }
+      ],
+      "ionizationEnergiesEV": [
+        {
+          "order": 1,
+          "value": 13.598434599702,
+          "valueAsPublished": "13.598434599702",
+          "uncertainty": 1.2e-11,
+          "nistFlag": "theoretical",
+          "sourceId": "nist-asd-ie"
+        }
+      ],
+      "valenceElectrons": 1,
+      "valenceElectronsBasis": "derived: outer-shell (main-group) electron count from the NIST ground-state configuration",
+      "covalentRadiusA": {
+        "value": 0.31,
+        "sourceId": "cordero-2008",
+        "verifiedVia": [
+          "wikipedia-covalent-radius",
+          "openbabel-elementtable"
+        ]
+      },
+      "vdwRadiusA": {
+        "value": 1.2,
+        "sourceId": "bondi-1964",
+        "verifiedVia": [
+          "mantina-2009-pmc"
+        ],
+        "note": "Bondi 1964 value. Mantina 2009 Table 12 and most modern tables (PubChem, Open Babel) use 1.10 from Rowland and Taylor 1996. Bondi 1.20 quoted in the text of Mantina 2009."
+      },
+      "ionicRadii": [],
+      "colorHex": "#FFFFFF",
+      "colorSourceId": "jmol-pal-source",
+      "ionizationNote": "Hydrogen has one electron, so only a first ionization energy exists.",
+      "vdwRadiusAlternatives": [
+        {
+          "value": 1.1,
+          "sourceId": "mantina-2009",
+          "note": "Rowland and Taylor 1996 value adopted in Mantina Table 12"
+        }
+      ],
+      "colorSeeAlso": [
+        "jmol-colors",
+        "pubchem-ptable"
+      ]
+    },
+    {
+      "symbol": "B",
+      "name": "Boron",
+      "atomicNumber": 5,
+      "atomicNumberSourceId": "ciaaw-abridged-2024",
+      "atomicWeight": {
+        "value": 10.81,
+        "valueAsPublished": "10.81",
+        "uncertainty": 0.02,
+        "sourceId": "ciaaw-abridged-2024"
+      },
+      "electronegativity": {
+        "value": 2.04,
+        "scale": "Pauling",
+        "sourceId": "pubchem-ptable",
+        "corroboratedBy": [
+          "wikipedia-en-data"
+        ]
+      },
+      "configuration": "1s2 2s2 2p1",
+      "configurationCondensed": "[He] 2s2 2p1",
+      "configurationSourceId": "nist-asd-ie",
+      "nistGroundShells": "1s2.2s2.2p",
+      "shells": [
+        2,
+        3
+      ],
+      "ionizationEnergiesKJmol": [
+        {
+          "order": 1,
+          "value": 800.6,
+          "uncertainty": 0.00029,
+          "derivedFromEV": "8.298019",
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 2,
+          "value": 2427.1,
+          "uncertainty": 0.0048,
+          "derivedFromEV": "25.15483",
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 3,
+          "value": 3659.7,
+          "uncertainty": 0.0068,
+          "derivedFromEV": "37.93059",
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        }
+      ],
+      "ionizationEnergiesEV": [
+        {
+          "order": 1,
+          "value": 8.298019,
+          "valueAsPublished": "8.298019",
+          "uncertainty": 3e-06,
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 2,
+          "value": 25.15483,
+          "valueAsPublished": "25.15483",
+          "uncertainty": 5e-05,
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 3,
+          "value": 37.93059,
+          "valueAsPublished": "37.93059",
+          "uncertainty": 7e-05,
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        }
+      ],
+      "valenceElectrons": 3,
+      "valenceElectronsBasis": "derived: outer-shell (main-group) electron count from the NIST ground-state configuration",
+      "covalentRadiusA": {
+        "value": 0.84,
+        "sourceId": "cordero-2008",
+        "verifiedVia": [
+          "wikipedia-covalent-radius",
+          "openbabel-elementtable"
+        ]
+      },
+      "vdwRadiusA": {
+        "value": 1.92,
+        "sourceId": "mantina-2009",
+        "verifiedVia": [
+          "mantina-2009-pmc"
+        ],
+        "note": "Bondi 1964 gives no boron value; 1.92 is a new (bold) value in Mantina 2009 Table 12."
+      },
+      "ionicRadii": [],
+      "colorHex": "#FFB5B5",
+      "colorSourceId": "jmol-pal-source",
+      "colorSeeAlso": [
+        "jmol-colors",
+        "pubchem-ptable"
+      ]
+    },
+    {
+      "symbol": "C",
+      "name": "Carbon",
+      "atomicNumber": 6,
+      "atomicNumberSourceId": "ciaaw-abridged-2024",
+      "atomicWeight": {
+        "value": 12.011,
+        "valueAsPublished": "12.011",
+        "uncertainty": 0.002,
+        "sourceId": "ciaaw-abridged-2024"
+      },
+      "electronegativity": {
+        "value": 2.55,
+        "scale": "Pauling",
+        "sourceId": "pubchem-ptable",
+        "corroboratedBy": [
+          "wikipedia-en-data"
+        ]
+      },
+      "configuration": "1s2 2s2 2p2",
+      "configurationCondensed": "[He] 2s2 2p2",
+      "configurationSourceId": "nist-asd-ie",
+      "nistGroundShells": "1s2.2s2.2p2",
+      "shells": [
+        2,
+        4
+      ],
+      "ionizationEnergiesKJmol": [
+        {
+          "order": 1,
+          "value": 1086.5,
+          "uncertainty": 0.00011,
+          "derivedFromEV": "11.2602880",
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 2,
+          "value": 2352.6,
+          "uncertainty": 0.0012,
+          "derivedFromEV": "24.383143",
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 3,
+          "value": 4620.5,
+          "uncertainty": 0.024,
+          "derivedFromEV": "47.88778",
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        }
+      ],
+      "ionizationEnergiesEV": [
+        {
+          "order": 1,
+          "value": 11.260288,
+          "valueAsPublished": "11.2602880",
+          "uncertainty": 1.1e-06,
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 2,
+          "value": 24.383143,
+          "valueAsPublished": "24.383143",
+          "uncertainty": 1.2e-05,
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 3,
+          "value": 47.88778,
+          "valueAsPublished": "47.88778",
+          "uncertainty": 0.00025,
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        }
+      ],
+      "valenceElectrons": 4,
+      "valenceElectronsBasis": "derived: outer-shell (main-group) electron count from the NIST ground-state configuration",
+      "covalentRadiusA": {
+        "value": 0.76,
+        "sourceId": "cordero-2008",
+        "verifiedVia": [
+          "wikipedia-covalent-radius",
+          "openbabel-elementtable"
+        ],
+        "note": "Cordero gives three carbon values: sp3 0.76, sp2 0.73, sp 0.69. 0.76 (sp3) is the value most tables use as \"the\" carbon radius."
+      },
+      "vdwRadiusA": {
+        "value": 1.7,
+        "sourceId": "bondi-1964",
+        "verifiedVia": [
+          "mantina-2009-pmc"
+        ]
+      },
+      "ionicRadii": [],
+      "colorHex": "#909090",
+      "colorSourceId": "jmol-pal-source",
+      "covalentRadiusAlternatives": [
+        {
+          "label": "sp3",
+          "value": 0.76
+        },
+        {
+          "label": "sp2",
+          "value": 0.73
+        },
+        {
+          "label": "sp",
+          "value": 0.69
+        }
+      ],
+      "colorSeeAlso": [
+        "jmol-colors",
+        "pubchem-ptable"
+      ]
+    },
+    {
+      "symbol": "N",
+      "name": "Nitrogen",
+      "atomicNumber": 7,
+      "atomicNumberSourceId": "ciaaw-abridged-2024",
+      "atomicWeight": {
+        "value": 14.007,
+        "valueAsPublished": "14.007",
+        "uncertainty": 0.001,
+        "sourceId": "ciaaw-abridged-2024"
+      },
+      "electronegativity": {
+        "value": 3.04,
+        "scale": "Pauling",
+        "sourceId": "pubchem-ptable",
+        "corroboratedBy": [
+          "wikipedia-en-data"
+        ]
+      },
+      "configuration": "1s2 2s2 2p3",
+      "configurationCondensed": "[He] 2s2 2p3",
+      "configurationSourceId": "nist-asd-ie",
+      "nistGroundShells": "1s2.2s2.2p3",
+      "shells": [
+        2,
+        5
+      ],
+      "ionizationEnergiesKJmol": [
+        {
+          "order": 1,
+          "value": 1402.3,
+          "uncertainty": 0.0039,
+          "derivedFromEV": "14.53413",
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 2,
+          "value": 2856.1,
+          "uncertainty": 0.0087,
+          "derivedFromEV": "29.60125",
+          "nistFlag": "interpolated/extrapolated (semi-empirical)",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 3,
+          "value": 4577.8,
+          "uncertainty": 0.24,
+          "derivedFromEV": "47.4453",
+          "nistFlag": "interpolated/extrapolated (semi-empirical)",
+          "sourceId": "nist-asd-ie"
+        }
+      ],
+      "ionizationEnergiesEV": [
+        {
+          "order": 1,
+          "value": 14.53413,
+          "valueAsPublished": "14.53413",
+          "uncertainty": 4e-05,
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 2,
+          "value": 29.60125,
+          "valueAsPublished": "29.60125",
+          "uncertainty": 9e-05,
+          "nistFlag": "interpolated/extrapolated (semi-empirical)",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 3,
+          "value": 47.4453,
+          "valueAsPublished": "47.4453",
+          "uncertainty": 0.0025,
+          "nistFlag": "interpolated/extrapolated (semi-empirical)",
+          "sourceId": "nist-asd-ie"
+        }
+      ],
+      "valenceElectrons": 5,
+      "valenceElectronsBasis": "derived: outer-shell (main-group) electron count from the NIST ground-state configuration",
+      "covalentRadiusA": {
+        "value": 0.71,
+        "sourceId": "cordero-2008",
+        "verifiedVia": [
+          "wikipedia-covalent-radius",
+          "openbabel-elementtable"
+        ]
+      },
+      "vdwRadiusA": {
+        "value": 1.55,
+        "sourceId": "bondi-1964",
+        "verifiedVia": [
+          "mantina-2009-pmc"
+        ]
+      },
+      "ionicRadii": [],
+      "colorHex": "#3050F8",
+      "colorSourceId": "jmol-pal-source",
+      "colorSeeAlso": [
+        "jmol-colors",
+        "pubchem-ptable"
+      ]
+    },
+    {
+      "symbol": "O",
+      "name": "Oxygen",
+      "atomicNumber": 8,
+      "atomicNumberSourceId": "ciaaw-abridged-2024",
+      "atomicWeight": {
+        "value": 15.999,
+        "valueAsPublished": "15.999",
+        "uncertainty": 0.001,
+        "sourceId": "ciaaw-abridged-2024"
+      },
+      "electronegativity": {
+        "value": 3.44,
+        "scale": "Pauling",
+        "sourceId": "pubchem-ptable",
+        "corroboratedBy": [
+          "wikipedia-en-data"
+        ]
+      },
+      "configuration": "1s2 2s2 2p4",
+      "configurationCondensed": "[He] 2s2 2p4",
+      "configurationSourceId": "nist-asd-ie",
+      "nistGroundShells": "1s2.2s2.2p4",
+      "shells": [
+        2,
+        6
+      ],
+      "ionizationEnergiesKJmol": [
+        {
+          "order": 1,
+          "value": 1313.9,
+          "uncertainty": 0.00068,
+          "derivedFromEV": "13.618055",
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 2,
+          "value": 3388.7,
+          "uncertainty": 0.0058,
+          "derivedFromEV": "35.12112",
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 3,
+          "value": 5300.5,
+          "uncertainty": 0.012,
+          "derivedFromEV": "54.93554",
+          "nistFlag": "interpolated/extrapolated (semi-empirical)",
+          "sourceId": "nist-asd-ie"
+        }
+      ],
+      "ionizationEnergiesEV": [
+        {
+          "order": 1,
+          "value": 13.618055,
+          "valueAsPublished": "13.618055",
+          "uncertainty": 7e-06,
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 2,
+          "value": 35.12112,
+          "valueAsPublished": "35.12112",
+          "uncertainty": 6e-05,
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 3,
+          "value": 54.93554,
+          "valueAsPublished": "54.93554",
+          "uncertainty": 0.00012,
+          "nistFlag": "interpolated/extrapolated (semi-empirical)",
+          "sourceId": "nist-asd-ie"
+        }
+      ],
+      "valenceElectrons": 6,
+      "valenceElectronsBasis": "derived: outer-shell (main-group) electron count from the NIST ground-state configuration",
+      "covalentRadiusA": {
+        "value": 0.66,
+        "sourceId": "cordero-2008",
+        "verifiedVia": [
+          "wikipedia-covalent-radius",
+          "openbabel-elementtable"
+        ]
+      },
+      "vdwRadiusA": {
+        "value": 1.52,
+        "sourceId": "bondi-1964",
+        "verifiedVia": [
+          "mantina-2009-pmc"
+        ]
+      },
+      "ionicRadii": [
+        {
+          "charge": -2,
+          "coordination": 6,
+          "valueA": 1.4,
+          "kind": "effective ionic radius",
+          "sourceId": "shannon-1976",
+          "verifiedVia": [
+            "shannon-db-imperial"
+          ]
+        }
+      ],
+      "colorHex": "#FF0D0D",
+      "colorSourceId": "jmol-pal-source",
+      "colorSeeAlso": [
+        "jmol-colors",
+        "pubchem-ptable"
+      ]
+    },
+    {
+      "symbol": "F",
+      "name": "Fluorine",
+      "atomicNumber": 9,
+      "atomicNumberSourceId": "ciaaw-abridged-2024",
+      "atomicWeight": {
+        "value": 18.998,
+        "valueAsPublished": "18.998",
+        "uncertainty": 0.001,
+        "sourceId": "ciaaw-abridged-2024"
+      },
+      "electronegativity": {
+        "value": 3.98,
+        "scale": "Pauling",
+        "sourceId": "pubchem-ptable",
+        "corroboratedBy": [
+          "wikipedia-en-data"
+        ]
+      },
+      "configuration": "1s2 2s2 2p5",
+      "configurationCondensed": "[He] 2s2 2p5",
+      "configurationSourceId": "nist-asd-ie",
+      "nistGroundShells": "1s2.2s2.2p5",
+      "shells": [
+        2,
+        7
+      ],
+      "ionizationEnergiesKJmol": [
+        {
+          "order": 1,
+          "value": 1681.0,
+          "uncertainty": 0.0048,
+          "derivedFromEV": "17.42282",
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 2,
+          "value": 3374.2,
+          "uncertainty": 0.012,
+          "derivedFromEV": "34.97081",
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 3,
+          "value": 6050.4,
+          "uncertainty": 0.024,
+          "derivedFromEV": "62.70798",
+          "nistFlag": "interpolated/extrapolated (semi-empirical)",
+          "sourceId": "nist-asd-ie"
+        }
+      ],
+      "ionizationEnergiesEV": [
+        {
+          "order": 1,
+          "value": 17.42282,
+          "valueAsPublished": "17.42282",
+          "uncertainty": 5e-05,
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 2,
+          "value": 34.97081,
+          "valueAsPublished": "34.97081",
+          "uncertainty": 0.00012,
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 3,
+          "value": 62.70798,
+          "valueAsPublished": "62.70798",
+          "uncertainty": 0.00025,
+          "nistFlag": "interpolated/extrapolated (semi-empirical)",
+          "sourceId": "nist-asd-ie"
+        }
+      ],
+      "valenceElectrons": 7,
+      "valenceElectronsBasis": "derived: outer-shell (main-group) electron count from the NIST ground-state configuration",
+      "covalentRadiusA": {
+        "value": 0.57,
+        "sourceId": "cordero-2008",
+        "verifiedVia": [
+          "wikipedia-covalent-radius",
+          "openbabel-elementtable"
+        ]
+      },
+      "vdwRadiusA": {
+        "value": 1.47,
+        "sourceId": "bondi-1964",
+        "verifiedVia": [
+          "mantina-2009-pmc"
+        ]
+      },
+      "ionicRadii": [
+        {
+          "charge": -1,
+          "coordination": 6,
+          "valueA": 1.33,
+          "kind": "effective ionic radius",
+          "sourceId": "shannon-1976",
+          "verifiedVia": [
+            "shannon-db-imperial"
+          ]
+        }
+      ],
+      "colorHex": "#90E050",
+      "colorSourceId": "jmol-pal-source",
+      "colorSeeAlso": [
+        "jmol-colors",
+        "pubchem-ptable"
+      ]
+    },
+    {
+      "symbol": "Na",
+      "name": "Sodium",
+      "atomicNumber": 11,
+      "atomicNumberSourceId": "ciaaw-abridged-2024",
+      "atomicWeight": {
+        "value": 22.99,
+        "valueAsPublished": "22.990",
+        "uncertainty": 0.001,
+        "sourceId": "ciaaw-abridged-2024"
+      },
+      "electronegativity": {
+        "value": 0.93,
+        "scale": "Pauling",
+        "sourceId": "pubchem-ptable",
+        "corroboratedBy": [
+          "wikipedia-en-data"
+        ]
+      },
+      "configuration": "1s2 2s2 2p6 3s1",
+      "configurationCondensed": "[Ne] 3s1",
+      "configurationSourceId": "nist-asd-ie",
+      "nistGroundShells": "[Ne].3s",
+      "shells": [
+        2,
+        8,
+        1
+      ],
+      "ionizationEnergiesKJmol": [
+        {
+          "order": 1,
+          "value": 495.8,
+          "uncertainty": 2.4e-05,
+          "derivedFromEV": "5.13907696",
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 2,
+          "value": 4562.4,
+          "uncertainty": 0.024,
+          "derivedFromEV": "47.28636",
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 3,
+          "value": 6910.3,
+          "uncertainty": 0.12,
+          "derivedFromEV": "71.6200",
+          "nistFlag": "interpolated/extrapolated (semi-empirical)",
+          "sourceId": "nist-asd-ie"
+        }
+      ],
+      "ionizationEnergiesEV": [
+        {
+          "order": 1,
+          "value": 5.13907696,
+          "valueAsPublished": "5.13907696",
+          "uncertainty": 2.5e-07,
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 2,
+          "value": 47.28636,
+          "valueAsPublished": "47.28636",
+          "uncertainty": 0.00025,
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 3,
+          "value": 71.62,
+          "valueAsPublished": "71.6200",
+          "uncertainty": 0.0012,
+          "nistFlag": "interpolated/extrapolated (semi-empirical)",
+          "sourceId": "nist-asd-ie"
+        }
+      ],
+      "valenceElectrons": 1,
+      "valenceElectronsBasis": "derived: outer-shell (main-group) electron count from the NIST ground-state configuration",
+      "covalentRadiusA": {
+        "value": 1.66,
+        "sourceId": "cordero-2008",
+        "verifiedVia": [
+          "wikipedia-covalent-radius",
+          "openbabel-elementtable"
+        ]
+      },
+      "vdwRadiusA": {
+        "value": 2.27,
+        "sourceId": "bondi-1964",
+        "verifiedVia": [
+          "mantina-2009-pmc"
+        ]
+      },
+      "ionicRadii": [
+        {
+          "charge": 1,
+          "coordination": 6,
+          "valueA": 1.02,
+          "kind": "effective ionic radius",
+          "sourceId": "shannon-1976",
+          "verifiedVia": [
+            "shannon-db-imperial"
+          ]
+        }
+      ],
+      "colorHex": "#AB5CF2",
+      "colorSourceId": "jmol-pal-source",
+      "colorSeeAlso": [
+        "jmol-colors",
+        "pubchem-ptable"
+      ]
+    },
+    {
+      "symbol": "P",
+      "name": "Phosphorus",
+      "atomicNumber": 15,
+      "atomicNumberSourceId": "ciaaw-abridged-2024",
+      "atomicWeight": {
+        "value": 30.974,
+        "valueAsPublished": "30.974",
+        "uncertainty": 0.001,
+        "sourceId": "ciaaw-abridged-2024"
+      },
+      "electronegativity": {
+        "value": 2.19,
+        "scale": "Pauling",
+        "sourceId": "pubchem-ptable",
+        "corroboratedBy": [
+          "wikipedia-en-data"
+        ]
+      },
+      "configuration": "1s2 2s2 2p6 3s2 3p3",
+      "configurationCondensed": "[Ne] 3s2 3p3",
+      "configurationSourceId": "nist-asd-ie",
+      "nistGroundShells": "[Ne].3s2.3p3",
+      "shells": [
+        2,
+        8,
+        5
+      ],
+      "ionizationEnergiesKJmol": [
+        {
+          "order": 1,
+          "value": 1011.8,
+          "uncertainty": 0.0014,
+          "derivedFromEV": "10.486686",
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 2,
+          "value": 1907.5,
+          "uncertainty": 0.0039,
+          "derivedFromEV": "19.76949",
+          "nistFlag": "interpolated/extrapolated (semi-empirical)",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 3,
+          "value": 2914.1,
+          "uncertainty": 0.0087,
+          "derivedFromEV": "30.20264",
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        }
+      ],
+      "ionizationEnergiesEV": [
+        {
+          "order": 1,
+          "value": 10.486686,
+          "valueAsPublished": "10.486686",
+          "uncertainty": 1.5e-05,
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 2,
+          "value": 19.76949,
+          "valueAsPublished": "19.76949",
+          "uncertainty": 4e-05,
+          "nistFlag": "interpolated/extrapolated (semi-empirical)",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 3,
+          "value": 30.20264,
+          "valueAsPublished": "30.20264",
+          "uncertainty": 9e-05,
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        }
+      ],
+      "valenceElectrons": 5,
+      "valenceElectronsBasis": "derived: outer-shell (main-group) electron count from the NIST ground-state configuration",
+      "covalentRadiusA": {
+        "value": 1.07,
+        "sourceId": "cordero-2008",
+        "verifiedVia": [
+          "wikipedia-covalent-radius",
+          "openbabel-elementtable"
+        ]
+      },
+      "vdwRadiusA": {
+        "value": 1.8,
+        "sourceId": "bondi-1964",
+        "verifiedVia": [
+          "mantina-2009-pmc"
+        ]
+      },
+      "ionicRadii": [],
+      "colorHex": "#FF8000",
+      "colorSourceId": "jmol-pal-source",
+      "colorSeeAlso": [
+        "jmol-colors",
+        "pubchem-ptable"
+      ]
+    },
+    {
+      "symbol": "S",
+      "name": "Sulfur",
+      "atomicNumber": 16,
+      "atomicNumberSourceId": "ciaaw-abridged-2024",
+      "atomicWeight": {
+        "value": 32.06,
+        "valueAsPublished": "32.06",
+        "uncertainty": 0.02,
+        "sourceId": "ciaaw-abridged-2024",
+        "note": "PubChem periodic table shows 32.07; CIAAW abridged 2024 is 32.06 +/- 0.02. Use CIAAW."
+      },
+      "electronegativity": {
+        "value": 2.58,
+        "scale": "Pauling",
+        "sourceId": "pubchem-ptable",
+        "corroboratedBy": [
+          "wikipedia-en-data"
+        ]
+      },
+      "configuration": "1s2 2s2 2p6 3s2 3p4",
+      "configurationCondensed": "[Ne] 3s2 3p4",
+      "configurationSourceId": "nist-asd-ie",
+      "nistGroundShells": "[Ne].3s2.3p4",
+      "shells": [
+        2,
+        8,
+        6
+      ],
+      "ionizationEnergiesKJmol": [
+        {
+          "order": 1,
+          "value": 999.6,
+          "uncertainty": 0.00014,
+          "derivedFromEV": "10.3600167",
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 2,
+          "value": 2251.8,
+          "uncertainty": 0.024,
+          "derivedFromEV": "23.33788",
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 3,
+          "value": 3363.0,
+          "uncertainty": 3.9,
+          "derivedFromEV": "34.86",
+          "nistFlag": "interpolated/extrapolated (semi-empirical)",
+          "sourceId": "nist-asd-ie"
+        }
+      ],
+      "ionizationEnergiesEV": [
+        {
+          "order": 1,
+          "value": 10.3600167,
+          "valueAsPublished": "10.3600167",
+          "uncertainty": 1.4e-06,
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 2,
+          "value": 23.33788,
+          "valueAsPublished": "23.33788",
+          "uncertainty": 0.00025,
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 3,
+          "value": 34.86,
+          "valueAsPublished": "34.86",
+          "uncertainty": 0.04,
+          "nistFlag": "interpolated/extrapolated (semi-empirical)",
+          "sourceId": "nist-asd-ie"
+        }
+      ],
+      "valenceElectrons": 6,
+      "valenceElectronsBasis": "derived: outer-shell (main-group) electron count from the NIST ground-state configuration",
+      "covalentRadiusA": {
+        "value": 1.05,
+        "sourceId": "cordero-2008",
+        "verifiedVia": [
+          "wikipedia-covalent-radius",
+          "openbabel-elementtable"
+        ]
+      },
+      "vdwRadiusA": {
+        "value": 1.8,
+        "sourceId": "bondi-1964",
+        "verifiedVia": [
+          "mantina-2009-pmc"
+        ]
+      },
+      "ionicRadii": [
+        {
+          "charge": -2,
+          "coordination": 6,
+          "valueA": 1.84,
+          "kind": "effective ionic radius",
+          "sourceId": "shannon-1976",
+          "verifiedVia": [
+            "shannon-db-imperial"
+          ],
+          "note": "Shannon marks this entry with key 'P': the value is taken from Pauling (1960), The Nature of the Chemical Bond (Pauling called it a 'crystal radius'). It is listed in Shannon's effective IONIC radius column; Shannon's own 'crystal radius' column gives a different number (1.70 A) which is not the value stored here."
+        }
+      ],
+      "colorHex": "#FFFF30",
+      "colorSourceId": "jmol-pal-source",
+      "colorSeeAlso": [
+        "jmol-colors",
+        "pubchem-ptable"
+      ]
+    },
+    {
+      "symbol": "Cl",
+      "name": "Chlorine",
+      "atomicNumber": 17,
+      "atomicNumberSourceId": "ciaaw-abridged-2024",
+      "atomicWeight": {
+        "value": 35.45,
+        "valueAsPublished": "35.45",
+        "uncertainty": 0.01,
+        "sourceId": "ciaaw-abridged-2024"
+      },
+      "electronegativity": {
+        "value": 3.16,
+        "scale": "Pauling",
+        "sourceId": "pubchem-ptable",
+        "corroboratedBy": [
+          "wikipedia-en-data"
+        ]
+      },
+      "configuration": "1s2 2s2 2p6 3s2 3p5",
+      "configurationCondensed": "[Ne] 3s2 3p5",
+      "configurationSourceId": "nist-asd-ie",
+      "nistGroundShells": "[Ne].3s2.3p5",
+      "shells": [
+        2,
+        8,
+        7
+      ],
+      "ionizationEnergiesKJmol": [
+        {
+          "order": 1,
+          "value": 1251.2,
+          "uncertainty": 0.0015,
+          "derivedFromEV": "12.967633",
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 2,
+          "value": 2297.7,
+          "uncertainty": 0.012,
+          "derivedFromEV": "23.81364",
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 3,
+          "value": 3840.0,
+          "uncertainty": 11.0,
+          "derivedFromEV": "39.80",
+          "nistFlag": "interpolated/extrapolated (semi-empirical)",
+          "sourceId": "nist-asd-ie"
+        }
+      ],
+      "ionizationEnergiesEV": [
+        {
+          "order": 1,
+          "value": 12.967633,
+          "valueAsPublished": "12.967633",
+          "uncertainty": 1.6e-05,
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 2,
+          "value": 23.81364,
+          "valueAsPublished": "23.81364",
+          "uncertainty": 0.00012,
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 3,
+          "value": 39.8,
+          "valueAsPublished": "39.80",
+          "uncertainty": 0.11,
+          "nistFlag": "interpolated/extrapolated (semi-empirical)",
+          "sourceId": "nist-asd-ie"
+        }
+      ],
+      "valenceElectrons": 7,
+      "valenceElectronsBasis": "derived: outer-shell (main-group) electron count from the NIST ground-state configuration",
+      "covalentRadiusA": {
+        "value": 1.02,
+        "sourceId": "cordero-2008",
+        "verifiedVia": [
+          "wikipedia-covalent-radius",
+          "openbabel-elementtable"
+        ]
+      },
+      "vdwRadiusA": {
+        "value": 1.75,
+        "sourceId": "bondi-1964",
+        "verifiedVia": [
+          "mantina-2009-pmc"
+        ]
+      },
+      "ionicRadii": [
+        {
+          "charge": -1,
+          "coordination": 6,
+          "valueA": 1.81,
+          "kind": "effective ionic radius",
+          "sourceId": "shannon-1976",
+          "verifiedVia": [
+            "shannon-db-imperial"
+          ],
+          "note": "Shannon marks this entry with key 'P': the value is taken from Pauling (1960), The Nature of the Chemical Bond (Pauling called it a 'crystal radius'). It is listed in Shannon's effective IONIC radius column; Shannon's own 'crystal radius' column gives a different number (1.67 A) which is not the value stored here."
+        }
+      ],
+      "colorHex": "#1FF01F",
+      "colorSourceId": "jmol-pal-source",
+      "colorSeeAlso": [
+        "jmol-colors",
+        "pubchem-ptable"
+      ]
+    },
+    {
+      "symbol": "Xe",
+      "name": "Xenon",
+      "atomicNumber": 54,
+      "atomicNumberSourceId": "ciaaw-abridged-2024",
+      "atomicWeight": {
+        "value": 131.29,
+        "valueAsPublished": "131.29",
+        "uncertainty": 0.01,
+        "sourceId": "ciaaw-abridged-2024"
+      },
+      "electronegativity": {
+        "value": 2.6,
+        "scale": "Pauling",
+        "sourceId": "pubchem-ptable",
+        "corroboratedBy": [
+          "wikipedia-en-data"
+        ],
+        "note": "PubChem lists 2.6. Wikipedia data page reports WebElements 2.6, CRC 84th ed. 2.60, Lange no data. Not in Pauling's original scale; treat as a later estimate."
+      },
+      "configuration": "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6",
+      "configurationCondensed": "[Kr] 4d10 5s2 5p6",
+      "configurationSourceId": "nist-asd-ie",
+      "nistGroundShells": "[Cd].5p6",
+      "shells": [
+        2,
+        8,
+        18,
+        18,
+        8
+      ],
+      "ionizationEnergiesKJmol": [
+        {
+          "order": 1,
+          "value": 1170.4,
+          "uncertainty": 0.00014,
+          "derivedFromEV": "12.1298437",
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 2,
+          "value": 2023.8,
+          "uncertainty": 0.39,
+          "derivedFromEV": "20.975",
+          "nistFlag": "interpolated/extrapolated (semi-empirical)",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 3,
+          "value": 2996.0,
+          "uncertainty": 3.9,
+          "derivedFromEV": "31.05",
+          "nistFlag": "interpolated/extrapolated (semi-empirical)",
+          "sourceId": "nist-asd-ie",
+          "note": "2995 if converted from NIST's cm-1 value instead of the rounded eV value; uncertainty is +/- 4 kJ/mol either way."
+        }
+      ],
+      "ionizationEnergiesEV": [
+        {
+          "order": 1,
+          "value": 12.1298437,
+          "valueAsPublished": "12.1298437",
+          "uncertainty": 1.5e-06,
+          "nistFlag": "measured",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 2,
+          "value": 20.975,
+          "valueAsPublished": "20.975",
+          "uncertainty": 0.004,
+          "nistFlag": "interpolated/extrapolated (semi-empirical)",
+          "sourceId": "nist-asd-ie"
+        },
+        {
+          "order": 3,
+          "value": 31.05,
+          "valueAsPublished": "31.05",
+          "uncertainty": 0.04,
+          "nistFlag": "interpolated/extrapolated (semi-empirical)",
+          "sourceId": "nist-asd-ie"
+        }
+      ],
+      "valenceElectrons": 8,
+      "valenceElectronsBasis": "derived: outer-shell (main-group) electron count from the NIST ground-state configuration",
+      "covalentRadiusA": {
+        "value": 1.4,
+        "sourceId": "cordero-2008",
+        "verifiedVia": [
+          "wikipedia-covalent-radius",
+          "openbabel-elementtable"
+        ],
+        "note": "Secondary transcriptions (Wikipedia, Open Babel, RDKit) give Xe 1.40 A, Wikipedia with a standard deviation of 0.09 (\"140(9)\"). The paper's abstract says a few radii, 'notably the noble gases', were interpolated, but the paper itself was not read, so whether the Xe value specifically is interpolated or derived from Xe structures is NOT confirmed. Do not show an 'interpolated' label in the app without reading Cordero Table 2."
+      },
+      "vdwRadiusA": {
+        "value": 2.16,
+        "sourceId": "bondi-1964",
+        "verifiedVia": [
+          "mantina-2009-pmc"
+        ]
+      },
+      "ionicRadii": [],
+      "colorHex": "#429EB0",
+      "colorSourceId": "jmol-pal-source",
+      "configurationNote": "NIST prints the ground shells as [Cd].5p6; expanded here to the full string.",
+      "colorSeeAlso": [
+        "jmol-colors",
+        "pubchem-ptable"
+      ]
+    }
+  ],
+  "verification": {
+    "date": "2026-10-03",
+    "verdict": "No numeric value in the file was found to be wrong. Corrections are to notes, citations and source recommendations.",
+    "method": "All sources re-downloaded into verify-elements/ (not the first agent's raw/ copies) and compared by script verify-elements/check.py: 798 comparisons covering 283 distinct stored values. kJ/mol values recomputed twice with exact decimal arithmetic: from NIST eV x (e x N_A) and independently from NIST cm-1 x (h c N_A). Shell lists, electron totals and valence counts recomputed from the NIST ground-shell strings.",
+    "verifiedAgainstSourceReadDirectly": {
+      "atomicNumber, name, atomicWeight value and uncertainty": "CIAAW abridged table 2024 (https://www.ciaaw.org/abridged-atomic-weights.htm); consistent with NIST compositions intervals/values and PubChem",
+      "electronegativity": "PubChem periodic table JSON; equal to Wikipedia data page columns (WebElements, CRC 84th ed. as transcribed there)",
+      "configuration, nistGroundShells, shells, valenceElectrons": "NIST ASD ground shells; [Ne] and [Cd] cores expanded using NIST's help page; shell sums equal Z for all 11 elements",
+      "ionizationEnergiesEV value, uncertainty, nistFlag (31 stages)": "NIST ASD CSV in eV; bracket/parenthesis meaning confirmed on NIST help page",
+      "ionizationEnergiesKJmol value and uncertainty (31 stages)": "recomputed; all match the stated rounding rule",
+      "colorHex": "Jmol PAL.java argbsCpk and PubChem CPKHexColor",
+      "conversion factor": "CODATA 2022 Faraday constant page"
+    },
+    "verifiedAgainstSecondaryCopiesOnly": {
+      "covalentRadiusA (11 values plus C sp2/sp)": "Wikipedia Covalent radius table, Open Babel elementtable.h, RDKit atomic_data.cpp all agree; Cordero 2008 itself not readable (HTTP 403, closed access per OpenAlex)",
+      "vdwRadiusA": "Mantina 2009 full text via NCBI efetch (PMC3658832): 'Bondi radius' rows of Tables 7 and 9 for C, N, O, F, Na, P, S, Cl, Xe; Table 12 for B 1.92 (bold = new in Mantina) and H 1.10; body text for Bondi's H 1.2. Wikipedia atomic-radii data page attributes the same numbers to Bondi 1964. Bondi 1964 itself not readable",
+      "ionicRadii (5 values, charge, CN 6)": "Imperial College Database of Ionic Radii, ionic-radius column (not the crystal-radius column); Shannon 1976 itself not readable (HTTP 403)"
+    },
+    "bibliographicMetadataChecked": "Bondi 1964, Shannon 1976, Cordero 2008 (OpenAlex/PubMed) and Allred 1961 (Crossref): titles, volumes and pages match the citations.",
+    "corrections": [
+      "Xe covalentRadiusA.note: removed the unsupported statement that the Xe value is interpolated.",
+      "S2- and Cl- ionicRadii note: reworded; the old wording ('crystal radius basis') could be read as saying the stored value is Shannon's crystal radius, which it is not.",
+      "colorSourceId: changed from jmol-colors (page content never seen by either pass) to new source jmol-pal-source (read directly); jmol-colors citation now says it is unverified.",
+      "sourceRecommendation: removed unverified claims that CRC reprints the CIAAW and NIST values; added warning not to attribute Xe 2.6 to Allred/Pauling.",
+      "nist-asd-ie source: added dataUrl, because the cited url is a query form that shows no values.",
+      "codata-2022 source: added the Faraday constant page, which shows the conversion factor directly.",
+      "Added a note on Xe third ionization energy (2996 vs 2995 depending on which NIST unit is converted)."
+    ],
+    "unverifiable": [
+      "Cordero 2008, Bondi 1964, Shannon 1976 and Allred 1961 primary papers (paywalled or blocking automated access); values rest on agreeing secondary copies.",
+      "Whether the Xe covalent radius in Cordero is interpolated or measured.",
+      "Primary origin of the Xe electronegativity 2.6.",
+      "Any equivalence with CRC Handbook values other than electronegativity (and that only via Wikipedia's transcription of the 84th edition).",
+      "Content of https://jmol.sourceforge.net/jscolors/ (403 to curl; table invisible to WebFetch)."
+    ],
+    "notesForInstructorReview": [
+      "Van der Waals radii are a mixed set: Bondi 1964 for ten elements, Mantina 2009 for boron. Hydrogen is stored as Bondi's 1.20 A although Mantina, PubChem and Open Babel use 1.10 A; the space-filling view will draw H slightly larger than most modern viewers. Decide once and label it.",
+      "Third ionization energies of S (3363 +/- 4) and Cl (3840 +/- 11 kJ/mol) and second/third of Xe are semi-empirical in NIST; show them without a decimal and expect small differences from textbook tables.",
+      "N II, N III, O III, F III, Na III, P II are also flagged semi-empirical by NIST but with uncertainties below 0.3 kJ/mol.",
+      "Oxidation-state rule in spec 6.3 depends on Pauling ordering; close pairs in this set are C 2.55 / S 2.58 / Xe 2.6 and P 2.19 / H 2.2. No library molecule has a C-S, P-H, C-Xe or S-Xe bond, so no assignment hinges on them.",
+      "Ionic radii are for coordination number 6 only; Na+ and Cl- drawn as spheres in solution are not six-coordinate crystal ions, so label the radius 'in crystals, CN 6'."
+    ]
+  }
+}
