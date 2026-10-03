@@ -1,0 +1,86 @@
+[
+  {
+    "moleculeId": "oxygen",
+    "levels": [
+      {
+        "label": "σ2s",
+        "degeneracy": 1,
+        "electrons": 2,
+        "type": "bonding"
+      },
+      {
+        "label": "σ*2s",
+        "degeneracy": 1,
+        "electrons": 2,
+        "type": "antibonding"
+      },
+      {
+        "label": "σ2p",
+        "degeneracy": 1,
+        "electrons": 2,
+        "type": "bonding"
+      },
+      {
+        "label": "π2p",
+        "degeneracy": 2,
+        "electrons": 4,
+        "type": "bonding"
+      },
+      {
+        "label": "π*2p",
+        "degeneracy": 2,
+        "electrons": 2,
+        "type": "antibonding"
+      },
+      {
+        "label": "σ*2p",
+        "degeneracy": 1,
+        "electrons": 0,
+        "type": "antibonding"
+      }
+    ],
+    "sourceId": "openstax-chem2e-8.4"
+  },
+  {
+    "moleculeId": "nitrogen",
+    "levels": [
+      {
+        "label": "σ2s",
+        "degeneracy": 1,
+        "electrons": 2,
+        "type": "bonding"
+      },
+      {
+        "label": "σ*2s",
+        "degeneracy": 1,
+        "electrons": 2,
+        "type": "antibonding"
+      },
+      {
+        "label": "π2p",
+        "degeneracy": 2,
+        "electrons": 4,
+        "type": "bonding"
+      },
+      {
+        "label": "σ2p",
+        "degeneracy": 1,
+        "electrons": 2,
+        "type": "bonding"
+      },
+      {
+        "label": "π*2p",
+        "degeneracy": 2,
+        "electrons": 0,
+        "type": "antibonding"
+      },
+      {
+        "label": "σ*2p",
+        "degeneracy": 1,
+        "electrons": 0,
+        "type": "antibonding"
+      }
+    ],
+    "sourceId": "openstax-chem2e-8.4"
+  }
+]

@@ -1,9 +1,10 @@
 import elements from './elements.json'
+import moDiagrams from './mo-diagrams.json'
 import { moleculeFiles } from './molecules'
 import { registrySchema } from './schema'
 import sources from './sources.json'
 
-// The real curated data. elements.json, sources.json and molecules/ are written by
+// The real curated data. elements.json, sources.json, mo-diagrams.json and molecules/ are written by
 // `npm run build:data`; edit the script or its inputs, not those files.
 // Later phases add reagents and stations.
 export const registry = registrySchema.parse({
@@ -14,4 +15,5 @@ export const registry = registrySchema.parse({
   stations: [],
   elements,
   molecules: moleculeFiles,
+  moDiagrams,
 })

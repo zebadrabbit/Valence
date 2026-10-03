@@ -52,6 +52,7 @@ function checkReferences(registry: Registry): string[] {
     ...duplicates(registry.stations.map((s) => s.id), 'stations'),
     ...duplicates(registry.elements.map((e) => e.symbol), 'elements'),
     ...duplicates(registry.molecules.map((m) => m.id), 'molecules'),
+    ...duplicates(registry.moDiagrams.map((d) => d.moleculeId), 'MO diagrams'),
   ]
   const species = new Set(registry.species.map((s) => s.id))
   const reagents = new Set(registry.reagents.map((r) => r.id))
@@ -135,6 +136,34 @@ function checkLewis(registry: Registry): string[] {
   return errors
 }
 
+// A diagram holds the valence electrons of a molecule that exists, at most two per orbital.
+function checkMoDiagrams(registry: Registry): string[] {
+  const errors: string[] = []
+  const elements = new Map(registry.elements.map((e) => [e.symbol, e]))
+  for (const diagram of registry.moDiagrams) {
+    const label = `MO diagram "${diagram.moleculeId}"`
+    const molecule = registry.molecules.find((m) => m.id === diagram.moleculeId)
+    if (!molecule) {
+      errors.push(`${label}: unknown molecule "${diagram.moleculeId}"`)
+      continue
+    }
+    for (const level of diagram.levels) {
+      if (level.electrons > 2 * level.degeneracy) {
+        errors.push(`${label}: level "${level.label}" holds ${level.electrons} electrons, more than ${2 * level.degeneracy}`)
+      }
+    }
+    // An atom of an unknown element is reported by checkLewis.
+    const valence =
+      molecule.atoms.reduce((sum, atom) => {
+        const element = elements.get(atom.element)
+        return sum + (element ? valenceElectrons(element) : 0)
+      }, 0) - molecule.charge
+    const total = diagram.levels.reduce((sum, level) => sum + level.electrons, 0)
+    if (total !== valence) errors.push(`${label}: holds ${total} electrons, but the molecule has ${valence} valence electrons`)
+  }
+  return errors
+}
+
 // Cited experimental values must be reproduced by the stored coordinates (spec 6.5).
 const LENGTH_TOLERANCE = 0.01
 const ANGLE_TOLERANCE = 1
@@ -207,6 +236,7 @@ export function validateRegistry(input: unknown, options: ValidateOptions = {}):
     ...checkGeometry(registry),
     ...checkLewis(registry),
     ...checkMeasurements(registry),
+    ...checkMoDiagrams(registry),
     ...checkProse(registry, options.institutionNames ?? []),
   ]
 }

@@ -165,6 +165,24 @@ export const moleculeSchema = z.strictObject({
   sourceId: id,
 })
 
+// Valence molecular orbitals only (spec 5.3, 6.4).
+export const moDiagramSchema = z.strictObject({
+  moleculeId: id,
+  /** Lowest energy first. */
+  levels: z
+    .array(
+      z.strictObject({
+        label: text,
+        /** Number of orbitals at this energy. */
+        degeneracy: z.number().int().positive(),
+        electrons: z.number().int().min(0),
+        type: z.enum(['bonding', 'antibonding']),
+      }),
+    )
+    .min(1),
+  sourceId: id,
+})
+
 export const registrySchema = z.strictObject({
   sources: z.array(sourceSchema),
   species: z.array(speciesSchema),
@@ -173,6 +191,7 @@ export const registrySchema = z.strictObject({
   stations: z.array(stationSchema),
   elements: z.array(elementSchema),
   molecules: z.array(moleculeSchema),
+  moDiagrams: z.array(moDiagramSchema),
 })
 
 export type Source = z.infer<typeof sourceSchema>
@@ -182,4 +201,5 @@ export type Observation = z.infer<typeof observationSchema>
 export type Station = z.infer<typeof stationSchema>
 export type Element = z.infer<typeof elementSchema>
 export type Molecule = z.infer<typeof moleculeSchema>
+export type MoDiagram = z.infer<typeof moDiagramSchema>
 export type Registry = z.infer<typeof registrySchema>

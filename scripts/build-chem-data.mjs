@@ -3,7 +3,7 @@
 //   npm run build:data
 //
 // Reads docs/research/phase-2/ and writes, under src/chem-data/:
-//   elements.json, sources.json, molecules/<id>.json, molecules/index.ts
+//   elements.json, sources.json, mo-diagrams.json, molecules/<id>.json, molecules/index.ts
 //
 // Deterministic: the same inputs give byte-identical outputs. Anything
 // unexpected in the inputs stops the build with a message and writes nothing.
@@ -453,6 +453,38 @@ function buildMolecules(elements) {
   return { molecules, sources }
 }
 
+// ---------------------------------------------------------------------------
+// Molecular orbital diagrams
+
+const MO_SOURCE_ID = 'openstax-chem2e-8.4'
+// The research file spells the labels out; the app shows the symbols.
+const MO_LABELS = { sigma2s: 'σ2s', 'sigma*2s': 'σ*2s', sigma2p: 'σ2p', 'sigma*2p': 'σ*2p', pi2p: 'π2p', 'pi*2p': 'π*2p' }
+
+function buildMoDiagrams(molecules) {
+  const research = readJson('expected.json').mo
+  if (research.map((d) => d.id).join() !== 'oxygen,nitrogen') fail('expected.json: expected MO diagrams for oxygen and nitrogen')
+  const [{ sourceUrl: url, citation }] = research
+  const diagrams = research.map((d) => {
+    if (!molecules.some((m) => m.id === d.id)) fail(`MO diagram ${d.id}: not in the library`)
+    if (d.sourceUrl !== url || d.citation !== citation) fail(`MO diagram ${d.id}: expected one source for both diagrams`)
+    // The research file's own bond order and unpaired count, recomputed from its levels.
+    const signed = d.levels.reduce((sum, l) => sum + (l.type === 'bonding' ? l.electrons : -l.electrons), 0)
+    const unpaired = d.levels.reduce((sum, l) => sum + Math.min(l.electrons, 2 * l.degeneracy - l.electrons), 0)
+    if (signed / 2 !== d.bondOrder || unpaired !== d.unpaired) fail(`MO diagram ${d.id}: the levels do not give the stated bond order and unpaired count`)
+    return {
+      moleculeId: d.id,
+      levels: d.levels.map((l) => ({
+        label: MO_LABELS[l.label] ?? fail(`MO diagram ${d.id}: unknown level "${l.label}"`),
+        degeneracy: l.degeneracy,
+        electrons: l.electrons,
+        type: l.type,
+      })),
+      sourceId: MO_SOURCE_ID,
+    }
+  })
+  return { diagrams, sources: [{ id: MO_SOURCE_ID, url, citation }] }
+}
+
 // A static import list keeps the registry free of bundler-only APIs.
 function moleculeIndex(molecules) {
   const name = (id) => id.replace(/-(.)/g, (_, c) => c.toUpperCase())
@@ -470,7 +502,8 @@ function moleculeIndex(molecules) {
 function main() {
   const { elements, sources: elementSources } = buildElements()
   const { molecules, sources: moleculeSources } = buildMolecules(elements)
-  const sources = [...elementSources, ...moleculeSources]
+  const { diagrams, sources: moSources } = buildMoDiagrams(molecules)
+  const sources = [...elementSources, ...moleculeSources, ...moSources]
   if (new Set(sources.map((s) => s.id)).size !== sources.length) fail('duplicate source ids')
 
   // Everything is built before anything is written.
@@ -480,8 +513,9 @@ function main() {
   for (const molecule of molecules) writeFileSync(join(moleculeDir, `${molecule.id}.json`), toJson(molecule))
   writeFileSync(join(moleculeDir, 'index.ts'), moleculeIndex(molecules))
   writeFileSync(join(out, 'elements.json'), toJson(elements))
+  writeFileSync(join(out, 'mo-diagrams.json'), toJson(diagrams))
   writeFileSync(join(out, 'sources.json'), toJson(sources))
-  process.stdout.write(`Wrote ${elements.length} elements, ${molecules.length} structures, ${sources.length} sources.\n`)
+  process.stdout.write(`Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${sources.length} sources.\n`)
 }
 
 try {

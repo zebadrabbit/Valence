@@ -198,5 +198,10 @@
     "id": "pubchem-cid-767",
     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/767",
     "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 767; URL: https://pubchem.ncbi.nlm.nih.gov/compound/767#section=3D-Conformer"
+  },
+  {
+    "id": "openstax-chem2e-8.4",
+    "url": "https://openstax.org/books/chemistry-2e/pages/8-4-molecular-orbital-theory",
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 8.4 Molecular Orbital Theory (Figure 8.37, Table 8.3, Example 8.6)."
   }
 ]

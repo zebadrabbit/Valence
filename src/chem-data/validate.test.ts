@@ -145,6 +145,18 @@ function validRegistry() {
     ],
     elements: [element('H', 1, [1]), element('C', 6, [2, 4]), element('O', 8, [2, 6])],
     molecules,
+    // Water's eight valence electrons. The labels are placeholders.
+    moDiagrams: [
+      {
+        moleculeId: 'water',
+        levels: [
+          { label: 'σ', degeneracy: 2, electrons: 4, type: 'bonding' },
+          { label: 'π', degeneracy: 2, electrons: 4, type: 'bonding' },
+          { label: 'σ*', degeneracy: 2, electrons: 0, type: 'antibonding' },
+        ],
+        sourceId: 's1',
+      },
+    ],
   }
 }
 
@@ -154,7 +166,7 @@ describe('validateRegistry', () => {
   })
 
   it('accepts an empty registry', () => {
-    const empty = { sources: [], species: [], reagents: [], observations: [], stations: [], elements: [], molecules: [] }
+    const empty = { sources: [], species: [], reagents: [], observations: [], stations: [], elements: [], molecules: [], moDiagrams: [] }
     expect(validateRegistry(empty)).toEqual([])
   })
 
@@ -362,7 +374,7 @@ describe('validateRegistry', () => {
       const [x, y] = [0.446625 + 0.028139, 0.819011]
       m.atoms[3]!.position = [-(x * Math.cos(t) - y * Math.sin(t)) - 0.028139, -(x * Math.sin(t) + y * Math.cos(t)), -0.816994]
       m.measurements!.dihedrals[0]!.value = 180
-      expect(validateRegistry({ ...r, molecules: [m] })).toEqual([])
+      expect(validateRegistry({ ...r, molecules: [m], moDiagrams: [] })).toEqual([])
     })
 
     it('rejects a measurement that names a missing atom', () => {
@@ -376,6 +388,58 @@ describe('validateRegistry', () => {
       r.molecules[0]!.geometrySource = 'pubchem-computed'
       r.molecules[0]!.measurements!.lengths[0]!.value = 2
       expect(validateRegistry(r)).toEqual([])
+    })
+  })
+
+  describe('molecular orbital diagrams', () => {
+    it('rejects a diagram for a molecule that does not exist', () => {
+      const r = validRegistry()
+      r.moDiagrams[0]!.moleculeId = 'dioxygen'
+      expect(validateRegistry(r)).toEqual(['MO diagram "dioxygen": unknown molecule "dioxygen"'])
+    })
+
+    it('rejects a diagram whose electrons are not the valence electrons of the molecule', () => {
+      const r = validRegistry()
+      r.moDiagrams[0]!.levels[1]!.electrons = 2
+      expect(validateRegistry(r)).toEqual(['MO diagram "water": holds 6 electrons, but the molecule has 8 valence electrons'])
+    })
+
+    it('counts the charge of an ion', () => {
+      // OH-: 6 + 1 valence electrons, plus one for the charge.
+      const r = validRegistry()
+      const water = r.molecules[0]!
+      water.atoms.pop()
+      water.bonds.pop()
+      water.atoms[0]!.formalCharge = -1
+      water.atoms[0]!.lonePairs = 3
+      water.charge = -1
+      water.measurements!.lengths.pop()
+      water.measurements!.angles.pop()
+      expect(validateRegistry(r)).toEqual([])
+      water.charge = 0
+      expect(validateRegistry(r)).toContain('MO diagram "water": holds 8 electrons, but the molecule has 7 valence electrons')
+    })
+
+    it('rejects more than two electrons per orbital', () => {
+      const r = validRegistry()
+      r.moDiagrams[0]!.levels[0]!.electrons = 6
+      r.moDiagrams[0]!.levels[1]!.electrons = 2
+      expect(validateRegistry(r)).toEqual(['MO diagram "water": level "σ" holds 6 electrons, more than 4'])
+    })
+
+    it('rejects two diagrams for one molecule', () => {
+      const r = validRegistry()
+      r.moDiagrams.push(structuredClone(r.moDiagrams[0]!))
+      expect(validateRegistry(r)).toEqual(['MO diagrams: duplicate id "water"'])
+    })
+
+    it('rejects an unknown source and an unknown key', () => {
+      const r = validRegistry()
+      r.moDiagrams[0]!.sourceId = 'nope'
+      expect(validateRegistry(r)).toEqual(['registry.moDiagrams[0].sourceId: unknown source "nope"'])
+      const extra = validRegistry()
+      Object.assign(extra.moDiagrams[0]!.levels[0]!, { energy: 1 })
+      expect(validateRegistry(extra).join('\n')).toMatch(/^schema: moDiagrams\.0\.levels\.0/)
     })
   })
 
