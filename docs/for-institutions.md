@@ -7,7 +7,7 @@ Each section states only what is true of the current version. The current versio
 ## IT and security
 
 - **What it is:** a static website (HTML, CSS, JavaScript). There is no server-side code, database, or API.
-- **Install:** none. It has been tested in Chromium (the engine behind Chrome and Edge), where an automated checklist of 21 checks passed against the production build. Firefox and Safari have not been tested yet.
+- **Install:** none. It has been tested in Chromium (the engine behind Chrome and Edge), where scripted checks are run against the production build. Firefox and Safari have not been tested yet.
 - **Accounts:** none. There is no sign-in of any kind.
 - **Network:** after the page loads, the app makes no network requests. Fonts and all data are bundled; nothing is loaded from a third-party CDN.
 - **Storage:** preferences and learning progress are stored in the browser's `localStorage` under keys beginning `valence:`. Nothing is stored anywhere else.
@@ -28,7 +28,7 @@ Each section states only what is true of the current version. The current versio
 
 Valence has not had an accessibility audit, and this page makes no claim of conformance to WCAG or any other standard. This section lists what was built, how it was checked, and what has not been checked.
 
-**How it was checked.** Scripts drove the production build in headless Chromium 153 (the engine behind Chrome and Edge) on Linux, using the keyboard only where the check is about the keyboard. Screenshots were taken in the light and dark themes at 1366×768 and 400×800 and looked at during development. The chemistry text (descriptions, names, measurements) comes from functions with automated tests.
+**How it was checked.** Scripts drove the production build in headless Chromium 153 (the engine behind Chrome and Edge) on Linux, using the keyboard only where the check is about the keyboard. Screenshots were taken in the light and dark themes at 1366×768 and 400×800 and looked at by the AI coding assistant that built the screens; no person has reviewed them yet. The chemistry text (descriptions, names, measurements) comes from functions with automated tests.
 
 **What was checked that way:**
 
@@ -43,7 +43,7 @@ Valence has not had an accessibility audit, and this page makes no claim of conf
 
 - No person has tested Valence with a screen reader. The roles, names and descriptions above were checked by script, not by listening to them.
 - No browser other than Chromium: not Firefox, not Safari, and no phone or tablet browser. Touch has not been tested.
-- Text contrast has not been measured. The focus indicator on the menu links is fainter than the one on the explorer's controls.
+- Text contrast has not been measured.
 - Browser zoom, enlarged text and forced-colour (high contrast) modes have not been tested.
 
 **Known limits:**
@@ -66,7 +66,7 @@ Valence has not had an accessibility audit, and this page makes no claim of conf
 **What the explorer shows.** A library of 31 molecules and ions in five groups: basics, a VSEPR showcase, organic functional groups, biomolecules, and the species of the planned mechanism. Glycine and alanine each have a neutral and a zwitterion form. For each one:
 
 - Four views: ball and stick, space filling (van der Waals radii), wireframe, and a 2D Lewis structure with lone pairs and formal charges.
-- An atom card: symbol, atomic number, atomic mass, electronegativity, valence electrons, formal charge, lone pairs, oxidation state, hybridization and VSEPR geometry, with electron configuration, ionization energies and radii one step further in.
+- An atom card: symbol, atomic number, standard atomic weight, electronegativity, valence electrons, formal charge, lone pairs, oxidation state, hybridization and VSEPR geometry, with electron configuration, ionization energies and radii one step further in.
 - A bond card: length, order, σ and π composition, and polarity as the Pauling electronegativity difference, labelled "a rough guide".
 - A measure tool: two atoms give a distance, three an angle, four a dihedral.
 - Three valence display levels: a Bohr diagram of the selected atom, labelled "a simplified picture"; lone pairs as dots; and hybrid orbital lobes for sp, sp² and sp³ atoms, with molecular orbital diagrams for O₂ and N₂ only. The O₂ diagram points out that the Lewis structure shows every electron paired while the diagram shows two unpaired.
@@ -75,20 +75,22 @@ Valence has not had an accessibility audit, and this page makes no claim of conf
 
 | Value | Source |
 | --- | --- |
-| Atomic mass | IUPAC CIAAW abridged standard atomic weights, 2024 |
+| Standard atomic weight | IUPAC CIAAW abridged standard atomic weights, 2024 |
 | Electron configuration, ionization energies | NIST Atomic Spectra Database |
 | Electronegativity (Pauling) | PubChem periodic table |
 | Covalent, van der Waals and ionic radii | Cordero et al. 2008; Mantina et al. 2009; Shannon 1976 |
 | Geometry of the 13 basics and VSEPR molecules | Experimental gas-phase structures from NIST CCCBDB, each citing the original paper |
 | Geometry of the other 20 structures | PubChem3D computed conformers (MMFF94s force field). These are not measurements, and each page says so. |
-| 2D layouts for the Lewis view | PubChem 2D records. The sulfur dioxide drawing is authored, because the PubChem record draws it as a straight line. |
+| 2D layouts for the Lewis view | PubChem 2D records, except four authored drawings: sulfur dioxide (PubChem draws it as a straight line), ammonia and hydronium (PubChem draws a flat Y; here the lone pair is on top), and carbon dioxide (drawn horizontal). |
 | Molecular orbital order for O₂ and N₂ | OpenStax Chemistry 2e, section 8.4 |
-| Formal charge, oxidation state, steric number, VSEPR geometry, hybridization, bond order, σ and π counts | Computed in the app from the stored structure by tested functions |
+| Formal charge and lone pairs | Authored with the Lewis structure; checked by the validator |
+| Element colours in the models | Jmol CPK colours |
+| Oxidation state, steric number, VSEPR geometry, hybridization, bond order, σ and π counts | Computed in the app from the stored structure by tested functions |
 | Lengths, angles and dihedrals | Measured from the stored coordinates. For the 13 experimental structures a bond card shows the cited value; automated tests hold the coordinates to the cited lengths within 0.01 Å and the cited angles within 1°. |
 
 The computed values are checked against a table of expected values written from the research: every atom of the basics, VSEPR and mechanism groups, and every non-hydrogen atom of the rest. Oxidation states are tested to sum to each species' charge, and every stored formal charge is checked by the validator.
 
-**Conventions chosen.** Where textbooks differ, Valence follows a general chemistry text (OpenStax Chemistry 2e) and says so on the card:
+**Conventions chosen.** Where textbooks differ, Valence follows a general chemistry text (OpenStax Chemistry 2e) and notes the convention on the card where it applies:
 
 - **Hybridization** comes from the steric number. The O–H and ester oxygens of acids and esters are sp³ and bent; their card adds that organic chemistry describes them as sp², because one lone pair is delocalised into the neighbouring C=O. The nitrogen of an amide or of urea is the one exception: it is shown as sp² and trigonal planar, as its model is.
 - **Terminal atoms.** Hydrogen reads "none (1s)". A terminal atom with a double or triple bond shows a value (a carbonyl oxygen is sp²). Singly bonded halogens and O⁻ read "not assigned (terminal atom)" and get no VSEPR geometry.
@@ -101,7 +103,7 @@ The computed values are checked against a table of expected values written from 
 **Known limits.**
 
 - The covalent, van der Waals and ionic radii come from paywalled papers and were checked only against secondary transcriptions that agree with each other.
-- The xenon electronegativity (2.6) has no traced primary source.
+- The xenon electronegativity (2.6) has no traced primary source. The atom card says so under the value.
 - PubChem 3D structures are computed conformers, not measurements. The bicarbonate conformer shows its two equivalent C–O bonds at different lengths; its page says so.
 - The hydrogen peroxide H–O–O angle of 94.8° is the 1962 measurement NIST lists; later measurements give about 100–102°. Its page says so.
 - Hybrid lobes are a simplified shape drawn along each bond and lone-pair direction. The lone pair of an amide or urea nitrogen is described in a note and not drawn as a lobe.
