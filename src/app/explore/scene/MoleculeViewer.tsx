@@ -3,15 +3,15 @@
 
 import { useEffect, useImperativeHandle, useMemo, useRef, type Dispatch, type ReactNode, type Ref } from 'react'
 import { Canvas, useFrame, useThree, type ThreeEvent } from '@react-three/fiber'
-import { BackSide, setConsoleFunction, type DirectionalLight, type Mesh } from 'three'
+import { BackSide, Vector2, setConsoleFunction, type DirectionalLight, type Mesh } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import type { Vec3 } from '@/chem-data/geometry'
 import { registry } from '@/chem-data/registry'
 import type { Molecule } from '@/chem-data/schema'
 import type { Selection, SelectionAction } from '../selection'
-import { VIEWS, type ViewId } from '../views'
-import { framingDistance, type Quat, type Stick } from './sceneMath'
-import { sceneModel, type SceneAtom, type SceneBond } from './sceneModel'
+import { VIEWS, type SceneViewId } from '../views'
+import { framingDistance, lobeProfile, type Quat, type Stick } from './sceneMath'
+import { LOBE_LENGTH, LOBE_WIDTH, sceneModel, type SceneAtom, type SceneBond, type SceneLobe, type SceneLonePair } from './sceneModel'
 
 // @react-three/fiber 9.8 still constructs a THREE.Clock, which three r183 and later report as
 // deprecated with a console warning on every Canvas mount. Nothing here can act on it, so drop
@@ -35,6 +35,11 @@ const OUTLINE_COLOR = '#1f2937'
 // The selection ring is blue with a white inner edge, so it shows against any atom and both themes.
 const RING_COLOR = '#2563eb'
 const RING_EDGE_COLOR = '#ffffff'
+// Lone-pair dots and orbital lobes. Their shape and place say what they are; the colours only keep them apart from the atoms.
+const LONE_PAIR_COLOR = '#fde047'
+const LOBE_COLOR = '#f59e0b'
+// One outline for every lobe: the same teardrop, turned and placed per orbital.
+const LOBE_POINTS = lobeProfile(LOBE_LENGTH, LOBE_WIDTH).map(([radius, height]) => new Vector2(radius, height))
 
 /** What the DOM buttons beside the canvas can ask the camera to do. */
 export interface ViewHandle {
@@ -47,7 +52,9 @@ export interface ViewHandle {
 
 export interface MoleculeViewerProps {
   molecule: Molecule
-  view: ViewId
+  view: SceneViewId
+  /** The valence display level (spec 6.4): lone pairs from 2, hybrid orbital lobes of the selected atoms at 3. */
+  level: 1 | 2 | 3
   selection: Selection
   dispatch: Dispatch<SelectionAction>
   reducedMotion: boolean
@@ -58,8 +65,8 @@ export interface MoleculeViewerProps {
 }
 
 export function MoleculeViewer(props: MoleculeViewerProps) {
-  const { molecule, view, selection, dispatch, reducedMotion, describedBy, viewRef, onContextLost } = props
-  const model = useMemo(() => sceneModel(molecule, registry.elements, view), [molecule, view])
+  const { molecule, view, level, selection, dispatch, reducedMotion, describedBy, viewRef, onContextLost } = props
+  const model = useMemo(() => sceneModel(molecule, registry.elements, view, level), [molecule, view, level])
   const label = VIEWS.find((v) => v.id === view)?.label.toLowerCase()
 
   return (
@@ -90,6 +97,11 @@ export function MoleculeViewer(props: MoleculeViewerProps) {
         {model.bonds.map((bond, i) => (
           <BondShape key={i} bond={bond} outline={model.outline} onPick={() => dispatch({ type: 'toggleBond', index: i })} />
         ))}
+        {model.lonePairs.map((pair, i) => (
+          <LonePairDots key={i} pair={pair} outline={model.outline} />
+        ))}
+        {/* Lobes would be hidden inside the atoms of the space-filling view. */}
+        {view !== 'space-filling' && selection.atoms.flatMap((i) => (model.lobes[i] ?? []).map((lobe, k) => <Lobe key={`${i}/${k}`} lobe={lobe} />))}
         {selection.atoms.map((i) => {
           const atom = model.atoms[i]
           return atom && <AtomRing key={i} atom={atom} unit={model.outline} />
@@ -141,6 +153,35 @@ function BondShape({ bond, outline, onPick }: { bond: SceneBond; outline: number
         </PickTarget>
       )}
     </>
+  )
+}
+
+/** A lone pair: two small dots side by side. They are not click targets. */
+function LonePairDots({ pair, outline }: { pair: SceneLonePair; outline: number }) {
+  return pair.dots.map((position, i) => (
+    <group key={i} position={position}>
+      <mesh scale={pair.radius} raycast={noRaycast}>
+        <sphereGeometry args={[1, 16, 8]} />
+        <meshStandardMaterial color={LONE_PAIR_COLOR} roughness={0.5} />
+      </mesh>
+      <mesh scale={pair.radius + outline} raycast={noRaycast}>
+        <sphereGeometry args={[1, 16, 8]} />
+        <meshBasicMaterial color={OUTLINE_COLOR} side={BackSide} />
+      </mesh>
+    </group>
+  ))
+}
+
+/**
+ * One hybrid orbital lobe, see-through so the atom and bond inside it still show.
+ * ponytail: the large lobe only. The small back lobe of a real hybrid orbital is not drawn.
+ */
+function Lobe({ lobe }: { lobe: SceneLobe }) {
+  return (
+    <mesh position={lobe.position} quaternion={lobe.quaternion} raycast={noRaycast}>
+      <latheGeometry args={[LOBE_POINTS, 24]} />
+      <meshStandardMaterial color={LOBE_COLOR} roughness={0.6} transparent opacity={0.5} depthWrite={false} />
+    </mesh>
   )
 }
 

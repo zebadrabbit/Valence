@@ -4,6 +4,7 @@ import { useAppState } from '@/app/AppState'
 import { Button } from '@/components/ui/button'
 import type { Molecule } from '@/chem-data/schema'
 import { FOCUS_RING } from './focusRing'
+import { LewisView } from './LewisView'
 import type { ViewHandle } from './scene/MoleculeViewer'
 import type { Selection, SelectionAction } from './selection'
 import { VIEWS, type ViewId } from './views'
@@ -22,23 +23,13 @@ const CAMERA_BUTTONS: readonly { label: string; icon: LucideIcon; act(view: View
   { label: 'Reset view', icon: RotateCcw, act: (v) => v.reset() },
 ]
 
-/** The 3D model with its view switch and camera buttons. Without WebGL it shows a plain message. */
+/** The model with its view switch and camera buttons. Without WebGL the 3D views show a plain message; the 2D Lewis view still works. */
 export function ViewerPanel(props: { molecule: Molecule; selection: Selection; dispatch: Dispatch<SelectionAction>; describedBy: string }) {
-  const { reducedMotion } = useAppState()
+  const { reducedMotion, prefs } = useAppState()
   const [view, setView] = useState<ViewId>('ball-and-stick')
   const [failed, setFailed] = useState(false)
   const [contextLost, setContextLost] = useState(false)
   const camera = useRef<ViewHandle>(null)
-
-  if (failed) {
-    return (
-      <ViewerFrame>
-        <ViewerMessage>
-          The 3D model could not start in this browser. The atom and bond list and the text description still work.
-        </ViewerMessage>
-      </ViewerFrame>
-    )
-  }
 
   return (
     <>
@@ -53,35 +44,54 @@ export function ViewerPanel(props: { molecule: Molecule; selection: Selection; d
       </div>
 
       <ViewerFrame>
-        <ViewerBoundary onFail={() => setFailed(true)}>
-          <Suspense fallback={<ViewerMessage>Loading the 3D model…</ViewerMessage>}>
-            <MoleculeViewer {...props} view={view} reducedMotion={reducedMotion} viewRef={camera} onContextLost={setContextLost} />
-          </Suspense>
-        </ViewerBoundary>
+        {view === 'lewis' ? (
+          <LewisView {...props} />
+        ) : failed ? (
+          <ViewerMessage>
+            The 3D model could not start in this browser. The 2D Lewis view, the atom and bond list and the text description still
+            work.
+          </ViewerMessage>
+        ) : (
+          <ViewerBoundary onFail={() => setFailed(true)}>
+            <Suspense fallback={<ViewerMessage>Loading the 3D model…</ViewerMessage>}>
+              <MoleculeViewer
+                {...props}
+                view={view}
+                level={prefs.valenceLevel}
+                reducedMotion={reducedMotion}
+                viewRef={camera}
+                onContextLost={setContextLost}
+              />
+            </Suspense>
+          </ViewerBoundary>
+        )}
       </ViewerFrame>
 
-      {contextLost && (
+      {view !== 'lewis' && contextLost && (
         <p role="status" className="mt-2 text-sm">
           The browser paused the 3D model. It usually comes back by itself; if it does not, reload the page. The atom and bond
           list still works.
         </p>
       )}
 
-      <div role="group" aria-label="Camera" className="mt-2 flex flex-wrap gap-1">
-        {CAMERA_BUTTONS.map(({ label, icon: Icon, act }) => (
-          <Button
-            key={label}
-            variant="outline"
-            size="icon-sm"
-            className={FOCUS_RING}
-            aria-label={label}
-            title={label}
-            onClick={() => camera.current && act(camera.current)}
-          >
-            <Icon aria-hidden="true" />
-          </Button>
-        ))}
-      </div>
+      {/* The camera belongs to the 3D views; the Lewis drawing does not turn. */}
+      {view !== 'lewis' && !failed && (
+        <div role="group" aria-label="Camera" className="mt-2 flex flex-wrap gap-1">
+          {CAMERA_BUTTONS.map(({ label, icon: Icon, act }) => (
+            <Button
+              key={label}
+              variant="outline"
+              size="icon-sm"
+              className={FOCUS_RING}
+              aria-label={label}
+              title={label}
+              onClick={() => camera.current && act(camera.current)}
+            >
+              <Icon aria-hidden="true" />
+            </Button>
+          ))}
+        </div>
+      )}
     </>
   )
 }

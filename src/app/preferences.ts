@@ -12,6 +12,13 @@ const prefsSchema = z.object({
 export type Tri = z.infer<typeof triSchema>
 export type Prefs = z.infer<typeof prefsSchema>
 
+/** The valence display levels (spec 6.4) as the level controls list them. */
+export const VALENCE_LEVELS: readonly { value: Prefs['valenceLevel']; label: string }[] = [
+  { value: 1, label: '1: Bohr shells' },
+  { value: 2, label: '2: Lewis dots' },
+  { value: 3, label: '3: Orbitals' },
+]
+
 const PREFS_VERSION = 1
 
 export const DEFAULT_PREFS: Prefs = { darkMode: 'system', reducedMotion: 'system', valenceLevel: 2 }

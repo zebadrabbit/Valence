@@ -1,16 +1,20 @@
 // What the 3D scene draws for one molecule in one view, as plain data: sizes
 // and colours from the element table, positions from the structure file.
 
-import { distance, type Vec3 } from '@/chem-data/geometry'
+import { distance, dot, type Vec3 } from '@/chem-data/geometry'
 import type { Element, Molecule } from '@/chem-data/schema'
-import type { ViewId } from '../views'
+import { hybridLobes } from '@/chem-data/hybrid'
+import { lonePairDirections } from '@/chem-data/lonePairs'
+import type { SceneViewId } from '../views'
 import {
   bondReach,
   bondSticks,
   boundingSphere,
   direction,
+  directionInFrame,
   inFrame,
   lerp,
+  lonePairDots,
   principalFrame,
   quaternionFromYAxis,
   sphereOverlap,
@@ -23,7 +27,7 @@ import {
 // Display parameters, in ångström. These are drawing choices, not chemistry.
 /** A ball-and-stick ball is this fraction of the element's van der Waals radius. */
 export const BALL_SCALE = 0.25
-const STICK_STYLE: Record<Exclude<ViewId, 'space-filling'>, StickStyle> = {
+const STICK_STYLE: Record<Exclude<SceneViewId, 'space-filling'>, StickStyle> = {
   'ball-and-stick': { radius: 0.09, multiRadius: 0.06, spacing: 0.2 },
   wireframe: { radius: 0.04, multiRadius: 0.04, spacing: 0.14 },
 }
@@ -32,8 +36,19 @@ const STICK_COLOR = '#9a9a9a'
 /** The smallest click targets, so thin wires and small balls can still be picked. */
 const MIN_ATOM_PICK_RADIUS = 0.3
 const MIN_BOND_PICK_RADIUS = 0.15
+/** Lone-pair dots: their radius, how far outside the atom's surface they sit, and half the gap between the two. */
+const DOT_RADIUS = 0.07
+const DOT_GAP = 0.2
+const DOT_SPREAD = 0.11
+/** In wireframe the atoms are joints with no surface, so the dots sit this far from the atom's centre. */
+const WIRE_DOT_REACH = 0.4
+/** A hybrid orbital lobe: how far it reaches from the nucleus and its widest radius. */
+export const LOBE_LENGTH = 1
+export const LOBE_WIDTH = 0.34
 /** The dark edge drawn round every shape, as a fraction of the scene radius (about 2 px on screen). */
 const OUTLINE_FRACTION = 0.012
+
+const scale = (v: Vec3, k: number): Vec3 => [v[0] * k, v[1] * k, v[2] * k]
 
 /** Positions are in the viewing frame: origin at the centroid, x along the molecule's longest spread. */
 export type SceneAtom = { position: Vec3; radius: number; pickRadius: number; color: string }
@@ -46,15 +61,26 @@ export type SceneBond = {
   ring: { position: Vec3; quaternion: Quat; radius: number }
 }
 
+/** A lone pair as two dots (valence display levels 2 and 3). */
+export type SceneLonePair = { dots: [Vec3, Vec3]; radius: number }
+
+/** A hybrid orbital lobe: the nucleus it starts at and the rotation of +Y onto its direction. */
+export type SceneLobe = { position: Vec3; quaternion: Quat }
+
 export type SceneModel = {
   /** The radius of a sphere about the origin that contains everything drawn; the camera frames it. */
   radius: number
   outline: number
   atoms: SceneAtom[]
   bonds: SceneBond[]
+  /** Empty at level 1. */
+  lonePairs: SceneLonePair[]
+  /** Per atom, at level 3: its hybrid orbital lobes, or none (hydrogen, steric numbers 5 and 6, level below 3). */
+  lobes: SceneLobe[][]
 }
 
-export function sceneModel(molecule: Molecule, elements: readonly Element[], view: ViewId): SceneModel {
+/** `level` is the valence display level (spec 6.4): lone pairs from 2, hybrid orbital lobes at 3. */
+export function sceneModel(molecule: Molecule, elements: readonly Element[], view: SceneViewId, level: 1 | 2 | 3 = 1): SceneModel {
   const elementOf = molecule.atoms.map((atom) => {
     const element = elements.find((e) => e.symbol === atom.element)
     if (!element) throw new Error(`no element data for ${atom.element}`)
@@ -63,7 +89,13 @@ export function sceneModel(molecule: Molecule, elements: readonly Element[], vie
   const style = view === 'space-filling' ? null : STICK_STYLE[view]
 
   // Turn the molecule to a good first view: flat molecules face-on, long ones across the canvas.
-  const frame = principalFrame(molecule.atoms.map((atom) => atom.position))
+  const flat = principalFrame(molecule.atoms.map((atom) => atom.position))
+  // Of the two faces, show the one the lone pairs point out of (ammonia's would otherwise start
+  // hidden behind its nitrogen). Half a turn about x, at every level, so the level never turns the model.
+  const pairDirections = molecule.atoms.map((_, i) => lonePairDirections(molecule, i, elements))
+  const [x, y, z] = flat.axes
+  const towardsViewer = pairDirections.flat().reduce((sum, dir) => sum + dot(dir, z), 0)
+  const frame = towardsViewer < -1e-6 ? { center: flat.center, axes: [x, scale(y, -1), scale(z, -1)] as const } : flat
 
   const atoms = molecule.atoms.map((atom, i): SceneAtom => {
     const vdw = elementOf[i]!.vdwRadius.value
@@ -106,9 +138,31 @@ export function sceneModel(molecule: Molecule, elements: readonly Element[], vie
     }
   })
 
-  const { radius } = boundingSphere(
-    atoms.map((a) => a.position),
-    atoms.map((a) => (view === 'wireframe' ? a.pickRadius : a.radius)),
+  // Lone pairs and lobes point where chem-data says, turned into the viewing frame.
+  const lonePairs =
+    level === 1
+      ? []
+      : atoms.flatMap((atom, i) =>
+          pairDirections[i]!.map((dir): SceneLonePair => {
+            const reach = view === 'wireframe' ? WIRE_DOT_REACH : atom.radius + DOT_GAP
+            return { dots: lonePairDots(atom.position, directionInFrame(dir, frame), reach, DOT_SPREAD), radius: DOT_RADIUS }
+          }),
+        )
+  const lobes = atoms.map((atom, i): SceneLobe[] => {
+    const hybrid = level === 3 ? hybridLobes(molecule, i, elements) : null
+    if (!hybrid) return []
+    return [...hybrid.bonds, ...hybrid.lonePairs].map((dir) => ({
+      position: atom.position,
+      quaternion: quaternionFromYAxis(directionInFrame(dir, frame)),
+    }))
+  })
+
+  // The camera frames everything the level can draw, so selecting an atom never moves it.
+  // The origin is the centroid of the atoms, which the camera orbits.
+  const origin: Vec3 = [0, 0, 0]
+  const radius = Math.max(
+    ...atoms.map((a, i) => distance(a.position, origin) + Math.max(view === 'wireframe' ? a.pickRadius : a.radius, lobes[i]!.length > 0 ? LOBE_LENGTH : 0)),
+    ...lonePairs.flatMap((pair) => pair.dots.map((dot) => distance(dot, origin) + pair.radius)),
   )
-  return { radius, outline: radius * OUTLINE_FRACTION, atoms, bonds }
+  return { radius, outline: radius * OUTLINE_FRACTION, atoms, bonds, lonePairs, lobes }
 }

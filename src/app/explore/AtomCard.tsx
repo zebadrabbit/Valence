@@ -24,6 +24,7 @@ export function AtomCard(props: { name: string; atom: Molecule['atoms'][number];
         <Row label="Electronegativity">{element.electronegativity.value} (Pauling)</Row>
         <Row label="Valence electrons">{valenceElectrons(element)}</Row>
         <Row label="Formal charge">{signed(atom.formalCharge)}</Row>
+        <Row label="Lone pairs">{atom.lonePairs}</Row>
         <Row label="Oxidation state">{signed(derived.oxidationState)}</Row>
         <Row label="Hybridization" note={derived.hybridizationNote}>
           {derived.hybridization}

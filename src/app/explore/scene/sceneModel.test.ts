@@ -1,16 +1,17 @@
 import { describe, expect, it } from 'vitest'
 import { distance, type Vec3 } from '@/chem-data/geometry'
 import { registry } from '@/chem-data/registry'
-import type { ViewId } from '../views'
-import { BALL_SCALE, sceneModel } from './sceneModel'
+import type { SceneViewId } from '../views'
+import { rotate } from './rotate.testutil'
+import { BALL_SCALE, LOBE_LENGTH, sceneModel } from './sceneModel'
 
 const { elements } = registry
 const center: Vec3 = [0, 0, 0]
 
-function model(id: string, view: ViewId) {
+function model(id: string, view: SceneViewId, level?: 1 | 2 | 3) {
   const molecule = registry.molecules.find((m) => m.id === id)
   if (!molecule) throw new Error(`no molecule ${id}`)
-  return sceneModel(molecule, elements, view)
+  return sceneModel(molecule, elements, view, level)
 }
 
 function element(symbol: string) {
@@ -101,5 +102,70 @@ describe('sceneModel', () => {
 
   it('makes the scene of glucose larger than that of a diatomic', () => {
     expect(model('beta-d-glucopyranose', 'ball-and-stick').radius).toBeGreaterThan(3 * model('hydrogen-chloride', 'ball-and-stick').radius)
+  })
+
+  it('draws no lone pairs or lobes at level 1', () => {
+    const { lonePairs, lobes } = model('water', 'ball-and-stick')
+    expect(lonePairs).toEqual([])
+    expect(lobes).toEqual([[], [], []])
+    expect(model('water', 'ball-and-stick', 2).lobes).toEqual([[], [], []])
+  })
+
+  it('draws the lone pairs of water, ammonia and xenon tetrafluoride as dot pairs from level 2', () => {
+    expect(model('water', 'ball-and-stick', 2).lonePairs).toHaveLength(2)
+    expect(model('ammonia', 'ball-and-stick', 2).lonePairs).toHaveLength(1)
+    // Two on xenon and three on each of four fluorines.
+    expect(model('xenon-tetrafluoride', 'ball-and-stick', 3).lonePairs).toHaveLength(14)
+  })
+
+  it('opens with the lone pair of ammonia on the side facing the viewer, at every level', () => {
+    const [dotA, dotB] = model('ammonia', 'ball-and-stick', 2).lonePairs[0]!.dots
+    const nitrogen = model('ammonia', 'ball-and-stick', 2).atoms[0]!.position
+    expect((dotA[2] + dotB[2]) / 2).toBeGreaterThan(nitrogen[2] + 0.3)
+    // The level does not turn the model.
+    expect(model('ammonia', 'ball-and-stick', 1).atoms).toEqual(model('ammonia', 'ball-and-stick', 3).atoms)
+  })
+
+  it('puts the lone-pair dots of water outside the oxygen, away from the hydrogens, in every view', () => {
+    for (const view of ['ball-and-stick', 'space-filling', 'wireframe'] as SceneViewId[]) {
+      const { atoms, lonePairs } = model('water', view, 2)
+      const [o, h1, h2] = atoms
+      for (const { dots, radius } of lonePairs) {
+        for (const dot of dots) {
+          expect(distance(dot, o!.position) - radius).toBeGreaterThan(view === 'wireframe' ? 0.2 : o!.radius)
+          expect(distance(dot, h1!.position)).toBeGreaterThan(distance(o!.position, h1!.position))
+          expect(distance(dot, h2!.position)).toBeGreaterThan(distance(o!.position, h2!.position))
+        }
+      }
+    }
+  })
+
+  it('points the four lobes of the methane carbon along its bonds at level 3, and gives hydrogen none', () => {
+    const { atoms, lobes } = model('methane', 'ball-and-stick', 3)
+    expect(lobes.map((l) => l.length)).toEqual([4, 0, 0, 0, 0])
+    lobes[0]!.forEach((lobe, i) => {
+      const tip = rotate([0, 1, 0], lobe.quaternion)
+      const toHydrogen = atoms[i + 1]!.position.map((x, k) => x - atoms[0]!.position[k]!)
+      const length = Math.hypot(...toHydrogen)
+      toHydrogen.forEach((x, k) => expect(tip[k]).toBeCloseTo(x / length, 9))
+    })
+  })
+
+  it('gives ethene carbons three lobes, ethyne carbons two, and the sulfur of SF6 none', () => {
+    expect(model('ethene', 'wireframe', 3).lobes.map((l) => l.length)).toEqual([3, 3, 0, 0, 0, 0])
+    expect(model('ethyne', 'wireframe', 3).lobes.map((l) => l.length)).toEqual([2, 2, 0, 0])
+    expect(model('sulfur-hexafluoride', 'ball-and-stick', 3).lobes.every((l) => l.length === 0)).toBe(true)
+  })
+
+  it('frames the dots and the lobes: nothing drawn at any level reaches past the radius', () => {
+    for (const { id } of registry.molecules) {
+      for (const level of [2, 3] as const) {
+        const { atoms, lonePairs, lobes, radius } = model(id, 'ball-and-stick', level)
+        for (const pair of lonePairs) for (const dot of pair.dots) expect(distance(dot, center) + pair.radius).toBeLessThanOrEqual(radius + 1e-9)
+        lobes.forEach((mine, i) => {
+          if (mine.length > 0) expect(distance(atoms[i]!.position, center) + LOBE_LENGTH).toBeLessThanOrEqual(radius + 1e-9)
+        })
+      }
+    }
   })
 })

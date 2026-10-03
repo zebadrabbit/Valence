@@ -1,7 +1,9 @@
 import { useId, useReducer, useState } from 'react'
 import { Check, Eye, EyeOff } from 'lucide-react'
+import { useAppState } from '@/app/AppState'
+import { VALENCE_LEVELS, type Prefs } from '@/app/preferences'
 import { Button } from '@/components/ui/button'
-import { atomNames, bondNames, describeMolecule } from '@/chem-data/describe'
+import { atomNames, bondNames, describeLonePairs, describeMolecule } from '@/chem-data/describe'
 import { measure } from '@/chem-data/measure'
 import { registry } from '@/chem-data/registry'
 import type { Molecule } from '@/chem-data/schema'
@@ -19,19 +21,47 @@ export function MoleculeWorkspace({ molecule }: { molecule: Molecule }) {
   const listId = useId()
   const inspectorId = useId()
   const descriptionId = useId()
+  const levelId = useId()
+  const levelHintId = useId()
+  const { prefs, updatePrefs } = useAppState()
+  const level = prefs.valenceLevel
+  const hasMoDiagram = registry.moDiagrams.some((d) => d.moleculeId === molecule.id)
 
   const atoms = atomNames(molecule, registry.elements)
   const bonds = bondNames(molecule, registry.elements)
-  const description = describeMolecule(molecule, registry.elements)
+  const description = `${describeMolecule(molecule, registry.elements)} ${describeLonePairs(molecule, registry.elements)}`
   const measurement = measure(molecule, selection.atoms)
   const nothingSelected = selection.atoms.length === 0 && selection.bond === null
 
   return (
     <>
-      <div role="group" aria-label="Panels" className="mb-2 flex flex-wrap gap-2">
-        <PanelToggle label="Atoms and bonds" controls={listId} shown={showList} onChange={setShowList} />
-        <PanelToggle label="Inspector" controls={inspectorId} shown={showInspector} onChange={setShowInspector} />
+      <div className="mb-2 flex flex-wrap items-center gap-x-4 gap-y-2">
+        <div role="group" aria-label="Panels" className="flex flex-wrap gap-2">
+          <PanelToggle label="Atoms and bonds" controls={listId} shown={showList} onChange={setShowList} />
+          <PanelToggle label="Inspector" controls={inspectorId} shown={showInspector} onChange={setShowInspector} />
+        </div>
+        <div className="flex items-center gap-2 text-sm">
+          <label htmlFor={levelId}>Valence display level</label>
+          {/* The same preference as on the Settings page. */}
+          <select
+            id={levelId}
+            className="h-8 rounded-md border bg-background px-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-foreground/60"
+            aria-describedby={levelHintId}
+            value={level}
+            onChange={(e) => updatePrefs({ valenceLevel: Number(e.target.value) as Prefs['valenceLevel'] })}
+          >
+            {VALENCE_LEVELS.map(({ value, label }) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
+      <p id={levelHintId} className="mb-2 max-w-prose text-sm text-muted-foreground">
+        {LEVEL_HINT[level]}
+        {level === 3 && hasMoDiagram && ' The molecular orbital diagram of this molecule is in the inspector.'}
+      </p>
 
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
         <div className="min-w-0 flex-1">
@@ -75,11 +105,18 @@ export function MoleculeWorkspace({ molecule }: { molecule: Molecule }) {
         </section>
 
         <aside id={inspectorId} hidden={!showInspector} aria-label="Inspector" className="grid min-w-0 shrink-0 gap-3 lg:w-72">
-          <Inspector molecule={molecule} selection={selection} atomNames={atoms} />
+          <Inspector molecule={molecule} selection={selection} atomNames={atoms} level={level} />
         </aside>
       </div>
     </>
   )
+}
+
+/** What each valence display level adds to the page. */
+const LEVEL_HINT: Record<Prefs['valenceLevel'], string> = {
+  1: 'Select one atom to see its Bohr model in the inspector. Lone pairs are drawn only in the 2D Lewis view.',
+  2: 'Lone pairs are drawn as pairs of small dots.',
+  3: 'Lone pairs are drawn as pairs of small dots. Select an atom to see its hybrid orbital lobes in the ball and stick and wireframe views.',
 }
 
 function PanelToggle(props: { label: string; controls: string; shown: boolean; onChange(shown: boolean): void }) {

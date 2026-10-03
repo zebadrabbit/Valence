@@ -1,7 +1,7 @@
 import { useId } from 'react'
 import { useAppState } from '@/app/AppState'
 import { PageHeader } from '@/app/PageHeader'
-import type { Prefs, Tri } from '@/app/preferences'
+import { VALENCE_LEVELS, type Prefs, type Tri } from '@/app/preferences'
 import { exportAll } from '@/app/progress/storage'
 import { Button } from '@/components/ui/button'
 
@@ -65,9 +65,11 @@ export function Settings() {
             value={prefs.valenceLevel}
             onChange={(e) => updatePrefs({ valenceLevel: Number(e.target.value) as Prefs['valenceLevel'] })}
           >
-            <option value={1}>1: Bohr shells</option>
-            <option value={2}>2: Lewis dots</option>
-            <option value={3}>3: Orbitals</option>
+            {VALENCE_LEVELS.map(({ value, label }) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
           </select>
         </div>
         <p className="text-sm text-muted-foreground">System follows your operating system's setting.</p>
