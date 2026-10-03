@@ -1,0 +1,100 @@
+import { useId } from 'react'
+import { useAppState } from '@/app/AppState'
+import { PageHeader } from '@/app/PageHeader'
+import type { Prefs, Tri } from '@/app/preferences'
+import { exportAll } from '@/app/progress/storage'
+import { Button } from '@/components/ui/button'
+
+const SELECT_CLASS = 'h-9 rounded-md border bg-background px-2 text-sm'
+
+function TriSelect({ label, value, onChange }: { label: string; value: Tri; onChange: (value: Tri) => void }) {
+  const id = useId()
+  return (
+    <div className="flex items-center justify-between gap-4">
+      <label htmlFor={id}>{label}</label>
+      <select id={id} className={SELECT_CLASS} value={value} onChange={(e) => onChange(e.target.value as Tri)}>
+        <option value="system">System</option>
+        <option value="on">On</option>
+        <option value="off">Off</option>
+      </select>
+    </div>
+  )
+}
+
+function download(filename: string, text: string) {
+  const url = URL.createObjectURL(new Blob([text], { type: 'application/json' }))
+  const link = document.createElement('a')
+  link.href = url
+  link.download = filename
+  link.click()
+  URL.revokeObjectURL(url)
+}
+
+export function Settings() {
+  const { store, persistent, prefs, updatePrefs, resetAll } = useAppState()
+  const levelId = useId()
+
+  return (
+    <>
+      <PageHeader title="Settings" />
+
+      {!persistent && (
+        <p role="status" className="mb-6 max-w-prose rounded-md border p-3 text-sm">
+          This browser is not allowing Valence to save data. Your progress and settings will last only until you close
+          this tab.
+        </p>
+      )}
+
+      <section aria-labelledby="display-heading" className="mb-8 grid max-w-md gap-3">
+        <h2 id="display-heading" className="text-lg font-medium">
+          Display
+        </h2>
+        <TriSelect label="Dark mode" value={prefs.darkMode} onChange={(darkMode) => updatePrefs({ darkMode })} />
+        <TriSelect
+          label="Reduced motion"
+          value={prefs.reducedMotion}
+          onChange={(reducedMotion) => updatePrefs({ reducedMotion })}
+        />
+        <div className="flex items-center justify-between gap-4">
+          <label htmlFor={levelId}>Valence display level</label>
+          <select
+            id={levelId}
+            className={SELECT_CLASS}
+            value={prefs.valenceLevel}
+            onChange={(e) => updatePrefs({ valenceLevel: Number(e.target.value) as Prefs['valenceLevel'] })}
+          >
+            <option value={1}>1: Bohr shells</option>
+            <option value={2}>2: Lewis dots</option>
+            <option value={3}>3: Orbitals</option>
+          </select>
+        </div>
+        <p className="text-sm text-muted-foreground">System follows your operating system's setting.</p>
+      </section>
+
+      <section aria-labelledby="progress-heading" className="grid max-w-md gap-3">
+        <h2 id="progress-heading" className="text-lg font-medium">
+          My progress
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          Progress is saved only in this browser. On a shared computer, the next person using this browser can see it;
+          clear it when you finish.
+        </p>
+        <div className="flex gap-2">
+          <Button variant="outline" onClick={() => download('valence-progress.json', exportAll(store))}>
+            Export my progress
+          </Button>
+          <Button
+            variant="destructive"
+            onClick={() => {
+              if (window.confirm('Clear all Valence progress and settings in this browser? This cannot be undone.')) {
+                resetAll()
+              }
+            }}
+          >
+            Clear my progress
+          </Button>
+        </div>
+      </section>
+    </>
+  )
+}
