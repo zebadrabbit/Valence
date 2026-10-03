@@ -12,6 +12,8 @@ export const HYBRIDIZATION_NOT_ASSIGNED = 'not assigned (terminal atom)'
 export const D_ORBITAL_NOTE = 'real d-orbital involvement is negligible'
 export const ORGANIC_OXYGEN_NOTE =
   'organic chemistry describes this oxygen as sp², because one lone pair is delocalised into the neighbouring C=O'
+export const RESONANCE_ATOM_NOTE =
+  'drawn in one of two equivalent resonance structures; this atom and its partner on the other bond of the pair are identical in the real molecule'
 export const AROMATIC_ORDER_LABEL = 'aromatic (delocalised)'
 export const AROMATIC_SIGMA_PI = '1 σ + delocalised π (aromatic, effective order 1.5)'
 
@@ -138,7 +140,9 @@ export function deriveAtoms(molecule: Molecule, elements: readonly Element[]): D
           : multiple
             ? lookup(HYBRIDIZATION, stericNumber, molecule, i)
             : HYBRIDIZATION_NOT_ASSIGNED
-      return { ...base, resonanceOverride: false, electronGeometry: null, geometry: TERMINAL_ATOM, hybridization }
+      // The two ends of a resonance pair display differently (sp² and "not assigned") but are equivalent.
+      const note = mine.some((b) => b.resonanceNote) ? { hybridizationNote: RESONANCE_ATOM_NOTE } : {}
+      return { ...base, resonanceOverride: false, electronGeometry: null, geometry: TERMINAL_ATOM, hybridization, ...note }
     }
 
     const resonanceOverride = atom.element === 'N' && conjugated(i)
