@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { bondOrder, moConfiguration, orbitalOccupancy, unpairedElectrons } from './mo'
+import { bondOrder, describeMoDiagram, moConfiguration, orbitalOccupancy, unpairedElectrons } from './mo'
 import { registry } from './registry'
 import type { MoDiagram } from './schema'
 
@@ -102,5 +102,19 @@ describe('orbitalOccupancy', () => {
   it('refuses more electrons than the level holds', () => {
     expect(() => orbitalOccupancy(1, 3)).toThrow('3 electrons do not fit 1 orbitals')
     expect(() => orbitalOccupancy(2, -1)).toThrow()
+  })
+})
+
+describe('describeMoDiagram', () => {
+  it('reads the levels of O₂ from the highest down, with the two half-filled π* orbitals as 2 electrons', () => {
+    expect(describeMoDiagram(diagramOf('oxygen'), 'Oxygen')).toBe(
+      'Molecular orbital energy levels of Oxygen, highest first. σ*2p (antibonding): 0 electrons; π*2p (antibonding): 2 electrons; ' +
+        'π2p (bonding): 4 electrons; σ2p (bonding): 2 electrons; σ*2s (antibonding): 2 electrons; σ2s (bonding): 2 electrons.',
+    )
+  })
+
+  it('writes one electron in the singular', () => {
+    const one: MoDiagram = { moleculeId: 'x', levels: [{ label: 'σ1s', degeneracy: 1, electrons: 1, type: 'bonding' }], sourceId: 's' }
+    expect(describeMoDiagram(one, 'X')).toBe('Molecular orbital energy levels of X, highest first. σ1s (bonding): 1 electron.')
   })
 })

@@ -35,3 +35,23 @@ export function selectionStatus(selection: Selection, atomNames: readonly string
   const names = selection.atoms.map((i) => atomNames[i]).join(', ')
   return `Selected ${selection.atoms.length === 1 ? 'atom' : `${selection.atoms.length} atoms, in order`}: ${names}.`
 }
+
+export type InspectorCardKind = 'bond' | 'nothing-selected' | 'measure' | 'bohr' | 'atom' | 'hybrid-orbitals' | 'measure-hint' | 'mo-diagram'
+
+/**
+ * Which inspector cards show, in order (spec 6.3, 6.4). A bond, one atom, or a measurement of two
+ * to four atoms; the Bohr model of a single atom at valence level 1; at level 3 that atom's hybrid
+ * orbitals and, whatever is selected, the molecular orbital diagram of a molecule that has one.
+ */
+export function inspectorCards(selection: Selection, level: 1 | 2 | 3, hasMoDiagram: boolean): InspectorCardKind[] {
+  const count = selection.atoms.length
+  const cards: InspectorCardKind[] =
+    selection.bond !== null
+      ? ['bond']
+      : count === 0
+        ? ['nothing-selected']
+        : count > 1
+          ? ['measure']
+          : [...(level === 1 ? (['bohr'] as const) : []), 'atom', ...(level === 3 ? (['hybrid-orbitals'] as const) : []), 'measure-hint']
+  return level === 3 && hasMoDiagram ? [...cards, 'mo-diagram'] : cards
+}

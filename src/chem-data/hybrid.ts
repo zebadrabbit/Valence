@@ -11,6 +11,9 @@ const DRAWN = [2, 3, 4].map((domains) => HYBRIDIZATION[domains]!)
 export const DELOCALISED_PAIR_NOTE =
   'The lone pair of this nitrogen is in a p orbital at right angles to the plane of its bonds, delocalised into the neighbouring C=O. It is not a hybrid orbital, so it has no lobe.'
 
+/** Shown with the lobes of a molecule that also has a molecular orbital diagram, so the two models are not read as one. */
+export const VALENCE_BOND_NOTE = 'The lobes are the valence bond picture. The molecular orbital diagram below describes this molecule better.'
+
 export type HybridLobes = {
   hybridization: string
   /** Unit vectors from the atom: one lobe along each bond to a neighbour. */

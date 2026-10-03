@@ -2,7 +2,8 @@ import { measurementCitations } from '@/chem-data/citations'
 import type { Measurement } from '@/chem-data/measure'
 import { registry } from '@/chem-data/registry'
 import type { Molecule } from '@/chem-data/schema'
-import { Card, MeasuredValue, measuredNote, MoleculeNotes, Note, Row, Rows, Sources } from './InspectorCard'
+import { headlineValue, measuredNote } from './format'
+import { Card, MoleculeNotes, Note, Row, Rows, Sources } from './InspectorCard'
 
 const DERIVED = "Distances, angles and dihedrals are worked out from the model's atom coordinates."
 const VALUE_LABEL = { distance: 'Distance', angle: 'Angle', dihedral: 'Dihedral' } as const
@@ -16,7 +17,7 @@ export function MeasureCard({ molecule, measurement, atomNames }: { molecule: Mo
     <Card heading="Measure">
       <Rows>
         <Row label={VALUE_LABEL[measurement.kind]} note={measuredNote(molecule, measurement)}>
-          <MeasuredValue measurement={measurement} />
+          {headlineValue(measurement)}
         </Row>
         {measurement.kind === 'distance' && (
           <Row label="Between">

@@ -1,9 +1,6 @@
 import { useId, type ReactNode } from 'react'
 import type { Citation } from '@/chem-data/citations'
-import { GEOMETRY_SOURCE_LABEL } from '@/chem-data/library'
-import type { Measurement } from '@/chem-data/measure'
 import type { Molecule } from '@/chem-data/schema'
-import { cited, measurementValue } from './format'
 
 // The pieces every inspector card is built from.
 
@@ -61,8 +58,10 @@ export function Sources({ citations, derived }: { citations: readonly Citation[]
         {citations.map(({ source, covers }) => (
           <li key={source.id}>
             <span className="font-medium">{covers.join(', ')}: </span>
-            <a href={source.url} rel="noreferrer" className="underline underline-offset-4">
+            {/* A new tab, so the selection on this page is still there on return. */}
+            <a href={source.url} target="_blank" rel="noreferrer" className="underline underline-offset-4">
               {source.citation}
+              <span className="sr-only"> (opens in a new tab)</span>
             </a>
           </li>
         ))}
@@ -70,19 +69,6 @@ export function Sources({ citations, derived }: { citations: readonly Citation[]
       <Note>{derived}</Note>
     </Disclosure>
   )
-}
-
-/** A measured or cited length, angle or dihedral: the cited value where the molecule has one, the model's otherwise. */
-export function MeasuredValue({ measurement }: { measurement: Measurement }) {
-  return <>{measurement.cited ? cited(measurement.cited.value, measurement.kind) : measurementValue(measurement)}</>
-}
-
-/** Says where a MeasuredValue comes from, labelled with the molecule's geometry source. */
-export function measuredNote(molecule: Molecule, measurement: Measurement): string {
-  const label = GEOMETRY_SOURCE_LABEL[molecule.geometrySource]
-  return measurement.cited
-    ? `Cited value, ${label}. The model's coordinates give ${measurementValue(measurement)}.`
-    : `Measured from the model's coordinates. Model geometry: ${label}.`
 }
 
 /** The molecule's own notes, such as "One conformer of many." */

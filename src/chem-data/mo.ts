@@ -33,3 +33,12 @@ export function orbitalOccupancy(degeneracy: number, electrons: number): number[
 export function moConfiguration(diagram: MoDiagram): { label: string; electrons: number }[] {
   return diagram.levels.filter((level) => level.electrons > 0).map(({ label, electrons }) => ({ label, electrons }))
 }
+
+/**
+ * The diagram in words, for the picture's text alternative (spec 11): every level from the
+ * highest down, with its kind and the electrons in it.
+ */
+export function describeMoDiagram(diagram: MoDiagram, name: string): string {
+  const levels = [...diagram.levels].reverse().map((level) => `${level.label} (${level.type}): ${level.electrons} ${level.electrons === 1 ? 'electron' : 'electrons'}`)
+  return `Molecular orbital energy levels of ${name}, highest first. ${levels.join('; ')}.`
+}

@@ -1,11 +1,9 @@
 import { moCitations } from '@/chem-data/citations'
-import { bondOrder, moConfiguration, unpairedElectrons } from '@/chem-data/mo'
+import { bondOrder, describeMoDiagram, moConfiguration, unpairedElectrons } from '@/chem-data/mo'
 import { registry } from '@/chem-data/registry'
 import type { MoDiagram } from '@/chem-data/schema'
 import { Card, Row, Rows, Sources } from './InspectorCard'
 import { ORBITAL_WIDTH, moLayout } from './moLayout'
-
-const counted = (n: number) => `${n} ${n === 1 ? 'electron' : 'electrons'}`
 
 /** An electron as an arrow through the orbital's line: spin up on the left, spin down on the right. */
 function Arrow({ x, y, up }: { x: number; y: number; up: boolean }) {
@@ -16,14 +14,12 @@ function Arrow({ x, y, up }: { x: number; y: number; up: boolean }) {
 /** Valence display level 3 (spec 6.4): the molecular orbital diagram of O₂ or N₂, with its configuration as text. */
 export function MoCard({ diagram, name }: { diagram: MoDiagram; name: string }) {
   const { width, height, levels } = moLayout(diagram)
-  // Highest level first, as the picture reads from the top.
-  const inWords = [...diagram.levels].reverse().map((level) => `${level.label} (${level.type}): ${counted(level.electrons)}`)
   return (
     <Card heading="Molecular orbital diagram">
       <figure className="grid justify-items-center gap-1">
         <svg
           role="img"
-          aria-label={`Molecular orbital energy levels of ${name}, highest first. ${inWords.join('; ')}.`}
+          aria-label={describeMoDiagram(diagram, name)}
           width={width}
           height={height}
           viewBox={`0 0 ${width} ${height}`}

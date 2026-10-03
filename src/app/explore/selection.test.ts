@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { EMPTY_SELECTION, selectionReducer, selectionStatus, type Selection, type SelectionAction } from './selection'
+import { EMPTY_SELECTION, inspectorCards, selectionReducer, selectionStatus, type Selection, type SelectionAction } from './selection'
 
 const run = (...actions: SelectionAction[]): Selection => actions.reduce(selectionReducer, EMPTY_SELECTION)
 const atom = (index: number): SelectionAction => ({ type: 'toggleAtom', index })
@@ -55,5 +55,30 @@ describe('selectionStatus', () => {
 
   it('names the bond', () => {
     expect(selectionStatus({ atoms: [], bond: 1 }, atoms, bonds)).toBe('Selected bond: Carbon 1 to Oxygen 2, double bond.')
+  })
+})
+
+describe('inspectorCards', () => {
+  it('shows one card for nothing, for a bond and for a measurement, at every level', () => {
+    for (const level of [1, 2, 3] as const) {
+      expect(inspectorCards(EMPTY_SELECTION, level, false)).toEqual(['nothing-selected'])
+      expect(inspectorCards(run(bond(0)), level, false)).toEqual(['bond'])
+      expect(inspectorCards(run(atom(0), atom(1)), level, false)).toEqual(['measure'])
+      expect(inspectorCards(run(atom(0), atom(1), atom(2), atom(3)), level, false)).toEqual(['measure'])
+    }
+  })
+
+  it('adds the Bohr model of one atom at level 1 and its hybrid orbitals at level 3', () => {
+    expect(inspectorCards(run(atom(0)), 1, false)).toEqual(['bohr', 'atom', 'measure-hint'])
+    expect(inspectorCards(run(atom(0)), 2, false)).toEqual(['atom', 'measure-hint'])
+    expect(inspectorCards(run(atom(0)), 3, false)).toEqual(['atom', 'hybrid-orbitals', 'measure-hint'])
+  })
+
+  it('ends with the molecular orbital diagram at level 3 only, whatever is selected', () => {
+    expect(inspectorCards(EMPTY_SELECTION, 3, true)).toEqual(['nothing-selected', 'mo-diagram'])
+    expect(inspectorCards(run(bond(0)), 3, true)).toEqual(['bond', 'mo-diagram'])
+    expect(inspectorCards(run(atom(0)), 3, true).at(-1)).toBe('mo-diagram')
+    expect(inspectorCards(run(atom(0)), 2, true)).not.toContain('mo-diagram')
+    expect(inspectorCards(run(atom(0)), 1, true)).not.toContain('mo-diagram')
   })
 })

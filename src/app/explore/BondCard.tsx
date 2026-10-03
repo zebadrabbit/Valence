@@ -3,8 +3,8 @@ import type { DerivedBond } from '@/chem-data/derive'
 import type { Measurement } from '@/chem-data/measure'
 import { registry } from '@/chem-data/registry'
 import type { Molecule } from '@/chem-data/schema'
-import { bondOrder } from './format'
-import { Card, MeasuredValue, measuredNote, MoleculeNotes, Row, Rows, Sources } from './InspectorCard'
+import { bondOrder, headlineValue, measuredNote, polarity } from './format'
+import { Card, MoleculeNotes, Row, Rows, Sources } from './InspectorCard'
 
 const DERIVED =
   'Bond order and the σ and π count come from the Lewis structure as drawn. Polarity is the difference between the two cited electronegativities.'
@@ -19,13 +19,13 @@ export function BondCard(props: { molecule: Molecule; bond: Molecule['bonds'][nu
           {atomNames[bond.a]} and {atomNames[bond.b]}
         </Row>
         <Row label="Length" note={measuredNote(molecule, length)}>
-          <MeasuredValue measurement={length} />
+          {headlineValue(length)}
         </Row>
         <Row label="Order" note={bond.resonanceNote}>
           {bondOrder(derived)}
         </Row>
         <Row label="Polarity" note="Pauling electronegativity difference; a rough guide.">
-          {derived.electronegativityDifference.toFixed(2)}
+          {polarity(derived.electronegativityDifference)}
         </Row>
         <Row label="σ and π bonds">{derived.sigmaPi}</Row>
       </Rows>
