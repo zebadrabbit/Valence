@@ -170,6 +170,30 @@ export function inFrame(point: Vec3, frame: { center: Vec3; axes: readonly [Vec3
   return [dot(d, frame.axes[0]), dot(d, frame.axes[1]), dot(d, frame.axes[2])]
 }
 
+/** A direction (not a point) in a frame from principalFrame: turned, not moved. */
+export function directionInFrame(dir: Vec3, frame: { axes: readonly [Vec3, Vec3, Vec3] }): Vec3 {
+  return [dot(dir, frame.axes[0]), dot(dir, frame.axes[1]), dot(dir, frame.axes[2])]
+}
+
+/**
+ * The outline of an orbital lobe as [radius, height] pairs for THREE.LatheGeometry, which spins
+ * it about +Y: a teardrop that starts as a point at the nucleus (height 0), is widest about
+ * two thirds of the way along, and closes at `length`.
+ */
+export function lobeProfile(length: number, width: number, steps = 24): [radius: number, height: number][] {
+  return Array.from({ length: steps + 1 }, (_, i) => {
+    const t = i / steps
+    return [i === 0 || i === steps ? 0 : width * Math.sin(Math.PI * t ** 1.5), length * t]
+  })
+}
+
+/** The two dots of a lone pair: `reach` from the atom along the unit vector `dir`, `spread` to each side. */
+export function lonePairDots(atom: Vec3, dir: Vec3, reach: number, spread: number): [Vec3, Vec3] {
+  const centre = add(atom, scale(dir, reach))
+  const side = scale(perpendicular(dir), spread)
+  return [add(centre, side), sub(centre, side)]
+}
+
 export type Sphere = { center: Vec3; radius: number }
 
 /** A sphere around the centroid that contains every atom sphere. Not minimal, but stable and cheap. */

@@ -5,8 +5,11 @@ import {
   bondReach,
   bondSticks,
   boundingSphere,
+  directionInFrame,
   framingDistance,
   inFrame,
+  lobeProfile,
+  lonePairDots,
   perpendicular,
   principalFrame,
   quaternionFromYAxis,
@@ -229,5 +232,37 @@ describe('camera framing', () => {
     expect(portrait).toBeGreaterThan(landscape)
     const halfH = Math.atan(Math.tan((25 * Math.PI) / 180) * 0.5)
     expect(portrait).toBeCloseTo(1 / Math.sin(halfH), 12)
+  })
+})
+
+describe('directionInFrame', () => {
+  it('turns a direction with the frame and does not move it', () => {
+    const frame = principalFrame([[5, 3, 5], [5, 7, 5], [5, 5, 6], [5, 5, 4]])
+    // The longest spread is along world Y, so world Y reads as the frame's x.
+    const turned = directionInFrame([0, 1, 0], frame)
+    expect(Math.abs(turned[0])).toBeCloseTo(1, 9)
+    expect(Math.hypot(...directionInFrame([0.6, 0, 0.8], frame))).toBeCloseTo(1, 12)
+  })
+})
+
+describe('lobeProfile', () => {
+  it('is a closed teardrop: a point at each end, widest past the middle', () => {
+    const profile = lobeProfile(0.8, 0.3)
+    expect(profile[0]).toEqual([0, 0])
+    expect(profile.at(-1)).toEqual([0, 0.8])
+    const widest = profile.reduce((best, point) => (point[0] > best[0] ? point : best))
+    expect(widest[0]).toBeCloseTo(0.3, 2)
+    expect(widest[1]).toBeGreaterThan(0.4)
+    expect(widest[1]).toBeLessThan(0.65)
+    for (const [radius] of profile) expect(radius).toBeGreaterThanOrEqual(0)
+  })
+})
+
+describe('lonePairDots', () => {
+  it('puts two dots side by side at the given reach, at right angles to the direction', () => {
+    const [a, b] = lonePairDots([1, 1, 1], [0, 1, 0], 0.5, 0.1)
+    expect(distance(a, b)).toBeCloseTo(0.2, 12)
+    expectVec([(a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2], [1, 1.5, 1])
+    expect(a[1]).toBeCloseTo(b[1], 12)
   })
 })

@@ -34,3 +34,12 @@ export function hybridLobes(molecule: Molecule, atomIndex: number, elements: rea
   if (derived.resonanceOverride) return { hybridization: derived.hybridization, bonds, lonePairs: [], note: DELOCALISED_PAIR_NOTE }
   return { hybridization: derived.hybridization, bonds, lonePairs: lonePairDirections(molecule, atomIndex, elements) }
 }
+
+/** The lobes in words, for the inspector: "sp³: 4 lobes, 2 along bonds and 2 holding lone pairs." */
+export function describeHybridLobes(lobes: HybridLobes): string {
+  const bonds = lobes.bonds.length
+  const pairs = lobes.lonePairs.length
+  const along = `${bonds} along ${bonds === 1 ? 'a bond' : 'bonds'}`
+  const holding = pairs === 0 ? '' : ` and ${pairs} holding ${pairs === 1 ? 'a lone pair' : 'lone pairs'}`
+  return `${lobes.hybridization}: ${bonds + pairs} lobes, ${along}${holding}.`
+}

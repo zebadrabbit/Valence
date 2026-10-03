@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { HYBRIDIZATION, deriveAtoms } from './derive'
 import { dot } from './geometry'
-import { DELOCALISED_PAIR_NOTE, hybridLobes } from './hybrid'
+import { DELOCALISED_PAIR_NOTE, describeHybridLobes, hybridLobes } from './hybrid'
 import { registry } from './registry'
 
 const { elements } = registry
@@ -68,5 +68,13 @@ describe('hybridLobes', () => {
         expect(lobes.bonds.length + lobes.lonePairs.length, where).toBe(drawn.indexOf(lobes.hybridization) + 2)
       })
     }
+  })
+})
+
+describe('describeHybridLobes', () => {
+  it('counts the lobes along bonds and those holding lone pairs', () => {
+    expect(describeHybridLobes(lobesOf('methane', 'C')!)).toBe('sp³: 4 lobes, 4 along bonds.')
+    expect(describeHybridLobes(lobesOf('water', 'O')!)).toBe('sp³: 4 lobes, 2 along bonds and 2 holding lone pairs.')
+    expect(describeHybridLobes(lobesOf('nitrogen', 'N')!)).toBe('sp: 2 lobes, 1 along a bond and 1 holding a lone pair.')
   })
 })

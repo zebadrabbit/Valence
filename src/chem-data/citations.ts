@@ -1,5 +1,5 @@
 import type { Measurement } from './measure'
-import type { Element, Molecule, Source } from './schema'
+import type { Element, MoDiagram, Molecule, Source } from './schema'
 
 // What an inspector card's "Sources" control lists (spec 5.1): each source once, with the values it covers.
 
@@ -36,6 +36,16 @@ export function elementCitations(element: Element, sources: readonly Source[]): 
     ],
     sources,
   )
+}
+
+/** The source of the shell counts a Bohr diagram is drawn from. */
+export function shellCitations(element: Element, sources: readonly Source[]): Citation[] {
+  return citations([['Electrons per shell', element.shells.sourceId]], sources)
+}
+
+/** The source of a molecular orbital diagram: its level order, electron counts and callout. */
+export function moCitations(diagram: MoDiagram, sources: readonly Source[]): Citation[] {
+  return citations([['Order of the levels and the electrons in them', diagram.sourceId]], sources)
 }
 
 const CITED_LABEL = { distance: 'Cited length', angle: 'Cited angle', dihedral: 'Cited dihedral' } as const
