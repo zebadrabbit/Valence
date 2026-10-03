@@ -18,8 +18,8 @@ function tally(symbols: readonly string[]): [symbol: string, count: number][] {
 
 /**
  * A short description of a molecule: its name, formula, atom and bond counts,
- * any formal charges, and the geometry and neighbours of every atom bonded to
- * two or more atoms. Atoms that read the same share one sentence.
+ * whether the drawn bonds are one of several resonance structures, any formal
+ * charges, and the geometry and neighbours of every atom bonded to two or more atoms. Atoms that read the same share one sentence.
  */
 export function describeMolecule(molecule: Molecule, elements: readonly Element[]): string {
   const { atoms, bonds } = molecule
@@ -40,7 +40,18 @@ export function describeMolecule(molecule: Molecule, elements: readonly Element[
     return count > 0 ? [counted(count, `${kind} bond`)] : []
   })
   const joined = kinds.length > 0 ? `, joined by ${listFormat.format(kinds)}` : ''
-  sentences.push(`It has ${counted(atoms.length, 'atom')}${joined}.`)
+  // The drawn single and double bond of a resonance pair must not be heard as fact (spec 6.1, 6.3).
+  // ponytail: assumes one pair per molecule, one bond drawn double and one single, sharing an
+  // atom, which is all the v1 library has. Nitrate or carbonate would need the count worded.
+  const noted = bonds.filter((b) => b.resonanceNote)
+  const ends = noted.flatMap((b) => [b.a, b.b])
+  const outer = ends.find((i) => ends.indexOf(i) === ends.lastIndexOf(i))
+  const resonance =
+    outer === undefined
+      ? ''
+      : `; the double bond and ${bonds.filter((b) => b.order === 1).length === 1 ? 'the' : 'one'} single bond to ` +
+        `${nameOf(atoms[outer]!.element)} are drawn as one of two equivalent resonance structures, and the two real bonds are equal`
+  sentences.push(`It has ${counted(atoms.length, 'atom')}${joined}${resonance}.`)
 
   const charged = atoms.filter((a) => a.formalCharge !== 0)
   if (charged.length > 0) {

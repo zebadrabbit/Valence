@@ -27,12 +27,37 @@ describe('describeMolecule', () => {
 
   it('describes the glycine zwitterion with its variant and formal charges', () => {
     expect(describeById('glycine-zwitterion')).toBe(
-      'Glycine (zwitterion), formula C2H5NO2. It has 10 atoms, joined by 8 single bonds and 1 double bond. ' +
+      'Glycine (zwitterion), formula C2H5NO2. It has 10 atoms, joined by 8 single bonds and 1 double bond; ' +
+        'the double bond and one single bond to oxygen are drawn as one of two equivalent resonance structures, ' +
+        'and the two real bonds are equal. ' +
         'Formal charges: oxygen minus 1, nitrogen plus 1. ' +
         'The nitrogen atom has tetrahedral geometry and is bonded to 1 carbon atom and 3 hydrogen atoms. ' +
         'One carbon atom has tetrahedral geometry and is bonded to 1 carbon atom, 2 hydrogen atoms, and 1 nitrogen atom. ' +
         'One carbon atom has trigonal planar geometry and is bonded to 1 carbon atom and 2 oxygen atoms.',
     )
+  })
+
+  it('says that the single and double bond of sulfur dioxide are one resonance structure', () => {
+    expect(describeById('sulfur-dioxide')).toBe(
+      'Sulfur dioxide, formula SO2. It has 3 atoms, joined by 1 single bond and 1 double bond; ' +
+        'the double bond and the single bond to oxygen are drawn as one of two equivalent resonance structures, ' +
+        'and the two real bonds are equal. ' +
+        'Formal charges: sulfur plus 1, oxygen minus 1. ' +
+        'The sulfur atom has bent geometry and is bonded to 2 oxygen atoms.',
+    )
+  })
+
+  it('says the same of every molecule with a resonance note, and of no other', () => {
+    for (const molecule of registry.molecules) {
+      const noted = molecule.bonds.some((b) => b.resonanceNote)
+      expect([molecule.id, /equivalent resonance structures/.test(describeById(molecule.id))]).toEqual([molecule.id, noted])
+    }
+    expect(registry.molecules.filter((m) => m.bonds.some((b) => b.resonanceNote)).map((m) => m.id)).toEqual([
+      'sulfur-dioxide',
+      'glycine-zwitterion',
+      'alanine-zwitterion',
+      'bicarbonate',
+    ])
   })
 
   it('states the charge of an ion and describes a molecule with no central atom', () => {
