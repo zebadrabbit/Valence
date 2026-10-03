@@ -49,10 +49,11 @@ function planeNormal(bonds: readonly Vec3[]): Vec3 {
  * other bond leans. When the neighbour has no other bond, or only one in line
  * with this one (HCl, O₂, CO₂), any turn is as good as another and an arbitrary
  * fixed one is used: the bond crossed with the coordinate axis it is least along.
+ * The exception is a terminal double bond whose neighbour's only other bond is a
+ * terminal double bond in line with it (CO₂): there the atom with the higher
+ * index turns its pairs 90° about the axis, so the two atoms' lone-pair planes
+ * are perpendicular, as the π bonds along the chain are.
  */
-// ponytail: the two oxygens of CO₂ therefore get lone pairs in the same plane;
-// the usual picture puts them in perpendicular planes. Fixing it means following
-// the π bonds along the chain.
 function sideOf(molecule: Molecule, index: number, axis: Vec3): Vec3 {
   const bond = molecule.bonds.find((b) => b.a === index || b.b === index)!
   const neighbour = bond.a === index ? bond.b : bond.a
@@ -61,7 +62,14 @@ function sideOf(molecule: Molecule, index: number, axis: Vec3): Vec3 {
     .find((v) => Math.hypot(...v) > 0.1)
   if (leaning) return unit(leaning)
   const size = axis.map(Math.abs)
-  return unit(cross(axis, AXES[size.indexOf(Math.min(...size))]!))
+  const fallback = unit(cross(axis, AXES[size.indexOf(Math.min(...size))]!))
+  const other = molecule.bonds.filter((b) => b !== bond && (b.a === neighbour || b.b === neighbour))
+  const partner = other.length === 1 ? (other[0]!.a === neighbour ? other[0]!.b : other[0]!.a) : -1
+  const terminalDouble = (atom: number) =>
+    molecule.bonds.filter((b) => b.a === atom || b.b === atom).length === 1 &&
+    molecule.bonds.some((b) => (b.a === atom || b.b === atom) && b.order === 2)
+  const chain = partner >= 0 && terminalDouble(index) && terminalDouble(partner)
+  return chain && partner < index ? unit(cross(axis, fallback)) : fallback
 }
 
 /**

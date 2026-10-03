@@ -56,6 +56,21 @@ describe('lonePairDirections', () => {
     expect(between(pairs[0]!, bonds[0]!)).toBeCloseTo(between(pairs[1]!, bonds[0]!), 6)
   })
 
+  it('puts the lone pairs of the two oxygens of carbon dioxide in perpendicular planes', () => {
+    const co2 = moleculeOf('carbon-dioxide')
+    const carbon = co2.atoms.findIndex((a) => a.element === 'C')
+    const [first, second] = co2.atoms.flatMap((a, i) => (a.element === 'O' ? [i] : []))
+    const planeNormalOf = (index: number) => {
+      const pairs = lonePairDirections(co2, index, elements)
+      expect(pairs).toHaveLength(2)
+      const bond = sub(co2.atoms[carbon]!.position, co2.atoms[index]!.position)
+      for (const pair of pairs) expect(Math.abs(angleDeg(pair, ORIGIN, bond) - 120)).toBeLessThan(1)
+      const n = cross(pairs[0]!, pairs[1]!)
+      return n.map((x) => x / Math.hypot(...n)) as unknown as Vec3
+    }
+    expect(Math.abs(dot(planeNormalOf(first!), planeNormalOf(second!)))).toBeLessThan(0.01)
+  })
+
   it('puts the two lone pairs of XeF₄ at right angles to the molecular plane, opposite each other', () => {
     const { bonds, pairs } = domains('xenon-tetrafluoride', 'Xe', 4)
     expect(pairs).toHaveLength(2)
