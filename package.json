@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vitest run && tsc -b && vite build",
+    "build:data": "node scripts/build-chem-data.mjs",
     "typecheck": "tsc -b",
     "test": "vitest run",
     "preview": "vite preview",
