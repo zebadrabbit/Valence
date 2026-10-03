@@ -6,6 +6,7 @@ import { registry } from '@/chem-data/registry'
 import type { Molecule } from '@/chem-data/schema'
 import { FOCUS_RING } from './focusRing'
 import { EMPTY_SELECTION, selectionReducer, selectionStatus } from './selection'
+import { ViewerPanel } from './ViewerPanel'
 
 /** The viewer in the centre with the atom and bond list and the inspector docked to its right (spec 11). */
 export function MoleculeWorkspace({ molecule }: { molecule: Molecule }) {
@@ -30,17 +31,7 @@ export function MoleculeWorkspace({ molecule }: { molecule: Molecule }) {
 
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
         <div className="min-w-0 flex-1">
-          {/* Placeholder: the next stage puts the 3D canvas here, with the same name and description. */}
-          <div
-            role="img"
-            aria-label={`3D model of ${molecule.name}`}
-            aria-describedby={descriptionId}
-            className="flex h-72 items-center justify-center rounded-lg border bg-card p-4 lg:h-[420px]"
-          >
-            <p className="max-w-prose text-center text-sm text-muted-foreground">
-              The 3D model is not built yet. The atom and bond list and the text description work now.
-            </p>
-          </div>
+          <ViewerPanel molecule={molecule} selection={selection} dispatch={dispatch} describedBy={descriptionId} />
           {/* The viewer's description for assistive technology. A browser does not read it out of a closed
               <details>, so it has its own hidden copy, which is exposed only through aria-describedby. */}
           <p id={descriptionId} hidden>
