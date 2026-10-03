@@ -63,7 +63,7 @@ describe('describeMolecule', () => {
   it('states the charge of an ion and describes a molecule with no central atom', () => {
     expect(describeById('hydronium')).toMatch(/^Hydronium ion, formula H3O with a charge of plus 1\. /)
     expect(describeById('bicarbonate')).toMatch(/, formula HCO3 with a charge of minus 1\. /)
-    expect(describeById('oxygen')).toBe('Oxygen, formula O2. It has 2 atoms, joined by 1 double bond.')
+    expect(describeById('oxygen')).toBe('Oxygen (O₂), formula O2. It has 2 atoms, joined by 1 double bond.')
   })
 
   it('describes every molecule in the registry in at most seven sentences', () => {

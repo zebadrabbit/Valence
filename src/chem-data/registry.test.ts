@@ -75,6 +75,16 @@ describe('the real chem-data registry', () => {
     }
   })
 
+  it('pins the names that must not be mistaken for an element or another ion', () => {
+    const name = (id: string) => registry.molecules.find((m) => m.id === id)?.name
+    expect([name('oxygen'), name('nitrogen'), name('bicarbonate')]).toEqual(['Oxygen (O₂)', 'Nitrogen (N₂)', 'Bicarbonate ion'])
+  })
+
+  it('gives no molecule the name of an element', () => {
+    const elementNames = new Set(registry.elements.map((e) => e.name))
+    for (const m of registry.molecules) expect(elementNames.has(m.name), m.id).toBe(false)
+  })
+
   it('keeps the 90°, 120° and 180° angles of PCl5 (spec 6.5)', () => {
     const pcl5 = registry.molecules.find((m) => m.id === 'phosphorus-pentachloride')
     const counts: Record<number, number> = {}

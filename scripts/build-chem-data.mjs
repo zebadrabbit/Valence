@@ -38,8 +38,8 @@ const LIBRARY = [
   ['carbon-dioxide', 280, 'Carbon dioxide', 'CO2', 'basics'],
   ['ammonia', 222, 'Ammonia', 'NH3', 'basics'],
   ['methane', 297, 'Methane', 'CH4', 'basics'],
-  ['oxygen', 977, 'Oxygen', 'O2', 'basics'],
-  ['nitrogen', 947, 'Nitrogen', 'N2', 'basics'],
+  ['oxygen', 977, 'Oxygen (O₂)', 'O2', 'basics'],
+  ['nitrogen', 947, 'Nitrogen (N₂)', 'N2', 'basics'],
   ['hydrogen-chloride', 313, 'Hydrogen chloride', 'HCl', 'basics'],
   ['hydrogen-peroxide', 784, 'Hydrogen peroxide', 'H2O2', 'basics'],
   ['boron-trifluoride', 6356, 'Boron trifluoride', 'BF3', 'vsepr'],
@@ -65,7 +65,7 @@ const LIBRARY = [
   ['alanine-zwitterion', 7311724, 'L-Alanine', 'C3H7NO2', 'biomolecules'],
   ['urea', 1176, 'Urea', 'CH4N2O', 'biomolecules'],
   ['hydronium', 123332, 'Hydronium ion', 'H3O', 'mechanism'],
-  ['bicarbonate', 769, 'Hydrogen carbonate ion (bicarbonate)', 'HCO3', 'mechanism'],
+  ['bicarbonate', 769, 'Bicarbonate ion', 'HCO3', 'mechanism'],
   ['carbonic-acid', 767, 'Carbonic acid', 'H2CO3', 'mechanism'],
 ]
 
