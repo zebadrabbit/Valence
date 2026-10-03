@@ -25,7 +25,7 @@
 - The repo will become public. Commit no secrets, no personal details, and no institution-specific text. The institution-names denylist lives in an untracked local file, never in the repo.
 - User-facing copy never says the app is "WCAG compliant" or "FERPA compliant". State facts only.
 - Tests import from `vitest` explicitly and run in the default `node` environment (no jsdom). Test files are `src/**/*.test.ts`.
-- Run every command from the repo root, `/home/winter/work/Valence`.
+- Run every command from the repo root.
 
 ## Review Focus
 

@@ -7,7 +7,7 @@ Each section states only what is true of the current version. Sections for acces
 ## IT and security
 
 - **What it is:** a static website (HTML, CSS, JavaScript). There is no server-side code, database, or API.
-- **Install:** none. It is built with standard web features for current desktop browsers. Browser-by-browser testing has not been completed; this section will list the browsers checked once it has.
+- **Install:** none. It has been tested in Chromium (the engine behind Chrome and Edge), where an automated checklist of 21 checks passed against the production build. Firefox and Safari have not been tested yet.
 - **Accounts:** none. There is no sign-in of any kind.
 - **Network:** after the page loads, the app makes no network requests. Fonts and all data are bundled; nothing is loaded from a third-party CDN.
 - **Storage:** preferences and learning progress are stored in the browser's `localStorage` under keys beginning `valence:`. Nothing is stored anywhere else.

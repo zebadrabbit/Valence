@@ -112,6 +112,16 @@ describe('validateRegistry', () => {
     expect(validateRegistry({ ...validRegistry(), extra: 1 }).some((e) => e.startsWith('schema:'))).toBe(true)
   })
 
+  it.each(['sources', 'species', 'reagents', 'observations', 'stations', 'molecules'])(
+    'rejects an unknown key on a %s record',
+    (key) => {
+      const r = validRegistry() as Record<string, unknown>
+      const list = r[key] as Record<string, unknown>[]
+      list[0] = { ...list[0]!, bogus: 1 }
+      expect(validateRegistry(r).some((e) => e.startsWith('schema:'))).toBe(true)
+    },
+  )
+
   describe('condition 1: sources', () => {
     it('rejects a record with no sourceId', () => {
       const r = validRegistry()

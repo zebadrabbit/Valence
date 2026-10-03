@@ -33,7 +33,7 @@ const hazardsSchema = z.strictObject({
 })
 
 export const reagentSchema = z
-  .object({
+  .strictObject({
     id,
     name: text,
     formula: text,
