@@ -20,12 +20,12 @@ export function citations(entries: readonly Entry[], sources: readonly Source[])
   return result
 }
 
-/** The sources of every stored value the atom card shows for an element. */
+/** The sources of every stored value the atom card shows for an element, and of the colour its atoms are drawn in. */
 export function elementCitations(element: Element, sources: readonly Source[]): Citation[] {
   return citations(
     [
       ['Symbol, name and atomic number', element.sourceId],
-      ['Atomic mass', element.atomicWeight.sourceId],
+      ['Standard atomic weight', element.atomicWeight.sourceId],
       ['Electronegativity', element.electronegativity.sourceId],
       ['Valence electrons', element.shells.sourceId],
       ['Electron configuration', element.configuration.sourceId],
@@ -33,6 +33,7 @@ export function elementCitations(element: Element, sources: readonly Source[]): 
       ['Covalent radius', element.covalentRadius.sourceId],
       ['Van der Waals radius', element.vdwRadius.sourceId],
       ...element.ionicRadii.map((r): Entry => ['Ionic radius', r.sourceId]),
+      ['Display colour in the models', element.color.sourceId],
     ],
     sources,
   )

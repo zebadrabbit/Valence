@@ -2,11 +2,13 @@ import { shellCitations } from '@/chem-data/citations'
 import { registry } from '@/chem-data/registry'
 import type { Element } from '@/chem-data/schema'
 import { ELECTRON_RADIUS, bohrLayout } from './bohrLayout'
+import { electrons } from './format'
 import { Card, Sources } from './InspectorCard'
 
-const counted = (n: number) => `${n} ${n === 1 ? 'electron' : 'electrons'}`
-
-/** Valence display level 1 (spec 6.4): the selected atom's element as a Bohr diagram, with the shell counts as text. */
+/**
+ * Valence display level 1 (spec 6.4): the selected atom's element as a Bohr diagram, with the shell counts as text.
+ * It is the neutral atom on its own, whatever the selected atom's bonds and charge, and the caption says so.
+ */
 export function BohrCard({ element }: { element: Element }) {
   const shells = element.shells.value
   const { size, nucleus, rings } = bohrLayout(shells)
@@ -28,12 +30,14 @@ export function BohrCard({ element }: { element: Element }) {
             </g>
           ))}
         </svg>
-        <figcaption className="text-xs text-muted-foreground">Bohr model: a simplified picture</figcaption>
+        <figcaption className="text-center text-xs text-muted-foreground">
+          Bohr model of a neutral, isolated {element.name.toLowerCase()} atom: a simplified picture
+        </figcaption>
       </figure>
       <ol>
         {shells.map((count, i) => (
           <li key={i}>
-            Shell {i + 1}: {counted(count)}
+            Shell {i + 1}: {electrons(count)}
           </li>
         ))}
       </ol>

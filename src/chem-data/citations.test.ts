@@ -31,16 +31,17 @@ describe('citations', () => {
 describe('elementCitations', () => {
   it('covers every stored value on the atom card for carbon', () => {
     expect(summary(elementCitations(element('C'), sources))).toEqual([
-      ['ciaaw-abridged-2024', ['Symbol, name and atomic number', 'Atomic mass']],
+      ['ciaaw-abridged-2024', ['Symbol, name and atomic number', 'Standard atomic weight']],
       ['pubchem-ptable', ['Electronegativity']],
       ['nist-asd-ie', ['Valence electrons', 'Electron configuration', 'Ionization energies']],
       ['cordero-2008', ['Covalent radius']],
       ['mantina-2009', ['Van der Waals radius']],
+      ['jmol-pal-source', ['Display colour in the models']],
     ])
   })
 
   it('adds the ionic radius source for an element that has one', () => {
-    expect(summary(elementCitations(element('O'), sources)).at(-1)).toEqual(['shannon-1976', ['Ionic radius']])
+    expect(summary(elementCitations(element('O'), sources)).at(-2)).toEqual(['shannon-1976', ['Ionic radius']])
   })
 
   it('resolves for every element', () => {

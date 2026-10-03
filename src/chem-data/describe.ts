@@ -23,6 +23,15 @@ function tally(symbols: readonly string[]): [symbol: string, count: number][] {
  * charges, and the geometry and neighbours of every atom bonded to two or more atoms. Atoms that read the same share one sentence.
  */
 export function describeMolecule(molecule: Molecule, elements: readonly Element[]): string {
+  const { lead, formula, rest } = describeMoleculeParts(molecule, elements)
+  return lead + formula + rest
+}
+
+/**
+ * describeMolecule in three pieces, so that a page can typeset the formula (subscripts, and the
+ * charges of a zwitterion): the text up to the formula, the plain formula, and the rest.
+ */
+export function describeMoleculeParts(molecule: Molecule, elements: readonly Element[]): { lead: string; formula: string; rest: string } {
   const { atoms, bonds } = molecule
   const nameOf = (symbol: string) => {
     const element = elements.find((e) => e.symbol === symbol)
@@ -34,7 +43,8 @@ export function describeMolecule(molecule: Molecule, elements: readonly Element[
 
   const variant = molecule.variantLabel ? ` (${molecule.variantLabel.toLowerCase()})` : ''
   const charge = molecule.charge === 0 ? '' : ` with a charge of ${signed(molecule.charge)}`
-  const sentences = [`${molecule.name.replace(/\s*\([^()]*\)$/, '')}${variant}, formula ${molecule.formula}${charge}.`]
+  const lead = `${molecule.name.replace(/\s*\([^()]*\)$/, '')}${variant}, formula `
+  const sentences = [`${charge}.`]
 
   const kinds = BOND_KINDS.flatMap((kind, i) => {
     const count = bonds.filter((b) => (b.aromatic ? kind === 'aromatic' : b.order === i + 1)).length
@@ -89,7 +99,7 @@ export function describeMolecule(molecule: Molecule, elements: readonly Element[
         : `Each of ${all ? 'the ' : ''}${count} ${name} atoms`
     sentences.push(`${subject} ${saying}`)
   }
-  return sentences.join(' ')
+  return { lead, formula: molecule.formula, rest: sentences.join(' ') }
 }
 
 /**

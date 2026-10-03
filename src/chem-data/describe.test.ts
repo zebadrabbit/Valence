@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { atomNames, bondNames, describeLonePairs, describeMolecule } from './describe'
+import { atomNames, bondNames, describeLonePairs, describeMolecule, describeMoleculeParts } from './describe'
 import { formulaElements } from './formula'
 import { registry } from './registry'
 import type { Molecule } from './schema'
@@ -143,5 +143,16 @@ describe('describeLonePairs', () => {
 
   it('says when there are none', () => {
     expect(said('methane')).toBe('No lone pairs.')
+  })
+})
+
+describe('describeMoleculeParts', () => {
+  it('splits the description round the plain formula, for every molecule', () => {
+    for (const molecule of registry.molecules) {
+      const { lead, formula, rest } = describeMoleculeParts(molecule, registry.elements)
+      expect(formula, molecule.id).toBe(molecule.formula)
+      expect(lead.endsWith(', formula '), molecule.id).toBe(true)
+      expect(lead + formula + rest, molecule.id).toBe(describeMolecule(molecule, registry.elements))
+    }
   })
 })
