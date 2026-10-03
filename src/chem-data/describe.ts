@@ -2,7 +2,8 @@ import { deriveAtoms } from './derive'
 import type { Element, Molecule } from './schema'
 
 // Plain text for screen readers (spec 11): no symbols a reader might skip, so
-// a charge is written "plus 1" and a formula uses ordinary digits. The formula
+// a charge is written "plus 1", a formula uses ordinary digits, and a trailing
+// parenthesised formula in a name such as "Oxygen (O₂)" is dropped. The formula
 // is the authored one, written as textbooks write it (NH3, not Hill's H3N).
 
 const BOND_KINDS = ['single', 'double', 'triple', 'aromatic'] as const
@@ -33,7 +34,7 @@ export function describeMolecule(molecule: Molecule, elements: readonly Element[
 
   const variant = molecule.variantLabel ? ` (${molecule.variantLabel.toLowerCase()})` : ''
   const charge = molecule.charge === 0 ? '' : ` with a charge of ${signed(molecule.charge)}`
-  const sentences = [`${molecule.name}${variant}, formula ${molecule.formula}${charge}.`]
+  const sentences = [`${molecule.name.replace(/\s*\([^()]*\)$/, '')}${variant}, formula ${molecule.formula}${charge}.`]
 
   const kinds = BOND_KINDS.flatMap((kind, i) => {
     const count = bonds.filter((b) => (b.aromatic ? kind === 'aromatic' : b.order === i + 1)).length
@@ -55,7 +56,15 @@ export function describeMolecule(molecule: Molecule, elements: readonly Element[
 
   const charged = atoms.filter((a) => a.formalCharge !== 0)
   if (charged.length > 0) {
-    sentences.push(`Formal charges: ${charged.map((a) => `${nameOf(a.element)} ${signed(a.formalCharge)}`).join(', ')}.`)
+    // "one oxygen minus 1" when only some atoms of the element carry the charge, so it is not heard as all of them.
+    const parts = [...new Set(charged.map((a) => `${a.element} ${a.formalCharge}`))].map((key) => {
+      const same = charged.filter((a) => `${a.element} ${a.formalCharge}` === key)
+      const { element, formalCharge } = same[0]!
+      const partial = same.length < atoms.filter((a) => a.element === element).length
+      const who = partial ? (same.length === 1 ? `one ${nameOf(element)}` : `${same.length} ${nameOf(element)} atoms`) : nameOf(element)
+      return `${who} ${signed(formalCharge)}`
+    })
+    sentences.push(`Formal charges: ${parts.join(', ')}.`)
   }
 
   // What is said of each atom bonded to two or more atoms, keyed by element so equal atoms share a sentence.

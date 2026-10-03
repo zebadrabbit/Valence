@@ -31,7 +31,7 @@ describe('describeMolecule', () => {
       'Glycine (zwitterion), formula NH3CH2COO. It has 10 atoms, joined by 8 single bonds and 1 double bond; ' +
         'the double bond and one single bond to oxygen are drawn as one of two equivalent resonance structures, ' +
         'and the two real bonds are equal. ' +
-        'Formal charges: oxygen minus 1, nitrogen plus 1. ' +
+        'Formal charges: one oxygen minus 1, nitrogen plus 1. ' +
         'The nitrogen atom has tetrahedral geometry and is bonded to 1 carbon atom and 3 hydrogen atoms. ' +
         'One carbon atom has tetrahedral geometry and is bonded to 1 carbon atom, 2 hydrogen atoms, and 1 nitrogen atom. ' +
         'One carbon atom has trigonal planar geometry and is bonded to 1 carbon atom and 2 oxygen atoms.',
@@ -43,7 +43,7 @@ describe('describeMolecule', () => {
       'Sulfur dioxide, formula SO2. It has 3 atoms, joined by 1 single bond and 1 double bond; ' +
         'the double bond and the single bond to oxygen are drawn as one of two equivalent resonance structures, ' +
         'and the two real bonds are equal. ' +
-        'Formal charges: sulfur plus 1, oxygen minus 1. ' +
+        'Formal charges: sulfur plus 1, one oxygen minus 1. ' +
         'The sulfur atom has bent geometry and is bonded to 2 oxygen atoms.',
     )
   })
@@ -64,7 +64,7 @@ describe('describeMolecule', () => {
   it('states the charge of an ion and describes a molecule with no central atom', () => {
     expect(describeById('hydronium')).toMatch(/^Hydronium ion, formula H3O with a charge of plus 1\. /)
     expect(describeById('bicarbonate')).toMatch(/, formula HCO3 with a charge of minus 1\. /)
-    expect(describeById('oxygen')).toBe('Oxygen (O₂), formula O2. It has 2 atoms, joined by 1 double bond.')
+    expect(describeById('oxygen')).toBe('Oxygen, formula O2. It has 2 atoms, joined by 1 double bond.')
   })
 
   it('describes every molecule in the registry in at most seven sentences', () => {

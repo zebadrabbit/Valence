@@ -211,7 +211,8 @@ Move the Phase 2A cards to Done and record the items left for plan 2B.
 ## Left for plan 2B
 
 - The About page imports the whole registry, so the main bundle is 527 kB (157 kB gzipped) and trips Vite's size warning. Split it when the Explore route exists.
-- Ionization energies lose trailing zeros as numbers (71.6200 becomes 71.62); format them in the UI.
+- Ionization energies lose trailing zeros as numbers (71.6200 becomes 71.62); format them in the UI. Atomic weights too: CIAAW publishes hydrogen as 1.0080 and sodium as 22.990, stored as 1.008 and 22.99; show five significant figures.
+- The zwitterion formulas are stored bare ("NH3CH2COO"). Render them with their charges ("⁺NH₃CH₂COO⁻"), for example from an optional authored display formula.
 - The amide and urea nitrogen lone pair is one direction; the hybrid-lobe view must decide how to draw a p orbital.
 - The O₂ callout text (Lewis shows all electrons paired; the MO diagram shows two unpaired) is authored in the UI.
 - Four VSEPR rows no library molecule uses (seesaw, T-shaped, linear with three lone pairs, square pyramidal) stay in the lookup with their tests.

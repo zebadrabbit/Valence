@@ -51,7 +51,10 @@ function hydrogenPeroxide() {
         { atoms: [0, 2], value: 0.95, sourceId: 's1' },
         { atoms: [1, 3], value: 0.95, sourceId: 's1' },
       ],
-      angles: [{ atoms: [2, 0, 1], value: 94.8, sourceId: 's1' }],
+      angles: [
+        { atoms: [2, 0, 1], value: 94.8, sourceId: 's1' },
+        { atoms: [3, 1, 0], value: 94.8, sourceId: 's1' },
+      ],
       dihedrals: [{ atoms: [2, 0, 1, 3], value: 119.8, sourceId: 's1' }],
     },
     sourceId: 's1',
@@ -394,6 +397,20 @@ describe('validateRegistry', () => {
       expect(validateRegistry(r)).toEqual(['molecule "water": angle 1-0-2 measures 104.512 °, cited 109.5 °'])
     })
 
+    it('rejects a cited angle 1.5° from the coordinates, so the tolerance stays at 1°', () => {
+      const r = validRegistry()
+      r.molecules[0]!.measurements!.angles[0]!.value = 106.0
+      expect(validateRegistry(r)).toEqual(['molecule "water": angle 1-0-2 measures 104.512 °, cited 106 °'])
+    })
+
+    it('rejects a cited dihedral 1.6° from the coordinates', () => {
+      const r = validRegistry()
+      const m = hydrogenPeroxide()
+      m.measurements!.dihedrals[0]!.value = 121.4
+      r.molecules.push(m)
+      expect(validateRegistry(r)).toEqual(['molecule "h2o2": dihedral 2-0-1-3 measures 119.800 °, cited 121.4 °'])
+    })
+
     it('rejects a cited dihedral the coordinates miss by more than 1°, including its mirror image', () => {
       const r = validRegistry()
       const m = hydrogenPeroxide()
@@ -442,11 +459,17 @@ describe('validateRegistry', () => {
       const r = validRegistry()
       r.molecules[0]!.measurements!.lengths.pop()
       expect(validateRegistry(r)).toEqual(['molecule "water": bond 0-2 has no cited length'])
-      r.molecules[0]!.measurements = { lengths: [], angles: [], dihedrals: [] }
+      r.molecules[0]!.measurements = { lengths: [], angles: [{ atoms: [1, 0, 2], value: 104.5, sourceId: 's1' }], dihedrals: [] }
       expect(validateRegistry(r)).toEqual([
         'molecule "water": bond 0-1 has no cited length',
         'molecule "water": bond 0-2 has no cited length',
       ])
+    })
+
+    it('rejects a cited-experimental molecule with a bent atom and no cited angle', () => {
+      const r = validRegistry()
+      r.molecules[0]!.measurements!.angles = []
+      expect(validateRegistry(r)).toEqual(['molecule "water": atom 0 is bonded to 2 atoms but has no cited angle'])
     })
 
     it('matches a cited length to its bond in either atom order', () => {

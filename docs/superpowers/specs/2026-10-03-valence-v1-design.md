@@ -90,7 +90,7 @@ In the UI, each inspector card, station result, and energy panel has a "Sources"
 | --- | --- |
 | 3D coordinates for the Basics and VSEPR showcase groups (section 6.1) | Built by a script from cited experimental gas-phase bond lengths and angles (NIST CCCBDB experimental geometry pages, which hold all 13), so the model, the measure tool, and the card agree. Labelled "experimental (gas phase)". Includes BF₃, SF₆, XeF₄, and PCl₅, which have no PubChem 3D record |
 | 3D coordinates for all other molecules and polyatomic ions | PubChem 3D SDF, fetched once and committed. Only a `record_type=3d` record is accepted; a 2D record is never used for 3D. Labelled "computed conformer (PubChem3D, MMFF94s force field); not an experimental structure" |
-| 2D layout positions for the Lewis view | PubChem 2D SDF (drawing units), for all molecules |
+| 2D layout positions for the Lewis view | PubChem 2D SDF (drawing units), for all molecules except sulfur dioxide, whose octet resonance form has an authored bent drawing |
 | Atomic weights | CIAAW abridged standard atomic weights |
 | Electron configurations and ionization energies | NIST Atomic Spectra Database. Ionization energies are stored in eV as published and converted to kJ/mol in code |
 | Pauling electronegativity | PubChem periodic table |
@@ -181,7 +181,7 @@ Derived values:
 2. Lewis dots and lone pairs.
 3. Hybrid orbital lobes for sp, sp², sp³ only; molecular orbital diagrams for O₂ and N₂ only. The O₂ diagram carries a callout that the Lewis structure shows all electrons paired while the MO diagram shows two unpaired.
 
-Lone-pair directions for levels 2 and 3 come from one pure function of the atom's bond vectors and its ideal electron geometry, with an optional per-atom override.
+Lone-pair directions for levels 2 and 3 come from one pure function of the atom's bond vectors and its ideal electron geometry, with an optional per-atom override (deferred until a molecule needs one; not built in 2A).
 
 Hybrid lobes are the last item of the Explorer phase and the first to cut if the phase runs long.
 
@@ -190,7 +190,7 @@ Hybrid lobes are the last item of the Explorer phase and the first to cut if the
 - A test asserts the bundled registry contains every library ID and that every file passes the validator.
 - The validator checks every atom's stored formal charge against valence electrons minus lone-pair electrons minus the sum of bond orders.
 - Oxidation states sum to each species' charge.
-- A hand-written expected-values table in the test suite covers every atom of the Basics, VSEPR, and Mechanism groups and every non-hydrogen atom of the rest (oxidation state, hybridization, VSEPR geometry; order per bond). It includes: H₂O₂ (O is −1); acetamide and urea N (sp², trigonal planar); the O–H oxygen of acetic acid (sp³, bent); a terminal halogen (hybridization not assigned, no geometry shown); SO₂ in the octet resonance form (S is +4, bent); SF₆ (octahedral); XeF₄ (square planar); PCl₅ (trigonal bipyramidal; angles 90°, 120°, 180°); benzene (all bonds aromatic). Atoms are matched to the table per molecule as a set, so the test does not depend on atom order.
+- An expected-values table in the test suite, generated from the research table by `npm run build:expected` with hand-written named cases, covers every atom of the Basics, VSEPR, and Mechanism groups and every non-hydrogen atom of the rest (oxidation state, hybridization, VSEPR geometry; order per bond). It includes: H₂O₂ (O is −1); acetamide and urea N (sp², trigonal planar); the O–H oxygen of acetic acid (sp³, bent); a terminal halogen (hybridization not assigned, no geometry shown); SO₂ in the octet resonance form (S is +4, bent); SF₆ (octahedral); XeF₄ (square planar); PCl₅ (trigonal bipyramidal; angles 90°, 120°, 180°); benzene (all bonds aromatic). Atoms are matched to the table per molecule as a set, so the test does not depend on atom order.
 - For molecules whose `geometrySource` is cited experimental, lengths measured from the stored coordinates match the cited values within 0.01 Å and angles within 1°.
 - Lone-pair directions for H₂O and NH₃ match the tetrahedral positions within 5°. The O₂ diagram has two unpaired electrons and bond order 2; N₂ has bond order 3.
 - `describeMolecule` (the text description for screen readers) is tested for three molecules.

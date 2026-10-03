@@ -5,7 +5,7 @@ export function About() {
   return (
     <>
       <PageHeader title="About" />
-      <div className="grid max-w-prose gap-6">
+      <div className="grid max-w-prose grid-cols-[minmax(0,1fr)] gap-6 break-words">
         <section aria-labelledby="independence-heading">
           <h2 id="independence-heading" className="mb-1 text-lg font-medium">
             Independent project

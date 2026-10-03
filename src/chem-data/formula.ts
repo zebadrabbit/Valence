@@ -1,3 +1,4 @@
+// Keep in step with formulaElements in scripts/build-chem-data.mjs; registry.test.ts cross-checks the two.
 /**
  * The element counts of a written formula such as "C2H6", "CH3COOH" or
  * "CO(NH2)2": element symbols with optional counts, and one level of

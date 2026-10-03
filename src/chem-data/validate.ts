@@ -82,7 +82,7 @@ function checkReferences(registry: Registry): string[] {
 const MIN_BOND_TO_H = 0.8
 const MIN_HEAVY_BOND = 1.05
 
-function checkGeometry(registry: Registry): string[] {
+function checkStructure(registry: Registry): string[] {
   const errors: string[] = []
   for (const molecule of registry.molecules) {
     if ((molecule.variantGroup === undefined) !== (molecule.variantLabel === undefined)) {
@@ -122,7 +122,7 @@ function checkLewis(registry: Registry): string[] {
     const label = `molecule "${molecule.id}"`
     const orderSum = molecule.atoms.map(() => 0)
     for (const bond of molecule.bonds) {
-      // A bond to a missing atom is reported by checkGeometry.
+      // A bond to a missing atom is reported by checkStructure.
       if (bond.a < orderSum.length) orderSum[bond.a]! += bond.order
       if (bond.b < orderSum.length) orderSum[bond.b]! += bond.order
     }
@@ -193,6 +193,13 @@ function checkMeasurements(registry: Registry): string[] {
         errors.push(`molecule "${molecule.id}": bond ${a}-${b} has no cited length`)
       }
     }
+    // A bent or branched atom needs a cited angle at its vertex, or its angle could drift unchecked.
+    molecule.atoms.forEach((_, i) => {
+      const bonded = molecule.bonds.filter((b) => b.a === i || b.b === i).length
+      if (bonded >= 2 && !angles.some(({ atoms: [, vertex] }) => vertex === i)) {
+        errors.push(`molecule "${molecule.id}": atom ${i} is bonded to ${bonded} atoms but has no cited angle`)
+      }
+    })
     const at = (i: number) => molecule.atoms[i]?.position
     const report = (kind: string, unit: string, atoms: readonly number[], cited: number, measured: number | undefined) => {
       const label = `molecule "${molecule.id}": ${kind} ${atoms.join('-')}`
@@ -253,7 +260,7 @@ export function validateRegistry(input: unknown, options: ValidateOptions = {}):
   return [
     ...checkSources(registry),
     ...checkReferences(registry),
-    ...checkGeometry(registry),
+    ...checkStructure(registry),
     ...checkLewis(registry),
     ...checkMeasurements(registry),
     ...checkMoDiagrams(registry),

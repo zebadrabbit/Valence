@@ -372,6 +372,7 @@ function summary(atoms, bonds, elementOf) {
     .join('\n')
 }
 
+// Keep in step with formulaElements in src/chem-data/formula.ts; registry.test.ts cross-checks the two.
 /** The element symbols a formula writes, one per atom. Handles one level of parentheses with a multiplier, as in CO(NH2)2. */
 function formulaElements(formula) {
   const expand = (text) =>
