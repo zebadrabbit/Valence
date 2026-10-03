@@ -14,7 +14,7 @@
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import process from 'node:process'
-import { parseSdf } from '../docs/research/phase-2/parse-sdf.mjs'
+import { parseSdf } from './parse-sdf.mjs'
 
 const root = join(import.meta.dirname, '..')
 const research = join(root, 'docs/research/phase-2')
