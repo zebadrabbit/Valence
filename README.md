@@ -6,10 +6,23 @@ Valence recreates common general chemistry bench labs so anyone can perform them
 
 ## Status
 
-Design stage. No application code yet.
+Phase 1 of 5 (foundation) is built: the app shell, themes, guest progress storage, and the chemistry-data validator. The explorer, labs, and mechanism timeline come next.
 
 - [v1 design spec](docs/superpowers/specs/2026-10-03-valence-v1-design.md): what is being built first.
 - [Original design document](Chem%20Lab%20Explorer%20-%20Design%20Document.md): the full vision, including labs planned after v1.
+- [Information for institutional reviewers](docs/for-institutions.md): IT, privacy, and procurement facts.
+
+## Development
+
+Requires Node 22 or newer.
+
+    npm install
+    npm run dev        # start the app locally
+    npm test           # run the tests, including chem-data validation
+    npm run lint       # architecture rules: chemistry code stays pure and deterministic
+    npm run build      # test, type-check, and build to dist/
+
+To have the validator reject specific institution names, create `src/chem-data/denylist.local.json` containing a JSON array of names. The file is ignored by git.
 
 ## v1 scope
 
