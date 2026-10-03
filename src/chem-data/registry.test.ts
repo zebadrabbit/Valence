@@ -59,6 +59,12 @@ describe('the real chem-data registry', () => {
     expect(registry.elements.map((e) => e.symbol)).toEqual(['H', 'B', 'C', 'N', 'O', 'F', 'Na', 'P', 'S', 'Cl', 'Xe'])
   })
 
+  it('stores every atomic weight as published, trailing zeros included', () => {
+    for (const e of registry.elements) expect([e.symbol, Number(e.atomicWeight.published)]).toEqual([e.symbol, e.atomicWeight.value])
+    const published = (symbol: string) => registry.elements.find((e) => e.symbol === symbol)?.atomicWeight.published
+    expect([published('H'), published('Na')]).toEqual(['1.0080', '22.990'])
+  })
+
   it('pairs each neutral amino acid with its zwitterion', () => {
     const variants = registry.molecules.filter((m) => m.variantGroup).map((m) => [m.id, m.variantGroup, m.variantLabel])
     expect(variants).toEqual([

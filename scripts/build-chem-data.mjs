@@ -189,6 +189,7 @@ function buildElements() {
       if (ie.value !== Number(ie.valueAsPublished)) fail(`${where}: ionization energy ${i + 1} differs from the published text`)
       if (ie.sourceId !== e.ionizationEnergiesEV[0].sourceId) fail(`${where}: ionization energies have mixed sources`)
     })
+    if (e.atomicWeight.value !== Number(e.atomicWeight.valueAsPublished)) fail(`${where}: atomic weight differs from the published text`)
     if (e.shells.reduce((sum, n) => sum + n, 0) !== e.atomicNumber) fail(`${where}: shells do not sum to Z`)
     if (e.shells.at(-1) !== e.valenceElectrons) fail(`${where}: valence electrons are not the outer shell count`)
 
@@ -219,7 +220,7 @@ function buildElements() {
       symbol: e.symbol,
       name: e.name,
       atomicNumber: e.atomicNumber,
-      atomicWeight: cite(e.atomicWeight.value, e.atomicWeight.sourceId),
+      atomicWeight: { ...cite(e.atomicWeight.value, e.atomicWeight.sourceId), published: e.atomicWeight.valueAsPublished },
       electronegativity: cite(e.electronegativity.value, e.electronegativity.sourceId),
       configuration: cite(e.configuration, e.configurationSourceId),
       shells: cite(e.shells, e.configurationSourceId),

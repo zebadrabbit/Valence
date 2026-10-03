@@ -93,7 +93,8 @@ export const elementSchema = z.strictObject({
   symbol: text,
   name: text,
   atomicNumber: z.number().int().positive(),
-  atomicWeight: cited(z.number().positive()),
+  /** `published` is the weight as the source prints it, with its trailing zeros ("1.0080"). */
+  atomicWeight: cited(z.number().positive()).extend({ published: text.optional() }),
   electronegativity: cited(z.number().positive()),
   configuration: cited(text),
   /** Electrons per shell, innermost first. */
