@@ -1,4 +1,4 @@
-import { CATEGORY_HEADING, description, GROUP_3_NOTE, type Description } from './periodic'
+import { CATEGORY_HEADING, description, GROUP_3_NOTE, located, type Description } from './periodic'
 import type { Element, PeriodicElement } from './schema'
 
 // What the element card of the periodic table says beyond the values themselves (periodic table spec 5.1, 5.3
@@ -76,7 +76,11 @@ export const VDW_RADIUS_NOTE: Description = description(
   [
     [
       'mantina-2009',
-      '“Van der Waals radii, as tabulated by Bondi, have been used for a wide range of applications. Bondi radii result from a refinement of the work of Pauling, who determined standard values of atomic radii from contact distances between nonbonded atoms in molecular crystals. … The concept of a van der Waals radius is intrinsically approximate because atoms in molecules are not spherical, whereas assigning them a single radius implies a spherical model.”',
+      located(
+        'https://pmc.ncbi.nlm.nih.gov/articles/PMC3658832/',
+        'section 1, “Introduction”',
+        "Bondi's van der Waals radii refine those of Pauling, which were worked out from the distances between atoms in molecular crystals that touch without being bonded; and that giving an atom one radius is an approximation, because atoms in molecules are not spheres.",
+      ),
     ],
     [
       'pubchem-element-pages',

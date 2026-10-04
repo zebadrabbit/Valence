@@ -82,7 +82,17 @@ export function shellsFromConfiguration(text: string): number[] {
 export type Description = { name?: string; text: string; sourceIds: string[]; support: string }
 
 // A source and the passage read there. "…" marks words left out and square brackets mark words put in.
+// Only OpenStax Chemistry 2e, which is licensed CC BY 4.0, is quoted at length, and lines of PubChem's pages.
+// A passage of any other source is given by `located`.
 export type Passage = readonly [sourceId: string, passage: string]
+
+/**
+ * A passage of a source whose words are not this project's to copy: where it is (the heading or section, and the
+ * address) and, in this project's own words, what it establishes. `establishes` completes "It establishes that".
+ */
+export function located(url: string, where: string, establishes: string): string {
+  return `not quoted; see ${where}, ${url}. It establishes that ${establishes}`
+}
 
 const openstax = (section: string) => `openstax-chem2e-${section}`
 const RED_BOOK = 'iupac-red-book-2005'
@@ -107,13 +117,21 @@ const list = (items: readonly string[]) => (items.length < 3 ? items.join(' and 
 const membersWhere = (test: (position: ElementPosition) => boolean) => periodicTable.filter((e) => test(elementPosition(e.atomicNumber)))
 const names = (members: readonly PeriodicElement[]) => members.map((e) => e.name.toLowerCase())
 
+const RED_BOOK_URL = 'https://iupac.org/wp-content/uploads/2016/07/Red_Book_2005.pdf'
+const RED_BOOK_SECTION = 'section IR-3.5, “Elements in the periodic table” (p 51)'
+const IUPAC_TABLE_URL = 'https://iupac.org/what-we-do/periodic-table-of-elements/'
+const RSC_URL = 'https://periodic-table.rsc.org/'
 const RED_BOOK_BLOCKS: Passage = [
   RED_BOOK,
-  '“Optionally, the letters s, p, d and f may be used to distinguish different blocks of elements. For example, the elements of groups 3–12 are the d-block elements. These elements are also commonly referred to as the transition elements, though the elements of group 12 are not always included; the f-block elements are sometimes referred to as the inner transition elements.”',
+  located(
+    RED_BOOK_URL,
+    RED_BOOK_SECTION,
+    'the blocks of the table may be told apart by the letters s, p, d and f; that groups 3 to 12 are the d block, whose elements are commonly called the transition elements, with group 12 not always counted among them; and that the f-block elements are sometimes called the inner transition elements.',
+  ),
 ]
 const RED_BOOK_GROUP_NAMES: Passage = [
   RED_BOOK,
-  '“If appropriate for a particular purpose, the various groups may be named from the first element in each, for example elements of the boron group (B, Al, Ga, In, Tl), elements of the titanium group (Ti, Zr, Hf, Rf), etc.”',
+  located(RED_BOOK_URL, RED_BOOK_SECTION, 'a group may be named after its first element, with the boron group and the titanium group as examples.'),
 ]
 const OPENSTAX_FAMILY_NAMES: Passage = [
   openstax('2.5'),
@@ -129,7 +147,11 @@ const OPENSTAX_TRANSITION_SERIES: Passage = [
 ]
 const IUPAC_GROUP_3: Passage = [
   IUPAC_TABLE,
-  '“The question of precisely which elements should be placed in group 3 has been debated from time to time. An IUPAC project has been recently initiated to resolve the question. Will group 3 consist of Sc, Y, Lu, and Lr or, will it consist of Sc, Y, La and Ac?”',
+  located(
+    IUPAC_TABLE_URL,
+    'note 7, “Group 3”',
+    'which elements belong in group 3 is an open question, which an IUPAC project was set up to settle: scandium and yttrium with lutetium and lawrencium, or with lanthanum and actinium.',
+  ),
 ]
 const VALENCE_COUNT = 'the valence electrons, as the electrons in the outermost shell of each configuration PubChem lists'
 const S_AND_D_COUNT = 'the outer s and d electrons, from each configuration PubChem lists'
@@ -271,12 +293,12 @@ const GROUPS: Record<number, Group> = {
   },
 }
 
-// What the Royal Society of Chemistry's page says of each element from rutherfordium on. All but three say it in the same words.
-const FEW_ATOMS = 'A highly radioactive metal, of which only a few atoms have ever been made.'
-const FEW_ATOMS_OTHERWISE: Record<string, string> = {
-  Rf: 'A radioactive metal that does not occur naturally. Relatively few atoms have ever been made.',
-  Sg: 'A radioactive metal that does not occur naturally. Only a few atoms have ever been made.',
-  Bh: 'Bohrium does not occur naturally and only a few atoms have ever been made.',
+// Where the Royal Society of Chemistry's page for an element from rutherfordium on says that few atoms of it have
+// been made: under "Appearance" on every page but bohrium's.
+const FEW_ATOMS_HEADING = (symbol: string) => `“Uses and properties”, under “${symbol === 'Bh' ? 'Natural abundance' : 'Appearance'}”`
+const fewAtomsPassage = (e: PeriodicElement): Passage => {
+  const name = e.name.toLowerCase()
+  return [RSC, located(`${RSC_URL}element/${e.atomicNumber}/${name}`, `the page for ${name}, ${FEW_ATOMS_HEADING(e.symbol)}`, `few atoms of ${name} have ever been made.`)]
 }
 
 /** The members of a group, what they share, and the family name where the sources give one. Group 1's name covers hydrogen. */
@@ -291,7 +313,7 @@ export function describeGroup(group: number): Description {
     e.atomicNumber >= 109 ? `${e.name} is placed here by its atomic number; few atoms of it have ever been made.` : `Few atoms of ${e.name.toLowerCase()} have ever been made.`
   return description(
     [authored.text(names(members)), ...fewAtoms.map(fewAtomsText)].join(' '),
-    [...authored.passages, ...fewAtoms.map((e): Passage => [RSC, `on the page for ${e.name.toLowerCase()}, “${FEW_ATOMS_OTHERWISE[e.symbol] ?? FEW_ATOMS}”`])],
+    [...authored.passages, ...fewAtoms.map(fewAtomsPassage)],
     `the members; ${authored.derived}`,
     authored.name,
   )
@@ -334,7 +356,11 @@ export function describeBlock(block: Block): Description {
         RED_BOOK_BLOCKS,
         [
           RSC,
-          '“The s block includes the alkali metals and alkaline earth metals. … The s block also contains hydrogen and helium, which are non-metals and gases. The elements of the s block have their valence electrons in s orbitals. The s sub-shell can contain a maximum of two electrons. This explains why the block is two columns wide.”',
+          located(
+            RSC_URL,
+            'the note on the s block, under “Blocks”',
+            'the s block holds the alkali metals and the alkaline earth metals, and also hydrogen and helium, which are nonmetals and gases; that its elements have their valence electrons in s orbitals; and that it is two columns wide because an s subshell holds at most two electrons.',
+          ),
         ],
         [openstax('6.4'), '“Following hydrogen is the noble gas helium, which has an atomic number of 2. … The second electron also goes into the 1s orbital and fills that orbital.”'],
       ],
@@ -346,7 +372,7 @@ export function describeBlock(block: Block): Description {
       `Groups 13 to 18, without helium: ${count}, in 6 columns because a p subshell holds 6 electrons. The block holds every nonmetal except hydrogen and helium, all the metalloids, and some metals.`,
       [
         RED_BOOK_BLOCKS,
-        [RSC, '“The p block consists of elements with quite varied properties. It contains non-metals, metalloids and metals. … The p sub-shell can hold a maximum of six electrons, in three distinct orbitals.”'],
+        [RSC, located(RSC_URL, 'the note on the p block, under “Blocks”', 'the p block holds nonmetals, metalloids and metals, and that a p subshell holds at most six electrons.')],
         [
           openstax('6.4'),
           '“Main group elements (sometimes called representative elements) are those in which the last electron added enters an s or a p orbital in the outermost shell … This category includes all the nonmetallic elements, as well as many metals and the metalloids.”',
@@ -401,7 +427,11 @@ export const GROUP_3_NOTE: Description = description(
     ],
     [
       IUPAC_GROUP_3_REPORT,
-      '“In the course of many discussions held by the task group we have concluded that there is no objective means to adjudicate between group 3 consisting of Sc, Y, La and Ac or as Sc, Y, Lu and Lr. This situation makes it more important that IUPAC should make a ruling on the question … Perhaps a compromise could be reached on the table depicted as figure 2 since it achieves three desiderata.” Figure 2 is the table “with group 3 shown as containing … Sc, Y, Lu and Lr (middle)”. That IUPAC has not ruled since rests on its own page, quoted above, which still puts the question as open.',
+      `${located(
+        'https://doi.org/10.1515/ci-2021-0115',
+        'the second paragraph, and the closing paragraphs of “A very brief history of forms of the periodic table” with Figures 1 to 3',
+        'the task group found no objective way to choose between lanthanum and actinium and lutetium and lawrencium for group 3, held that IUPAC should therefore rule on what is a matter of convention, and suggested as a compromise the table of its Figure 2, which has lutetium and lawrencium in group 3.',
+      )} That IUPAC has not ruled since rests on its own page, cited above, which still puts the question as open.`,
     ],
   ],
 )
@@ -462,7 +492,7 @@ export const CATEGORY_NOTES: readonly Description[] = [
   // Spec 5.5 has "their chemistry being little known". No passage read says that, so the note says what the pages do say.
   description(
     'Meitnerium to oganesson are placed in their families by position; only a few atoms of each have ever been made.',
-    [[RSC, `on the page for each of the ten, “${FEW_ATOMS}”`]],
+    [[RSC, located(RSC_URL, `the element page of each of the ten, ${FEW_ATOMS_HEADING('Mt')}`, 'only a few atoms of the element have ever been made.')]],
     'the first and last of the ten, elements 109 to 118',
   ),
 ]

@@ -944,6 +944,34 @@ describe('group, period and block descriptions', () => {
     ['the card note on electron affinity', ELECTRON_AFFINITY_NOTE] as const,
   ]
 
+  // The sources whose words may be copied: OpenStax is CC BY 4.0, and PubChem's own labels and this project's files are not another
+  // publisher's prose. Every other source is located and put in this project's words (see `located`).
+  const QUOTABLE = /^(openstax-chem2e-[\d.]+|pubchem-element-pages|pubchem-periodic-table)$/
+  const supportLines = (description: { support: string }) =>
+    description.support.split('\n').map((line) => /^([a-z0-9.-]+): (.*)$/.exec(line) ?? /^(Counted from this table): (.*)$/.exec(line)!)
+
+  it('quotes only OpenStax and PubChem; any other source is located, with its address and what it establishes, and not quoted', () => {
+    const located = all.flatMap(([what, description]) => supportLines(description).filter(([, id]) => id !== 'Counted from this table' && !QUOTABLE.test(id!)).map(([, id, passage]) => [what, id!, passage!] as const))
+    expect(new Set(located.map(([, id]) => id))).toEqual(new Set(['iupac-red-book-2005', 'iupac-periodic-table', 'rsc-periodic-table', 'iupac-group-3-report-2021']))
+    for (const [what, id, passage] of located) {
+      // The Royal Society of Chemistry's drawing is described in the group 3 note, not read as a passage.
+      if (id === 'rsc-periodic-table' && passage.startsWith('the table is drawn with')) continue
+      expect([what, id, passage]).toEqual([what, id, expect.stringMatching(/^not quoted; see .+, https:\/\/\S+\. It establishes that .+\.$/)])
+      // What stands in quotation marks is a heading or a title, never a sentence.
+      for (const [, quoted] of passage.matchAll(/“([^”]*)”/g)) expect([what, id, quoted!.split(' ').length]).toEqual([what, id, expect.toSatisfy((words: number) => words <= 10)])
+    }
+    // 4 groups named after their first element twice over (the Red Book and the pages of their heaviest members), and so on: every one is checked above.
+    expect(located.length).toBeGreaterThan(30)
+  })
+
+  it('gives the licence of OpenStax Chemistry 2e in every citation of it, since its passages are quoted', () => {
+    const openstax = registry.sources.filter((source) => source.id.startsWith('openstax-'))
+    expect(openstax.length).toBe(10)
+    for (const source of openstax) {
+      expect([source.id, source.citation]).toEqual([source.id, expect.stringContaining('Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction')])
+    }
+  })
+
   it('gives every group, period and block a text, at least one known source, and the passage behind each source', () => {
     expect(all.length).toBe(18 + 7 + 4 + 1 + 4 + 2 + 1)
     for (const [what, description] of all) {
@@ -1168,7 +1196,10 @@ describe('group, period and block descriptions', () => {
   it("reports the 2021 provisional report of IUPAC's task group, which leaned to lutetium and lawrencium, without calling it a ruling", () => {
     expect(GROUP_3_NOTE.text).toContain("A provisional report from an IUPAC task group in 2021 leaned towards lutetium and lawrencium, but IUPAC has not ruled on the question.")
     expect(GROUP_3_NOTE.support).toContain('iupac-group-3-report-2021: ')
-    expect(GROUP_3_NOTE.support).toContain('Perhaps a compromise could be reached on the table depicted as figure 2')
+    // The report is located and put in this project's words, not quoted.
+    expect(GROUP_3_NOTE.support).toContain('iupac-group-3-report-2021: not quoted; see ')
+    expect(GROUP_3_NOTE.support).toContain('suggested as a compromise the table of its Figure 2, which has lutetium and lawrencium in group 3')
+    expect(GROUP_3_NOTE.support).not.toContain('Perhaps a compromise')
     const report = sourceOf('iupac-group-3-report-2021')
     expect(report?.citation).toMatch(/^Scerri, E\. Provisional Report on Discussions on Group 3 of The Periodic Table\. Chem\. Int\. 2021, 43 \(1\), 31-34 \(retrieved 2026-10-03\)/)
     expect(report?.url).toBe('https://doi.org/10.1515/ci-2021-0115')
@@ -1237,7 +1268,7 @@ describe('the legend', () => {
     expect(pageLines('Po', 'Element Classification').map((line) => line.text)).toEqual(['Metal'])
     expect(sourceIds).toEqual(['openstax-chem2e-18.3', 'pubchem-element-pages'])
     expect(support).toContain('The metalloids are boron, silicon, germanium, arsenic, antimony, and tellurium.')
-    expect(sourceOf('openstax-chem2e-18.3')?.citation).toMatch(/Section 18\.3 Structure and General Properties of the Metalloids \(retrieved 2026-10-03\)\.$/)
+    expect(sourceOf('openstax-chem2e-18.3')?.citation).toMatch(/Section 18\.3 Structure and General Properties of the Metalloids \(retrieved 2026-10-03\)\. Licensed under CC BY 4\.0 /)
   })
 
   it('says that group 12 is shown with the transition metals and is not always counted among them', () => {
@@ -1254,7 +1285,10 @@ describe('the legend', () => {
     expect(text).toBe('Meitnerium to oganesson are placed in their families by position; only a few atoms of each have ever been made.')
     expect([element('Mt').atomicNumber, element('Og').atomicNumber]).toEqual([109, 118])
     expect(sourceIds).toEqual(['rsc-periodic-table'])
-    expect(support).toContain('only a few atoms have ever been made')
+    // Located on the Royal Society of Chemistry's pages and put in this project's words, not quoted.
+    expect(support).toBe(
+      'rsc-periodic-table: not quoted; see the element page of each of the ten, “Uses and properties”, under “Appearance”, https://periodic-table.rsc.org/. It establishes that only a few atoms of the element have ever been made.\nCounted from this table: the first and last of the ten, elements 109 to 118.',
+    )
   })
 
   it('carries exactly these four notes on the families', () => {

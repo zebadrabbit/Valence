@@ -105,6 +105,9 @@ describe('the sentence on the van der Waals radius', () => {
       "A van der Waals radius is worked out from how closely atoms that are not bonded to each other come together in crystals. PubChem's values are not from a single study: they match more than one published set of radii, and about half match none of the sets they were compared with.",
     )
     expect(VDW_RADIUS_NOTE.sourceIds).toEqual(['mantina-2009', 'pubchem-element-pages'])
+    // The paper is located and put in this project's words, not quoted.
+    expect(VDW_RADIUS_NOTE.support.split('\n')[0]).toMatch(/^mantina-2009: not quoted; see section 1, “Introduction”, https:\/\/pmc\.ncbi\.nlm\.nih\.gov\/articles\/PMC3658832\/\. It establishes that .+\.$/)
+    expect(VDW_RADIUS_NOTE.support).not.toContain('as tabulated by Bondi')
   })
 
   it("rests on pages that name a laboratory, not a study, for each of PubChem's 99 values", () => {

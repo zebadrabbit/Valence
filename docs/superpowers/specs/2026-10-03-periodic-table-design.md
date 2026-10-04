@@ -107,7 +107,7 @@ No value is changed because of the report without an entry in `decisions.json`.
 
 **Periodic element:** `atomicNumber`, `symbol`, `name`, `category`, `configuration` (text, with an optional qualifier "predicted" or "calculated"), `standardState` (solid, liquid, or gas, with an `expected` flag), `oxidationStates` (text, optional), `yearDiscovered` (a number or "Ancient"), `atomicMass` (a quantity with its kind: standard atomic weight, or isotope mass with the mass number and an `estimated` flag), optional quantities `electronegativity`, `covalentRadius`, `vdwRadius`, `ionizationEnergy` (with NIST's flag), `electronAffinity`, `meltingPoint`, `boilingPoint`, `density`, and optional `notes` (each with the row it qualifies, its text, and a source). Every quantity has a value, the published text, a unit, and a source. The schema is strict.
 
-**Group, period, and block descriptions:** short authored sentences on what the members share, each with the sources that support it and the supporting passage stored beside it for review. Group 1's description says hydrogen is in the group but is a nonmetal, not an alkali metal.
+**Group, period, and block descriptions:** short authored sentences on what the members share, each with the sources that support it and the supporting passage stored beside it for review. A passage is quoted only where the source's licence allows it (OpenStax, CC BY 4.0, whose citations carry the licence); for any other source the stored support is where the passage is and one sentence, in this project's words, on what it establishes. Group 1's description says hydrogen is in the group but is a nonmetal, not an alkali metal.
 
 ## 6. The table
 

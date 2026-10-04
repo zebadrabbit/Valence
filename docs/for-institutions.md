@@ -139,7 +139,7 @@ The computed values are checked against a table of expected values written from 
 | Electron affinity | PubChem periodic table (from a 1990 compilation) | 57 |
 | Melting point, boiling point, density | PubChem periodic table (from Jefferson Lab) | 103, 93, 96 |
 | Group, period, block, electrons per shell | Worked out in the app from the atomic number and the configuration by tested functions | 118 |
-| Descriptions of groups, periods and blocks; notes in the legends | Written for Valence from OpenStax Chemistry 2e, the IUPAC Red Book, and the IUPAC and Royal Society of Chemistry periodic tables. The passage each sentence rests on is stored beside it in the source code. | |
+| Descriptions of groups, periods and blocks; notes in the legends | Written for Valence from OpenStax Chemistry 2e, the IUPAC Red Book, and the IUPAC and Royal Society of Chemistry periodic tables. Beside each sentence the source code stores what it rests on: the passage itself where it is from OpenStax (licensed CC BY 4.0), and otherwise where the passage is and what it establishes. | |
 
 **Cross-check.** A script compares the saved sources with each other and writes a report (`docs/research/periodic-table/cross-check.md`). Its outcome decided which source is shown:
 
@@ -176,6 +176,6 @@ The report lists 41 values as unresolved: disagreements no decision settles, and
 - Helium's covalent radius (28 pm) and francium's (260 pm), the two ends of that colour scale, are printed on PubChem's pages with no uncertainty, as are six others (neon, promethium, astatine, radon, actinium, protactinium); the other 88 radii have one. Why is not known, because the paper the radii come from was not read. Each of the eight carries a note asking the reader to treat it as an estimate, and the legend shows it for both ends.
 - For the heaviest elements most values are predictions or are missing. Elements 109 to 118 have no ionization energy, and none from fermium on has a van der Waals radius.
 - The scales are linear. For density that puts all 11 gases together at the pale end; for melting point the two ends (helium, carbon) are not ordinary-pressure melting points. The legends say so.
-- The descriptions of the groups, periods and blocks are short and general. Nothing checks automatically that each sentence says no more than the passage stored beside it.
+- The descriptions of the groups, periods and blocks are short and general. Nothing checks automatically that each sentence says no more than the passage stored or located beside it.
 - The pages the descriptions cite were read on 2026-10-03 and are not saved. Whether PubChem's table has changed since that date has not been rechecked.
 - The colours of the table are a design choice, not chemistry data.

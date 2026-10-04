@@ -567,6 +567,10 @@ function buildMolecules(elements) {
 // Molecular orbital diagrams
 
 const MO_SOURCE_ID = 'openstax-chem2e-8.4'
+// OpenStax Chemistry 2e is licensed CC BY 4.0, which is what lets the descriptions in src/chem-data/periodic.ts keep
+// the passages read there. Every citation of the book carries the licence and the attribution OpenStax asks for.
+const OPENSTAX_LICENCE =
+  'Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction'
 // The research file spells the labels out; the app shows the symbols.
 const MO_LABELS = { sigma2s: 'σ2s', 'sigma*2s': 'σ*2s', sigma2p: 'σ2p', 'sigma*2p': 'σ*2p', pi2p: 'π2p', 'pi*2p': 'π*2p' }
 
@@ -586,6 +590,7 @@ function buildMoDiagrams(molecules) {
   const research = expected.mo
   if (research.map((d) => d.id).join() !== 'oxygen,nitrogen') fail('expected.json: expected MO diagrams for oxygen and nitrogen')
   const [{ sourceUrl: url, citation }] = research
+  if (!citation.includes('OpenStax')) fail('expected.json: the MO diagrams are expected to cite OpenStax, whose licence line is added below')
   const diagrams = research.map((d) => {
     if (!molecules.some((m) => m.id === d.id)) fail(`MO diagram ${d.id}: not in the library`)
     if (d.sourceUrl !== url || d.citation !== citation) fail(`MO diagram ${d.id}: expected one source for both diagrams`)
@@ -605,7 +610,7 @@ function buildMoDiagrams(molecules) {
       sourceId: MO_SOURCE_ID,
     }
   })
-  return { diagrams, sources: [{ id: MO_SOURCE_ID, url, citation }] }
+  return { diagrams, sources: [{ id: MO_SOURCE_ID, url, citation: `${citation} ${OPENSTAX_LICENCE}` }] }
 }
 
 // ---------------------------------------------------------------------------
@@ -665,8 +670,9 @@ const PUBCHEM = 'PubChem [Internet]. Bethesda (MD): National Library of Medicine
 
 // What the group, period and block descriptions, the group 3 note and the legend notes in src/chem-data/periodic.ts cite, and
 // (section 6.5) the element card's sentence on electron affinity in src/chem-data/periodicCard.ts. Each
-// page was read on the retrieval date of the saved downloads; the passage read is stored beside the sentence
-// it supports, there, and the pages themselves are not saved.
+// page was read on the retrieval date of the saved downloads. Beside the sentence it supports, there, is the passage
+// read (OpenStax, which is CC BY 4.0, and lines of PubChem's pages) or, for any other source, where the passage
+// is and what it establishes in this project's words. The pages themselves are not saved.
 const OPENSTAX = 'Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019;'
 const OPENSTAX_SECTIONS = [
   ['2.5', 'The Periodic Table', '2-5-the-periodic-table'],
@@ -685,7 +691,7 @@ function descriptionSources(retrieved) {
     ...OPENSTAX_SECTIONS.map(([section, title, page]) => ({
       id: `openstax-chem2e-${section}`,
       url: `https://openstax.org/books/chemistry-2e/pages/${page}`,
-      citation: `${OPENSTAX} Section ${section} ${title} (${retrieved}).`,
+      citation: `${OPENSTAX} Section ${section} ${title} (${retrieved}). ${OPENSTAX_LICENCE}`,
     })),
     {
       id: 'iupac-red-book-2005',
