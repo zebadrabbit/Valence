@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { NO_VALUE, periodicTable, TREND_NOTES, type TrendProperty } from '@/chem-data/periodic'
 import type { PeriodicElement } from '@/chem-data/schema'
-import { quantityText, TRENDS, trendNotes, trendScale } from './trend'
+import { CARD_LABELS } from '@/chem-data/periodicCard'
+import { endNotes, quantityText, TRENDS, trendNotes, trendScale } from './trend'
 
 const element = (symbol: string): PeriodicElement => {
   const found = periodicTable.find((e) => e.symbol === symbol)
@@ -124,6 +125,24 @@ describe('trendNotes', () => {
     expect(texts('ionizationEnergy')).toEqual([])
   })
 
+  it('gives every note an end of a scale carries on that property, not only the first, and none from another row', () => {
+    const carbon = element('C')
+    expect(endNotes('Highest', carbon, 'meltingPoint')).toEqual([{ text: `Highest, carbon: ${carbon.notes!.find((n) => n.row === 'meltingPoint')!.text}`, sourceIds: ['pubchem-element-pages'] }])
+    const twice: PeriodicElement = {
+      ...carbon,
+      notes: [
+        { row: 'meltingPoint', text: 'One.', sourceId: 'a' },
+        { row: 'density', text: 'Not this.', sourceId: 'b' },
+        { row: 'meltingPoint', text: 'Two.', sourceId: 'c' },
+      ],
+    }
+    expect(endNotes('Lowest', twice, 'meltingPoint')).toEqual([
+      { text: 'Lowest, carbon: One.', sourceIds: ['a'] },
+      { text: 'Lowest, carbon: Two.', sourceIds: ['c'] },
+    ])
+    expect(endNotes('Lowest', { ...carbon, notes: undefined }, 'meltingPoint')).toEqual([])
+  })
+
   it('gives every note its sources, all of them known', () => {
     for (const property of PROPERTIES) {
       for (const note of trendNotes(property)) expect(note.sourceIds.length).toBeGreaterThan(0)
@@ -142,5 +161,9 @@ describe('the trend properties', () => {
       density: { name: 'density', label: 'Density' },
     })
     expect(PROPERTIES).toEqual(Object.keys(TREND_NOTES))
+  })
+
+  it("are labelled as the element card labels the same rows", () => {
+    for (const property of PROPERTIES) expect([property, TRENDS[property].label]).toEqual([property, CARD_LABELS[property]])
   })
 })

@@ -53,6 +53,48 @@ export function move(from: number, key: Key): number {
   return (to ?? here).element.atomicNumber
 }
 
+type Modifiers = { altKey: boolean; ctrlKey: boolean; metaKey: boolean; shiftKey: boolean }
+
+/**
+ * What a key pressed on the cell of element `from` does (spec 8): the element focus moves to, which is `from`
+ * itself at an edge; 'open' for Space, which opens the element as Enter does on any link; or null for a key
+ * that is not the table's. Ctrl+Home and Ctrl+End go to the first and last element of the whole table. Every
+ * other modified key is left to the browser: Alt+Left is Back.
+ */
+export function cellKey(from: number, event: { key: string } & Modifiers): number | 'open' | null {
+  const { key } = event
+  if (event.altKey || event.metaKey || event.shiftKey) return null
+  if (event.ctrlKey) return key === 'Home' ? 1 : key === 'End' ? (DETACHED_ROWS.at(-1)?.elements.at(-1)?.atomicNumber ?? null) : null
+  if (key === ' ') return 'open'
+  return key === 'ArrowUp' || key === 'ArrowDown' || key === 'ArrowLeft' || key === 'ArrowRight' || key === 'Home' || key === 'End' ? move(from, key) : null
+}
+
+/**
+ * How a cell or a list entry links to an element. `replace`: choosing elements one after another adds nothing to
+ * the history, so Back leaves the table in one step (spec 4). `keepFocus`: the layout leaves focus on the link
+ * that was chosen, the one exception to its rule of moving focus to the page heading (spec 8).
+ */
+export function elementLink(symbol: string) {
+  return { to: `/explore/elements/${symbol}`, replace: true, state: { keepFocus: true } }
+}
+
+/** The title of the tab at an element's address, before the app's name; none when no element is selected. */
+export function elementTitle(element: PeriodicElement | undefined): string | undefined {
+  return element && `${element.name} (${element.symbol}) · Periodic table`
+}
+
+type Span = { left: number; right: number }
+
+/**
+ * How far a box that scrolls sideways must scroll to bring a cell wholly into view, `margin` inside its edges:
+ * negative to scroll back, 0 when the cell is in view already.
+ */
+export function scrollToShow(box: Span, cell: Span, margin: number): number {
+  if (cell.left < box.left + margin) return cell.left - (box.left + margin)
+  if (cell.right > box.right - margin) return cell.right - (box.right - margin)
+  return 0
+}
+
 export type Highlight =
   | { kind: 'group'; value: number }
   | { kind: 'period'; value: number }

@@ -1,13 +1,13 @@
 import { Card, Sources } from '@/app/explore/InspectorCard'
 import { citations } from '@/chem-data/citations'
-import { CATEGORY_HEADING, CATEGORY_NOTES, describeBlock, describeGroup, describePeriod, GROUP_3_NOTE, periodicTable, type Description } from '@/chem-data/periodic'
+import { CATEGORY_NOTES, describeBlock, describeGroup, describePeriod, GROUP_3_NOTE, periodicTable, type Description } from '@/chem-data/periodic'
 import sources from '@/chem-data/sources.json'
 import { HIGHLIGHT_CHOICES, highlightKey, type Highlight } from './tableLayout'
 
 // What a Sources control lists for authored sentences: each of their sources, under one label.
 const entries = (covers: string, descriptions: readonly Description[]) => descriptions.flatMap((d) => d.sourceIds.map((id) => [covers, id] as const))
 
-/** What the members of the highlighted group, period or block share (spec 6). A family has no description: its notes are under the legend's heading. */
+/** What the members of the highlighted group, period or block share (spec 6). A family has no description: its notes are in a card below the table. */
 export function HighlightDescription({ highlight }: { highlight: Highlight }) {
   if (!highlight || highlight.kind === 'category') return null
   const description = highlight.kind === 'group' ? describeGroup(highlight.value) : highlight.kind === 'period' ? describePeriod(highlight.value) : describeBlock(highlight.value)
@@ -24,7 +24,8 @@ export function HighlightDescription({ highlight }: { highlight: Highlight }) {
 export function TableNotes() {
   return (
     <div className="mt-4 grid grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] items-start gap-3">
-      <Card heading={CATEGORY_HEADING}>
+      {/* Not the legend's heading again: two regions of one page with one name cannot be told apart in a list of headings. */}
+      <Card heading="Notes on the chemical families">
         <ul className="grid list-disc gap-1 pl-5">
           {CATEGORY_NOTES.map((note) => (
             <li key={note.text}>{note.text}</li>

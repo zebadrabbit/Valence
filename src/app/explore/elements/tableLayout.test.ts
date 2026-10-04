@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { CATEGORIES, describeGroup, elementPosition, NO_VALUE, periodicTable, type Block } from '@/chem-data/periodic'
 import type { PeriodicElement } from '@/chem-data/schema'
-import { cellLabel, DETACHED_ROWS, HIGHLIGHT_CHOICES, highlightKey, highlightStatus, isHighlighted, move, type Highlight } from './tableLayout'
+import { cellKey, cellLabel, DETACHED_ROWS, elementLink, elementTitle, HIGHLIGHT_CHOICES, highlightKey, highlightStatus, isHighlighted, move, scrollToShow, type Highlight } from './tableLayout'
 
 const element = (symbol: string): PeriodicElement => {
   const found = periodicTable.find((e) => e.symbol === symbol)
@@ -276,5 +276,89 @@ describe('the highlight choices', () => {
     expect(highlightKey(null)).toBe('')
     expect(highlightKey({ kind: 'group', value: 17 })).toBe('group:17')
     for (const choice of all) expect(periodicTable.some((e) => isHighlighted(e, choice.highlight))).toBe(true)
+  })
+})
+
+describe('elementLink', () => {
+  it("goes to the element's address", () => {
+    expect(elementLink('Xe').to).toBe('/explore/elements/Xe')
+  })
+
+  it('replaces the address, so that Back leaves the table in one step (spec 4)', () => {
+    expect(elementLink('Xe').replace).toBe(true)
+  })
+
+  it('asks the layout to leave focus on the link that was chosen (spec 8)', () => {
+    expect(elementLink('Xe').state).toEqual({ keepFocus: true })
+  })
+})
+
+describe('elementTitle', () => {
+  it("names the element in the tab's title, before the page's", () => {
+    expect(elementTitle(element('F'))).toBe('Fluorine (F) · Periodic table')
+    expect(elementTitle(element('Og'))).toBe('Oganesson (Og) · Periodic table')
+  })
+
+  it("leaves the page's own title when no element is selected", () => {
+    expect(elementTitle(undefined)).toBeUndefined()
+  })
+})
+
+describe('cellKey', () => {
+  const plain = { altKey: false, ctrlKey: false, metaKey: false, shiftKey: false }
+  const press = (from: string, key: string, modifiers: Partial<typeof plain> = {}) => cellKey(z(from), { key, ...plain, ...modifiers })
+
+  it('moves as move() does for an arrow key, Home or End', () => {
+    for (const e of periodicTable) for (const key of KEYS) expect([e.symbol, key, press(e.symbol, key)]).toEqual([e.symbol, key, move(e.atomicNumber, key)])
+  })
+
+  it('answers an arrow key at an edge with the same element, so that the caller still stops the page from scrolling', () => {
+    expect(press('Ra', 'ArrowDown')).toBe(z('Ra'))
+    expect(press('H', 'ArrowLeft')).toBe(z('H'))
+  })
+
+  it('opens the element on Space, as Enter does on any link', () => {
+    expect(press('Fe', ' ')).toBe('open')
+  })
+
+  it('goes to the first and the last element of the whole table on Ctrl+Home and Ctrl+End', () => {
+    expect(press('Fe', 'Home', { ctrlKey: true })).toBe(z('H'))
+    expect(press('Fe', 'End', { ctrlKey: true })).toBe(z('Lr'))
+    expect(press('Ce', 'Home', { ctrlKey: true })).toBe(z('H'))
+  })
+
+  it("leaves every other modified key to the browser: Alt+Left is Back, Shift+Space scrolls up", () => {
+    for (const modifier of ['altKey', 'ctrlKey', 'metaKey', 'shiftKey'] as const) {
+      for (const key of ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' ']) expect([modifier, key, press('Fe', key, { [modifier]: true })]).toEqual([modifier, key, null])
+    }
+    for (const modifier of ['altKey', 'metaKey', 'shiftKey'] as const) {
+      for (const key of ['Home', 'End']) expect([modifier, key, press('Fe', key, { [modifier]: true })]).toEqual([modifier, key, null])
+    }
+    expect(press('Fe', 'Home', { ctrlKey: true, shiftKey: true })).toBeNull()
+  })
+
+  it('leaves every other key alone', () => {
+    for (const key of ['Enter', 'Tab', 'a', 'Escape', 'PageDown']) expect([key, press('Fe', key)]).toEqual([key, null])
+  })
+})
+
+describe('scrollToShow', () => {
+  // A box from 100 to 400 with a margin of 8: a cell is in view between 108 and 392.
+  const shift = (left: number, right: number) => scrollToShow({ left: 100, right: 400 }, { left, right }, 8)
+
+  it('does not move for a cell that is in view', () => {
+    expect(shift(108, 152)).toBe(0)
+    expect(shift(200, 244)).toBe(0)
+    expect(shift(348, 392)).toBe(0)
+  })
+
+  it('scrolls back by as much as the cell is cut off on the left, and the margin', () => {
+    expect(shift(60, 104)).toBe(-48)
+    expect(shift(-500, -456)).toBe(-608)
+  })
+
+  it('scrolls on by as much as the cell is cut off on the right, and the margin', () => {
+    expect(shift(380, 424)).toBe(32)
+    expect(shift(900, 944)).toBe(552)
   })
 })

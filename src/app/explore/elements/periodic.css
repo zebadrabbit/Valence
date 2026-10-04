@@ -55,14 +55,22 @@
   --trend-high: oklch(0.47 0.13 255);
 }
 
+/* Holds the box the tables scroll in and the readout strip under it, and is the container the strip is measured against. */
+.pt-frame {
+  /* 44 px: the smallest cell. With a value printed in it a cell needs more room: 56 px, which still fits
+     a 1366 px screen with the menu open. */
+  --pt-min-cell: 2.75rem;
+  container-type: inline-size;
+}
+.pt-frame[data-values] {
+  --pt-min-cell: 3.5rem;
+}
+
 /*
  * The two tables scroll sideways together inside this box when they do not fit at the smallest cell size;
  * the page itself never scrolls sideways. It is also the container the cells' type sizes are measured against.
  */
 .pt-scroll {
-  /* 44 px: the smallest cell. With a value printed in it a cell needs more room: 56 px, which still fits
-     a 1366 px screen with the menu open. */
-  --pt-min-cell: 2.75rem;
   container-type: inline-size;
   overflow-x: auto;
   /* Holds the visually hidden words of the headers, which would otherwise widen the page from outside this box. */
@@ -71,8 +79,40 @@
   margin: 0 -6px;
   padding: 6px;
 }
-.pt-scroll[data-values] {
-  --pt-min-cell: 3.5rem;
+
+/*
+ * The readout of the element under the pointer or with focus. It is in the table's empty corner while the
+ * whole table is in view. Where the table is narrower than its smallest width and scrolls sideways (the widths
+ * below are the table's min-width without and with values), that corner can be scrolled out of sight, so the
+ * readout is shown in a strip under the scrolling box. The strip keeps room for the three lines it usually
+ * holds, so what is below it seldom moves when the pointer crosses the table.
+ */
+.pt-readout-gap {
+  display: grid;
+}
+.pt-readout-strip {
+  display: none;
+  grid-template-rows: minmax(3.5rem, auto) auto;
+  padding-inline: 0;
+}
+.pt-readout-strip > p {
+  grid-row: 2;
+}
+@container (width < calc(51rem + 40px)) {
+  .pt-readout-gap {
+    display: none;
+  }
+  .pt-readout-strip {
+    display: grid;
+  }
+}
+@container (width < calc(64.5rem + 40px)) {
+  [data-values] .pt-readout-gap {
+    display: none;
+  }
+  [data-values] > .pt-readout-strip {
+    display: grid;
+  }
 }
 
 .pt-table {
@@ -120,6 +160,9 @@
   line-height: 1.15;
   min-height: 2.75rem;
   padding: max(0px, calc(3px - var(--bw)));
+  /* When a key brings a cell into view, room for its focus outline (3 px, 2 px away) inside the edge of the
+     scrolling box and of the window; ElementGrids.tsx uses the same figure. */
+  scroll-margin: 8px;
   text-align: center;
   /* Stated, so that the 44 px floor on the height cannot widen the cell beyond its column. */
   width: 100%;
@@ -181,6 +224,16 @@
 .pt-cell[data-trend='none'] .pt-value {
   margin: 0 min(0px, calc(var(--bw) - 3px)) min(0px, calc(var(--bw) - 3px));
   min-height: clamp(0.75rem, 0.9cqi, 1rem);
+}
+
+/* Forced colours remove a gradient, which would leave an element with no value marked only by the lack of a
+   number. Opting these two boxes out keeps the hatching, drawn in the system's own text colour. */
+@media (forced-colors: active) {
+  .pt-cell[data-trend='none'] .pt-value,
+  .pt-swatch[data-trend='none'] {
+    background: repeating-linear-gradient(45deg, transparent 0 4px, CanvasText 4px 5px);
+    forced-color-adjust: none;
+  }
 }
 
 /* Highlighting changes borders and fills, never opacity: a dimmed cell is still a link and its text keeps

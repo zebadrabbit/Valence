@@ -2,6 +2,7 @@ import { Link } from 'react-router'
 import { Disclosure } from '@/app/explore/InspectorCard'
 import { CATEGORIES, periodicTable } from '@/chem-data/periodic'
 import type { PeriodicElement } from '@/chem-data/schema'
+import { elementLink } from './tableLayout'
 import { quantityText, TRENDS, type TrendProperty } from './trend'
 
 /**
@@ -15,9 +16,7 @@ export function ElementList({ selected, property }: { selected: PeriodicElement 
         {periodicTable.map((element) => (
           <li key={element.symbol} className="py-0.5">
             <Link
-              to={`/explore/elements/${element.symbol}`}
-              replace
-              state={{ keepFocus: true }}
+              {...elementLink(element.symbol)}
               aria-current={element === selected ? 'page' : undefined}
               className="underline underline-offset-4 aria-[current]:font-semibold"
             >

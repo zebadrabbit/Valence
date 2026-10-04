@@ -8,7 +8,7 @@ import { ElementCard } from './ElementCard'
 import { ElementGrids } from './ElementGrids'
 import { ElementList } from './ElementList'
 import './periodic.css'
-import { HIGHLIGHT_CHOICES, highlightKey, highlightStatus, type Highlight } from './tableLayout'
+import { elementTitle, HIGHLIGHT_CHOICES, highlightKey, highlightStatus, type Highlight } from './tableLayout'
 import { TableLegend } from './TableLegend'
 import { HighlightDescription, TableNotes } from './TableNotes'
 import { TRENDS, type TrendProperty } from './trend'
@@ -35,10 +35,11 @@ export function PeriodicTablePage() {
   return (
     <>
       {/* Each element's address has its own title in the tab and in the history; the heading stays the page's. */}
-      <PageHeader title="Periodic table" documentTitle={selected && `${selected.name} (${selected.symbol}) · Periodic table`} parent={{ to: '/explore', label: 'Explore' }} />
+      <PageHeader title="Periodic table" documentTitle={elementTitle(selected)} parent={{ to: '/explore', label: 'Explore' }} />
 
       <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
-        <div className="flex max-w-full items-center gap-2">
+        {/* Wrapping: on a narrow screen the list goes under its label and is not cut short. */}
+        <div className="flex max-w-full flex-wrap items-center gap-x-2 gap-y-1">
           <label htmlFor={colourId} className="whitespace-nowrap">
             Colour by
           </label>
@@ -51,7 +52,7 @@ export function PeriodicTablePage() {
             ))}
           </select>
         </div>
-        <div className="flex max-w-full items-center gap-2">
+        <div className="flex max-w-full flex-wrap items-center gap-x-2 gap-y-1">
           <label htmlFor={highlightId}>Highlight</label>
           <select
             id={highlightId}
@@ -79,9 +80,18 @@ export function PeriodicTablePage() {
       <TableLegend property={property} highlight={highlight} onHighlight={setHighlight} />
       <ElementGrids selected={selected} property={property} highlight={highlight} />
 
-      {/* Choosing an element leaves focus on its cell, so the selection is announced here; so is the highlight. */}
-      <p role="status" className="mt-2 text-sm">
-        {[selected && `Selected: ${selected.name}. Its details are below the table.`, highlightStatus(highlight)].filter(Boolean).join(' ')}
+      {/* Choosing an element leaves focus on its cell, so the selection is announced here. The highlight has a
+          status line of its own: otherwise every element chosen would read the highlighted set out again. */}
+      <div className="mt-2 flex flex-wrap gap-x-3 text-sm">
+        <p role="status">{selected && `Selected: ${selected.name}. Its details are below the table.`}</p>
+        {selected && (
+          <Link to="/explore/elements" replace className="underline underline-offset-4">
+            Clear selection
+          </Link>
+        )}
+      </div>
+      <p role="status" className="text-sm">
+        {highlightStatus(highlight)}
       </p>
 
       <div className="mt-3 grid gap-3">

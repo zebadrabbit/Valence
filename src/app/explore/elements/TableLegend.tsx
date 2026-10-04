@@ -64,6 +64,7 @@ function TrendLegend({ property }: { property: TrendProperty }) {
         <span>
           Highest: {quantityText(max)}, {highest.name.toLowerCase()}
         </span>
+        <span>Shaded on a linear scale between the two.</span>
         <span className="inline-flex items-center gap-1.5">
           <span aria-hidden="true" className="pt-swatch" data-trend="none" />
           {NO_VALUE}: {missing} elements

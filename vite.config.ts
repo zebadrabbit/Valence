@@ -19,5 +19,8 @@ export default defineConfig({
   test: {
     environment: 'node',
     include: ['src/**/*.test.ts'],
+    // Vitest hands a test an empty string for a stylesheet unless told otherwise. One test reads the periodic
+    // table's stylesheet, where its dimming and motion rules are.
+    css: { include: [/periodic\.css/] },
   },
 })
