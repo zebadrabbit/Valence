@@ -194,12 +194,15 @@
   font-size: clamp(0.6875rem, 0.62cqi, 0.875rem);
 }
 /* The digits are the source's. Where they do not all fit on the line, ElementGrids.tsx prints the value rounded
-   to as many as fit, never cut short; the whole value is in the cell's name, the readout, the list and the card. */
+   to as many as fit; the whole value is in the cell's name, the readout, the list and the card. The ellipsis is
+   for what rounding cannot help: at the type sizes here every rounded value fits, but a minimum font size set in
+   the browser can leave room for less, and a value cut with no mark would read as another number. */
 .pt-value {
   font-size: clamp(0.5625rem, 0.7cqi, 0.75rem);
   font-variant-numeric: tabular-nums;
   min-height: 1.1em;
   overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 /* Ten digits and ten points in that type, out of sight, which ElementGrids.tsx measures to know how many fit. */

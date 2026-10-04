@@ -341,8 +341,15 @@ describe('the stylesheet', () => {
     expect(rules).not.toMatch(/@keyframes/i)
   })
 
-  it('never cuts a value short with an ellipsis: a cell prints a long value rounded', () => {
-    expect(rules).not.toMatch(/ellipsis/)
+  it('never cuts a value silently: one too wide for its cell even when rounded is cut with an ellipsis', () => {
+    // A cell prints a long value rounded, and trend.test.ts holds that every value then fits the least room a cell
+    // has, so at the type sizes of this stylesheet the ellipsis never shows. A minimum font size set in the browser
+    // can leave less room than that. Hiding the overflow with nothing to mark it would then show a shorter number
+    // that reads as the value.
+    const value = /\.pt-value\s*\{([^}]*)\}/.exec(rules)?.[1] ?? ''
+    expect(value).toMatch(/overflow:\s*hidden/)
+    expect(value).toMatch(/text-overflow:\s*ellipsis/)
+    expect(value).toMatch(/white-space:\s*nowrap/)
   })
 
   it('keeps the focus outline of a cell clear of the edge of the box the table scrolls in', () => {

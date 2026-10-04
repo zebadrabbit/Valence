@@ -51,8 +51,9 @@ export function cellValue(published: string, room: number): string {
   let places = Math.max(0, Math.min(fraction.length, room - sign.length - whole.length))
   // Rounding can carry into a new digit: 9.96 with room for two digits is 10, not 10.0.
   while (places > 0 && digits(rounded(places).text) > room) places--
-  // ponytail: a value none of whose digits fit is printed to its first digit and overflows its cell, as a whole
-  // number too long for its cell does. No value does at LEAST_ROOM, which a test checks for every value in the table.
+  // ponytail: a value none of whose digits fit is printed to its first digit and is too wide for its cell, as a
+  // whole number too long for its cell is; periodic.css then cuts it with an ellipsis, which shows that it is cut.
+  // No value is at LEAST_ROOM, which a test checks for every value in the table.
   while (places < fraction.length && rounded(places).kept === 0n) places++
   return rounded(places).text
 }
