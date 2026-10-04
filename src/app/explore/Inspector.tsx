@@ -69,7 +69,7 @@ export function Inspector(props: Props) {
             <p>{describeHybridLobes(lobes)}</p>
             {lobes.note && <Note>{lobes.note}</Note>}
             <Note>The lobes are drawn in the ball and stick and wireframe views. Each is a simplified shape, not a computed orbital.</Note>
-            {diagram && <Note>{valenceBondNote(diagram)}</Note>}
+            {diagram && <Note>{valenceBondNote(diagram, molecule)}</Note>}
           </>
         ) : (
           <p>No lobes are drawn for this atom. Hybridization: {derived.hybridization}.</p>

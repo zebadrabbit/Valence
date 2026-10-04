@@ -5,6 +5,7 @@ import { measure } from '@/chem-data/measure'
 import { registry } from '@/chem-data/registry'
 import { GEOMETRY_SOURCE_LABEL } from '@/chem-data/library'
 import {
+  bondDerivedNote,
   bondOrder,
   cited,
   degrees,
@@ -17,6 +18,7 @@ import {
   measurementValue,
   ordinal,
   polarity,
+  publishedValue,
   radius,
   signed,
 } from './format'
@@ -78,6 +80,22 @@ describe('cited', () => {
     expect(new Set(pcl5.bonds.map((b) => headline(pcl5.id, [b.a, b.b])))).toEqual(new Set(['2.124 Å', '2.020 Å']))
     const peroxide = molecule('hydrogen-peroxide')
     expect(new Set(peroxide.bonds.map((b) => headline(peroxide.id, [b.a, b.b])))).toEqual(new Set(['1.475 Å', '0.950 Å']))
+  })
+})
+
+describe('publishedValue', () => {
+  it('writes the digits the source prints, not the stored number', () => {
+    expect(publishedValue(element('H').atomicWeight)).toBe('1.0080')
+    expect(publishedValue(element('Na').atomicWeight)).toBe('22.990')
+    expect(publishedValue({ value: 2.2, published: '2.20', sourceId: 's' })).toBe('2.20')
+  })
+
+  it('writes electronegativities as PubChem prints them, hydrogen and xenon to one decimal', () => {
+    expect(['H', 'Xe', 'C'].map((symbol) => publishedValue(element(symbol).electronegativity))).toEqual(['2.2', '2.6', '2.55'])
+  })
+
+  it('writes the stored number where no published text is stored', () => {
+    expect(publishedValue({ value: 3.44, sourceId: 's' })).toBe('3.44')
   })
 })
 
@@ -167,6 +185,32 @@ describe('bondOrder', () => {
   })
 })
 
+describe('bondDerivedNote', () => {
+  const POLARITY = ' Polarity is the difference between the two cited electronegativities.'
+  const notes = (id: string) => {
+    const derived = deriveBonds(molecule(id), registry.elements)
+    return [...new Set(molecule(id).bonds.map((b, i) => `${b.aromatic ? 'aromatic' : b.resonanceNote ? 'pair' : 'plain'}: ${bondDerivedNote(derived[i]!)}`))]
+  }
+
+  it('says of an ordinary bond only that its order is the drawn one', () => {
+    expect(notes('water')).toEqual([`plain: Bond order and the σ and π count come from the Lewis structure as drawn.${POLARITY}`])
+  })
+
+  it('explains the order 1.5 of a resonance pair, and of no other bond of the molecule', () => {
+    expect(notes('bicarbonate').sort()).toEqual([
+      `pair: The Lewis structure draws one double and one single bond; the pair shares one π bond, so each bond has an effective order of 1.5.${POLARITY}`,
+      `plain: Bond order and the σ and π count come from the Lewis structure as drawn.${POLARITY}`,
+    ])
+  })
+
+  it('explains the order 1.5 of an aromatic bond', () => {
+    expect(notes('benzene').sort()).toEqual([
+      `aromatic: The Lewis structure draws the ring with alternating double and single bonds; the ring bonds share the π bonds equally, so each has an effective order of 1.5.${POLARITY}`,
+      `plain: Bond order and the σ and π count come from the Lewis structure as drawn.${POLARITY}`,
+    ])
+  })
+})
+
 describe('measurementText and measurementValue', () => {
   const water = molecule('water')
   const names = atomNames(water, registry.elements)
@@ -174,28 +218,30 @@ describe('measurementText and measurementValue', () => {
   const [h1, h2] = water.atoms.flatMap((a, i) => (a.element === 'H' ? [i] : []))
 
   it('names both atoms of a distance', () => {
-    expect(measurementText(measure(water, [o, h1!])!, names)).toBe('Distance from Oxygen 1 to Hydrogen 1: 0.958 Å.')
+    expect(measurementText(measure(water, [o, h1!])!, names)).toBe('Distance from Oxygen 1 to Hydrogen 1: 0.958 Å (cited value).')
   })
 
-  it('names the vertex of an angle first, and gives the cited value the card shows', () => {
+  it('names the vertex of an angle first, and gives the cited value the card shows, labelled as cited', () => {
     const angle = measure(water, [h1!, o, h2!])!
-    expect(measurementText(angle, names)).toBe('Angle at Oxygen 1, between Hydrogen 1 and Hydrogen 2: 104.4776°.')
+    expect(measurementText(angle, names)).toBe('Angle at Oxygen 1, between Hydrogen 1 and Hydrogen 2: 104.4776° (cited value).')
     expect(measurementText(angle, names)).toContain(headlineValue(angle))
   })
 
-  it('gives the model value where nothing is cited', () => {
-    expect(measurementText(measure(water, [h1!, h2!])!, names)).toMatch(/^Distance from Hydrogen 1 to Hydrogen 2: 1\.\d{3} Å\.$/)
+  it('gives the model value where nothing is cited, labelled as the model value', () => {
+    expect(measurementText(measure(water, [h1!, h2!])!, names)).toMatch(/^Distance from Hydrogen 1 to Hydrogen 2: 1\.\d{3} Å \(measured from the model\)\.$/)
   })
 
   it('lists the four atoms of a dihedral in order', () => {
     const peroxide = molecule('hydrogen-peroxide')
     const atoms = peroxide.measurements!.dihedrals[0]!.atoms
     expect(measurementText(measure(peroxide, atoms)!, atomNames(peroxide, registry.elements))).toBe(
-      'Dihedral Hydrogen 1, Oxygen 1, Oxygen 2, Hydrogen 2: 119.8°.',
+      'Dihedral Hydrogen 1, Oxygen 1, Oxygen 2, Hydrogen 2: 119.8° (cited value).',
     )
   })
 
   it('says so when a dihedral has no value', () => {
-    expect(measurementValue({ kind: 'dihedral', atoms: [0, 1, 2, 3], value: null })).toBe('not defined (three of the atoms lie in a line)')
+    const undefinedDihedral = { kind: 'dihedral', atoms: [0, 1, 2, 3], value: null } as const
+    expect(measurementValue(undefinedDihedral)).toBe('not defined (three of the atoms lie in a line)')
+    expect(measurementText(undefinedDihedral, ['A', 'B', 'C', 'D'])).toBe('Dihedral A, B, C, D: not defined (three of the atoms lie in a line).')
   })
 })

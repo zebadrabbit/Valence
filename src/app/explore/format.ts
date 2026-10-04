@@ -1,8 +1,8 @@
-import { BOND_KINDS, type DerivedBond } from '@/chem-data/derive'
+import { AROMATIC_ORDER_LABEL, BOND_KINDS, RESONANCE_ORDER_LABEL, type DerivedBond } from '@/chem-data/derive'
 import { evToKjPerMol } from '@/chem-data/element'
 import { GEOMETRY_SOURCE_LABEL } from '@/chem-data/library'
 import type { Measurement } from '@/chem-data/measure'
-import type { Molecule } from '@/chem-data/schema'
+import type { Element, Molecule } from '@/chem-data/schema'
 
 // How the inspector cards write numbers. Minus signs are the real character (U+2212), not a hyphen.
 
@@ -37,6 +37,11 @@ export function cited({ value, published }: NonNullable<Measurement['cited']>, k
   return `${(published ?? String(value)).replace('-', MINUS)}${kind === 'distance' ? ' Å' : '°'}`
 }
 
+/** An atomic weight or electronegativity, in the digits its source prints. */
+export function publishedValue({ value, published }: Element['atomicWeight']): string {
+  return published ?? String(value)
+}
+
 /** A bond's polarity: the difference between two Pauling electronegativities, which are given to 0.01. */
 export function polarity(electronegativityDifference: number): string {
   return fixed(electronegativityDifference, 2)
@@ -65,6 +70,20 @@ export function bondOrder(bond: DerivedBond): string {
   return bond.orderLabel ? `${bond.orderLabel}, order ${bond.displayOrder}` : `${bond.displayOrder} (${BOND_KINDS[bond.displayOrder - 1]})`
 }
 
+const DRAWN_ORDER = 'Bond order and the σ and π count come from the Lewis structure as drawn.'
+/** Where a delocalised bond's order of 1.5 comes from, by its order label. */
+const DELOCALISED_ORDER: Readonly<Record<string, string>> = {
+  [RESONANCE_ORDER_LABEL]:
+    'The Lewis structure draws one double and one single bond; the pair shares one π bond, so each bond has an effective order of 1.5.',
+  [AROMATIC_ORDER_LABEL]:
+    'The Lewis structure draws the ring with alternating double and single bonds; the ring bonds share the π bonds equally, so each has an effective order of 1.5.',
+}
+
+/** What the Sources of a bond card say about its derived values: the order as this bond shows it, then polarity. */
+export function bondDerivedNote(bond: DerivedBond): string {
+  return `${DELOCALISED_ORDER[bond.orderLabel ?? ''] ?? DRAWN_ORDER} Polarity is the difference between the two cited electronegativities.`
+}
+
 /** The value measured from the model's coordinates, or why there is none. */
 export function measurementValue({ kind, value }: Measurement): string {
   if (value === null) return 'not defined (three of the atoms lie in a line)'
@@ -88,7 +107,10 @@ export function measuredNote(molecule: Molecule, measurement: Measurement): stri
     : `Measured from the model's coordinates. Model geometry: ${label}.`
 }
 
-/** One sentence for the status line: what was measured, between which atoms, and the result. Names come from atomNames. */
+/**
+ * One sentence for the status line: what was measured, between which atoms, the result, and whether
+ * it is the cited value or the model's, as the card's note says. Names come from atomNames.
+ */
 export function measurementText(measurement: Measurement, atomNames: readonly string[]): string {
   const [a, b, c, d] = measurement.atoms.map((i) => atomNames[i])
   const what =
@@ -97,5 +119,6 @@ export function measurementText(measurement: Measurement, atomNames: readonly st
       : measurement.kind === 'angle'
         ? `Angle at ${b}, between ${a} and ${c}`
         : `Dihedral ${a}, ${b}, ${c}, ${d}`
-  return `${what}: ${headlineValue(measurement)}.`
+  const source = measurement.cited ? ' (cited value)' : measurement.value === null ? '' : ' (measured from the model)'
+  return `${what}: ${headlineValue(measurement)}${source}.`
 }

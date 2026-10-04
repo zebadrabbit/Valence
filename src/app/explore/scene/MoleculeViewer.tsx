@@ -309,6 +309,8 @@ function Controls({ radius, reducedMotion, viewRef }: { radius: number; reducedM
     const distance = framingDistance(radius, FOV, aspect)
     const zoom = framed.current ? camera.position.length() / framed.current : 1
     framed.current = distance
+    // Zooming in is allowed to crop: from about two steps in, the outer atoms, lone pairs and lobes
+    // leave the frame, as in any viewer. Reset view frames the whole model again.
     controls.minDistance = radius * 1.1
     controls.maxDistance = distance * 4
     camera.position.setLength(Math.min(Math.max(distance * zoom, controls.minDistance), controls.maxDistance))

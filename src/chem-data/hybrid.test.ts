@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { HYBRIDIZATION, deriveAtoms } from './derive'
 import { dot } from './geometry'
 import { DELOCALISED_PAIR_NOTE, VALENCE_BOND_NOTE, describeHybridLobes, hybridLobes, valenceBondNote } from './hybrid'
+import { bondOrder, unpairedElectrons } from './mo'
 import { registry } from './registry'
 
 const { elements } = registry
@@ -83,12 +84,26 @@ describe('valenceBondNote', () => {
   const diagramOf = (id: string) => registry.moDiagrams.find((d) => d.moleculeId === id)!
 
   it('says the molecular orbital diagram is the better description of O₂, whose unpaired electrons the lobes do not show', () => {
-    expect(valenceBondNote(diagramOf('oxygen'))).toBe(VALENCE_BOND_NOTE)
+    expect(valenceBondNote(diagramOf('oxygen'), moleculeOf('oxygen'))).toBe(VALENCE_BOND_NOTE)
   })
 
   it('says both pictures give N₂ a triple bond', () => {
-    expect(valenceBondNote(diagramOf('nitrogen'))).toBe(
+    expect(valenceBondNote(diagramOf('nitrogen'), moleculeOf('nitrogen'))).toBe(
       'The lobes are the valence bond picture. The molecular orbital diagram below agrees with it here: both give a triple bond with every electron paired.',
     )
+  })
+
+  it('claims agreement only where the diagram gives the bond order the Lewis structure draws', () => {
+    const nitrogen = moleculeOf('nitrogen')
+    const diagram = diagramOf('nitrogen')
+    // With the σ2p pair removed every electron is still paired, but the order is 2 against a drawn triple bond.
+    const levels = diagram.levels.map((level) => (level.label === 'σ2p' ? { ...level, electrons: 0 } : level))
+    expect(bondOrder({ ...diagram, levels })).toBe(2)
+    expect(unpairedElectrons({ ...diagram, levels })).toBe(0)
+    expect(valenceBondNote({ ...diagram, levels }, nitrogen)).toBe(VALENCE_BOND_NOTE)
+    // A half-integer order is never worded as a kind of bond.
+    const odd = diagram.levels.map((level) => (level.label === 'σ2p' ? { ...level, electrons: 1 } : level))
+    expect(bondOrder({ ...diagram, levels: odd })).toBe(2.5)
+    expect(valenceBondNote({ ...diagram, levels: odd }, nitrogen)).toBe(VALENCE_BOND_NOTE)
   })
 })

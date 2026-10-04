@@ -231,6 +231,8 @@ function checkMeasurements(registry: Registry): string[] {
 }
 
 // A `published` string is the source's own text for the number stored beside it, so it must read as that number.
+// That one is present wherever the source prints a figure is not checked here: the build script fails on a
+// missing one, and registry.test.ts pins the values that have none.
 const PLAIN_NUMBER = /^-?\d+(\.\d+)?$/
 
 function checkPublished(value: unknown, path: string): string[] {

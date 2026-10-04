@@ -141,6 +141,14 @@ describe('moleculeSchema', () => {
     }
   })
 
+  it('accepts the published text of a measurement, and rejects an empty one and an unknown key', () => {
+    const length = { atoms: [0, 1], value: 0.95, sourceId: 's1' }
+    const parse = (entry: object) => moleculeSchema.safeParse({ ...molecule, measurements: { lengths: [entry], angles: [], dihedrals: [] } }).success
+    expect(parse({ ...length, published: '0.950' })).toBe(true)
+    expect(parse({ ...length, published: '' })).toBe(false)
+    expect(parse({ ...length, published: '0.950', printed: '0.950' })).toBe(false)
+  })
+
   it('rejects an unknown geometry source', () => {
     const molecule = {
       id: 'h2',

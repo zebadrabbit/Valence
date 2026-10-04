@@ -85,7 +85,7 @@ export type DerivedBond = {
   /** 1.5 for an aromatic bond and for a bond of a resonance pair; the stored Kekulé order otherwise. */
   displayOrder: number
   orderLabel?: string
-  /** For a bond of a resonance pair: its resonance note, and the order it is drawn with. */
+  /** For a bond of a resonance pair: how the Lewis structure draws it, and that the two real bonds are equal. */
   orderNote?: string
 }
 
@@ -193,7 +193,7 @@ export function deriveBonds(molecule: Molecule, elements: readonly Element[]): D
         sigmaPi: RESONANCE_SIGMA_PI,
         displayOrder: 1.5,
         orderLabel: RESONANCE_ORDER_LABEL,
-        orderNote: `${bond.resonanceNote}. Drawn here as a ${BOND_KINDS[bond.order - 1]} bond.`,
+        orderNote: `The Lewis structure draws this bond as a ${BOND_KINDS[bond.order - 1]} bond, in one of two equivalent resonance structures; the two real bonds are equal.`,
       }
     }
     return { ...shared, sigmaPi: SIGMA_PI[bond.order], displayOrder: bond.order }

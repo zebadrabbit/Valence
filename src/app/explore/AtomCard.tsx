@@ -5,7 +5,7 @@ import { formulaParts } from '@/chem-data/formula'
 import { registry } from '@/chem-data/registry'
 import type { Element, Molecule } from '@/chem-data/schema'
 import { FormulaParts } from './Formula'
-import { kjPerMol, ordinal, radius, signed } from './format'
+import { kjPerMol, ordinal, publishedValue, radius, signed } from './format'
 import { Card, Disclosure, Note, Row, Rows, Sources } from './InspectorCard'
 
 const DERIVED =
@@ -20,9 +20,9 @@ export function AtomCard(props: { name: string; atom: Molecule['atoms'][number];
         <Row label="Symbol">{element.symbol}</Row>
         <Row label="Element">{element.name}</Row>
         <Row label="Atomic number">{element.atomicNumber}</Row>
-        <Row label="Standard atomic weight">{element.atomicWeight.published ?? element.atomicWeight.value}</Row>
+        <Row label="Standard atomic weight">{publishedValue(element.atomicWeight)}</Row>
         <Row label="Electronegativity" note={element.electronegativity.note}>
-          {element.electronegativity.published ?? element.electronegativity.value} (Pauling)
+          {publishedValue(element.electronegativity)} (Pauling)
         </Row>
         <Row label="Valence electrons">{valenceElectrons(element)}</Row>
         <Row label="Formal charge">{signed(atom.formalCharge)}</Row>

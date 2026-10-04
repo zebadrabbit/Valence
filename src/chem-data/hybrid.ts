@@ -14,14 +14,16 @@ export const DELOCALISED_PAIR_NOTE =
 
 /**
  * Shown with the lobes of a molecule that also has a molecular orbital diagram, so the two models
- * are not read as one. The diagram is the better description only where the pictures disagree:
- * its unpaired electrons (O₂) are paired in the valence bond picture. Where it has none (N₂),
- * both give the same bond.
+ * are not read as one. The diagram is the better description wherever the pictures disagree:
+ * its unpaired electrons (O₂) are paired in the valence bond picture, and a bond order other than
+ * the one the Lewis structure draws would be another disagreement. Where every electron is paired
+ * and the orders match (N₂), both give the same bond.
  */
 export const VALENCE_BOND_NOTE = 'The lobes are the valence bond picture. The molecular orbital diagram below describes this molecule better.'
-export function valenceBondNote(diagram: MoDiagram): string {
-  if (unpairedElectrons(diagram) > 0) return VALENCE_BOND_NOTE
-  const kind = BOND_KINDS[bondOrder(diagram) - 1]
+export function valenceBondNote(diagram: MoDiagram, molecule: Molecule): string {
+  const [bond, ...others] = molecule.bonds
+  if (unpairedElectrons(diagram) > 0 || others.length > 0 || bond?.order !== bondOrder(diagram)) return VALENCE_BOND_NOTE
+  const kind = BOND_KINDS[bond.order - 1]
   return `The lobes are the valence bond picture. The molecular orbital diagram below agrees with it here: both give a ${kind} bond with every electron paired.`
 }
 

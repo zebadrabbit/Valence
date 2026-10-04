@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   AROMATIC_ORDER_LABEL,
+  BOND_KINDS,
   D_ORBITAL_NOTE,
   HYBRIDIZATION_HYDROGEN,
   HYBRIDIZATION_NOT_ASSIGNED,
@@ -93,6 +94,10 @@ describe('derived values against the expected-values table', () => {
       expect(multiset(got), want.id).toEqual(
         multiset(want.bonds.map((b) => [b.elements.join('-'), b.order, b.aromatic, b.sigmaPi])),
       )
+      // What deriveBonds says of a resonance-pair bond names the kind the table expects it drawn as.
+      m.bonds.forEach((b, i) => {
+        if (b.resonanceNote) expect(derived[i]!.orderNote, want.id).toContain(`as a ${BOND_KINDS[b.order - 1]} bond`)
+      })
     })
 
     it('has oxidation states that sum to the charge', () => {
@@ -270,7 +275,9 @@ describe('deriveBonds', () => {
       expect(pair.map((b) => b.order).sort()).toEqual([1, 2])
       for (const bond of pair) {
         expect(bond).toMatchObject({ displayOrder: 1.5, orderLabel: RESONANCE_ORDER_LABEL, sigmaPi: RESONANCE_SIGMA_PI })
-        expect(bond.orderNote).toBe(`${bond.resonanceNote}. Drawn here as a ${bond.order === 2 ? 'double' : 'single'} bond.`)
+        expect(bond.orderNote).toBe(
+          `The Lewis structure draws this bond as a ${bond.order === 2 ? 'double' : 'single'} bond, in one of two equivalent resonance structures; the two real bonds are equal.`,
+        )
       }
       // Every other bond keeps its stored order and has no note.
       m.bonds.forEach((b, i) => {
