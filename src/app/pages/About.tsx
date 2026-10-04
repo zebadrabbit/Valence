@@ -33,8 +33,17 @@ export function About() {
             Data sources
           </h2>
           <p className="mb-2">
-            Every chemistry value in Valence is curated by hand with a cited source and checked by automated tests.
-            Where data comes from PubChem, it is provided by the National Library of Medicine without warranty; see the{' '}
+            Every chemistry value in Valence has a cited source. The values of the molecule explorer were curated by
+            hand and are checked by automated tests. The periodic table is built by a script from saved copies of its
+            sources, which were compared with each other; where a value needs a caution, the element's card carries a
+            note.
+          </p>
+          <p className="mb-2">
+            Valence relies on data published by PubChem (National Library of Medicine, National Center for
+            Biotechnology Information), by the IUPAC Commission on Isotopic Abundances and Atomic Weights (CIAAW) and by
+            the National Institute of Standards and Technology (NIST). None of them is connected with Valence or has
+            reviewed it. Where data comes from PubChem, it is provided by the National Library of Medicine without
+            warranty; see the{' '}
             <a
               href="https://www.ncbi.nlm.nih.gov/home/about/policies/"
               className="underline underline-offset-4"
