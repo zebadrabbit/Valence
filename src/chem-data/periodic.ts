@@ -406,7 +406,7 @@ export const GROUP_3_NOTE: Description = description(
   ],
 )
 
-export type Category = PeriodicElement['category']
+type Category = PeriodicElement['category']
 
 /**
  * PubChem's ten categories as the legend lists them (periodic table spec 5.5), in the order the table meets them

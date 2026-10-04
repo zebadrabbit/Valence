@@ -16,13 +16,13 @@ import {
   measuredNote,
   measurementText,
   measurementValue,
-  minusSigns,
   ordinal,
   polarity,
   publishedValue,
   radius,
   signed,
 } from './format'
+import { minusSigns } from './minus'
 
 const molecule = (id: string) => registry.molecules.find((m) => m.id === id)!
 const element = (symbol: string) => registry.elements.find((e) => e.symbol === symbol)!

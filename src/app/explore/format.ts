@@ -3,11 +3,10 @@ import { evToKjPerMol } from '@/chem-data/element'
 import { GEOMETRY_SOURCE_LABEL } from '@/chem-data/library'
 import type { Measurement } from '@/chem-data/measure'
 import type { Element, Molecule } from '@/chem-data/schema'
-import { MINUS, minusSigns } from './minus'
+import { MINUS } from './minus'
 
 // How the inspector cards write numbers. Minus signs are the real character (U+2212), not a hyphen.
 
-export { minusSigns }
 const fixed = (value: number, digits: number) => {
   const text = Math.abs(value).toFixed(digits)
   return value < 0 && Number(text) !== 0 ? MINUS + text : text
