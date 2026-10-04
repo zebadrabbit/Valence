@@ -22,7 +22,7 @@ export function AtomCard(props: { name: string; atom: Molecule['atoms'][number];
         <Row label="Atomic number">{element.atomicNumber}</Row>
         <Row label="Standard atomic weight">{element.atomicWeight.published ?? element.atomicWeight.value}</Row>
         <Row label="Electronegativity" note={element.electronegativity.note}>
-          {element.electronegativity.value} (Pauling)
+          {element.electronegativity.published ?? element.electronegativity.value} (Pauling)
         </Row>
         <Row label="Valence electrons">{valenceElectrons(element)}</Row>
         <Row label="Formal charge">{signed(atom.formalCharge)}</Row>

@@ -72,7 +72,8 @@
           1
         ],
         "value": 0.958,
-        "sourceId": "cccbdb-water"
+        "sourceId": "cccbdb-water",
+        "published": "0.958"
       },
       {
         "atoms": [
@@ -80,7 +81,8 @@
           2
         ],
         "value": 0.958,
-        "sourceId": "cccbdb-water"
+        "sourceId": "cccbdb-water",
+        "published": "0.958"
       }
     ],
     "angles": [
@@ -91,7 +93,8 @@
           2
         ],
         "value": 104.4776,
-        "sourceId": "cccbdb-water"
+        "sourceId": "cccbdb-water",
+        "published": "104.4776"
       }
     ],
     "dihedrals": []

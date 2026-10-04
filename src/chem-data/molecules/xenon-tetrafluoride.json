@@ -112,7 +112,8 @@
           1
         ],
         "value": 1.935,
-        "sourceId": "cccbdb-xenon-tetrafluoride"
+        "sourceId": "cccbdb-xenon-tetrafluoride",
+        "published": "1.935"
       },
       {
         "atoms": [
@@ -120,7 +121,8 @@
           2
         ],
         "value": 1.935,
-        "sourceId": "cccbdb-xenon-tetrafluoride"
+        "sourceId": "cccbdb-xenon-tetrafluoride",
+        "published": "1.935"
       },
       {
         "atoms": [
@@ -128,7 +130,8 @@
           3
         ],
         "value": 1.935,
-        "sourceId": "cccbdb-xenon-tetrafluoride"
+        "sourceId": "cccbdb-xenon-tetrafluoride",
+        "published": "1.935"
       },
       {
         "atoms": [
@@ -136,7 +139,8 @@
           4
         ],
         "value": 1.935,
-        "sourceId": "cccbdb-xenon-tetrafluoride"
+        "sourceId": "cccbdb-xenon-tetrafluoride",
+        "published": "1.935"
       }
     ],
     "angles": [
@@ -147,7 +151,8 @@
           3
         ],
         "value": 90,
-        "sourceId": "cccbdb-xenon-tetrafluoride"
+        "sourceId": "cccbdb-xenon-tetrafluoride",
+        "published": "90"
       },
       {
         "atoms": [
@@ -156,7 +161,8 @@
           4
         ],
         "value": 90,
-        "sourceId": "cccbdb-xenon-tetrafluoride"
+        "sourceId": "cccbdb-xenon-tetrafluoride",
+        "published": "90"
       },
       {
         "atoms": [
@@ -165,7 +171,8 @@
           3
         ],
         "value": 90,
-        "sourceId": "cccbdb-xenon-tetrafluoride"
+        "sourceId": "cccbdb-xenon-tetrafluoride",
+        "published": "90"
       },
       {
         "atoms": [
@@ -174,7 +181,8 @@
           4
         ],
         "value": 90,
-        "sourceId": "cccbdb-xenon-tetrafluoride"
+        "sourceId": "cccbdb-xenon-tetrafluoride",
+        "published": "90"
       },
       {
         "atoms": [
@@ -183,7 +191,8 @@
           2
         ],
         "value": 180,
-        "sourceId": "cccbdb-xenon-tetrafluoride"
+        "sourceId": "cccbdb-xenon-tetrafluoride",
+        "published": "180"
       },
       {
         "atoms": [
@@ -192,7 +201,8 @@
           4
         ],
         "value": 180,
-        "sourceId": "cccbdb-xenon-tetrafluoride"
+        "sourceId": "cccbdb-xenon-tetrafluoride",
+        "published": "180"
       }
     ],
     "dihedrals": []

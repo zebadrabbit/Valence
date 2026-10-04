@@ -92,7 +92,8 @@
           1
         ],
         "value": 1.012,
-        "sourceId": "cccbdb-ammonia"
+        "sourceId": "cccbdb-ammonia",
+        "published": "1.012"
       },
       {
         "atoms": [
@@ -100,7 +101,8 @@
           2
         ],
         "value": 1.012,
-        "sourceId": "cccbdb-ammonia"
+        "sourceId": "cccbdb-ammonia",
+        "published": "1.012"
       },
       {
         "atoms": [
@@ -108,7 +110,8 @@
           3
         ],
         "value": 1.012,
-        "sourceId": "cccbdb-ammonia"
+        "sourceId": "cccbdb-ammonia",
+        "published": "1.012"
       }
     ],
     "angles": [
@@ -119,7 +122,8 @@
           2
         ],
         "value": 106.67,
-        "sourceId": "cccbdb-ammonia"
+        "sourceId": "cccbdb-ammonia",
+        "published": "106.67"
       },
       {
         "atoms": [
@@ -128,7 +132,8 @@
           3
         ],
         "value": 106.67,
-        "sourceId": "cccbdb-ammonia"
+        "sourceId": "cccbdb-ammonia",
+        "published": "106.67"
       },
       {
         "atoms": [
@@ -137,7 +142,8 @@
           3
         ],
         "value": 106.67,
-        "sourceId": "cccbdb-ammonia"
+        "sourceId": "cccbdb-ammonia",
+        "published": "106.67"
       }
     ],
     "dihedrals": []

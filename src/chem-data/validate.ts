@@ -103,11 +103,7 @@ function checkStructure(registry: Registry): string[] {
         errors.push(`${label} refers to a missing atom`)
         continue
       }
-      const length = Math.hypot(
-        a.position[0] - b.position[0],
-        a.position[1] - b.position[1],
-        a.position[2] - b.position[2],
-      )
+      const length = distance(a.position, b.position)
       const minimum = a.element === 'H' || b.element === 'H' ? MIN_BOND_TO_H : MIN_HEAVY_BOND
       if (length < minimum) {
         errors.push(`${label} is ${length.toFixed(3)} Å, shorter than ${minimum} Å (looks like a 2D drawing)`)
@@ -234,6 +230,20 @@ function checkMeasurements(registry: Registry): string[] {
   return errors
 }
 
+// A `published` string is the source's own text for the number stored beside it, so it must read as that number.
+const PLAIN_NUMBER = /^-?\d+(\.\d+)?$/
+
+function checkPublished(value: unknown, path: string): string[] {
+  if (Array.isArray(value)) return value.flatMap((item, i) => checkPublished(item, `${path}[${i}]`))
+  if (!value || typeof value !== 'object') return []
+  const errors = Object.entries(value).flatMap(([key, child]) => checkPublished(child, `${path}.${key}`))
+  const { published, value: stored } = value as { published?: unknown; value?: unknown }
+  if (typeof published === 'string' && !(PLAIN_NUMBER.test(published) && Number(published) === stored)) {
+    errors.push(`${path}: published "${published}" is not the stored value ${String(stored)}`)
+  }
+  return errors
+}
+
 const HEX_COLOR = /^#[0-9a-fA-F]{6}$/
 
 function checkProse(registry: Registry, names: readonly string[]): string[] {
@@ -267,6 +277,7 @@ export function validateRegistry(input: unknown, options: ValidateOptions = {}):
     ...checkLewis(registry),
     ...checkMeasurements(registry),
     ...checkMoDiagrams(registry),
+    ...checkPublished(registry, 'registry'),
     ...checkProse(registry, options.institutionNames ?? []),
   ]
 }

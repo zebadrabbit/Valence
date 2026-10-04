@@ -72,7 +72,8 @@
           1
         ],
         "value": 1.162,
-        "sourceId": "cccbdb-carbon-dioxide"
+        "sourceId": "cccbdb-carbon-dioxide",
+        "published": "1.162"
       },
       {
         "atoms": [
@@ -80,7 +81,8 @@
           2
         ],
         "value": 1.162,
-        "sourceId": "cccbdb-carbon-dioxide"
+        "sourceId": "cccbdb-carbon-dioxide",
+        "published": "1.162"
       }
     ],
     "angles": [
@@ -91,7 +93,8 @@
           2
         ],
         "value": 180,
-        "sourceId": "cccbdb-carbon-dioxide"
+        "sourceId": "cccbdb-carbon-dioxide",
+        "published": "180"
       }
     ],
     "dihedrals": []

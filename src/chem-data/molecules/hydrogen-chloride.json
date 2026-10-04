@@ -52,7 +52,8 @@
           1
         ],
         "value": 1.275,
-        "sourceId": "cccbdb-hydrogen-chloride"
+        "sourceId": "cccbdb-hydrogen-chloride",
+        "published": "1.275"
       }
     ],
     "angles": [],

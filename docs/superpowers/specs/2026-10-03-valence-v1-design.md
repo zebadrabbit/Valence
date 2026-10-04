@@ -71,6 +71,7 @@ Every chemistry value shown to a learner or used by a model is stored in `chem-d
 
 - A record's `sourceId` covers every value in it unless a value carries its own.
 - Values that section 5.2 cites individually (experimental lengths and angles, thermodynamic values, observation rows) are stored as `{ value, sourceId }`.
+- An atomic weight, an electronegativity, and a cited experimental length, angle or dihedral also store `published`: the text the source prints for the number, which keeps its digits ("1.0080", "2.020 Å" for PCl₅). The UI shows that text; the number is for calculation. `published` is absent only where the source prints no figure (the PCl₅ angles, which follow from its point group), and the UI then shows the stored number. Values measured from the model's coordinates are labelled as such and shown to 0.001 Å and 0.1°.
 - Three kinds of field are exempt from citation, and the schema marks which is which: authored structure (formal charge, lone pairs, bond orders, 2D layout); values derived in TypeScript; and model parameters, stored as `{ value, rationale }`.
 
 The validator runs in tests and in the build, over both folders, and fails when:
@@ -78,7 +79,8 @@ The validator runs in tests and in the build, over both folders, and fails when:
 1. a field that requires a source has none, or names a `sourceId` that does not exist;
 2. an ID referenced by a station or mechanism does not exist;
 3. a molecule file's coordinates look like a 2D drawing: any bond to hydrogen shorter than 0.80 Å, or any bond between two non-hydrogen atoms shorter than 1.05 Å;
-4. any authored prose string (chem-data text, mechanism text, lab primers) matches an institution-specific pattern: a location word (`room`, `building`, `cabinet`, `shelf`, `stockroom`) followed by a number or letter-number code; a course-number shape (two to four letters followed by three or four digits, excluding text that follows `CID`, `CAS`, or a citation year); or a name from a configurable list. The validator's tests pin this: "room temperature", "building block", "CID 962", and "NIST 2022" must pass; "Room 214", "CHEM 1411", and "cabinet B3" must fail.
+4. any authored prose string (chem-data text, mechanism text, lab primers) matches an institution-specific pattern: a location word (`room`, `building`, `cabinet`, `shelf`, `stockroom`) followed by a number or letter-number code; a course-number shape (two to four letters followed by three or four digits, excluding text that follows `CID`, `CAS`, or a citation year); or a name from a configurable list. The validator's tests pin this: "room temperature", "building block", "CID 962", and "NIST 2022" must pass; "Room 214", "CHEM 1411", and "cabinet B3" must fail;
+5. a `published` string is not a plain decimal number equal to the number stored beside it.
 
 PubChem CIDs are stored for identity and outbound links. Nothing is fetched at runtime.
 

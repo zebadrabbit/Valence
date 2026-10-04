@@ -52,7 +52,8 @@
           1
         ],
         "value": 1.098,
-        "sourceId": "cccbdb-nitrogen"
+        "sourceId": "cccbdb-nitrogen",
+        "published": "1.098"
       }
     ],
     "angles": [],

@@ -92,7 +92,8 @@
           1
         ],
         "value": 1.307,
-        "sourceId": "cccbdb-boron-trifluoride"
+        "sourceId": "cccbdb-boron-trifluoride",
+        "published": "1.307"
       },
       {
         "atoms": [
@@ -100,7 +101,8 @@
           2
         ],
         "value": 1.307,
-        "sourceId": "cccbdb-boron-trifluoride"
+        "sourceId": "cccbdb-boron-trifluoride",
+        "published": "1.307"
       },
       {
         "atoms": [
@@ -108,7 +110,8 @@
           3
         ],
         "value": 1.307,
-        "sourceId": "cccbdb-boron-trifluoride"
+        "sourceId": "cccbdb-boron-trifluoride",
+        "published": "1.307"
       }
     ],
     "angles": [
@@ -119,7 +122,8 @@
           2
         ],
         "value": 120,
-        "sourceId": "cccbdb-boron-trifluoride"
+        "sourceId": "cccbdb-boron-trifluoride",
+        "published": "120"
       },
       {
         "atoms": [
@@ -128,7 +132,8 @@
           3
         ],
         "value": 120,
-        "sourceId": "cccbdb-boron-trifluoride"
+        "sourceId": "cccbdb-boron-trifluoride",
+        "published": "120"
       },
       {
         "atoms": [
@@ -137,7 +142,8 @@
           3
         ],
         "value": 120,
-        "sourceId": "cccbdb-boron-trifluoride"
+        "sourceId": "cccbdb-boron-trifluoride",
+        "published": "120"
       }
     ],
     "dihedrals": []

@@ -21,7 +21,7 @@ describe('measure', () => {
     const [o] = indices('water', 'O')
     const [h1] = indices('water', 'H')
     const result = measure(water, [o!, h1!])
-    expect(result).toMatchObject({ kind: 'distance', atoms: [o, h1], cited: { value: 0.958, sourceId: 'cccbdb-water' } })
+    expect(result).toMatchObject({ kind: 'distance', atoms: [o, h1], cited: { value: 0.958, published: '0.958', sourceId: 'cccbdb-water' } })
     expect(result!.value).toBeCloseTo(0.958, 3)
   })
 

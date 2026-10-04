@@ -212,7 +212,9 @@ function buildElements() {
       if (ie.value !== Number(ie.valueAsPublished)) fail(`${where}: ionization energy ${i + 1} differs from the published text`)
       if (ie.sourceId !== e.ionizationEnergiesEV[0].sourceId) fail(`${where}: ionization energies have mixed sources`)
     })
-    if (e.atomicWeight.value !== Number(e.atomicWeight.valueAsPublished)) fail(`${where}: atomic weight differs from the published text`)
+    for (const [label, cited] of [['atomic weight', e.atomicWeight], ['electronegativity', e.electronegativity]]) {
+      if (typeof cited.valueAsPublished !== 'string' || cited.value !== Number(cited.valueAsPublished)) fail(`${where}: ${label} differs from the published text`)
+    }
     if (e.shells.reduce((sum, n) => sum + n, 0) !== e.atomicNumber) fail(`${where}: shells do not sum to Z`)
     if (e.shells.at(-1) !== e.valenceElectrons) fail(`${where}: valence electrons are not the outer shell count`)
 
@@ -246,6 +248,7 @@ function buildElements() {
       atomicWeight: { ...cite(e.atomicWeight.value, e.atomicWeight.sourceId), published: e.atomicWeight.valueAsPublished },
       electronegativity: {
         ...cite(e.electronegativity.value, e.electronegativity.sourceId),
+        published: e.electronegativity.valueAsPublished,
         ...(ELECTRONEGATIVITY_NOTES[e.symbol] ? { note: ELECTRONEGATIVITY_NOTES[e.symbol] } : {}),
       },
       configuration: cite(e.configuration, e.configurationSourceId),
@@ -351,7 +354,11 @@ function measurements(id, geo, sourceId) {
       if (!sets.some((set) => set.join() === m.atoms.join())) fail(`${id}: ${m.label} does not list its own atoms`)
       return sets.map((atoms) => {
         if (atoms.length !== size || typeof m[valueKey] !== 'number') fail(`${id}: malformed measurement ${m.label}`)
-        return { atoms, value: m[valueKey], sourceId }
+        // The text the source prints for the value, or null where its table has no row for it.
+        const published = m.valueAsPublished
+        if (published === null) return { atoms, value: m[valueKey], sourceId }
+        if (typeof published !== 'string' || Number(published) !== m[valueKey]) fail(`${id}: ${m.label} differs from the published text`)
+        return { atoms, value: m[valueKey], sourceId, published }
       })
     })
   return {

@@ -112,7 +112,8 @@
           1
         ],
         "value": 1.087,
-        "sourceId": "cccbdb-methane"
+        "sourceId": "cccbdb-methane",
+        "published": "1.087"
       },
       {
         "atoms": [
@@ -120,7 +121,8 @@
           2
         ],
         "value": 1.087,
-        "sourceId": "cccbdb-methane"
+        "sourceId": "cccbdb-methane",
+        "published": "1.087"
       },
       {
         "atoms": [
@@ -128,7 +130,8 @@
           3
         ],
         "value": 1.087,
-        "sourceId": "cccbdb-methane"
+        "sourceId": "cccbdb-methane",
+        "published": "1.087"
       },
       {
         "atoms": [
@@ -136,7 +139,8 @@
           4
         ],
         "value": 1.087,
-        "sourceId": "cccbdb-methane"
+        "sourceId": "cccbdb-methane",
+        "published": "1.087"
       }
     ],
     "angles": [
@@ -147,7 +151,8 @@
           2
         ],
         "value": 109.471,
-        "sourceId": "cccbdb-methane"
+        "sourceId": "cccbdb-methane",
+        "published": "109.471"
       },
       {
         "atoms": [
@@ -156,7 +161,8 @@
           3
         ],
         "value": 109.471,
-        "sourceId": "cccbdb-methane"
+        "sourceId": "cccbdb-methane",
+        "published": "109.471"
       },
       {
         "atoms": [
@@ -165,7 +171,8 @@
           4
         ],
         "value": 109.471,
-        "sourceId": "cccbdb-methane"
+        "sourceId": "cccbdb-methane",
+        "published": "109.471"
       },
       {
         "atoms": [
@@ -174,7 +181,8 @@
           3
         ],
         "value": 109.471,
-        "sourceId": "cccbdb-methane"
+        "sourceId": "cccbdb-methane",
+        "published": "109.471"
       },
       {
         "atoms": [
@@ -183,7 +191,8 @@
           4
         ],
         "value": 109.471,
-        "sourceId": "cccbdb-methane"
+        "sourceId": "cccbdb-methane",
+        "published": "109.471"
       },
       {
         "atoms": [
@@ -192,7 +201,8 @@
           4
         ],
         "value": 109.471,
-        "sourceId": "cccbdb-methane"
+        "sourceId": "cccbdb-methane",
+        "published": "109.471"
       }
     ],
     "dihedrals": []

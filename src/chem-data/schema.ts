@@ -6,6 +6,12 @@ const text = z.string().min(1)
 /** An individually cited value: `{ value, sourceId }`. */
 export const cited = <T extends z.ZodType>(value: T) => z.strictObject({ value, sourceId: id })
 
+/**
+ * A cited number with `published`, the text the source prints for it, which keeps the source's
+ * digits ("1.0080", "2.020"). Absent where the source prints no figure for the value.
+ */
+export const citedNumber = <T extends z.ZodNumber>(value: T) => cited(value).extend({ published: text.optional() })
+
 /** A model parameter, exempt from citation: `{ value, rationale }`. */
 export const param = <T extends z.ZodType>(value: T) => z.strictObject({ value, rationale: text })
 
@@ -93,10 +99,9 @@ export const elementSchema = z.strictObject({
   symbol: text,
   name: text,
   atomicNumber: z.number().int().positive(),
-  /** `published` is the weight as the source prints it, with its trailing zeros ("1.0080"). */
-  atomicWeight: cited(z.number().positive()).extend({ published: text.optional() }),
+  atomicWeight: citedNumber(z.number().positive()),
   /** `note` is a caveat about this value, shown with it. */
-  electronegativity: cited(z.number().positive()).extend({ note: text.optional() }),
+  electronegativity: citedNumber(z.number().positive()).extend({ note: text.optional() }),
   configuration: cited(text),
   /** Electrons per shell, innermost first. */
   shells: cited(z.array(z.number().int().positive()).min(1)),
@@ -137,17 +142,14 @@ const atomIndex = z.number().int().min(0)
 
 // Cited experimental values. Every symmetry-equivalent atom set is its own
 // entry, so the validator checks each one against the stored coordinates.
+const measurement = <T extends z.ZodType>(atoms: T, value: z.ZodNumber) => z.array(citedNumber(value).extend({ atoms }))
 const measurementsSchema = z.strictObject({
   /** Å between atoms [a, b]. */
-  lengths: z.array(z.strictObject({ atoms: z.tuple([atomIndex, atomIndex]), value: z.number().positive(), sourceId: id })),
+  lengths: measurement(z.tuple([atomIndex, atomIndex]), z.number().positive()),
   /** Degrees at the middle atom of [a, vertex, c]. */
-  angles: z.array(
-    z.strictObject({ atoms: z.tuple([atomIndex, atomIndex, atomIndex]), value: z.number(), sourceId: id }),
-  ),
+  angles: measurement(z.tuple([atomIndex, atomIndex, atomIndex]), z.number()),
   /** Signed degrees about the b-c axis of [a, b, c, d]. */
-  dihedrals: z.array(
-    z.strictObject({ atoms: z.tuple([atomIndex, atomIndex, atomIndex, atomIndex]), value: z.number(), sourceId: id }),
-  ),
+  dihedrals: measurement(z.tuple([atomIndex, atomIndex, atomIndex, atomIndex]), z.number()),
 })
 
 export const moleculeSchema = z.strictObject({

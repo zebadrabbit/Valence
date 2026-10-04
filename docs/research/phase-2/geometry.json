@@ -2,6 +2,7 @@
  "generated": "2026-10-03",
  "conventions": {
   "units": "angstrom, degrees",
+  "valueAsPublished": "The value exactly as the 'Internal coordinates' table of the CCCBDB page prints it, digits and trailing zeros included (pages re-fetched 2026-10-03). null where the page prints no row for the value: the three PCl5 angles, which rest on the stated point group.",
   "origin": "Central atom at the origin where there is one (H2O, CO2, NH3, CH4, BF3, SO2, SF6, XeF4, PCl5); centre of mass at the origin for O2, N2, HCl, H2O2. Each molecule's 'origin' field states its own.",
   "indices": "zero-based into atoms",
   "bonds": "'atoms' is one representative pair; 'appliesTo' lists every symmetry-equivalent pair with that cited length. Same for angles ([end, centre, end]).",
@@ -37,6 +38,7 @@
       ]
      ],
      "lengthA": 0.958,
+     "valueAsPublished": "0.958",
      "lengthType": "re",
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7732185",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Hoy, A.R.; Bunker, P.R., J. Mol. Spectrosc. 74, 1-8 (1979) (doi:10.1016/0022-2852(79)90019-5)"
@@ -58,6 +60,7 @@
       ]
      ],
      "degrees": 104.4776,
+     "valueAsPublished": "104.4776",
      "fixedBySymmetry": false,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7732185",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Hoy, A.R.; Bunker, P.R., J. Mol. Spectrosc. 74, 1-8 (1979) (doi:10.1016/0022-2852(79)90019-5)"
@@ -124,6 +127,7 @@
       ]
      ],
      "lengthA": 1.162,
+     "valueAsPublished": "1.162",
      "lengthType": null,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=124389",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Herzberg, G., Electronic Spectra and Electronic Structure of Polyatomic Molecules, Van Nostrand, New York, 1966"
@@ -145,6 +149,7 @@
       ]
      ],
      "degrees": 180.0,
+     "valueAsPublished": "180",
      "fixedBySymmetry": false,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=124389",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Herzberg, G., Electronic Spectra and Electronic Structure of Polyatomic Molecules, Van Nostrand, New York, 1966"
@@ -215,6 +220,7 @@
       ]
      ],
      "lengthA": 1.012,
+     "valueAsPublished": "1.012",
      "lengthType": null,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7664417",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Herzberg, G., Electronic Spectra and Electronic Structure of Polyatomic Molecules, Van Nostrand, New York, 1966"
@@ -246,6 +252,7 @@
       ]
      ],
      "degrees": 106.67,
+     "valueAsPublished": "106.67",
      "fixedBySymmetry": false,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7664417",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Herzberg, G., Electronic Spectra and Electronic Structure of Polyatomic Molecules, Van Nostrand, New York, 1966"
@@ -331,6 +338,7 @@
       ]
      ],
      "lengthA": 1.087,
+     "valueAsPublished": "1.087",
      "lengthType": "re",
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74828",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Hirota, E., J. Mol. Spectrosc. 77, 213-221 (1979) (doi:10.1016/0022-2852(79)90103-6)"
@@ -377,6 +385,7 @@
       ]
      ],
      "degrees": 109.471,
+     "valueAsPublished": "109.471",
      "fixedBySymmetry": true,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=74828",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Sverdlov, L.M.; Kovner, M.A.; Krainov, E.P., Vibrational Spectra of Polyatomic Molecules, Wiley, New York, 1974. (Exact tetrahedral angle, arccos(-1/3) = 109.4712 deg.)"
@@ -461,6 +470,7 @@
       ]
      ],
      "lengthA": 1.208,
+     "valueAsPublished": "1.208",
      "lengthType": "re",
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7782447",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Huber, K.P.; Herzberg, G., Molecular Spectra and Molecular Structure IV. Constants of Diatomic Molecules, Van Nostrand Reinhold, 1979 (doi:10.1007/978-1-4757-0961-2)"
@@ -513,6 +523,7 @@
       ]
      ],
      "lengthA": 1.098,
+     "valueAsPublished": "1.098",
      "lengthType": "re",
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7727379",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Huber, K.P.; Herzberg, G., Molecular Spectra and Molecular Structure IV. Constants of Diatomic Molecules, Van Nostrand Reinhold, 1979 (doi:10.1007/978-1-4757-0961-2)"
@@ -565,6 +576,7 @@
       ]
      ],
      "lengthA": 1.275,
+     "valueAsPublished": "1.275",
      "lengthType": "re",
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7647010",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: NIST Diatomic Spectral Database (doi:10.18434/T4T59X); comment 're 1H 35Cl'"
@@ -617,6 +629,7 @@
       ]
      ],
      "lengthA": 1.475,
+     "valueAsPublished": "1.475",
      "lengthType": null,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7722841",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Redington, R.L.; Olson, W.B.; Cross, P.C., J. Chem. Phys. 36, 1311-1326 (1962) (doi:10.1063/1.1732733)"
@@ -638,6 +651,7 @@
       ]
      ],
      "lengthA": 0.95,
+     "valueAsPublished": "0.950",
      "lengthType": null,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7722841",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Redington, R.L.; Olson, W.B.; Cross, P.C., J. Chem. Phys. 36, 1311-1326 (1962) (doi:10.1063/1.1732733)"
@@ -664,6 +678,7 @@
       ]
      ],
      "degrees": 94.8,
+     "valueAsPublished": "94.8",
      "fixedBySymmetry": false,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7722841",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Redington, R.L.; Olson, W.B.; Cross, P.C., J. Chem. Phys. 36, 1311-1326 (1962) (doi:10.1063/1.1732733)"
@@ -679,6 +694,7 @@
       3
      ],
      "degrees": 119.8,
+     "valueAsPublished": "119.8",
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7722841",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Redington, R.L.; Olson, W.B.; Cross, P.C., J. Chem. Phys. 36, 1311-1326 (1962) (doi:10.1063/1.1732733)"
     }
@@ -868,6 +884,7 @@
       ]
      ],
      "lengthA": 1.307,
+     "valueAsPublished": "1.307",
      "lengthType": "re",
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7637072",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Kuchitsu, K. (ed.), Structure of Free Polyatomic Molecules - Basic Data, Springer, Berlin, 1998 (doi:10.1007/978-3-642-45748-7)"
@@ -899,6 +916,7 @@
       ]
      ],
      "degrees": 120.0,
+     "valueAsPublished": "120",
      "fixedBySymmetry": true,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7637072",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Kuchitsu, K. (ed.), Structure of Free Polyatomic Molecules - Basic Data, Springer, Berlin, 1998 (doi:10.1007/978-3-642-45748-7)"
@@ -976,6 +994,7 @@
       ]
      ],
      "lengthA": 1.432,
+     "valueAsPublished": "1.432",
      "lengthType": null,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7446095",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Herzberg, G., Electronic Spectra and Electronic Structure of Polyatomic Molecules, Van Nostrand, New York, 1966"
@@ -997,6 +1016,7 @@
       ]
      ],
      "degrees": 119.5,
+     "valueAsPublished": "119.5",
      "fixedBySymmetry": false,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7446095",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Herzberg, G., Electronic Spectra and Electronic Structure of Polyatomic Molecules, Van Nostrand, New York, 1966"
@@ -1079,6 +1099,7 @@
       ]
      ],
      "lengthA": 1.561,
+     "valueAsPublished": "1.561",
      "lengthType": null,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=2551624",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Kuchitsu, K. (ed.), Structure of Free Polyatomic Molecules - Basic Data, Springer, Berlin, 1998 (doi:10.1007/978-3-642-45748-7)"
@@ -1155,6 +1176,7 @@
       ]
      ],
      "degrees": 90.0,
+     "valueAsPublished": "90",
      "fixedBySymmetry": true,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=2551624",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Kuchitsu, K. (ed.), Structure of Free Polyatomic Molecules - Basic Data, Springer, Berlin, 1998 (doi:10.1007/978-3-642-45748-7); comment 'symmetry'"
@@ -1184,6 +1206,7 @@
       ]
      ],
      "degrees": 180.0,
+     "valueAsPublished": "180",
      "fixedBySymmetry": true,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=2551624",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Kuchitsu, K. (ed.), Structure of Free Polyatomic Molecules - Basic Data, Springer, Berlin, 1998 (doi:10.1007/978-3-642-45748-7); comment 'symmetry'"
@@ -1302,6 +1325,7 @@
       ]
      ],
      "lengthA": 1.935,
+     "valueAsPublished": "1.935",
      "lengthType": "r0",
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=13709610",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Buerger, H.; Ma, S.; Breidung, J.; Thiel, W., J. Chem. Phys. 104, 4945-4953 (1996) (doi:10.1063/1.471266); comment 'r0'"
@@ -1338,6 +1362,7 @@
       ]
      ],
      "degrees": 90.0,
+     "valueAsPublished": "90",
      "fixedBySymmetry": true,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=13709610",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03): point group D4h, aFXeF = 90, comment 'by symmetry'"
@@ -1362,6 +1387,7 @@
       ]
      ],
      "degrees": 180.0,
+     "valueAsPublished": "180",
      "fixedBySymmetry": true,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=13709610",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03): point group D4h, aFXeF = 180, comment 'by symmetry'"
@@ -1450,6 +1476,7 @@
       ]
      ],
      "lengthA": 2.124,
+     "valueAsPublished": "2.124",
      "lengthType": null,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=10026138",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Gurvich, L.V.; Veyts, I.V.; Alcock, C.B., Thermodynamic Properties of Individual Substances, 4th ed., Hemisphere, New York, 1989; comment 'axial'"
@@ -1475,6 +1502,7 @@
       ]
      ],
      "lengthA": 2.02,
+     "valueAsPublished": "2.020",
      "lengthType": null,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=10026138",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Gurvich, L.V.; Veyts, I.V.; Alcock, C.B., Thermodynamic Properties of Individual Substances, 4th ed., Hemisphere, New York, 1989; comment 'equatorial'"
@@ -1506,6 +1534,7 @@
       ]
      ],
      "degrees": 120.0,
+     "valueAsPublished": null,
      "fixedBySymmetry": true,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=10026138",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Gurvich, L.V.; Veyts, I.V.; Alcock, C.B., Thermodynamic Properties of Individual Substances, 4th ed., Hemisphere, New York, 1989. Angle is fixed by the point-group symmetry stated on the same page. (D3h)"
@@ -1550,6 +1579,7 @@
       ]
      ],
      "degrees": 90.0,
+     "valueAsPublished": null,
      "fixedBySymmetry": true,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=10026138",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Gurvich, L.V.; Veyts, I.V.; Alcock, C.B., Thermodynamic Properties of Individual Substances, 4th ed., Hemisphere, New York, 1989. Angle is fixed by the point-group symmetry stated on the same page. (D3h)"
@@ -1569,6 +1599,7 @@
       ]
      ],
      "degrees": 180.0,
+     "valueAsPublished": null,
      "fixedBySymmetry": true,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=10026138",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Gurvich, L.V.; Veyts, I.V.; Alcock, C.B., Thermodynamic Properties of Individual Substances, 4th ed., Hemisphere, New York, 1989. Angle is fixed by the point-group symmetry stated on the same page. (D3h)"

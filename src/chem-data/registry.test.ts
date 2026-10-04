@@ -65,6 +65,32 @@ describe('the real chem-data registry', () => {
     expect([published('H'), published('Na')]).toEqual(['1.0080', '22.990'])
   })
 
+  it('stores every electronegativity as PubChem prints it', () => {
+    for (const e of registry.elements) expect([e.symbol, Number(e.electronegativity.published)]).toEqual([e.symbol, e.electronegativity.value])
+    const published = (symbol: string) => registry.elements.find((e) => e.symbol === symbol)?.electronegativity.published
+    // PubChem prints these two to one decimal.
+    expect([published('H'), published('Xe'), published('C')]).toEqual(['2.2', '2.6', '2.55'])
+  })
+
+  it('stores every cited length, angle and dihedral as its source prints it', () => {
+    const cited = registry.molecules.flatMap((m) => {
+      const { lengths = [], angles = [], dihedrals = [] } = m.measurements ?? {}
+      return [...lengths, ...angles, ...dihedrals].map((entry) => ({ id: m.id, ...entry }))
+    })
+    // The source's table has no row for the angles of PCl5, which follow from its point group.
+    const unpublished = cited.filter((entry) => entry.published === undefined)
+    expect(unpublished.map((entry) => [entry.id, entry.atoms.length, entry.value])).toEqual([
+      ...Array(3).fill(['phosphorus-pentachloride', 3, 120]),
+      ...Array(6).fill(['phosphorus-pentachloride', 3, 90]),
+      ['phosphorus-pentachloride', 3, 180],
+    ])
+    const published = (id: string) => [...new Set(cited.filter((entry) => entry.id === id).map((entry) => entry.published))]
+    expect(published('water')).toEqual(['0.958', '104.4776'])
+    expect(published('hydrogen-peroxide')).toEqual(['1.475', '0.950', '94.8', '119.8'])
+    expect(published('phosphorus-pentachloride')).toEqual(['2.124', '2.020', undefined])
+    expect(published('carbon-dioxide')).toEqual(['1.162', '180'])
+  })
+
   it('pairs each neutral amino acid with its zwitterion', () => {
     const variants = registry.molecules.filter((m) => m.variantGroup).map((m) => [m.id, m.variantGroup, m.variantLabel])
     expect(variants).toEqual([

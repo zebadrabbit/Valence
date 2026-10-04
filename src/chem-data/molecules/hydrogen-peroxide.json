@@ -92,7 +92,8 @@
           1
         ],
         "value": 1.475,
-        "sourceId": "cccbdb-hydrogen-peroxide"
+        "sourceId": "cccbdb-hydrogen-peroxide",
+        "published": "1.475"
       },
       {
         "atoms": [
@@ -100,7 +101,8 @@
           2
         ],
         "value": 0.95,
-        "sourceId": "cccbdb-hydrogen-peroxide"
+        "sourceId": "cccbdb-hydrogen-peroxide",
+        "published": "0.950"
       },
       {
         "atoms": [
@@ -108,7 +110,8 @@
           3
         ],
         "value": 0.95,
-        "sourceId": "cccbdb-hydrogen-peroxide"
+        "sourceId": "cccbdb-hydrogen-peroxide",
+        "published": "0.950"
       }
     ],
     "angles": [
@@ -119,7 +122,8 @@
           1
         ],
         "value": 94.8,
-        "sourceId": "cccbdb-hydrogen-peroxide"
+        "sourceId": "cccbdb-hydrogen-peroxide",
+        "published": "94.8"
       },
       {
         "atoms": [
@@ -128,7 +132,8 @@
           0
         ],
         "value": 94.8,
-        "sourceId": "cccbdb-hydrogen-peroxide"
+        "sourceId": "cccbdb-hydrogen-peroxide",
+        "published": "94.8"
       }
     ],
     "dihedrals": [
@@ -140,7 +145,8 @@
           3
         ],
         "value": 119.8,
-        "sourceId": "cccbdb-hydrogen-peroxide"
+        "sourceId": "cccbdb-hydrogen-peroxide",
+        "published": "119.8"
       }
     ]
   },

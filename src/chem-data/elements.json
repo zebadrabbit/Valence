@@ -10,7 +10,8 @@
     },
     "electronegativity": {
       "value": 2.2,
-      "sourceId": "pubchem-ptable"
+      "sourceId": "pubchem-ptable",
+      "published": "2.2"
     },
     "configuration": {
       "value": "1s1",
@@ -57,7 +58,8 @@
     },
     "electronegativity": {
       "value": 2.04,
-      "sourceId": "pubchem-ptable"
+      "sourceId": "pubchem-ptable",
+      "published": "2.04"
     },
     "configuration": {
       "value": "1s2 2s2 2p1",
@@ -104,7 +106,8 @@
     },
     "electronegativity": {
       "value": 2.55,
-      "sourceId": "pubchem-ptable"
+      "sourceId": "pubchem-ptable",
+      "published": "2.55"
     },
     "configuration": {
       "value": "1s2 2s2 2p2",
@@ -154,7 +157,8 @@
     },
     "electronegativity": {
       "value": 3.04,
-      "sourceId": "pubchem-ptable"
+      "sourceId": "pubchem-ptable",
+      "published": "3.04"
     },
     "configuration": {
       "value": "1s2 2s2 2p3",
@@ -204,7 +208,8 @@
     },
     "electronegativity": {
       "value": 3.44,
-      "sourceId": "pubchem-ptable"
+      "sourceId": "pubchem-ptable",
+      "published": "3.44"
     },
     "configuration": {
       "value": "1s2 2s2 2p4",
@@ -261,7 +266,8 @@
     },
     "electronegativity": {
       "value": 3.98,
-      "sourceId": "pubchem-ptable"
+      "sourceId": "pubchem-ptable",
+      "published": "3.98"
     },
     "configuration": {
       "value": "1s2 2s2 2p5",
@@ -318,7 +324,8 @@
     },
     "electronegativity": {
       "value": 0.93,
-      "sourceId": "pubchem-ptable"
+      "sourceId": "pubchem-ptable",
+      "published": "0.93"
     },
     "configuration": {
       "value": "1s2 2s2 2p6 3s1",
@@ -376,7 +383,8 @@
     },
     "electronegativity": {
       "value": 2.19,
-      "sourceId": "pubchem-ptable"
+      "sourceId": "pubchem-ptable",
+      "published": "2.19"
     },
     "configuration": {
       "value": "1s2 2s2 2p6 3s2 3p3",
@@ -427,7 +435,8 @@
     },
     "electronegativity": {
       "value": 2.58,
-      "sourceId": "pubchem-ptable"
+      "sourceId": "pubchem-ptable",
+      "published": "2.58"
     },
     "configuration": {
       "value": "1s2 2s2 2p6 3s2 3p4",
@@ -485,7 +494,8 @@
     },
     "electronegativity": {
       "value": 3.16,
-      "sourceId": "pubchem-ptable"
+      "sourceId": "pubchem-ptable",
+      "published": "3.16"
     },
     "configuration": {
       "value": "1s2 2s2 2p6 3s2 3p5",
@@ -544,6 +554,7 @@
     "electronegativity": {
       "value": 2.6,
       "sourceId": "pubchem-ptable",
+      "published": "2.6",
       "note": "The value PubChem lists. It is a later estimate, not part of Pauling's original scale, and no primary source was traced."
     },
     "configuration": {

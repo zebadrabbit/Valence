@@ -32,11 +32,9 @@ export function degrees(value: number): string {
   return `${fixed(value, 1)}°`
 }
 
-/** A cited length, angle or dihedral, with the digits that are stored. */
-// ponytail: the research files keep cited geometry as numbers, so a published trailing zero
-// (0.950 Å) is lost and this prints 0.95. Store the as-published text to fix it.
-export function cited(value: number, kind: Measurement['kind']): string {
-  return `${String(value).replace('-', MINUS)}${kind === 'distance' ? ' Å' : '°'}`
+/** A cited length, angle or dihedral, in the digits its source prints; the stored number where the source prints none. */
+export function cited({ value, published }: NonNullable<Measurement['cited']>, kind: Measurement['kind']): string {
+  return `${(published ?? String(value)).replace('-', MINUS)}${kind === 'distance' ? ' Å' : '°'}`
 }
 
 /** A bond's polarity: the difference between two Pauling electronegativities, which are given to 0.01. */
@@ -79,7 +77,7 @@ export function measurementValue({ kind, value }: Measurement): string {
  * the model's otherwise.
  */
 export function headlineValue(measurement: Measurement): string {
-  return measurement.cited ? cited(measurement.cited.value, measurement.kind) : measurementValue(measurement)
+  return measurement.cited ? cited(measurement.cited, measurement.kind) : measurementValue(measurement)
 }
 
 /** Says where the headline value comes from, labelled with the molecule's geometry source. */

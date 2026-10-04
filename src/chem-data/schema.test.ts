@@ -85,6 +85,13 @@ describe('elementSchema', () => {
     expect(elementSchema.safeParse({ ...oxygen, notes: ['A note.'] }).success).toBe(true)
   })
 
+  it('accepts the published text of an atomic weight and an electronegativity, and of no other value', () => {
+    const published = { ...oxygen, atomicWeight: { ...oxygen.atomicWeight, published: '15.999' }, electronegativity: { ...oxygen.electronegativity, published: '3.44' } }
+    expect(elementSchema.safeParse(published).success).toBe(true)
+    expect(elementSchema.safeParse({ ...oxygen, electronegativity: { ...oxygen.electronegativity, published: '' } }).success).toBe(false)
+    expect(elementSchema.safeParse({ ...oxygen, vdwRadius: { ...oxygen.vdwRadius, published: '1.52' } }).success).toBe(false)
+  })
+
   it('rejects a value with no source', () => {
     expect(elementSchema.safeParse({ ...oxygen, vdwRadius: 1.52 }).success).toBe(false)
     expect(elementSchema.safeParse({ ...oxygen, vdwRadius: { value: 1.52 } }).success).toBe(false)

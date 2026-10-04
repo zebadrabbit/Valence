@@ -61,10 +61,23 @@ describe('radius, length and degrees', () => {
 })
 
 describe('cited', () => {
-  it('writes the stored digits with the unit of the kind', () => {
-    expect(cited(0.958, 'distance')).toBe('0.958 Å')
-    expect(cited(104.4776, 'angle')).toBe('104.4776°')
-    expect(cited(-60, 'dihedral')).toBe('−60°')
+  it('writes the digits the source prints, with the unit of the kind', () => {
+    expect(cited({ value: 2.02, published: '2.020', sourceId: 's' }, 'distance')).toBe('2.020 Å')
+    expect(cited({ value: 104.4776, published: '104.4776', sourceId: 's' }, 'angle')).toBe('104.4776°')
+    expect(cited({ value: -60, published: '-60.0', sourceId: 's' }, 'dihedral')).toBe('−60.0°')
+  })
+
+  it('writes the stored number where the source prints none', () => {
+    expect(cited({ value: 120, sourceId: 's' }, 'angle')).toBe('120°')
+    expect(cited({ value: -60, sourceId: 's' }, 'dihedral')).toBe('−60°')
+  })
+
+  it('keeps the trailing zeros of the library values that have them', () => {
+    const headline = (id: string, atoms: number[]) => headlineValue(measure(molecule(id), atoms)!)
+    const pcl5 = molecule('phosphorus-pentachloride')
+    expect(new Set(pcl5.bonds.map((b) => headline(pcl5.id, [b.a, b.b])))).toEqual(new Set(['2.124 Å', '2.020 Å']))
+    const peroxide = molecule('hydrogen-peroxide')
+    expect(new Set(peroxide.bonds.map((b) => headline(peroxide.id, [b.a, b.b])))).toEqual(new Set(['1.475 Å', '0.950 Å']))
   })
 })
 

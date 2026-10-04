@@ -9,8 +9,8 @@ export type Measurement = {
   atoms: readonly number[]
   /** Å or degrees, from the stored coordinates. Null for a dihedral with three of its atoms in a line, which has no value. */
   value: number | null
-  /** The molecule's cited experimental value for exactly these atoms, when it has one. */
-  cited?: { value: number; sourceId: string }
+  /** The molecule's cited experimental value for exactly these atoms, when it has one, with the text its source prints. */
+  cited?: { value: number; published?: string; sourceId: string }
 }
 
 const KINDS = { 2: ['distance', 'lengths'], 3: ['angle', 'angles'], 4: ['dihedral', 'dihedrals'] } as const
@@ -39,5 +39,7 @@ export function measure(molecule: Molecule, atoms: readonly number[]): Measureme
   // Reading the atoms in the other direction measures the same thing, sign of a dihedral included.
   const keys = [atoms.join(), [...atoms].reverse().join()]
   const cited = molecule.measurements?.[list].find((m) => keys.includes(m.atoms.join()))
-  return { kind, atoms, value, ...(cited ? { cited: { value: cited.value, sourceId: cited.sourceId } } : {}) }
+  if (!cited) return { kind, atoms, value }
+  const { value: citedValue, sourceId, published } = cited
+  return { kind, atoms, value, cited: { value: citedValue, sourceId, ...(published === undefined ? {} : { published }) } }
 }

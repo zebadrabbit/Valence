@@ -3,6 +3,7 @@
   "notes": [
     "kJ/mol ionization energies are derived: NIST ASD publishes eV (no kJ/mol option); converted with the exact CODATA factor 96.48533212331 kJ/mol per eV and rounded to 0.1 kJ/mol (to 1 kJ/mol where the NIST uncertainty exceeds 0.5 kJ/mol).",
     "nistFlag: NIST marks values in square brackets as interpolated/extrapolated or semi-empirical and values in parentheses as theoretical; unmarked values are experimental.",
+    "valueAsPublished: the value exactly as the source prints it. For electronegativity that is the PubChem periodic table (its JSON and its page agree; re-fetched 2026-10-03), which prints hydrogen as 2.2 and xenon as 2.6, to one decimal, and the other nine elements to two.",
     "sourceId is the source to cite in the app; verifiedVia lists the page the value was actually read from when the cited primary paper is paywalled.",
     "Shannon values are effective ionic radii (not crystal radii), coordination number 6.",
     "valenceElectrons and shells are derived from the NIST ground-state configuration.",
@@ -121,6 +122,7 @@
       },
       "electronegativity": {
         "value": 2.2,
+        "valueAsPublished": "2.2",
         "scale": "Pauling",
         "sourceId": "pubchem-ptable",
         "corroboratedBy": [
@@ -201,6 +203,7 @@
       },
       "electronegativity": {
         "value": 2.04,
+        "valueAsPublished": "2.04",
         "scale": "Pauling",
         "sourceId": "pubchem-ptable",
         "corroboratedBy": [
@@ -306,6 +309,7 @@
       },
       "electronegativity": {
         "value": 2.55,
+        "valueAsPublished": "2.55",
         "scale": "Pauling",
         "sourceId": "pubchem-ptable",
         "corroboratedBy": [
@@ -425,6 +429,7 @@
       },
       "electronegativity": {
         "value": 3.04,
+        "valueAsPublished": "3.04",
         "scale": "Pauling",
         "sourceId": "pubchem-ptable",
         "corroboratedBy": [
@@ -529,6 +534,7 @@
       },
       "electronegativity": {
         "value": 3.44,
+        "valueAsPublished": "3.44",
         "scale": "Pauling",
         "sourceId": "pubchem-ptable",
         "corroboratedBy": [
@@ -644,6 +650,7 @@
       },
       "electronegativity": {
         "value": 3.98,
+        "valueAsPublished": "3.98",
         "scale": "Pauling",
         "sourceId": "pubchem-ptable",
         "corroboratedBy": [
@@ -759,6 +766,7 @@
       },
       "electronegativity": {
         "value": 0.93,
+        "valueAsPublished": "0.93",
         "scale": "Pauling",
         "sourceId": "pubchem-ptable",
         "corroboratedBy": [
@@ -875,6 +883,7 @@
       },
       "electronegativity": {
         "value": 2.19,
+        "valueAsPublished": "2.19",
         "scale": "Pauling",
         "sourceId": "pubchem-ptable",
         "corroboratedBy": [
@@ -981,6 +990,7 @@
       },
       "electronegativity": {
         "value": 2.58,
+        "valueAsPublished": "2.58",
         "scale": "Pauling",
         "sourceId": "pubchem-ptable",
         "corroboratedBy": [
@@ -1098,6 +1108,7 @@
       },
       "electronegativity": {
         "value": 3.16,
+        "valueAsPublished": "3.16",
         "scale": "Pauling",
         "sourceId": "pubchem-ptable",
         "corroboratedBy": [
@@ -1215,6 +1226,7 @@
       },
       "electronegativity": {
         "value": 2.6,
+        "valueAsPublished": "2.6",
         "scale": "Pauling",
         "sourceId": "pubchem-ptable",
         "corroboratedBy": [

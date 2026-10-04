@@ -74,7 +74,8 @@
           1
         ],
         "value": 1.432,
-        "sourceId": "cccbdb-sulfur-dioxide"
+        "sourceId": "cccbdb-sulfur-dioxide",
+        "published": "1.432"
       },
       {
         "atoms": [
@@ -82,7 +83,8 @@
           2
         ],
         "value": 1.432,
-        "sourceId": "cccbdb-sulfur-dioxide"
+        "sourceId": "cccbdb-sulfur-dioxide",
+        "published": "1.432"
       }
     ],
     "angles": [
@@ -93,7 +95,8 @@
           2
         ],
         "value": 119.5,
-        "sourceId": "cccbdb-sulfur-dioxide"
+        "sourceId": "cccbdb-sulfur-dioxide",
+        "published": "119.5"
       }
     ],
     "dihedrals": []

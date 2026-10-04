@@ -481,6 +481,31 @@ describe('validateRegistry', () => {
       expect(validateRegistry(r)).toEqual(['molecule "water": atom 0 is bonded to 2 atoms but has no cited angle'])
     })
 
+    it('accepts a published string that reads as the stored number, trailing zeros included', () => {
+      const r = validRegistry()
+      const m = hydrogenPeroxide()
+      Object.assign(m.measurements!.lengths[1]!, { published: '0.950' })
+      Object.assign(m.measurements!.dihedrals[0]!, { published: '119.8' })
+      r.molecules.push(m)
+      // A copy: the fixture's element values share one object.
+      r.elements[0]!.atomicWeight = Object.assign({ ...r.elements[0]!.atomicWeight }, { published: '1.0' })
+      expect(validateRegistry(r)).toEqual([])
+    })
+
+    it.each(['0.96', '0.95 Å', '9.5e-1', '.95'])('rejects the published string "%s" beside the stored number 0.95', (published) => {
+      const r = validRegistry()
+      const m = hydrogenPeroxide()
+      Object.assign(m.measurements!.lengths[1]!, { published })
+      r.molecules.push(m)
+      expect(validateRegistry(r)).toEqual([`registry.molecules[1].measurements.lengths[1]: published "${published}" is not the stored value 0.95`])
+    })
+
+    it('rejects a published string on an element value that it does not match', () => {
+      const r = validRegistry()
+      r.elements[0]!.electronegativity = Object.assign({ ...r.elements[0]!.electronegativity }, { published: '2.20' })
+      expect(validateRegistry(r)).toEqual(['registry.elements[0].electronegativity: published "2.20" is not the stored value 1'])
+    })
+
     it('matches a cited length to its bond in either atom order', () => {
       const r = validRegistry()
       r.molecules[0]!.measurements!.lengths[1]!.atoms = [2, 0]

@@ -132,7 +132,8 @@
           4
         ],
         "value": 2.124,
-        "sourceId": "cccbdb-phosphorus-pentachloride"
+        "sourceId": "cccbdb-phosphorus-pentachloride",
+        "published": "2.124"
       },
       {
         "atoms": [
@@ -140,7 +141,8 @@
           5
         ],
         "value": 2.124,
-        "sourceId": "cccbdb-phosphorus-pentachloride"
+        "sourceId": "cccbdb-phosphorus-pentachloride",
+        "published": "2.124"
       },
       {
         "atoms": [
@@ -148,7 +150,8 @@
           1
         ],
         "value": 2.02,
-        "sourceId": "cccbdb-phosphorus-pentachloride"
+        "sourceId": "cccbdb-phosphorus-pentachloride",
+        "published": "2.020"
       },
       {
         "atoms": [
@@ -156,7 +159,8 @@
           2
         ],
         "value": 2.02,
-        "sourceId": "cccbdb-phosphorus-pentachloride"
+        "sourceId": "cccbdb-phosphorus-pentachloride",
+        "published": "2.020"
       },
       {
         "atoms": [
@@ -164,7 +168,8 @@
           3
         ],
         "value": 2.02,
-        "sourceId": "cccbdb-phosphorus-pentachloride"
+        "sourceId": "cccbdb-phosphorus-pentachloride",
+        "published": "2.020"
       }
     ],
     "angles": [

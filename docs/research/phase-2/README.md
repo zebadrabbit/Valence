@@ -12,6 +12,8 @@ Verified inputs for the molecule explorer (spec section 6). Gathered on 2026-10-
 | `parse-sdf.mjs` | The V2000 molfile parser used to check the downloads. |
 | `r3f-spike.md` | Findings from a throwaway React Three Fiber prototype of the 3D viewer. |
 
+`geometry.json` and `elements.json` keep `valueAsPublished` beside each cited length, angle, dihedral, atomic weight and electronegativity: the text the source prints, re-read from the CCCBDB pages, the PubChem periodic table and the CIAAW table on 2026-10-03. The build copies it into the app's data as `published`, and the app shows it, so a printed trailing zero (PCl₅ 2.020 Å, H₂O₂ 0.950 Å, hydrogen 1.0080) is kept. PubChem prints the electronegativity of hydrogen as 2.2 and of xenon as 2.6. CCCBDB prints no angle rows for PCl₅, so its three angles have no published text.
+
 ## Conventions decided after this research
 
 `expected.json` records the research as gathered. Two project decisions differ from it; the spec (sections 6.1 and 6.3) is the authority:
