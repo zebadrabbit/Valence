@@ -113,6 +113,9 @@ export function ElementGrids(props: { selected: PeriodicElement | undefined; pro
           setFocused(z)
           if (z === null) return
           setLast(z)
+          // Only when focus came from the keyboard, which is when the outline is drawn. A press of the mouse or a
+          // tap focuses the cell too, and scrolling then takes the cell from under the pointer and loses the click.
+          if (!event.target.matches(':focus-visible')) return
           // The browser brings a focused cell into view but can leave it against the edge of the scrolling box
           // or a little beyond it, with its outline cut off. This honours the cell's scroll-margin.
           event.target.scrollIntoView({ block: 'nearest', inline: 'nearest' })
