@@ -270,4 +270,36 @@ describe('browserStore', () => {
     expect(store).toBe(localStorage)
     expect(localStorage.length).toBe(0)
   })
+
+  it('keeps the stored preferences, and only those, when localStorage can be read but refuses writes', () => {
+    const { inner, store: localStorage, state } = fillable()
+    saveEntry(inner, 'prefs', 1, { darkMode: 'on' })
+    saveEntry(inner, 'lab:titration', 1, { status: 'completed' })
+    state.full = true
+    vi.stubGlobal('window', { localStorage })
+    const { store, persistent } = browserStore()
+    expect(persistent).toBe(false)
+    expect(store.getItem('valence:prefs')).toBe(inner.getItem('valence:prefs'))
+    expect(store.length).toBe(1)
+    // What the session saves goes to memory, and what is stored stays as it was.
+    expect(saveEntry(store, 'prefs', 1, { darkMode: 'off' })).toBe(true)
+    clearAll(store)
+    expect(JSON.parse(inner.getItem('valence:prefs') ?? '')).toEqual({ version: 1, data: { darkMode: 'on' } })
+    expect(peekStatus(inner, 'lab:titration', 1)).toBe('completed')
+  })
+
+  it('falls back to an empty store when localStorage can be neither written nor read', () => {
+    const blocked = () => {
+      throw new Error('SecurityError')
+    }
+    vi.stubGlobal('window', { localStorage: { length: 0, key: blocked, getItem: blocked, setItem: blocked, removeItem: blocked } })
+    expect(browserStore().store.length).toBe(0)
+    vi.stubGlobal('window', {
+      get localStorage() {
+        return blocked()
+      },
+    })
+    const { store, persistent } = browserStore()
+    expect([store.length, persistent]).toEqual([0, false])
+  })
 })

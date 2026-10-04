@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { applyAppearance, firstPaintScript, storedAppearance } from './firstPaint'
 import { DEFAULT_PREFS, loadPrefs, PREF_VALUES, PREFS_VERSION, resolveTri, type Prefs } from './preferences'
-import { createMemoryStore, ENTRY, storageKey } from './progress/storage'
+import { browserStore, createMemoryStore, ENTRY, storageKey } from './progress/storage'
 
 // The theme is applied twice: by a script in index.html before anything is painted, and by the app once it runs.
 // The preference is defined in one place, preferences.ts. These hold the script to it.
@@ -23,6 +23,8 @@ function appAppearance(raw: string | null, systemDark: boolean, systemReduced: b
 }
 const stored = (data: unknown, version: unknown = PREFS_VERSION) => JSON.stringify({ version, data })
 const decide = (raw: string | null, systemDark: boolean, systemReduced: boolean) => storedAppearance(raw, PREFS_VERSION, PREF_VALUES, systemDark, systemReduced)
+
+afterEach(() => vi.unstubAllGlobals())
 
 describe('storedAppearance', () => {
   it('reads the stored theme and reduced motion, each of which overrides the system unless it is set to System', () => {
@@ -88,6 +90,27 @@ describe('storedAppearance', () => {
     const extra = stored({ ...valid, later: 1 })
     expect(decide(extra, false, false)).toEqual(appAppearance(extra, false, false))
     expect(decide(extra, false, false)).toEqual({ dark: true, reducedMotion: true })
+  })
+
+  it('agrees with the app when storage can be read but refuses writes: both keep the stored theme', () => {
+    const raw = stored({ ...DEFAULT_PREFS, darkMode: 'on', reducedMotion: 'on' })
+    const refusing = {
+      length: 1,
+      key: () => KEY,
+      getItem: (key: string) => (key === KEY ? raw : null),
+      setItem() {
+        throw new Error('QuotaExceededError')
+      },
+      removeItem() {},
+    }
+    vi.stubGlobal('window', { localStorage: refusing })
+    // The app, as AppState starts it: the store browserStore gives, then loadPrefs.
+    const prefs = loadPrefs(browserStore().store)
+    for (const [dark, reduced] of SYSTEMS) {
+      const app = { dark: resolveTri(prefs.darkMode, dark), reducedMotion: resolveTri(prefs.reducedMotion, reduced) }
+      expect(decide(refusing.getItem(KEY), dark, reduced)).toEqual(app)
+      expect(app).toEqual({ dark: true, reducedMotion: true })
+    }
   })
 
   it('checks every preference the app defines, so that a new one cannot be forgotten', () => {

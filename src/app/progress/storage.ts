@@ -41,7 +41,7 @@ export function createMemoryStore(): KeyValueStore {
   }
 }
 
-/** localStorage when it works; otherwise an in-memory store for this session only. */
+/** localStorage when it works; otherwise an in-memory store for this session only, starting from the stored preferences where they can be read. */
 export function browserStore(): { store: KeyValueStore; persistent: boolean } {
   try {
     const store = window.localStorage
@@ -50,7 +50,19 @@ export function browserStore(): { store: KeyValueStore; persistent: boolean } {
     store.removeItem(probe)
     return { store, persistent: true }
   } catch {
-    return { store: createMemoryStore(), persistent: false }
+    const store = createMemoryStore()
+    try {
+      // Storage that can be read but takes no write (it is full, say). The script in index.html has read the
+      // stored theme from it before first paint (firstPaint.ts), so the app keeps the stored preferences too.
+      // ponytail: only the preferences. Stored progress stays out of the session: shown, it would be a copy that
+      // "Clear my progress" clears without touching what is stored, and that comes back on the next load.
+      const key = storageKey(ENTRY.prefs)
+      const prefs = window.localStorage.getItem(key)
+      if (prefs !== null) store.setItem(key, prefs)
+    } catch {
+      // It cannot be read either.
+    }
+    return { store, persistent: false }
   }
 }
 
