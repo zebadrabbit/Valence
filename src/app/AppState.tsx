@@ -1,11 +1,11 @@
 import { createContext, useContext, useEffect, useState, useSyncExternalStore, type ReactNode } from 'react'
 import { applyAppearance } from './firstPaint'
 import { DEFAULT_PREFS, loadPrefs, resolveTri, savePrefs, type Prefs } from './preferences'
-import { browserStore, clearAll, reportingStore, type KeyValueStore } from './progress/storage'
+import { browserStore, clearAll, sessionStore, type KeyValueStore } from './progress/storage'
 
 interface AppState {
   store: KeyValueStore
-  /** False when localStorage is unavailable, or has refused a save, and progress lasts only for this session. */
+  /** False when localStorage is unavailable, or refused the last save, and progress lasts only for this session. */
   persistent: boolean
   prefs: Prefs
   /** The theme in effect: the learner's choice, or the system's when set to System. */
@@ -31,11 +31,11 @@ function useMediaQuery(query: string): boolean {
 
 export function AppStateProvider({ children }: { children: ReactNode }) {
   const [browser] = useState(browserStore)
-  const [saveFailed, setSaveFailed] = useState(false)
-  // Every save in the app goes through this store, so one that is refused part-way through a session is noticed.
-  // The report is put off until the caller has finished: a load that fails to write its backup runs during a render.
-  const [store] = useState(() => reportingStore(browser.store, () => queueMicrotask(() => setSaveFailed(true))))
-  const persistent = browser.persistent && !saveFailed
+  const [persistent, setPersistent] = useState(browser.persistent)
+  // Every save in the app goes through this store, so one that is refused part-way through a session is noticed,
+  // and so is the next that succeeds. The report is put off until the caller has finished: a load that fails to
+  // write its backup runs during a render.
+  const [store] = useState(() => sessionStore(browser, (now) => queueMicrotask(() => setPersistent(now))))
   const [prefs, setPrefs] = useState(() => loadPrefs(store))
 
   const dark = resolveTri(prefs.darkMode, useMediaQuery('(prefers-color-scheme: dark)'))

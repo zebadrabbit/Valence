@@ -55,10 +55,10 @@ export function browserStore(): { store: KeyValueStore; persistent: boolean } {
 }
 
 /**
- * The same store, but a write it refuses (storage full, or blocked part-way through a session) is reported to
- * `onFailure` before the error goes on to the caller, so the app can say that progress is no longer being saved.
+ * The same store, but every write is reported to `onResult`: false for one the store refuses (storage full, or
+ * blocked part-way through a session), before the error goes on to the caller, and true for one it takes.
  */
-export function reportingStore(store: KeyValueStore, onFailure: () => void): KeyValueStore {
+export function reportingStore(store: KeyValueStore, onResult: (saved: boolean) => void): KeyValueStore {
   return {
     get length() {
       return store.length
@@ -70,11 +70,21 @@ export function reportingStore(store: KeyValueStore, onFailure: () => void): Key
       try {
         store.setItem(key, value)
       } catch (error) {
-        onFailure()
+        onResult(false)
         throw error
       }
+      onResult(true)
     },
   }
+}
+
+/**
+ * The store the app saves through, made from what browserStore gave. After every save `onPersistent` is told
+ * whether progress now outlasts the session: never with an in-memory store; with localStorage, not after a save
+ * it refused, and again after the next one it takes (as when "Clear my progress" has made room).
+ */
+export function sessionStore(browser: { store: KeyValueStore; persistent: boolean }, onPersistent: (persistent: boolean) => void): KeyValueStore {
+  return reportingStore(browser.store, (saved) => onPersistent(browser.persistent && saved))
 }
 
 export function saveEntry(store: KeyValueStore, name: string, version: number, data: unknown): boolean {

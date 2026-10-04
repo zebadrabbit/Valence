@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { z } from 'zod'
 import {
   browserStore,
@@ -9,6 +9,7 @@ import {
   peekStatus,
   reportingStore,
   saveEntry,
+  sessionStore,
   type KeyValueStore,
 } from './storage'
 
@@ -175,49 +176,98 @@ describe('exportAll and clearAll', () => {
   })
 })
 
+/** A store that refuses writes while `full` is set, as localStorage does when it is full. */
+function fillable() {
+  const inner = createMemoryStore()
+  const state = { full: false }
+  const store: KeyValueStore = {
+    ...inner,
+    get length() {
+      return inner.length
+    },
+    setItem(key, value) {
+      if (state.full) throw new Error('QuotaExceededError')
+      inner.setItem(key, value)
+    },
+  }
+  return { inner, store, state }
+}
+
 describe('reportingStore', () => {
-  it('reads and writes through to the store it wraps, and reports nothing while writes succeed', () => {
+  it('reads and writes through to the store it wraps, and reports every write that succeeds', () => {
     const inner = createMemoryStore()
-    let failures = 0
-    const store = reportingStore(inner, () => failures++)
+    const results: boolean[] = []
+    const store = reportingStore(inner, (saved) => results.push(saved))
     expect(saveEntry(store, 'lab:titration', 1, { status: 'in-progress', seed: 42 })).toBe(true)
     expect(inner.getItem('valence:lab:titration')).not.toBeNull()
     expect(loadEntry(store, 'lab:titration', 1, schema)).toEqual({ status: 'in-progress', seed: 42 })
     expect([store.length, store.key(0)]).toEqual([1, 'valence:lab:titration'])
     clearAll(store)
     expect(inner.length).toBe(0)
-    expect(failures).toBe(0)
+    // One write, which succeeded. Reading and removing report nothing.
+    expect(results).toEqual([true])
   })
 
-  it('reports a save that fails mid-session, and the save still returns false', () => {
-    const inner = createMemoryStore()
-    let full = false
-    let failures = 0
-    const store = reportingStore(
-      {
-        ...inner,
-        setItem(key, value) {
-          if (full) throw new Error('QuotaExceededError')
-          inner.setItem(key, value)
-        },
-      },
-      () => failures++,
-    )
+  it('reports a save that fails mid-session, and the save still returns false; then the next one that succeeds', () => {
+    const { inner, store: refusing, state } = fillable()
+    const results: boolean[] = []
+    const store = reportingStore(refusing, (saved) => results.push(saved))
     expect(saveEntry(store, 'prefs', 1, { a: 1 })).toBe(true)
-    expect(failures).toBe(0)
-    full = true
+    expect(results).toEqual([true])
+    state.full = true
     expect(saveEntry(store, 'prefs', 1, { a: 2 })).toBe(false)
-    expect(failures).toBe(1)
+    expect(results).toEqual([true, false])
     // What was saved before the failure is still there.
     expect(JSON.parse(inner.getItem('valence:prefs') ?? '')).toEqual({ version: 1, data: { a: 1 } })
+    // "Clear my progress" frees the storage, and a save succeeds again.
+    clearAll(store)
+    state.full = false
+    expect(saveEntry(store, 'prefs', 1, { a: 3 })).toBe(true)
+    expect(results).toEqual([true, false, true])
+  })
+})
+
+describe('sessionStore', () => {
+  it('says after each save whether progress outlasts the session: not after a refused save, and again after the next that succeeds', () => {
+    const { store: refusing, state } = fillable()
+    const persistent: boolean[] = []
+    const store = sessionStore({ store: refusing, persistent: true }, (now) => persistent.push(now))
+    expect(saveEntry(store, 'lab:titration', 1, { status: 'in-progress' })).toBe(true)
+    state.full = true
+    expect(saveEntry(store, 'lab:titration', 1, { status: 'completed' })).toBe(false)
+    state.full = false
+    expect(saveEntry(store, 'lab:titration', 1, { status: 'completed' })).toBe(true)
+    expect(persistent).toEqual([true, false, true])
+    // The saves went to the store it was given.
+    expect(peekStatus(refusing, 'lab:titration', 1)).toBe('completed')
+  })
+
+  it('never calls an in-memory store persistent, however many saves succeed', () => {
+    const persistent: boolean[] = []
+    const store = sessionStore({ store: createMemoryStore(), persistent: false }, (now) => persistent.push(now))
+    expect(saveEntry(store, 'prefs', 1, { a: 1 })).toBe(true)
+    expect(saveEntry(store, 'prefs', 1, { a: 2 })).toBe(true)
+    expect(persistent).toEqual([false, false])
   })
 })
 
 describe('browserStore', () => {
+  afterEach(() => vi.unstubAllGlobals())
+
   it('falls back to a working in-memory store when localStorage is unavailable', () => {
     // In the node test environment there is no window at all.
     const { store, persistent } = browserStore()
     expect(persistent).toBe(false)
+    expect(store.length).toBe(0)
     expect(saveEntry(store, 'prefs', 1, { a: 1 })).toBe(true)
+  })
+
+  it('uses localStorage itself when it takes a write, and leaves no probe behind', () => {
+    const localStorage = createMemoryStore()
+    vi.stubGlobal('window', { localStorage })
+    const { store, persistent } = browserStore()
+    expect(persistent).toBe(true)
+    expect(store).toBe(localStorage)
+    expect(localStorage.length).toBe(0)
   })
 })
