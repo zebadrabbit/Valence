@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import type { Molecule } from './schema'
-import { validateRegistry } from './validate'
+import type { Molecule, PeriodicElement } from './schema'
+import { validatePeriodicTable, validateRegistry } from './validate'
 
 const hazards = { signalWord: 'Warning', statements: ['Harmful if swallowed'], note: 'Dilute solution.', sourceId: 's1' }
 
@@ -596,5 +596,114 @@ describe('validateRegistry', () => {
       r.sources[0]!.citation = 'NIST SRD 101, release 22'
       expect(validateRegistry(r)).toEqual([])
     })
+  })
+})
+
+// 118 records with made-up symbols ("Aa", "Ab", ...): only the shape and the numbering matter to the validator.
+function validTable(): PeriodicElement[] {
+  return Array.from({ length: 118 }, (_, i) => ({
+    atomicNumber: i + 1,
+    symbol: String.fromCharCode(65 + Math.floor(i / 26), 97 + (i % 26)),
+    name: `Element ${i + 1}`,
+    category: 'Nonmetal',
+    configuration: { text: '1s1' },
+    standardState: { state: 'Gas', expected: false },
+    yearDiscovered: 1766,
+    atomicMass: { value: 1.008, published: '1.0080', unit: 'u', sourceId: 's1', kind: 'standard-atomic-weight' },
+    sourceId: 's1',
+  }))
+}
+
+describe('validatePeriodicTable', () => {
+  const sources = [{ id: 's1', url: 'https://pubchem.ncbi.nlm.nih.gov/', citation: 'PubChem' }]
+
+  it('accepts a valid table', () => {
+    expect(validatePeriodicTable(validTable(), sources)).toEqual([])
+  })
+
+  describe('never throws on malformed input', () => {
+    it.each([null, 42, [], 'table', {}, [null], validTable().slice(0, 117)])('returns schema errors for %j', (input) => {
+      const errors = validatePeriodicTable(input, sources)
+      expect(errors.length).toBeGreaterThan(0)
+      expect(errors.every((e) => e.startsWith('schema:'))).toBe(true)
+    })
+  })
+
+  it('rejects an unknown key instead of silently dropping it', () => {
+    const table = validTable() as Record<string, unknown>[]
+    table[0] = { ...table[0]!, cpkHexColor: 'FFFFFF' }
+    expect(validatePeriodicTable(table, sources).some((e) => e.startsWith('schema:'))).toBe(true)
+  })
+
+  it('rejects a table that is not exactly atomic numbers 1 to 118, in order', () => {
+    const repeated = validTable()
+    repeated[5]!.atomicNumber = 5
+    expect(validatePeriodicTable(repeated, sources).join('\n')).toMatch(/position 6 holds atomic number 5/)
+    const shifted = validTable().map((e) => ({ ...e, atomicNumber: e.atomicNumber + 1 }))
+    expect(validatePeriodicTable(shifted, sources).length).toBe(118)
+    const swapped = validTable()
+    ;[swapped[0], swapped[1]] = [swapped[1]!, swapped[0]!]
+    expect(validatePeriodicTable(swapped, sources).length).toBe(2)
+  })
+
+  it('rejects a duplicate symbol', () => {
+    const table = validTable()
+    table[7]!.symbol = table[0]!.symbol
+    expect(validatePeriodicTable(table, sources)).toEqual(['periodic table: duplicate id "Aa"'])
+  })
+
+  it('rejects a published text that does not parse to the stored value', () => {
+    const table = validTable()
+    table[0]!.atomicMass.published = '1.0081'
+    table[1]!.density = { value: 7, published: 'about 7', unit: 'g/cm³', sourceId: 's1' }
+    const errors = validatePeriodicTable(table, sources)
+    expect(errors).toEqual([
+      'periodicTable[0].atomicMass: published "1.0081" is not the stored value 1.008',
+      'periodicTable[1].density: published "about 7" is not the stored value 7',
+    ])
+  })
+
+  it('accepts a published text with trailing zeros', () => {
+    const table = validTable()
+    table[0]!.density = { value: 2.267, published: '2.2670', unit: 'g/cm³', sourceId: 's1' }
+    expect(validatePeriodicTable(table, sources)).toEqual([])
+  })
+
+  it('rejects an unknown sourceId on a record, a quantity and a note', () => {
+    const table = validTable()
+    table[0]!.sourceId = 'nowhere'
+    table[1]!.atomicMass.sourceId = 'nowhere'
+    table[2]!.notes = [{ row: 'atomicMass', text: 'A note.', sourceId: 'nowhere' }]
+    expect(validatePeriodicTable(table, sources)).toEqual([
+      'periodicTable[0].sourceId: unknown source "nowhere"',
+      'periodicTable[1].atomicMass.sourceId: unknown source "nowhere"',
+      'periodicTable[2].notes[0].sourceId: unknown source "nowhere"',
+    ])
+    expect(validatePeriodicTable(validTable(), []).length).toBe(236)
+  })
+
+  it('rejects an isotope mass that does not round to its mass number', () => {
+    const table = validTable()
+    const isotope = { value: 96.90636, published: '96.90636', unit: 'u', sourceId: 's1', kind: 'isotope-mass', estimated: false } as const
+    table[42]!.atomicMass = { ...isotope, massNumber: 97 }
+    expect(validatePeriodicTable(table, sources)).toEqual([])
+    table[42]!.atomicMass = { ...isotope, massNumber: 98 }
+    expect(validatePeriodicTable(table, sources).join('\n')).toMatch(/mass 96\.90636 does not round to mass number 98/)
+  })
+
+  it('accepts a melting point above the boiling point (arsenic)', () => {
+    const table = validTable()
+    table[32]!.meltingPoint = { value: 1090, published: '1090', unit: 'K', sourceId: 's1' }
+    table[32]!.boilingPoint = { value: 887, published: '887', unit: 'K', sourceId: 's1' }
+    expect(validatePeriodicTable(table, sources)).toEqual([])
+  })
+
+  it('rejects institution-specific text in a note', () => {
+    const table = validTable()
+    table[0]!.notes = [{ row: 'density', text: 'Measured in Room 214.', sourceId: 's1' }]
+    expect(validatePeriodicTable(table, sources).join('\n')).toMatch(/periodicTable\[0\]\.notes\[0\]\.text: looks like a location/)
+    table[0]!.notes = [{ row: 'density', text: 'Weighed at Example State.', sourceId: 's1' }]
+    expect(validatePeriodicTable(table, sources)).toEqual([])
+    expect(validatePeriodicTable(table, sources, { institutionNames: ['Example State'] }).join('\n')).toMatch(/contains the name/)
   })
 })

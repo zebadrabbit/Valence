@@ -1,7 +1,7 @@
 import { findInstitutionText, findName } from './denylist'
 import { valenceElectrons } from './element'
 import { angleDeg, dihedralDeg, distance } from './geometry'
-import { registrySchema, type Registry } from './schema'
+import { periodicTableSchema, registrySchema, type PeriodicElement, type Registry, type Source } from './schema'
 
 export interface ValidateOptions {
   institutionNames?: readonly string[]
@@ -33,16 +33,23 @@ function duplicates(ids: readonly string[], label: string): string[] {
   return errors
 }
 
-function checkSources(registry: Registry): string[] {
-  const errors = duplicates(
-    registry.sources.map((s) => s.id),
-    'sources',
-  )
-  const known = new Set(registry.sources.map((s) => s.id))
-  walkStrings(registry, '', 'registry', (key, text, path) => {
+function checkSourceIds(data: unknown, root: string, sources: readonly Source[]): string[] {
+  const errors: string[] = []
+  const known = new Set(sources.map((s) => s.id))
+  walkStrings(data, '', root, (key, text, path) => {
     if (key === 'sourceId' && !known.has(text)) errors.push(`${path}: unknown source "${text}"`)
   })
   return errors
+}
+
+function checkSources(registry: Registry): string[] {
+  return [
+    ...duplicates(
+      registry.sources.map((s) => s.id),
+      'sources',
+    ),
+    ...checkSourceIds(registry, 'registry', registry.sources),
+  ]
 }
 
 function checkReferences(registry: Registry): string[] {
@@ -248,9 +255,9 @@ function checkPublished(value: unknown, path: string): string[] {
 
 const HEX_COLOR = /^#[0-9a-fA-F]{6}$/
 
-function checkProse(registry: Registry, names: readonly string[]): string[] {
+function checkProse(data: unknown, root: string, names: readonly string[]): string[] {
   const errors: string[] = []
-  walkStrings(registry, '', 'registry', (key, text, path) => {
+  walkStrings(data, '', root, (key, text, path) => {
     // Citations and URLs legitimately contain codes and years: check names only.
     // A hex colour such as "#FF8000" is a code, though its key is "value".
     if (HEX_COLOR.test(text)) return
@@ -268,9 +275,7 @@ function checkProse(registry: Registry, names: readonly string[]): string[] {
 /** Returns a list of problems; an empty list means the registry is valid. Never throws. */
 export function validateRegistry(input: unknown, options: ValidateOptions = {}): string[] {
   const parsed = registrySchema.safeParse(input)
-  if (!parsed.success) {
-    return parsed.error.issues.map((issue) => `schema: ${issue.path.map(String).join('.')}: ${issue.message}`)
-  }
+  if (!parsed.success) return schemaErrors(parsed.error.issues)
   const registry = parsed.data
   return [
     ...checkSources(registry),
@@ -280,6 +285,43 @@ export function validateRegistry(input: unknown, options: ValidateOptions = {}):
     ...checkMeasurements(registry),
     ...checkMoDiagrams(registry),
     ...checkPublished(registry, 'registry'),
-    ...checkProse(registry, options.institutionNames ?? []),
+    ...checkProse(registry, 'registry', options.institutionNames ?? []),
+  ]
+}
+
+const schemaErrors = (issues: readonly { path: PropertyKey[]; message: string }[]) =>
+  issues.map((issue) => `schema: ${issue.path.map(String).join('.')}: ${issue.message}`)
+
+function checkNumbering(table: readonly PeriodicElement[]): string[] {
+  return table.flatMap((element, i) =>
+    element.atomicNumber === i + 1 ? [] : [`periodic table: position ${i + 1} holds atomic number ${element.atomicNumber}`],
+  )
+}
+
+// The mass shown for an element with no standard atomic weight is that of the isotope named beside it.
+function checkIsotopeMasses(table: readonly PeriodicElement[]): string[] {
+  return table.flatMap(({ symbol, atomicMass }) =>
+    atomicMass.kind === 'isotope-mass' && Math.round(atomicMass.value) !== atomicMass.massNumber
+      ? [`periodic table: ${symbol}: mass ${atomicMass.published} does not round to mass number ${atomicMass.massNumber}`]
+      : [],
+  )
+}
+
+/**
+ * Checks the periodic table against the sources it cites. Returns a list of problems; an empty list
+ * means the table is valid. Never throws.
+ */
+export function validatePeriodicTable(input: unknown, sources: readonly Source[], options: ValidateOptions = {}): string[] {
+  const parsed = periodicTableSchema.safeParse(input)
+  if (!parsed.success) return schemaErrors(parsed.error.issues)
+  const table = parsed.data
+  if (table.length !== 118) return [`schema: : expected 118 elements, found ${table.length}`]
+  return [
+    ...checkNumbering(table),
+    ...duplicates(table.map((e) => e.symbol), 'periodic table'),
+    ...checkIsotopeMasses(table),
+    ...checkSourceIds(table, 'periodicTable', sources),
+    ...checkPublished(table, 'periodicTable'),
+    ...checkProse(table, 'periodicTable', options.institutionNames ?? []),
   ]
 }

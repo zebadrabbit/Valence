@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { z } from 'zod'
-import { cited, elementSchema, moleculeSchema, param, reagentSchema, sourceSchema } from './schema'
+import { cited, elementSchema, moleculeSchema, param, periodicElementSchema, reagentSchema, sourceSchema } from './schema'
 
 const hazards = { signalWord: 'Danger', statements: ['Causes severe skin burns'], note: 'Dilute.', sourceId: 's1' }
 
@@ -168,5 +168,83 @@ describe('moleculeSchema', () => {
     expect(moleculeSchema.safeParse(molecule).success).toBe(false)
     expect(moleculeSchema.safeParse({ ...molecule, geometrySource: 'ideal-vsepr' }).success).toBe(false)
     expect(moleculeSchema.safeParse({ ...molecule, geometrySource: 'cited-experimental' }).success).toBe(true)
+  })
+})
+
+describe('periodicElementSchema', () => {
+  const quantity = (published: string, unit: string) => ({ value: Number(published), published, unit, sourceId: 's1' })
+  const fluorine = {
+    atomicNumber: 9,
+    symbol: 'F',
+    name: 'Fluorine',
+    category: 'Halogen',
+    configuration: { text: '[He]2s2 2p5' },
+    standardState: { state: 'Gas', expected: false },
+    oxidationStates: '-1',
+    yearDiscovered: 1670,
+    atomicMass: { ...quantity('18.998', 'u'), kind: 'standard-atomic-weight' },
+    electronegativity: quantity('3.98', ''),
+    covalentRadius: quantity('57', 'pm'),
+    vdwRadius: quantity('135', 'pm'),
+    electronAffinity: quantity('3.339', 'eV'),
+    ionizationEnergy: { ...quantity('17.42282', 'eV'), flag: 'measured' },
+    meltingPoint: quantity('53.53', 'K'),
+    boilingPoint: quantity('85.03', 'K'),
+    density: quantity('0.001696', 'g/cm³'),
+    notes: [{ row: 'yearDiscovered', text: 'A note.', sourceId: 's1' }],
+    sourceId: 's1',
+  }
+  const accepts = (element: unknown) => periodicElementSchema.safeParse(element).success
+
+  it('accepts a full record, and one with only the fields every element has', () => {
+    expect(accepts(fluorine)).toBe(true)
+    const { atomicNumber, symbol, name, category, configuration, standardState, yearDiscovered, atomicMass, sourceId } = fluorine
+    expect(accepts({ atomicNumber, symbol, name, category, configuration, standardState, yearDiscovered, atomicMass, sourceId })).toBe(true)
+  })
+
+  it('accepts the two kinds of atomic mass, and an isotope mass only with its mass number and estimated flag', () => {
+    const isotope = { ...quantity('96.90636', 'u'), kind: 'isotope-mass', massNumber: 97, estimated: false }
+    expect(accepts({ ...fluorine, atomicMass: isotope })).toBe(true)
+    expect(accepts({ ...fluorine, atomicMass: { ...isotope, massNumber: undefined } })).toBe(false)
+    expect(accepts({ ...fluorine, atomicMass: { ...isotope, estimated: undefined } })).toBe(false)
+    expect(accepts({ ...fluorine, atomicMass: { ...fluorine.atomicMass, massNumber: 19 } })).toBe(false)
+    expect(accepts({ ...fluorine, atomicMass: quantity('18.998', 'u') })).toBe(false)
+  })
+
+  it('accepts a marked configuration, an expected state and an ancient year', () => {
+    expect(accepts({ ...fluorine, configuration: { text: '[Rn]7s2 5f14 6d7', qualifier: 'calculated' } })).toBe(true)
+    expect(accepts({ ...fluorine, configuration: { text: '[Rn]7s2 5f14 6d8', qualifier: 'guessed' } })).toBe(false)
+    expect(accepts({ ...fluorine, standardState: { state: 'Solid', expected: true } })).toBe(true)
+    expect(accepts({ ...fluorine, standardState: { state: 'Plasma', expected: false } })).toBe(false)
+    expect(accepts({ ...fluorine, yearDiscovered: 'Ancient' })).toBe(true)
+    expect(accepts({ ...fluorine, yearDiscovered: 'Unknown' })).toBe(false)
+  })
+
+  it('rejects an unknown key', () => {
+    expect(accepts({ ...fluorine, cpkHexColor: '90E050' })).toBe(false)
+    expect(accepts({ ...fluorine, density: { ...fluorine.density, uncertainty: 0.000001 } })).toBe(false)
+    expect(accepts({ ...fluorine, notes: [{ ...fluorine.notes[0]!, author: 'someone' }] })).toBe(false)
+  })
+
+  it('rejects an unknown category', () => {
+    expect(accepts({ ...fluorine, category: 'Other nonmetal' })).toBe(false)
+  })
+
+  it('rejects a quantity with no published text', () => {
+    expect(accepts({ ...fluorine, density: { value: 0.001696, unit: 'g/cm³', sourceId: 's1' } })).toBe(false)
+    expect(accepts({ ...fluorine, density: { ...fluorine.density, published: '' } })).toBe(false)
+  })
+
+  it('rejects a unit on electronegativity, and any quantity in a unit other than its own', () => {
+    expect(accepts({ ...fluorine, electronegativity: quantity('3.98', 'Pauling') })).toBe(false)
+    expect(accepts({ ...fluorine, covalentRadius: quantity('0.57', 'Å') })).toBe(false)
+    expect(accepts({ ...fluorine, meltingPoint: quantity('-219.62', '°C') })).toBe(false)
+    expect(accepts({ ...fluorine, ionizationEnergy: { ...quantity('1681', 'kJ/mol'), flag: 'measured' } })).toBe(false)
+  })
+
+  it('rejects an ionization energy with no NIST flag, and a note on a row the card does not have', () => {
+    expect(accepts({ ...fluorine, ionizationEnergy: quantity('17.42282', 'eV') })).toBe(false)
+    expect(accepts({ ...fluorine, notes: [{ row: 'colour', text: 'A note.', sourceId: 's1' }] })).toBe(false)
+    expect(accepts({ ...fluorine, notes: [{ row: 'density', text: 'A note.' }] })).toBe(false)
   })
 })

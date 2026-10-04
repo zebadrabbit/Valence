@@ -209,6 +209,98 @@ export const moDiagramSchema = z.strictObject({
   sourceId: id,
 })
 
+// The periodic table: 118 records built by script from saved downloads (periodic table spec 5.7).
+// It is its own file and is not part of the registry, so the app shell does not load it.
+// zod itself sits in a chunk the app shell preloads, so this schema keeps to the zod features the
+// registry already uses: z.discriminatedUnion and .length() would each add to that chunk.
+
+/** The unit each quantity is stored in. Electronegativity (Pauling scale) is the only one with none. */
+export const PERIODIC_UNITS = {
+  atomicMass: 'u',
+  electronegativity: '',
+  covalentRadius: 'pm',
+  vdwRadius: 'pm',
+  ionizationEnergy: 'eV',
+  electronAffinity: 'eV',
+  meltingPoint: 'K',
+  boilingPoint: 'K',
+  density: 'g/cm³',
+} as const
+
+/** A number with `published`, the source's own text for it, its unit and its source. */
+const quantity = <K extends keyof typeof PERIODIC_UNITS>(field: K) =>
+  z.strictObject({ value: z.number().positive(), published: text, unit: z.literal(PERIODIC_UNITS[field]), sourceId: id })
+
+// The rows of the element card a note can qualify: the fields below, by name.
+const NOTE_ROWS = [
+  'category',
+  'configuration',
+  'standardState',
+  'oxidationStates',
+  'yearDiscovered',
+  'atomicMass',
+  'electronegativity',
+  'covalentRadius',
+  'vdwRadius',
+  'ionizationEnergy',
+  'electronAffinity',
+  'meltingPoint',
+  'boilingPoint',
+  'density',
+] as const
+
+// The record sourceId covers atomic number, symbol, name, category, configuration, state, oxidation states and year.
+export const periodicElementSchema = z.strictObject({
+  atomicNumber: z.number().int().positive(),
+  symbol: z.string().regex(/^[A-Z][a-z]?$/),
+  name: text,
+  /** PubChem's ten categories, as given. */
+  category: z.enum([
+    'Alkali metal',
+    'Alkaline earth metal',
+    'Transition metal',
+    'Post-transition metal',
+    'Metalloid',
+    'Nonmetal',
+    'Halogen',
+    'Noble gas',
+    'Lanthanide',
+    'Actinide',
+  ]),
+  /** As published, with the source's "(predicted)" or "(calculated)" marking moved into `qualifier`. */
+  configuration: z.strictObject({ text, qualifier: z.enum(['predicted', 'calculated']).optional() }),
+  /** `expected` where the source words it "Expected to be a ...". */
+  standardState: z.strictObject({ state: z.enum(['Solid', 'Liquid', 'Gas']), expected: z.boolean() }),
+  /** As published: signs, spacing and order are the source's. */
+  oxidationStates: text.optional(),
+  yearDiscovered: z.union([z.number().int().positive(), z.literal('Ancient')]),
+  /** A standard atomic weight, or for an element that has none the mass of the one isotope the source prints. */
+  atomicMass: z.union([
+    quantity('atomicMass').extend({ kind: z.literal('standard-atomic-weight') }),
+    quantity('atomicMass').extend({ kind: z.literal('isotope-mass'), massNumber: z.number().int().positive(), estimated: z.boolean() }),
+  ]),
+  /** Pauling scale. */
+  electronegativity: quantity('electronegativity').optional(),
+  covalentRadius: quantity('covalentRadius').optional(),
+  vdwRadius: quantity('vdwRadius').optional(),
+  electronAffinity: quantity('electronAffinity').optional(),
+  /** First ionization energy, with NIST's marking of how the value was obtained. */
+  ionizationEnergy: quantity('ionizationEnergy')
+    .extend({ flag: z.enum(['measured', 'semi-empirical', 'theoretical']) })
+    .optional(),
+  meltingPoint: quantity('meltingPoint').optional(),
+  boilingPoint: quantity('boilingPoint').optional(),
+  density: quantity('density').optional(),
+  /** Authored sentences, each tied to the card row it qualifies. Written in docs/research/periodic-table/decisions.json. */
+  notes: z
+    .array(z.strictObject({ row: z.enum(NOTE_ROWS), text, sourceId: id }))
+    .min(1)
+    .optional(),
+  sourceId: id,
+})
+
+export const periodicTableSchema = z.array(periodicElementSchema)
+
 export const registrySchema = z.strictObject({
   sources: z.array(sourceSchema),
   species: z.array(speciesSchema),
@@ -229,3 +321,5 @@ export type Element = z.infer<typeof elementSchema>
 export type Molecule = z.infer<typeof moleculeSchema>
 export type MoDiagram = z.infer<typeof moDiagramSchema>
 export type Registry = z.infer<typeof registrySchema>
+export type PeriodicElement = z.infer<typeof periodicElementSchema>
+export type Quantity = { value: number; published: string; unit: string; sourceId: string }
