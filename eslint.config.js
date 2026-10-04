@@ -15,8 +15,9 @@ const NO_CLOCK = 'engine/ must not read the clock: take time as an argument.'
 const NO_EAGER_THREE =
   'Three.js is imported only inside a scene/ folder, which the app loads lazily. A static import anywhere else puts about 900 kB into an eagerly loaded chunk.'
 
-// Every way a page can talk to a server. navigator.sendBeacon is a method, so it is banned as a property below.
-const NETWORK_NAMES = ['fetch', 'XMLHttpRequest', 'WebSocket', 'EventSource']
+// The scripting APIs that open a connection. navigator.sendBeacon is a method, so it is banned as a property below.
+// Not every way a page can reach a server: the address of an image, a worker or an import is not looked at.
+const NETWORK_NAMES = ['fetch', 'XMLHttpRequest', 'WebSocket', 'EventSource', 'WebTransport', 'RTCPeerConnection']
 const NETWORK_GLOBALS = NETWORK_NAMES.map((name) => ({ name, message: NO_NETWORK }))
 const DOM_GLOBALS = [
   { name: 'document', message: NO_DOM },

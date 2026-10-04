@@ -92,6 +92,17 @@ describe('architecture lint rules', () => {
     },
   )
 
+  it.each([
+    ['WebTransport', '("https://example.org")'],
+    ['RTCPeerConnection', '()'],
+  ])('rejects %s, the other two scripting APIs that open a connection, bare and through window', async (name, args) => {
+    for (const filePath of ['src/engine/x.ts', 'src/chem-data/x.ts', 'src/mechanisms/x.ts', 'src/app/x.tsx', 'src/main.tsx']) {
+      expect([filePath, await ruleIds(`export const open = () => new ${name}${args}\n`, filePath)]).toEqual([filePath, ['no-restricted-globals']])
+    }
+    expect(await ruleIds(`export const open = () => new window.${name}${args}\n`, 'src/app/x.ts')).toEqual(['no-restricted-properties'])
+    expect(await ruleIds(`export const open = () => new globalThis.${name}${args}\n`, 'src/engine/x.ts')).toEqual(['no-restricted-properties'])
+  })
+
   it('rejects them when reached through window, globalThis or self in src/app', async () => {
     for (const code of [
       'export const socket = () => new window.WebSocket("wss://example.org")\n',
