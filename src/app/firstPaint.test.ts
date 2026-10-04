@@ -1,4 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
+import indexHtml from '../../index.html?raw'
+import { firstPaint } from '../../vite.config'
+import styles from '../index.css?raw'
 import { applyAppearance, firstPaintScript, storedAppearance } from './firstPaint'
 import { DEFAULT_PREFS, loadPrefs, PREF_VALUES, PREFS_VERSION, resolveTri, type Prefs } from './preferences'
 import { browserStore, createMemoryStore, ENTRY, storageKey } from './progress/storage'
@@ -167,5 +170,40 @@ describe('the script that runs before first paint', () => {
   it('is plain script with no closing tag in it, which would end the script element early', () => {
     expect(firstPaintScript()).not.toMatch(/<\/script|<!--/i)
     expect(firstPaintScript()).not.toMatch(/\bimport\b|\bexport\b/)
+  })
+})
+
+describe('the page the build writes', () => {
+  it('carries the script where index.html marks, ahead of the stylesheet and of the app, with no mark left', () => {
+    const html = firstPaint.transformIndexHtml(indexHtml)
+    const script = `<script>${firstPaintScript()}</script>`
+    expect(html).toContain(script)
+    expect(html).not.toContain('<!--first-paint-->')
+    expect(html.split(script)).toHaveLength(2)
+    // The build puts its stylesheet link at the end of the head, and the app's script is in the body.
+    const at = html.indexOf(script)
+    expect(at).toBeGreaterThan(html.indexOf('<head>'))
+    expect(at).toBeLessThan(html.indexOf('</head>'))
+    for (const later of ['rel="stylesheet"', '<script type="module"']) {
+      const first = html.indexOf(later)
+      if (first !== -1) expect([later, at < first]).toEqual([later, true])
+    }
+    expect(html.indexOf('<script type="module"')).toBeGreaterThan(at)
+    // Everything else is as index.html has it.
+    expect(html.replace(script, '<!--first-paint-->')).toBe(indexHtml)
+  })
+
+  it('fails the build when index.html has no mark for the script', () => {
+    expect(() => firstPaint.transformIndexHtml(indexHtml.replace('<!--first-paint-->', ''))).toThrow(/first-paint/)
+  })
+})
+
+describe('the stylesheet', () => {
+  // The browser draws its own parts (the lists of the drop-downs, the scrollbars) for the scheme it is told.
+  const block = (selector: string) => new RegExp(`(^|\\n)${selector} \\{([^}]*)\\}`).exec(styles)?.[2] ?? ''
+
+  it('tells the browser which theme is in use: light by default, dark under the class the script and the app set', () => {
+    expect(block(':root')).toMatch(/color-scheme:\s*light;/)
+    expect(block('\\.dark')).toMatch(/color-scheme:\s*dark;/)
   })
 })
