@@ -1,7 +1,7 @@
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { MemoryRouter, Route, Routes } from 'react-router'
-import { describe, expect, it } from 'vitest'
+import { MemoryRouter, Route, Routes, type LinkProps } from 'react-router'
+import { describe, expect, it, vi } from 'vitest'
 import { Explore } from '@/app/pages/Explore'
 import { CATEGORIES, CATEGORY_HEADING, CATEGORY_NOTES, describeBlock, describeGroup, describePeriod, GROUP_3_NOTE, NO_VALUE, periodicTable } from '@/chem-data/periodic'
 import { registry } from '@/chem-data/registry'
@@ -19,6 +19,27 @@ import { trendNotes } from './trend'
 
 // The functions that build the wording are tested beside them. These check the markup the page puts it in;
 // focus, keys, layout and themes are checked in a browser.
+
+// The markup shows only where a link goes: `replace` and `state` are not in it. So every <Link> is react-router's
+// own, drawn as it always is, and what it was given is kept here.
+const linked = vi.hoisted(() => [] as LinkProps[])
+vi.mock('react-router', async (original) => {
+  const { createElement } = await import('react')
+  const router = await original<typeof import('react-router')>()
+  return {
+    ...router,
+    Link: (props: LinkProps) => {
+      linked.push(props)
+      return createElement(router.Link, props)
+    },
+  }
+})
+/** What each link was given while `draw` ran: where it goes, whether it replaces the address, and its state. */
+const linksIn = (draw: () => unknown) => {
+  linked.length = 0
+  draw()
+  return linked.map(({ to, replace, state }) => ({ to, replace, state }))
+}
 
 const routed = (path: string, element: ReturnType<typeof createElement>) =>
   renderToStaticMarkup(createElement(MemoryRouter, { initialEntries: [path] }, createElement(Routes, null, createElement(Route, { path: 'explore/elements/:symbol?', element }))))
@@ -206,6 +227,10 @@ describe('the grids', () => {
   it('link each cell as elementLink says, which replaces the address and keeps focus on the cell', () => {
     const html = grids({})
     for (const e of periodicTable) expect([e.symbol, html.includes(`href="${elementLink(e.symbol).to}"`)]).toEqual([e.symbol, true])
+    // All that elementLink gives, not only the address: tableLayout.test.ts says what that is.
+    const links = linksIn(() => grids({}))
+    expect(links.length).toBe(118)
+    for (const e of periodicTable) expect(links.filter((link) => link.to === elementLink(e.symbol).to)).toEqual([elementLink(e.symbol)])
   })
 
   it('write the element under the pointer or with focus, else the selected one, in a readout hidden from assistive technology', () => {
@@ -308,8 +333,10 @@ describe('the stylesheet', () => {
 
 describe('the element list', () => {
   it('links each entry as elementLink says', () => {
-    const html = routed('/explore/elements', createElement(ElementList, { selected: undefined, property: null }))
+    const list = () => routed('/explore/elements', createElement(ElementList, { selected: undefined, property: null }))
+    const html = list()
     for (const e of periodicTable) expect([e.symbol, html.includes(`href="${elementLink(e.symbol).to}"`)]).toEqual([e.symbol, true])
+    expect(linksIn(list)).toEqual(periodicTable.map((e) => elementLink(e.symbol)))
   })
 
   it('gives the chosen property beside each name, with its unit', () => {
