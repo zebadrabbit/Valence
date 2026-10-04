@@ -44,6 +44,12 @@ describe('findInstitutionText', () => {
     },
   )
 
+  // Every subject the rule lists, written out here so that dropping one from the list fails a test.
+  it.each(['chem', 'chm', 'che', 'bio', 'biol', 'bsc', 'phy', 'phys', 'math', 'mat', 'mth', 'sci', 'engl', 'geol'])('flags the lower-case subject %s before a course number', (subject) => {
+    expect(findInstitutionText(`${subject} 101`, [])).toBe(`looks like a course number ("${subject} 101")`)
+    expect(findInstitutionText(`see ${subject}-2401 for the procedure`, [])).toBe(`looks like a course number ("${subject}-2401")`)
+  })
+
   it('still exempts a year and a measurement after a lower-case subject', () => {
     expect(findInstitutionText('bio 2020 review', [])).toBeNull()
     expect(findInstitutionText('mat 250 g', [])).toBeNull()
