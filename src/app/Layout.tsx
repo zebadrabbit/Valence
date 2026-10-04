@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { NavLink, Outlet, useLocation } from 'react-router'
+import { NavLink, Outlet, useLocation, useNavigationType } from 'react-router'
 import { PanelLeftClose, PanelLeftOpen } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { NAV } from './nav'
@@ -10,13 +10,17 @@ export function Layout() {
   const [expanded, setExpanded] = useState(() => window.matchMedia('(min-width: 768px)').matches)
 
   // After each navigation, focus the new page's h1 so keyboard and screen-reader users land on it.
-  // Not on first load, and not when the link asked to stay put (a toggle within one page).
+  // Not on first load, and not when the link just followed asked to stay put (a toggle within one page).
+  // Back or Forward to such an address arrives from another page, where that link has no focus to keep:
+  // without the h1, focus would be left on nothing.
   const location = useLocation()
+  const navigationType = useNavigationType()
   const [firstLocation] = useState(location)
   useEffect(() => {
-    if (location === firstLocation || (location.state as { keepFocus?: boolean } | null)?.keepFocus) return
+    if (location === firstLocation) return
+    if (navigationType !== 'POP' && (location.state as { keepFocus?: boolean } | null)?.keepFocus) return
     document.querySelector<HTMLElement>('main h1')?.focus()
-  }, [location, firstLocation])
+  }, [location, firstLocation, navigationType])
 
   return (
     <div className="flex min-h-screen bg-background text-foreground">
