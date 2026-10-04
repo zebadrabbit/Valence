@@ -15,7 +15,7 @@ import { TableLegend } from './TableLegend'
 import { HighlightDescription, TableNotes } from './TableNotes'
 import css from './periodic.css?raw'
 import { DETACHED_ROWS, elementLink } from './tableLayout'
-import { trendNotes } from './trend'
+import { LEAST_ROOM, ROUNDED_NOTE, trendNotes } from './trend'
 
 // The functions that build the wording are tested beside them. These check the markup the page puts it in;
 // focus, keys, layout and themes are checked in a browser.
@@ -210,6 +210,19 @@ describe('the grids', () => {
     expect(grids({ property: 'covalentRadius' })).toMatch(/<span class="pt-value">57<\/span>/)
   })
 
+  it('print a value too long for a cell rounded, and keep its published digits in the name of the cell and in the readout', () => {
+    // Before the cell is measured in a browser it has the least room; there is none to measure here.
+    expect(LEAST_ROOM).toBe(7)
+    const html = grids({ property: 'ionizationEnergy', selected: element('H') })
+    expect(html).toMatch(/<span class="pt-value">13\.59843<\/span>/)
+    expect(html).not.toMatch(/<span class="pt-value">13\.598434599702<\/span>/)
+    expect(html).toContain('aria-label="Hydrogen, H, atomic number 1, other nonmetal, first ionization energy 13.598434599702 eV"')
+    expect(html).toMatch(/<span>first ionization energy: 13\.598434599702 eV<\/span>/)
+    // A value that fits is printed as published.
+    expect(html).toMatch(/<span class="pt-value">9\.322699<\/span>/)
+    expect(grids({ property: 'density' })).toMatch(/<span class="pt-value">0\.000090<\/span>/)
+  })
+
   it('mark the highlighted cells and dim the rest, in the name and by attribute', () => {
     const html = grids({ highlight: { kind: 'group', value: 17 } })
     expect(count(html, /data-highlighted="true"/g)).toBe(6)
@@ -279,6 +292,12 @@ describe('the legend', () => {
     expect(legend({ property: 'density' })).toContain('The 11 elements that are gases at room temperature have the lowest densities')
   })
 
+  it('says once, of a property with values too long for a cell, that the cells round them and the cards give them in full', () => {
+    for (const property of ['ionizationEnergy', 'density'] as const) expect([property, count(legend({ property }), new RegExp(escaped(ROUNDED_NOTE), 'g'))]).toEqual([property, 1])
+    for (const property of ['electronegativity', 'covalentRadius', 'meltingPoint'] as const) expect([property, legend({ property }).includes(escaped(ROUNDED_NOTE))]).toEqual([property, false])
+    expect(legend({})).not.toContain(escaped(ROUNDED_NOTE))
+  })
+
   it('cites the source of the values shown', () => {
     expect(legend({ property: 'ionizationEnergy' })).toContain('NIST Atomic Spectra Database')
     expect(legend({ property: 'meltingPoint' })).toMatch(/Melting point: <\/span><a /)
@@ -320,6 +339,10 @@ describe('the stylesheet', () => {
     // As a declaration: the family colours are named --family-transition-metal.
     expect(rules).not.toMatch(/(^|[;{\s])(transition|animation)(-[a-z-]+)?\s*:/im)
     expect(rules).not.toMatch(/@keyframes/i)
+  })
+
+  it('never cuts a value short with an ellipsis: a cell prints a long value rounded', () => {
+    expect(rules).not.toMatch(/ellipsis/)
   })
 
   it('keeps the focus outline of a cell clear of the edge of the box the table scrolls in', () => {

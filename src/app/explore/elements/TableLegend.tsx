@@ -8,7 +8,7 @@ import { CATEGORIES, CATEGORY_HEADING, NO_VALUE, periodicTable } from '@/chem-da
 import sources from '@/chem-data/sources.json'
 import { familyFill } from './ElementGrids'
 import type { Highlight } from './tableLayout'
-import { quantityText, trendNotes, TRENDS, trendScale, type TrendProperty } from './trend'
+import { quantityText, ROUNDED_NOTE, roundedInCells, trendNotes, TRENDS, trendScale, type TrendProperty } from './trend'
 
 /**
  * What the table's colours mean (periodic table spec 6). By family: one toggle button per family, which
@@ -73,6 +73,7 @@ function TrendLegend({ property }: { property: TrendProperty }) {
       {notes.map((note) => (
         <Note key={note.text}>{note.text}</Note>
       ))}
+      {roundedInCells(property) && <Note>{ROUNDED_NOTE}</Note>}
       <Sources
         citations={citations(
           [

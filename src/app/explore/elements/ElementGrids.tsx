@@ -3,10 +3,13 @@ import { Link } from 'react-router'
 import { CATEGORIES, periodicTable } from '@/chem-data/periodic'
 import type { PeriodicElement } from '@/chem-data/schema'
 import { cellKey, cellLabel, DETACHED_ROWS, elementLink, isHighlighted, MAIN_ROWS, scrollToShow, type Highlight } from './tableLayout'
-import { quantityText, TRENDS, trendScale, type TrendProperty } from './trend'
+import { cellValue, digitRoom, LEAST_ROOM, quantityText, TRENDS, trendScale, type TrendProperty } from './trend'
 
 // The room a cell's focus outline needs inside the box the table scrolls in; periodic.css has the same figure.
 const EDGE = 8
+// The border and padding between a cell's edge and its value on each side, as periodic.css sets them: in a cell,
+// and in the selected cell, whose border is wider.
+const INSETS = [3, 4] as const
 
 /** The atomic number of the cell an event came from, if it came from one. */
 function cellOf(event: SyntheticEvent): number | null {
@@ -44,6 +47,8 @@ export function ElementGrids(props: { selected: PeriodicElement | undefined; pro
   // Whether the focused cell shows its outline: it does when focus came by the keyboard, and from the first key
   // pressed after a click.
   const [outlined, setOutlined] = useState(false)
+  // How many digits a cell has room for beside a decimal point, and how many the selected cell has.
+  const [room, setRoom] = useState<readonly number[]>([LEAST_ROOM, LEAST_ROOM])
   const tabStop = focused ?? selected?.atomicNumber ?? last
   const scale = property && trendScale(property)
   const readout = periodicTable[(pointed ?? focused ?? selected?.atomicNumber ?? 0) - 1]
@@ -72,6 +77,27 @@ export function ElementGrids(props: { selected: PeriodicElement | undefined; pro
     // or a little beyond it, with its outline cut off. This honours the cell's scroll-margin.
     cell.scrollIntoView({ block: 'nearest', inline: 'nearest' })
   }, [focused, outlined])
+
+  // While values are printed in the cells: how many digits fit, measured again whenever the cells or their type
+  // change size, which is when the window does or the font arrives.
+  const valued = property !== null
+  useLayoutEffect(() => {
+    const table = box.current?.querySelector('.pt-table')
+    const type = box.current?.querySelector('.pt-digits')
+    if (!table || !type) return
+    const measure = () => {
+      const [digit = 0, point = 0] = [...type.children].map((ten) => ten.getBoundingClientRect().width / 10)
+      // The narrowest cell: the columns can differ by a fraction of a pixel.
+      const width = Math.min(...[...table.querySelectorAll('.pt-cell')].map((cell) => cell.getBoundingClientRect().width))
+      const next = INSETS.map((inset) => digitRoom(width - 2 * inset, digit, point))
+      setRoom((old) => (String(old) === String(next) ? old : next))
+    }
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(table)
+    observer.observe(type)
+    return () => observer.disconnect()
+  }, [valued])
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     setPointed(null)
@@ -109,8 +135,9 @@ export function ElementGrids(props: { selected: PeriodicElement | undefined; pro
           <span className="pt-number">{element.atomicNumber}</span>
           <span className="pt-symbol">{element.symbol}</span>
           <span className="pt-name">{element.name}</span>
-          {/* Without its unit, which the legend gives. Empty for an element with no value: the hatching and the cell's name say so. */}
-          {property && <span className="pt-value">{quantity?.published}</span>}
+          {/* Without its unit, which the legend gives, and rounded where it is too long for the cell. Empty for an
+              element with no value: the hatching and the cell's name say so. */}
+          {property && <span className="pt-value">{quantity && cellValue(quantity.published, room[element === selected ? 1 : 0]!)}</span>}
         </Link>
         {row && (
           <span className="pt-marker">
@@ -146,6 +173,13 @@ export function ElementGrids(props: { selected: PeriodicElement | undefined; pro
         onPointerMove={(event) => setPointed(cellOf(event))}
         onPointerLeave={() => setPointed(null)}
       >
+        {/* Never seen: ten digits and ten points in the type of a cell's value, to measure how many fit in a cell. */}
+        {valued && (
+          <span aria-hidden="true" className="pt-value pt-digits">
+            <span>0000000000</span>
+            <span>..........</span>
+          </span>
+        )}
         <table role="grid" aria-label="Periodic table, periods 1 to 7" className="pt-table">
           {COLUMNS}
           <thead>

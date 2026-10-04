@@ -193,15 +193,21 @@
   display: none;
   font-size: clamp(0.6875rem, 0.62cqi, 0.875rem);
 }
-/* The digits are the source's. Where they do not all fit on the line, the cell shows as many as fit and an
-   ellipsis, never a rounded figure; the whole value is in the cell's name, the readout and the list. */
+/* The digits are the source's. Where they do not all fit on the line, ElementGrids.tsx prints the value rounded
+   to as many as fit, never cut short; the whole value is in the cell's name, the readout, the list and the card. */
 .pt-value {
   font-size: clamp(0.5625rem, 0.7cqi, 0.75rem);
   font-variant-numeric: tabular-nums;
   min-height: 1.1em;
   overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
+}
+/* Ten digits and ten points in that type, out of sight, which ElementGrids.tsx measures to know how many fit. */
+.pt-digits {
+  left: 0;
+  position: absolute;
+  top: 0;
+  visibility: hidden;
 }
 
 /* From here every name fits in its cell at 11 px. */
