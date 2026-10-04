@@ -2,14 +2,14 @@
 
 Valence is an independent, free project made for any learner. It is not affiliated with any school and there is no vendor relationship: no contract, no account manager, and no support agreement. An institution that chooses to point students to Valence does its own review. This page gives each reviewing department the facts it needs.
 
-Each section states only what is true of the current version. The current version has the molecule explorer; the labs and the mechanism timeline are not built yet. A lab safety section will be added with the labs.
+Each section states only what is true of the current version. The current version has the molecule explorer and the periodic table; the labs and the mechanism timeline are not built yet. A lab safety section will be added with the labs.
 
 ## IT and security
 
 - **What it is:** a static website (HTML, CSS, JavaScript). There is no server-side code, database, or API.
 - **Install:** none. It has been tested in Chromium (the engine behind Chrome and Edge), where scripted checks are run against the production build. Firefox and Safari have not been tested yet.
 - **Accounts:** none. There is no sign-in of any kind.
-- **Network:** after the page loads, the app makes no network requests. Fonts and all data are bundled; nothing is loaded from a third-party CDN.
+- **Network:** the app requests only its own files, from the server it was loaded from. Fonts and all data are bundled; nothing is loaded from a third-party CDN and nothing is sent anywhere. Parts of the app (the molecule pages, the 3D viewer, the periodic table) and some font files are fetched from those same files the first time they are needed.
 - **Storage:** preferences and learning progress are stored in the browser's `localStorage` under keys beginning `valence:`. Nothing is stored anywhere else.
 - **Shared computers:** on a shared browser profile, the next person can see the previous learner's saved progress. Settings has a "Clear my progress" button, and clearing site data in the browser has the same effect.
 - **Self-hosting:** run `npm ci && npm run build`, then serve the `dist/` folder from any static web server. No rewrite rules are needed, and it works from a sub-path.
@@ -21,21 +21,25 @@ Each section states only what is true of the current version. The current versio
 - **Data leaving the device:** none. Progress never leaves the learner's browser unless the learner uses "Export my progress" to download their own file.
 - **Education records:** because nothing is collected or transmitted, Valence creates and holds no records about any student. Whether and how an institution uses Valence under FERPA or similar rules is the institution's determination; this page states the facts for that review and is not legal advice.
 - **Children's privacy (COPPA) and GDPR:** the same facts apply. No personal information is collected from anyone, of any age, in any location.
-- **Third-party data:** chemistry data is cited to its sources on the About page.
+- **Third-party data:** chemistry data is cited to its sources on the About page, which acknowledges PubChem (National Library of Medicine), CIAAW and NIST. The source repository also keeps copies of the pages the periodic table was built from, as a research record; one of them, a Wikipedia page, is under the Creative Commons Attribution-ShareAlike licence and is attributed beside the copy. The copies are not part of the built app.
 - **Licence:** MIT.
 
 ## Accessibility services
 
 Valence has not had an accessibility audit, and this page makes no claim of conformance to WCAG or any other standard. This section lists what was built, how it was checked, and what has not been checked.
 
-**How it was checked.** Scripts drove the production build in headless Chromium 153 (the engine behind Chrome and Edge) on Linux, using the keyboard only where the check is about the keyboard. Screenshots were taken in the light and dark themes at 1366×768 and 400×800 and looked at by the AI coding assistant that built the screens; no person has reviewed them yet. The chemistry text (descriptions, names, measurements) comes from functions with automated tests.
+**How it was checked.** Scripts drove the production build in headless Chromium 153 (the engine behind Chrome and Edge) on Linux, using the keyboard only where the check is about the keyboard. Screenshots were taken in the light and dark themes at 1366×768 and 400×800 (the periodic table also at 2523×1290) and looked at by the AI coding assistant that built the screens; no person has reviewed them yet. The chemistry text (descriptions, names, measurements) comes from functions with automated tests.
 
 **What was checked that way:**
 
-- **Keyboard operation of the explorer.** With no mouse: reach the library from the menu, open a molecule, switch between the four views, turn and zoom the 3D model with the camera buttons, open the text description, select atoms and bonds from the Atoms and bonds list, open the "More about" and "Sources" parts of the cards, measure a distance and an angle, clear the selection, change the valence display level, switch between the neutral and zwitterion forms, and jump to another molecule with the search dialog (Ctrl+K, ⌘K, or the Search button in the menu). Focus moves to the page heading after each navigation, returns to where it was when the search dialog is closed with Escape, and has a visible indicator on every stop in the molecule page's tab order.
+- **Keyboard operation of the explorer.** With no mouse: reach the library from the menu, open a molecule, switch between the four views, turn and zoom the 3D model with the camera buttons, open the text description, select atoms and bonds from the Atoms and bonds list, open the "More about" and "Sources" parts of the cards, measure a distance and an angle, clear the selection, change the valence display level, switch between the neutral and zwitterion forms, and jump to another molecule with the search dialog (Ctrl+K, ⌘K, or the Search button in the menu). Focus moves to the page heading after each navigation (the periodic table has one exception, described next), returns to where it was when the search dialog is closed with Escape, and has a visible indicator on every stop in the molecule page's tab order.
+- **Keyboard operation of the periodic table.** With no mouse: reach the table from the library page, from Home, or from the search dialog; move between the elements; open an element and read its card; change the colouring and the highlight; open the list of all elements; jump to another element or to a molecule with the search dialog; and follow the link on a molecule's atom card to that element. The table is drawn as two grids, the main table and the two rows below it, which together are a single stop in the tab order. Inside them the arrow keys move to the nearest element in that direction, across the gap between the two grids; Home and End go to the ends of a row; Enter opens the element. An arrow key at an edge does nothing, and does not scroll the page. Colouring and highlighting are two ordinary drop-down lists, and each chemical family in the legend is a toggle button. Every stop on the page has a visible focus indicator.
+- **The table's exception to the focus rule.** Opening an element from the table, or from the list of all elements, leaves focus on the cell or link that was chosen, so the arrow keys can go on from there; a status line announces "Selected: Fluorine. Its details are below the table." The element's card follows the table in the tab order. Reaching an element any other way (the search dialog, or the link on an atom card) moves focus to the page heading as everywhere else. Opening elements one after another does not add to the browser history, so Back leaves the table in one step.
+- **Names and alternatives in the periodic table.** Each cell's name gives the element's name, symbol, atomic number and chemical family, the value and unit when the table is coloured by a property ("no value listed" when there is none), and whether it is highlighted. The columns and rows of the main table have group and period headers. Below the table, "All 118 elements as a list" gives every element as a plain link in atomic-number order with the same value beside it, so a trend can be read without the grid or its colours. The shell diagram on an element's card is hidden from assistive technology and its electron counts are given as text. Every link, button, drop-down list and disclosure on the page has a text name.
 - **Text alternatives.** The 3D model and the 2D Lewis drawing are each exposed as one image with a name ("3D ball and stick model of Water") and a description: the formula, the number of atoms and bonds, each central atom's geometry, and where the lone pairs are. The same description can be read on the page under "Text description". Every atom and bond is in the Atoms and bonds list by name, and the current selection and any measurement are written in a status line.
-- **Reduced motion.** With the operating system set to reduce motion, or with Reduced motion set to On in Settings, the 3D model stops as soon as a drag is released; with motion allowed it coasts briefly. Nothing in the explorer moves by itself in either case.
-- **Colour is not the only signal.** A selected atom or bond has a tick in the list and a ring in the model, and is named in the status line; the current view and form have a tick. Elements are coloured in the model, and each atom's element is also in its name ("Oxygen 1") and on its card.
+- **Reduced motion.** With the operating system set to reduce motion, or with Reduced motion set to On in Settings, the 3D model stops as soon as a drag is released; with motion allowed it coasts briefly. Nothing in the explorer moves by itself in either case. On the periodic table's page nothing moves. The only transition is the brief fade of the focus ring on the legend's buttons, as on buttons elsewhere, and it is off when motion is reduced.
+- **Colour is not the only signal.** A selected atom or bond has a tick in the list and a ring in the model, and is named in the status line; the current view and form have a tick. Elements are coloured in the model, and each atom's element is also in its name ("Oxygen 1") and on its card. In the periodic table the chemical family is named in the legend and in each cell's name as well as coloured; a highlighted set has a solid border and the rest lose their fill and take a dashed border, with no fading, so the text keeps its full contrast; a property's value is printed in the cell as well as shaded; an element with no value is hatched and named "no value listed"; the selected element has a double border.
+- **Fit.** At 1366×768 and at 400×800 every one of the 118 elements was opened and the page never scrolled sideways. When the table does not fit at its smallest cell size (44 pixels, or 56 while a property's values are shown), it scrolls sideways inside its own box.
 - **Names.** Every button, link, field and menu on the molecule page, with the search dialog open, has a text name.
 - **Without WebGL.** If the browser cannot start the 3D model, the page says so, and the 2D Lewis view, the list, the cards and the text description still work.
 
@@ -43,14 +47,20 @@ Valence has not had an accessibility audit, and this page makes no claim of conf
 
 - No person has tested Valence with a screen reader. The roles, names and descriptions above were checked by script, not by listening to them.
 - No browser other than Chromium: not Firefox, not Safari, and no phone or tablet browser. Touch has not been tested.
-- Text contrast has not been measured.
-- Browser zoom, enlarged text and forced-colour (high contrast) modes have not been tested.
+- No person with a colour-vision deficiency has looked at the periodic table. Its ten family colours were chosen by a script that simulates three kinds of colour blindness and keeps the colours as far apart as it can; that is a simulation, not a test with people. Two pairs of families (transition metals and noble gases; post-transition metals and noble gases) are the closest even for full colour vision.
+- Text contrast has not been measured on the rendered pages. For the periodic table it was calculated from the colour values when they were chosen: 7:1 or better for text on every family colour in both themes, and 6.56:1 or better on the property shading.
+- Browser zoom and enlarged text have not been tested. Forced-colour (high contrast) mode was tried for the periodic table only, in Chromium's emulation and not with a Windows contrast theme: the borders that mark selection, highlight and focus remain when the colours are removed.
 
 **Known limits:**
 
 - Atoms cannot be reached one by one with the keyboard inside the 3D model or the Lewis drawing. The Atoms and bonds list beside them is the keyboard path and selects the same things.
 - On a canvas, dragging turns the model and the mouse wheel zooms it instead of scrolling the page.
 - Some names contain subscript characters ("Oxygen (O₂)"), which a screen reader may read oddly.
+- How a screen reader announces the periodic table is not known: whether it says the group and period headers, and what it says on crossing from the main table to the two rows below it, were not heard.
+- An element's card is below the table. On a small screen it is out of view when an element is chosen; the status line says where it is.
+- In a cell, an element's name is shown only on a wide screen, and a value with many digits is cut short with an ellipsis. The full name and value are in the cell's accessible name, in the readout above the transition metals, and in the list of all elements. The readout itself is hidden from assistive technology because it repeats the cell's name.
+- When no element is selected, leaving the table with Tab and coming back starts again at hydrogen. Once an element is selected, the table is re-entered at that element.
+- The search dialog lists 159 entries when nothing has been typed.
 
 ## Finance and procurement
 
@@ -61,7 +71,7 @@ Valence has not had an accessibility audit, and this page makes no claim of conf
 
 ## Faculty and curriculum
 
-**What exists.** The molecule explorer. The two labs (standardization of a base by titration; reactions in aqueous solution) and the mechanism timeline are planned and not built; their pages say so.
+**What exists.** The molecule explorer and the periodic table. The two labs (standardization of a base by titration; reactions in aqueous solution) and the mechanism timeline are planned and not built; their pages say so.
 
 **What the explorer shows.** A library of 31 molecules and ions in five groups: basics, a VSEPR showcase, organic functional groups, biomolecules, and the species of the planned mechanism. Glycine and alanine each have a neutral and a zwitterion form. For each one:
 
@@ -71,7 +81,7 @@ Valence has not had an accessibility audit, and this page makes no claim of conf
 - A measure tool: two atoms give a distance, three an angle, four a dihedral.
 - Three valence display levels: a Bohr diagram of the selected atom, labelled "a simplified picture"; lone pairs as dots; and hybrid orbital lobes for sp, sp² and sp³ atoms, with molecular orbital diagrams for O₂ and N₂ only. The O₂ diagram points out that the Lewis structure shows every electron paired while the diagram shows two unpaired.
 
-**Where each kind of value comes from.** The cards list their sources, and the About page lists all of them.
+**Where each kind of value in the explorer comes from.** The cards list their sources, and the About page lists all of them.
 
 | Value | Source |
 | --- | --- |
@@ -109,3 +119,61 @@ The computed values are checked against a table of expected values written from 
 - Hybrid lobes are a simplified shape drawn along each bond and lone-pair direction. The lone pair of an amide or urea nitrogen is described in a note and not drawn as a lobe.
 - The molecular orbital diagrams show the order of the levels, not their energies.
 - The chemistry has been checked against the cited sources by script and by a second pass over the research. It has not been reviewed by a chemistry instructor.
+
+### The periodic table
+
+**What it shows.** All 118 elements in the 18-column layout, with cerium to lutetium and thorium to lawrencium in two rows below. The table can be coloured by chemical family or by one of five properties (electronegativity, covalent radius, first ionization energy, melting point, density), shaded on a linear scale from the lowest to the highest value, with each value printed in its cell. A group, a period, a block or a family can be highlighted, and each group, period and block has a short description of what its members share. Choosing an element shows a card with its atomic mass, group, period, block, family, electron configuration, a shell diagram with the electrons per shell, electronegativity, covalent and van der Waals radii, first ionization energy, electron affinity, common oxidation states, state at 25 °C, melting point, boiling point, density, year discovered, links to the library molecules that contain it, the emission spectrum for hydrogen and xenon, and its sources. Each atom card in the molecule explorer links to its element.
+
+**Where each kind of value comes from.** Unlike the explorer's values, which were curated by hand, the table is built by a script from saved copies of its sources, with nothing fetched while the app runs. Every number is shown in the digits its source prints. The research record, including the saved copies, is in `docs/research/periodic-table/`.
+
+| Value | Source | Elements |
+| --- | --- | --- |
+| Symbol, name, chemical family, electron configuration, state at 25 °C, oxidation states, year discovered | PubChem periodic table, downloaded 2026-10-03 | 118 (oxidation states 117) |
+| Standard atomic weight | IUPAC CIAAW abridged standard atomic weights, 2024 | 84 |
+| Mass of one named isotope, for elements with no standard atomic weight | PubChem periodic table | 34 |
+| First ionization energy | NIST Atomic Spectra Database, with NIST's marking where a value is not measured | 1 to 108 |
+| Electronegativity (Pauling scale) | PubChem periodic table | 95 |
+| Covalent radius | Cordero et al. 2008, as carried on PubChem's element pages | 1 to 96 |
+| Van der Waals radius | PubChem periodic table (from Los Alamos National Laboratory, which names no study) | 99 |
+| Electron affinity | PubChem periodic table (from a 1990 compilation) | 57 |
+| Melting point, boiling point, density | PubChem periodic table (from Jefferson Lab) | 103, 93, 96 |
+| Group, period, block, electrons per shell | Worked out in the app from the atomic number and the configuration by tested functions | 118 |
+| Descriptions of groups, periods and blocks; notes in the legends | Written for Valence from OpenStax Chemistry 2e, the IUPAC Red Book, and the IUPAC and Royal Society of Chemistry periodic tables. The passage each sentence rests on is stored beside it in the source code. | |
+
+**Cross-check.** A script compares the saved sources with each other and writes a report (`docs/research/periodic-table/cross-check.md`). Its outcome decided which source is shown:
+
+- **Atomic weight.** PubChem's column agrees with CIAAW for 80 of 84 elements; argon and iron are rounding ties; lithium (7.0 against 6.94) and sulfur (32.07 against 32.06) differ. CIAAW's values are shown.
+- **First ionization energy.** PubChem's column agrees with NIST for 76 of the 102 elements both list, and differs for 26, nine of them by 0.1 eV or more. NIST's values are shown.
+- **Electron configuration.** PubChem agrees with NIST's ground state for 107 of 108 elements. Lawrencium differs; PubChem's is shown, with a note giving NIST's. NIST has no entry for elements 109 to 118.
+- **Electronegativity, melting point, boiling point, density, van der Waals radius.** Compared once, with Wikipedia's transcriptions of handbooks and not with a primary source. The values that stood far from the other tabulations are shown as PubChem has them, each with a note on the card.
+- **Electron affinity, covalent radius, oxidation states, year discovered.** Not compared value by value with an independent source.
+
+The report lists 26 values as unresolved: disagreements no decision settles, and values PubChem gives as plain facts that are predictions, estimates or untraced. A test fails if any of them has no note on its card.
+
+**Notes.** A value that needs a caution carries a sentence beside it on the card, with its own source: 92 notes on 54 elements. Among them: helium's melting point (it is solid only under pressure); carbon's and arsenic's melting and boiling points (both elements turn from solid straight to gas at ordinary pressure); the density of each gas (it is for the gas at 0 °C and atmospheric pressure, which PubChem does not state and which was worked out from the values); the years for aluminum, calcium, fluorine and silicon, which are not the years those elements were first isolated; the oxidation states of krypton, xenon and radon (PubChem's list shows only 0, although compounds such as XeF₄ exist); and the melting points, states and masses of the heaviest elements that are estimates or predictions.
+
+**Conventions chosen.**
+
+- **Group 3 and the f block.** Lanthanum and actinium are in group 3 and the d block; the f block is cerium to lutetium and thorium to lawrencium, 14 in each row, with no group number. This is how the Royal Society of Chemistry's table is drawn and how OpenStax Chemistry 2e assigns the blocks. PubChem puts lutetium and lawrencium in group 3; a provisional report of an IUPAC task group in 2021 leaned the same way, and IUPAC has not ruled. The page says so in a note on group 3. Helium is in group 18 and in the s block.
+- **Chemical families.** PubChem's ten categories are used as given, under the heading "Chemical family (PubChem's grouping)". The legend notes that the halogens and noble gases are nonmetals too, that sources differ on which elements are metalloids, and that group 12 is not always counted among the transition metals, and that elements 109 to 118 are placed in their families by position. Polonium and astatine carry a note that PubChem's own pages class them differently.
+- **Atomic mass has two kinds.** An element with a standard atomic weight shows it. The other 34 show the mass of one named isotope, with a sentence that the element has no standard atomic weight, and "estimate" from lawrencium on. Bismuth, thorium, protactinium and uranium have a standard atomic weight.
+- **"No value listed".** A value its source leaves empty is shown with those words, never as zero and never as "not measured", because an empty cell in these sources does not always mean that.
+- **Predicted and expected.** A configuration PubChem marks as predicted or calculated keeps that word, on the card and on the shell diagram; a state it words as expected is shown as expected.
+- **Radius.** The table is coloured by covalent radius, which shows the trend a general chemistry course teaches. PubChem's own "atomic radius" column is a van der Waals radius from mixed sources; it is on the card under that name and is not used for colouring.
+- **Electron affinity** is given as the energy released when an atom gains an electron, so a positive value means energy is released; the card says that some textbooks use the opposite sign.
+- **Oxidation states** are headed "Common oxidation states (PubChem's list, not complete)". **The state** is headed "State at room temperature (25 °C)", because that is what PubChem's column holds; it is not the thermodynamic standard state. **The year** is headed "Year discovered (as PubChem lists it)".
+- **Names** are spelled as PubChem spells them (aluminum, cesium). The search also finds "aluminium" and "caesium".
+- **The 11 elements the explorer also describes.** Atomic weight, first ionization energy and covalent radius come from the same sources in both places. The van der Waals radii of hydrogen and fluorine differ; the element card shows the table's value and gives the explorer's value and its source in one sentence.
+
+**Known limits of the periodic table.**
+
+- No chemistry instructor or chemist has reviewed the data, the notes or the descriptions. They were checked by script, and by AI reviewers against the cited pages.
+- Only atomic weight, first ionization energy and the electron configurations of elements 1 to 108 were checked against a primary source. Everything else PubChem compiles from Jefferson Lab, Los Alamos National Laboratory and journal papers was taken on PubChem's attribution; the original papers (Cordero 2008, Allred 1961, Myers 1990) were not read.
+- The electron affinities are from a 1990 compilation and some are dated: fluorine is 3.339 eV here, and about 3.40 eV in current compilations.
+- The van der Waals radii are not one consistent set, and about half match none of the published sets they were compared with. They do not show a clean trend.
+- Francium's electronegativity (0.7), the low end of that colour scale, and lawrencium's (1.3) have no source on PubChem's own pages. Both carry a note.
+- For the heaviest elements most values are predictions or are missing. Elements 109 to 118 have no ionization energy, and none from fermium on has a van der Waals radius.
+- The scales are linear. For density that puts all 11 gases together at the pale end; for melting point the two ends (helium, carbon) are not ordinary-pressure melting points. The legends say so.
+- The descriptions of the groups, periods and blocks are short and general. Nothing checks automatically that each sentence says no more than the passage stored beside it.
+- The pages the descriptions cite were read on 2026-10-03 and are not saved. Whether PubChem's table has changed since that date has not been rechecked.
+- The colours of the table are a design choice, not chemistry data.
