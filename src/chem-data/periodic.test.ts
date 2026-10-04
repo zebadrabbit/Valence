@@ -9,6 +9,9 @@ import elementPages from '../../docs/research/periodic-table/sources/pubchem-ele
 import pagePassages from '../../docs/research/periodic-table/sources/pubchem-element-pages-passages.json'
 import densitiesPage from '../../docs/research/periodic-table/sources/wikipedia-densities-of-the-elements-data-page.wikitext?raw'
 import {
+  CATEGORIES,
+  CATEGORY_HEADING,
+  CATEGORY_NOTES,
   describeBlock,
   describeGroup,
   describePeriod,
@@ -17,8 +20,10 @@ import {
   NO_VALUE,
   periodicTable,
   shellsFromConfiguration,
+  TREND_NOTES,
   type Block,
   type ElementPosition,
+  type TrendProperty,
 } from './periodic'
 import { registry } from './registry'
 import { PERIODIC_UNITS, type PeriodicElement } from './schema'
@@ -848,6 +853,9 @@ describe('shellsFromConfiguration', () => {
   })
 })
 
+// The notes the table's legends carry. They are held to the same checks as the descriptions.
+const LEGEND_NOTES = [...CATEGORY_NOTES, ...Object.values(TREND_NOTES).flat()]
+
 describe('group, period and block descriptions', () => {
   type Described = { symbol: string; name: string; category: string; configuration: string } & ElementPosition
   const described: Described[] = periodicTable.map((e) => ({
@@ -874,10 +882,11 @@ describe('group, period and block descriptions', () => {
     ...PERIODS.map((period) => [`period ${period}`, describePeriod(period)] as const),
     ...BLOCKS.map((block) => [`block ${block}`, describeBlock(block)] as const),
     ['the group 3 note', GROUP_3_NOTE] as const,
+    ...LEGEND_NOTES.map((note, i) => [`legend note ${i + 1}`, note] as const),
   ]
 
   it('gives every group, period and block a text, at least one known source, and the passage behind each source', () => {
-    expect(all.length).toBe(18 + 7 + 4 + 1)
+    expect(all.length).toBe(18 + 7 + 4 + 1 + 4 + 2)
     for (const [what, description] of all) {
       expect([what, description.text]).toEqual([what, expect.stringMatching(/^[A-Z0-9].*\.$/)])
       expect([what, description.text]).toEqual([what, expect.not.stringMatching(/ {2}|undefined|NaN/)])
@@ -1110,5 +1119,113 @@ describe('group, period and block descriptions', () => {
     for (const group of [0, 19, 1.5]) expect(() => describeGroup(group)).toThrow(/no group/)
     for (const period of [0, 8, 2.5]) expect(() => describePeriod(period)).toThrow(/no period/)
     expect(() => describeBlock('g' as Block)).toThrow(/no block/)
+  })
+})
+
+describe('the legend', () => {
+  const names = (test: (e: PeriodicElement) => boolean) => periodicTable.filter(test).map((e) => e.name.toLowerCase())
+  const note = (start: string) => {
+    const found = CATEGORY_NOTES.find((n) => n.text.startsWith(start))
+    if (!found) throw new Error(`no legend note starts "${start}"`)
+    return found
+  }
+
+  it("lists PubChem's ten categories once each, in the order the table meets them from the left", () => {
+    expect(CATEGORIES.map((c) => c.category)).toEqual([
+      'Alkali metal',
+      'Alkaline earth metal',
+      'Transition metal',
+      'Post-transition metal',
+      'Metalloid',
+      'Nonmetal',
+      'Halogen',
+      'Noble gas',
+      'Lanthanide',
+      'Actinide',
+    ])
+    expect(new Set(periodicTable.map((e) => e.category))).toEqual(new Set(CATEGORIES.map((c) => c.category)))
+  })
+
+  it('shows "Nonmetal" as "Other nonmetals", and every other category under its own name', () => {
+    expect(CATEGORY_HEADING).toBe("Chemical family (PubChem's grouping)")
+    expect(CATEGORIES.find((c) => c.category === 'Nonmetal')).toEqual({ category: 'Nonmetal', member: 'other nonmetal', family: 'Other nonmetals' })
+    for (const { category, member, family } of CATEGORIES) {
+      if (category === 'Nonmetal') continue
+      expect(member).toBe(category.toLowerCase())
+      expect(family).toBe(category === 'Noble gas' ? 'Noble gases' : `${category}s`)
+    }
+  })
+
+  it('says that the halogens fluorine to iodine and the noble gases helium to radon are nonmetals too', () => {
+    const { text, sourceIds, support } = note('Fluorine, chlorine, bromine, iodine')
+    expect(text).toBe('Fluorine, chlorine, bromine, iodine and the noble gases helium to radon are nonmetals too; PubChem lists them under their family names.')
+    expect(['F', 'Cl', 'Br', 'I'].map((s) => element(s).category)).toEqual(Array(4).fill('Halogen'))
+    expect(['He', 'Ne', 'Ar', 'Kr', 'Xe', 'Rn'].map((s) => element(s).category)).toEqual(Array(6).fill('Noble gas'))
+    // Astatine, tennessine and oganesson are left out: the passage does not speak of them.
+    expect(text).not.toMatch(/astatine|tennessine|oganesson/i)
+    expect(sourceIds).toEqual(['openstax-chem2e-18.4', 'openstax-chem2e-18.12'])
+    expect(support).toContain('the other nonmetal gases—hydrogen, nitrogen, oxygen, fluorine, and chlorine')
+    expect(support).toContain('The other halogens are also diatomic; Br₂ is a liquid and I₂ exists as a solid')
+  })
+
+  it("names the six metalloids of the textbook and the one PubChem's table adds, which its own page calls a metal", () => {
+    const { text, sourceIds, support } = note('Sources differ')
+    const six = ['boron', 'silicon', 'germanium', 'arsenic', 'antimony', 'tellurium']
+    expect(text).toContain(`OpenStax Chemistry 2e lists six: ${six.slice(0, -1).join(', ')} and ${six.at(-1)}.`)
+    expect(names((e) => e.category === 'Metalloid').filter((name) => !six.includes(name))).toEqual(['polonium'])
+    expect(names((e) => e.category === 'Metalloid').length).toBe(7)
+    expect(text).toContain("PubChem's table adds polonium, which PubChem's own page for polonium classes as a metal.")
+    expect(pageLines('Po', 'Element Classification').map((line) => line.text)).toEqual(['Metal'])
+    expect(sourceIds).toEqual(['openstax-chem2e-18.3', 'pubchem-element-pages'])
+    expect(support).toContain('The metalloids are boron, silicon, germanium, arsenic, antimony, and tellurium.')
+    expect(sourceOf('openstax-chem2e-18.3')?.citation).toMatch(/Section 18\.3 Structure and General Properties of the Metalloids \(retrieved 2026-10-03\)\.$/)
+  })
+
+  it('says that group 12 is shown with the transition metals and is not always counted among them', () => {
+    const { text, sourceIds } = note('Zinc')
+    const group12 = periodicTable.filter((e) => elementPosition(e.atomicNumber).group === 12)
+    expect(text).toBe('Zinc, cadmium, mercury and copernicium are shown as transition metals; group 12 is not always counted among them.')
+    expect(group12.map((e) => e.name)).toEqual(['Zinc', 'Cadmium', 'Mercury', 'Copernicium'])
+    expect(group12.map((e) => e.category)).toEqual(Array(4).fill('Transition metal'))
+    expect(sourceIds).toEqual(['iupac-red-book-2005'])
+  })
+
+  it('says that elements 109 to 118 are placed by position, and claims no chemistry for them', () => {
+    const { text, sourceIds, support } = note('Meitnerium')
+    expect(text).toBe('Meitnerium to oganesson are placed in their families by position; only a few atoms of each have ever been made.')
+    expect([element('Mt').atomicNumber, element('Og').atomicNumber]).toEqual([109, 118])
+    expect(sourceIds).toEqual(['rsc-periodic-table'])
+    expect(support).toContain('only a few atoms have ever been made')
+  })
+
+  it('carries exactly these four notes on the families', () => {
+    expect(CATEGORY_NOTES.length).toBe(4)
+  })
+
+  it('notes, on the electronegativity scale, which noble gases have a value', () => {
+    expect(TREND_NOTES.electronegativity.map((n) => n.text)).toEqual(['Among the noble gases PubChem lists a value only for krypton and xenon.'])
+    expect(symbolsWhere((e) => e.category === 'Noble gas' && e.electronegativity !== undefined)).toEqual(['Kr', 'Xe'])
+  })
+
+  it('notes, on the density scale, that the gases sit together at the bottom, and at what conditions', () => {
+    expect(TREND_NOTES.density.map((n) => n.text)).toEqual([
+      'The 11 elements that are gases at room temperature have the lowest densities, all below 0.01 g/cm³, and sit together at the bottom of the scale. Those figures are for the gas at 0 °C and atmospheric pressure.',
+    ])
+    const gases = periodicTable.filter((e) => e.standardState.state === 'Gas' && !e.standardState.expected)
+    const others = periodicTable.filter((e) => !gases.includes(e) && e.density !== undefined)
+    expect(gases.length).toBe(11)
+    for (const gas of gases) {
+      expect([gas.symbol, gas.density!.value]).toEqual([gas.symbol, expect.toSatisfy((d: number) => d < 0.01)])
+      expect(gas.notes?.find((n) => n.row === 'density')?.text).toContain('at 0 °C and atmospheric pressure')
+    }
+    expect(Math.min(...others.map((e) => e.density!.value))).toBeGreaterThan(0.5)
+    // Oganesson is only expected to be a gas, and has no density.
+    expect([element('Og').standardState, element('Og').density]).toEqual([{ state: 'Gas', expected: true }, undefined])
+  })
+
+  it('has no authored note for the other three scales, whose ends carry their own notes or need none', () => {
+    const others: TrendProperty[] = ['covalentRadius', 'ionizationEnergy', 'meltingPoint']
+    expect(others.map((property) => TREND_NOTES[property])).toEqual([[], [], []])
+    expect(Object.keys(TREND_NOTES)).toEqual(['electronegativity', 'covalentRadius', 'ionizationEnergy', 'meltingPoint', 'density'])
   })
 })

@@ -89,6 +89,7 @@ const RED_BOOK = 'iupac-red-book-2005'
 const IUPAC_TABLE = 'iupac-periodic-table'
 const RSC = 'rsc-periodic-table'
 const PUBCHEM_PAGES = 'pubchem-element-pages'
+const PUBCHEM_TABLE = 'pubchem-periodic-table'
 const IUPAC_GROUP_3_REPORT = 'iupac-group-3-report-2021'
 
 // `derived` says which sentences are counted from this table and not read in a source; a test does the counting.
@@ -404,3 +405,96 @@ export const GROUP_3_NOTE: Description = description(
     ],
   ],
 )
+
+export type Category = PeriodicElement['category']
+
+/**
+ * PubChem's ten categories as the legend lists them (periodic table spec 5.5), in the order the table meets them
+ * from the left, with the words shown for one member and for the family. PubChem's "Nonmetal" holds only the
+ * nonmetals that are neither halogens nor noble gases, so it is shown as "Other nonmetals".
+ */
+export const CATEGORIES: readonly { category: Category; member: string; family: string }[] = [
+  { category: 'Alkali metal', member: 'alkali metal', family: 'Alkali metals' },
+  { category: 'Alkaline earth metal', member: 'alkaline earth metal', family: 'Alkaline earth metals' },
+  { category: 'Transition metal', member: 'transition metal', family: 'Transition metals' },
+  { category: 'Post-transition metal', member: 'post-transition metal', family: 'Post-transition metals' },
+  { category: 'Metalloid', member: 'metalloid', family: 'Metalloids' },
+  { category: 'Nonmetal', member: 'other nonmetal', family: 'Other nonmetals' },
+  { category: 'Halogen', member: 'halogen', family: 'Halogens' },
+  { category: 'Noble gas', member: 'noble gas', family: 'Noble gases' },
+  { category: 'Lanthanide', member: 'lanthanide', family: 'Lanthanides' },
+  { category: 'Actinide', member: 'actinide', family: 'Actinides' },
+]
+
+export const CATEGORY_HEADING = "Chemical family (PubChem's grouping)"
+
+/** The notes the family legend carries (spec 5.5). The categories themselves are PubChem's, with no overrides. */
+export const CATEGORY_NOTES: readonly Description[] = [
+  // Astatine, tennessine and oganesson are left out: the passages do not speak of them.
+  description(
+    'Fluorine, chlorine, bromine, iodine and the noble gases helium to radon are nonmetals too; PubChem lists them under their family names.',
+    [
+      [
+        openstax('18.4'),
+        '“Under normal conditions, more than half of the nonmetals are gases, one is a liquid, and the rest include some of the softest and hardest of solids. … The noble gases are all monatomic, whereas the other nonmetal gases—hydrogen, nitrogen, oxygen, fluorine, and chlorine—normally exist as the diatomic molecules H₂, N₂, O₂, F₂, and Cl₂. The other halogens are also diatomic; Br₂ is a liquid and I₂ exists as a solid under normal conditions.”',
+      ],
+      [openstax('18.12'), '“The elements in group 18 are the noble gases (helium, neon, argon, krypton, xenon, and radon).”'],
+    ],
+    'the family PubChem lists each of the ten under',
+  ),
+  // "Sources differ", not the spec's "textbooks differ": one textbook was read, and the other list is PubChem's.
+  description(
+    "Sources differ on which elements are metalloids. OpenStax Chemistry 2e lists six: boron, silicon, germanium, arsenic, antimony and tellurium. PubChem's table adds polonium, which PubChem's own page for polonium classes as a metal.",
+    [
+      [
+        openstax('18.3'),
+        '“A series of six elements called the metalloids separate the metals from the nonmetals in the periodic table. The metalloids are boron, silicon, germanium, arsenic, antimony, and tellurium.”',
+      ],
+      [PUBCHEM_PAGES, 'the line “Element Classification” on the page for polonium reads “Metal”.'],
+    ],
+    "the seven elements PubChem's table lists as metalloids",
+  ),
+  description(
+    'Zinc, cadmium, mercury and copernicium are shown as transition metals; group 12 is not always counted among them.',
+    [RED_BOOK_BLOCKS],
+    'the members of group 12 and the category PubChem lists for each',
+  ),
+  // Spec 5.5 has "their chemistry being little known". No passage read says that, so the note says what the pages do say.
+  description(
+    'Meitnerium to oganesson are placed in their families by position; only a few atoms of each have ever been made.',
+    [[RSC, `on the page for each of the ten, “${FEW_ATOMS}”`]],
+    'the first and last of the ten, elements 109 to 118',
+  ),
+]
+
+/** The properties the table can be coloured by (spec 6). */
+export type TrendProperty = 'electronegativity' | 'covalentRadius' | 'ionizationEnergy' | 'meltingPoint' | 'density'
+
+/**
+ * What a property's legend says beyond its scale (spec 6). The notes on the elements at the two ends of a scale
+ * are taken from those elements' own records, not from here.
+ */
+export const TREND_NOTES: Readonly<Record<TrendProperty, readonly Description[]>> = {
+  electronegativity: [
+    description(
+      'Among the noble gases PubChem lists a value only for krypton and xenon.',
+      [[PUBCHEM_TABLE, 'the Electronegativity column holds 3 for krypton and 2.6 for xenon, and is empty for helium, neon, argon, radon and oganesson.']],
+      'the noble gases with a value',
+    ),
+  ],
+  covalentRadius: [],
+  ionizationEnergy: [],
+  meltingPoint: [],
+  density: [
+    description(
+      'The 11 elements that are gases at room temperature have the lowest densities, all below 0.01 g/cm³, and sit together at the bottom of the scale. Those figures are for the gas at 0 °C and atmospheric pressure.',
+      [
+        [
+          PUBCHEM_TABLE,
+          'the Density and StandardState columns. The table does not state the conditions; they were worked out from the values, as the note on the density of each gas says.',
+        ],
+      ],
+      'the gases, as the standard state PubChem lists, and their densities',
+    ),
+  ],
+}

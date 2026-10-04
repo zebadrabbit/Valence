@@ -658,7 +658,7 @@ const DENSITIES_ID = 'handbook-densities-wikipedia'
 const CIAAW_RADIOACTIVE_ID = 'ciaaw-radioactive-elements'
 const PUBCHEM = 'PubChem [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2004-.'
 
-// What the group, period and block descriptions and the group 3 note in src/chem-data/periodic.ts cite. Each
+// What the group, period and block descriptions, the group 3 note and the legend notes in src/chem-data/periodic.ts cite. Each
 // page was read on the retrieval date of the saved downloads; the passage read is stored beside the sentence
 // it supports, there, and the pages themselves are not saved.
 const OPENSTAX = 'Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019;'
@@ -666,6 +666,7 @@ const OPENSTAX_SECTIONS = [
   ['2.5', 'The Periodic Table', '2-5-the-periodic-table'],
   ['6.4', 'Electronic Structure of Atoms (Electron Configurations)', '6-4-electronic-structure-of-atoms-electron-configurations'],
   ['18.1', 'Periodicity', '18-1-periodicity'],
+  ['18.3', 'Structure and General Properties of the Metalloids', '18-3-structure-and-general-properties-of-the-metalloids'],
   ['18.4', 'Structure and General Properties of the Nonmetals', '18-4-structure-and-general-properties-of-the-nonmetals'],
   ['18.11', 'Occurrence, Preparation, and Properties of Halogens', '18-11-occurrence-preparation-and-properties-of-halogens'],
   ['18.12', 'Occurrence, Preparation, and Properties of the Noble Gases', '18-12-occurrence-preparation-and-properties-of-the-noble-gases'],
