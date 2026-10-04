@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import crossCheckRecorded from '../../docs/research/periodic-table/cross-check-recorded.md?raw'
 import elementPages from '../../docs/research/periodic-table/sources/pubchem-element-pages-extract.json?raw'
+import { findInstitutionText } from './denylist'
 import { CATEGORY_HEADING, elementPosition, GROUP_3_NOTE, periodicTable } from './periodic'
 import {
   ANCIENT,
@@ -231,6 +232,13 @@ describe('every sentence of the card', () => {
       return note ? [[`curated radius of ${e.symbol}`, note] as const] : []
     }),
   ]
+
+  it('holds no institution-specific text, in what is shown or in what is stored beside it', () => {
+    for (const [what, note] of all) {
+      expect([what, findInstitutionText(note.text, [])]).toEqual([what, null])
+      expect([what, findInstitutionText(note.support, [])]).toEqual([what, null])
+    }
+  })
 
   it('is a whole sentence, with at least one known source and the passage behind each source', () => {
     expect(all.length).toBe(5 + 34 + 2)

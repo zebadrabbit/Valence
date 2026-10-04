@@ -25,6 +25,7 @@ import {
   type ElementPosition,
   type TrendProperty,
 } from './periodic'
+import { findInstitutionText } from './denylist'
 import { ELECTRON_AFFINITY_NOTE } from './periodicCard'
 import { registry } from './registry'
 import { PERIODIC_UNITS, type PeriodicElement } from './schema'
@@ -969,6 +970,13 @@ describe('group, period and block descriptions', () => {
     expect(openstax.length).toBe(10)
     for (const source of openstax) {
       expect([source.id, source.citation]).toEqual([source.id, expect.stringContaining('Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction')])
+    }
+  })
+
+  it('holds no institution-specific text, in what is shown or in what is stored beside it', () => {
+    for (const [what, description] of all) {
+      expect([what, findInstitutionText(description.text, institutionNames)]).toEqual([what, null])
+      expect([what, findInstitutionText(description.support, institutionNames)]).toEqual([what, null])
     }
   })
 
