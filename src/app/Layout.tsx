@@ -3,23 +3,19 @@ import { NavLink, Outlet, useLocation, useNavigationType } from 'react-router'
 import { PanelLeftClose, PanelLeftOpen } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { NAV } from './nav'
+import { focusesHeading } from './navigationFocus'
 import { CommandPalette } from './palette/CommandPalette'
 
 export function Layout() {
   // The rail starts collapsed on narrow screens.
   const [expanded, setExpanded] = useState(() => window.matchMedia('(min-width: 768px)').matches)
 
-  // After each navigation, focus the new page's h1 so keyboard and screen-reader users land on it.
-  // Not on first load, and not when the link just followed asked to stay put (a toggle within one page).
-  // Back or Forward to such an address arrives from another page, where that link has no focus to keep:
-  // without the h1, focus would be left on nothing.
+  // After each navigation, focus the new page's h1, unless focusesHeading says to leave focus where it is.
   const location = useLocation()
   const navigationType = useNavigationType()
   const [firstLocation] = useState(location)
   useEffect(() => {
-    if (location === firstLocation) return
-    if (navigationType !== 'POP' && (location.state as { keepFocus?: boolean } | null)?.keepFocus) return
-    document.querySelector<HTMLElement>('main h1')?.focus()
+    if (focusesHeading(navigationType, location.state, location === firstLocation)) document.querySelector<HTMLElement>('main h1')?.focus()
   }, [location, firstLocation, navigationType])
 
   return (
