@@ -77,6 +77,16 @@ describe('measure', () => {
     expect(measure(ethyne, [hOn(c1!), c1!, c2!, hOn(c2!)])).toMatchObject({ kind: 'dihedral', value: null })
   })
 
+  it('says which point group an angle of PCl5 follows from, and gives it no published text', () => {
+    const pcl5 = molecule('phosphorus-pentachloride')
+    const p = indices(pcl5.id, 'P')[0]!
+    const [cl1, cl2] = indices(pcl5.id, 'Cl')
+    const result = measure(pcl5, [cl1!, p, cl2!])
+    expect(result!.cited).toEqual({ value: 120, sourceId: 'cccbdb-phosphorus-pentachloride', symmetry: 'D3h' })
+    const bond = measure(pcl5, [p, cl1!])
+    expect(bond!.cited).toEqual({ value: 2.02, published: '2.020', sourceId: 'cccbdb-phosphorus-pentachloride' })
+  })
+
   it('agrees with every cited measurement in the library', () => {
     for (const m of registry.molecules) {
       const all = [...(m.measurements?.lengths ?? []), ...(m.measurements?.angles ?? []), ...(m.measurements?.dihedrals ?? [])]

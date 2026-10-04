@@ -154,7 +154,10 @@ const atomIndex = z.number().int().min(0)
 
 // Cited experimental values. Every symmetry-equivalent atom set is its own
 // entry, so the validator checks each one against the stored coordinates.
-const measurement = <T extends z.ZodType>(atoms: T, value: z.ZodNumber) => z.array(citedNumber(value).extend({ atoms }))
+// `symmetry` is the molecule's point group, as its source states it, on a value the source prints no figure
+// for because the point group fixes it (the angles of PCl5). Such a value has no `published`.
+const measurement = <T extends z.ZodType>(atoms: T, value: z.ZodNumber) =>
+  z.array(citedNumber(value).extend({ atoms, symmetry: text.optional() }))
 const measurementsSchema = z.strictObject({
   /** Å between atoms [a, b]. */
   lengths: measurement(z.tuple([atomIndex, atomIndex]), z.number().positive()),

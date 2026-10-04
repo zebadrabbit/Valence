@@ -140,6 +140,30 @@ describe('headlineValue and measuredNote', () => {
     expect(measuredNote(water, angle)).toBe("Cited value, experimental (gas phase). The model's coordinates give 104.5°.")
   })
 
+  it('says an angle of PCl5 follows from symmetry and is not a figure the source prints', () => {
+    const pcl5 = molecule('phosphorus-pentachloride')
+    const names = atomNames(pcl5, registry.elements)
+    const basis = "From the molecule's symmetry (D3h); the source prints no figure."
+    for (const [value, count] of [
+      [90, 6],
+      [120, 3],
+      [180, 1],
+    ] as const) {
+      const angles = pcl5.measurements!.angles.filter((angle) => angle.value === value).map((angle) => measure(pcl5, angle.atoms)!)
+      expect(angles).toHaveLength(count)
+      for (const angle of angles) {
+        expect(headlineValue(angle)).toBe(`${value}°`)
+        expect(measuredNote(pcl5, angle)).toBe(`${basis} The model's coordinates give ${value}.0°.`)
+        expect(measuredNote(pcl5, angle)).not.toContain('Cited value')
+        expect(measurementText(angle, names)).toMatch(new RegExp(`: ${value}° \\(from the molecule's symmetry\\)\\.$`))
+      }
+    }
+    // Its two lengths are figures the source prints, and stay labelled as cited.
+    const bond = measure(pcl5, [pcl5.bonds[0]!.a, pcl5.bonds[0]!.b])!
+    expect(measuredNote(pcl5, bond)).toMatch(/^Cited value, experimental \(gas phase\)\./)
+    expect(measurementText(bond, names)).toContain('(cited value)')
+  })
+
   it('shows the model value where the experimental molecule has no cited value for the atoms', () => {
     const across = measure(water, [h1!, h2!])!
     expect(across.cited).toBeUndefined()

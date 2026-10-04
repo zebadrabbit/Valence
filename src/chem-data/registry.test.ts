@@ -111,6 +111,9 @@ describe('the real chem-data registry', () => {
       ...Array(6).fill(['phosphorus-pentachloride', 3, 90]),
       ['phosphorus-pentachloride', 3, 180],
     ])
+    // Each is stored with the point group it follows from, and no value the source prints is.
+    expect(unpublished.map((entry) => entry.symmetry)).toEqual(Array(10).fill('D3h'))
+    expect(cited.filter((entry) => entry.published !== undefined && entry.symmetry !== undefined)).toEqual([])
     const published = (id: string) => [...new Set(cited.filter((entry) => entry.id === id).map((entry) => entry.published))]
     expect(published('water')).toEqual(['0.958', '104.4776'])
     expect(published('hydrogen-peroxide')).toEqual(['1.475', '0.950', '94.8', '119.8'])

@@ -221,6 +221,14 @@ function checkMeasurements(registry: Registry): string[] {
         errors.push(`${label} measures ${measured.toFixed(3)} ${unit}, cited ${cited} ${unit}`)
       }
     }
+    // The card says of such a value that its source prints no figure for it.
+    for (const [kind, list] of [['length', lengths], ['angle', angles], ['dihedral', dihedrals]] as const) {
+      for (const { atoms, published, symmetry } of list) {
+        if (published !== undefined && symmetry !== undefined) {
+          errors.push(`molecule "${molecule.id}": ${kind} ${atoms.join('-')} has a printed figure, so it cannot be labelled as following from symmetry`)
+        }
+      }
+    }
     for (const { atoms, value } of lengths) {
       const [a, b] = atoms.map(at)
       report('length', 'Å', atoms, value, a && b && distance(a, b))

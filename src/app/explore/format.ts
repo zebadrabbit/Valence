@@ -1,7 +1,7 @@
 import { AROMATIC_ORDER_LABEL, BOND_KINDS, RESONANCE_ORDER_LABEL, type DerivedBond } from '@/chem-data/derive'
 import { evToKjPerMol } from '@/chem-data/element'
 import { GEOMETRY_SOURCE_LABEL } from '@/chem-data/library'
-import type { Measurement } from '@/chem-data/measure'
+import { symmetryBasis, type Measurement } from '@/chem-data/measure'
 import type { Element, Molecule } from '@/chem-data/schema'
 import { MINUS } from './minus'
 
@@ -32,7 +32,7 @@ export function degrees(value: number): string {
   return `${fixed(value, 1)}°`
 }
 
-/** A cited length, angle or dihedral, in the digits its source prints; the stored number where the source prints none. */
+/** A cited length, angle or dihedral, in the digits its source prints; the stored number where the source prints none and symmetry fixes it. */
 export function cited({ value, published }: NonNullable<Measurement['cited']>, kind: Measurement['kind']): string {
   return `${(published ?? String(value)).replace('-', MINUS)}${kind === 'distance' ? ' Å' : '°'}`
 }
@@ -92,8 +92,8 @@ export function measurementValue({ kind, value }: Measurement): string {
 
 /**
  * The value a card shows for a length, angle or dihedral, and the status line announces
- * (spec 5.2, 6.3): the cited experimental value where the molecule has one for these atoms,
- * the model's otherwise.
+ * (spec 5.2, 6.3): the cited experimental value where the molecule has one for these atoms, or the value its
+ * symmetry fixes; the model's otherwise.
  */
 export function headlineValue(measurement: Measurement): string {
   return measurement.cited ? cited(measurement.cited, measurement.kind) : measurementValue(measurement)
@@ -102,14 +102,14 @@ export function headlineValue(measurement: Measurement): string {
 /** Says where the headline value comes from, labelled with the molecule's geometry source. */
 export function measuredNote(molecule: Molecule, measurement: Measurement): string {
   const label = GEOMETRY_SOURCE_LABEL[molecule.geometrySource]
-  return measurement.cited
-    ? `Cited value, ${label}. The model's coordinates give ${measurementValue(measurement)}.`
-    : `Measured from the model's coordinates. Model geometry: ${label}.`
+  if (!measurement.cited) return `Measured from the model's coordinates. Model geometry: ${label}.`
+  const basis = measurement.cited.symmetry ? symmetryBasis(measurement.cited.symmetry) : `Cited value, ${label}`
+  return `${basis}. The model's coordinates give ${measurementValue(measurement)}.`
 }
 
 /**
  * One sentence for the status line: what was measured, between which atoms, the result, and whether
- * it is the cited value or the model's, as the card's note says. Names come from atomNames.
+ * it is the cited value, follows from symmetry or is the model's, as the card's note says. Names come from atomNames.
  */
 export function measurementText(measurement: Measurement, atomNames: readonly string[]): string {
   const [a, b, c, d] = measurement.atoms.map((i) => atomNames[i])
@@ -119,6 +119,12 @@ export function measurementText(measurement: Measurement, atomNames: readonly st
       : measurement.kind === 'angle'
         ? `Angle at ${b}, between ${a} and ${c}`
         : `Dihedral ${a}, ${b}, ${c}, ${d}`
-  const source = measurement.cited ? ' (cited value)' : measurement.value === null ? '' : ' (measured from the model)'
+  const source = measurement.cited?.symmetry
+    ? " (from the molecule's symmetry)"
+    : measurement.cited
+      ? ' (cited value)'
+      : measurement.value === null
+        ? ''
+        : ' (measured from the model)'
   return `${what}: ${headlineValue(measurement)}${source}.`
 }

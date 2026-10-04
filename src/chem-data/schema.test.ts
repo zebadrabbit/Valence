@@ -149,6 +149,13 @@ describe('moleculeSchema', () => {
     expect(parse({ ...length, published: '0.950', printed: '0.950' })).toBe(false)
   })
 
+  it('accepts the point group a measurement follows from, and rejects an empty one', () => {
+    const angle = { atoms: [0, 1, 0], value: 120, sourceId: 's1' }
+    const parse = (entry: object) => moleculeSchema.safeParse({ ...molecule, measurements: { lengths: [], angles: [entry], dihedrals: [] } }).success
+    expect(parse({ ...angle, symmetry: 'D3h' })).toBe(true)
+    expect(parse({ ...angle, symmetry: '' })).toBe(false)
+  })
+
   it('rejects an unknown geometry source', () => {
     const molecule = {
       id: 'h2',

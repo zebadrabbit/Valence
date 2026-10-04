@@ -58,6 +58,14 @@ describe('measurementCitations and bondCitations', () => {
     ])
   })
 
+  it('cites the page for the point group, not for a figure, where the value follows from symmetry', () => {
+    const pcl5 = molecule('phosphorus-pentachloride')
+    const { atoms } = pcl5.measurements!.angles[0]!
+    expect(summary(measurementCitations(pcl5, measure(pcl5, atoms)!, sources))).toEqual([
+      ['cccbdb-phosphorus-pentachloride', ['Atom coordinates of the model', 'Point group of the molecule (D3h)']],
+    ])
+  })
+
   it('cites only the coordinates when the atoms have no cited value', () => {
     const benzene = molecule('benzene')
     expect(summary(measurementCitations(benzene, measure(benzene, [0, 1, 2])!, sources))).toEqual([

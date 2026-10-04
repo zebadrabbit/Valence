@@ -94,6 +94,9 @@ export function bondCitations(
 function geometryEntries(molecule: Molecule, measurement: Measurement): Entry[] {
   return [
     ['Atom coordinates of the model', molecule.sourceId],
-    ...(measurement.cited ? [[CITED_LABEL[measurement.kind], measurement.cited.sourceId] as const] : []),
+    ...(measurement.cited
+      ? // A value that follows from symmetry rests on the point group its source states, not on a figure read there.
+        [[measurement.cited.symmetry ? `Point group of the molecule (${measurement.cited.symmetry})` : CITED_LABEL[measurement.kind], measurement.cited.sourceId] as const]
+      : []),
   ]
 }

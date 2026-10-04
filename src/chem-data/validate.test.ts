@@ -394,6 +394,18 @@ describe('validateRegistry', () => {
       expect(validateRegistry(r)).toEqual([])
     })
 
+    it('checks a value that follows from symmetry against the coordinates like any other', () => {
+      const r = validRegistry()
+      r.molecules[0]!.measurements!.angles[0] = { atoms: [1, 0, 2], value: 120, sourceId: 's1', symmetry: 'D3h' }
+      expect(validateRegistry(r)).toEqual(['molecule "water": angle 1-0-2 measures 104.512 °, cited 120 °'])
+    })
+
+    it('rejects a value said to follow from symmetry that also has a printed figure', () => {
+      const r = validRegistry()
+      r.molecules[0]!.measurements!.angles[0] = { atoms: [1, 0, 2], value: 104.5, sourceId: 's1', published: '104.5', symmetry: 'C2v' }
+      expect(validateRegistry(r)).toEqual(['molecule "water": angle 1-0-2 has a printed figure, so it cannot be labelled as following from symmetry'])
+    })
+
     it('rejects a cited length the coordinates miss by more than 0.01 Å', () => {
       const r = validRegistry()
       r.molecules[0]!.measurements!.lengths[1]!.value = 0.97

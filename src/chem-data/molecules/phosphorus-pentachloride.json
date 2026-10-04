@@ -180,7 +180,8 @@
           2
         ],
         "value": 120,
-        "sourceId": "cccbdb-phosphorus-pentachloride"
+        "sourceId": "cccbdb-phosphorus-pentachloride",
+        "symmetry": "D3h"
       },
       {
         "atoms": [
@@ -189,7 +190,8 @@
           3
         ],
         "value": 120,
-        "sourceId": "cccbdb-phosphorus-pentachloride"
+        "sourceId": "cccbdb-phosphorus-pentachloride",
+        "symmetry": "D3h"
       },
       {
         "atoms": [
@@ -198,7 +200,8 @@
           3
         ],
         "value": 120,
-        "sourceId": "cccbdb-phosphorus-pentachloride"
+        "sourceId": "cccbdb-phosphorus-pentachloride",
+        "symmetry": "D3h"
       },
       {
         "atoms": [
@@ -207,7 +210,8 @@
           1
         ],
         "value": 90,
-        "sourceId": "cccbdb-phosphorus-pentachloride"
+        "sourceId": "cccbdb-phosphorus-pentachloride",
+        "symmetry": "D3h"
       },
       {
         "atoms": [
@@ -216,7 +220,8 @@
           2
         ],
         "value": 90,
-        "sourceId": "cccbdb-phosphorus-pentachloride"
+        "sourceId": "cccbdb-phosphorus-pentachloride",
+        "symmetry": "D3h"
       },
       {
         "atoms": [
@@ -225,7 +230,8 @@
           3
         ],
         "value": 90,
-        "sourceId": "cccbdb-phosphorus-pentachloride"
+        "sourceId": "cccbdb-phosphorus-pentachloride",
+        "symmetry": "D3h"
       },
       {
         "atoms": [
@@ -234,7 +240,8 @@
           1
         ],
         "value": 90,
-        "sourceId": "cccbdb-phosphorus-pentachloride"
+        "sourceId": "cccbdb-phosphorus-pentachloride",
+        "symmetry": "D3h"
       },
       {
         "atoms": [
@@ -243,7 +250,8 @@
           2
         ],
         "value": 90,
-        "sourceId": "cccbdb-phosphorus-pentachloride"
+        "sourceId": "cccbdb-phosphorus-pentachloride",
+        "symmetry": "D3h"
       },
       {
         "atoms": [
@@ -252,7 +260,8 @@
           3
         ],
         "value": 90,
-        "sourceId": "cccbdb-phosphorus-pentachloride"
+        "sourceId": "cccbdb-phosphorus-pentachloride",
+        "symmetry": "D3h"
       },
       {
         "atoms": [
@@ -261,7 +270,8 @@
           5
         ],
         "value": 180,
-        "sourceId": "cccbdb-phosphorus-pentachloride"
+        "sourceId": "cccbdb-phosphorus-pentachloride",
+        "symmetry": "D3h"
       }
     ],
     "dihedrals": []

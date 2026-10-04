@@ -9,8 +9,16 @@ export type Measurement = {
   atoms: readonly number[]
   /** Å or degrees, from the stored coordinates. Null for a dihedral with three of its atoms in a line, which has no value. */
   value: number | null
-  /** The molecule's cited experimental value for exactly these atoms, when it has one, with the text its source prints. */
-  cited?: { value: number; published?: string; sourceId: string }
+  /**
+   * The molecule's cited experimental value for exactly these atoms, when it has one, with the text its source prints;
+   * or, where the source prints no figure, the value its point group fixes, with that point group in `symmetry`.
+   */
+  cited?: { value: number; published?: string; symmetry?: string; sourceId: string }
+}
+
+/** What a card says of a value that has `symmetry`: where it comes from, and that it is not a figure read in the source. */
+export function symmetryBasis(pointGroup: string): string {
+  return `From the molecule's symmetry (${pointGroup}); the source prints no figure`
 }
 
 const KINDS = { 2: ['distance', 'lengths'], 3: ['angle', 'angles'], 4: ['dihedral', 'dihedrals'] } as const
@@ -40,6 +48,6 @@ export function measure(molecule: Molecule, atoms: readonly number[]): Measureme
   const keys = [atoms.join(), [...atoms].reverse().join()]
   const cited = molecule.measurements?.[list].find((m) => keys.includes(m.atoms.join()))
   if (!cited) return { kind, atoms, value }
-  const { value: citedValue, sourceId, published } = cited
-  return { kind, atoms, value, cited: { value: citedValue, sourceId, ...(published === undefined ? {} : { published }) } }
+  const { value: citedValue, sourceId, published, symmetry } = cited
+  return { kind, atoms, value, cited: { value: citedValue, sourceId, ...(published === undefined ? {} : { published }), ...(symmetry === undefined ? {} : { symmetry }) } }
 }

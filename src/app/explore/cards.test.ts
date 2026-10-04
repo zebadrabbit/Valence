@@ -97,6 +97,19 @@ describe('bond card', () => {
   })
 })
 
+describe('measure card', () => {
+  it('labels an angle of PCl₅ as following from symmetry, and a length as the cited figure', () => {
+    const pcl5 = molecule('phosphorus-pentachloride')
+    const angle = inspector(pcl5.id, { atoms: [...pcl5.measurements!.angles[0]!.atoms], bond: null })
+    expect(angle).toContain('From the molecule&#x27;s symmetry (D3h); the source prints no figure.')
+    expect(angle).toContain('Point group of the molecule (D3h)')
+    expect(angle).not.toContain('Cited')
+    const length = inspector(pcl5.id, { atoms: [...pcl5.measurements!.lengths[0]!.atoms], bond: null })
+    expect(length).toContain('Cited value, experimental (gas phase).')
+    expect(length).toContain('Cited length')
+  })
+})
+
 describe('hybrid orbitals card', () => {
   const note = (id: string, level: 1 | 2 | 3) => inspector(id, { atoms: [0], bond: null }, level)
 
