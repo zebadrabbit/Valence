@@ -39,21 +39,35 @@ Disagreements between sources about a value the app shows, which no decision set
 
 | Z | Element | Card row | PubChem's table | Against | Section |
 | --- | --- | --- | --- | --- | --- |
+| 2 | Helium (He) | `covalentRadius` | 28 pm (PubChem's page for the element; the table has no such column) | no uncertainty on the page, unlike its radii for 88 other elements | 6.5 |
 | 5 | Boron (B) | `density` | 2.37 g/cm³ | 2.34 g/cm³, the nearest value in other tabulations (recorded 2026-10-03) | 9.4 |
 | 6 | Carbon (C) | `meltingPoint` | 3823 K | 3800 K, the nearest value in other tabulations (recorded 2026-10-03) | 9.4 |
+| 10 | Neon (Ne) | `covalentRadius` | 58 pm (PubChem's page for the element; the table has no such column) | no uncertainty on the page, unlike its radii for 88 other elements | 6.5 |
 | 56 | Barium (Ba) | `boilingPoint` | 2170 K | 2143 K, the nearest value in other tabulations (recorded 2026-10-03) | 9.4 |
+| 61 | Promethium (Pm) | `covalentRadius` | 199 pm (PubChem's page for the element; the table has no such column) | no uncertainty on the page, unlike its radii for 88 other elements | 6.5 |
 | 85 | Astatine (At) | `meltingPoint` | 575 K | no measurement: an estimate that PubChem does not mark as one | 6.2 |
+| 85 | Astatine (At) | `standardState` | Solid | no sample large enough to observe: a prediction that PubChem does not word as one | 6.3 |
+| 85 | Astatine (At) | `covalentRadius` | 150 pm (PubChem's page for the element; the table has no such column) | no uncertainty on the page, unlike its radii for 88 other elements | 6.5 |
+| 86 | Radon (Rn) | `covalentRadius` | 150 pm (PubChem's page for the element; the table has no such column) | no uncertainty on the page, unlike its radii for 88 other elements | 6.5 |
 | 87 | Francium (Fr) | `meltingPoint` | 300 K | no measurement: an estimate that PubChem does not mark as one | 6.2 |
 | 87 | Francium (Fr) | `electronegativity` | 0.7 | no source: PubChem's own page for the element has no Pauling-scale line | 3 |
+| 87 | Francium (Fr) | `standardState` | Solid | no sample large enough to observe: a prediction that PubChem does not word as one | 6.3 |
+| 87 | Francium (Fr) | `covalentRadius` | 260 pm (PubChem's page for the element; the table has no such column) | no uncertainty on the page, unlike its radii for 88 other elements | 6.5 |
 | 88 | Radium (Ra) | `boilingPoint` | 1413 K | 2010 K, the nearest value in other tabulations (recorded 2026-10-03) | 9.4 |
+| 89 | Actinium (Ac) | `covalentRadius` | 215 pm (PubChem's page for the element; the table has no such column) | no uncertainty on the page, unlike its radii for 88 other elements | 6.5 |
+| 91 | Protactinium (Pa) | `covalentRadius` | 200 pm (PubChem's page for the element; the table has no such column) | no uncertainty on the page, unlike its radii for 88 other elements | 6.5 |
 | 95 | Americium (Am) | `density` | 13.69 g/cm³ | 12 g/cm³, the nearest value in other tabulations (recorded 2026-10-03) | 9.4 |
 | 97 | Berkelium (Bk) | `density` | 14 g/cm³ | 13.25 g/cm³, the nearest value in other tabulations (recorded 2026-10-03) | 9.4 |
 | 100 | Fermium (Fm) | `meltingPoint` | 1800 K | no measurement: an estimate that PubChem does not mark as one | 6.2 |
+| 100 | Fermium (Fm) | `standardState` | Solid | no sample large enough to observe: a prediction that PubChem does not word as one | 6.3 |
 | 101 | Mendelevium (Md) | `meltingPoint` | 1100 K | no measurement: an estimate that PubChem does not mark as one | 6.2 |
+| 101 | Mendelevium (Md) | `standardState` | Solid | no sample large enough to observe: a prediction that PubChem does not word as one | 6.3 |
 | 102 | Nobelium (No) | `meltingPoint` | 1100 K | no measurement: an estimate that PubChem does not mark as one | 6.2 |
+| 102 | Nobelium (No) | `standardState` | Solid | no sample large enough to observe: a prediction that PubChem does not word as one | 6.3 |
 | 103 | Lawrencium (Lr) | `configuration` | [Rn]7s2 5f14 6d1 | NIST's ground state, [Rn].5f14.7s2.7p | 4 |
 | 103 | Lawrencium (Lr) | `meltingPoint` | 1900 K | no measurement: an estimate that PubChem does not mark as one | 6.2 |
 | 103 | Lawrencium (Lr) | `electronegativity` | 1.3 | no source: PubChem's own page for the element has no Pauling-scale line | 3 |
+| 103 | Lawrencium (Lr) | `standardState` | Solid | no sample large enough to observe: a prediction that PubChem does not word as one | 6.3 |
 | 104 | Rutherfordium (Rf) | `standardState` | Solid | no measurement: a prediction that PubChem does not word as one | 6.3 |
 | 105 | Dubnium (Db) | `standardState` | Solid | no measurement: a prediction that PubChem does not word as one | 6.3 |
 | 106 | Seaborgium (Sg) | `standardState` | Solid | no measurement: a prediction that PubChem does not word as one | 6.3 |
@@ -62,6 +76,7 @@ Disagreements between sources about a value the app shows, which no decision set
 | 109 | Meitnerium (Mt) | `standardState` | Solid | no measurement: a prediction that PubChem does not word as one | 6.3 |
 | 110 | Darmstadtium (Ds) | `atomicMass` | 282.166 u, the mass of the isotope of mass number 282 | CIAAW's list of the most stable known isotopes, which gives 281 | 1.2 |
 | 112 | Copernicium (Cn) | `atomicMass` | 286.179 u, the mass of the isotope of mass number 286 | CIAAW's list of the most stable known isotopes, which gives 285 | 1.2 |
+| 112 | Copernicium (Cn) | `standardState` | Expected to be a Solid | a boiling point of "357+112-108K(84+112-108°C,183+202-194°F)" on PubChem's own element page, a range that reaches below room temperature | 6.3 |
 | 114 | Flerovium (Fl) | `standardState` | Expected to be a Solid | a boiling point of "~210K(~-60°C,~-80°F)" on PubChem's own element page | 6.3 |
 | 118 | Oganesson (Og) | `standardState` | Expected to be a Gas | a boiling point of "350±30K(80±30°C,170±50°F)(extrapolated)" on PubChem's own element page | 6.3 |
 | 118 | Oganesson (Og) | `atomicMass` | 295.216 u, the mass of the isotope of mass number 295 | CIAAW's list of the most stable known isotopes, which gives 294 | 1.2 |
@@ -267,7 +282,7 @@ State counts: Gas 11, Solid 96, Liquid 2, Expected to be a Solid 8, Expected to 
 | Tennessine (Ts) | Expected to be a Solid | melting point 623–823K(350–550°C,662–1022°F)(predicted) (Los Alamos); boiling point 883K(610°C,1130°F) (Los Alamos) |
 | Oganesson (Og) | Expected to be a Gas | boiling point 350±30K(80±30°C,170±50°F)(extrapolated) (Los Alamos) |
 
-**Remark.** PubChem's own pages contradict two of the "expected" states: the boiling-point figure on the page is on the wrong side of 298.15 K for Flerovium (Fl), Oganesson (Og). A boiling point near 210 K would make flerovium a gas at room temperature, not a solid; 350 ± 30 K would mean oganesson is not a gas. Both carry a note on the card and are listed under "Unresolved". Copernicium's 357 K has an error bar of about 110 K, which reaches below room temperature, so its page leaves the state open; it carries no note. All of elements 104 to 118 have been made only a few atoms at a time, so every state from rutherfordium on is a prediction, whether or not PubChem says "Expected". Rf, Db, Sg, Bh, Hs, Mt are shown as "Solid" without that word; each carries a note on the card saying that PubChem does not word the state as expected although it lists no measurement, and is listed under "Unresolved". PubChem's page for each says that only small amounts of it, or only a few atoms, have been made; the sentences are kept in `sources/pubchem-element-pages-passages.json`.
+**Remark.** PubChem's own pages contradict two of the "expected" states: the boiling-point figure on the page is on the wrong side of 298.15 K for Flerovium (Fl), Oganesson (Og). A boiling point near 210 K would make flerovium a gas at room temperature, not a solid; 350 ± 30 K would mean oganesson is not a gas. Both carry a note on the card and are listed under "Unresolved". Copernicium's 357 K has an error bar of about 110 K, which reaches below room temperature, so its page leaves the state open; it carries a note on the card giving that figure and is listed under "Unresolved". All of elements 104 to 118 have been made only a few atoms at a time, so every state from rutherfordium on is a prediction, whether or not PubChem says "Expected". Rf, Db, Sg, Bh, Hs, Mt are shown as "Solid" without that word; each carries a note on the card saying that PubChem does not word the state as expected although it lists no measurement, and is listed under "Unresolved". PubChem's page for each says that only small amounts of it, or only a few atoms, have been made; the sentences are kept in `sources/pubchem-element-pages-passages.json`. The same holds further down the table for Astatine (At), Francium (Fr), Fermium (Fm), Mendelevium (Md), Nobelium (No), Lawrencium (Lr), the six whose melting points are estimates (section 6.2): PubChem gives each as "Solid" with no "Expected to be", although its page says that only small amounts have ever been produced. Each carries a note on the card saying so and is listed under "Unresolved".
 
 ### 6.4 Density
 
@@ -312,6 +327,10 @@ Steps of 12% or more between neighbours in a period: H 120 → He 140 (+17%); Li
 For comparison, PubChem's element pages also carry a covalent radius for 96 elements (hydrogen to curium). For the 11 elements already in the app it equals the Cordero 2008 value the app cites, in every case. This is the radius the app colours the table by. It runs smoothly: period 2: Li 128, Be 96, B 84, C 76, N 71, O 66, F 57, Ne 58; period 3: Na 166, Mg 141, Al 121, Si 111, P 107, S 105, Cl 102, Ar 106; period 4: K 203, Ca 176, Sc 170, Ti 160, V 153, Cr 139, Mn 139, Fe 132, Co 126, Ni 124, Cu 132, Zn 122, Ga 122, Ge 120, As 119, Se 120, Br 120, Kr 116.
 
 **Remark.** Two separate problems. First, the column appears to be stitched from more than one set of radii: copper 140 and zinc 139 (Bondi's values; section 9.6) sit about a quarter below cobalt 192 and gallium 187, and gold 166 sits in a notch between platinum 209 and mercury 209. A learner who saw the table coloured by this column would see a pattern that is an accident of sourcing. Second, even a clean set of van der Waals radii is the wrong quantity for the trend a general chemistry course teaches. The textbook statement "atomic radius decreases across a period and increases down a group" is about covalent or metallic radii; in this column boron is larger than beryllium, silicon larger than aluminium, and each noble gas larger than its halogen. The covalent radius is the quantity that shows that trend, which is why the app colours by it, and why this column is never labelled plain "atomic radius".
+
+**Covalent radii printed with no uncertainty.** Of the 96 covalent-radius lines on PubChem's element pages, 88 give the radius with an uncertainty in its last digit, as in "31(5) pm (Covalent)" for hydrogen. 8 give none: Helium (He) 28, Neon (Ne) 58, Promethium (Pm) 199, Astatine (At) 150, Radon (Rn) 150, Francium (Fr) 260, Actinium (Ac) 215, Protactinium (Pa) 200. Both ends of the covalent-radius colour scale are among them: helium's 28 pm is the smallest radius and francium's 260 pm the largest.
+
+**Remark on the 8.** The page does not say why these radii have no uncertainty. The paper they come from (Cordero 2008) was not read, so nothing here says how they were arrived at. Each carries a note on the card saying that the page gives the radius with no uncertainty, unlike its radii for 88 other elements, and that it should be treated as an estimate; each is listed under "Unresolved". Because the two ends of the scale carry the note, the covalent-radius legend shows it for both.
 
 ### 6.6 Oxidation states
 
@@ -580,7 +599,7 @@ In the saved file the two halves of a mark are in the columns headed "Prefix" an
 
 - **Electron affinity** (57 values): no independent comparison here. `units.md` (section 9) records that the column is a 1990 compilation and that a comparison with a secondary source found it dated; the card is to say that the values are from a 1990 compilation.
 - **Van der Waals radius**: compared once with a Wikipedia transcription of Bondi and Mantina (section 9.6); the origin of the transition-metal, lanthanide and actinide values was not found.
-- **Covalent radius**: taken from PubChem's element pages. That the values there are Cordero's was confirmed for the 11 curated elements only (section 6.5).
+- **Covalent radius**: taken from PubChem's element pages. That the values there are Cordero's was confirmed for the 11 curated elements only (section 6.5). Why 8 of the radii have no uncertainty was not found out: Cordero 2008 was not read.
 - **Year discovered**: not compared with another source, apart from the remark on fluorine.
 - **Oxidation states**: scanned for form and against PubChem's own element pages, not compared with an independent list.
 - **Melting point, boiling point, density**: compared once with a transcription to within 0.5% or 1% (section 9.4), not digit by digit, and not against a primary source.

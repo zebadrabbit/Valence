@@ -2,7 +2,7 @@
 
 The copies of other people's pages and data that the periodic table is built from and checked against. `MANIFEST.json` lists each file with what it is, where it came from and the date it was retrieved. It also lists copies that were read on that date and are not kept here.
 
-The copies are not edited by hand. The three `pubchem-*` extracts are written by `scripts/extract-pubchem-pages.mjs` from PubChem's element pages; the other copies are as they were downloaded.
+The copies are not edited by hand. The three `pubchem-*` files are written by `scripts/extract-pubchem-pages.mjs`: two are extracts of PubChem's element pages, and `pubchem-ptable-column-labels.json` holds the unit labels from the script of PubChem's table page. The other copies are as they were downloaded.
 
 ## Attribution
 

@@ -206,7 +206,22 @@ describe('the legend', () => {
 
   it('cites the source of the values shown', () => {
     expect(legend({ property: 'ionizationEnergy' })).toContain('NIST Atomic Spectra Database')
-    expect(legend({ property: 'covalentRadius' })).toMatch(/Covalent radius: <\/span><a /)
+    expect(legend({ property: 'meltingPoint' })).toMatch(/Melting point: <\/span><a /)
+  })
+
+  it('cites the sources of the notes on the scale as well', () => {
+    // A citation as React writes it; one of them holds angle brackets.
+    const source = (id: string) => escaped(registry.sources.find((s) => s.id === id)!.citation).replaceAll('<', '&lt;').replaceAll('>', '&gt;')
+    // Francium's note rests on PubChem's element pages; the values are from PubChem's table.
+    const electronegativity = legend({ property: 'electronegativity' })
+    expect(trendNotes('electronegativity')[0]?.sourceIds).toEqual(['pubchem-element-pages'])
+    expect(electronegativity).toContain(source('pubchem-element-pages'))
+    expect(electronegativity).toContain(source('pubchem-periodic-table'))
+    expect(electronegativity).toMatch(/Notes on the scale: <\/span><a /)
+    // Without a note from another source there is nothing more to cite.
+    expect(legend({ property: 'ionizationEnergy' })).not.toContain('Notes on the scale')
+    // The covalent radii and the notes on both ends of their scale come from the same pages.
+    expect(legend({ property: 'covalentRadius' })).toMatch(/Covalent radius, Notes on the scale: <\/span><a /)
   })
 })
 

@@ -200,6 +200,18 @@
       "sourceId": "pubchem-element-pages"
     },
     {
+      "symbols": ["At", "Fr", "Fm", "Md", "No", "Lr"],
+      "row": "standardState",
+      "text": "PubChem does not word this as expected, but its page for the element says that only small amounts of it have ever been produced.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Cn"],
+      "row": "standardState",
+      "text": "PubChem's copernicium page also lists a boiling point of about 357 K, with an uncertainty of about 110 K either way. That range reaches below room temperature, so by that figure copernicium could be a gas.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
       "symbols": ["Al"],
       "row": "yearDiscovered",
       "text": "Only compounds of aluminum, such as alum, were known in ancient times. PubChem's aluminum page says the metal was first isolated, in impure form, in 1825.",
@@ -360,6 +372,12 @@
       "symbols": ["Co"],
       "row": "covalentRadius",
       "text": "The source gives two covalent radii: low spin 126 pm, high spin 150 pm. The first listed, low spin, is shown.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["He", "Ne", "Pm", "At", "Rn", "Fr", "Ac", "Pa"],
+      "row": "covalentRadius",
+      "text": "PubChem's page for this element gives this radius with no uncertainty, unlike its radii for 88 other elements. Treat it as an estimate.",
       "sourceId": "pubchem-element-pages"
     }
   ]

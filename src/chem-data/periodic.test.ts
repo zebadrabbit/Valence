@@ -242,6 +242,26 @@ describe('the periodic table data', () => {
         expect(note?.text).toContain(`${shown(symbol)} pm`)
       }
     })
+
+    it('notes as an estimate each radius the saved page gives with no uncertainty, both ends of the colour scale among them', () => {
+      // "31(5) pm (Covalent)" carries an uncertainty in its last digit; "28 pm (Covalent)" carries none.
+      const lines = periodicTable.flatMap((e) => pageLines(e.symbol, 'Atomic Radius').filter((line) => line.name === 'Covalent Atomic Radius').map((line) => ({ symbol: e.symbol, text: line.text })))
+      const bare = lines.filter((line) => !/\(\d+\)/.test(line.text)).map((line) => line.symbol)
+      expect(bare).toEqual(['He', 'Ne', 'Pm', 'At', 'Rn', 'Fr', 'Ac', 'Pa'])
+      expect(lines.length - bare.length).toBe(88)
+      for (const symbol of bare) {
+        expect(notesOn(symbol, 'covalentRadius')).toEqual([
+          {
+            row: 'covalentRadius',
+            text: "PubChem's page for this element gives this radius with no uncertainty, unlike its radii for 88 other elements. Treat it as an estimate.",
+            sourceId: 'pubchem-element-pages',
+          },
+        ])
+      }
+      const radii = periodicTable.flatMap((e) => (e.covalentRadius ? [{ symbol: e.symbol, value: e.covalentRadius.value }] : [])).sort((a, b) => a.value - b.value)
+      expect([radii[0]?.symbol, radii.at(-1)?.symbol]).toEqual(['He', 'Fr'])
+      expect(symbolsWhere((e) => noteRows(e.symbol).includes('covalentRadius'))).toEqual(['He', 'C', 'Ne', 'Mn', 'Fe', 'Co', 'Pm', 'At', 'Rn', 'Fr', 'Ac', 'Pa'])
+    })
   })
 
   describe('first ionization energy', () => {
@@ -616,8 +636,42 @@ describe('the periodic table data', () => {
         ])
         expect([symbol, passages(symbol, 'Uses')]).toEqual([symbol, [expect.stringMatching(/small amounts|only a few atoms/)]])
       }
-      // The other notes on a state are the two where a boiling point on the page contradicts it.
-      expect(symbolsWhere((e) => noteRows(e.symbol).includes('standardState'))).toEqual([...unmarked, 'Fl', 'Og'])
+      // The other notes on a state: the six below, and the three where a boiling point on the page speaks against it.
+      expect(symbolsWhere((e) => noteRows(e.symbol).includes('standardState'))).toEqual(['At', 'Fr', 'Fm', 'Md', 'No', 'Lr', ...unmarked, 'Cn', 'Fl', 'Og'])
+    })
+
+    it('says the same of the state of the six elements whose melting point is noted as an estimate', () => {
+      const estimated = symbolsWhere((e) => notesOn(e.symbol, 'meltingPoint').some((note) => note.text.includes('estimate')))
+      expect(estimated).toEqual(['At', 'Fr', 'Fm', 'Md', 'No', 'Lr'])
+      for (const symbol of estimated) {
+        expect(element(symbol).standardState).toEqual({ state: 'Solid', expected: false })
+        expect(notesOn(symbol, 'standardState')).toEqual([
+          {
+            row: 'standardState',
+            text: 'PubChem does not word this as expected, but its page for the element says that only small amounts of it have ever been produced.',
+            sourceId: 'pubchem-element-pages',
+          },
+        ])
+        expect([symbol, passages(symbol, 'Uses')]).toEqual([symbol, [expect.stringMatching(/small amounts|tiny amounts/)]])
+      }
+    })
+
+    it("gives the boiling point on PubChem's copernicium page, whose range leaves the expected state open", () => {
+      expect(element('Cn').standardState).toEqual({ state: 'Solid', expected: true })
+      const [line, ...rest] = pageLines('Cn', 'Boiling Point').map((l) => l.text)
+      expect(rest).toEqual([])
+      const [, kelvin, up, down] = /^(\d+)\+(\d+)-(\d+)K/.exec(line ?? '') ?? []
+      expect([kelvin, up, down]).toEqual(['357', '112', '108'])
+      // Room temperature, 298.15 K, lies inside the range the page gives.
+      expect(Number(kelvin) - Number(down)).toBeLessThan(298.15)
+      expect(Number(kelvin)).toBeGreaterThan(298.15)
+      expect(notesOn('Cn', 'standardState')).toEqual([
+        {
+          row: 'standardState',
+          text: "PubChem's copernicium page also lists a boiling point of about 357 K, with an uncertainty of about 110 K either way. That range reaches below room temperature, so by that figure copernicium could be a gas.",
+          sourceId: 'pubchem-element-pages',
+        },
+      ])
     })
 
     it('marks as estimates the melting points of the six elements never made in an amount that could be melted', () => {
@@ -711,9 +765,11 @@ describe('the cross-check report', () => {
         ...['Rf', 'Db', 'Sg', 'Bh', 'Hs', 'Mt'].map((symbol) => `${symbol} standardState`),
         ...['At', 'Fr', 'Fm', 'Md', 'No', 'Lr'].map((symbol) => `${symbol} meltingPoint`),
         ...['Fr', 'Lr'].map((symbol) => `${symbol} electronegativity`),
+        ...['At', 'Fr', 'Fm', 'Md', 'No', 'Lr', 'Cn'].map((symbol) => `${symbol} standardState`),
+        ...['He', 'Ne', 'Pm', 'At', 'Rn', 'Fr', 'Ac', 'Pa'].map((symbol) => `${symbol} covalentRadius`),
       ]),
     )
-    expect(listed.length).toBe(26)
+    expect(listed.length).toBe(41)
   })
 
   it('leaves no unresolved item without a note on the row it names', () => {

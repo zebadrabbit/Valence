@@ -114,8 +114,14 @@ describe('trendNotes', () => {
     expect(rest).toEqual([])
   })
 
-  it('has nothing to say of the two scales whose ends carry no note', () => {
-    expect([texts('covalentRadius'), texts('ionizationEnergy')]).toEqual([[], []])
+  it('says of the covalent radius scale that both its ends are radii the source gives with no uncertainty', () => {
+    const note = "PubChem's page for this element gives this radius with no uncertainty, unlike its radii for 88 other elements. Treat it as an estimate."
+    expect(texts('covalentRadius')).toEqual([`Lowest, helium: ${note}`, `Highest, francium: ${note}`])
+    expect(trendNotes('covalentRadius').map((n) => n.sourceIds)).toEqual([['pubchem-element-pages'], ['pubchem-element-pages']])
+  })
+
+  it('has nothing to say of the scale whose ends carry no note', () => {
+    expect(texts('ionizationEnergy')).toEqual([])
   })
 
   it('gives every note its sources, all of them known', () => {

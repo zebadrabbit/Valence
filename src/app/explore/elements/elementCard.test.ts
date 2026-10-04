@@ -321,7 +321,7 @@ describe('elementCardRows', () => {
         const ruled = cardRows.filter((r) => ['group', 'vdwRadius', 'ionizationEnergy'].includes(r.id)).reduce((sum, r) => sum + r.notes.length - (e.notes ?? []).filter((note) => note.row === r.id).length, 0)
         expect([e.symbol, cardRows.reduce((sum, r) => sum + r.notes.length, 0) - ruled]).toEqual([e.symbol, e.notes?.length ?? 0])
       }
-      expect(all.reduce((sum, [e]) => sum + (e.notes?.length ?? 0), 0)).toBe(92)
+      expect(all.reduce((sum, [e]) => sum + (e.notes?.length ?? 0), 0)).toBe(107)
     })
 
     it('gives every row a label and a value, and every shown value a known source unless the app works it out', () => {

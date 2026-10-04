@@ -93,6 +93,11 @@ if (outliers.length !== 6) throw new Error(`section 9.4 should list 6 values tha
 // sections below check what PubChem's own pages say of each, and say what that does and does not show.
 const ESTIMATED_MELTING = ['At', 'Fr', 'Fm', 'Md', 'No', 'Lr']
 const enUntraced = R.provenance.Electronegativity.unmatched.map((u) => u.symbol)
+// The covalent radii PubChem's element pages print with no uncertainty: "28 pm (Covalent)" against "31(5) pm (Covalent)".
+const covalentLines = R.covalent.filter((x) => x.value)
+const covalentBare = covalentLines.filter((x) => !/\(\d+\)/.test(x.text))
+// Copernicium's boiling point on its page, "357+112-108K": the figure, and how far the page lets it lie above and below.
+const cnBoiling = /^(\d+)\+(\d+)-(\d+)K/.exec(R.expectedStates.find((x) => x.symbol === 'Cn').boiling).slice(1).map(Number)
 // The kept sentences of one element page, and the handbook densities for one element and form.
 const kept = (symbol, heading) => (R.passages[zOf(symbol)] ?? []).filter((passage) => !heading || passage.heading === heading).map((passage) => passage.text)
 const handbook = (symbol, form = null) => R.handbookDensities.find((entry) => entry.symbol === symbol && entry.form === form)?.values ?? {}
@@ -162,6 +167,9 @@ const unresolved = [
   ...R.stateNotMarkedExpected.map((symbol) => [symbol, 'standardState', value(symbol, 'StandardState'), 'no measurement: a prediction that PubChem does not word as one', '6.3']),
   ...ESTIMATED_MELTING.map((symbol) => [symbol, 'meltingPoint', `${value(symbol, 'MeltingPoint')} K`, 'no measurement: an estimate that PubChem does not mark as one', '6.2']),
   ...enUntraced.map((symbol) => [symbol, 'electronegativity', value(symbol, 'Electronegativity'), 'no source: PubChem\'s own page for the element has no Pauling-scale line', '3']),
+  ...ESTIMATED_MELTING.map((symbol) => [symbol, 'standardState', value(symbol, 'StandardState'), 'no sample large enough to observe: a prediction that PubChem does not word as one', '6.3']),
+  ['Cn', 'standardState', value('Cn', 'StandardState'), `a boiling point of "${R.expectedStates.find((x) => x.symbol === 'Cn').boiling}" on PubChem's own element page, a range that reaches below room temperature`, '6.3'],
+  ...covalentBare.map((x) => [x.symbol, 'covalentRadius', `${x.value} pm (PubChem's page for the element; the table has no such column)`, `no uncertainty on the page, unlike its radii for ${covalentLines.length - covalentBare.length} other elements`, '6.5']),
 ].sort((a, b) => zOf(a[0]) - zOf(b[0]))
 p(table(['Z', 'Element', 'Card row', 'PubChem\'s table', 'Against', 'Section'], unresolved.map(([symbol, row, shown, against, section]) => [zOf(symbol), nm(symbol), `\`${row}\``, shown, against, section])))
 p(
@@ -358,9 +366,11 @@ p(
 )
 need(symbols(stateContradicted.map((x) => x.symbol)) === 'Fl, Og', 'the expected states a boiling point on the page contradicts are those of flerovium and oganesson')
 need(R.expectedStates.find((x) => x.symbol === 'Cn').boiling.startsWith('357+112-108K'), 'copernicium\'s page gives its boiling point as 357 K, plus 112 or minus 108')
+need(cnBoiling[0] > 298.15 && cnBoiling[0] - cnBoiling[2] < 298.15 && Math.abs(cnBoiling[1] - 110) < 5 && Math.abs(cnBoiling[2] - 110) < 5, 'room temperature lies inside the range copernicium\'s page gives for its boiling point, which is about 110 K either way')
+need(ESTIMATED_MELTING.every((symbol) => value(symbol, 'StandardState') === 'Solid'), 'the six elements whose melting point is an estimate are given as Solid with no "Expected to be"')
 need(symbols(R.stateNotMarkedExpected) === 'Rf, Db, Sg, Bh, Hs, Mt' && R.stateNotMarkedExpected.every((symbol) => kept(symbol, 'Uses').length === 1 && /small amounts|only a few atoms/.test(kept(symbol, 'Uses')[0])), 'rutherfordium to meitnerium are given as Solid with no measurement, and each page says only small amounts or a few atoms have been made')
 p(
-  `**Remark.** PubChem's own pages contradict two of the "expected" states: the boiling-point figure on the page is on the wrong side of 298.15 K for ${symbols(stateContradicted.map((x) => nm(x.symbol)))}. A boiling point near 210 K would make flerovium a gas at room temperature, not a solid; 350 ± 30 K would mean oganesson is not a gas. Both carry a note on the card and are listed under "Unresolved". Copernicium's 357 K has an error bar of about 110 K, which reaches below room temperature, so its page leaves the state open; it carries no note. All of elements 104 to 118 have been made only a few atoms at a time, so every state from rutherfordium on is a prediction, whether or not PubChem says "Expected". ${symbols(R.stateNotMarkedExpected)} are shown as "Solid" without that word; each carries a note on the card saying that PubChem does not word the state as expected although it lists no measurement, and is listed under "Unresolved". PubChem's page for each says that only small amounts of it, or only a few atoms, have been made; the sentences are kept in \`sources/pubchem-element-pages-passages.json\`.`,
+  `**Remark.** PubChem's own pages contradict two of the "expected" states: the boiling-point figure on the page is on the wrong side of 298.15 K for ${symbols(stateContradicted.map((x) => nm(x.symbol)))}. A boiling point near 210 K would make flerovium a gas at room temperature, not a solid; 350 ± 30 K would mean oganesson is not a gas. Both carry a note on the card and are listed under "Unresolved". Copernicium's ${cnBoiling[0]} K has an error bar of about 110 K, which reaches below room temperature, so its page leaves the state open; it carries a note on the card giving that figure and is listed under "Unresolved". All of elements 104 to 118 have been made only a few atoms at a time, so every state from rutherfordium on is a prediction, whether or not PubChem says "Expected". ${symbols(R.stateNotMarkedExpected)} are shown as "Solid" without that word; each carries a note on the card saying that PubChem does not word the state as expected although it lists no measurement, and is listed under "Unresolved". PubChem's page for each says that only small amounts of it, or only a few atoms, have been made; the sentences are kept in \`sources/pubchem-element-pages-passages.json\`. The same holds further down the table for ${symbols(ESTIMATED_MELTING.map(nm))}, the six whose melting points are estimates (section 6.2): PubChem gives each as "Solid" with no "Expected to be", although its page says that only small amounts have ever been produced. Each carries a note on the card saying so and is listed under "Unresolved".`,
 )
 
 p('### 6.4 Density')
@@ -412,6 +422,14 @@ p('### 6.5 Atomic radius')
   )
   p(
     `**Remark.** Two separate problems. First, the column appears to be stitched from more than one set of radii: copper ${value('Cu', 'AtomicRadius')} and zinc ${value('Zn', 'AtomicRadius')} (Bondi's values; section 9.6) sit about a quarter below cobalt ${value('Co', 'AtomicRadius')} and gallium ${value('Ga', 'AtomicRadius')}, and gold ${value('Au', 'AtomicRadius')} sits in a notch between platinum ${value('Pt', 'AtomicRadius')} and mercury ${value('Hg', 'AtomicRadius')}. A learner who saw the table coloured by this column would see a pattern that is an accident of sourcing. Second, even a clean set of van der Waals radii is the wrong quantity for the trend a general chemistry course teaches. The textbook statement "atomic radius decreases across a period and increases down a group" is about covalent or metallic radii; in this column boron is larger than beryllium, silicon larger than aluminium, and each noble gas larger than its halogen. The covalent radius is the quantity that shows that trend, which is why the app colours by it, and why this column is never labelled plain "atomic radius".`,
+  )
+  const byRadius = [...covalentLines].sort((a, b) => Number(a.value) - Number(b.value))
+  need(symbols(covalentBare.map((x) => x.symbol)) === 'He, Ne, Pm, At, Rn, Fr, Ac, Pa' && byRadius[0].symbol === 'He' && byRadius.at(-1).symbol === 'Fr', 'eight covalent radii are printed with no uncertainty, the smallest (helium) and the largest (francium) among them')
+  p(
+    `**Covalent radii printed with no uncertainty.** Of the ${covalentLines.length} covalent-radius lines on PubChem's element pages, ${covalentLines.length - covalentBare.length} give the radius with an uncertainty in its last digit, as in "${covalentLines[0].text}" for hydrogen. ${covalentBare.length} give none: ${covalentBare.map((x) => `${nm(x.symbol)} ${x.value}`).join(', ')}. Both ends of the covalent-radius colour scale are among them: helium's ${byRadius[0].value} pm is the smallest radius and francium's ${byRadius.at(-1).value} pm the largest.`,
+  )
+  p(
+    `**Remark on the ${covalentBare.length}.** The page does not say why these radii have no uncertainty. The paper they come from (Cordero 2008) was not read, so nothing here says how they were arrived at. Each carries a note on the card saying that the page gives the radius with no uncertainty, unlike its radii for ${covalentLines.length - covalentBare.length} other elements, and that it should be treated as an estimate; each is listed under "Unresolved". Because the two ends of the scale carry the note, the covalent-radius legend shows it for both.`,
   )
 }
 
@@ -574,7 +592,7 @@ p(
   [
     `- **Electron affinity** (${118 - R.empties.ElectronAffinity.length} values): no independent comparison here. \`units.md\` (section 9) records that the column is a 1990 compilation and that a comparison with a secondary source found it dated; the card is to say that the values are from a 1990 compilation.`,
     '- **Van der Waals radius**: compared once with a Wikipedia transcription of Bondi and Mantina (section 9.6); the origin of the transition-metal, lanthanide and actinide values was not found.',
-    '- **Covalent radius**: taken from PubChem\'s element pages. That the values there are Cordero\'s was confirmed for the 11 curated elements only (section 6.5).',
+    `- **Covalent radius**: taken from PubChem's element pages. That the values there are Cordero's was confirmed for the 11 curated elements only (section 6.5). Why ${covalentBare.length} of the radii have no uncertainty was not found out: Cordero 2008 was not read.`,
     '- **Year discovered**: not compared with another source, apart from the remark on fluorine.',
     '- **Oxidation states**: scanned for form and against PubChem\'s own element pages, not compared with an independent list.',
     '- **Melting point, boiling point, density**: compared once with a transcription to within 0.5% or 1% (section 9.4), not digit by digit, and not against a primary source.',

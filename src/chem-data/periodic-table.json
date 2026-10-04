@@ -151,6 +151,11 @@
         "row": "electronAffinity",
         "text": "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.",
         "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "covalentRadius",
+        "text": "PubChem's page for this element gives this radius with no uncertainty, unlike its radii for 88 other elements. Treat it as an estimate.",
+        "sourceId": "pubchem-element-pages"
       }
     ],
     "sourceId": "pubchem-periodic-table"
@@ -786,6 +791,11 @@
       {
         "row": "electronAffinity",
         "text": "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "covalentRadius",
+        "text": "PubChem's page for this element gives this radius with no uncertainty, unlike its radii for 88 other elements. Treat it as an estimate.",
         "sourceId": "pubchem-element-pages"
       }
     ],
@@ -4549,6 +4559,13 @@
       "unit": "g/cm³",
       "sourceId": "pubchem-periodic-table"
     },
+    "notes": [
+      {
+        "row": "covalentRadius",
+        "text": "PubChem's page for this element gives this radius with no uncertainty, unlike its radii for 88 other elements. Treat it as an estimate.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
     "sourceId": "pubchem-periodic-table"
   },
   {
@@ -6218,8 +6235,18 @@
         "sourceId": "pubchem-element-pages"
       },
       {
+        "row": "standardState",
+        "text": "PubChem does not word this as expected, but its page for the element says that only small amounts of it have ever been produced.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
         "row": "category",
         "text": "PubChem's table puts astatine with the halogens, its group. PubChem's own astatine page classes it as a semi-metal; the lighter halogens are nonmetals.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "covalentRadius",
+        "text": "PubChem's page for this element gives this radius with no uncertainty, unlike its radii for 88 other elements. Treat it as an estimate.",
         "sourceId": "pubchem-element-pages"
       }
     ],
@@ -6300,6 +6327,11 @@
         "row": "electronAffinity",
         "text": "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.",
         "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "covalentRadius",
+        "text": "PubChem's page for this element gives this radius with no uncertainty, unlike its radii for 88 other elements. Treat it as an estimate.",
+        "sourceId": "pubchem-element-pages"
       }
     ],
     "sourceId": "pubchem-periodic-table"
@@ -6371,8 +6403,18 @@
         "sourceId": "pubchem-element-pages"
       },
       {
+        "row": "standardState",
+        "text": "PubChem does not word this as expected, but its page for the element says that only small amounts of it have ever been produced.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
         "row": "electronegativity",
         "text": "PubChem's francium page has no Pauling electronegativity line, so this value could not be traced beyond PubChem's table. The same page says that no weighable quantity of francium has been prepared.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "covalentRadius",
+        "text": "PubChem's page for this element gives this radius with no uncertainty, unlike its radii for 88 other elements. Treat it as an estimate.",
         "sourceId": "pubchem-element-pages"
       }
     ],
@@ -6524,6 +6566,13 @@
       "unit": "g/cm³",
       "sourceId": "pubchem-periodic-table"
     },
+    "notes": [
+      {
+        "row": "covalentRadius",
+        "text": "PubChem's page for this element gives this radius with no uncertainty, unlike its radii for 88 other elements. Treat it as an estimate.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
     "sourceId": "pubchem-periodic-table"
   },
   {
@@ -6650,6 +6699,13 @@
       "unit": "g/cm³",
       "sourceId": "pubchem-periodic-table"
     },
+    "notes": [
+      {
+        "row": "covalentRadius",
+        "text": "PubChem's page for this element gives this radius with no uncertainty, unlike its radii for 88 other elements. Treat it as an estimate.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
     "sourceId": "pubchem-periodic-table"
   },
   {
@@ -7214,6 +7270,11 @@
         "row": "meltingPoint",
         "text": "This figure is an estimate, though PubChem does not mark it as one. No sample of this element large enough to melt has been made: PubChem's page for it says that only small amounts have ever been produced.",
         "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "standardState",
+        "text": "PubChem does not word this as expected, but its page for the element says that only small amounts of it have ever been produced.",
+        "sourceId": "pubchem-element-pages"
       }
     ],
     "sourceId": "pubchem-periodic-table"
@@ -7264,6 +7325,11 @@
       {
         "row": "meltingPoint",
         "text": "This figure is an estimate, though PubChem does not mark it as one. No sample of this element large enough to melt has been made: PubChem's page for it says that only small amounts have ever been produced.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "standardState",
+        "text": "PubChem does not word this as expected, but its page for the element says that only small amounts of it have ever been produced.",
         "sourceId": "pubchem-element-pages"
       }
     ],
@@ -7316,6 +7382,11 @@
         "row": "meltingPoint",
         "text": "This figure is an estimate, though PubChem does not mark it as one. No sample of this element large enough to melt has been made: PubChem's page for it says that only small amounts have ever been produced.",
         "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "standardState",
+        "text": "PubChem does not word this as expected, but its page for the element says that only small amounts of it have ever been produced.",
+        "sourceId": "pubchem-element-pages"
       }
     ],
     "sourceId": "pubchem-periodic-table"
@@ -7366,6 +7437,11 @@
       {
         "row": "meltingPoint",
         "text": "This figure is an estimate, though PubChem does not mark it as one. No sample of this element large enough to melt has been made: PubChem's page for it says that only small amounts have ever been produced.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "standardState",
+        "text": "PubChem does not word this as expected, but its page for the element says that only small amounts of it have ever been produced.",
         "sourceId": "pubchem-element-pages"
       },
       {
@@ -7730,6 +7806,11 @@
       "estimated": true
     },
     "notes": [
+      {
+        "row": "standardState",
+        "text": "PubChem's copernicium page also lists a boiling point of about 357 K, with an uncertainty of about 110 K either way. That range reaches below room temperature, so by that figure copernicium could be a gas.",
+        "sourceId": "pubchem-element-pages"
+      },
       {
         "row": "oxidationStates",
         "text": "PubChem's copernicium page marks the state 1 as a prediction.",
