@@ -1,5 +1,4 @@
-import type { DerivedBond } from '@/chem-data/derive'
-import { BOND_KINDS } from '@/chem-data/describe'
+import { BOND_KINDS, type DerivedBond } from '@/chem-data/derive'
 import { evToKjPerMol } from '@/chem-data/element'
 import { GEOMETRY_SOURCE_LABEL } from '@/chem-data/library'
 import type { Measurement } from '@/chem-data/measure'
@@ -63,7 +62,7 @@ export function ordinal(n: number): string {
   return `${n}${ORDINAL_SUFFIX[ordinalRules.select(n)] ?? 'th'}`
 }
 
-/** A bond's displayed order: "2 (double)", or "aromatic (delocalised), order 1.5". */
+/** A bond's displayed order: "2 (double)", "aromatic (delocalised), order 1.5" or "resonance pair, order 1.5". */
 export function bondOrder(bond: DerivedBond): string {
   return bond.orderLabel ? `${bond.orderLabel}, order ${bond.displayOrder}` : `${bond.displayOrder} (${BOND_KINDS[bond.displayOrder - 1]})`
 }

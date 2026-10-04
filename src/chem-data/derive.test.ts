@@ -6,6 +6,9 @@ import {
   HYBRIDIZATION_NOT_ASSIGNED,
   ORGANIC_OXYGEN_NOTE,
   RESONANCE_ATOM_NOTE,
+  RESONANCE_ORDER_LABEL,
+  RESONANCE_SIGMA_PI,
+  SIGMA_PI,
   TERMINAL_ATOM,
   deriveAtoms,
   deriveBonds,
@@ -79,11 +82,13 @@ describe('derived values against the expected-values table', () => {
 
     it('derives the expected order and sigma/pi composition for every bond', () => {
       const derived = deriveBonds(m, elements)
+      // The table holds each bond as the Lewis structure draws it. A bond of a resonance pair displays
+      // the shared π bond instead (tested below), so its drawn composition is read from its stored order.
       const got = m.bonds.map((b, i) => [
         [m.atoms[b.a]!.element, m.atoms[b.b]!.element].sort().join('-'),
         b.order,
         b.aromatic,
-        derived[i]!.sigmaPi,
+        b.resonanceNote ? SIGMA_PI[b.order] : derived[i]!.sigmaPi,
       ])
       expect(multiset(got), want.id).toEqual(
         multiset(want.bonds.map((b) => [b.elements.join('-'), b.order, b.aromatic, b.sigmaPi])),
@@ -255,6 +260,25 @@ describe('deriveBonds', () => {
       expect(bond.orderLabel).toBeUndefined()
     }
   })
+
+  it.each(['sulfur-dioxide', 'glycine-zwitterion', 'alanine-zwitterion', 'bicarbonate'])(
+    '%s: both bonds of the resonance pair display order 1.5 and a shared π bond, and say how each is drawn',
+    (id) => {
+      const m = molecule(id)
+      const derived = deriveBonds(m, elements)
+      const pair = m.bonds.flatMap((b, i) => (b.resonanceNote ? [{ ...b, ...derived[i]! }] : []))
+      expect(pair.map((b) => b.order).sort()).toEqual([1, 2])
+      for (const bond of pair) {
+        expect(bond).toMatchObject({ displayOrder: 1.5, orderLabel: RESONANCE_ORDER_LABEL, sigmaPi: RESONANCE_SIGMA_PI })
+        expect(bond.orderNote).toBe(`${bond.resonanceNote}. Drawn here as a ${bond.order === 2 ? 'double' : 'single'} bond.`)
+      }
+      // Every other bond keeps its stored order and has no note.
+      m.bonds.forEach((b, i) => {
+        if (!b.resonanceNote) expect(derived[i]).toMatchObject({ displayOrder: b.order, sigmaPi: SIGMA_PI[b.order] })
+        if (!b.resonanceNote) expect(derived[i]!.orderNote).toBeUndefined()
+      })
+    },
+  )
 
   it('measures length from the stored coordinates', () => {
     const lengths = deriveBonds(molecule('water'), elements).map((b) => b.length)

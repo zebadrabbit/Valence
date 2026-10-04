@@ -138,6 +138,15 @@ describe('bondOrder', () => {
     expect(new Set(ring)).toEqual(new Set(['aromatic (delocalised), order 1.5']))
   })
 
+  it('reads both bonds of a resonance pair as order 1.5, whichever is drawn double', () => {
+    for (const id of ['sulfur-dioxide', 'glycine-zwitterion', 'alanine-zwitterion', 'bicarbonate']) {
+      const pair = orders(id).filter((_, i) => molecule(id).bonds[i]!.resonanceNote)
+      expect(pair, id).toEqual(['resonance pair, order 1.5', 'resonance pair, order 1.5'])
+    }
+    // The protonated C–O of bicarbonate is not in the pair.
+    expect(orders('bicarbonate').filter((order) => order === '1 (single)').length).toBeGreaterThan(0)
+  })
+
   it('names single, double and triple bonds', () => {
     expect(orders('water')[0]).toBe('1 (single)')
     expect(orders('carbon-dioxide')[0]).toBe('2 (double)')

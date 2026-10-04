@@ -16,6 +16,9 @@ export const RESONANCE_ATOM_NOTE =
   'drawn in one of two equivalent resonance structures; this atom and its partner on the other bond of the pair are identical in the real molecule'
 export const AROMATIC_ORDER_LABEL = 'aromatic (delocalised)'
 export const AROMATIC_SIGMA_PI = '1 σ + delocalised π (aromatic, effective order 1.5)'
+export const RESONANCE_ORDER_LABEL = 'resonance pair'
+export const RESONANCE_SIGMA_PI = '1 σ + delocalised π (resonance pair, effective order 1.5)'
+export const BOND_KINDS = ['single', 'double', 'triple', 'aromatic'] as const
 
 /** Hybridization by (effective) steric number. */
 export const HYBRIDIZATION: Readonly<Record<number, string>> = {
@@ -79,9 +82,11 @@ export type DerivedBond = {
   electronegativityDifference: number
   /** Å, measured from the stored coordinates. */
   length: number
-  /** 1.5 for an aromatic bond; the stored Kekulé order otherwise. */
+  /** 1.5 for an aromatic bond and for a bond of a resonance pair; the stored Kekulé order otherwise. */
   displayOrder: number
   orderLabel?: string
+  /** For a bond of a resonance pair: its resonance note, and the order it is drawn with. */
+  orderNote?: string
 }
 
 type Bond = Molecule['bonds'][number]
@@ -180,8 +185,17 @@ export function deriveBonds(molecule: Molecule, elements: readonly Element[]): D
       electronegativityDifference: Math.round(Math.abs(difference) * 100) / 100,
       length: distance(a.position, b.position),
     }
-    return bond.aromatic
-      ? { ...shared, sigmaPi: AROMATIC_SIGMA_PI, displayOrder: 1.5, orderLabel: AROMATIC_ORDER_LABEL }
-      : { ...shared, sigmaPi: SIGMA_PI[bond.order], displayOrder: bond.order }
+    if (bond.aromatic) return { ...shared, sigmaPi: AROMATIC_SIGMA_PI, displayOrder: 1.5, orderLabel: AROMATIC_ORDER_LABEL }
+    // The pair shares one π bond, so neither bond is the double or the single bond the Lewis structure draws.
+    if (bond.resonanceNote) {
+      return {
+        ...shared,
+        sigmaPi: RESONANCE_SIGMA_PI,
+        displayOrder: 1.5,
+        orderLabel: RESONANCE_ORDER_LABEL,
+        orderNote: `${bond.resonanceNote}. Drawn here as a ${BOND_KINDS[bond.order - 1]} bond.`,
+      }
+    }
+    return { ...shared, sigmaPi: SIGMA_PI[bond.order], displayOrder: bond.order }
   })
 }

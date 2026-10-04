@@ -160,7 +160,7 @@ Inspectors open when an atom or bond is selected. Beside the canvas, a DOM list 
 
 **Atom card**, base layer: symbol, atomic number, mass, electronegativity, valence electrons, formal charge, oxidation state, hybridization, VSEPR geometry. Expanded layer: electron configuration, ionization energies, atomic and ionic radii.
 
-**Bond card:** length, order, polarity as Pauling electronegativity difference (labelled "a rough guide"), σ/π composition. Aromatic bonds show "aromatic (delocalised), order 1.5". A bond with a `resonanceNote` shows it: the carboxylate C–O bonds of the zwitterions, the two unprotonated C–O bonds of HCO₃⁻, and both S–O bonds of SO₂ read "one of two equivalent resonance structures; effective order 1.5".
+**Bond card:** length, order, polarity as Pauling electronegativity difference (labelled "a rough guide"), σ/π composition. Aromatic bonds show "aromatic (delocalised), order 1.5". A bond with a `resonanceNote` is one of a resonance pair: the carboxylate C–O bonds of the zwitterions, the two unprotonated C–O bonds of HCO₃⁻, and both S–O bonds of SO₂. Both bonds of the pair show "resonance pair, order 1.5" and "1 σ + delocalised π (resonance pair, effective order 1.5)", with the note beneath, "one of two equivalent resonance structures; effective order 1.5", followed by how the Lewis structure draws that bond ("Drawn here as a double bond."). The stored order, the Lewis view and the 3D model keep the drawn double and single bond.
 
 Derived values:
 

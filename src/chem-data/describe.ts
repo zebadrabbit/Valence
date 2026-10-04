@@ -1,12 +1,10 @@
-import { deriveAtoms } from './derive'
+import { BOND_KINDS, deriveAtoms } from './derive'
 import type { Element, Molecule } from './schema'
 
 // Plain text for screen readers (spec 11): no symbols a reader might skip, so
 // a charge is written "plus 1", a formula uses ordinary digits, and a trailing
 // parenthesised formula in a name such as "Oxygen (O₂)" is dropped. The formula
 // is the authored one, written as textbooks write it (NH3, not Hill's H3N).
-
-export const BOND_KINDS = ['single', 'double', 'triple', 'aromatic'] as const
 
 const listFormat = new Intl.ListFormat('en', { type: 'conjunction' })
 const counted = (n: number, noun: string) => `${n} ${noun}${n === 1 ? '' : 's'}`

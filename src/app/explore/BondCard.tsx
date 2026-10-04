@@ -7,7 +7,7 @@ import { bondOrder, headlineValue, measuredNote, polarity } from './format'
 import { Card, MoleculeNotes, Row, Rows, Sources } from './InspectorCard'
 
 const DERIVED =
-  'Bond order and the σ and π count come from the Lewis structure as drawn. Polarity is the difference between the two cited electronegativities.'
+  'Bond order and the σ and π count come from the Lewis structure as drawn; a resonance pair shares one π bond between its two bonds, which gives each an effective order of 1.5. Polarity is the difference between the two cited electronegativities.'
 
 /** The selected bond. `length` is the measurement between its two atoms, which carries the cited value when there is one. */
 export function BondCard(props: { molecule: Molecule; bond: Molecule['bonds'][number]; derived: DerivedBond; length: Measurement; atomNames: readonly string[] }) {
@@ -21,7 +21,7 @@ export function BondCard(props: { molecule: Molecule; bond: Molecule['bonds'][nu
         <Row label="Length" note={measuredNote(molecule, length)}>
           {headlineValue(length)}
         </Row>
-        <Row label="Order" note={bond.resonanceNote}>
+        <Row label="Order" note={derived.orderNote}>
           {bondOrder(derived)}
         </Row>
         <Row label="Polarity" note="Pauling electronegativity difference; a rough guide.">
