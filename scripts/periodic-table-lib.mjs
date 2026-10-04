@@ -1,6 +1,7 @@
-// Parsers and exact-decimal helpers for the saved periodic-table sources. build-chem-data.mjs uses
-// the PubChem, CIAAW and NIST parsers; the cross-check (cross-check-periodic-table.mjs) uses all of it.
-// No dependencies; everything reads saved copies, nothing is fetched here.
+// Parsers and exact-decimal helpers for the saved periodic-table sources, and the checks the build makes
+// on a configuration and on a note. build-chem-data.mjs uses the PubChem, CIAAW and NIST parsers and the
+// checks; the cross-check (cross-check-periodic-table.mjs) uses the parsers; src/chem-data/periodicBuild.test.ts
+// tests the checks. No dependencies; everything reads saved copies, nothing is fetched here.
 
 // ---------------------------------------------------------------------------
 // Exact decimal arithmetic on published strings. Floats are never used to
@@ -108,14 +109,41 @@ export function parseCiaawRadioactive(html) {
 }
 
 // ---------------------------------------------------------------------------
+// Wikipedia "Densities of the elements (data page)", wikitext: the solid-phase table, which transcribes
+// handbooks. One entry per element and form, with the values given in g/cm³, keyed by the page's row labels
+// ("use" is the page's own pick, LNG is Lange's Handbook, CRC the CRC Handbook).
+
+export function parseDensitiesPage(wikitext) {
+  const solid = /==\s*Density, solid phase\s*==(.*?)\n==[^=]/s.exec(wikitext)?.[1]
+  if (!solid) throw new Error('the densities page has no solid-phase table')
+  const entries = []
+  for (const line of solid.split('\n')) {
+    // "! colspan="2" ...|<!-- 97 Bk --> 97 Bk [[berkelium]] (alpha)"
+    const head = /<!-- (\d+) (\w+) -->.*?\]\](?: \(([^)]*)\))?/.exec(line)
+    if (head) entries.push({ z: Number(head[1]), symbol: head[2], form: head[3] ?? null, values: {} })
+    // "|LNG ||(at r.t.) 14.78 g/cm<sup>3</sup>"
+    const row = /^\|(\w+) \|\|\s*(?:\([^)]*\)\s*)*([\d.]+) g\/cm<sup>3<\/sup>/.exec(line)
+    if (row && entries.length > 0) entries.at(-1).values[row[1]] = row[2]
+  }
+  return entries
+}
+
+// ---------------------------------------------------------------------------
 // NIST ASD ground states and ionization energies (tab-delimited response)
+
+// NIST prints a mark on each side of an energy that does not come from evaluated experimental data: square
+// brackets for a semi-empirical value, parentheses for a theoretical one (its help page, quoted in
+// docs/research/periodic-table/cross-check-recorded.md, section 9.8). Opening mark, then closing mark.
+const NIST_MARKS = new Map([['|', 'measured'], ['[|]', 'semi-empirical'], ['(|)', 'theoretical']])
 
 export function parseNistIe(text) {
   const rows = []
   for (const line of text.split('\n')) {
     const f = line.split('\t').map((c) => c.replace(/^"|"$/g, ''))
     if (!/^\d+$/.test(f[0])) continue
-    const flag = f[9] === '(' ? 'theoretical' : f[9] === '[' ? 'semi-empirical' : 'measured'
+    // Any other marking stops the build: guessing would show a value as measured that NIST does not give as measured.
+    const flag = NIST_MARKS.get(`${f[9]}|${f[11]}`)
+    if (!flag) throw new Error(`NIST row ${f[0]}: unknown marking ${JSON.stringify(f[9])} and ${JSON.stringify(f[11])} around the ionization energy`)
     rows.push({
       z: Number(f[0]), spectrum: f[1], charge: Number(f[2]), name: f[3],
       groundShells: f[5], groundLevel: f[7], energy: f[10], flag, uncertainty: f[12], references: f[13],
@@ -147,21 +175,32 @@ export function parseConfiguration(text, { separator = /\s+/, impliedOne = false
   const c = /^\[(\w+)\][.\s]*/.exec(rest)
   if (c) {
     core = c[1]
-    if (!CORES[core]) throw new Error(`unknown core [${core}] in ${text}`)
+    if (!CORES[core]) throw new Error(`unknown core [${core}] in configuration ${text}`)
     Object.assign(subshells, CORES[core])
     rest = rest.slice(c[0].length)
   }
   const outer = []
   for (const token of rest.split(separator).filter(Boolean)) {
     const m = /^(\d)([spdf])(\d*)$/.exec(token)
-    if (!m || (m[3] === '' && !impliedOne)) throw new Error(`bad subshell ${JSON.stringify(token)} in ${text}`)
+    if (!m || (m[3] === '' && !impliedOne)) throw new Error(`bad subshell ${JSON.stringify(token)} in configuration ${text}`)
     const n = m[3] === '' ? 1 : Number(m[3])
     const key = m[1] + m[2]
-    if (key in subshells) throw new Error(`subshell ${key} given twice in ${text}`)
+    if (key in subshells) throw new Error(`subshell ${key} given twice in configuration ${text}`)
     subshells[key] = n
     outer.push([key, n])
   }
   return { subshells, core, outer, suffix }
+}
+
+// A stored configuration: an optional noble-gas core, with or without one space after it, then subshells
+// separated by single spaces. periodicElementSchema (src/chem-data/schema.ts) has the same pattern; a test compares the two.
+export const CONFIGURATION_TEXT = /^(\[[A-Z][a-z]\] ?)?\d[spdf]\d{1,2}( \d[spdf]\d{1,2})*$/
+
+/** Throws unless `text` is a stored configuration that can be read and holds as many electrons as the atomic number. */
+export function checkConfiguration(text, atomicNumber) {
+  if (!CONFIGURATION_TEXT.test(text)) throw new Error(`configuration ${JSON.stringify(text)} is not a core and subshells separated by single spaces`)
+  const electrons = electronCount(parseConfiguration(text).subshells)
+  if (electrons !== atomicNumber) throw new Error(`configuration ${JSON.stringify(text)} holds ${electrons} electrons, not ${atomicNumber}`)
 }
 
 export function shellCounts(subshells) {
@@ -174,6 +213,20 @@ export function shellCounts(subshells) {
 }
 
 export const electronCount = (subshells) => Object.values(subshells).reduce((a, b) => a + b, 0)
+
+// ---------------------------------------------------------------------------
+// Notes
+
+/**
+ * Why a note cannot sit on this record, or null. A note qualifies a value the record has. The one exception is a
+ * note marked `valueAbsent`, which says something about a value the source leaves empty, and needs it to be empty.
+ */
+export function noteProblem(record, { row, valueAbsent = false }) {
+  const absent = record[row] === undefined
+  if (absent && !valueAbsent) return `${record.symbol} has no ${row} for a note to qualify`
+  if (!absent && valueAbsent) return `${record.symbol} has a value for ${row}, but the note is marked as being about an absent one`
+  return null
+}
 
 // ---------------------------------------------------------------------------
 // Position by atomic number, for the sanity scan only (the app's own

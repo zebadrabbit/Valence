@@ -17,7 +17,7 @@ import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import process from 'node:process'
 import { parseSdf } from './parse-sdf.mjs'
-import { parseCiaawAbridged, parseNistIe, parsePubChem } from './periodic-table-lib.mjs'
+import { checkConfiguration, noteProblem, parseCiaawAbridged, parseNistIe, parsePubChem } from './periodic-table-lib.mjs'
 
 const root = join(import.meta.dirname, '..')
 const research = join(root, 'docs/research/phase-2')
@@ -699,7 +699,7 @@ function periodicSources(manifest) {
   const saved = (file) => manifest.files.find((f) => f.file === file) ?? fail(`MANIFEST.json does not list ${file}`)
   if (!/^\d{4}-\d{2}-\d{2}$/.test(manifest.retrieved)) fail('MANIFEST.json has no retrieval date')
   const retrieved = `retrieved ${manifest.retrieved}`
-  // The page was read at this revision for the cross-check; the copy itself is not kept in the repository.
+  // The page was read at this revision, and the copy kept in sources/ is that revision (sources/README.md).
   const revision = /^Wikipedia, Densities of the elements \(data page\), revision (\d+)$/.exec(saved('wikipedia-densities-of-the-elements-data-page.wikitext').what)?.[1] ?? fail('MANIFEST.json does not give the revision of the densities page')
   return [
     {
@@ -736,13 +736,13 @@ function quantity(published, field, sourceId, where) {
   return { value: Number(published), published, unit: PERIODIC_UNITS[field], sourceId }
 }
 
-const onlyKeys = (object, keys, where) => {
-  const unknown = Object.keys(object).filter((key) => !keys.includes(key))
+const onlyKeys = (object, keys, where, optional = []) => {
+  const unknown = Object.keys(object).filter((key) => !keys.includes(key) && !optional.includes(key))
   const missing = keys.filter((key) => !(key in object))
   if (unknown.length > 0 || missing.length > 0) fail(`${where}: expected exactly the keys ${keys.join(', ')}`)
 }
 
-/** decisions.json, checked: { isotopes, covalentChoice, notesFor(symbol) }. */
+/** decisions.json, checked: { isotopes, covalentChoice, notesFor(symbol) }. A note comes back with its valueAbsent mark. */
 function readDecisions(symbols, sourceIds) {
   const decisions = JSON.parse(readFileSync(join(periodicResearch, 'decisions.json'), 'utf8'))
   onlyKeys(decisions, ['about', 'isotopeMasses', 'covalentRadius', 'notes'], 'decisions.json')
@@ -761,7 +761,9 @@ function readDecisions(symbols, sourceIds) {
   const notes = new Map()
   decisions.notes.forEach((note, i) => {
     const where = `decisions.json: notes[${i}]`
-    onlyKeys(note, ['symbols', 'row', 'text', 'sourceId'], where)
+    // valueAbsent marks a note about a value the source leaves empty. It is checked against the record and not written out.
+    onlyKeys(note, ['symbols', 'row', 'text', 'sourceId'], where, ['valueAbsent'])
+    if ('valueAbsent' in note && note.valueAbsent !== true) fail(`${where}: valueAbsent, where given, must be true`)
     if (!Array.isArray(note.symbols) || note.symbols.length === 0 || new Set(note.symbols).size !== note.symbols.length) fail(`${where}: symbols must be a list with no repeats`)
     if (!NOTE_ROWS.includes(note.row)) fail(`${where}: unknown row "${note.row}"`)
     if (typeof note.text !== 'string' || note.text.trim() === '' || note.text !== note.text.trim()) fail(`${where}: text is empty or padded`)
@@ -770,7 +772,7 @@ function readDecisions(symbols, sourceIds) {
       known(symbol, `notes[${i}]`)
       const list = notes.get(symbol) ?? []
       if (list.some((other) => other.row === note.row && other.text === note.text)) fail(`${where}: repeats a note on ${symbol}`)
-      notes.set(symbol, [...list, { row: note.row, text: note.text, sourceId: note.sourceId }])
+      notes.set(symbol, [...list, { row: note.row, text: note.text, sourceId: note.sourceId, valueAbsent: note.valueAbsent === true }])
     }
   })
   return { isotopes: decisions.isotopeMasses, covalentChoice: decisions.covalentRadius, notesFor: (symbol) => notes.get(symbol) ?? [] }
@@ -813,21 +815,34 @@ function buildPeriodicTable(otherSourceIds) {
   const pages = JSON.parse(read('sources/pubchem-element-pages-extract.json'))
   if (Object.keys(pages).length !== 118) fail('the saved PubChem element pages are not 118 records')
 
+  // The download's symbols and names are checked before decisions.json is read against them, so that a fault
+  // in the download is not reported as a fault in decisions.json.
+  rows.forEach((row, i) => {
+    const where = `periodic table row ${i + 1}`
+    if (row.AtomicNumber !== String(i + 1)) fail(`${where}: atomic number is "${row.AtomicNumber}"`)
+    if (!/^[A-Z][a-z]?$/.test(row.Symbol)) fail(`${where}: symbol is "${row.Symbol}"`)
+    if (row.Name.trim() === '' || row.Name !== row.Name.trim()) fail(`${where}: name is empty or padded`)
+  })
+  if (new Set(rows.map((row) => row.Symbol)).size !== 118 || new Set(rows.map((row) => row.Name)).size !== 118) fail('the PubChem download repeats a symbol or a name')
+
   const decisions = readDecisions(new Set(rows.map((row) => row.Symbol)), sourceIds)
 
   const elements = rows.map((row, i) => {
     const atomicNumber = i + 1
     const where = `periodic table row ${atomicNumber}`
-    if (row.AtomicNumber !== String(atomicNumber)) fail(`${where}: atomic number is "${row.AtomicNumber}"`)
     const { Symbol: symbol, Name: name } = row
-    if (!/^[A-Z][a-z]?$/.test(symbol)) fail(`${where}: symbol is "${symbol}"`)
-    if (name.trim() === '' || name !== name.trim()) fail(`${where}: name is empty or padded`)
     if (!CATEGORIES.includes(row.GroupBlock)) fail(`${where}: unknown category "${row.GroupBlock}"`)
 
     // "(predicted)" and "(calculated)" are the source's own markings; the rest of the text is kept as published.
     const marked = /^(.*?)(?: \((predicted|calculated)\))?$/.exec(row.ElectronConfiguration)
     const [, text, qualifier] = marked
     if (text === '' || /[()]/.test(text)) fail(`${where}: configuration "${row.ElectronConfiguration}" is empty or carries an unknown marking`)
+    // The text is kept as published, so it must be text the app can read: its electrons sum to the atomic number.
+    try {
+      checkConfiguration(text, atomicNumber)
+    } catch (error) {
+      fail(`${where}: ${error.message}`)
+    }
 
     const state = /^(Expected to be a )?(Solid|Liquid|Gas)$/.exec(row.StandardState) ?? fail(`${where}: unknown state "${row.StandardState}"`)
     if (row.YearDiscovered !== 'Ancient' && !/^\d{3,4}$/.test(row.YearDiscovered)) fail(`${where}: year is "${row.YearDiscovered}"`)
@@ -860,10 +875,11 @@ function buildPeriodicTable(otherSourceIds) {
     const ie = nist[i]
     if (ie && (ie.z !== atomicNumber || ie.charge !== 0 || ie.spectrum !== `${symbol} I`)) fail(`${where}: the NIST row is ${ie.spectrum}`)
 
-    const notes = decisions.notesFor(symbol)
-    if (radii.length > 1 && !notes.some((note) => note.row === 'covalentRadius')) fail(`${where}: a chosen covalent radius needs a note saying so`)
+    const authored = decisions.notesFor(symbol)
+    if (radii.length > 1 && !authored.some((note) => note.row === 'covalentRadius')) fail(`${where}: a chosen covalent radius needs a note saying so`)
+    const notes = authored.map(({ row, text, sourceId }) => ({ row, text, sourceId }))
 
-    return {
+    const record = {
       atomicNumber,
       symbol,
       name,
@@ -884,9 +900,12 @@ function buildPeriodicTable(otherSourceIds) {
       ...(notes.length > 0 ? { notes } : {}),
       sourceId: PUBCHEM_TABLE_ID,
     }
+    for (const note of authored) {
+      const problem = noteProblem(record, note)
+      if (problem) fail(`decisions.json: a note on ${note.row}: ${problem}`)
+    }
+    return record
   })
-
-  if (new Set(elements.map((e) => e.symbol)).size !== 118 || new Set(elements.map((e) => e.name)).size !== 118) fail('the PubChem download repeats a symbol or a name')
   return { elements, sources }
 }
 
