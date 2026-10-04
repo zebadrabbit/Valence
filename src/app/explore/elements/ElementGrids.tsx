@@ -39,7 +39,11 @@ export function ElementGrids(props: { selected: PeriodicElement | undefined; pro
   const [focused, setFocused] = useState<number | null>(null)
   // With no element selected, the tab stop stays on the cell that last had focus.
   const [last, setLast] = useState(1)
+  // The cell the pointer last moved over. A key press clears it, so the readout follows whichever was used last.
   const [pointed, setPointed] = useState<number | null>(null)
+  // Whether the focused cell shows its outline: it does when focus came by the keyboard, and from the first key
+  // pressed after a click.
+  const [outlined, setOutlined] = useState(false)
   const tabStop = focused ?? selected?.atomicNumber ?? last
   const scale = property && trendScale(property)
   const readout = periodicTable[(pointed ?? focused ?? selected?.atomicNumber ?? 0) - 1]
@@ -54,8 +58,9 @@ export function ElementGrids(props: { selected: PeriodicElement | undefined; pro
     scroller.scrollLeft += scrollToShow(scroller.getBoundingClientRect(), cell.getBoundingClientRect(), EDGE)
   }, [selected])
 
-  // A cell focused from the keyboard, which is when its outline is drawn, is brought wholly into view. Not one
-  // focused by a press of the mouse or a tap: scrolling then takes the cell from under the pointer and loses the click.
+  // A cell focused from the keyboard, which is when its outline is drawn, is brought wholly into view; so is one
+  // that was clicked while cut by an edge, when a key then gives it its outline. Not one focused by a press of the
+  // mouse or a tap: scrolling then takes the cell from under the pointer and loses the click.
   useLayoutEffect(() => {
     const cell = box.current?.querySelector('.pt-cell:focus-visible')
     if (!cell) return
@@ -66,9 +71,12 @@ export function ElementGrids(props: { selected: PeriodicElement | undefined; pro
     // The browser brings a focused cell into view but can leave it against the edge of the scrolling box
     // or a little beyond it, with its outline cut off. This honours the cell's scroll-margin.
     cell.scrollIntoView({ block: 'nearest', inline: 'nearest' })
-  }, [focused])
+  }, [focused, outlined])
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    setPointed(null)
+    // The browser has decided by now whether this key gives the focused cell its outline: Shift does, Control alone does not.
+    setOutlined((event.target as Element).matches(':focus-visible'))
     const from = cellOf(event)
     const action = from === null ? null : cellKey(from, event)
     if (action === null) return
@@ -124,13 +132,18 @@ export function ElementGrids(props: { selected: PeriodicElement | undefined; pro
         onKeyDown={onKeyDown}
         onFocus={(event) => {
           const z = cellOf(event)
+          const byKeyboard = event.target.matches(':focus-visible')
           setFocused(z)
+          setOutlined(byKeyboard)
+          if (byKeyboard) setPointed(null)
           if (z !== null) setLast(z)
         }}
         onBlur={(event) => {
           if (!event.currentTarget.contains(event.relatedTarget)) setFocused(null)
         }}
-        onPointerOver={(event) => setPointed(cellOf(event))}
+        // A move, not pointerover: when a key scrolls the table under a pointer that is lying still, the browser
+        // reports the cell that arrives under it as entered, and the readout must stay with the keyboard.
+        onPointerMove={(event) => setPointed(cellOf(event))}
         onPointerLeave={() => setPointed(null)}
       >
         <table role="grid" aria-label="Periodic table, periods 1 to 7" className="pt-table">
@@ -195,8 +208,9 @@ export function ElementGrids(props: { selected: PeriodicElement | undefined; pro
 }
 
 /**
- * The element under the pointer or with focus, else the selected one, written out in the table's empty
- * corner: below the width at which names fit in the cells, this is where a sighted learner reads the name.
+ * The element the pointer last moved over or, once a key is pressed, the one with focus; else the selected one.
+ * It is written out in the table's empty corner: below the width at which names fit in the cells, this is where
+ * a sighted learner reads the name.
  * Hidden from assistive technology, which gets the same words from the cell's own name. It is drawn in two
  * places and periodic.css shows one: the corner, or a strip under the table where the table scrolls sideways.
  * `selected` adds where the details are: the corner says it, the strip is next to the status line that does.
