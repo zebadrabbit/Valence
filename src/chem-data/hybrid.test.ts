@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { HYBRIDIZATION, deriveAtoms } from './derive'
 import { dot } from './geometry'
-import { DELOCALISED_PAIR_NOTE, describeHybridLobes, hybridLobes } from './hybrid'
+import { DELOCALISED_PAIR_NOTE, VALENCE_BOND_NOTE, describeHybridLobes, hybridLobes, valenceBondNote } from './hybrid'
 import { registry } from './registry'
 
 const { elements } = registry
@@ -76,5 +76,19 @@ describe('describeHybridLobes', () => {
     expect(describeHybridLobes(lobesOf('methane', 'C')!)).toBe('sp³: 4 lobes, 4 along bonds.')
     expect(describeHybridLobes(lobesOf('water', 'O')!)).toBe('sp³: 4 lobes, 2 along bonds and 2 holding lone pairs.')
     expect(describeHybridLobes(lobesOf('nitrogen', 'N')!)).toBe('sp: 2 lobes, 1 along a bond and 1 holding a lone pair.')
+  })
+})
+
+describe('valenceBondNote', () => {
+  const diagramOf = (id: string) => registry.moDiagrams.find((d) => d.moleculeId === id)!
+
+  it('says the molecular orbital diagram is the better description of O₂, whose unpaired electrons the lobes do not show', () => {
+    expect(valenceBondNote(diagramOf('oxygen'))).toBe(VALENCE_BOND_NOTE)
+  })
+
+  it('says both pictures give N₂ a triple bond', () => {
+    expect(valenceBondNote(diagramOf('nitrogen'))).toBe(
+      'The lobes are the valence bond picture. The molecular orbital diagram below agrees with it here: both give a triple bond with every electron paired.',
+    )
   })
 })

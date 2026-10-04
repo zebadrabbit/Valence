@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import type { Prefs } from '@/app/preferences'
 import { deriveAtoms, deriveBonds } from '@/chem-data/derive'
-import { VALENCE_BOND_NOTE, describeHybridLobes, hybridLobes } from '@/chem-data/hybrid'
+import { describeHybridLobes, hybridLobes, valenceBondNote } from '@/chem-data/hybrid'
 import { measure } from '@/chem-data/measure'
 import { registry } from '@/chem-data/registry'
 import type { Molecule } from '@/chem-data/schema'
@@ -69,7 +69,7 @@ export function Inspector(props: Props) {
             <p>{describeHybridLobes(lobes)}</p>
             {lobes.note && <Note>{lobes.note}</Note>}
             <Note>The lobes are drawn in the ball and stick and wireframe views. Each is a simplified shape, not a computed orbital.</Note>
-            {diagram && <Note>{VALENCE_BOND_NOTE}</Note>}
+            {diagram && <Note>{valenceBondNote(diagram)}</Note>}
           </>
         ) : (
           <p>No lobes are drawn for this atom. Hybridization: {derived.hybridization}.</p>

@@ -1,7 +1,8 @@
-import { HYBRIDIZATION, deriveAtoms } from './derive'
+import { BOND_KINDS, HYBRIDIZATION, deriveAtoms } from './derive'
 import type { Vec3 } from './geometry'
 import { bondDirections, lonePairDirections } from './lonePairs'
-import type { Element, Molecule } from './schema'
+import { bondOrder, unpairedElectrons } from './mo'
+import type { Element, MoDiagram, Molecule } from './schema'
 
 // Which hybrid orbital lobes to draw on an atom (spec 6.4, level 3): sp, sp² and sp³ atoms only.
 
@@ -11,8 +12,18 @@ const DRAWN = [2, 3, 4].map((domains) => HYBRIDIZATION[domains]!)
 export const DELOCALISED_PAIR_NOTE =
   'The lone pair of this nitrogen is in a p orbital at right angles to the plane of its bonds, delocalised into the neighbouring C=O. It is not a hybrid orbital, so it has no lobe.'
 
-/** Shown with the lobes of a molecule that also has a molecular orbital diagram, so the two models are not read as one. */
+/**
+ * Shown with the lobes of a molecule that also has a molecular orbital diagram, so the two models
+ * are not read as one. The diagram is the better description only where the pictures disagree:
+ * its unpaired electrons (O₂) are paired in the valence bond picture. Where it has none (N₂),
+ * both give the same bond.
+ */
 export const VALENCE_BOND_NOTE = 'The lobes are the valence bond picture. The molecular orbital diagram below describes this molecule better.'
+export function valenceBondNote(diagram: MoDiagram): string {
+  if (unpairedElectrons(diagram) > 0) return VALENCE_BOND_NOTE
+  const kind = BOND_KINDS[bondOrder(diagram) - 1]
+  return `The lobes are the valence bond picture. The molecular orbital diagram below agrees with it here: both give a ${kind} bond with every electron paired.`
+}
 
 export type HybridLobes = {
   hybridization: string
