@@ -88,6 +88,8 @@ const openstax = (section: string) => `openstax-chem2e-${section}`
 const RED_BOOK = 'iupac-red-book-2005'
 const IUPAC_TABLE = 'iupac-periodic-table'
 const RSC = 'rsc-periodic-table'
+const PUBCHEM_PAGES = 'pubchem-element-pages'
+const IUPAC_GROUP_3_REPORT = 'iupac-group-3-report-2021'
 
 // `derived` says which sentences are counted from this table and not read in a source; a test does the counting.
 function description(text: string, passages: readonly Passage[], derived?: string, name?: string): Description {
@@ -134,9 +136,10 @@ const S_AND_D_COUNT = 'the outer s and d electrons, from each configuration PubC
 // `text` takes the members' names, lightest first.
 type Group = { name?: string; text: (members: string[]) => string; passages: Passage[]; derived: string }
 
+// "The iron group" is also used for iron, cobalt and nickel, so group 8's text says which is meant.
 const transitionGroup = (group: number): Group => ({
   text: (members) =>
-    `The ${members[0]} group: ${list(members)}. They are transition metals, and each atom has ${group} electrons in its outer s and d subshells. Transition metals form compounds in a wide range of oxidation states.`,
+    `The ${members[0]} group${group === 8 ? ' (group 8)' : ''}: ${list(members)}. They are transition metals, and each atom has ${group} electrons in its outer s and d subshells. Transition metals form compounds in a wide range of oxidation states.`,
   passages: [
     RED_BOOK_GROUP_NAMES,
     [openstax('19.1'), '“As shown in Figure 19.2, the d-block elements in groups 3–11 are transition elements. … Transition metals can form compounds with a wide range of oxidation states.”'],
@@ -160,8 +163,9 @@ const GROUPS: Record<number, Group> = {
   },
   2: {
     name: 'Alkaline earth metals',
+    // "Reactive", where the passage says "very reactive" of the whole group: beryllium is not.
     text: (members) =>
-      `${capital(list(members))}. Each atom has 2 valence electrons and readily loses both, so these metals have an oxidation state of +2 in their compounds. They are very reactive, though less so than the alkali metals.`,
+      `${capital(list(members))}. Each atom has 2 valence electrons and readily loses both, so these metals have an oxidation state of +2 in their compounds. They are reactive metals, though less so than the alkali metals.`,
     passages: [
       [
         openstax('18.1'),
@@ -279,10 +283,13 @@ export function describeGroup(group: number): Description {
   const authored = GROUPS[group]
   if (!authored) throw new Error(`no group ${group}`)
   const members = membersWhere((position) => position.group === group)
-  // Elements made a few atoms at a time: the group's chemistry is not claimed for them.
+  // Elements made a few atoms at a time. From meitnerium on the group's chemistry is not claimed for them (spec 5.5);
+  // the chemistry of rutherfordium to hassium has been studied, so of those only the first half is said.
   const fewAtoms = members.filter((e) => e.atomicNumber >= 104)
+  const fewAtomsText = (e: PeriodicElement) =>
+    e.atomicNumber >= 109 ? `${e.name} is placed here by its atomic number; few atoms of it have ever been made.` : `Few atoms of ${e.name.toLowerCase()} have ever been made.`
   return description(
-    [authored.text(names(members)), ...fewAtoms.map((e) => `${e.name} is placed here by its atomic number; few atoms of it have ever been made.`)].join(' '),
+    [authored.text(names(members)), ...fewAtoms.map(fewAtomsText)].join(' '),
     [...authored.passages, ...fewAtoms.map((e): Passage => [RSC, `on the page for ${e.name.toLowerCase()}, “${FEW_ATOMS_OTHERWISE[e.symbol] ?? FEW_ATOMS}”`])],
     `the members; ${authored.derived}`,
     authored.name,
@@ -379,13 +386,21 @@ export function describeBlock(block: Block): Description {
 
 /** The one note the page carries on group 3 (periodic table spec 5.4). The descriptions of group 3 and of the d and f blocks point to it. */
 export const GROUP_3_NOTE: Description = description(
-  "Which elements belong in group 3 below scandium and yttrium is debated: lanthanum and actinium, or lutetium and lawrencium. This table puts lanthanum and actinium there and counts them in the d block, which leaves cerium to lutetium and thorium to lawrencium as the f block, 14 elements in each row. OpenStax Chemistry 2e assigns the blocks this way, and the Royal Society of Chemistry's periodic table is drawn this way. IUPAC has not ruled on the question.",
+  "Which elements belong in group 3 below scandium and yttrium is debated: lanthanum and actinium, or lutetium and lawrencium. This table puts lanthanum and actinium there and counts them in the d block, which leaves cerium to lutetium and thorium to lawrencium as the f block, 14 elements in each row. OpenStax Chemistry 2e assigns the blocks this way, and the Royal Society of Chemistry's periodic table is drawn this way. PubChem, the source of most values here, puts lutetium and lawrencium in group 3. A provisional report from an IUPAC task group in 2021 leaned towards lutetium and lawrencium, but IUPAC has not ruled on the question.",
   [
     IUPAC_GROUP_3,
     OPENSTAX_TRANSITION_SERIES,
     [
       RSC,
       'the table is drawn with lanthanum (57) below yttrium, followed by hafnium (72), and actinium (89) below lanthanum, followed by rutherfordium (104); the two rows beneath hold cerium to lutetium (58 to 71) and thorium to lawrencium (90 to 103). Its pages give the block of lanthanum and of actinium as d, and of lutetium and of lawrencium as f.',
+    ],
+    [
+      PUBCHEM_PAGES,
+      'the line “Element Group Number” reads “3 - Lanthanide” on the page for lutetium and “3 - Actinide” on the page for lawrencium; on the pages for lanthanum and actinium it reads “- Lanthanide” and “- Actinide”, with no group number.',
+    ],
+    [
+      IUPAC_GROUP_3_REPORT,
+      '“In the course of many discussions held by the task group we have concluded that there is no objective means to adjudicate between group 3 consisting of Sc, Y, La and Ac or as Sc, Y, Lu and Lr. This situation makes it more important that IUPAC should make a ruling on the question … Perhaps a compromise could be reached on the table depicted as figure 2 since it achieves three desiderata.” Figure 2 is the table “with group 3 shown as containing … Sc, Y, Lu and Lr (middle)”. That IUPAC has not ruled since rests on its own page, quoted above, which still puts the question as open.',
     ],
   ],
 )

@@ -38,6 +38,11 @@ const noteRows = (symbol: string) => (element(symbol).notes ?? []).map((note) =>
 const notesOn = (symbol: string, row: string) => (element(symbol).notes ?? []).filter((note) => note.row === row)
 const sourceOf = (id: string) => registry.sources.find((s) => s.id === id)
 
+// The property lines of PubChem's element pages, as saved.
+type PageLine = { heading: string; name: string | null; text: string; source: string }
+const savedPages = JSON.parse(elementPages) as Record<string, { title: string; lines: PageLine[] }>
+const pageLines = (symbol: string, heading: string) => savedPages[element(symbol).atomicNumber]!.lines.filter((line) => line.heading === heading)
+
 describe('the periodic table data', () => {
   it('passes validation against the registry sources', () => {
     expect(validatePeriodicTable(periodicTable, registry.sources, { institutionNames })).toEqual([])
@@ -697,6 +702,20 @@ describe('group, period and block descriptions', () => {
     expect(describeGroup(17).text).toContain('1 short of a full valence shell')
   })
 
+  it('states for group 2 the one oxidation state the table lists for every member: +2', () => {
+    const text = describeGroup(2).text
+    expect(text).toContain('these metals have an oxidation state of +2 in their compounds')
+    expect([...text.matchAll(/[+−-]\d/g)].map((match) => match[0])).toEqual(['+2'])
+    expect(inGroup(2).map((e) => element(e.symbol).oxidationStates)).toEqual(['+2', '+2', '+2', '+2', '+2', '+2'])
+    // "Reactive", not "very reactive": the passage says so of the group, but it is not true of beryllium.
+    expect(text).toContain('They are reactive metals, though less so than the alkali metals.')
+  })
+
+  it('says which group is meant by "the iron group", a name also used for iron, cobalt and nickel', () => {
+    expect(describeGroup(8).text).toMatch(/^The iron group \(group 8\): iron, ruthenium, osmium and hassium\./)
+    for (const group of [4, 5, 6, 7, 9, 10, 11]) expect([group, describeGroup(group).text]).toEqual([group, expect.not.stringContaining('(group')])
+  })
+
   it('states for group 18 the filled shells the stored configurations give: 2 in helium, 8 in the others', () => {
     expect(describeGroup(18).text).toContain('2 electrons in helium and 8 in the others')
     expect(inGroup(18).map(outerShell)).toEqual([2, 8, 8, 8, 8, 8, 8])
@@ -732,12 +751,16 @@ describe('group, period and block descriptions', () => {
     expect(categories(15)).toMatchObject({ nitrogen: 'Nonmetal', phosphorus: 'Nonmetal', arsenic: 'Metalloid', antimony: 'Metalloid', bismuth: 'Post-transition metal' })
   })
 
-  it('says of each element from rutherfordium on that it is placed by atomic number, and of no lighter one', () => {
+  // Spec 5.5 says "placed by position" of elements 109 to 118 only: the chemistry of rutherfordium to hassium has been studied.
+  it('says of each element from rutherfordium on that few atoms have been made, of each from meitnerium on that it is placed by atomic number, and neither of a lighter one', () => {
     for (const group of GROUPS) {
       const text = describeGroup(group).text
       for (const member of inGroup(group)) {
-        const sentence = `${member.name[0]?.toUpperCase()}${member.name.slice(1)} is placed here by its atomic number; few atoms of it have ever been made.`
-        expect([member.symbol, text.includes(sentence)]).toEqual([member.symbol, element(member.symbol).atomicNumber >= 104])
+        const name = `${member.name[0]?.toUpperCase()}${member.name.slice(1)}`
+        const z = element(member.symbol).atomicNumber
+        expect([member.symbol, text.includes(`${name} is placed here by its atomic number; few atoms of it have ever been made.`)]).toEqual([member.symbol, z >= 109])
+        expect([member.symbol, text.includes(`Few atoms of ${member.name} have ever been made.`)]).toEqual([member.symbol, z >= 104 && z <= 108])
+        expect([member.symbol, new RegExp(`${member.name}[^.]*(placed here|few atoms)|few atoms of ${member.name}`, 'i').test(text)]).toEqual([member.symbol, z >= 104])
       }
     }
     expect(GROUPS.filter((group) => describeGroup(group).sourceIds.includes('rsc-periodic-table'))).toEqual(range(4, 18))
@@ -817,7 +840,26 @@ describe('group, period and block descriptions', () => {
     expect(text).toContain('OpenStax Chemistry')
     expect(text).toContain("Royal Society of Chemistry's periodic table")
     expect(text).toContain('IUPAC has not ruled')
-    expect(GROUP_3_NOTE.sourceIds).toEqual(['iupac-periodic-table', 'openstax-chem2e-19.1', 'rsc-periodic-table'])
+    expect(GROUP_3_NOTE.sourceIds).toEqual(['iupac-periodic-table', 'openstax-chem2e-19.1', 'rsc-periodic-table', 'pubchem-element-pages', 'iupac-group-3-report-2021'])
+  })
+
+  it("says in that note that PubChem, the card's own source, follows the other convention, as its element pages show", () => {
+    expect(GROUP_3_NOTE.text).toContain('PubChem, the source of most values here, puts lutetium and lawrencium in group 3.')
+    const groupLine = (symbol: string) => pageLines(symbol, 'Element Group Number').map((line) => line.text)
+    expect([groupLine('Lu'), groupLine('Lr'), groupLine('La'), groupLine('Ac')]).toEqual([['3 - Lanthanide'], ['3 - Actinide'], ['- Lanthanide'], ['- Actinide']])
+    expect([groupLine('Sc'), groupLine('Y')]).toEqual([['3'], ['3']])
+    for (const line of ['“3 - Lanthanide”', '“3 - Actinide”', '“- Lanthanide”', '“- Actinide”']) expect(GROUP_3_NOTE.support).toContain(line)
+    // This table's own rule is the other one.
+    expect(['Lu', 'Lr', 'La', 'Ac'].map((symbol) => elementPosition(element(symbol).atomicNumber).group)).toEqual([null, null, 3, 3])
+  })
+
+  it("reports the 2021 provisional report of IUPAC's task group, which leaned to lutetium and lawrencium, without calling it a ruling", () => {
+    expect(GROUP_3_NOTE.text).toContain("A provisional report from an IUPAC task group in 2021 leaned towards lutetium and lawrencium, but IUPAC has not ruled on the question.")
+    expect(GROUP_3_NOTE.support).toContain('iupac-group-3-report-2021: ')
+    expect(GROUP_3_NOTE.support).toContain('Perhaps a compromise could be reached on the table depicted as figure 2')
+    const report = sourceOf('iupac-group-3-report-2021')
+    expect(report?.citation).toMatch(/^Scerri, E\. Provisional Report on Discussions on Group 3 of The Periodic Table\. Chem\. Int\. 2021, 43 \(1\), 31-34 \(retrieved 2026-10-03\)/)
+    expect(report?.url).toBe('https://doi.org/10.1515/ci-2021-0115')
   })
 
   it('throws for a group, period or block that does not exist', () => {

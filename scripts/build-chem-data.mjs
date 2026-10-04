@@ -691,6 +691,11 @@ function descriptionSources(retrieved) {
       url: 'https://periodic-table.rsc.org/',
       citation: `Royal Society of Chemistry. Periodic Table: how the table is drawn, its notes on the blocks, and its element pages (https://periodic-table.rsc.org/element/<atomic number>/; ${retrieved}).`,
     },
+    {
+      id: 'iupac-group-3-report-2021',
+      url: 'https://doi.org/10.1515/ci-2021-0115',
+      citation: `Scerri, E. Provisional Report on Discussions on Group 3 of The Periodic Table. Chem. Int. 2021, 43 (1), 31-34 (${retrieved}). A progress report from the task group of the IUPAC project "The constitution of group 3 of the periodic table" (https://iupac.org/project/2015-039-2-200).`,
+    },
   ]
 }
 
