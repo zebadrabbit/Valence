@@ -231,6 +231,13 @@ export const PERIODIC_UNITS = {
 const quantity = <K extends keyof typeof PERIODIC_UNITS>(field: K) =>
   z.strictObject({ value: z.number().positive(), published: text, unit: z.literal(PERIODIC_UNITS[field]), sourceId: id })
 
+/**
+ * A stored electron configuration: an optional noble-gas core, with or without one space after it, then subshells
+ * separated by single spaces. No marking: "(predicted)" and "(calculated)" are stored in the qualifier.
+ * scripts/periodic-table-lib.mjs checks the build's input against the same pattern; a test compares the two.
+ */
+export const CONFIGURATION_TEXT = /^(\[[A-Z][a-z]\] ?)?\d[spdf]\d{1,2}( \d[spdf]\d{1,2})*$/
+
 // The rows of the element card a note can qualify: the fields below, by name.
 const NOTE_ROWS = [
   'category',
@@ -268,7 +275,7 @@ export const periodicElementSchema = z.strictObject({
     'Actinide',
   ]),
   /** As published, with the source's "(predicted)" or "(calculated)" marking moved into `qualifier`. */
-  configuration: z.strictObject({ text, qualifier: z.enum(['predicted', 'calculated']).optional() }),
+  configuration: z.strictObject({ text: z.string().regex(CONFIGURATION_TEXT), qualifier: z.enum(['predicted', 'calculated']).optional() }),
   /** `expected` where the source words it "Expected to be a ...". */
   standardState: z.strictObject({ state: z.enum(['Solid', 'Liquid', 'Gas']), expected: z.boolean() }),
   /** As published: signs, spacing and order are the source's. */

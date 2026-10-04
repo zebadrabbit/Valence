@@ -307,21 +307,39 @@ function checkIsotopeMasses(table: readonly PeriodicElement[]): string[] {
   )
 }
 
+function checkNames(table: readonly PeriodicElement[]): string[] {
+  const names = table.map((e) => e.name)
+  return [...new Set(names.filter((name, i) => names.indexOf(name) !== i))].map((name) => `periodic table: duplicate name "${name}"`)
+}
+
+function checkRepeatedNotes(table: readonly PeriodicElement[]): string[] {
+  return table.flatMap(({ symbol, notes = [] }) =>
+    notes
+      .filter((note, i) => notes.findIndex((other) => other.row === note.row && other.text === note.text) !== i)
+      .map((note) => `periodic table: ${symbol}: the note on ${note.row} is given twice`),
+  )
+}
+
 /**
  * Checks the periodic table against the sources it cites. Returns a list of problems; an empty list
- * means the table is valid. Never throws.
+ * means the table is valid. Never throws, whatever it is given: a missing list of sources counts as no sources.
+ * Which source each kind of value must cite, and that the configurations hold the right number of electrons,
+ * are checked by the build script and pinned in periodic.test.ts, not here.
  */
 export function validatePeriodicTable(input: unknown, sources: readonly Source[], options: ValidateOptions = {}): string[] {
   const parsed = periodicTableSchema.safeParse(input)
   if (!parsed.success) return schemaErrors(parsed.error.issues)
   const table = parsed.data
   if (table.length !== 118) return [`schema: : expected 118 elements, found ${table.length}`]
+  const names = options?.institutionNames
   return [
     ...checkNumbering(table),
     ...duplicates(table.map((e) => e.symbol), 'periodic table'),
+    ...checkNames(table),
     ...checkIsotopeMasses(table),
-    ...checkSourceIds(table, 'periodicTable', sources),
+    ...checkRepeatedNotes(table),
+    ...checkSourceIds(table, 'periodicTable', Array.isArray(sources) ? sources : []),
     ...checkPublished(table, 'periodicTable'),
-    ...checkProse(table, 'periodicTable', options.institutionNames ?? []),
+    ...checkProse(table, 'periodicTable', Array.isArray(names) ? names : []),
   ]
 }

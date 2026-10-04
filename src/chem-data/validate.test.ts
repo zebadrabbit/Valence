@@ -652,6 +652,31 @@ describe('validatePeriodicTable', () => {
     expect(validatePeriodicTable(table, sources)).toEqual(['periodic table: duplicate id "Aa"'])
   })
 
+  it('rejects a duplicate name', () => {
+    const table = validTable()
+    table[7]!.name = table[0]!.name
+    expect(validatePeriodicTable(table, sources)).toEqual(['periodic table: duplicate name "Element 1"'])
+  })
+
+  it('rejects the same note twice on one element, but not the same sentence on two rows or two elements', () => {
+    const note = { row: 'density', text: 'A note.', sourceId: 's1' } as const
+    const table = validTable()
+    table[0]!.notes = [note, { ...note, row: 'meltingPoint' }]
+    table[1]!.notes = [note]
+    expect(validatePeriodicTable(table, sources)).toEqual([])
+    table[0]!.notes = [note, { ...note }]
+    expect(validatePeriodicTable(table, sources)).toEqual(['periodic table: Aa: the note on density is given twice'])
+  })
+
+  it('never throws on a missing list of sources or missing options', () => {
+    const noSources = null as unknown as []
+    const noOptions = null as unknown as undefined
+    expect(validatePeriodicTable(validTable(), noSources).length).toBe(236)
+    expect(validatePeriodicTable(validTable(), undefined as unknown as [])[0]).toBe('periodicTable[0].atomicMass.sourceId: unknown source "s1"')
+    expect(validatePeriodicTable(validTable(), sources, noOptions)).toEqual([])
+    expect(validatePeriodicTable(validTable(), 'sources' as unknown as [], { institutionNames: null as unknown as [] }).length).toBe(236)
+  })
+
   it('rejects a published text that does not parse to the stored value', () => {
     const table = validTable()
     table[0]!.atomicMass.published = '1.0081'

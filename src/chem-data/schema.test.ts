@@ -242,6 +242,27 @@ describe('periodicElementSchema', () => {
     expect(accepts({ ...fluorine, ionizationEnergy: { ...quantity('1681', 'kJ/mol'), flag: 'measured' } })).toBe(false)
   })
 
+  it('rejects a quantity that is zero or negative: an absent value is left out, never stored as zero', () => {
+    expect(accepts({ ...fluorine, electronAffinity: quantity('0', 'eV') })).toBe(false)
+    expect(accepts({ ...fluorine, density: quantity('0.0', 'g/cm³') })).toBe(false)
+    expect(accepts({ ...fluorine, meltingPoint: quantity('-219.62', 'K') })).toBe(false)
+    expect(accepts({ ...fluorine, atomicMass: { ...quantity('0', 'u'), kind: 'standard-atomic-weight' } })).toBe(false)
+  })
+
+  it('rejects an empty list of notes: an element with none has no notes key', () => {
+    expect(accepts({ ...fluorine, notes: [] })).toBe(false)
+    const { notes, ...without } = fluorine
+    expect(notes.length).toBe(1)
+    expect(accepts(without)).toBe(true)
+  })
+
+  it('rejects configuration text that is not a core and subshells, or that still carries a marking', () => {
+    for (const text of ['1s1', '[He] 2s2 2p3', '[Ar]4s1 3d10', '[Rn]7s2 7p2 5f14 6d10']) expect([text, accepts({ ...fluorine, configuration: { text } })]).toEqual([text, true])
+    for (const text of ['garbage', '1s1 (predicted)', '[Rn]7s2 5f14 6d7 (calculated)', '1s1 ', ' 1s1', '[He]2s2  2p5', '[He]', '[helium]2s1', '2s']) {
+      expect([text, accepts({ ...fluorine, configuration: { text } })]).toEqual([text, false])
+    }
+  })
+
   it('rejects an ionization energy with no NIST flag, and a note on a row the card does not have', () => {
     expect(accepts({ ...fluorine, ionizationEnergy: quantity('17.42282', 'eV') })).toBe(false)
     expect(accepts({ ...fluorine, notes: [{ row: 'colour', text: 'A note.', sourceId: 's1' }] })).toBe(false)
