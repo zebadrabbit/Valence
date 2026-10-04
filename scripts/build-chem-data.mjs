@@ -658,13 +658,15 @@ const DENSITIES_ID = 'handbook-densities-wikipedia'
 const CIAAW_RADIOACTIVE_ID = 'ciaaw-radioactive-elements'
 const PUBCHEM = 'PubChem [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2004-.'
 
-// What the group, period and block descriptions, the group 3 note and the legend notes in src/chem-data/periodic.ts cite. Each
+// What the group, period and block descriptions, the group 3 note and the legend notes in src/chem-data/periodic.ts cite, and
+// (section 6.5) the element card's sentence on electron affinity in src/chem-data/periodicCard.ts. Each
 // page was read on the retrieval date of the saved downloads; the passage read is stored beside the sentence
 // it supports, there, and the pages themselves are not saved.
 const OPENSTAX = 'Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019;'
 const OPENSTAX_SECTIONS = [
   ['2.5', 'The Periodic Table', '2-5-the-periodic-table'],
   ['6.4', 'Electronic Structure of Atoms (Electron Configurations)', '6-4-electronic-structure-of-atoms-electron-configurations'],
+  ['6.5', 'Periodic Variations in Element Properties', '6-5-periodic-variations-in-element-properties'],
   ['18.1', 'Periodicity', '18-1-periodicity'],
   ['18.3', 'Structure and General Properties of the Metalloids', '18-3-structure-and-general-properties-of-the-metalloids'],
   ['18.4', 'Structure and General Properties of the Nonmetals', '18-4-structure-and-general-properties-of-the-nonmetals'],

@@ -82,7 +82,7 @@ export function shellsFromConfiguration(text: string): number[] {
 export type Description = { name?: string; text: string; sourceIds: string[]; support: string }
 
 // A source and the passage read there. "…" marks words left out and square brackets mark words put in.
-type Passage = readonly [sourceId: string, passage: string]
+export type Passage = readonly [sourceId: string, passage: string]
 
 const openstax = (section: string) => `openstax-chem2e-${section}`
 const RED_BOOK = 'iupac-red-book-2005'
@@ -93,7 +93,7 @@ const PUBCHEM_TABLE = 'pubchem-periodic-table'
 const IUPAC_GROUP_3_REPORT = 'iupac-group-3-report-2021'
 
 // `derived` says which sentences are counted from this table and not read in a source; a test does the counting.
-function description(text: string, passages: readonly Passage[], derived?: string, name?: string): Description {
+export function description(text: string, passages: readonly Passage[], derived?: string, name?: string): Description {
   return {
     ...(name ? { name } : {}),
     text,

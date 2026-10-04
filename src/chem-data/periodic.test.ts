@@ -25,6 +25,7 @@ import {
   type ElementPosition,
   type TrendProperty,
 } from './periodic'
+import { ELECTRON_AFFINITY_NOTE } from './periodicCard'
 import { registry } from './registry'
 import { PERIODIC_UNITS, type PeriodicElement } from './schema'
 import { validatePeriodicTable } from './validate'
@@ -883,10 +884,12 @@ describe('group, period and block descriptions', () => {
     ...BLOCKS.map((block) => [`block ${block}`, describeBlock(block)] as const),
     ['the group 3 note', GROUP_3_NOTE] as const,
     ...LEGEND_NOTES.map((note, i) => [`legend note ${i + 1}`, note] as const),
+    // The element card's sentence that cites a textbook section. The card's other sentences are checked in periodicCard.test.ts.
+    ['the card note on electron affinity', ELECTRON_AFFINITY_NOTE] as const,
   ]
 
   it('gives every group, period and block a text, at least one known source, and the passage behind each source', () => {
-    expect(all.length).toBe(18 + 7 + 4 + 1 + 4 + 2)
+    expect(all.length).toBe(18 + 7 + 4 + 1 + 4 + 2 + 1)
     for (const [what, description] of all) {
       expect([what, description.text]).toEqual([what, expect.stringMatching(/^[A-Z0-9].*\.$/)])
       expect([what, description.text]).toEqual([what, expect.not.stringMatching(/ {2}|undefined|NaN/)])
