@@ -3,7 +3,18 @@ import download from '../../docs/research/periodic-table/pubchem-periodic-table.
 import ciaawPage from '../../docs/research/periodic-table/sources/ciaaw-abridged-atomic-weights.html?raw'
 import nistFile from '../../docs/research/periodic-table/sources/nist-asd-ie-neutral.txt?raw'
 import elementPages from '../../docs/research/periodic-table/sources/pubchem-element-pages-extract.json?raw'
-import { elementPosition, NO_VALUE, periodicTable, shellsFromConfiguration } from './periodic'
+import {
+  describeBlock,
+  describeGroup,
+  describePeriod,
+  elementPosition,
+  GROUP_3_NOTE,
+  NO_VALUE,
+  periodicTable,
+  shellsFromConfiguration,
+  type Block,
+  type ElementPosition,
+} from './periodic'
 import { registry } from './registry'
 import { PERIODIC_UNITS, type PeriodicElement } from './schema'
 import { validatePeriodicTable } from './validate'
@@ -517,5 +528,233 @@ describe('shellsFromConfiguration', () => {
     ['a marking left in the text', '[Rn]7s2 5f14 6d7 (calculated)'],
   ])('throws on %s', (_, text) => {
     expect(() => shellsFromConfiguration(text)).toThrow(/configuration/)
+  })
+})
+
+describe('group, period and block descriptions', () => {
+  type Described = { symbol: string; name: string; category: string; configuration: string } & ElementPosition
+  const described: Described[] = periodicTable.map((e) => ({
+    symbol: e.symbol,
+    name: e.name.toLowerCase(),
+    category: e.category,
+    configuration: e.configuration.text,
+    ...elementPosition(e.atomicNumber),
+  }))
+  const inGroup = (group: number) => described.filter((e) => e.group === group)
+  const inBlock = (block: Block) => described.filter((e) => e.block === block)
+  const symbols = (list: readonly Described[]) => list.map((e) => e.symbol)
+  const outerShell = (e: Described) => shellsFromConfiguration(e.configuration).at(-1)
+  // The electrons a configuration puts in one subshell beyond its noble-gas core, such as "5d".
+  const beyondCore = (e: Described, subshell: string) => Number(new RegExp(`(?:^|[\\] ])${subshell}(\\d+)`).exec(e.configuration)?.[1] ?? 0)
+  // Every number a text states just before the given words, such as "14 elements".
+  const stated = (text: string, words: string) => [...text.matchAll(new RegExp(`(\\d+) ${words}`, 'g'))].map((match) => Number(match[1]))
+
+  const GROUPS = range(1, 18)
+  const PERIODS = range(1, 7)
+  const BLOCKS: Block[] = ['s', 'p', 'd', 'f']
+  const all = [
+    ...GROUPS.map((group) => [`group ${group}`, describeGroup(group)] as const),
+    ...PERIODS.map((period) => [`period ${period}`, describePeriod(period)] as const),
+    ...BLOCKS.map((block) => [`block ${block}`, describeBlock(block)] as const),
+    ['the group 3 note', GROUP_3_NOTE] as const,
+  ]
+
+  it('gives every group, period and block a text, at least one known source, and the passage behind each source', () => {
+    expect(all.length).toBe(18 + 7 + 4 + 1)
+    for (const [what, description] of all) {
+      expect([what, description.text]).toEqual([what, expect.stringMatching(/^[A-Z0-9].*\.$/)])
+      expect([what, description.text]).toEqual([what, expect.not.stringMatching(/ {2}|undefined|NaN/)])
+      expect([what, description.sourceIds.length]).toEqual([what, expect.toSatisfy((n: number) => n >= 1)])
+      expect(new Set(description.sourceIds).size).toBe(description.sourceIds.length)
+      expect([what, description.support.trim()]).not.toEqual([what, ''])
+      for (const id of description.sourceIds) {
+        expect([what, id, sourceOf(id)?.id]).toEqual([what, id, id])
+        // Each source is followed in the support by the passage read there.
+        expect([what, description.support]).toEqual([what, expect.stringContaining(`${id}: `)])
+      }
+    }
+  })
+
+  it('cites sources that say when they were read, and leaves no description source uncited', () => {
+    const cited = new Set(all.flatMap(([, description]) => description.sourceIds))
+    for (const id of cited) expect([id, sourceOf(id)?.citation]).toEqual([id, expect.stringMatching(/retrieved 2026-10-03|Recommendations 2005/)])
+    const added = registry.sources.map((s) => s.id).filter((id) => /^(openstax-chem2e-(?!8\.4$)|iupac-|rsc-)/.test(id))
+    expect(added.length).toBeGreaterThan(0)
+    expect(added.filter((id) => !cited.has(id))).toEqual([])
+  })
+
+  it('names group 1 for hydrogen as well as the alkali metals, and says hydrogen is a nonmetal', () => {
+    const group1 = describeGroup(1)
+    expect(group1.name).toBe('Hydrogen and the alkali metals')
+    expect(group1.text).toMatch(/Hydrogen is a nonmetal, not an alkali metal\./)
+    expect(element('H').category).toBe('Nonmetal')
+    expect(symbols(inGroup(1).filter((e) => e.category === 'Alkali metal'))).toEqual(['Li', 'Na', 'K', 'Rb', 'Cs', 'Fr'])
+  })
+
+  it('names only the families its sources name', () => {
+    expect(Object.fromEntries(GROUPS.flatMap((group) => (describeGroup(group).name ? [[group, describeGroup(group).name]] : [])))).toEqual({
+      1: 'Hydrogen and the alkali metals',
+      2: 'Alkaline earth metals',
+      15: 'Pnictogens',
+      16: 'Chalcogens',
+      17: 'Halogens',
+      18: 'Noble gases',
+    })
+  })
+
+  it('names every member of each group, taken from the position function', () => {
+    for (const group of GROUPS) {
+      const text = describeGroup(group).text.toLowerCase()
+      for (const member of inGroup(group)) expect([group, text]).toEqual([group, expect.stringContaining(member.name)])
+    }
+    expect(describeGroup(3).text).toMatch(/^Scandium, yttrium, lanthanum and actinium\./)
+    expect(describeGroup(4).text).toMatch(/^The titanium group: titanium, zirconium, hafnium and rutherfordium\./)
+  })
+
+  it("spells element names as the table does (PubChem's aluminum and cesium)", () => {
+    for (const [what, description] of all) expect([what, description.text]).toEqual([what, expect.not.stringMatching(/aluminium|caesium|sulphur/i)])
+    expect(describeGroup(13).text).toContain('aluminum')
+    expect(describePeriod(6).text).toContain('cesium')
+  })
+
+  it('states for groups 1, 2 and 13 to 17 the valence electron count the stored configurations give', () => {
+    for (const group of [1, 2, 13, 14, 15, 16, 17]) {
+      const count = group <= 2 ? group : group - 10
+      expect([group, stated(describeGroup(group).text, 'valence electrons?')]).toEqual([group, [count]])
+      for (const member of inGroup(group)) expect([member.symbol, outerShell(member)]).toEqual([member.symbol, count])
+    }
+    // How many more fill the valence shell of eight.
+    expect(stated(describeGroup(15).text, 'more')).toEqual([3])
+    expect(stated(describeGroup(16).text, 'more')).toEqual([2])
+    expect(describeGroup(17).text).toContain('1 short of a full valence shell')
+  })
+
+  it('states for group 18 the filled shells the stored configurations give: 2 in helium, 8 in the others', () => {
+    expect(describeGroup(18).text).toContain('2 electrons in helium and 8 in the others')
+    expect(inGroup(18).map(outerShell)).toEqual([2, 8, 8, 8, 8, 8, 8])
+    // "gases at room temperature": helium to radon; oganesson's state is only expected.
+    expect(inGroup(18).map((e) => element(e.symbol).standardState)).toEqual([
+      ...Array.from({ length: 6 }, () => ({ state: 'Gas', expected: false })),
+      { state: 'Gas', expected: true },
+    ])
+  })
+
+  it('states for groups 3 to 12 the outer s and d electron count the stored configurations give: the group number', () => {
+    for (const group of range(3, 12)) {
+      const text = describeGroup(group).text
+      if (group < 12) expect([group, stated(text, 'electrons in (?:its|their) outer s and d subshells')]).toEqual([group, [group]])
+      for (const member of inGroup(group)) {
+        const s = beyondCore(member, `${member.period}s`)
+        const d = beyondCore(member, `${member.period - 1}d`)
+        expect([member.symbol, s + d]).toEqual([member.symbol, group])
+        // Group 12: a full d subshell and two outer s electrons.
+        if (group === 12) expect([member.symbol, s, d]).toEqual([member.symbol, 2, 10])
+      }
+    }
+    expect(describeGroup(12).text).toContain('a full d subshell and 2 outer s electrons')
+  })
+
+  it('classes the members of groups 13, 14 and 15 as PubChem does', () => {
+    const categories = (group: number) => Object.fromEntries(inGroup(group).map((e) => [e.name, e.category]))
+    expect(describeGroup(13).text).toContain('Boron is a metalloid; aluminum, gallium, indium and thallium are metals.')
+    expect(categories(13)).toMatchObject({ boron: 'Metalloid', aluminum: 'Post-transition metal', gallium: 'Post-transition metal', indium: 'Post-transition metal', thallium: 'Post-transition metal' })
+    expect(describeGroup(14).text).toContain('Carbon is a nonmetal, silicon and germanium are metalloids, and tin and lead are metals.')
+    expect(categories(14)).toMatchObject({ carbon: 'Nonmetal', silicon: 'Metalloid', germanium: 'Metalloid', tin: 'Post-transition metal', lead: 'Post-transition metal' })
+    expect(describeGroup(15).text).toContain('from the nonmetals nitrogen and phosphorus, through the metalloids arsenic and antimony, to the metal bismuth')
+    expect(categories(15)).toMatchObject({ nitrogen: 'Nonmetal', phosphorus: 'Nonmetal', arsenic: 'Metalloid', antimony: 'Metalloid', bismuth: 'Post-transition metal' })
+  })
+
+  it('says of each element from rutherfordium on that it is placed by atomic number, and of no lighter one', () => {
+    for (const group of GROUPS) {
+      const text = describeGroup(group).text
+      for (const member of inGroup(group)) {
+        const sentence = `${member.name[0]?.toUpperCase()}${member.name.slice(1)} is placed here by its atomic number; few atoms of it have ever been made.`
+        expect([member.symbol, text.includes(sentence)]).toEqual([member.symbol, element(member.symbol).atomicNumber >= 104])
+      }
+    }
+    expect(GROUPS.filter((group) => describeGroup(group).sourceIds.includes('rsc-periodic-table'))).toEqual(range(4, 18))
+  })
+
+  it('generates each period text from the table: its size, its first and last elements, and the row below', () => {
+    expect(PERIODS.map((period) => describePeriod(period).text)).toEqual([
+      '2 elements, hydrogen and helium. Across the period the 1s subshell fills.',
+      '8 elements, lithium to neon. Across the period the 2s and 2p subshells fill.',
+      '8 elements, sodium to argon. Across the period the 3s and 3p subshells fill.',
+      '18 elements, potassium to krypton. Across the period the 4s, 3d and 4p subshells fill.',
+      '18 elements, rubidium to xenon. Across the period the 5s, 4d and 5p subshells fill.',
+      '32 elements, cesium to radon; 14 of them, cerium to lutetium, are drawn in a row below the main table. Across the period the 6s, 4f, 5d and 6p subshells fill.',
+      '32 elements, francium to oganesson; 14 of them, thorium to lawrencium, are drawn in a row below the main table. Across the period the 7s, 5f, 6d and 7p subshells fill.',
+    ])
+    for (const period of PERIODS) {
+      const members = described.filter((e) => e.period === period)
+      const text = describePeriod(period).text
+      expect([period, stated(text, 'elements')]).toEqual([period, [members.length]])
+      expect([period, stated(text, 'of them')]).toEqual([period, members.some((e) => e.row !== period) ? [members.filter((e) => e.row !== period).length] : []])
+      // The subshells named are the ones the period's noble gas has beyond the one before it, and they hold the period.
+      const named = [...text.matchAll(/\d[spdf]/g)].map((match) => match[0])
+      const last = members.at(-1)!
+      expect([period, named.map((subshell) => beyondCore(last, subshell))]).toEqual([period, named.map((subshell) => 4 * 'spdf'.indexOf(subshell[1]!) + 2)])
+      expect([period, named.reduce((sum, subshell) => sum + beyondCore(last, subshell), 0)]).toEqual([period, members.length])
+    }
+  })
+
+  it('states for each block the size and width that elementPosition gives', () => {
+    for (const block of BLOCKS) {
+      const text = describeBlock(block).text
+      const members = inBlock(block)
+      const capacity = 4 * 'spdf'.indexOf(block) + 2
+      expect([block, stated(text, 'elements')]).toEqual([block, [members.length]])
+      // Helium is drawn in group 18, outside the two columns of its block.
+      expect([block, new Set(members.filter((e) => e.symbol !== 'He').map((e) => e.column)).size]).toEqual([block, capacity])
+      expect([block, stated(text, block === 'f' ? 'in each row' : 'columns')]).toEqual([block, [capacity]])
+      expect([block, text]).toEqual([block, expect.stringContaining(`${block} subshell holds ${capacity} electrons`)])
+    }
+    expect(inBlock('f').filter((e) => e.row === 9).length).toBe(14)
+    expect(inBlock('f').filter((e) => e.row === 10).length).toBe(14)
+    expect(stated(GROUP_3_NOTE.text, 'elements in each row')).toEqual([14])
+  })
+
+  it('describes the blocks by the rule of spec 5.4: lanthanum and actinium in the d block, cerium to lutetium and thorium to lawrencium in the f block', () => {
+    expect(describeBlock('s').text).toMatch(/^Groups 1 and 2, and helium: 14 elements\./)
+    expect(symbols(inBlock('s').filter((e) => e.group !== 1 && e.group !== 2))).toEqual(['He'])
+    expect(describeBlock('p').text).toMatch(/^Groups 13 to 18, without helium: 36 elements,/)
+    expect(describeBlock('d').text).toMatch(/^Groups 3 to 12: 40 elements,/)
+    expect(describeBlock('d').text).toContain('Lanthanum and actinium are counted here, in group 3')
+    expect(describeBlock('f').text).toMatch(/^Cerium to lutetium and thorium to lawrencium: 28 elements,/)
+    expect(describeBlock('f').text).toContain('Lanthanum and actinium, the first of the lanthanides and of the actinides, are counted in the d block')
+    for (const [what, description] of all) expect([what, description.text]).toEqual([what, expect.not.stringMatching(/ytterbium|nobelium/i)])
+  })
+
+  it('says of the s block that the outermost electrons are in an s subshell, as every stored configuration there has it', () => {
+    for (const e of inBlock('s')) expect([e.symbol, outerShell(e)]).toEqual([e.symbol, beyondCore(e, `${e.period}s`)])
+  })
+
+  it("says of the p block what PubChem's categories give: every nonmetal but hydrogen and helium, and all the metalloids", () => {
+    expect(describeBlock('p').text).toContain('every nonmetal except hydrogen and helium, all the metalloids, and some metals')
+    const nonmetal = (e: Described) => ['Nonmetal', 'Halogen', 'Noble gas'].includes(e.category)
+    expect(symbols(described.filter((e) => nonmetal(e) && e.block !== 'p'))).toEqual(['H', 'He'])
+    expect(symbols(described.filter((e) => e.category === 'Metalloid' && e.block !== 'p'))).toEqual([])
+    expect(inBlock('p').some((e) => e.category === 'Post-transition metal')).toBe(true)
+  })
+
+  it('says thorium has no 5f electron, and it is the only f-block element whose stored configuration has none in its own f subshell', () => {
+    expect(describeBlock('f').text).toContain('Thorium is in this block although its atom has no 5f electron in its ground state.')
+    expect(symbols(inBlock('f').filter((e) => beyondCore(e, `${e.period - 2}f`) === 0))).toEqual(['Th'])
+    expect(element('Th').configuration).toEqual({ text: '[Rn]7s2 6d2' })
+  })
+
+  it('says in one note that group 3 is unsettled, which convention this table follows, and that IUPAC has not ruled (spec 5.4)', () => {
+    const { text } = GROUP_3_NOTE
+    for (const name of ['scandium', 'yttrium', 'lanthanum', 'actinium', 'lutetium', 'lawrencium', 'cerium', 'thorium']) expect(text).toContain(name)
+    expect(text).toContain('OpenStax Chemistry')
+    expect(text).toContain("Royal Society of Chemistry's periodic table")
+    expect(text).toContain('IUPAC has not ruled')
+    expect(GROUP_3_NOTE.sourceIds).toEqual(['iupac-periodic-table', 'openstax-chem2e-19.1', 'rsc-periodic-table'])
+  })
+
+  it('throws for a group, period or block that does not exist', () => {
+    for (const group of [0, 19, 1.5]) expect(() => describeGroup(group)).toThrow(/no group/)
+    for (const period of [0, 8, 2.5]) expect(() => describePeriod(period)).toThrow(/no period/)
+    expect(() => describeBlock('g' as Block)).toThrow(/no block/)
   })
 })
