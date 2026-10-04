@@ -5,7 +5,8 @@
 // Reads docs/research/phase-2/ and writes, under src/chem-data/:
 //   elements.json, sources.json, mo-diagrams.json, library-index.json, molecules/<id>.json, molecules/index.ts
 // Reads docs/research/periodic-table/ (saved downloads and decisions.json) and writes:
-//   periodic-table.json, and into sources.json its sources and the ones the group, period and block descriptions cite
+//   periodic-table.json, element-index.json, and into sources.json its sources and the ones the group, period and
+//   block descriptions cite
 //
 // Deterministic: the same inputs give byte-identical outputs. Anything
 // unexpected in the inputs stops the build with a message and writes nothing.
@@ -947,6 +948,11 @@ function libraryIndex(molecules) {
     .map(({ id, name, formula, charge, topic }) => ({ id, name, formula, charge, topic }))
 }
 
+// What the search needs for each element, so the app shell can list all 118 without loading the table.
+function elementIndex(periodicTable) {
+  return periodicTable.map(({ symbol, name, atomicNumber }) => ({ symbol, name, atomicNumber }))
+}
+
 function main() {
   const { elements, sources: elementSources } = buildElements()
   const { molecules, sources: moleculeSources } = buildMolecules(elements)
@@ -966,6 +972,7 @@ function main() {
   writeFileSync(join(out, 'mo-diagrams.json'), toJson(diagrams))
   writeFileSync(join(out, 'library-index.json'), toJson(libraryIndex(molecules)))
   writeFileSync(join(out, 'periodic-table.json'), toJson(periodicTable))
+  writeFileSync(join(out, 'element-index.json'), toJson(elementIndex(periodicTable)))
   writeFileSync(join(out, 'sources.json'), toJson(sources))
   process.stdout.write(
     `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, ${sources.length} sources.\n`,

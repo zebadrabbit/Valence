@@ -7,8 +7,10 @@ export interface PaletteItem {
   kind: string
   /** The route to open. */
   to: string
-  /** A molecule's plain formula ("H2O"); searched as well as the label. */
+  /** A molecule's plain formula ("H2O") or an element's symbol; searched as well as the label. */
   formula?: string
+  /** Another spelling of the label ("Aluminium" for Aluminum); searched, not shown. */
+  alias?: string
   /** The molecule's net charge, for writing the formula. */
   charge?: number
 }
@@ -28,7 +30,7 @@ function rank(text: string, query: string): number | null {
 }
 
 /**
- * The items whose label or formula contains the query, ignoring case, best match
+ * The items whose label, formula or other spelling contains the query, ignoring case, best match
  * first; ties keep the given order. An empty query gives every item.
  */
 export function searchPalette(items: readonly PaletteItem[], query: string): PaletteItem[] {
@@ -36,7 +38,7 @@ export function searchPalette(items: readonly PaletteItem[], query: string): Pal
   if (q === '') return [...items]
   return items
     .flatMap((item) => {
-      const ranks = [rank(fold(item.label), q), item.formula === undefined ? null : rank(fold(item.formula), q)].filter((r) => r !== null)
+      const ranks = [item.label, item.formula, item.alias].flatMap((text) => (text === undefined ? [] : [rank(fold(text), q)])).filter((r) => r !== null)
       return ranks.length > 0 ? [{ item, rank: Math.min(...ranks) }] : []
     })
     .sort((a, b) => a.rank - b.rank)

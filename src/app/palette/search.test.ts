@@ -1,13 +1,38 @@
 import { describe, expect, it } from 'vitest'
+import { ELEMENT_INDEX } from '@/chem-data/elementIndex'
 import { PALETTE_ITEMS } from './items'
 import { searchPalette, stepActive, type PaletteItem } from './search'
 
 const labels = (query: string) => searchPalette(PALETTE_ITEMS, query).map((item) => item.label)
 
 describe('PALETTE_ITEMS', () => {
-  it('holds the 31 molecules, the two labs, the mechanism and the six pages, with unique ids', () => {
-    expect(PALETTE_ITEMS).toHaveLength(31 + 2 + 1 + 6)
+  it('holds the 31 molecules, the two labs, the mechanism, the six pages, the periodic table and its 118 elements, with unique ids', () => {
+    expect(PALETTE_ITEMS).toHaveLength(31 + 2 + 1 + 6 + 1 + 118)
     expect(new Set(PALETTE_ITEMS.map((item) => item.id)).size).toBe(PALETTE_ITEMS.length)
+  })
+
+  it('lists the periodic table and then the elements, by atomic number, after the molecules, labs and pages', () => {
+    const kinds = PALETTE_ITEMS.map((item) => item.kind.replace(/ .*/, ''))
+    expect(kinds.slice(0, 40)).toEqual([...Array<string>(31).fill('Molecule'), 'Lab', 'Lab', 'Mechanism', ...Array<string>(6).fill('Page')])
+    expect(PALETTE_ITEMS[40]).toEqual({ id: 'page:/explore/elements', label: 'Periodic table', kind: 'Page', to: '/explore/elements' })
+    expect(PALETTE_ITEMS.slice(41).map((item) => item.label)).toEqual(ELEMENT_INDEX.map((e) => e.name))
+  })
+
+  it('links an element to its page, with its symbol where a molecule has its formula', () => {
+    expect(PALETTE_ITEMS.find((item) => item.label === 'Xenon')).toEqual({
+      id: 'element:Xe',
+      label: 'Xenon',
+      kind: 'Element 54',
+      to: '/explore/elements/Xe',
+      formula: 'Xe',
+    })
+  })
+
+  it('gives an element another spelling only where the alias list has one', () => {
+    expect(PALETTE_ITEMS.filter((item) => item.alias !== undefined).map((item) => [item.label, item.alias])).toEqual([
+      ['Aluminum', 'Aluminium'],
+      ['Cesium', 'Caesium'],
+    ])
   })
 
   it('sends the labs to the Lab page and the mechanism to the Learn page', () => {
@@ -60,6 +85,34 @@ describe('searchPalette', () => {
     expect(labels('aqueous')).toEqual(['Reactions in aqueous solution'])
     expect(labels('settings')).toEqual(['Settings'])
     expect(labels('explore')).toEqual(['Explore'])
+  })
+
+  it('finds an element by its symbol or its name, ahead of the molecules that contain it', () => {
+    expect(labels('Xe').slice(0, 2)).toEqual(['Xenon', 'Xenon tetrafluoride'])
+    expect(labels('xenon')).toEqual(['Xenon', 'Xenon tetrafluoride'])
+    expect(labels('gold')).toEqual(['Gold'])
+    expect(labels('c')[0]).toBe('Carbon')
+    expect(labels('co')[0]).toBe('Cobalt')
+  })
+
+  it('finds aluminum and cesium by the spellings PubChem does not use', () => {
+    expect(labels('aluminium')).toEqual(['Aluminum'])
+    expect(labels('caesium')).toEqual(['Cesium'])
+    expect(labels('alumin')).toEqual(['Aluminum'])
+  })
+
+  it('finds the periodic table page', () => {
+    expect(labels('periodic')).toEqual(['Periodic table'])
+  })
+
+  it('searches another spelling as it does the label', () => {
+    const items: PaletteItem[] = [
+      { id: 'a', label: 'Aluminum hydroxide', kind: 'x', to: '/' },
+      { id: 'b', label: 'Aluminum', kind: 'x', to: '/', alias: 'Aluminium' },
+    ]
+    expect(searchPalette(items, 'aluminium').map((i) => i.id)).toEqual(['b'])
+    expect(searchPalette(items, 'alumin').map((i) => i.id)).toEqual(['a', 'b'])
+    expect(searchPalette(items, 'ALUMINIUM').map((i) => i.id)).toEqual(['b'])
   })
 
   it('ranks exact, then starts-with, then word start, then anywhere', () => {

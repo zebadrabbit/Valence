@@ -101,14 +101,14 @@ function PaletteBody({ onChoose }: { onChoose(to: string): void }) {
         {/* Focus stays in the field; aria-activedescendant tells assistive technology which option the arrows are on. */}
         <input
           role="combobox"
-          aria-label="Search molecules, labs and pages"
+          aria-label="Search molecules, elements, labs and pages"
           aria-expanded={results.length > 0}
           aria-controls={listId}
           aria-activedescendant={activeId}
           aria-autocomplete="list"
           autoComplete="off"
           spellCheck={false}
-          placeholder="Search by name or formula"
+          placeholder="Search by name, formula or symbol"
           className="h-11 min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
           value={query}
           onChange={(e) => {
