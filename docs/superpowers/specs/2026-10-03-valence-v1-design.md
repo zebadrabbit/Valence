@@ -55,7 +55,7 @@ Rules:
 
 - `engine/`, `chem-data/`, and `mechanisms/` never import React, Three.js, or the DOM. An ESLint `no-restricted-imports` rule enforces this.
 - `engine/` never calls `Math.random` or reads the clock (lint rule). All variation comes from a seeded generator (mulberry32) passed in explicitly.
-- `fetch` and `XMLHttpRequest` are banned in `src/` by lint. All chem-data is bundled; the Inter font is self-hosted. "Offline" means no network requests after first load.
+- `fetch`, `XMLHttpRequest`, `WebSocket`, `EventSource` and `navigator.sendBeacon` are banned in `src/` by lint, and the build runs the linter. All chem-data is bundled; the Inter font is self-hosted. "Offline" means no network requests after first load.
 - Every engine model has Vitest tests before its UI is built.
 - `app/` depends on the other three folders; they never depend on `app/`.
 - Routing uses a hash router, so deep links work on any static host without rewrite rules.

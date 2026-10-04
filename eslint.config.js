@@ -15,18 +15,18 @@ const NO_CLOCK = 'engine/ must not read the clock: take time as an argument.'
 const NO_EAGER_THREE =
   'Three.js is imported only inside a scene/ folder, which the app loads lazily. A static import anywhere else puts about 900 kB into an eagerly loaded chunk.'
 
-const NETWORK_GLOBALS = [
-  { name: 'fetch', message: NO_NETWORK },
-  { name: 'XMLHttpRequest', message: NO_NETWORK },
-]
+// Every way a page can talk to a server. navigator.sendBeacon is a method, so it is banned as a property below.
+const NETWORK_NAMES = ['fetch', 'XMLHttpRequest', 'WebSocket', 'EventSource']
+const NETWORK_GLOBALS = NETWORK_NAMES.map((name) => ({ name, message: NO_NETWORK }))
 const DOM_GLOBALS = [
   { name: 'document', message: NO_DOM },
   { name: 'window', message: NO_DOM },
 ]
-const NETWORK_PROPERTIES = ['window', 'globalThis', 'self'].flatMap((object) => [
-  { object, property: 'fetch', message: NO_NETWORK },
-  { object, property: 'XMLHttpRequest', message: NO_NETWORK },
-])
+const NETWORK_PROPERTIES = [
+  ...['window', 'globalThis', 'self'].flatMap((object) => NETWORK_NAMES.map((property) => ({ object, property, message: NO_NETWORK }))),
+  // On any object, so that window.navigator.sendBeacon and a destructured sendBeacon are caught too.
+  { property: 'sendBeacon', message: NO_NETWORK },
+]
 const NONDETERMINISM_PROPERTIES = [
   { object: 'Math', property: 'random', message: 'engine/ is deterministic: use the seeded RNG passed in.' },
   { object: 'Date', property: 'now', message: NO_CLOCK },

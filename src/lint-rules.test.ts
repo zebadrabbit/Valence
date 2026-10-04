@@ -81,6 +81,33 @@ describe('architecture lint rules', () => {
     },
   )
 
+  // The other ways a page can talk to a server: none is used, so none is allowed.
+  it.each(['src/engine/x.ts', 'src/chem-data/x.ts', 'src/mechanisms/x.ts', 'src/app/x.tsx', 'src/main.tsx'])(
+    'rejects WebSocket, EventSource and navigator.sendBeacon in %s',
+    async (filePath) => {
+      expect(await ruleIds('export const socket = () => new WebSocket("wss://example.org")\n', filePath)).toEqual(['no-restricted-globals'])
+      expect(await ruleIds('export const events = () => new EventSource("/x")\n', filePath)).toEqual(['no-restricted-globals'])
+      expect(await ruleIds('export const beacon = () => navigator.sendBeacon("/x")\n', filePath)).toEqual(['no-restricted-properties'])
+      expect(await ruleIds('export const beacon = () => { const { sendBeacon } = navigator; return sendBeacon }\n', filePath)).toEqual(['no-restricted-properties'])
+    },
+  )
+
+  it('rejects them when reached through window, globalThis or self in src/app', async () => {
+    for (const code of [
+      'export const socket = () => new window.WebSocket("wss://example.org")\n',
+      'export const socket = () => new globalThis.WebSocket("wss://example.org")\n',
+      'export const events = () => new self.EventSource("/x")\n',
+      'export const beacon = () => window.navigator.sendBeacon("/x")\n',
+      'export const beacon = () => globalThis.navigator.sendBeacon("/x")\n',
+    ]) {
+      expect([code, await ruleIds(code, 'src/app/x.ts')]).toEqual([code, ['no-restricted-properties']])
+    }
+  })
+
+  it('still accepts the rest of navigator in src/app', async () => {
+    expect(await ruleIds('export const language = () => navigator.language\n', 'src/app/x.ts')).toEqual([])
+  })
+
   it('rejects window.fetch in src/app', async () => {
     expect(await ruleIds('export const get = () => window.fetch("/x")\n', 'src/app/x.ts')).toEqual([
       'no-restricted-properties',
