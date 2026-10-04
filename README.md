@@ -15,7 +15,7 @@ Phases 1 and 2 of 5 are built. Phase 1 is the foundation: the app shell, themes,
 
 ## Development
 
-Requires Node 22.22 or a later 22 release, Node 24, or Node 26 or newer. Node 23 and 25 are not supported by the linter and the test runner.
+Requires Node 22.22 or a later 22 release, Node 24, or Node 26 or newer. Node 23 is not supported by the linter or the test runner, and Node 25 is not supported by the test runner.
 
     npm install
     npm run dev        # start the app locally
