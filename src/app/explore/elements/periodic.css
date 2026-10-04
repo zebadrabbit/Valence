@@ -196,7 +196,8 @@
 /* The digits are the source's. Where they do not all fit on the line, ElementGrids.tsx prints the value rounded
    to as many as fit; the whole value is in the cell's name, the readout, the list and the card. The ellipsis is
    for what rounding cannot help: at the type sizes here every rounded value fits, but a minimum font size set in
-   the browser can leave room for less, and a value cut with no mark would read as another number. */
+   the browser can leave room for less. At 15 px and more the line itself is cut, so the mark is not seen either;
+   that is a known limit, stated in docs/for-institutions.md. */
 .pt-value {
   font-size: clamp(0.5625rem, 0.7cqi, 0.75rem);
   font-variant-numeric: tabular-nums;

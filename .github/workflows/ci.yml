@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # Lint, tests, type check and the production build.
+      - run: npm run build
+      # The generated data and the cross-check report must be what the scripts produce from the committed inputs.
+      - run: npm run build:data
+      - run: npm run build:expected
+      - run: npm run cross-check
+      - name: Generated files are up to date
+        run: git diff --exit-code
