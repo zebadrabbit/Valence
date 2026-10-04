@@ -83,7 +83,7 @@ export function Settings() {
           Progress is saved only in this browser. On a shared computer, the next person using this browser can see it;
           clear it when you finish.
         </p>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Button variant="outline" onClick={() => download('valence-progress.json', exportAll(store))}>
             Export my progress
           </Button>
