@@ -1,5 +1,5 @@
 // Parsers and exact-decimal helpers for the saved periodic-table sources. build-chem-data.mjs uses
-// the PubChem, CIAAW and NIST parsers; the cross-check (docs/research/periodic-table/prototype/) uses all of it.
+// the PubChem, CIAAW and NIST parsers; the cross-check (cross-check-periodic-table.mjs) uses all of it.
 // No dependencies; everything reads saved copies, nothing is fetched here.
 
 // ---------------------------------------------------------------------------

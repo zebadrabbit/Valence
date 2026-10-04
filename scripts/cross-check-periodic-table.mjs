@@ -1,31 +1,24 @@
 // Cross-checks the PubChem periodic table download against independent sources
 // and writes the report.
 //
-//   node cross-check-periodic-table.mjs [sources folder] [report path]
+//   node scripts/cross-check-periodic-table.mjs [sources folder] [report path]
 //
 // Reads saved copies only (see sources/MANIFEST.json for where each came from);
 // nothing is fetched. The same inputs give a byte-identical report. No value in
 // the download is changed: the report lists what disagrees so a person can decide.
-//
-// Prototype location: .superpowers/tools/periodic-research/crosscheck/. When this
-// moves to scripts/, point the two defaults below at docs/research/periodic-table/.
 
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
-import { dirname, join } from 'node:path'
+import { join } from 'node:path'
 import process from 'node:process'
-import { analyse } from './analyse.mjs'
+import { analyse } from './cross-check-analyse.mjs'
 
-const here = import.meta.dirname
-let root = here
-while (!existsSync(join(root, 'package.json'))) {
-  if (dirname(root) === root) throw new Error('run this inside the repository')
-  root = dirname(root)
-}
-const sourcesDir = process.argv[2] ?? join(here, 'sources')
-const reportPath = process.argv[3] ?? join(here, 'cross-check.md')
+const root = join(import.meta.dirname, '..')
+const research = join(root, 'docs/research/periodic-table')
+const sourcesDir = process.argv[2] ?? join(research, 'sources')
+const reportPath = process.argv[3] ?? join(research, 'cross-check.md')
 
 const R = analyse({
-  pubchemPath: join(root, 'docs/research/periodic-table/pubchem-periodic-table.json'),
+  pubchemPath: join(research, 'pubchem-periodic-table.json'),
   sourcesDir,
   curatedPath: join(root, 'src/chem-data/elements.json'),
   libraryPath: join(root, 'src/chem-data/library-index.json'),

@@ -1,7 +1,7 @@
 // Reduces what was downloaded from PubChem's element pages to the parts the
 // cross-check reads, so the committed copies stay small. Run once after downloading:
 //
-//   node extract-pubchem-pages.mjs <folder of element-<Z>.json> <ptable.min.js> <output folder>
+//   node scripts/extract-pubchem-pages.mjs <folder of element-<Z>.json> <ptable.min.js> <output folder>
 //
 // The 118 pages (about 15 MB) come from
 //   https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/element/<Z>/JSON
