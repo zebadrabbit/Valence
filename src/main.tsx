@@ -11,7 +11,7 @@ import { Learn } from '@/app/pages/Learn'
 import { NotFound } from '@/app/pages/NotFound'
 import { Settings } from '@/app/pages/Settings'
 
-// The Explore routes load lazily so the molecule data stays out of the main chunk.
+// The Explore routes load lazily so the molecule data and the periodic table stay out of the main chunk.
 // The router finishes a navigation only once the chunk has loaded.
 const router = createHashRouter([
   {
@@ -22,6 +22,11 @@ const router = createHashRouter([
     children: [
       { index: true, element: <Home /> },
       { path: 'explore', lazy: async () => ({ Component: (await import('@/app/pages/Explore')).Explore }) },
+      // One route for the table with and without an element, so choosing the first element does not remount the page.
+      {
+        path: 'explore/elements/:symbol?',
+        lazy: async () => ({ Component: (await import('@/app/explore/elements/PeriodicTablePage')).PeriodicTablePage }),
+      },
       {
         path: 'explore/:id',
         lazy: async () => ({ Component: (await import('@/app/pages/MoleculePage')).MoleculePage }),

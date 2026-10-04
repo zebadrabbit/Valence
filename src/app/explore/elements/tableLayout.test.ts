@@ -142,6 +142,10 @@ describe('the rows below the main table', () => {
       expect(row.elements.map((e) => elementPosition(e.atomicNumber).column)).toEqual([4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17])
       expect(row.elements[0]!.atomicNumber).toBe(row.after.atomicNumber + 1)
     }
+    expect(DETACHED_ROWS.map((row) => row.note)).toEqual([
+      'Cerium to lutetium, atomic numbers 58 to 71, come after lanthanum and are drawn below the main table.',
+      'Thorium to lawrencium, atomic numbers 90 to 103, come after actinium and are drawn below the main table.',
+    ])
   })
 })
 

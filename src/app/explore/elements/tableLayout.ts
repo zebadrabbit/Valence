@@ -14,7 +14,7 @@ export const MAIN_ROWS: readonly (readonly (PeriodicElement | undefined)[])[] = 
 
 /**
  * The two rows drawn below the main table, under columns 4 to 17. `after` is the element of the main table
- * they follow, which carries `marker` to point to the row.
+ * they follow, which carries `marker` to point to the row; `note` says in words what the marker means.
  */
 export const DETACHED_ROWS = ([[9, '*'], [10, '**']] as const).map(([row, marker]) => {
   const elements = PLACED.filter((p) => p.row === row).map((p) => p.element)
@@ -22,13 +22,16 @@ export const DETACHED_ROWS = ([[9, '*'], [10, '**']] as const).map(([row, marker
   const last = elements.at(-1)
   const after = first && periodicTable[first.atomicNumber - 2]
   if (!first || !last || !after) throw new Error(`row ${row} of the periodic table is empty`)
+  const label = `${first.name} to ${last.name.toLowerCase()}`
+  const numbers = `${first.atomicNumber} to ${last.atomicNumber}`
   return {
     marker,
     period: elementPosition(first.atomicNumber).period,
     after,
     elements,
-    label: `${first.name} to ${last.name.toLowerCase()}`,
-    numbers: `${first.atomicNumber} to ${last.atomicNumber}`,
+    label,
+    numbers,
+    note: `${label}, atomic numbers ${numbers}, come after ${after.name.toLowerCase()} and are drawn below the main table.`,
   }
 })
 

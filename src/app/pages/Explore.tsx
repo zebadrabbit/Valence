@@ -14,6 +14,15 @@ export function Explore() {
         Choose a molecule to turn it in 3D or view its Lewis structure, read about its atoms and bonds, and measure
         lengths and angles.
       </p>
+      <Link
+        to="/explore/elements"
+        className="mb-6 block w-fit rounded-lg border bg-card p-3 outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring"
+      >
+        <span className="block font-medium">Periodic table</span>
+        <span className="block text-sm text-muted-foreground">
+          All 118 elements, coloured by chemical family or by a property such as electronegativity.
+        </span>
+      </Link>
       <div className="grid gap-6">
         {groups.map((group) => (
           <section key={group.id} aria-labelledby={`topic-${group.id}`}>

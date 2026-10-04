@@ -1,0 +1,243 @@
+/*
+ * The periodic table's colours and cell states (periodic table spec 6). The colours are model parameters,
+ * not chemistry data: they were computed for contrast and for simulated colour blindness
+ * (docs/research/periodic-table/build-review.md, section 5) and are accepted by eye in both themes.
+ * Loaded with the page, so none of this is in the app shell's stylesheet.
+ */
+
+/*
+ * Ten family fills: one hue per family in both themes, with lightness and chroma set per theme. A seeded
+ * search spread them as far apart as it could under normal, protan, deutan and tritan vision while keeping
+ * --foreground text on every fill at 7:1 or better. Two weaknesses: transition metal and noble gas, and
+ * post-transition metal and noble gas, are the closest pairs for normal vision, and ten fills can never be
+ * as distinct as five. So the family is also named in the legend and in each cell's accessible name.
+ * --muted-foreground fails on these fills: text in a cell is always --foreground.
+ */
+:root {
+  --family-alkali-metal: #e7a4a1;
+  --family-alkaline-earth-metal: #fca11c;
+  --family-transition-metal: #94bbf6;
+  --family-post-transition-metal: #c7c7c7;
+  --family-metalloid: #d7f4cb;
+  --family-nonmetal: #a4e4ae;
+  --family-halogen: #f0fc95;
+  --family-noble-gas: #b5b4d0;
+  --family-lanthanide: #fadff6;
+  --family-actinide: #8bd8f0;
+
+  /*
+   * One hue for every property, from the lowest value to the highest. "More" is further from the page:
+   * darker in the light theme, lighter in the dark one, so --foreground text is readable on every shade
+   * (7.96:1 at the strong end here, 6.56:1 in the dark theme) and never has to change colour. The price is
+   * a narrow ramp, which is why each value is also printed in its cell.
+   */
+  --trend-low: oklch(0.97 0.012 255);
+  --trend-high: oklch(0.72 0.12 255);
+
+  /* Hatching, and the dashed border of a dimmed cell: 3:1 or better against the page in both themes. */
+  --pt-line: color-mix(in oklab, var(--foreground) 40%, var(--background));
+  --pt-edge: color-mix(in oklab, var(--foreground) 30%, var(--background));
+}
+
+.dark {
+  --family-alkali-metal: #381e1e;
+  --family-alkaline-earth-metal: #66533e;
+  --family-transition-metal: #1e54a5;
+  --family-post-transition-metal: #484848;
+  --family-metalloid: #29570a;
+  --family-nonmetal: #1c4626;
+  --family-halogen: #2f3300;
+  --family-noble-gas: #393363;
+  --family-lanthanide: #472043;
+  --family-actinide: #2a5a69;
+
+  --trend-low: oklch(0.24 0.02 255);
+  --trend-high: oklch(0.47 0.13 255);
+}
+
+/*
+ * The two tables scroll sideways together inside this box when they do not fit at the smallest cell size;
+ * the page itself never scrolls sideways. It is also the container the cells' type sizes are measured against.
+ */
+.pt-scroll {
+  /* 44 px: the smallest cell. With a value printed in it a cell needs more room: 56 px, which still fits
+     a 1366 px screen with the menu open. */
+  --pt-min-cell: 2.75rem;
+  container-type: inline-size;
+  overflow-x: auto;
+  /* Holds the visually hidden words of the headers, which would otherwise widen the page from outside this box. */
+  position: relative;
+  /* Room for the focus outline of the cells at the edges, which the scrolling box would otherwise cut off. */
+  margin: 0 -6px;
+  padding: 6px;
+}
+.pt-scroll[data-values] {
+  --pt-min-cell: 3.5rem;
+}
+
+.pt-table {
+  /* Wider than this, the cells would grow until the table no longer fitted on a screen. */
+  max-width: 150rem;
+  /* 18 columns, the column of period numbers, and the 2 px between them. */
+  min-width: calc(18 * var(--pt-min-cell) + 1.5rem + 40px);
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 2px;
+}
+.pt-table + .pt-table {
+  margin-top: 0.75rem;
+}
+.pt-period-column {
+  width: 1.5rem;
+}
+.pt-table th {
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.pt-table th[scope='row'][colspan] {
+  padding-right: 0.5rem;
+  text-align: right;
+}
+.pt-table td {
+  padding: 0;
+  position: relative;
+}
+
+/* A cell: the link to an element, a little wider than it is tall and never under 44 px either way. --bw is
+   the border width; the padding takes up the difference, so the text does not move when the border changes. */
+.pt-cell {
+  --bw: 1px;
+  aspect-ratio: 6 / 5;
+  background: var(--fill, transparent);
+  border: var(--bw) solid var(--pt-edge);
+  border-radius: 4px;
+  color: var(--foreground);
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+  min-height: 2.75rem;
+  padding: max(0px, calc(3px - var(--bw)));
+  text-align: center;
+  /* Stated, so that the 44 px floor on the height cannot widen the cell beyond its column. */
+  width: 100%;
+}
+.pt-cell:hover {
+  border-color: var(--foreground);
+}
+/* A real outline, not a ring drawn with a shadow: forced-colours mode drops shadows. It sits outside the
+   cell, where the borders that mark highlight and selection never are. */
+.pt-cell:focus-visible {
+  outline: 3px solid var(--foreground);
+  outline-offset: 2px;
+  position: relative;
+  z-index: 1;
+}
+
+.pt-number {
+  font-size: clamp(0.625rem, 0.7cqi, 0.875rem);
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+}
+.pt-symbol {
+  font-size: clamp(1rem, 1.35cqi, 1.75rem);
+  font-weight: 600;
+  margin-block: auto;
+}
+.pt-name {
+  display: none;
+  font-size: clamp(0.6875rem, 0.62cqi, 0.875rem);
+}
+/* The digits are the source's. Where they do not all fit on the line, the cell shows as many as fit and an
+   ellipsis, never a rounded figure; the whole value is in the cell's name, the readout and the list. */
+.pt-value {
+  font-size: clamp(0.5625rem, 0.7cqi, 0.75rem);
+  font-variant-numeric: tabular-nums;
+  min-height: 1.1em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* From here every name fits in its cell at 11 px. */
+@container (min-width: 102rem) {
+  .pt-name {
+    display: block;
+  }
+}
+
+/* Coloured by a property: shaded between the two ends of the scale by --t, 0 to 1. */
+.pt-cell[data-trend='value'] {
+  background: color-mix(in oklch, var(--trend-low), var(--trend-high) calc(var(--t) * 100%));
+}
+/* No value listed: hatched where the value would be, edge to edge, so the stripes do not run behind the
+   number, the symbol or the name. */
+.pt-cell[data-trend='none'] .pt-value,
+.pt-swatch[data-trend='none'] {
+  background: repeating-linear-gradient(45deg, transparent 0 4px, var(--pt-line) 4px 5px);
+}
+.pt-cell[data-trend='none'] .pt-value {
+  margin: 0 min(0px, calc(var(--bw) - 3px)) min(0px, calc(var(--bw) - 3px));
+  min-height: clamp(0.75rem, 0.9cqi, 1rem);
+}
+
+/* Highlighting changes borders and fills, never opacity: a dimmed cell is still a link and its text keeps
+   full contrast. */
+.pt-cell[data-highlighted] {
+  --bw: 2px;
+  border-color: var(--foreground);
+}
+.pt-cell[data-dim] {
+  background: none;
+  border-color: var(--pt-line);
+  border-style: dashed;
+}
+/* The selected element: a double border, its number on a solid chip and a heavier symbol, so that it is
+   told from a highlighted cell by more than the border. aria-current says it to assistive technology. */
+.pt-cell[aria-current] {
+  --bw: 4px;
+  border-color: var(--foreground);
+  border-style: double;
+}
+.pt-cell[aria-current] .pt-number {
+  align-self: flex-start;
+  background: var(--foreground);
+  border-radius: 2px;
+  color: var(--background);
+  font-weight: 700;
+  padding: 0 3px;
+}
+.pt-cell[aria-current] .pt-symbol {
+  font-weight: 800;
+}
+
+/* The * and ** beside lanthanum and actinium, pointing to the rows below. */
+.pt-marker {
+  font-size: clamp(0.625rem, 0.7cqi, 0.875rem);
+  font-weight: 600;
+  line-height: 1.15;
+  pointer-events: none;
+  position: absolute;
+  right: 4px;
+  top: 3px;
+}
+
+.pt-swatch {
+  background: var(--fill, transparent);
+  border: 1px solid var(--pt-edge);
+  border-radius: 3px;
+  display: inline-block;
+  flex: none;
+  height: 1rem;
+  width: 1rem;
+}
+.pt-scale {
+  background: linear-gradient(to right in oklch, var(--trend-low), var(--trend-high));
+  border: 1px solid var(--pt-edge);
+  border-radius: 3px;
+  display: inline-block;
+  height: 1rem;
+  width: min(12rem, 30vw);
+}
