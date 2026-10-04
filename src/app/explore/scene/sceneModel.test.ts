@@ -157,6 +157,18 @@ describe('sceneModel', () => {
     expect(model('sulfur-hexafluoride', 'ball-and-stick', 3).lobes.every((l) => l.length === 0)).toBe(true)
   })
 
+  it('frames every level alike, so changing the level does not resize the model', () => {
+    for (const { id } of registry.molecules) {
+      for (const view of ['ball-and-stick', 'space-filling', 'wireframe'] as const) {
+        const radii = ([1, 2, 3] as const).map((level) => model(id, view, level).radius)
+        expect(radii, `${id} ${view}`).toEqual([radii[0], radii[0], radii[0]])
+      }
+    }
+    // Water's lobes reach past its atoms, and are framed before they are drawn.
+    const water = model('water', 'ball-and-stick', 1)
+    expect(water.radius).toBeGreaterThan(Math.max(...water.atoms.map((a) => distance(a.position, center) + a.radius)) + 0.1)
+  })
+
   it('frames the dots and the lobes: nothing drawn at any level reaches past the radius', () => {
     for (const { id } of registry.molecules) {
       for (const level of [2, 3] as const) {

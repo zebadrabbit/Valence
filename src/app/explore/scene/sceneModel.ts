@@ -48,7 +48,6 @@ export const LOBE_WIDTH = 0.34
 /** The dark edge drawn round every shape, as a fraction of the scene radius (about 2 px on screen). */
 const OUTLINE_FRACTION = 0.012
 
-
 /** Positions are in the viewing frame: origin at the centroid, x along the molecule's longest spread. */
 export type SceneAtom = { position: Vec3; radius: number; pickRadius: number; color: string }
 
@@ -67,7 +66,7 @@ export type SceneLonePair = { dots: [Vec3, Vec3]; radius: number }
 export type SceneLobe = { position: Vec3; quaternion: Quat }
 
 export type SceneModel = {
-  /** The radius of a sphere about the origin that contains everything drawn; the camera frames it. */
+  /** The radius of a sphere about the origin that contains everything drawn at any level; the camera frames it. */
   radius: number
   outline: number
   atoms: SceneAtom[]
@@ -137,18 +136,16 @@ export function sceneModel(molecule: Molecule, elements: readonly Element[], vie
     }
   })
 
-  // Lone pairs and lobes point where chem-data says, turned into the viewing frame.
-  const lonePairs =
-    level === 1
-      ? []
-      : atoms.flatMap((atom, i) =>
-          pairDirections[i]!.map((dir): SceneLonePair => {
-            const reach = view === 'wireframe' ? WIRE_DOT_REACH : atom.radius + DOT_GAP
-            return { dots: lonePairDots(atom.position, directionInFrame(dir, frame), reach, DOT_SPREAD), radius: DOT_RADIUS }
-          }),
-        )
-  const lobes = atoms.map((atom, i): SceneLobe[] => {
-    const hybrid = level === 3 ? hybridLobes(molecule, i, elements) : null
+  // Lone pairs and lobes point where chem-data says, turned into the viewing frame. Both are
+  // worked out at every level, because the camera frames them at every level (below).
+  const allPairs = atoms.flatMap((atom, i) =>
+    pairDirections[i]!.map((dir): SceneLonePair => {
+      const reach = view === 'wireframe' ? WIRE_DOT_REACH : atom.radius + DOT_GAP
+      return { dots: lonePairDots(atom.position, directionInFrame(dir, frame), reach, DOT_SPREAD), radius: DOT_RADIUS }
+    }),
+  )
+  const allLobes = atoms.map((atom, i): SceneLobe[] => {
+    const hybrid = hybridLobes(molecule, i, elements)
     if (!hybrid) return []
     return [...hybrid.bonds, ...hybrid.lonePairs].map((dir) => ({
       position: atom.position,
@@ -156,12 +153,14 @@ export function sceneModel(molecule: Molecule, elements: readonly Element[], vie
     }))
   })
 
-  // The camera frames everything the level can draw, so selecting an atom never moves it.
-  // The origin is the centroid of the atoms, which the camera orbits.
+  // The camera frames everything any level can draw, so neither selecting an atom nor changing
+  // the level moves it or resizes the model. The origin is the centroid of the atoms, which the camera orbits.
   const origin: Vec3 = [0, 0, 0]
   const radius = Math.max(
-    ...atoms.map((a, i) => distance(a.position, origin) + Math.max(view === 'wireframe' ? a.pickRadius : a.radius, lobes[i]!.length > 0 ? LOBE_LENGTH : 0)),
-    ...lonePairs.flatMap((pair) => pair.dots.map((dot) => distance(dot, origin) + pair.radius)),
+    ...atoms.map((a, i) => distance(a.position, origin) + Math.max(view === 'wireframe' ? a.pickRadius : a.radius, allLobes[i]!.length > 0 ? LOBE_LENGTH : 0)),
+    ...allPairs.flatMap((pair) => pair.dots.map((dot) => distance(dot, origin) + pair.radius)),
   )
+  const lonePairs = level === 1 ? [] : allPairs
+  const lobes = level === 3 ? allLobes : atoms.map(() => [])
   return { radius, outline: radius * OUTLINE_FRACTION, atoms, bonds, lonePairs, lobes }
 }

@@ -51,7 +51,10 @@ export function ViewerPanel(props: { molecule: Molecule; selection: Selection; d
     <>
       <div role="group" aria-label="View" className="mb-2 flex flex-wrap gap-1">
         {VIEWS.map(({ id, label }) => (
-          <Button key={id} variant={view === id ? 'secondary' : 'outline'} size="sm" 
+          <Button
+            key={id}
+            variant={view === id ? 'secondary' : 'outline'}
+            size="sm"
             aria-pressed={view === id}
             onClick={() => {
               setView(id)
@@ -109,7 +112,6 @@ export function ViewerPanel(props: { molecule: Molecule; selection: Selection; d
               size="icon-sm"
               // Larger on a touch screen.
               className="pointer-coarse:size-9"
-             
               aria-label={label}
               title={label}
               onClick={() => camera.current && act(camera.current)}

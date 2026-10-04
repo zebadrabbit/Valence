@@ -9,7 +9,6 @@ export type Quat = readonly [number, number, number, number]
 /** The point the fraction `t` of the way from a to b. */
 export const lerp = (a: Vec3, b: Vec3, t: number): Vec3 => add(a, scale(sub(b, a), t))
 
-
 /** The unit vector pointing from a to b. */
 export const direction = (a: Vec3, b: Vec3): Vec3 => normalize(sub(b, a))
 
