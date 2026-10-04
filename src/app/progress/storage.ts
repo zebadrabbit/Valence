@@ -19,6 +19,9 @@ export type ActivityStatus = 'not-started' | 'in-progress' | 'completed'
 
 const PREFIX = 'valence:'
 const BACKUP_PREFIX = 'valence:backup:'
+
+/** The key an entry is stored under. */
+export const storageKey = (name: string) => PREFIX + name
 const envelopeSchema = z.object({ version: z.number(), data: z.unknown() })
 
 export function createMemoryStore(): KeyValueStore {

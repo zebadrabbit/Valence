@@ -401,6 +401,8 @@ A settings page offers "export my progress" (downloads the JSON) and "clear my p
 
 As in the original doc: calm, card-based layout; the 3D viewport or lab bench in the centre; in the explorer the atom and bond list sits to its right and the inspector runs across the page below it, its cards side by side where there is room, with the text description and the element details open by default; the lab notebook docked right; mechanism timeline docked along the bottom; light and dark themes; Inter with tabular numerals; design tokens as CSS variables in the Tailwind theme; a Ctrl+K command palette over molecules, labs, and the mechanism.
 
+The theme and the reduced-motion setting in effect (the stored preference, or the system's) are applied before first paint by a short inline script in `index.html`, so that the dark theme never flashes light. The build writes that script from the app's own definition of the preferences entry (its key, version and allowed values), and a test holds its decision to the app's for every kind of stored value; missing, corrupt or unreadable storage follows the system. `color-scheme` is set for both themes, so the browser's own controls match.
+
 Accessibility is designed toward WCAG 2.1 AA:
 
 - Full keyboard operation. Explore works through the DOM atom and bond list (section 6.3). Lab tools are DOM controls. The timeline is a native range input.

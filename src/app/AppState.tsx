@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState, useSyncExternalStore, type ReactNode } from 'react'
+import { applyAppearance } from './firstPaint'
 import { DEFAULT_PREFS, loadPrefs, resolveTri, savePrefs, type Prefs } from './preferences'
 import { browserStore, clearAll, reportingStore, type KeyValueStore } from './progress/storage'
 
@@ -40,10 +41,8 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const dark = resolveTri(prefs.darkMode, useMediaQuery('(prefers-color-scheme: dark)'))
   const reducedMotion = resolveTri(prefs.reducedMotion, useMediaQuery('(prefers-reduced-motion: reduce)'))
 
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', dark)
-    document.documentElement.dataset.reducedMotion = String(reducedMotion)
-  }, [dark, reducedMotion])
+  // On load the script in index.html has done this already, before first paint (firstPaint.ts).
+  useEffect(() => applyAppearance(document.documentElement, { dark, reducedMotion }), [dark, reducedMotion])
 
   const updatePrefs = (patch: Partial<Prefs>) => {
     const next = { ...prefs, ...patch }

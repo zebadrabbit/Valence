@@ -1,15 +1,21 @@
 import { z } from 'zod'
-import { ENTRY, loadEntry, saveEntry, type KeyValueStore } from './progress/storage'
+import { ENTRY, loadEntry, saveEntry, type KeyValueStore } from './progress/storage.ts'
 
-const triSchema = z.enum(['system', 'on', 'off'])
+const TRI = ['system', 'on', 'off'] as const
+
+/**
+ * Every preference and the values it can take. The schema is built from this, and so is the script that applies
+ * the theme before the app has loaded (firstPaint.ts), so the two read a stored entry alike.
+ */
+export const PREF_VALUES = { darkMode: TRI, reducedMotion: TRI, valenceLevel: [1, 2, 3] } as const
 
 const prefsSchema = z.object({
-  darkMode: triSchema,
-  reducedMotion: triSchema,
-  valenceLevel: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+  darkMode: z.literal(PREF_VALUES.darkMode),
+  reducedMotion: z.literal(PREF_VALUES.reducedMotion),
+  valenceLevel: z.literal(PREF_VALUES.valenceLevel),
 })
 
-export type Tri = z.infer<typeof triSchema>
+export type Tri = (typeof TRI)[number]
 export type Prefs = z.infer<typeof prefsSchema>
 
 /** The valence display levels (spec 6.4) as the level controls list them. */
@@ -19,7 +25,7 @@ export const VALENCE_LEVELS: readonly { value: Prefs['valenceLevel']; label: str
   { value: 3, label: '3: Orbitals' },
 ]
 
-const PREFS_VERSION = 1
+export const PREFS_VERSION = 1
 
 export const DEFAULT_PREFS: Prefs = { darkMode: 'system', reducedMotion: 'system', valenceLevel: 2 }
 
