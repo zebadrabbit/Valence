@@ -651,6 +651,8 @@ const PUBCHEM_PAGES_ID = 'pubchem-element-pages'
 const NIST_ALL_ID = 'nist-asd-ie-all'
 const CIAAW_ID = 'ciaaw-abridged-2024'
 const CIAAW_TITLE = 'Abridged Standard Atomic Weights 2024'
+// Cited by the density notes of the elements the cross-check found far from other tabulations.
+const DENSITIES_ID = 'handbook-densities-wikipedia'
 const PUBCHEM = 'PubChem [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2004-.'
 
 // What the group, period and block descriptions and the group 3 note in src/chem-data/periodic.ts cite. Each
@@ -697,6 +699,8 @@ function periodicSources(manifest) {
   const saved = (file) => manifest.files.find((f) => f.file === file) ?? fail(`MANIFEST.json does not list ${file}`)
   if (!/^\d{4}-\d{2}-\d{2}$/.test(manifest.retrieved)) fail('MANIFEST.json has no retrieval date')
   const retrieved = `retrieved ${manifest.retrieved}`
+  // The page was read at this revision for the cross-check; the copy itself is not kept in the repository.
+  const revision = /^Wikipedia, Densities of the elements \(data page\), revision (\d+)$/.exec(saved('wikipedia-densities-of-the-elements-data-page.wikitext').what)?.[1] ?? fail('MANIFEST.json does not give the revision of the densities page')
   return [
     {
       id: PUBCHEM_TABLE_ID,
@@ -712,6 +716,11 @@ function periodicSources(manifest) {
       id: PUBCHEM_PAGES_ID,
       url: 'https://pubchem.ncbi.nlm.nih.gov/periodic-table/',
       citation: `${PUBCHEM} Element pages, one per element, opened from the Periodic Table of Elements (data: https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/element/<atomic number>/JSON, ${retrieved}). The covalent radii carried there are those of Cordero, B. et al. Covalent radii revisited. Dalton Trans. 2008, (21), 2832-2838 (https://doi.org/10.1039/b801115j): they equal Cordero's values for the 11 elements this app checked one by one; the paper is paywalled and was not read. Source: National Library of Medicine.`,
+    },
+    {
+      id: DENSITIES_ID,
+      url: `https://en.wikipedia.org/w/index.php?title=Densities_of_the_elements_(data_page)&oldid=${revision}`,
+      citation: `Lide, D. R., Ed. CRC Handbook of Chemistry and Physics, 84th ed.; CRC Press: Boca Raton, FL, 2003; Section 4, Physical Constants of Inorganic Compounds. Dean, J. A., Ed. Lange's Handbook of Chemistry, 15th ed.; McGraw-Hill: New York, 1999; Table 3.2. Neither handbook was read: their densities were taken from a secondary transcription, Wikipedia's Densities of the elements (data page), revision ${revision}, linked here (${retrieved}).`,
     },
     ...descriptionSources(retrieved),
   ]

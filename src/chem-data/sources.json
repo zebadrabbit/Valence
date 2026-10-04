@@ -230,6 +230,11 @@
     "citation": "PubChem [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2004-. Element pages, one per element, opened from the Periodic Table of Elements (data: https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/element/<atomic number>/JSON, retrieved 2026-10-03). The covalent radii carried there are those of Cordero, B. et al. Covalent radii revisited. Dalton Trans. 2008, (21), 2832-2838 (https://doi.org/10.1039/b801115j): they equal Cordero's values for the 11 elements this app checked one by one; the paper is paywalled and was not read. Source: National Library of Medicine."
   },
   {
+    "id": "handbook-densities-wikipedia",
+    "url": "https://en.wikipedia.org/w/index.php?title=Densities_of_the_elements_(data_page)&oldid=1258326075",
+    "citation": "Lide, D. R., Ed. CRC Handbook of Chemistry and Physics, 84th ed.; CRC Press: Boca Raton, FL, 2003; Section 4, Physical Constants of Inorganic Compounds. Dean, J. A., Ed. Lange's Handbook of Chemistry, 15th ed.; McGraw-Hill: New York, 1999; Table 3.2. Neither handbook was read: their densities were taken from a secondary transcription, Wikipedia's Densities of the elements (data page), revision 1258326075, linked here (retrieved 2026-10-03)."
+  },
+  {
     "id": "openstax-chem2e-2.5",
     "url": "https://openstax.org/books/chemistry-2e/pages/2-5-the-periodic-table",
     "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 2.5 The Periodic Table (retrieved 2026-10-03)."

@@ -385,6 +385,46 @@ describe('the periodic table data', () => {
       expect(notesOn('At', 'category')[0]?.sourceId).toBe('pubchem-element-pages')
     })
 
+    // The next three cover what the cross-check leaves unresolved besides lawrencium (cross-check.md, "Unresolved").
+    it("gives the second figure on PubChem's own page for the boiling points of barium and radium", () => {
+      const pages = JSON.parse(elementPages) as Record<string, { lines: { heading: string; text: string }[] }>
+      for (const [symbol, celsius, kelvin] of [['Ba', 1845, 2118], ['Ra', 1737, 2010]] as const) {
+        const [note] = notesOn(symbol, 'boilingPoint')
+        expect(note?.sourceId).toBe('pubchem-element-pages')
+        expect(note?.text).toContain(`${celsius} °C, which is ${kelvin} K`)
+        expect(Math.round(celsius + 273.15)).toBe(kelvin)
+        const lines = pages[element(symbol).atomicNumber]!.lines.filter((line) => line.heading === 'Boiling Point').map((line) => line.text)
+        expect(lines).toContain(`${celsius}°C`)
+        expect(element(symbol).boilingPoint?.value).not.toBe(kelvin)
+      }
+    })
+
+    it('gives the handbook figure for the densities of boron, americium and berkelium, and says it was read in a transcription', () => {
+      const figures = { B: ['2.34 g/cm³'], Am: ['12 g/cm³'], Bk: ['14.78 g/cm³', '13.25 g/cm³'] }
+      for (const [symbol, texts] of Object.entries(figures)) {
+        const [note] = notesOn(symbol, 'density')
+        expect(note?.sourceId).toBe('handbook-densities-wikipedia')
+        for (const text of texts) expect(note?.text).toContain(text)
+        expect(note?.text).toContain("as transcribed on Wikipedia's data page")
+        expect(texts).not.toContain(`${element(symbol).density?.published} g/cm³`)
+      }
+      const source = sourceOf('handbook-densities-wikipedia')
+      expect(source?.citation).toMatch(/Neither handbook was read.*revision \d+.*retrieved 2026-10-03/)
+      expect(source?.url).toMatch(/oldid=\d+$/)
+    })
+
+    it("says where a boiling point on PubChem's own page contradicts the state PubChem expects", () => {
+      const pages = JSON.parse(elementPages) as Record<string, { lines: { heading: string; text: string }[] }>
+      const boiling = (symbol: string) => pages[element(symbol).atomicNumber]!.lines.filter((line) => line.heading === 'Boiling Point').map((line) => line.text)
+      expect(element('Fl').standardState).toEqual({ state: 'Solid', expected: true })
+      expect(boiling('Fl')).toEqual([expect.stringMatching(/^~210K/)])
+      expect(notesOn('Fl', 'standardState')[0]?.text).toMatch(/about 210 K.*below room temperature.*would be a gas/)
+      expect(element('Og').standardState).toEqual({ state: 'Gas', expected: true })
+      expect(boiling('Og')).toEqual([expect.stringMatching(/^350±30K.*\(extrapolated\)$/)])
+      expect(notesOn('Og', 'standardState')[0]?.text).toMatch(/350 ± 30 K, marked as extrapolated.*above room temperature.*would not be a gas/)
+      for (const symbol of ['Fl', 'Og']) expect(notesOn(symbol, 'standardState')[0]?.sourceId).toBe('pubchem-element-pages')
+    })
+
     it('writes minus signs as U+2212 and never calls an empty value "not measured"', () => {
       for (const e of periodicTable) {
         for (const note of e.notes ?? []) {

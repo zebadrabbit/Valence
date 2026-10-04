@@ -122,6 +122,48 @@
       "sourceId": "pubchem-element-pages"
     },
     {
+      "symbols": ["Ba"],
+      "row": "boilingPoint",
+      "text": "Sources differ on barium's boiling point. PubChem's barium page also lists 1845 °C, which is 2118 K.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Ra"],
+      "row": "boilingPoint",
+      "text": "Sources differ widely on radium's boiling point. PubChem's radium page also lists 1737 °C, which is 2010 K.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["B"],
+      "row": "density",
+      "text": "Tabulations differ: the CRC Handbook and Lange's Handbook give 2.34 g/cm³, as transcribed on Wikipedia's data page.",
+      "sourceId": "handbook-densities-wikipedia"
+    },
+    {
+      "symbols": ["Am"],
+      "row": "density",
+      "text": "Tabulations differ: the CRC Handbook and Lange's Handbook give 12 g/cm³, as transcribed on Wikipedia's data page.",
+      "sourceId": "handbook-densities-wikipedia"
+    },
+    {
+      "symbols": ["Bk"],
+      "row": "density",
+      "text": "Tabulations differ: the CRC Handbook and Lange's Handbook give 14.78 g/cm³ for one form of berkelium (alpha) and 13.25 g/cm³ for another (beta), as transcribed on Wikipedia's data page.",
+      "sourceId": "handbook-densities-wikipedia"
+    },
+    {
+      "symbols": ["Fl"],
+      "row": "standardState",
+      "text": "PubChem's flerovium page also lists a boiling point of about 210 K. That is below room temperature, so by that figure flerovium would be a gas, not a solid.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Og"],
+      "row": "standardState",
+      "text": "PubChem's oganesson page also lists a boiling point of 350 ± 30 K, marked as extrapolated. That is above room temperature, so by that figure oganesson would not be a gas.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
       "symbols": ["Al"],
       "row": "yearDiscovered",
       "text": "Only compounds of aluminum, such as alum, were known in ancient times. PubChem's aluminum page says the metal was first isolated, in impure form, in 1825.",
