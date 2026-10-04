@@ -34,7 +34,7 @@ export function coreAndSubshells(configuration: string): { core: string | undefi
 
 /** Shown with every emission spectrum: what the lines are, and what they are not. */
 export const EMISSION_NOTE =
-  'These lines come from isolated atoms of the gas glowing in a discharge lamp. An atom bonded in a molecule does not emit them.'
+  'These lines come from isolated atoms in a glowing gas or vapour, as in a discharge lamp. An atom bonded in a molecule does not emit them.'
 
 /** How to read the strip and its numbers. */
 export const EMISSION_READING_NOTE =

@@ -397,7 +397,7 @@
       "sourceId": "jmol-pal-source"
     },
     "emission": {
-      "selection": "The two D lines, which give sodium its yellow colour. NIST lists other, weaker lines of the neutral atom between 400 and 700 nm.",
+      "selection": "The two D lines, which give a sodium lamp, and a flame that holds sodium, their yellow colour. NIST lists other, weaker lines of the neutral atom between 400 and 700 nm.",
       "note": "Both lines come from an electron falling from the 3p subshell to the 3s subshell. The 3p level is split into two levels very close in energy, so there are two lines. They are 0.6 nm apart, too close to draw separately on this strip, which shows them as one.",
       "lines": [
         {

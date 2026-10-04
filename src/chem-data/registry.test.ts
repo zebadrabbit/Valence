@@ -77,6 +77,8 @@ describe('the real chem-data registry', () => {
     const sodium = registry.elements.find((e) => e.symbol === 'Na')!.emission!
     expect(sodium.lines.map((line) => line.transition)).toEqual(['3p → 3s', '3p → 3s'])
     expect(sodium.selection).toContain('D lines')
+    // Sodium is a silvery metal. What is yellow is its light: a sodium lamp, or a flame with sodium in it.
+    expect(sodium.selection).toBe('The two D lines, which give a sodium lamp, and a flame that holds sodium, their yellow colour. NIST lists other, weaker lines of the neutral atom between 400 and 700 nm.')
     expect(sodium.note).toContain('too close to draw separately')
     // Only an element whose lines overlap on the strip carries the note.
     for (const symbol of ['H', 'Xe']) expect(registry.elements.find((e) => e.symbol === symbol)!.emission!.note).toBeUndefined()

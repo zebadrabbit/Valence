@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { configurationParts, coreAndSubshells, evToKjPerMol, valenceElectrons } from './element'
+import { configurationParts, coreAndSubshells, EMISSION_NOTE, evToKjPerMol, valenceElectrons } from './element'
 import { periodicTable } from './periodic'
 import { registry } from './registry'
 
@@ -92,5 +92,12 @@ describe('coreAndSubshells', () => {
   it('rejects text that is not a configuration', () => {
     expect(() => coreAndSubshells('[He]')).toThrow(/unreadable/)
     expect(() => coreAndSubshells('2s2 [He]')).toThrow(/unreadable/)
+  })
+})
+
+describe('the note shown with every emission spectrum', () => {
+  it('holds for an element that is not a gas at room temperature: sodium glows as a vapour', () => {
+    expect(EMISSION_NOTE).toBe('These lines come from isolated atoms in a glowing gas or vapour, as in a discharge lamp. An atom bonded in a molecule does not emit them.')
+    expect(registry.elements.filter((e) => e.emission).map((e) => e.symbol)).toEqual(['H', 'Na', 'Xe'])
   })
 })
