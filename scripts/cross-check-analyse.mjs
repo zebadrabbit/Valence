@@ -1,12 +1,12 @@
 // The analysis half of the periodic-table cross-check: reads the saved copies kept under
 // docs/research/periodic-table/ and returns plain data. cross-check-periodic-table.mjs renders
 // it as the report. Comparisons whose sources are not kept are not made here: their outcome
-// is recorded in cross-check-recorded.md.
+// is recorded in cross-check-recorded.md. Of the Wikipedia transcriptions only the densities page is kept.
 
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import {
-  agreement, decimals, parsePubChem, parseCiaawAbridged, parseCiaawRadioactive, parseNistIe, parseConfiguration,
+  agreement, decimals, parsePubChem, parseCiaawAbridged, parseCiaawRadioactive, parseDensitiesPage, parseNistIe, parseConfiguration,
   shellCounts, electronCount, position,
 } from './periodic-table-lib.mjs'
 
@@ -326,6 +326,11 @@ export function analyse({ pubchemPath, sourcesDir, decisionsPath, curatedPath, l
       lines: lines.map((l) => `${l.heading.toLowerCase()} ${l.text} (${short(l.source)})`),
     }
   })
+
+  // The sentences kept from the prose of the element pages, which some notes rest on: { atomic number: [{ heading, source, text }] }
+  R.passages = Object.fromEntries(Object.entries(JSON.parse(read('pubchem-element-pages-passages.json'))).map(([z, page]) => [z, page.passages]))
+  // The handbook densities transcribed on Wikipedia's data page, solid phase: the one transcription that is kept
+  R.handbookDensities = parseDensitiesPage(read('wikipedia-densities-of-the-elements-data-page.wikitext'))
 
   // PubChem's own unit labels, from the script its periodic table page loads
   const labels = JSON.parse(read('pubchem-ptable-column-labels.json'))

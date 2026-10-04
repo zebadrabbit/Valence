@@ -2,7 +2,7 @@
 
 A comparison of the PubChem periodic table download (`docs/research/periodic-table/pubchem-periodic-table.json`, 118 elements) with other sources. This file is written by `scripts/cross-check-periodic-table.mjs` (`npm run cross-check`) from the saved copies in `docs/research/periodic-table/` (retrieved 2026-10-03); nothing is fetched, and running the script again gives the same file. Sentences headed **Remark** are a reviewer's reading of the numbers and are part of the script's text; the script checks the facts each one leans on and stops if one no longer holds. Everything else outside section 9 is computed on every run.
 
-**Section 9 is a record, not a computation.** It holds comparisons made on 2026-10-03 against sources that are not kept in this repository. The script copies it in unchanged from `cross-check-recorded.md` and repeats none of it.
+**Section 9 is a record, not a computation.** It holds comparisons made on 2026-10-03 against sources that, with one exception, are not kept in this repository. The script copies it in unchanged from `cross-check-recorded.md` and repeats none of it.
 
 **What the app shows.** The first version of this report was written before any value was shown, and asked for decisions. They have been made (design spec, section 5.1): the atomic weight shown is CIAAW's for the 84 elements that have one, the first ionization energy shown is NIST's for elements 1 to 108, the covalent radius is the one on PubChem's element pages, and every other value is PubChem's periodic table as downloaded. So sections 1 and 2 no longer describe a fault in a shown value: they record how far PubChem's columns are from the values shown. No value in the download was changed.
 
@@ -24,32 +24,49 @@ The first version of this report listed findings that needed a decision. Each is
 
 1. **First ionization energy.** PubChem's column is not NIST's data: all 102 values equal the Jefferson Lab value on PubChem's own element page. 26 of them disagree with NIST, 9 by 0.1 eV or more (Tc, Ta, W, Os, Ir, At, Fr, Ac, Th). *Decided:* NIST's value is shown for elements 1 to 108, with NIST's marking where the value is not measured; PubChem's column is not shown. Section 2.
 2. **Atomic mass of Lithium (Li), Sulfur (S)** differs from the CIAAW abridged value in the last printed digit, inside CIAAW's stated uncertainty. *Decided:* CIAAW's abridged value is shown for all 84 elements that have a standard atomic weight. Section 1.1.
-3. **Atomic mass of 34 elements is one isotope's mass, not an atomic weight.** For every element without a CIAAW standard atomic weight PubChem prints the mass of a single isotope. For 16 of them (Lr to Og) that mass is itself an estimate, and for Ds, Cn, Og the isotope is not the one CIAAW lists as most stable. *Decided:* PubChem's number is shown, labelled as the mass of the named isotope, with a sentence that the element has no standard atomic weight, and "estimated" where it is. Sections 1.2 and 9.2.
+3. **Atomic mass of 34 elements is one isotope's mass, not an atomic weight.** For every element without a CIAAW standard atomic weight PubChem prints the mass of a single isotope. For 16 of them (Lr to Og) that mass is itself an estimate, and for Ds, Cn, Og the isotope is not the one CIAAW lists as most stable. *Decided:* PubChem's number is shown, labelled as the mass of the named isotope, with a sentence that the element has no standard atomic weight, and "estimated" where it is. The 3 whose isotope CIAAW does not list are under "Unresolved". Sections 1.2 and 9.2.
 4. **PubChem's radius column mixes sets of van der Waals radii**, which puts steps in the trend that are not chemistry (zinc 139 pm to gallium 187 pm; platinum 209, gold 166, mercury 209), and a van der Waals radius does not show the textbook "radius falls across a period" trend. *Decided:* the table is coloured by covalent radius, which PubChem's element pages carry for 96 elements; PubChem's column is shown on the card only, labelled "van der Waals radius", with a sentence that its values come from more than one study. Sections 6.5 and 9.6.
-5. **An empty field does not always mean "not measured".** For 18 elements with an empty electron affinity, PubChem's element page gives 0 eV as its first value: the field is empty because the source says zero. The noble gases He, Ne, Ar, Rn have no electronegativity in PubChem's column, nor in the transcription it was compared with (section 9.3). *Decided:* an empty field is shown as "no value listed", never as zero and never as "not measured". Sections 3 and 6.8.
+5. **An empty field does not always mean "not measured".** For 18 elements with an empty electron affinity, PubChem's element page gives 0 eV as its first value: the field is empty because the source says zero. The noble gases He, Ne, Ar, Rn have no electronegativity in PubChem's column, nor in the transcription it was compared with (section 9.3). *Decided:* an empty field is shown as "no value listed", never as zero and never as "not measured"; each of the 18 carries a note giving the page's 0 eV. Sections 3 and 6.8.
 6. **Melting and boiling points that are not ordinary melting or boiling:** arsenic's melting point is above its boiling point, and carbon and helium do not melt at atmospheric pressure. *Decided:* the values are shown, each with a note, and the melting-point legend says that its two ends are not ordinary-pressure melting points. Section 6.2.
-7. **Oxidation states are a short list of common states, not all known ones.** The noble gases He, Ne, Ar, Kr, Xe, Rn are given only "0", while the molecule library holds XeF4 (Xe). For 13 elements from dubnium on, the source marks states as predicted and the download has dropped the marks. *Decided:* the row is headed "Common oxidation states (PubChem's list, not complete)"; xenon and krypton carry a note; each element whose states the source marks as predictions carries a note saying which. Section 6.6.
+7. **Oxidation states are a short list of common states, not all known ones.** The noble gases He, Ne, Ar, Kr, Xe, Rn are given only "0", while the molecule library holds XeF4 (Xe). For 13 elements from dubnium on, the source marks states as predicted and the download has dropped the marks. *Decided:* the row is headed "Common oxidation states (PubChem's list, not complete)"; xenon, krypton, radon and oxygen carry a note; each element whose states the source marks as predictions carries a note saying which. Section 6.6.
 8. **Categories a chemist would query:** polonium, astatine, group 12, and the heaviest elements. *Decided:* PubChem's ten categories are used as given; polonium and astatine carry a note; the legend says that group 12 and elements 109 to 118 are placed by position. Section 6.9.
 9. **Text that the build script must handle:** a configuration ending "(calculated)" (Mt), irregular spacing, unsigned oxidation states, and the American spellings Aluminum and Cesium. *Decided:* the build moves "(predicted)" and "(calculated)" into a qualifier that stays on screen and fails on any other marking; configurations, oxidation states and names are otherwise kept as PubChem writes them. Sections 6.6, 6.7 and 6.10.
-10. **Lawrencium's configuration, single values far from other tabulations, and expected states that PubChem's own pages contradict.** No decision settles these; they are listed next.
+10. **Lawrencium's configuration, single values far from other tabulations, expected states that PubChem's own pages contradict, and values PubChem gives as plain facts that are predictions, estimates or untraceable.** No decision settles these; they are listed next.
 
 ## Unresolved
 
-Disagreements between sources about a value the app shows, which no decision settles. Each value is shown as PubChem's table has it, and the element's card carries a note on the row named here. A test (`src/chem-data/periodic.test.ts`) reads this table and fails if any row has no note.
+Disagreements between sources about a value the app shows, which no decision settles, and values that PubChem gives as plain facts although they are predictions, estimates, or cannot be traced. Each value is shown as PubChem's table has it, and the element's card carries a note on the row named here. A test (`src/chem-data/periodic.test.ts`) reads this table and fails if any row has no note.
 
 | Z | Element | Card row | PubChem's table | Against | Section |
 | --- | --- | --- | --- | --- | --- |
 | 5 | Boron (B) | `density` | 2.37 g/cm³ | 2.34 g/cm³, the nearest value in other tabulations (recorded 2026-10-03) | 9.4 |
 | 6 | Carbon (C) | `meltingPoint` | 3823 K | 3800 K, the nearest value in other tabulations (recorded 2026-10-03) | 9.4 |
 | 56 | Barium (Ba) | `boilingPoint` | 2170 K | 2143 K, the nearest value in other tabulations (recorded 2026-10-03) | 9.4 |
+| 85 | Astatine (At) | `meltingPoint` | 575 K | no measurement: an estimate that PubChem does not mark as one | 6.2 |
+| 87 | Francium (Fr) | `meltingPoint` | 300 K | no measurement: an estimate that PubChem does not mark as one | 6.2 |
+| 87 | Francium (Fr) | `electronegativity` | 0.7 | no source: PubChem's own page for the element has no Pauling-scale line | 3 |
 | 88 | Radium (Ra) | `boilingPoint` | 1413 K | 2010 K, the nearest value in other tabulations (recorded 2026-10-03) | 9.4 |
 | 95 | Americium (Am) | `density` | 13.69 g/cm³ | 12 g/cm³, the nearest value in other tabulations (recorded 2026-10-03) | 9.4 |
 | 97 | Berkelium (Bk) | `density` | 14 g/cm³ | 13.25 g/cm³, the nearest value in other tabulations (recorded 2026-10-03) | 9.4 |
+| 100 | Fermium (Fm) | `meltingPoint` | 1800 K | no measurement: an estimate that PubChem does not mark as one | 6.2 |
+| 101 | Mendelevium (Md) | `meltingPoint` | 1100 K | no measurement: an estimate that PubChem does not mark as one | 6.2 |
+| 102 | Nobelium (No) | `meltingPoint` | 1100 K | no measurement: an estimate that PubChem does not mark as one | 6.2 |
 | 103 | Lawrencium (Lr) | `configuration` | [Rn]7s2 5f14 6d1 | NIST's ground state, [Rn].5f14.7s2.7p | 4 |
+| 103 | Lawrencium (Lr) | `meltingPoint` | 1900 K | no measurement: an estimate that PubChem does not mark as one | 6.2 |
+| 103 | Lawrencium (Lr) | `electronegativity` | 1.3 | no source: PubChem's own page for the element has no Pauling-scale line | 3 |
+| 104 | Rutherfordium (Rf) | `standardState` | Solid | no measurement: a prediction that PubChem does not word as one | 6.3 |
+| 105 | Dubnium (Db) | `standardState` | Solid | no measurement: a prediction that PubChem does not word as one | 6.3 |
+| 106 | Seaborgium (Sg) | `standardState` | Solid | no measurement: a prediction that PubChem does not word as one | 6.3 |
+| 107 | Bohrium (Bh) | `standardState` | Solid | no measurement: a prediction that PubChem does not word as one | 6.3 |
+| 108 | Hassium (Hs) | `standardState` | Solid | no measurement: a prediction that PubChem does not word as one | 6.3 |
+| 109 | Meitnerium (Mt) | `standardState` | Solid | no measurement: a prediction that PubChem does not word as one | 6.3 |
+| 110 | Darmstadtium (Ds) | `atomicMass` | 282.166 u, the mass of the isotope of mass number 282 | CIAAW's list of the most stable known isotopes, which gives 281 | 1.2 |
+| 112 | Copernicium (Cn) | `atomicMass` | 286.179 u, the mass of the isotope of mass number 286 | CIAAW's list of the most stable known isotopes, which gives 285 | 1.2 |
 | 114 | Flerovium (Fl) | `standardState` | Expected to be a Solid | a boiling point of "~210K(~-60°C,~-80°F)" on PubChem's own element page | 6.3 |
 | 118 | Oganesson (Og) | `standardState` | Expected to be a Gas | a boiling point of "350±30K(80±30°C,170±50°F)(extrapolated)" on PubChem's own element page | 6.3 |
+| 118 | Oganesson (Og) | `atomicMass` | 295.216 u, the mass of the isotope of mass number 295 | CIAAW's list of the most stable known isotopes, which gives 294 | 1.2 |
 
-The card row is the name of the field in `src/chem-data/periodic-table.json`. Findings that are not disagreements about a shown value are not in this table: sections 3, 6.3 and 6.6 name the values that have no source line, no marking, or a fuller list on PubChem's own pages.
+The card row is the name of the field in `src/chem-data/periodic-table.json`. Not in this table, because a decision above settles each with a note or a label: the fuller oxidation-state lists on PubChem's own pages (section 6.6), the electron affinities those pages give as zero (6.8), the two values they qualify (6.4), and the densities and temperatures that belong to one form of an element (6.2 and 6.4).
 
 ## 1. Atomic mass
 
@@ -109,7 +126,7 @@ For every one, PubChem's number is the mass of a single isotope, and rounding it
 | 117 | Tennessine (Ts) | 294.211 | Ts-294 (estimated) | 294 | yes |
 | 118 | Oganesson (Og) | 295.216 | Og-295 (estimated) | 294 | no |
 
-**Remark.** A periodic table normally prints these as a mass number in square brackets, for example [209] for polonium, to show that the element has no atomic weight. Printing "208.98243 u" beside "atomic mass" would tell a learner that polonium has an atomic weight known to eight figures, so the app labels the number as the mass of the named isotope and says that the element has no standard atomic weight. For darmstadtium, copernicium and oganesson the isotope whose mass PubChem prints is not one that CIAAW's list gives.
+**Remark.** A periodic table normally prints these as a mass number in square brackets, for example [209] for polonium, to show that the element has no atomic weight. Printing "208.98243 u" beside "atomic mass" would tell a learner that polonium has an atomic weight known to eight figures, so the app labels the number as the mass of the named isotope and says that the element has no standard atomic weight. For darmstadtium, copernicium and oganesson the isotope whose mass PubChem prints is not one that CIAAW's list gives, so "mass of the isotope" would name an isotope that the list of the most stable known ones does not hold. Each of the three carries a note on the card giving the mass number CIAAW lists.
 
 ## 2. First ionization energy
 
@@ -158,7 +175,7 @@ PubChem has 95 values and leaves 23 empty (section 6.1 names them). The app show
 
 **Where PubChem's column comes from.** 93 of the values appear on PubChem's element pages as "Pauling Scale Electronegativity", cited only to "PubChem Elements". Fr, Lr have a value in the periodic table and no Pauling-scale line on the element page.
 
-**Remark.** Francium's 0.7 is the lowest value in the column, so it sets the bottom of the electronegativity colour scale, and it is one of the 2 values that cannot be traced to a line on PubChem's own page. The next lowest is cesium's 0.79. Neither untraced value carries a note on the card. Helium, neon and argon have no Pauling value because the scale is built from bond energies and they form no ordinary compounds, which is one reason an empty field is not called "not measured".
+**Remark.** Francium's 0.7 is the lowest value in the column, so it sets the bottom of the electronegativity colour scale, and it is one of the 2 values that cannot be traced to a line on PubChem's own page. The next lowest is cesium's 0.79. NIST's first ionization energies point the other way: francium's (4.0727411 eV) is higher than cesium's (3.89390572743 eV), which a lower electronegativity would not lead one to expect. Both untraced values carry a note on the card saying that they could not be traced beyond PubChem's table, and are listed under "Unresolved"; francium's note adds what PubChem's francium page says, that no weighable quantity of the element has been prepared. Helium, neon and argon have no Pauling value because the scale is built from bond energies and they form no ordinary compounds, which is one reason an empty field is not called "not measured".
 
 ## 4. Ground-state electron configuration
 
@@ -185,7 +202,16 @@ PubChem's own element pages can be read for a second opinion on those 6. Beside 
 | 95 | Americium (Am) | density | 13.69 g/cm³ | 13.69 grams per cubic centimeter (Jefferson Lab) |
 | 97 | Berkelium (Bk) | density | 14 g/cm³ | 14 grams per cubic centimeter (Jefferson Lab) |
 
-**Remark.** For barium and radium the page's second line is itself the disagreement: 1845 °C is 2118 K against the table's 2170 K, and 1737 °C is 2010 K against the table's 1413 K. Their notes on the card quote those lines. For boron, americium and berkelium the page has nothing to set beside the table's density, so their notes quote the handbook figures recorded in section 9.4. For carbon the second line, "3550°C(diamond)", is the table's own 3823 K with a label; section 6.2 says why that figure needs its note.
+For the three densities the page has nothing to set beside the table's value. The handbook figures are read from the kept copy of Wikipedia's densities page (solid phase), which transcribes the CRC Handbook and Lange's Handbook:
+
+| Z | Element | PubChem's table (g/cm³) | CRC Handbook | Lange's Handbook |
+| --- | --- | --- | --- | --- |
+| 5 | Boron (B) | 2.37 | 2.34 | 2.34 |
+| 95 | Americium (Am) | 13.69 | 12 | 12 |
+| 97 | Berkelium (Bk), alpha | 14 | 14.78 | 14.78 |
+| 97 | Berkelium (Bk), beta | 14 | 13.25 | 13.25 |
+
+**Remark.** For barium and radium the page's second line is itself the disagreement: 1845 °C is 2118 K against the table's 2170 K, and 1737 °C is 2010 K against the table's 1413 K. Their notes on the card quote those lines. The notes on boron, americium and berkelium quote the handbook figures in the table above: 2.34, 12, and 14.78 and 13.25 g/cm³. For carbon the second line, "3550°C(diamond)", is the table's own 3823 K with a label; section 6.2 says why that figure needs its note.
 
 ## 6. Sanity scan of the whole download
 
@@ -208,7 +234,20 @@ PubChem's own element pages can be read for a second opinion on those 6. Beside 
 
 Melting point at or above boiling point: Arsenic (As), melting 1090 K, boiling 887 K. Liquid range narrower than 10% of the melting point, for an element that is not a gas: Carbon (C), 3823 K to 4098 K.
 
-**Remark.** Neither is a typing error. Arsenic turns straight from solid to vapour at atmospheric pressure, and its "melting point" of 1090 K is measured under pressure. Carbon also sublimes: PubChem's own carbon page carries a second boiling-point line that reads "3800°C(sublimation)". Helium's 0.95 K is the lowest melting point in the column, and helium does not freeze at atmospheric pressure at any temperature. The rows of other tabulations that say these things are quoted in section 9.5. Carbon's 3823 K is the highest melting point in the column, above tungsten's 3695 K. So both ends of a melting-point colour scale are values that are not melting at ordinary pressure: the melting-point legend says so, and arsenic, carbon and helium each carry a note on the card.
+**Remark.** Neither is a typing error. Arsenic turns straight from solid to vapour at atmospheric pressure, and its "melting point" of 1090 K is measured under pressure. PubChem's arsenic page gives that pressure as 28 times atmospheric; the CRC row quoted in section 9.5 gives 3.70 MPa, which is about 36 times, so the note on the card says "under pressure" and gives no figure. Carbon also sublimes: PubChem's own carbon page carries a second boiling-point line that reads "3800°C(sublimation)". Helium's 0.95 K is the lowest melting point in the column, and helium does not freeze at atmospheric pressure at any temperature. The rows of other tabulations that say these things are quoted in section 9.5. Carbon's 3823 K is the highest melting point in the column, above tungsten's 3695 K. So both ends of a melting-point colour scale are values that are not melting at ordinary pressure: the melting-point legend says so, and arsenic, carbon and helium each carry a note on the card. Phosphorus's melting and boiling points are those of one of its forms: the Los Alamos lines on its page read "44.15(whitephosphorus)" and "280.5(whitephosphorus)", in °C, and each row carries a note saying so.
+
+**Melting points of elements never made in bulk.** PubChem's table gives a melting point, with no marking, for 6 elements of which no sample large enough to melt has been made. What PubChem's own pages say of each:
+
+| Z | Element | PubChem's table (K) | On PubChem's page for the element |
+| --- | --- | --- | --- |
+| 85 | Astatine (At) | 575 | Due to the small amounts produced and its short half-life, there are currently no uses for astatine outside of basic scientific research. A total of 0.05 micrograms (0.00000005 grams) of astatine have been produced to date. |
+| 87 | Francium (Fr) | 300 | Due to the small amounts produced and its short half-life, there are currently no uses for francium outside of basic scientific research. No weighable quantity of the element has been prepared or isolated. |
+| 100 | Fermium (Fm) | 1800 | Due to the small amounts produced and its short half-life, there are currently no uses for fermium outside of basic scientific research. Fermium metal has not been prepared, however measurements have been made on fermium alloys with rare earth metals and a number of predictions have been made. |
+| 101 | Mendelevium (Md) | 1100 | Since only small amounts of mendelevium have ever been produced, it currently has no uses outside of basic scientific research. |
+| 102 | Nobelium (No) | 1100 | Since only tiny amounts of nobelium have ever been produced, there are currently no uses for it outside of basic scientific research. |
+| 103 | Lawrencium (Lr) | 1900 | Since only tiny amounts of lawrencium have ever been produced, there are currently no uses for it outside of basic scientific research. |
+
+**Remark.** A melting point is measured on a sample that can be seen to melt, so these 6 figures are estimates or predictions; each carries a note on the card saying so and is listed under "Unresolved". No page says in so many words that its melting point is an estimate. Francium's says that no weighable quantity has been prepared, fermium's that the metal has not been prepared and that predictions have been made, and astatine's that 0.05 micrograms have been produced in all. For mendelevium, nobelium and lawrencium the pages say only that small or tiny amounts have been produced; that no bulk sample exists follows from the fermium page, which calls fermium "the heaviest element that can be prepared in macroscopic quantities". That the figures are estimates is therefore a chemist's reading of these pages, not a statement found on them. Einsteinium's page says the same of einsteinium, and its melting point (1133 K) carries no note: it was measured on microgram samples, which is the reviewer's general knowledge and not something a saved source states.
 
 ### 6.3 Standard state against melting and boiling point at 298.15 K
 
@@ -228,7 +267,7 @@ State counts: Gas 11, Solid 96, Liquid 2, Expected to be a Solid 8, Expected to 
 | Tennessine (Ts) | Expected to be a Solid | melting point 623–823K(350–550°C,662–1022°F)(predicted) (Los Alamos); boiling point 883K(610°C,1130°F) (Los Alamos) |
 | Oganesson (Og) | Expected to be a Gas | boiling point 350±30K(80±30°C,170±50°F)(extrapolated) (Los Alamos) |
 
-**Remark.** PubChem's own pages contradict two of the "expected" states: the boiling-point figure on the page is on the wrong side of 298.15 K for Flerovium (Fl), Oganesson (Og). A boiling point near 210 K would make flerovium a gas at room temperature, not a solid; 350 ± 30 K would mean oganesson is not a gas. Both carry a note on the card and are listed under "Unresolved". Copernicium's 357 K has an error bar of about 110 K, which reaches below room temperature, so its page leaves the state open; it carries no note. All of elements 104 to 118 have been made only a few atoms at a time, so every state from rutherfordium on is a prediction, whether or not PubChem says "Expected". Rf, Db, Sg, Bh, Hs, Mt are shown as "Solid" without that word and carry no note saying so.
+**Remark.** PubChem's own pages contradict two of the "expected" states: the boiling-point figure on the page is on the wrong side of 298.15 K for Flerovium (Fl), Oganesson (Og). A boiling point near 210 K would make flerovium a gas at room temperature, not a solid; 350 ± 30 K would mean oganesson is not a gas. Both carry a note on the card and are listed under "Unresolved". Copernicium's 357 K has an error bar of about 110 K, which reaches below room temperature, so its page leaves the state open; it carries no note. All of elements 104 to 118 have been made only a few atoms at a time, so every state from rutherfordium on is a prediction, whether or not PubChem says "Expected". Rf, Db, Sg, Bh, Hs, Mt are shown as "Solid" without that word; each carries a note on the card saying that PubChem does not word the state as expected although it lists no measurement, and is listed under "Unresolved". PubChem's page for each says that only small amounts of it, or only a few atoms, have been made; the sentences are kept in `sources/pubchem-element-pages-passages.json`.
 
 ### 6.4 Density
 
@@ -251,6 +290,8 @@ All 96 densities are in one unit, g/cm³, including the 11 gases: each gas value
 The column runs from 0.00008988 (H) to 22.57 (Os), a factor of 251,113. The densest gas is Rn at 0.00973; the least dense solid is Li at 0.534. Values given to one or two figures: Tc 11, At 7, Ra 5, Bk 14. On PubChem's own pages, values carrying a qualifier that the periodic table drops: Cm BoilingPoint "~3400 K (~3100°C or ~5600°F)"; At Density "about 7 grams per cubic centimeter".
 
 **Remark.** The gas densities are at 0 °C and the solids' are near room temperature (section 9.5), so the column is not at one temperature; each gas carries a note on the card saying what its density refers to. On a straight-line colour scale all 11 gases fall in the bottom 0.04% and look identical. The scale is kept linear and the density legend says that the gases sit at the bottom of it (design spec, section 6). The longest printed value is "0.00008988", ten characters in a table cell. Astatine's density and curium's boiling point, which the pages qualify, each carry a note.
+
+Two densities are those of one form of an element that has several. On the kept copy of Wikipedia's densities page, carbon's 2.2670 is Lange's figure for graphite (2.267; both handbooks give 3.513 for diamond), and phosphorus's 1.82 is both handbooks' figure for white phosphorus (1.823) to two decimals, with red and black phosphorus denser. Each carries a note on the card naming the form. PubChem's own pages do not say which form these two densities are for.
 
 ### 6.5 Atomic radius
 
@@ -295,7 +336,7 @@ The comparison above sets aside a closing remark in parentheses. For Mt, Ds, Rg 
 
 Where the periodic table shows a single state, Los Alamos's line on the same element page is longer for: Oxygen (O), table "-2", Los Alamos "2, 1, -1, -2"; Krypton (Kr), table "0", Los Alamos "2, 1, 0 (rarely more than 0; unknown oxide)"; Xenon (Xe), table "0", Los Alamos "0, +1, +2, +4, +6, +8 (rarely more than 0; a weakly acidic oxide)"; Radon (Rn), table "0", Los Alamos "6, 2, 0".
 
-**Remark.** The column is a short list of common states, not every known state. Three things follow for the app. First, xenon and krypton are given only "0", yet the library holds XeF4, where xenon is +4; oxygen is given only "−2", yet the library holds hydrogen peroxide (oxygen −1) and O₂ (oxygen 0). The card therefore heads the row "Common oxidation states (PubChem's list, not complete)", and xenon and krypton carry a note; oxygen and radon do not. Second, for the 13 elements just named, Los Alamos marks some or all states as predictions, in parentheses or with the word "predicted", and PubChem's periodic table has dropped the marks. The rule that predicted text keeps its marking cannot be met from the download alone for these, so each carries a note saying which states the page marks. Third, 11 entries are written without a + sign; the app shows each list as PubChem writes it, changing only "-" to the true minus sign.
+**Remark.** The column is a short list of common states, not every known state. Three things follow for the app. First, xenon and krypton are given only "0", yet the library holds XeF4, where xenon is +4; oxygen is given only "−2", yet the library holds hydrogen peroxide (oxygen −1) and O₂ (oxygen 0). The card therefore heads the row "Common oxidation states (PubChem's list, not complete)", and xenon, krypton, radon and oxygen each carry a note giving the other states on PubChem's own page. Second, for the 13 elements just named, Los Alamos marks some or all states as predictions, in parentheses or with the word "predicted", and PubChem's periodic table has dropped the marks. The rule that predicted text keeps its marking cannot be met from the download alone for these, so each carries a note saying which states the page marks. Third, 11 entries are written without a + sign; the app shows each list as PubChem writes it, changing only "-" to the true minus sign.
 
 ### 6.7 Electron configuration text
 
@@ -307,7 +348,7 @@ Endings in parentheses: "(predicted)" on 9 (Ds, Rg, Cn, Nh, Fl, Mc, Lv, Ts, Og);
 
 57 values, all matching a line on PubChem's element page cited to "PubChem Elements", in eV. Of the 61 empty ones, 43 have no electron affinity line on the element page either, and 18 have one whose first value is 0 eV: He, Be, N, Ne, Mg, Ar, Ca, Mn, Zn, Kr, Sr, Cd, Xe, Ba, Hf, Hg, Rn, Ra. For those 18 the page's second value is negative for 11 (He -0.22, N -0.21, Ne -0.3, Mg -0.22, Ar -0.37, Ca -1.39, Kr -0.42, Sr -1.51, Xe -0.45, Ba -0.48, Hg -0.19), positive for 5 (Be 0.38, Mn 0.97, Zn 0.09, Cd 0.27, Hf 0.63) and absent for Rn, Ra.
 
-**Remark.** For these 18 elements the field is empty because PubChem's first source gives zero, not because nobody has looked. A zero or negative electron affinity means the atom does not hold on to an extra electron, which is the expected answer for the noble gases and for atoms with filled subshells such as beryllium and magnesium. "Not measured" is the wrong label for them, and the app's wording for every empty field is "no value listed". PubChem's two sources disagree on the sign for Be, Mn, Zn, Cd, Hf, and electron affinity was not compared with an independent source, so this report cannot say which is right.
+**Remark.** For these 18 elements the field is empty because PubChem's first source gives zero, not because nobody has looked. A zero or negative electron affinity means the atom does not hold on to an extra electron, which is the expected answer for the noble gases and for atoms with filled subshells such as beryllium and magnesium. "Not measured" is the wrong label for them, and the app's wording for every empty field is "no value listed"; each of the 18 also carries a note on the card saying that PubChem's page for the element lists 0 eV. PubChem's two sources disagree on the sign for Be, Mn, Zn, Cd, Hf, and electron affinity was not compared with an independent source, so this report cannot say which is right.
 
 ### 6.9 Category
 
@@ -332,7 +373,7 @@ PubChem's element pages carry a second, three-way classification from Jefferson 
 - **Polonium, "Metalloid".** Contested: PubChem's own polonium page (Jefferson Lab) calls it a metal. The card carries a note.
 - **Astatine, "Halogen".** True by group (17). PubChem's own astatine page (Jefferson Lab) calls it a semi-metal, which is the same thing as a metalloid. The card carries a note.
 - **Zinc, cadmium, mercury (group 12), "Transition metal".** Common in periodic tables. The usual objection is that these atoms keep a full d subshell: PubChem gives zinc "[Ar]4s2 3d10" with only the state +2, in which the two 4s electrons are lost and the ten d electrons stay. Many textbooks therefore do not count group 12 as transition metals. (IUPAC's definition of a transition element was not fetched: the Gold Book refused an automated request.) The legend says that group 12 is placed by position.
-- **Lanthanum to lutetium "Lanthanide", actinium to lawrencium "Actinide", 15 of each.** A common convention for the two families. It is not the same thing as the f block: an f subshell holds 14 electrons, so the f block is 14 elements wide. PubChem's configuration gives lanthanum no f electron ("[Xe]6s2 5d1"), and PubChem's element pages put lutetium and lawrencium in group 3. The app takes neither the 15-wide families nor PubChem's group numbers for its blocks: it puts lanthanum and actinium in group 3 and the d block, and makes the f block cerium to lutetium and thorium to lawrencium (design spec, section 5.4), with one note on the page saying that group 3 is unsettled.
+- **Lanthanum to lutetium "Lanthanide", actinium to lawrencium "Actinide", 15 of each.** A common convention for the two families. It is not the same thing as the f block: an f subshell holds 14 electrons, so the f block is 14 elements wide. PubChem's configuration gives lanthanum no f electron ("[Xe]6s2 5d1"), and PubChem's element pages put lutetium and lawrencium in group 3. The app takes neither the 15-wide families nor PubChem's group numbers for its blocks: it puts lanthanum and actinium in group 3 and the d block, and makes the f block cerium to lutetium and thorium to lawrencium (design spec, section 5.4), with one note on the page saying that group 3 is unsettled and that PubChem puts lutetium and lawrencium there.
 - **Copernicium, "Transition metal"; nihonium, flerovium, moscovium, livermorium, "Post-transition metal"; tennessine, "Halogen"; oganesson, "Noble gas".** Assigned by position in the table. Their chemistry is unknown or known from a handful of atoms, and the predictions for copernicium, flerovium and oganesson do not match their neighbours (section 6.3). Rutherfordium to roentgenium, "Transition metal", are also assigned by position. The legend says that elements 109 to 118 are placed by position.
 - PubChem's ten names mix two kinds of grouping: four are column names (alkali metal, alkaline earth metal, halogen, noble gas), the rest describe metallic character. A halogen or a noble gas is also a nonmetal. The legend is headed "Chemical family (PubChem's grouping)", shows "Nonmetal" as "Other nonmetals", and says that the halogens and noble gases that are nonmetals are listed under their family names (design spec, section 5.5).
 
@@ -340,7 +381,7 @@ PubChem's element pages carry a second, three-way classification from Jefferson 
 
 Names that differ from CIAAW's (IUPAC) spelling: Aluminum (CIAAW: aluminium), Cesium (CIAAW: caesium). YearDiscovered is "Ancient" for 13 (C, Al, S, Ca, Fe, Cu, As, Ag, Sn, Sb, Au, Hg, Pb) and a four-digit year for the other 105; none is empty. CPKHexColor is empty for 10 and malformed for Pd ("6985", leading zeros lost); the feature does not use it.
 
-**Remark.** PubChem's spellings are the ones the app shows. A learner taught British or IUPAC spelling will search for "aluminium" and "caesium", so the command palette is to find both spellings. The years were not checked against another source, with one exception that stands out: fluorine's 1670. PubChem's own fluorine page explains it (Jefferson Lab: the first recorded use of a fluorine compound dates to around 1670) and also says the element "was not isolated until 1886" (CIAAW's text on the same page); that history text was read on the page on 2026-10-03 and is not part of the saved extract. 1886 is the date a learner will find everywhere else, and the card gives it in a note.
+**Remark.** PubChem's spellings are the ones the app shows. A learner taught British or IUPAC spelling will search for "aluminium" and "caesium", so the command palette is to find both spellings. The years were not checked against another source, with one exception that stands out: fluorine's 1670. PubChem's own fluorine page explains it (Jefferson Lab: the first recorded use of a fluorine compound dates to around 1670) and also says the element "was not isolated until 1886" (CIAAW's text on the same page). 1886 is the date a learner will find everywhere else, and the card gives it in a note. Aluminum and calcium, both "Ancient", and silicon's 1854 carry notes of the same kind. The sentences of the pages' history text that these four notes rest on, and those behind the helium, arsenic and francium notes, are kept in `sources/pubchem-element-pages-passages.json`.
 
 ## 7. The 11 elements already in the app
 
@@ -390,9 +431,9 @@ The units are PubChem's own: u, pm, eV, eV, K, K, g/cm³. The build script store
 
 ## 9. Recorded on 2026-10-03: comparisons the script does not repeat
 
-Everything in this section was computed on 2026-10-03 by the first version of the cross-check scripts, from saved copies that are not kept in this repository: CIAAW's full table of standard atomic weights, the AME2020 mass table, the NUBASE2020 half-lives, and five Wikipedia data pages (section 11 lists each with its address and revision). The script copies this section into the report from `cross-check-recorded.md` and recomputes nothing in it, so nothing here has been checked against a source since that date. To repeat a comparison, fetch its source again; the code that made it is in this repository's history, under `docs/research/periodic-table/prototype/`.
+Everything in this section was computed on 2026-10-03 by the first version of the cross-check scripts, from saved copies: CIAAW's full table of standard atomic weights, the AME2020 mass table, the NUBASE2020 half-lives, and five Wikipedia data pages (section 11 lists each with its address and revision). Of these only the Wikipedia page of densities is kept in this repository; section 5 reads the figures the density notes quote from it. The script copies this section into the report from `cross-check-recorded.md` and recomputes nothing in it, so nothing here has been checked against a source since that date. To repeat a comparison, fetch its source again; the code that made it is in this repository's history, under `docs/research/periodic-table/prototype/`.
 
-The tables and the paragraphs under them are the 2026-10-03 report's own words; only the headings and the sentences that lead into them are new. "PubChem" in it means the periodic table download. It was written before the decisions listed under "What was decided" were made: where it says what the app should do, that list says what was done. The script takes one thing from this section, the values that failed the check in 9.4. It reads them from the three tables there, stops if the download no longer holds one of them, and lists them under "Unresolved".
+The tables and the paragraphs under them are the 2026-10-03 report's own words; only the headings and the sentences that lead into them are new. "PubChem" in it means the periodic table download. It was written before the decisions listed under "What was decided" were made: where it says what the app should do, that list says what was done. Section 9.8 is the exception: it quotes a help page and compares nothing. The script takes one thing from this section, the values that failed the check in 9.4. It reads them from the three tables there, stops if the download no longer holds one of them, and lists them under "Unresolved".
 
 ### 9.1 Summary of the recorded comparisons
 
@@ -527,6 +568,14 @@ From the 2026-10-03 report's section 6.5: PubChem's AtomicRadius column was comp
 
 A fresh copy of the periodic table fetched on 2026-10-03 was byte-identical to the committed one. It has not been fetched again.
 
+### 9.8 What NIST's brackets and parentheses mean
+
+Section 2 and the build script read NIST's marking of each ionization energy: no mark, square brackets, or parentheses. The meaning is from the help page of the NIST Atomic Spectra Database's ionization energy form (https://physics.nist.gov/PhysRefData/ASD/Html/iehelp.html), read on 2026-10-03 and not kept. Its words:
+
+> Some ionization energies are in square brackets "[ ]" and some are in parentheses "( )". Square brackets indicate the energies determined by interpolation, extrapolation, or other semi-empirical procedure relying on some known experimental values. Parentheses indicate energies that have been determined from an ab-initio calculation, or are otherwise not derived from evaluated experimental data.
+
+In the saved file the two halves of a mark are in the columns headed "Prefix" and "Suffix", on either side of the energy. The build reads an energy with neither as measured, with "[" and "]" as semi-empirical, and with "(" and ")" as theoretical, and stops on any other pair.
+
 ## 10. What was not checked
 
 - **Electron affinity** (57 values): no independent comparison here. `units.md` (section 9) records that the column is a 1990 compilation and that a comparison with a secondary source found it dated; the card is to say that the values are from a 1990 compilation.
@@ -535,6 +584,8 @@ A fresh copy of the periodic table fetched on 2026-10-03 was byte-identical to t
 - **Year discovered**: not compared with another source, apart from the remark on fluorine.
 - **Oxidation states**: scanned for form and against PubChem's own element pages, not compared with an independent list.
 - **Melting point, boiling point, density**: compared once with a transcription to within 0.5% or 1% (section 9.4), not digit by digit, and not against a primary source.
+- **That the six melting points noted as estimates are estimates**: PubChem's pages say how little of each element has been made, and none says that its melting point is an estimate (section 6.2).
+- **The handbooks behind the density notes**: the CRC Handbook and Lange's Handbook were read only through the kept Wikipedia transcription (section 5).
 - **Electronegativity**: the one comparison (section 9.3) was with a transcription that shares its origin (WebElements) with PubChem. No primary source for Pauling values was fetched.
 - **Ionization energy and configuration for elements 109 to 118**: NIST has no entry; PubChem has no ionization energy for them either.
 - **The IUPAC definition of a transition element** (for group 12): the IUPAC Gold Book refused an automated request.
@@ -543,19 +594,21 @@ A fresh copy of the periodic table fetched on 2026-10-03 was byte-identical to t
 
 ## 11. Sources
 
-Saved copies the script reads, in `docs/research/periodic-table/sources/`:
+Saved copies the script reads, in `docs/research/periodic-table/sources/`. The Wikipedia page is kept under its own licence; `README.md` in that folder gives the attribution:
 
 | Saved copy | What it is | URL |
 | --- | --- | --- |
 | `ciaaw-abridged-atomic-weights.html` | CIAAW Abridged Standard Atomic Weights 2024 | https://www.ciaaw.org/abridged-atomic-weights.htm |
 | `ciaaw-radioactive-elements.html` | CIAAW list of the most stable known isotope of each element without a standard atomic weight | https://www.ciaaw.org/radioactive-elements.htm |
 | `nist-asd-ie-neutral.txt` | NIST Atomic Spectra Database, ground states and ionization energies of the neutral atoms, eV, tab-delimited | https://physics.nist.gov/cgi-bin/ASD/ie.pl?spectra=H-Og+I&submit=Retrieve+Data&units=1&format=3&order=0&at_num_out=on&sp_name_out=on&ion_charge_out=on&el_name_out=on&seq_out=on&shells_out=on&conf_out=on&level_out=on&ion_conf_out=on&e_out=0&unc_out=on&biblio=on |
+| `wikipedia-densities-of-the-elements-data-page.wikitext` | Wikipedia, Densities of the elements (data page), revision 1258326075 | https://en.wikipedia.org/w/index.php?title=Densities_of_the_elements_(data_page)&action=raw |
 | `pubchem-element-pages-extract.json` | Property lines, each with the source PubChem cites, from PubChem's 118 element pages (reduced by extract-pubchem-pages.mjs) | https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/element/<Z>/JSON |
+| `pubchem-element-pages-passages.json` | Sentences from the history, description and uses text of PubChem's element pages that notes in decisions.json rest on, each with the source PubChem cites (selected by extract-pubchem-pages.mjs) | https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/element/<Z>/JSON |
 | `pubchem-ptable-column-labels.json` | Name and unit label of each column, from the script PubChem's periodic table page loads (reduced by extract-pubchem-pages.mjs) | https://pubchem.ncbi.nlm.nih.gov/ptable/ptable.min.js |
 
 The script also reads the download itself (`pubchem-periodic-table.json`), `decisions.json` for the isotope each mass belongs to, `cross-check-recorded.md` for section 9, and the app's `src/chem-data/elements.json` and `src/chem-data/library-index.json`.
 
-Read on 2026-10-03 and not kept in the repository. Section 9 rests on these; the NIST help page is where the meaning of NIST's brackets and parentheses (section 2) comes from:
+Read on 2026-10-03 and not kept in the repository. Section 9 rests on these; the NIST help page is where the meaning of NIST's brackets and parentheses (section 2) comes from, and section 9.8 quotes it:
 
 | Copy | What it is | URL |
 | --- | --- | --- |
@@ -567,6 +620,5 @@ Read on 2026-10-03 and not kept in the repository. Section 9 rests on these; the
 | `wikipedia-atomic-radii-data-page.wikitext` | Wikipedia, Atomic radii of the elements (data page), revision 1372859669 | https://en.wikipedia.org/w/index.php?title=Atomic_radii_of_the_elements_(data_page)&action=raw |
 | `wikipedia-melting-points-of-the-elements-data-page.wikitext` | Wikipedia, Melting points of the elements (data page), revision 1337535216 | https://en.wikipedia.org/w/index.php?title=Melting_points_of_the_elements_(data_page)&action=raw |
 | `wikipedia-boiling-points-of-the-elements-data-page.wikitext` | Wikipedia, Boiling points of the elements (data page), revision 1337535288 | https://en.wikipedia.org/w/index.php?title=Boiling_points_of_the_elements_(data_page)&action=raw |
-| `wikipedia-densities-of-the-elements-data-page.wikitext` | Wikipedia, Densities of the elements (data page), revision 1258326075 | https://en.wikipedia.org/w/index.php?title=Densities_of_the_elements_(data_page)&action=raw |
 
 All retrieved 2026-10-03. The Wikipedia pages are transcriptions and were used only where no primary table could be fetched; the report says so wherever one is used.

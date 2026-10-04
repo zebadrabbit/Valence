@@ -89,6 +89,13 @@ for (const line of recorded.split('\n')) {
 }
 // Its summary counts 1 melting point, 2 boiling points and 3 densities.
 if (outliers.length !== 6) throw new Error(`section 9.4 should list 6 values that failed its check; ${outliers.length} were read`)
+// The melting points the card notes as estimates. Which they are is a chemist's reading, not a computation: the
+// sections below check what PubChem's own pages say of each, and say what that does and does not show.
+const ESTIMATED_MELTING = ['At', 'Fr', 'Fm', 'Md', 'No', 'Lr']
+const enUntraced = R.provenance.Electronegativity.unmatched.map((u) => u.symbol)
+// The kept sentences of one element page, and the handbook densities for one element and form.
+const kept = (symbol, heading) => (R.passages[zOf(symbol)] ?? []).filter((passage) => !heading || passage.heading === heading).map((passage) => passage.text)
+const handbook = (symbol, form = null) => R.handbookDensities.find((entry) => entry.symbol === symbol && entry.form === form)?.values ?? {}
 const noble = R.oxidation.onlyZero
 const nobleInLibrary = noble.flatMap((s) => R.library.filter((m) => new RegExp(`${s}(?![a-z])`).test(m.formula)).map((m) => `${m.formula} (${s})`))
 
@@ -100,7 +107,7 @@ p(
   `A comparison of the PubChem periodic table download (\`docs/research/periodic-table/pubchem-periodic-table.json\`, 118 elements) with other sources. This file is written by \`scripts/cross-check-periodic-table.mjs\` (\`npm run cross-check\`) from the saved copies in \`docs/research/periodic-table/\` (retrieved ${manifest.retrieved}); nothing is fetched, and running the script again gives the same file. Sentences headed **Remark** are a reviewer's reading of the numbers and are part of the script's text; the script checks the facts each one leans on and stops if one no longer holds. Everything else outside section 9 is computed on every run.`,
 )
 p(
-  `**Section 9 is a record, not a computation.** It holds comparisons made on ${manifest.retrieved} against sources that are not kept in this repository. The script copies it in unchanged from \`cross-check-recorded.md\` and repeats none of it.`,
+  `**Section 9 is a record, not a computation.** It holds comparisons made on ${manifest.retrieved} against sources that, with one exception, are not kept in this repository. The script copies it in unchanged from \`cross-check-recorded.md\` and repeats none of it.`,
 )
 p(
   `**What the app shows.** The first version of this report was written before any value was shown, and asked for decisions. They have been made (design spec, section 5.1): the atomic weight shown is CIAAW's for the ${R.mass.length} elements that have one, the first ionization energy shown is NIST's for elements ${R.nistCoverage.min} to ${R.nistCoverage.max}, the covalent radius is the one on PubChem's element pages, and every other value is PubChem's periodic table as downloaded. So sections 1 and 2 no longer describe a fault in a shown value: they record how far PubChem's columns are from the values shown. No value in the download was changed.`,
@@ -132,29 +139,33 @@ p(
   [
     `1. **First ionization energy.** PubChem's column is not NIST's data: all ${R.ie.length} values equal the Jefferson Lab value on PubChem's own element page. ${ieDiffer.length} of them disagree with NIST, ${ieBig.length} by 0.1 eV or more (${symbols(ieBig.map((m) => m.symbol))}). *Decided:* NIST's value is shown for elements ${R.nistCoverage.min} to ${R.nistCoverage.max}, with NIST's marking where the value is not measured; PubChem's column is not shown. Section 2.`,
     `2. **Atomic mass of ${symbols(massDiffer.map((m) => nm(m.symbol)))}** differs from the CIAAW abridged value in the last printed digit, inside CIAAW's stated uncertainty. *Decided:* CIAAW's abridged value is shown for all ${R.mass.length} elements that have a standard atomic weight. Section 1.1.`,
-    `3. **Atomic mass of ${noStandard.length} elements is one isotope's mass, not an atomic weight.** For every element without a CIAAW standard atomic weight PubChem prints the mass of a single isotope. For ${isotopeEstimated.length} of them (${isotopeEstimated[0].symbol} to ${isotopeEstimated.at(-1).symbol}) that mass is itself an estimate, and for ${symbols(isotopeNotInCiaaw.map((m) => m.symbol))} the isotope is not the one CIAAW lists as most stable. *Decided:* PubChem's number is shown, labelled as the mass of the named isotope, with a sentence that the element has no standard atomic weight, and "estimated" where it is. Sections 1.2 and 9.2.`,
+    `3. **Atomic mass of ${noStandard.length} elements is one isotope's mass, not an atomic weight.** For every element without a CIAAW standard atomic weight PubChem prints the mass of a single isotope. For ${isotopeEstimated.length} of them (${isotopeEstimated[0].symbol} to ${isotopeEstimated.at(-1).symbol}) that mass is itself an estimate, and for ${symbols(isotopeNotInCiaaw.map((m) => m.symbol))} the isotope is not the one CIAAW lists as most stable. *Decided:* PubChem's number is shown, labelled as the mass of the named isotope, with a sentence that the element has no standard atomic weight, and "estimated" where it is. The ${isotopeNotInCiaaw.length} whose isotope CIAAW does not list are under "Unresolved". Sections 1.2 and 9.2.`,
     `4. **PubChem's radius column mixes sets of van der Waals radii**, which puts steps in the trend that are not chemistry (zinc ${bySymbol.get('Zn').AtomicRadius} pm to gallium ${bySymbol.get('Ga').AtomicRadius} pm; platinum ${bySymbol.get('Pt').AtomicRadius}, gold ${bySymbol.get('Au').AtomicRadius}, mercury ${bySymbol.get('Hg').AtomicRadius}), and a van der Waals radius does not show the textbook "radius falls across a period" trend. *Decided:* the table is coloured by covalent radius, which PubChem's element pages carry for ${count(R.covalent, (x) => x.value)} elements; PubChem's column is shown on the card only, labelled "van der Waals radius", with a sentence that its values come from more than one study. Sections 6.5 and 9.6.`,
-    `5. **An empty field does not always mean "not measured".** For ${R.provenance.ElectronAffinity.absentButOnPage.length} elements with an empty electron affinity, PubChem's element page gives 0 eV as its first value: the field is empty because the source says zero. The noble gases ${symbols(R.empties.Electronegativity.filter((s) => noble.includes(s)))} have no electronegativity in PubChem's column, nor in the transcription it was compared with (section 9.3). *Decided:* an empty field is shown as "no value listed", never as zero and never as "not measured". Sections 3 and 6.8.`,
+    `5. **An empty field does not always mean "not measured".** For ${R.provenance.ElectronAffinity.absentButOnPage.length} elements with an empty electron affinity, PubChem's element page gives 0 eV as its first value: the field is empty because the source says zero. The noble gases ${symbols(R.empties.Electronegativity.filter((s) => noble.includes(s)))} have no electronegativity in PubChem's column, nor in the transcription it was compared with (section 9.3). *Decided:* an empty field is shown as "no value listed", never as zero and never as "not measured"; each of the ${R.provenance.ElectronAffinity.absentButOnPage.length} carries a note giving the page's 0 eV. Sections 3 and 6.8.`,
     `6. **Melting and boiling points that are not ordinary melting or boiling:** arsenic's melting point is above its boiling point, and carbon and helium do not melt at atmospheric pressure. *Decided:* the values are shown, each with a note, and the melting-point legend says that its two ends are not ordinary-pressure melting points. Section 6.2.`,
-    `7. **Oxidation states are a short list of common states, not all known ones.** The noble gases ${symbols(noble)} are given only "0"${nobleInLibrary.length ? `, while the molecule library holds ${symbols(nobleInLibrary)}` : ''}. For ${R.oxidationPredicted.length} elements from dubnium on, the source marks states as predicted and the download has dropped the marks. *Decided:* the row is headed "Common oxidation states (PubChem's list, not complete)"; xenon and krypton carry a note; each element whose states the source marks as predictions carries a note saying which. Section 6.6.`,
+    `7. **Oxidation states are a short list of common states, not all known ones.** The noble gases ${symbols(noble)} are given only "0"${nobleInLibrary.length ? `, while the molecule library holds ${symbols(nobleInLibrary)}` : ''}. For ${R.oxidationPredicted.length} elements from dubnium on, the source marks states as predicted and the download has dropped the marks. *Decided:* the row is headed "Common oxidation states (PubChem's list, not complete)"; xenon, krypton, radon and oxygen carry a note; each element whose states the source marks as predictions carries a note saying which. Section 6.6.`,
     `8. **Categories a chemist would query:** polonium, astatine, group 12, and the heaviest elements. *Decided:* PubChem's ten categories are used as given; polonium and astatine carry a note; the legend says that group 12 and elements 109 to 118 are placed by position. Section 6.9.`,
     `9. **Text that the build script must handle:** a configuration ending "(${otherSuffix.map(([, s]) => s).join(', ')})" (${symbols(otherSuffix.map(([s]) => s))}), irregular spacing, unsigned oxidation states, and the American spellings Aluminum and Cesium. *Decided:* the build moves "(predicted)" and "(calculated)" into a qualifier that stays on screen and fails on any other marking; configurations, oxidation states and names are otherwise kept as PubChem writes them. Sections 6.6, 6.7 and 6.10.`,
-    '10. **Lawrencium\'s configuration, single values far from other tabulations, and expected states that PubChem\'s own pages contradict.** No decision settles these; they are listed next.',
+    '10. **Lawrencium\'s configuration, single values far from other tabulations, expected states that PubChem\'s own pages contradict, and values PubChem gives as plain facts that are predictions, estimates or untraceable.** No decision settles these; they are listed next.',
   ].join('\n'),
 )
 
 p('## Unresolved')
 p(
-  'Disagreements between sources about a value the app shows, which no decision settles. Each value is shown as PubChem\'s table has it, and the element\'s card carries a note on the row named here. A test (`src/chem-data/periodic.test.ts`) reads this table and fails if any row has no note.',
+  'Disagreements between sources about a value the app shows, which no decision settles, and values that PubChem gives as plain facts although they are predictions, estimates, or cannot be traced. Each value is shown as PubChem\'s table has it, and the element\'s card carries a note on the row named here. A test (`src/chem-data/periodic.test.ts`) reads this table and fails if any row has no note.',
 )
 const unresolved = [
   ...configDiffer.map((c) => [c.symbol, 'configuration', c.pubchem, `NIST's ground state, ${c.nist}`, '4']),
   ...outliers.map((o) => [o.symbol, o.field, `${o.shown} ${o.unit}`, `${o.nearest} ${o.unit}, the nearest value in other tabulations (recorded ${manifest.retrieved})`, '9.4']),
   ...stateContradicted.map((x) => [x.symbol, 'standardState', x.state, `a boiling point of "${x.boiling}" on PubChem's own element page`, '6.3']),
+  ...isotopeNotInCiaaw.map((m) => [m.symbol, 'atomicMass', `${m.pubchem} u, the mass of the isotope of mass number ${m.massNumber}`, `CIAAW's list of the most stable known isotopes, which gives ${m.ciaawMostStable.join(', ')}`, '1.2']),
+  ...R.stateNotMarkedExpected.map((symbol) => [symbol, 'standardState', value(symbol, 'StandardState'), 'no measurement: a prediction that PubChem does not word as one', '6.3']),
+  ...ESTIMATED_MELTING.map((symbol) => [symbol, 'meltingPoint', `${value(symbol, 'MeltingPoint')} K`, 'no measurement: an estimate that PubChem does not mark as one', '6.2']),
+  ...enUntraced.map((symbol) => [symbol, 'electronegativity', value(symbol, 'Electronegativity'), 'no source: PubChem\'s own page for the element has no Pauling-scale line', '3']),
 ].sort((a, b) => zOf(a[0]) - zOf(b[0]))
 p(table(['Z', 'Element', 'Card row', 'PubChem\'s table', 'Against', 'Section'], unresolved.map(([symbol, row, shown, against, section]) => [zOf(symbol), nm(symbol), `\`${row}\``, shown, against, section])))
 p(
-  'The card row is the name of the field in `src/chem-data/periodic-table.json`. Findings that are not disagreements about a shown value are not in this table: sections 3, 6.3 and 6.6 name the values that have no source line, no marking, or a fuller list on PubChem\'s own pages.',
+  'The card row is the name of the field in `src/chem-data/periodic-table.json`. Not in this table, because a decision above settles each with a note or a label: the fuller oxidation-state lists on PubChem\'s own pages (section 6.6), the electron affinities those pages give as zero (6.8), the two values they qualify (6.4), and the densities and temperatures that belong to one form of an element (6.2 and 6.4).',
 )
 
 // ---------------------------------------------------------------------------
@@ -189,7 +200,7 @@ p(
 )
 need(symbols(isotopeNotInCiaaw.map((m) => m.symbol)) === 'Ds, Cn, Og' && isotopeEstimated.length === 16 && isotopeEstimated[0].symbol === 'Lr', 'the isotopes CIAAW does not list are those of Ds, Cn and Og; 16 masses, from Lr on, are estimates')
 p(
-  `**Remark.** A periodic table normally prints these as a mass number in square brackets, for example [209] for polonium, to show that the element has no atomic weight. Printing "${value('Po', 'AtomicMass')} u" beside "atomic mass" would tell a learner that polonium has an atomic weight known to eight figures, so the app labels the number as the mass of the named isotope and says that the element has no standard atomic weight. For darmstadtium, copernicium and oganesson the isotope whose mass PubChem prints is not one that CIAAW's list gives.`,
+  `**Remark.** A periodic table normally prints these as a mass number in square brackets, for example [209] for polonium, to show that the element has no atomic weight. Printing "${value('Po', 'AtomicMass')} u" beside "atomic mass" would tell a learner that polonium has an atomic weight known to eight figures, so the app labels the number as the mass of the named isotope and says that the element has no standard atomic weight. For darmstadtium, copernicium and oganesson the isotope whose mass PubChem prints is not one that CIAAW's list gives, so "mass of the isotope" would name an isotope that the list of the most stable known ones does not hold. Each of the three carries a note on the card giving the mass number CIAAW lists.`,
 )
 
 // ---------------------------------------------------------------------------
@@ -223,7 +234,8 @@ p('## 2. First ionization energy')
 // ---------------------------------------------------------------------------
 p('## 3. Electronegativity (Pauling scale)')
 {
-  const unsourced = R.provenance.Electronegativity.unmatched.map((u) => u.symbol)
+  const unsourced = enUntraced
+  const nistEnergy = (symbol) => R.ie.find((m) => m.symbol === symbol).nist
   const [[lowest, lowestValue], [next, nextValue]] = R.enLowest
   p(
     `PubChem has ${118 - R.empties.Electronegativity.length} values and leaves ${R.empties.Electronegativity.length} empty (section 6.1 names them). The app shows the column as it is. No primary source for Pauling values is among the saved copies; the comparison with a Wikipedia transcription made on ${manifest.retrieved}, in which every value that could be compared agreed, is in section 9.3.`,
@@ -231,9 +243,11 @@ p('## 3. Electronegativity (Pauling scale)')
   p(
     `**Where PubChem's column comes from.** ${Object.values(R.provenance.Electronegativity.tally).reduce((a, b) => a + b, 0)} of the values appear on PubChem's element pages as "Pauling Scale Electronegativity", cited only to "PubChem Elements". ${symbols(unsourced)} ${unsourced.length === 1 ? 'has' : 'have'} a value in the periodic table and no Pauling-scale line on the element page.`,
   )
-  need(lowest === 'Fr' && next === 'Cs' && unsourced.includes('Fr'), 'francium has the lowest electronegativity, cesium the next, and francium\'s has no line on its page')
+  need(lowest === 'Fr' && next === 'Cs' && unsourced.join() === 'Fr,Lr', 'francium has the lowest electronegativity, cesium the next, and francium\'s and lawrencium\'s have no line on their pages')
+  need(Number(nistEnergy('Fr')) > Number(nistEnergy('Cs')), 'NIST gives francium a higher first ionization energy than cesium')
+  need(kept('Fr', 'History').includes('No weighable quantity of the element has been prepared or isolated.'), 'PubChem\'s francium page says no weighable quantity has been prepared')
   p(
-    `**Remark.** Francium's ${lowestValue} is the lowest value in the column, so it sets the bottom of the electronegativity colour scale, and it is one of the ${unsourced.length} values that cannot be traced to a line on PubChem's own page. The next lowest is cesium's ${nextValue}. Neither untraced value carries a note on the card. Helium, neon and argon have no Pauling value because the scale is built from bond energies and they form no ordinary compounds, which is one reason an empty field is not called "not measured".`,
+    `**Remark.** Francium's ${lowestValue} is the lowest value in the column, so it sets the bottom of the electronegativity colour scale, and it is one of the ${unsourced.length} values that cannot be traced to a line on PubChem's own page. The next lowest is cesium's ${nextValue}. NIST's first ionization energies point the other way: francium's (${nistEnergy('Fr')} eV) is higher than cesium's (${nistEnergy('Cs')} eV), which a lower electronegativity would not lead one to expect. Both untraced values carry a note on the card saying that they could not be traced beyond PubChem's table, and are listed under "Unresolved"; francium's note adds what PubChem's francium page says, that no weighable quantity of the element has been prepared. Helium, neon and argon have no Pauling value because the scale is built from bond energies and they form no ordinary compounds, which is one reason an empty field is not called "not measured".`,
   )
 }
 
@@ -267,8 +281,16 @@ p(
   need(second('Ba') === '1845°C (Los Alamos National Laboratory)' && second('Ra') === '1737°C (Los Alamos National Laboratory)', 'the second boiling-point lines are 1845 °C for barium and 1737 °C for radium')
   need(second('C') === '3550°C(diamond) (Los Alamos National Laboratory)' && value('C', 'MeltingPoint') === '3823', 'the second melting-point line for carbon is 3550 °C, labelled diamond, which is the table\'s 3823 K')
   need(['B', 'Am', 'Bk'].every((symbol) => lines(outliers.find((o) => o.symbol === symbol)).length === 1), 'the boron, americium and berkelium pages carry one density line each')
+  // The densities page is the one Wikipedia transcription that is kept, so the figures the three notes quote are read here.
+  const forms = (symbol) => R.handbookDensities.filter((entry) => entry.symbol === symbol)
   p(
-    `**Remark.** For barium and radium the page's second line is itself the disagreement: 1845 °C is 2118 K against the table's ${value('Ba', 'BoilingPoint')} K, and 1737 °C is 2010 K against the table's ${value('Ra', 'BoilingPoint')} K. Their notes on the card quote those lines. For boron, americium and berkelium the page has nothing to set beside the table's density, so their notes quote the handbook figures recorded in section 9.4. For carbon the second line, "3550°C(diamond)", is the table's own ${value('C', 'MeltingPoint')} K with a label; section 6.2 says why that figure needs its note.`,
+    `For the three densities the page has nothing to set beside the table's value. The handbook figures are read from the kept copy of Wikipedia's densities page (solid phase), which transcribes the CRC Handbook and Lange's Handbook:`,
+  )
+  p(table(['Z', 'Element', 'PubChem\'s table (g/cm³)', 'CRC Handbook', 'Lange\'s Handbook'], ['B', 'Am', 'Bk'].flatMap((symbol) => forms(symbol).map((entry) => [zOf(symbol), `${nm(symbol)}${entry.form ? `, ${entry.form}` : ''}`, value(symbol, 'Density'), entry.values.CRC, entry.values.LNG]))))
+  need(handbook('B').CRC === '2.34' && handbook('B').LNG === '2.34' && handbook('Am').CRC === '12' && handbook('Am').LNG === '12', 'both handbooks give 2.34 for boron and 12 for americium')
+  need(handbook('Bk', 'alpha').CRC === '14.78' && handbook('Bk', 'alpha').LNG === '14.78' && handbook('Bk', 'beta').CRC === '13.25' && handbook('Bk', 'beta').LNG === '13.25', 'both handbooks give 14.78 and 13.25 for the two forms of berkelium')
+  p(
+    `**Remark.** For barium and radium the page's second line is itself the disagreement: 1845 °C is 2118 K against the table's ${value('Ba', 'BoilingPoint')} K, and 1737 °C is 2010 K against the table's ${value('Ra', 'BoilingPoint')} K. Their notes on the card quote those lines. The notes on boron, americium and berkelium quote the handbook figures in the table above: 2.34, 12, and 14.78 and 13.25 g/cm³. For carbon the second line, "3550°C(diamond)", is the table's own ${value('C', 'MeltingPoint')} K with a label; section 6.2 says why that figure needs its note.`,
   )
 }
 
@@ -299,9 +321,27 @@ p(
 need(R.trendEnds.MeltingPoint.low[0] === 'He' && R.trendEnds.MeltingPoint.high[0] === 'C', 'helium and carbon are the ends of the melting-point column')
 need(R.meltAboveBoil.map((x) => x.symbol).join() === 'As' && R.narrowLiquidRange.map((x) => x.symbol).join() === 'C', 'arsenic melts above its boiling point; carbon has the narrow liquid range')
 need(R.pages[6].lines.some((l) => l.heading === 'Boiling Point' && l.text === '3800°C(sublimation)'), 'PubChem\'s carbon page has a boiling-point line marked as sublimation')
+need(kept('As', 'Uses').some((text) => text.includes('At 28 times standard atmospheric pressure, arsenic melts at a temperature of 1090 K.')) && value('As', 'MeltingPoint') === '1090', 'PubChem\'s arsenic page says arsenic melts at 1090 K at 28 times atmospheric pressure')
+need(kept('He', 'Description').some((text) => text.includes('It remains liquid down to absolute zero at ordinary pressures')), 'PubChem\'s helium page says helium stays liquid down to absolute zero at ordinary pressures')
+const whitePhosphorus = (heading) => R.pages[15].lines.find((l) => l.heading === heading && l.text.endsWith('(whitephosphorus)'))?.text
+need(whitePhosphorus('Melting Point') && whitePhosphorus('Boiling Point'), 'PubChem\'s phosphorus page labels its melting and boiling points as white phosphorus\'s')
 p(
-  `**Remark.** Neither is a typing error. Arsenic turns straight from solid to vapour at atmospheric pressure, and its "melting point" of ${value('As', 'MeltingPoint')} K is measured under pressure. Carbon also sublimes: PubChem's own carbon page carries a second boiling-point line that reads "3800°C(sublimation)". Helium's ${value('He', 'MeltingPoint')} K is the lowest melting point in the column, and helium does not freeze at atmospheric pressure at any temperature. The rows of other tabulations that say these things are quoted in section 9.5. Carbon's ${value('C', 'MeltingPoint')} K is the highest melting point in the column, above tungsten's ${value('W', 'MeltingPoint')} K. So both ends of a melting-point colour scale are values that are not melting at ordinary pressure: the melting-point legend says so, and arsenic, carbon and helium each carry a note on the card.`,
+  `**Remark.** Neither is a typing error. Arsenic turns straight from solid to vapour at atmospheric pressure, and its "melting point" of ${value('As', 'MeltingPoint')} K is measured under pressure. PubChem's arsenic page gives that pressure as 28 times atmospheric; the CRC row quoted in section 9.5 gives 3.70 MPa, which is about 36 times, so the note on the card says "under pressure" and gives no figure. Carbon also sublimes: PubChem's own carbon page carries a second boiling-point line that reads "3800°C(sublimation)". Helium's ${value('He', 'MeltingPoint')} K is the lowest melting point in the column, and helium does not freeze at atmospheric pressure at any temperature. The rows of other tabulations that say these things are quoted in section 9.5. Carbon's ${value('C', 'MeltingPoint')} K is the highest melting point in the column, above tungsten's ${value('W', 'MeltingPoint')} K. So both ends of a melting-point colour scale are values that are not melting at ordinary pressure: the melting-point legend says so, and arsenic, carbon and helium each carry a note on the card. Phosphorus's melting and boiling points are those of one of its forms: the Los Alamos lines on its page read "${whitePhosphorus('Melting Point')}" and "${whitePhosphorus('Boiling Point')}", in °C, and each row carries a note saying so.`,
 )
+{
+  const amounts = (symbol) => kept(symbol, 'Uses').find((text) => /small amounts|tiny amounts/.test(text))
+  need(ESTIMATED_MELTING.every((symbol) => value(symbol, 'MeltingPoint') !== '' && amounts(symbol)), 'each melting point noted as an estimate is in the table, and the element\'s page says only small amounts have been produced')
+  need(kept('At', 'History').some((text) => text.includes('0.05 micrograms')) && kept('Fm', 'Description').some((text) => text.startsWith('Fermium metal has not been prepared')) && kept('Fm', 'Description').some((text) => text.includes('the heaviest element that can be prepared in macroscopic quantities')), 'the astatine and fermium pages say how little has been made')
+  need(['Md', 'No', 'Lr'].every((symbol) => zOf(symbol) > zOf('Fm')), 'mendelevium, nobelium and lawrencium are heavier than fermium')
+  need(value('Es', 'MeltingPoint') !== '' && !ESTIMATED_MELTING.includes('Es'), 'einsteinium has a melting point that is not noted as an estimate')
+  p(
+    `**Melting points of elements never made in bulk.** PubChem's table gives a melting point, with no marking, for ${ESTIMATED_MELTING.length} elements of which no sample large enough to melt has been made. What PubChem's own pages say of each:`,
+  )
+  p(table(['Z', 'Element', 'PubChem\'s table (K)', 'On PubChem\'s page for the element'], ESTIMATED_MELTING.map((symbol) => [zOf(symbol), nm(symbol), value(symbol, 'MeltingPoint'), [amounts(symbol), ...kept(symbol).filter((text) => text !== amounts(symbol) && !text.includes('heaviest element'))].join(' ')])))
+  p(
+    `**Remark.** A melting point is measured on a sample that can be seen to melt, so these ${ESTIMATED_MELTING.length} figures are estimates or predictions; each carries a note on the card saying so and is listed under "Unresolved". No page says in so many words that its melting point is an estimate. Francium's says that no weighable quantity has been prepared, fermium's that the metal has not been prepared and that predictions have been made, and astatine's that 0.05 micrograms have been produced in all. For mendelevium, nobelium and lawrencium the pages say only that small or tiny amounts have been produced; that no bulk sample exists follows from the fermium page, which calls fermium "the heaviest element that can be prepared in macroscopic quantities". That the figures are estimates is therefore a chemist's reading of these pages, not a statement found on them. Einsteinium's page says the same of einsteinium, and its melting point (${value('Es', 'MeltingPoint')} K) carries no note: it was measured on microgram samples, which is the reviewer's general knowledge and not something a saved source states.`,
+  )
+}
 
 p('### 6.3 Standard state against melting and boiling point at 298.15 K')
 p(
@@ -318,8 +358,9 @@ p(
 )
 need(symbols(stateContradicted.map((x) => x.symbol)) === 'Fl, Og', 'the expected states a boiling point on the page contradicts are those of flerovium and oganesson')
 need(R.expectedStates.find((x) => x.symbol === 'Cn').boiling.startsWith('357+112-108K'), 'copernicium\'s page gives its boiling point as 357 K, plus 112 or minus 108')
+need(symbols(R.stateNotMarkedExpected) === 'Rf, Db, Sg, Bh, Hs, Mt' && R.stateNotMarkedExpected.every((symbol) => kept(symbol, 'Uses').length === 1 && /small amounts|only a few atoms/.test(kept(symbol, 'Uses')[0])), 'rutherfordium to meitnerium are given as Solid with no measurement, and each page says only small amounts or a few atoms have been made')
 p(
-  `**Remark.** PubChem's own pages contradict two of the "expected" states: the boiling-point figure on the page is on the wrong side of 298.15 K for ${symbols(stateContradicted.map((x) => nm(x.symbol)))}. A boiling point near 210 K would make flerovium a gas at room temperature, not a solid; 350 ± 30 K would mean oganesson is not a gas. Both carry a note on the card and are listed under "Unresolved". Copernicium's 357 K has an error bar of about 110 K, which reaches below room temperature, so its page leaves the state open; it carries no note. All of elements 104 to 118 have been made only a few atoms at a time, so every state from rutherfordium on is a prediction, whether or not PubChem says "Expected". ${symbols(R.stateNotMarkedExpected)} are shown as "Solid" without that word and carry no note saying so.`,
+  `**Remark.** PubChem's own pages contradict two of the "expected" states: the boiling-point figure on the page is on the wrong side of 298.15 K for ${symbols(stateContradicted.map((x) => nm(x.symbol)))}. A boiling point near 210 K would make flerovium a gas at room temperature, not a solid; 350 ± 30 K would mean oganesson is not a gas. Both carry a note on the card and are listed under "Unresolved". Copernicium's 357 K has an error bar of about 110 K, which reaches below room temperature, so its page leaves the state open; it carries no note. All of elements 104 to 118 have been made only a few atoms at a time, so every state from rutherfordium on is a prediction, whether or not PubChem says "Expected". ${symbols(R.stateNotMarkedExpected)} are shown as "Solid" without that word; each carries a note on the card saying that PubChem does not word the state as expected although it lists no measurement, and is listed under "Unresolved". PubChem's page for each says that only small amounts of it, or only a few atoms, have been made; the sentences are kept in \`sources/pubchem-element-pages-passages.json\`.`,
 )
 
 p('### 6.4 Density')
@@ -340,6 +381,11 @@ p('### 6.4 Density')
   need(R.qualified.map((q) => `${q.symbol} ${q.column}`).sort().join() === 'At Density,Cm BoilingPoint', 'the values the pages qualify are astatine\'s density and curium\'s boiling point')
   p(
     `**Remark.** The gas densities are at 0 °C and the solids' are near room temperature (section 9.5), so the column is not at one temperature; each gas carries a note on the card saying what its density refers to. On a straight-line colour scale all ${d.gasCount} gases fall in the bottom ${(((d.gasMax.value - d.min.value) / (d.max.value - d.min.value)) * 100).toFixed(2)}% and look identical. The scale is kept linear and the density legend says that the gases sit at the bottom of it (design spec, section 6). The longest printed value is "${R.trendEnds.Density.longest}", ten characters in a table cell. Astatine's density and curium's boiling point, which the pages qualify, each carry a note.`,
+  )
+  need(Number(handbook('C', 'graphite').LNG) === Number(value('C', 'Density')) && handbook('C', 'diamond').CRC === '3.513' && handbook('C', 'diamond').LNG === '3.513', 'carbon\'s density is the handbook figure for graphite, and both handbooks give 3.513 for diamond')
+  need(handbook('P', 'white').CRC === '1.823' && handbook('P', 'white').LNG === '1.823' && Number(handbook('P', 'white').CRC).toFixed(2) === value('P', 'Density') && ['red', 'black'].every((form) => Object.values(handbook('P', form)).every((v) => Number(v) > 1.823)), 'phosphorus\'s density is the handbook figure for white phosphorus, and red and black phosphorus are denser')
+  p(
+    `Two densities are those of one form of an element that has several. On the kept copy of Wikipedia's densities page, carbon's ${value('C', 'Density')} is Lange's figure for graphite (${handbook('C', 'graphite').LNG}; both handbooks give ${handbook('C', 'diamond').CRC} for diamond), and phosphorus's ${value('P', 'Density')} is both handbooks' figure for white phosphorus (${handbook('P', 'white').CRC}) to two decimals, with red and black phosphorus denser. Each carries a note on the card naming the form. PubChem's own pages do not say which form these two densities are for.`,
   )
 }
 
@@ -391,9 +437,11 @@ p('### 6.6 Oxidation states')
   const xe = R.oxidationFuller.find((x) => x.symbol === 'Xe')
   need(xe.table === '0' && xe.losAlamos.includes('+4') && R.library.some((m) => m.formula === 'XeF4'), 'xenon is given only 0, Los Alamos lists +4, and the library holds XeF4')
   need(value('O', 'OxidationStates') === '-2' && R.library.some((m) => m.formula === 'H2O2') && R.library.some((m) => m.formula === 'O2'), 'oxygen is given only -2 and the library holds H2O2 and O2')
+  const fuller = (symbol) => R.oxidationFuller.find((x) => x.symbol === symbol).losAlamos
+  need(fuller('O') === '2, 1, -1, -2' && fuller('Rn') === '6, 2, 0' && fuller('Kr').startsWith('2, 1, 0 '), 'Los Alamos lists 2, 1, -1, -2 for oxygen, 6, 2, 0 for radon and 2, 1, 0 for krypton')
   need(pr.unmatched.filter((u) => u.lines.some((l) => /\(\d\)|predict/.test(l))).length === pr.unmatched.length, 'every unmatched oxidation-state entry is a Los Alamos line that marks predictions')
   p(
-    `**Remark.** The column is a short list of common states, not every known state. Three things follow for the app. First, xenon and krypton are given only "0", yet the library holds XeF4, where xenon is +4; oxygen is given only "−2", yet the library holds hydrogen peroxide (oxygen −1) and O₂ (oxygen 0). The card therefore heads the row "Common oxidation states (PubChem's list, not complete)", and xenon and krypton carry a note; oxygen and radon do not. Second, for the ${R.oxidationPredicted.length} elements just named, Los Alamos marks some or all states as predictions, in parentheses or with the word "predicted", and PubChem's periodic table has dropped the marks. The rule that predicted text keeps its marking cannot be met from the download alone for these, so each carries a note saying which states the page marks. Third, ${o.unsigned.length} entries are written without a + sign; the app shows each list as PubChem writes it, changing only "-" to the true minus sign.`,
+    `**Remark.** The column is a short list of common states, not every known state. Three things follow for the app. First, xenon and krypton are given only "0", yet the library holds XeF4, where xenon is +4; oxygen is given only "−2", yet the library holds hydrogen peroxide (oxygen −1) and O₂ (oxygen 0). The card therefore heads the row "Common oxidation states (PubChem's list, not complete)", and xenon, krypton, radon and oxygen each carry a note giving the other states on PubChem's own page. Second, for the ${R.oxidationPredicted.length} elements just named, Los Alamos marks some or all states as predictions, in parentheses or with the word "predicted", and PubChem's periodic table has dropped the marks. The rule that predicted text keeps its marking cannot be met from the download alone for these, so each carries a note saying which states the page marks. Third, ${o.unsigned.length} entries are written without a + sign; the app shows each list as PubChem writes it, changing only "-" to the true minus sign.`,
   )
 }
 
@@ -419,7 +467,7 @@ p('### 6.8 Electron affinity')
     `${118 - R.empties.ElectronAffinity.length} values, all matching a line on PubChem's element page cited to "PubChem Elements", in eV. Of the ${R.empties.ElectronAffinity.length} empty ones, ${R.affinityEmpty.length - zero.length} have no electron affinity line on the element page either, and ${zero.length} have one whose first value is 0 eV: ${symbols(zero.map((x) => x.symbol))}. For those ${zero.length} the page's second value is negative for ${negative.length} (${negative.map((x) => `${x.symbol} ${x.second.replace(' eV', '')}`).join(', ')}), positive for ${positive.length} (${positive.map((x) => `${x.symbol} ${x.second.replace(' eV', '')}`).join(', ')}) and absent for ${symbols(zero.filter((x) => !x.second).map((x) => x.symbol))}.`,
   )
   p(
-    `**Remark.** For these ${zero.length} elements the field is empty because PubChem's first source gives zero, not because nobody has looked. A zero or negative electron affinity means the atom does not hold on to an extra electron, which is the expected answer for the noble gases and for atoms with filled subshells such as beryllium and magnesium. "Not measured" is the wrong label for them, and the app's wording for every empty field is "no value listed". PubChem's two sources disagree on the sign for ${symbols(positive.map((x) => x.symbol))}, and electron affinity was not compared with an independent source, so this report cannot say which is right.`,
+    `**Remark.** For these ${zero.length} elements the field is empty because PubChem's first source gives zero, not because nobody has looked. A zero or negative electron affinity means the atom does not hold on to an extra electron, which is the expected answer for the noble gases and for atoms with filled subshells such as beryllium and magnesium. "Not measured" is the wrong label for them, and the app's wording for every empty field is "no value listed"; each of the ${zero.length} also carries a note on the card saying that PubChem's page for the element lists 0 eV. PubChem's two sources disagree on the sign for ${symbols(positive.map((x) => x.symbol))}, and electron affinity was not compared with an independent source, so this report cannot say which is right.`,
   )
 }
 
@@ -452,7 +500,7 @@ p('### 6.9 Category')
       '- **Polonium, "Metalloid".** Contested: PubChem\'s own polonium page (Jefferson Lab) calls it a metal. The card carries a note.',
       '- **Astatine, "Halogen".** True by group (17). PubChem\'s own astatine page (Jefferson Lab) calls it a semi-metal, which is the same thing as a metalloid. The card carries a note.',
       `- **Zinc, cadmium, mercury (group 12), "Transition metal".** Common in periodic tables. The usual objection is that these atoms keep a full d subshell: PubChem gives zinc "${value('Zn', 'ElectronConfiguration')}" with only the state ${value('Zn', 'OxidationStates')}, in which the two 4s electrons are lost and the ten d electrons stay. Many textbooks therefore do not count group 12 as transition metals. (IUPAC's definition of a transition element was not fetched: the Gold Book refused an automated request.) The legend says that group 12 is placed by position.`,
-      `- **Lanthanum to lutetium "Lanthanide", actinium to lawrencium "Actinide", 15 of each.** A common convention for the two families. It is not the same thing as the f block: an f subshell holds 14 electrons, so the f block is 14 elements wide. PubChem's configuration gives lanthanum no f electron ("${value('La', 'ElectronConfiguration')}"), and PubChem's element pages put lutetium and lawrencium in group 3. The app takes neither the 15-wide families nor PubChem's group numbers for its blocks: it puts lanthanum and actinium in group 3 and the d block, and makes the f block cerium to lutetium and thorium to lawrencium (design spec, section 5.4), with one note on the page saying that group 3 is unsettled.`,
+      `- **Lanthanum to lutetium "Lanthanide", actinium to lawrencium "Actinide", 15 of each.** A common convention for the two families. It is not the same thing as the f block: an f subshell holds 14 electrons, so the f block is 14 elements wide. PubChem's configuration gives lanthanum no f electron ("${value('La', 'ElectronConfiguration')}"), and PubChem's element pages put lutetium and lawrencium in group 3. The app takes neither the 15-wide families nor PubChem's group numbers for its blocks: it puts lanthanum and actinium in group 3 and the d block, and makes the f block cerium to lutetium and thorium to lawrencium (design spec, section 5.4), with one note on the page saying that group 3 is unsettled and that PubChem puts lutetium and lawrencium there.`,
       '- **Copernicium, "Transition metal"; nihonium, flerovium, moscovium, livermorium, "Post-transition metal"; tennessine, "Halogen"; oganesson, "Noble gas".** Assigned by position in the table. Their chemistry is unknown or known from a handful of atoms, and the predictions for copernicium, flerovium and oganesson do not match their neighbours (section 6.3). Rutherfordium to roentgenium, "Transition metal", are also assigned by position. The legend says that elements 109 to 118 are placed by position.',
       '- PubChem\'s ten names mix two kinds of grouping: four are column names (alkali metal, alkaline earth metal, halogen, noble gas), the rest describe metallic character. A halogen or a noble gas is also a nonmetal. The legend is headed "Chemical family (PubChem\'s grouping)", shows "Nonmetal" as "Other nonmetals", and says that the halogens and noble gases that are nonmetals are listed under their family names (design spec, section 5.5).',
     ].join('\n'),
@@ -464,8 +512,10 @@ p(
   `Names that differ from CIAAW's (IUPAC) spelling: ${R.names.map((n) => `${n.pubchem} (CIAAW: ${n.ciaaw})`).join(', ')}. YearDiscovered is "Ancient" for ${R.years.ancient.length} (${symbols(R.years.ancient)}) and a four-digit year for the other ${118 - R.years.ancient.length}; none is empty. CPKHexColor is empty for ${R.empties.CPKHexColor.length} and malformed for ${R.cpkOdd.map(([s, v]) => `${s} ("${v}", leading zeros lost)`).join(', ')}; the feature does not use it.`,
 )
 need(value('F', 'YearDiscovered') === '1670' && R.years.other.length === 0, 'fluorine is given 1670, and every year is four digits or "Ancient"')
+need(kept('F', 'History').some((text) => text.startsWith('The first recorded use of a fluorine compound dates to around 1670')) && kept('F', 'History').some((text) => text.includes('it was not isolated until 1886')), 'PubChem\'s fluorine page dates the first recorded use of a compound to around 1670 and the isolation to 1886')
+need(kept('Al', 'History').some((text) => text.includes('In 1825')) && kept('Ca', 'History').some((text) => text.includes('1808')) && kept('Si', 'History').some((text) => text.includes('1824') && text.includes('1854')), 'the kept sentences give 1825 for aluminium, 1808 for calcium, and 1824 and 1854 for silicon')
 p(
-  `**Remark.** PubChem's spellings are the ones the app shows. A learner taught British or IUPAC spelling will search for "aluminium" and "caesium", so the command palette is to find both spellings. The years were not checked against another source, with one exception that stands out: fluorine's ${bySymbol.get('F').YearDiscovered}. PubChem's own fluorine page explains it (Jefferson Lab: the first recorded use of a fluorine compound dates to around 1670) and also says the element "was not isolated until 1886" (CIAAW's text on the same page); that history text was read on the page on ${manifest.retrieved} and is not part of the saved extract. 1886 is the date a learner will find everywhere else, and the card gives it in a note.`,
+  `**Remark.** PubChem's spellings are the ones the app shows. A learner taught British or IUPAC spelling will search for "aluminium" and "caesium", so the command palette is to find both spellings. The years were not checked against another source, with one exception that stands out: fluorine's ${bySymbol.get('F').YearDiscovered}. PubChem's own fluorine page explains it (Jefferson Lab: the first recorded use of a fluorine compound dates to around 1670) and also says the element "was not isolated until 1886" (CIAAW's text on the same page). 1886 is the date a learner will find everywhere else, and the card gives it in a note. Aluminum and calcium, both "Ancient", and silicon's 1854 carry notes of the same kind. The sentences of the pages' history text that these four notes rest on, and those behind the helium, arsenic and francium notes, are kept in \`sources/pubchem-element-pages-passages.json\`.`,
 )
 
 // ---------------------------------------------------------------------------
@@ -528,6 +578,8 @@ p(
     '- **Year discovered**: not compared with another source, apart from the remark on fluorine.',
     '- **Oxidation states**: scanned for form and against PubChem\'s own element pages, not compared with an independent list.',
     '- **Melting point, boiling point, density**: compared once with a transcription to within 0.5% or 1% (section 9.4), not digit by digit, and not against a primary source.',
+    '- **That the six melting points noted as estimates are estimates**: PubChem\'s pages say how little of each element has been made, and none says that its melting point is an estimate (section 6.2).',
+    '- **The handbooks behind the density notes**: the CRC Handbook and Lange\'s Handbook were read only through the kept Wikipedia transcription (section 5).',
     '- **Electronegativity**: the one comparison (section 9.3) was with a transcription that shares its origin (WebElements) with PubChem. No primary source for Pauling values was fetched.',
     `- **Ionization energy and configuration for elements ${R.nistCoverage.max + 1} to 118**: NIST has no entry; PubChem has no ionization energy for them either.`,
     '- **The IUPAC definition of a transition element** (for group 12): the IUPAC Gold Book refused an automated request.',
@@ -540,15 +592,15 @@ p(
 p('## 11. Sources')
 {
   const row = (f) => [`\`${f.file}\``, f.what, f.url]
-  const kept = manifest.files.filter((f) => R.filesRead.includes(f.file))
-  if (kept.length !== R.filesRead.length) throw new Error('MANIFEST.json does not list every saved copy the script reads')
-  p('Saved copies the script reads, in `docs/research/periodic-table/sources/`:')
-  p(table(['Saved copy', 'What it is', 'URL'], kept.map(row)))
+  const keptFiles = manifest.files.filter((f) => R.filesRead.includes(f.file))
+  if (keptFiles.length !== R.filesRead.length) throw new Error('MANIFEST.json does not list every saved copy the script reads')
+  p('Saved copies the script reads, in `docs/research/periodic-table/sources/`. The Wikipedia page is kept under its own licence; `README.md` in that folder gives the attribution:')
+  p(table(['Saved copy', 'What it is', 'URL'], keptFiles.map(row)))
   p(
     'The script also reads the download itself (`pubchem-periodic-table.json`), `decisions.json` for the isotope each mass belongs to, `cross-check-recorded.md` for section 9, and the app\'s `src/chem-data/elements.json` and `src/chem-data/library-index.json`.',
   )
-  p(`Read on ${manifest.retrieved} and not kept in the repository. Section 9 rests on these; the NIST help page is where the meaning of NIST's brackets and parentheses (section 2) comes from:`)
-  p(table(['Copy', 'What it is', 'URL'], manifest.files.filter((f) => !kept.includes(f)).map(row)))
+  p(`Read on ${manifest.retrieved} and not kept in the repository. Section 9 rests on these; the NIST help page is where the meaning of NIST's brackets and parentheses (section 2) comes from, and section 9.8 quotes it:`)
+  p(table(['Copy', 'What it is', 'URL'], manifest.files.filter((f) => !keptFiles.includes(f)).map(row)))
   p(
     `All retrieved ${manifest.retrieved}. The Wikipedia pages are transcriptions and were used only where no primary table could be fetched; the report says so wherever one is used.`,
   )

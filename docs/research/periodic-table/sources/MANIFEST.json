@@ -1,6 +1,6 @@
 {
   "retrieved": "2026-10-03",
-  "about": "Every copy read for the cross-check on the retrieval date. This folder holds only some of them; the rest were not kept, and docs/research/periodic-table/cross-check.md (sections 9 and 11) records what was found in them.",
+  "about": "Every copy read for the cross-check on the retrieval date. This folder holds only some of them; the rest were not kept, and docs/research/periodic-table/cross-check.md (sections 9 and 11) records what was found in them. README.md in this folder gives the attribution the Wikipedia copy requires.",
   "files": [
     {
       "file": "ciaaw-abridged-atomic-weights.html",
@@ -77,6 +77,12 @@
     {
       "file": "pubchem-element-pages-extract.json",
       "what": "Property lines, each with the source PubChem cites, from PubChem's 118 element pages (reduced by extract-pubchem-pages.mjs)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/element/<Z>/JSON",
+      "role": "pubchem"
+    },
+    {
+      "file": "pubchem-element-pages-passages.json",
+      "what": "Sentences from the history, description and uses text of PubChem's element pages that notes in decisions.json rest on, each with the source PubChem cites (selected by extract-pubchem-pages.mjs)",
       "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/element/<Z>/JSON",
       "role": "pubchem"
     },

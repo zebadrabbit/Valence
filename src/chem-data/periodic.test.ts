@@ -697,6 +697,19 @@ describe('the cross-check report', () => {
     expect(new Set(listed).size).toBe(listed.length)
   })
 
+  it('also lists the values PubChem gives as plain facts that are predictions, estimates, untraced, or not the isotope CIAAW lists', () => {
+    const listed = unresolved.map(({ symbol, row }) => `${symbol} ${row}`)
+    expect(listed).toEqual(
+      expect.arrayContaining([
+        ...['Ds', 'Cn', 'Og'].map((symbol) => `${symbol} atomicMass`),
+        ...['Rf', 'Db', 'Sg', 'Bh', 'Hs', 'Mt'].map((symbol) => `${symbol} standardState`),
+        ...['At', 'Fr', 'Fm', 'Md', 'No', 'Lr'].map((symbol) => `${symbol} meltingPoint`),
+        ...['Fr', 'Lr'].map((symbol) => `${symbol} electronegativity`),
+      ]),
+    )
+    expect(listed.length).toBe(26)
+  })
+
   it('leaves no unresolved item without a note on the row it names', () => {
     for (const { z, symbol, row } of unresolved) {
       expect([symbol, element(symbol).atomicNumber]).toEqual([symbol, z])

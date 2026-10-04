@@ -1,8 +1,8 @@
 ## 9. Recorded on 2026-10-03: comparisons the script does not repeat
 
-Everything in this section was computed on 2026-10-03 by the first version of the cross-check scripts, from saved copies that are not kept in this repository: CIAAW's full table of standard atomic weights, the AME2020 mass table, the NUBASE2020 half-lives, and five Wikipedia data pages (section 11 lists each with its address and revision). The script copies this section into the report from `cross-check-recorded.md` and recomputes nothing in it, so nothing here has been checked against a source since that date. To repeat a comparison, fetch its source again; the code that made it is in this repository's history, under `docs/research/periodic-table/prototype/`.
+Everything in this section was computed on 2026-10-03 by the first version of the cross-check scripts, from saved copies: CIAAW's full table of standard atomic weights, the AME2020 mass table, the NUBASE2020 half-lives, and five Wikipedia data pages (section 11 lists each with its address and revision). Of these only the Wikipedia page of densities is kept in this repository; section 5 reads the figures the density notes quote from it. The script copies this section into the report from `cross-check-recorded.md` and recomputes nothing in it, so nothing here has been checked against a source since that date. To repeat a comparison, fetch its source again; the code that made it is in this repository's history, under `docs/research/periodic-table/prototype/`.
 
-The tables and the paragraphs under them are the 2026-10-03 report's own words; only the headings and the sentences that lead into them are new. "PubChem" in it means the periodic table download. It was written before the decisions listed under "What was decided" were made: where it says what the app should do, that list says what was done. The script takes one thing from this section, the values that failed the check in 9.4. It reads them from the three tables there, stops if the download no longer holds one of them, and lists them under "Unresolved".
+The tables and the paragraphs under them are the 2026-10-03 report's own words; only the headings and the sentences that lead into them are new. "PubChem" in it means the periodic table download. It was written before the decisions listed under "What was decided" were made: where it says what the app should do, that list says what was done. Section 9.8 is the exception: it quotes a help page and compares nothing. The script takes one thing from this section, the values that failed the check in 9.4. It reads them from the three tables there, stops if the download no longer holds one of them, and lists them under "Unresolved".
 
 ### 9.1 Summary of the recorded comparisons
 
@@ -136,3 +136,11 @@ From the 2026-10-03 report's section 6.5: PubChem's AtomicRadius column was comp
 ### 9.7 Whether PubChem had changed since the download
 
 A fresh copy of the periodic table fetched on 2026-10-03 was byte-identical to the committed one. It has not been fetched again.
+
+### 9.8 What NIST's brackets and parentheses mean
+
+Section 2 and the build script read NIST's marking of each ionization energy: no mark, square brackets, or parentheses. The meaning is from the help page of the NIST Atomic Spectra Database's ionization energy form (https://physics.nist.gov/PhysRefData/ASD/Html/iehelp.html), read on 2026-10-03 and not kept. Its words:
+
+> Some ionization energies are in square brackets "[ ]" and some are in parentheses "( )". Square brackets indicate the energies determined by interpolation, extrapolation, or other semi-empirical procedure relying on some known experimental values. Parentheses indicate energies that have been determined from an ab-initio calculation, or are otherwise not derived from evaluated experimental data.
+
+In the saved file the two halves of a mark are in the columns headed "Prefix" and "Suffix", on either side of the energy. The build reads an energy with neither as measured, with "[" and "]" as semi-empirical, and with "(" and ")" as theoretical, and stops on any other pair.
