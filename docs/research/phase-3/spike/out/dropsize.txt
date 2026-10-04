@@ -1,0 +1,11 @@
+effective strength (% w/v at 0.05 mL per drop) | threshold | worst e* 2 drops | worst e* 3 drops | result
+0.2% | 1e-6 | 0.0117 | 0.0114 | passes
+0.2% | 3e-6 | 0.0205 | 0.0187 | passes
+0.25% | 1e-6 | 0.0114 | 0.0114 | passes
+0.25% | 3e-6 | 0.0192 | 0.0184 | passes
+0.3% | 1e-6 | 0.0114 | 0.0115 | passes
+0.3% | 3e-6 | 0.0187 | 0.0183 | passes
+0.4% | 1e-6 | 0.0115 | 0.0119 | passes
+0.4% | 3e-6 | 0.0183 | 0.0187 | passes
+0.5% | 1e-6 | 0.0116 | 0.0123 | passes
+0.5% | 3e-6 | 0.0184 | 0.0192 | passes

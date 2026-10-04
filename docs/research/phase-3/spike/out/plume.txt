@@ -1,0 +1,41 @@
+plume fraction = moles of NaOH in the last drop of the addition / moles of excess strong acid before it (capped at 1)
+states: persists when the mixed flask >= threshold; else "fades slowly" when fraction >= 0.1; else "fades at once"
+fade time = fraction x 10 s of swirling; intensity = total indicator concentration in the flask
+
+Seed 1, 2 drops, 0.25 mL stream steps. V_eq 25.6522 mL, endpoint at 25.675 mL (0.0228 past)
+delivered mL | mL before V_eq | mode | plume fraction | fade s | status line | mixed pH | mixed pink (M)
+0.250 | 25.4022 | stream | 0.002 | 0.0 | pink fades at once | 1.02 | 1.9e-21
+5.250 | 20.4022 | stream | 0.002 | 0.0 | pink fades at once | 1.19 | 3.6e-21
+10.250 | 15.4022 | stream | 0.003 | 0.0 | pink fades at once | 1.38 | 7.3e-21
+15.250 | 10.4022 | stream | 0.005 | 0.0 | pink fades at once | 1.61 | 1.8e-20
+20.250 | 5.4022 | stream | 0.009 | 0.1 | pink fades at once | 1.95 | 7.6e-20
+23.500 | 2.1522 | stream | 0.023 | 0.2 | pink fades at once | 2.38 | 5.1e-19
+23.550 | 2.1022 | drop | 0.023 | 0.2 | pink fades at once | 2.39 | 5.4e-19
+24.000 | 1.6522 | drop | 0.029 | 0.3 | pink fades at once | 2.50 | 8.8e-19
+24.500 | 1.1522 | drop | 0.042 | 0.4 | pink fades at once | 2.66 | 1.8e-18
+25.000 | 0.6522 | drop | 0.071 | 0.7 | pink fades at once | 2.91 | 5.8e-18
+25.100 | 0.5522 | drop | 0.083 | 0.8 | pink fades at once | 2.98 | 8.1e-18
+25.150 | 0.5022 | drop | 0.091 | 0.9 | pink fades at once | 3.02 | 9.8e-18
+25.200 | 0.4522 | drop | 0.100 | 1.0 | pink fades at once | 3.07 | 1.2e-17
+25.250 | 0.4022 | drop | 0.111 | 1.1 | pink fades slowly | 3.12 | 1.5e-17
+25.300 | 0.3522 | drop | 0.124 | 1.2 | pink fades slowly | 3.18 | 2.0e-17
+25.350 | 0.3022 | drop | 0.142 | 1.4 | pink fades slowly | 3.24 | 2.7e-17
+25.400 | 0.2522 | drop | 0.165 | 1.7 | pink fades slowly | 3.32 | 3.9e-17
+25.450 | 0.2022 | drop | 0.198 | 2.0 | pink fades slowly | 3.42 | 6.1e-17
+25.475 | 0.1772 | half | 0.124 | 1.2 | pink fades slowly | 3.48 | 7.9e-17
+25.500 | 0.1522 | half | 0.141 | 1.4 | pink fades slowly | 3.54 | 1.1e-16
+25.525 | 0.1272 | half | 0.164 | 1.6 | pink fades slowly | 3.62 | 1.5e-16
+25.550 | 0.1022 | half | 0.197 | 2.0 | pink fades slowly | 3.72 | 2.4e-16
+25.575 | 0.0772 | half | 0.245 | 2.4 | pink fades slowly | 3.84 | 4.2e-16
+25.600 | 0.0522 | half | 0.324 | 3.2 | pink fades slowly | 4.01 | 9.1e-16
+25.625 | 0.0272 | half | 0.479 | 4.8 | pink fades slowly | 4.29 | 3.4e-15
+25.650 | 0.0022 | half | 0.919 | 9.2 | pink fades slowly | 5.32 | 3.9e-13
+25.675 | -0.0228 | half | 1.000 | stays | pink persists | 9.07 | 4.9e-6
+25.700 | -0.0478 | half | 1.000 | stays | pink persists | 9.58 | 1.5e-5
+25.725 | -0.0728 | half | 1.000 | stays | pink persists | 9.87 | 2.1e-5
+
+Over seeds 1-100 (2 and 3 drops), careful run to the endpoint:
+"fades slowly" first shown (after the stream) with 0.451 to 0.499 mL still to go
+dropwise additions showing "fades slowly": 5 to 5; half-drop additions showing it: 8 to 10
+status never steps backwards after the stream phase: 200/200; "persists" shown only at the endpoint: 200/200
+stream additions that end on anything but "fades at once" (2.00 to 2.25 mL before V_eq): 0/100

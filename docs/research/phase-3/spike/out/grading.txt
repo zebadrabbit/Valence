@@ -1,0 +1,22 @@
+
+=== Careful run, no technique error, threshold 3e-6 M; seeds 1-100 x trials 1-3 x (2,3 drops) = 600 runs ===
+endpoint lateness: mean 0.0292 mL, max 0.0425 mL
+honest readings (true meniscus rounded to 0.01 mL): error -0.315% to +0.059%; trials outside +-1.0%: 0/600
+readings at the edge of the 0.02 mL tolerance, both against the learner: error -0.433% to +0.197%; outside +-1.0%: 0/600 (worst: seed 79 trial 2 drops 2)
+
+=== Careful run, no technique error, threshold 1e-6 M; seeds 1-100 x trials 1-3 x (2,3 drops) = 600 runs ===
+endpoint lateness: mean 0.0239 mL, max 0.0365 mL
+honest readings (true meniscus rounded to 0.01 mL): error -0.285% to +0.061%; trials outside +-1.0%: 0/600
+readings at the edge of the 0.02 mL tolerance, both against the learner: error -0.407% to +0.209%; outside +-1.0%: 0/600 (worst: seed 78 trial 2 drops 3)
+
+Bound over the whole seeded box (pipette +-0.03, endpoint 0 to 0.05 late, titre misread by +-0.04): -0.562% to +0.319%
+
+=== Technique errors, each alone, threshold 3e-6 M, seeds 1-100, trial 1, 2 and 3 drops ===
+error | shift vs the same run without the error (min..max) | absolute error, honest readings (min..max) | absolute error with readings pushed 0.02 mL toward passing (closest to zero) | flagged overshoot against the flask's own equivalence | overshoot if judged against the nominal equivalence
+unconditioned burette (titrant x0.98) | -2.104%..-1.875% | -2.283%..-1.945% | -1.812% | 0/200 | 200/200
+tip bubble (0.60 mL recorded, not delivered) | -2.850%..-2.183% | -3.048%..-2.256% | -2.117% | 0/200 | 0/200
+pipette not rinsed (aliquot x0.98) | +1.922%..+2.133% | +1.741%..+2.099% | +1.598% | 0/200 | 0/200
+distilled water, 10 mL (CO2-free) | -0.143%..+0.000% | -0.296%..+0.050% | -0.001% | 0/200 | 0/200
+distilled water, 25 mL (CO2-free) | -0.143%..+0.000% | -0.332%..-0.001% | -0.001% | 0/200 | 0/200
+
+Grading boundary: +0.9% -> pass ; +1.1% -> fail

@@ -1,0 +1,6 @@
+IAPWS R11-24 Table 2 check: T=300 K, rho=1.0 -> expect 13.906672, got 13.906672
+IAPWS R11-24 Table 2 check: T=600 K, rho=0.7 -> expect 11.147093, got 11.147093
+IAPWS R11-24 Table 2 check: T=800 K, rho=1.2 -> expect 6.4058649, got 6.4058649
+pKw (molal basis) at 298.15 K, rho=0.997: 13.9947
+pKw (molal basis) at 298.15 K, rho=0.99705: 13.9943
+pKw (molal basis) at 298.15 K, rho=0.9971: 13.9939

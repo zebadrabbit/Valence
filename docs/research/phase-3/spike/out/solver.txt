@@ -1,0 +1,17 @@
+Solver spot values (Kw pinned 1e-14, acetic pKa 4.756, phosphoric pKas 2.148/7.198/12.375)
+case | solver pH | independent pH | difference | spec value | pass (<0.01)
+0.0100 M HCl | 2.0000 | 2.0000 | -2.2e-16 | 2.00 | PASS
+1e-8 M HCl | 6.9783 | 6.9783 | 0.0e+0 | 6.98 | PASS
+0.10 M acetic acid | 2.8809 | 2.8809 | 4.4e-16 | 2.87-2.88 | PASS
+0.10 M acetic acid + 0.10 M sodium acetate | 4.7562 | 4.7562 | 0.0e+0 | pKa 4.756 | PASS
+0.10 M H3PO4 | 1.6317 | 1.6317 | 0.0e+0 | about 1.63 | PASS
+
+Titration curve, HCl with NaOH, no indicator, no CO2
+points more than 0.5 mL from equivalence: 17649; worst |pH - closed form| = 1.78e-15 at cA=0.085 cB=0.095 v=22.900 -> PASS
+worst |V(pH 7.00) - V_stoich| over 9 concentration pairs = 3.55e-15 mL -> PASS
+with pKw 13.99: V(pH 7.00) - V_stoich = 1.00e-6 mL
+1e-8 M HCl with pKw 13.99: solver pH 6.9735
+1e-8 M HCl with pKw 13.995: solver pH 6.9759
+1e-8 M HCl with pKw 14: solver pH 6.9783
+
+ALL SOLVER CHECKS PASS

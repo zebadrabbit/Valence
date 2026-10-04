@@ -1,0 +1,46 @@
+=== Worst e* (mL past V_eq to reach threshold), two-step model, CO2 1x; must be <= 0.025 ===
+threshold | strength | 1 drop | 2 drops | 3 drops | 4 drops
+5e-7 | 0.1% | 0.0123 | 0.0099 | 0.0093 | 0.0090
+5e-7 | 0.5% | 0.0089 | 0.0092 | 0.0097 | 0.0102
+5e-7 | 1% | 0.0092 | 0.0102 | 0.0111 | 0.0119
+1e-6 | 0.1% | 0.0195 | 0.0136 | 0.0122 | 0.0117
+1e-6 | 0.5% | 0.0114 | 0.0116 | 0.0123 | 0.0130
+1e-6 | 1% | 0.0116 | 0.0130 | 0.0142 | 0.0154
+2e-6 | 0.1% | 0.0500 FAIL | 0.0214 | 0.0175 | 0.0162
+2e-6 | 0.5% | 0.0155 | 0.0153 | 0.0161 | 0.0171
+2e-6 | 1% | 0.0153 | 0.0170 | 0.0188 | 0.0205
+3e-6 | 0.1% | Infinity FAIL | 0.0324 FAIL | 0.0233 | 0.0205
+3e-6 | 0.5% | 0.0192 | 0.0184 | 0.0192 | 0.0203
+3e-6 | 1% | 0.0184 | 0.0203 | 0.0224 | 0.0244
+4e-6 | 0.1% | Infinity FAIL | 0.0528 FAIL | 0.0304 FAIL | 0.0252 FAIL
+4e-6 | 0.5% | 0.0230 | 0.0212 | 0.0220 | 0.0232
+4e-6 | 1% | 0.0212 | 0.0231 | 0.0256 FAIL | 0.0279 FAIL
+5e-6 | 0.1% | Infinity FAIL | 0.1138 FAIL | 0.0402 FAIL | 0.0306 FAIL
+5e-6 | 0.5% | 0.0269 FAIL | 0.0238 | 0.0245 | 0.0257 FAIL
+5e-6 | 1% | 0.0238 | 0.0257 FAIL | 0.0284 FAIL | 0.0309 FAIL
+
+=== Endpoint colour at each threshold (two-step, 0.5%, CO2 1x, real grid, seeds 1-100) ===
+threshold | drops | landing past V_eq min..mean..max mL | pink at endpoint max (M) | pink at V_eq+0.10 min (M) | ratio max endpoint / min overshoot line
+1e-6 | 2 | 0.0103..0.0241..0.0358 | 1.22e-5 | 2.35e-5 | 0.52
+1e-6 | 3 | 0.0114..0.0246..0.0360 | 1.28e-5 | 3.33e-5 | 0.38
+2e-6 | 2 | 0.0143..0.0279..0.0398 | 1.45e-5 | 2.35e-5 | 0.62
+2e-6 | 3 | 0.0149..0.0286..0.0398 | 1.55e-5 | 3.33e-5 | 0.47
+3e-6 | 2 | 0.0163..0.0299..0.0423 | 1.49e-5 | 2.35e-5 | 0.64
+3e-6 | 3 | 0.0179..0.0301..0.0423 | 1.71e-5 | 3.33e-5 | 0.51
+
+=== Is 3e-6 M a believable "faint pink"? Beer-Lambert with Tamura's absorbance ===
+molar absorptivity of the red form = 37500 L/(mol cm) at 552.8 nm
+pink conc (M) | absorbance through 2 cm | 4 cm | 7 cm of liquid
+3e-7 | 0.022 | 0.045 | 0.079
+1e-6 | 0.075 | 0.150 | 0.263
+2e-6 | 0.150 | 0.300 | 0.525
+3e-6 | 0.225 | 0.450 | 0.787
+5e-6 | 0.375 | 0.750 | 1.313
+2e-5 | 1.125 | 2.250 | 3.938
+3e-5 | 2.250 | 4.500 | 7.875
+
+=== British Pharmacopoeia sensitivity test, run through the model ===
+0.1 mL of 0.1% indicator in 100 mL CO2-free water; not more than 0.2 mL of 0.02 M NaOH turns it pink.
+two-step 9.05/9.50: pH 9.54, pink fraction 0.455, pink concentration 1.43e-6 M (total indicator 3.13e-6 M)
+one-step 9.7: pH 9.58, pink fraction 0.429, pink concentration 1.34e-6 M (total indicator 3.13e-6 M)
+So a pink that the pharmacopoeia calls visible is at or below that concentration: the threshold should not be far above it.

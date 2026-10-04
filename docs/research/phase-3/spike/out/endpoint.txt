@@ -1,0 +1,345 @@
+CO2(aq) at air equilibrium = 1.47e-5 mol/L; indicator 0.5% = 1.57e-2 mol/L
+seeds 1-100: V_eq range 20.404 to 26.852 mL
+
+=== A. Acceptance test, seeds 1-100, 2 and 3 drops, faintPinkConcentration 3e-6 M, CO2 at 1x air ===
+indicator model | strength | stream | drops | pass/100 | landing past V_eq mL (min..max) | landed on 1st/2nd/3rd+ addition past V_eq | failure reasons
+two-step 9.05/9.50 (Tamura) | 0.1% | literal (one pour to V_eq-2.00) | 2 | 100 | 0.0250..0.0500 | 0/18/82 | -
+two-step 9.05/9.50 (Tamura) | 0.1% | literal (one pour to V_eq-2.00) | 3 | 100 | 0.0250..0.0250 | 0/100/0 | -
+two-step 9.05/9.50 (Tamura) | 0.1% | 0.10 mL steps | 2 | 95 | 0.0253..0.0535 | 0/95/5 | later than 0.05 mL: 5
+two-step 9.05/9.50 (Tamura) | 0.1% | 0.10 mL steps | 3 | 100 | 0.0208..0.0458 | 16/84/0 | -
+two-step 9.05/9.50 (Tamura) | 0.1% | 0.25 mL steps | 2 | 95 | 0.0253..0.0535 | 0/95/5 | later than 0.05 mL: 5
+two-step 9.05/9.50 (Tamura) | 0.1% | 0.25 mL steps | 3 | 100 | 0.0208..0.0458 | 16/84/0 | -
+two-step 9.05/9.50 (Tamura) | 0.1% | 0.50 mL steps | 2 | 95 | 0.0253..0.0535 | 0/95/5 | later than 0.05 mL: 5
+two-step 9.05/9.50 (Tamura) | 0.1% | 0.50 mL steps | 3 | 100 | 0.0208..0.0458 | 16/84/0 | -
+two-step 9.05/9.50 (Tamura) | 0.1% | 0.37 mL steps (off-grid) | 2 | 95 | 0.0249..0.0532 | 1/94/5 | later than 0.05 mL: 5
+two-step 9.05/9.50 (Tamura) | 0.1% | 0.37 mL steps (off-grid) | 3 | 100 | 0.0196..0.0458 | 16/84/0 | -
+two-step 9.05/9.50 (Tamura) | 0.5% | literal (one pour to V_eq-2.00) | 2 | 100 | 0.0250..0.0250 | 0/100/0 | -
+two-step 9.05/9.50 (Tamura) | 0.5% | literal (one pour to V_eq-2.00) | 3 | 100 | 0.0250..0.0250 | 0/100/0 | -
+two-step 9.05/9.50 (Tamura) | 0.5% | 0.10 mL steps | 2 | 100 | 0.0163..0.0423 | 27/73/0 | -
+two-step 9.05/9.50 (Tamura) | 0.5% | 0.10 mL steps | 3 | 100 | 0.0179..0.0423 | 26/74/0 | -
+two-step 9.05/9.50 (Tamura) | 0.5% | 0.25 mL steps | 2 | 100 | 0.0163..0.0423 | 27/73/0 | -
+two-step 9.05/9.50 (Tamura) | 0.5% | 0.25 mL steps | 3 | 100 | 0.0179..0.0423 | 26/74/0 | -
+two-step 9.05/9.50 (Tamura) | 0.5% | 0.50 mL steps | 2 | 100 | 0.0163..0.0423 | 27/73/0 | -
+two-step 9.05/9.50 (Tamura) | 0.5% | 0.50 mL steps | 3 | 100 | 0.0179..0.0423 | 26/74/0 | -
+two-step 9.05/9.50 (Tamura) | 0.5% | 0.37 mL steps (off-grid) | 2 | 100 | 0.0164..0.0421 | 27/73/0 | -
+two-step 9.05/9.50 (Tamura) | 0.5% | 0.37 mL steps (off-grid) | 3 | 100 | 0.0166..0.0423 | 25/75/0 | -
+two-step 9.05/9.50 (Tamura) | 1% | literal (one pour to V_eq-2.00) | 2 | 100 | 0.0250..0.0250 | 0/100/0 | -
+two-step 9.05/9.50 (Tamura) | 1% | literal (one pour to V_eq-2.00) | 3 | 100 | 0.0250..0.0250 | 0/100/0 | -
+two-step 9.05/9.50 (Tamura) | 1% | 0.10 mL steps | 2 | 100 | 0.0179..0.0423 | 26/74/0 | -
+two-step 9.05/9.50 (Tamura) | 1% | 0.10 mL steps | 3 | 100 | 0.0208..0.0458 | 16/84/0 | -
+two-step 9.05/9.50 (Tamura) | 1% | 0.25 mL steps | 2 | 100 | 0.0179..0.0423 | 26/74/0 | -
+two-step 9.05/9.50 (Tamura) | 1% | 0.25 mL steps | 3 | 100 | 0.0208..0.0458 | 16/84/0 | -
+two-step 9.05/9.50 (Tamura) | 1% | 0.50 mL steps | 2 | 100 | 0.0179..0.0423 | 26/74/0 | -
+two-step 9.05/9.50 (Tamura) | 1% | 0.50 mL steps | 3 | 100 | 0.0208..0.0458 | 16/84/0 | -
+two-step 9.05/9.50 (Tamura) | 1% | 0.37 mL steps (off-grid) | 2 | 100 | 0.0191..0.0440 | 20/80/0 | -
+two-step 9.05/9.50 (Tamura) | 1% | 0.37 mL steps (off-grid) | 3 | 100 | 0.0203..0.0458 | 15/85/0 | -
+one-step 9.7 (Merck) | 0.1% | literal (one pour to V_eq-2.00) | 2 | 100 | 0.0250..0.0500 | 0/13/87 | -
+one-step 9.7 (Merck) | 0.1% | literal (one pour to V_eq-2.00) | 3 | 100 | 0.0250..0.0250 | 0/100/0 | -
+one-step 9.7 (Merck) | 0.1% | 0.10 mL steps | 2 | 87 | 0.0253..0.0557 | 0/87/13 | later than 0.05 mL: 13
+one-step 9.7 (Merck) | 0.1% | 0.10 mL steps | 3 | 100 | 0.0163..0.0423 | 27/73/0 | -
+one-step 9.7 (Merck) | 0.1% | 0.25 mL steps | 2 | 87 | 0.0253..0.0557 | 0/87/13 | later than 0.05 mL: 13
+one-step 9.7 (Merck) | 0.1% | 0.25 mL steps | 3 | 100 | 0.0163..0.0423 | 27/73/0 | -
+one-step 9.7 (Merck) | 0.1% | 0.50 mL steps | 2 | 87 | 0.0253..0.0557 | 0/87/13 | later than 0.05 mL: 13
+one-step 9.7 (Merck) | 0.1% | 0.50 mL steps | 3 | 100 | 0.0163..0.0423 | 27/73/0 | -
+one-step 9.7 (Merck) | 0.1% | 0.37 mL steps (off-grid) | 2 | 86 | 0.0249..0.0578 | 1/85/14 | later than 0.05 mL: 14
+one-step 9.7 (Merck) | 0.1% | 0.37 mL steps (off-grid) | 3 | 100 | 0.0166..0.0421 | 26/74/0 | -
+one-step 9.7 (Merck) | 0.5% | literal (one pour to V_eq-2.00) | 2 | 100 | 0.0250..0.0250 | 0/100/0 | -
+one-step 9.7 (Merck) | 0.5% | literal (one pour to V_eq-2.00) | 3 | 100 | 0.0250..0.0250 | 0/100/0 | -
+one-step 9.7 (Merck) | 0.5% | 0.10 mL steps | 2 | 100 | 0.0075..0.0331 | 67/33/0 | -
+one-step 9.7 (Merck) | 0.5% | 0.10 mL steps | 3 | 100 | 0.0065..0.0318 | 70/30/0 | -
+one-step 9.7 (Merck) | 0.5% | 0.25 mL steps | 2 | 100 | 0.0075..0.0331 | 67/33/0 | -
+one-step 9.7 (Merck) | 0.5% | 0.25 mL steps | 3 | 100 | 0.0065..0.0318 | 70/30/0 | -
+one-step 9.7 (Merck) | 0.5% | 0.50 mL steps | 2 | 100 | 0.0075..0.0331 | 67/33/0 | -
+one-step 9.7 (Merck) | 0.5% | 0.50 mL steps | 3 | 100 | 0.0065..0.0318 | 70/30/0 | -
+one-step 9.7 (Merck) | 0.5% | 0.37 mL steps (off-grid) | 2 | 100 | 0.0079..0.0328 | 66/34/0 | -
+one-step 9.7 (Merck) | 0.5% | 0.37 mL steps (off-grid) | 3 | 100 | 0.0071..0.0315 | 69/31/0 | -
+one-step 9.7 (Merck) | 1% | literal (one pour to V_eq-2.00) | 2 | 100 | 0.0250..0.0250 | 0/100/0 | -
+one-step 9.7 (Merck) | 1% | literal (one pour to V_eq-2.00) | 3 | 100 | 0.0250..0.0250 | 0/100/0 | -
+one-step 9.7 (Merck) | 1% | 0.10 mL steps | 2 | 100 | 0.0062..0.0315 | 72/28/0 | -
+one-step 9.7 (Merck) | 1% | 0.10 mL steps | 3 | 100 | 0.0060..0.0307 | 75/25/0 | -
+one-step 9.7 (Merck) | 1% | 0.25 mL steps | 2 | 100 | 0.0062..0.0315 | 72/28/0 | -
+one-step 9.7 (Merck) | 1% | 0.25 mL steps | 3 | 100 | 0.0060..0.0307 | 75/25/0 | -
+one-step 9.7 (Merck) | 1% | 0.50 mL steps | 2 | 100 | 0.0062..0.0315 | 72/28/0 | -
+one-step 9.7 (Merck) | 1% | 0.50 mL steps | 3 | 100 | 0.0060..0.0307 | 75/25/0 | -
+one-step 9.7 (Merck) | 1% | 0.37 mL steps (off-grid) | 2 | 100 | 0.0062..0.0309 | 72/28/0 | -
+one-step 9.7 (Merck) | 1% | 0.37 mL steps (off-grid) | 3 | 100 | 0.0062..0.0309 | 72/28/0 | -
+one-step 9.50 | 0.1% | literal (one pour to V_eq-2.00) | 2 | 100 | 0.0250..0.0250 | 0/100/0 | -
+one-step 9.50 | 0.1% | literal (one pour to V_eq-2.00) | 3 | 100 | 0.0250..0.0250 | 0/100/0 | -
+one-step 9.50 | 0.1% | 0.10 mL steps | 2 | 100 | 0.0179..0.0477 | 18/82/0 | -
+one-step 9.50 | 0.1% | 0.10 mL steps | 3 | 100 | 0.0121..0.0387 | 43/57/0 | -
+one-step 9.50 | 0.1% | 0.25 mL steps | 2 | 100 | 0.0179..0.0477 | 18/82/0 | -
+one-step 9.50 | 0.1% | 0.25 mL steps | 3 | 100 | 0.0121..0.0387 | 43/57/0 | -
+one-step 9.50 | 0.1% | 0.50 mL steps | 2 | 100 | 0.0179..0.0477 | 18/82/0 | -
+one-step 9.50 | 0.1% | 0.50 mL steps | 3 | 100 | 0.0121..0.0387 | 43/57/0 | -
+one-step 9.50 | 0.1% | 0.37 mL steps (off-grid) | 2 | 100 | 0.0177..0.0458 | 18/82/0 | -
+one-step 9.50 | 0.1% | 0.37 mL steps (off-grid) | 3 | 100 | 0.0121..0.0379 | 46/54/0 | -
+one-step 9.50 | 0.5% | literal (one pour to V_eq-2.00) | 2 | 100 | 0.0250..0.0250 | 0/100/0 | -
+one-step 9.50 | 0.5% | literal (one pour to V_eq-2.00) | 3 | 100 | 0.0250..0.0250 | 0/100/0 | -
+one-step 9.50 | 0.5% | 0.10 mL steps | 2 | 100 | 0.0065..0.0318 | 70/30/0 | -
+one-step 9.50 | 0.5% | 0.10 mL steps | 3 | 100 | 0.0061..0.0310 | 74/26/0 | -
+one-step 9.50 | 0.5% | 0.25 mL steps | 2 | 100 | 0.0065..0.0318 | 70/30/0 | -
+one-step 9.50 | 0.5% | 0.25 mL steps | 3 | 100 | 0.0061..0.0310 | 74/26/0 | -
+one-step 9.50 | 0.5% | 0.50 mL steps | 2 | 100 | 0.0065..0.0318 | 70/30/0 | -
+one-step 9.50 | 0.5% | 0.50 mL steps | 3 | 100 | 0.0061..0.0310 | 74/26/0 | -
+one-step 9.50 | 0.5% | 0.37 mL steps (off-grid) | 2 | 100 | 0.0071..0.0315 | 69/31/0 | -
+one-step 9.50 | 0.5% | 0.37 mL steps (off-grid) | 3 | 100 | 0.0062..0.0309 | 72/28/0 | -
+one-step 9.50 | 1% | literal (one pour to V_eq-2.00) | 2 | 100 | 0.0250..0.0250 | 0/100/0 | -
+one-step 9.50 | 1% | literal (one pour to V_eq-2.00) | 3 | 100 | 0.0250..0.0250 | 0/100/0 | -
+one-step 9.50 | 1% | 0.10 mL steps | 2 | 100 | 0.0060..0.0307 | 75/25/0 | -
+one-step 9.50 | 1% | 0.10 mL steps | 3 | 100 | 0.0060..0.0307 | 75/25/0 | -
+one-step 9.50 | 1% | 0.25 mL steps | 2 | 100 | 0.0060..0.0307 | 75/25/0 | -
+one-step 9.50 | 1% | 0.25 mL steps | 3 | 100 | 0.0060..0.0307 | 75/25/0 | -
+one-step 9.50 | 1% | 0.50 mL steps | 2 | 100 | 0.0060..0.0307 | 75/25/0 | -
+one-step 9.50 | 1% | 0.50 mL steps | 3 | 100 | 0.0060..0.0307 | 75/25/0 | -
+one-step 9.50 | 1% | 0.37 mL steps (off-grid) | 2 | 100 | 0.0062..0.0309 | 72/28/0 | -
+one-step 9.50 | 1% | 0.37 mL steps (off-grid) | 3 | 100 | 0.0062..0.0309 | 72/28/0 | -
+
+=== B. Excess titrant e* past V_eq at which the mixed flask reaches 3e-6 M pink (mL) ===
+Offset-independent pass condition: 0 < e* <= 0.025 mL (then the first half-drop at or after e* is always within 0.05 mL).
+indicator model | strength | drops | CO2 | e* min | e* mean | e* max (seeds 1-100) | e* max (box corners) | holds for every offset
+two-step 9.05/9.50 (Tamura) | 0.1% | 2 | 1x | 0.02233 | 0.02673 | 0.03070 | 0.03244 | NO
+two-step 9.05/9.50 (Tamura) | 0.1% | 2 | 0x | 0.01837 | 0.02250 | 0.02631 | 0.02795 | NO
+two-step 9.05/9.50 (Tamura) | 0.1% | 3 | 1x | 0.01739 | 0.02006 | 0.02228 | 0.02328 | yes
+two-step 9.05/9.50 (Tamura) | 0.1% | 3 | 0x | 0.01360 | 0.01603 | 0.01812 | 0.01904 | yes
+two-step 9.05/9.50 (Tamura) | 0.5% | 2 | 1x | 0.01502 | 0.01663 | 0.01791 | 0.01840 | yes
+two-step 9.05/9.50 (Tamura) | 0.5% | 2 | 0x | 0.01142 | 0.01282 | 0.01394 | 0.01440 | yes
+two-step 9.05/9.50 (Tamura) | 0.5% | 3 | 1x | 0.01590 | 0.01751 | 0.01878 | 0.01924 | yes
+two-step 9.05/9.50 (Tamura) | 0.5% | 3 | 0x | 0.01233 | 0.01373 | 0.01484 | 0.01528 | yes
+two-step 9.05/9.50 (Tamura) | 1% | 2 | 1x | 0.01687 | 0.01852 | 0.01983 | 0.02029 | yes
+two-step 9.05/9.50 (Tamura) | 1% | 2 | 0x | 0.01331 | 0.01476 | 0.01591 | 0.01635 | yes
+two-step 9.05/9.50 (Tamura) | 1% | 3 | 1x | 0.01876 | 0.02055 | 0.02196 | 0.02244 | yes
+two-step 9.05/9.50 (Tamura) | 1% | 3 | 0x | 0.01523 | 0.01682 | 0.01807 | 0.01853 | yes
+one-step 9.7 (Merck) | 0.1% | 2 | 1x | 0.02245 | 0.02792 | 0.03309 | 0.03531 | NO
+one-step 9.7 (Merck) | 0.1% | 2 | 0x | 0.01842 | 0.02360 | 0.02859 | 0.03070 | NO
+one-step 9.7 (Merck) | 0.1% | 3 | 1x | 0.01421 | 0.01694 | 0.01936 | 0.02042 | yes
+one-step 9.7 (Merck) | 0.1% | 3 | 0x | 0.01041 | 0.01290 | 0.01518 | 0.01614 | yes
+one-step 9.7 (Merck) | 0.5% | 2 | 1x | 0.00697 | 0.00782 | 0.00851 | 0.00881 | yes
+one-step 9.7 (Merck) | 0.5% | 2 | 0x | 0.00342 | 0.00407 | 0.00462 | 0.00486 | yes
+one-step 9.7 (Merck) | 0.5% | 3 | 1x | 0.00619 | 0.00687 | 0.00741 | 0.00763 | yes
+one-step 9.7 (Merck) | 0.5% | 3 | 0x | 0.00267 | 0.00315 | 0.00355 | 0.00373 | yes
+one-step 9.7 (Merck) | 1% | 2 | 1x | 0.00581 | 0.00640 | 0.00687 | 0.00706 | yes
+one-step 9.7 (Merck) | 1% | 2 | 0x | 0.00231 | 0.00271 | 0.00304 | 0.00318 | yes
+one-step 9.7 (Merck) | 1% | 3 | 1x | 0.00543 | 0.00595 | 0.00636 | 0.00650 | yes
+one-step 9.7 (Merck) | 1% | 3 | 0x | 0.00197 | 0.00228 | 0.00254 | 0.00266 | yes
+one-step 9.50 | 0.1% | 2 | 1x | 0.01595 | 0.01954 | 0.02289 | 0.02434 | yes
+one-step 9.50 | 0.1% | 2 | 0x | 0.01210 | 0.01543 | 0.01862 | 0.01997 | yes
+one-step 9.50 | 0.1% | 3 | 1x | 0.01074 | 0.01260 | 0.01421 | 0.01493 | yes
+one-step 9.50 | 0.1% | 3 | 0x | 0.00705 | 0.00868 | 0.01017 | 0.01080 | yes
+one-step 9.50 | 0.5% | 2 | 1x | 0.00615 | 0.00683 | 0.00736 | 0.00759 | yes
+one-step 9.50 | 0.5% | 2 | 0x | 0.00264 | 0.00311 | 0.00351 | 0.00368 | yes
+one-step 9.50 | 0.5% | 3 | 1x | 0.00565 | 0.00621 | 0.00666 | 0.00683 | yes
+one-step 9.50 | 0.5% | 3 | 0x | 0.00217 | 0.00253 | 0.00283 | 0.00297 | yes
+one-step 9.50 | 1% | 2 | 1x | 0.00540 | 0.00591 | 0.00632 | 0.00646 | yes
+one-step 9.50 | 1% | 2 | 0x | 0.00194 | 0.00225 | 0.00251 | 0.00262 | yes
+one-step 9.50 | 1% | 3 | 1x | 0.00515 | 0.00561 | 0.00597 | 0.00610 | yes
+one-step 9.50 | 1% | 3 | 0x | 0.00172 | 0.00198 | 0.00220 | 0.00229 | yes
+
+Offset sweep, two-step, 0.5%, CO2 1x: first grid point past V_eq is d mL past; runs = 100 seeds x (2,3 drops)
+d (mL) | pass/200 | landing min..max (mL past V_eq)
+0.0001 | 200 | 0.0251..0.0251
+0.0010 | 200 | 0.0260..0.0260
+0.0025 | 200 | 0.0275..0.0275
+0.0050 | 200 | 0.0300..0.0300
+0.0075 | 200 | 0.0325..0.0325
+0.0100 | 200 | 0.0350..0.0350
+0.0125 | 200 | 0.0375..0.0375
+0.0150 | 200 | 0.0400..0.0400
+0.0175 | 200 | 0.0175..0.0425
+0.0200 | 200 | 0.0200..0.0200
+0.0225 | 200 | 0.0225..0.0225
+0.0250 | 200 | 0.0250..0.0250
+
+=== C. Feasible region for faintPinkConcentration (offset-independent) ===
+T_low = largest pink concentration at V_eq itself (threshold must be above it);
+T_high = smallest pink concentration at V_eq + 0.025 mL (threshold must be at or below it).
+Both taken over seeds 1-100 and the 27 box corners.
+
+-- two-step 9.05/9.50 (Tamura), indicator 0.1% w/v --
+CO2 multiple | drops=1 | drops=2 | drops=3 | drops=4 | common to 2 and 3 drops | common to 1-4 drops
+0x | 7.29e-11..1.48e-6 | 1.18e-10..2.77e-6 | 1.49e-10..3.87e-6 | 1.72e-10..4.79e-6 | 1.49e-10..2.77e-6 (3e-6 OUTSIDE) | 1.72e-10..1.48e-6 (3e-6 OUTSIDE)
+1x | 3.46e-13..1.29e-6 | 6.92e-13..2.38e-6 | 1.04e-12..3.27e-6 | 1.38e-12..3.96e-6 | 1.04e-12..2.38e-6 (3e-6 OUTSIDE) | 1.38e-12..1.29e-6 (3e-6 OUTSIDE)
+2x | 1.61e-13..1.07e-6 | 3.23e-13..1.93e-6 | 4.84e-13..2.59e-6 | 6.45e-13..3.08e-6 | 4.84e-13..1.93e-6 (3e-6 OUTSIDE) | 6.45e-13..1.07e-6 (3e-6 OUTSIDE)
+3x | 1.04e-13..8.17e-7 | 2.08e-13..1.43e-6 | 3.12e-13..1.86e-6 | 4.17e-13..2.16e-6 | 3.12e-13..1.43e-6 (3e-6 OUTSIDE) | 4.17e-13..8.17e-7 (3e-6 OUTSIDE)
+5x | 6.06e-14..2.54e-7 | 1.21e-13..4.05e-7 | 1.82e-13..4.92e-7 | 2.42e-13..5.39e-7 | 1.82e-13..4.05e-7 (3e-6 OUTSIDE) | 2.42e-13..2.54e-7 (3e-6 OUTSIDE)
+10x | 2.93e-14..1.44e-11 | 5.86e-14..2.87e-11 | 8.79e-14..4.30e-11 | 1.17e-13..5.72e-11 | 8.79e-14..2.87e-11 (3e-6 OUTSIDE) | 1.17e-13..1.44e-11 (3e-6 OUTSIDE)
+
+-- two-step 9.05/9.50 (Tamura), indicator 0.5% w/v --
+CO2 multiple | drops=1 | drops=2 | drops=3 | drops=4 | common to 2 and 3 drops | common to 1-4 drops
+0x | 1.89e-10..5.55e-6 | 2.37e-10..7.16e-6 | 2.58e-10..6.99e-6 | 2.71e-10..6.39e-6 | 2.58e-10..6.99e-6 (3e-6 inside) | 2.71e-10..5.55e-6 (3e-6 inside)
+1x | 1.72e-12..4.52e-6 | 3.42e-12..5.49e-6 | 5.11e-12..5.21e-6 | 6.77e-12..4.71e-6 | 5.11e-12..5.21e-6 (3e-6 inside) | 6.77e-12..4.52e-6 (3e-6 inside)
+2x | 8.05e-13..3.44e-6 | 1.61e-12..3.93e-6 | 2.40e-12..3.64e-6 | 3.19e-12..3.25e-6 | 2.40e-12..3.64e-6 (3e-6 inside) | 3.19e-12..3.25e-6 (3e-6 inside)
+3x | 5.20e-13..2.37e-6 | 1.04e-12..2.54e-6 | 1.56e-12..2.30e-6 | 2.07e-12..2.03e-6 | 1.56e-12..2.30e-6 (3e-6 OUTSIDE) | 2.07e-12..2.03e-6 (3e-6 OUTSIDE)
+5x | 3.03e-13..5.66e-7 | 6.05e-13..5.46e-7 | 9.06e-13..4.80e-7 | 1.21e-12..4.21e-7 | 9.06e-13..4.80e-7 (3e-6 OUTSIDE) | 1.21e-12..4.21e-7 (3e-6 OUTSIDE)
+10x | 1.46e-13..7.16e-11 | 2.93e-13..1.42e-10 | 4.39e-13..2.12e-10 | 5.85e-13..2.80e-10 | 4.39e-13..1.42e-10 (3e-6 OUTSIDE) | 5.85e-13..7.16e-11 (3e-6 OUTSIDE)
+
+-- two-step 9.05/9.50 (Tamura), indicator 1% w/v --
+CO2 multiple | drops=1 | drops=2 | drops=3 | drops=4 | common to 2 and 3 drops | common to 1-4 drops
+0x | 2.37e-10..7.17e-6 | 2.71e-10..6.41e-6 | 2.84e-10..5.22e-6 | 2.91e-10..4.34e-6 | 2.84e-10..5.22e-6 (3e-6 inside) | 2.91e-10..4.34e-6 (3e-6 inside)
+1x | 3.42e-12..5.49e-6 | 6.77e-12..4.72e-6 | 1.00e-11..3.81e-6 | 1.32e-11..3.15e-6 | 1.00e-11..3.81e-6 (3e-6 inside) | 1.32e-11..3.15e-6 (3e-6 inside)
+2x | 1.61e-12..3.93e-6 | 3.19e-12..3.26e-6 | 4.77e-12..2.61e-6 | 6.32e-12..2.15e-6 | 4.77e-12..2.61e-6 (3e-6 OUTSIDE) | 6.32e-12..2.15e-6 (3e-6 OUTSIDE)
+3x | 1.04e-12..2.54e-6 | 2.07e-12..2.04e-6 | 3.10e-12..1.62e-6 | 4.11e-12..1.33e-6 | 3.10e-12..1.62e-6 (3e-6 OUTSIDE) | 4.11e-12..1.33e-6 (3e-6 OUTSIDE)
+5x | 6.04e-13..5.47e-7 | 1.21e-12..4.22e-7 | 1.81e-12..3.37e-7 | 2.40e-12..2.82e-7 | 1.81e-12..3.37e-7 (3e-6 OUTSIDE) | 2.40e-12..2.82e-7 (3e-6 OUTSIDE)
+10x | 2.93e-13..1.42e-10 | 5.85e-13..2.81e-10 | 8.77e-13..4.15e-10 | 1.17e-12..5.46e-10 | 8.77e-13..2.81e-10 (3e-6 OUTSIDE) | 1.17e-12..1.42e-10 (3e-6 OUTSIDE)
+
+-- one-step 9.7 (Merck), indicator 0.1% w/v --
+CO2 multiple | drops=1 | drops=2 | drops=3 | drops=4 | common to 2 and 3 drops | common to 1-4 drops
+0x | 6.62e-9..1.37e-6 | 1.28e-8..2.69e-6 | 1.87e-8..3.96e-6 | 2.42e-8..5.18e-6 | 1.87e-8..2.69e-6 (3e-6 OUTSIDE) | 2.42e-8..1.37e-6 (3e-6 OUTSIDE)
+1x | 4.09e-10..1.22e-6 | 8.17e-10..2.40e-6 | 1.22e-9..3.52e-6 | 1.63e-9..4.60e-6 | 1.22e-9..2.40e-6 (3e-6 OUTSIDE) | 1.63e-9..1.22e-6 (3e-6 OUTSIDE)
+2x | 2.80e-10..1.06e-6 | 5.59e-10..2.07e-6 | 8.38e-10..3.04e-6 | 1.12e-9..3.95e-6 | 8.38e-10..2.07e-6 (3e-6 OUTSIDE) | 1.12e-9..1.06e-6 (3e-6 OUTSIDE)
+3x | 2.25e-10..8.77e-7 | 4.50e-10..1.71e-6 | 6.74e-10..2.49e-6 | 8.98e-10..3.23e-6 | 6.74e-10..1.71e-6 (3e-6 OUTSIDE) | 8.98e-10..8.77e-7 (3e-6 OUTSIDE)
+5x | 1.72e-10..4.27e-7 | 3.43e-10..8.23e-7 | 5.14e-10..1.19e-6 | 6.86e-10..1.53e-6 | 5.14e-10..8.23e-7 (3e-6 OUTSIDE) | 6.86e-10..4.27e-7 (3e-6 OUTSIDE)
+10x | 1.20e-10..2.46e-9 | 2.39e-10..4.92e-9 | 3.58e-10..7.38e-9 | 4.77e-10..9.83e-9 | 3.58e-10..4.92e-9 (3e-6 OUTSIDE) | 4.77e-10..2.46e-9 (3e-6 OUTSIDE)
+
+-- one-step 9.7 (Merck), indicator 0.5% w/v --
+CO2 multiple | drops=1 | drops=2 | drops=3 | drops=4 | common to 2 and 3 drops | common to 1-4 drops
+0x | 2.96e-8..6.39e-6 | 5.28e-8..1.17e-5 | 7.22e-8..1.61e-5 | 8.90e-8..1.96e-5 | 7.22e-8..1.17e-5 (3e-6 inside) | 8.90e-8..6.39e-6 (3e-6 inside)
+1x | 2.04e-9..5.67e-6 | 4.08e-9..1.03e-5 | 6.11e-9..1.40e-5 | 8.14e-9..1.69e-5 | 6.11e-9..1.03e-5 (3e-6 inside) | 8.14e-9..5.67e-6 (3e-6 inside)
+2x | 1.40e-9..4.86e-6 | 2.79e-9..8.69e-6 | 4.19e-9..1.17e-5 | 5.58e-9..1.41e-5 | 4.19e-9..8.69e-6 (3e-6 inside) | 5.58e-9..4.86e-6 (3e-6 inside)
+3x | 1.12e-9..3.96e-6 | 2.25e-9..6.99e-6 | 3.37e-9..9.33e-6 | 4.49e-9..1.12e-5 | 3.37e-9..6.99e-6 (3e-6 inside) | 4.49e-9..3.96e-6 (3e-6 inside)
+5x | 8.58e-10..1.86e-6 | 1.72e-9..3.20e-6 | 2.57e-9..4.20e-6 | 3.43e-9..4.97e-6 | 2.57e-9..3.20e-6 (3e-6 inside) | 3.43e-9..1.86e-6 (3e-6 OUTSIDE)
+10x | 5.98e-10..1.23e-8 | 1.19e-9..2.46e-8 | 1.79e-9..3.68e-8 | 2.39e-9..4.90e-8 | 1.79e-9..2.46e-8 (3e-6 OUTSIDE) | 2.39e-9..1.23e-8 (3e-6 OUTSIDE)
+
+-- one-step 9.7 (Merck), indicator 1% w/v --
+CO2 multiple | drops=1 | drops=2 | drops=3 | drops=4 | common to 2 and 3 drops | common to 1-4 drops
+0x | 5.28e-8..1.17e-5 | 8.91e-8..1.97e-5 | 1.18e-7..2.50e-5 | 1.42e-7..2.86e-5 | 1.18e-7..1.97e-5 (3e-6 inside) | 1.42e-7..1.17e-5 (3e-6 inside)
+1x | 4.08e-9..1.03e-5 | 8.15e-9..1.70e-5 | 1.22e-8..2.14e-5 | 1.62e-8..2.43e-5 | 1.22e-8..1.70e-5 (3e-6 inside) | 1.62e-8..1.03e-5 (3e-6 inside)
+2x | 2.80e-9..8.70e-6 | 5.58e-9..1.41e-5 | 8.37e-9..1.76e-5 | 1.11e-8..2.00e-5 | 8.37e-9..1.41e-5 (3e-6 inside) | 1.11e-8..8.70e-6 (3e-6 inside)
+3x | 2.25e-9..7.00e-6 | 4.49e-9..1.12e-5 | 6.73e-9..1.39e-5 | 8.97e-9..1.56e-5 | 6.73e-9..1.12e-5 (3e-6 inside) | 8.97e-9..7.00e-6 (3e-6 inside)
+5x | 1.72e-9..3.21e-6 | 3.43e-9..4.98e-6 | 5.14e-9..6.08e-6 | 6.85e-9..6.84e-6 | 5.14e-9..4.98e-6 (3e-6 inside) | 6.85e-9..3.21e-6 (3e-6 inside)
+10x | 1.20e-9..2.46e-8 | 2.39e-9..4.91e-8 | 3.58e-9..7.35e-8 | 4.77e-9..9.77e-8 | 3.58e-9..4.91e-8 (3e-6 OUTSIDE) | 4.77e-9..2.46e-8 (3e-6 OUTSIDE)
+
+-- one-step 9.50, indicator 0.1% w/v --
+CO2 multiple | drops=1 | drops=2 | drops=3 | drops=4 | common to 2 and 3 drops | common to 1-4 drops
+0x | 1.03e-8..1.70e-6 | 1.96e-8..3.35e-6 | 2.82e-8..4.93e-6 | 3.61e-8..6.45e-6 | 2.82e-8..3.35e-6 (3e-6 inside) | 3.61e-8..1.70e-6 (3e-6 OUTSIDE)
+1x | 6.48e-10..1.56e-6 | 1.29e-9..3.05e-6 | 1.94e-9..4.47e-6 | 2.59e-9..5.83e-6 | 1.94e-9..3.05e-6 (3e-6 inside) | 2.59e-9..1.56e-6 (3e-6 OUTSIDE)
+2x | 4.43e-10..1.38e-6 | 8.86e-10..2.70e-6 | 1.33e-9..3.94e-6 | 1.77e-9..5.12e-6 | 1.33e-9..2.70e-6 (3e-6 OUTSIDE) | 1.77e-9..1.38e-6 (3e-6 OUTSIDE)
+3x | 3.57e-10..1.18e-6 | 7.13e-10..2.28e-6 | 1.07e-9..3.31e-6 | 1.42e-9..4.28e-6 | 1.07e-9..2.28e-6 (3e-6 OUTSIDE) | 1.42e-9..1.18e-6 (3e-6 OUTSIDE)
+5x | 2.72e-10..6.15e-7 | 5.44e-10..1.17e-6 | 8.15e-10..1.68e-6 | 1.09e-9..2.13e-6 | 8.15e-10..1.17e-6 (3e-6 OUTSIDE) | 1.09e-9..6.15e-7 (3e-6 OUTSIDE)
+10x | 1.89e-10..3.90e-9 | 3.79e-10..7.80e-9 | 5.68e-10..1.17e-8 | 7.57e-10..1.56e-8 | 5.68e-10..7.80e-9 (3e-6 OUTSIDE) | 7.57e-10..3.90e-9 (3e-6 OUTSIDE)
+
+-- one-step 9.50, indicator 0.5% w/v --
+CO2 multiple | drops=1 | drops=2 | drops=3 | drops=4 | common to 2 and 3 drops | common to 1-4 drops
+0x | 4.37e-8..7.95e-6 | 7.52e-8..1.44e-5 | 1.01e-7..1.96e-5 | 1.22e-7..2.36e-5 | 1.01e-7..1.44e-5 (3e-6 inside) | 1.22e-7..7.95e-6 (3e-6 inside)
+1x | 3.24e-9..7.17e-6 | 6.46e-9..1.28e-5 | 9.68e-9..1.72e-5 | 1.29e-8..2.04e-5 | 9.68e-9..1.28e-5 (3e-6 inside) | 1.29e-8..7.17e-6 (3e-6 inside)
+2x | 2.22e-9..6.26e-6 | 4.43e-9..1.10e-5 | 6.63e-9..1.45e-5 | 8.83e-9..1.71e-5 | 6.63e-9..1.10e-5 (3e-6 inside) | 8.83e-9..6.26e-6 (3e-6 inside)
+3x | 1.78e-9..5.21e-6 | 3.56e-9..8.96e-6 | 5.34e-9..1.17e-5 | 7.11e-9..1.36e-5 | 5.34e-9..8.96e-6 (3e-6 inside) | 7.11e-9..5.21e-6 (3e-6 inside)
+5x | 1.36e-9..2.57e-6 | 2.72e-9..4.21e-6 | 4.07e-9..5.32e-6 | 5.43e-9..6.12e-6 | 4.07e-9..4.21e-6 (3e-6 inside) | 5.43e-9..2.57e-6 (3e-6 OUTSIDE)
+10x | 9.47e-10..1.95e-8 | 1.89e-9..3.89e-8 | 2.84e-9..5.83e-8 | 3.78e-9..7.75e-8 | 2.84e-9..3.89e-8 (3e-6 OUTSIDE) | 3.78e-9..1.95e-8 (3e-6 OUTSIDE)
+
+-- one-step 9.50, indicator 1% w/v --
+CO2 multiple | drops=1 | drops=2 | drops=3 | drops=4 | common to 2 and 3 drops | common to 1-4 drops
+0x | 7.53e-8..1.45e-5 | 1.22e-7..2.36e-5 | 1.58e-7..2.92e-5 | 1.88e-7..3.26e-5 | 1.58e-7..2.36e-5 (3e-6 inside) | 1.88e-7..1.45e-5 (3e-6 inside)
+1x | 6.47e-9..1.28e-5 | 1.29e-8..2.05e-5 | 1.93e-8..2.50e-5 | 2.57e-8..2.78e-5 | 1.93e-8..2.05e-5 (3e-6 inside) | 2.57e-8..1.28e-5 (3e-6 inside)
+2x | 4.43e-9..1.10e-5 | 8.84e-9..1.72e-5 | 1.32e-8..2.07e-5 | 1.76e-8..2.29e-5 | 1.32e-8..1.72e-5 (3e-6 inside) | 1.76e-8..1.10e-5 (3e-6 inside)
+3x | 3.56e-9..8.97e-6 | 7.12e-9..1.37e-5 | 1.07e-8..1.63e-5 | 1.42e-8..1.79e-5 | 1.07e-8..1.37e-5 (3e-6 inside) | 1.42e-8..8.97e-6 (3e-6 inside)
+5x | 2.72e-9..4.22e-6 | 5.44e-9..6.14e-6 | 8.15e-9..7.20e-6 | 1.09e-8..7.89e-6 | 8.15e-9..6.14e-6 (3e-6 inside) | 1.09e-8..4.22e-6 (3e-6 inside)
+10x | 1.89e-9..3.90e-8 | 3.79e-9..7.77e-8 | 5.68e-9..1.16e-7 | 7.56e-9..1.54e-7 | 5.68e-9..7.77e-8 (3e-6 OUTSIDE) | 7.56e-9..3.90e-8 (3e-6 OUTSIDE)
+
+=== C2. Brute-force scan with the real grid (0.25 mL stream steps), 100 seeds x (2,3 drops) = 200 runs ===
+threshold (M) | two-step 0.5% CO2 1x | two-step 0.5% no CO2 | two-step 1% CO2 1x | two-step 0.1% CO2 1x | one-step 9.7 0.5% CO2 1x
+1.00e-10 | 200 | 200 | 200 | 200 | 0
+1.78e-10 | 200 | 200 | 200 | 200 | 32
+3.16e-10 | 200 | 200 | 200 | 200 | 115
+5.62e-10 | 200 | 200 | 200 | 200 | 152
+1.00e-9 | 200 | 200 | 200 | 200 | 171
+1.78e-9 | 200 | 200 | 200 | 200 | 186
+3.16e-9 | 200 | 200 | 200 | 200 | 196
+5.62e-9 | 200 | 200 | 200 | 200 | 200
+1.00e-8 | 200 | 200 | 200 | 200 | 200
+1.78e-8 | 200 | 200 | 200 | 200 | 200
+3.16e-8 | 200 | 200 | 200 | 200 | 200
+5.62e-8 | 200 | 200 | 200 | 200 | 200
+1.00e-7 | 200 | 200 | 200 | 200 | 200
+1.78e-7 | 200 | 200 | 200 | 200 | 200
+3.16e-7 | 200 | 200 | 200 | 200 | 200
+5.62e-7 | 200 | 200 | 200 | 200 | 200
+1.00e-6 | 200 | 200 | 200 | 200 | 200
+1.78e-6 | 200 | 200 | 200 | 200 | 200
+3.16e-6 | 200 | 200 | 200 | 184 | 200
+5.62e-6 | 200 | 200 | 187 | 37 | 200
+1.00e-5 | 143 | 177 | 115 | 0 | 200
+1.78e-5 | 17 | 41 | 17 | 0 | 108
+3.16e-5 | 0 | 0 | 0 | 0 | 0
+5.62e-5 | 0 | 0 | 0 | 0 | 0
+
+=== D. What the careful endpoint looks like (two-step, CO2 1x, threshold 3e-6, 0.25 mL stream steps) ===
+strength | drops | pH at endpoint min..max | pink conc at endpoint min..max (M) | as multiple of threshold | pink fraction min..max | pink at V_eq+0.10 (overshoot line) min..max | indicator total (M)
+0.1% | 2 | 9.55..9.93 | 3.02e-6..4.82e-6 | 1.0..1.6 | 0.461..0.702 | 5.00e-6..5.90e-6 | 6.57e-6
+0.1% | 3 | 9.36..9.83 | 3.09e-6..6.65e-6 | 1.0..2.2 | 0.325..0.650 | 7.44e-6..8.80e-6 | 9.84e-6
+0.5% | 2 | 8.92..9.53 | 3.28e-6..1.49e-5 | 1.1..5.0 | 0.100..0.447 | 2.35e-5..2.82e-5 | 3.28e-5
+0.5% | 3 | 8.82..9.39 | 3.40e-6..1.71e-5 | 1.1..5.7 | 0.072..0.348 | 3.33e-5..4.04e-5 | 4.92e-5
+1% | 2 | 8.71..9.25 | 3.01e-6..1.68e-5 | 1.0..5.6 | 0.048..0.256 | 4.11e-5..5.08e-5 | 6.57e-5
+1% | 3 | 8.60..9.08 | 3.05e-6..1.60e-5 | 1.0..5.3 | 0.032..0.165 | 4.87e-5..6.30e-5 | 9.84e-5
+
+Seed 1, two-step 0.5%, 2 drops, CO2 1x: mixed flask around equivalence
+V_eq = 25.6522 mL (HCl 0.0975, NaOH 0.09503, pipette 25.0016)
+mL past V_eq | pH | pink fraction | pink conc (M) | multiple of 3e-6
+-2 | 2.409 | 1.85e-14 | 5.98e-19 | 0.00
+-0.2 | 3.425 | 1.99e-12 | 6.20e-17 | 0.00
+-0.05 | 4.028 | 3.21e-11 | 9.94e-16 | 0.00
+-0.025 | 4.329 | 1.28e-10 | 3.97e-15 | 0.00
+-0.001 | 5.543 | 3.44e-8 | 1.07e-12 | 0.00
+0 | 5.796 | 1.10e-7 | 3.41e-12 | 0.00
+0.005 | 7.804 | 1.08e-3 | 3.34e-8 | 0.01
+0.01 | 8.509 | 2.23e-2 | 6.90e-7 | 0.23
+0.015 | 8.793 | 6.53e-2 | 2.02e-6 | 0.67
+0.02 | 8.982 | 1.23e-1 | 3.80e-6 | 1.27
+0.025 | 9.129 | 1.89e-1 | 5.83e-6 | 1.94
+0.05 | 9.613 | 5.04e-1 | 1.56e-5 | 5.20
+0.075 | 9.894 | 6.84e-1 | 2.12e-5 | 7.05
+0.1 | 10.079 | 7.76e-1 | 2.40e-5 | 7.99
+0.2 | 10.472 | 9.00e-1 | 2.78e-5 | 9.25
+0.5 | 10.921 | 9.63e-1 | 2.95e-5 | 9.84
+1 | 11.236 | 9.82e-1 | 2.98e-5 | 9.93
+
+=== E. Sensitivity (two-step, 0.5%, threshold 3e-6): worst e* over seeds 1-100 and box corners, mL ===
+case | worst e* at 2 drops | worst e* at 3 drops | offset-independent result
+base (closed flask, CO2 1x, carbonate-free NaOH) | 0.01840 | 0.01924 | passes
+no CO2 | 0.01440 | 0.01528 | passes
+CO2 2x air | 0.02240 | 0.02321 | passes
+CO2 3x air | 0.02640 | 0.02717 | FAILS
+CO2 5x air | 0.03440 | 0.03509 | FAILS
+CO2 10x air | 0.05439 | 0.05490 | FAILS
+titrant carries carbonate = 0.05% of NaOH molarity | 0.03274 | 0.03345 | FAILS
+titrant carries carbonate = 0.10% of NaOH molarity | 0.04709 | 0.04766 | FAILS
+titrant carries carbonate = 0.20% of NaOH molarity | 0.07583 | 0.07614 | FAILS
+titrant carries carbonate = 0.50% of NaOH molarity | 0.16243 | 0.16193 | FAILS
+titrant carries carbonate = 1.00% of NaOH molarity | 0.30798 | 0.30611 | FAILS
+pKw 14.00 instead of 13.99 | 0.01830 | 0.01916 | passes
+trial index 1 (later pipette draws) | 0.01840 | 0.01924 | passes
+trial index 2 (later pipette draws) | 0.01840 | 0.01924 | passes
+trial index 4 (later pipette draws) | 0.01840 | 0.01924 | passes
+5 mL CO2-free distilled water added | 0.01969 | 0.02041 | passes
+10 mL CO2-free distilled water added | 0.02102 | 0.02160 | passes
+25 mL CO2-free distilled water added | 0.02527 | 0.02527 | FAILS
+50 mL CO2-free distilled water added | 0.03340 | 0.03189 | FAILS
+100 mL CO2-free distilled water added | 0.05473 | 0.04757 | FAILS
+5 mL air-equilibrated distilled water added | 0.02049 | 0.02120 | passes
+10 mL air-equilibrated distilled water added | 0.02262 | 0.02318 | passes
+25 mL air-equilibrated distilled water added | 0.02931 | 0.02926 | FAILS
+50 mL air-equilibrated distilled water added | 0.04158 | 0.03994 | FAILS
+
+Open flask at full air equilibrium, pH 8.9: bicarbonate 5.20e-3 M, needing about 2.99 mL more titrant -> the test cannot pass; the flask must be closed.
+
+=== F. Distilled water added to the flask (misconception check: result must change by 0) ===
+water mL | carries CO2 | threshold | seeds (of 100) x drops (2,3) whose careful endpoint volume changed | largest change mL
+5 | no | 3.00e-6 | 3/200 | 0.025
+10 | no | 3.00e-6 | 11/200 | 0.025
+25 | no | 3.00e-6 | 39/200 | 0.025
+50 | no | 3.00e-6 | 99/200 | 0.025
+100 | no | 3.00e-6 | 200/200 | 0.050
+5 | yes | 3.00e-6 | 8/200 | 0.025
+10 | yes | 3.00e-6 | 24/200 | 0.025
+25 | yes | 3.00e-6 | 68/200 | 0.025
+50 | yes | 3.00e-6 | 171/200 | 0.025
+100 | yes | 3.00e-6 | 200/200 | 0.050
+5 | no | 1.00e-6 | 4/200 | 0.025
+10 | no | 1.00e-6 | 8/200 | 0.025
+25 | no | 1.00e-6 | 27/200 | 0.025
+50 | no | 1.00e-6 | 44/200 | 0.025
+100 | no | 1.00e-6 | 97/200 | 0.025
+5 | yes | 1.00e-6 | 8/200 | 0.025
+10 | yes | 1.00e-6 | 25/200 | 0.025
+25 | yes | 1.00e-6 | 46/200 | 0.025
+50 | yes | 1.00e-6 | 101/200 | 0.025
+100 | yes | 1.00e-6 | 200/200 | 0.050

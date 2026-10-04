@@ -1,0 +1,4 @@
+threshold | worst e* 2 drops | worst e* 3 drops | result
+1e-6 | 0.0160 | 0.0166 | passes
+2e-6 | 0.0197 | 0.0205 | passes
+3e-6 | 0.0228 | 0.0236 | passes
