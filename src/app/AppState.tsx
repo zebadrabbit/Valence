@@ -1,10 +1,10 @@
 import { createContext, useContext, useEffect, useState, useSyncExternalStore, type ReactNode } from 'react'
 import { DEFAULT_PREFS, loadPrefs, resolveTri, savePrefs, type Prefs } from './preferences'
-import { browserStore, clearAll, type KeyValueStore } from './progress/storage'
+import { browserStore, clearAll, reportingStore, type KeyValueStore } from './progress/storage'
 
 interface AppState {
   store: KeyValueStore
-  /** False when localStorage is unavailable and progress lasts only for this session. */
+  /** False when localStorage is unavailable, or has refused a save, and progress lasts only for this session. */
   persistent: boolean
   prefs: Prefs
   /** The theme in effect: the learner's choice, or the system's when set to System. */
@@ -29,7 +29,12 @@ function useMediaQuery(query: string): boolean {
 }
 
 export function AppStateProvider({ children }: { children: ReactNode }) {
-  const [{ store, persistent }] = useState(browserStore)
+  const [browser] = useState(browserStore)
+  const [saveFailed, setSaveFailed] = useState(false)
+  // Every save in the app goes through this store, so one that is refused part-way through a session is noticed.
+  // The report is put off until the caller has finished: a load that fails to write its backup runs during a render.
+  const [store] = useState(() => reportingStore(browser.store, () => queueMicrotask(() => setSaveFailed(true))))
+  const persistent = browser.persistent && !saveFailed
   const [prefs, setPrefs] = useState(() => loadPrefs(store))
 
   const dark = resolveTri(prefs.darkMode, useMediaQuery('(prefers-color-scheme: dark)'))

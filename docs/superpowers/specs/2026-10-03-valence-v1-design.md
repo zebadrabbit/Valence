@@ -393,7 +393,7 @@ Guest-only. Progress is stored in `localStorage` as JSON. Each lab, the mechanis
 - **Mechanism:** mode, last position, answered predictions.
 - **Preferences:** theme and reduced motion (each System, On, or Off; System is the default and follows the operating system), valence display level.
 
-Stored records are plain data with no browser-specific types, so the same shapes can later be written to a database unchanged. If an entry fails to parse or has an unknown version, that entry starts fresh and the old value is kept under a backup key instead of being deleted.
+Stored records are plain data with no browser-specific types, so the same shapes can later be written to a database unchanged. If an entry fails to parse or has an unknown version, that entry starts fresh and the old value is kept under a backup key instead of being deleted; a later broken value gets its own numbered backup key and never replaces an earlier one. The home page shows such an entry as not started. If the browser refuses a save part-way through a session, the settings page says that progress will last only for that session.
 
 A settings page offers "export my progress" (downloads the JSON) and "clear my progress".
 

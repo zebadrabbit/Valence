@@ -49,7 +49,7 @@ export function Home() {
             <Link to={activity.to} className="font-medium underline-offset-4 hover:underline">
               {activity.title}
             </Link>
-            <p className="mt-1 text-sm">{STATUS_LABEL[peekStatus(store, activity.entry)]}</p>
+            <p className="mt-1 text-sm">{STATUS_LABEL[peekStatus(store, activity.entry, activity.version)]}</p>
           </li>
         ))}
       </ul>
