@@ -1,8 +1,8 @@
 import { Link } from 'react-router'
 import { useAppState } from '@/app/AppState'
 import { PageHeader } from '@/app/PageHeader'
-import { ACTIVITIES } from '@/app/activities'
-import { peekStatus, type ActivityStatus } from '@/app/progress/storage'
+import { ACTIVITIES, activityStatus } from '@/app/activities'
+import type { ActivityStatus } from '@/app/progress/storage'
 import { ELEMENT_INDEX } from '@/chem-data/elementIndex'
 import { LIBRARY_INDEX } from '@/chem-data/libraryIndex'
 
@@ -49,7 +49,7 @@ export function Home() {
             <Link to={activity.to} className="font-medium underline-offset-4 hover:underline">
               {activity.title}
             </Link>
-            <p className="mt-1 text-sm">{STATUS_LABEL[peekStatus(store, activity.entry, activity.version)]}</p>
+            <p className="mt-1 text-sm">{STATUS_LABEL[activityStatus(store, activity)]}</p>
           </li>
         ))}
       </ul>
