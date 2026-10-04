@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { NO_VALUE, periodicTable, TREND_NOTES, type TrendProperty } from '@/chem-data/periodic'
 import type { PeriodicElement } from '@/chem-data/schema'
 import { CARD_LABELS } from '@/chem-data/periodicCard'
-import { cellValue, digitRoom, endNotes, LEAST_ROOM, quantityText, ROUNDED_NOTE, roundedInCells, TRENDS, trendNotes, trendScale } from './trend'
+import { cellValue, digitRoom, endNotes, LEAST_ROOM, quantityText, ROUNDED_NOTE, roundedInCells, TRENDS, trendNotes, trendScale, VALUE_INSETS } from './trend'
 
 const element = (symbol: string): PeriodicElement => {
   const found = periodicTable.find((e) => e.symbol === symbol)
@@ -172,12 +172,24 @@ describe('cellValue', () => {
 
 describe('digitRoom', () => {
   it('counts the whole digits that fit beside a decimal point', () => {
-    // The smallest cell, 56 pixels wide: 50 inside its border and padding, 48 when it is the selected cell.
+    // The smallest cell, 56 pixels wide: 50 inside its border and padding, 48 inside the border of the selected cell.
     expect(digitRoom(50, 6, 2)).toBe(8)
     expect(digitRoom(48, 6, 2)).toBe(7)
     expect(digitRoom(117, 8, 3)).toBe(14)
     expect(digitRoom(49.9, 6, 2)).toBe(7)
     expect(digitRoom(1, 6, 2)).toBe(0)
+  })
+
+  it('counts the digits of the selected cell for less than the space inside its border, so that they do not touch it', () => {
+    const [cell, selected] = VALUE_INSETS
+    // At 1366 pixels a cell is 58.1 wide and its digits 6: eight fit in a cell, and would fit the selected one
+    // with nothing to spare (50 in 50.1). It prints seven, which leaves 3 pixels on each side.
+    expect(digitRoom(58.1 - 2 * cell, 6, 2)).toBe(8)
+    expect(digitRoom(58.1 - 2 * 4, 6, 2)).toBe(8)
+    expect(digitRoom(58.1 - 2 * selected, 6, 2)).toBe(7)
+    // The smallest cell, selected, still has the least room, with something to spare if the type is a little wider.
+    expect(digitRoom(56 - 2 * selected, 6, 2)).toBe(LEAST_ROOM)
+    expect(digitRoom(56 - 2 * selected, 6.2, 2)).toBe(LEAST_ROOM)
   })
 
   it('is the least room where the type has not been measured', () => {

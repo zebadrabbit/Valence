@@ -3,14 +3,10 @@ import { Link } from 'react-router'
 import { CATEGORIES, periodicTable } from '@/chem-data/periodic'
 import type { PeriodicElement } from '@/chem-data/schema'
 import { cellKey, cellLabel, DETACHED_ROWS, elementLink, isHighlighted, MAIN_ROWS, scrollToShow, type Highlight } from './tableLayout'
-import { cellValue, digitRoom, LEAST_ROOM, quantityText, TRENDS, trendScale, type TrendProperty } from './trend'
+import { cellValue, digitRoom, LEAST_ROOM, quantityText, TRENDS, trendScale, VALUE_INSETS, type TrendProperty } from './trend'
 
 // The room a cell's focus outline needs inside the box the table scrolls in; periodic.css has the same figure.
 const EDGE = 8
-// The border and padding between a cell's edge and its value on each side, as periodic.css sets them: in a cell,
-// and in the selected cell, whose border is wider.
-const INSETS = [3, 4] as const
-
 /** The atomic number of the cell an event came from, if it came from one. */
 function cellOf(event: SyntheticEvent): number | null {
   const z = (event.target as Element).closest<HTMLElement>('[data-z]')?.dataset.z
@@ -89,7 +85,7 @@ export function ElementGrids(props: { selected: PeriodicElement | undefined; pro
       const [digit = 0, point = 0] = [...type.children].map((ten) => ten.getBoundingClientRect().width / 10)
       // The narrowest cell: the columns can differ by a fraction of a pixel.
       const width = Math.min(...[...table.querySelectorAll('.pt-cell')].map((cell) => cell.getBoundingClientRect().width))
-      const next = INSETS.map((inset) => digitRoom(width - 2 * inset, digit, point))
+      const next = VALUE_INSETS.map((inset) => digitRoom(width - 2 * inset, digit, point))
       setRoom((old) => (String(old) === String(next) ? old : next))
     }
     measure()

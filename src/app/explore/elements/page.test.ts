@@ -15,7 +15,7 @@ import { TableLegend } from './TableLegend'
 import { HighlightDescription, TableNotes } from './TableNotes'
 import css from './periodic.css?raw'
 import { DETACHED_ROWS, elementLink } from './tableLayout'
-import { LEAST_ROOM, ROUNDED_NOTE, trendNotes } from './trend'
+import { LEAST_ROOM, ROUNDED_NOTE, trendNotes, VALUE_INSETS } from './trend'
 
 // The functions that build the wording are tested beside them. These check the markup the page puts it in;
 // focus, keys, layout and themes are checked in a browser.
@@ -350,6 +350,13 @@ describe('the stylesheet', () => {
     expect(value).toMatch(/overflow:\s*hidden/)
     expect(value).toMatch(/text-overflow:\s*ellipsis/)
     expect(value).toMatch(/white-space:\s*nowrap/)
+  })
+
+  it('counts digits for the space the stylesheet leaves a value: all of it in a cell, a pixel inside the border in the selected cell', () => {
+    // A cell's border and padding come to 3 px whatever the border is, until the border is wider than that.
+    expect(rules).toMatch(/\.pt-cell\s*\{[^}]*--bw:\s*1px[^}]*padding:\s*max\(0px,\s*calc\(3px - var\(--bw\)\)\)/)
+    const selectedBorder = Number(/\.pt-cell\[aria-current\]\s*\{[^}]*--bw:\s*(\d+)px/.exec(rules)?.[1])
+    expect(VALUE_INSETS).toEqual([3, selectedBorder + 1])
   })
 
   it('keeps the focus outline of a cell clear of the edge of the box the table scrolls in', () => {

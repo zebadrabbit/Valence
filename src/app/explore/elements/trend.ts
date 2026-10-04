@@ -31,6 +31,13 @@ export function quantityText(quantity: Quantity | undefined): string {
 export const LEAST_ROOM = 7
 
 /**
+ * What to take off each side of a cell's width to have the room for its value: the border and padding periodic.css
+ * gives a cell; and for the selected cell its wider border and a pixel more, since a value that just fits inside
+ * that border has its first and last digits against the border's inner line.
+ */
+export const VALUE_INSETS = [3, 5] as const
+
+/**
  * A value as a cell prints it, in a cell with room for `room` digits and a decimal point: as its source publishes
  * it where that fits, else rounded, half up, to the most decimal places that fit. It never has a digit the source
  * does not publish. Only the cell prints it: the card, the readout, the cell's name and the list give the value whole.
