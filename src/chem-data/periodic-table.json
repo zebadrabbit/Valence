@@ -1,0 +1,7675 @@
+[
+  {
+    "atomicNumber": 1,
+    "symbol": "H",
+    "name": "Hydrogen",
+    "category": "Nonmetal",
+    "configuration": {
+      "text": "1s1"
+    },
+    "standardState": {
+      "state": "Gas",
+      "expected": false
+    },
+    "oxidationStates": "+1, -1",
+    "yearDiscovered": 1766,
+    "atomicMass": {
+      "value": 1.008,
+      "published": "1.0080",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.2,
+      "published": "2.2",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 31,
+      "published": "31",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 120,
+      "published": "120",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.754,
+      "published": "0.754",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 13.598434599702,
+      "published": "13.598434599702",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "theoretical"
+    },
+    "meltingPoint": {
+      "value": 13.81,
+      "published": "13.81",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 20.28,
+      "published": "20.28",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 0.00008988,
+      "published": "0.00008988",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "density",
+        "text": "This is the density of hydrogen gas, H₂, at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
+        "sourceId": "pubchem-periodic-table"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 2,
+    "symbol": "He",
+    "name": "Helium",
+    "category": "Noble gas",
+    "configuration": {
+      "text": "1s2"
+    },
+    "standardState": {
+      "state": "Gas",
+      "expected": false
+    },
+    "oxidationStates": "0",
+    "yearDiscovered": 1868,
+    "atomicMass": {
+      "value": 4.0026,
+      "published": "4.0026",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "covalentRadius": {
+      "value": 28,
+      "published": "28",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 140,
+      "published": "140",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 24.587389011,
+      "published": "24.587389011",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 0.95,
+      "published": "0.95",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 4.22,
+      "published": "4.22",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 0.0001785,
+      "published": "0.0001785",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "meltingPoint",
+        "text": "Helium becomes solid only under pressure. At ordinary pressure it stays liquid.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "density",
+        "text": "This is the density of the gas at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
+        "sourceId": "pubchem-periodic-table"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 3,
+    "symbol": "Li",
+    "name": "Lithium",
+    "category": "Alkali metal",
+    "configuration": {
+      "text": "[He]2s1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+1",
+    "yearDiscovered": 1817,
+    "atomicMass": {
+      "value": 6.94,
+      "published": "6.94",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 0.98,
+      "published": "0.98",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 128,
+      "published": "128",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 182,
+      "published": "182",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.618,
+      "published": "0.618",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 5.391714996,
+      "published": "5.391714996",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 453.65,
+      "published": "453.65",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 1615,
+      "published": "1615",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 0.534,
+      "published": "0.534",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 4,
+    "symbol": "Be",
+    "name": "Beryllium",
+    "category": "Alkaline earth metal",
+    "configuration": {
+      "text": "[He]2s2"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+2",
+    "yearDiscovered": 1798,
+    "atomicMass": {
+      "value": 9.0122,
+      "published": "9.0122",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.57,
+      "published": "1.57",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 96,
+      "published": "96",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 153,
+      "published": "153",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 9.322699,
+      "published": "9.322699",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1560,
+      "published": "1560",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 2744,
+      "published": "2744",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 1.85,
+      "published": "1.85",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 5,
+    "symbol": "B",
+    "name": "Boron",
+    "category": "Metalloid",
+    "configuration": {
+      "text": "[He]2s2 2p1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1808,
+    "atomicMass": {
+      "value": 10.81,
+      "published": "10.81",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.04,
+      "published": "2.04",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 84,
+      "published": "84",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 192,
+      "published": "192",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.277,
+      "published": "0.277",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 8.298019,
+      "published": "8.298019",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 2348,
+      "published": "2348",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 4273,
+      "published": "4273",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 2.37,
+      "published": "2.37",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 6,
+    "symbol": "C",
+    "name": "Carbon",
+    "category": "Nonmetal",
+    "configuration": {
+      "text": "[He]2s2 2p2"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+4, +2, -4",
+    "yearDiscovered": "Ancient",
+    "atomicMass": {
+      "value": 12.011,
+      "published": "12.011",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.55,
+      "published": "2.55",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 76,
+      "published": "76",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 170,
+      "published": "170",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 1.263,
+      "published": "1.263",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 11.260288,
+      "published": "11.2602880",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 3823,
+      "published": "3823",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 4098,
+      "published": "4098",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 2.267,
+      "published": "2.2670",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "meltingPoint",
+        "text": "At ordinary pressure carbon does not melt: it turns from solid straight to gas. PubChem's carbon page labels this figure as diamond's.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "boilingPoint",
+        "text": "At ordinary pressure carbon turns from solid straight to gas, so this is not the boiling point of a liquid. PubChem's carbon page also lists 3800 °C, marked as sublimation.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "covalentRadius",
+        "text": "The source gives one covalent radius per hybridization: sp³ 76 pm, sp² 73 pm, sp 69 pm. The first listed, sp³, is shown.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 7,
+    "symbol": "N",
+    "name": "Nitrogen",
+    "category": "Nonmetal",
+    "configuration": {
+      "text": "[He] 2s2 2p3"
+    },
+    "standardState": {
+      "state": "Gas",
+      "expected": false
+    },
+    "oxidationStates": "+5, +4, +3, +2, +1, -1, -2, -3",
+    "yearDiscovered": 1772,
+    "atomicMass": {
+      "value": 14.007,
+      "published": "14.007",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 3.04,
+      "published": "3.04",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 71,
+      "published": "71",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 155,
+      "published": "155",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 14.53413,
+      "published": "14.53413",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 63.15,
+      "published": "63.15",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 77.36,
+      "published": "77.36",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 0.0012506,
+      "published": "0.0012506",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "density",
+        "text": "This is the density of nitrogen gas, N₂, at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
+        "sourceId": "pubchem-periodic-table"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 8,
+    "symbol": "O",
+    "name": "Oxygen",
+    "category": "Nonmetal",
+    "configuration": {
+      "text": "[He]2s2 2p4"
+    },
+    "standardState": {
+      "state": "Gas",
+      "expected": false
+    },
+    "oxidationStates": "-2",
+    "yearDiscovered": 1774,
+    "atomicMass": {
+      "value": 15.999,
+      "published": "15.999",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 3.44,
+      "published": "3.44",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 66,
+      "published": "66",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 152,
+      "published": "152",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 1.461,
+      "published": "1.461",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 13.618055,
+      "published": "13.618055",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 54.36,
+      "published": "54.36",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 90.2,
+      "published": "90.2",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 0.001429,
+      "published": "0.001429",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "density",
+        "text": "This is the density of oxygen gas, O₂, at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
+        "sourceId": "pubchem-periodic-table"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 9,
+    "symbol": "F",
+    "name": "Fluorine",
+    "category": "Halogen",
+    "configuration": {
+      "text": "[He]2s2 2p5"
+    },
+    "standardState": {
+      "state": "Gas",
+      "expected": false
+    },
+    "oxidationStates": "-1",
+    "yearDiscovered": 1670,
+    "atomicMass": {
+      "value": 18.998,
+      "published": "18.998",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 3.98,
+      "published": "3.98",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 57,
+      "published": "57",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 135,
+      "published": "135",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 3.339,
+      "published": "3.339",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 17.42282,
+      "published": "17.42282",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 53.53,
+      "published": "53.53",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 85.03,
+      "published": "85.03",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 0.001696,
+      "published": "0.001696",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "density",
+        "text": "This is the density of fluorine gas, F₂, at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
+        "sourceId": "pubchem-periodic-table"
+      },
+      {
+        "row": "yearDiscovered",
+        "text": "1670 is the first recorded use of a fluorine compound. PubChem's fluorine page says the element was not isolated until 1886.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 10,
+    "symbol": "Ne",
+    "name": "Neon",
+    "category": "Noble gas",
+    "configuration": {
+      "text": "[He]2s2 2p6"
+    },
+    "standardState": {
+      "state": "Gas",
+      "expected": false
+    },
+    "oxidationStates": "0",
+    "yearDiscovered": 1898,
+    "atomicMass": {
+      "value": 20.18,
+      "published": "20.180",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "covalentRadius": {
+      "value": 58,
+      "published": "58",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 154,
+      "published": "154",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 21.564541,
+      "published": "21.564541",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 24.56,
+      "published": "24.56",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 27.07,
+      "published": "27.07",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 0.0008999,
+      "published": "0.0008999",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "density",
+        "text": "This is the density of the gas at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
+        "sourceId": "pubchem-periodic-table"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 11,
+    "symbol": "Na",
+    "name": "Sodium",
+    "category": "Alkali metal",
+    "configuration": {
+      "text": "[Ne]3s1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+1",
+    "yearDiscovered": 1807,
+    "atomicMass": {
+      "value": 22.99,
+      "published": "22.990",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 0.93,
+      "published": "0.93",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 166,
+      "published": "166",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 227,
+      "published": "227",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.548,
+      "published": "0.548",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 5.13907696,
+      "published": "5.13907696",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 370.95,
+      "published": "370.95",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 1156,
+      "published": "1156",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 0.97,
+      "published": "0.97",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 12,
+    "symbol": "Mg",
+    "name": "Magnesium",
+    "category": "Alkaline earth metal",
+    "configuration": {
+      "text": "[Ne]3s2"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+2",
+    "yearDiscovered": 1808,
+    "atomicMass": {
+      "value": 24.305,
+      "published": "24.305",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.31,
+      "published": "1.31",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 141,
+      "published": "141",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 173,
+      "published": "173",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 7.646236,
+      "published": "7.646236",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 923,
+      "published": "923",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 1363,
+      "published": "1363",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 1.74,
+      "published": "1.74",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 13,
+    "symbol": "Al",
+    "name": "Aluminum",
+    "category": "Post-transition metal",
+    "configuration": {
+      "text": "[Ne]3s2 3p1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": "Ancient",
+    "atomicMass": {
+      "value": 26.982,
+      "published": "26.982",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.61,
+      "published": "1.61",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 121,
+      "published": "121",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 184,
+      "published": "184",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.441,
+      "published": "0.441",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 5.985769,
+      "published": "5.985769",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 933.437,
+      "published": "933.437",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 2792,
+      "published": "2792",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 2.7,
+      "published": "2.70",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "yearDiscovered",
+        "text": "Only compounds of aluminum, such as alum, were known in ancient times. PubChem's aluminum page says the metal was first isolated, in impure form, in 1825.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 14,
+    "symbol": "Si",
+    "name": "Silicon",
+    "category": "Metalloid",
+    "configuration": {
+      "text": "[Ne]3s2 3p2"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+4, +2, -4",
+    "yearDiscovered": 1854,
+    "atomicMass": {
+      "value": 28.085,
+      "published": "28.085",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.9,
+      "published": "1.9",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 111,
+      "published": "111",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 210,
+      "published": "210",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 1.385,
+      "published": "1.385",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 8.15168,
+      "published": "8.15168",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1687,
+      "published": "1687",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3538,
+      "published": "3538",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 2.3296,
+      "published": "2.3296",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "yearDiscovered",
+        "text": "1854 is when crystalline silicon was first prepared. PubChem's silicon page says amorphous silicon was discovered in 1824.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 15,
+    "symbol": "P",
+    "name": "Phosphorus",
+    "category": "Nonmetal",
+    "configuration": {
+      "text": "[Ne]3s2 3p3"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+5, +3, -3",
+    "yearDiscovered": 1669,
+    "atomicMass": {
+      "value": 30.974,
+      "published": "30.974",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.19,
+      "published": "2.19",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 107,
+      "published": "107",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 180,
+      "published": "180",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.746,
+      "published": "0.746",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 10.486686,
+      "published": "10.486686",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 317.3,
+      "published": "317.3",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 553.65,
+      "published": "553.65",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 1.82,
+      "published": "1.82",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 16,
+    "symbol": "S",
+    "name": "Sulfur",
+    "category": "Nonmetal",
+    "configuration": {
+      "text": "[Ne]3s2 3p4"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+6, +4, -2",
+    "yearDiscovered": "Ancient",
+    "atomicMass": {
+      "value": 32.06,
+      "published": "32.06",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.58,
+      "published": "2.58",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 105,
+      "published": "105",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 180,
+      "published": "180",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 2.077,
+      "published": "2.077",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 10.3600167,
+      "published": "10.3600167",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 388.36,
+      "published": "388.36",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 717.75,
+      "published": "717.75",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 2.067,
+      "published": "2.067",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 17,
+    "symbol": "Cl",
+    "name": "Chlorine",
+    "category": "Halogen",
+    "configuration": {
+      "text": "[Ne]3s2 3p5"
+    },
+    "standardState": {
+      "state": "Gas",
+      "expected": false
+    },
+    "oxidationStates": "+7, +5, +1, -1",
+    "yearDiscovered": 1774,
+    "atomicMass": {
+      "value": 35.45,
+      "published": "35.45",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 3.16,
+      "published": "3.16",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 102,
+      "published": "102",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 175,
+      "published": "175",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 3.617,
+      "published": "3.617",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 12.967633,
+      "published": "12.967633",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 171.65,
+      "published": "171.65",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 239.11,
+      "published": "239.11",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 0.003214,
+      "published": "0.003214",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "density",
+        "text": "This is the density of chlorine gas, Cl₂, at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
+        "sourceId": "pubchem-periodic-table"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 18,
+    "symbol": "Ar",
+    "name": "Argon",
+    "category": "Noble gas",
+    "configuration": {
+      "text": "[Ne]3s2 3p6"
+    },
+    "standardState": {
+      "state": "Gas",
+      "expected": false
+    },
+    "oxidationStates": "0",
+    "yearDiscovered": 1894,
+    "atomicMass": {
+      "value": 39.95,
+      "published": "39.95",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "covalentRadius": {
+      "value": 106,
+      "published": "106",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 188,
+      "published": "188",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 15.7596119,
+      "published": "15.7596119",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 83.8,
+      "published": "83.8",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 87.3,
+      "published": "87.3",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 0.0017837,
+      "published": "0.0017837",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "density",
+        "text": "This is the density of the gas at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
+        "sourceId": "pubchem-periodic-table"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 19,
+    "symbol": "K",
+    "name": "Potassium",
+    "category": "Alkali metal",
+    "configuration": {
+      "text": "[Ar]4s1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+1",
+    "yearDiscovered": 1807,
+    "atomicMass": {
+      "value": 39.098,
+      "published": "39.098",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 0.82,
+      "published": "0.82",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 203,
+      "published": "203",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 275,
+      "published": "275",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.501,
+      "published": "0.501",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 4.34066373,
+      "published": "4.34066373",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 336.53,
+      "published": "336.53",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 1032,
+      "published": "1032",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 0.89,
+      "published": "0.89",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 20,
+    "symbol": "Ca",
+    "name": "Calcium",
+    "category": "Alkaline earth metal",
+    "configuration": {
+      "text": "[Ar]4s2"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+2",
+    "yearDiscovered": "Ancient",
+    "atomicMass": {
+      "value": 40.078,
+      "published": "40.078",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1,
+      "published": "1",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 176,
+      "published": "176",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 231,
+      "published": "231",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.113154921,
+      "published": "6.1131549210",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1115,
+      "published": "1115",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 1757,
+      "published": "1757",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 1.54,
+      "published": "1.54",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "yearDiscovered",
+        "text": "Only compounds of calcium, such as lime, were known in ancient times. PubChem's calcium page says the metal was first isolated in 1808.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 21,
+    "symbol": "Sc",
+    "name": "Scandium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Ar]4s2 3d1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1879,
+    "atomicMass": {
+      "value": 44.956,
+      "published": "44.956",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.36,
+      "published": "1.36",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 170,
+      "published": "170",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 211,
+      "published": "211",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.188,
+      "published": "0.188",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.56149,
+      "published": "6.56149",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1814,
+      "published": "1814",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3109,
+      "published": "3109",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 2.99,
+      "published": "2.99",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 22,
+    "symbol": "Ti",
+    "name": "Titanium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Ar]4s2 3d2"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+4, +3, +2",
+    "yearDiscovered": 1791,
+    "atomicMass": {
+      "value": 47.867,
+      "published": "47.867",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.54,
+      "published": "1.54",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 160,
+      "published": "160",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 187,
+      "published": "187",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.079,
+      "published": "0.079",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.82812,
+      "published": "6.828120",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1941,
+      "published": "1941",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3560,
+      "published": "3560",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 4.5,
+      "published": "4.5",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 23,
+    "symbol": "V",
+    "name": "Vanadium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Ar]4s2 3d3"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+5, +4, +3, +2",
+    "yearDiscovered": 1801,
+    "atomicMass": {
+      "value": 50.942,
+      "published": "50.942",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.63,
+      "published": "1.63",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 153,
+      "published": "153",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 179,
+      "published": "179",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.525,
+      "published": "0.525",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.746187,
+      "published": "6.746187",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 2183,
+      "published": "2183",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3680,
+      "published": "3680",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 6,
+      "published": "6.0",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 24,
+    "symbol": "Cr",
+    "name": "Chromium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Ar]3d5 4s1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+6, +3, +2",
+    "yearDiscovered": 1797,
+    "atomicMass": {
+      "value": 51.996,
+      "published": "51.996",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.66,
+      "published": "1.66",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 139,
+      "published": "139",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 189,
+      "published": "189",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.666,
+      "published": "0.666",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.76651,
+      "published": "6.76651",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 2180,
+      "published": "2180",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 2944,
+      "published": "2944",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 7.15,
+      "published": "7.15",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 25,
+    "symbol": "Mn",
+    "name": "Manganese",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Ar]4s2 3d5"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+7, +4, +3, +2",
+    "yearDiscovered": 1774,
+    "atomicMass": {
+      "value": 54.938,
+      "published": "54.938",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.55,
+      "published": "1.55",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 139,
+      "published": "139",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 197,
+      "published": "197",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 7.434038,
+      "published": "7.4340380",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1519,
+      "published": "1519",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 2334,
+      "published": "2334",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 7.3,
+      "published": "7.3",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "covalentRadius",
+        "text": "The source gives two covalent radii: low spin 139 pm, high spin 161 pm. The first listed, low spin, is shown.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 26,
+    "symbol": "Fe",
+    "name": "Iron",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Ar]4s2 3d6"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3, +2",
+    "yearDiscovered": "Ancient",
+    "atomicMass": {
+      "value": 55.845,
+      "published": "55.845",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.83,
+      "published": "1.83",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 132,
+      "published": "132",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 194,
+      "published": "194",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.163,
+      "published": "0.163",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 7.9024681,
+      "published": "7.9024681",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1811,
+      "published": "1811",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3134,
+      "published": "3134",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 7.874,
+      "published": "7.874",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "covalentRadius",
+        "text": "The source gives two covalent radii: low spin 132 pm, high spin 152 pm. The first listed, low spin, is shown.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 27,
+    "symbol": "Co",
+    "name": "Cobalt",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Ar]4s2 3d7"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3, +2",
+    "yearDiscovered": 1735,
+    "atomicMass": {
+      "value": 58.933,
+      "published": "58.933",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.88,
+      "published": "1.88",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 126,
+      "published": "126",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 192,
+      "published": "192",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.661,
+      "published": "0.661",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 7.88101,
+      "published": "7.88101",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1768,
+      "published": "1768",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3200,
+      "published": "3200",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 8.86,
+      "published": "8.86",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "covalentRadius",
+        "text": "The source gives two covalent radii: low spin 126 pm, high spin 150 pm. The first listed, low spin, is shown.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 28,
+    "symbol": "Ni",
+    "name": "Nickel",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Ar]4s2 3d8"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3, +2",
+    "yearDiscovered": 1751,
+    "atomicMass": {
+      "value": 58.693,
+      "published": "58.693",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.91,
+      "published": "1.91",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 124,
+      "published": "124",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 163,
+      "published": "163",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 1.156,
+      "published": "1.156",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 7.639878,
+      "published": "7.639878",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1728,
+      "published": "1728",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3186,
+      "published": "3186",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 8.912,
+      "published": "8.912",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 29,
+    "symbol": "Cu",
+    "name": "Copper",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Ar]4s1 3d10"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+2, +1",
+    "yearDiscovered": "Ancient",
+    "atomicMass": {
+      "value": 63.546,
+      "published": "63.546",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.9,
+      "published": "1.9",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 132,
+      "published": "132",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 140,
+      "published": "140",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 1.228,
+      "published": "1.228",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 7.72638,
+      "published": "7.726380",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1357.77,
+      "published": "1357.77",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 2835,
+      "published": "2835",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 8.933,
+      "published": "8.933",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 30,
+    "symbol": "Zn",
+    "name": "Zinc",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Ar]4s2 3d10"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+2",
+    "yearDiscovered": 1746,
+    "atomicMass": {
+      "value": 65.38,
+      "published": "65.38",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.65,
+      "published": "1.65",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 122,
+      "published": "122",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 139,
+      "published": "139",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 9.394197,
+      "published": "9.394197",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 692.68,
+      "published": "692.68",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 1180,
+      "published": "1180",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 7.134,
+      "published": "7.134",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 31,
+    "symbol": "Ga",
+    "name": "Gallium",
+    "category": "Post-transition metal",
+    "configuration": {
+      "text": "[Ar]4s2 3d10 4p1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1875,
+    "atomicMass": {
+      "value": 69.723,
+      "published": "69.723",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.81,
+      "published": "1.81",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 122,
+      "published": "122",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 187,
+      "published": "187",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.3,
+      "published": "0.3",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 5.999302,
+      "published": "5.9993020",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 302.91,
+      "published": "302.91",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 2477,
+      "published": "2477",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 5.91,
+      "published": "5.91",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 32,
+    "symbol": "Ge",
+    "name": "Germanium",
+    "category": "Metalloid",
+    "configuration": {
+      "text": "[Ar]4s2 3d10 4p2"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+4, +2",
+    "yearDiscovered": 1886,
+    "atomicMass": {
+      "value": 72.63,
+      "published": "72.630",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.01,
+      "published": "2.01",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 120,
+      "published": "120",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 211,
+      "published": "211",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 1.35,
+      "published": "1.35",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 7.899435,
+      "published": "7.899435",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1211.4,
+      "published": "1211.4",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3106,
+      "published": "3106",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 5.323,
+      "published": "5.323",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 33,
+    "symbol": "As",
+    "name": "Arsenic",
+    "category": "Metalloid",
+    "configuration": {
+      "text": "[Ar]4s2 3d10 4p3"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+5, +3, -3",
+    "yearDiscovered": "Ancient",
+    "atomicMass": {
+      "value": 74.922,
+      "published": "74.922",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.18,
+      "published": "2.18",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 119,
+      "published": "119",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 185,
+      "published": "185",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.81,
+      "published": "0.81",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 9.78855,
+      "published": "9.78855",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1090,
+      "published": "1090",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 887,
+      "published": "887",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 5.776,
+      "published": "5.776",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "meltingPoint",
+        "text": "Measured under pressure (PubChem's arsenic page gives 28 atmospheres). At ordinary pressure arsenic turns from solid straight to gas at 887 K, which is why this is higher than its boiling point.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "boilingPoint",
+        "text": "At ordinary pressure arsenic turns from solid straight to gas at this temperature. It does not boil from a liquid.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 34,
+    "symbol": "Se",
+    "name": "Selenium",
+    "category": "Nonmetal",
+    "configuration": {
+      "text": "[Ar]4s2 3d10 4p4"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+6, +4, -2",
+    "yearDiscovered": 1817,
+    "atomicMass": {
+      "value": 78.971,
+      "published": "78.971",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.55,
+      "published": "2.55",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 120,
+      "published": "120",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 190,
+      "published": "190",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 2.021,
+      "published": "2.021",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 9.752368,
+      "published": "9.752368",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 493.65,
+      "published": "493.65",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 958,
+      "published": "958",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 4.809,
+      "published": "4.809",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 35,
+    "symbol": "Br",
+    "name": "Bromine",
+    "category": "Halogen",
+    "configuration": {
+      "text": "[Ar]4s2 3d10 4p5"
+    },
+    "standardState": {
+      "state": "Liquid",
+      "expected": false
+    },
+    "oxidationStates": "+5, +1, -1",
+    "yearDiscovered": 1826,
+    "atomicMass": {
+      "value": 79.904,
+      "published": "79.904",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.96,
+      "published": "2.96",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 120,
+      "published": "120",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 183,
+      "published": "183",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 3.365,
+      "published": "3.365",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 11.81381,
+      "published": "11.81381",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 265.95,
+      "published": "265.95",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 331.95,
+      "published": "331.95",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 3.11,
+      "published": "3.11",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 36,
+    "symbol": "Kr",
+    "name": "Krypton",
+    "category": "Noble gas",
+    "configuration": {
+      "text": "[Ar]4s2 3d10 4p6"
+    },
+    "standardState": {
+      "state": "Gas",
+      "expected": false
+    },
+    "oxidationStates": "0",
+    "yearDiscovered": 1898,
+    "atomicMass": {
+      "value": 83.798,
+      "published": "83.798",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 3,
+      "published": "3",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 116,
+      "published": "116",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 202,
+      "published": "202",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 13.9996055,
+      "published": "13.9996055",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 115.79,
+      "published": "115.79",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 119.93,
+      "published": "119.93",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 0.003733,
+      "published": "0.003733",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "density",
+        "text": "This is the density of the gas at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
+        "sourceId": "pubchem-periodic-table"
+      },
+      {
+        "row": "oxidationStates",
+        "text": "The list shows only 0. PubChem's krypton page also lists +2 and +1 and says krypton is rarely in a state above 0.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 37,
+    "symbol": "Rb",
+    "name": "Rubidium",
+    "category": "Alkali metal",
+    "configuration": {
+      "text": "[Kr]5s1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+1",
+    "yearDiscovered": 1861,
+    "atomicMass": {
+      "value": 85.468,
+      "published": "85.468",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 0.82,
+      "published": "0.82",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 220,
+      "published": "220",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 303,
+      "published": "303",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.468,
+      "published": "0.468",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 4.1771281,
+      "published": "4.1771281",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 312.46,
+      "published": "312.46",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 961,
+      "published": "961",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 1.53,
+      "published": "1.53",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 38,
+    "symbol": "Sr",
+    "name": "Strontium",
+    "category": "Alkaline earth metal",
+    "configuration": {
+      "text": "[Kr]5s2"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+2",
+    "yearDiscovered": 1790,
+    "atomicMass": {
+      "value": 87.62,
+      "published": "87.62",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 0.95,
+      "published": "0.95",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 195,
+      "published": "195",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 249,
+      "published": "249",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 5.69486745,
+      "published": "5.69486745",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1050,
+      "published": "1050",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 1655,
+      "published": "1655",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 2.64,
+      "published": "2.64",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 39,
+    "symbol": "Y",
+    "name": "Yttrium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Kr]5s2 4d1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1794,
+    "atomicMass": {
+      "value": 88.906,
+      "published": "88.906",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.22,
+      "published": "1.22",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 190,
+      "published": "190",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 219,
+      "published": "219",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.307,
+      "published": "0.307",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.21726,
+      "published": "6.21726",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1795,
+      "published": "1795",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3618,
+      "published": "3618",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 4.47,
+      "published": "4.47",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 40,
+    "symbol": "Zr",
+    "name": "Zirconium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Kr]5s2 4d2"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+4",
+    "yearDiscovered": 1789,
+    "atomicMass": {
+      "value": 91.222,
+      "published": "91.222",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.33,
+      "published": "1.33",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 175,
+      "published": "175",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 186,
+      "published": "186",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.426,
+      "published": "0.426",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.634126,
+      "published": "6.634126",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 2128,
+      "published": "2128",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 4682,
+      "published": "4682",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 6.52,
+      "published": "6.52",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 41,
+    "symbol": "Nb",
+    "name": "Niobium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Kr]5s1 4d4"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+5, +3",
+    "yearDiscovered": 1801,
+    "atomicMass": {
+      "value": 92.906,
+      "published": "92.906",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.6,
+      "published": "1.6",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 164,
+      "published": "164",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 207,
+      "published": "207",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.893,
+      "published": "0.893",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.75885,
+      "published": "6.75885",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 2750,
+      "published": "2750",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 5017,
+      "published": "5017",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 8.57,
+      "published": "8.57",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 42,
+    "symbol": "Mo",
+    "name": "Molybdenum",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Kr]5s1 4d5"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+6",
+    "yearDiscovered": 1778,
+    "atomicMass": {
+      "value": 95.95,
+      "published": "95.95",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.16,
+      "published": "2.16",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 154,
+      "published": "154",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 209,
+      "published": "209",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.746,
+      "published": "0.746",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 7.09243,
+      "published": "7.09243",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 2896,
+      "published": "2896",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 4912,
+      "published": "4912",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 10.2,
+      "published": "10.2",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 43,
+    "symbol": "Tc",
+    "name": "Technetium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Kr]5s2 4d5"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+7, +6, +4",
+    "yearDiscovered": 1937,
+    "atomicMass": {
+      "value": 96.90636,
+      "published": "96.90636",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 97,
+      "estimated": false
+    },
+    "electronegativity": {
+      "value": 1.9,
+      "published": "1.9",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 147,
+      "published": "147",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 209,
+      "published": "209",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.55,
+      "published": "0.55",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 7.11938,
+      "published": "7.11938",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 2430,
+      "published": "2430",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 4538,
+      "published": "4538",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 11,
+      "published": "11",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 44,
+    "symbol": "Ru",
+    "name": "Ruthenium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Kr]5s1 4d7"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1827,
+    "atomicMass": {
+      "value": 101.07,
+      "published": "101.07",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.2,
+      "published": "2.2",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 146,
+      "published": "146",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 207,
+      "published": "207",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 1.05,
+      "published": "1.05",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 7.3605,
+      "published": "7.36050",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 2607,
+      "published": "2607",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 4423,
+      "published": "4423",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 12.1,
+      "published": "12.1",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 45,
+    "symbol": "Rh",
+    "name": "Rhodium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Kr]5s1 4d8"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1803,
+    "atomicMass": {
+      "value": 102.91,
+      "published": "102.91",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.28,
+      "published": "2.28",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 142,
+      "published": "142",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 195,
+      "published": "195",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 1.137,
+      "published": "1.137",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 7.4589,
+      "published": "7.45890",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 2237,
+      "published": "2237",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3968,
+      "published": "3968",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 12.4,
+      "published": "12.4",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 46,
+    "symbol": "Pd",
+    "name": "Palladium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Kr]4d10"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3, +2",
+    "yearDiscovered": 1803,
+    "atomicMass": {
+      "value": 106.42,
+      "published": "106.42",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.2,
+      "published": "2.2",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 139,
+      "published": "139",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 202,
+      "published": "202",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.557,
+      "published": "0.557",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 8.336839,
+      "published": "8.336839",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1828.05,
+      "published": "1828.05",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3236,
+      "published": "3236",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 12,
+      "published": "12.0",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 47,
+    "symbol": "Ag",
+    "name": "Silver",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Kr]5s1 4d10"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+1",
+    "yearDiscovered": "Ancient",
+    "atomicMass": {
+      "value": 107.87,
+      "published": "107.87",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.93,
+      "published": "1.93",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 145,
+      "published": "145",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 172,
+      "published": "172",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 1.302,
+      "published": "1.302",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 7.576234,
+      "published": "7.576234",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1234.93,
+      "published": "1234.93",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 2435,
+      "published": "2435",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 10.501,
+      "published": "10.501",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 48,
+    "symbol": "Cd",
+    "name": "Cadmium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Kr]5s2 4d10"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+2",
+    "yearDiscovered": 1817,
+    "atomicMass": {
+      "value": 112.41,
+      "published": "112.41",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.69,
+      "published": "1.69",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 144,
+      "published": "144",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 158,
+      "published": "158",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 8.99382,
+      "published": "8.993820",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 594.22,
+      "published": "594.22",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 1040,
+      "published": "1040",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 8.69,
+      "published": "8.69",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 49,
+    "symbol": "In",
+    "name": "Indium",
+    "category": "Post-transition metal",
+    "configuration": {
+      "text": "[Kr]5s2 4d10 5p1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1863,
+    "atomicMass": {
+      "value": 114.82,
+      "published": "114.82",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.78,
+      "published": "1.78",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 142,
+      "published": "142",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 193,
+      "published": "193",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.3,
+      "published": "0.3",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 5.7863558,
+      "published": "5.7863558",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 429.75,
+      "published": "429.75",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 2345,
+      "published": "2345",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 7.31,
+      "published": "7.31",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 50,
+    "symbol": "Sn",
+    "name": "Tin",
+    "category": "Post-transition metal",
+    "configuration": {
+      "text": "[Kr]5s2 4d10 5p2"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+4, +2",
+    "yearDiscovered": "Ancient",
+    "atomicMass": {
+      "value": 118.71,
+      "published": "118.71",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.96,
+      "published": "1.96",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 139,
+      "published": "139",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 217,
+      "published": "217",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 1.2,
+      "published": "1.2",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 7.343918,
+      "published": "7.343918",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 505.08,
+      "published": "505.08",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 2875,
+      "published": "2875",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 7.287,
+      "published": "7.287",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 51,
+    "symbol": "Sb",
+    "name": "Antimony",
+    "category": "Metalloid",
+    "configuration": {
+      "text": "[Kr]5s2 4d10 5p3"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+5, +3, -3",
+    "yearDiscovered": "Ancient",
+    "atomicMass": {
+      "value": 121.76,
+      "published": "121.76",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.05,
+      "published": "2.05",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 139,
+      "published": "139",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 206,
+      "published": "206",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 1.07,
+      "published": "1.07",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 8.608389,
+      "published": "8.608389",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 903.78,
+      "published": "903.78",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 1860,
+      "published": "1860",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 6.685,
+      "published": "6.685",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 52,
+    "symbol": "Te",
+    "name": "Tellurium",
+    "category": "Metalloid",
+    "configuration": {
+      "text": "[Kr]5s2 4d10 5p4"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+6, +4, -2",
+    "yearDiscovered": 1782,
+    "atomicMass": {
+      "value": 127.6,
+      "published": "127.60",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.1,
+      "published": "2.1",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 138,
+      "published": "138",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 206,
+      "published": "206",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 1.971,
+      "published": "1.971",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 9.009808,
+      "published": "9.009808",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 722.66,
+      "published": "722.66",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 1261,
+      "published": "1261",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 6.232,
+      "published": "6.232",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 53,
+    "symbol": "I",
+    "name": "Iodine",
+    "category": "Halogen",
+    "configuration": {
+      "text": "[Kr]5s2 4d10 5p5"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+7, +5, +1, -1",
+    "yearDiscovered": 1811,
+    "atomicMass": {
+      "value": 126.9,
+      "published": "126.90",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.66,
+      "published": "2.66",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 139,
+      "published": "139",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 198,
+      "published": "198",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 3.059,
+      "published": "3.059",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 10.451236,
+      "published": "10.451236",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 386.85,
+      "published": "386.85",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 457.55,
+      "published": "457.55",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 4.93,
+      "published": "4.93",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 54,
+    "symbol": "Xe",
+    "name": "Xenon",
+    "category": "Noble gas",
+    "configuration": {
+      "text": "[Kr]5s2 4d10 5p6"
+    },
+    "standardState": {
+      "state": "Gas",
+      "expected": false
+    },
+    "oxidationStates": "0",
+    "yearDiscovered": 1898,
+    "atomicMass": {
+      "value": 131.29,
+      "published": "131.29",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.6,
+      "published": "2.6",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 140,
+      "published": "140",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 216,
+      "published": "216",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 12.1298437,
+      "published": "12.1298437",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 161.36,
+      "published": "161.36",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 165.03,
+      "published": "165.03",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 0.005887,
+      "published": "0.005887",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "density",
+        "text": "This is the density of the gas at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
+        "sourceId": "pubchem-periodic-table"
+      },
+      {
+        "row": "oxidationStates",
+        "text": "The list shows only 0, but xenon forms compounds such as XeF₄, in which its oxidation state is +4. PubChem's xenon page lists states up to +8 and says xenon is rarely in a state above 0.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 55,
+    "symbol": "Cs",
+    "name": "Cesium",
+    "category": "Alkali metal",
+    "configuration": {
+      "text": "[Xe]6s1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+1",
+    "yearDiscovered": 1860,
+    "atomicMass": {
+      "value": 132.91,
+      "published": "132.91",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 0.79,
+      "published": "0.79",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 244,
+      "published": "244",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 343,
+      "published": "343",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.472,
+      "published": "0.472",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 3.89390572743,
+      "published": "3.89390572743",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 301.59,
+      "published": "301.59",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 944,
+      "published": "944",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 1.93,
+      "published": "1.93",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 56,
+    "symbol": "Ba",
+    "name": "Barium",
+    "category": "Alkaline earth metal",
+    "configuration": {
+      "text": "[Xe]6s2"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+2",
+    "yearDiscovered": 1808,
+    "atomicMass": {
+      "value": 137.33,
+      "published": "137.33",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 0.89,
+      "published": "0.89",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 215,
+      "published": "215",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 268,
+      "published": "268",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 5.2116646,
+      "published": "5.2116646",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1000,
+      "published": "1000",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 2170,
+      "published": "2170",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 3.62,
+      "published": "3.62",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 57,
+    "symbol": "La",
+    "name": "Lanthanum",
+    "category": "Lanthanide",
+    "configuration": {
+      "text": "[Xe]6s2 5d1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1839,
+    "atomicMass": {
+      "value": 138.91,
+      "published": "138.91",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.1,
+      "published": "1.1",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 207,
+      "published": "207",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 240,
+      "published": "240",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.5,
+      "published": "0.5",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 5.5769,
+      "published": "5.5769",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1191,
+      "published": "1191",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3737,
+      "published": "3737",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 6.15,
+      "published": "6.15",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 58,
+    "symbol": "Ce",
+    "name": "Cerium",
+    "category": "Lanthanide",
+    "configuration": {
+      "text": "[Xe]6s2 4f1 5d1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+4, +3",
+    "yearDiscovered": 1803,
+    "atomicMass": {
+      "value": 140.12,
+      "published": "140.12",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.12,
+      "published": "1.12",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 204,
+      "published": "204",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 235,
+      "published": "235",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.5,
+      "published": "0.5",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 5.5386,
+      "published": "5.5386",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1071,
+      "published": "1071",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3697,
+      "published": "3697",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 6.77,
+      "published": "6.770",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 59,
+    "symbol": "Pr",
+    "name": "Praseodymium",
+    "category": "Lanthanide",
+    "configuration": {
+      "text": "[Xe]6s2 4f3"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1885,
+    "atomicMass": {
+      "value": 140.91,
+      "published": "140.91",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.13,
+      "published": "1.13",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 203,
+      "published": "203",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 239,
+      "published": "239",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 5.4702,
+      "published": "5.4702",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "semi-empirical"
+    },
+    "meltingPoint": {
+      "value": 1204,
+      "published": "1204",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3793,
+      "published": "3793",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 6.77,
+      "published": "6.77",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 60,
+    "symbol": "Nd",
+    "name": "Neodymium",
+    "category": "Lanthanide",
+    "configuration": {
+      "text": "[Xe]6s2 4f4"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1885,
+    "atomicMass": {
+      "value": 144.24,
+      "published": "144.24",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.14,
+      "published": "1.14",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 201,
+      "published": "201",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 229,
+      "published": "229",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 5.52475,
+      "published": "5.52475",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1294,
+      "published": "1294",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3347,
+      "published": "3347",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 7.01,
+      "published": "7.01",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 61,
+    "symbol": "Pm",
+    "name": "Promethium",
+    "category": "Lanthanide",
+    "configuration": {
+      "text": "[Xe]6s2 4f5"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1945,
+    "atomicMass": {
+      "value": 144.91276,
+      "published": "144.91276",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 145,
+      "estimated": false
+    },
+    "covalentRadius": {
+      "value": 199,
+      "published": "199",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 236,
+      "published": "236",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 5.58187,
+      "published": "5.58187",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1315,
+      "published": "1315",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3273,
+      "published": "3273",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 7.26,
+      "published": "7.26",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 62,
+    "symbol": "Sm",
+    "name": "Samarium",
+    "category": "Lanthanide",
+    "configuration": {
+      "text": "[Xe]6s2 4f6"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3, +2",
+    "yearDiscovered": 1879,
+    "atomicMass": {
+      "value": 150.36,
+      "published": "150.36",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.17,
+      "published": "1.17",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 198,
+      "published": "198",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 229,
+      "published": "229",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 5.643722,
+      "published": "5.643722",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1347,
+      "published": "1347",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 2067,
+      "published": "2067",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 7.52,
+      "published": "7.52",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 63,
+    "symbol": "Eu",
+    "name": "Europium",
+    "category": "Lanthanide",
+    "configuration": {
+      "text": "[Xe]6s2 4f7"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3, +2",
+    "yearDiscovered": 1901,
+    "atomicMass": {
+      "value": 151.96,
+      "published": "151.96",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "covalentRadius": {
+      "value": 198,
+      "published": "198",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 233,
+      "published": "233",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 5.670385,
+      "published": "5.670385",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1095,
+      "published": "1095",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 1802,
+      "published": "1802",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 5.24,
+      "published": "5.24",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 64,
+    "symbol": "Gd",
+    "name": "Gadolinium",
+    "category": "Lanthanide",
+    "configuration": {
+      "text": "[Xe]6s2 4f7 5d1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1880,
+    "atomicMass": {
+      "value": 157.25,
+      "published": "157.25",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.2,
+      "published": "1.2",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 196,
+      "published": "196",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 237,
+      "published": "237",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.1498,
+      "published": "6.14980",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1586,
+      "published": "1586",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3546,
+      "published": "3546",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 7.9,
+      "published": "7.90",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 65,
+    "symbol": "Tb",
+    "name": "Terbium",
+    "category": "Lanthanide",
+    "configuration": {
+      "text": "[Xe]6s2 4f9"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1843,
+    "atomicMass": {
+      "value": 158.93,
+      "published": "158.93",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "covalentRadius": {
+      "value": 194,
+      "published": "194",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 221,
+      "published": "221",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 5.8638,
+      "published": "5.8638",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1629,
+      "published": "1629",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3503,
+      "published": "3503",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 8.23,
+      "published": "8.23",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 66,
+    "symbol": "Dy",
+    "name": "Dysprosium",
+    "category": "Lanthanide",
+    "configuration": {
+      "text": "[Xe]6s2 4f10"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1886,
+    "atomicMass": {
+      "value": 162.5,
+      "published": "162.50",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.22,
+      "published": "1.22",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 192,
+      "published": "192",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 229,
+      "published": "229",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 5.939061,
+      "published": "5.939061",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1685,
+      "published": "1685",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 2840,
+      "published": "2840",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 8.55,
+      "published": "8.55",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 67,
+    "symbol": "Ho",
+    "name": "Holmium",
+    "category": "Lanthanide",
+    "configuration": {
+      "text": "[Xe]6s2 4f11"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1878,
+    "atomicMass": {
+      "value": 164.93,
+      "published": "164.93",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.23,
+      "published": "1.23",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 192,
+      "published": "192",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 216,
+      "published": "216",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.0215,
+      "published": "6.0215",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1747,
+      "published": "1747",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 2973,
+      "published": "2973",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 8.8,
+      "published": "8.80",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 68,
+    "symbol": "Er",
+    "name": "Erbium",
+    "category": "Lanthanide",
+    "configuration": {
+      "text": "[Xe]6s2 4f12"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1843,
+    "atomicMass": {
+      "value": 167.26,
+      "published": "167.26",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.24,
+      "published": "1.24",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 189,
+      "published": "189",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 235,
+      "published": "235",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.1077,
+      "published": "6.1077",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1802,
+      "published": "1802",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3141,
+      "published": "3141",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 9.07,
+      "published": "9.07",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 69,
+    "symbol": "Tm",
+    "name": "Thulium",
+    "category": "Lanthanide",
+    "configuration": {
+      "text": "[Xe]6s2 4f13"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1879,
+    "atomicMass": {
+      "value": 168.93,
+      "published": "168.93",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.25,
+      "published": "1.25",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 190,
+      "published": "190",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 227,
+      "published": "227",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.184402,
+      "published": "6.184402",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1818,
+      "published": "1818",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 2223,
+      "published": "2223",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 9.32,
+      "published": "9.32",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 70,
+    "symbol": "Yb",
+    "name": "Ytterbium",
+    "category": "Lanthanide",
+    "configuration": {
+      "text": "[Xe]6s2 4f14"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3, +2",
+    "yearDiscovered": 1878,
+    "atomicMass": {
+      "value": 173.05,
+      "published": "173.05",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "covalentRadius": {
+      "value": 187,
+      "published": "187",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 242,
+      "published": "242",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.25416,
+      "published": "6.254160",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1092,
+      "published": "1092",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 1469,
+      "published": "1469",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 6.9,
+      "published": "6.90",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 71,
+    "symbol": "Lu",
+    "name": "Lutetium",
+    "category": "Lanthanide",
+    "configuration": {
+      "text": "[Xe]6s2 4f14 5d1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1907,
+    "atomicMass": {
+      "value": 174.97,
+      "published": "174.97",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.27,
+      "published": "1.27",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 187,
+      "published": "187",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 221,
+      "published": "221",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 5.425871,
+      "published": "5.425871",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1936,
+      "published": "1936",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3675,
+      "published": "3675",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 9.84,
+      "published": "9.84",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 72,
+    "symbol": "Hf",
+    "name": "Hafnium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Xe]6s2 4f14 5d2"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+4",
+    "yearDiscovered": 1923,
+    "atomicMass": {
+      "value": 178.49,
+      "published": "178.49",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.3,
+      "published": "1.3",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 175,
+      "published": "175",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 212,
+      "published": "212",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.82507,
+      "published": "6.825070",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 2506,
+      "published": "2506",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 4876,
+      "published": "4876",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 13.3,
+      "published": "13.3",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 73,
+    "symbol": "Ta",
+    "name": "Tantalum",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Xe]6s2 4f14 5d3"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+5",
+    "yearDiscovered": 1802,
+    "atomicMass": {
+      "value": 180.95,
+      "published": "180.95",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.5,
+      "published": "1.5",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 170,
+      "published": "170",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 217,
+      "published": "217",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.322,
+      "published": "0.322",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 7.549571,
+      "published": "7.549571",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 3290,
+      "published": "3290",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 5731,
+      "published": "5731",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 16.4,
+      "published": "16.4",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 74,
+    "symbol": "W",
+    "name": "Tungsten",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Xe]6s2 4f14 5d4"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+6",
+    "yearDiscovered": 1783,
+    "atomicMass": {
+      "value": 183.84,
+      "published": "183.84",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.36,
+      "published": "2.36",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 162,
+      "published": "162",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 210,
+      "published": "210",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.815,
+      "published": "0.815",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 7.86403,
+      "published": "7.86403",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 3695,
+      "published": "3695",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 5828,
+      "published": "5828",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 19.3,
+      "published": "19.3",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 75,
+    "symbol": "Re",
+    "name": "Rhenium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Xe]6s2 4f14 5d5"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+7, +6, +4",
+    "yearDiscovered": 1925,
+    "atomicMass": {
+      "value": 186.21,
+      "published": "186.21",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.9,
+      "published": "1.9",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 151,
+      "published": "151",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 217,
+      "published": "217",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.15,
+      "published": "0.15",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 7.83352,
+      "published": "7.83352",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 3459,
+      "published": "3459",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 5869,
+      "published": "5869",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 20.8,
+      "published": "20.8",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 76,
+    "symbol": "Os",
+    "name": "Osmium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Xe]6s2 4f14 5d6"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+4, +3",
+    "yearDiscovered": 1803,
+    "atomicMass": {
+      "value": 190.23,
+      "published": "190.23",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.2,
+      "published": "2.2",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 144,
+      "published": "144",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 216,
+      "published": "216",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 1.1,
+      "published": "1.1",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 8.43823,
+      "published": "8.43823",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 3306,
+      "published": "3306",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 5285,
+      "published": "5285",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 22.57,
+      "published": "22.57",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 77,
+    "symbol": "Ir",
+    "name": "Iridium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Xe]6s2 4f14 5d7"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+4, +3",
+    "yearDiscovered": 1803,
+    "atomicMass": {
+      "value": 192.22,
+      "published": "192.22",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.2,
+      "published": "2.2",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 141,
+      "published": "141",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 202,
+      "published": "202",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 1.565,
+      "published": "1.565",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 8.96702,
+      "published": "8.96702",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 2719,
+      "published": "2719",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 4701,
+      "published": "4701",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 22.42,
+      "published": "22.42",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 78,
+    "symbol": "Pt",
+    "name": "Platinum",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Xe]6s1 4f14 5d9"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+4, +2",
+    "yearDiscovered": 1735,
+    "atomicMass": {
+      "value": 195.08,
+      "published": "195.08",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.28,
+      "published": "2.28",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 136,
+      "published": "136",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 209,
+      "published": "209",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 2.128,
+      "published": "2.128",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 8.95883,
+      "published": "8.95883",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 2041.55,
+      "published": "2041.55",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 4098,
+      "published": "4098",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 21.46,
+      "published": "21.46",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 79,
+    "symbol": "Au",
+    "name": "Gold",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Xe]6s1 4f14 5d10"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3, +1",
+    "yearDiscovered": "Ancient",
+    "atomicMass": {
+      "value": 196.97,
+      "published": "196.97",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.54,
+      "published": "2.54",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 136,
+      "published": "136",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 166,
+      "published": "166",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 2.309,
+      "published": "2.309",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 9.225554,
+      "published": "9.225554",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1337.33,
+      "published": "1337.33",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3129,
+      "published": "3129",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 19.282,
+      "published": "19.282",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 80,
+    "symbol": "Hg",
+    "name": "Mercury",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Xe]6s2 4f14 5d10"
+    },
+    "standardState": {
+      "state": "Liquid",
+      "expected": false
+    },
+    "oxidationStates": "+2, +1",
+    "yearDiscovered": "Ancient",
+    "atomicMass": {
+      "value": 200.59,
+      "published": "200.59",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2,
+      "published": "2",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 132,
+      "published": "132",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 209,
+      "published": "209",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 10.437504,
+      "published": "10.437504",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 234.32,
+      "published": "234.32",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 629.88,
+      "published": "629.88",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 13.5336,
+      "published": "13.5336",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 81,
+    "symbol": "Tl",
+    "name": "Thallium",
+    "category": "Post-transition metal",
+    "configuration": {
+      "text": "[Xe]6s2 4f14 5d10 6p1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3, +1",
+    "yearDiscovered": 1861,
+    "atomicMass": {
+      "value": 204.38,
+      "published": "204.38",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.62,
+      "published": "1.62",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 145,
+      "published": "145",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 196,
+      "published": "196",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.2,
+      "published": "0.2",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.1082873,
+      "published": "6.1082873",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 577,
+      "published": "577",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 1746,
+      "published": "1746",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 11.8,
+      "published": "11.8",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 82,
+    "symbol": "Pb",
+    "name": "Lead",
+    "category": "Post-transition metal",
+    "configuration": {
+      "text": "[Xe]6s2 4f14 5d10 6p2"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+4, +2",
+    "yearDiscovered": "Ancient",
+    "atomicMass": {
+      "value": 207.2,
+      "published": "207.2",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.33,
+      "published": "2.33",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 146,
+      "published": "146",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 202,
+      "published": "202",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.36,
+      "published": "0.36",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 7.4166799,
+      "published": "7.4166799",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 600.61,
+      "published": "600.61",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 2022,
+      "published": "2022",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 11.342,
+      "published": "11.342",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 83,
+    "symbol": "Bi",
+    "name": "Bismuth",
+    "category": "Post-transition metal",
+    "configuration": {
+      "text": "[Xe]6s2 4f14 5d10 6p3"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+5, +3",
+    "yearDiscovered": 1753,
+    "atomicMass": {
+      "value": 208.98,
+      "published": "208.98",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 2.02,
+      "published": "2.02",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 148,
+      "published": "148",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 207,
+      "published": "207",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.946,
+      "published": "0.946",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 7.285516,
+      "published": "7.285516",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 544.55,
+      "published": "544.55",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 1837,
+      "published": "1837",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 9.807,
+      "published": "9.807",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 84,
+    "symbol": "Po",
+    "name": "Polonium",
+    "category": "Metalloid",
+    "configuration": {
+      "text": "[Xe]6s2 4f14 5d10 6p4"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+4, +2",
+    "yearDiscovered": 1898,
+    "atomicMass": {
+      "value": 208.98243,
+      "published": "208.98243",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 209,
+      "estimated": false
+    },
+    "electronegativity": {
+      "value": 2,
+      "published": "2",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 140,
+      "published": "140",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 197,
+      "published": "197",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 1.9,
+      "published": "1.9",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 8.41807,
+      "published": "8.418070",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 527,
+      "published": "527",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 1235,
+      "published": "1235",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 9.32,
+      "published": "9.32",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "category",
+        "text": "PubChem's table puts polonium with the metalloids. PubChem's own polonium page classes it as a metal.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 85,
+    "symbol": "At",
+    "name": "Astatine",
+    "category": "Halogen",
+    "configuration": {
+      "text": "[Xe]6s2 4f14 5d10 6p5"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "7, 5, 3, 1, -1",
+    "yearDiscovered": 1940,
+    "atomicMass": {
+      "value": 209.98715,
+      "published": "209.98715",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 210,
+      "estimated": false
+    },
+    "electronegativity": {
+      "value": 2.2,
+      "published": "2.2",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 150,
+      "published": "150",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 202,
+      "published": "202",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 2.8,
+      "published": "2.8",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 9.31751,
+      "published": "9.31751",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 575,
+      "published": "575",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 7,
+      "published": "7",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "density",
+        "text": "PubChem's astatine page gives this as \"about 7\".",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "category",
+        "text": "PubChem's table puts astatine with the halogens, its group. PubChem's own astatine page classes it as a semi-metal; the lighter halogens are nonmetals.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 86,
+    "symbol": "Rn",
+    "name": "Radon",
+    "category": "Noble gas",
+    "configuration": {
+      "text": "[Xe]6s2 4f14 5d10 6p6"
+    },
+    "standardState": {
+      "state": "Gas",
+      "expected": false
+    },
+    "oxidationStates": "0",
+    "yearDiscovered": 1900,
+    "atomicMass": {
+      "value": 222.01758,
+      "published": "222.01758",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 222,
+      "estimated": false
+    },
+    "covalentRadius": {
+      "value": 150,
+      "published": "150",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 220,
+      "published": "220",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 10.7485,
+      "published": "10.74850",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 202,
+      "published": "202",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 211.45,
+      "published": "211.45",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 0.00973,
+      "published": "0.00973",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "density",
+        "text": "This is the density of the gas at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
+        "sourceId": "pubchem-periodic-table"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 87,
+    "symbol": "Fr",
+    "name": "Francium",
+    "category": "Alkali metal",
+    "configuration": {
+      "text": "[Rn]7s1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+1",
+    "yearDiscovered": 1939,
+    "atomicMass": {
+      "value": 223.01973,
+      "published": "223.01973",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 223,
+      "estimated": false
+    },
+    "electronegativity": {
+      "value": 0.7,
+      "published": "0.7",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 260,
+      "published": "260",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 348,
+      "published": "348",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "electronAffinity": {
+      "value": 0.47,
+      "published": "0.47",
+      "unit": "eV",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 4.0727411,
+      "published": "4.0727411",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 300,
+      "published": "300",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 88,
+    "symbol": "Ra",
+    "name": "Radium",
+    "category": "Alkaline earth metal",
+    "configuration": {
+      "text": "[Rn]7s2"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+2",
+    "yearDiscovered": 1898,
+    "atomicMass": {
+      "value": 226.02541,
+      "published": "226.02541",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 226,
+      "estimated": false
+    },
+    "electronegativity": {
+      "value": 0.9,
+      "published": "0.9",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 221,
+      "published": "221",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 283,
+      "published": "283",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 5.2784239,
+      "published": "5.2784239",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 973,
+      "published": "973",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 1413,
+      "published": "1413",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 5,
+      "published": "5",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 89,
+    "symbol": "Ac",
+    "name": "Actinium",
+    "category": "Actinide",
+    "configuration": {
+      "text": "[Rn]7s2 6d1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1899,
+    "atomicMass": {
+      "value": 227.02775,
+      "published": "227.02775",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 227,
+      "estimated": false
+    },
+    "electronegativity": {
+      "value": 1.1,
+      "published": "1.1",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 215,
+      "published": "215",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 260,
+      "published": "260",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 5.380235,
+      "published": "5.380235",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1324,
+      "published": "1324",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3471,
+      "published": "3471",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 10.07,
+      "published": "10.07",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 90,
+    "symbol": "Th",
+    "name": "Thorium",
+    "category": "Actinide",
+    "configuration": {
+      "text": "[Rn]7s2 6d2"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+4",
+    "yearDiscovered": 1828,
+    "atomicMass": {
+      "value": 232.04,
+      "published": "232.04",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.3,
+      "published": "1.3",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 206,
+      "published": "206",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 237,
+      "published": "237",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.3067,
+      "published": "6.30670",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 2023,
+      "published": "2023",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 5061,
+      "published": "5061",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 11.72,
+      "published": "11.72",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 91,
+    "symbol": "Pa",
+    "name": "Protactinium",
+    "category": "Actinide",
+    "configuration": {
+      "text": "[Rn]7s2 5f2 6d1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+5, +4",
+    "yearDiscovered": 1913,
+    "atomicMass": {
+      "value": 231.04,
+      "published": "231.04",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.5,
+      "published": "1.5",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 200,
+      "published": "200",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 243,
+      "published": "243",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 5.89,
+      "published": "5.89",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "semi-empirical"
+    },
+    "meltingPoint": {
+      "value": 1845,
+      "published": "1845",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 15.37,
+      "published": "15.37",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 92,
+    "symbol": "U",
+    "name": "Uranium",
+    "category": "Actinide",
+    "configuration": {
+      "text": "[Rn]7s2 5f3 6d1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+6, +5, +4, +3",
+    "yearDiscovered": 1789,
+    "atomicMass": {
+      "value": 238.03,
+      "published": "238.03",
+      "unit": "u",
+      "sourceId": "ciaaw-abridged-2024",
+      "kind": "standard-atomic-weight"
+    },
+    "electronegativity": {
+      "value": 1.38,
+      "published": "1.38",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 196,
+      "published": "196",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 240,
+      "published": "240",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.19405,
+      "published": "6.19405",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1408,
+      "published": "1408",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 4404,
+      "published": "4404",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 18.95,
+      "published": "18.95",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 93,
+    "symbol": "Np",
+    "name": "Neptunium",
+    "category": "Actinide",
+    "configuration": {
+      "text": "[Rn]7s2 5f4 6d1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+6, +5, +4, +3",
+    "yearDiscovered": 1940,
+    "atomicMass": {
+      "value": 237.048172,
+      "published": "237.048172",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 237,
+      "estimated": false
+    },
+    "electronegativity": {
+      "value": 1.36,
+      "published": "1.36",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 190,
+      "published": "190",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 221,
+      "published": "221",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.265608,
+      "published": "6.265608",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 917,
+      "published": "917",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 4175,
+      "published": "4175",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 20.25,
+      "published": "20.25",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 94,
+    "symbol": "Pu",
+    "name": "Plutonium",
+    "category": "Actinide",
+    "configuration": {
+      "text": "[Rn]7s2 5f6"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+6, +5, +4, +3",
+    "yearDiscovered": 1940,
+    "atomicMass": {
+      "value": 244.0642,
+      "published": "244.06420",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 244,
+      "estimated": false
+    },
+    "electronegativity": {
+      "value": 1.28,
+      "published": "1.28",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 187,
+      "published": "187",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 243,
+      "published": "243",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.02576,
+      "published": "6.02576",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 913,
+      "published": "913",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3501,
+      "published": "3501",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 19.84,
+      "published": "19.84",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 95,
+    "symbol": "Am",
+    "name": "Americium",
+    "category": "Actinide",
+    "configuration": {
+      "text": "[Rn]7s2 5f7"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+6, +5, +4, +3",
+    "yearDiscovered": 1944,
+    "atomicMass": {
+      "value": 243.06138,
+      "published": "243.061380",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 243,
+      "estimated": false
+    },
+    "electronegativity": {
+      "value": 1.3,
+      "published": "1.3",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 180,
+      "published": "180",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 244,
+      "published": "244",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 5.97381,
+      "published": "5.97381",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1449,
+      "published": "1449",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 2284,
+      "published": "2284",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 13.69,
+      "published": "13.69",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 96,
+    "symbol": "Cm",
+    "name": "Curium",
+    "category": "Actinide",
+    "configuration": {
+      "text": "[Rn]7s2 5f7 6d1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1944,
+    "atomicMass": {
+      "value": 247.07035,
+      "published": "247.07035",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 247,
+      "estimated": false
+    },
+    "electronegativity": {
+      "value": 1.3,
+      "published": "1.3",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "covalentRadius": {
+      "value": 169,
+      "published": "169",
+      "unit": "pm",
+      "sourceId": "pubchem-element-pages"
+    },
+    "vdwRadius": {
+      "value": 245,
+      "published": "245",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 5.992241,
+      "published": "5.992241",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1618,
+      "published": "1618",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "boilingPoint": {
+      "value": 3400,
+      "published": "3400",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 13.51,
+      "published": "13.51",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "boilingPoint",
+        "text": "PubChem's curium page gives this as about 3400 K.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 97,
+    "symbol": "Bk",
+    "name": "Berkelium",
+    "category": "Actinide",
+    "configuration": {
+      "text": "[Rn]7s2 5f9"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+4, +3",
+    "yearDiscovered": 1949,
+    "atomicMass": {
+      "value": 247.07031,
+      "published": "247.07031",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 247,
+      "estimated": false
+    },
+    "electronegativity": {
+      "value": 1.3,
+      "published": "1.3",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "vdwRadius": {
+      "value": 244,
+      "published": "244",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.19785,
+      "published": "6.19785",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1323,
+      "published": "1323",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "density": {
+      "value": 14,
+      "published": "14",
+      "unit": "g/cm³",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 98,
+    "symbol": "Cf",
+    "name": "Californium",
+    "category": "Actinide",
+    "configuration": {
+      "text": "[Rn]7s2 5f10"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1950,
+    "atomicMass": {
+      "value": 251.07959,
+      "published": "251.07959",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 251,
+      "estimated": false
+    },
+    "electronegativity": {
+      "value": 1.3,
+      "published": "1.3",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "vdwRadius": {
+      "value": 245,
+      "published": "245",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.281878,
+      "published": "6.281878",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1173,
+      "published": "1173",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 99,
+    "symbol": "Es",
+    "name": "Einsteinium",
+    "category": "Actinide",
+    "configuration": {
+      "text": "[Rn]7s2 5f11"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1952,
+    "atomicMass": {
+      "value": 252.083,
+      "published": "252.0830",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 252,
+      "estimated": false
+    },
+    "electronegativity": {
+      "value": 1.3,
+      "published": "1.3",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "vdwRadius": {
+      "value": 245,
+      "published": "245",
+      "unit": "pm",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.3684,
+      "published": "6.36840",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1133,
+      "published": "1133",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 100,
+    "symbol": "Fm",
+    "name": "Fermium",
+    "category": "Actinide",
+    "configuration": {
+      "text": "[Rn] 5f12 7s2"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1952,
+    "atomicMass": {
+      "value": 257.09511,
+      "published": "257.09511",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 257,
+      "estimated": false
+    },
+    "electronegativity": {
+      "value": 1.3,
+      "published": "1.3",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.5,
+      "published": "6.50",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "semi-empirical"
+    },
+    "meltingPoint": {
+      "value": 1800,
+      "published": "1800",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 101,
+    "symbol": "Md",
+    "name": "Mendelevium",
+    "category": "Actinide",
+    "configuration": {
+      "text": "[Rn]7s2 5f13"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3, +2",
+    "yearDiscovered": 1955,
+    "atomicMass": {
+      "value": 258.09843,
+      "published": "258.09843",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 258,
+      "estimated": false
+    },
+    "electronegativity": {
+      "value": 1.3,
+      "published": "1.3",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.58,
+      "published": "6.58",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "semi-empirical"
+    },
+    "meltingPoint": {
+      "value": 1100,
+      "published": "1100",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 102,
+    "symbol": "No",
+    "name": "Nobelium",
+    "category": "Actinide",
+    "configuration": {
+      "text": "[Rn]7s2 5f14"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3, +2",
+    "yearDiscovered": 1957,
+    "atomicMass": {
+      "value": 259.101,
+      "published": "259.10100",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 259,
+      "estimated": false
+    },
+    "electronegativity": {
+      "value": 1.3,
+      "published": "1.3",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 6.62621,
+      "published": "6.62621",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1100,
+      "published": "1100",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 103,
+    "symbol": "Lr",
+    "name": "Lawrencium",
+    "category": "Actinide",
+    "configuration": {
+      "text": "[Rn]7s2 5f14 6d1"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+3",
+    "yearDiscovered": 1961,
+    "atomicMass": {
+      "value": 266.12,
+      "published": "266.120",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 266,
+      "estimated": true
+    },
+    "electronegativity": {
+      "value": 1.3,
+      "published": "1.3",
+      "unit": "",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "ionizationEnergy": {
+      "value": 4.96,
+      "published": "4.96",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "measured"
+    },
+    "meltingPoint": {
+      "value": 1900,
+      "published": "1900",
+      "unit": "K",
+      "sourceId": "pubchem-periodic-table"
+    },
+    "notes": [
+      {
+        "row": "configuration",
+        "text": "PubChem puts the last electron in 6d. NIST lists a different ground state, [Rn]5f14 7s2 7p1, with that electron in 7p.",
+        "sourceId": "nist-asd-ie-all"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 104,
+    "symbol": "Rf",
+    "name": "Rutherfordium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Rn]7s2 5f14 6d2"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "+4",
+    "yearDiscovered": 1964,
+    "atomicMass": {
+      "value": 267.122,
+      "published": "267.122",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 267,
+      "estimated": true
+    },
+    "ionizationEnergy": {
+      "value": 6.02,
+      "published": "6.02",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "theoretical"
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 105,
+    "symbol": "Db",
+    "name": "Dubnium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Rn]7s2 5f14 6d3"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "5, 4, 3",
+    "yearDiscovered": 1967,
+    "atomicMass": {
+      "value": 268.126,
+      "published": "268.126",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 268,
+      "estimated": true
+    },
+    "ionizationEnergy": {
+      "value": 6.8,
+      "published": "6.8",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "theoretical"
+    },
+    "notes": [
+      {
+        "row": "oxidationStates",
+        "text": "PubChem's dubnium page marks the states 4 and 3 as predictions.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 106,
+    "symbol": "Sg",
+    "name": "Seaborgium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Rn]7s2 5f14 6d4"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "6, 5, 4, 3, 0",
+    "yearDiscovered": 1974,
+    "atomicMass": {
+      "value": 269.128,
+      "published": "269.128",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 269,
+      "estimated": true
+    },
+    "ionizationEnergy": {
+      "value": 7.8,
+      "published": "7.8",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "semi-empirical"
+    },
+    "notes": [
+      {
+        "row": "oxidationStates",
+        "text": "PubChem's seaborgium page marks the states 5, 4 and 3 as predictions.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 107,
+    "symbol": "Bh",
+    "name": "Bohrium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Rn]7s2 5f14 6d5"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "7, 5, 4, 3",
+    "yearDiscovered": 1976,
+    "atomicMass": {
+      "value": 270.133,
+      "published": "270.133",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 270,
+      "estimated": true
+    },
+    "ionizationEnergy": {
+      "value": 7.7,
+      "published": "7.7",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "semi-empirical"
+    },
+    "notes": [
+      {
+        "row": "oxidationStates",
+        "text": "PubChem's bohrium page marks the states 5, 4 and 3 as predictions.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 108,
+    "symbol": "Hs",
+    "name": "Hassium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Rn]7s2 5f14 6d6"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "8, 6, 5, 4, 3, 2",
+    "yearDiscovered": 1984,
+    "atomicMass": {
+      "value": 269.1336,
+      "published": "269.1336",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 269,
+      "estimated": true
+    },
+    "ionizationEnergy": {
+      "value": 7.6,
+      "published": "7.6",
+      "unit": "eV",
+      "sourceId": "nist-asd-ie-all",
+      "flag": "semi-empirical"
+    },
+    "notes": [
+      {
+        "row": "oxidationStates",
+        "text": "PubChem's hassium page marks the states 6, 5, 4, 3 and 2 as predictions.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 109,
+    "symbol": "Mt",
+    "name": "Meitnerium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Rn]7s2 5f14 6d7",
+      "qualifier": "calculated"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": false
+    },
+    "oxidationStates": "9, 8, 6, 4, 3, 1",
+    "yearDiscovered": 1982,
+    "atomicMass": {
+      "value": 277.154,
+      "published": "277.154",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 277,
+      "estimated": true
+    },
+    "notes": [
+      {
+        "row": "oxidationStates",
+        "text": "PubChem's page for this element marks all of these states as predictions.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 110,
+    "symbol": "Ds",
+    "name": "Darmstadtium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Rn]7s2 5f14 6d8",
+      "qualifier": "predicted"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": true
+    },
+    "oxidationStates": "8, 6, 4, 2, 0",
+    "yearDiscovered": 1994,
+    "atomicMass": {
+      "value": 282.166,
+      "published": "282.166",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 282,
+      "estimated": true
+    },
+    "notes": [
+      {
+        "row": "oxidationStates",
+        "text": "PubChem's page for this element marks all of these states as predictions.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 111,
+    "symbol": "Rg",
+    "name": "Roentgenium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Rn]7s2 5f14 6d9",
+      "qualifier": "predicted"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": true
+    },
+    "oxidationStates": "5, 3, 1, -1",
+    "yearDiscovered": 1994,
+    "atomicMass": {
+      "value": 282.169,
+      "published": "282.169",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 282,
+      "estimated": true
+    },
+    "notes": [
+      {
+        "row": "oxidationStates",
+        "text": "PubChem's page for this element marks all of these states as predictions.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 112,
+    "symbol": "Cn",
+    "name": "Copernicium",
+    "category": "Transition metal",
+    "configuration": {
+      "text": "[Rn]7s2 5f14 6d10",
+      "qualifier": "predicted"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": true
+    },
+    "oxidationStates": "2, 1, 0",
+    "yearDiscovered": 1996,
+    "atomicMass": {
+      "value": 286.179,
+      "published": "286.179",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 286,
+      "estimated": true
+    },
+    "notes": [
+      {
+        "row": "oxidationStates",
+        "text": "PubChem's copernicium page marks the state 1 as a prediction.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 113,
+    "symbol": "Nh",
+    "name": "Nihonium",
+    "category": "Post-transition metal",
+    "configuration": {
+      "text": "[Rn]5f14 6d10 7s2 7p1",
+      "qualifier": "predicted"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": true
+    },
+    "yearDiscovered": 2004,
+    "atomicMass": {
+      "value": 286.182,
+      "published": "286.182",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 286,
+      "estimated": true
+    },
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 114,
+    "symbol": "Fl",
+    "name": "Flerovium",
+    "category": "Post-transition metal",
+    "configuration": {
+      "text": "[Rn]7s2 7p2 5f14 6d10",
+      "qualifier": "predicted"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": true
+    },
+    "oxidationStates": "6, 4,2, 1, 0",
+    "yearDiscovered": 1998,
+    "atomicMass": {
+      "value": 290.192,
+      "published": "290.192",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 290,
+      "estimated": true
+    },
+    "notes": [
+      {
+        "row": "oxidationStates",
+        "text": "PubChem's page for this element marks all of these states as predictions.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 115,
+    "symbol": "Mc",
+    "name": "Moscovium",
+    "category": "Post-transition metal",
+    "configuration": {
+      "text": "[Rn]7s2 7p3 5f14 6d10",
+      "qualifier": "predicted"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": true
+    },
+    "oxidationStates": "3, 1",
+    "yearDiscovered": 2003,
+    "atomicMass": {
+      "value": 290.196,
+      "published": "290.196",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 290,
+      "estimated": true
+    },
+    "notes": [
+      {
+        "row": "oxidationStates",
+        "text": "PubChem's page for this element marks all of these states as predictions.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 116,
+    "symbol": "Lv",
+    "name": "Livermorium",
+    "category": "Post-transition metal",
+    "configuration": {
+      "text": "[Rn]7s2 7p4 5f14 6d10",
+      "qualifier": "predicted"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": true
+    },
+    "oxidationStates": "+4, +2, -2",
+    "yearDiscovered": 2000,
+    "atomicMass": {
+      "value": 293.205,
+      "published": "293.205",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 293,
+      "estimated": true
+    },
+    "notes": [
+      {
+        "row": "oxidationStates",
+        "text": "PubChem's page for this element marks all of these states as predictions.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 117,
+    "symbol": "Ts",
+    "name": "Tennessine",
+    "category": "Halogen",
+    "configuration": {
+      "text": "[Rn]7s2 7p5 5f14 6d10",
+      "qualifier": "predicted"
+    },
+    "standardState": {
+      "state": "Solid",
+      "expected": true
+    },
+    "oxidationStates": "+5, +3, +1, -1",
+    "yearDiscovered": 2010,
+    "atomicMass": {
+      "value": 294.211,
+      "published": "294.211",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 294,
+      "estimated": true
+    },
+    "notes": [
+      {
+        "row": "oxidationStates",
+        "text": "PubChem's page for this element marks all of these states as predictions.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  },
+  {
+    "atomicNumber": 118,
+    "symbol": "Og",
+    "name": "Oganesson",
+    "category": "Noble gas",
+    "configuration": {
+      "text": "[Rn]7s2 7p6 5f14 6d10",
+      "qualifier": "predicted"
+    },
+    "standardState": {
+      "state": "Gas",
+      "expected": true
+    },
+    "oxidationStates": "+6, +4, +2, +1, 0, -1",
+    "yearDiscovered": 2006,
+    "atomicMass": {
+      "value": 295.216,
+      "published": "295.216",
+      "unit": "u",
+      "sourceId": "pubchem-periodic-table",
+      "kind": "isotope-mass",
+      "massNumber": 295,
+      "estimated": true
+    },
+    "notes": [
+      {
+        "row": "oxidationStates",
+        "text": "PubChem's page for this element marks all of these states as predictions.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
+    "sourceId": "pubchem-periodic-table"
+  }
+]

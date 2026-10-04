@@ -213,5 +213,20 @@
     "id": "openstax-chem2e-8.4",
     "url": "https://openstax.org/books/chemistry-2e/pages/8-4-molecular-orbital-theory",
     "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 8.4 Molecular Orbital Theory (Figure 8.37, Table 8.3, Example 8.6)."
+  },
+  {
+    "id": "pubchem-periodic-table",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/periodic-table/",
+    "citation": "PubChem [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2004-. Periodic Table of Elements (data: https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON, retrieved 2026-10-03). PubChem compiles the table from other sources, named on each element's page: Jefferson Lab, Los Alamos National Laboratory, IUPAC CIAAW, the IAEA Atomic Mass Data Center, and journal papers. Source: National Library of Medicine."
+  },
+  {
+    "id": "nist-asd-ie-all",
+    "url": "https://physics.nist.gov/cgi-bin/ASD/ie.pl?spectra=H-Og+I&submit=Retrieve+Data&units=1&format=3&order=0&at_num_out=on&sp_name_out=on&ion_charge_out=on&el_name_out=on&seq_out=on&shells_out=on&conf_out=on&level_out=on&ion_conf_out=on&e_out=0&unc_out=on&biblio=on",
+    "citation": "Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, Ground States and Ionization Energies: the neutral atoms, hydrogen to hassium (retrieved 2026-10-03). National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F"
+  },
+  {
+    "id": "pubchem-element-pages",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/periodic-table/",
+    "citation": "PubChem [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2004-. Element pages, one per element, opened from the Periodic Table of Elements (data: https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/element/<atomic number>/JSON, retrieved 2026-10-03). The covalent radii carried there are those of Cordero, B. et al. Covalent radii revisited. Dalton Trans. 2008, (21), 2832-2838 (https://doi.org/10.1039/b801115j): they equal Cordero's values for the 11 elements this app checked one by one; the paper is paywalled and was not read. Source: National Library of Medicine."
   }
 ]

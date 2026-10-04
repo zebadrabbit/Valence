@@ -4,6 +4,8 @@
 //
 // Reads docs/research/phase-2/ and writes, under src/chem-data/:
 //   elements.json, sources.json, mo-diagrams.json, library-index.json, molecules/<id>.json, molecules/index.ts
+// Reads docs/research/periodic-table/ (saved downloads and decisions.json) and writes:
+//   periodic-table.json, and its sources into sources.json
 //
 // Deterministic: the same inputs give byte-identical outputs. Anything
 // unexpected in the inputs stops the build with a message and writes nothing.
@@ -15,9 +17,11 @@ import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import process from 'node:process'
 import { parseSdf } from './parse-sdf.mjs'
+import { parseCiaawAbridged, parseNistIe, parsePubChem } from './periodic-table-lib.mjs'
 
 const root = join(import.meta.dirname, '..')
 const research = join(root, 'docs/research/phase-2')
+const periodicResearch = join(root, 'docs/research/periodic-table')
 const out = join(root, 'src/chem-data')
 
 function fail(message) {
@@ -599,6 +603,244 @@ function buildMoDiagrams(molecules) {
   return { diagrams, sources: [{ id: MO_SOURCE_ID, url, citation }] }
 }
 
+// ---------------------------------------------------------------------------
+// Periodic table
+//
+// Which source fills which field (periodic table spec 5.1):
+// - PubChem's periodic table download: number, symbol, name, category, configuration, state, oxidation
+//   states, year, and the quantities in PUBCHEM_QUANTITIES; for the 34 elements with no standard atomic
+//   weight, also the mass of one isotope.
+// - CIAAW's abridged table: the standard atomic weight of the other 84. Each row reads "value ± uncertainty",
+//   one conventional value even where the full table gives an interval; the value is stored as printed
+//   ("1.0080", "6.94") and the uncertainty is not kept.
+// - NIST ASD: the first ionization energy of elements 1 to 108, with NIST's marking of how it was obtained.
+// - PubChem's element pages: the covalent radius of elements 1 to 96.
+// Notes and choices come from decisions.json and nowhere else.
+
+// The unit of every quantity. Read from PubChem's own page and recorded in docs/research/periodic-table/units.md;
+// NIST's file gives the ionization energy in eV. Electronegativity (Pauling scale) is the only one with no unit.
+const PERIODIC_UNITS = {
+  atomicMass: 'u',
+  electronegativity: '',
+  covalentRadius: 'pm',
+  vdwRadius: 'pm',
+  ionizationEnergy: 'eV',
+  electronAffinity: 'eV',
+  meltingPoint: 'K',
+  boilingPoint: 'K',
+  density: 'g/cm³',
+}
+
+// PubChem column -> field. "AtomicRadius" is a van der Waals radius. "IonizationEnergy" is not used (NIST's is),
+// and "CPKHexColor" is not used at all.
+const PUBCHEM_QUANTITIES = {
+  Electronegativity: 'electronegativity',
+  AtomicRadius: 'vdwRadius',
+  ElectronAffinity: 'electronAffinity',
+  MeltingPoint: 'meltingPoint',
+  BoilingPoint: 'boilingPoint',
+  Density: 'density',
+}
+const PUBCHEM_COLUMNS = 'AtomicNumber,Symbol,Name,AtomicMass,CPKHexColor,ElectronConfiguration,Electronegativity,AtomicRadius,IonizationEnergy,ElectronAffinity,OxidationStates,StandardState,MeltingPoint,BoilingPoint,Density,GroupBlock,YearDiscovered'
+const CATEGORIES = ['Alkali metal', 'Alkaline earth metal', 'Transition metal', 'Post-transition metal', 'Metalloid', 'Nonmetal', 'Halogen', 'Noble gas', 'Lanthanide', 'Actinide']
+// The rows of the element card a note can qualify: field names of the record.
+const NOTE_ROWS = ['category', 'configuration', 'standardState', 'oxidationStates', 'yearDiscovered', ...Object.keys(PERIODIC_UNITS)]
+
+const PUBCHEM_TABLE_ID = 'pubchem-periodic-table'
+const PUBCHEM_PAGES_ID = 'pubchem-element-pages'
+const NIST_ALL_ID = 'nist-asd-ie-all'
+const CIAAW_ID = 'ciaaw-abridged-2024'
+const CIAAW_TITLE = 'Abridged Standard Atomic Weights 2024'
+const PUBCHEM = 'PubChem [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2004-.'
+
+// The retrieval date and the NIST query are the ones recorded beside the saved copies.
+function periodicSources(manifest) {
+  const saved = (file) => manifest.files.find((f) => f.file === file) ?? fail(`MANIFEST.json does not list ${file}`)
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(manifest.retrieved)) fail('MANIFEST.json has no retrieval date')
+  const retrieved = `retrieved ${manifest.retrieved}`
+  return [
+    {
+      id: PUBCHEM_TABLE_ID,
+      url: 'https://pubchem.ncbi.nlm.nih.gov/periodic-table/',
+      citation: `${PUBCHEM} Periodic Table of Elements (data: https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON, ${retrieved}). PubChem compiles the table from other sources, named on each element's page: Jefferson Lab, Los Alamos National Laboratory, IUPAC CIAAW, the IAEA Atomic Mass Data Center, and journal papers. Source: National Library of Medicine.`,
+    },
+    {
+      id: NIST_ALL_ID,
+      url: saved('nist-asd-ie-neutral.txt').url,
+      citation: `Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, Ground States and Ionization Energies: the neutral atoms, hydrogen to hassium (${retrieved}). National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F`,
+    },
+    {
+      id: PUBCHEM_PAGES_ID,
+      url: 'https://pubchem.ncbi.nlm.nih.gov/periodic-table/',
+      citation: `${PUBCHEM} Element pages, one per element, opened from the Periodic Table of Elements (data: https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/element/<atomic number>/JSON, ${retrieved}). The covalent radii carried there are those of Cordero, B. et al. Covalent radii revisited. Dalton Trans. 2008, (21), 2832-2838 (https://doi.org/10.1039/b801115j): they equal Cordero's values for the 11 elements this app checked one by one; the paper is paywalled and was not read. Source: National Library of Medicine.`,
+    },
+  ]
+}
+
+const PLAIN_NUMBER = /^\d+(\.\d+)?$/
+
+/** A quantity in the source's own digits. Fails on anything that is not a plain positive number. */
+function quantity(published, field, sourceId, where) {
+  if (typeof published !== 'string' || !PLAIN_NUMBER.test(published) || !(Number(published) > 0)) {
+    fail(`${where}: ${field} ${JSON.stringify(published)} is not a positive number`)
+  }
+  return { value: Number(published), published, unit: PERIODIC_UNITS[field], sourceId }
+}
+
+const onlyKeys = (object, keys, where) => {
+  const unknown = Object.keys(object).filter((key) => !keys.includes(key))
+  const missing = keys.filter((key) => !(key in object))
+  if (unknown.length > 0 || missing.length > 0) fail(`${where}: expected exactly the keys ${keys.join(', ')}`)
+}
+
+/** decisions.json, checked: { isotopes, covalentChoice, notesFor(symbol) }. */
+function readDecisions(symbols, sourceIds) {
+  const decisions = JSON.parse(readFileSync(join(periodicResearch, 'decisions.json'), 'utf8'))
+  onlyKeys(decisions, ['about', 'isotopeMasses', 'covalentRadius', 'notes'], 'decisions.json')
+  const known = (symbol, where) => symbols.has(symbol) || fail(`decisions.json: ${where} names "${symbol}", which is not an element symbol`)
+
+  for (const [symbol, isotope] of Object.entries(decisions.isotopeMasses)) {
+    known(symbol, 'isotopeMasses')
+    onlyKeys(isotope, ['massNumber', 'estimated'], `decisions.json: isotopeMasses.${symbol}`)
+    if (!Number.isInteger(isotope.massNumber) || typeof isotope.estimated !== 'boolean') fail(`decisions.json: isotopeMasses.${symbol} is malformed`)
+  }
+  for (const [symbol, value] of Object.entries(decisions.covalentRadius)) {
+    known(symbol, 'covalentRadius')
+    if (typeof value !== 'string') fail(`decisions.json: covalentRadius.${symbol} must be the published text`)
+  }
+
+  const notes = new Map()
+  decisions.notes.forEach((note, i) => {
+    const where = `decisions.json: notes[${i}]`
+    onlyKeys(note, ['symbols', 'row', 'text', 'sourceId'], where)
+    if (!Array.isArray(note.symbols) || note.symbols.length === 0 || new Set(note.symbols).size !== note.symbols.length) fail(`${where}: symbols must be a list with no repeats`)
+    if (!NOTE_ROWS.includes(note.row)) fail(`${where}: unknown row "${note.row}"`)
+    if (typeof note.text !== 'string' || note.text.trim() === '' || note.text !== note.text.trim()) fail(`${where}: text is empty or padded`)
+    if (!sourceIds.has(note.sourceId)) fail(`${where}: unknown source "${note.sourceId}"`)
+    for (const symbol of note.symbols) {
+      known(symbol, `notes[${i}]`)
+      const list = notes.get(symbol) ?? []
+      if (list.some((other) => other.row === note.row && other.text === note.text)) fail(`${where}: repeats a note on ${symbol}`)
+      notes.set(symbol, [...list, { row: note.row, text: note.text, sourceId: note.sourceId }])
+    }
+  })
+  return { isotopes: decisions.isotopeMasses, covalentChoice: decisions.covalentRadius, notesFor: (symbol) => notes.get(symbol) ?? [] }
+}
+
+/** The covalent radii an element page lists, as published: [] or ['31'] or, for a few elements, several. */
+function covalentRadii(page, where) {
+  const lines = page.lines.filter((line) => line.name === 'Covalent Atomic Radius')
+  if (lines.length === 0) return []
+  if (lines.length > 1) fail(`${where}: more than one covalent radius line`)
+  // "31(5) pm (Covalent)", "28 pm (Covalent)", "76(1)[sp3], 73(2)[sp2], 69(1)[sp] pm (Covalent)":
+  // a value, its uncertainty in the last digits, and a label where there are several.
+  const list = /^(.+) pm \(Covalent\)$/.exec(lines[0].text)?.[1] ?? fail(`${where}: unreadable covalent radius "${lines[0].text}"`)
+  return list.split(', ').map((entry) => /^(\d+)(\(\d+\))?(\[[^\]]+\])?$/.exec(entry)?.[1] ?? fail(`${where}: unreadable covalent radius "${lines[0].text}"`))
+}
+
+function buildPeriodicTable(otherSourceIds) {
+  const read = (name) => readFileSync(join(periodicResearch, name), 'utf8')
+  const sources = periodicSources(JSON.parse(read('sources/MANIFEST.json')))
+  const sourceIds = new Set([...otherSourceIds, ...sources.map((s) => s.id)])
+  if (!sourceIds.has(CIAAW_ID)) fail(`no source "${CIAAW_ID}"`)
+
+  const download = JSON.parse(read('pubchem-periodic-table.json'))
+  if (download.Table.Columns.Column.join() !== PUBCHEM_COLUMNS) fail('the PubChem download does not have the expected columns')
+  const rows = parsePubChem(download)
+  if (rows.length !== 118) fail(`the PubChem download has ${rows.length} rows, expected 118`)
+
+  // The units in the table above are the ones PubChem's page labels its columns with.
+  const labels = JSON.parse(read('sources/pubchem-ptable-column-labels.json'))
+  for (const [column, field] of [['AtomicMass', 'atomicMass'], ...Object.entries(PUBCHEM_QUANTITIES)]) {
+    if ((labels[column]?.unit ?? '') !== PERIODIC_UNITS[field]) fail(`PubChem labels ${column} with the unit "${labels[column]?.unit}", not "${PERIODIC_UNITS[field]}"`)
+  }
+
+  const ciaaw = parseCiaawAbridged(read('sources/ciaaw-abridged-atomic-weights.html'))
+  if (ciaaw.title !== CIAAW_TITLE || ciaaw.rows.length !== 118) fail(`the saved CIAAW page is not "${CIAAW_TITLE}" with 118 rows`)
+  const nistText = read('sources/nist-asd-ie-neutral.txt')
+  if (!nistText.includes('Ionization Energy (eV)')) fail('the saved NIST file does not give the ionization energy in eV')
+  const nist = parseNistIe(nistText)
+  if (nist.length !== 108) fail(`the saved NIST file has ${nist.length} rows, expected 108`)
+  const pages = JSON.parse(read('sources/pubchem-element-pages-extract.json'))
+  if (Object.keys(pages).length !== 118) fail('the saved PubChem element pages are not 118 records')
+
+  const decisions = readDecisions(new Set(rows.map((row) => row.Symbol)), sourceIds)
+
+  const elements = rows.map((row, i) => {
+    const atomicNumber = i + 1
+    const where = `periodic table row ${atomicNumber}`
+    if (row.AtomicNumber !== String(atomicNumber)) fail(`${where}: atomic number is "${row.AtomicNumber}"`)
+    const { Symbol: symbol, Name: name } = row
+    if (!/^[A-Z][a-z]?$/.test(symbol)) fail(`${where}: symbol is "${symbol}"`)
+    if (name.trim() === '' || name !== name.trim()) fail(`${where}: name is empty or padded`)
+    if (!CATEGORIES.includes(row.GroupBlock)) fail(`${where}: unknown category "${row.GroupBlock}"`)
+
+    // "(predicted)" and "(calculated)" are the source's own markings; the rest of the text is kept as published.
+    const marked = /^(.*?)(?: \((predicted|calculated)\))?$/.exec(row.ElectronConfiguration)
+    const [, text, qualifier] = marked
+    if (text === '' || /[()]/.test(text)) fail(`${where}: configuration "${row.ElectronConfiguration}" is empty or carries an unknown marking`)
+
+    const state = /^(Expected to be a )?(Solid|Liquid|Gas)$/.exec(row.StandardState) ?? fail(`${where}: unknown state "${row.StandardState}"`)
+    if (row.YearDiscovered !== 'Ancient' && !/^\d{3,4}$/.test(row.YearDiscovered)) fail(`${where}: year is "${row.YearDiscovered}"`)
+
+    // Atomic mass: CIAAW's standard atomic weight where there is one, otherwise the isotope mass PubChem prints.
+    const weight = ciaaw.rows[i]
+    if (weight.z !== atomicNumber || weight.symbol !== symbol) fail(`${where}: the CIAAW row is ${weight.z} ${weight.symbol}`)
+    if (weight.value === null && weight.text !== '—') fail(`${where}: unreadable CIAAW entry "${weight.text}"`)
+    const isotope = decisions.isotopes[symbol]
+    if ((weight.value === null) !== (isotope !== undefined)) fail(`${where}: decisions.json must name an isotope for exactly the elements with no standard atomic weight`)
+    const pubchemMass = quantity(row.AtomicMass, 'atomicMass', PUBCHEM_TABLE_ID, where)
+    if (isotope && Math.round(pubchemMass.value) !== isotope.massNumber) fail(`${where}: mass ${row.AtomicMass} does not round to mass number ${isotope.massNumber}`)
+    const atomicMass = isotope
+      ? { ...pubchemMass, kind: 'isotope-mass', massNumber: isotope.massNumber, estimated: isotope.estimated }
+      : { ...quantity(weight.value, 'atomicMass', CIAAW_ID, where), kind: 'standard-atomic-weight' }
+
+    const fromPubChem = Object.fromEntries(
+      Object.entries(PUBCHEM_QUANTITIES).flatMap(([column, field]) => (row[column] === '' ? [] : [[field, quantity(row[column], field, PUBCHEM_TABLE_ID, where)]])),
+    )
+    // The column is not shown, but an unreadable value still means the download is not what this script expects.
+    if (row.IonizationEnergy !== '') quantity(row.IonizationEnergy, 'ionizationEnergy', PUBCHEM_TABLE_ID, where)
+
+    const page = pages[atomicNumber]
+    if (page?.title !== name) fail(`${where}: the saved element page is "${page?.title}"`)
+    const radii = covalentRadii(page, where)
+    const choice = decisions.covalentChoice[symbol]
+    if ((radii.length > 1) !== (choice !== undefined)) fail(`${where}: decisions.json must choose a covalent radius for exactly the elements with several`)
+    if (choice !== undefined && choice !== radii[0]) fail(`${where}: the covalent radius chosen is not the first listed (${radii[0]})`)
+
+    const ie = nist[i]
+    if (ie && (ie.z !== atomicNumber || ie.charge !== 0 || ie.spectrum !== `${symbol} I`)) fail(`${where}: the NIST row is ${ie.spectrum}`)
+
+    const notes = decisions.notesFor(symbol)
+    if (radii.length > 1 && !notes.some((note) => note.row === 'covalentRadius')) fail(`${where}: a chosen covalent radius needs a note saying so`)
+
+    return {
+      atomicNumber,
+      symbol,
+      name,
+      category: row.GroupBlock,
+      configuration: { text, ...(qualifier ? { qualifier } : {}) },
+      standardState: { state: state[2], expected: state[1] !== undefined },
+      ...(row.OxidationStates === '' ? {} : { oxidationStates: row.OxidationStates }),
+      yearDiscovered: row.YearDiscovered === 'Ancient' ? 'Ancient' : Number(row.YearDiscovered),
+      atomicMass,
+      ...(fromPubChem.electronegativity ? { electronegativity: fromPubChem.electronegativity } : {}),
+      ...(radii.length > 0 ? { covalentRadius: quantity(radii[0], 'covalentRadius', PUBCHEM_PAGES_ID, where) } : {}),
+      ...(fromPubChem.vdwRadius ? { vdwRadius: fromPubChem.vdwRadius } : {}),
+      ...(fromPubChem.electronAffinity ? { electronAffinity: fromPubChem.electronAffinity } : {}),
+      ...(ie ? { ionizationEnergy: { ...quantity(ie.energy, 'ionizationEnergy', NIST_ALL_ID, where), flag: ie.flag } } : {}),
+      ...(fromPubChem.meltingPoint ? { meltingPoint: fromPubChem.meltingPoint } : {}),
+      ...(fromPubChem.boilingPoint ? { boilingPoint: fromPubChem.boilingPoint } : {}),
+      ...(fromPubChem.density ? { density: fromPubChem.density } : {}),
+      ...(notes.length > 0 ? { notes } : {}),
+      sourceId: PUBCHEM_TABLE_ID,
+    }
+  })
+
+  if (new Set(elements.map((e) => e.symbol)).size !== 118 || new Set(elements.map((e) => e.name)).size !== 118) fail('the PubChem download repeats a symbol or a name')
+  return { elements, sources }
+}
+
 // A static import list keeps the registry free of bundler-only APIs.
 function moleculeIndex(molecules) {
   const name = (id) => id.replace(/-(.)/g, (_, c) => c.toUpperCase())
@@ -625,7 +867,9 @@ function main() {
   const { elements, sources: elementSources } = buildElements()
   const { molecules, sources: moleculeSources } = buildMolecules(elements)
   const { diagrams, sources: moSources } = buildMoDiagrams(molecules)
-  const sources = [...elementSources, ...moleculeSources, ...moSources]
+  const otherSources = [...elementSources, ...moleculeSources, ...moSources]
+  const { elements: periodicTable, sources: periodicTableSources } = buildPeriodicTable(otherSources.map((s) => s.id))
+  const sources = [...otherSources, ...periodicTableSources]
   if (new Set(sources.map((s) => s.id)).size !== sources.length) fail('duplicate source ids')
 
   // Everything is built before anything is written.
@@ -637,8 +881,11 @@ function main() {
   writeFileSync(join(out, 'elements.json'), toJson(elements))
   writeFileSync(join(out, 'mo-diagrams.json'), toJson(diagrams))
   writeFileSync(join(out, 'library-index.json'), toJson(libraryIndex(molecules)))
+  writeFileSync(join(out, 'periodic-table.json'), toJson(periodicTable))
   writeFileSync(join(out, 'sources.json'), toJson(sources))
-  process.stdout.write(`Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${sources.length} sources.\n`)
+  process.stdout.write(
+    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, ${sources.length} sources.\n`,
+  )
 }
 
 try {

@@ -1,0 +1,239 @@
+{
+  "about": "Authored choices and notes for the periodic table. scripts/build-chem-data.mjs reads this file and fails on anything in it that it does not recognise. isotopeMasses: for each element with no CIAAW standard atomic weight, the isotope whose mass PubChem prints, and whether that mass is an estimate. covalentRadius: for each element whose covalent radius the source lists more than once, the value shown, which must be the first listed. notes: sentences shown on the element card, each beside the row it qualifies (a field name of the element record) and each with the id of the source that supports it.",
+  "isotopeMasses": {
+    "Tc": { "massNumber": 97, "estimated": false },
+    "Pm": { "massNumber": 145, "estimated": false },
+    "Po": { "massNumber": 209, "estimated": false },
+    "At": { "massNumber": 210, "estimated": false },
+    "Rn": { "massNumber": 222, "estimated": false },
+    "Fr": { "massNumber": 223, "estimated": false },
+    "Ra": { "massNumber": 226, "estimated": false },
+    "Ac": { "massNumber": 227, "estimated": false },
+    "Np": { "massNumber": 237, "estimated": false },
+    "Pu": { "massNumber": 244, "estimated": false },
+    "Am": { "massNumber": 243, "estimated": false },
+    "Cm": { "massNumber": 247, "estimated": false },
+    "Bk": { "massNumber": 247, "estimated": false },
+    "Cf": { "massNumber": 251, "estimated": false },
+    "Es": { "massNumber": 252, "estimated": false },
+    "Fm": { "massNumber": 257, "estimated": false },
+    "Md": { "massNumber": 258, "estimated": false },
+    "No": { "massNumber": 259, "estimated": false },
+    "Lr": { "massNumber": 266, "estimated": true },
+    "Rf": { "massNumber": 267, "estimated": true },
+    "Db": { "massNumber": 268, "estimated": true },
+    "Sg": { "massNumber": 269, "estimated": true },
+    "Bh": { "massNumber": 270, "estimated": true },
+    "Hs": { "massNumber": 269, "estimated": true },
+    "Mt": { "massNumber": 277, "estimated": true },
+    "Ds": { "massNumber": 282, "estimated": true },
+    "Rg": { "massNumber": 282, "estimated": true },
+    "Cn": { "massNumber": 286, "estimated": true },
+    "Nh": { "massNumber": 286, "estimated": true },
+    "Fl": { "massNumber": 290, "estimated": true },
+    "Mc": { "massNumber": 290, "estimated": true },
+    "Lv": { "massNumber": 293, "estimated": true },
+    "Ts": { "massNumber": 294, "estimated": true },
+    "Og": { "massNumber": 295, "estimated": true }
+  },
+  "covalentRadius": {
+    "C": "76",
+    "Mn": "139",
+    "Fe": "132",
+    "Co": "126"
+  },
+  "notes": [
+    {
+      "symbols": ["He"],
+      "row": "meltingPoint",
+      "text": "Helium becomes solid only under pressure. At ordinary pressure it stays liquid.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["C"],
+      "row": "meltingPoint",
+      "text": "At ordinary pressure carbon does not melt: it turns from solid straight to gas. PubChem's carbon page labels this figure as diamond's.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["C"],
+      "row": "boilingPoint",
+      "text": "At ordinary pressure carbon turns from solid straight to gas, so this is not the boiling point of a liquid. PubChem's carbon page also lists 3800 °C, marked as sublimation.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["As"],
+      "row": "meltingPoint",
+      "text": "Measured under pressure (PubChem's arsenic page gives 28 atmospheres). At ordinary pressure arsenic turns from solid straight to gas at 887 K, which is why this is higher than its boiling point.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["As"],
+      "row": "boilingPoint",
+      "text": "At ordinary pressure arsenic turns from solid straight to gas at this temperature. It does not boil from a liquid.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["H"],
+      "row": "density",
+      "text": "This is the density of hydrogen gas, H₂, at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
+      "sourceId": "pubchem-periodic-table"
+    },
+    {
+      "symbols": ["N"],
+      "row": "density",
+      "text": "This is the density of nitrogen gas, N₂, at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
+      "sourceId": "pubchem-periodic-table"
+    },
+    {
+      "symbols": ["O"],
+      "row": "density",
+      "text": "This is the density of oxygen gas, O₂, at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
+      "sourceId": "pubchem-periodic-table"
+    },
+    {
+      "symbols": ["F"],
+      "row": "density",
+      "text": "This is the density of fluorine gas, F₂, at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
+      "sourceId": "pubchem-periodic-table"
+    },
+    {
+      "symbols": ["Cl"],
+      "row": "density",
+      "text": "This is the density of chlorine gas, Cl₂, at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
+      "sourceId": "pubchem-periodic-table"
+    },
+    {
+      "symbols": ["He", "Ne", "Ar", "Kr", "Xe", "Rn"],
+      "row": "density",
+      "text": "This is the density of the gas at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
+      "sourceId": "pubchem-periodic-table"
+    },
+    {
+      "symbols": ["At"],
+      "row": "density",
+      "text": "PubChem's astatine page gives this as \"about 7\".",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Cm"],
+      "row": "boilingPoint",
+      "text": "PubChem's curium page gives this as about 3400 K.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Al"],
+      "row": "yearDiscovered",
+      "text": "Only compounds of aluminum, such as alum, were known in ancient times. PubChem's aluminum page says the metal was first isolated, in impure form, in 1825.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Ca"],
+      "row": "yearDiscovered",
+      "text": "Only compounds of calcium, such as lime, were known in ancient times. PubChem's calcium page says the metal was first isolated in 1808.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["F"],
+      "row": "yearDiscovered",
+      "text": "1670 is the first recorded use of a fluorine compound. PubChem's fluorine page says the element was not isolated until 1886.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Si"],
+      "row": "yearDiscovered",
+      "text": "1854 is when crystalline silicon was first prepared. PubChem's silicon page says amorphous silicon was discovered in 1824.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Xe"],
+      "row": "oxidationStates",
+      "text": "The list shows only 0, but xenon forms compounds such as XeF₄, in which its oxidation state is +4. PubChem's xenon page lists states up to +8 and says xenon is rarely in a state above 0.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Kr"],
+      "row": "oxidationStates",
+      "text": "The list shows only 0. PubChem's krypton page also lists +2 and +1 and says krypton is rarely in a state above 0.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Db"],
+      "row": "oxidationStates",
+      "text": "PubChem's dubnium page marks the states 4 and 3 as predictions.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Sg"],
+      "row": "oxidationStates",
+      "text": "PubChem's seaborgium page marks the states 5, 4 and 3 as predictions.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Bh"],
+      "row": "oxidationStates",
+      "text": "PubChem's bohrium page marks the states 5, 4 and 3 as predictions.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Hs"],
+      "row": "oxidationStates",
+      "text": "PubChem's hassium page marks the states 6, 5, 4, 3 and 2 as predictions.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Cn"],
+      "row": "oxidationStates",
+      "text": "PubChem's copernicium page marks the state 1 as a prediction.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Mt", "Ds", "Rg", "Fl", "Mc", "Lv", "Ts", "Og"],
+      "row": "oxidationStates",
+      "text": "PubChem's page for this element marks all of these states as predictions.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Lr"],
+      "row": "configuration",
+      "text": "PubChem puts the last electron in 6d. NIST lists a different ground state, [Rn]5f14 7s2 7p1, with that electron in 7p.",
+      "sourceId": "nist-asd-ie-all"
+    },
+    {
+      "symbols": ["Po"],
+      "row": "category",
+      "text": "PubChem's table puts polonium with the metalloids. PubChem's own polonium page classes it as a metal.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["At"],
+      "row": "category",
+      "text": "PubChem's table puts astatine with the halogens, its group. PubChem's own astatine page classes it as a semi-metal; the lighter halogens are nonmetals.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["C"],
+      "row": "covalentRadius",
+      "text": "The source gives one covalent radius per hybridization: sp³ 76 pm, sp² 73 pm, sp 69 pm. The first listed, sp³, is shown.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Mn"],
+      "row": "covalentRadius",
+      "text": "The source gives two covalent radii: low spin 139 pm, high spin 161 pm. The first listed, low spin, is shown.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Fe"],
+      "row": "covalentRadius",
+      "text": "The source gives two covalent radii: low spin 132 pm, high spin 152 pm. The first listed, low spin, is shown.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Co"],
+      "row": "covalentRadius",
+      "text": "The source gives two covalent radii: low spin 126 pm, high spin 150 pm. The first listed, low spin, is shown.",
+      "sourceId": "pubchem-element-pages"
+    }
+  ]
+}
