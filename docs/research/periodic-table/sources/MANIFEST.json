@@ -1,0 +1,89 @@
+{
+  "retrieved": "2026-10-03",
+  "files": [
+    {
+      "file": "ciaaw-abridged-atomic-weights.html",
+      "what": "CIAAW Abridged Standard Atomic Weights 2024",
+      "url": "https://www.ciaaw.org/abridged-atomic-weights.htm",
+      "role": "primary"
+    },
+    {
+      "file": "ciaaw-atomic-weights.html",
+      "what": "CIAAW Standard Atomic Weights 2024 (full table: intervals and full precision)",
+      "url": "https://www.ciaaw.org/atomic-weights.htm",
+      "role": "primary"
+    },
+    {
+      "file": "ciaaw-radioactive-elements.html",
+      "what": "CIAAW list of the most stable known isotope of each element without a standard atomic weight",
+      "url": "https://www.ciaaw.org/radioactive-elements.htm",
+      "role": "primary"
+    },
+    {
+      "file": "ame2020-mass_1.mas20.txt",
+      "what": "AME2020 atomic mass evaluation, mass table (Wang et al., Chinese Physics C 45, 030003, 2021)",
+      "url": "https://www-nds.iaea.org/amdc/ame2020/mass_1.mas20.txt",
+      "role": "primary"
+    },
+    {
+      "file": "nubase2020-nubase_4.mas20.txt",
+      "what": "NUBASE2020 evaluation of nuclear properties, half-lives (Kondev et al., Chinese Physics C 45, 030001, 2021)",
+      "url": "https://www-nds.iaea.org/amdc/ame2020/nubase_4.mas20.txt",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-ie-neutral.txt",
+      "what": "NIST Atomic Spectra Database, ground states and ionization energies of the neutral atoms, eV, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/ie.pl?spectra=H-Og+I&submit=Retrieve+Data&units=1&format=3&order=0&at_num_out=on&sp_name_out=on&ion_charge_out=on&el_name_out=on&seq_out=on&shells_out=on&conf_out=on&level_out=on&ion_conf_out=on&e_out=0&unc_out=on&biblio=on",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-ie-help.html",
+      "what": "NIST ASD ionization energy help page (the meaning of brackets and parentheses)",
+      "url": "https://physics.nist.gov/PhysRefData/ASD/Html/iehelp.html",
+      "role": "primary"
+    },
+    {
+      "file": "wikipedia-electronegativities-data-page.wikitext",
+      "what": "Wikipedia, Electronegativities of the elements (data page), revision 1365095191",
+      "url": "https://en.wikipedia.org/w/index.php?title=Electronegativities_of_the_elements_(data_page)&action=raw",
+      "role": "transcription"
+    },
+    {
+      "file": "wikipedia-atomic-radii-data-page.wikitext",
+      "what": "Wikipedia, Atomic radii of the elements (data page), revision 1372859669",
+      "url": "https://en.wikipedia.org/w/index.php?title=Atomic_radii_of_the_elements_(data_page)&action=raw",
+      "role": "transcription"
+    },
+    {
+      "file": "wikipedia-melting-points-of-the-elements-data-page.wikitext",
+      "what": "Wikipedia, Melting points of the elements (data page), revision 1337535216",
+      "url": "https://en.wikipedia.org/w/index.php?title=Melting_points_of_the_elements_(data_page)&action=raw",
+      "role": "transcription"
+    },
+    {
+      "file": "wikipedia-boiling-points-of-the-elements-data-page.wikitext",
+      "what": "Wikipedia, Boiling points of the elements (data page), revision 1337535288",
+      "url": "https://en.wikipedia.org/w/index.php?title=Boiling_points_of_the_elements_(data_page)&action=raw",
+      "role": "transcription"
+    },
+    {
+      "file": "wikipedia-densities-of-the-elements-data-page.wikitext",
+      "what": "Wikipedia, Densities of the elements (data page), revision 1258326075",
+      "url": "https://en.wikipedia.org/w/index.php?title=Densities_of_the_elements_(data_page)&action=raw",
+      "role": "transcription"
+    },
+    {
+      "file": "pubchem-element-pages-extract.json",
+      "what": "Property lines, each with the source PubChem cites, from PubChem's 118 element pages (reduced by extract-pubchem-pages.mjs)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/element/<Z>/JSON",
+      "role": "pubchem"
+    },
+    {
+      "file": "pubchem-ptable-column-labels.json",
+      "what": "Name and unit label of each column, from the script PubChem's periodic table page loads (reduced by extract-pubchem-pages.mjs)",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/ptable/ptable.min.js",
+      "role": "pubchem"
+    }
+  ]
+}

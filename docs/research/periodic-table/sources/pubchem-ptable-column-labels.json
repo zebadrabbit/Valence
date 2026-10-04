@@ -1,0 +1,62 @@
+{
+ "None": {
+  "name": "None",
+  "unit": null
+ },
+ "Metallicity": {
+  "name": "Metal / Metalloid / Nonmetal",
+  "unit": null
+ },
+ "AtomicMass": {
+  "name": "Atomic Mass",
+  "unit": "u"
+ },
+ "ElectronConfiguration": {
+  "name": "Electron Configuration",
+  "unit": null
+ },
+ "Electronegativity": {
+  "name": "Electronegativity (Pauling Scale)",
+  "unit": null
+ },
+ "AtomicRadius": {
+  "name": "Atomic Radius (van der Waals)",
+  "unit": "pm"
+ },
+ "IonizationEnergy": {
+  "name": "Ionization Energy",
+  "unit": "eV"
+ },
+ "ElectronAffinity": {
+  "name": "Electron Affinity",
+  "unit": "eV"
+ },
+ "OxidationStates": {
+  "name": "Oxidation States",
+  "unit": null
+ },
+ "MeltingPoint": {
+  "name": "Melting Point",
+  "unit": "K"
+ },
+ "BoilingPoint": {
+  "name": "Boiling Point",
+  "unit": "K"
+ },
+ "Density": {
+  "name": "Density",
+  "unit": "g/cm³"
+ },
+ "GroupBlock": {
+  "name": "Chemical Group / Family",
+  "unit": null
+ },
+ "StandardState": {
+  "name": "Standard State",
+  "unit": null
+ },
+ "YearDiscovered": {
+  "name": "Year Discovered",
+  "unit": null
+ }
+}

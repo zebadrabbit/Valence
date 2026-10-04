@@ -1,124 +1,173 @@
 # Periodic Table — Design Spec
 
-2026-10-03. An addition to the molecule explorer described in `2026-10-03-valence-v1-design.md` (the "v1 spec"). Where this spec is silent, the v1 spec's rules apply: sections 4 (architecture), 5.1 (data rule), 11 (UI and accessibility), and 12 (documentation).
+2026-10-03, revised the same day after a verification run (see "Revision" at the end). An addition to the molecule explorer described in `2026-10-03-valence-v1-design.md` (the "v1 spec"). Where this spec is silent, the v1 spec's rules apply: sections 4 (architecture), 5.1 (data rule), 11 (UI and accessibility), and 12 (documentation).
 
 ## 1. Purpose
 
 An interactive periodic table of all 118 elements inside Explore. A learner can see how the elements are arranged, highlight groups, periods, blocks, and categories, colour the table by a property to see periodic trends, and open any element to read its details and find the library molecules that contain it.
 
-Success: a learner can open the table, pick "colour by electronegativity" and see the trend across a period, open fluorine, read its values with their source, and follow a link to a molecule that contains it, by pointer or by keyboard alone.
+Success: a learner can open the table, pick "colour by electronegativity" and see the trend across a period, open fluorine, read its values with their sources, and follow a link to a molecule that contains it, by pointer or by keyboard alone.
 
 ## 2. Decisions that differ from the v1 spec
 
 | Topic | v1 spec | This spec | Why |
 | --- | --- | --- | --- |
 | Element pages | Out of scope | In scope | Requested after the explorer was built |
-| Data rule | Each value hand-curated from its best source | The 118-element table is taken from one cited source by script and cross-checked | About 1,800 values cannot be hand-curated; a single source is consistent and honest about what it is |
+| Data rule | Each value hand-curated from its best source | The table is built by script from saved downloads of named sources, cross-checked, with authored notes where a value needs one | About 1,800 values cannot be hand-curated |
 | Explorer navigation | One library page | Explore holds two pages: molecules and the periodic table | The table needs its own page |
 
 ## 3. Out of scope
 
-Isotopes; discovery history beyond the year; photographs; emission spectra beyond hydrogen and xenon; a 32-column layout; property data from any source other than those named in section 5; editing or comparing elements side by side.
+Isotopes beyond naming the one whose mass is shown; discovery history beyond the year and its notes; photographs; emission spectra beyond hydrogen and xenon; a 32-column layout; comparing elements side by side.
 
 ## 4. Pages and navigation
 
 - `#/explore/elements`: the periodic table.
-- `#/explore/elements/:symbol`: the same page with that element selected (for example `#/explore/elements/Xe`). An unknown symbol shows the existing not-found page.
+- `#/explore/elements/:symbol`: the same page with that element selected (for example `#/explore/elements/Xe`). The symbol is matched without regard to case. An unknown symbol shows the existing not-found page.
+- Choosing an element replaces the address, so Back leaves the table in one step.
 - The Explore library page links to the table, and the table links back to the library.
-- The command palette lists all 118 elements by name and symbol.
+- The command palette lists the table page and all 118 elements by name and symbol, after molecules, labs, and pages.
 - Every atom card in the molecule explorer links to its element's page.
 
 The table's data and code load lazily and stay out of the main bundle.
 
 ## 5. Data
 
-### 5.1 Source
+### 5.1 Sources
 
-All 118 records come from the PubChem periodic table (`https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON`), downloaded once and committed as `docs/research/periodic-table/pubchem-periodic-table.json`. The existing build script turns it into `src/chem-data/periodic-table.json`. Nothing is fetched at runtime.
+Every source is a saved download committed under `docs/research/periodic-table/`, turned into `src/chem-data/periodic-table.json` by the existing build script. Nothing is fetched at runtime.
 
-Fields taken, each stored with the source's own text beside the parsed number: atomic number, symbol, name, atomic mass, electron configuration, electronegativity, atomic radius, first ionization energy, electron affinity, oxidation states, standard state, melting point, boiling point, density, category, and year discovered. Units are those PubChem documents for each field; the build script records the unit with the field, and the plan confirms each unit against PubChem's documentation before any value is displayed.
+| Field | Source | Coverage |
+| --- | --- | --- |
+| Atomic number, symbol, name, category, electron configuration, standard state, oxidation states, year discovered | PubChem periodic table | 118 |
+| Standard atomic weight | CIAAW abridged standard atomic weights | 84 |
+| Mass of one isotope, for elements with no standard atomic weight | PubChem periodic table | 34 |
+| First ionization energy, eV | NIST Atomic Spectra Database, with NIST's flag (measured, semi-empirical, theoretical) | 1 to 108 |
+| Electronegativity (Pauling scale) | PubChem periodic table | 95 |
+| Covalent radius, pm | Cordero et al. 2008, as carried on PubChem's element pages | 1 to 96 |
+| Van der Waals radius, pm | PubChem periodic table (its values come from more than one study) | 99 |
+| Electron affinity, eV | PubChem periodic table (from a 1990 compilation) | 57 |
+| Melting point and boiling point, K; density, g/cm³ | PubChem periodic table | 103, 93, 96 |
+
+Units were read from PubChem's own page on 2026-10-03 and are recorded in `docs/research/periodic-table/units.md`.
 
 Rules:
 
-- A field PubChem leaves empty is stored as absent and shown as "not measured" (or "not known" for the year). It is never shown as zero or blank.
-- Text PubChem marks as predicted or expected (for example "Expected to be a Gas", a configuration ending "(predicted)") keeps that marking on screen.
-- The record carries one `sourceId`. The build fails if the download does not hold exactly 118 rows numbered 1 to 118, if a symbol or name is empty, or if a number does not parse.
+- Each numeric value is stored with the source's own text beside the parsed number, and its unit. Numbers print in the digits the source publishes; a source that prints `1` for calcium's electronegativity is shown as `1`.
+- A field its source leaves empty is stored as absent and shown as "no value listed". It is never shown as zero or blank, and never called "not measured", because an empty cell in these sources does not always mean that.
+- A configuration PubChem marks "(predicted)" or "(calculated)" keeps that word on screen. A standard state it words "Expected to be a …" is shown as expected.
+- **Atomic mass has two kinds.** The 84 elements with a standard atomic weight show it from CIAAW. The other 34 (technetium, promethium, polonium to actinium, neptunium to oganesson) show the mass PubChem prints, labelled "mass of the isotope X-A", with a sentence that the element has no standard atomic weight, and "estimated" from lawrencium on. Bismuth, thorium, protactinium, and uranium have no stable isotope but do have a standard atomic weight and are among the 84.
+- Where Cordero gives more than one covalent radius (carbon by hybridization; manganese, iron, and cobalt by spin state), the first listed is used and the card says so.
+- Oxidation states are shown as PubChem lists them, headed "Common oxidation states (PubChem's list, not complete)", with true minus signs. States PubChem's element pages mark as predicted are noted as such.
+- The build fails if a download does not hold the expected rows, if a symbol, name, or year is empty, if a number does not parse, or if a configuration carries an unknown marking.
 
-### 5.2 The 11 elements already in the app
+### 5.2 Notes
 
-Hydrogen, boron, carbon, nitrogen, oxygen, fluorine, sodium, phosphorus, sulfur, chlorine, and xenon already have values in `src/chem-data/elements.json` from individually chosen sources. On their element card, a value that exists there is shown from there, with its own source. The card says, once, that these elements have individually sourced values. Trend colouring uses the PubChem value for every element, so one scale is never built from two sources.
+A record may carry notes: short authored sentences, each tied to the row it qualifies and to a source. They are written in one committed input file, `docs/research/periodic-table/decisions.json`, never in generated JSON. Notes are required for, at least:
 
-### 5.3 Position: group, period, block
+- helium's melting point (solid only under pressure); carbon's melting and boiling points (it turns from solid straight to gas at ordinary pressure); arsenic's melting point being above its boiling point (measured under pressure);
+- the density of gases (at 0 °C and atmospheric pressure, for the two-atom gas where that applies);
+- years that are not the year the element was isolated: aluminium and calcium ("Ancient" because their compounds were known), fluorine (1670 is the first recorded use of a compound; isolated 1886), silicon;
+- xenon and krypton's oxidation states (the list shows 0 although compounds such as XeF₄ exist);
+- lawrencium's configuration (NIST gives a different ground state);
+- polonium and astatine's categories (PubChem's own element pages class them differently);
+- every disagreement the cross-check leaves unresolved.
 
-PubChem does not give these. A pure function of atomic number returns `{ period, group, block, row, column }`:
+### 5.3 The 11 elements already in the app
 
-- **Period** 1 to 7 from the atomic number.
-- **Group** 1 to 18 for main-table elements. Lanthanides (57 to 71) and actinides (89 to 103) have no group number.
-- **Block** s, p, d, or f. Helium is in group 18 and in the s block.
-- **Row and column** for drawing: lanthanides and actinides occupy two detached rows beneath the main table, lanthanum and actinium first. The two group 3 cells below yttrium show a marker pointing to those rows.
+Hydrogen, boron, carbon, nitrogen, oxygen, fluorine, sodium, phosphorus, sulfur, chlorine, and xenon also have values in `src/chem-data/elements.json`. With the sourcing above, their atomic weight, first ionization energy, and covalent radius come from the same sources in both places. Where a card value still differs from the curated one (the van der Waals radii of hydrogen and fluorine), the card shows the table's value and one sentence gives the curated value and its source. The emission spectrum, where the curated record has one, is shown from it.
 
-This layout is the common textbook one. The page says that the placement of group 3 is a convention IUPAC has not settled.
+### 5.4 Position: group, period, block
 
-### 5.4 Category
+A pure function of atomic number returns `{ period, group, block, row, column }`.
 
-PubChem's ten categories are used as given: alkali metal, alkaline earth metal, transition metal, post-transition metal, metalloid, nonmetal, halogen, noble gas, lanthanide, actinide. The legend is headed "one common classification"; the page notes that textbooks differ on the metalloids.
+- **Period** 1 to 7.
+- **Group** 1 to 18. Lanthanum and actinium are in group 3, below yttrium. Cerium to lutetium and thorium to lawrencium have no group number.
+- **Block:** s (14 elements), p (36), d (40, groups 3 to 12), f (28: cerium to lutetium and thorium to lawrencium). Helium is in group 18 and in the s block.
+- **Drawing:** the main table has seven rows of 18 columns. The f block is drawn as two rows beneath it, cerium to lutetium and thorium to lawrencium, under columns 4 to 17. A marker beside lanthanum and beside actinium points to those rows.
 
-### 5.5 Cross-check
+The page says, in one note, that which elements belong in group 3 is unsettled: this table follows the convention of OpenStax Chemistry and the Royal Society of Chemistry's table, and IUPAC has not ruled.
 
-A script compares, for all 118 elements, PubChem's atomic mass with the CIAAW abridged standard atomic weights and PubChem's first ionization energy with the NIST Atomic Spectra Database. It writes a report listing every disagreement beyond rounding. The report is committed. No value is changed because of it without a recorded decision; an unresolved disagreement is shown on the element card as a note.
+### 5.5 Category
 
-### 5.6 Shape
+PubChem's ten categories are used as given, with no overrides. The legend is headed "Chemical family (PubChem's grouping)", shows "Nonmetal" as "Other nonmetals", and carries these notes: fluorine, chlorine, bromine, iodine and the noble gases helium to radon are nonmetals too, listed under their family names; textbooks differ on the metalloids; group 12 and elements 109 to 118 are placed by position, their chemistry being little known.
 
-**Periodic element:** `atomicNumber`, `symbol`, `name`, `category`, `configuration` (text, with a `predicted` flag), `standardState` (text, with an `expected` flag), `oxidationStates` (text), `yearDiscovered` (number or "Ancient", or absent), and optional cited numbers with their published text and unit for `atomicMass`, `electronegativity`, `atomicRadius`, `ionizationEnergy`, `electronAffinity`, `meltingPoint`, `boilingPoint`, `density`; `sourceId`. The schema is strict.
+### 5.6 Cross-check
 
-**Group, period, and block descriptions:** short authored sentences on what the members share (for example group 17, the halogens), stored in `src/chem-data` with a source each.
+A script compares the saved sources with each other and writes `docs/research/periodic-table/cross-check.md`. Outcome on 2026-10-03:
+
+- **Atomic weight:** PubChem agrees with CIAAW for 80 of 84 elements; argon and iron are rounding ties; lithium (7.0 against 6.94) and sulfur (32.07 against 32.06) differ. CIAAW's values are shown.
+- **First ionization energy:** PubChem agrees with NIST for 76 of 102 comparable elements and differs for 26, nine of them by 0.1 eV or more. NIST's values are shown.
+- **Configuration:** PubChem agrees with NIST's ground state for 107 of 108 elements; lawrencium differs. Elements 109 to 118 could not be checked.
+- **Electronegativity, melting point, boiling point, density:** compared only with secondary transcriptions; outliers are listed in the report and noted on the card.
+
+No value is changed because of the report without an entry in `decisions.json`.
+
+### 5.7 Shape
+
+**Periodic element:** `atomicNumber`, `symbol`, `name`, `category`, `configuration` (text, with an optional qualifier "predicted" or "calculated"), `standardState` (solid, liquid, or gas, with an `expected` flag), `oxidationStates` (text, optional), `yearDiscovered` (a number or "Ancient"), `atomicMass` (a quantity with its kind: standard atomic weight, or isotope mass with the mass number and an `estimated` flag), optional quantities `electronegativity`, `covalentRadius`, `vdwRadius`, `ionizationEnergy` (with NIST's flag), `electronAffinity`, `meltingPoint`, `boilingPoint`, `density`, and optional `notes` (each with the row it qualifies, its text, and a source). Every quantity has a value, the published text, a unit, and a source. The schema is strict.
+
+**Group, period, and block descriptions:** short authored sentences on what the members share, each with the sources that support it and the supporting passage stored beside it for review. Group 1's description says hydrogen is in the group but is a nonmetal, not an alkali metal.
 
 ## 6. The table
 
-- **Cells** show atomic number, symbol, and name. A cell is a link to the element's page.
-- **Colour by category** (default): each cell takes its category's colour. The legend lists the ten categories; choosing one outlines its elements and dims the others.
-- **Colour by property:** electronegativity, atomic radius, first ionization energy, melting point, or density. Cells are shaded on a single-hue scale from the lowest to the highest value present; the value is printed in the cell; a legend gives the scale's ends and unit. Elements without a value are hatched and read "not measured".
-- **Highlight** a group (1 to 18), a period (1 to 7), or a block (s, p, d, f): its cells are outlined, the rest dimmed, and its description is shown.
-- Colour is never the only signal: categories are named in the legend and in each cell's accessible name; highlights use an outline; trend values are printed.
-- The colour palettes are chosen to be distinguishable under the common forms of colour blindness and readable in both themes; each is a model parameter with a rationale, not chemistry data.
+- **Cells** show atomic number and symbol always, and the element's name when the table is wide enough for names to fit. At narrower widths a readout shows the name and details of the focused or hovered element. A cell is a link to the element's page.
+- **Colour by category** (default): each cell takes its category's colour. Choosing a legend entry highlights its elements.
+- **Colour by property:** electronegativity, covalent radius, first ionization energy, melting point, or density. Cells are shaded on a linear single-hue scale from the lowest to the highest value present; the value is printed in the cell; a legend gives the scale's ends and unit. Elements without a value are hatched and read "no value listed". The melting-point legend notes that its two ends (helium, carbon) are not ordinary-pressure melting points; the density legend notes that gases sit at the bottom of the scale.
+- **Highlight** a group (1 to 18), a period (1 to 7), or a block (s, p, d, f): its cells take a solid border, the rest lose their fill and take a dashed border, and the description is shown. Highlighted cells are never marked by opacity, which would fail contrast.
+- Colour is never the only signal: categories are named in the legend and in each cell's accessible name; highlights use borders; trend values are printed.
+- The palettes are model parameters with a rationale, not chemistry data. Their starting values are computed for contrast and simulated colour blindness and are accepted by eye in both themes before merge.
 
 ## 7. The element card
 
-Shown beside the table on a wide screen and below it otherwise, for the selected element:
+Shown below the table at every width, across the page, with its sections side by side where there is room:
 
-- Name, symbol, atomic number, atomic mass.
+- Name, symbol, atomic number, atomic mass (of whichever kind applies).
 - Group, period, block, and category.
-- Electron configuration, and a Bohr diagram with the shell counts as text. Shell counts are derived from the configuration by a pure function; a predicted configuration gives a diagram labelled predicted.
-- Electronegativity, atomic radius, first ionization energy, electron affinity, oxidation states.
-- Standard state, melting point, boiling point, density, year discovered.
+- Electron configuration, and the shell diagram with the shell counts as text. Shell counts are derived from the configuration by a pure function; a predicted or calculated configuration gives a diagram labelled so.
+- Electronegativity, covalent radius, van der Waals radius (with a sentence on what it is and that the values come from more than one study), first ionization energy (with NIST's flag where it is not measured), electron affinity (with a sentence on its sign and that the values are from a 1990 compilation), common oxidation states.
+- Standard state, melting point, boiling point, density, year discovered (headed "as PubChem lists it").
+- The element's notes, each beside the row it qualifies.
 - "In the molecule library": links to every library molecule containing the element, or a line saying none does.
 - The emission spectrum, for hydrogen and xenon.
 - A Sources control listing the citation for every value shown.
 
-Every number is printed in the digits its source publishes, with its unit.
-
 ## 8. Accessibility
 
-- The table is one keyboard stop. Arrow keys move between cells, following the drawn layout including the detached rows; Home and End go to the ends of a row; Enter opens the element.
-- Each cell's accessible name gives the element's name, atomic number, category, and, when a property is shown, its value.
-- The legend controls, the colour-by control, and the highlight controls are ordinary labelled controls.
-- A text list of all elements, in atomic-number order, is available as an alternative to the grid.
-- Narrower than 768 px, the table scrolls sideways inside its own container and the page itself never scrolls sideways.
+- The main table and the f-block rows are two native tables, each a grid, sharing one keyboard stop. Arrow keys move to the nearest element in that direction, across the gap between the two; Home and End go to the ends of a row; Enter opens the element. Group and period headers label the main table's columns and rows.
+- Opening an element from the table keeps focus on its cell, and a status line announces the selection. This is the one exception to the app's rule that focus moves to the page heading after navigation.
+- Each cell's accessible name gives the element's name, symbol, atomic number, category, and, when a property is shown, its value and unit or "no value listed".
+- The colour-by control and the highlight control are native selects; legend entries are toggle buttons. A status line names the highlighted set and its size.
+- A text list of all elements in atomic-number order, with the chosen property's value beside each name, is available as an alternative to the grid.
+- When the table does not fit at its minimum cell size it scrolls sideways inside its own container; the page itself never scrolls sideways.
 - Nothing animates when reduced motion is on.
+
+Not tested and stated as such in the documentation: any screen reader used by a person, and browsers other than Chromium.
 
 ## 9. Testing
 
 Pure functions with Vitest tests, written before the UI that uses them:
 
-- Position: hydrogen (period 1, group 1, s), helium (1, 18, s), boron (2, 13, p), scandium (4, 3, d), lanthanum (6, no group, f row), lutetium, hafnium (6, 4, d), oganesson (7, 18, p); every element has a unique row and column; each period holds the right number of elements.
-- Shell counts from configurations: hydrogen, carbon, chlorine, iron, copper, xenon, and a predicted superheavy configuration.
-- Trend scale: lowest and highest map to the ends; a missing value maps to "not measured".
-- Arrow-key navigation: from each edge cell and across the gap to the detached rows.
-- Validator: 118 records, unique symbols, published text parses to the stored number, every `sourceId` exists.
-- The data: registry test pins the count, the ten categories, and a sample of values against the committed download.
+- Position: hydrogen, helium, boron, scandium, lanthanum (period 6, group 3, d), cerium and lutetium (period 6, no group, f), hafnium, actinium, thorium, lawrencium, oganesson; every element has a unique row and column; period sizes 2, 8, 8, 18, 18, 32, 32; block sizes s 14, p 36, d 40, f 28.
+- Shell counts from configurations, including a spaced core, no core, subshells out of shell order, and a marked configuration; all 118 sum to the atomic number.
+- Trend scale: lowest and highest map to the ends; a missing value maps to "no value listed" and is left out of the range.
+- Movement: across the gap, at every edge, and that each move can be reversed.
+- Validator and registry: 118 records, unique symbols, published text parses to the stored number, every source exists, the 84 and 34 mass kinds, the marked configurations, and a sample of values against the saved downloads.
+- Card rows: which source each row comes from, the notes, and true minus signs.
 
 The phase is done when the automated tests pass and a headless-browser checklist passes in both themes at 1366×768 and 400×800: every element opens; each colouring and highlight works; keyboard-only use reaches every element; no console errors; no network requests after load; no sideways page scroll. An independent chemistry and accessibility review follows before merge.
 
 ## 10. Documentation
 
-`docs/for-institutions.md` gains a paragraph in the faculty section: the periodic table's values come from PubChem as a single source, with a cross-check report, and the conventions chosen (group 3 placement, category scheme). No compliance claims.
+`docs/for-institutions.md` gains, in the faculty section: where each kind of value comes from, the cross-check outcome, the conventions chosen (group 3 and the f block, PubChem's categories), and the known limits; and in the accessibility section, the table's keyboard model and what was not tested. No compliance claims. The About page acknowledges PubChem (National Library of Medicine), CIAAW, and NIST.
+
+## Revision
+
+Revised after a verification run whose record is in `docs/research/periodic-table/` (`units.md`, `cross-check.md`, `chemistry-review.md`, `build-review.md`, `review-verdicts.md`). Changes from the first version, each decided by the project owner or forced by the evidence:
+
+- Colour by covalent radius, not PubChem's van der Waals column, which does not show the textbook trend.
+- Atomic weights from CIAAW and first ionization energies from NIST, in place of a single source.
+- Lanthanum and actinium are d block and sit in group 3; the f block is 14 wide.
+- The element card sits below the table at every width.
+- "No value listed" replaces "not measured"; atomic mass is two kinds; notes are part of the data.
+- Names appear in cells only when they fit.
