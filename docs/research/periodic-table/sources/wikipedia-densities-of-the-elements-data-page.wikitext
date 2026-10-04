@@ -1,0 +1,1615 @@
+{{Short description|Chemical data page}}
+==Density, solid phase==
+
+In the following table, the '''use''' row is the value recommended for use in other Wikipedia pages in order to maintain consistency across content. 
+
+{|Class="wikitable"
+|-
+! colspan="3" style="background:#e0f0e0"|<!-- 2 He --> 2 He [[helium-4]]
+|-
+| rowspan="6"| [[#Hoffer et al.|Hoffer et al.]] || 0.19085 g/cm<sup>3</sup>   (from 20.9730&nbsp;cm<sup>3</sup>/[[mole (unit)|mole]]; [[Hexagonal close-packed|hcp]] [[crystal]] melting to He-II [[superfluid]] at 0&nbsp;K, 25.00&nbsp;atm)
+|-
+| 0.19083 g/cm<sup>3</sup>   (from 20.9749&nbsp;cm<sup>3</sup>/mole; at local min. density, hcp melting to He-II: 0.884&nbsp;K, 25.00&nbsp;atm)
+|-
+| 0.19142 g/cm<sup>3</sup>   (from 20.910&nbsp;cm<sup>3</sup>/mole; hcp at [[triple point]] hcp−bcc−He-II: 1.463&nbsp;K, 26.036&nbsp;atm)
+|-
+| 0.18971 g/cm<sup>3</sup>   (from 21.098&nbsp;cm<sup>3</sup>/mole; [[Body-centered cubic|bcc]] at triple point hcp−bcc−He-II: 1.463&nbsp;K, 26.036&nbsp;atm)
+|-
+| 0.19406 g/cm<sup>3</sup>   (from 20.626&nbsp;cm<sup>3</sup>/mole; hcp at triple point hcp−bcc−He-I: 1.772&nbsp;K, 30.016&nbsp;atm)
+|-
+| 0.19208 g/cm<sup>3</sup>   (from 20.8381&nbsp;cm<sup>3</sup>/mole; bcc at triple point hcp−bcc−He-I: 1.772&nbsp;K, 30.016&nbsp;atm)
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 3 Li --> 3 Li [[lithium]]
+|- style="font-weight:bold"
+|use || 0.534 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 535&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 20&nbsp;°C) 0.534 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 0.534 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 4 Be --> 4 Be [[beryllium]]
+|- style="font-weight:bold"
+|use ||1.85 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 1848&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 20&nbsp;°C) 1.8477 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 1.85 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 5 B --> 5 B [[boron]]
+|- style="font-weight:bold"
+|use ||2.34 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 2460&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 2.34 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 2.34 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 6 C --> 6 C [[carbon]] (graphite)
+|- style="font-weight:bold"
+|use ||2.267 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 2267&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 2.267 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 2.2 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 6 C --> 6 C [[carbon]] (diamond)
+|- style="font-weight:bold"
+|use ||3.513 g/cm<sup>3</sup>
+|-
+|LNG ||(at r.t.) 3.513 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 3.513 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 11 Na --> 11 Na [[sodium]]
+|- style="font-weight:bold"
+|use || 0.968 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 968&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 20&nbsp;°C) 0.968 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 0.97 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 12 Mg --> 12 Mg [[magnesium]]
+|- style="font-weight:bold"
+|use ||1.738 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 1738&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 20&nbsp;°C) 1.738 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 1.74 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 13 Al --> 13 Al [[aluminium]]
+|- style="font-weight:bold"
+|use ||2.70 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 2700&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 2.70 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 2.70 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 14 Si --> 14 Si [[silicon]]
+|- style="font-weight:bold"
+|use ||2.33 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 2330&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 2.33 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 2.3290 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 15 P --> 15 P [[phosphorus]] (white)
+|- style="font-weight:bold"
+|use ||1.823 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 1823&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 25&nbsp;°C) 1.823 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 1.823 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 15 P --> 15 P [[phosphorus]] (red)
+|- style="font-weight:bold"
+|use ||2.34 g/cm<sup>3</sup>
+|-
+|LNG ||(at r.t.) 2.34 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 2.16 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 15 P --> 15 P [[phosphorus]] (black)
+|- style="font-weight:bold"
+|use ||2.69 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 2.69 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 16 S --> 16 S [[sulfur]] (orthorhombic, alpha)
+|- style="font-weight:bold"
+|use ||2.08 g/cm<sup>3</sup>
+|-
+|WEL || ? (1960&nbsp;kg/m<sup>3</sup>)
+|-
+|LNG ||(at 20&nbsp;°C) 2.08 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 2.07 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 16 S --> 16 S [[sulfur]] (monoclinic, beta)
+|- style="font-weight:bold"
+|use ||1.96 g/cm<sup>3</sup>
+|-
+|WEL || ? (1960&nbsp;kg/m<sup>3</sup>)
+|-
+|LNG ||(at r.t.) 1.96 g/cm<sup>3</sup>
+|-
+|CRC || ? (near r.t.) 2.07 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 16 S --> 16 S [[sulfur]] (gamma)
+|- style="font-weight:bold"
+|use ||1.92 g/cm<sup>3</sup>
+|-
+|LNG ||(at r.t.) 1.92 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 19 K --> 19 K [[potassium]]
+|- style="font-weight:bold"
+|use || 0.89 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 856&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 0.89 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 0.89 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 20 Ca --> 20 Ca [[calcium]]
+|- style="font-weight:bold"
+|use ||1.55 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 1550&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 1.55 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 1.54 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 21 Sc --> 21 Sc [[scandium]] (hexagonal ?)
+|- style="font-weight:bold"
+|use ||2.985 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 2985&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) (hexagonal) 2.985 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 2.99 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 22 Ti --> 22 Ti [[titanium]] (hexagonal ?)
+|- style="font-weight:bold"
+|use ||4.506 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 4507&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) (hexagonal) 4.506 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 4.506 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 23 V --> 23 V [[vanadium]]
+|- style="font-weight:bold"
+|use ||6.11 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 6110&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 19&nbsp;°C) 6.11 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 6.0 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 24 Cr --> 24 Cr [[chromium]]
+|- style="font-weight:bold"
+|use ||7.15 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 7140&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 7.15 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 7.15 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 25 Mn --> 25 Mn [[manganese]]
+|- style="font-weight:bold"
+|use ||7.21 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 7470&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 20&nbsp;°C) 7.21 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 7.3 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 26 Fe --> 26 Fe [[iron]]
+|- style="font-weight:bold"
+|use ||7.86 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 7874&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 7.86 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 7.87 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 27 Co --> 27 Co [[cobalt]]
+|- style="font-weight:bold"
+|use ||8.90 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 8900&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 8.90 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 8.86 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 28 Ni --> 28 Ni [[nickel]]
+|- style="font-weight:bold"
+|use ||8.908 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 8908&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 20&nbsp;°C) 8.908 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 8.90 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 29 Cu --> 29 Cu [[copper]]
+|- style="font-weight:bold"
+|use ||8.96 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 8920&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 20&nbsp;°C) 8.96 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 8.96 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 30 Zn --> 30 Zn [[zinc]]
+|- style="font-weight:bold"
+|use ||7.14 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 7140&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 7.14 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 7.14 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 31 Ga --> 31 Ga [[gallium]]
+|- style="font-weight:bold"
+|use ||5.91 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 5904&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 29.6&nbsp;°C) 5.904 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 5.91 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 32 Ge --> 32 Ge [[germanium]]
+|- style="font-weight:bold"
+|use ||5.323 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 5323&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 5.323 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 5.3234 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 33 As --> 33 As [[arsenic]]
+|- style="font-weight:bold"
+|use ||5.727 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 5727&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 25&nbsp;°C) (5.727 rel. to water at 4&nbsp;°C)
+|-
+|CRC ||(near r.t.) 5.75 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 34 Se --> 34 Se [[selenium]] (hexagonal, gray)
+|- style="font-weight:bold"
+|use ||4.81 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 4819&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 20&nbsp;°C) (4.81 rel. to water at 4&nbsp;°C)
+|-
+|CRC ||(near r.t.) 4.81 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 34 Se --> 34 Se [[selenium]] (alpha)
+|- style="font-weight:bold"
+|use ||4.39 g/cm<sup>3</sup>
+|-
+|WEL || ? (4819&nbsp;kg/m<sup>3</sup>)
+|-
+|CRC ||(near r.t.) 4.39 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 34 Se --> 34 Se [[selenium]] (vitreous)
+|- style="font-weight:bold"
+|use ||4.28 g/cm<sup>3</sup>
+|-
+|WEL || ? (4819&nbsp;kg/m<sup>3</sup>)
+|-
+|CRC ||(near r.t.) 4.28 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 37 Rb --> 37 Rb [[rubidium]]
+|- style="font-weight:bold"
+|use ||1.532 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 1532&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 1.532 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 1.53 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 38 Sr --> 38 Sr [[strontium]]
+|- style="font-weight:bold"
+|use ||2.64 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 2630&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 2.64 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 2.64 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 39 Y --> 39 Y [[yttrium]]
+|- style="font-weight:bold"
+|use ||4.472 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 4472&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 4.472 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 4.47 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 40 Zr --> 40 Zr [[zirconium]]
+|- style="font-weight:bold"
+|use ||6.52 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 6511&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 6.52 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 6.52 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 41 Nb --> 41 Nb [[niobium]]
+|- style="font-weight:bold"
+|use ||8.57 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 8570&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 20&nbsp;°C) 8.57 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 8.57 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 42 Mo --> 42 Mo [[molybdenum]]
+|- style="font-weight:bold"
+|use ||10.28 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 10280&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 10.28 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 10.2 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 43 Tc --> 43 Tc [[technetium]] (Tc-98 ?)
+|- style="font-weight:bold"
+|use ||11 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 11500&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) (Tc-98) 11 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 11 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 44 Ru --> 44 Ru [[ruthenium]]
+|- style="font-weight:bold"
+|use ||12.45 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 12370&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 20&nbsp;°C) (12.45 rel. to water at 4&nbsp;°C)
+|-
+|CRC ||(near r.t.) 12.1 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 45 Rh --> 45 Rh [[rhodium]]
+|- style="font-weight:bold"
+|use ||12.41 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 12450&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 20&nbsp;°C) 12.41 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 12.4 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 46 Pd --> 46 Pd [[palladium]]
+|- style="font-weight:bold"
+|use ||12.023 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 12023&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 20&nbsp;°C) 12.023 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 12.0 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 47 Ag --> 47 Ag [[silver]]
+|- style="font-weight:bold"
+|use ||10.49 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 10490&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 10.49 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 10.5 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 48 Cd --> 48 Cd [[cadmium]]
+|- style="font-weight:bold"
+|use ||8.65 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 8650&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 25&nbsp;°C) 8.65 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 8.69 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 49 In --> 49 In [[indium]]
+|- style="font-weight:bold"
+|use ||7.31 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 7310&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 7.31 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 7.31 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 50 Sn --> 50 Sn [[tin]] (white)
+|- style="font-weight:bold"
+|use ||7.265 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 7310&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 7.265 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 7.265 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 50 Sn --> 50 Sn [[tin]] (gray)
+|- style="font-weight:bold"
+|use ||5.769 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 5.769 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 51 Sb --> 51 Sb [[antimony]]
+|- style="font-weight:bold"
+|use ||6.697 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 6697&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 25&nbsp;°C) 6.697 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 6.68 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 52 Te --> 52 Te [[tellurium]]
+|- style="font-weight:bold"
+|use ||6.24 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 6240&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 6.24 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 6.24 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 53 I --> 53 I [[iodine]] (I<sub>2</sub>)
+|- style="font-weight:bold"
+|use ||4.933 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 4940&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 25&nbsp;°C) 4.63 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 4.933 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 55 Cs --> 55 Cs [[caesium]]
+|- style="font-weight:bold"
+|use ||1.93 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 1879&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 15&nbsp;°C) 1.8785 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 1.93 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 56 Ba --> 56 Ba [[barium]]
+|- style="font-weight:bold"
+|use ||3.51 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 3510&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 20&nbsp;°C) 3.51 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 3.62 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 57 La --> 57 La [[lanthanum]]
+|- style="font-weight:bold"
+|use ||6.162 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 6146&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 6.162 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 6.15 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 58 Ce --> 58 Ce [[cerium]]
+|- style="font-weight:bold"
+|use ||6.770 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 6689&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 6.773 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 6.770 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 59 Pr --> 59 Pr [[praseodymium]] (alpha ?)
+|- style="font-weight:bold"
+|use ||6.77 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 6640&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) (alpha) 6.475 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 6.77 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 60 Nd --> 60 Nd [[neodymium]]
+|- style="font-weight:bold"
+|use ||7.01 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 6800&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 7.01 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 7.01 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 61 Pm --> 61 Pm [[promethium]] (Pm-147 ?)
+|- style="font-weight:bold"
+|use ||7.26 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 7264&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) (Pm-147) 7.22 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 7.26 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 62 Sm --> 62 Sm [[samarium]]
+|- style="font-weight:bold"
+|use ||7.52 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 7353&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 7.52 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 7.52 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 63 Eu --> 63 Eu [[europium]]
+|- style="font-weight:bold"
+|use ||5.244 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 5244&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 5.244 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 5.24 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 64 Gd --> 64 Gd [[gadolinium]]
+|- style="font-weight:bold"
+|use ||7.90 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 7901&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 7.90 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 7.90 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 65 Tb --> 65 Tb [[terbium]]
+|- style="font-weight:bold"
+|use ||8.23 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 8219&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 8.23 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 8.23 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 66 Dy --> 66 Dy [[dysprosium]]
+|- style="font-weight:bold"
+|use ||8.540 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 8551&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 25&nbsp;°C) 8.540 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 8.55 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 67 Ho --> 67 Ho [[holmium]]
+|- style="font-weight:bold"
+|use ||8.79 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 8795&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 8.79 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 8.80 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 68 Er --> 68 Er [[erbium]]
+|- style="font-weight:bold"
+|use ||9.066 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 9066&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 9.066 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 9.07 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 69 Tm --> 69 Tm [[thulium]]
+|- style="font-weight:bold"
+|use ||9.32 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 9321&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 9.32 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 9.32 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 70 Yb --> 70 Yb [[ytterbium]]
+|- style="font-weight:bold"
+|use ||6.90 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 6570&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 6.90 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 6.90 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 71 Lu --> 71 Lu [[lutetium]]
+|- style="font-weight:bold"
+|use ||9.841 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 9841&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 9.841 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 9.84 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 72 Hf --> 72 Hf [[hafnium]]
+|- style="font-weight:bold"
+|use ||13.31 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 13310&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 13.31 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 13.3 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 73 Ta --> 73 Ta [[tantalum]]
+|- style="font-weight:bold"
+|use ||16.69 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 16650&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 16.69 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 16.4 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 74 W --> 74 W [[tungsten]]
+|- style="font-weight:bold"
+|use ||19.25 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 19250&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 19.25 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 19.3 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 75 Re --> 75 Re [[rhenium]]
+|- style="font-weight:bold"
+|use ||21.02 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 21020&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 21.02 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 20.8 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 76 Os --> 76 Os [[osmium]]
+|- style="font-weight:bold"
+|use ||22.59 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 22610&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 20&nbsp;°C) 22.61 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 22.59 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 77 Ir --> 77 Ir [[iridium]]
+|- style="font-weight:bold"
+|use ||22.56 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 22650&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 20&nbsp;°C) (22.65 rel. to water at 4&nbsp;°C)
+|-
+|CRC ||(near r.t.) 22.5 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 78 Pt --> 78 Pt [[platinum]]
+|- style="font-weight:bold"
+|use ||21.45 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 21090&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 20&nbsp;°C) 21.09 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 21.5 g/cm<sup>3</sup>
+|-
+|Colspan="2" width="500" |
+References according to http://hypertextbook.com/facts/2004/OliviaTai.shtml:
+* 21.45&nbsp;g/cm<sup>3</sup> &mdash; Zumdahl, Steven S., Zumdahl, Susan L., & Decoste, Donald J. ''World of Chemistry''. Boston: Houghton Mifflin Company, 2002: 141.
+* 21.45&nbsp;×&nbsp;10<sup>3</sup>&nbsp;kg/m<sup>3</sup> &mdash; Grigoriev, Igor S. & Meilikhov, Evgenii Z. ''Handbook of Physical Quantities''. Boca Raton: CRC Press, 1997: 116.
+* 21.450&nbsp;g/cm<sup>3</sup> &mdash; Savitskii, E.M. ''Physical Metallurgy of Platinum Metals''. New York: Pergamon Press, 1978: 31.
+* (20&nbsp;°C) 21.45&nbsp;g/cm<sup>3</sup> &mdash; Vines, R.F. ''The Platinum Metals and their Alloys''. New York: The International Nickel Company, Inc., 1941: 16. &mdash; "Values ranging from 21.3 to 21.5&nbsp;gm/cm<sup>3</sup> at 20&nbsp;°C have been reported for the density of annealed platinum; the best value being about 21.45&nbsp;gm/cm<sup>3</sup> at 20&nbsp;°C."
+* 21.46 g/cm<sup>3</sup> &mdash; Rose, T. Kirke. ''The Precious Metals, Comprising Gold, Silver and Platinum''. New York: D. Van Nostrand Company, 1909: 255. &mdash; "Pure platinum, according to G. Matthey has a density of 21.46."
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 79 Au --> 79 Au [[gold]]
+|- style="font-weight:bold"
+|use ||19.3 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 19300&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 19.3 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 19.3 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 81 Tl --> 81 Tl [[thallium]]
+|- style="font-weight:bold"
+|use ||11.85 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 11850&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 11.85 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 11.8 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 82 Pb --> 82 Pb [[lead]]
+|- style="font-weight:bold"
+|use ||11.34 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 11340&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 20&nbsp;°C) (face-centered cubic) (11.34 rel. to water at 4&nbsp;°C)
+|-
+|CRC ||(near r.t.) 11.3 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 83 Bi --> 83 Bi [[bismuth]]
+|- style="font-weight:bold"
+|use ||9.78 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 9780&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 9.78 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 9.79 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 84 Po --> 84 Po [[polonium]] (alpha)
+|- style="font-weight:bold"
+|use ||9.196 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 9196&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 9.196 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 9.20 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 84 Po --> 84 Po [[polonium]] (beta)
+|- style="font-weight:bold"
+|use ||9.398 g/cm<sup>3</sup>
+|-
+|LNG ||(at r.t.) 9.398 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 85 At --> 85 At [[astatine]]
+|- style="font-weight:bold"
+|use || ? 7 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 87 Fr --> 87 Fr [[francium]]
+|- style="font-weight:bold"
+|use || ? 2.48 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 88 Ra --> 88 Ra [[radium]]
+|- style="font-weight:bold"
+|use ||5.5 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 5000&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 5.5 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 5 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 89 Ac --> 89 Ac [[actinium]] (Ac-227 ?)
+|- style="font-weight:bold"
+|use ||10 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 10070&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) (Ac-227) 10.07 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 10 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 90 Th --> 90 Th [[thorium]]
+|- style="font-weight:bold"
+|use ||11.7 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 11724&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 11.7 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 11.7 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 91 Pa --> 91 Pa [[protactinium]]
+|- style="font-weight:bold"
+|use ||15.37 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 15370&nbsp;kg/m<sup>3</sup>
+|-
+|CRC ||(near r.t.) 15.4 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 92 U --> 92 U [[uranium]]
+|- style="font-weight:bold"
+|use ||19.1 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 19050&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 19.1 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 19.1 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 93 Np --> 93 Np [[neptunium]]
+|- style="font-weight:bold"
+|use ||20.2 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 20450&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 20.2 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 20.2 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 94 Pu --> 94 Pu [[plutonium]]
+|- style="font-weight:bold"
+|use ||19.816 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 19816&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at 20&nbsp;°C) (19.816 rel. to water at 4&nbsp;°C)
+|-
+|CRC ||(near r.t.) 19.7 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 95 Am --> 95 Am [[americium]]
+|- style="font-weight:bold"
+|use ||12 g/cm<sup>3</sup>
+|-
+|LNG ||(at r.t.) 12 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 12 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 96 Cm --> 96 Cm [[curium]] (Cm-244 ?)
+|- style="font-weight:bold"
+|use ||13.51 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 13510&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) (Cm-244) 13.51 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 13.51 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 97 Bk --> 97 Bk [[berkelium]] (alpha)
+|- style="font-weight:bold"
+|use ||14.78 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 14780&nbsp;kg/m<sup>3</sup>
+|-
+|LNG ||(at r.t.) 14.78 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 14.78 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 97 Bk --> 97 Bk [[berkelium]] (beta)
+|- style="font-weight:bold"
+|use ||13.25 g/cm<sup>3</sup>
+|-
+|LNG ||(at r.t.) 13.25 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 13.25 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 98 Cf --> 98 Cf [[californium]]
+|- style="font-weight:bold"
+|use ||15.1 g/cm<sup>3</sup>
+|-
+|WEL ||(near r.t.) 15100&nbsp;kg/m<sup>3</sup>
+|-
+|CRC ||(near r.t.) 15.1 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#f0f0f0"|<!-- 99 Es --> 99 Es [[einsteinium]]
+|- style="font-weight:bold"
+|use ||8.84 g/cm<sup>3</sup>
+|-
+|LNG ||(at r.t.) 8.84 g/cm<sup>3</sup>
+|}
+
+== Density, liquid phase ==
+{|Class="wikitable" style="background:#f8f8ff"
+! colspan="2" style="background:#e0e0f0"|<!-- 2 He --> 2 He [[helium-4]]
+|-
+| rowspan="3"| [[#Donnelly et al.|Donnelly et al.]] || 0.1249772&nbsp;g/cm<sup>3</sup>   (He-I at [[boiling point]]: 4.222&nbsp;K)
+|-
+| 0.1461087&nbsp;g/cm<sup>3</sup>   (at [[lambda transition]] He-I/He-II: 2.1768&nbsp;K, saturated [[vapor pressure]])
+|-
+| 0.1451397&nbsp;g/cm<sup>3</sup>   (He-II [[superfluid]] at 0&nbsp;K, saturated vapor pressure)
+|-
+|rowspan="4"| [[#Hoffer et al.|Hoffer et al.]] || 0.17309&nbsp;g/cm<sup>3</sup>   (from 23.125&nbsp;cm<sup>3</sup>/[[mole (unit)|mole]]; He-II from hcp melt at 0&nbsp;K, 25.00&nbsp;atm)
+|-
+| 0.17308&nbsp;g/cm<sup>3</sup>   (from 23.1256&nbsp;cm<sup>3</sup>/mole; at local min. density, from [[Hexagonal close-packed|hcp]] melt at 0.699&nbsp;K, 24.993&nbsp;atm)
+|-
+| 0.17443 g/cm<sup>3</sup>   (from 22.947&nbsp;cm<sup>3</sup>/mole; He-II at [[triple point]] hcp−[[Body-centered cubic|bcc]]−He-II: 1.463&nbsp;K, 26.036&nbsp;atm)
+|-
+| 0.1807 g/cm<sup>3</sup>   (from 22.150&nbsp;cm<sup>3</sup>/mole; He-I at triple point hcp−bcc−He-I: 1.772&nbsp;K, 30.016&nbsp;atm)
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 3 Li --> 3 Li [[lithium]]
+|- style="font-weight:bold"
+|use || 0.512 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 0.512 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 4 Be --> 4 Be [[beryllium]]
+|- style="font-weight:bold"
+|use ||1.690 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 1.690 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 5 B --> 5 B [[boron]]
+|- style="font-weight:bold"
+|use ||2.08 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 2.08 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 11 Na --> 11 Na [[sodium]]
+|- style="font-weight:bold"
+|use || 0.927 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 0.927 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 12 Mg --> 12 Mg [[magnesium]]
+|- style="font-weight:bold"
+|use ||1.584 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 1.584 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 13 Al --> 13 Al [[aluminium]]
+|- style="font-weight:bold"
+|use ||2.375 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 2.375 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 14 Si --> 14 Si [[silicon]]
+|- style="font-weight:bold"
+|use ||2.57 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 2.57 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 16 S --> 16 S [[sulfur]]
+|- style="font-weight:bold"
+|use ||1.819 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 1.819 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 17 Cl --> 17 Cl [[chlorine]]
+|- style="font-weight:bold"
+|use ||(at −35&nbsp;°C) 1.5649 g/cm<sup>3</sup>
+|-
+|LNG ||(at −35&nbsp;°C) 1.5649 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 19 K --> 19 K [[potassium]]
+|- style="font-weight:bold"
+|use || 0.828 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 0.828 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 20 Ca --> 20 Ca [[calcium]]
+|- style="font-weight:bold"
+|use ||1.378 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 1.378 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 21 Sc --> 21 Sc [[scandium]]
+|- style="font-weight:bold"
+|use ||2.80 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 2.80 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 22 Ti --> 22 Ti [[titanium]]
+|- style="font-weight:bold"
+|use ||4.11 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 4.11 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 23 V --> 23 V [[vanadium]]
+|- style="font-weight:bold"
+|use ||5.5 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 5.5 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 24 Cr --> 24 Cr [[chromium]]
+|- style="font-weight:bold"
+|use ||6.3 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 6.3 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 25 Mn --> 25 Mn [[manganese]]
+|- style="font-weight:bold"
+|use ||5.95 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 5.95 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 26 Fe --> 26 Fe [[iron]]
+|- style="font-weight:bold"
+|use ||6.98 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 6.98 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 27 Co --> 27 Co [[cobalt]]
+|- style="font-weight:bold"
+|use ||7.75 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 7.75 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 28 Ni --> 28 Ni [[nickel]]
+|- style="font-weight:bold"
+|use ||7.81 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 7.81 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 29 Cu --> 29 Cu [[copper]]
+|- style="font-weight:bold"
+|use ||8.02 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 8.02 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 30 Zn --> 30 Zn [[zinc]]
+|- style="font-weight:bold"
+|use ||6.57 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 6.57 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 31 Ga --> 31 Ga [[gallium]]
+|- style="font-weight:bold"
+|use ||6.095 g/cm<sup>3</sup>
+|-
+|LNG ||(at 29.8&nbsp;°C, m.p. is 29.7646&nbsp;°C) 6.095 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 6.08 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 32 Ge --> 32 Ge [[germanium]]
+|- style="font-weight:bold"
+|use ||5.60 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 5.60 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 33 As --> 33 As [[arsenic]]
+|- style="font-weight:bold"
+|use ||5.22 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 5.22 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 34 Se --> 34 Se [[selenium]]
+|- style="font-weight:bold"
+|use ||3.99 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 3.99 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 35 Br --> 35 Br [[bromine]] (Br<sub>2</sub>)
+|- style="font-weight:bold"
+|use ||(near r.t.) 3.1028 g/cm<sup>3</sup>
+|-
+|LNG ||(at 25&nbsp;°C) (3.1023 rel. to water at 4&nbsp;°C)
+|-
+|CRC ||(near r.t.) 3.1028 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 37 Rb --> 37 Rb [[rubidium]]
+|- style="font-weight:bold"
+|use ||1.46 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 1.46 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 38 Sr --> 38 Sr [[strontium]]
+|- style="font-weight:bold"
+|use ||6.980 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 6.980 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 39 Y --> 39 Y [[yttrium]]
+|- style="font-weight:bold"
+|use ||4.24 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 4.24 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 40 Zr --> 40 Zr [[zirconium]]
+|- style="font-weight:bold"
+|use ||5.8 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 5.8 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 42 Mo --> 42 Mo [[molybdenum]]
+|- style="font-weight:bold"
+|use ||9.33 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 9.33 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 44 Ru --> 44 Ru [[ruthenium]]
+|- style="font-weight:bold"
+|use ||10.65 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 10.65 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 45 Rh --> 45 Rh [[rhodium]]
+|- style="font-weight:bold"
+|use ||10.7 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 10.7 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 46 Pd --> 46 Pd [[palladium]]
+|- style="font-weight:bold"
+|use ||10.38 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 10.38 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 47 Ag --> 47 Ag [[silver]]
+|- style="font-weight:bold"
+|use ||9.320 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 9.320 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 48 Cd --> 48 Cd [[cadmium]]
+|- style="font-weight:bold"
+|use ||7.996 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 7.996 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 49 In --> 49 In [[indium]]
+|- style="font-weight:bold"
+|use ||7.02 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 7.02 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 50 Sn --> 50 Sn [[tin]]
+|- style="font-weight:bold"
+|use ||6.99 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 6.99 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 51 Sb --> 51 Sb [[antimony]]
+|- style="font-weight:bold"
+|use ||6.53 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 6.53 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 52 Te --> 52 Te [[tellurium]]
+|- style="font-weight:bold"
+|use ||5.70 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 5.70 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 55 Cs --> 55 Cs [[caesium]]
+|- style="font-weight:bold"
+|use ||1.843 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p. (28.44&nbsp;°C, near r.t.)) 1.843 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 56 Ba --> 56 Ba [[barium]]
+|- style="font-weight:bold"
+|use ||3.338 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 3.338 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 57 La --> 57 La [[lanthanum]]
+|- style="font-weight:bold"
+|use ||5.94 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 5.94 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 58 Ce --> 58 Ce [[cerium]]
+|- style="font-weight:bold"
+|use ||6.55 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 6.55 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 59 Pr --> 59 Pr [[praseodymium]]
+|- style="font-weight:bold"
+|use ||6.50 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 6.50 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 60 Nd --> 60 Nd [[neodymium]]
+|- style="font-weight:bold"
+|use ||6.89 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 6.89 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 62 Sm --> 62 Sm [[samarium]]
+|- style="font-weight:bold"
+|use ||7.16 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 7.16 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 63 Eu --> 63 Eu [[europium]]
+|- style="font-weight:bold"
+|use ||5.13 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 5.13 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 64 Gd --> 64 Gd [[gadolinium]]
+|- style="font-weight:bold"
+|use ||7.4 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 7.4 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 65 Tb --> 65 Tb [[terbium]]
+|- style="font-weight:bold"
+|use ||7.65 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 7.65 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 66 Dy --> 66 Dy [[dysprosium]]
+|- style="font-weight:bold"
+|use ||8.37 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 8.37 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 67 Ho --> 67 Ho [[holmium]]
+|- style="font-weight:bold"
+|use ||8.34 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 8.34 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 68 Er --> 68 Er [[erbium]]
+|- style="font-weight:bold"
+|use ||8.86 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 8.86 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 69 Tm --> 69 Tm [[thulium]]
+|- style="font-weight:bold"
+|use ||8.56 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 8.56 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 70 Yb --> 70 Yb [[ytterbium]]
+|- style="font-weight:bold"
+|use ||6.21 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 6.21 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 71 Lu --> 71 Lu [[lutetium]]
+|- style="font-weight:bold"
+|use ||9.3 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 9.3 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 72 Hf --> 72 Hf [[hafnium]]
+|- style="font-weight:bold"
+|use ||12 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 12 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 73 Ta --> 73 Ta [[tantalum]]
+|- style="font-weight:bold"
+|use ||15 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 15 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 74 W --> 74 W [[tungsten]]
+|- style="font-weight:bold"
+|use ||17.6 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 17.6 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 75 Re --> 75 Re [[rhenium]]
+|- style="font-weight:bold"
+|use ||18.9 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 18.9 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 76 Os --> 76 Os [[osmium]]
+|- style="font-weight:bold"
+|use ||20 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 20 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 77 Ir --> 77 Ir [[iridium]]
+|- style="font-weight:bold"
+|use ||19 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 19 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 78 Pt --> 78 Pt [[platinum]]
+|- style="font-weight:bold"
+|use ||19.77 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 19.77 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 79 Au --> 79 Au [[gold]]
+|- style="font-weight:bold"
+|use ||17.31 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 17.31 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 80 Hg --> 80 Hg [[mercury (element)|mercury]]
+|- style="font-weight:bold"
+|use ||(at r.t.) 13.534 g/cm<sup>3</sup>
+|-
+|LNG ||(at r.t.) 13.534 g/cm<sup>3</sup>
+|-
+|CRC ||(near r.t.) 13.5336 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 81 Tl --> 81 Tl [[thallium]]
+|- style="font-weight:bold"
+|use ||11.22 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 11.22 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 82 Pb --> 82 Pb [[lead]]
+|- style="font-weight:bold"
+|use ||10.66 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 10.66 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 83 Bi --> 83 Bi [[bismuth]]
+|- style="font-weight:bold"
+|use ||10.05 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 10.05 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 92 U --> 92 U [[uranium]]
+|- style="font-weight:bold"
+|use ||17.3 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 17.3 g/cm<sup>3</sup>
+|-
+! colspan="2" style="background:#e0e0f0"|<!-- 94 Pu --> 94 Pu [[plutonium]]
+|- style="font-weight:bold"
+|use ||16.63 g/cm<sup>3</sup>
+|-
+|CR2 ||(at m.p.) 16.63 g/cm<sup>3</sup>
+|}
+
+== Density, gas phase ==
+{|Class="wikitable" style="background:#f8fff8"
+! !! value	!! conditions
+|-
+! colspan="3" style="background:#e0f0e0"|<!-- 1 H --> 1 H [[hydrogen]] (H<sub>2</sub>)
+|- style="font-weight:bold"
+|use || 0.08988 g/L	|| 0&nbsp;°C, 101.325 kPa
+|-
+|CRC ||(calc. ideal gas) 0.082 g/L	||25&nbsp;°C, 101.325 kPa
+|-
+| KCH || 0.08988&nbsp;kg/m<sup>3</sup>	|| 0&nbsp;°C, 101.3 kPa
+|-
+| rowspan="2"|VDW || 0.08988 g/L	|| 0&nbsp;°C, 101.325 kPa
+|-
+|(lit. source) 0.08988 g/L	|| 
+|-
+! colspan="3" style="background:#e0f0e0"|<!-- 2 He --> 2 He [[helium]]
+|- style="font-weight:bold"
+|use || 0.1786 g/L	|| 0&nbsp;°C, 101.325 kPa
+|-
+|CRC ||(calc. ideal gas) 0.164 g/L	||25&nbsp;°C, 101.325 kPa
+|-
+|LNG || 0.176 g/L	|| room temperature
+|-
+| KCH || 0.1785&nbsp;kg/m<sup>3</sup>	|| 0&nbsp;°C, 101.3 kPa
+|-
+| rowspan="2"|VDW || 0.1786 g/L	|| 0&nbsp;°C, 101.325 kPa
+|-
+|(lit. source) 0.1785 g/L	|| 0&nbsp;°C, 1 atm
+|-
+! colspan="3" style="background:#e0f0e0"|<!-- 7 N --> 7 N [[nitrogen]] (N<sub>2</sub>)
+|- style="font-weight:bold"
+|use ||1.251 g/L	|| 0&nbsp;°C, 101.325 kPa
+|-
+|CRC ||(calc. ideal gas) 1.145 g/L	||25&nbsp;°C, 101.325 kPa
+|-
+|LNG ||1.165 g/L	||20&nbsp;°C
+|-
+| KCH ||1.2505&nbsp;kg/m<sup>3</sup>	|| 0&nbsp;°C, 101.3 kPa
+|-
+| rowspan="2"|VDW ||1.251 g/L	|| 0&nbsp;°C, 101.325 kPa
+|-
+|(lit. source) 1.2506 g/L	|| 
+|-
+! colspan="3" style="background:#e0f0e0"|<!-- 8 O --> 8 O [[oxygen]] (O<sub>2</sub>)
+|- style="font-weight:bold"
+|use ||1.429 g/L	|| 0&nbsp;°C, 101.325 kPa
+|-
+|CRC ||(calc. ideal gas) 1.308 g/L	||25&nbsp;°C, 101.325 kPa
+|-
+|LNG ||1.331 g/L	||20&nbsp;°C
+|-
+| KCH ||1.42895&nbsp;kg/m<sup>3</sup>	|| 0&nbsp;°C, 101.3 kPa
+|-
+| rowspan="2"|VDW ||1.429 g/L	|| 0&nbsp;°C, 101.325 kPa
+|-
+|(lit. source) 1.429 g/L	|| 0&nbsp;°C
+|-
+! colspan="3" style="background:#e0f0e0"|<!-- 9 F --> 9 F [[fluorine]] (F<sub>2</sub>)
+|- style="font-weight:bold"
+|use ||1.7 g/L	|| 0&nbsp;°C, 101.325 kPa
+|-
+|CRC ||(calc. ideal gas) 1.553 g/L	||25&nbsp;°C, 101.325 kPa
+|-
+| VDW ||(lit. source) 1.696 g/L	|| 
+|-
+|[https://encyclopedia.airliquide.com/fluorine] ||1.6074&nbsp;kg/m<sup>3</sup>	||15&nbsp;°C, 1.013 bar
+|-
+|[http://www.airproducts.com/products/fastfacts/properties/fluorine.asp] {{Webarchive|url=https://web.archive.org/web/20070928010834/http://www.airproducts.com/products/fastfacts/properties/fluorine.asp |date=2007-09-28 }} <!--product information--> || 0.0983&nbsp;lb/ft<sup>3</sup>	||{{convert|70|F}}, 1 atm
+|-
+! colspan="3" style="background:#e0f0e0"|<!-- 10 Ne --> 10 Ne [[neon]]
+|- style="font-weight:bold"
+|use || 0.9002	g/L	|| 0&nbsp;°C, 101.325 kPa
+|-
+|CRC ||(calc. ideal gas) 0.825 g/L	||25&nbsp;°C, 101.325 kPa
+|-
+|LNG || 0.8999 g/L	|| 0&nbsp;°C
+|-
+| KCH || 0.9002&nbsp;kg/m<sup>3</sup>	|| 0&nbsp;°C, 101.3 kPa
+|-
+| rowspan="2"|VDW || 0.9002 g/L	|| 0&nbsp;°C, 101.325 kPa
+|-
+|(lit. source) 0.89990 g/L	|| 0&nbsp;°C, 1 atm
+|-
+! colspan="3" style="background:#e0f0e0"|<!-- 17 Cl --> 17 Cl [[chlorine]] (Cl<sub>2</sub>)
+|- style="font-weight:bold"
+|use ||3.2 g/L	|| 0&nbsp;°C, 101.325 kPa
+|-
+|CRC ||(calc. ideal gas) 2.898 g/L	||25&nbsp;°C, 101.325 kPa
+|-
+|LNG ||2.98 g/L	||20&nbsp;°C
+|-
+| KCH ||3.214&nbsp;kg/m<sup>3</sup>	|| 0&nbsp;°C, 101.3 kPa
+|-
+| rowspan="2"|VDW ||3.116 g/L	|| 0&nbsp;°C, 101.325 kPa
+|-
+|(lit. source) 3.214 g/L || 
+|-
+! colspan="3" style="background:#e0f0e0"|<!-- 18 Ar --> 18 Ar [[argon]]
+|- style="font-weight:bold"
+|use ||1.784 g/L	|| 0&nbsp;°C, 101.325 kPa
+|-
+|CRC ||(calc. ideal gas) 1.633 g/L	||25&nbsp;°C, 101.325 kPa
+|-
+|LNG ||1.7824 g/L	|| 0&nbsp;°C
+|-
+| KCH ||1.784&nbsp;kg/m<sup>3</sup>	|| 0&nbsp;°C, 101.3 kPa
+|-
+| rowspan="2"|VDW ||1.784 g/L	|| 0&nbsp;°C, 101.325 kPa
+|-
+|(lit. source) 1.7837 g/L	|| 
+|-
+! colspan="3" style="background:#e0f0e0"|<!-- 36 Kr --> 36 Kr [[krypton]]
+|- style="font-weight:bold"
+|use ||3.749 g/L	|| 0&nbsp;°C, 101.325 kPa
+|-
+|CRC ||(calc. ideal gas) 3.425 g/L	||25&nbsp;°C, 101.325 kPa
+|-
+|LNG ||3.7493 g/L	|| room temperature
+|-
+| KCH ||3.744&nbsp;kg/m<sup>3</sup>	|| 0&nbsp;°C, 101.3 kPa
+|-
+| rowspan="2"|VDW ||3.749 g/L	|| 0&nbsp;°C, 101.325 kPa
+|-
+|(lit. source) 3.733 g/L	|| 0&nbsp;°C
+|-
+! colspan="3" style="background:#e0f0e0"|<!-- 54 Xe --> 54 Xe [[xenon]]
+|- style="font-weight:bold"
+|use ||5.894 g/L	|| 0&nbsp;°C, 101.325 kPa
+|-
+|CRC ||(calc. ideal gas) 5.366 g/L	||25&nbsp;°C, 101.325 kPa
+|-
+|LNG ||5.761 g/L	|| room temperature
+|-
+| KCH ||5.897&nbsp;kg/m<sup>3</sup>	|| 0&nbsp;°C, 101.3 kPa
+|-
+| rowspan="2"|VDW ||5.894 g/L	|| 0&nbsp;°C, 101.325 kPa
+|-
+|(lit. source) 5.88 g/L	|| 
+|-
+! colspan="3" style="background:#e0f0e0"|<!-- 86 Rn --> 86 Rn [[radon]] (Radon-222 ?)
+|- style="font-weight:bold"
+|use ||9.73 g/L	|| 0&nbsp;°C, 101.325 kPa
+|-
+|CRC ||(calc. ideal gas) 9.074 g/L	||25&nbsp;°C, 101.325 kPa
+|-
+|LNG ||9.73 g/L	|| room temperature
+|-
+| VDW ||(lit. source) 9.73 g/L	|| 
+|-
+| ICT.a ||9.73 g/L	|| 0&nbsp;°C, 1 A<sub>n</sub> (=101.325 kPa)<br />formula weight = 222
+|}
+
+== Notes ==
+* The suggested values for solid densities refer to "near room temperature (r.t.)" by default.
+* The suggested values for liquid densities refer to "at the melting point (m.p.)" by default.
+
+==See also==
+* [[Hardnesses of the elements (data page)]]
+
+== References ==
+
+===WEL===
+As quoted at http://www.webelements.com/ from these sources:
+*A.M. James and M.P. Lord in ''Macmillan's Chemical and Physical Data'', Macmillan, London, UK, 1992.
+*D.R. Lide, (ed.) in ''Chemical Rubber Company handbook of chemistry and physics'', CRC Press, Boca Raton, Florida, USA, 77th edition, 1996.
+*J.A. Dean (ed) in ''Lange's Handbook of Chemistry'', McGraw-Hill, New York, USA, 14th edition, 1992.
+*G.W.C. Kaye and T.H. Laby in ''Tables of physical and chemical constants'', Longman, London, UK, 15th edition, 1993.
+
+===CRC===
+As quoted from various sources in an online version of:
+*David R. Lide (ed), ''CRC Handbook of Chemistry and Physics, 84th Edition''. CRC Press. Boca Raton, Florida, 2003; Section 4, Properties of the Elements and Inorganic Compounds; Physical Constants of Inorganic Compounds
+
+===CR2===
+*David R. Lide (ed), ''CRC Handbook of Chemistry and Physics, 84th Edition''. CRC Press. Boca Raton, Florida, 2003; Section 4, Properties of the Elements and Inorganic Compounds; Density of Molten Elements and Representative Salts
+
+===LNG===
+As quoted from an online version of:
+*J.A. Dean (ed), ''Lange's Handbook of Chemistry'' (15th Edition), McGraw-Hill, 1999; Section 3; Table 3.2 Physical Constants of Inorganic Compounds
+
+===VDW===
+The following [[molar volume]]s and [[Density|densities]] for the majority of the gaseous elements were calculated from the [[van der Waals equation of state]], using the quoted values of the [[van der Waals constant]]s. The source for the van der Waals constants and for the literature densities was: R. C. Weast (Ed.), ''Handbook of Chemistry and Physics (53rd Edn.)'', Cleveland:Chemical Rubber Co., 1972.
+
+===Donnelly et al.===
+*{{cite journal| title=The Observed Properties of Liquid Helium at the Saturated Vapor Pressure | first1=Russell J.| last1=Donnelly| first2=Carlo F.| last2=Barenghi| journal=[[Journal of Physical and Chemical Reference Data]]| year=1998| volume=27| issue=6| pages=1217–74| doi=10.1063/1.556028| bibcode=1998JPCRD..27.1217D}}
+
+=== Hoffer et al. ===
+* {{cite journal| title=Thermodynamic properties of <sup>4</sup>He. II. The bcc phase and the P-T and VT phase diagrams below 2 K | first1=J. K.| last1=Hoffer| first2=W. R.| last2=Gardner| first3=C. G.| last3=Waterfield| first4=N. E.| last4=Phillips| journal=[[Journal of Low Temperature Physics]]| date=April 1976| volume=23| issue=1| pages=63–102| doi=10.1007/BF00117245| bibcode=1976JLTP...23...63H| s2cid=120473493}}
+
+{|Class="wikitable"
+|-
+| ||Colspan=2|[[van der Waals constant]]s ||Colspan=2|25&nbsp;°C, 100.0 kPa ||Colspan=2|0&nbsp;°C, 1 atm ||Lit.
+|-
+! || ''a'' (L<sup>2</sup>⋅bar/mol<sup>2</sup>) || ''b'' (L/mol) || ''V''<sub>m</sub> (L) || ''d'' (g/L) || ''V''<sub>m</sub> (L) || ''d'' (g/L) || ''d'' (g/L) 
+|-
+|[[Argon]] ||1.363 || 0.03219 ||24.77 ||1.613 ||22.39 ||1.784 ||1.7837
+|-
+|[[Chlorine]] ||6.579 || 0.05622 ||25.11 ||2.824 ||22.75 ||3.116 ||3.214
+|-
+|[[Fluorine]] ||Colspan=6|''not available'' ||1.696
+|-
+|[[Helium]] || 0.03457 || 0.02370 ||24.81 || 0.1613 ||22.44 || 0.1786 || 0.1785 (0&nbsp;°C, 1 atm)
+|-
+|[[Hydrogen]] || 0.2476 || 0.02661 ||24.81 || 0.08127 ||22.43 || 0.08988 || 0.08988
+|-
+|[[Krypton]] ||2.349 || 0.03978 ||24.73 ||3.388 ||22.35 ||3.749 ||3.733 (0&nbsp;°C)
+|-
+|[[Neon]] || 0.2135 || 0.01709 ||24.80 || 0.8139 ||22.42 || 0.9002 || 0.89990 (0&nbsp;°C, 1 atm)
+|-
+|[[Nitrogen]] ||1.408 || 0.03913 ||24.77 ||1.131 ||22.39 ||1.251 ||1.2506
+|-
+|[[Oxygen]] ||1.378 || 0.03183 ||24.77 ||1.292 ||22.39 ||1.429 ||1.429 (0&nbsp;°C)
+|-
+|[[Radon]] ||Colspan=6|''not available'' ||9.73
+|-
+|[[Xenon]] ||4.250 || 0.05105 ||24.69 ||5.323 ||22.28 ||5.894 ||5.88
+|-
+|}
+
+===Other===
+*KCH: Kuchling, Horst, ''Taschenbuch der Physik'', 13. Auflage, [[Verlag Harri Deutsch]], Thun und Frankfurt/Main, German edition, 1991. {{ISBN|3-8171-1020-0}}
+*: ('''a''') Gray and Ramsay, ''Proceedings of the Royal Society'' (London). A. Mathematical and Physical Sciences. '''84''': 536; (1911)
+
+{{Navbox elements data}}
+{{Navbox periodic table}}
+
+[[Category:Properties of chemical elements]]
+[[Category:Chemical element data pages]]
