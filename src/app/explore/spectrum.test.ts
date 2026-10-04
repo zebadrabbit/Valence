@@ -65,4 +65,11 @@ describe('text', () => {
       'Emission lines of hydrogen, longest wavelength first: 656.279 nm, red, n = 3 → 2; 486.135 nm, blue-green, n = 4 → 2; 434.0472 nm, blue-violet, n = 5 → 2; 410.1734 nm, violet, n = 6 → 2.',
     )
   })
+
+  it('names both sodium D lines, which the strip draws on top of each other', () => {
+    expect(spectrumText(element('Na'))).toBe('Emission lines of sodium, longest wavelength first: 589.592424 nm, yellow, 3p → 3s; 588.995095 nm, yellow, 3p → 3s.')
+    const [d1, d2] = element('Na').emission!.lines.map((line) => stripPosition(line.value) * 300)
+    // Less than the 2 units a line is wide: the reason the data carries a note saying so.
+    expect(Math.abs(d1! - d2!)).toBeLessThan(2)
+  })
 })

@@ -396,6 +396,24 @@
       "value": "#AB5CF2",
       "sourceId": "jmol-pal-source"
     },
+    "emission": {
+      "selection": "The two D lines, which give sodium its yellow colour. NIST lists other, weaker lines of the neutral atom between 400 and 700 nm.",
+      "note": "Both lines come from an electron falling from the 3p subshell to the 3s subshell. The 3p level is split into two levels very close in energy, so there are two lines. They are 0.6 nm apart, too close to draw separately on this strip, which shows them as one.",
+      "lines": [
+        {
+          "value": 589.592424,
+          "sourceId": "nist-asd-lines-na",
+          "published": "589.592424",
+          "transition": "3p → 3s"
+        },
+        {
+          "value": 588.995095,
+          "sourceId": "nist-asd-lines-na",
+          "published": "588.995095",
+          "transition": "3p → 3s"
+        }
+      ]
+    },
     "notes": [
       "NIST marks ionization energy 3 as interpolated/extrapolated (semi-empirical), not measured."
     ],

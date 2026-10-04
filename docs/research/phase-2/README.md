@@ -9,7 +9,7 @@ Verified inputs for the molecule explorer (spec section 6). Gathered on 2026-10-
 | `expected.json` | The expected-values table (written from the research and checked by script and by a second reviewer): Lewis structure, formal charge, oxidation state, steric number, geometry, and hybridization for every atom of all 33 structures, plus molecular orbital data for O₂ and N₂. |
 | `pubchem.json` | PubChem CIDs, record availability, and checks for all 33 structures. |
 | `sdf/` | PubChem 3D and 2D structure files as downloaded. 3D exists for 29 of 33; BF₃, SF₆, XeF₄, and PCl₅ have 2D only. |
-| `emission-lines.json` | Visible emission lines of hydrogen and xenon from the NIST Atomic Spectra Database (wavelengths in air, as NIST prints them), generated from the downloaded tables and re-checked against the cited pages. |
+| `emission-lines.json` | Visible emission lines of hydrogen, sodium and xenon from the NIST Atomic Spectra Database (wavelengths in air, as NIST prints them), generated from the downloaded tables and re-checked against the cited pages. Sodium's two D lines were added on 2026-10-04, read from the same query for Na I. |
 | `parse-sdf.mjs` | The V2000 molfile parser used to check the downloads. |
 | `r3f-spike.md` | Findings from a throwaway React Three Fiber prototype of the 3D viewer. |
 

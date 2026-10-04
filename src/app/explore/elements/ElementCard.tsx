@@ -89,7 +89,7 @@ export function ElementCard({ element }: { element: PeriodicElement }) {
         ))}
       </div>
 
-      {/* Below the sections: the spectrum, for the two elements that have one, with the molecules beside it. */}
+      {/* Below the sections: the spectrum, for the elements that have one, with the molecules beside it. */}
       <div className={curated?.emission ? 'grid items-start gap-x-8 gap-y-4 lg:grid-cols-[minmax(0,28rem)_minmax(0,1fr)]' : undefined}>
         {curated?.emission && <EmissionSpectrum element={curated} />}
         <div className="grid gap-2">

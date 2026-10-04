@@ -215,7 +215,7 @@ function buildElements() {
       return { value: line.wavelengthNm, sourceId: entry.sourceId, published: line.valueAsPublished, ...(line.transition ? { transition: line.transition } : {}) }
     })
     if (lines.some((line, i) => i > 0 && line.value >= lines[i - 1].value)) fail(`element ${symbol}: emission lines are not longest first`)
-    return { emission: { selection: entry.selection, lines } }
+    return { emission: { selection: entry.selection, ...(entry.note ? { note: entry.note } : {}), lines } }
   }
 
   const elements = file.elements.map((e) => {

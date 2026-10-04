@@ -27,6 +27,7 @@ export function EmissionSpectrum({ element }: { element: Element }) {
           </text>
         ))}
       </svg>
+      {emission.note && <Note>{emission.note}</Note>}
       <table className="w-full text-left tabular-nums">
         <caption className="sr-only">
           Emission lines of {element.name.toLowerCase()} from {STRIP.min} to {STRIP.max} nm

@@ -55,9 +55,9 @@ describe('the real chem-data registry', () => {
     expect(registry.molecules.map((m) => m.id).sort()).toEqual(LIBRARY_IDS)
   })
 
-  it('stores emission lines for hydrogen and xenon only, between 400 and 700 nm, longest first, in the digits NIST prints', () => {
+  it('stores emission lines for hydrogen, sodium and xenon only, between 400 and 700 nm, longest first, in the digits NIST prints', () => {
     const withLines = registry.elements.filter((e) => e.emission)
-    expect(withLines.map((e) => e.symbol)).toEqual(['H', 'Xe'])
+    expect(withLines.map((e) => e.symbol)).toEqual(['H', 'Na', 'Xe'])
     for (const e of withLines) {
       const values = e.emission!.lines.map((line) => line.value)
       expect(values).toEqual([...values].sort((a, b) => b - a))
@@ -69,7 +69,17 @@ describe('the real chem-data registry', () => {
     }
     const published = (symbol: string) => registry.elements.find((e) => e.symbol === symbol)!.emission!.lines.map((line) => line.published)
     expect(published('H')).toEqual(['656.279', '486.135', '434.0472', '410.1734'])
+    expect(published('Na')).toEqual(['589.592424', '588.995095'])
     expect(published('Xe')).toEqual(['697.6182', '688.2155', '491.6507', '480.70190', '467.12258', '462.42756'])
+  })
+
+  it('says with the data that the two sodium D lines are too close to draw apart', () => {
+    const sodium = registry.elements.find((e) => e.symbol === 'Na')!.emission!
+    expect(sodium.lines.map((line) => line.transition)).toEqual(['3p → 3s', '3p → 3s'])
+    expect(sodium.selection).toContain('D lines')
+    expect(sodium.note).toContain('too close to draw separately')
+    // Only an element whose lines overlap on the strip carries the note.
+    for (const symbol of ['H', 'Xe']) expect(registry.elements.find((e) => e.symbol === symbol)!.emission!.note).toBeUndefined()
   })
 
   it('contains exactly the 11 elements', () => {

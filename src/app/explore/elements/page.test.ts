@@ -449,10 +449,19 @@ describe('the element card', () => {
     expect(gold).not.toMatch(/<a [^>]*href="\/explore\//)
   })
 
-  it('shows the emission spectrum for hydrogen and xenon, and for no other element', () => {
+  it('shows the emission spectrum for hydrogen, sodium and xenon, and for no other element', () => {
     const shown = periodicTable.filter((e) => card(e.symbol).includes('Emission spectrum of the isolated atom')).map((e) => e.symbol)
-    expect(shown).toEqual(['H', 'Xe'])
+    expect(shown).toEqual(['H', 'Na', 'Xe'])
     expect(card('H')).toContain('656.279 nm')
+  })
+
+  it('lists both sodium D lines in the table and in the text of the strip, and says under the strip that they are drawn as one', () => {
+    const sodium = card('Na')
+    for (const wavelength of ['589.592424 nm', '588.995095 nm']) expect(count(sodium, new RegExp(`<td[^>]*>${wavelength}</td>`, 'g'))).toBe(1)
+    expect(sodium).toContain('aria-label="Emission lines of sodium, longest wavelength first: 589.592424 nm, yellow, 3p → 3s; 588.995095 nm, yellow, 3p → 3s."')
+    const note = registry.elements.find((e) => e.symbol === 'Na')!.emission!.note!
+    expect(sodium.indexOf(escaped(note))).toBeGreaterThan(sodium.indexOf('</svg>'))
+    expect(sodium.indexOf(escaped(note))).toBeLessThan(sodium.indexOf('<table'))
   })
 
   it('cites in its Sources control every source of every row, the emission lines, and says what the app works out', () => {
@@ -465,6 +474,7 @@ describe('the element card', () => {
     expect(sodium).toContain(source('pubchem-periodic-table'))
     expect(sodium).toContain(escaped(CARD_DERIVED))
     expect(cites(card('H'), 'Emission lines', source('nist-asd-lines-h'))).toBe(true)
+    expect(cites(sodium, 'Emission lines', source('nist-asd-lines-na'))).toBe(true)
     expect(card('F')).toContain(source('mantina-2009'))
     for (const symbol of ['H', 'Xe', 'Og']) {
       const html = card(symbol)

@@ -8,6 +8,11 @@
       "citation": "Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, Lines Data for H I: observed wavelengths in air, 400 to 700 nm (retrieved 2026-10-03). National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F"
     },
     {
+      "id": "nist-asd-lines-na",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Na+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=0&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&show_calc_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1&conf_out=on&term_out=on&enrg_out=on&J_out=on",
+      "citation": "Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, Lines Data for Na I: observed wavelengths in air, 400 to 700 nm (retrieved 2026-10-04). National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F"
+    },
+    {
       "id": "nist-asd-lines-xe",
       "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Xe+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=0&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&show_calc_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1&conf_out=on&term_out=on&enrg_out=on&J_out=on",
       "citation": "Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, Lines Data for Xe I: observed wavelengths in air, 400 to 700 nm (retrieved 2026-10-03). National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F"
@@ -42,6 +47,26 @@
           "valueAsPublished": "410.1734",
           "relativeIntensityAsPublished": "70000",
           "transition": "n = 6 → 2"
+        }
+      ]
+    },
+    {
+      "symbol": "Na",
+      "sourceId": "nist-asd-lines-na",
+      "selection": "The two D lines, which give sodium its yellow colour. NIST lists other, weaker lines of the neutral atom between 400 and 700 nm.",
+      "note": "Both lines come from an electron falling from the 3p subshell to the 3s subshell. The 3p level is split into two levels very close in energy, so there are two lines. They are 0.6 nm apart, too close to draw separately on this strip, which shows them as one.",
+      "lines": [
+        {
+          "wavelengthNm": 589.592424,
+          "valueAsPublished": "589.592424",
+          "relativeIntensityAsPublished": "40000",
+          "transition": "3p → 3s"
+        },
+        {
+          "wavelengthNm": 588.995095,
+          "valueAsPublished": "588.995095",
+          "relativeIntensityAsPublished": "80000",
+          "transition": "3p → 3s"
         }
       ]
     },

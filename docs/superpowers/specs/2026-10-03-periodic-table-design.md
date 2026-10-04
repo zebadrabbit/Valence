@@ -18,7 +18,7 @@ Success: a learner can open the table, pick "colour by electronegativity" and se
 
 ## 3. Out of scope
 
-Isotopes beyond naming the one whose mass is shown; discovery history beyond the year and its notes; photographs; emission spectra beyond hydrogen and xenon; a 32-column layout; comparing elements side by side.
+Isotopes beyond naming the one whose mass is shown; discovery history beyond the year and its notes; photographs; emission spectra beyond hydrogen, sodium and xenon; a 32-column layout; comparing elements side by side.
 
 ## 4. Pages and navigation
 
@@ -129,7 +129,7 @@ Shown below the table at every width, across the page, with its sections side by
 - Standard state, melting point, boiling point, density, year discovered (headed "as PubChem lists it").
 - The element's notes, each beside the row it qualifies.
 - "In the molecule library": links to every library molecule containing the element, or a line saying none does.
-- The emission spectrum, for hydrogen and xenon.
+- The emission spectrum, for hydrogen, sodium and xenon. Sodium's two D lines are too close to draw apart, and a sentence stored with the data says so under the strip.
 - A Sources control listing the citation for every value shown.
 
 ## 8. Accessibility

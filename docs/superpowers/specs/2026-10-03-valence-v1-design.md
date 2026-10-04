@@ -98,7 +98,7 @@ In the UI, each inspector card, station result, and energy panel has a "Sources"
 | Pauling electronegativity | PubChem periodic table |
 | Covalent radii; van der Waals radii; ionic radii | Cordero 2008; Mantina 2009 (which tabulates Bondi's values and supplies hydrogen and boron); Shannon 1976. Where a paywalled paper was checked only through secondary transcriptions, the source entry says so and links the copy that was read |
 | Display colours of elements | Jmol CPK colour table |
-| Emission lines of hydrogen and xenon | NIST Atomic Spectra Database, observed wavelengths in air, 400 to 700 nm. Hydrogen: the four Balmer lines. Xenon: the six strongest lines of the neutral atom by the relative intensity NIST lists |
+| Emission lines of hydrogen, sodium and xenon | NIST Atomic Spectra Database, observed wavelengths in air, 400 to 700 nm. Hydrogen: the four Balmer lines. Sodium (added with its element page): the two D lines. Xenon: the six strongest lines of the neutral atom by the relative intensity NIST lists |
 | Formation enthalpies and free energies of aqueous ions and of NaHCO₃(s) | NBS tables (Wagman 1982) |
 | True H₂CO₃ acidity, CO₂ hydration equilibrium, dehydration rate | Primary literature (for example Adamczyk et al., *Science* 2009; Wang et al., *J. Phys. Chem. A* 2010) |
 | pKa (including phenolphthalein), Kw | CRC Handbook or IUPAC compilations |
