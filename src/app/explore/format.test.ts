@@ -16,6 +16,7 @@ import {
   measuredNote,
   measurementText,
   measurementValue,
+  minusSigns,
   ordinal,
   polarity,
   publishedValue,
@@ -25,6 +26,16 @@ import {
 
 const molecule = (id: string) => registry.molecules.find((m) => m.id === id)!
 const element = (symbol: string) => registry.elements.find((e) => e.symbol === symbol)!
+
+describe('minusSigns', () => {
+  it('turns every hyphen of a published list of oxidation states into a real minus sign and changes nothing else', () => {
+    expect(minusSigns('+5, +3, -3')).toBe('+5, +3, −3')
+    expect(minusSigns('+1, -1')).toBe('+1, −1')
+    expect(minusSigns('+6, +4, +2, +1, 0, -1')).toBe('+6, +4, +2, +1, 0, −1')
+    expect(minusSigns('-4, -2')).toBe('−4, −2')
+    expect(minusSigns('6, 4,2, 1, 0')).toBe('6, 4,2, 1, 0')
+  })
+})
 
 describe('signed', () => {
   it.each([

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { configurationParts, evToKjPerMol, valenceElectrons } from './element'
+import { configurationParts, coreAndSubshells, evToKjPerMol, valenceElectrons } from './element'
+import { periodicTable } from './periodic'
 import { registry } from './registry'
 
 const element = (symbol: string) => {
@@ -54,5 +55,42 @@ describe('configurationParts', () => {
 
   it('rejects text that is not a configuration', () => {
     expect(() => configurationParts('[He] 2s2')).toThrow(/unreadable/)
+  })
+})
+
+describe('coreAndSubshells', () => {
+  it('splits a configuration written with a noble-gas core into the core and the subshells after it', () => {
+    expect(coreAndSubshells('[He]2s2 2p5')).toEqual({
+      core: '[He]',
+      parts: [
+        { subshell: '2s', electrons: '2' },
+        { subshell: '2p', electrons: '5' },
+      ],
+    })
+  })
+
+  it('reads a core followed by a space, and a configuration with no core', () => {
+    expect(coreAndSubshells('[He] 2s2 2p3').core).toBe('[He]')
+    expect(coreAndSubshells('[He] 2s2 2p3').parts.length).toBe(2)
+    expect(coreAndSubshells('1s1')).toEqual({ core: undefined, parts: [{ subshell: '1s', electrons: '1' }] })
+  })
+
+  it('keeps subshells in the order written and a two-digit count whole', () => {
+    expect(coreAndSubshells('[Ar]4s1 3d10').parts).toEqual([
+      { subshell: '4s', electrons: '1' },
+      { subshell: '3d', electrons: '10' },
+    ])
+  })
+
+  it('reads the configuration of every element in the periodic table, losing nothing', () => {
+    for (const e of periodicTable) {
+      const { core, parts } = coreAndSubshells(e.configuration.text)
+      expect([e.symbol, (core ?? '') + parts.map((p) => p.subshell + p.electrons).join(' ')]).toEqual([e.symbol, e.configuration.text.replace('] ', ']')])
+    }
+  })
+
+  it('rejects text that is not a configuration', () => {
+    expect(() => coreAndSubshells('[He]')).toThrow(/unreadable/)
+    expect(() => coreAndSubshells('2s2 [He]')).toThrow(/unreadable/)
   })
 })

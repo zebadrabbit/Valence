@@ -1,7 +1,7 @@
 import { shellCitations } from '@/chem-data/citations'
 import { registry } from '@/chem-data/registry'
 import type { Element } from '@/chem-data/schema'
-import { ELECTRON_RADIUS, bohrLayout } from './bohrLayout'
+import { BohrDiagram } from './BohrDiagram'
 import { electrons } from './format'
 import { Card, Sources } from './InspectorCard'
 
@@ -11,29 +11,10 @@ import { Card, Sources } from './InspectorCard'
  */
 export function BohrCard({ element }: { element: Element }) {
   const shells = element.shells.value
-  const { size, nucleus, rings } = bohrLayout(shells)
   return (
     <Card heading={`Bohr model: ${element.name}`}>
-      <figure className="grid justify-items-center gap-1">
-        {/* The list below says what the picture shows. */}
-        <svg aria-hidden="true" width={size} height={size} viewBox={`${-size / 2} ${-size / 2} ${size} ${size}`} className="max-w-full text-foreground">
-          <circle r={nucleus} className="fill-muted" stroke="currentColor" />
-          <text fontSize={13} fontWeight={500} textAnchor="middle" dominantBaseline="central" fill="currentColor">
-            {element.symbol}
-          </text>
-          {rings.map((ring, i) => (
-            <g key={i}>
-              <circle r={ring.radius} fill="none" stroke="currentColor" strokeOpacity={0.45} />
-              {ring.electrons.map(([x, y], k) => (
-                <circle key={k} cx={x} cy={y} r={ELECTRON_RADIUS} fill="currentColor" />
-              ))}
-            </g>
-          ))}
-        </svg>
-        <figcaption className="text-center text-xs text-muted-foreground">
-          Bohr model of a neutral, isolated {element.name.toLowerCase()} atom: a simplified picture
-        </figcaption>
-      </figure>
+      {/* The list below says what the picture shows. */}
+      <BohrDiagram symbol={element.symbol} shells={shells} caption={`Bohr model of a neutral, isolated ${element.name.toLowerCase()} atom: a simplified picture`} />
       <ol>
         {shells.map((count, i) => (
           <li key={i}>

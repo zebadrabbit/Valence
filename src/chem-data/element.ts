@@ -23,6 +23,15 @@ export function configurationParts(configuration: string): { subshell: string; e
   })
 }
 
+/**
+ * A configuration as the periodic table stores it, "[He]2s2 2p5", "[He] 2s2 2p3" or "1s1": the noble-gas
+ * core where one is written, and the subshells after it in the order written.
+ */
+export function coreAndSubshells(configuration: string): { core: string | undefined; parts: ReturnType<typeof configurationParts> } {
+  const [, core, rest = ''] = /^(\[[A-Z][a-z]\])? ?(.*)$/.exec(configuration) ?? []
+  return { core, parts: configurationParts(rest) }
+}
+
 /** Shown with every emission spectrum: what the lines are, and what they are not. */
 export const EMISSION_NOTE =
   'These lines come from isolated atoms of the gas glowing in a discharge lamp. An atom bonded in a molecule does not emit them.'

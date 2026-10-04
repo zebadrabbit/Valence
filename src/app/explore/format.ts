@@ -12,6 +12,11 @@ const fixed = (value: number, digits: number) => {
   return value < 0 && Number(text) !== 0 ? MINUS + text : text
 }
 
+/** Published text with a real minus sign for each hyphen, for a list of oxidation states such as "+5, +3, -3". */
+export function minusSigns(text: string): string {
+  return text.replaceAll('-', MINUS)
+}
+
 /** A formal charge or oxidation state: "+1", "−2", "0". */
 export function signed(value: number): string {
   return value > 0 ? `+${value}` : fixed(value, 0)

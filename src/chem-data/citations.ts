@@ -45,6 +45,24 @@ export function shellCitations(element: Element, sources: readonly Source[]): Ci
   return citations([['Electrons per shell', element.shells.sourceId]], sources)
 }
 
+/**
+ * The sources of the periodic table's element card: every row's sources under that row's label, then the
+ * emission lines where the curated record of the element has them. A row the app works out cites nothing.
+ */
+export function periodicCitations(
+  rows: readonly { label: string; sourceIds: readonly string[] }[],
+  curated: Element | undefined,
+  sources: readonly Source[],
+): Citation[] {
+  return citations(
+    [
+      ...rows.flatMap((row) => row.sourceIds.map((id): Entry => [row.label, id])),
+      ...(curated?.emission?.lines.map((line): Entry => ['Emission lines', line.sourceId]) ?? []),
+    ],
+    sources,
+  )
+}
+
 /** The source of a molecular orbital diagram: its level order, electron counts and callout. */
 export function moCitations(diagram: MoDiagram, sources: readonly Source[]): Citation[] {
   return citations([['Order of the levels and the electrons in them', diagram.sourceId]], sources)

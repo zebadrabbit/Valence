@@ -7,6 +7,7 @@ import { EMISSION_NOTE } from '@/chem-data/element'
 import { VALENCE_BOND_NOTE } from '@/chem-data/hybrid'
 import { registry } from '@/chem-data/registry'
 import { AtomCard } from './AtomCard'
+import { BohrCard } from './BohrCard'
 import { Inspector } from './Inspector'
 
 // The wording itself is tested with the functions that build it. These check that the cards show it.
@@ -91,5 +92,20 @@ describe('hybrid orbitals card', () => {
 
   it('shows neither note below level 3', () => {
     expect(note('oxygen', 2)).not.toContain('valence bond picture')
+  })
+})
+
+describe('Bohr model card', () => {
+  const sodium = registry.elements.find((e) => e.symbol === 'Na')!
+
+  it('draws one ring per shell with a dot per electron, hidden from a screen reader, and lists the shells as text', () => {
+    const html = renderToStaticMarkup(createElement(BohrCard, { element: sodium }))
+    expect(html).toContain('Bohr model: Sodium')
+    expect(html).toMatch(/<svg aria-hidden="true"/)
+    // The nucleus, three rings and 11 electrons.
+    expect([...html.matchAll(/<circle /g)].length).toBe(1 + 3 + 11)
+    expect(html).toContain('<figcaption class="text-center text-xs text-muted-foreground">Bohr model of a neutral, isolated sodium atom: a simplified picture</figcaption>')
+    expect(html).toContain('<ol><li>Shell 1: 2 electrons</li><li>Shell 2: 8 electrons</li><li>Shell 3: 1 electron</li></ol>')
+    expect(html).toContain('Electrons per shell: ')
   })
 })

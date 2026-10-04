@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { bondCitations, citations, elementCitations, measurementCitations } from './citations'
+import { bondCitations, citations, elementCitations, measurementCitations, periodicCitations } from './citations'
 import { measure } from './measure'
 import { registry } from './registry'
 
@@ -72,5 +72,31 @@ describe('measurementCitations and bondCitations', () => {
       ['cccbdb-water', ['Atom coordinates of the model', 'Cited length']],
       ['pubchem-ptable', ['Electronegativity']],
     ])
+  })
+})
+
+describe('periodicCitations', () => {
+  const rows = [
+    { label: 'Symbol', sourceIds: ['pubchem-periodic-table'] },
+    { label: 'Group', sourceIds: [] },
+    { label: 'Atomic mass', sourceIds: ['ciaaw-abridged-2024'] },
+    { label: 'Density', sourceIds: ['pubchem-periodic-table', 'pubchem-element-pages'] },
+  ]
+
+  it('lists each source of the card rows once, with the rows it covers; a row worked out by the app cites nothing', () => {
+    expect(summary(periodicCitations(rows, undefined, sources))).toEqual([
+      ['pubchem-periodic-table', ['Symbol', 'Density']],
+      ['ciaaw-abridged-2024', ['Atomic mass']],
+      ['pubchem-element-pages', ['Density']],
+    ])
+  })
+
+  it('adds the source of the emission lines when the curated record has them', () => {
+    expect(summary(periodicCitations(rows, element('H'), sources)).at(-1)).toEqual(['nist-asd-lines-h', ['Emission lines']])
+    expect(periodicCitations(rows, element('C'), sources).length).toBe(3)
+  })
+
+  it('throws on a source id that does not resolve', () => {
+    expect(() => periodicCitations([{ label: 'Density', sourceIds: ['missing'] }], undefined, sources)).toThrow(/unknown source "missing"/)
   })
 })
