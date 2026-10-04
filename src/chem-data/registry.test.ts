@@ -55,6 +55,23 @@ describe('the real chem-data registry', () => {
     expect(registry.molecules.map((m) => m.id).sort()).toEqual(LIBRARY_IDS)
   })
 
+  it('stores emission lines for hydrogen and xenon only, between 400 and 700 nm, longest first, in the digits NIST prints', () => {
+    const withLines = registry.elements.filter((e) => e.emission)
+    expect(withLines.map((e) => e.symbol)).toEqual(['H', 'Xe'])
+    for (const e of withLines) {
+      const values = e.emission!.lines.map((line) => line.value)
+      expect(values).toEqual([...values].sort((a, b) => b - a))
+      for (const line of e.emission!.lines) {
+        expect(line.value).toBeGreaterThan(400)
+        expect(line.value).toBeLessThan(700)
+        expect(Number(line.published)).toBe(line.value)
+      }
+    }
+    const published = (symbol: string) => registry.elements.find((e) => e.symbol === symbol)!.emission!.lines.map((line) => line.published)
+    expect(published('H')).toEqual(['656.279', '486.135', '434.0472', '410.1734'])
+    expect(published('Xe')).toEqual(['697.6182', '688.2155', '491.6507', '480.70190', '467.12258', '462.42756'])
+  })
+
   it('contains exactly the 11 elements', () => {
     expect(registry.elements.map((e) => e.symbol)).toEqual(['H', 'B', 'C', 'N', 'O', 'F', 'Na', 'P', 'S', 'Cl', 'Xe'])
   })

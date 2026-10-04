@@ -42,6 +42,35 @@
       "value": "#FFFFFF",
       "sourceId": "jmol-pal-source"
     },
+    "emission": {
+      "selection": "All four Balmer lines between 400 and 700 nm.",
+      "lines": [
+        {
+          "value": 656.279,
+          "sourceId": "nist-asd-lines-h",
+          "published": "656.279",
+          "transition": "n = 3 → 2"
+        },
+        {
+          "value": 486.135,
+          "sourceId": "nist-asd-lines-h",
+          "published": "486.135",
+          "transition": "n = 4 → 2"
+        },
+        {
+          "value": 434.0472,
+          "sourceId": "nist-asd-lines-h",
+          "published": "434.0472",
+          "transition": "n = 5 → 2"
+        },
+        {
+          "value": 410.1734,
+          "sourceId": "nist-asd-lines-h",
+          "published": "410.1734",
+          "transition": "n = 6 → 2"
+        }
+      ]
+    },
     "notes": [
       "NIST marks ionization energy 1 as theoretical, not measured."
     ],
@@ -591,6 +620,41 @@
     "color": {
       "value": "#429EB0",
       "sourceId": "jmol-pal-source"
+    },
+    "emission": {
+      "selection": "The six strongest lines of the neutral atom between 400 and 700 nm, by the relative intensity NIST lists. NIST lists several hundred xenon lines, and a real lamp also shows lines of the xenon ion.",
+      "lines": [
+        {
+          "value": 697.6182,
+          "sourceId": "nist-asd-lines-xe",
+          "published": "697.6182"
+        },
+        {
+          "value": 688.2155,
+          "sourceId": "nist-asd-lines-xe",
+          "published": "688.2155"
+        },
+        {
+          "value": 491.6507,
+          "sourceId": "nist-asd-lines-xe",
+          "published": "491.6507"
+        },
+        {
+          "value": 480.7019,
+          "sourceId": "nist-asd-lines-xe",
+          "published": "480.70190"
+        },
+        {
+          "value": 467.12258,
+          "sourceId": "nist-asd-lines-xe",
+          "published": "467.12258"
+        },
+        {
+          "value": 462.42756,
+          "sourceId": "nist-asd-lines-xe",
+          "published": "462.42756"
+        }
+      ]
     },
     "notes": [
       "NIST marks ionization energies 2 and 3 as interpolated/extrapolated (semi-empirical), not measured."

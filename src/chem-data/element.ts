@@ -22,3 +22,11 @@ export function configurationParts(configuration: string): { subshell: string; e
     return { subshell: match[1]!, electrons: match[2]! }
   })
 }
+
+/** Shown with every emission spectrum: what the lines are, and what they are not. */
+export const EMISSION_NOTE =
+  'These lines come from isolated atoms of the gas glowing in a discharge lamp. An atom bonded in a molecule does not emit them.'
+
+/** How to read the strip and its numbers. */
+export const EMISSION_READING_NOTE =
+  'Wavelengths are in air. The colours on the strip are approximate: a screen cannot show a pure spectral colour.'

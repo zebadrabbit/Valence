@@ -1,0 +1,86 @@
+{
+  "generated": "2026-10-03",
+  "window": "400 to 700 nm, wavelengths in air",
+  "sources": [
+    {
+      "id": "nist-asd-lines-h",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=H+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=0&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&show_calc_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1&conf_out=on&term_out=on&enrg_out=on&J_out=on",
+      "citation": "Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, Lines Data for H I: observed wavelengths in air, 400 to 700 nm (retrieved 2026-10-03). National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F"
+    },
+    {
+      "id": "nist-asd-lines-xe",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Xe+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=0&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&show_calc_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1&conf_out=on&term_out=on&enrg_out=on&J_out=on",
+      "citation": "Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, Lines Data for Xe I: observed wavelengths in air, 400 to 700 nm (retrieved 2026-10-03). National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F"
+    }
+  ],
+  "elements": [
+    {
+      "symbol": "H",
+      "sourceId": "nist-asd-lines-h",
+      "selection": "All four Balmer lines between 400 and 700 nm.",
+      "lines": [
+        {
+          "wavelengthNm": 656.279,
+          "valueAsPublished": "656.279",
+          "relativeIntensityAsPublished": "500000",
+          "transition": "n = 3 → 2"
+        },
+        {
+          "wavelengthNm": 486.135,
+          "valueAsPublished": "486.135",
+          "relativeIntensityAsPublished": "180000",
+          "transition": "n = 4 → 2"
+        },
+        {
+          "wavelengthNm": 434.0472,
+          "valueAsPublished": "434.0472",
+          "relativeIntensityAsPublished": "90000",
+          "transition": "n = 5 → 2"
+        },
+        {
+          "wavelengthNm": 410.1734,
+          "valueAsPublished": "410.1734",
+          "relativeIntensityAsPublished": "70000",
+          "transition": "n = 6 → 2"
+        }
+      ]
+    },
+    {
+      "symbol": "Xe",
+      "sourceId": "nist-asd-lines-xe",
+      "selection": "The six strongest lines of the neutral atom between 400 and 700 nm, by the relative intensity NIST lists. NIST lists several hundred xenon lines, and a real lamp also shows lines of the xenon ion.",
+      "lines": [
+        {
+          "wavelengthNm": 697.6182,
+          "valueAsPublished": "697.6182",
+          "relativeIntensityAsPublished": "1.91e+06"
+        },
+        {
+          "wavelengthNm": 688.2155,
+          "valueAsPublished": "688.2155",
+          "relativeIntensityAsPublished": "5.83e+06"
+        },
+        {
+          "wavelengthNm": 491.6507,
+          "valueAsPublished": "491.6507",
+          "relativeIntensityAsPublished": "1.6e+06"
+        },
+        {
+          "wavelengthNm": 480.7019,
+          "valueAsPublished": "480.70190",
+          "relativeIntensityAsPublished": "4.29e+06"
+        },
+        {
+          "wavelengthNm": 467.12258,
+          "valueAsPublished": "467.12258",
+          "relativeIntensityAsPublished": "2.49e+06"
+        },
+        {
+          "wavelengthNm": 462.42756,
+          "valueAsPublished": "462.42756",
+          "relativeIntensityAsPublished": "2.42e+06"
+        }
+      ]
+    }
+  ]
+}

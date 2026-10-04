@@ -118,6 +118,16 @@ export const elementSchema = z.strictObject({
     }),
   ),
   color: cited(hex),
+  /**
+   * Emission lines of the isolated atom in a discharge lamp: wavelengths in nm, in air, longest first.
+   * `selection` says which of the source's lines were chosen. Present only for the elements whose card shows a spectrum.
+   */
+  emission: z
+    .strictObject({
+      selection: text,
+      lines: z.array(citedNumber(z.number().positive()).extend({ transition: text.optional() })).min(1),
+    })
+    .optional(),
   notes: z.array(text).optional(),
   sourceId: id,
 })

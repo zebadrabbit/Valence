@@ -4,6 +4,7 @@ import { configurationParts, valenceElectrons } from '@/chem-data/element'
 import { formulaParts } from '@/chem-data/formula'
 import { registry } from '@/chem-data/registry'
 import type { Element, Molecule } from '@/chem-data/schema'
+import { EmissionSpectrum } from './EmissionSpectrum'
 import { FormulaParts } from './Formula'
 import { kjPerMol, ordinal, publishedValue, radius, signed } from './format'
 import { Card, Disclosure, Note, Row, Rows, Sources } from './InspectorCard'
@@ -70,6 +71,7 @@ export function AtomCard(props: { name: string; atom: Molecule['atoms'][number];
             </Row>
           ))}
         </Rows>
+        <EmissionSpectrum element={element} />
         {element.notes?.map((note) => <Note key={note}>Note: {note}</Note>)}
       </Disclosure>
 

@@ -197,7 +197,21 @@ function buildElements() {
     if (!readVia) return { id, url: source.dataUrl ?? source.url, citation: source.citation }
     return { id, url: lookup(readVia).url, citation: `${source.citation} (${source.url}) ${said}` }
   })
+  // Emission lines are their own research file, with one source per element's NIST query.
+  const spectra = readJson('emission-lines.json')
+  sources.push(...spectra.sources.map(({ id, url, citation }) => ({ id, url, citation })))
   const allowed = new Set(sources.map((s) => s.id))
+  const emission = (symbol) => {
+    const entry = spectra.elements.find((x) => x.symbol === symbol)
+    if (!entry) return {}
+    const lines = entry.lines.map((line) => {
+      if (line.wavelengthNm !== Number(line.valueAsPublished)) fail(`element ${symbol}: emission line ${line.valueAsPublished} differs from the published text`)
+      if (!allowed.has(entry.sourceId)) fail(`element ${symbol}: unexpected source "${entry.sourceId}"`)
+      return { value: line.wavelengthNm, sourceId: entry.sourceId, published: line.valueAsPublished, ...(line.transition ? { transition: line.transition } : {}) }
+    })
+    if (lines.some((line, i) => i > 0 && line.value >= lines[i - 1].value)) fail(`element ${symbol}: emission lines are not longest first`)
+    return { emission: { selection: entry.selection, lines } }
+  }
 
   const elements = file.elements.map((e) => {
     const where = `element ${e.symbol}`
@@ -265,6 +279,7 @@ function buildElements() {
         ...cite(r.valueA, r.sourceId),
       })),
       color: cite(e.colorHex, e.colorSourceId),
+      ...emission(e.symbol),
       ...(notes.length > 0 ? { notes } : {}),
       sourceId: cite(e.atomicNumber, e.atomicNumberSourceId).sourceId,
     }

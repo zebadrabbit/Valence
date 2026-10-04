@@ -34,6 +34,7 @@ export function elementCitations(element: Element, sources: readonly Source[]): 
       ['Van der Waals radius', element.vdwRadius.sourceId],
       ...element.ionicRadii.map((r): Entry => ['Ionic radius', r.sourceId]),
       ['Display colour in the models', element.color.sourceId],
+      ...(element.emission?.lines.map((line): Entry => ['Emission lines', line.sourceId]) ?? []),
     ],
     sources,
   )

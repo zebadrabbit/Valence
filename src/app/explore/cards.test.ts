@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 import { deriveAtoms, deriveBonds } from '@/chem-data/derive'
 import { atomNames } from '@/chem-data/describe'
+import { EMISSION_NOTE } from '@/chem-data/element'
 import { VALENCE_BOND_NOTE } from '@/chem-data/hybrid'
 import { registry } from '@/chem-data/registry'
 import { AtomCard } from './AtomCard'
@@ -32,6 +33,32 @@ describe('atom card', () => {
     const derived = deriveAtoms(water, registry.elements)[hydrogen]!
     const html = renderToStaticMarkup(createElement(AtomCard, { name: 'Hydrogen 1', atom: water.atoms[hydrogen]!, derived, element: twoDecimals }))
     expect(html).toContain('2.20 (Pauling)')
+  })
+})
+
+describe('emission spectrum', () => {
+  const card = (id: string, symbol: string) => {
+    const m = molecule(id)
+    return inspector(id, { atoms: [m.atoms.findIndex((a) => a.element === symbol)], bond: null })
+  }
+
+  it('shows hydrogen its Balmer lines, their transitions, and the warning that a bonded atom does not emit them', () => {
+    const html = card('water', 'H')
+    expect(html).toContain('Emission spectrum of the isolated atom')
+    expect(html).toContain('656.279 nm')
+    expect(html).toContain('n = 3 → 2')
+    expect(html).toContain(EMISSION_NOTE)
+    expect(html).toContain('Emission lines')
+  })
+
+  it('shows xenon its lines without transitions', () => {
+    const html = card('xenon-tetrafluoride', 'Xe')
+    expect(html).toContain('480.70190 nm')
+    expect(html).not.toContain('Electron falls')
+  })
+
+  it('shows no spectrum for an element that has none stored', () => {
+    expect(card('water', 'O')).not.toContain('Emission')
   })
 })
 
