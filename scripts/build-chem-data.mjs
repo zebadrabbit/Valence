@@ -651,8 +651,11 @@ const PUBCHEM_PAGES_ID = 'pubchem-element-pages'
 const NIST_ALL_ID = 'nist-asd-ie-all'
 const CIAAW_ID = 'ciaaw-abridged-2024'
 const CIAAW_TITLE = 'Abridged Standard Atomic Weights 2024'
-// Cited by the density notes of the elements the cross-check found far from other tabulations.
+// Cited by the density notes that quote a handbook: the elements the cross-check found far from other
+// tabulations, and the two whose density is that of one form of the element.
 const DENSITIES_ID = 'handbook-densities-wikipedia'
+// Cited by the atomic-mass notes of the elements whose isotope is not the one this list gives.
+const CIAAW_RADIOACTIVE_ID = 'ciaaw-radioactive-elements'
 const PUBCHEM = 'PubChem [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2004-.'
 
 // What the group, period and block descriptions and the group 3 note in src/chem-data/periodic.ts cite. Each
@@ -726,6 +729,11 @@ function periodicSources(manifest) {
       id: DENSITIES_ID,
       url: `https://en.wikipedia.org/w/index.php?title=Densities_of_the_elements_(data_page)&oldid=${revision}`,
       citation: `Lide, D. R., Ed. CRC Handbook of Chemistry and Physics, 84th ed.; CRC Press: Boca Raton, FL, 2003; Section 4, Physical Constants of Inorganic Compounds. Dean, J. A., Ed. Lange's Handbook of Chemistry, 15th ed.; McGraw-Hill: New York, 1999; Table 3.2. Neither handbook was read: their densities were taken from a secondary transcription, Wikipedia's Densities of the elements (data page), revision ${revision}, linked here (${retrieved}).`,
+    },
+    {
+      id: CIAAW_RADIOACTIVE_ID,
+      url: saved('ciaaw-radioactive-elements.html').url,
+      citation: `IUPAC Commission on Isotopic Abundances and Atomic Weights (CIAAW), Radioactive elements: the most stable known isotopes of the radioactive elements, compiled from the NUBASE2020 evaluation (${retrieved}).`,
     },
     ...descriptionSources(retrieved),
   ]

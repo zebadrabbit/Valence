@@ -1,9 +1,13 @@
 import { describe, expect, it } from 'vitest'
 import crossCheck from '../../docs/research/periodic-table/cross-check.md?raw'
+import decisions from '../../docs/research/periodic-table/decisions.json'
 import download from '../../docs/research/periodic-table/pubchem-periodic-table.json'
 import ciaawPage from '../../docs/research/periodic-table/sources/ciaaw-abridged-atomic-weights.html?raw'
+import radioactivePage from '../../docs/research/periodic-table/sources/ciaaw-radioactive-elements.html?raw'
 import nistFile from '../../docs/research/periodic-table/sources/nist-asd-ie-neutral.txt?raw'
 import elementPages from '../../docs/research/periodic-table/sources/pubchem-element-pages-extract.json?raw'
+import pagePassages from '../../docs/research/periodic-table/sources/pubchem-element-pages-passages.json'
+import densitiesPage from '../../docs/research/periodic-table/sources/wikipedia-densities-of-the-elements-data-page.wikitext?raw'
 import {
   describeBlock,
   describeGroup,
@@ -38,10 +42,25 @@ const noteRows = (symbol: string) => (element(symbol).notes ?? []).map((note) =>
 const notesOn = (symbol: string, row: string) => (element(symbol).notes ?? []).filter((note) => note.row === row)
 const sourceOf = (id: string) => registry.sources.find((s) => s.id === id)
 
-// The property lines of PubChem's element pages, as saved.
+// The notes as authored. `valueAbsent` marks a note about a value the source leaves empty; the build does not write it out.
+type NoteRow = NonNullable<PeriodicElement['notes']>[number]['row']
+const authored = decisions.notes as { symbols: string[]; row: NoteRow; text: string; sourceId: string; valueAbsent?: boolean }[]
+
+// The saved copies the notes rest on: the property lines and the kept sentences of PubChem's element pages,
+// CIAAW's list of the most stable known isotopes, and Wikipedia's transcription of two handbooks' densities.
 type PageLine = { heading: string; name: string | null; text: string; source: string }
 const savedPages = JSON.parse(elementPages) as Record<string, { title: string; lines: PageLine[] }>
 const pageLines = (symbol: string, heading: string) => savedPages[element(symbol).atomicNumber]!.lines.filter((line) => line.heading === heading)
+const passages = (symbol: string, heading?: string) =>
+  ((pagePassages as Record<string, { passages: { heading: string; source: string; text: string }[] }>)[element(symbol).atomicNumber]?.passages ?? [])
+    .filter((passage) => heading === undefined || passage.heading === heading)
+    .map((passage) => passage.text)
+type Lib = {
+  parseCiaawRadioactive(html: string): Map<number, { a: number }[]>
+  parseDensitiesPage(wikitext: string): { symbol: string; form: string | null; values: Record<string, string> }[]
+}
+const [lib] = Object.values(import.meta.glob<Lib>('../../scripts/periodic-table-lib.mjs', { eager: true }))
+const figures = (text: string) => [...text.matchAll(/\d+(\.\d+)?/g)].map((match) => match[0])
 
 describe('the periodic table data', () => {
   it('passes validation against the registry sources', () => {
@@ -429,6 +448,218 @@ describe('the periodic table data', () => {
       expect(boiling('Og')).toEqual([expect.stringMatching(/^350±30K.*\(extrapolated\)$/)])
       expect(notesOn('Og', 'standardState')[0]?.text).toMatch(/350 ± 30 K, marked as extrapolated.*above room temperature.*would not be a gas/)
       for (const symbol of ['Fl', 'Og']) expect(notesOn(symbol, 'standardState')[0]?.sourceId).toBe('pubchem-element-pages')
+    })
+
+    it('carries exactly the notes authored in decisions.json, in their order', () => {
+      for (const e of periodicTable) {
+        const expected = authored.filter((note) => note.symbols.includes(e.symbol)).map(({ row, text, sourceId }) => ({ row, text, sourceId }))
+        expect([e.symbol, e.notes ?? []]).toEqual([e.symbol, expected])
+      }
+      for (const symbol of authored.flatMap((note) => note.symbols)) expect(element(symbol).symbol).toBe(symbol)
+    })
+
+    it('puts every note on a value the element has, except the notes about a value the source leaves empty', () => {
+      for (const note of authored) {
+        for (const symbol of note.symbols) {
+          expect([symbol, note.row, element(symbol)[note.row] === undefined]).toEqual([symbol, note.row, note.valueAbsent === true])
+        }
+      }
+      expect(authored.filter((note) => note.valueAbsent).map((note) => note.row)).toEqual(['electronAffinity'])
+    })
+
+    it("rests each note that reports the prose of PubChem's pages on sentences kept from those pages", () => {
+      // The year or temperature each note states, and words of the kept sentence it reports.
+      const reported = [
+        ['He', 'meltingPoint', [], 'remains liquid down to absolute zero at ordinary pressures, but will readily solidify by increasing the pressure'],
+        ['As', 'meltingPoint', ['887'], 'In order to form liquid arsenic, the atmospheric pressure must be increased.'],
+        ['Al', 'yearDiscovered', ['1825'], 'The ancient Greeks and Romans used alum'],
+        ['Ca', 'yearDiscovered', ['1808'], 'lime was prepared by the Romans'],
+        ['F', 'yearDiscovered', ['1670', '1886'], 'The first recorded use of a fluorine compound dates to around 1670'],
+        ['Si', 'yearDiscovered', ['1854', '1824'], 'Crystalline silicon was first prepared'],
+        ['Fr', 'electronegativity', [], 'No weighable quantity of the element has been prepared or isolated.'],
+      ] as const
+      for (const [symbol, row, stated, words] of reported) {
+        const [note] = notesOn(symbol, row)
+        expect([symbol, note?.sourceId]).toEqual([symbol, 'pubchem-element-pages'])
+        expect([symbol, figures(note!.text)]).toEqual([symbol, stated])
+        const kept = passages(symbol).join(' ')
+        expect([symbol, kept]).toEqual([symbol, expect.stringContaining(words)])
+        for (const figure of stated) expect([symbol, kept]).toEqual([symbol, expect.stringContaining(figure)])
+      }
+      expect(notesOn('He', 'meltingPoint')[0]?.text).toContain('it stays liquid however far it is cooled')
+      // PubChem's page gives 28 atmospheres for arsenic and other tabulations about 36; the note states neither.
+      expect(passages('As').join(' ')).toContain('At 28 times standard atmospheric pressure')
+      expect(notesOn('As', 'meltingPoint')[0]?.text).not.toMatch(/28|36|atmospheres/)
+      expect(notesOn('F', 'yearDiscovered')[0]?.text).toMatch(/^PubChem's fluorine page dates the first recorded use of a fluorine compound to about 1670/)
+    })
+
+    it("converts the second figure on PubChem's carbon page, and says which form of phosphorus its figures are for", () => {
+      expect(pageLines('C', 'Boiling Point').map((line) => line.text)).toContain('3800°C(sublimation)')
+      expect(notesOn('C', 'boilingPoint')[0]?.text).toContain('3800 °C, which is 4073 K, marked as sublimation')
+      expect(Math.round(3800 + 273.15)).toBe(4073)
+      // "44.15(whitephosphorus)" and "280.5(whitephosphorus)", in °C: the table's figures in kelvin.
+      for (const [row, heading, celsius] of [['meltingPoint', 'Melting Point', '44.15'], ['boilingPoint', 'Boiling Point', '280.5']] as const) {
+        expect(pageLines('P', heading).map((line) => line.text)).toContain(`${celsius}(whitephosphorus)`)
+        expect((Number(celsius) + 273.15).toFixed(2)).toBe(element('P')[row]!.value.toFixed(2))
+        expect(notesOn('P', row)).toEqual([{ row, text: "PubChem's phosphorus page labels this figure as white phosphorus's.", sourceId: 'pubchem-element-pages' }])
+      }
+    })
+
+    it("names as predictions exactly the oxidation states PubChem's pages mark", () => {
+      const signed = (text: string) => [...text.matchAll(/[+-]?\d+/g)].map((match) => Number(match[0])).sort((a, b) => a - b)
+      const marked = periodicTable.flatMap((e) => {
+        const line = pageLines(e.symbol, 'Oxidation States').find((l) => /predict/i.test(l.text))
+        return line ? [[e, line.text] as const] : []
+      })
+      expect(marked.map(([e]) => e.symbol)).toEqual(['Db', 'Sg', 'Bh', 'Hs', 'Mt', 'Ds', 'Rg', 'Cn', 'Fl', 'Mc', 'Lv', 'Ts', 'Og'])
+      for (const [e, line] of marked) {
+        const [note, ...others] = notesOn(e.symbol, 'oxidationStates')
+        expect([e.symbol, others]).toEqual([e.symbol, []])
+        // "5, (4), (3) (parenthesized oxidation states are predictions)" marks some; "9, 8, 6, 4, 3, 1 (predicted)" marks all.
+        const inParentheses = [...line.matchAll(/\((\d+)\)/g)].map((match) => match[1])
+        if (inParentheses.length === 0) {
+          expect([e.symbol, line]).toEqual([e.symbol, expect.stringMatching(/ \(predict(ed|ion)\)$/)])
+          expect([e.symbol, note?.text]).toEqual([e.symbol, "PubChem's page for this element marks all of these states as predictions."])
+          expect([e.symbol, signed(line)]).toEqual([e.symbol, signed(e.oxidationStates!)])
+        } else {
+          expect([e.symbol, line]).toEqual([e.symbol, expect.stringMatching(/\(parenthesized oxidation states are predictions\)$/)])
+          const named = /marks the states? ([\d, and]+) as (a prediction|predictions)\.$/.exec(note!.text)?.[1] ?? ''
+          expect([e.symbol, figures(named)]).toEqual([e.symbol, inParentheses])
+          // The table lists the same states with the marks dropped.
+          expect([e.symbol, line.replace(/\s*\(parenthesized.*$/, '').replace(/[()]/g, '')]).toEqual([e.symbol, e.oxidationStates])
+        }
+      }
+    })
+
+    it("gives the fuller list on PubChem's page where the table shows one state for oxygen and for radon", () => {
+      const losAlamos = (symbol: string) => pageLines(symbol, 'Oxidation States').find((line) => line.source.startsWith('Los Alamos'))?.text
+      expect([element('O').oxidationStates, losAlamos('O')]).toEqual(['-2', '2, 1, -1, -2'])
+      expect(notesOn('O', 'oxidationStates')[0]?.text).toBe("The list shows only −2. PubChem's oxygen page also lists −1, as in hydrogen peroxide, and +1 and +2.")
+      expect(registry.molecules.some((m) => m.id === 'hydrogen-peroxide')).toBe(true)
+      expect([element('Rn').oxidationStates, losAlamos('Rn')]).toEqual(['0', '6, 2, 0'])
+      expect(notesOn('Rn', 'oxidationStates')[0]?.text).toBe("The list shows only 0. PubChem's radon page also lists +2 and +6.")
+    })
+
+    it("says where an empty electron affinity is a zero on PubChem's own page", () => {
+      const zero = symbolsWhere((e) => !e.electronAffinity && pageLines(e.symbol, 'Electron Affinity')[0]?.text === '0 eV')
+      expect(zero).toEqual(['He', 'Be', 'N', 'Ne', 'Mg', 'Ar', 'Ca', 'Mn', 'Zn', 'Kr', 'Sr', 'Cd', 'Xe', 'Ba', 'Hf', 'Hg', 'Rn', 'Ra'])
+      expect(symbolsWhere((e) => noteRows(e.symbol).includes('electronAffinity'))).toEqual(zero)
+      for (const symbol of zero) {
+        expect(notesOn(symbol, 'electronAffinity')).toEqual([
+          { row: 'electronAffinity', text: "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.", sourceId: 'pubchem-element-pages' },
+        ])
+      }
+      // No page gives a zero for an element whose affinity the table does list.
+      for (const e of periodicTable) if (e.electronAffinity) expect([e.symbol, pageLines(e.symbol, 'Electron Affinity')[0]?.text]).not.toEqual([e.symbol, '0 eV'])
+    })
+
+    it("says which electronegativities cannot be traced to a line on PubChem's own page: francium's and lawrencium's", () => {
+      const pauling = (symbol: string) => pageLines(symbol, 'Electronegativity').find((line) => line.name === 'Pauling Scale Electronegativity')?.text
+      const untraced = symbolsWhere((e) => !!e.electronegativity && pauling(e.symbol) === undefined)
+      expect(untraced).toEqual(['Fr', 'Lr'])
+      for (const e of periodicTable) {
+        if (e.electronegativity && !untraced.includes(e.symbol)) expect([e.symbol, pauling(e.symbol)]).toEqual([e.symbol, `${e.electronegativity.published} (Pauling Scale)`])
+      }
+      expect(symbolsWhere((e) => noteRows(e.symbol).includes('electronegativity'))).toEqual(untraced)
+      for (const symbol of untraced) {
+        const [note] = notesOn(symbol, 'electronegativity')
+        expect(note?.text).toContain(`PubChem's ${element(symbol).name.toLowerCase()} page has no Pauling electronegativity line, so this value could not be traced beyond PubChem's table.`)
+        expect(note?.sourceId).toBe('pubchem-element-pages')
+      }
+      // Francium's is the lowest value there is, so it is the end of the colour scale.
+      const lowest = periodicTable.filter((e) => e.electronegativity).reduce((a, b) => (a.electronegativity!.value <= b.electronegativity!.value ? a : b))
+      expect([lowest.symbol, lowest.electronegativity?.published]).toEqual(['Fr', '0.7'])
+      expect(notesOn('Fr', 'electronegativity')[0]?.text).toContain('no weighable quantity of francium has been prepared')
+    })
+
+    it("says that CIAAW's list of the most stable isotopes gives another isotope for darmstadtium, copernicium and oganesson", () => {
+      const listed = lib!.parseCiaawRadioactive(radioactivePage)
+      expect(listed.size).toBe(34)
+      const massNumbers = (e: PeriodicElement) => (listed.get(e.atomicNumber) ?? []).map((isotope) => isotope.a)
+      const differing = periodicTable.filter((e) => e.atomicMass.kind === 'isotope-mass' && !massNumbers(e).includes(e.atomicMass.massNumber))
+      expect(differing.map((e) => [e.symbol, e.atomicMass.kind === 'isotope-mass' && e.atomicMass.massNumber, massNumbers(e)])).toEqual([
+        ['Ds', 282, [281]],
+        ['Cn', 286, [285]],
+        ['Og', 295, [294]],
+      ])
+      for (const e of differing) {
+        const shown = e.atomicMass.kind === 'isotope-mass' ? e.atomicMass.massNumber : undefined
+        expect(notesOn(e.symbol, 'atomicMass')).toEqual([
+          {
+            row: 'atomicMass',
+            text: `CIAAW's list of the most stable known isotopes gives mass number ${massNumbers(e)[0]} for ${e.name.toLowerCase()}, not the ${shown} whose mass PubChem prints.`,
+            sourceId: 'ciaaw-radioactive-elements',
+          },
+        ])
+      }
+      expect(symbolsWhere((e) => noteRows(e.symbol).includes('atomicMass'))).toEqual(['Ds', 'Cn', 'Og'])
+      expect(sourceOf('ciaaw-radioactive-elements')?.citation).toMatch(/most stable known isotopes.*NUBASE2020.*retrieved 2026-10-03/)
+      expect(sourceOf('ciaaw-radioactive-elements')?.url).toBe('https://www.ciaaw.org/radioactive-elements.htm')
+    })
+
+    it('says of a state PubChem gives as a plain fact, for an element it lists no measurement for, that it is not worded as expected', () => {
+      const unmarked = symbolsWhere((e) => !e.standardState.expected && !e.meltingPoint && !e.boilingPoint && !e.density)
+      expect(unmarked).toEqual(['Rf', 'Db', 'Sg', 'Bh', 'Hs', 'Mt'])
+      for (const symbol of unmarked) {
+        expect(notesOn(symbol, 'standardState')).toEqual([
+          {
+            row: 'standardState',
+            text: 'PubChem does not word this as expected, but its table lists no melting point, boiling point or density for this element, and its page for the element says that only small amounts of it have ever been produced.',
+            sourceId: 'pubchem-element-pages',
+          },
+        ])
+        expect([symbol, passages(symbol, 'Uses')]).toEqual([symbol, [expect.stringMatching(/small amounts|only a few atoms/)]])
+      }
+      // The other notes on a state are the two where a boiling point on the page contradicts it.
+      expect(symbolsWhere((e) => noteRows(e.symbol).includes('standardState'))).toEqual([...unmarked, 'Fl', 'Og'])
+    })
+
+    it('marks as estimates the melting points of the six elements never made in an amount that could be melted', () => {
+      const estimated = symbolsWhere((e) => notesOn(e.symbol, 'meltingPoint').some((note) => note.text.includes('estimate')))
+      expect(estimated).toEqual(['At', 'Fr', 'Fm', 'Md', 'No', 'Lr'])
+      for (const symbol of estimated) {
+        expect([symbol, element(symbol).meltingPoint === undefined]).toEqual([symbol, false])
+        expect(notesOn(symbol, 'meltingPoint')).toEqual([
+          {
+            row: 'meltingPoint',
+            text: "This figure is an estimate, though PubChem does not mark it as one. No sample of this element large enough to melt has been made: PubChem's page for it says that only small amounts have ever been produced.",
+            sourceId: 'pubchem-element-pages',
+          },
+        ])
+        expect([symbol, passages(symbol, 'Uses')]).toEqual([symbol, [expect.stringMatching(/small amounts|tiny amounts/)]])
+      }
+      // What the pages say beyond "small amounts". Mendelevium, nobelium and lawrencium are heavier than fermium.
+      expect(passages('At').join(' ')).toContain('A total of 0.05 micrograms')
+      expect(passages('Fr').join(' ')).toContain('No weighable quantity of the element has been prepared or isolated.')
+      expect(passages('Fm').join(' ')).toContain('Fermium metal has not been prepared')
+      expect(passages('Fm').join(' ')).toContain('the heaviest element that can be prepared in macroscopic quantities')
+      for (const symbol of ['Md', 'No', 'Lr']) expect(element(symbol).atomicNumber).toBeGreaterThan(element('Fm').atomicNumber)
+    })
+
+    it("quotes only handbook densities that the kept copy of Wikipedia's data page gives for both handbooks", () => {
+      const solids = lib!.parseDensitiesPage(densitiesPage)
+      const handbooks = (symbol: string, form: string | null) => {
+        const entry = solids.find((solid) => solid.symbol === symbol && solid.form === form)
+        return [entry?.values.CRC, entry?.values.LNG]
+      }
+      const quoted = (symbol: string) => figures(notesOn(symbol, 'density')[0]!.text)
+      expect([handbooks('B', null), quoted('B')]).toEqual([['2.34', '2.34'], ['2.34']])
+      expect([handbooks('Am', null), quoted('Am')]).toEqual([['12', '12'], ['12']])
+      expect([handbooks('Bk', 'alpha'), handbooks('Bk', 'beta'), quoted('Bk')]).toEqual([['14.78', '14.78'], ['13.25', '13.25'], ['14.78', '13.25']])
+      // Carbon's figure is graphite's (Lange's 2.267); diamond is the figure the note quotes.
+      expect(Number(handbooks('C', 'graphite')[1])).toBe(element('C').density?.value)
+      expect([handbooks('C', 'diamond'), quoted('C')]).toEqual([['3.513', '3.513'], ['3.513']])
+      expect(notesOn('C', 'density')[0]?.text).toMatch(/^This is the density of graphite\. Diamond is denser/)
+      // Phosphorus's figure is white phosphorus's, to the table's digits; the other forms are denser.
+      expect([handbooks('P', 'white'), quoted('P')]).toEqual([['1.823', '1.823'], ['1.823']])
+      expect(Number(handbooks('P', 'white')[0]).toFixed(2)).toBe(element('P').density?.published)
+      for (const form of ['red', 'black']) {
+        for (const value of handbooks('P', form)) if (value !== undefined) expect(Number(value)).toBeGreaterThan(1.823)
+      }
+      expect(notesOn('P', 'density')[0]?.text).toMatch(/^This is the density of white phosphorus: .* higher figures for red and black phosphorus/)
+      const citing = periodicTable.flatMap((e) => (e.notes ?? []).filter((note) => note.sourceId === 'handbook-densities-wikipedia').map((note) => `${e.symbol} ${note.row}`))
+      expect(citing).toEqual(['B density', 'C density', 'P density', 'Am density', 'Bk density'])
+      for (const entry of citing) expect(notesOn(entry.split(' ')[0]!, 'density')[0]?.text).toContain("as transcribed on Wikipedia's data page")
     })
 
     it('writes minus signs as U+2212 and never calls an empty value "not measured"', () => {

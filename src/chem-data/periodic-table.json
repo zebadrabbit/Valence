@@ -139,13 +139,18 @@
     "notes": [
       {
         "row": "meltingPoint",
-        "text": "Helium becomes solid only under pressure. At ordinary pressure it stays liquid.",
+        "text": "Helium becomes solid only under pressure. At ordinary pressure it stays liquid however far it is cooled.",
         "sourceId": "pubchem-element-pages"
       },
       {
         "row": "density",
         "text": "This is the density of the gas at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
         "sourceId": "pubchem-periodic-table"
+      },
+      {
+        "row": "electronAffinity",
+        "text": "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.",
+        "sourceId": "pubchem-element-pages"
       }
     ],
     "sourceId": "pubchem-periodic-table"
@@ -286,6 +291,13 @@
       "unit": "g/cm³",
       "sourceId": "pubchem-periodic-table"
     },
+    "notes": [
+      {
+        "row": "electronAffinity",
+        "text": "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
     "sourceId": "pubchem-periodic-table"
   },
   {
@@ -445,8 +457,13 @@
       },
       {
         "row": "boilingPoint",
-        "text": "At ordinary pressure carbon turns from solid straight to gas, so this is not the boiling point of a liquid. PubChem's carbon page also lists 3800 °C, marked as sublimation.",
+        "text": "At ordinary pressure carbon turns from solid straight to gas, so this is not the boiling point of a liquid. PubChem's carbon page also lists 3800 °C, which is 4073 K, marked as sublimation.",
         "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "density",
+        "text": "This is the density of graphite. Diamond is denser: the CRC Handbook and Lange's Handbook give 3.513 g/cm³ for it, as transcribed on Wikipedia's data page.",
+        "sourceId": "handbook-densities-wikipedia"
       },
       {
         "row": "covalentRadius",
@@ -525,6 +542,11 @@
         "row": "density",
         "text": "This is the density of nitrogen gas, N₂, at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
         "sourceId": "pubchem-periodic-table"
+      },
+      {
+        "row": "electronAffinity",
+        "text": "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.",
+        "sourceId": "pubchem-element-pages"
       }
     ],
     "sourceId": "pubchem-periodic-table"
@@ -604,6 +626,11 @@
         "row": "density",
         "text": "This is the density of oxygen gas, O₂, at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
         "sourceId": "pubchem-periodic-table"
+      },
+      {
+        "row": "oxidationStates",
+        "text": "The list shows only −2. PubChem's oxygen page also lists −1, as in hydrogen peroxide, and +1 and +2.",
+        "sourceId": "pubchem-element-pages"
       }
     ],
     "sourceId": "pubchem-periodic-table"
@@ -686,7 +713,7 @@
       },
       {
         "row": "yearDiscovered",
-        "text": "1670 is the first recorded use of a fluorine compound. PubChem's fluorine page says the element was not isolated until 1886.",
+        "text": "PubChem's fluorine page dates the first recorded use of a fluorine compound to about 1670, and says the element was not isolated until 1886.",
         "sourceId": "pubchem-element-pages"
       }
     ],
@@ -755,6 +782,11 @@
         "row": "density",
         "text": "This is the density of the gas at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
         "sourceId": "pubchem-periodic-table"
+      },
+      {
+        "row": "electronAffinity",
+        "text": "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.",
+        "sourceId": "pubchem-element-pages"
       }
     ],
     "sourceId": "pubchem-periodic-table"
@@ -895,6 +927,13 @@
       "unit": "g/cm³",
       "sourceId": "pubchem-periodic-table"
     },
+    "notes": [
+      {
+        "row": "electronAffinity",
+        "text": "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
     "sourceId": "pubchem-periodic-table"
   },
   {
@@ -1125,6 +1164,23 @@
       "unit": "g/cm³",
       "sourceId": "pubchem-periodic-table"
     },
+    "notes": [
+      {
+        "row": "meltingPoint",
+        "text": "PubChem's phosphorus page labels this figure as white phosphorus's.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "boilingPoint",
+        "text": "PubChem's phosphorus page labels this figure as white phosphorus's.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "density",
+        "text": "This is the density of white phosphorus: the CRC Handbook and Lange's Handbook give 1.823 g/cm³ for it, and higher figures for red and black phosphorus, as transcribed on Wikipedia's data page.",
+        "sourceId": "handbook-densities-wikipedia"
+      }
+    ],
     "sourceId": "pubchem-periodic-table"
   },
   {
@@ -1341,6 +1397,11 @@
         "row": "density",
         "text": "This is the density of the gas at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
         "sourceId": "pubchem-periodic-table"
+      },
+      {
+        "row": "electronAffinity",
+        "text": "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.",
+        "sourceId": "pubchem-element-pages"
       }
     ],
     "sourceId": "pubchem-periodic-table"
@@ -1485,6 +1546,11 @@
       {
         "row": "yearDiscovered",
         "text": "Only compounds of calcium, such as lime, were known in ancient times. PubChem's calcium page says the metal was first isolated in 1808.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "electronAffinity",
+        "text": "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.",
         "sourceId": "pubchem-element-pages"
       }
     ],
@@ -1843,6 +1909,11 @@
       "sourceId": "pubchem-periodic-table"
     },
     "notes": [
+      {
+        "row": "electronAffinity",
+        "text": "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.",
+        "sourceId": "pubchem-element-pages"
+      },
       {
         "row": "covalentRadius",
         "text": "The source gives two covalent radii: low spin 139 pm, high spin 161 pm. The first listed, low spin, is shown.",
@@ -2217,6 +2288,13 @@
       "unit": "g/cm³",
       "sourceId": "pubchem-periodic-table"
     },
+    "notes": [
+      {
+        "row": "electronAffinity",
+        "text": "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
     "sourceId": "pubchem-periodic-table"
   },
   {
@@ -2436,7 +2514,7 @@
     "notes": [
       {
         "row": "meltingPoint",
-        "text": "Measured under pressure (PubChem's arsenic page gives 28 atmospheres). At ordinary pressure arsenic turns from solid straight to gas at 887 K, which is why this is higher than its boiling point.",
+        "text": "Measured under pressure: liquid arsenic forms only above atmospheric pressure. At ordinary pressure arsenic turns from solid straight to gas at 887 K, which is why this is higher than its boiling point.",
         "sourceId": "pubchem-element-pages"
       },
       {
@@ -2665,6 +2743,11 @@
         "row": "oxidationStates",
         "text": "The list shows only 0. PubChem's krypton page also lists +2 and +1 and says krypton is rarely in a state above 0.",
         "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "electronAffinity",
+        "text": "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.",
+        "sourceId": "pubchem-element-pages"
       }
     ],
     "sourceId": "pubchem-periodic-table"
@@ -2805,6 +2888,13 @@
       "unit": "g/cm³",
       "sourceId": "pubchem-periodic-table"
     },
+    "notes": [
+      {
+        "row": "electronAffinity",
+        "text": "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
     "sourceId": "pubchem-periodic-table"
   },
   {
@@ -3521,6 +3611,13 @@
       "unit": "g/cm³",
       "sourceId": "pubchem-periodic-table"
     },
+    "notes": [
+      {
+        "row": "electronAffinity",
+        "text": "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
     "sourceId": "pubchem-periodic-table"
   },
   {
@@ -3957,6 +4054,11 @@
         "row": "oxidationStates",
         "text": "The list shows only 0, but xenon forms compounds such as XeF₄, in which its oxidation state is +4. PubChem's xenon page lists states up to +8 and says xenon is rarely in a state above 0.",
         "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "electronAffinity",
+        "text": "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.",
+        "sourceId": "pubchem-element-pages"
       }
     ],
     "sourceId": "pubchem-periodic-table"
@@ -4101,6 +4203,11 @@
       {
         "row": "boilingPoint",
         "text": "Sources differ on barium's boiling point. PubChem's barium page also lists 1845 °C, which is 2118 K.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "electronAffinity",
+        "text": "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.",
         "sourceId": "pubchem-element-pages"
       }
     ],
@@ -5150,6 +5257,13 @@
       "unit": "g/cm³",
       "sourceId": "pubchem-periodic-table"
     },
+    "notes": [
+      {
+        "row": "electronAffinity",
+        "text": "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
     "sourceId": "pubchem-periodic-table"
   },
   {
@@ -5720,6 +5834,13 @@
       "unit": "g/cm³",
       "sourceId": "pubchem-periodic-table"
     },
+    "notes": [
+      {
+        "row": "electronAffinity",
+        "text": "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
     "sourceId": "pubchem-periodic-table"
   },
   {
@@ -6087,6 +6208,11 @@
     },
     "notes": [
       {
+        "row": "meltingPoint",
+        "text": "This figure is an estimate, though PubChem does not mark it as one. No sample of this element large enough to melt has been made: PubChem's page for it says that only small amounts have ever been produced.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
         "row": "density",
         "text": "PubChem's astatine page gives this as \"about 7\".",
         "sourceId": "pubchem-element-pages"
@@ -6164,6 +6290,16 @@
         "row": "density",
         "text": "This is the density of the gas at 0 °C and atmospheric pressure. PubChem does not state the conditions; they were worked out from the value.",
         "sourceId": "pubchem-periodic-table"
+      },
+      {
+        "row": "oxidationStates",
+        "text": "The list shows only 0. PubChem's radon page also lists +2 and +6.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "electronAffinity",
+        "text": "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.",
+        "sourceId": "pubchem-element-pages"
       }
     ],
     "sourceId": "pubchem-periodic-table"
@@ -6228,6 +6364,18 @@
       "unit": "K",
       "sourceId": "pubchem-periodic-table"
     },
+    "notes": [
+      {
+        "row": "meltingPoint",
+        "text": "This figure is an estimate, though PubChem does not mark it as one. No sample of this element large enough to melt has been made: PubChem's page for it says that only small amounts have ever been produced.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "electronegativity",
+        "text": "PubChem's francium page has no Pauling electronegativity line, so this value could not be traced beyond PubChem's table. The same page says that no weighable quantity of francium has been prepared.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
     "sourceId": "pubchem-periodic-table"
   },
   {
@@ -6300,6 +6448,11 @@
       {
         "row": "boilingPoint",
         "text": "Sources differ widely on radium's boiling point. PubChem's radium page also lists 1737 °C, which is 2010 K.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "electronAffinity",
+        "text": "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.",
         "sourceId": "pubchem-element-pages"
       }
     ],
@@ -7056,6 +7209,13 @@
       "unit": "K",
       "sourceId": "pubchem-periodic-table"
     },
+    "notes": [
+      {
+        "row": "meltingPoint",
+        "text": "This figure is an estimate, though PubChem does not mark it as one. No sample of this element large enough to melt has been made: PubChem's page for it says that only small amounts have ever been produced.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
     "sourceId": "pubchem-periodic-table"
   },
   {
@@ -7100,6 +7260,13 @@
       "unit": "K",
       "sourceId": "pubchem-periodic-table"
     },
+    "notes": [
+      {
+        "row": "meltingPoint",
+        "text": "This figure is an estimate, though PubChem does not mark it as one. No sample of this element large enough to melt has been made: PubChem's page for it says that only small amounts have ever been produced.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
     "sourceId": "pubchem-periodic-table"
   },
   {
@@ -7144,6 +7311,13 @@
       "unit": "K",
       "sourceId": "pubchem-periodic-table"
     },
+    "notes": [
+      {
+        "row": "meltingPoint",
+        "text": "This figure is an estimate, though PubChem does not mark it as one. No sample of this element large enough to melt has been made: PubChem's page for it says that only small amounts have ever been produced.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
     "sourceId": "pubchem-periodic-table"
   },
   {
@@ -7190,6 +7364,16 @@
     },
     "notes": [
       {
+        "row": "meltingPoint",
+        "text": "This figure is an estimate, though PubChem does not mark it as one. No sample of this element large enough to melt has been made: PubChem's page for it says that only small amounts have ever been produced.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "electronegativity",
+        "text": "PubChem's lawrencium page has no Pauling electronegativity line, so this value could not be traced beyond PubChem's table.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
         "row": "configuration",
         "text": "PubChem puts the last electron in 6d. NIST lists a different ground state, [Rn]5f14 7s2 7p1, with that electron in 7p.",
         "sourceId": "nist-asd-ie-all"
@@ -7227,6 +7411,13 @@
       "sourceId": "nist-asd-ie-all",
       "flag": "theoretical"
     },
+    "notes": [
+      {
+        "row": "standardState",
+        "text": "PubChem does not word this as expected, but its table lists no melting point, boiling point or density for this element, and its page for the element says that only small amounts of it have ever been produced.",
+        "sourceId": "pubchem-element-pages"
+      }
+    ],
     "sourceId": "pubchem-periodic-table"
   },
   {
@@ -7260,6 +7451,11 @@
       "flag": "theoretical"
     },
     "notes": [
+      {
+        "row": "standardState",
+        "text": "PubChem does not word this as expected, but its table lists no melting point, boiling point or density for this element, and its page for the element says that only small amounts of it have ever been produced.",
+        "sourceId": "pubchem-element-pages"
+      },
       {
         "row": "oxidationStates",
         "text": "PubChem's dubnium page marks the states 4 and 3 as predictions.",
@@ -7300,6 +7496,11 @@
     },
     "notes": [
       {
+        "row": "standardState",
+        "text": "PubChem does not word this as expected, but its table lists no melting point, boiling point or density for this element, and its page for the element says that only small amounts of it have ever been produced.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
         "row": "oxidationStates",
         "text": "PubChem's seaborgium page marks the states 5, 4 and 3 as predictions.",
         "sourceId": "pubchem-element-pages"
@@ -7338,6 +7539,11 @@
       "flag": "semi-empirical"
     },
     "notes": [
+      {
+        "row": "standardState",
+        "text": "PubChem does not word this as expected, but its table lists no melting point, boiling point or density for this element, and its page for the element says that only small amounts of it have ever been produced.",
+        "sourceId": "pubchem-element-pages"
+      },
       {
         "row": "oxidationStates",
         "text": "PubChem's bohrium page marks the states 5, 4 and 3 as predictions.",
@@ -7378,6 +7584,11 @@
     },
     "notes": [
       {
+        "row": "standardState",
+        "text": "PubChem does not word this as expected, but its table lists no melting point, boiling point or density for this element, and its page for the element says that only small amounts of it have ever been produced.",
+        "sourceId": "pubchem-element-pages"
+      },
+      {
         "row": "oxidationStates",
         "text": "PubChem's hassium page marks the states 6, 5, 4, 3 and 2 as predictions.",
         "sourceId": "pubchem-element-pages"
@@ -7410,6 +7621,11 @@
       "estimated": true
     },
     "notes": [
+      {
+        "row": "standardState",
+        "text": "PubChem does not word this as expected, but its table lists no melting point, boiling point or density for this element, and its page for the element says that only small amounts of it have ever been produced.",
+        "sourceId": "pubchem-element-pages"
+      },
       {
         "row": "oxidationStates",
         "text": "PubChem's page for this element marks all of these states as predictions.",
@@ -7447,6 +7663,11 @@
         "row": "oxidationStates",
         "text": "PubChem's page for this element marks all of these states as predictions.",
         "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "atomicMass",
+        "text": "CIAAW's list of the most stable known isotopes gives mass number 281 for darmstadtium, not the 282 whose mass PubChem prints.",
+        "sourceId": "ciaaw-radioactive-elements"
       }
     ],
     "sourceId": "pubchem-periodic-table"
@@ -7513,6 +7734,11 @@
         "row": "oxidationStates",
         "text": "PubChem's copernicium page marks the state 1 as a prediction.",
         "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "atomicMass",
+        "text": "CIAAW's list of the most stable known isotopes gives mass number 285 for copernicium, not the 286 whose mass PubChem prints.",
+        "sourceId": "ciaaw-radioactive-elements"
       }
     ],
     "sourceId": "pubchem-periodic-table"
@@ -7713,6 +7939,11 @@
         "row": "oxidationStates",
         "text": "PubChem's page for this element marks all of these states as predictions.",
         "sourceId": "pubchem-element-pages"
+      },
+      {
+        "row": "atomicMass",
+        "text": "CIAAW's list of the most stable known isotopes gives mass number 294 for oganesson, not the 295 whose mass PubChem prints.",
+        "sourceId": "ciaaw-radioactive-elements"
       }
     ],
     "sourceId": "pubchem-periodic-table"

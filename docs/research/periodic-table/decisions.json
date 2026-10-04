@@ -1,5 +1,5 @@
 {
-  "about": "Authored choices and notes for the periodic table. scripts/build-chem-data.mjs reads this file and fails on anything in it that it does not recognise. isotopeMasses: for each element with no CIAAW standard atomic weight, the isotope whose mass PubChem prints, and whether that mass is an estimate. covalentRadius: for each element whose covalent radius the source lists more than once, the value shown, which must be the first listed. notes: sentences shown on the element card, each beside the row it qualifies (a field name of the element record) and each with the id of the source that supports it.",
+  "about": "Authored choices and notes for the periodic table. scripts/build-chem-data.mjs reads this file and fails on anything in it that it does not recognise. isotopeMasses: for each element with no CIAAW standard atomic weight, the isotope whose mass PubChem prints, and whether that mass is an estimate. covalentRadius: for each element whose covalent radius the source lists more than once, the value shown, which must be the first listed. notes: sentences shown on the element card, each beside the row it qualifies (a field name of the element record) and each with the id of the source that supports it. A note must sit on a value the element has; a note marked valueAbsent is about a value the source leaves empty, and must sit on an empty one.",
   "isotopeMasses": {
     "Tc": { "massNumber": 97, "estimated": false },
     "Pm": { "massNumber": 145, "estimated": false },
@@ -46,7 +46,7 @@
     {
       "symbols": ["He"],
       "row": "meltingPoint",
-      "text": "Helium becomes solid only under pressure. At ordinary pressure it stays liquid.",
+      "text": "Helium becomes solid only under pressure. At ordinary pressure it stays liquid however far it is cooled.",
       "sourceId": "pubchem-element-pages"
     },
     {
@@ -58,19 +58,49 @@
     {
       "symbols": ["C"],
       "row": "boilingPoint",
-      "text": "At ordinary pressure carbon turns from solid straight to gas, so this is not the boiling point of a liquid. PubChem's carbon page also lists 3800 °C, marked as sublimation.",
+      "text": "At ordinary pressure carbon turns from solid straight to gas, so this is not the boiling point of a liquid. PubChem's carbon page also lists 3800 °C, which is 4073 K, marked as sublimation.",
       "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["C"],
+      "row": "density",
+      "text": "This is the density of graphite. Diamond is denser: the CRC Handbook and Lange's Handbook give 3.513 g/cm³ for it, as transcribed on Wikipedia's data page.",
+      "sourceId": "handbook-densities-wikipedia"
+    },
+    {
+      "symbols": ["P"],
+      "row": "meltingPoint",
+      "text": "PubChem's phosphorus page labels this figure as white phosphorus's.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["P"],
+      "row": "boilingPoint",
+      "text": "PubChem's phosphorus page labels this figure as white phosphorus's.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["P"],
+      "row": "density",
+      "text": "This is the density of white phosphorus: the CRC Handbook and Lange's Handbook give 1.823 g/cm³ for it, and higher figures for red and black phosphorus, as transcribed on Wikipedia's data page.",
+      "sourceId": "handbook-densities-wikipedia"
     },
     {
       "symbols": ["As"],
       "row": "meltingPoint",
-      "text": "Measured under pressure (PubChem's arsenic page gives 28 atmospheres). At ordinary pressure arsenic turns from solid straight to gas at 887 K, which is why this is higher than its boiling point.",
+      "text": "Measured under pressure: liquid arsenic forms only above atmospheric pressure. At ordinary pressure arsenic turns from solid straight to gas at 887 K, which is why this is higher than its boiling point.",
       "sourceId": "pubchem-element-pages"
     },
     {
       "symbols": ["As"],
       "row": "boilingPoint",
       "text": "At ordinary pressure arsenic turns from solid straight to gas at this temperature. It does not boil from a liquid.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["At", "Fr", "Fm", "Md", "No", "Lr"],
+      "row": "meltingPoint",
+      "text": "This figure is an estimate, though PubChem does not mark it as one. No sample of this element large enough to melt has been made: PubChem's page for it says that only small amounts have ever been produced.",
       "sourceId": "pubchem-element-pages"
     },
     {
@@ -164,6 +194,12 @@
       "sourceId": "pubchem-element-pages"
     },
     {
+      "symbols": ["Rf", "Db", "Sg", "Bh", "Hs", "Mt"],
+      "row": "standardState",
+      "text": "PubChem does not word this as expected, but its table lists no melting point, boiling point or density for this element, and its page for the element says that only small amounts of it have ever been produced.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
       "symbols": ["Al"],
       "row": "yearDiscovered",
       "text": "Only compounds of aluminum, such as alum, were known in ancient times. PubChem's aluminum page says the metal was first isolated, in impure form, in 1825.",
@@ -178,7 +214,7 @@
     {
       "symbols": ["F"],
       "row": "yearDiscovered",
-      "text": "1670 is the first recorded use of a fluorine compound. PubChem's fluorine page says the element was not isolated until 1886.",
+      "text": "PubChem's fluorine page dates the first recorded use of a fluorine compound to about 1670, and says the element was not isolated until 1886.",
       "sourceId": "pubchem-element-pages"
     },
     {
@@ -197,6 +233,18 @@
       "symbols": ["Kr"],
       "row": "oxidationStates",
       "text": "The list shows only 0. PubChem's krypton page also lists +2 and +1 and says krypton is rarely in a state above 0.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Rn"],
+      "row": "oxidationStates",
+      "text": "The list shows only 0. PubChem's radon page also lists +2 and +6.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["O"],
+      "row": "oxidationStates",
+      "text": "The list shows only −2. PubChem's oxygen page also lists −1, as in hydrogen peroxide, and +1 and +2.",
       "sourceId": "pubchem-element-pages"
     },
     {
@@ -234,6 +282,43 @@
       "row": "oxidationStates",
       "text": "PubChem's page for this element marks all of these states as predictions.",
       "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["He", "Be", "N", "Ne", "Mg", "Ar", "Ca", "Mn", "Zn", "Kr", "Sr", "Cd", "Xe", "Ba", "Hf", "Hg", "Rn", "Ra"],
+      "row": "electronAffinity",
+      "valueAbsent": true,
+      "text": "PubChem's table leaves this empty. Its page for this element lists an electron affinity of 0 eV.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Fr"],
+      "row": "electronegativity",
+      "text": "PubChem's francium page has no Pauling electronegativity line, so this value could not be traced beyond PubChem's table. The same page says that no weighable quantity of francium has been prepared.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Lr"],
+      "row": "electronegativity",
+      "text": "PubChem's lawrencium page has no Pauling electronegativity line, so this value could not be traced beyond PubChem's table.",
+      "sourceId": "pubchem-element-pages"
+    },
+    {
+      "symbols": ["Ds"],
+      "row": "atomicMass",
+      "text": "CIAAW's list of the most stable known isotopes gives mass number 281 for darmstadtium, not the 282 whose mass PubChem prints.",
+      "sourceId": "ciaaw-radioactive-elements"
+    },
+    {
+      "symbols": ["Cn"],
+      "row": "atomicMass",
+      "text": "CIAAW's list of the most stable known isotopes gives mass number 285 for copernicium, not the 286 whose mass PubChem prints.",
+      "sourceId": "ciaaw-radioactive-elements"
+    },
+    {
+      "symbols": ["Og"],
+      "row": "atomicMass",
+      "text": "CIAAW's list of the most stable known isotopes gives mass number 294 for oganesson, not the 295 whose mass PubChem prints.",
+      "sourceId": "ciaaw-radioactive-elements"
     },
     {
       "symbols": ["Lr"],
