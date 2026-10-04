@@ -1,21 +1,26 @@
-// The analysis half of the periodic-table cross-check: reads saved copies only
-// and returns plain data. cross-check-periodic-table.mjs renders it as the report.
+// The analysis half of the periodic-table cross-check: reads the saved copies kept under
+// docs/research/periodic-table/ and returns plain data. cross-check-periodic-table.mjs renders
+// it as the report. Comparisons whose sources are not kept are not made here: their outcome
+// is recorded in cross-check-recorded.md.
 
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import {
-  agreement, decimals, roundDec, parsePubChem, parseCiaawAbridged, parseCiaawFull, parseCiaawRadioactive, parseAme2020,
-  parseNubase2020, parseNistIe, parseWikipediaPauling, parseWikipediaVdw, parseConfiguration, shellCounts,
-  electronCount, position, parseWikipediaMasterList, parseWikipediaBoiling, kelvinValues, densityValues,
+  agreement, decimals, parsePubChem, parseCiaawAbridged, parseCiaawRadioactive, parseNistIe, parseConfiguration,
+  shellCounts, electronCount, position,
 } from './periodic-table-lib.mjs'
 
 const NUMERIC = ['AtomicMass', 'Electronegativity', 'AtomicRadius', 'IonizationEnergy', 'ElectronAffinity', 'MeltingPoint', 'BoilingPoint', 'Density']
 const ROOM = 298.15 // K
 
-export function analyse({ pubchemPath, sourcesDir, curatedPath, libraryPath }) {
-  const read = (name) => readFileSync(join(sourcesDir, name), 'utf8')
+export function analyse({ pubchemPath, sourcesDir, decisionsPath, curatedPath, libraryPath }) {
+  const filesRead = []
+  const read = (name) => {
+    filesRead.push(name)
+    return readFileSync(join(sourcesDir, name), 'utf8')
+  }
   const pub = parsePubChem(JSON.parse(readFileSync(pubchemPath, 'utf8')))
-  const R = { pub }
+  const R = { pub, filesRead }
 
   // -------------------------------------------------------------------------
   // 0. The download itself
@@ -38,11 +43,9 @@ export function analyse({ pubchemPath, sourcesDir, curatedPath, libraryPath }) {
   // 1. Atomic mass against CIAAW
   const ciaaw = parseCiaawAbridged(read('ciaaw-abridged-atomic-weights.html'))
   if (ciaaw.rows.length !== 118) throw new Error(`CIAAW page: expected 118 rows, parsed ${ciaaw.rows.length}`)
-  const full = parseCiaawFull(read('ciaaw-atomic-weights.html'))
-  if (full.length !== 118) throw new Error(`CIAAW full table: expected 118 rows, parsed ${full.length}`)
   const radioactive = parseCiaawRadioactive(read('ciaaw-radioactive-elements.html'))
-  const ame = parseAme2020(read('ame2020-mass_1.mas20.txt'))
-  const nubase = parseNubase2020(read('nubase2020-nubase_4.mas20.txt'))
+  // The isotope each mass belongs to was found against AME2020 (cross-check-recorded.md) and is named in decisions.json.
+  const isotopes = JSON.parse(readFileSync(decisionsPath, 'utf8')).isotopeMasses
   R.ciaawTitle = ciaaw.title
   R.mass = []
   R.massNoStandard = []
@@ -61,42 +64,13 @@ export function analyse({ pubchemPath, sourcesDir, curatedPath, libraryPath }) {
         z, symbol: e.Symbol, pubchem: e.AtomicMass, ciaaw: c.value, uncertainty: c.uncertainty, notes: c.notes,
         ...a, lessPrecise: decimals(e.AtomicMass) < decimals(c.value) ? 'PubChem' : decimals(e.AtomicMass) > decimals(c.value) ? 'CIAAW' : 'same',
         diff, withinUncertainty: within,
-        full: (() => {
-          const f = full[z - 1]
-          if (f.value) return { text: f.text, kind: 'value', verdict: agreement(e.AtomicMass, f.value).verdict }
-          if (f.low) {
-            // PubChem's value is abridged, so the ends are rounded to its digits before testing.
-            const d = decimals(e.AtomicMass)
-            return { text: f.text, kind: 'interval', inside: Number(e.AtomicMass) >= Number(roundDec(f.low, d).up) && Number(e.AtomicMass) <= Number(roundDec(f.high, d).up) }
-          }
-          throw new Error(`CIAAW full table has no value for ${e.Symbol} but the abridged table does`)
-        })(),
       })
     } else {
-      const isotopes = ame.filter((n) => n.z === z)
-      const matches = isotopes.filter((n) => roundDec(n.mass, decimals(e.AtomicMass)).up === e.AtomicMass || roundDec(n.mass, decimals(e.AtomicMass)).down === e.AtomicMass)
-      const halfLives = nubase.filter((n) => n.z === z && Number.isFinite(n.seconds)).sort((p, q) => q.seconds - p.seconds)
-      const nearest = isotopes.map((n) => ({ ...n, d: Math.abs(Number(n.mass) - Number(e.AtomicMass)) })).sort((p, q) => p.d - q.d)[0]
-      R.massNoStandard.push({
-        z, symbol: e.Symbol, pubchem: e.AtomicMass,
-        matches: matches.map((n) => ({ a: n.a, mass: n.mass, estimated: n.estimated, halfLife: nubase.find((h) => h.z === z && h.a === n.a)?.halfLife ?? null })),
-        nearest: { a: nearest.a, mass: nearest.mass },
-        ciaawMostStable: radioactive.get(z) ?? null,
-        // Longest half-lives NUBASE2020 gives from measurement (values from systematics, marked #, left out)
-        nubaseLongest: halfLives.filter((h) => !h.systematics).slice(0, 2).map((h) => ({ a: h.a, halfLife: h.halfLife, seconds: h.seconds })),
-        isLongestMeasured: (() => {
-          const measured = halfLives.filter((h) => !h.systematics)
-          if (matches.length !== 1 || !measured.length) return null
-          const own = measured.find((h) => h.a === matches[0].a)
-          return own ? (own.seconds === measured[0].seconds ? (measured.filter((h) => h.seconds === own.seconds).length > 1 ? 'tied' : 'yes') : 'no') : 'no'
-        })(),
-      })
+      const isotope = isotopes[e.Symbol]
+      if (isotope?.massNumber !== Math.round(Number(e.AtomicMass))) throw new Error(`decisions.json does not name the isotope whose mass PubChem prints for ${e.Symbol}`)
+      R.massNoStandard.push({ z, symbol: e.Symbol, pubchem: e.AtomicMass, ...isotope, ciaawMostStable: (radioactive.get(z) ?? []).map((c) => c.a) })
     }
   }
-
-  // Elements CIAAW gives a standard atomic weight although NUBASE2020 lists no stable isotope
-  R.weightWithoutStableIsotope = R.mass.filter((m) => !nubase.some((n) => n.z === m.z && n.seconds === Infinity)).map((m) => m.symbol)
-  R.massNumberByRounding = R.massNoStandard.every((m) => m.matches.length === 1 && Math.round(Number(m.pubchem)) === m.matches[0].a)
   R.coresUsed = [...new Set(pub.map((e) => /^\[(\w+)\]/.exec(e.ElectronConfiguration)?.[1] ?? '(none)'))]
 
   // -------------------------------------------------------------------------
@@ -147,29 +121,7 @@ export function analyse({ pubchemPath, sourcesDir, curatedPath, libraryPath }) {
   }
 
   // -------------------------------------------------------------------------
-  // 3. Pauling electronegativity against the Wikipedia data page
-  const wiki = parseWikipediaPauling(read('wikipedia-electronegativities-data-page.wikitext'))
-  R.wikiRevisions = JSON.parse(read('wikipedia-revisions.json')).query.pages
-  R.en = []
-  for (const e of pub) {
-    const z = Number(e.AtomicNumber)
-    const entries = wiki.get(z) ?? []
-    const numeric = (v) => (v && /^\d+(\.\d+)?$/.test(v) ? v : null)
-    const use = entries.map((x) => numeric(x.use)).filter(Boolean)
-    const perSource = { webElements: numeric(entries[0]?.webElements), crc: numeric(entries[0]?.crc), lange: numeric(entries[0]?.lange) }
-    const row = { z, symbol: e.Symbol, pubchem: e.Electronegativity || null, wikipedia: use, perSource, listed: entries.length > 0 }
-    if (row.pubchem && use.length === 1) row.verdict = agreement(row.pubchem, use[0]).verdict
-    else if (row.pubchem && use.length > 1) row.verdict = 'range'
-    else if (row.pubchem && !use.length) row.verdict = Object.values(perSource).some(Boolean) ? 'only-in-a-source-column' : 'only-pubchem'
-    else if (!row.pubchem && (use.length || Object.values(perSource).some(Boolean))) row.verdict = 'only-wikipedia'
-    else row.verdict = 'neither'
-    // Agreement with each of the three transcribed sources, where they differ from the "use" column.
-    row.sourceVerdicts = Object.fromEntries(Object.entries(perSource).map(([k, v]) => [k, row.pubchem && v ? agreement(row.pubchem, v).verdict : null]))
-    R.en.push(row)
-  }
-
-  // -------------------------------------------------------------------------
-  // 4. Sanity scan
+  // 3. Sanity scan
   const num = (e, c) => (e[c] === '' ? null : Number(e[c]))
   const stateOf = (e) => e.StandardState.replace(/^Expected to be a /, '')
 
@@ -210,14 +162,12 @@ export function analyse({ pubchemPath, sourcesDir, curatedPath, libraryPath }) {
     oneFigure: dens.filter((d) => /^\d{1,2}$/.test(d.text)).map((d) => [d.symbol, d.text]),
   }
 
-  // Radius: against the Wikipedia van der Waals column, and for breaks in the trend.
-  const vdw = parseWikipediaVdw(read('wikipedia-atomic-radii-data-page.wikitext'))
+  // Radius: breaks in the trend.
   R.radius = { rows: [], periods: {}, jumps: [], groupReversals: [] }
   for (const e of pub) {
     const z = Number(e.AtomicNumber)
-    const w = vdw.get(z) ?? []
     const { period, group } = position(z)
-    R.radius.rows.push({ z, symbol: e.Symbol, pubchem: e.AtomicRadius || null, wikipedia: w, match: e.AtomicRadius === '' ? null : w.includes(e.AtomicRadius), period, group })
+    R.radius.rows.push({ z, symbol: e.Symbol, pubchem: e.AtomicRadius || null, period, group })
     ;(R.radius.periods[period] ??= []).push(`${e.Symbol} ${e.AtomicRadius || '–'}`)
   }
   for (let i = 1; i < pub.length; i++) {
@@ -233,41 +183,6 @@ export function analyse({ pubchemPath, sourcesDir, curatedPath, libraryPath }) {
     if (above && Number(b.pubchem) < Number(above.pubchem)) R.radius.groupReversals.push({ group: b.group, upper: above.symbol, upperValue: above.pubchem, lower: b.symbol, lowerValue: b.pubchem })
   }
 
-  // Melting point, boiling point and density against the Wikipedia data pages
-  // (each transcribes WebElements, the CRC Handbook and Lange's Handbook). This
-  // is a plausibility check: the nearest transcribed value, and how far off it is.
-  const meltBlocks = parseWikipediaMasterList(read('wikipedia-melting-points-of-the-elements-data-page.wikitext'))
-  const boilBlocks = parseWikipediaBoiling(read('wikipedia-boiling-points-of-the-elements-data-page.wikitext'))
-  const densText = read('wikipedia-densities-of-the-elements-data-page.wikitext')
-  const cut = (from, to) => densText.slice(densText.indexOf(from), densText.indexOf(to))
-  const densBlocks = {
-    solid: parseWikipediaMasterList(cut('==Density, solid phase==', '== Density, liquid phase ==')),
-    liquid: parseWikipediaMasterList(cut('== Density, liquid phase ==', '== Density, gas phase ==')),
-    gas: parseWikipediaMasterList(cut('== Density, gas phase ==', '== Notes ==')),
-  }
-  const nearest = (value, candidates) => candidates.map((c) => ({ ...c, diff: Math.abs(c.value - value), rel: Math.abs(c.value - value) / value })).sort((a, b) => a.diff - b.diff)[0] ?? null
-  const collect = (blocks, z, extract, where) => blocks.filter((b) => b.z === z).flatMap((b) => b.rows.flatMap((r) => extract(r.text).map((value) => ({ value, label: r.label, heading: b.heading, where, text: r.text.replace(/\s+/g, ' ').trim() }))))
-  R.quoted = {
-    arsenicMelting: meltBlocks.filter((b) => b.z === 33).flatMap((b) => b.rows.map((r) => `${r.label}: ${r.text.replace(/\s+/g, ' ').trim()}`)),
-    arsenicBoiling: boilBlocks.filter((b) => b.z === 33).flatMap((b) => b.rows.map((r) => `${r.label}: ${r.text.replace(/\s+/g, ' ').trim()}`)),
-    heliumMelting: meltBlocks.filter((b) => b.z === 2).flatMap((b) => b.rows.map((r) => `${r.label}: ${r.text.replace(/\s+/g, ' ').trim()}`)),
-    carbonBoiling: boilBlocks.filter((b) => b.z === 6).flatMap((b) => b.rows.map((r) => `${r.label}: ${r.text.replace(/\s+/g, ' ').trim()}`)),
-  }
-  R.thermal = { MeltingPoint: [], BoilingPoint: [], Density: [] }
-  for (const e of pub) {
-    const z = Number(e.AtomicNumber)
-    for (const [column, candidates, limit] of [
-      ['MeltingPoint', collect(meltBlocks, z, kelvinValues, 'melting'), (v) => Math.max(1, v * 0.005)],
-      ['BoilingPoint', collect(boilBlocks, z, kelvinValues, 'boiling'), (v) => Math.max(1, v * 0.005)],
-      ['Density', [...collect(densBlocks.solid, z, densityValues, 'solid'), ...collect(densBlocks.gas, z, densityValues, 'gas'), ...(stateOf(e) === 'Liquid' ? collect(densBlocks.liquid, z, densityValues, 'liquid') : [])], (v) => v * 0.01],
-    ]) {
-      if (e[column] === '') { if (candidates.length) R.thermal[column].push({ symbol: e.Symbol, pubchem: null, candidates: candidates.length }); continue }
-      const value = Number(e[column])
-      const n = nearest(value, candidates)
-      R.thermal[column].push({ symbol: e.Symbol, pubchem: e[column], nearest: n, ok: n !== null && n.diff <= limit(value), all: candidates.map((c) => `${c.label} ${c.value}`) })
-    }
-  }
-
   // The ends of each trend scale as the download gives them
   R.trendEnds = Object.fromEntries(['Electronegativity', 'AtomicRadius', 'IonizationEnergy', 'MeltingPoint', 'Density'].map((c) => {
     const have = pub.filter((e) => e[c] !== '')
@@ -277,6 +192,8 @@ export function analyse({ pubchemPath, sourcesDir, curatedPath, libraryPath }) {
     return [c, { count: have.length, low: [low.Symbol, low[c]], high: [high.Symbol, high[c]], longest: have.reduce((a, b) => (a[c].length >= b[c].length ? a : b))[c] }]
   }))
   R.longestText = Object.fromEntries(columns.map((c) => [c, pub.reduce((a, b) => (a[c].length >= b[c].length ? a : b))[c]]))
+  // The two lowest electronegativities: the lowest sets the bottom of the colour scale
+  R.enLowest = pub.filter((e) => e.Electronegativity !== '').sort((a, b) => Number(a.Electronegativity) - Number(b.Electronegativity)).slice(0, 2).map((e) => [e.Symbol, e.Electronegativity])
 
   // Oxidation states text
   R.oxidation = { empty: [], onlyZero: [], unsigned: [], spacing: [], other: [], includesZero: [] }
@@ -308,8 +225,9 @@ export function analyse({ pubchemPath, sourcesDir, curatedPath, libraryPath }) {
   R.categoryRows = pub.map((e) => ({ z: Number(e.AtomicNumber), symbol: e.Symbol, category: e.GroupBlock, ...position(Number(e.AtomicNumber)) }))
 
   // -------------------------------------------------------------------------
-  // 5. Where each table value comes from on PubChem's own element pages
+  // 4. Where each table value comes from on PubChem's own element pages
   const pages = JSON.parse(read('pubchem-element-pages-extract.json'))
+  R.pages = pages
   const FIELD = {
     IonizationEnergy: { heading: 'Ionization Energy' },
     Electronegativity: { heading: 'Electronegativity', name: 'Pauling Scale Electronegativity' },
@@ -360,7 +278,6 @@ export function analyse({ pubchemPath, sourcesDir, curatedPath, libraryPath }) {
       const hit = lines.find((l) => same(e[column], l.text))
       if (!hit) { unmatched.push({ symbol: e.Symbol, table: e[column], lines: lines.map((l) => `${l.text} (${short(l.source)})`) }); continue }
       tallyBy[short(hit.source)] = (tallyBy[short(hit.source)] ?? 0) + 1
-      ;(R.textSource ??= {})[`${column}:${e.Symbol}`] = short(hit.source)
     }
     R.provenance[column] = { tally: tallyBy, unmatched, absentButOnPage: [] }
   }
@@ -375,23 +292,17 @@ export function analyse({ pubchemPath, sourcesDir, curatedPath, libraryPath }) {
     return { symbol: e.Symbol, lines, first: lines[0] ?? null, second: lines[1] ?? null }
   })
 
-  // Second opinions carried on the same pages
-  R.pageNist = []
-  R.pageHints = []
-  for (const e of pub) {
-    const lines = pages[e.AtomicNumber].lines
-    for (const l of lines) {
-      if ((l.heading === 'Melting Point' || l.heading === 'Boiling Point') && /predict|estimat|extrapolat|sublim|atm|pressure|~|about|\?/i.test(l.text))
-        R.pageHints.push({ symbol: e.Symbol, heading: l.heading, text: l.text, source: short(l.source), table: e[l.heading === 'Melting Point' ? 'MeltingPoint' : 'BoilingPoint'] || '(empty)' })
-    }
-  }
+  // The NIST ionization energy the same pages carry beside the value the table uses
+  R.pagesWithNistIe = pub.filter((e) => pages[e.AtomicNumber].lines.some((l) => l.heading === 'Ionization Energy' && short(l.source) === 'NIST')).length
+  // The elements whose oxidation states the pages mark as predictions, in parentheses or with the word; the table's text drops the marks
+  R.oxidationPredicted = pub.filter((e) => pages[e.AtomicNumber].lines.some((l) => l.heading === 'Oxidation States' && /predict/i.test(l.text))).map((e) => e.Symbol)
+
   R.classification = pub.map((e) => {
     const lines = pages[e.AtomicNumber].lines
     return {
       symbol: e.Symbol, category: e.GroupBlock,
       jlab: lines.find((l) => l.heading === 'Element Classification')?.text ?? null,
       groupText: lines.find((l) => l.heading === 'Element Group Number')?.text ?? null,
-      periodText: lines.find((l) => l.heading === 'Element Period Number')?.text ?? null,
     }
   })
 
@@ -401,18 +312,27 @@ export function analyse({ pubchemPath, sourcesDir, curatedPath, libraryPath }) {
     return { symbol: e.Symbol, ...position(Number(e.AtomicNumber)), text: line?.text ?? null, value: line ? /^(\d+)/.exec(line.text)?.[1] ?? null : null }
   })
 
-  // What the element pages say about melting and boiling for the elements whose state is marked "Expected"
-  R.expectedStates = pub.filter((e) => e.StandardState.startsWith('Expected')).map((e) => ({
-    symbol: e.Symbol, state: e.StandardState,
-    lines: pages[e.AtomicNumber].lines.filter((l) => l.heading === 'Melting Point' || l.heading === 'Boiling Point').map((l) => `${l.heading.toLowerCase()} ${l.text} (${short(l.source)})`),
-  }))
+  // What the element pages say about melting and boiling for the elements whose state is marked "Expected".
+  // A boiling point on the page contradicts the state when its figure, in kelvin, is on the wrong side of room
+  // temperature: below it for a solid or a liquid, above it for a gas.
+  R.expectedStates = pub.filter((e) => e.StandardState.startsWith('Expected')).map((e) => {
+    const lines = pages[e.AtomicNumber].lines.filter((l) => l.heading === 'Melting Point' || l.heading === 'Boiling Point')
+    const boiling = lines.find((l) => l.heading === 'Boiling Point')?.text ?? null
+    const kelvin = boiling === null ? null : Number(/^~?(\d+)[^(]*K\(/.exec(boiling)?.[1] ?? NaN)
+    if (Number.isNaN(kelvin)) throw new Error(`unreadable boiling point on the ${e.Name} page: ${boiling}`)
+    return {
+      symbol: e.Symbol, state: e.StandardState, boiling,
+      contradicted: kelvin !== null && (stateOf(e) === 'Gas' ? kelvin > ROOM : kelvin < ROOM),
+      lines: lines.map((l) => `${l.heading.toLowerCase()} ${l.text} (${short(l.source)})`),
+    }
+  })
 
   // PubChem's own unit labels, from the script its periodic table page loads
   const labels = JSON.parse(read('pubchem-ptable-column-labels.json'))
   R.unitLabels = Object.fromEntries(columns.filter((c) => c in labels).map((c) => [c, labels[c]]))
 
   // -------------------------------------------------------------------------
-  // 6. The elements already curated in the app
+  // 5. The elements already curated in the app
   const curated = JSON.parse(readFileSync(curatedPath, 'utf8'))
   R.curated = curated.map((c) => {
     const e = pub[c.atomicNumber - 1]

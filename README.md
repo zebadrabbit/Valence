@@ -23,6 +23,7 @@ Requires Node 22 or newer.
     npm run build      # test, type-check, and build to dist/
     npm run build:data # regenerate src/chem-data/ JSON from docs/research/phase-2/
     npm run build:expected # regenerate the expected-values test fixture from docs/research/phase-2/expected.json
+    npm run cross-check # rewrite docs/research/periodic-table/cross-check.md from the saved sources
 
 To have the validator reject specific institution names, create `src/chem-data/denylist.local.json` containing a JSON array of names. The file is ignored by git.
 

@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import crossCheck from '../../docs/research/periodic-table/cross-check.md?raw'
 import download from '../../docs/research/periodic-table/pubchem-periodic-table.json'
 import ciaawPage from '../../docs/research/periodic-table/sources/ciaaw-abridged-atomic-weights.html?raw'
 import nistFile from '../../docs/research/periodic-table/sources/nist-asd-ie-neutral.txt?raw'
@@ -445,6 +446,33 @@ describe('the periodic table data', () => {
     expect(sourceOf('ciaaw-abridged-2024')?.citation).toContain('2024')
     // The 11 curated elements cite this one for electronegativity; it is left as it was.
     expect(sourceOf('pubchem-ptable')?.citation).toContain('Pauling electronegativity column')
+  })
+})
+
+// The report is written by scripts/cross-check-periodic-table.mjs (npm run cross-check).
+describe('the cross-check report', () => {
+  // Rows of its "Unresolved" table: | atomic number | Name (Symbol) | `row` | ...
+  const section = crossCheck.split(/^## /m).find((part) => part.startsWith('Unresolved')) ?? ''
+  const unresolved = [...section.matchAll(/^\| (\d+) \| [^|]*\((\w+)\) \| `(\w+)` \|/gm)].map(([, z, symbol, row]) => ({ z: Number(z), symbol: symbol!, row: row! }))
+
+  it("lists lawrencium's configuration and the melting-point, boiling-point and density outliers as unresolved", () => {
+    const listed = unresolved.map(({ symbol, row }) => `${symbol} ${row}`)
+    expect(listed).toEqual(expect.arrayContaining(['Lr configuration', 'C meltingPoint', 'Ba boilingPoint', 'Ra boilingPoint', 'B density', 'Am density', 'Bk density']))
+    expect(new Set(listed).size).toBe(listed.length)
+  })
+
+  it('leaves no unresolved item without a note on the row it names', () => {
+    for (const { z, symbol, row } of unresolved) {
+      expect([symbol, element(symbol).atomicNumber]).toEqual([symbol, z])
+      expect([symbol, row, notesOn(symbol, row).length > 0]).toEqual([symbol, row, true])
+    }
+  })
+
+  it('states the outcome the spec records (5.6)', () => {
+    const summary = crossCheck.split(/^## /m).find((part) => part.startsWith('Summary')) ?? ''
+    expect(summary).toContain('| Atomic mass | Abridged Standard Atomic Weights 2024 (CIAAW) | 84 | 80, plus 2 ties (Ar, Fe) | 2 (Li, S) |')
+    expect(summary).toContain('| First ionization energy | NIST Atomic Spectra Database | 102 | 76 | 26, of which 9 by 0.1 eV or more |')
+    expect(summary).toContain('| Ground-state configuration | NIST Atomic Spectra Database | 108 | 107 | 1 (Lr) | 10: not in NIST |')
   })
 })
 
