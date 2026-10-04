@@ -3,7 +3,7 @@ import download from '../../docs/research/periodic-table/pubchem-periodic-table.
 import ciaawPage from '../../docs/research/periodic-table/sources/ciaaw-abridged-atomic-weights.html?raw'
 import nistFile from '../../docs/research/periodic-table/sources/nist-asd-ie-neutral.txt?raw'
 import elementPages from '../../docs/research/periodic-table/sources/pubchem-element-pages-extract.json?raw'
-import { NO_VALUE, periodicTable } from './periodic'
+import { elementPosition, NO_VALUE, periodicTable, shellsFromConfiguration } from './periodic'
 import { registry } from './registry'
 import { PERIODIC_UNITS, type PeriodicElement } from './schema'
 import { validatePeriodicTable } from './validate'
@@ -394,5 +394,128 @@ describe('the periodic table data', () => {
     expect(sourceOf('ciaaw-abridged-2024')?.citation).toContain('2024')
     // The 11 curated elements cite this one for electronegativity; it is left as it was.
     expect(sourceOf('pubchem-ptable')?.citation).toContain('Pauling electronegativity column')
+  })
+})
+
+describe('elementPosition', () => {
+  const at = (symbol: string) => elementPosition(element(symbol).atomicNumber)
+  const positions = periodicTable.map((e) => ({ symbol: e.symbol, ...elementPosition(e.atomicNumber) }))
+  const symbolsAt = (test: (p: (typeof positions)[number]) => boolean) => positions.filter(test).map((p) => p.symbol)
+
+  it.each([
+    ['H', { period: 1, group: 1, block: 's', row: 1, column: 1 }],
+    ['He', { period: 1, group: 18, block: 's', row: 1, column: 18 }],
+    ['B', { period: 2, group: 13, block: 'p', row: 2, column: 13 }],
+    ['Sc', { period: 4, group: 3, block: 'd', row: 4, column: 3 }],
+    ['Y', { period: 5, group: 3, block: 'd', row: 5, column: 3 }],
+    ['La', { period: 6, group: 3, block: 'd', row: 6, column: 3 }],
+    ['Ce', { period: 6, group: null, block: 'f', row: 9, column: 4 }],
+    ['Lu', { period: 6, group: null, block: 'f', row: 9, column: 17 }],
+    ['Hf', { period: 6, group: 4, block: 'd', row: 6, column: 4 }],
+    ['Ac', { period: 7, group: 3, block: 'd', row: 7, column: 3 }],
+    ['Th', { period: 7, group: null, block: 'f', row: 10, column: 4 }],
+    ['Lr', { period: 7, group: null, block: 'f', row: 10, column: 17 }],
+    ['Rf', { period: 7, group: 4, block: 'd', row: 7, column: 4 }],
+    ['Og', { period: 7, group: 18, block: 'p', row: 7, column: 18 }],
+  ] as const)('places %s', (symbol, expected) => {
+    expect(at(symbol)).toEqual(expected)
+  })
+
+  it('gives every element its own cell: rows 1 to 7 of the main table, rows 9 and 10 below it under columns 4 to 17', () => {
+    expect(new Set(positions.map((p) => `${p.row},${p.column}`)).size).toBe(118)
+    for (const p of positions) {
+      if (p.group === null) {
+        expect([p.symbol, p.row]).toEqual([p.symbol, p.period + 3])
+        expect(p.column).toBeGreaterThanOrEqual(4)
+        expect(p.column).toBeLessThanOrEqual(17)
+      } else {
+        // In the main table the column is the group and the row is the period.
+        expect([p.symbol, p.row, p.column]).toEqual([p.symbol, p.period, p.group])
+      }
+    }
+    expect(symbolsAt((p) => p.row === 9)).toEqual(['Ce', 'Pr', 'Nd', 'Pm', 'Sm', 'Eu', 'Gd', 'Tb', 'Dy', 'Ho', 'Er', 'Tm', 'Yb', 'Lu'])
+    expect(symbolsAt((p) => p.row === 10)).toEqual(['Th', 'Pa', 'U', 'Np', 'Pu', 'Am', 'Cm', 'Bk', 'Cf', 'Es', 'Fm', 'Md', 'No', 'Lr'])
+  })
+
+  it('fills the periods with 2, 8, 8, 18, 18, 32 and 32 elements, in atomic-number order', () => {
+    expect(range(1, 7).map((period) => positions.filter((p) => p.period === period).length)).toEqual([2, 8, 8, 18, 18, 32, 32])
+    expect(positions.map((p) => p.period)).toEqual([...positions.map((p) => p.period)].sort((a, b) => a - b))
+  })
+
+  it('makes the blocks as wide as their subshells: s 14, p 36, d 40, f 28', () => {
+    const size = (block: string) => positions.filter((p) => p.block === block).length
+    expect([size('s'), size('p'), size('d'), size('f')]).toEqual([14, 36, 40, 28])
+    // Helium is the one s-block element outside groups 1 and 2; the d block is groups 3 to 12 exactly.
+    expect(symbolsAt((p) => p.block === 's' && p.group !== 1 && p.group !== 2)).toEqual(['He'])
+    expect(symbolsAt((p) => p.block === 'p' && (p.group === null || p.group < 13))).toEqual([])
+    expect(symbolsAt((p) => (p.block === 'd') !== (p.group !== null && p.group >= 3 && p.group <= 12))).toEqual([])
+  })
+
+  it('gives no group number to the 28 f-block elements, and to no others', () => {
+    expect(positions.filter((p) => p.group === null).length).toBe(28)
+    expect(symbolsAt((p) => (p.group === null) !== (p.block === 'f'))).toEqual([])
+  })
+
+  it('puts lanthanum and actinium in group 3, and takes group members from the group, not the column', () => {
+    expect(symbolsAt((p) => p.group === 3)).toEqual(['Sc', 'Y', 'La', 'Ac'])
+    // Lutetium and lawrencium are drawn under column 17 but are not in group 17.
+    expect(symbolsAt((p) => p.group === 17)).toEqual(['F', 'Cl', 'Br', 'I', 'At', 'Ts'])
+    expect(symbolsAt((p) => p.column === 17 && p.group !== 17)).toEqual(['Lu', 'Lr'])
+  })
+
+  it.each([0, 119, -1, 1.5, Number.NaN])('throws for atomic number %s', (atomicNumber) => {
+    expect(() => elementPosition(atomicNumber)).toThrow(/atomic number/)
+  })
+})
+
+describe('shellsFromConfiguration', () => {
+  it.each([
+    ['1s1', [1]],
+    ['[He]2s2 2p2', [2, 4]],
+    ['[He] 2s2 2p3', [2, 5]],
+    ['[Ne]3s2 3p5', [2, 8, 7]],
+    ['[Ar]4s2 3d6', [2, 8, 14, 2]],
+    ['[Ar]4s1 3d10', [2, 8, 18, 1]],
+    ['[Ar]3d5 4s1', [2, 8, 13, 1]],
+    ['[Kr]5s2 4d10 5p6', [2, 8, 18, 18, 8]],
+    ['[Kr]4d10', [2, 8, 18, 18]],
+    ['[Rn] 5f12 7s2', [2, 8, 18, 32, 30, 8, 2]],
+    ['[Rn]7s2 7p2 5f14 6d10', [2, 8, 18, 32, 32, 18, 4]],
+  ])('counts %s as %j', (text, shells) => {
+    expect(shellsFromConfiguration(text)).toEqual(shells)
+  })
+
+  it('counts every stored configuration to its atomic number, with no shell over 2n² electrons', () => {
+    for (const e of periodicTable) {
+      const shells = shellsFromConfiguration(e.configuration.text)
+      expect([e.symbol, shells.reduce((sum, n) => sum + n, 0)]).toEqual([e.symbol, e.atomicNumber])
+      shells.forEach((electrons, i) => expect(electrons).toBeLessThanOrEqual(2 * (i + 1) ** 2))
+    }
+  })
+
+  it('reads the configurations the source marks as calculated or predicted, whose marking the build moved to the qualifier', () => {
+    expect(element('Mt').configuration.qualifier).toBe('calculated')
+    expect(shellsFromConfiguration(element('Mt').configuration.text)).toEqual([2, 8, 18, 32, 32, 15, 2])
+    expect(element('Og').configuration.qualifier).toBe('predicted')
+    expect(shellsFromConfiguration(element('Og').configuration.text)).toEqual([2, 8, 18, 32, 32, 18, 8])
+  })
+
+  it("counts lawrencium from PubChem's configuration, the one its card shows", () => {
+    expect(shellsFromConfiguration(element('Lr').configuration.text)).toEqual([2, 8, 18, 32, 32, 9, 2])
+  })
+
+  it.each([
+    ['an unknown core', '[Xx]2s1'],
+    ['a core that is not closed', '[He 2s1'],
+    ['an empty text', ''],
+    ['a subshell with no count', '[He]2s'],
+    ['a subshell letter that is not s, p, d or f', '[He]2x1'],
+    ['a subshell its shell does not have', '1p1'],
+    ['a subshell over its capacity', '[He]2s3'],
+    ['a repeated subshell', '[He]2s1 2s1'],
+    ['a subshell the core already holds', '[Ne]2p1'],
+    ['a marking left in the text', '[Rn]7s2 5f14 6d7 (calculated)'],
+  ])('throws on %s', (_, text) => {
+    expect(() => shellsFromConfiguration(text)).toThrow(/configuration/)
   })
 })
