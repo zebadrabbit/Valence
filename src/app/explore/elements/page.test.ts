@@ -4,6 +4,9 @@ import { MemoryRouter, Route, Routes } from 'react-router'
 import { describe, expect, it } from 'vitest'
 import { CATEGORIES, CATEGORY_HEADING, CATEGORY_NOTES, describeBlock, describeGroup, describePeriod, GROUP_3_NOTE, NO_VALUE, periodicTable } from '@/chem-data/periodic'
 import { registry } from '@/chem-data/registry'
+import { ANCIENT, CARD_DERIVED, ELECTRON_AFFINITY_NOTE, shellCaption, VDW_RADIUS_NOTE } from '@/chem-data/periodicCard'
+import { ElementCard } from './ElementCard'
+import { elementCardRows } from './elementCard'
 import { ElementGrids } from './ElementGrids'
 import { ElementList } from './ElementList'
 import { PeriodicTablePage } from './PeriodicTablePage'
@@ -233,6 +236,117 @@ describe('the description of a highlight', () => {
   it('is empty for a family, which has its notes under the legend, and when nothing is highlighted', () => {
     expect(shown({ kind: 'category', value: 'Halogen' })).toBe('')
     expect(shown(null)).toBe('')
+  })
+})
+
+describe('the element card', () => {
+  const card = (symbol: string) => routed('/explore/elements', createElement(ElementCard, { element: element(symbol) }))
+  // A row as the card draws it: the label, the value under it, then its sentences.
+  const drawn = (label: string, value: string, sentences: readonly string[] = []) =>
+    `<dt class="text-muted-foreground">${escaped(label)}</dt><dd class="tabular-nums">${value}</dd>` +
+    (sentences.length > 0 ? `<dd class="col-span-full mb-1 text-xs text-muted-foreground"><span class="grid gap-1">${sentences.map((text) => `<span>${escaped(text)}</span>`).join('')}</span></dd>` : '')
+
+  it('is on the page below the table when an element is selected, under the name and symbol of the element', () => {
+    const html = page('/explore/elements/Xe')
+    expect(html).toMatch(/<h2 [^>]*>Xenon \(Xe\)<\/h2>/)
+    expect(html.indexOf('</table>')).toBeLessThan(html.indexOf('Xenon (Xe)</h2>'))
+    expect(html).not.toContain('Choose an element in the table')
+  })
+
+  it('is replaced by an invitation to choose an element when none is selected', () => {
+    const html = page('/explore/elements')
+    expect(html).toContain('Choose an element in the table to see its details here.')
+    expect(html).not.toContain('In the molecule library')
+  })
+
+  it('shows every row of elementCardRows with its label, its value and its sentences beside it', () => {
+    for (const symbol of ['H', 'F', 'Fe', 'As', 'Tc', 'Lu', 'Og']) {
+      const html = card(symbol)
+      for (const row of elementCardRows(element(symbol), registry.elements.find((e) => e.symbol === symbol))) {
+        if (row.id === 'configuration') continue
+        expect([symbol, row.id, html.includes(drawn(row.label, escaped(row.value), [...(row.note ? [row.note] : []), ...row.notes]))]).toEqual([symbol, row.id, true])
+      }
+    }
+  })
+
+  it('puts a note beside the row it qualifies', () => {
+    expect(card('F')).toContain(drawn('Year discovered (as PubChem lists it)', '1670', [element('F').notes!.find((note) => note.row === 'yearDiscovered')!.text]))
+    expect(card('C')).toContain(drawn('Year discovered (as PubChem lists it)', ANCIENT))
+    expect(card('F')).toContain(drawn('Electron affinity', '3.339 eV', [ELECTRON_AFFINITY_NOTE.text]))
+    expect(card('Fe')).toContain(drawn('Van der Waals radius', '194 pm', [VDW_RADIUS_NOTE.text]))
+  })
+
+  it('shows an absent value with NO_VALUE', () => {
+    expect(card('Og')).toContain(drawn('Density', NO_VALUE))
+    expect(card('He')).toContain(drawn('Electronegativity (Pauling scale)', NO_VALUE))
+  })
+
+  it('names the isotope whose mass it shows, and says there is no standard atomic weight', () => {
+    expect(card('Tc')).toContain(drawn('Mass of the isotope technetium-97', '96.90636 u', ['Technetium has no standard atomic weight, so the mass of one of its isotopes is shown.']))
+    expect(card('Bi')).toContain(drawn('Atomic mass (standard atomic weight)', '208.98 u'))
+  })
+
+  it('writes the configuration with superscript counts after its core, and keeps the word PubChem marks it with', () => {
+    expect(card('F')).toContain('<dd class="tabular-nums">[He]<span> 2s<sup>2</sup></span><span> 2p<sup>5</sup></span></dd>')
+    expect(card('H')).toContain('<dd class="tabular-nums"><span>1s<sup>1</sup></span></dd>')
+    expect(card('Mt')).toContain('<span> 6d<sup>7</sup></span> (calculated)</dd>')
+    expect(card('Og')).toContain('<span> 6d<sup>10</sup></span> (predicted)</dd>')
+  })
+
+  it('draws the shell diagram from the configuration, hidden from a screen reader, with the counts as text and a caption that says when it is predicted', () => {
+    const html = card('Og')
+    expect(html).toMatch(/<svg aria-hidden="true"/)
+    // The nucleus, seven rings and 118 electrons.
+    expect(count(/<figure.*?<\/figure>/s.exec(html)?.[0] ?? '', /<circle /g)).toBe(1 + 7 + 118)
+    expect(html).toContain(`<figcaption class="text-center text-xs text-muted-foreground">${shellCaption(element('Og'))}</figcaption>`)
+    expect(html).toContain(drawn('Electrons per shell (innermost first)', '2, 8, 18, 32, 32, 18, 8'))
+    expect(card('Mt')).toContain('drawn from a calculated configuration')
+    expect(card('F')).not.toMatch(/drawn from a (predicted|calculated) configuration/)
+  })
+
+  it('links to every library molecule that contains the element, or says that none does', () => {
+    const fluorine = card('F')
+    expect(fluorine).toContain('In the molecule library')
+    for (const [id, name] of [
+      ['boron-trifluoride', 'Boron trifluoride'],
+      ['sulfur-hexafluoride', 'Sulfur hexafluoride'],
+      ['xenon-tetrafluoride', 'Xenon tetrafluoride'],
+    ]) {
+      expect(fluorine).toMatch(new RegExp(`<a [^>]*href="/explore/${id}"[^>]*>${name}</a>`))
+    }
+    expect(count(fluorine, /<a [^>]*href="\/explore\/[a-z-]+"/g)).toBe(3)
+    expect(card('Xe')).toMatch(/<a [^>]*href="\/explore\/xenon-tetrafluoride"/)
+    const gold = card('Au')
+    expect(gold).toContain('No molecule in the library contains gold.')
+    expect(gold).not.toMatch(/<a [^>]*href="\/explore\//)
+  })
+
+  it('shows the emission spectrum for hydrogen and xenon, and for no other element', () => {
+    const shown = periodicTable.filter((e) => card(e.symbol).includes('Emission spectrum of the isolated atom')).map((e) => e.symbol)
+    expect(shown).toEqual(['H', 'Xe'])
+    expect(card('H')).toContain('656.279 nm')
+  })
+
+  it('cites in its Sources control every source of every row, the emission lines, and says what the app works out', () => {
+    const cites = (html: string, covers: string, citation: string) => html.includes(`<span class="font-medium">${escaped(covers)}: </span>`) && html.includes(citation)
+    // A citation as React writes it; one of them holds angle brackets.
+    const source = (id: string) => escaped(registry.sources.find((s) => s.id === id)!.citation).replaceAll('<', '&lt;').replaceAll('>', '&gt;')
+    const sodium = card('Na')
+    expect(cites(sodium, 'Atomic mass (standard atomic weight)', source('ciaaw-abridged-2024'))).toBe(true)
+    expect(cites(sodium, 'First ionization energy', source('nist-asd-ie-all'))).toBe(true)
+    expect(sodium).toContain(source('pubchem-periodic-table'))
+    expect(sodium).toContain(escaped(CARD_DERIVED))
+    expect(cites(card('H'), 'Emission lines', source('nist-asd-lines-h'))).toBe(true)
+    expect(card('F')).toContain(source('mantina-2009'))
+    for (const symbol of ['H', 'Xe', 'Og']) {
+      const html = card(symbol)
+      const ids = new Set(elementCardRows(element(symbol), registry.elements.find((e) => e.symbol === symbol)).flatMap((row) => row.sourceIds))
+      for (const id of ids) expect([symbol, id, html.includes(source(id))]).toEqual([symbol, id, true])
+    }
+  })
+
+  it('renders for every element', () => {
+    for (const e of periodicTable) expect([e.symbol, card(e.symbol).includes(`${e.name} (${e.symbol})</h2>`)]).toEqual([e.symbol, true])
   })
 })
 

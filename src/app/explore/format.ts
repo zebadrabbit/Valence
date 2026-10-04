@@ -3,18 +3,14 @@ import { evToKjPerMol } from '@/chem-data/element'
 import { GEOMETRY_SOURCE_LABEL } from '@/chem-data/library'
 import type { Measurement } from '@/chem-data/measure'
 import type { Element, Molecule } from '@/chem-data/schema'
+import { MINUS, minusSigns } from './minus'
 
 // How the inspector cards write numbers. Minus signs are the real character (U+2212), not a hyphen.
 
-const MINUS = '−'
+export { minusSigns }
 const fixed = (value: number, digits: number) => {
   const text = Math.abs(value).toFixed(digits)
   return value < 0 && Number(text) !== 0 ? MINUS + text : text
-}
-
-/** Published text with a real minus sign for each hyphen, for a list of oxidation states such as "+5, +3, -3". */
-export function minusSigns(text: string): string {
-  return text.replaceAll('-', MINUS)
 }
 
 /** A formal charge or oxidation state: "+1", "−2", "0". */

@@ -3,7 +3,8 @@ import { Link, useParams } from 'react-router'
 import { Card } from '@/app/explore/InspectorCard'
 import { PageHeader } from '@/app/PageHeader'
 import { NotFound } from '@/app/pages/NotFound'
-import { CATEGORIES, periodicTable } from '@/chem-data/periodic'
+import { periodicTable } from '@/chem-data/periodic'
+import { ElementCard } from './ElementCard'
 import { ElementGrids } from './ElementGrids'
 import { ElementList } from './ElementList'
 import './periodic.css'
@@ -33,7 +34,8 @@ export function PeriodicTablePage() {
 
   return (
     <>
-      <PageHeader title="Periodic table" parent={{ to: '/explore', label: 'Explore' }} />
+      {/* Each element's address has its own title in the tab and in the history; the heading stays the page's. */}
+      <PageHeader title="Periodic table" documentTitle={selected && `${selected.name} (${selected.symbol}) · Periodic table`} parent={{ to: '/explore', label: 'Explore' }} />
 
       <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
         <div className="flex max-w-full items-center gap-2">
@@ -84,14 +86,13 @@ export function PeriodicTablePage() {
 
       <div className="mt-3 grid gap-3">
         <HighlightDescription highlight={highlight} />
-        {/* ponytail: a stand-in until the element card of spec 7 is built; it says only what the cell already does. */}
-        <Card heading={selected ? `${selected.name} (${selected.symbol})` : 'Element details'}>
-          <p className="text-muted-foreground">
-            {selected
-              ? `Atomic number ${selected.atomicNumber}, ${CATEGORIES.find((c) => c.category === selected.category)?.member}.`
-              : 'Choose an element in the table to see its details here.'}
-          </p>
-        </Card>
+        {selected ? (
+          <ElementCard element={selected} />
+        ) : (
+          <Card heading="Element details">
+            <p className="text-muted-foreground">Choose an element in the table to see its details here.</p>
+          </Card>
+        )}
       </div>
 
       <TableNotes />

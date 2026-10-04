@@ -1,11 +1,15 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router'
 
-/** The predictable header on every screen: breadcrumb, then the page's h1. `parent` adds a crumb between Home and the page. */
-export function PageHeader({ title, parent }: { title: string; parent?: { to: string; label: string } }) {
+/**
+ * The predictable header on every screen: breadcrumb, then the page's h1. `parent` adds a crumb between Home and
+ * the page. `documentTitle` names the tab where one page serves several addresses under one heading.
+ */
+export function PageHeader({ title, documentTitle, parent }: { title: string; documentTitle?: string | undefined; parent?: { to: string; label: string } }) {
+  const tab = documentTitle ?? title
   useEffect(() => {
-    document.title = title === 'Home' ? 'Valence' : `${title} · Valence`
-  }, [title])
+    document.title = tab === 'Home' ? 'Valence' : `${tab} · Valence`
+  }, [tab])
 
   return (
     <header className="mb-6">
