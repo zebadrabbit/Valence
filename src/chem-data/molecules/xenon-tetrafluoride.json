@@ -152,7 +152,8 @@
         ],
         "value": 90,
         "sourceId": "cccbdb-xenon-tetrafluoride",
-        "published": "90"
+        "published": "90",
+        "symmetry": "D4h"
       },
       {
         "atoms": [
@@ -162,7 +163,8 @@
         ],
         "value": 90,
         "sourceId": "cccbdb-xenon-tetrafluoride",
-        "published": "90"
+        "published": "90",
+        "symmetry": "D4h"
       },
       {
         "atoms": [
@@ -172,7 +174,8 @@
         ],
         "value": 90,
         "sourceId": "cccbdb-xenon-tetrafluoride",
-        "published": "90"
+        "published": "90",
+        "symmetry": "D4h"
       },
       {
         "atoms": [
@@ -182,7 +185,8 @@
         ],
         "value": 90,
         "sourceId": "cccbdb-xenon-tetrafluoride",
-        "published": "90"
+        "published": "90",
+        "symmetry": "D4h"
       },
       {
         "atoms": [
@@ -192,7 +196,8 @@
         ],
         "value": 180,
         "sourceId": "cccbdb-xenon-tetrafluoride",
-        "published": "180"
+        "published": "180",
+        "symmetry": "D4h"
       },
       {
         "atoms": [
@@ -202,7 +207,8 @@
         ],
         "value": 180,
         "sourceId": "cccbdb-xenon-tetrafluoride",
-        "published": "180"
+        "published": "180",
+        "symmetry": "D4h"
       }
     ],
     "dihedrals": []

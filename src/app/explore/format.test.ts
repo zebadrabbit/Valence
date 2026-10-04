@@ -164,6 +164,38 @@ describe('headlineValue and measuredNote', () => {
     expect(measurementText(bond, names)).toContain('(cited value)')
   })
 
+  it('says of a printed angle that the point group fixes that it is cited and fixed by symmetry, so that BF3 and PCl5 read alike', () => {
+    for (const [id, pointGroup, values] of [
+      ['carbon-dioxide', 'D∞h', ['180']],
+      ['methane', 'Td', ['109.471']],
+      ['boron-trifluoride', 'D3h', ['120']],
+      ['sulfur-hexafluoride', 'Oh', ['90', '180']],
+      ['xenon-tetrafluoride', 'D4h', ['90', '180']],
+    ] as const) {
+      const m = molecule(id)
+      const names = atomNames(m, registry.elements)
+      expect([id, [...new Set(m.measurements!.angles.map((angle) => angle.published))]]).toEqual([id, values])
+      for (const entry of m.measurements!.angles) {
+        const angle = measure(m, entry.atoms)!
+        expect(headlineValue(angle)).toBe(`${entry.published}°`)
+        expect([id, measuredNote(m, angle)]).toEqual([id, `Cited value, experimental (gas phase); the molecule's symmetry (${pointGroup}) fixes it. The model's coordinates give ${entry.value.toFixed(1)}°.`])
+        expect([id, measurementText(angle, names)]).toEqual([id, expect.stringMatching(new RegExp(`: ${entry.published}° \\(cited value, fixed by the molecule's symmetry\\)\\.$`))])
+      }
+      // A length is never fixed by the point group.
+      const bond = measure(m, [m.bonds[0]!.a, m.bonds[0]!.b])!
+      expect([id, measuredNote(m, bond)]).toEqual([id, expect.stringMatching(/^Cited value, experimental \(gas phase\)\. /)])
+    }
+  })
+
+  it('says nothing of symmetry for an angle that had to be measured', () => {
+    for (const id of ['water', 'ammonia', 'sulfur-dioxide', 'hydrogen-peroxide']) {
+      const m = molecule(id)
+      const angle = measure(m, m.measurements!.angles[0]!.atoms)!
+      expect([id, measuredNote(m, angle)]).toEqual([id, expect.stringMatching(/^Cited value, experimental \(gas phase\)\. /)])
+      expect([id, measurementText(angle, atomNames(m, registry.elements))]).toEqual([id, expect.stringContaining('(cited value).')])
+    }
+  })
+
   it('shows the model value where the experimental molecule has no cited value for the atoms', () => {
     const across = measure(water, [h1!, h2!])!
     expect(across.cited).toBeUndefined()

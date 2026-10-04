@@ -3,6 +3,7 @@
  "conventions": {
   "units": "angstrom, degrees",
   "valueAsPublished": "The value exactly as the 'Internal coordinates' table of the CCCBDB page prints it, digits and trailing zeros included (pages re-fetched 2026-10-03). null where the page prints no row for the value: the three PCl5 angles, which rest on the stated point group.",
+  "fixedBySymmetry": "true where the molecule's point group, as the CCCBDB page states it, fixes the angle whatever the bond lengths are: CO2 (D∞h), CH4 (Td), BF3 (D3h), SF6 (Oh), XeF4 (D4h) and PCl5 (D3h). The build stores the point group beside such an angle, and the card says that the symmetry fixes it. Set for CO2 on 2026-10-04: a D∞h molecule is linear, so its 180 is fixed in the same way as the 180 of SF6.",
   "origin": "Central atom at the origin where there is one (H2O, CO2, NH3, CH4, BF3, SO2, SF6, XeF4, PCl5); centre of mass at the origin for O2, N2, HCl, H2O2. Each molecule's 'origin' field states its own.",
   "indices": "zero-based into atoms",
   "bonds": "'atoms' is one representative pair; 'appliesTo' lists every symmetry-equivalent pair with that cited length. Same for angles ([end, centre, end]).",
@@ -150,7 +151,7 @@
      ],
      "degrees": 180.0,
      "valueAsPublished": "180",
-     "fixedBySymmetry": false,
+     "fixedBySymmetry": true,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=124389",
      "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Herzberg, G., Electronic Spectra and Electronic Structure of Polyatomic Molecules, Van Nostrand, New York, 1966"
     }

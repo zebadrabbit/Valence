@@ -152,7 +152,8 @@
         ],
         "value": 109.471,
         "sourceId": "cccbdb-methane",
-        "published": "109.471"
+        "published": "109.471",
+        "symmetry": "Td"
       },
       {
         "atoms": [
@@ -162,7 +163,8 @@
         ],
         "value": 109.471,
         "sourceId": "cccbdb-methane",
-        "published": "109.471"
+        "published": "109.471",
+        "symmetry": "Td"
       },
       {
         "atoms": [
@@ -172,7 +174,8 @@
         ],
         "value": 109.471,
         "sourceId": "cccbdb-methane",
-        "published": "109.471"
+        "published": "109.471",
+        "symmetry": "Td"
       },
       {
         "atoms": [
@@ -182,7 +185,8 @@
         ],
         "value": 109.471,
         "sourceId": "cccbdb-methane",
-        "published": "109.471"
+        "published": "109.471",
+        "symmetry": "Td"
       },
       {
         "atoms": [
@@ -192,7 +196,8 @@
         ],
         "value": 109.471,
         "sourceId": "cccbdb-methane",
-        "published": "109.471"
+        "published": "109.471",
+        "symmetry": "Td"
       },
       {
         "atoms": [
@@ -202,7 +207,8 @@
         ],
         "value": 109.471,
         "sourceId": "cccbdb-methane",
-        "published": "109.471"
+        "published": "109.471",
+        "symmetry": "Td"
       }
     ],
     "dihedrals": []

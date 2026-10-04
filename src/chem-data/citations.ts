@@ -92,11 +92,13 @@ export function bondCitations(
 }
 
 function geometryEntries(molecule: Molecule, measurement: Measurement): Entry[] {
+  const { cited } = measurement
+  if (!cited) return [['Atom coordinates of the model', molecule.sourceId]]
   return [
     ['Atom coordinates of the model', molecule.sourceId],
-    ...(measurement.cited
-      ? // A value that follows from symmetry rests on the point group its source states, not on a figure read there.
-        [[measurement.cited.symmetry ? `Point group of the molecule (${measurement.cited.symmetry})` : CITED_LABEL[measurement.kind], measurement.cited.sourceId] as const]
-      : []),
+    // A value that follows from symmetry alone rests on the point group its source states, not on a figure read
+    // there. One the source prints and the point group fixes rests on both.
+    ...(cited.published !== undefined || !cited.symmetry ? [[CITED_LABEL[measurement.kind], cited.sourceId] as const] : []),
+    ...(cited.symmetry ? [[`Point group of the molecule (${cited.symmetry})`, cited.sourceId] as const] : []),
   ]
 }

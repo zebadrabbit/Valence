@@ -210,7 +210,8 @@
         ],
         "value": 90,
         "sourceId": "cccbdb-sulfur-hexafluoride",
-        "published": "90"
+        "published": "90",
+        "symmetry": "Oh"
       },
       {
         "atoms": [
@@ -220,7 +221,8 @@
         ],
         "value": 90,
         "sourceId": "cccbdb-sulfur-hexafluoride",
-        "published": "90"
+        "published": "90",
+        "symmetry": "Oh"
       },
       {
         "atoms": [
@@ -230,7 +232,8 @@
         ],
         "value": 90,
         "sourceId": "cccbdb-sulfur-hexafluoride",
-        "published": "90"
+        "published": "90",
+        "symmetry": "Oh"
       },
       {
         "atoms": [
@@ -240,7 +243,8 @@
         ],
         "value": 90,
         "sourceId": "cccbdb-sulfur-hexafluoride",
-        "published": "90"
+        "published": "90",
+        "symmetry": "Oh"
       },
       {
         "atoms": [
@@ -250,7 +254,8 @@
         ],
         "value": 90,
         "sourceId": "cccbdb-sulfur-hexafluoride",
-        "published": "90"
+        "published": "90",
+        "symmetry": "Oh"
       },
       {
         "atoms": [
@@ -260,7 +265,8 @@
         ],
         "value": 90,
         "sourceId": "cccbdb-sulfur-hexafluoride",
-        "published": "90"
+        "published": "90",
+        "symmetry": "Oh"
       },
       {
         "atoms": [
@@ -270,7 +276,8 @@
         ],
         "value": 90,
         "sourceId": "cccbdb-sulfur-hexafluoride",
-        "published": "90"
+        "published": "90",
+        "symmetry": "Oh"
       },
       {
         "atoms": [
@@ -280,7 +287,8 @@
         ],
         "value": 90,
         "sourceId": "cccbdb-sulfur-hexafluoride",
-        "published": "90"
+        "published": "90",
+        "symmetry": "Oh"
       },
       {
         "atoms": [
@@ -290,7 +298,8 @@
         ],
         "value": 90,
         "sourceId": "cccbdb-sulfur-hexafluoride",
-        "published": "90"
+        "published": "90",
+        "symmetry": "Oh"
       },
       {
         "atoms": [
@@ -300,7 +309,8 @@
         ],
         "value": 90,
         "sourceId": "cccbdb-sulfur-hexafluoride",
-        "published": "90"
+        "published": "90",
+        "symmetry": "Oh"
       },
       {
         "atoms": [
@@ -310,7 +320,8 @@
         ],
         "value": 90,
         "sourceId": "cccbdb-sulfur-hexafluoride",
-        "published": "90"
+        "published": "90",
+        "symmetry": "Oh"
       },
       {
         "atoms": [
@@ -320,7 +331,8 @@
         ],
         "value": 90,
         "sourceId": "cccbdb-sulfur-hexafluoride",
-        "published": "90"
+        "published": "90",
+        "symmetry": "Oh"
       },
       {
         "atoms": [
@@ -330,7 +342,8 @@
         ],
         "value": 180,
         "sourceId": "cccbdb-sulfur-hexafluoride",
-        "published": "180"
+        "published": "180",
+        "symmetry": "Oh"
       },
       {
         "atoms": [
@@ -340,7 +353,8 @@
         ],
         "value": 180,
         "sourceId": "cccbdb-sulfur-hexafluoride",
-        "published": "180"
+        "published": "180",
+        "symmetry": "Oh"
       },
       {
         "atoms": [
@@ -350,7 +364,8 @@
         ],
         "value": 180,
         "sourceId": "cccbdb-sulfur-hexafluoride",
-        "published": "180"
+        "published": "180",
+        "symmetry": "Oh"
       }
     ],
     "dihedrals": []

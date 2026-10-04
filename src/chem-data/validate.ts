@@ -221,11 +221,11 @@ function checkMeasurements(registry: Registry): string[] {
         errors.push(`${label} measures ${measured.toFixed(3)} ${unit}, cited ${cited} ${unit}`)
       }
     }
-    // The card says of such a value that its source prints no figure for it.
+    // A value is a figure its source prints, or follows from the point group the source states, or both: never neither.
     for (const [kind, list] of [['length', lengths], ['angle', angles], ['dihedral', dihedrals]] as const) {
       for (const { atoms, published, symmetry } of list) {
-        if (published !== undefined && symmetry !== undefined) {
-          errors.push(`molecule "${molecule.id}": ${kind} ${atoms.join('-')} has a printed figure, so it cannot be labelled as following from symmetry`)
+        if (published === undefined && symmetry === undefined) {
+          errors.push(`molecule "${molecule.id}": ${kind} ${atoms.join('-')} has no printed figure, so it must name the point group it follows from`)
         }
       }
     }
@@ -246,8 +246,8 @@ function checkMeasurements(registry: Registry): string[] {
 }
 
 // A `published` string is the source's own text for the number stored beside it, so it must read as that number.
-// That one is present wherever the source prints a figure is not checked here: the build script fails on a
-// missing one, and registry.test.ts pins the values that have none.
+// That one is present wherever the source prints a figure is not checked here, beyond a molecule's measurements
+// (above): the build script fails on a missing one, and registry.test.ts pins the values that have none.
 const PLAIN_NUMBER = /^-?\d+(\.\d+)?$/
 
 function checkPublished(value: unknown, path: string): string[] {

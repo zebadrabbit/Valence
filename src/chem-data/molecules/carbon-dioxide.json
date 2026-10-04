@@ -94,7 +94,8 @@
         ],
         "value": 180,
         "sourceId": "cccbdb-carbon-dioxide",
-        "published": "180"
+        "published": "180",
+        "symmetry": "D∞h"
       }
     ],
     "dihedrals": []

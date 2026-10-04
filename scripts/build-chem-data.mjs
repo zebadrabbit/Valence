@@ -374,15 +374,19 @@ function measurements(id, geo, sourceId) {
       if (!sets.some((set) => set.join() === m.atoms.join())) fail(`${id}: ${m.label} does not list its own atoms`)
       return sets.map((atoms) => {
         if (atoms.length !== size || typeof m[valueKey] !== 'number') fail(`${id}: malformed measurement ${m.label}`)
+        // A value the molecule's point group fixes is stored with that point group, whether or not the source
+        // prints a figure for it, so that the card says so of every such value.
+        if (m.fixedBySymmetry === true && !geo.pointGroup) fail(`${id}: ${m.label} is marked as fixed by symmetry but the molecule has no point group`)
+        const symmetry = m.fixedBySymmetry === true ? { symmetry: geo.pointGroup } : {}
         // The text the source prints for the value, or null where its table has no row for it. Such a value
-        // must be one the molecule's point group fixes, and is stored with that point group, not as a figure read.
+        // must be one the point group fixes.
         const published = m.valueAsPublished
         if (published === null) {
-          if (m.fixedBySymmetry !== true || !geo.pointGroup) fail(`${id}: ${m.label} has no published text and is not marked as fixed by symmetry`)
-          return { atoms, value: m[valueKey], sourceId, symmetry: geo.pointGroup }
+          if (m.fixedBySymmetry !== true) fail(`${id}: ${m.label} has no published text and is not marked as fixed by symmetry`)
+          return { atoms, value: m[valueKey], sourceId, ...symmetry }
         }
         if (typeof published !== 'string' || Number(published) !== m[valueKey]) fail(`${id}: ${m.label} differs from the published text`)
-        return { atoms, value: m[valueKey], sourceId, published }
+        return { atoms, value: m[valueKey], sourceId, published, ...symmetry }
       })
     })
   return {

@@ -87,6 +87,14 @@ describe('measure', () => {
     expect(bond!.cited).toEqual({ value: 2.02, published: '2.020', sourceId: 'cccbdb-phosphorus-pentachloride' })
   })
 
+  it('gives the point group with the printed figure where the point group fixes an angle the source prints', () => {
+    const bf3 = molecule('boron-trifluoride')
+    const b = indices(bf3.id, 'B')[0]!
+    const [f1, f2] = indices(bf3.id, 'F')
+    expect(measure(bf3, [f1!, b, f2!])!.cited).toEqual({ value: 120, published: '120', sourceId: 'cccbdb-boron-trifluoride', symmetry: 'D3h' })
+    expect(measure(bf3, [b, f1!])!.cited).toEqual({ value: 1.307, published: '1.307', sourceId: 'cccbdb-boron-trifluoride' })
+  })
+
   it('agrees with every cited measurement in the library', () => {
     for (const m of registry.molecules) {
       const all = [...(m.measurements?.lengths ?? []), ...(m.measurements?.angles ?? []), ...(m.measurements?.dihedrals ?? [])]

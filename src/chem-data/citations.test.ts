@@ -66,6 +66,14 @@ describe('measurementCitations and bondCitations', () => {
     ])
   })
 
+  it('cites the page for both the figure and the point group, where the page prints an angle its point group fixes', () => {
+    const bf3 = molecule('boron-trifluoride')
+    const { atoms } = bf3.measurements!.angles[0]!
+    expect(summary(measurementCitations(bf3, measure(bf3, atoms)!, sources))).toEqual([
+      ['cccbdb-boron-trifluoride', ['Atom coordinates of the model', 'Cited angle', 'Point group of the molecule (D3h)']],
+    ])
+  })
+
   it('cites only the coordinates when the atoms have no cited value', () => {
     const benzene = molecule('benzene')
     expect(summary(measurementCitations(benzene, measure(benzene, [0, 1, 2])!, sources))).toEqual([

@@ -47,15 +47,15 @@ function hydrogenPeroxide() {
     geometrySource: 'cited-experimental',
     measurements: {
       lengths: [
-        { atoms: [0, 1], value: 1.475, sourceId: 's1' },
-        { atoms: [0, 2], value: 0.95, sourceId: 's1' },
-        { atoms: [1, 3], value: 0.95, sourceId: 's1' },
+        { atoms: [0, 1], value: 1.475, published: '1.475', sourceId: 's1' },
+        { atoms: [0, 2], value: 0.95, published: '0.95', sourceId: 's1' },
+        { atoms: [1, 3], value: 0.95, published: '0.95', sourceId: 's1' },
       ],
       angles: [
-        { atoms: [2, 0, 1], value: 94.8, sourceId: 's1' },
-        { atoms: [3, 1, 0], value: 94.8, sourceId: 's1' },
+        { atoms: [2, 0, 1], value: 94.8, published: '94.8', sourceId: 's1' },
+        { atoms: [3, 1, 0], value: 94.8, published: '94.8', sourceId: 's1' },
       ],
-      dihedrals: [{ atoms: [2, 0, 1, 3], value: 119.8, sourceId: 's1' }],
+      dihedrals: [{ atoms: [2, 0, 1, 3], value: 119.8, published: '119.8', sourceId: 's1' }],
     },
     sourceId: 's1',
   } satisfies Molecule
@@ -82,10 +82,10 @@ function validRegistry() {
     geometrySource: 'cited-experimental',
     measurements: {
       lengths: [
-        { atoms: [0, 1], value: 0.957, sourceId: 's1' },
-        { atoms: [0, 2], value: 0.957, sourceId: 's1' },
+        { atoms: [0, 1], value: 0.957, published: '0.957', sourceId: 's1' },
+        { atoms: [0, 2], value: 0.957, published: '0.957', sourceId: 's1' },
       ],
-      angles: [{ atoms: [1, 0, 2], value: 104.5, sourceId: 's1' }],
+      angles: [{ atoms: [1, 0, 2], value: 104.5, published: '104.5', sourceId: 's1' }],
       dihedrals: [],
     },
     sourceId: 's1',
@@ -333,10 +333,10 @@ describe('validateRegistry', () => {
         geometrySource: 'cited-experimental',
         measurements: {
           lengths: [
-            { atoms: [0, 1], value: 1.162, sourceId: 's1' },
-            { atoms: [0, 2], value: 1.162, sourceId: 's1' },
+            { atoms: [0, 1], value: 1.162, published: '1.162', sourceId: 's1' },
+            { atoms: [0, 2], value: 1.162, published: '1.162', sourceId: 's1' },
           ],
-          angles: [{ atoms: [1, 0, 2], value: 180, sourceId: 's1' }],
+          angles: [{ atoms: [1, 0, 2], value: 180, published: '180', sourceId: 's1' }],
           dihedrals: [],
         },
         sourceId: 's1',
@@ -371,7 +371,7 @@ describe('validateRegistry', () => {
       water.atoms[0]!.lonePairs = 1
       water.atoms.push({ element: 'H', position: [0, 0, 0.96], position2d: [0, 1], formalCharge: 0, lonePairs: 0 })
       water.bonds.push({ a: 0, b: 3, order: 1, aromatic: false })
-      water.measurements!.lengths.push({ atoms: [0, 3], value: 0.96, sourceId: 's1' })
+      water.measurements!.lengths.push({ atoms: [0, 3], value: 0.96, published: '0.96', sourceId: 's1' })
       water.charge = 1
       expect(validateRegistry(r)).toEqual([])
     })
@@ -384,12 +384,15 @@ describe('validateRegistry', () => {
   })
 
   describe('cited experimental measurements', () => {
+    // Another cited value, with the text its source would print for it: a value with no figure must name its point group.
+    const cite = (entry: { value: number; published?: string }, value: number) => Object.assign(entry, { value, published: String(value) })
+
     it('accepts lengths within 0.01 Å and angles and dihedrals within 1°', () => {
       const r = validRegistry()
       const m = hydrogenPeroxide()
-      m.measurements!.lengths[0]!.value = 1.484
-      m.measurements!.angles[0]!.value = 95.7
-      m.measurements!.dihedrals[0]!.value = 120.7
+      cite(m.measurements!.lengths[0]!, 1.484)
+      cite(m.measurements!.angles[0]!, 95.7)
+      cite(m.measurements!.dihedrals[0]!, 120.7)
       r.molecules.push(m)
       expect(validateRegistry(r)).toEqual([])
     })
@@ -400,34 +403,40 @@ describe('validateRegistry', () => {
       expect(validateRegistry(r)).toEqual(['molecule "water": angle 1-0-2 measures 104.512 °, cited 120 °'])
     })
 
-    it('rejects a value said to follow from symmetry that also has a printed figure', () => {
+    it('accepts a printed figure that the point group fixes as well: the card says both', () => {
       const r = validRegistry()
       r.molecules[0]!.measurements!.angles[0] = { atoms: [1, 0, 2], value: 104.5, sourceId: 's1', published: '104.5', symmetry: 'C2v' }
-      expect(validateRegistry(r)).toEqual(['molecule "water": angle 1-0-2 has a printed figure, so it cannot be labelled as following from symmetry'])
+      expect(validateRegistry(r)).toEqual([])
+    })
+
+    it('rejects a value with neither a printed figure nor the point group it follows from', () => {
+      const r = validRegistry()
+      r.molecules[0]!.measurements!.angles[0] = { atoms: [1, 0, 2], value: 104.5, sourceId: 's1' }
+      expect(validateRegistry(r)).toEqual(['molecule "water": angle 1-0-2 has no printed figure, so it must name the point group it follows from'])
     })
 
     it('rejects a cited length the coordinates miss by more than 0.01 Å', () => {
       const r = validRegistry()
-      r.molecules[0]!.measurements!.lengths[1]!.value = 0.97
+      cite(r.molecules[0]!.measurements!.lengths[1]!, 0.97)
       expect(validateRegistry(r)).toEqual(['molecule "water": length 0-2 measures 0.957 Å, cited 0.97 Å'])
     })
 
     it('rejects a cited angle the coordinates miss by more than 1°', () => {
       const r = validRegistry()
-      r.molecules[0]!.measurements!.angles[0]!.value = 109.5
+      cite(r.molecules[0]!.measurements!.angles[0]!, 109.5)
       expect(validateRegistry(r)).toEqual(['molecule "water": angle 1-0-2 measures 104.512 °, cited 109.5 °'])
     })
 
     it('rejects a cited angle 1.5° from the coordinates, so the tolerance stays at 1°', () => {
       const r = validRegistry()
-      r.molecules[0]!.measurements!.angles[0]!.value = 106.0
+      cite(r.molecules[0]!.measurements!.angles[0]!, 106.0)
       expect(validateRegistry(r)).toEqual(['molecule "water": angle 1-0-2 measures 104.512 °, cited 106 °'])
     })
 
     it('rejects a cited dihedral 1.6° from the coordinates', () => {
       const r = validRegistry()
       const m = hydrogenPeroxide()
-      m.measurements!.dihedrals[0]!.value = 121.4
+      cite(m.measurements!.dihedrals[0]!, 121.4)
       r.molecules.push(m)
       expect(validateRegistry(r)).toEqual(['molecule "h2o2": dihedral 2-0-1-3 measures 119.800 °, cited 121.4 °'])
     })
@@ -435,7 +444,7 @@ describe('validateRegistry', () => {
     it('rejects a cited dihedral the coordinates miss by more than 1°, including its mirror image', () => {
       const r = validRegistry()
       const m = hydrogenPeroxide()
-      m.measurements!.dihedrals[0]!.value = -119.8
+      cite(m.measurements!.dihedrals[0]!, -119.8)
       r.molecules.push(m)
       expect(validateRegistry(r)).toEqual(['molecule "h2o2": dihedral 2-0-1-3 measures 119.800 °, cited -119.8 °'])
     })
@@ -447,7 +456,7 @@ describe('validateRegistry', () => {
       const t = (-0.5 * Math.PI) / 180
       const [x, y] = [0.446625 + 0.028139, 0.819011]
       m.atoms[3]!.position = [-(x * Math.cos(t) - y * Math.sin(t)) - 0.028139, -(x * Math.sin(t) + y * Math.cos(t)), -0.816994]
-      m.measurements!.dihedrals[0]!.value = 180
+      cite(m.measurements!.dihedrals[0]!, 180)
       expect(validateRegistry({ ...r, molecules: [m], moDiagrams: [] })).toEqual([])
     })
 
@@ -480,7 +489,7 @@ describe('validateRegistry', () => {
       const r = validRegistry()
       r.molecules[0]!.measurements!.lengths.pop()
       expect(validateRegistry(r)).toEqual(['molecule "water": bond 0-2 has no cited length'])
-      r.molecules[0]!.measurements = { lengths: [], angles: [{ atoms: [1, 0, 2], value: 104.5, sourceId: 's1' }], dihedrals: [] }
+      r.molecules[0]!.measurements = { lengths: [], angles: [{ atoms: [1, 0, 2], value: 104.5, published: '104.5', sourceId: 's1' }], dihedrals: [] }
       expect(validateRegistry(r)).toEqual([
         'molecule "water": bond 0-1 has no cited length',
         'molecule "water": bond 0-2 has no cited length',

@@ -108,6 +108,14 @@ describe('measure card', () => {
     expect(length).toContain('Cited value, experimental (gas phase).')
     expect(length).toContain('Cited length')
   })
+
+  it('labels the angle of BF₃, which its source prints and its symmetry fixes, as both', () => {
+    const bf3 = molecule('boron-trifluoride')
+    const angle = inspector(bf3.id, { atoms: [...bf3.measurements!.angles[0]!.atoms], bond: null })
+    expect(angle).toContain('Cited value, experimental (gas phase); the molecule&#x27;s symmetry (D3h) fixes it.')
+    expect(angle).toContain('Cited angle')
+    expect(angle).toContain('Point group of the molecule (D3h)')
+  })
 })
 
 describe('hybrid orbitals card', () => {

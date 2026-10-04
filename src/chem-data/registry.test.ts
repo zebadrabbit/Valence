@@ -113,9 +113,27 @@ describe('the real chem-data registry', () => {
       ...Array(6).fill(['phosphorus-pentachloride', 3, 90]),
       ['phosphorus-pentachloride', 3, 180],
     ])
-    // Each is stored with the point group it follows from, and no value the source prints is.
+    // Each is stored with the point group it follows from.
     expect(unpublished.map((entry) => entry.symmetry)).toEqual(Array(10).fill('D3h'))
-    expect(cited.filter((entry) => entry.published !== undefined && entry.symmetry !== undefined)).toEqual([])
+    // So is every angle the source prints a figure for that the point group fixes all the same: the card says both.
+    const fixed = cited.filter((entry) => entry.published !== undefined && entry.symmetry !== undefined)
+    const counted = new Map<string, number>()
+    for (const entry of fixed) {
+      const key = `${entry.id} ${entry.symmetry} ${entry.published}`
+      counted.set(key, (counted.get(key) ?? 0) + 1)
+    }
+    expect(fixed.every((entry) => entry.atoms.length === 3)).toBe(true)
+    expect([...counted]).toEqual([
+      ['carbon-dioxide D∞h 180', 1],
+      ['methane Td 109.471', 6],
+      ['boron-trifluoride D3h 120', 3],
+      ['sulfur-hexafluoride Oh 90', 12],
+      ['sulfur-hexafluoride Oh 180', 3],
+      ['xenon-tetrafluoride D4h 90', 4],
+      ['xenon-tetrafluoride D4h 180', 2],
+    ])
+    // An angle that had to be measured carries no point group: that of water, ammonia, sulfur dioxide or hydrogen peroxide.
+    for (const id of ['water', 'ammonia', 'sulfur-dioxide', 'hydrogen-peroxide']) expect([id, cited.filter((entry) => entry.id === id && entry.symmetry !== undefined)]).toEqual([id, []])
     const published = (id: string) => [...new Set(cited.filter((entry) => entry.id === id).map((entry) => entry.published))]
     expect(published('water')).toEqual(['0.958', '104.4776'])
     expect(published('hydrogen-peroxide')).toEqual(['1.475', '0.950', '94.8', '119.8'])

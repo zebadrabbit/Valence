@@ -123,7 +123,8 @@
         ],
         "value": 120,
         "sourceId": "cccbdb-boron-trifluoride",
-        "published": "120"
+        "published": "120",
+        "symmetry": "D3h"
       },
       {
         "atoms": [
@@ -133,7 +134,8 @@
         ],
         "value": 120,
         "sourceId": "cccbdb-boron-trifluoride",
-        "published": "120"
+        "published": "120",
+        "symmetry": "D3h"
       },
       {
         "atoms": [
@@ -143,7 +145,8 @@
         ],
         "value": 120,
         "sourceId": "cccbdb-boron-trifluoride",
-        "published": "120"
+        "published": "120",
+        "symmetry": "D3h"
       }
     ],
     "dihedrals": []

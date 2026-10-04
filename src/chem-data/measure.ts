@@ -10,15 +10,21 @@ export type Measurement = {
   /** Å or degrees, from the stored coordinates. Null for a dihedral with three of its atoms in a line, which has no value. */
   value: number | null
   /**
-   * The molecule's cited experimental value for exactly these atoms, when it has one, with the text its source prints;
-   * or, where the source prints no figure, the value its point group fixes, with that point group in `symmetry`.
+   * The molecule's cited experimental value for exactly these atoms, when it has one, with the text its source prints
+   * and, where the molecule's point group fixes the value, that point group in `symmetry`. Where the source prints no
+   * figure, the value is the one the point group fixes, and has no `published`.
    */
   cited?: { value: number; published?: string; symmetry?: string; sourceId: string }
 }
 
-/** What a card says of a value that has `symmetry`: where it comes from, and that it is not a figure read in the source. */
+/** What a card says of a value that has `symmetry` and no `published`: where it comes from, and that it is not a figure read in the source. */
 export function symmetryBasis(pointGroup: string): string {
   return `From the molecule's symmetry (${pointGroup}); the source prints no figure`
+}
+
+/** What a card adds of a value that has both: the source prints the figure, and it could be no other. */
+export function symmetryFixes(pointGroup: string): string {
+  return `the molecule's symmetry (${pointGroup}) fixes it`
 }
 
 const KINDS = { 2: ['distance', 'lengths'], 3: ['angle', 'angles'], 4: ['dihedral', 'dihedrals'] } as const
