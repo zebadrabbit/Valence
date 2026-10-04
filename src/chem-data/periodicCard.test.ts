@@ -175,11 +175,20 @@ describe("the sentences on NIST's marking of an ionization energy", () => {
     for (const note of Object.values(IONIZATION_FLAG_NOTES)) expect(note.sourceIds).toEqual(['nist-asd-ie-all'])
   })
 
-  it('quote the help page as the cross-check records it', () => {
-    const quoted = /> (Some ionization energies are in square brackets.*)/.exec(crossCheckRecorded)?.[1]
-    expect(quoted).toContain('Square brackets indicate the energies determined by interpolation, extrapolation, or other semi-empirical procedure relying on some known experimental values.')
-    expect(quoted).toContain('Parentheses indicate energies that have been determined from an ab-initio calculation, or are otherwise not derived from evaluated experimental data.')
-    for (const note of Object.values(IONIZATION_FLAG_NOTES)) expect(note.support).toContain(quoted)
+  it('locate the help page and do not quote it: NIST reserves its rights in the database', () => {
+    // What the help page says is kept in the research record, and the notes agree with it.
+    const recorded = /> (Some ionization energies are in square brackets.*)/.exec(crossCheckRecorded)?.[1]
+    expect(recorded).toContain('Square brackets indicate the energies determined by interpolation, extrapolation, or other semi-empirical procedure relying on some known experimental values.')
+    expect(recorded).toContain('Parentheses indicate energies that have been determined from an ab-initio calculation, or are otherwise not derived from evaluated experimental data.')
+    for (const note of Object.values(IONIZATION_FLAG_NOTES)) {
+      expect(note.support).toMatch(/^nist-asd-ie-all: not quoted; see the help page of the ionization energy form, .+, https:\/\/physics\.nist\.gov\/PhysRefData\/ASD\/Html\/iehelp\.html\. It establishes that .+\.$/)
+      expect(note.support).toContain('square brackets mark')
+      expect(note.support).toContain('parentheses mark')
+      // No run of the page's own words: nothing in quotation marks, and neither of its two sentences.
+      expect(note.support).not.toMatch(/[“”"]/)
+      expect(note.support).not.toContain('Square brackets indicate')
+      expect(note.support).not.toContain('Parentheses indicate')
+    }
   })
 
   it('apply to the ten energies NIST marks: hydrogen among the theoretical ones', () => {
@@ -238,6 +247,30 @@ describe('every sentence of the card', () => {
       expect([what, findInstitutionText(note.text, [])]).toEqual([what, null])
       expect([what, findInstitutionText(note.support, [])]).toEqual([what, null])
     }
+  })
+
+  // As in periodic.test.ts: OpenStax is CC BY 4.0, and PubChem's own labels are not another publisher's prose.
+  const QUOTABLE = /^(openstax-chem2e-[\d.]+|pubchem-element-pages|pubchem-periodic-table)$/
+
+  it('quotes only OpenStax and PubChem; any other source is located, or described with nothing of its own in quotation marks', () => {
+    const others = all.flatMap(([what, note]) =>
+      note.support
+        .split('\n')
+        .map((line) => /^([a-z0-9.-]+): (.*)$/.exec(line))
+        .flatMap((match) => (match && !QUOTABLE.test(match[1]!) ? [[what, match[1]!, match[2]!] as const] : [])),
+    )
+    expect(new Set(others.map(([, id]) => id))).toEqual(new Set(['mantina-2009', 'nist-asd-ie-all', 'ciaaw-abridged-2024', 'iupac-periodic-table', 'rsc-periodic-table', 'iupac-group-3-report-2021']))
+    for (const [what, id, passage] of others) {
+      if (passage.startsWith('not quoted; ')) {
+        expect([what, id, passage]).toEqual([what, id, expect.stringMatching(/^not quoted; see .+, https:\/\/\S+\. It establishes that .+\.$/)])
+        // What stands in quotation marks is a heading or a title, never a sentence.
+        for (const [, quoted] of passage.matchAll(/“([^”]*)”/g)) expect([what, id, quoted!.split(' ').length]).toEqual([what, id, expect.toSatisfy((words: number) => words <= 10)])
+      } else {
+        // What this project counted or saw in the source, in its own words.
+        expect([what, id, passage]).toEqual([what, id, expect.not.stringMatching(/[“”"]/)])
+      }
+    }
+    expect(others.length).toBe(1 + 2 + 3 + 34 + 2)
   })
 
   it('is a whole sentence, with at least one known source and the passage behind each source', () => {

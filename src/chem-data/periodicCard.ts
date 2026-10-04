@@ -127,8 +127,13 @@ export const ELECTRON_AFFINITY_NOTE: Description = description(
   'that every electron affinity in the table is a positive number',
 )
 
-const NIST_MARKINGS =
-  'the help page of the ionization energy form says: “Some ionization energies are in square brackets "[ ]" and some are in parentheses "( )". Square brackets indicate the energies determined by interpolation, extrapolation, or other semi-empirical procedure relying on some known experimental values. Parentheses indicate energies that have been determined from an ab-initio calculation, or are otherwise not derived from evaluated experimental data.” (read on 2026-10-03; recorded in docs/research/periodic-table/cross-check-recorded.md, section 9.8)'
+// NIST reserves its rights in the database, so the help page is located and put in this project's words. What it
+// says is recorded in docs/research/periodic-table/cross-check-recorded.md, section 9.8.
+const NIST_MARKINGS = located(
+  'https://physics.nist.gov/PhysRefData/ASD/Html/iehelp.html',
+  'the help page of the ionization energy form, on square brackets and parentheses (read on 2026-10-03)',
+  'square brackets mark an energy worked out from measured values by interpolation, extrapolation or a similar semi-empirical procedure, and that parentheses mark one that comes from a calculation from first principles or that otherwise does not rest on evaluated measurements.',
+)
 
 /** Shown with a first ionization energy that NIST marks as something other than measured (spec 7). */
 export const IONIZATION_FLAG_NOTES: Readonly<Record<'semi-empirical' | 'theoretical', Description>> = {
