@@ -21,7 +21,7 @@ Requires Node 22 or newer.
     npm run dev        # start the app locally
     npm test           # run the tests, including chem-data validation
     npm run lint       # architecture rules: chemistry code stays pure and deterministic
-    npm run build      # test, type-check, and build to dist/
+    npm run build      # lint, test, type-check, and build to dist/; a failure at any step stops the build
     npm run build:data # regenerate src/chem-data/ JSON from docs/research/phase-2/ and docs/research/periodic-table/
     npm run build:expected # regenerate the expected-values test fixture from docs/research/phase-2/expected.json
     npm run cross-check # rewrite docs/research/periodic-table/cross-check.md from the saved sources
