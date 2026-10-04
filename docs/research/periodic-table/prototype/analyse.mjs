@@ -7,7 +7,7 @@ import {
   agreement, decimals, roundDec, parsePubChem, parseCiaawAbridged, parseCiaawFull, parseCiaawRadioactive, parseAme2020,
   parseNubase2020, parseNistIe, parseWikipediaPauling, parseWikipediaVdw, parseConfiguration, shellCounts,
   electronCount, position, parseWikipediaMasterList, parseWikipediaBoiling, kelvinValues, densityValues,
-} from './lib.mjs'
+} from '../../../../scripts/periodic-table-lib.mjs'
 
 const NUMERIC = ['AtomicMass', 'Electronegativity', 'AtomicRadius', 'IonizationEnergy', 'ElectronAffinity', 'MeltingPoint', 'BoilingPoint', 'Density']
 const ROOM = 298.15 // K
