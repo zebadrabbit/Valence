@@ -7,10 +7,11 @@ import type { Molecule } from '@/chem-data/schema'
 const SUMMARY =
   'w-fit cursor-pointer rounded-sm text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring'
 
-export function Card({ heading, children }: { heading: string; children: ReactNode }) {
+/** `wide` gives the card the inspector's full width, for a card with enough to fill it. */
+export function Card({ heading, wide, children }: { heading: string; wide?: boolean; children: ReactNode }) {
   const headingId = useId()
   return (
-    <section aria-labelledby={headingId} className="grid min-w-0 gap-2 rounded-lg border bg-card p-3 text-sm">
+    <section aria-labelledby={headingId} className={`grid min-w-0 gap-2 rounded-lg border bg-card p-3 text-sm ${wide ? 'col-span-full' : ''}`}>
       <h2 id={headingId} className="font-medium">
         {heading}
       </h2>
@@ -40,10 +41,10 @@ export function Note({ children }: { children: ReactNode }) {
   return <p className="text-xs text-muted-foreground">{children}</p>
 }
 
-/** A native disclosure: closed until asked for, and it works by keyboard without any script. */
-export function Disclosure({ summary, children }: { summary: string; children: ReactNode }) {
+/** A native disclosure: closed until asked for unless `open`, and it works by keyboard without any script. */
+export function Disclosure({ summary, open, children }: { summary: string; open?: boolean; children: ReactNode }) {
   return (
-    <details>
+    <details open={open}>
       <summary className={SUMMARY}>{summary}</summary>
       <div className="mt-2 grid gap-2">{children}</div>
     </details>

@@ -13,7 +13,7 @@ export function EmissionSpectrum({ element }: { element: Element }) {
   if (!emission) return null
   const x = (nm: number) => stripPosition(nm) * WIDTH
   return (
-    <div className="grid gap-2">
+    <div className="grid max-w-md gap-2">
       <h3 className="font-medium">Emission spectrum of the isolated atom</h3>
       <svg viewBox={`0 0 ${WIDTH} ${HEIGHT + 14}`} role="img" aria-label={spectrumText(element)} className="w-full">
         {/* Dark in both themes: the lines are light on darkness, as in a spectroscope. */}

@@ -399,7 +399,7 @@ A settings page offers "export my progress" (downloads the JSON) and "clear my p
 
 ## 11. UI and accessibility
 
-As in the original doc: calm, card-based layout; the 3D viewport or lab bench in the centre; inspector and notebook docked right; mechanism timeline docked along the bottom; light and dark themes; Inter with tabular numerals; design tokens as CSS variables in the Tailwind theme; a Ctrl+K command palette over molecules, labs, and the mechanism.
+As in the original doc: calm, card-based layout; the 3D viewport or lab bench in the centre; in the explorer the atom and bond list sits to its right and the inspector runs across the page below it, its cards side by side where there is room, with the text description and the element details open by default; the lab notebook docked right; mechanism timeline docked along the bottom; light and dark themes; Inter with tabular numerals; design tokens as CSS variables in the Tailwind theme; a Ctrl+K command palette over molecules, labs, and the mechanism.
 
 Accessibility is designed toward WCAG 2.1 AA:
 

@@ -13,7 +13,7 @@ import { Inspector } from './Inspector'
 import { EMPTY_SELECTION, selectionReducer, selectionStatus } from './selection'
 import { ViewerPanel } from './ViewerPanel'
 
-/** The viewer in the centre with the atom and bond list and the inspector docked to its right (spec 11). */
+/** The viewer with the atom and bond list to its right, and the inspector across the full width below them (spec 11). */
 export function MoleculeWorkspace({ molecule }: { molecule: Molecule }) {
   const [selection, dispatch] = useReducer(selectionReducer, EMPTY_SELECTION)
   const [showList, setShowList] = useState(true)
@@ -81,7 +81,7 @@ export function MoleculeWorkspace({ molecule }: { molecule: Molecule }) {
             {formula}
             {rest} {lonePairs}
           </p>
-          <details className="mt-2 max-w-prose text-sm">
+          <details open className="mt-2 max-w-prose text-sm">
             <summary className="w-fit cursor-pointer rounded-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring">
               Text description
             </summary>
@@ -122,10 +122,17 @@ export function MoleculeWorkspace({ molecule }: { molecule: Molecule }) {
           </div>
         </section>
 
-        <aside id={inspectorId} hidden={!showInspector} aria-label="Inspector" className="grid min-w-0 shrink-0 gap-3 lg:w-72">
-          <Inspector molecule={molecule} selection={selection} atomNames={atoms} level={level} />
-        </aside>
       </div>
+
+      {/* Below the model and across the page: the cards sit side by side where there is room. */}
+      <aside
+        id={inspectorId}
+        hidden={!showInspector}
+        aria-label="Inspector"
+        className="mt-4 grid grid-cols-[repeat(auto-fit,minmax(min(100%,20rem),1fr))] items-start gap-3"
+      >
+        <Inspector molecule={molecule} selection={selection} atomNames={atoms} level={level} />
+      </aside>
     </>
   )
 }

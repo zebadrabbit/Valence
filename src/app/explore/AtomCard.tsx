@@ -16,64 +16,71 @@ const DERIVED =
 export function AtomCard(props: { name: string; atom: Molecule['atoms'][number]; derived: DerivedAtom; element: Element }) {
   const { name, atom, derived, element } = props
   return (
-    <Card heading={`Atom: ${name}`}>
-      <Rows>
-        <Row label="Symbol">{element.symbol}</Row>
-        <Row label="Element">{element.name}</Row>
-        <Row label="Atomic number">{element.atomicNumber}</Row>
-        <Row label="Standard atomic weight">{publishedValue(element.atomicWeight)}</Row>
-        <Row label="Electronegativity" note={element.electronegativity.note}>
-          {publishedValue(element.electronegativity)} (Pauling)
-        </Row>
-        <Row label="Valence electrons">{valenceElectrons(element)}</Row>
-        <Row label="Formal charge">{signed(atom.formalCharge)}</Row>
-        <Row label="Lone pairs">{atom.lonePairs}</Row>
-        <Row label="Oxidation state">{signed(derived.oxidationState)}</Row>
-        <Row label="Hybridization" note={derived.hybridizationNote}>
-          {derived.hybridization}
-        </Row>
-        <Row label="VSEPR geometry">{derived.geometry}</Row>
-      </Rows>
-
-      <Disclosure summary={`More about ${element.name.toLowerCase()}`}>
-        <Rows stacked>
-          <Row label="Electron configuration">
-            {configurationParts(element.configuration.value).map(({ subshell, electrons }, i) => (
-              <span key={subshell}>
-                {i > 0 && ' '}
-                {subshell}
-                <sup>{electrons}</sup>
-              </span>
-            ))}
+    <Card heading={`Atom: ${name}`} wide>
+      {/* Side by side on a wide page: the atom in this molecule, then the element itself. */}
+      <div className="grid items-start gap-x-8 gap-y-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
+        <Rows>
+          <Row label="Symbol">{element.symbol}</Row>
+          <Row label="Element">{element.name}</Row>
+          <Row label="Atomic number">{element.atomicNumber}</Row>
+          <Row label="Standard atomic weight">{publishedValue(element.atomicWeight)}</Row>
+          <Row label="Electronegativity" note={element.electronegativity.note}>
+            {publishedValue(element.electronegativity)} (Pauling)
           </Row>
-          <Row label="Ionization energies">
-            <ol>
-              {element.ionizationEnergiesEv.value.map((ev, i) => (
-                <li key={i}>
-                  {ordinal(i + 1)}: {kjPerMol(ev)}
-                </li>
-              ))}
-            </ol>
+          <Row label="Valence electrons">{valenceElectrons(element)}</Row>
+          <Row label="Formal charge">{signed(atom.formalCharge)}</Row>
+          <Row label="Lone pairs">{atom.lonePairs}</Row>
+          <Row label="Oxidation state">{signed(derived.oxidationState)}</Row>
+          <Row label="Hybridization" note={derived.hybridizationNote}>
+            {derived.hybridization}
           </Row>
-          <Row label="Covalent radius">{radius(element.covalentRadius.value)}</Row>
-          <Row label="Van der Waals radius">{radius(element.vdwRadius.value)}</Row>
-          {element.ionicRadii.map((ion) => (
-            <Row
-              key={`${ion.charge}/${ion.coordination}`}
-              label="Ionic radius"
-              note={
-                <>
-                  For <FormulaParts parts={formulaParts(element.symbol, ion.charge)} /> with {ion.coordination} nearest neighbours.
-                </>
-              }
-            >
-              {radius(ion.value)}
-            </Row>
-          ))}
+          <Row label="VSEPR geometry">{derived.geometry}</Row>
         </Rows>
-        <EmissionSpectrum element={element} />
-        {element.notes?.map((note) => <Note key={note}>Note: {note}</Note>)}
-      </Disclosure>
+
+        <Disclosure summary={`More about ${element.name.toLowerCase()}`} open>
+          <div className="grid items-start gap-x-8 gap-y-2 xl:grid-cols-2">
+            <div className="grid gap-2">
+              <Rows stacked>
+                <Row label="Electron configuration">
+                  {configurationParts(element.configuration.value).map(({ subshell, electrons }, i) => (
+                    <span key={subshell}>
+                      {i > 0 && ' '}
+                      {subshell}
+                      <sup>{electrons}</sup>
+                    </span>
+                  ))}
+                </Row>
+                <Row label="Ionization energies">
+                  <ol>
+                    {element.ionizationEnergiesEv.value.map((ev, i) => (
+                      <li key={i}>
+                        {ordinal(i + 1)}: {kjPerMol(ev)}
+                      </li>
+                    ))}
+                  </ol>
+                </Row>
+                <Row label="Covalent radius">{radius(element.covalentRadius.value)}</Row>
+                <Row label="Van der Waals radius">{radius(element.vdwRadius.value)}</Row>
+                {element.ionicRadii.map((ion) => (
+                  <Row
+                    key={`${ion.charge}/${ion.coordination}`}
+                    label="Ionic radius"
+                    note={
+                      <>
+                        For <FormulaParts parts={formulaParts(element.symbol, ion.charge)} /> with {ion.coordination} nearest neighbours.
+                      </>
+                    }
+                  >
+                    {radius(ion.value)}
+                  </Row>
+                ))}
+              </Rows>
+              {element.notes?.map((note) => <Note key={note}>Note: {note}</Note>)}
+            </div>
+            <EmissionSpectrum element={element} />
+          </div>
+        </Disclosure>
+      </div>
 
       <Sources citations={elementCitations(element, registry.sources)} derived={DERIVED} />
     </Card>
