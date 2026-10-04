@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type SyntheticEvent } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type SyntheticEvent } from 'react'
 import { Link } from 'react-router'
 import { CATEGORIES, periodicTable } from '@/chem-data/periodic'
 import type { PeriodicElement } from '@/chem-data/schema'
@@ -53,6 +53,20 @@ export function ElementGrids(props: { selected: PeriodicElement | undefined; pro
     if (!scroller || !cell || scroller.contains(document.activeElement)) return
     scroller.scrollLeft += scrollToShow(scroller.getBoundingClientRect(), cell.getBoundingClientRect(), EDGE)
   }, [selected])
+
+  // A cell focused from the keyboard, which is when its outline is drawn, is brought wholly into view. Not one
+  // focused by a press of the mouse or a tap: scrolling then takes the cell from under the pointer and loses the click.
+  useLayoutEffect(() => {
+    const cell = box.current?.querySelector('.pt-cell:focus-visible')
+    if (!cell) return
+    // First the readout strip under the box, so that where the window has room for both it is in view with the
+    // cell, which is scrolled to last and so is the one in view where there is not. This runs once the strip is
+    // drawn with the focused element, which can change its height.
+    box.current?.nextElementSibling?.scrollIntoView({ block: 'nearest' })
+    // The browser brings a focused cell into view but can leave it against the edge of the scrolling box
+    // or a little beyond it, with its outline cut off. This honours the cell's scroll-margin.
+    cell.scrollIntoView({ block: 'nearest', inline: 'nearest' })
+  }, [focused])
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     const from = cellOf(event)
@@ -111,14 +125,7 @@ export function ElementGrids(props: { selected: PeriodicElement | undefined; pro
         onFocus={(event) => {
           const z = cellOf(event)
           setFocused(z)
-          if (z === null) return
-          setLast(z)
-          // Only when focus came from the keyboard, which is when the outline is drawn. A press of the mouse or a
-          // tap focuses the cell too, and scrolling then takes the cell from under the pointer and loses the click.
-          if (!event.target.matches(':focus-visible')) return
-          // The browser brings a focused cell into view but can leave it against the edge of the scrolling box
-          // or a little beyond it, with its outline cut off. This honours the cell's scroll-margin.
-          event.target.scrollIntoView({ block: 'nearest', inline: 'nearest' })
+          if (z !== null) setLast(z)
         }}
         onBlur={(event) => {
           if (!event.currentTarget.contains(event.relatedTarget)) setFocused(null)
