@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type 
 import { Link } from 'react-router'
 import { CATEGORIES, periodicTable } from '@/chem-data/periodic'
 import type { PeriodicElement } from '@/chem-data/schema'
-import { cellKey, cellLabel, DETACHED_ROWS, elementLink, isHighlighted, MAIN_ROWS, scrollToShow, type Highlight } from './tableLayout'
+import { cellKey, cellLabel, DETACHED_ROWS, elementLink, isHighlighted, isModifierAlone, MAIN_ROWS, scrollToShow, type Highlight } from './tableLayout'
 import { cellValue, digitRoom, LEAST_ROOM, quantityText, TRENDS, trendScale, VALUE_INSETS, type TrendProperty } from './trend'
 
 // The room a cell's focus outline needs inside the box the table scrolls in; periodic.css has the same figure.
@@ -40,8 +40,8 @@ export function ElementGrids(props: { selected: PeriodicElement | undefined; pro
   const [last, setLast] = useState(1)
   // The cell the pointer last moved over. A key press clears it, so the readout follows whichever was used last.
   const [pointed, setPointed] = useState<number | null>(null)
-  // Whether the focused cell shows its outline: it does when focus came by the keyboard, and from the first key
-  // pressed after a click.
+  // Whether the focused cell shows its outline, as far as scrolling it into view goes: it does when focus came by
+  // the keyboard, and from the first key pressed after a click that is not a modifier on its own.
   const [outlined, setOutlined] = useState(false)
   // How many digits a cell has room for beside a decimal point, and how many the selected cell has.
   const [room, setRoom] = useState<readonly number[]>([LEAST_ROOM, LEAST_ROOM])
@@ -60,8 +60,8 @@ export function ElementGrids(props: { selected: PeriodicElement | undefined; pro
   }, [selected])
 
   // A cell focused from the keyboard, which is when its outline is drawn, is brought wholly into view; so is one
-  // that was clicked while cut by an edge, when a key then gives it its outline. Not one focused by a press of the
-  // mouse or a tap: scrolling then takes the cell from under the pointer and loses the click.
+  // that was clicked while cut by an edge, at the next key that is not a modifier on its own. Not one focused by a
+  // press of the mouse or a tap: scrolling then takes the cell from under the pointer and loses the click.
   useLayoutEffect(() => {
     const cell = box.current?.querySelector('.pt-cell:focus-visible')
     if (!cell) return
@@ -96,8 +96,10 @@ export function ElementGrids(props: { selected: PeriodicElement | undefined; pro
   }, [valued])
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    // Shift held for a Shift+click must not scroll the table from under the pointer, nor take the readout from it.
+    if (isModifierAlone(event.key)) return
     setPointed(null)
-    // The browser has decided by now whether this key gives the focused cell its outline: Shift does, Control alone does not.
+    // The browser has decided by now whether this key gives the focused cell its outline.
     setOutlined((event.target as Element).matches(':focus-visible'))
     const from = cellOf(event)
     const action = from === null ? null : cellKey(from, event)

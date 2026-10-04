@@ -70,6 +70,15 @@ export function cellKey(from: number, event: { key: string } & Modifiers): numbe
 }
 
 /**
+ * Whether a key is a modifier pressed on its own. The table does not take that for a key press. Shift makes the
+ * browser draw the focused cell's outline, and bringing a cell that is cut by an edge into view on it would move
+ * the table under a pointer at rest, just before a Shift+click (open in a new window) lands.
+ */
+export function isModifierAlone(key: string): boolean {
+  return key === 'Shift' || key === 'Control' || key === 'Alt' || key === 'Meta'
+}
+
+/**
  * How a cell or a list entry links to an element. `replace`: choosing elements one after another adds nothing to
  * the history, so Back leaves the table in one step (spec 4). `keepFocus`: the layout leaves focus on the link
  * that was chosen, the one exception to its rule of moving focus to the page heading (spec 8).

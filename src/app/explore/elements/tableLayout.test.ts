@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { CATEGORIES, describeGroup, elementPosition, NO_VALUE, periodicTable, type Block } from '@/chem-data/periodic'
 import type { PeriodicElement } from '@/chem-data/schema'
-import { cellKey, cellLabel, DETACHED_ROWS, elementLink, elementTitle, HIGHLIGHT_CHOICES, highlightKey, highlightStatus, isHighlighted, move, scrollToShow, type Highlight } from './tableLayout'
+import { cellKey, cellLabel, DETACHED_ROWS, elementLink, elementTitle, HIGHLIGHT_CHOICES, highlightKey, highlightStatus, isHighlighted, isModifierAlone, move, scrollToShow, type Highlight } from './tableLayout'
 
 const element = (symbol: string): PeriodicElement => {
   const found = periodicTable.find((e) => e.symbol === symbol)
@@ -339,6 +339,16 @@ describe('cellKey', () => {
 
   it('leaves every other key alone', () => {
     for (const key of ['Enter', 'Tab', 'a', 'Escape', 'PageDown']) expect([key, press('Fe', key)]).toEqual([key, null])
+  })
+})
+
+describe('isModifierAlone', () => {
+  it('is true of a modifier pressed on its own, which the table does not take for a key press: Shift held for a Shift+click', () => {
+    for (const key of ['Shift', 'Control', 'Alt', 'Meta']) expect([key, isModifierAlone(key)]).toEqual([key, true])
+  })
+
+  it('is false of every key that does something, a modified one included: its event names the key, not the modifier', () => {
+    for (const key of ['Enter', ' ', 'Tab', 'a', 'A', 'ArrowLeft', 'Home', 'Escape', 'F6']) expect([key, isModifierAlone(key)]).toEqual([key, false])
   })
 })
 
