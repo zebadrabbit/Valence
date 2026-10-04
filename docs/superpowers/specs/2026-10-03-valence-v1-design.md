@@ -101,8 +101,11 @@ In the UI, each inspector card, station result, and energy panel has a "Sources"
 | Emission lines of hydrogen, sodium and xenon | NIST Atomic Spectra Database, observed wavelengths in air, 400 to 700 nm. Hydrogen: the four Balmer lines. Sodium (added with its element page): the two D lines. Xenon: the six strongest lines of the neutral atom by the relative intensity NIST lists |
 | Formation enthalpies and free energies of aqueous ions and of NaHCO₃(s) | NBS tables (Wagman 1982) |
 | True H₂CO₃ acidity, CO₂ hydration equilibrium, dehydration rate | Primary literature (for example Adamczyk et al., *Science* 2009; Wang et al., *J. Phys. Chem. A* 2010) |
-| pKa (including phenolphthalein), Kw | CRC Handbook or IUPAC compilations |
-| Solubility per ion pair; activity series; Henry's constant for CO₂ | CRC Handbook, one citation per value |
+| Phenolphthalein's two acid constants | Tamura et al., *Analytical Sciences* 1996 |
+| K_w; carbonic acid constants; other pKa values | IAPWS R11-24; Perrin 1982 (read through a transcription, and marked so); CRC Handbook or IUPAC compilations |
+| Atmospheric CO₂ | NOAA Global Monitoring Laboratory, global annual mean, year stated |
+| Solubility per ion pair; activity series | CRC Handbook, one citation per value |
+| Henry's constant for CO₂ | NIST Chemistry WebBook |
 | Solution heat capacity and density at station 8 | Treated as water (4.18 J/g·K, 1.00 g/mL); cited and labelled "idealised" |
 | Indicator solution strength and drop volume | Curated, cited |
 | MO orbital order for O₂ and N₂ | One cited textbook |
@@ -208,12 +211,12 @@ The learner titrates a 25.00 mL pipetted aliquot of standardized HCl (in the fla
 
 **Seeded values.** `app/` generates a 32-bit seed when the lab is first started, stores it, and shows it in the notebook. The seed fixes, when the lab is created and never during play:
 
-- the HCl label, 0.0850–0.1050 M, shown to four decimal places;
+- the HCl label, 0.0850–0.1050 M, rounded to four decimal places; the rounded number is the true concentration, so the label is exact;
 - the hidden true NaOH concentration, 0.0950–0.1050 M;
 - per trial, the pipette's delivery: 25.00 mL plus a uniform offset in [−0.03, +0.03] mL (the learner calculates with the nominal 25.00 mL);
 - per trial, the burette level after filling: uniform in [0.00, 2.00] mL at 0.001 mL resolution, so the meniscus generally sits between marks.
 
-The burette is graduated every 0.1 mL and read by estimation to 0.01 mL. No other noise is added. These ranges keep every titre between 20.2 and 27.7 mL. The same seed and the same learner actions always give the same readings and expected answer. "Restart lab" draws a new seed after confirmation.
+The burette is graduated every 0.1 mL and read by estimation to 0.01 mL. No other noise is added. These ranges keep the equivalence volume between 20.21 and 27.67 mL and every careful titre under 27.8 mL. Delivered volume is held as a whole number of microlitres (a half-drop is 25, a drop 50), so no result depends on floating-point rounding. The same seed and the same learner actions always give the same readings and expected answer. "Restart lab" draws a new seed after confirmation.
 
 ### 7.2 Workflow
 
@@ -236,17 +239,21 @@ The notebook shows average and relative deviation only after the learner has ent
 
 **pH solver.** One charge-balance equation solved by bisection on pH, covering strong, weak, and polyprotic species. It returns ideal-solution pH (no activity corrections). v1 shows no numeric pH to the learner.
 
-**Endpoint colour.** The flask's species list includes the indicator itself (a weak acid, in the amount delivered by the learner's drops) and dissolved CO₂ at air-equilibrium concentration. Both buffer the jump at equivalence, as they do in a real flask.
+**Endpoint colour.** The flask's species list includes the indicator itself and dissolved CO₂. Both buffer the jump at equivalence, as they do in a real flask.
 
-- Colour intensity is proportional to the concentration of indicator in its pink form: pink fraction × indicator moles ÷ flask volume. More indicator drops therefore give a deeper pink.
-- Faint pink begins at `faintPinkConcentration`, a model parameter (starting value 3×10⁻⁶ M). The endpoint is persistent when the fully mixed flask is at or above it.
-- The indicator's pKa, the indicator solution strength, the drop volume, Henry's constant, and the atmospheric CO₂ fraction are cited constants and are never adjusted to pass tests. Only `faintPinkConcentration` is tuned.
+- **Indicator.** Phenolphthalein is a two-step acid (pK 9.05 and 9.50, Tamura et al. 1996); only its doubly deprotonated form is pink. The indicator solution is 0.5% w/v, and a drop is 0.05 mL.
+- **Dissolved CO₂.** The aliquot carries CO₂ at equilibrium with outdoor air (Henry's constant from the NIST WebBook; NOAA's global mean CO₂ for a stated year). The flask is closed for the length of a trial: that amount of carbon is fixed when the aliquot is delivered and only diluted afterwards. The titrant is carbonate-free; CO₂ uptake by NaOH is primer text, not part of the model.
+- **Colour.** Intensity is proportional to the concentration of the pink form: pink fraction × indicator moles ÷ flask volume. More indicator drops give a deeper pink.
+- **Threshold.** Faint pink begins at `faintPinkConcentration`, a model parameter set to 1×10⁻⁶ M. The endpoint is persistent when the fully mixed flask is at or above it.
+- **Constants.** The indicator's constants and strength, the drop volume, Henry's constant, the atmospheric CO₂ fraction, the carbonic acid constants, and K_w (1.0×10⁻¹⁴) are cited and never adjusted to pass tests. Only `faintPinkConcentration` is tuned.
 
-Proving the endpoint acceptance test in 7.4 is the first task of the titration phase. If it cannot pass with cited constants, dissolved CO₂ is removed from the flask model and this spec is updated.
+The endpoint acceptance test in 7.4 was proved with these constants before the phase was planned, by a spike and an independent re-implementation (`docs/research/phase-3/endpoint-spike.md`): it passes with CO₂ in the flask, for one to four drops of 0.1% to 1% indicator, and with up to three times outdoor CO₂.
+
+**Equivalence.** Overshoot, the checks before equivalence, and the Guided "slow down" hint all use the flask's own equivalence volume: the acid actually in the flask divided by the concentration actually in the burette. A technique error changes that volume; it does not make a carefully titrated flask read as overshot.
 
 **Trial states.**
 
-- *Invalid:* the delivered volume is more than 0.10 mL (two drops) past the true equivalence volume (shown dark pink, labelled "overshot"), or the burette ran out. Must be repeated.
+- *Invalid:* the delivered volume is more than 0.10 mL (two drops) past the flask's equivalence volume, or the burette ran out. Must be repeated. An overshot flask is shown dark pink and labelled "overshot"; the dark colour comes from this flag, not from the colour model, because a careful endpoint can already be more than half as deep.
 - *Valid and passing:* a persistent endpoint was reached and the learner's calculated NaOH molarity is within ±1.0% of the seeded NaOH concentration.
 - *Valid and failing:* a persistent endpoint was reached but the molarity is outside ±1.0%. The trial shows its signed percent error only.
 
@@ -260,15 +267,16 @@ The learner may run any number of trials. The lab is completed when three trials
 | Tip bubble not cleared | 0.60 mL bubble escapes during the first 5 mL delivered, so the recorded volume exceeds the delivered volume | Calculated molarity low |
 | Pipette not rinsed with HCl | Aliquot diluted by 2.0% | Titre reads low; calculated molarity high |
 | Meniscus misread | Reading typed to 0.01 mL, compared with the true position within ±0.02 mL | Carried into the result (Challenge) or re-read prompt (Guided) |
-| Distilled water added to the flask | Dilutes the flask only | No change in the result (a misconception check) |
+| Distilled water added to the flask (about 10 mL at a time) | Dilutes the flask only | The equivalence volume and the expected answer do not change (a misconception check) |
 
 ### 7.4 Acceptance
 
-- **Solver:** within 0.01 pH of an independently computed exact solution, with constants pinned in the test, for 0.0100 M HCl (2.00), 0.10 M acetic acid (2.87–2.88), 0.10 M H₃PO₄ (about 1.63), 0.10 M acetic acid with 0.10 M sodium acetate (pH equals the pinned pKa), and 1×10⁻⁸ M HCl (6.98).
+- **Solver:** within 0.01 pH of an independently computed exact solution, with constants pinned in the test, for 0.0100 M HCl (2.00), 0.10 M acetic acid (2.87–2.88), 0.10 M H₃PO₄ (about 1.63), 0.10 M acetic acid with 0.10 M sodium acetate (pH equals the pinned pKa), and 1×10⁻⁸ M HCl (6.98, with K_w = 1.0×10⁻¹⁴).
 - **Titration curve** (HCl and NaOH only, no indicator or CO₂): within 0.01 pH of the closed-form strong acid/strong base solution at every point more than 0.5 mL from equivalence; the volume at which the computed pH crosses 7.00 is within 0.01 mL of the stoichiometric value.
-- **Endpoint:** a careful run is stream to 2.00 mL before equivalence, dropwise to 0.20 mL before, then half-drops until persistent. For seeds 1–100, at 2 and at 3 drops of indicator, the flask is below `faintPinkConcentration` at every addition before equivalence, the persistent endpoint appears between V_eq and V_eq + 0.05 mL, and the trial is not flagged as overshoot.
+- **Endpoint:** a careful run is stream, in fixed steps, to within 2.00 mL of equivalence, dropwise to within 0.20 mL, then half-drops until persistent, all on the microlitre grid. For seeds 1–100, at 2 and at 3 drops of indicator, the flask is below `faintPinkConcentration` at every addition before equivalence, the persistent endpoint appears between V_eq and V_eq + 0.05 mL, and the trial is not flagged as overshoot.
+- **Endpoint, whatever the grid offset:** at every corner of the seeded ranges, the excess titrant at which the mixed flask reaches the threshold is more than 0 and at most 0.025 mL.
 - **Grading:** a calculated molarity at +0.9% passes and at +1.1% fails.
-- **Technique errors:** for seeds 1–100, each of the first three errors alone moves the calculated molarity in the stated direction by more than 1.5%; adding distilled water to the flask changes it by 0.
+- **Technique errors:** for seeds 1–100, each of the first three errors alone moves the calculated molarity in the stated direction by more than 1.5%, and a careful run on that flask is not flagged as overshoot. Adding 10 mL of distilled water leaves the equivalence volume unchanged, moves a careful endpoint by at most one half-drop, and never changes whether a careful trial passes.
 - **Reproducibility:** the same seed and the same learner actions give identical readings and expected answer.
 
 ## 8. Aqueous reactions lab
@@ -393,7 +401,7 @@ Guest-only. Progress is stored in `localStorage` as JSON. Each lab, the mechanis
 - **Mechanism:** mode, last position, answered predictions.
 - **Preferences:** theme and reduced motion (each System, On, or Off; System is the default and follows the operating system), valence display level.
 
-Stored records are plain data with no browser-specific types, so the same shapes can later be written to a database unchanged. If an entry fails to parse or has an unknown version, that entry starts fresh and the old value is kept under a backup key instead of being deleted; a later broken value gets its own numbered backup key and never replaces an earlier one. The home page shows such an entry as not started. If the browser refuses a save part-way through a session, the settings page says that progress will last only for that session, until a later save succeeds (as it does once "clear my progress" has made room).
+Stored records are plain data with no browser-specific types, so the same shapes can later be written to a database unchanged. If an entry fails to parse or has an unknown version, that entry starts fresh and the old value is kept under a backup key instead of being deleted; a later broken value gets its own numbered backup key and never replaces an earlier one. The home page shows such an entry as not started. If the browser refuses a save part-way through a session, the settings page says that progress will last only for that session. The notice stays while any entry's latest save was refused; a later successful save of a different entry does not clear it (to be built with the titration lab, the first activity that saves more than preferences).
 
 A settings page offers "export my progress" (downloads the JSON) and "clear my progress".
 
