@@ -1,10 +1,12 @@
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
+import { MemoryRouter } from 'react-router'
 import { describe, expect, it } from 'vitest'
 import { deriveAtoms, deriveBonds } from '@/chem-data/derive'
 import { atomNames } from '@/chem-data/describe'
 import { EMISSION_NOTE } from '@/chem-data/element'
 import { VALENCE_BOND_NOTE } from '@/chem-data/hybrid'
+import { periodicTable } from '@/chem-data/periodic'
 import { registry } from '@/chem-data/registry'
 import { AtomCard } from './AtomCard'
 import { BohrCard } from './BohrCard'
@@ -13,9 +15,11 @@ import { Inspector } from './Inspector'
 // The wording itself is tested with the functions that build it. These check that the cards show it.
 
 const molecule = (id: string) => registry.molecules.find((m) => m.id === id)!
+// The atom card holds a link, which needs a router around it.
+const routed = (element: ReturnType<typeof createElement>) => renderToStaticMarkup(createElement(MemoryRouter, null, element))
 const inspector = (id: string, selection: { atoms: number[]; bond: number | null }, level: 1 | 2 | 3 = 2) => {
   const m = molecule(id)
-  return renderToStaticMarkup(createElement(Inspector, { molecule: m, selection, atomNames: atomNames(m, registry.elements), level }))
+  return routed(createElement(Inspector, { molecule: m, selection, atomNames: atomNames(m, registry.elements), level }))
 }
 
 describe('atom card', () => {
@@ -32,8 +36,20 @@ describe('atom card', () => {
     const element = registry.elements.find((e) => e.symbol === 'H')!
     const twoDecimals = { ...element, electronegativity: { ...element.electronegativity, published: '2.20' } }
     const derived = deriveAtoms(water, registry.elements)[hydrogen]!
-    const html = renderToStaticMarkup(createElement(AtomCard, { name: 'Hydrogen 1', atom: water.atoms[hydrogen]!, derived, element: twoDecimals }))
+    const html = routed(createElement(AtomCard, { name: 'Hydrogen 1', atom: water.atoms[hydrogen]!, derived, element: twoDecimals }))
     expect(html).toContain('2.20 (Pauling)')
+  })
+
+  it("links to its element's page in the periodic table, for every element of the library", () => {
+    expect(inspector('water', { atoms: [hydrogen], bond: null })).toMatch(/<a [^>]*href="\/explore\/elements\/H"[^>]*>Hydrogen in the periodic table<\/a>/)
+    for (const m of registry.molecules) {
+      const html = inspector(m.id, { atoms: [0], bond: null })
+      const element = registry.elements.find((e) => e.symbol === m.atoms[0]!.element)!
+      expect(periodicTable.find((e) => e.symbol === element.symbol)?.name, m.id).toBe(element.name)
+      expect(html, m.id).toContain(`href="/explore/elements/${element.symbol}"`)
+      expect(html, m.id).toContain(`>${element.name} in the periodic table</a>`)
+    }
+    for (const e of registry.elements) expect(periodicTable.some((p) => p.symbol === e.symbol && p.name === e.name), e.symbol).toBe(true)
   })
 })
 

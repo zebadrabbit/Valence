@@ -1,3 +1,4 @@
+import { Link } from 'react-router'
 import { elementCitations } from '@/chem-data/citations'
 import type { DerivedAtom } from '@/chem-data/derive'
 import { configurationParts, valenceElectrons } from '@/chem-data/element'
@@ -81,6 +82,11 @@ export function AtomCard(props: { name: string; atom: Molecule['atoms'][number];
           </div>
         </Disclosure>
       </div>
+
+      {/* Only the symbol is needed for the address, so the periodic table's data is not loaded here. */}
+      <Link to={`/explore/elements/${element.symbol}`} className="w-fit underline underline-offset-4">
+        {element.name} in the periodic table
+      </Link>
 
       <Sources citations={elementCitations(element, registry.sources)} derived={DERIVED} />
     </Card>
