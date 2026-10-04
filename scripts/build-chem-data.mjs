@@ -5,7 +5,7 @@
 // Reads docs/research/phase-2/ and writes, under src/chem-data/:
 //   elements.json, sources.json, mo-diagrams.json, library-index.json, molecules/<id>.json, molecules/index.ts
 // Reads docs/research/periodic-table/ (saved downloads and decisions.json) and writes:
-//   periodic-table.json, and its sources into sources.json
+//   periodic-table.json, and into sources.json its sources and the ones the group, period and block descriptions cite
 //
 // Deterministic: the same inputs give byte-identical outputs. Anything
 // unexpected in the inputs stops the build with a message and writes nothing.
@@ -653,6 +653,45 @@ const CIAAW_ID = 'ciaaw-abridged-2024'
 const CIAAW_TITLE = 'Abridged Standard Atomic Weights 2024'
 const PUBCHEM = 'PubChem [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2004-.'
 
+// What the group, period and block descriptions and the group 3 note in src/chem-data/periodic.ts cite. Each
+// page was read on the retrieval date of the saved downloads; the passage read is stored beside the sentence
+// it supports, there, and the pages themselves are not saved.
+const OPENSTAX = 'Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019;'
+const OPENSTAX_SECTIONS = [
+  ['2.5', 'The Periodic Table', '2-5-the-periodic-table'],
+  ['6.4', 'Electronic Structure of Atoms (Electron Configurations)', '6-4-electronic-structure-of-atoms-electron-configurations'],
+  ['18.1', 'Periodicity', '18-1-periodicity'],
+  ['18.4', 'Structure and General Properties of the Nonmetals', '18-4-structure-and-general-properties-of-the-nonmetals'],
+  ['18.11', 'Occurrence, Preparation, and Properties of Halogens', '18-11-occurrence-preparation-and-properties-of-halogens'],
+  ['18.12', 'Occurrence, Preparation, and Properties of the Noble Gases', '18-12-occurrence-preparation-and-properties-of-the-noble-gases'],
+  ['19.1', 'Occurrence, Preparation, and Properties of Transition Metals and Their Compounds', '19-1-occurrence-preparation-and-properties-of-transition-metals-and-their-compounds'],
+]
+
+function descriptionSources(retrieved) {
+  return [
+    ...OPENSTAX_SECTIONS.map(([section, title, page]) => ({
+      id: `openstax-chem2e-${section}`,
+      url: `https://openstax.org/books/chemistry-2e/pages/${page}`,
+      citation: `${OPENSTAX} Section ${section} ${title} (${retrieved}).`,
+    })),
+    {
+      id: 'iupac-red-book-2005',
+      url: 'https://iupac.org/wp-content/uploads/2016/07/Red_Book_2005.pdf',
+      citation: 'Connelly, N. G.; Damhus, T.; Hartshorn, R. M.; Hutton, A. T., Eds. Nomenclature of Inorganic Chemistry: IUPAC Recommendations 2005; RSC Publishing: Cambridge, 2005; Section IR-3.5 Elements in the periodic table (p 51).',
+    },
+    {
+      id: 'iupac-periodic-table',
+      url: 'https://iupac.org/what-we-do/periodic-table-of-elements/',
+      citation: `International Union of Pure and Applied Chemistry (IUPAC). Periodic Table of Elements, the section "Group 3" (${retrieved}).`,
+    },
+    {
+      id: 'rsc-periodic-table',
+      url: 'https://periodic-table.rsc.org/',
+      citation: `Royal Society of Chemistry. Periodic Table: how the table is drawn, its notes on the blocks, and its element pages (https://periodic-table.rsc.org/element/<atomic number>/; ${retrieved}).`,
+    },
+  ]
+}
+
 // The retrieval date and the NIST query are the ones recorded beside the saved copies.
 function periodicSources(manifest) {
   const saved = (file) => manifest.files.find((f) => f.file === file) ?? fail(`MANIFEST.json does not list ${file}`)
@@ -674,6 +713,7 @@ function periodicSources(manifest) {
       url: 'https://pubchem.ncbi.nlm.nih.gov/periodic-table/',
       citation: `${PUBCHEM} Element pages, one per element, opened from the Periodic Table of Elements (data: https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/element/<atomic number>/JSON, ${retrieved}). The covalent radii carried there are those of Cordero, B. et al. Covalent radii revisited. Dalton Trans. 2008, (21), 2832-2838 (https://doi.org/10.1039/b801115j): they equal Cordero's values for the 11 elements this app checked one by one; the paper is paywalled and was not read. Source: National Library of Medicine.`,
     },
+    ...descriptionSources(retrieved),
   ]
 }
 

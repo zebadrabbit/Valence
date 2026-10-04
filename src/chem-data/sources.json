@@ -228,5 +228,55 @@
     "id": "pubchem-element-pages",
     "url": "https://pubchem.ncbi.nlm.nih.gov/periodic-table/",
     "citation": "PubChem [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2004-. Element pages, one per element, opened from the Periodic Table of Elements (data: https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/element/<atomic number>/JSON, retrieved 2026-10-03). The covalent radii carried there are those of Cordero, B. et al. Covalent radii revisited. Dalton Trans. 2008, (21), 2832-2838 (https://doi.org/10.1039/b801115j): they equal Cordero's values for the 11 elements this app checked one by one; the paper is paywalled and was not read. Source: National Library of Medicine."
+  },
+  {
+    "id": "openstax-chem2e-2.5",
+    "url": "https://openstax.org/books/chemistry-2e/pages/2-5-the-periodic-table",
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 2.5 The Periodic Table (retrieved 2026-10-03)."
+  },
+  {
+    "id": "openstax-chem2e-6.4",
+    "url": "https://openstax.org/books/chemistry-2e/pages/6-4-electronic-structure-of-atoms-electron-configurations",
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 6.4 Electronic Structure of Atoms (Electron Configurations) (retrieved 2026-10-03)."
+  },
+  {
+    "id": "openstax-chem2e-18.1",
+    "url": "https://openstax.org/books/chemistry-2e/pages/18-1-periodicity",
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 18.1 Periodicity (retrieved 2026-10-03)."
+  },
+  {
+    "id": "openstax-chem2e-18.4",
+    "url": "https://openstax.org/books/chemistry-2e/pages/18-4-structure-and-general-properties-of-the-nonmetals",
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 18.4 Structure and General Properties of the Nonmetals (retrieved 2026-10-03)."
+  },
+  {
+    "id": "openstax-chem2e-18.11",
+    "url": "https://openstax.org/books/chemistry-2e/pages/18-11-occurrence-preparation-and-properties-of-halogens",
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 18.11 Occurrence, Preparation, and Properties of Halogens (retrieved 2026-10-03)."
+  },
+  {
+    "id": "openstax-chem2e-18.12",
+    "url": "https://openstax.org/books/chemistry-2e/pages/18-12-occurrence-preparation-and-properties-of-the-noble-gases",
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 18.12 Occurrence, Preparation, and Properties of the Noble Gases (retrieved 2026-10-03)."
+  },
+  {
+    "id": "openstax-chem2e-19.1",
+    "url": "https://openstax.org/books/chemistry-2e/pages/19-1-occurrence-preparation-and-properties-of-transition-metals-and-their-compounds",
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 19.1 Occurrence, Preparation, and Properties of Transition Metals and Their Compounds (retrieved 2026-10-03)."
+  },
+  {
+    "id": "iupac-red-book-2005",
+    "url": "https://iupac.org/wp-content/uploads/2016/07/Red_Book_2005.pdf",
+    "citation": "Connelly, N. G.; Damhus, T.; Hartshorn, R. M.; Hutton, A. T., Eds. Nomenclature of Inorganic Chemistry: IUPAC Recommendations 2005; RSC Publishing: Cambridge, 2005; Section IR-3.5 Elements in the periodic table (p 51)."
+  },
+  {
+    "id": "iupac-periodic-table",
+    "url": "https://iupac.org/what-we-do/periodic-table-of-elements/",
+    "citation": "International Union of Pure and Applied Chemistry (IUPAC). Periodic Table of Elements, the section \"Group 3\" (retrieved 2026-10-03)."
+  },
+  {
+    "id": "rsc-periodic-table",
+    "url": "https://periodic-table.rsc.org/",
+    "citation": "Royal Society of Chemistry. Periodic Table: how the table is drawn, its notes on the blocks, and its element pages (https://periodic-table.rsc.org/element/<atomic number>/; retrieved 2026-10-03)."
   }
 ]
