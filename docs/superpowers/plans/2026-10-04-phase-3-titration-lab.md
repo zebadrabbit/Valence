@@ -741,6 +741,7 @@ Read: `bench.md` sections 4, 6.3, 7 and 10; `review-verdicts.md` (bench: the nam
 
 ```ts
 // src/app/lab/titration/buretteGeometry.ts   (volumes are whole microlitres; a burette is numbered downward, so a larger volume is a larger y)
+export const BURETTE_CAPACITY_UL = 50_000; export const GRADUATION_UL = 100   // the scale's last mark and one graduation; meniscusText.ts reads both
 export const READING: { width: 260; height: 576; unitsPerMl: 480; aboveUl: 550; spanUl: 1200; tubeLeft: 30; tubeRight: 170; meniscusRiseUl: 80 }
 export const STAND: { width: 300; height: 640; scaleTop: 40; unitsPerMl: 8.4 }
 export interface Graduation { ul: number; y: number; kind: 'ml' | 'half' | 'tenth'; label: string | null }
@@ -775,7 +776,9 @@ export function streamTick(stream: Stream, canDeliver: boolean): { deliver: bool
 
 The bench never compares a concentration with the threshold itself: `pink` is the engine's word. The engine hands over a pink concentration of 0 until the flask is pink (Task 7), so the rows below with `pink` false and a concentration above 0 test the function, not a value the bench is ever given. The name is "faint pink" while the flask is pink and below `faintPinkNameLimit`, and "pink" from the limit up. The colours and the display scale are D12's starting values.
 
-- [ ] `buretteGeometry.test.ts`:
+As built: the dark pink needs the overshot flag and at least one drop of indicator in the flask, so `indicatorDrops` is read there and nowhere else in `flaskColour`; the engine cannot give an overshot flask with no indicator (D3). `meniscusText` gives the 50.0 mL sentence itself, so `meniscusBracket` is never asked about 50 000. A stand graduation's `kind` is `ml` at every 10 mL, `half` at every 5 and `tenth` at every other mL: the three weights of line, not the volumes the names say. One test holds the last graduation of both drawings to the model's `buretteCapacityUl`.
+
+- [x] `buretteGeometry.test.ts`:
 
 | Case | Expected |
 | --- | --- |
@@ -795,7 +798,7 @@ The bench never compares a concentration with the threshold itself: `pink` is th
 | `standY` of 0, 50000, 25000, 24370 | 40, 460, 250, 244.708 |
 | `standGraduations()` | 51 marks; labels "0", "10", "20", "30", "40", "50"; `half` at 5000, 15000, 25000, 35000, 45000 |
 
-- [ ] `meniscusText.test.ts`. Each text for a level below 50 000 begins "The bottom of the meniscus is between the A mL and B mL marks, " and ends ". The numbers on a burette increase downward."
+- [x] `meniscusText.test.ts`. Each text for a level below 50 000 begins "The bottom of the meniscus is between the A mL and B mL marks, " and ends ". The numbers on a burette increase downward."
 
 | Level | A, B | Position |
 | --- | --- | --- |
@@ -810,8 +813,8 @@ The bench never compares a concentration with the threshold itself: `pink` is th
 
   At 50 000 the text is "The bottom of the meniscus is at the 50.0 mL mark, the bottom of the scale. The numbers on a burette increase downward." `markText` of 0, 100, 900, 1000, 24300, 29900 and 50000 is "0.0", "0.1", "0.9", "1.0", "24.3", "29.9", "50.0". The text at every level from 0 to 50 000 never matches `/\d\.\d\d/`. A learner with only the text: for every level from 0 to 49 999 and every reading the wording allows (the upper mark plus 0, 10 or 20 µL for the first position; 20 or 30 for the second; 40, 50 or 60; 70 or 80; 80, 90 or 100), the worst error is exactly 20 µL; against the middle of each wording (10, 30, 50, 70, 90) it is exactly 10 µL; at 50 000 the reading 50.00 is exact.
 
-- [ ] `flaskColour.test.ts`, scale 10⁻⁵, limit 1.5×10⁻⁵. `pinkStrength` with `pink` false is 0 at 0, 3.9×10⁻¹³ and 9.99×10⁻⁷; with `pink` true it is 0.0952, 0.2592, 0.3874, 0.6321, 0.7769, 0.9046 and 0.9631 at 1×10⁻⁶, 3×10⁻⁶, 4.9×10⁻⁶, 1×10⁻⁵, 1.5×10⁻⁵, 2.35×10⁻⁵ and 3.3×10⁻⁵ (each to 0.0001), and never falls as the concentration rises from 10⁻⁶ to 6×10⁻⁵ in steps of 10⁻⁷. `flaskColour`: no liquid is `{ name: 'empty', label: 'empty', strength: 0, fill: PINK }`; liquid with `pink` false is `colourless` at strength 0, with or without indicator; `pink` true at 1×10⁻⁶ is "faint pink" at 0.0952; at 4.9×10⁻⁶, 1×10⁻⁵ and 1.49×10⁻⁵ "faint pink"; at 1.5×10⁻⁵ and 1.7×10⁻⁵ "pink"; overshot at 2.4×10⁻⁵ is `{ name: 'dark pink', label: 'dark pink (overshot)', strength: 1, fill: DARK_PINK }`; a flask that is not overshot is never dark, however deep.
-- [ ] `stream.test.ts`: a closed stream ticks to `{ deliver: false, next: CLOSED }`; an open stream delivers on each of five ticks and stays open with `pour` and `remaining` null; `streamTick(openStream(4), true)` is `{ deliver: true, next: { open: true, pour: 4, remaining: 3 } }`; a pour of 4 over six ticks delivers four times and is closed by the fourth tick's result; a pour of 20 over 21 ticks delivers twenty times, then not; an open stream with `canDeliver` false from the third tick delivers twice and is closed by the third; a pour of 20 with `canDeliver` false throughout never delivers and is closed at once.
+- [x] `flaskColour.test.ts`, scale 10⁻⁵, limit 1.5×10⁻⁵. `pinkStrength` with `pink` false is 0 at 0, 3.9×10⁻¹³ and 9.99×10⁻⁷; with `pink` true it is 0.0952, 0.2592, 0.3874, 0.6321, 0.7769, 0.9046 and 0.9631 at 1×10⁻⁶, 3×10⁻⁶, 4.9×10⁻⁶, 1×10⁻⁵, 1.5×10⁻⁵, 2.35×10⁻⁵ and 3.3×10⁻⁵ (each to 0.0001), and never falls as the concentration rises from 10⁻⁶ to 6×10⁻⁵ in steps of 10⁻⁷. `flaskColour`: no liquid is `{ name: 'empty', label: 'empty', strength: 0, fill: PINK }`; liquid with `pink` false is `colourless` at strength 0, with or without indicator; `pink` true at 1×10⁻⁶ is "faint pink" at 0.0952; at 4.9×10⁻⁶, 1×10⁻⁵ and 1.49×10⁻⁵ "faint pink"; at 1.5×10⁻⁵ and 1.7×10⁻⁵ "pink"; overshot at 2.4×10⁻⁵ is `{ name: 'dark pink', label: 'dark pink (overshot)', strength: 1, fill: DARK_PINK }`; a flask that is not overshot is never dark, however deep.
+- [x] `stream.test.ts`: a closed stream ticks to `{ deliver: false, next: CLOSED }`; an open stream delivers on each of five ticks and stays open with `pour` and `remaining` null; `streamTick(openStream(4), true)` is `{ deliver: true, next: { open: true, pour: 4, remaining: 3 } }`; a pour of 4 over six ticks delivers four times and is closed by the fourth tick's result; a pour of 20 over 21 ticks delivers twenty times, then not; an open stream with `canDeliver` false from the third tick delivers twice and is closed by the third; a pour of 20 with `canDeliver` false throughout never delivers and is closed at once.
 
 **Done when:** the four test files pass; `npm run build` passes.
 
