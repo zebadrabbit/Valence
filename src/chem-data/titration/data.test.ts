@@ -1,6 +1,14 @@
 import { describe, expect, it } from 'vitest'
-import { titrationSchema } from './data'
+import { titrationCitations } from '../citations'
+import sources from '../sources.json'
+import { validateTitration } from '../validate'
+import { titrationData, titrationSchema } from './data'
 import { titrationFixture, titrationFixtureWith } from './fixture'
+import stored from './titration.json'
+
+// Optional, untracked: see registry.test.ts.
+const local = import.meta.glob<string[]>('../denylist.local.json', { eager: true, import: 'default' })
+const institutionNames = Object.values(local).flat()
 
 const parses = (input: unknown) => titrationSchema.safeParse(input).success
 
@@ -50,5 +58,30 @@ describe('titrationSchema', () => {
     ['a signal word GHS does not have', 'bottles.hcl.hazards.signalWord', 'Caution'],
   ])('refuses %s', (_, path, value) => {
     expect(parses(titrationFixtureWith(path, value))).toBe(false)
+  })
+})
+
+describe('titrationData', () => {
+  it('is the generated file, with nothing dropped or added by the schema', () => {
+    expect(titrationData).toEqual(stored)
+    expect(JSON.stringify(stored)).not.toContain('"reference"')
+  })
+
+  it('passes validation against the stored sources', () => {
+    expect(validateTitration(titrationData, sources, { institutionNames })).toEqual([])
+  })
+
+  it('has every source it names among its citations, each once', () => {
+    const named = new Set(JSON.stringify(titrationData).match(/(?<="sourceId":")[^"]+/g))
+    expect(named.size).toBe(13)
+    const cited = titrationCitations(titrationData, sources).map((c) => c.source.id)
+    expect([...cited].sort()).toEqual([...named].sort())
+  })
+
+  it('cites the three bottles as the lab shows them', () => {
+    const covers = Object.fromEntries(titrationCitations(titrationData, sources).map((c) => [c.source.id, c.covers]))
+    expect(covers['pubchem-cid-313']).toEqual(['Hydrochloric acid, standardized: hazard classification'])
+    expect(covers['pubchem-cid-4764']).toEqual(['Molar mass of phenolphthalein', 'Phenolphthalein indicator solution, 0.5%: hazard classification'])
+    expect(covers['fisher-sds-naoh-0.1n']).toEqual(['Sodium hydroxide solution, about 0.1 M: hazards at the strength used'])
   })
 })

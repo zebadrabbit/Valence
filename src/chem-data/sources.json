@@ -308,5 +308,75 @@
     "id": "iupac-group-3-report-2021",
     "url": "https://doi.org/10.1515/ci-2021-0115",
     "citation": "Scerri, E. Provisional Report on Discussions on Group 3 of The Periodic Table. Chem. Int. 2021, 43 (1), 31-34 (retrieved 2026-10-03). A progress report from the task group of the IUPAC project \"The constitution of group 3 of the periodic table\" (https://iupac.org/project/2015-039-2-200)."
+  },
+  {
+    "id": "tamura-1996",
+    "url": "https://www.jstage.jst.go.jp/article/analsci1985/12/6/12_6_927/_pdf",
+    "citation": "Tamura, Z.; Abe, S.; Ito, K.; Maeda, M. Spectrophotometric Analysis of the Relationship between Dissociation and Coloration, and of the Structural Formulas of Phenolphthalein in Aqueous Solution. Anal. Sci. 1996, 12 (6), 927-930. https://doi.org/10.2116/analsci.12.927 (read as the publisher's PDF on J-STAGE, linked here; retrieved 2026-10-04)."
+  },
+  {
+    "id": "iapws-r11-24",
+    "url": "https://iapws.org/technical-guidance/release/Ionization.download",
+    "citation": "International Association for the Properties of Water and Steam. IAPWS R11-24, Revised Release on the Ionization Constant of H2O (2024) (retrieved 2026-10-04)."
+  },
+  {
+    "id": "nist-webbook-water-density",
+    "url": "https://webbook.nist.gov/cgi/fluid.cgi?Action=Load&ID=C7732185&Type=IsoBar&Digits=5&P=0.1&THigh=25&TLow=25&TInc=1&RefState=DEF&TUnit=C&PUnit=MPa&DUnit=kg%2Fm3&HUnit=kJ%2Fmol&WUnit=m%2Fs&VisUnit=uPa*s&STUnit=N%2Fm",
+    "citation": "Lemmon, E. W.; Bell, I. H.; Huber, M. L.; McLinden, M. O. Thermophysical Properties of Fluid Systems. In NIST Chemistry WebBook, NIST Standard Reference Database Number 69; Linstrom, P. J., Mallard, W. G., Eds.; National Institute of Standards and Technology: Gaithersburg, MD. https://doi.org/10.18434/T4D303 Isobaric properties for water at 0.1 MPa and 25 °C (retrieved 2026-10-04)."
+  },
+  {
+    "id": "nist-webbook-co2-henry",
+    "url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C124389&Mask=10",
+    "citation": "NIST Chemistry WebBook, NIST Standard Reference Database Number 69; Linstrom, P. J., Mallard, W. G., Eds.; National Institute of Standards and Technology: Gaithersburg, MD. Carbon dioxide, Henry's Law data, compiled by R. Sander (retrieved 2026-10-04)."
+  },
+  {
+    "id": "noaa-gml-co2-annmean-gl",
+    "url": "https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_annmean_gl.txt",
+    "citation": "NOAA Global Monitoring Laboratory. Trends in Atmospheric Carbon Dioxide: globally averaged marine surface annual mean data (co2_annmean_gl.txt), file created 2026-09-05 (retrieved 2026-10-04). See https://gml.noaa.gov/ccgg/trends/ for the method."
+  },
+  {
+    "id": "perrin-1982-wikipedia",
+    "url": "https://en.wikipedia.org/w/index.php?title=Carbonic_acid&oldid=1376246456",
+    "citation": "Perrin, D. D., Ed. Ionisation Constants of Inorganic Acids and Bases in Aqueous Solution, 2nd ed.; IUPAC Chemical Data Series 29; Pergamon: Oxford, 1982. The book was not read: the two constants were taken from a secondary transcription, Wikipedia's article Carbonic acid, revision 1376246456 of 2026-09-23, linked here, whose infobox cites the book's entry for carbonic acid (retrieved 2026-10-04)."
+  },
+  {
+    "id": "drop-unit-wikipedia",
+    "url": "https://en.wikipedia.org/w/index.php?title=Drop_(unit)&oldid=1314848686",
+    "citation": "Wikipedia contributors. Drop (unit); Wikipedia, revision 1314848686 of 2025-10-03, linked here (retrieved 2026-10-04)."
+  },
+  {
+    "id": "pubchem-cid-4764",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/4764",
+    "citation": "PubChem, National Library of Medicine (NCBI). Compound summary for CID 4764 (phenolphthalein): the computed molecular weight, and in the section GHS Classification the entry \"phenolphthalein\" that PubChem gives from Regulation (EC) No 1272/2008 of the European Parliament and of the Council (data: https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/4764/JSON?heading=GHS+Classification and https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/4764/property/MolecularWeight,MolecularFormula,IUPACName/JSON, retrieved 2026-10-04)."
+  },
+  {
+    "id": "pubchem-cid-313",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/313",
+    "citation": "PubChem, National Library of Medicine (NCBI). Compound summary for CID 313 (hydrochloric acid), section GHS Classification: the entry \"hydrochloric acid\" that PubChem gives from the Hazardous Chemical Information System (HCIS) of Safe Work Australia, which is the entry for the acid, the solution. The record's entries named \"hydrogen chloride\" are for the gas and are not the ones used (data: https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/313/JSON?heading=GHS+Classification, retrieved 2026-10-04)."
+  },
+  {
+    "id": "pubchem-cid-14798",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/14798",
+    "citation": "PubChem, National Library of Medicine (NCBI). Compound summary for CID 14798 (sodium hydroxide), section GHS Classification: the entry \"sodium hydroxide; caustic soda\" that PubChem gives from Regulation (EC) No 1272/2008 of the European Parliament and of the Council (data: https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/14798/JSON?heading=GHS+Classification, retrieved 2026-10-04)."
+  },
+  {
+    "id": "ricca-5600",
+    "url": "https://www.riccachemical.com/products/chemical-indicators/ph-indicators/acid-base-indicators/5600-(-r5600000-)",
+    "citation": "Ricca Chemical Company. Catalogue listing for product number 5600 (R5600000), a phenolphthalein indicator solution of 0.5% (w/v) in 50% (v/v) alcohol, neutralized (retrieved 2026-10-04)."
+  },
+  {
+    "id": "fisher-sds-hcl-0.1n",
+    "url": "https://www.fishersci.com/store/msds?partNumber=SA541&productDescription=HYDROCHLORIC+ACID+0.1N+1L&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Hydrochloric Acid Solution, 0.1N (Certified), catalogue number SA54; revision 7 of 18 December 2025 (retrieved 2026-10-04)."
+  },
+  {
+    "id": "fisher-sds-naoh-0.1n",
+    "url": "https://www.fishersci.com/store/msds?partNumber=SS2761&productDescription=SODIUM+HYDROXIDE+0.1N+1L&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Sodium hydroxide solutions, 0.1N, catalogue number SS276; revision 7 of 18 December 2025 (retrieved 2026-10-04)."
+  },
+  {
+    "id": "ricca-sds-5600",
+    "url": "https://www.riccachemical.com/WebsiteDocuments/SDS/R5600000.pdf",
+    "citation": "Ricca Chemical Company. Safety Data Sheet: Phenolphthalein Indicator, 0.5% (w/v) in 50% (v/v) Alcohol, Neutralized, product number 5600; last revised 2026-05-25 (retrieved 2026-10-04)."
   }
 ]

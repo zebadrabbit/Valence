@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { citedNumber, hazardsSchema, param } from '../schema'
+import data from './titration.json'
 
 // The titration lab's record (spec 7): three bottles, the cited constants of the flask model, and the model's
 // parameters, each with its rationale. It is its own file and is not part of the registry, so only the lab loads it.
@@ -76,3 +77,7 @@ export const titrationSchema = z.strictObject({
 })
 
 export type TitrationData = z.infer<typeof titrationSchema>
+
+// titration.json is written by `npm run build:data` from docs/research/phase-3/titration.json, after checking it
+// against the saved copies of its sources; edit the script or its inputs, not that file.
+export const titrationData: TitrationData = titrationSchema.parse(data)

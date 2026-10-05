@@ -1,0 +1,259 @@
+{
+  "bottles": {
+    "hcl": {
+      "name": "Hydrochloric acid, standardized",
+      "formula": "HCl",
+      "pubchemCid": 313,
+      "classifiedAs": "Hazards of hydrochloric acid, from the Safe Work Australia entry for the acid",
+      "hazards": {
+        "signalWord": "Danger",
+        "statements": [
+          "H314: Causes severe skin burns and eye damage",
+          "H335: May cause respiratory irritation"
+        ],
+        "note": {
+          "value": "The acid on this bench is about 0.1 mol/L, which is about 0.4% hydrogen chloride by mass (worked out from the molarity, not read from a source). A supplier's safety data sheet for hydrochloric acid of this strength gives the signal word Warning, not Danger: it says the solution irritates the skin, causes serious eye irritation and may corrode metals. The sheet calls for eye protection and gloves, and for rinsing a splash in the eyes or on the skin with plenty of water for at least 15 minutes.",
+          "sourceId": "fisher-sds-hcl-0.1n"
+        },
+        "sourceId": "pubchem-cid-313"
+      }
+    },
+    "naoh": {
+      "name": "Sodium hydroxide solution, about 0.1 M",
+      "formula": "NaOH",
+      "pubchemCid": 14798,
+      "classifiedAs": "Hazards of the pure substance",
+      "hazards": {
+        "signalWord": "Danger",
+        "statements": [
+          "H314: Causes severe skin burns and eye damage"
+        ],
+        "note": {
+          "value": "The solution on this bench is about 0.1 mol/L, which is about 0.4% sodium hydroxide by mass (worked out from the molarity, not read from a source). A supplier's safety data sheet for a sodium hydroxide solution of this strength does not classify it as hazardous and asks for no hazard label. The sheet still calls for eye protection and gloves, and for rinsing a splash in the eyes or on the skin with plenty of water for at least 15 minutes.",
+          "sourceId": "fisher-sds-naoh-0.1n"
+        },
+        "sourceId": "pubchem-cid-14798"
+      }
+    },
+    "indicator": {
+      "name": "Phenolphthalein indicator solution, 0.5%",
+      "formula": "C20H14O4",
+      "pubchemCid": 4764,
+      "classifiedAs": "Hazards of the pure substance",
+      "hazards": {
+        "signalWord": "Danger",
+        "statements": [
+          "H341: Suspected of causing genetic defects",
+          "H350: May cause cancer",
+          "H361f: Suspected of damaging fertility"
+        ],
+        "note": {
+          "value": "The indicator on this bench is the 0.5% solution, used two or three drops at a time. The supplier's safety data sheet for that solution gives the signal word Danger: the liquid and its vapour are flammable, and it causes serious eye irritation, may cause cancer, may damage fertility or the unborn child, and may cause damage to organs. The sheet lists the solution as water and ethanol with a little methanol and 0.56% phenolphthalein by weight. It calls for gloves and eye protection, and for keeping the solution away from flames and other sources of ignition.",
+          "sourceId": "ricca-sds-5600"
+        },
+        "sourceId": "pubchem-cid-4764"
+      }
+    }
+  },
+  "constants": {
+    "waterIonProduct": {
+      "value": 1e-14,
+      "unit": "",
+      "note": "The release prints pK_w as 13.99 at 25 °C (Table 3), with the ions on the molal scale, moles per kilogram of water. Its own equation gives 13.994 on that scale at 25 °C for water of density 0.99705 kg/L, the density the NIST Chemistry WebBook's fluid properties give for water at 25 °C and 0.1 MPa (997.05 kg/m³). On the molar scale, moles per litre, which the model uses, pK_w is 13.994 − 2 log₁₀(0.99705) = 13.994 + 0.0026 = 13.997. The stored value is that rounded to two figures, 1.0 × 10⁻¹⁴.",
+      "sourceId": "iapws-r11-24"
+    },
+    "indicatorPKas": [
+      {
+        "value": 9.05,
+        "published": "9.05",
+        "unit": "",
+        "note": "The first of phenolphthalein's two acid constants, measured in 0.2 M phosphate buffers at 25 ± 2 °C. Only the form that has lost both protons is pink.",
+        "sourceId": "tamura-1996"
+      },
+      {
+        "value": 9.5,
+        "published": "9.50",
+        "unit": "",
+        "note": "The second acid constant, from the same measurements. The paper's third constant, for the slow fading of the pink in strong base, is left out of the model.",
+        "sourceId": "tamura-1996"
+      }
+    ],
+    "indicatorMolarMass": {
+      "value": 318.3,
+      "published": "318.3",
+      "unit": "g/mol",
+      "sourceId": "pubchem-cid-4764"
+    },
+    "indicatorStrength": {
+      "value": 0.5,
+      "published": "0.5",
+      "unit": "g per 100 mL",
+      "note": "The catalogue listing prints the strength as 0.5% (w/v) in 50% (v/v) alcohol, and lower on the same page as 5 g/L, so for the listed product the percentage is weight per volume: 0.5 g in 100 mL. This lab's bottle is labelled 0.5% with no basis, and taking it to be that kind of solution is an assumption, not something established: a supplier that makes up 0.5% by weight puts a slightly different amount in each drop. The endpoint test passes for any strength from 0.1% to 1%, so no result depends on the choice.",
+      "sourceId": "ricca-5600"
+    },
+    "indicatorDropVolume": {
+      "value": 0.05,
+      "published": "0.05",
+      "unit": "mL",
+      "note": "The metric drop of pharmacy, 20 to the millilitre, taken as the size of a drop from the indicator bottle's dropper. The real drop of an alcohol and water solution was not measured.",
+      "sourceId": "drop-unit-wikipedia"
+    },
+    "henryCo2": {
+      "value": 0.034,
+      "published": "0.034",
+      "unit": "mol/(kg·bar)",
+      "note": "Henry's constant for carbon dioxide in water at 298.15 K. Eleven of the page's seventeen rows print this figure and the rest lie between 0.031 and 0.045. The model takes a kilogram of water as a litre.",
+      "sourceId": "nist-webbook-co2-henry"
+    },
+    "atmosphericCo2": {
+      "value": 425.62,
+      "published": "425.62",
+      "unit": "ppm",
+      "year": 2025,
+      "note": "The global annual mean for 2025, a mole fraction in dry air. The file says that the latest year's figure may still be revised.",
+      "sourceId": "noaa-gml-co2-annmean-gl"
+    },
+    "carbonicPKas": [
+      {
+        "value": 6.35,
+        "published": "6.35",
+        "unit": "",
+        "note": "The apparent first constant, for dissolved carbon dioxide and carbonic acid taken together, which is the species the model holds. The constant of the carbonic acid molecule itself, 3.75 in the same infobox, is not the one used.",
+        "sourceId": "perrin-1982-wikipedia"
+      },
+      {
+        "value": 10.33,
+        "published": "10.33",
+        "unit": "",
+        "sourceId": "perrin-1982-wikipedia"
+      }
+    ]
+  },
+  "parameters": {
+    "faintPinkConcentration": {
+      "value": 0.000001,
+      "rationale": "The concentration of phenolphthalein's pink form, in mol/L, at which the mixed flask counts as faintly pink and an endpoint as reached. It is the only number in the model that is tuned: it was chosen so that, in the acceptance tests of spec 7.4, a careful titration first shows a lasting pink within one drop past equivalence."
+    },
+    "hclRangeE4": {
+      "value": [
+        850,
+        1050
+      ],
+      "rationale": "The range of the HCl bottle's label, in units of 0.0001 mol/L: 0.0850 to 0.1050 M (spec 7.1). The label is exact, so it is also the true concentration."
+    },
+    "naohRangeE5": {
+      "value": [
+        9500,
+        10500
+      ],
+      "rationale": "The range of the hidden NaOH concentration, in units of 0.00001 mol/L: 0.09500 to 0.10500 M (spec 7.1). The value shown on completion is exactly the value graded against."
+    },
+    "pipetteNominalUl": {
+      "value": 25000,
+      "rationale": "The nominal delivery of a 25.00 mL transfer pipette, in microlitres. The learner calculates with this figure."
+    },
+    "pipetteOffsetUl": {
+      "value": 30,
+      "rationale": "A delivery differs from the nominal volume by up to this many microlitres either way, 0.03 mL (spec 7.1). It stands for the tolerance of a volumetric pipette and is not a figure read from a standard."
+    },
+    "fillLevelMaxUl": {
+      "value": 2000,
+      "rationale": "A filled burette starts with its meniscus between the 0.00 and 2.00 mL marks, so the first reading generally falls between graduations and has to be estimated (spec 7.1)."
+    },
+    "buretteCapacityUl": {
+      "value": 50000,
+      "rationale": "A 50 mL burette, in microlitres: delivery stops at the 50.00 mL mark."
+    },
+    "streamUl": {
+      "value": 250,
+      "rationale": "One timed addition with the stopcock open: 0.25 mL, ten half-drops. The app's timer sends the additions and the engine sees only volumes (spec 7.2)."
+    },
+    "dropUl": {
+      "value": 50,
+      "rationale": "One drop of titrant from the burette tip: 0.05 mL (spec 7.2)."
+    },
+    "halfDropUl": {
+      "value": 25,
+      "rationale": "A half-drop: 0.025 mL, part of a drop left hanging on the tip, touched off on the wall of the flask and rinsed down with distilled water (spec 7.2). It is the smallest addition, and every delivery is a whole number of them."
+    },
+    "unconditionedStrengthPercent": {
+      "value": 98,
+      "rationale": "Titrant in a burette that was not rinsed with it is at 98% of its strength, 2.0% dilute: exaggerated so that the error fails grading on its own at every seed (spec 7.3). The 2.0% is held through every refill until the burette is conditioned, which is not true to a bench: a real burette dilutes less each time it is refilled."
+    },
+    "wetPipetteStrengthPercent": {
+      "value": 98,
+      "rationale": "The first aliquot drawn with a pipette still wet with water is at 98% of its strength, 2.0% dilute: exaggerated so that the error fails grading on its own (spec 7.3). Drawing it wets the pipette with acid, so only that one aliquot is spoiled."
+    },
+    "tipBubbleUl": {
+      "value": 600,
+      "rationale": "The air left in the burette tip by a fill from empty: 0.60 mL, exaggerated so that leaving it there fails grading on its own (spec 7.3)."
+    },
+    "tipBubbleEscapeUl": {
+      "value": 5000,
+      "rationale": "A bubble that was not cleared leaves evenly over the first 5 mL delivered, so the meniscus falls 3 µL further than was delivered for each half-drop. Once gone it does not come back at a refill (spec 7.3)."
+    },
+    "overshootUl": {
+      "value": 100,
+      "rationale": "A delivery of more than this past the flask's own equivalence volume, 0.10 mL or two drops, makes the trial invalid (spec 7.3)."
+    },
+    "slowDownUl": {
+      "value": 1000,
+      "rationale": "Guided mode's hint to slow down appears within this much of the flask's own equivalence volume: 1.00 mL (spec 7.2)."
+    },
+    "readingToleranceUl": {
+      "value": 20,
+      "rationale": "A typed burette reading is right when it is within this much of the true meniscus: 0.02 mL, about what an eye can estimate between graduations 0.1 mL apart (spec 7.3)."
+    },
+    "gradeTolerancePercent": {
+      "value": 1,
+      "rationale": "A trial passes when the calculated NaOH molarity is within 1.0% of the true concentration, the edge included (spec 7.3)."
+    },
+    "molarityRoundingE6": {
+      "value": 50,
+      "rationale": "Half a unit of the fourth decimal place, in units of 0.000001 mol/L. A typed molarity is accepted when it is the notebook's value rounded to the fourth decimal place, which is when it lies within this much of the unrounded value; at an exact tie either neighbour is accepted."
+    },
+    "waterStepUl": {
+      "value": 10000,
+      "rationale": "One wash of the flask wall with distilled water: 10 mL (spec 7.3)."
+    },
+    "waterMaxUl": {
+      "value": 30000,
+      "rationale": "The most distilled water a flask takes in one trial: 30 mL, three washes. The model's water is free of CO₂, and the endpoint test holds up to this volume even if the water carried CO₂ at equilibrium with air."
+    },
+    "indicatorDrops": {
+      "value": [
+        2,
+        3
+      ],
+      "rationale": "The procedure calls for 2 or 3 drops of indicator (spec 7.2). The stopcock stays shut until the flask holds that many, and no more can be added."
+    },
+    "plumeSlowFrom": {
+      "value": 0.1,
+      "rationale": "An addition that neutralises a tenth or more of the acid still in the flask makes a plume that fades slowly; a smaller share fades at once (spec 7.2). Presentation only: nothing is graded by it."
+    },
+    "plumeMixSeconds": {
+      "value": 10,
+      "rationale": "The seconds of swirling taken to mix the whole flask: a plume fades in this time multiplied by the share of the remaining acid that its addition neutralised. Presentation only: nothing is graded by it."
+    },
+    "persistSeconds": {
+      "value": 30,
+      "rationale": "An endpoint is a pink that lasts 30 seconds of swirling, which is the simulated time one swirl and wait advances (spec 7.2). There is no real wait."
+    },
+    "passesToComplete": {
+      "value": 3,
+      "rationale": "Three trials that count complete the lab (spec 7.3)."
+    },
+    "airPressureBar": {
+      "value": 1.01325,
+      "rationale": "One standard atmosphere, which is 101 325 Pa by definition: the pressure of the air that the aliquot's dissolved CO₂ is in equilibrium with."
+    },
+    "pinkDisplayScale": {
+      "value": 0.00001,
+      "rationale": "The concentration of the pink form, in mol/L, at which the drawn flask reaches 63% of its full pink: the drawing's strength is 1 − exp(−c ÷ scale), so the colour deepens with concentration and levels off. Chosen by eye, as a starting value the owner judges in the browser. Presentation only: no endpoint and no grade depends on it."
+    },
+    "faintPinkNameLimit": {
+      "value": 0.000015,
+      "rationale": "The concentration of the pink form, in mol/L, below which a pink flask is named faint pink and from which it is named pink. It is set just above the deepest pink a careful endpoint reaches at any corner of the seeded ranges, which an acceptance test checks, so a correct endpoint is always named faint pink. Presentation only: no endpoint and no grade depends on it."
+    }
+  }
+}
