@@ -168,6 +168,14 @@ describe('the titration inputs: bottles', () => {
     }
   })
 
+  it("says which country's rule the two suppliers' sheets classify under, since the statements above the notes come from other systems", () => {
+    for (const key of ['hcl', 'naoh'] as const) {
+      const { note } = input.bottles[key].hazards
+      expect([key, /classifies under the United States hazard communication standard/.test(note.value)]).toEqual([key, true])
+      expect([key, source(note.sourceId)?.supports.some((row) => row.field === `bottles.${key}.hazards.note` && row.prints === '29 CFR 1910.1200')]).toEqual([key, true])
+    }
+  })
+
   it('repeats the by-mass figure of each note that states one', () => {
     // 0.1 mol/L times the molar mass, in g/L, taking the density as 1.00 g/mL, so a tenth of it is the percentage.
     // The molar masses are sums of the abridged atomic weights the periodic table stores (H 1.0080, Cl 35.45;
@@ -195,6 +203,8 @@ describe('the titration inputs: parameters and prose', () => {
     expect(rationale('unconditionedStrengthPercent')).toMatch(/real burette/)
     expect(rationale('halfDropUl')).toMatch(/wall/)
     expect(rationale('halfDropUl')).toMatch(/distilled water/)
+    // Every delivery is a whole number of half-drops but the one that stops at the last mark.
+    expect(rationale('halfDropUl')).toMatch(/except .* 50\.00 mL mark/)
     expect(rationale('waterMaxUl')).toMatch(/CO₂/)
     expect(rationale('molarityRoundingE6')).toMatch(/fourth decimal place/)
     expect(rationale('molarityRoundingE6')).toMatch(/tie/)
@@ -209,6 +219,16 @@ describe('the titration inputs: parameters and prose', () => {
     for (const key of ['plumeFadeAtOnceSeconds', 'plumeFadeSlowlySeconds']) {
       expect([key, /Presentation only/.test(input.parameters[key]!.rationale), /status/.test(input.parameters[key]!.rationale)]).toEqual([key, true, true])
     }
+  })
+
+  it('says where a cited figure is used outside the conditions it was given for', () => {
+    // NOAA's figure is a fraction of dry air, and the model multiplies it by the whole pressure of the air.
+    expect(input.parameters.airPressureBar!.rationale).toMatch(/dry air/)
+    expect(input.parameters.airPressureBar!.rationale).toMatch(/whole pressure/)
+    // The indicator's constants were measured in a buffer and go into a flask that is not one.
+    const [first] = input.constants.indicatorPKas as Constant[]
+    expect(first!.note).toMatch(/0\.2 M phosphate buffers/)
+    expect(first!.note).toMatch(/unchanged/)
   })
 
   it('holds no institution text in any name, statement, note or rationale', () => {

@@ -249,6 +249,11 @@
       "supports": [
         {
           "field": "bottles.hcl.hazards.note",
+          "prints": "29 CFR 1910.1200",
+          "where": "The head of the first page, above section 1: the rule the sheet says it was drawn up under, the United States hazard communication standard of 2024. The sheet's classification in section 2 is made under that rule."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
           "prints": "Warning",
           "where": "Section 2, label elements: the signal word."
         },
@@ -284,6 +289,11 @@
       "url": "https://www.fishersci.com/store/msds?partNumber=SS2761&productDescription=SODIUM+HYDROXIDE+0.1N+1L&vendorId=VN00033897&countryCode=US&language=en",
       "citation": "Fisher Scientific Company. Safety Data Sheet: Sodium hydroxide solutions, 0.1N, catalogue number SS276; revision 7 of 18 December 2025 (retrieved 2026-10-04).",
       "supports": [
+        {
+          "field": "bottles.naoh.hazards.note",
+          "prints": "29 CFR 1910.1200",
+          "where": "The head of the first page, above section 1: the rule the sheet says it was drawn up under, the United States hazard communication standard of 2024."
+        },
         {
           "field": "bottles.naoh.hazards.note",
           "prints": "None required",

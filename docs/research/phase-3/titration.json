@@ -13,7 +13,7 @@
           "H335: May cause respiratory irritation"
         ],
         "note": {
-          "value": "The acid on this bench is about 0.1 mol/L, which is about 0.4% hydrogen chloride by mass (worked out from the molarity, not read from a source). A supplier's safety data sheet for hydrochloric acid of this strength gives the signal word Warning, not Danger: it says the solution irritates the skin, causes serious eye irritation and may corrode metals. The sheet calls for eye protection and gloves, and for rinsing a splash in the eyes or on the skin with plenty of water for at least 15 minutes.",
+          "value": "The acid on this bench is about 0.1 mol/L, which is about 0.4% hydrogen chloride by mass (worked out from the molarity, not read from a source). A supplier's safety data sheet for hydrochloric acid of this strength, which classifies under the United States hazard communication standard, gives the signal word Warning, not Danger: it says the solution irritates the skin, causes serious eye irritation and may corrode metals. The sheet calls for eye protection and gloves, and for rinsing a splash in the eyes or on the skin with plenty of water for at least 15 minutes.",
           "sourceId": "fisher-sds-hcl-0.1n"
         },
         "sourceId": "pubchem-cid-313"
@@ -31,7 +31,7 @@
           "H314: Causes severe skin burns and eye damage"
         ],
         "note": {
-          "value": "The solution on this bench is about 0.1 mol/L, which is about 0.4% sodium hydroxide by mass (worked out from the molarity, not read from a source). A supplier's safety data sheet for a sodium hydroxide solution of this strength does not classify it as hazardous and asks for no hazard label. The sheet still calls for eye protection and gloves, and for rinsing a splash in the eyes or on the skin with plenty of water for at least 15 minutes.",
+          "value": "The solution on this bench is about 0.1 mol/L, which is about 0.4% sodium hydroxide by mass (worked out from the molarity, not read from a source). A supplier's safety data sheet for a sodium hydroxide solution of this strength, which classifies under the United States hazard communication standard, does not classify it as hazardous and asks for no hazard label. The sheet still calls for eye protection and gloves, and for rinsing a splash in the eyes or on the skin with plenty of water for at least 15 minutes.",
           "sourceId": "fisher-sds-naoh-0.1n"
         },
         "sourceId": "pubchem-cid-14798"
@@ -70,7 +70,7 @@
         "value": 9.05,
         "published": "9.05",
         "unit": "",
-        "note": "The first of phenolphthalein's two acid constants, measured in 0.2 M phosphate buffers at 25 ± 2 °C. Only the form that has lost both protons is pink.",
+        "note": "The first of phenolphthalein's two acid constants, measured in 0.2 M phosphate buffers at 25 ± 2 °C. The model uses both constants unchanged, with no correction for the difference between those buffers and the flask. Only the form that has lost both protons is pink.",
         "sourceId": "tamura-1996"
       },
       {
@@ -172,7 +172,7 @@
     },
     "halfDropUl": {
       "value": 25,
-      "rationale": "A half-drop: 0.025 mL, part of a drop left hanging on the tip, touched off on the wall of the flask and rinsed down with distilled water (spec 7.2). It is the smallest addition, and every delivery is a whole number of them."
+      "rationale": "A half-drop: 0.025 mL, part of a drop left hanging on the tip, touched off on the wall of the flask and rinsed down with distilled water (spec 7.2). It is the smallest addition, and every delivery is a whole number of them, except the last one above the 50.00 mL mark, which is whatever is left in the burette."
     },
     "unconditionedStrengthPercent": {
       "value": 98,
@@ -240,7 +240,7 @@
     },
     "airPressureBar": {
       "value": 1.01325,
-      "rationale": "One standard atmosphere, which is 101 325 Pa by definition: the pressure of the air that the aliquot's dissolved CO₂ is in equilibrium with."
+      "rationale": "One standard atmosphere, which is 101 325 Pa by definition: the pressure of the air that the aliquot's dissolved CO₂ is in equilibrium with. The CO₂ figure is a mole fraction in dry air, and the model applies it to this whole pressure: nothing is taken off for the water vapour in the air over the solution."
     },
     "pinkDisplayScale": {
       "value": 1e-05,
