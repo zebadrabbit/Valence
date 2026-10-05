@@ -2,7 +2,7 @@
 
 2026-10-05. The gate of `docs/superpowers/plans/2026-10-04-phase-3-titration-lab.md`, held after Tasks 1 to 13 and before any screen is built.
 
-**The gate is not closed.** Both must-fix findings are fixed and tested. Of the thirteen should-fix findings, nine were fixed at the gate, two (F7 and F8) are closed by the owner's answer of 2026-10-05, one (F6) is accepted as built, with its reason, and one (F15) is left to the owner, with both sides given in the last section. The sentences written at this stage have been checked by tests and by running the reviewers' own probes again, but no independent reader has read them yet.
+**The gate is not closed.** Both must-fix findings are fixed and tested. Of the thirteen should-fix findings, nine were fixed at the gate, two (F7 and F8) are closed by the owner's answer of 2026-10-05, and two were decided on that day without the owner, each with its reason: F6 is accepted as built, and for F15 the safety card was reworded, which the owner reads. The sentences written at this stage have been checked by tests and by running the reviewers' own probes again, but no independent reader has read them yet.
 
 ## How the review was done
 
@@ -117,9 +117,12 @@ Each of these was within what the owner's earlier decisions already settle, or i
 - Done: the plan's Global Constraint "No answer leaves the engine" now says what the comment at the head of `select.ts` says: three numbers reach the app for the drawing (the meniscus level, the flask's exact volume, the pink concentration of a pink flask), the last two can be worked back by someone who reads them out of the page, and that is accepted. The comment no longer calls it the owner's decision. Task 17 of the plan now says that the strength, `volumeUl` and `plumeKey` are never rendered as text, with a markup test for it. Spec 7.3 says the same under Colour.
 - Not changed: no code but that comment.
 
-### Reproduced, and left for the owner
+**F15 (should-fix, R3). The safety card named two of the indicator sheet's hazards and not the other three.** Confirmed against the saved sheet: it carries five hazard codes, and the card spoke of cancer and flammability only. The bottle's note names all five.
 
-**F15 (should-fix, R3). The safety card names two of the indicator sheet's hazards and not the other three.** Confirmed against the saved sheet: it carries five hazard codes, and the card speaks of cancer and flammability only. The bottle's note names all five. What the safety card covers is the owner's to say (D15). No change. Decision 3 below.
+- Decided: the card must not name some of the sheet's hazards and leave out others. It now says that a supplier's safety data sheet for a solution of this kind lists it as flammable and as a hazard to health over the long term; that it says, among other things, that the solution may cause cancer and may harm fertility or an unborn child; and that the note under the indicator bottle gives the full list. The words are the project's own. The codes stay in the bottle's note, which is unchanged.
+- Reason: a reader who sees cancer and flammability named takes the list to be whole. Naming the kinds, the two gravest by name, and pointing to the note says no more than the sheet and hides nothing. What the safety card covers is still the owner's to say (D15), so the owner reads this paragraph.
+- Done with it: the paragraph's support line for the sheet now gives all five of the sheet's hazards in the project's words.
+- Re-checked: a new case in `primer.test.ts`, seen failing first; the no-quotation test, run with the fingerprint made, passes on the new paragraph and its support line.
 
 ### Notes
 
@@ -219,7 +222,7 @@ One thing R3 raised under F12 is carried forward and not fixed here: on a reload
 - Primer, titrating card: what the titre is; what M means; that the phenolphthalein is an indicator that turns pink once the acid is used up; and four sentences on the bench's rinse and what to do if it thins the pink away.
 - Primer, glassware card: a new fourth paragraph on what is larger here than at a bench, reworded on 2026-10-05 to name the three mistakes and to say that a trial with one of them in it does not count even when its result is close; and "how many moles of acid are there" in the second.
 - Primer, precision card: the example of a mistake repeated is now a miscopied molarity.
-- Primer, safety card: the rinse sentence; H314 named by code with "corrosive to the skin and the eyes"; "a supplier's safety data sheet for a solution of this kind".
+- Primer, safety card: the rinse sentence; H314 named by code with "corrosive to the skin and the eyes"; "a supplier's safety data sheet for a solution of this kind"; and, from 2026-10-05, the whole of what the last paragraph says the indicator's sheet lists.
 - The three hazard notes: the rinse sentence in the acid's and the base's; the indicator's opening and its list of hazards.
 - `src/app/lab/titration/messages.ts`: the sentence that closes each of the three technique causes. After the owner's answer of 2026-10-05: `OUTCOME_TEXT.notCounted`, which now gives the whole counting rule; `OUTCOME_TEXT.closeWithTechniqueError`; and `OUTCOME_TEXT.largerHere` and `largerHereAndShown`, the closing sentence in its two forms, with the three technique causes as they read without it.
 - `src/app/lab/titration/benchText.ts`: `undoneText`.
@@ -228,7 +231,7 @@ One thing R3 raised under F12 is carried forward and not fixed here: on a reload
 
 1. **Does a trial that passes with a technique error named in it count toward the three?** Answered by the owner on 2026-10-05: it does not. See "Closed by the owner's answers" above. The narrower remedy for F8 alone, ending the bubble with the trial, was not needed and spec 7.3's table is unchanged.
 2. **Should the engine hand the app less about the flask?** (F6, N9.) Decided on 2026-10-05 without the owner: no. See "Decided without the owner" above for the reason.
-3. **What the safety card says of the indicator.** (F15.) It names cancer and flammability. The sheet also carries statements on fertility and the unborn child, on damage to organs and on eye irritation, all of which the bottle's note gives. Either the card names them too, or the reproductive one at least, or it says that the sheet lists more and the note under the bottle gives it in full, or it stays as it is.
+3. **What the safety card says of the indicator.** (F15.) Decided on 2026-10-05 without the owner: the card names the sheet's hazards by kind, cancer and harm to fertility or an unborn child by name, and points to the bottle's note for the full list. The owner reads the paragraph.
 4. **Wording the reviewers would change and this stage did not.** Each is the owner's call as the person who runs the lab.
    - The calculation card: say that the average is rounded first only because the notebook works it that way; say that four decimal places is this lab's convention, where a report would keep four significant figures; open with the equivalence point, which the endpoint stands for. (N6.)
    - The titrating card: a figure for when the 5 mL pour is safe, for example only while more than 7 mL short of the estimate. (N12.)

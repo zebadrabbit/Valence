@@ -264,4 +264,17 @@ describe('the titration primer: what it has to say', () => {
     expect(shown('safety')).not.toMatch(/The supplier's/)
     expect(shown('safety')).toMatch(/A supplier's safety data sheet for a solution of this kind/)
   })
+
+  it("does not name some of the indicator sheet's hazards and leave out others: flammable, a hazard to health over the long term, cancer and harm to fertility or an unborn child among them, and the bottle's note for the full list", () => {
+    const text = section('safety').paragraphs[3]!.text
+    for (const said of [/flammable/, /a hazard to health over the long term/, /may cause cancer/, /may harm fertility or an unborn child/, /among other things/, /The note under the indicator bottle gives the full list/]) {
+      expect([String(said), said.test(text)]).toEqual([String(said), true])
+    }
+    // The card is in the lab's own words; the codes are the bottle note's, and the note has all five the sheet prints.
+    expect(text).not.toMatch(/H\d{3}/)
+    const note = titrationData.bottles.indicator.hazards.note.value
+    for (const code of ['H226', 'H319', 'H350', 'H360', 'H371']) expect([code, note.includes(code)]).toEqual([code, true])
+    // What the card rests on says as much as the card does.
+    expect(section('safety').paragraphs[3]!.support).toMatch(/fertility or an unborn child/)
+  })
 })
