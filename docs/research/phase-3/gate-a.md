@@ -254,6 +254,13 @@ After the commits above the branch was checked once more, at `44971d2`. One chec
 - Done: `feedback` adds "so that it shows in the result" only under a failed trial whose every named cause is a technique cause. With honest readings, the label's molarity and the notebook's own arithmetic, nothing else is left to fail such a trial. Beside a misread or the label it says only that this lab makes a technique mistake cost more than it does at a real bench. No sentence changed.
 - Re-checked: a case in `messages.test.ts` that makes both trials on the engine, seen failing first on the first of them.
 
+**L11 (should-fix). A seed loop with no timeout of its own ran close to vitest's default, and timed out once in a full build.** `benchView.test.ts`, "changes the status line five times ...", seeds 1 to 100. The test is from before the gate; it decides whether the build passes, and the plan's Task 23 needs CI green.
+
+- Reproduced: in a full run on the idle machine the test took 4537 ms of the default 5000. With the default set to 1000 ms, six tests of the lab outside `acceptance.test.ts` timed out: that one, two in `buretteGeometry.test.ts`, and one each in `meniscusText.test.ts`, `entries.test.ts` and `select.test.ts`.
+- Done: those six, a second loop in `benchView.test.ts`, and two more in `select.test.ts` that run near a second, each have a timeout of 60 seconds, as the seed loops of `acceptance.test.ts`, `flask.test.ts` and `actions.test.ts` already had. The plan's Global Constraint on tests says so. No expected value changed.
+- Re-checked: every test under `src/engine/titration/` and `src/app/lab/titration/`, 416 of them, passes with the default set to 1000 ms, twice running.
+- Not changed: two tests of the periodic table's page in `src/app/explore/elements/page.test.ts`, from an earlier phase, take 2.0 and 1.4 seconds with no timeout of their own. They are not this lab's and are left as they are.
+
 ## What the reviewers confirmed
 
 **Constants and sources (R1).**

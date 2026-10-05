@@ -30,7 +30,7 @@ describe('the meniscus in words', () => {
     )
   })
 
-  it('never holds the reading itself: no number with two decimal places, at any level', () => {
+  it('never holds the reading itself: no number with two decimal places, at any level', { timeout: 60_000 }, () => {
     for (let level = 0; level <= 50000; level++) expect(meniscusText(level)).not.toMatch(/\d\.\d\d/)
   })
 

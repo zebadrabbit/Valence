@@ -37,7 +37,7 @@ describe('where a volume is drawn in the reading view', () => {
     expect(readingY(24350, 24370) - at).toBeCloseTo(-9.6, 9)
   })
 
-  it('keeps the meniscus in the one gap in the middle of the view, at every level', () => {
+  it('keeps the meniscus in the one gap in the middle of the view, at every level', { timeout: 60_000 }, () => {
     for (let level = 0; level <= 50000; level++) {
       const y = readingY(level, level)
       expect(y).toBeGreaterThanOrEqual(264)
@@ -74,7 +74,7 @@ describe('the graduations in the reading view', () => {
     expect(labels(24460)).toEqual(['24', '25'])
   })
 
-  it('always include a numbered mark to count from', () => {
+  it('always include a numbered mark to count from', { timeout: 60_000 }, () => {
     for (let level = 0; level <= 50000; level++) expect(labels(level).length).toBeGreaterThanOrEqual(1)
   })
 

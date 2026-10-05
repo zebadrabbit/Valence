@@ -221,13 +221,16 @@ describe('the bench view of a real engine state', () => {
   })
 })
 
+// A loop over a hundred seeds runs near vitest's default of five seconds on a loaded machine, so each has a timeout of its own.
+const SEED_LOOP_TIMEOUT = 60_000
+
 describe('a careful run, seeds 1 to 100', () => {
   const COLOURLESS = 'Flask: colourless.'
   const AT_ONCE = 'Flask: colourless. Last addition: pink fades at once.'
   const SLOWLY = 'Flask: colourless. Last addition: pink fades slowly.'
   const PERSISTS = 'Flask: faint pink. Last addition: pink persists.'
 
-  it('changes the status line five times, the colour arriving with "pink persists", and restarts the plume at every addition', () => {
+  it('changes the status line five times, the colour arriving with "pink persists", and restarts the plume at every addition', { timeout: SEED_LOOP_TIMEOUT }, () => {
     for (let seed = 1; seed <= 100; seed++) {
       let state = ready('challenge', seed)
       const { additions } = titrateCarefully(m, state)
@@ -259,7 +262,7 @@ describe('a careful run, seeds 1 to 100', () => {
     }
   })
 
-  it.each([2, 3])('every endpoint with %i drops of indicator is named faint pink, before the wait and after it', (drops) => {
+  it.each([2, 3])('every endpoint with %i drops of indicator is named faint pink, before the wait and after it', { timeout: SEED_LOOP_TIMEOUT }, (drops) => {
     for (let seed = 1; seed <= 100; seed++) {
       const start = ready('challenge', seed, drops)
       const before = endpointOf(start)

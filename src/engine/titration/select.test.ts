@@ -166,7 +166,7 @@ describe('a wash of distilled water (seed 6, a careful endpoint that the second 
 })
 
 describe('no answer leaves the engine through the flask (careful runs of seeds 1 to 10)', () => {
-  it('until the flask is pink the view says of the chemistry only how the last plume faded, at once or slowly, and holds no number that follows the titrant still needed', () => {
+  it('until the flask is pink the view says of the chemistry only how the last plume faded, at once or slowly, and holds no number that follows the titrant still needed', { timeout: 60_000 }, () => {
     const said = new Map<string, unknown>()
     const stillNeeded = new Set<number>()
     for (let seed = 1; seed <= 10; seed++) {
@@ -683,7 +683,7 @@ describe('the checklist', () => {
 })
 
 describe('over every state these tests built', () => {
-  it('counts agrees with countingTrials for every trial, and a passing trial counts exactly when no cause is named in it: no technique error, no misread, and the label right', () => {
+  it('counts agrees with countingTrials for every trial, and a passing trial counts exactly when no cause is named in it: no technique error, no misread, and the label right', { timeout: 60_000 }, () => {
     const seen = { counting: 0, passedOnly: 0, passedWithTechniqueOnly: 0, failed: 0, invalid: 0, open: 0 }
     for (const s of built) {
       const counting = countingTrials(m, s)
@@ -782,7 +782,7 @@ function randomRecord(rng: Rng): TitrationState {
 }
 
 describe('no selector throws on a record that passes the schema', () => {
-  it('2000 random records, most of them ones no lab could make', () => {
+  it('2000 random records, most of them ones no lab could make', { timeout: 60_000 }, () => {
     const rng = mulberry32(7)
     const seen = new Set<string>()
     for (let i = 0; i < 2000; i++) {

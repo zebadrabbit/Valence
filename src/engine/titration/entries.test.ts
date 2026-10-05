@@ -123,7 +123,7 @@ describe('a molarity that follows from the notebook', () => {
     expect(followsFromNotebook(m, 0, 0, 0)).toBe(false)
   })
 
-  it('accepts one molarity for every label and titre, and two only at an exact tie', () => {
+  it('accepts one molarity for every label and titre, and two only at an exact tie', { timeout: 60_000 }, () => {
     let inBand = 0
     const ties: string[] = []
     for (let hclE4 = m.hclRangeE4[0]; hclE4 <= m.hclRangeE4[1]; hclE4++) {
