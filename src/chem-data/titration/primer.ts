@@ -525,7 +525,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
         "which entry each bottle carries, and the note under it, are in the lab's record (spec 7.1). The entries read do not say at what strength they stop applying, and the card does not either.",
       ),
       paragraph(
-        "Phenolphthalein is classified as a substance that may cause cancer. The indicator is a dilute solution of it in alcohol and water, and a titration uses two or three drops. The supplier's safety data sheet for that solution still says that it may cause cancer, and that the liquid and its vapour are flammable. It calls for gloves and eye protection, and for keeping the solution away from flames.",
+        "Phenolphthalein is classified as a substance that may cause cancer. The indicator is a dilute solution of it in alcohol and water, and a titration uses two or three drops. A supplier's safety data sheet for a solution of this kind still says that it may cause cancer, and that the liquid and its vapour are flammable. It calls for gloves and eye protection, and for keeping the solution away from flames.",
         [
           [
             'pubchem-cid-4764',
@@ -538,7 +538,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
             'the 0.5% indicator solution in 50% alcohol carries the signal word Danger, as a flammable liquid and vapour that may cause cancer; and that it is to be kept away from flames and other sources of ignition and handled with protective gloves and eye protection.',
           ],
         ],
-        "two or three drops is this lab's amount (spec 7.2).",
+        "two or three drops is this lab's amount (spec 7.2). That the bottle on this bench is a solution of the kind the sheet is for is assumed (spec 7.3).",
       ),
     ],
   },

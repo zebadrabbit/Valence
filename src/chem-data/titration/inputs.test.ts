@@ -176,6 +176,16 @@ describe('the titration inputs: bottles', () => {
     }
   })
 
+  it("calls each note's sheet a supplier's sheet for a solution of that kind, since which product is on this bench is assumed and not established", () => {
+    for (const [key, bottle] of bottles) {
+      expect([key, /A supplier's safety data sheet for /.test(bottle.hazards.note.value)]).toEqual([key, true])
+      expect([key, /The supplier's/.test(bottle.hazards.note.value)]).toEqual([key, false])
+    }
+    // The strength's own note says the bottle being such a solution is an assumption; the hazard note may not say more.
+    expect((input.constants.indicatorStrength as Constant).note).toMatch(/an assumption, not something established/)
+    expect(input.bottles.indicator.hazards.note.value).toMatch(/is taken to be a 0\.5% \(w\/v\) solution in 50% alcohol/)
+  })
+
   it('repeats the by-mass figure of each note that states one', () => {
     // 0.1 mol/L times the molar mass, in g/L, taking the density as 1.00 g/mL, so a tenth of it is the percentage.
     // The molar masses are sums of the abridged atomic weights the periodic table stores (H 1.0080, Cl 35.45;

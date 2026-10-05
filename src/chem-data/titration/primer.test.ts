@@ -209,5 +209,8 @@ describe('the titration primer: what it has to say', () => {
     // The acid bottle's statements are those of hydrochloric acid, not of a pure substance (D4).
     expect(shown('safety')).not.toMatch(/pure hydrochloric|pure hydrogen chloride/)
     expect(shown('safety')).toMatch(/replaces/)
+    // Which supplier's indicator is on the bench is assumed, so no sheet is called the sheet of this lab's bottle.
+    expect(shown('safety')).not.toMatch(/The supplier's/)
+    expect(shown('safety')).toMatch(/A supplier's safety data sheet for a solution of this kind/)
   })
 })
