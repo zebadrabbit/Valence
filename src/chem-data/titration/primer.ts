@@ -370,7 +370,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
     heading: 'Reading the burette',
     paragraphs: [
       paragraph(
-        'A burette is a long, narrow glass tube with a scale along it and a tap, called the stopcock, at the bottom. Its scale starts at 0.00 mL at the top and the numbers increase downward, so the reading grows as solution runs out. The volume delivered is the final reading minus the initial reading; the burette does not need to start at zero.',
+        'A burette is a long, narrow glass tube with a scale along it and a tap, called the stopcock, at the bottom. Its scale starts at 0.00 mL at the top and the numbers increase downward, so the reading grows as solution leaves the burette. The volume delivered is the final reading minus the initial reading; the burette does not need to start at zero.',
         [
           [harvey('9.1'), 'section 9.1, under the heading The Buret', 'a buret is a long, narrow graduated tube, and that the titrant is let out of it through a stopcock.'],
           [

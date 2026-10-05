@@ -305,6 +305,13 @@ describe('the titration primer: what it has to say', () => {
     expect(shown('burette')).toMatch(/reading view/)
   })
 
+  it('says "runs out" only of a burette with nothing left to deliver: the burette card says that the reading grows as solution leaves the burette', () => {
+    expect(shown('burette')).toMatch(/so the reading grows as solution leaves the burette\./)
+    const saysIt = TITRATION_PRIMER.filter((s) => /\br[au]ns? out\b/.test(shown(s.id))).map((s) => s.id)
+    expect(saysIt).toEqual(['glassware'])
+    expect(shown('glassware')).toMatch(/A burette that runs out in the middle of a trial/)
+  })
+
   it('says where a learner reads it what is not true to a bench: the size of each technique error, the bubble, and the burette that stays dilute', () => {
     // Spec 7.3 names the three and says the documentation tells the learner so.
     const card = shown('glassware')

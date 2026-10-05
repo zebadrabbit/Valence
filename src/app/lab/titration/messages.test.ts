@@ -392,6 +392,16 @@ describe('every sentence of the lab and of the shell', () => {
     for (const [text, given] of said) expect([text, stray(text, given)]).toEqual([text, []])
   })
 
+  it('"run out" is said only of a burette with nothing left to deliver, never of NaOH that has run from it into the flask', () => {
+    const runOut = /\br[au]ns? out\b/
+    const ofTheEmptyBurette = [OUTCOME_TEXT['ran-out'], outcomeLabel(invalid('ran-out'))]
+    for (const text of [...exported, ...said.map(([text]) => text)]) expect([text, runOut.test(text)]).toEqual([text, ofTheEmptyBurette.includes(text)])
+    // The two refusals that said it are met with the burette nowhere near empty.
+    expect(BLOCKED_TEXT['needs-initial-reading']).toMatch(/Once NaOH has run from the burette, the starting level can no longer be read\./)
+    expect(BLOCKED_TEXT['final-not-after-initial']).toMatch(/the reading grows as NaOH runs from the burette\./)
+    expect(BLOCKED_TEXT['final-not-after-initial']).toMatch(/cannot be put right now that NaOH has run into the flask/)
+  })
+
   it('none says that trials passed where it means that they count', () => {
     const passed = /three (passing )?trials (have )?passed|three passing trials|three passes/i
     for (const text of [...exported, ...said.map(([text]) => text)]) expect(text).not.toMatch(passed)

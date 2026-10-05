@@ -7,7 +7,10 @@ import { molarityText, percentErrorText, readingText } from './format'
 
 export const NOTEBOOK_TEXT = { check: 'Check', discard: 'Discard this flask', nextTrial: 'Start the next trial' }
 
-/** Why a control cannot be used now. Each names what is missing and nothing else, so it reads the same in both modes. */
+/**
+ * Why a control cannot be used now. Each names what is missing and nothing else, so it reads the same in both modes.
+ * NaOH runs from the burette, or into the flask; "ran out" is kept for a burette with nothing left to deliver.
+ */
 export const BLOCKED_TEXT: Record<Exclude<Blocked, 'invalid-entry' | 'reread'>, string> = {
   'lab-completed': 'The lab is complete. Restart the lab to run it again.',
   'lab-not-completed': 'These are entered once three trials count.',
@@ -27,14 +30,14 @@ export const BLOCKED_TEXT: Record<Exclude<Blocked, 'invalid-entry' | 'reread'>, 
   'water-full': 'The flask has had all the distilled water this lab allows in one trial.',
   'needs-indicator': 'Add 2 or 3 drops of phenolphthalein first.',
   'needs-initial-reading':
-    'Record the initial burette reading before you open the stopcock. Once NaOH has run out, the starting level can no longer be read.',
+    'Record the initial burette reading before you open the stopcock. Once NaOH has run from the burette, the starting level can no longer be read.',
   'endpoint-not-confirmed':
     'The final reading can be recorded once the pink has lasted through a swirl and wait. Titrate until the flask stays pink, then swirl and wait.',
   'needs-final-reading': 'The molarity is worked out from both readings. Record the final reading first.',
   'needs-hcl-molarity': 'Record the HCl molarity from the bottle label first.',
   'not-the-label': 'That is not the molarity printed on the label. Look at the label again and copy all four decimal places.',
   // The initial reading cannot be taken again once titrant has run, so a wrong one leaves no honest final reading.
-  'final-not-after-initial': `The final reading must be larger than the initial reading. The numbers on a burette run downward, so the reading grows as NaOH runs out. If it is the initial reading in your notebook that is wrong, it cannot be put right now that NaOH has run out, and the flask must be discarded: choose "${NOTEBOOK_TEXT.discard}" in the notebook and run the trial again.`,
+  'final-not-after-initial': `The final reading must be larger than the initial reading. The numbers on a burette run downward, so the reading grows as NaOH runs from the burette. If it is the initial reading in your notebook that is wrong, it cannot be put right now that NaOH has run into the flask, and the flask must be discarded: choose "${NOTEBOOK_TEXT.discard}" in the notebook and run the trial again.`,
   'calculation-mismatch':
     'That molarity does not follow from your notebook. It must be your HCl molarity × 25.00 ÷ your titre. Keep every digit until the last step, then round the answer to four decimal places; do not cut it off. Nothing has been marked yet.',
 }

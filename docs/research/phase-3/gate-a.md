@@ -227,6 +227,12 @@ After the commits above the branch was checked once more, at `44971d2`. One chec
 - Re-checked: a case in `select.test.ts` and one in `messages.test.ts`, seen failing first because the outcome said ran-out; the first also holds that water added before the titrant, with the stream then run to the mark, is still ran-out.
 - Not done: the bench does not warn before a rinse at the mark. No component exists yet, and a warning there would be a new rule for Challenge, which shows none.
 
+**L6 (should-fix). "Run out" meant two things.** Two refusals said "once NaOH has run out" and "now that NaOH has run out" of NaOH that had left the burette, while the lab also has an outcome called "burette ran out". A learner reads the refusal as saying that the burette is empty.
+
+- Reproduced by printing both refusals; the second had "runs out" and "has run out" in adjacent sentences.
+- Done: `needs-initial-reading` says "Once NaOH has run from the burette". `final-not-after-initial` says that the reading grows as NaOH runs from the burette, and that a wrong initial reading cannot be put right now that NaOH has run into the flask, which is the wording `mid-titration` already had. The primer's burette card had the same use and now says that the reading grows as solution leaves the burette. "Ran out" is kept for a burette with nothing left to deliver.
+- Re-checked: a case in `messages.test.ts` over every sentence of the lab and the shell, and one in `primer.test.ts` over every card, both seen failing first: only the ran-out outcome, its label and the glassware card's sentence on refilling say it.
+
 ## What the reviewers confirmed
 
 **Constants and sources (R1).**
