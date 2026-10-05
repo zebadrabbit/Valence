@@ -233,11 +233,12 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
     heading: 'Why phenolphthalein',
     paragraphs: [
       paragraph(
-        'pH is a scale for how acidic or basic a solution is. At 25 °C a pH below 7 is acidic, 7 is neutral, and above 7 is basic. Phenolphthalein is colourless below a pH of about 8.3 and pink above it.',
+        'pH is a scale for how acidic or basic a solution is. At 25 °C a pH below 7 is acidic, 7 is neutral, and above 7 is basic. Phenolphthalein is colourless below a pH of about 8.3 and pink above it. The bottle on this bench is a 0.5% solution of it in alcohol and water. Many teaching labs stock a 1% solution in alcohol instead, and the endpoint is read in the same way with either.',
         [
           [chem2e('14.2'), 'section 14.2, Table 14.1', 'at 25 °C a solution is acidic when its pH is below 7, neutral at 7 and basic above 7.'],
           [chem2e('14.7'), 'section 14.7, under the heading Acid-Base Indicators', 'phenolphthalein is colourless in solutions of pH below 8.3 and red or pink in more basic ones.'],
         ],
+        "the bottle's strength is the lab's set-up (spec 5.2). That the endpoint is read in the same way with a 1% solution rests on the model, whose endpoint test passes for any strength from 0.1% to 1% (the record's note on the indicator's strength). That teaching labs stock a 1% solution in 95% alcohol is the owner's bench practice (Gate A, 2026-10-05); no source was read for it.",
       ),
       paragraph(
         'When a strong acid is titrated with a strong base, the pH of the flask climbs slowly at first and then leaps from acidic to basic over a very small addition around the equivalence point. The colour change of phenolphthalein lies inside that leap, so the first lasting pink appears almost exactly at the equivalence point.',
@@ -447,7 +448,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
         ],
       ),
       paragraph(
-        'Air can be trapped in the burette tip, below the stopcock. It has to be pushed out before the first reading, by running a little NaOH through the tip. If the bubble comes out during the titration instead, NaOH takes its place, and the burette reads more than was delivered to the flask.',
+        'Air can be trapped in the burette tip, below the stopcock, each time an empty burette is filled, and so again after conditioning. It has to be pushed out before the first reading, by running a little NaOH through the tip. If the bubble comes out during the titration instead, NaOH takes its place, and the burette reads more than was delivered to the flask.',
         [
           [
             'seely-buret',
@@ -456,7 +457,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
           ],
           [BURET_USE, PREPARING, 'air caught in the tip can spoil the measurements, and is got rid of before the titration.'],
         ],
-        'that the burette then reads more than was delivered is how the lab models the bubble (spec 7.3).',
+        'that the burette then reads more than was delivered, and that every fill from empty traps air again, are how the lab models the bubble (spec 7.3).',
       ),
       paragraph(
         'That makes three mistakes: a burette that was not conditioned, a pipette that was not rinsed, and an air bubble left in the burette tip. This lab makes each of them cost more than it does at a real bench. A real burette tip holds less air than the bubble in this lab. And a real burette that was not conditioned is less diluted each time it is refilled; in this lab it stays diluted until you condition it. Even so, a mistake does not always show in the result: two of them can push it in opposite directions and cancel. So a trial with one of these mistakes in it does not count toward the three trials this lab asks for, even when its result is close.',
