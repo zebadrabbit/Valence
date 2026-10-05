@@ -337,18 +337,18 @@ export function summarise(molaritiesE6: readonly number[]): { meanE6: number; de
 The rounding rule (D6), in whole numbers: with `d = molarityE6 × titreUl − hclE6 × pipetteNominalUl`, the molarity follows from the notebook exactly when `titreUl > 0` and `−molarityRoundingE6 × titreUl <= d <= molarityRoundingE6 × titreUl`. Both edges are included, so at an exact tie either neighbour is accepted. That is this plan's answer to Q1 until the owner gives theirs; if it is "a tie rounds up", the lower edge is left out and the tie cases below change as Q1 says.
 
 - [x] Q1 was put to the owner and answered on 2026-10-04: both neighbours are accepted at an exact tie.
-- [ ] `parseReading`: "12.34" 12340; "0.00" 0; " 2.56 " 2560; "05.07" 5070; "8.29" 8290; "33.33" 33330; "50.01" 50010 (the range is `can`'s matter, Task 6). Null for "12.3", "12.345", "12", "24.", ".50", "12,34", "-1.00", "1e1", "24.37 mL", "124.37" and "". "8.29" and "33.33" are there because 8.29 × 1000 is 8289.99… in floating point: the parser never multiplies a float.
-- [ ] `parseMolarity`: "0.0949" and ".0949" 94900; "0.1000" 100000; "0.0000" 0. Null for "0.095", "0.09494", "0.094942", "1.0949", "0,0949", "9.49e-2", " " and "".
-- [ ] `parseDeviation`: "0.47" 47; "1.3" 130; "2" 200; ".5" 50; "0" 0. Null for "1.333", "1.", "-1", "1,5" and "".
-- [ ] `withinTolerance` against 0.10000 M: 0.1009 true, 0.1011 false, 0.0991 true, 0.0989 false; the edge, 0.1010 and 0.0990, true. Against 0.09502 M (1.0% is 0.00095020): 0.0959 true (off by 0.00088), 0.0960 false (0.00098), 0.0941 true (0.00092), 0.0940 false (0.00102); 95 969 true and 95 971 false.
-- [ ] `percentError(94900, 9502)` is −0.126; `(96800, 9502)` 1.873; `(93000, 9502)` −2.126; `(100600, 9960)` 1.004. Each to 0.001.
-- [ ] `followsFromNotebook`, the cases of D6, each with its arithmetic:
+- [x] `parseReading`: "12.34" 12340; "0.00" 0; " 2.56 " 2560; "05.07" 5070; "8.29" 8290; "33.33" 33330; "50.01" 50010 (the range is `can`'s matter, Task 6). Null for "12.3", "12.345", "12", "24.", ".50", "12,34", "-1.00", "1e1", "24.37 mL", "124.37" and "". "8.29" and "33.33" are there because 8.29 × 1000 is 8289.99… in floating point: the parser never multiplies a float.
+- [x] `parseMolarity`: "0.0949" and ".0949" 94900; "0.1000" 100000; "0.0000" 0. Null for "0.095", "0.09494", "0.094942", "1.0949", "0,0949", "9.49e-2", " " and "".
+- [x] `parseDeviation`: "0.47" 47; "1.3" 130; "2" 200; ".5" 50; "0" 0. Null for "1.333", "1.", "-1", "1,5" and "".
+- [x] `withinTolerance` against 0.10000 M: 0.1009 true, 0.1011 false, 0.0991 true, 0.0989 false; the edge, 0.1010 and 0.0990, true. Against 0.09502 M (1.0% is 0.00095020): 0.0959 true (off by 0.00088), 0.0960 false (0.00098), 0.0941 true (0.00092), 0.0940 false (0.00102); 95 969 true and 95 971 false.
+- [x] `percentError(94900, 9502)` is −0.126; `(96800, 9502)` 1.873; `(93000, 9502)` −2.126; `(100600, 9960)` 1.004. Each to 0.001.
+- [x] `followsFromNotebook`, the cases of D6, each with its arithmetic:
   - 0.0976 M and a 25.70 mL titre: 0.0976 × 25.00 ÷ 25.70 = 0.0949416. 0.0949 true; 0.0950 and 0.0948 false.
   - 0.0976 M and 25.67 mL: 2.4400 ÷ 25.67 = 0.0950526, which rounds to 0.0951 and cuts off to 0.0950. 0.0951 true (95 100 × 25 670 − 97 600 × 25 000 = 1 217 000, and 50 × 25 670 = 1 283 500); 0.0950, the cut-off value, false (the difference is −1 350 000); 0.0952 false.
   - A tie, 0.0960 M and 25.60 mL: 2.4000 ÷ 25.60 = 0.09375 exactly. 0.0938 true (the difference is +1 280 000, equal to 50 × 25 600); 0.0937 true (−1 280 000, the other edge); 0.0939 and 0.0936 false (±3 840 000).
   - A tie a bottle here can give, 0.0972 M and 24.00 mL: 2.4300 ÷ 24.00 = 0.10125 exactly. 0.1013 and 0.1012 true (the difference is ±1 200 000, equal to 50 × 24 000); 0.1014 and 0.1011 false.
   - A titre of 0 or less: false.
-- [ ] `summarise`, each to its two whole numbers:
+- [x] `summarise`, each to its two whole numbers:
   - `[94900, 94800, 94900]`: the mean is 94 866.7, rounded 94 900; the distances from 94 900 are 0, 100, 0, their mean 33.3; 33.3 ÷ 94 900 × 1000 = 0.351, so `{ meanE6: 94900, deviationTenths: 4 }`.
   - `[98700, 98900, 98600]`: mean 98 733.3, rounded 98 700; distances 0, 200, 100, mean 100; 100 ÷ 98 700 × 1000 = 1.013, so `{ 98700, 10 }`.
   - `[100000, 100200, 99800]`: `{ 100000, 13 }` (133.3 ÷ 100 000 × 1000 = 1.333).
