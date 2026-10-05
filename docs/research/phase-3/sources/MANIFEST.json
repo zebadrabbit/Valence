@@ -1,6 +1,6 @@
 {
   "retrieved": "2026-10-04",
-  "about": "Every source of the titration lab's record (docs/research/phase-3/titration.json) and of its primer (src/chem-data/titration/primer.ts), each fetched and read on the retrieval date, or on the later date its own citation gives. A source with `file` has its copy in this folder, as downloaded, with the sha256 of that copy; a source with none was read and no copy is kept. `alsoKept` lists a second copy of the same record fetched from another address. Each `supports` row names one stored value by its path in the record, gives in `prints` the figure or label exactly as the source prints it, and says in `where`, in this project's words, where it is. A row whose field is `primer` marks a source the primer rests on: its `prints` is a title or a heading as the source prints it, and which passage a paragraph rests on, and what that passage establishes, is said in the paragraph's support line in the primer. A bottle's `reference` in the record is the name of the classification's source in the kept PubChem copy, a colon and a space, and the entry's name with the space around it removed. README.md in this folder gives the attribution the two Wikipedia copies require.",
+  "about": "Every source of the titration lab's record (docs/research/phase-3/titration.json) and of its primer (src/chem-data/titration/primer.ts), each fetched and read on the retrieval date, or on the later date its own citation gives. A source with `file` has its copy in this folder, as downloaded, with the sha256 of that copy; a source with none was read and no copy is kept. `fetchedSha256`, on a source with no copy, is the sha256 of the page as it was fetched on the day it was read: a record of which page that was, not the hash of any file here, and nothing checks it. `alsoKept` lists a second copy of the same record fetched from another address. Each `supports` row names one stored value by its path in the record, gives in `prints` the figure or label exactly as the source prints it, and says in `where`, in this project's words, where it is. A row whose field is `primer` marks a source the primer rests on: its `prints` is a title or a heading as the source prints it, and which passage a paragraph rests on, and what that passage establishes, is said in the paragraph's support line in the primer. A bottle's `reference` in the record is the name of the classification's source in the kept PubChem copy, a colon and a space, and the entry's name with the space around it removed. README.md in this folder gives the attribution the two Wikipedia copies require.",
   "sources": [
     {
       "id": "tamura-1996",
@@ -231,9 +231,8 @@
     {
       "id": "ricca-5600",
       "url": "https://www.riccachemical.com/products/chemical-indicators/ph-indicators/acid-base-indicators/5600-(-r5600000-)",
-      "citation": "Ricca Chemical Company. Catalogue listing for product number 5600 (R5600000), a phenolphthalein indicator solution of 0.5% (w/v) in 50% (v/v) alcohol, neutralized (retrieved 2026-10-04).",
-      "file": "ricca-5600-listing.html",
-      "sha256": "7f425aaba0925aefceaf7113f6f77e1a4cc173b7363b0b90b38564a221156edd",
+      "citation": "Ricca Chemical Company. Catalogue listing for product number 5600 (R5600000), a phenolphthalein indicator solution of 0.5% (w/v) in 50% (v/v) alcohol, neutralized (read on 2026-10-04; no copy is kept).",
+      "fetchedSha256": "7f425aaba0925aefceaf7113f6f77e1a4cc173b7363b0b90b38564a221156edd",
       "supports": [
         {
           "field": "constants.indicatorStrength",

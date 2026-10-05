@@ -21,7 +21,7 @@ import { join } from 'node:path'
 import process from 'node:process'
 import { parseSdf } from './parse-sdf.mjs'
 import { checkConfiguration, noteProblem, parseCiaawAbridged, parseNistIe, parsePubChem } from './periodic-table-lib.mjs'
-import { checkAnnualMean, checkHazards, checkMolecularWeight, checkPublished, checkSha256, checkStrength, checkWikipediaCopy } from './titration-lib.mjs'
+import { checkAnnualMean, checkHazards, checkMolecularWeight, checkPublished, checkSha256, checkWikipediaCopy } from './titration-lib.mjs'
 
 const root = join(import.meta.dirname, '..')
 const research = join(root, 'docs/research/phase-2')
@@ -1027,13 +1027,13 @@ function buildTitration(otherSourceIds) {
   }
   // The checks against the kept copies. Each compares the figure the record says its source prints, digit for digit.
   const figure = (key, constant = constants[key]) => constant.published ?? fail(`${where(key)}: a value checked against a kept copy needs the figure its source prints`)
-  const { atmosphericCo2, indicatorMolarMass, indicatorStrength, indicatorDropVolume, carbonicPKas } = constants
+  const { atmosphericCo2, indicatorMolarMass, indicatorDropVolume, carbonicPKas } = constants
   checkAnnualMean(copies(atmosphericCo2, where('atmosphericCo2'), NOAA_ID)[0], atmosphericCo2.year, figure('atmosphericCo2'))
   // PubChem serves the molecular weight from another address than the GHS section, so the record has two kept copies.
   const properties = copies(indicatorMolarMass, where('indicatorMolarMass'), INDICATOR_RECORD_ID).map((text) => JSON.parse(text)).find((copy) => copy.PropertyTable)
   checkMolecularWeight(properties ?? fail(`${where('indicatorMolarMass')}: no kept copy of PubChem's property table`), bottles.indicator.pubchemCid, figure('indicatorMolarMass'))
-  // Whichever catalogue listing the strength cites, its copy is kept and prints the strength, by weight per volume.
-  checkStrength(copies(indicatorStrength, where('indicatorStrength'))[0], figure('indicatorStrength'))
+  // The indicator's strength is not among them: its catalogue listing was read and is not kept, like the papers and
+  // the NIST pages, so it rests on what the manifest says the page printed on the day it was read.
   for (const [key, list, id] of [['carbonicPKas', carbonicPKas, CARBONIC_ID], ['indicatorDropVolume', [indicatorDropVolume], DROP_ID]]) {
     const [copy] = list.map((constant) => copies(constant, where(key), id)[0])
     checkWikipediaCopy(JSON.parse(copy), sourceOf(list[0], where(key)).citation, list.map((constant) => figure(key, constant)))

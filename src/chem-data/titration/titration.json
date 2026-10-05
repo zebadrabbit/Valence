@@ -88,7 +88,7 @@
       "value": 0.5,
       "published": "0.5",
       "unit": "g per 100 mL",
-      "note": "The catalogue listing prints the strength as 0.5% (w/v) in 50% (v/v) alcohol, and lower on the same page as 5 g/L, so for the listed product the percentage is weight per volume: 0.5 g in 100 mL. This lab's bottle is labelled 0.5% with no basis, and taking it to be that kind of solution is an assumption, not something established: a supplier that makes up 0.5% by weight puts a slightly different amount in each drop. The endpoint test passes for any strength from 0.1% to 1%, so no result depends on the choice.",
+      "note": "The catalogue listing, read on 2026-10-04, prints the strength as 0.5% (w/v) in 50% (v/v) alcohol, and lower on the same page as 5 g/L, so for the listed product the percentage is weight per volume: 0.5 g in 100 mL. No copy of the page is kept, so the figure rests on what was read that day and the build does not check it again. This lab's bottle is labelled 0.5% with no basis, and taking it to be that kind of solution is an assumption, not something established: a supplier that makes up 0.5% by weight puts a slightly different amount in each drop. The endpoint test passes for any strength from 0.1% to 1%, so no result depends on the choice.",
       "sourceId": "ricca-5600"
     },
     "indicatorDropVolume": {

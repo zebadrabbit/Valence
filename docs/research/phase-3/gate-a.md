@@ -91,6 +91,13 @@ Findings are numbered F1 to F15 (must-fix and should-fix) and N1 to N15 (notes).
 - Re-checked, with R2's probes run again on seeds 1 to 400: the known pair is within 1.0% at 400 and counts at 0; the bubble with the pipette is within 1.0% at 381 and counts at 0; after 8, 12, 16 and 18 stream additions into a discarded flask the next trial counts at 0 of 400 each; a lab completed with the tip bubble named in all three counted trials: 0 of 100. R2's leaning of the readings 0.02 mL either way changes how many pass (186 to 400) and not that none counts.
 - Expected values changed, because the decision changes the rule they pinned: in `messages.test.ts`, a pass with two technique causes was expected to count and to lead with the in-spite line, and reads "Passed, not counted" where it read "Passed"; in `select.test.ts`, a passing trial was held to count exactly when it had no misread and the right label, and is now held to count exactly when no cause is named. No other expected value changed.
 
+**Decision B, answered: the indicator's catalogue listing is cited, not kept.** The supplier's page was a kept copy in the sources folder, and the build checked the stored strength against it.
+
+- Done: `ricca-5600-listing.html` is out of the repository. Its manifest entry has no `file` and no `sha256`, and reads like the entries for the NIST pages and the IAPWS release: the address, the day the page was read (2026-10-04), and rows for what it prints, which are 0.5, the basis (w/v), the solvent 50% (v/v) Alcohol in the same heading, and 5 g/L lower on the page, each with where it is in this project's words. The sha256 of the page as fetched is kept under a field of its own, `fetchedSha256`, because `sha256` in the manifest is the hash of a kept file and there is none.
+- What is lost: the build's check of the strength against a copy (`checkStrength`) is gone. The figure now rests on a page read on 2026-10-04 and is no longer re-checked by the build; a page that changes is not noticed. The record's note on the strength, the sources README, the plan (D4, Tasks 2 and 4) and the spec (5.2, 7.3) say so.
+- Re-checked: the case in `inputs.test.ts` that held the kept copy to print the strength now holds the entry to the read-and-not-kept pattern and the folder to hold no HTML file; it and a case that `checkStrength` is gone were seen failing first. `npm run build:data` writes the new citation and note and nothing else.
+- History: the file is still in the branch's earlier commits. It is taken out of them separately, before anything is pushed (the plan's Task 23).
+
 ### Reproduced, and left for the owner
 
 **F6 (should-fix, R2) and N9 (note, R3). The flask view gives away the pipette's delivery and, once the flask is pink, the hidden NaOH molarity.** Reproduced with R2's test: exact at 400 of 400 seeds for both. Neither passes a trial. The plan's Global Constraints accept the pink concentration of a pink flask as a number the drawing needs, and its Task 13 pins the exact flask volume, so handing the app less changes the plan's interface and one of its test values. The header comment in `select.ts` claimed that no selector hands over such a number; it now says which two do (commit `3ecc4f8`). Nothing else was changed. Decision 2 below.
@@ -123,11 +130,11 @@ One thing R3 raised under F12 is carried forward and not fixed here: on a reload
 
 **Constants and sources (R1).**
 
-- The generated record equals the authored input in every bottle, constant and parameter. All eight kept copies match their hashes. Fresh fetches of the papers, the sheets and the data files are identical to the saved ones.
+- The generated record equals the authored input in every bottle, constant and parameter. All eight kept copies match their hashes (seven since 2026-10-05, when the listing went). Fresh fetches of the papers, the sheets and the data files are identical to the saved ones.
 - K_w: the release's equations were coded and reproduce its six test values. At 25 °C they give 13.994 on the molal scale and, with the density NIST prints, 13.997 on the molar scale, which rounds to the stored value. The note's conversion and its direction are right.
 - The indicator's two constants, their conditions and the form that is pink are as the paper prints them, and the notes say they are used unchanged. The molar mass, the drop volume, Henry's constant with its unit, and the CO₂ fraction for the stated year are as their sources print them.
 - The carbonic acid constants: the kept page prints the stored figures; the note says that reading the first as the constant of dissolved CO₂ is the project's; the survey's database file bears both out at 25 °C.
-- The indicator's strength: the kept listing prints weight per volume, and the note says the bottle being such a solution is assumed.
+- The indicator's strength: the listing, a kept copy at the time of the review, prints weight per volume, and the note says the bottle being such a solution is assumed. (The copy is no longer kept: Decision B above.)
 
 **The model (R1).**
 

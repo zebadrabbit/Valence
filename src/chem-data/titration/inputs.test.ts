@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest'
 import manifestFile from '../../../docs/research/phase-3/sources/MANIFEST.json'
-import listing from '../../../docs/research/phase-3/sources/ricca-5600-listing.html?raw'
 import carbonicAcidPage from '../../../docs/research/phase-3/sources/wikipedia-carbonic-acid-1376246456.json'
 import inputFile from '../../../docs/research/phase-3/titration.json'
 import { findInstitutionText } from '../denylist'
@@ -23,7 +22,7 @@ type Input = {
   parameters: Record<string, { value: number | number[]; rationale: string }>
 }
 type Manifest = {
-  sources: { id: string; url: string; citation: string; file?: string; sha256?: string; supports: { field: string; prints: string; where: string }[] }[]
+  sources: { id: string; url: string; citation: string; file?: string; sha256?: string; fetchedSha256?: string; supports: { field: string; prints: string; where: string }[] }[]
 }
 
 const input: Input = inputFile
@@ -85,11 +84,28 @@ describe('the titration inputs: sources', () => {
     expect(openstax.filter((s) => s.file !== undefined)).toEqual([])
   })
 
-  it('keeps the catalogue listing the indicator strength is read from, and the listing prints it', () => {
+  it('cites the catalogue listing the indicator strength is read from as a page that was read and not kept (the owner\'s decision of 2026-10-05)', () => {
     const strength = input.constants.indicatorStrength as Constant
     expect(strength).toMatchObject({ value: 0.5, published: '0.5', unit: 'g per 100 mL' })
-    expect(source(strength.sourceId)?.file).toBe('ricca-5600-listing.html')
-    expect(listing).toContain('Phenolphthalein Indicator, 0.5% (w/v)')
+    const listing = source(strength.sourceId)!
+    // No copy, so nothing in the build can check the figure again: the manifest says what the page prints and where.
+    expect(listing.file).toBeUndefined()
+    expect(listing.sha256).toBeUndefined()
+    expect(Object.keys(import.meta.glob('../../../docs/research/phase-3/sources/*.html'))).toEqual([])
+    expect(listing.citation).toMatch(/read on 2026-10-04; no copy is kept/)
+    const prints = (field: string) => listing.supports.filter((row) => row.field === field).map((row) => row.prints)
+    expect(prints('constants.indicatorStrength')).toEqual(['0.5'])
+    expect(prints('constants.indicatorStrength.note')).toEqual(['(w/v)', '50% (v/v) Alcohol', '5 g/L'])
+    // The hash of the page as it was fetched is recorded apart: `sha256` is the hash of a kept file, and there is none.
+    expect(listing.fetchedSha256).toMatch(/^[0-9a-f]{64}$/)
+    // The note says what the figure now rests on.
+    expect(strength.note).toMatch(/read on 2026-10-04/)
+    expect(strength.note).toMatch(/No copy of the page is kept/)
+    expect(strength.note).toMatch(/the build does not check it again/)
+  })
+
+  it('records the hash of a page as fetched only for a source that keeps no copy', () => {
+    for (const s of manifest.sources) expect([s.id, s.fetchedSha256 !== undefined && s.file !== undefined]).toEqual([s.id, false])
   })
 
   it('says of the carbonic constants what the kept page prints, and calls the rest this project\'s reading', () => {

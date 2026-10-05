@@ -5,7 +5,6 @@ import sodiumHydroxideRecord from '../../../docs/research/phase-3/sources/pubche
 import hydrochloricAcidRecord from '../../../docs/research/phase-3/sources/pubchem-cid-313-ghs.json'
 import phenolphthaleinRecord from '../../../docs/research/phase-3/sources/pubchem-cid-4764-ghs.json'
 import phenolphthaleinProperties from '../../../docs/research/phase-3/sources/pubchem-cid-4764-properties.json'
-import listing from '../../../docs/research/phase-3/sources/ricca-5600-listing.html?raw'
 import carbonicAcidPage from '../../../docs/research/phase-3/sources/wikipedia-carbonic-acid-1376246456.json'
 import dropPage from '../../../docs/research/phase-3/sources/wikipedia-drop-unit-1314848686.json'
 import input from '../../../docs/research/phase-3/titration.json'
@@ -20,11 +19,10 @@ type Lib = {
   checkMolecularWeight(properties: unknown, cid: number, published: string): void
   checkHazards(record: unknown, reference: string, hazards: Hazards): void
   checkWikipediaCopy(copy: unknown, citation: string, figures: string[]): void
-  checkStrength(html: string, published: string): void
   checkSha256(bytes: string, sha256: string, file: string): void
 }
 const [lib] = Object.values(import.meta.glob<Lib>('../../../scripts/titration-lib.mjs', { eager: true }))
-const { checkPublished, checkAnnualMean, checkMolecularWeight, checkHazards, checkWikipediaCopy, checkStrength, checkSha256 } = lib!
+const { checkPublished, checkAnnualMean, checkMolecularWeight, checkHazards, checkWikipediaCopy, checkSha256 } = lib!
 
 const { hcl, naoh, indicator } = input.bottles
 const citation = (id: string) => manifest.sources.find((source) => source.id === id)!.citation
@@ -133,17 +131,12 @@ describe('checkWikipediaCopy', () => {
   })
 })
 
-describe('checkStrength', () => {
-  it('accepts the stored strength as a percentage by weight per volume that the listing prints', () => {
-    expect(() => checkStrength(listing, '0.5')).not.toThrow()
-  })
-
-  it('refuses another strength, the end of the printed one, and a percentage on another basis', () => {
-    expect(() => checkStrength(listing, '1')).toThrow(/does not print 1% \(w\/v\)/)
-    expect(() => checkStrength(listing, '5')).toThrow(/does not print 5% \(w\/v\)/)
-    // The listing prints "50% (v/v)": by volume, and of the alcohol.
-    expect(listing).toContain('50% (v/v)')
-    expect(() => checkStrength(listing, '50')).toThrow(/does not print 50% \(w\/v\)/)
+// The indicator's strength is not checked here: its catalogue listing was read and is not kept (the owner's decision
+// of 2026-10-05), so there is no copy to check it against. inputs.test.ts holds the record to what the manifest
+// says the page printed.
+describe('the checks', () => {
+  it('have none for the strength of the indicator', () => {
+    expect(Object.keys(lib!)).not.toContain('checkStrength')
   })
 })
 

@@ -18,7 +18,7 @@ export function checkPublished({ value, published }, where) {
 }
 
 /** Matches `figure` printed as a number of its own, not as part of a longer one: "6.3" is not in "6.35", nor "0.33" in "10.33". */
-const printed = (figure, after = '(?!\\.?\\d)') => new RegExp(`(?<![\\d.])${figure.replace('.', '\\.')}${after}`)
+const printed = (figure) => new RegExp(`(?<![\\d.])${figure.replace('.', '\\.')}(?!\\.?\\d)`)
 
 /** Throws unless NOAA's file of annual means has one row for `year`, and its mean is printed as `published`. */
 export function checkAnnualMean(text, year, published) {
@@ -85,14 +85,6 @@ export function checkWikipediaCopy(copy, citation, figures) {
   for (const figure of figures) {
     if (!printed(figure).test(revisions[0].slots.main['*'])) throw new Error(`Wikipedia revision ${named} does not print ${figure}`)
   }
-}
-
-/**
- * Throws unless the indicator's catalogue listing prints `published` as a percentage by weight per volume, which is
- * the stored unit, grams per 100 mL. A bare percentage is not looked for: a page's stylesheet is full of them.
- */
-export function checkStrength(html, published) {
-  if (!printed(published, '% \\(w/v\\)').test(html)) throw new Error(`the catalogue listing does not print ${published}% (w/v)`)
 }
 
 /** Throws unless `bytes` (a kept copy, as read) hash to the sha256 the manifest records for `file`. */
