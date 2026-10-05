@@ -192,23 +192,15 @@ describe('spec 7.4 check 4, endpoint, whatever the grid offset: for every flask 
     expect(flasks[excess.indexOf(Math.max(...excess))]).toMatchObject({ indicatorDrops: 3, waterUl: 30000, aliquotPercent: 100, titrantPercent: 98 })
   })
 
-  it("the other carbonic constants the source's page prints move the threshold by less than 0.2 uL, as the record's note says", () => {
-    // The record's two constants come from a page that prints two other sets for them (the note on the first says where).
+  it("the other carbonic constants the source's page prints move the threshold by about 0.1 uL at most, as the record's note says", () => {
+    // The record's two constants come from a page whose body prints one other set for them (the note on the first says where).
     const stored = flasks.map((flask) => excessToThreshold(flask))
-    const moved = [
-      [6.77, 9.93],
-      [6.35, 9.84],
-    ].map((carbonicPKas) => {
-      const excess = flasks.map((flask) => excessToThreshold(flask, { ...m, carbonicPKas }))
-      expect(Math.min(...excess)).toBeGreaterThan(0)
-      expect(Math.max(...excess)).toBeLessThanOrEqual(m.halfDropUl)
-      return [...range(excess, 3), Math.max(...excess.map((x, i) => Math.abs(x - stored[i]!))).toFixed(3)]
-    })
-    expect(moved).toEqual([
-      ['9.653', '16.351', '0.113'],
-      ['9.718', '16.425', '0.189'],
-    ])
-    expect(titrationData.constants.carbonicPKas[0]!.note).toContain('by less than 0.2 µL')
+    const excess = flasks.map((flask) => excessToThreshold(flask, { ...m, carbonicPKas: [6.77, 9.93] }))
+    expect(Math.min(...excess)).toBeGreaterThan(0)
+    expect(Math.max(...excess)).toBeLessThanOrEqual(m.halfDropUl)
+    const moved = Math.max(...excess.map((x, i) => Math.abs(x - stored[i]!)))
+    expect([...range(excess, 3), moved.toFixed(3)]).toEqual(['9.653', '16.351', '0.113'])
+    expect(titrationData.constants.carbonicPKas[0]!.note).toContain(`by about ${moved.toFixed(1)} µL at most`)
   })
 
   it('a correct endpoint is named "faint pink": the latest a half-drop can land, 24.999 uL past the threshold, is below the name limit at every corner', () => {

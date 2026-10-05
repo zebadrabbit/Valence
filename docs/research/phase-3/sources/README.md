@@ -1,6 +1,6 @@
 # Saved copies
 
-The copies of other people's pages and data that the titration lab's record is built from and checked against. `MANIFEST.json` lists every source of the lab with its address, its citation and, for each value the record stores, the figure the source prints and where. A source with a `file` has its copy here, with the sha256 of that copy; the others were read on the retrieval date and no copy is kept.
+The copies of other people's pages and data that the titration lab's record is built from and checked against. `MANIFEST.json` lists every source of the lab with its address, its citation and, for each value the record stores, the figure the source prints and where. A source with a `file` has its copy here, with the sha256 of that copy; the others were read on the retrieval date, or on the later date their own citation gives, and no copy is kept.
 
 The copies are as they were downloaded and are not edited by hand.
 
@@ -20,6 +20,6 @@ The copies are as they were downloaded and are not edited by hand.
 <https://en.wikipedia.org/w/index.php?title=Drop_(unit)&oldid=1314848686>.
 Each is the work of Wikipedia's contributors, whose names are in the article's history, and is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License (<https://creativecommons.org/licenses/by-sa/4.0/>). That licence covers these two files, not the rest of the repository.
 
-Neither page is a primary source. The carbonic acid page is kept because the two acid constants were read only there: its infobox cites a handbook that was not read. The drop page is kept because the 0.05 mL drop was read only there.
+Neither page is a primary source. The carbonic acid page is kept because the two stored acid constants were read there and nowhere else: its infobox cites a handbook that was not read. The database file of the U.S. Geological Survey's PHREEQC program was read afterwards to check them, and is listed in the manifest and not kept. The drop page is kept because the 0.05 mL drop was read only there.
 
 `ricca-5600-listing.html` is Ricca Chemical Company's page, with its own copyright notice, kept unchanged as the record of what was read on the retrieval date. It is not this project's work, and the repository's licence does not cover it. The same holds for the NOAA and PubChem files, which are their publishers' data.

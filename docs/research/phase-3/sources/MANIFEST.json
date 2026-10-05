@@ -1,6 +1,6 @@
 {
   "retrieved": "2026-10-04",
-  "about": "Every source of the titration lab's record (docs/research/phase-3/titration.json), each fetched and read on the retrieval date. A source with `file` has its copy in this folder, as downloaded, with the sha256 of that copy; a source with none was read and no copy is kept. `alsoKept` lists a second copy of the same record fetched from another address. Each `supports` row names one stored value by its path in the record, gives in `prints` the figure or label exactly as the source prints it, and says in `where`, in this project's words, where it is. A bottle's `reference` in the record is the name of the classification's source in the kept PubChem copy, a colon and a space, and the entry's name with the space around it removed. README.md in this folder gives the attribution the two Wikipedia copies require.",
+  "about": "Every source of the titration lab's record (docs/research/phase-3/titration.json), each fetched and read on the retrieval date, or on the later date its own citation gives. A source with `file` has its copy in this folder, as downloaded, with the sha256 of that copy; a source with none was read and no copy is kept. `alsoKept` lists a second copy of the same record fetched from another address. Each `supports` row names one stored value by its path in the record, gives in `prints` the figure or label exactly as the source prints it, and says in `where`, in this project's words, where it is. A bottle's `reference` in the record is the name of the classification's source in the kept PubChem copy, a colon and a space, and the entry's name with the space around it removed. README.md in this folder gives the attribution the two Wikipedia copies require.",
   "sources": [
     {
       "id": "tamura-1996",
@@ -89,7 +89,29 @@
         {
           "field": "constants.carbonicPKas[1]",
           "prints": "10.33",
-          "where": "The same line of the infobox, its third figure, with no temperature beside it: the second constant. The page's section on bicarbonate and carbonate prints 9.93 for this constant and, with the 6.35, a difference of 3.49 between the two."
+          "where": "The same line of the infobox, its third figure, with no temperature beside it: the second constant. The page's section on bicarbonate and carbonate prints 9.93 for this constant, worked out for 25 °C and a solution with no other ions. Beside its second 6.35 the same section prints a difference of 3.49 and cites for it Pines et al., J. Phys. Chem. B 2016, 120, 2440, a paper this project did not read; the difference is not taken as a value of this constant and nothing is worked from it."
+        }
+      ]
+    },
+    {
+      "id": "usgs-phreeqc-dat",
+      "url": "https://water.usgs.gov/water-resources/software/PHREEQC/",
+      "citation": "U.S. Geological Survey. PHREEQC version 3, release 3.8.6-17100: the database file database/phreeqc.dat in the archive phreeqc-3.8.6-17100.tar.gz, which the page linked here lists; read and not kept (retrieved 2026-10-05). A copy of the file on GitHub (https://github.com/usgs-coupled/phreeqc3, database/phreeqc.dat at commit b0b3be7), fetched the same day, prints the same two figures. That a log_k in such a file is the constant at 25 °C is the definition in the program's manual: Parkhurst, D. L.; Appelo, C. A. J. Description of Input and Examples for PHREEQC Version 3; U.S. Geological Survey Techniques and Methods, book 6, chapter A43; 2013; the entry for SOLUTION_SPECIES (https://water.usgs.gov/water-resources/software/PHREEQC/documentation/phreeqc3-html/phreeqc3-50.htm, read the same day).",
+      "supports": [
+        {
+          "field": "constants.carbonicPKas[0].note",
+          "prints": "16.681",
+          "where": "Under SOLUTION_SPECIES, the log_k line of the reaction in which carbonate takes up two hydrogen ions and gives dissolved carbon dioxide and water (line 241 of the file): the constant at 25 °C, by the manual's definition of log_k. The first constant with dissolved carbon dioxide as the acid is this figure less the 10.329 of the reaction before it, 6.352, which is worked out in the note and not printed in the file."
+        },
+        {
+          "field": "constants.carbonicPKas[0].note",
+          "prints": "10.329",
+          "where": "Under SOLUTION_SPECIES, the log_k line of the reaction in which carbonate takes up one hydrogen ion and gives bicarbonate (line 234 of the file): the constant at 25 °C, taken from the 16.681 to give the first constant."
+        },
+        {
+          "field": "constants.carbonicPKas[1].note",
+          "prints": "10.329",
+          "where": "The same line: read the other way, bicarbonate giving up its hydrogen ion, it is the second constant at 25 °C."
         }
       ]
     },

@@ -340,6 +340,11 @@
     "citation": "Perrin, D. D., Ed. Ionisation Constants of Inorganic Acids and Bases in Aqueous Solution, 2nd ed.; IUPAC Chemical Data Series 29; Pergamon: Oxford, 1982. The book was not read: the two constants were taken from a secondary transcription, Wikipedia's article Carbonic acid, revision 1376246456 of 2026-09-23, linked here, whose infobox cites the book's entry for carbonic acid (retrieved 2026-10-04)."
   },
   {
+    "id": "usgs-phreeqc-dat",
+    "url": "https://water.usgs.gov/water-resources/software/PHREEQC/",
+    "citation": "U.S. Geological Survey. PHREEQC version 3, release 3.8.6-17100: the database file database/phreeqc.dat in the archive phreeqc-3.8.6-17100.tar.gz, which the page linked here lists; read and not kept (retrieved 2026-10-05). A copy of the file on GitHub (https://github.com/usgs-coupled/phreeqc3, database/phreeqc.dat at commit b0b3be7), fetched the same day, prints the same two figures. That a log_k in such a file is the constant at 25 °C is the definition in the program's manual: Parkhurst, D. L.; Appelo, C. A. J. Description of Input and Examples for PHREEQC Version 3; U.S. Geological Survey Techniques and Methods, book 6, chapter A43; 2013; the entry for SOLUTION_SPECIES (https://water.usgs.gov/water-resources/software/PHREEQC/documentation/phreeqc3-html/phreeqc3-50.htm, read the same day)."
+  },
+  {
     "id": "drop-unit-wikipedia",
     "url": "https://en.wikipedia.org/w/index.php?title=Drop_(unit)&oldid=1314848686",
     "citation": "Wikipedia contributors. Drop (unit); Wikipedia, revision 1314848686 of 2025-10-03, linked here (retrieved 2026-10-04)."

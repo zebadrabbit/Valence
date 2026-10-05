@@ -106,11 +106,34 @@ describe('the titration inputs: sources', () => {
     const where = source(first!.sourceId)?.supports.find((row) => row.field === 'constants.carbonicPKas[0]')?.where
     expect(where).toContain('hydrous')
     expect(where).not.toMatch(/apparent|taken together/)
-    // The page's body prints two other sets for the same constants, the second as the first constant and a difference.
-    for (const figure of ['6.77', '9.93', '3.49']) expect([figure, page.includes(figure)]).toEqual([figure, true])
-    expect((6.35 + 3.49).toFixed(2)).toBe('9.84')
-    for (const figure of ['6.77', '9.93', '3.49', '9.84']) expect([figure, first!.note?.includes(figure)]).toEqual([figure, true])
-    for (const figure of ['9.93', '9.84']) expect([figure, second!.note?.includes(figure)]).toEqual([figure, true])
+    // The page's body prints one other set for the same two constants.
+    for (const figure of ['6.77', '9.93']) expect([figure, page.includes(figure), first!.note?.includes(figure)]).toEqual([figure, true, true])
+    expect(second!.note).toContain('9.93')
+    // A difference the body also prints is no value of the second constant, so nothing is worked from it.
+    for (const text of [first!.note, second!.note, ...source(first!.sourceId)!.supports.map((row) => row.where)]) expect(text).not.toContain('9.84')
+    for (const note of [first!.note, second!.note]) expect(note).not.toContain('3.49')
+  })
+
+  it('names a second source for the carbonic constants, one that gives the species and the temperature, and stores nothing from it', () => {
+    const [first, second] = input.constants.carbonicPKas as Constant[]
+    const survey = source('usgs-phreeqc-dat')!
+    // Read and not kept, so nothing in the build can check it: the manifest says what it prints and where.
+    expect(survey.file).toBeUndefined()
+    const prints = (field: string) => survey.supports.filter((row) => row.field === field).map((row) => row.prints)
+    expect(prints('constants.carbonicPKas[0].note')).toEqual(['16.681', '10.329'])
+    expect(prints('constants.carbonicPKas[1].note')).toEqual(['10.329'])
+    expect(survey.supports.map((row) => /25 °C/.test(row.where))).toEqual([true, true, true])
+    // The first constant with dissolved carbon dioxide as the acid is a difference of the two printed figures: worked out, not read.
+    expect((16.681 - 10.329).toFixed(3)).toBe('6.352')
+    for (const figure of ['16.681', '10.329', '6.352', '25 °C', 'worked out']) expect([figure, first!.note?.includes(figure)]).toEqual([figure, true])
+    for (const figure of ['10.329', '6.352', '25 °C']) expect([figure, second!.note?.includes(figure)]).toEqual([figure, true])
+    for (const note of [first!.note, second!.note]) expect(note).toMatch(/dissolved carbon dioxide/)
+    // Rounded to two decimals they are the stored figures, which stay as they were, on the source they were read from.
+    expect([(6.352).toFixed(2), (10.329).toFixed(2)]).toEqual([first!.published, second!.published])
+    expect([first, second].map((c) => [c!.value, c!.sourceId])).toEqual([
+      [6.35, 'perrin-1982-wikipedia'],
+      [10.33, 'perrin-1982-wikipedia'],
+    ])
   })
 
   it('gives every kept copy a hash, and every source something it supports', () => {
