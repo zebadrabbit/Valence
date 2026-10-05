@@ -535,7 +535,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
         "which entry each bottle carries, and the note under it, are in the lab's record (spec 7.1). The entries read do not say at what strength they stop applying, and the card does not either.",
       ),
       paragraph(
-        "Phenolphthalein is classified as a substance that may cause cancer. The indicator is a dilute solution of it in alcohol and water, and a titration uses two or three drops. A supplier's safety data sheet for a solution of this kind lists it as flammable and as a hazard to health over the long term: it says, among other things, that the solution may cause cancer and may harm fertility or an unborn child. The note under the indicator bottle gives the full list. The sheet calls for gloves and eye protection, and for keeping the solution away from flames.",
+        "Phenolphthalein is classified as a substance that may cause cancer, and as suspected of causing genetic defects and of damaging fertility. Those are the statements on the indicator bottle, and they are for the pure substance. The indicator itself is a dilute solution of it in alcohol and water, and a titration uses two or three drops. A supplier's safety data sheet for a solution of this kind says that the solution is flammable, that it seriously irritates the eyes, and that it may cause cancer, may harm fertility or an unborn child, and may harm organs. The note under the statements on the indicator bottle gives the sheet's list, with its codes. The sheet calls for gloves and eye protection, and for keeping the solution away from flames.",
         [
           [
             'pubchem-cid-4764',
@@ -548,7 +548,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
             'the 0.5% indicator solution in 50% alcohol carries the signal word Danger, as a flammable liquid and vapour that seriously irritates the eyes and may cause cancer, harm fertility or an unborn child, and harm organs; and that it is to be kept away from flames and other sources of ignition and handled with protective gloves and eye protection.',
           ],
         ],
-        "two or three drops is this lab's amount (spec 7.2). That the bottle on this bench is a solution of the kind the sheet is for is assumed (spec 7.3). The card names the sheet's hazards by kind and sends the reader to the bottle's note, which gives every statement with its code.",
+        "two or three drops is this lab's amount (spec 7.2). That the bottle on this bench is a solution of the kind the sheet is for is assumed (spec 7.3). The card says in its own words each of the three statements the bottle carries for the pure substance and each of the five hazards the sheet lists for the solution; the bottle's note gives the sheet's five with their codes.",
       ),
     ],
   },

@@ -349,16 +349,25 @@ describe('the titration primer: what it has to say', () => {
     expect(shown('safety')).toMatch(/A supplier's safety data sheet for a solution of this kind/)
   })
 
-  it("does not name some of the indicator sheet's hazards and leave out others: flammable, a hazard to health over the long term, cancer and harm to fertility or an unborn child among them, and the bottle's note for the full list", () => {
-    const text = section('safety').paragraphs[3]!.text
-    for (const said of [/flammable/, /a hazard to health over the long term/, /may cause cancer/, /may harm fertility or an unborn child/, /among other things/, /The note under the indicator bottle gives the full list/]) {
-      expect([String(said), said.test(text)]).toEqual([String(said), true])
-    }
-    // The card is in the lab's own words; the codes are the bottle note's, and the note has all five the sheet prints.
+  it("says of the indicator all that its bottle says, and which is which: the three statements of the pure substance, and each of the five hazards that a sheet for the solution lists, which the bottle's note gives with their codes", () => {
+    const { text, support } = section('safety').paragraphs[3]!
+    const sentences = text.split(/(?<=\.) /)
+    // The statements on the bottle are the pure substance's, and the card leaves none of the three out.
+    const { statements, note } = titrationData.bottles.indicator.hazards
+    expect(statements.map((statement) => statement.split(':')[0])).toEqual(['H341', 'H350', 'H361f'])
+    for (const said of [/may cause cancer/, /suspected of causing genetic defects/, /suspected of causing genetic defects and of damaging fertility/]) expect([String(said), said.test(sentences[0]!)]).toEqual([String(said), true])
+    expect(sentences[1]).toBe('Those are the statements on the indicator bottle, and they are for the pure substance.')
+    // The note under them is a sheet's for the solution, with five codes, and the card leaves none of the five out.
+    for (const code of ['H226', 'H319', 'H350', 'H360', 'H371']) expect([code, note.value.includes(code)]).toEqual([code, true])
+    const ofTheSheet = sentences.find((sentence) => sentence.startsWith("A supplier's safety data sheet for a solution of this kind"))!
+    for (const said of [/flammable/, /seriously irritates the eyes/, /may cause cancer/, /may harm fertility or an unborn child/, /may harm organs/]) expect([String(said), said.test(ofTheSheet)]).toEqual([String(said), true])
+    // No summary by kind that two of the five do not fit, and no list called full that is another list.
+    expect(text).not.toMatch(/over the long term|among other things|the full list/)
+    expect(text).toMatch(/The note under the statements on the indicator bottle gives the sheet's list, with its codes\./)
+    // The card is in the lab's own words; the codes are the bottle's.
     expect(text).not.toMatch(/H\d{3}/)
-    const note = titrationData.bottles.indicator.hazards.note.value
-    for (const code of ['H226', 'H319', 'H350', 'H360', 'H371']) expect([code, note.includes(code)]).toEqual([code, true])
     // What the card rests on says as much as the card does.
-    expect(section('safety').paragraphs[3]!.support).toMatch(/fertility or an unborn child/)
+    for (const said of [/genetic defects/, /irritates the eyes/, /fertility or an unborn child/, /harm organs/]) expect([String(said), said.test(support)]).toEqual([String(said), true])
+    expect(support).not.toMatch(/by kind/)
   })
 })
