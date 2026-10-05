@@ -527,6 +527,22 @@ describe("the primer's figure for the 5 mL pour (Gate A, N12)", () => {
   )
 })
 
+describe("the primer's four cards to read first (Gate A, the last check)", () => {
+  it(
+    'a Challenge learner who takes none of the three technique steps, and is careful and honest otherwise, fails the first trial and the second after a refill, seeds 1-100: the card that tells the steps cannot wait',
+    () => {
+      for (const seed of SEEDS) {
+        let s = carefulTrial(m, prepared(m, seed, { condition: false, clearBubble: false, rinse: false }))
+        expect([seed, graded(s)]).toEqual([seed, expect.objectContaining({ state: 'failed', causes: ['burette-not-conditioned', 'tip-bubble', 'pipette-not-rinsed'] })])
+        // The bubble has left and the pipette is wet with acid; the burette stays dilute through the refill.
+        s = carefulTrial(m, nextTrial(s))
+        expect([seed, graded(s)]).toEqual([seed, expect.objectContaining({ state: 'failed', causes: ['burette-not-conditioned'] })])
+      }
+    },
+    SEED_LOOP_TIMEOUT,
+  )
+})
+
 describe('spec 7.4 check 12, reproducibility', () => {
   it('the same seed and the same learner actions give identical readings and expected answer', () => {
     for (const seed of [1, 2, 99, 4294967295]) expect(carefulTrial(m, prepared(m, seed))).toEqual(carefulTrial(m, prepared(m, seed)))

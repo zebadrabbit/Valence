@@ -65,9 +65,9 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
     heading: 'Acids, bases and neutralisation',
     paragraphs: [
       paragraph(
-        'This primer has twelve cards. Read three of them before you go to the bench, in this order: Reading the burette, Titrating to the endpoint and The calculation. The others explain why the lab is done the way it is, and can wait until you want them.',
+        'This primer has twelve cards. Read four of them before you go to the bench, in this order: Reading the burette; Conditioning, rinsing and the tip bubble; Titrating to the endpoint; The calculation. The other eight can wait until you want them.',
         [],
-        "which cards to read first, and in what order, is this lab's advice.",
+        "which cards to read first, and in what order, is this lab's advice. Between them the four tell every step a trial has to have in order to count (spec 7.3); Challenge mode has no checklist to tell them.",
       ),
       paragraph(
         'A substance is an acid if it gives hydronium ions, H₃O⁺, when it dissolves in water. It is a base if it gives hydroxide ions, OH⁻, when it dissolves in water.',
@@ -438,7 +438,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
         'one step stands for the portions here (spec 7.2), and the weakening the lab gives a burette or pipette that was not rinsed is larger than a bench gives (spec 7.3).',
       ),
       paragraph(
-        'The flask is different. It only has to be clean; it may be wet, and distilled water may be added to it during the titration. Water changes the concentration of the acid in the flask but not how many moles of acid are there, and it is the moles that the NaOH has to match.',
+        'The flask is different. It only has to be clean; it may be wet, and distilled water may be added to it during the titration. Water makes the acid in the flask more dilute, but it does not change how much acid is there, and it is the amount of acid that the NaOH has to match.',
         [
           [ACID_LAB, PART_A, 'the flask that receives the acid need not be dry, because water in it leaves the amount of acid added, in moles, as it was.'],
           [chem2e('3.3'), 'section 3.3, under the heading Dilution of Solutions', 'diluting a solution lowers its concentration and leaves the amount of solute as it was.'],
@@ -462,7 +462,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
         "the size of each technique error, a tip bubble of 0.60 mL and a burette that stays 2.0% dilute through every refill are the model, and none of the three is true to a bench (spec 7.3). No source was read for what a bench gives. That a trial with one of the three mistakes in it does not count is the lab's rule (spec 7.3, the owner's decision of 2026-10-05).",
       ),
       paragraph(
-        'Refill the burette before each trial and take a new initial reading. A burette that runs out before the endpoint leaves the trial with no usable titre. The burette does not need conditioning again: it is already wet with NaOH.',
+        'Refill the burette before each trial and take a new initial reading. A burette that runs out in the middle of a trial leaves that trial with no result. The burette does not need conditioning again: it is already wet with NaOH.',
         [[ACID_LAB, PART_A, 'the burets are refilled before each further titration.']],
         "the new initial reading, the trial lost when the burette runs out, and no second conditioning are this lab's rules (spec 7.2). The lab teaches the refill and does not force it.",
       ),

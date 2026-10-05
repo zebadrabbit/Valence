@@ -45,18 +45,24 @@ describe('the titration primer: its cards', () => {
     for (const [where, paragraph] of paragraphs) expect([where, paragraph.text.length > 0, paragraph.equation !== '']).toEqual([where, true, true])
   })
 
-  it('opens by naming the three cards to read before the bench, by their headings, and no other', () => {
+  it('opens by naming the four cards to read before the bench, by their headings, and no other; it does not say what the other eight are for', () => {
     const first = section('acids-and-bases').paragraphs[0]!.text
     const named = TITRATION_PRIMER.filter((s) => first.includes(s.heading)).map((s) => s.id)
-    expect(named).toEqual(['titrating', 'calculation', 'burette'])
-    expect(first).toMatch(/can wait/)
+    expect(named).toEqual(['titrating', 'calculation', 'burette', 'glassware'])
+    expect(first).toMatch(/Read four of them/)
+    expect(first).toMatch(/The other eight can wait/)
+    // The card on conditioning, rinsing and the tip bubble is the only one that says how to do those three steps
+    // and to refill, and a trial run without one of them does not count: it is not a card that only explains why.
+    expect(first).not.toMatch(/explain why/)
   })
 
-  it('names the three in an order in which each can be followed, and explains in the first-read cards the words they lean on', () => {
+  it('names the four in an order in which each can be followed, and explains in the first-read cards the words they lean on', () => {
     const first = section('acids-and-bases').paragraphs[0]!.text
     const at = (id: string) => first.indexOf(section(id).heading)
-    // The burette card says what a burette and its stopcock are, and the other two use both.
-    expect(at('burette')).toBeLessThan(at('titrating'))
+    // The burette card says what a burette and its stopcock are, and the other three use both. The glassware is made
+    // ready before the titration, and the calculation comes last.
+    expect(at('burette')).toBeLessThan(at('glassware'))
+    expect(at('glassware')).toBeLessThan(at('titrating'))
     expect(at('titrating')).toBeLessThan(at('calculation'))
     expect(first).toMatch(/in this order/)
     const card = shown('titrating')
@@ -66,6 +72,15 @@ describe('the titration primer: its cards', () => {
     expect(card).toMatch(/molarity, written M/)
     expect(card).toContain(section('molarity').heading)
     expect(card).toMatch(/an indicator/)
+  })
+
+  it('tells, in the cards read first, every step that a trial must have to count, and in the glassware card uses no word that only a later card explains', () => {
+    const firstRead = ['burette', 'glassware', 'titrating', 'calculation'].map(shown).join(' ')
+    for (const step of [/which is called conditioning it/, /the pipette is rinsed with a little of the HCl solution/, /pushed out before the first reading, by running a little NaOH through the tip/, /Refill the burette before each trial/]) {
+      expect([String(step), step.test(firstRead)]).toEqual([String(step), true])
+    }
+    // Read second, before the card that says what the titre and the endpoint are and what M means.
+    for (const word of [/\bmoles?\b/, /\bconcentration\b/, /\bendpoint\b/, /\btitre\b/]) expect([String(word), word.test(shown('glassware'))]).toEqual([String(word), false])
   })
 
   it('holds no institution text in any heading, paragraph or equation', () => {

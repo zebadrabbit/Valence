@@ -185,6 +185,19 @@ The commits of 2026-10-05 that followed the owner's two answers, in order. Each 
 | `2065725` | The feedback tells a technique cause by the warnings' own table; no sentence and no behaviour changed |
 | the commit after it | These last two rows |
 
+## The last check, 2026-10-05
+
+After the commits above the branch was checked once more, at `44971d2`. One check read every learner-facing sentence in the order the primer gives and walked the engine with the advice in it. The other attacked the counting rule again and ran the build from a fresh clone. Between them they made 22 findings: one must-fix, ten should-fix and eleven notes. They are numbered here L1 to L11 (must-fix and should-fix) and M1 to M11 (notes). Each must-fix and should-fix was reproduced before anything was changed, and each fix was written test-first.
+
+### Fixed
+
+**L1 (must-fix). The primer sent the learner to the bench without the card that tells the technique steps.** Its first paragraph named three cards to read first and said that the others explain why the lab is done the way it is and can wait. "Conditioning, rinsing and the tip bubble" is the only card that says to condition the burette, rinse the pipette, clear the tip and refill, and Challenge has no checklist.
+
+- Reproduced: a Challenge learner who takes none of the three steps and is careful and honest otherwise fails the first trial at 200 of 200 seeds, and the second after a refill at 200 of 200 with the burette named.
+- Done: the first paragraph names four cards, in the order Reading the burette; Conditioning, rinsing and the tip bubble; Titrating to the endpoint; The calculation, and says only that the other eight can wait. The glassware card is now read before the card that says what the titre, the endpoint and M are, so two of its sentences were reworded to do without those words: water makes the acid more dilute and does not change how much acid is there; and a burette that runs out in the middle of a trial leaves that trial with no result.
+- Re-checked: three cases in `primer.test.ts`, seen failing first (three cards named where four were expected; no order for the fourth; "moles" in the glassware card). A case in `acceptance.test.ts` pins the reason over seeds 1 to 100; it passed as written, since it describes the engine as built.
+- Expected value changed, because the finding changes the rule it pinned: `primer.test.ts` held the first paragraph to name exactly three cards and now holds it to name exactly four. The plan's Task 10 said three and says four.
+
 ## What the reviewers confirmed
 
 **Constants and sources (R1).**
