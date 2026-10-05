@@ -6,8 +6,15 @@ import { labSetup } from './setup'
 import { currentTrial, type TitrationState, type Trial } from './state'
 
 // Everything the app shows, worked out from the stored record. Nothing here gives the equivalence volume, a pH or
-// the expected titre, nor a number one of them could be worked back from, and the NaOH molarity is given only once
-// the lab is done. The wording is the app's: these hand over identifiers and numbers.
+// the expected titre, and the NaOH molarity is given only once the lab is done. The wording is the app's: these
+// hand over identifiers and numbers.
+//
+// Two of those numbers are there for the drawing, are never printed, and can each be worked back to a hidden value
+// by someone who reads them out of the page (Gate A, docs/research/phase-3/gate-a.md). The pink concentration of a
+// flask that is already pink gives, with the record's constants, the NaOH molarity. The flask's volume, less what
+// the learner put in, is the pipette's delivery. Neither passes a trial: that takes honest readings and the
+// notebook's own arithmetic, and a failed trial's percent error gives the molarity by design. Whether to hand the
+// app less (a depth in a few steps, a volume to the whole mL) is the owner's decision.
 
 /** The label on the HCl bottle ("0.0976"). It can always be read. */
 export const hclLabel = (m: TitrationModel, state: TitrationState) => (labSetup(m, state.seed).hclE4 / 1e4).toFixed(4)
@@ -30,11 +37,12 @@ export interface FlaskView {
   hasAliquot: boolean
   indicatorDrops: number
   waterUl: number
-  /** Liquid in the flask, for its drawn height. */
+  /** Liquid in the flask, for its drawn height. Exact, so it holds the pipette's delivery (see the head of this file). */
   volumeUl: number
   /**
    * mol/L of the pink form in the mixed flask once it is pink, and 0 until then. For the drawing only, which shows
    * nothing below the threshold; the figure below it would give the flask's pH, and so the titrant still needed.
+   * From the threshold up it still gives the NaOH molarity to someone who works it back (see the head of this file).
    */
   pinkConcentration: number
   /** The engine's own threshold test: the mixed flask is at least faintly pink. */
