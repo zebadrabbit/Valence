@@ -61,7 +61,7 @@ Rules:
 - Routing uses a hash router, so deep links work on any static host without rewrite rules.
 - React Three Fiber is used only in Explore and Learn. Lab benches are 2D SVG with DOM controls.
 
-The app has three areas reached from a collapsible left rail: **Explore**, **Lab**, **Learn**. The home page lists the two labs and the mechanism with status (not started, in progress, completed).
+The app has three areas reached from a collapsible left rail: **Explore**, **Lab**, **Learn**. The home page lists the two labs and the mechanism with status (not started, in progress, completed). `#/lab` lists the labs; the titration lab is at `#/lab/titration`.
 
 ## 5. Chemistry data
 
@@ -102,19 +102,22 @@ In the UI, each inspector card, station result, and energy panel has a "Sources"
 | Formation enthalpies and free energies of aqueous ions and of NaHCO₃(s) | NBS tables (Wagman 1982) |
 | True H₂CO₃ acidity, CO₂ hydration equilibrium, dehydration rate | Primary literature (for example Adamczyk et al., *Science* 2009; Wang et al., *J. Phys. Chem. A* 2010) |
 | Phenolphthalein's two acid constants | Tamura et al., *Analytical Sciences* 1996 |
-| K_w; carbonic acid constants; other pKa values | IAPWS R11-24; Perrin 1982 (read through a transcription, and marked so); CRC Handbook or IUPAC compilations |
+| K_w | IAPWS R11-24. Stored as 1.0×10⁻¹⁴ on the molar scale, with a note: the release prints pK_w 13.99 at 25 °C on the molal scale; its equation gives 13.994, which is 13.997 on the molar scale (pK_w − 2 log₁₀ ρ, with ρ = 0.99705 kg/L) |
+| Carbonic acid constants | Perrin 1982, read through a transcription, and marked so |
+| Other pKa values | CRC Handbook or IUPAC compilations |
 | Atmospheric CO₂ | NOAA Global Monitoring Laboratory, global annual mean, year stated |
 | Solubility per ion pair; activity series | CRC Handbook, one citation per value |
 | Henry's constant for CO₂ | NIST Chemistry WebBook |
 | Solution heat capacity and density at station 8 | Treated as water (4.18 J/g·K, 1.00 g/mL); cited and labelled "idealised" |
-| Indicator solution strength and drop volume | Curated, cited |
+| Indicator solution strength | A 0.5% phenolphthalein indicator solution as a reagent catalogue lists it; the listing is fetched and a copy kept. Stored as 0.5% weight per volume. Whether the product's percentage is weight per volume or by weight is not established, so a note stored with the value says the basis was assumed. The endpoint test passes from 0.1% to 1%, so no result depends on it |
+| Drop volume | Curated, cited |
 | MO orbital order for O₂ and N₂ | One cited textbook |
 | Precipitate colour and texture, solution colours, odours, solid reagent appearance | Curated observation table, one citation per row |
-| Hazards | One hand-picked GHS classification per reagent from its PubChem record, labelled "hazards of the pure substance", plus a curated note for the concentration used |
+| Hazards | One hand-picked GHS classification per reagent from its PubChem record, labelled "hazards of the pure substance", plus a curated note for the concentration used, with its own source. The titration lab's hydrochloric acid carries the record's entry for hydrochloric acid, the solution, not the entry for hydrogen chloride gas; its label names that entry and does not say "pure substance" |
 
 ### 5.3 Shapes
 
-**Reagent:** `id`, `name`, `formula`, `pubchemCid`, `form` (solution, solid, metal), `molarity` (solutions), `molarMass` (solids and metals), `appearance` (solids and metals), `ions` (species IDs and stoichiometric ratio), `hazards`, `sourceId`. Hazards are shown on the reagent's bottle card.
+**Reagent:** `id`, `name`, `formula`, `pubchemCid`, `form` (solution, solid, metal), `molarity` (solutions), `molarMass` (solids and metals), `appearance` (solids and metals), `ions` (species IDs and stoichiometric ratio), `hazards`, `sourceId`. Hazards are shown on the reagent's bottle card (on the titration bench, the bottle's tile). A hazards record holds the signal word, the statements, the `sourceId` of the classification, and `note`, the note for the concentration used, stored as `{ value, sourceId }`.
 
 **Species** (ions and products): `id`, `formula`, `composition` (element counts), `charge`, `state`, optional `solutionColor` (name and hex), thermodynamic values where a model needs them.
 
@@ -205,35 +208,48 @@ Hybrid lobes are the last item of the Explorer phase and the first to cut if the
 
 ### 7.1 Setup
 
-The lab opens with a short concept primer: the ideas, equations, and vocabulary it needs, written for a reader with no chemistry background. The primer explains why NaOH needs standardizing: the solid absorbs water and CO₂ from air, so it cannot be weighed accurately.
+The lab opens with a short concept primer: the ideas, equations, and vocabulary it needs, written for a reader with no chemistry background. The primer explains why NaOH needs standardizing: the solid absorbs water and CO₂ from air, so it cannot be weighed accurately. It also covers what the bench asks of the learner and what the model leaves out: how to titrate to the endpoint (swirling, the half-drop, washing the flask wall down, the 30 seconds a real bench waits for the pink to last), reading the meniscus with the eye level with it, refilling before each trial, that a NaOH solution goes on taking up CO₂ once made, and that the acid's own molarity was found by standardizing it. The primer quotes no source: for each passage it gives the location and says in its own words what the passage establishes. A "Sources" control at its foot lists the sources of the model's constants.
 
 The learner titrates a 25.00 mL pipetted aliquot of standardized HCl (in the flask) with ~0.1 M NaOH from a 50 mL burette, using phenolphthalein, and calculates the NaOH molarity.
+
+**Bottles.** The lab's three bottles (hydrochloric acid, sodium hydroxide, the indicator) are part of the titration record in chem-data: name, formula, PubChem CID, hazards, and `classifiedAs`, what the hazard statements classify, in the words of the tile's heading. They are not registry reagents: the acid's molarity is seeded. There is one HCl bottle and its label is always readable.
 
 **Seeded values.** `app/` generates a 32-bit seed when the lab is first started, stores it, and shows it in the notebook. The seed fixes, when the lab is created and never during play:
 
 - the HCl label, 0.0850–0.1050 M, rounded to four decimal places; the rounded number is the true concentration, so the label is exact;
-- the hidden true NaOH concentration, 0.0950–0.1050 M;
-- per trial, the pipette's delivery: 25.00 mL plus a uniform offset in [−0.03, +0.03] mL (the learner calculates with the nominal 25.00 mL);
+- the hidden true NaOH concentration, 0.09500–0.10500 M, in steps of 0.00001 M;
+- per trial, the pipette's delivery: 25.00 mL plus a uniform offset in [−0.03, +0.03] mL at 0.001 mL resolution (the learner calculates with the nominal 25.00 mL);
 - per trial, the burette level after filling: uniform in [0.00, 2.00] mL at 0.001 mL resolution, so the meniscus generally sits between marks.
 
-The burette is graduated every 0.1 mL and read by estimation to 0.01 mL. No other noise is added. These ranges keep the equivalence volume between 20.21 and 27.67 mL and every careful titre under 27.8 mL. Delivered volume is held as a whole number of microlitres (a half-drop is 25, a drop 50), so no result depends on floating-point rounding. The same seed and the same learner actions always give the same readings and expected answer. "Restart lab" draws a new seed after confirmation.
+A trial's two values depend on the seed and the trial's number only, never on what the learner did before.
+
+The burette is graduated every 0.1 mL and read by estimation to 0.01 mL. No other noise is added. These ranges keep the equivalence volume between 20.21 and 27.67 mL and every careful titre under 27.8 mL. Volumes are held as whole numbers of microlitres (a half-drop is 25, a drop 50) and concentrations as whole numbers of their last digit, so readings, overshoot, and grading are exact; only the test for pink uses floating point. The same seed and the same learner actions always give the same readings and expected answer. "Restart lab" draws a new seed after confirmation. The exported progress file holds the seed, from which the hidden values follow for anyone who reads the source; that is accepted.
+
+**What the bench shows.** The reading view shows the scale with the eye level with the meniscus. Parallax is not modelled; the primer explains it. The bench never states a burette level or a delivered volume finer than a whole mL. Additions are exact, so a learner who counts them can work out the titre; that is accepted.
 
 ### 7.2 Workflow
 
-1. Select the HCl bottle and record its molarity.
+1. Read the HCl bottle's label and record its molarity in the notebook.
 2. Condition the burette with NaOH, fill it, clear the tip bubble, read the initial volume.
 3. Rinse the pipette with HCl, then pipette the aliquot.
 4. Add 2–3 drops of phenolphthalein.
 5. Titrate to a faint pink that persists; read the final volume.
-6. Refill the burette and record a new initial reading before each further trial (no re-conditioning needed).
+6. Calculate the NaOH molarity and enter it.
+7. Refill the burette and record a new initial reading before each further trial (no re-conditioning needed).
 
-The notebook shows average and relative deviation only after the learner has entered their own values.
+Burette readings are typed under the reading view on the bench. The notebook shows them and the titre it works out from them, and takes the HCl molarity and the NaOH molarity.
 
-**Stopcock:** closed, stream, dropwise (0.05 mL), half-drop (0.025 mL). In stream mode the app sends fixed-volume additions on a timer; the engine sees only volumes. Delivery stops at the 50.00 mL mark; a trial that reaches it before the endpoint is invalid with the message "burette ran out; refill before starting a trial".
+**What must be in place.** The stopcock stays closed until the burette is filled, the flask holds the aliquot and 2 or 3 drops of indicator, and an initial reading is recorded. The burette is prepared and refilled only between titrations. A recorded reading is cleared when the level it describes changes: filling, or clearing the tip bubble, after an initial reading asks for a new one. Refilling before a trial is taught, by the primer and the Guided checklist, and not forced: a trial run on what is left in the burette is an ordinary trial unless it runs out. A control that cannot be used yet says why, in both modes; the reason names what is missing and nothing else.
 
-**Plume.** Each addition makes a local pink plume that fades on swirling and lingers longer near the endpoint. Its intensity and fade time come from an engine value. The same value drives a status line ("pink fades at once", "pink fades slowly", "pink persists"), which is the only cue under reduced motion. Persistence is checked by a "swirl and wait" action that advances simulated time; there is no real 30-second wait.
+**Ending a trial.** The final reading can be recorded only after a swirl and wait has shown the pink to last at the current volume. Adding titrant or water afterwards clears the reading and the wait. The learner may discard the flask of a trial under way and start the trial again; the glassware stays as it was. An ended trial's flask stays on the bench with its outcome until the learner starts the next trial.
 
-**Modes.** Guided shows a step checklist, warns before a skipped technique step (conditioning, tip bubble, pipette rinse), prompts a re-read when a typed reading is more than 0.02 mL from the true meniscus, and shows a "slow down" hint within 1.00 mL of equivalence. It never shows the expected titre or molarity. Challenge shows none of these; skipped steps and misreadings carry into the result and are named in the post-trial feedback.
+**Summary.** When three trials count (7.3), the learner enters their own average molarity and relative deviation over those three; the notebook then shows its own beside them. Neither is graded.
+
+**Stopcock:** closed, stream, dropwise (0.05 mL), half-drop (0.025 mL). In stream mode the app sends fixed-volume additions on a timer, of 0.25 mL; the engine sees only volumes. Stream is a toggle, never a held key, and a key held down adds one drop. "Run in 1 mL" and "Run in 5 mL" open the stopcock, deliver that volume in the same additions and close it, so no volume needs the learner's timing. The reading view shows no scale while the stopcock is open. Delivery stops at the 50.00 mL mark; a trial into which titrant has run, whose burette is at the 50.00 mL mark with the flask not pink, is invalid with the message "The burette ran out before the endpoint, so this trial has no usable titre. Refill the burette before you start a trial."
+
+**Plume.** Each addition makes a local pink plume that fades on swirling and lingers longer near the endpoint. Its intensity and fade time come from an engine value: the share of the acid still in the flask that the addition neutralised. It fades slowly from 0.10 and persists when the mixed flask is at or above the threshold. The same value drives a status line ("pink fades at once", "pink fades slowly", "pink persists"), which is the only cue under reduced motion. Persistence is checked by a "swirl and wait" action that advances simulated time by 30 seconds; there is no real wait, and the status line then says what the wait found. The model's flask is closed, so a pink that persists on an addition is never found faded by the wait: the wait stands for the 30 seconds of a real bench, and the primer says so.
+
+**Modes.** Guided shows a step checklist, warns before a skipped technique step (conditioning, tip bubble, pipette rinse; the burette warning is repeated at the initial reading while the burette is still dilute), prompts a re-read when a typed reading is more than 0.02 mL from the true meniscus and does not record it; the same for an HCl molarity that is not the label's; and shows a "slow down" hint within 1.00 mL of equivalence, closing the stopcock the first time it shows in a trial. It never shows the expected titre or molarity. Challenge shows none of these; skipped steps and misreadings carry into the result and are named in the post-trial feedback. The mode can be changed between trials, not during one, and no trial is labelled with a mode. Burette readings are typed to two decimal places and molarities to four; any other form is refused, in both modes. A comma is not accepted as the decimal mark.
 
 ### 7.3 Model
 
@@ -241,43 +257,64 @@ The notebook shows average and relative deviation only after the learner has ent
 
 **Endpoint colour.** The flask's species list includes the indicator itself and dissolved CO₂. Both buffer the jump at equivalence, as they do in a real flask.
 
-- **Indicator.** Phenolphthalein is a two-step acid (pK 9.05 and 9.50, Tamura et al. 1996); only its doubly deprotonated form is pink. The indicator solution is 0.5% w/v, and a drop is 0.05 mL.
-- **Dissolved CO₂.** The aliquot carries CO₂ at equilibrium with outdoor air (Henry's constant from the NIST WebBook; NOAA's global mean CO₂ for a stated year). The flask is closed for the length of a trial: that amount of carbon is fixed when the aliquot is delivered and only diluted afterwards. The titrant is carbonate-free; CO₂ uptake by NaOH is primer text, not part of the model.
-- **Colour.** Intensity is proportional to the concentration of the pink form: pink fraction × indicator moles ÷ flask volume. More indicator drops give a deeper pink.
+- **Indicator.** Phenolphthalein is a two-step acid (pK 9.05 and 9.50, Tamura et al. 1996); only its doubly deprotonated form is pink. The indicator solution is 0.5% weight per volume (the basis is assumed: section 5.2), and a drop is 0.05 mL.
+- **Dissolved CO₂.** The aliquot carries CO₂ at equilibrium with outdoor air (Henry's constant from the NIST WebBook; NOAA's global mean CO₂ for a stated year). The flask is closed for the length of a trial: that amount of carbon is fixed when the aliquot is delivered and only diluted afterwards. Distilled water added to the flask is taken as free of CO₂. The titrant is carbonate-free; CO₂ uptake by NaOH is primer text, not part of the model.
+- **Colour.** The pink form's concentration is pink fraction × indicator moles ÷ flask volume; more indicator drops give more of it. The drawing shows nothing below `faintPinkConcentration`, then deepens with concentration and levels off, so colour first appears at the addition where "pink persists" does. The flask is called "faint pink" from the threshold up to `faintPinkNameLimit` and "pink" from there.
 - **Threshold.** Faint pink begins at `faintPinkConcentration`, a model parameter set to 1×10⁻⁶ M. The endpoint is persistent when the fully mixed flask is at or above it.
-- **Constants.** The indicator's constants and strength, the drop volume, Henry's constant, the atmospheric CO₂ fraction, the carbonic acid constants, and K_w (1.0×10⁻¹⁴) are cited and never adjusted to pass tests. Only `faintPinkConcentration` is tuned.
+- **Constants.** The indicator's constants and strength, the drop volume, Henry's constant, the atmospheric CO₂ fraction, the carbonic acid constants, and K_w (1.0×10⁻¹⁴) are cited and never adjusted to pass tests. Only `faintPinkConcentration` is tuned to the tests. `pinkDisplayScale` and `faintPinkNameLimit` are presentation parameters chosen by eye; they affect no endpoint and no grade.
 
-The endpoint acceptance test in 7.4 was proved with these constants before the phase was planned, by a spike and an independent re-implementation (`docs/research/phase-3/endpoint-spike.md`): it passes with CO₂ in the flask, for one to four drops of 0.1% to 1% indicator, and with up to three times outdoor CO₂.
+The endpoint acceptance test in 7.4 was proved with these constants before the phase was planned, by a spike and an independent re-implementation (`docs/research/phase-3/endpoint-spike.md`): it passes with CO₂ in the flask, for one to four drops of 0.1% to 1% indicator, and with up to three times outdoor CO₂. The phase's design run repeated it on the whole-number grid.
 
 **Equivalence.** Overshoot, the checks before equivalence, and the Guided "slow down" hint all use the flask's own equivalence volume: the acid actually in the flask divided by the concentration actually in the burette. A technique error changes that volume; it does not make a carefully titrated flask read as overshot.
 
 **Trial states.**
 
-- *Invalid:* the delivered volume is more than 0.10 mL (two drops) past the flask's equivalence volume, or the burette ran out. Must be repeated. An overshot flask is shown dark pink and labelled "overshot"; the dark colour comes from this flag, not from the colour model, because a careful endpoint can already be more than half as deep.
-- *Valid and passing:* a persistent endpoint was reached and the learner's calculated NaOH molarity is within ±1.0% of the seeded NaOH concentration.
-- *Valid and failing:* a persistent endpoint was reached but the molarity is outside ±1.0%. The trial shows its signed percent error only.
+- *Invalid:* the delivered volume is more than 0.10 mL (two drops) past the flask's equivalence volume; or titrant has run into the trial and its burette is at the 50.00 mL mark with the flask not pink, whether titrant or water was added last; or the learner discarded the flask. A trial begun with the burette still at the mark is not invalid for that: nothing has run into it, and the burette can be filled. Must be repeated. An overshot flask is shown dark pink and labelled "overshot"; the dark colour comes from this flag, not from the colour model, because a careful endpoint can already be more than half as deep.
+- *Valid and passing:* a persistent endpoint was reached and the learner's calculated NaOH molarity is within ±1.0% of the seeded NaOH concentration, the edge included. A trial within 1.0% passes even when technique errors are named in it; the feedback says it passed in spite of them. A passing trial shows no percent error.
+- *Valid and failing:* a persistent endpoint was reached but the molarity is outside ±1.0%. The trial shows its signed percent error and names its causes.
 
-The learner may run any number of trials. The lab is completed when three trials have passed; the true molarity is shown on completion. Relative deviation is the mean absolute deviation divided by the mean, in parts per thousand; it is displayed, not graded.
+**The typed molarity.** The learner types the molarity to exactly four decimal places, once per trial. It is accepted, in both modes, only when it is their recorded HCl molarity × 25.00 mL ÷ their recorded titre, rounded to the fourth decimal place. At an exact tie, where the fifth decimal place is a 5 with nothing after it, either neighbour is accepted, because rounding a half up and rounding a half to even are both taught; 9 of the 47 868 label and titre pairs that give a result in range are ties. (The owner's decision says "correctly rounded" and does not settle the tie. The phase's plan puts it to the owner as its question Q1, and this paragraph and check 6 of 7.4 are changed if the answer is that a tie rounds up.) Anything else is refused and nothing is marked. In particular a value cut off after the fourth decimal place instead of rounded is refused wherever it is not also a rounded value, which it is only at an exact tie, and the sentence shown says to round and not cut the number off. The check uses only numbers the learner typed, so it gives nothing away.
 
-**Technique errors.** Each is a deterministic consequence of what the learner did or skipped. Magnitudes are model parameters, deliberately exaggerated so each error fails grading on its own at every seed; feedback names the cause.
+**Which trials count.** The signed percent error of a failed trial lets a learner work out the hidden molarity, and a later trial could then be passed by typing a reading the burette does not show. So a passing trial counts toward completion only if both typed burette readings were within 0.02 mL of the true meniscus and the recorded HCl molarity is the label's. A passing trial that does not count is shown as passed and not counted, and its feedback says why.
+
+The learner may run any number of trials until three count. The lab is then completed: no further trial is run, and Restart starts a new run. The true molarity is shown on completion, to five decimal places, the value graded against. Relative deviation is the mean absolute deviation divided by the mean, in parts per thousand; the notebook's figure is worked from the average rounded to four decimal places, as the learner is told to work it, and shown to one decimal place. It is displayed, not graded.
+
+**Technique errors.** Each is a deterministic consequence of what the learner did or skipped. Magnitudes are model parameters, deliberately exaggerated so each error fails grading on its own at every seed; feedback names the cause. One rule is not true to a bench, and the documentation says so: an unconditioned burette stays 2.0% dilute through every refill, where a real one dilutes less each time. Honest mixing would leave a second trial 0.83% to 1.14% dilute, on the grading line, so the same mistake would fail at one seed and pass at another.
 
 | Error | Effect in the model | Result |
 | --- | --- | --- |
-| Unconditioned burette | NaOH in the burette diluted by 2.0% | Titre reads high; calculated molarity low |
-| Tip bubble not cleared | 0.60 mL bubble escapes during the first 5 mL delivered, so the recorded volume exceeds the delivered volume | Calculated molarity low |
-| Pipette not rinsed with HCl | Aliquot diluted by 2.0% | Titre reads low; calculated molarity high |
-| Meniscus misread | Reading typed to 0.01 mL, compared with the true position within ±0.02 mL | Carried into the result (Challenge) or re-read prompt (Guided) |
-| Distilled water added to the flask (about 10 mL at a time) | Dilutes the flask only | The equivalence volume and the expected answer do not change (a misconception check) |
+| Unconditioned burette | NaOH in the burette diluted by 2.0%, through every refill, until the burette is conditioned | Titre reads high; calculated molarity low |
+| Tip bubble not cleared | A 0.60 mL bubble forms when the burette is filled from empty. Not cleared, it escapes evenly during the first 5 mL delivered, so the meniscus falls 0.60 mL more than was delivered. It does not return at a refill; conditioning empties the burette, so the fill after it makes a new one | Calculated molarity low |
+| Pipette not rinsed with HCl | The first aliquot drawn with the wet pipette is diluted by 2.0%; drawing it wets the pipette with acid, so later aliquots are not | Titre reads low; calculated molarity high |
+| Meniscus misread | Reading typed to 0.01 mL, compared with the true position within ±0.02 mL | Not recorded, and a re-read prompt (Guided); carried into the result and named, and the trial does not count (Challenge) |
+| HCl label miscopied | The molarity recorded is not the label's | Not recorded, and asked again (Guided); carried into the result and named, and the trial does not count (Challenge) |
+| Distilled water added to the flask (10 mL at a time, at most 30 mL a trial) | Dilutes the flask only | The equivalence volume and the expected answer do not change (a misconception check) |
 
 ### 7.4 Acceptance
 
-- **Solver:** within 0.01 pH of an independently computed exact solution, with constants pinned in the test, for 0.0100 M HCl (2.00), 0.10 M acetic acid (2.87–2.88), 0.10 M H₃PO₄ (about 1.63), 0.10 M acetic acid with 0.10 M sodium acetate (pH equals the pinned pKa), and 1×10⁻⁸ M HCl (6.98, with K_w = 1.0×10⁻¹⁴).
-- **Titration curve** (HCl and NaOH only, no indicator or CO₂): within 0.01 pH of the closed-form strong acid/strong base solution at every point more than 0.5 mL from equivalence; the volume at which the computed pH crosses 7.00 is within 0.01 mL of the stoichiometric value.
-- **Endpoint:** a careful run is stream, in fixed steps, to within 2.00 mL of equivalence, dropwise to within 0.20 mL, then half-drops until persistent, all on the microlitre grid. For seeds 1–100, at 2 and at 3 drops of indicator, the flask is below `faintPinkConcentration` at every addition before equivalence, the persistent endpoint appears between V_eq and V_eq + 0.05 mL, and the trial is not flagged as overshoot.
-- **Endpoint, whatever the grid offset:** at every corner of the seeded ranges, the excess titrant at which the mixed flask reaches the threshold is more than 0 and at most 0.025 mL.
-- **Grading:** a calculated molarity at +0.9% passes and at +1.1% fails.
-- **Technique errors:** for seeds 1–100, each of the first three errors alone moves the calculated molarity in the stated direction by more than 1.5%, and a careful run on that flask is not flagged as overshoot. Adding 10 mL of distilled water leaves the equivalence volume unchanged, moves a careful endpoint by at most one half-drop, and never changes whether a careful trial passes.
-- **Reproducibility:** the same seed and the same learner actions give identical readings and expected answer.
+1. **Solver:** within 0.01 pH of an independently computed exact solution, with constants pinned in the test, for 0.0100 M HCl (2.00), 0.10 M acetic acid (2.87–2.88), 0.10 M H₃PO₄ (about 1.63), 0.10 M acetic acid with 0.10 M sodium acetate (pH equals the pinned pKa), and 1×10⁻⁸ M HCl (6.98, with K_w = 1.0×10⁻¹⁴).
+2. **Titration curve** (HCl and NaOH only, no indicator or CO₂): within 0.01 pH of the closed-form strong acid/strong base solution at every point more than 0.5 mL from equivalence; the volume at which the computed pH crosses 7.00 is within 0.01 mL of the stoichiometric value.
+3. **Endpoint:** a careful run is stream, in fixed steps, to within 2.00 mL of equivalence, dropwise to within 0.20 mL, then half-drops until persistent, all on the microlitre grid. For seeds 1–100, at 2 and at 3 drops of indicator, the flask is below `faintPinkConcentration` at every addition before equivalence, the persistent endpoint appears between V_eq and V_eq + 0.05 mL, and the trial is not flagged as overshoot.
+4. **Endpoint, whatever the grid offset:** at every corner of the seeded ranges, and for every flask a learner can make (either dilution error, 2 or 3 drops, up to 30 mL of water), the excess titrant at which the mixed flask reaches the threshold is more than 0 and at most 0.025 mL.
+5. **Grading:** a calculated molarity at +0.9% passes and at +1.1% fails; one at exactly 1.0%, either side, passes.
+6. **Typed molarity:** a molarity is accepted only with exactly four decimal places, and only when it is the recorded HCl molarity × 25.00 mL ÷ the recorded titre rounded to the fourth place, either neighbour at an exact tie. A value one unit beyond an accepted one is refused; so is the cut-off value wherever it is not also a rounded one. A refusal marks nothing.
+7. **Honest trial:** a trial within ±1.0% whose initial or final reading was typed more than 0.02 mL from the true meniscus, or whose recorded HCl molarity is not the label's, is passed and does not count, and its outcome names the reason. A reading exactly 0.02 mL off counts. Trials that do not count never complete the lab; the third that counts does, and no trial can be started after it.
+8. **Technique errors:** for seeds 1–100, each of the first three errors alone moves the calculated molarity in the stated direction by more than 1.5%, fails, is named, and a careful run on that flask is not flagged as overshoot. An unconditioned burette still fails after a refill and passes once conditioned; a wet pipette and an escaped bubble leave the next trial unaffected.
+9. **Distilled water:** adding 10, 20 or 30 mL leaves the equivalence volume unchanged, moves a careful endpoint by at most one half-drop, and never changes whether a careful trial passes. A fourth addition is refused.
+10. **Trial endings:** a trial is overshot as soon as the delivered volume is more than 0.10 mL past the flask's equivalence volume. A trial into which titrant has run, whose burette is at the 50.00 mL mark with the flask not pink, is invalid, also when water was added last; a trial begun at the mark stays open and its burette can be filled. A discarded trial is invalid and the next begins with the glassware as it was. No state a learner can reach leaves an open trial that cannot be ended.
+11. **Modes:** in Guided, a reading more than 0.02 mL from the meniscus and an HCl molarity that is not the label's are refused and nothing is stored; in Challenge both are stored as typed. The mode cannot be changed from a trial's aliquot or initial reading until the trial ends.
+12. **Reproducibility:** the same seed and the same learner actions give identical readings and expected answer; a trial's seeded values do not depend on earlier trials.
+13. **Resume:** a lab reloaded from storage after every action, each stream addition included, ends in the same state as one never reloaded.
+
+### 7.5 Revision
+
+Revised 2026-10-04, after the phase's design run (an engine, a bench and a shell design, each prototyped and reviewed, then integrated) and the owner's decisions on what it raised. Changed from the version of 2026-10-03:
+
+- **Settled where the spec was silent:** the grids of the seeded values; what must be in place before the stopcock opens; the swirl and wait before a final reading; the stream's additions and the two measured pours; the plume value; the form of typed entries; how long each technique error lasts; the 30 mL limit on water; the bottles as part of the titration record.
+- **Decided by the owner:** a passing trial counts only with honest readings and the label's molarity, because a failed trial's percent error gives the answer away; the typed molarity must be the notebook's value correctly rounded; a flask can be discarded; the mode changes only between trials; step 1 reads the label of the one HCl bottle; average and relative deviation are entered on completion and not marked; the HCl bottle carries the hazards entry for the solution; the indicator's 0.5% is recorded as weight per volume with the assumption stated.
+- **Corrected:** the drawn pink is not proportional to concentration (the threshold would be invisible); a trial at the 50.00 mL mark is invalid when water was added last too; the acceptance list is numbered and gains the typed molarity, the honest trial, trial endings, modes and resume.
+- **Corrected after the plan's review, the same day:** a trial is ran-out only once titrant has run into it, so a trial begun with the burette at the mark is not invalid from the start; the K_w note's conversion is stated as the release's equation gives it; a bottle's `classifiedAs` is named; the Lab safety line of section 12 follows the decision on the hydrochloric acid bottle; the burette warning repeated at the initial reading is described.
+- **Still open:** what "correctly rounded" means for the typed molarity at an exact tie. Either neighbour is accepted until the owner answers (the plan's question Q1).
 
 ## 8. Aqueous reactions lab
 
@@ -397,29 +434,29 @@ The literature values for true H₂CO₃ are identified and cited before the mec
 
 Guest-only. Progress is stored in `localStorage` as JSON. Each lab, the mechanism, and preferences have their own entry with its own version, so a change to one resets only that one.
 
-- **Per lab:** seed, mode, status, recorded readings and observations, answers, and the current trial's engine state as plain data. Titration progress is saved after every learner action, including each stopcock close, so a reload resumes the current trial at the saved delivered volume. Aqueous progress is saved per station.
+- **Per lab:** seed, mode, status, recorded readings and observations, answers, and the current trial's engine state as plain data. Titration progress is saved after every learner action and every stream addition, so a reload resumes the current trial at the delivered volume, with the stopcock closed. The titration entry holds the seed and what the learner did and typed; what the seed fixes and what is judged from it (pass or fail, percent error, causes) are worked out on reading, so a stored record cannot disagree with its seed, and a change to the model's values raises the entry's version. Nothing is saved until the learner starts a lab, so opening its page leaves the home page saying not started. Aqueous progress is saved per station.
 - **Mechanism:** mode, last position, answered predictions.
 - **Preferences:** theme and reduced motion (each System, On, or Off; System is the default and follows the operating system), valence display level.
 
-Stored records are plain data with no browser-specific types, so the same shapes can later be written to a database unchanged. If an entry fails to parse or has an unknown version, that entry starts fresh and the old value is kept under a backup key instead of being deleted; a later broken value gets its own numbered backup key and never replaces an earlier one. The home page shows such an entry as not started. If the browser refuses a save part-way through a session, the settings page says that progress will last only for that session. The notice stays while any entry's latest save was refused; a later successful save of a different entry does not clear it (to be built with the titration lab, the first activity that saves more than preferences).
+Stored records are plain data with no browser-specific types, so the same shapes can later be written to a database unchanged. If an entry fails to parse or has an unknown version, that entry starts fresh and the old value is kept under a backup key instead of being deleted; a later broken value gets its own numbered backup key and never replaces an earlier one. The home page shows such an entry as not started. If the browser refuses a save part-way through a session, the settings page and each lab page say that progress will last only for that session. The notice stays while any entry's latest save was refused; a later successful save of a different entry does not clear it, and "Clear my progress" does (built with the titration lab, the first activity that saves more than preferences).
 
 A settings page offers "export my progress" (downloads the JSON) and "clear my progress".
 
 ## 11. UI and accessibility
 
-As in the original doc: calm, card-based layout; the 3D viewport or lab bench in the centre; in the explorer the atom and bond list sits to its right and the inspector runs across the page below it, its cards side by side where there is room, with the text description and the element details open by default; the lab notebook docked right; mechanism timeline docked along the bottom; light and dark themes; Inter with tabular numerals; design tokens as CSS variables in the Tailwind theme; a Ctrl+K command palette over molecules, labs, and the mechanism.
+As in the original doc: calm, card-based layout; the 3D viewport or lab bench in the centre; in the explorer the atom and bond list sits to its right and the inspector runs across the page below it, its cards side by side where there is room, with the text description and the element details open by default; the working part of the lab notebook beside the bench where the page is wide enough for both, below it otherwise, and its record of finished trials across the page below; mechanism timeline docked along the bottom; light and dark themes; Inter with tabular numerals; design tokens as CSS variables in the Tailwind theme; a Ctrl+K command palette over molecules, labs, and the mechanism.
 
 The theme and the reduced-motion setting in effect (the stored preference, or the system's) are applied before first paint by a short inline script in `index.html`, so that the dark theme never flashes light. The build writes that script from the app's own definition of the preferences entry (its key, version and allowed values), and a test holds its decision to the app's for every kind of stored value; missing, corrupt or unreadable storage follows the system, and storage that can be read but refuses writes keeps the stored preferences, in the script and in the app alike. `color-scheme` is set for both themes, so the browser's own controls match.
 
 Accessibility is designed toward WCAG 2.1 AA:
 
-- Full keyboard operation. Explore works through the DOM atom and bond list (section 6.3). Lab tools are DOM controls. The timeline is a native range input.
-- Colour is never the only signal: every colour observation also has a text label, and the titration plume has a status line.
+- Full keyboard operation. Explore works through the DOM atom and bond list (section 6.3). Lab tools are DOM controls, and none depends on timing or on holding a key down. The timeline is a native range input.
+- Colour is never the only signal: every colour observation also has a text label, and the titration plume has a status line, which also names the flask's colour.
 - Text descriptions of 3D scenes and station results come from pure functions (`describeMolecule`, `describeStationResult`) tested in Vitest.
-- The meniscus text alternative gives the two bracketing graduations and a rough position between them, not the reading itself.
+- The meniscus text alternative gives the two bracketing graduations and which fifth of the gap the meniscus is in, not the reading itself. Each position spans 0.02 mL, so the text alone is enough to pass the ±0.02 mL check. It is available to every learner.
 - Reduced motion follows the operating system unless the learner overrides it.
 
-Target screens: 1366×768 first, scaling up. Tablets fully supported. On viewports narrower than 768 px, Explore and Learn work; a lab page shows its primer, the notebook of any saved run (read-only), and a notice to continue on a larger screen, and the bench is not shown.
+Target screens: 1366×768 first, scaling up. Tablets fully supported. On viewports narrower than 768 px, Explore and Learn work; a lab page shows its primer, the notebook of any saved run (read-only), and a notice that the bench needs a window at least 768 px wide and that progress stays in the browser it was made in; the bench is not shown. A page zoomed to 200% on a 1366 px screen is narrower than that, so the bench is not shown there either, and the notice says that zooming out brings it back.
 
 An About page carries the PubChem/NLM acknowledgment and NCBI disclaimer, the NIST and other citations, the MIT licence, and the statement of independence from any school.
 
@@ -432,7 +469,7 @@ Valence is made for any learner, not for a particular institution. The repositor
 - **Accessibility services:** what has been tested against WCAG 2.1 AA and what has not.
 - **Finance and procurement:** free, MIT-licensed, no contract, no vendor, no support agreement.
 - **Faculty and curriculum:** which labs exist, what each teaches, how answers are checked, where every chemistry value is sourced.
-- **Lab safety:** Valence supplements bench labs and does not replace safety training; hazard information describes the pure substance.
+- **Lab safety:** Valence supplements bench labs and does not replace safety training; each bottle's hazard information says what it classifies: the pure substance, except the titration lab's hydrochloric acid, which carries the classification of hydrochloric acid, the solution; a note with its own source says what is known at the strength used.
 
 Rules: state only what is true and tested when written. The docs never say "FERPA compliant" (that determination belongs to the institution) and make no WCAG conformance claim before an audit. They keep the statement that Valence is independent, with no vendor relationship. Each section is written as its features land.
 
@@ -440,14 +477,16 @@ Rules: state only what is true and tested when written. The docs never say "FERP
 
 - Vitest unit tests for every engine model, the derive functions, the describe functions, and the validator, written before the corresponding UI.
 - A phase is done when its automated acceptance list passes and every requirement in its section has been checked by hand in the running app, using a checklist written into that phase's plan. The checklist includes a keyboard-only walkthrough of the phase's features.
-- No end-to-end framework in v1.
+- No end-to-end framework in v1. A script used for a browser check is throwaway and stays out of the repository.
+- CI runs the linter, the tests, the type check, the production build and the data scripts on every pull request and on every push to the main branch, and fails when a generated file differs from what the scripts write.
+- The titration phase's plan has two gates besides its tasks. Before any screen is built, a reviewer who has not seen the designs checks the stored constants against their sources, re-derives the model's results, and reads every sentence a learner will see, and the owner reads the primer and the hazard notes. When the page is whole, the hand checklist is run in the browser, and the owner reads the meniscus and judges the stream, the pink and the layout.
 
 ## 14. Build phases
 
 1. **Foundation.** App shell, navigation, tokens, themes, hash routing, progress storage, settings and About pages, chem-data types and validator, seeded RNG, lint rules.
    - Done when: the validator rejects each of its four failure conditions; the lint rules reject a React import and a `Math.random` call in `engine/`; progress survives a reload.
 2. **Explorer.** Section 6, plus the command palette over molecules (later phases add their entries). Built as two plans: 2A, the data and derived values (elements, molecule files, derive and describe functions, MO data); then 2B, the 3D viewer, inspectors, measure tool, valence levels, and palette. Done when 6.5 passes.
-3. **Titration lab.** Section 7, including the shared lab shell (mode switch, primer, notebook, check flow) reused by phase 4, and the narrow-viewport lab page. The endpoint acceptance test is the first task. Done when 7.4 passes.
+3. **Titration lab.** Section 7, including the shared lab shell (the page frame with the mode switch and the primer, and slots for a lab's guide, bench, notebook and record) reused by phase 4, and the narrow-viewport lab page. Each lab owns its notebook and its check: phase 4 checks observations and equations, this lab one number, and nothing is shared ahead of need. The endpoint acceptance test is the first task. Done when 7.4 passes.
 4. **Aqueous reactions lab.** Section 8. Done when 8.4 passes.
 5. **Mechanism timeline.** Section 9. Done when 9.3 passes.
 
