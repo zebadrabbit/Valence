@@ -90,8 +90,12 @@ export type Cause = 'burette-not-conditioned' | 'tip-bubble' | 'pipette-not-rins
 
 export type TrialOutcome =
   | { state: 'open' }
-  /** Technique causes only: nothing was typed that could be judged. */
-  | { state: 'invalid'; reason: 'overshot' | 'ran-out' | 'discarded'; causes: Cause[] }
+  /**
+   * Technique causes only: nothing was typed that could be judged. `washed-out` is a trial stored as ran-out that a
+   * wash of water ended: the pink it thinned away may have been a confirmed endpoint, so it is not told that the
+   * burette ran out before one.
+   */
+  | { state: 'invalid'; reason: 'overshot' | 'ran-out' | 'washed-out' | 'discarded'; causes: Cause[] }
   /** A failed trial shows its signed percent error (D1). `counts` is false for every failed trial. */
   | { state: 'failed'; percentError: number; causes: Cause[]; counts: boolean }
   /**
@@ -107,7 +111,8 @@ export type TrialOutcome =
  */
 export function trialOutcome(m: TitrationModel, state: TitrationState, trial: Trial): TrialOutcome {
   if (trial.end === 'open') return { state: 'open' }
-  if (trial.end !== 'graded') return { state: 'invalid', reason: trial.end, causes: techniqueCauses(trial) }
+  // A wash clears the trial's last addition and a delivery sets it, so a ran-out trial without one was ended by a wash.
+  if (trial.end !== 'graded') return { state: 'invalid', reason: trial.end === 'ran-out' && trial.lastAdditionUl === 0 ? 'washed-out' : trial.end, causes: techniqueCauses(trial) }
   // Only a record made by hand has a graded trial without a molarity: there is nothing to judge.
   if (trial.molarityE6 === null) return { state: 'open' }
   const { hclE4, naohE5 } = labSetup(m, state.seed)

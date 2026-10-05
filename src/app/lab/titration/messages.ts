@@ -128,6 +128,7 @@ type InvalidReason = Extract<TrialOutcome, { state: 'invalid' }>['reason']
 const INVALID_LABEL: Record<InvalidReason, string> = {
   overshot: 'Invalid: overshot',
   'ran-out': 'Invalid: burette ran out',
+  'washed-out': 'Invalid: pink rinsed away',
   discarded: 'Invalid: discarded',
 }
 
@@ -154,6 +155,10 @@ export const OUTCOME_TEXT: Record<'passed' | 'notCounted' | 'closeWithTechniqueE
     "Overshot: the flask has gone more than two drops too far, so this trial has no usable titre. Run the trial again: close the stopcock when the pink is slow to fade, go on by single drops, and change to half-drops when a drop's pink is slow to fade.",
   // The spec's sentence (7.2), word for word.
   'ran-out': 'The burette ran out before the endpoint, so this trial has no usable titre. Refill the burette before you start a trial.',
+  // The same ending, reached by a rinse of the flask wall that thinned the pink away with the burette at its last mark.
+  // The pink may have lasted a swirl and wait, so the sentence does not say the burette ran out before the endpoint.
+  'washed-out':
+    'The rinse thinned the pink until it no longer shows. The burette is at the 50 mL mark, the bottom of its scale, so no more NaOH can be added to bring the pink back, and this trial has no usable titre. Refill the burette before you start a trial.',
   discarded: 'You discarded this flask, so the trial has no result. Run the trial again.',
   // A note, never a cause. It does not say the water changed nothing: with the burette at its last mark it can wash the pink out and end the trial.
   water:

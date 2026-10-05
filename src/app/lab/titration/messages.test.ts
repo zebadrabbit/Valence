@@ -34,7 +34,7 @@ const local = import.meta.glob<string[]>('../../../chem-data/denylist.local.json
 const institutionNames = Object.values(local).flat()
 
 const m = modelFrom(titrationData)
-const { run, prepared, titrateCarefully, carefulTrial } = learner()
+const { run, readyTrial, prepared, titrateCarefully, carefulTrial } = learner()
 
 /** A signed figure to two decimals with its percent sign. A bare percent sign is no percent error: the sentences say "within 1.0%". */
 const PERCENT_ERROR = /[+−]\d+\.\d\d%/
@@ -46,7 +46,7 @@ const failedAtTheEdge: TrialOutcome = { state: 'failed', percentError: 1.004, ca
 // Within 1.0% with technique errors named in it: by the owner's decision of 2026-10-05 it does not count.
 const closeWithErrors: TrialOutcome = { state: 'passed', percentError: null, causes: ['burette-not-conditioned', 'pipette-not-rinsed'], counts: false }
 const notCounted: TrialOutcome = { state: 'passed', percentError: null, causes: ['final-misread'], counts: false }
-const REASONS = ['overshot', 'ran-out', 'discarded'] as const
+const REASONS = ['overshot', 'ran-out', 'washed-out', 'discarded'] as const
 const invalid = (reason: (typeof REASONS)[number]): TrialOutcome => ({ state: 'invalid', reason, causes: ['tip-bubble', 'pipette-not-rinsed'] })
 const ended = [cleanPass, failedLow, failedAtTheEdge, closeWithErrors, notCounted, ...REASONS.map(invalid)]
 /** The same outcome as it is given once three trials count. */
@@ -128,6 +128,21 @@ describe('feedback on a trial', () => {
     expect(spec.includes(`message "${OUTCOME_TEXT['ran-out']}"`)).toBe(true)
   })
 
+  it('a trial that a rinse ended at the last mark is not told that the burette ran out before the endpoint: it had one (seed 1384, a second trial with no refill)', () => {
+    let lab = readyTrial(m, run(m, carefulTrial(m, prepared(m, 1384)), [{ type: 'startNextTrial' }]), { fill: false })
+    while (can(m, lab, { type: 'deliver', amount: 'stream' }) === null) lab = run(m, lab, [{ type: 'deliver', amount: 'stream' }])
+    lab = run(m, lab, [{ type: 'swirlAndWait' }, { type: 'recordFinalReading', readingUl: honestReading(lab.burette.levelUl) }, { type: 'addWater' }, { type: 'addWater' }])
+    const trial = currentTrial(lab)
+    expect([trial.end, lab.burette.levelUl]).toEqual(['ran-out', m.buretteCapacityUl])
+    const outcome = trialOutcome(m, lab, trial)
+    expect(outcomeLabel(outcome)).toBe('Invalid: pink rinsed away')
+    expect(feedback(outcome, trial.waterUl)).toEqual([OUTCOME_TEXT['washed-out'], OUTCOME_TEXT.water])
+    for (const said of [/^The rinse thinned the pink until it no longer shows\./, /50 mL mark/, /no more NaOH can be added to bring the pink back/, /no usable titre/, /Refill the burette before you start a trial\.$/]) {
+      expect([String(said), said.test(OUTCOME_TEXT['washed-out'])]).toEqual([String(said), true])
+    }
+    expect(OUTCOME_TEXT['washed-out']).not.toMatch(/ran out|before the endpoint/)
+  })
+
   it('water added: the note comes last, after every cause, whatever the outcome', () => {
     for (const outcome of ended) expect(feedback(outcome, 10000)).toEqual([...feedback(outcome, 0), OUTCOME_TEXT.water])
     expect(Object.values(CAUSE_TEXT)).not.toContain(OUTCOME_TEXT.water)
@@ -159,13 +174,14 @@ describe('feedback on a trial', () => {
 })
 
 describe('the Result cell', () => {
-  it('reads in words for each of the seven cases', () => {
+  it('reads in words for each of the eight cases', () => {
     expect([cleanPass, notCounted, failedLow, ...REASONS.map(invalid), { state: 'open' } as const].map(outcomeLabel)).toEqual([
       'Passed',
       'Passed, not counted',
       'Not passed, −2.13%',
       'Invalid: overshot',
       'Invalid: burette ran out',
+      'Invalid: pink rinsed away',
       'Invalid: discarded',
       'In progress',
     ])
@@ -327,6 +343,7 @@ describe('the figures the sentences state', () => {
     expect(STEP_TEXT.aliquot.first).toContain(readingText(m.pipetteNominalUl))
     expect(BLOCKED_TEXT['calculation-mismatch']).toContain(readingText(m.pipetteNominalUl))
     expect(BLOCKED_TEXT['burette-at-bottom']).toContain(`${m.buretteCapacityUl / 1000} mL mark`)
+    expect(OUTCOME_TEXT['washed-out']).toContain(`${m.buretteCapacityUl / 1000} mL mark`)
     expect(INVALID_ENTRY_TEXT.reading).toContain(readingText(m.buretteCapacityUl))
     expect(rereadText(1300)).toContain(readingText(m.readingToleranceUl))
     expect(OUTCOME_TEXT.notCounted).toContain(readingText(m.readingToleranceUl))

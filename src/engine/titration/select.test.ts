@@ -403,6 +403,22 @@ describe('a trial that is invalid (seed 1)', () => {
     expect(outcome(s)).toEqual({ state: 'invalid', reason: 'ran-out', causes: [] })
   })
 
+  it('a trial that a wash of water ended at the last mark is told apart from one the burette ran out on (seed 1384, a second trial with no refill)', () => {
+    // The stream ends at the mark just past this flask's endpoint, the pink lasts the wait and the final reading is taken.
+    let s = nextTrial(carefulTrial(m, prepared(m, 1384)), { fill: false })
+    while (s.burette.levelUl < m.buretteCapacityUl) s = run(m, s, [deliver('stream')])
+    s = run(m, s, [act('swirlAndWait'), final(m.buretteCapacityUl)])
+    expect([flaskView(m, s).persistence, currentTrial(s).finalReadingUl]).toEqual(['persisted', 50000])
+    // The second wash thins the pink away. Nothing more can be delivered, so the trial is over: the stored end is the same.
+    s = run(m, s, [act('addWater'), act('addWater')])
+    expect(currentTrial(s)).toMatchObject({ end: 'ran-out', lastAdditionUl: 0, waterUl: 20000 })
+    expect(outcome(s)).toEqual({ state: 'invalid', reason: 'washed-out', causes: [] })
+    // Water before the titrant, and the stream to the mark with the flask never pink: the burette ran out.
+    const dry = streamOut(nextTrial(carefulTrial(m, prepared(m, 1)), { fill: false, washes: 2 }))
+    expect(currentTrial(dry)).toMatchObject({ end: 'ran-out', waterUl: 20000 })
+    expect(outcome(dry)).toEqual({ state: 'invalid', reason: 'ran-out', causes: [] })
+  })
+
   it('a discarded trial, with what had gone wrong in it', () => {
     expect(outcome(run(m, createLab(1, 'challenge'), [act('discardTrial')]))).toEqual({ state: 'invalid', reason: 'discarded', causes: [] })
     expect(outcome(run(m, createLab(1, 'challenge'), [act('pipetteAliquot'), act('discardTrial')]))).toEqual({ state: 'invalid', reason: 'discarded', causes: ['pipette-not-rinsed'] })

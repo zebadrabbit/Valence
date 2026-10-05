@@ -218,6 +218,15 @@ After the commits above the branch was checked once more, at `44971d2`. One chec
 - Done: the burette's cause opens "The burette was not conditioned: it was not rinsed with a little of the NaOH solution before it was filled." The bubble's ends "Before an initial reading, run a little NaOH through the tip to push any bubble out." It says "any bubble" because the cause is read after the trial, when the bubble has usually left. The pipette's cause already says what was not done.
 - Re-checked: a case in `messages.test.ts`, seen failing first, on the two sentences and on the feedback of that seed 7 trial.
 
+**L5 (should-fix). A rinse that ended a trial at the last mark was reported as the burette running out before the endpoint.** A learner can confirm an endpoint with the meniscus at the 50 mL mark, record the final reading, and then rinse the flask wall, which the primer says does no harm. The rinse thins the pink away, nothing more can be delivered, and the trial ends (D5). The feedback then said that the burette ran out before the endpoint, and nothing said that the rinse was what ended the trial.
+
+- Reproduced on seed 1384, a second trial with no refill: the pink lasted the wait at the mark, the final reading of 50.00 was recorded, the second rinse ended the trial, and the feedback was the ran-out sentence and the water note.
+- Done, in the engine's selector: `trialOutcome` gives the reason `washed-out` for a trial stored as ran-out that a wash ended. It tells the two apart by the trial's last addition, which a wash clears and a delivery sets. Nothing stored changes, and D5 stands: the trial is invalid as before.
+- Done, in the words: the result reads "Invalid: pink rinsed away", and the first line says that the rinse thinned the pink until it no longer shows, that the burette is at the 50 mL mark so no more NaOH can be added to bring the pink back, that the trial has no usable titre, and to refill before starting a trial. The water note follows as before. Spec 7.2 says so, and the plan's Tasks 7, 11, 19 and 21.
+- It rests on the gate's earlier change that a wash clears the trial's last addition (F11 to F13), which is listed among what the owner can take back. Taken back, this would need another way to tell the two endings apart; the tests would say so.
+- Re-checked: a case in `select.test.ts` and one in `messages.test.ts`, seen failing first because the outcome said ran-out; the first also holds that water added before the titrant, with the stream then run to the mark, is still ran-out.
+- Not done: the bench does not warn before a rinse at the mark. No component exists yet, and a warning there would be a new rule for Challenge, which shows none.
+
 ## What the reviewers confirmed
 
 **Constants and sources (R1).**
