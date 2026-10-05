@@ -2,7 +2,7 @@
 
 2026-10-05. The gate of `docs/superpowers/plans/2026-10-04-phase-3-titration-lab.md`, held after Tasks 1 to 13 and before any screen is built.
 
-**The gate is not closed.** Both must-fix findings are fixed and tested. Of the thirteen should-fix findings, nine were fixed at the gate, two (F7 and F8) are closed by the owner's answer of 2026-10-05, and two were decided on that day without the owner, each with its reason: F6 is accepted as built, and for F15 the safety card was reworded, which the owner reads. The owner also answered that the indicator's catalogue listing is cited and not kept, and by the same reasoning the quotation fingerprint is not kept either. No finding waits on the owner. What keeps the gate open: the owner has not yet read the primer and the hazard notes; five questions are open for them; and the sentences written since the review have been checked by tests and by running the reviewers' own probes again, but no independent reader has read them. All three are set out in the last section.
+**The gate is not closed.** Both must-fix findings are fixed and tested. Of the thirteen should-fix findings, nine were fixed at the gate, two (F7 and F8) are closed by the owner's answer of 2026-10-05, and two were decided on that day without the owner, each with its reason: F6 is accepted as built, and for F15 the safety card was reworded, which the owner reads. The owner also answered that the indicator's catalogue listing is cited and not kept, and by the same reasoning the quotation fingerprint is not kept either. No finding waits on the owner. A last check, made the same day on the branch as it then stood, made one must-fix finding, ten should-fix findings and eleven notes. The must-fix and the ten should-fix are fixed and tested, and each note has its disposition, under "The last check" below. No must-fix or should-fix finding is open. What keeps the gate open: the owner has not yet read the primer and the hazard notes; ten questions are open for them; and the sentences written to fix the last check's findings have been checked by tests, but no independent reader has read them. All three are set out in the last section.
 
 ## How the review was done
 
@@ -187,7 +187,7 @@ The commits of 2026-10-05 that followed the owner's two answers, in order. Each 
 
 ## The last check, 2026-10-05
 
-After the commits above the branch was checked once more, at `44971d2`. One check read every learner-facing sentence in the order the primer gives and walked the engine with the advice in it. The other attacked the counting rule again and ran the build from a fresh clone. Between them they made 22 findings: one must-fix, ten should-fix and eleven notes. They are numbered here L1 to L11 (must-fix and should-fix) and M1 to M11 (notes). Each must-fix and should-fix was reproduced before anything was changed, and each fix was written test-first.
+After the commits above the branch was checked once more, at `44971d2`. One check read the primer as shown, in the order it tells the learner to read it, and the output of every wording function, and walked the engine with the advice in them. The other attacked the counting rule again and ran the build from a fresh clone. Between them they made 22 findings: one must-fix, ten should-fix and eleven notes. They are numbered here L1 to L11 (must-fix and should-fix) and M1 to M11 (notes). Each must-fix and should-fix was reproduced before anything was changed, and each fix was written test-first: the test was seen failing for the reason the finding gives, then the change was made. The reading check's probe printed the primer as shown and the output of every wording function, so the sentences written since the first review were read at this check as they then stood. After the last fix `npm run lint`, `npm run build`, `npm run build:data`, `npm run build:expected` and `npm run cross-check` pass and the generated files show no diff: 68 test files and 1964 tests where the quotation fingerprint has been made, and 1830 passed with 134 reported as skipped where it has not, as in CI. Every primer sentence written at this check was run against the fingerprint before it was committed.
 
 ### Fixed
 
@@ -261,6 +261,25 @@ After the commits above the branch was checked once more, at `44971d2`. One chec
 - Re-checked: every test under `src/engine/titration/` and `src/app/lab/titration/`, 416 of them, passes with the default set to 1000 ms, twice running.
 - Not changed: two tests of the periodic table's page in `src/app/explore/elements/page.test.ts`, from an earlier phase, take 2.0 and 1.4 seconds with no timeout of their own. They are not this lab's and are left as they are.
 
+### The last check: what was done, by commit
+
+Each leaves lint, the build and the three data scripts passing with no diff. The ids are those of the local branch, as in the table above.
+
+| Commit | What it did |
+| --- | --- |
+| `d1be539` | Four cards to read before the bench (L1) |
+| `30d1772` | The cue by the size of the addition, with one answer in the primer, the overshot feedback and the hint (L2) |
+| `3dba8a9` | Each word explained at or before its first use in the four cards (L3) |
+| `fa748f1` | What conditioning is, and how the tip is cleared, in the two causes (L4) |
+| `98a4732` | A result and a sentence of its own for a trial that a rinse ends at the last mark (L5) |
+| `a569a13` | "Ran out" kept for a burette with nothing left to deliver (L6) |
+| `50c9cee` | The safety card's paragraph on the indicator (L7, L10) |
+| `3d43784` | Not classed as hazardous is not the same as harmless (L8) |
+| `afa9e6e` | "Shows in the result" only under a failed trial with technique causes alone (L9) |
+| `1cad5f6` | A timeout of its own for every loop in the lab's tests (L11) |
+| `f94b04a` | The eleven notes, and the owner's answer on the tie rule in the spec (M9) |
+| the commit after it | The head of this record, the owner's lists, this table and the plan's gate |
+
 ### Notes of the last check
 
 | | Note | Disposition |
@@ -322,7 +341,7 @@ After the commits above the branch was checked once more, at `44971d2`. One chec
 
 ## What nobody checked
 
-- **The sentences written at this stage.** They are listed in the last section. Tests hold them to their structure and to the no-quotation rule, and the reviewers' probes were run again, but no independent reader has read them for chemistry or tone.
+- **The sentences written to fix the last check's findings.** They are listed in the last section. Tests hold them to their structure and to the no-quotation rule, but no independent reader has read them for chemistry or tone. The sentences written before the last check, after the first review, were read by it as they stood at `44971d2`.
 - **The primer's passages.** The wording of the support lines was compared with the pages; whether each location and each claim is right for its source was not gone through one by one. The points of the primer for which no source was read (the plan's ninth review item) were not judged one by one either. They are eight, with the one the last check added: that the faint pink of a real endpoint fades because the open flask takes up CO₂, and that this is why the rule gives a time; that a NaOH solution which has stood is standardized again; touching the hanging part-drop to the flask wall; the definition of relative deviation; which way an escaping tip bubble moves the reading; the glassware card's statements about a real bench (each mistake costs less there, a real tip holds less air than this lab's bubble, and a real burette that was not conditioned is less diluted at each refill); the titrating card's statement that a 10 mL rinse can thin a very faint pink until it no longer shows; and its statement that a single drop's pink clears at once again after the stream's has begun to linger.
 - **The pages as they stood when the primer was written.** No copy is kept. The comparison, and the fingerprint, are of the pages as served on 2026-10-05. A page that changes later is not noticed. Text inside images, and runs broken by a sheet's layout, are outside the scan.
 - **The fingerprint's limits.** A run of five words, or a close paraphrase, passes. A run that was never in a page can match by chance about once in 60 000 tries; it would then be reworded for nothing. Since 2026-10-05 the fingerprint is not in the repository, so the test runs only where it has been made again, and not in CI.
@@ -350,6 +369,14 @@ These three, and nothing else, are what the plan asks the owner to read at this 
    - the calculation card's opening, on the equivalence point and the endpoint, and "Four decimal places is this lab's convention.";
    - the precision card's clause on why the average is rounded first, and its example of a mistake repeated;
    - the first card's opening, the endpoint card's "or very close to it", and the titrating card's sentences on the titre, on M and on the indicator.
+
+   Written or changed again at the last check, and read by no one independent:
+   - the first card's opening, which now names four cards and says only that the other eight can wait;
+   - the glassware card's first paragraph, which says what the burette and the pipette measure and names both solutions; the last sentence of its second paragraph, on water in the flask; and the second sentence of its last paragraph, on a burette that runs out;
+   - the titrating card's first paragraph, which now opens with the endpoint and the indicator, names the sodium hydroxide solution and says what its 25.00 is; and the two sentences that close its second paragraph, on a single drop's pink and on half-drops;
+   - the calculation card's opening, which says what the equivalence point is;
+   - the burette card's "as solution leaves the burette";
+   - the safety card's second paragraph, which says that not classed as hazardous is not the same as harmless, and its fourth, on the indicator, which replaces the wording decided under F15.
 2. **The three hazard notes**, `bottles.hcl`, `bottles.naoh` and `bottles.indicator` in `docs/research/phase-3/titration.json`, each under `hazards.note`.
 3. **The heading over each bottle's statements**, the same three bottles' `classifiedAs`: the acid's says the statements are those of hydrochloric acid from one regulator's entry; the other two say the statements are those of the pure substance.
 
@@ -357,15 +384,22 @@ These three, and nothing else, are what the plan asks the owner to read at this 
 
 Each is something only a person who runs this lab at a bench, or who answers for the repository, can settle.
 
-1. **The tip bubble at a real bench.** The glassware card says that a real burette tip holds less air than this lab's bubble, and spec 7.3 and the record's rationale say that a real bubble leaves at once where this lab's 0.60 mL leaves evenly over the first 5 mL. No source was read for either. Does a real tip hold less than 0.60 mL of air, and does a real bubble leave at once?
+1. **The tip bubble at a real bench.** The glassware card says that a real burette tip holds less air than this lab's bubble, and spec 7.3 and the record's rationale say that a real bubble leaves at once where this lab's 0.60 mL leaves evenly over the first 5 mL. No source was read for either. Does a real tip hold less than 0.60 mL of air, and does a real bubble leave at once? If it does, the glassware card should say so too: it tells two of the three things spec 7.3 says are not true to a bench and not that this lab's bubble leaves a little at a time over the first 5 mL (the last check, M5).
 2. **The rinse portion.** One wash of the flask wall is 10 mL (D3). Of 500 careful endpoints, 85 were washed colourless by one to three portions, and the primer and the bench now say what to do when that happens. Is 10 mL the right portion?
 3. **The depth of the drawn meniscus.** `READING.meniscusRiseUl` in `src/app/lab/titration/buretteGeometry.ts` draws the meniscus as a band whose top is 0.08 mL of scale above its lowest point. The value was chosen by eye and has no source. The owner sees it at browser check 1 (Task 16); is 0.08 mL of scale what a meniscus looks like in a 50 mL burette?
 4. **Three college laboratory manuals named as publishers.** The primer cites three laboratory manual pages hosted on LibreTexts, and their citations in the manifest and in `sources.json` name the college or university that publishes each: the sources `lmc-buret-use`, `smc-equivalent-mass-lab` and `ucd-standardization-lab`. The plan's rule is that the repository holds no institution-specific text, and a publisher named in a citation is the one place where a college's name appears in it. Are these three acceptable as cited, or should the primer rest on other pages?
 5. **The indicator's own label.** What the label of the indicator this lab would stock prints: the solvent, and whether the percentage is weight per volume. The record takes the bottle to be a 0.5% (w/v) solution in 50% alcohol, as a supplier's catalogue page printed on 2026-10-04, and says that this is assumed.
+6. **The dilute sodium hydroxide, in the safety card (the last check, L8).** The card reports that the supplier's sheet does not class 0.1 M sodium hydroxide as hazardous, and now adds that this is not the same as harmless and what the sheet still asks for. The reviewer holds that a lab instructor would go further: that the solution is strongly alkaline, and that alkali in the eye is treated as at least as serious as acid. No source was read for either, so neither is on the card. Should the card say more, and on what source?
+7. **The heading over the acid's statements (the last check, M1).** The acid tile is headed as the hazards of hydrochloric acid from one regulator's entry, and the card calls its statements "the classification of hydrochloric acid as such". The liquid on the bench is hydrochloric acid too, so neither tells a learner why the note beneath gives a milder classification for a substance of the same name. The kept record of the entry gives no strength. Is there a strength to state, or should the heading say that the entry gives none and is not written for a 0.1 M solution?
+8. **The stored entry's version (the last check, M8).** The counting rule changed on 2026-10-05 and the titration entry's version is still 1. The engine's own comment says a change to what is judged needs the version raised. Against raising it: no page saves an entry yet, so no record made under the old rule exists anywhere. For raising it: a record saved as completed under the old rule, with a trial that no longer counts, would open as completed with no true molarity, no summary and no next trial. Does the version stay at 1? It has to be settled before Task 21 ships a page that saves.
+9. **Air in the tip after conditioning (the last check, M10).** Conditioning empties the burette, and the fill after it traps air in the tip again. The stand's words, the checklist and Guided's warning all show the bubble, but no sentence says so in advance, and a Challenge learner who conditions late, refills and does not look at the tip has a careful trial that does not count. Should the glassware card, or the message of the fill, say that a burette filled from empty can trap air in the tip?
+10. **Two technique steps that can be got round (the last check, M11).** Three trials can count with the tip never cleared and the pipette never rinsed by their own controls: 5 mL run into a flask that is then discarded takes the bubble out, and an aliquot drawn unrinsed and discarded leaves the pipette wet with acid. By D3 the trials that follow are sound in the model. Conditioning cannot be got round this way. Is that the intended reading of D3, or should the steps themselves be required? The second would be a new rule and a new stored field.
 
 ### Decided without the owner, which the owner can take back
 
 Each is recorded above with its reason: what the flask view hands the app (F6, N9); the safety card's paragraph on the indicator (F15); no plume on a reload; the four wordings of the bench (N7); the primer wording from the reviewers' notes (N6, N12); what Home shows for a record the lab will refuse (N10); and that the quotation fingerprint is not kept. Two from the gate itself stand as they were: a wash of water clears the trial's last addition in the engine (F11 to F13), which R3 had marked as the owner's; and the closing sentence on what is larger here than at a bench, now said once.
+
+From the last check, each recorded above with its reason: four cards to read first where the plan had three (L1); a single answer to the cue, by drops and then by half-drops when a drop's pink is slow to fade (L2); a result and a sentence of its own for a trial that a rinse ends at the last mark, told apart in the engine's selector by the last addition that a wash clears (L5); the safety card's paragraph on the indicator, which replaces the wording decided under F15 (L7, L10); the sentence that not classed as hazardous is not the same as harmless (L8); and that "shows in the result" is said only under a failed trial with technique causes alone (L9).
 
 ### Left as built
 
@@ -373,13 +407,13 @@ Each is recorded above with its reason: what the flask view hands the app (F6, N
 - Two record notes R1 would tighten: the strength note could say which check its range is for, or give the range in grams per 100 mL (N1); the K_w note could say the constant is used as a product of concentrations with no activity correction (N3). Neither changes a value.
 - `workedLines` in `messages.ts` says "at the endpoint the moles of NaOH added equal the moles of HCl in the flask", where the primer's calculation card now says the equivalence point.
 - "The water does no harm" stays in the titrating card, followed by the sentences on the 10 mL rinse.
+- From the last check's notes: the direction of an error is said in each technique cause, so a block with two causes that push the same way says it twice (M2). The stopcock's refusal at the last mark does not say to refill (M3). The refusal of a drop of indicator once NaOH has run in is worded as a fact of the bench, where it is a rule of this lab (M4). Guided's hint can show beside the message that a wash undid the wait, and still says that the stopcock was closed when the hint appeared (M6). And six small points of wording that the reviewer calls taste (M7): the endpoint defined in two ways on two cards; "a millilitre or so to either side" where the model reaches 1.4 mL; "This trial is within 1.0%" without "of the true value"; "neutralisation" beside "standardized"; "the 50.0 mL mark" in the reading words and "the 50 mL mark" elsewhere; and four decimal places against significant figures.
 
-### Sentences written or changed since the review, which no independent reader has read
+### Sentences written or changed at the last check, which no independent reader has read
 
-The gate does not close until someone independent, the owner or a reviewer, has read these for chemistry and tone.
+The gate does not close until someone independent, the owner or a reviewer, has read these for chemistry and tone. The sentences this section listed before the last check were read by it as they stood at `44971d2`; its findings on them are above.
 
-- Primer: every paragraph listed under "What the owner reads", item 1.
-- The three hazard notes: the rinse sentence in the acid's and the base's; the indicator's opening and its list of hazards.
-- The record: the note on the indicator's strength, which now says the listing was read on 2026-10-04, is not kept and is not checked again by the build; and the listing's citation.
-- `src/app/lab/titration/messages.ts`: the three technique causes, as they read without a closing sentence; `OUTCOME_TEXT.notCounted`, which gives the whole counting rule; `OUTCOME_TEXT.closeWithTechniqueError`; `OUTCOME_TEXT.largerHere` and `largerHereAndShown`; `BLOCKED_TEXT['already-done']`.
-- `src/app/lab/titration/benchText.ts`: `undoneText`, both endings; `SLOW_DOWN_TEXT`; "no pink" in the status line and in `swirlText`.
+- Primer: every paragraph listed under "What the owner reads", item 1, as written or changed again at the last check.
+- `src/app/lab/titration/messages.ts`: `BLOCKED_TEXT['needs-initial-reading']` and `['final-not-after-initial']`, where NaOH now runs from the burette and into the flask; the causes `burette-not-conditioned`, which says what conditioning is, and `tip-bubble`, which says how the tip is cleared; `OUTCOME_TEXT.overshot`; `OUTCOME_TEXT['washed-out']` and its label, "Invalid: pink rinsed away".
+- `src/app/lab/titration/benchText.ts`: the ending of `SLOW_DOWN_TEXT`.
+- No hazard note and nothing in the record changed at the last check.
