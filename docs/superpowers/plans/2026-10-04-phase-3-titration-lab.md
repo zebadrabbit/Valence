@@ -31,7 +31,7 @@
 | D3 | Accepted simplifications: an unconditioned burette stays 2.0% dilute through refills until conditioned (not true to a bench; the documentation says so); a wet pipette spoils only the first aliquot drawn with it; an escaped tip bubble does not return at a refill; the stopcock stays shut until the flask has 2 or 3 drops of indicator; distilled water is free of CO₂ and capped at 30 mL a trial |
 | D4 | The HCl bottle carries the GHS entry for hydrochloric acid, the solution, not the one for hydrogen chloride gas. The indicator is recorded as 0.5% weight per volume, cites a reagent catalogue listing that is fetched and kept, and says in a note that the basis was assumed. Hazard notes are drafted from fetched sources and read by the owner at Gate A |
 | D5 | The final reading needs a swirl and wait that showed the pink lasts. A flask can be discarded and the trial started again. The 50.00 mL mark with no persistent pink is invalid even when water was added last. No further trial after the third that counts |
-| D6 | The molarity is typed once per trial, to exactly four decimal places, and accepted only when it is the learner's own HCl molarity × 25.00 ÷ their own titre, correctly rounded. A value cut off instead of rounded is refused with a sentence that says to round. What "correctly rounded" means at an exact tie was not decided: Q1 below |
+| D6 | The molarity is typed once per trial, to exactly four decimal places, and accepted only when it is the learner's own HCl molarity × 25.00 ÷ their own titre, correctly rounded. A value cut off instead of rounded is refused with a sentence that says to round. At an exact tie both neighbours are accepted (Q1 below, answered 2026-10-04) |
 | D7 | The mode can change between trials, not during one. No trial is labelled with a mode |
 | D9 | One HCl bottle, its label always readable. Step 1 is to read the label and record its molarity |
 | D13 | K_w is 1.0×10⁻¹⁴ citing IAPWS R11-24, with a note giving the printed pK_w and the conversion. No OpenStax copy is kept |
@@ -42,7 +42,7 @@
 | D2 | The OpenStax licence question is not phase 3 work (see the last section). New work quotes no OpenStax text and makes no claim about OpenStax's licence |
 | Taken as decided | Additions are exact, so counting presses gives the titre. The export file holds the seed. Refilling between trials is taught and not forced. A comma is not a decimal mark |
 
-**One question is open for the owner, and is answered before Task 5 starts:**
+**Q1 was answered by the owner on 2026-10-04: both neighbours are accepted at an exact tie.** The plan was already written to that answer, so nothing below changes. The question as it was put:
 
 | # | Question | What this plan is written to until it is answered |
 | --- | --- | --- |
@@ -336,7 +336,7 @@ export function summarise(molaritiesE6: readonly number[]): { meanE6: number; de
 
 The rounding rule (D6), in whole numbers: with `d = molarityE6 × titreUl − hclE6 × pipetteNominalUl`, the molarity follows from the notebook exactly when `titreUl > 0` and `−molarityRoundingE6 × titreUl <= d <= molarityRoundingE6 × titreUl`. Both edges are included, so at an exact tie either neighbour is accepted. That is this plan's answer to Q1 until the owner gives theirs; if it is "a tie rounds up", the lower edge is left out and the tie cases below change as Q1 says.
 
-- [ ] Q1 is put to the owner, and the answer is recorded in the decisions table, before any test of this task is written.
+- [x] Q1 was put to the owner and answered on 2026-10-04: both neighbours are accepted at an exact tie.
 - [ ] `parseReading`: "12.34" 12340; "0.00" 0; " 2.56 " 2560; "05.07" 5070; "8.29" 8290; "33.33" 33330; "50.01" 50010 (the range is `can`'s matter, Task 6). Null for "12.3", "12.345", "12", "24.", ".50", "12,34", "-1.00", "1e1", "24.37 mL", "124.37" and "". "8.29" and "33.33" are there because 8.29 × 1000 is 8289.99… in floating point: the parser never multiplies a float.
 - [ ] `parseMolarity`: "0.0949" and ".0949" 94900; "0.1000" 100000; "0.0000" 0. Null for "0.095", "0.09494", "0.094942", "1.0949", "0,0949", "9.49e-2", " " and "".
 - [ ] `parseDeviation`: "0.47" 47; "1.3" 130; "2" 200; ".5" 50; "0" 0. Null for "1.333", "1.", "-1", "1,5" and "".
@@ -1317,7 +1317,7 @@ Read: spec 12; `shell.md` section 8 (drafts, several of them superseded); `integ
 - **Other JavaScript engines.** The test for pink uses a power function that engines may round differently in the last bit. Careful runs never come nearer than 1% to the threshold; arbitrary paths were not searched.
 - **The corner test assumes the worst flask is at a corner.** 200 000 flasks sampled inside the ranges agree; it is not proved.
 - **The behaviours marked *invariant*** in Tasks 6 and 7 were never prototyped.
-- **The tie rule** of the typed molarity is this plan's, not the owner's, until Q1 is answered.
+- **The tie rule** of the typed molarity (both neighbours accepted) was confirmed by the owner on 2026-10-04.
 - **The sentences** drafted in `integration.md` 4.4 and in Task 11 have been read by no learner.
 
 **A separate task, outside this plan: the OpenStax licence (D2).** The repository's existing files quote OpenStax Chemistry 2e and say it is CC BY 4.0, in `src/chem-data/periodic.ts`, `src/chem-data/sources.json` and `docs/for-institutions.md`. The design run questioned that statement. Checking the licence, and correcting the existing quotations and wording to whatever the check finds, is its own task with its own plan. It is not phase 3 work, and it must be done before the repository is made public. Phase 3 adds no OpenStax quotation and no statement of OpenStax's licence, and leaves the existing ones untouched.
