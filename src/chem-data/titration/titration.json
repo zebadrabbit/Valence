@@ -118,13 +118,14 @@
         "value": 6.35,
         "published": "6.35",
         "unit": "",
-        "note": "The apparent first constant, for dissolved carbon dioxide and carbonic acid taken together, which is the species the model holds. The constant of the carbonic acid molecule itself, 3.75 in the same infobox, is not the one used.",
+        "note": "The second of the three figures on the acidity line of the page's infobox. The infobox marks it hydrous and gives it no temperature: only the first figure, 3.75 and marked anhydrous, has one beside it, 25 °C, and that figure is not the one used. Taking the hydrous figure as the first constant of dissolved carbon dioxide and carbonic acid counted as one acid, which is the species the model holds, is this project's reading and not something the page says. The body of the same page prints other values for the two constants: 6.77 and 9.93, at 25 °C in a solution with no other ions, and 6.35 again with a second constant 3.49 above it, which is 9.84. With either pair in place of the stored one, the titrant needed past equivalence to turn the flask faintly pink changes by less than 0.2 µL in every flask of the acceptance tests, against a smallest addition of 25 µL.",
         "sourceId": "perrin-1982-wikipedia"
       },
       {
         "value": 10.33,
         "published": "10.33",
         "unit": "",
+        "note": "The third figure on the same line of the infobox, which gives it no temperature either. The body of the page prints 9.93 for this constant and, as a difference from the first, 9.84; the note on the first constant says how little the choice moves the endpoint.",
         "sourceId": "perrin-1982-wikipedia"
       }
     ]

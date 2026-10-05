@@ -84,12 +84,12 @@
         {
           "field": "constants.carbonicPKas[0]",
           "prints": "6.35",
-          "where": "The infobox's acidity line, the second of its three figures, the one marked hydrous: the apparent first constant, for dissolved carbon dioxide and carbonic acid taken together. The first figure, 3.75 and marked anhydrous, is for the carbonic acid molecule itself and is not the one the model uses."
+          "where": "The infobox's acidity line, the second of its three figures, the one marked hydrous, with no temperature beside it. The first figure, 3.75, is marked anhydrous and 25 °C and is not the one the model uses. The page's section on bicarbonate and carbonate prints 6.35 again for this constant, and before it 6.77, worked out for 25 °C and a solution with no other ions."
         },
         {
           "field": "constants.carbonicPKas[1]",
           "prints": "10.33",
-          "where": "The same line of the infobox, its third figure: the second constant."
+          "where": "The same line of the infobox, its third figure, with no temperature beside it: the second constant. The page's section on bicarbonate and carbonate prints 9.93 for this constant and, with the 6.35, a difference of 3.49 between the two."
         }
       ]
     },

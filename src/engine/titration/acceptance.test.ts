@@ -43,15 +43,15 @@ function carefulRun(seed: number, drops: number) {
 const range = (values: readonly number[], digits: number) => [Math.min(...values).toFixed(digits), Math.max(...values).toFixed(digits)]
 
 /** Microlitres of titrant past equivalence at which the mixed flask reaches the threshold; the volume need not be whole. */
-function excessToThreshold(flask: Flask): number {
+function excessToThreshold(flask: Flask, model: TitrationModel = m): number {
   const equivalence = equivalenceUl(flask)
   let lo = -100
   let hi = 100
-  expect(isPink(m, { ...flask, deliveredUl: equivalence + lo })).toBe(false)
-  expect(isPink(m, { ...flask, deliveredUl: equivalence + hi })).toBe(true)
+  expect(isPink(model, { ...flask, deliveredUl: equivalence + lo })).toBe(false)
+  expect(isPink(model, { ...flask, deliveredUl: equivalence + hi })).toBe(true)
   for (let i = 0; i < 50; i++) {
     const mid = (lo + hi) / 2
-    if (isPink(m, { ...flask, deliveredUl: equivalence + mid })) hi = mid
+    if (isPink(model, { ...flask, deliveredUl: equivalence + mid })) hi = mid
     else lo = mid
   }
   return hi
@@ -161,21 +161,41 @@ describe('spec 7.4 check 3, endpoint: a careful run through the state machine', 
 })
 
 describe('spec 7.4 check 4, endpoint, whatever the grid offset: for every flask a learner can make', () => {
-  it('either dilution error, 2 or 3 drops, up to 30 mL of water: the threshold is reached more than 0 and at most 0.025 mL past equivalence', () => {
-    const flasks = DROPS.flatMap((indicatorDrops) =>
-      [0, 10000, 20000, 30000].flatMap((waterUl) =>
-        [100, m.wetPipetteStrengthPercent].flatMap((aliquotPercent) =>
-          [100, m.unconditionedStrengthPercent].flatMap((titrantPercent) => corners({ aliquotPercent, titrantPercent, indicatorDrops, waterUl })),
-        ),
+  const flasks = DROPS.flatMap((indicatorDrops) =>
+    [0, 10000, 20000, 30000].flatMap((waterUl) =>
+      [100, m.wetPipetteStrengthPercent].flatMap((aliquotPercent) =>
+        [100, m.unconditionedStrengthPercent].flatMap((titrantPercent) => corners({ aliquotPercent, titrantPercent, indicatorDrops, waterUl })),
       ),
-    )
-    const excess = flasks.map(excessToThreshold)
+    ),
+  )
+
+  it('either dilution error, 2 or 3 drops, up to 30 mL of water: the threshold is reached more than 0 and at most 0.025 mL past equivalence', () => {
+    const excess = flasks.map((flask) => excessToThreshold(flask))
     expect(excess).toHaveLength(256)
     expect(Math.min(...excess)).toBeGreaterThan(0)
     expect(Math.max(...excess)).toBeLessThanOrEqual(m.halfDropUl)
     expect(range(excess, 3)).toEqual(['9.599', '16.274'])
     // The largest: the most indicator and water to turn, a full-strength aliquot, and the weaker titrant to turn it with.
     expect(flasks[excess.indexOf(Math.max(...excess))]).toMatchObject({ indicatorDrops: 3, waterUl: 30000, aliquotPercent: 100, titrantPercent: 98 })
+  })
+
+  it("the other carbonic constants the source's page prints move the threshold by less than 0.2 uL, as the record's note says", () => {
+    // The record's two constants come from a page that prints two other sets for them (the note on the first says where).
+    const stored = flasks.map((flask) => excessToThreshold(flask))
+    const moved = [
+      [6.77, 9.93],
+      [6.35, 9.84],
+    ].map((carbonicPKas) => {
+      const excess = flasks.map((flask) => excessToThreshold(flask, { ...m, carbonicPKas }))
+      expect(Math.min(...excess)).toBeGreaterThan(0)
+      expect(Math.max(...excess)).toBeLessThanOrEqual(m.halfDropUl)
+      return [...range(excess, 3), Math.max(...excess.map((x, i) => Math.abs(x - stored[i]!))).toFixed(3)]
+    })
+    expect(moved).toEqual([
+      ['9.653', '16.351', '0.113'],
+      ['9.718', '16.425', '0.189'],
+    ])
+    expect(titrationData.constants.carbonicPKas[0]!.note).toContain('by less than 0.2 µL')
   })
 
   it('a correct endpoint is named "faint pink": the latest a half-drop can land, 24.999 uL past the threshold, is below the name limit at every corner', () => {

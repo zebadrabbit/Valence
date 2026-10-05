@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import manifestFile from '../../../docs/research/phase-3/sources/MANIFEST.json'
 import listing from '../../../docs/research/phase-3/sources/ricca-5600-listing.html?raw'
+import carbonicAcidPage from '../../../docs/research/phase-3/sources/wikipedia-carbonic-acid-1376246456.json'
 import inputFile from '../../../docs/research/phase-3/titration.json'
 import { findInstitutionText } from '../denylist'
 
@@ -89,6 +90,27 @@ describe('the titration inputs: sources', () => {
     expect(strength).toMatchObject({ value: 0.5, published: '0.5', unit: 'g per 100 mL' })
     expect(source(strength.sourceId)?.file).toBe('ricca-5600-listing.html')
     expect(listing).toContain('Phenolphthalein Indicator, 0.5% (w/v)')
+  })
+
+  it('says of the carbonic constants what the kept page prints, and calls the rest this project\'s reading', () => {
+    const page = Object.values(carbonicAcidPage.query.pages)[0]!.revisions[0]!.slots.main['*']
+    const [first, second] = input.constants.carbonicPKas as Constant[]
+    // The infobox: a temperature beside the first figure only, and one word beside the stored one.
+    expect(page).toContain('3.75 (25 °C; anhydrous)')
+    expect(page).toContain(`${first!.published} (hydrous)`)
+    expect(first!.note).toContain('hydrous')
+    expect(first!.note).toMatch(/no temperature/)
+    // What the figure is the constant of is not on the page, so the note does not put it there.
+    expect(page).not.toMatch(/apparent|composite|taken together/i)
+    expect(first!.note).toMatch(/this project's reading/)
+    const where = source(first!.sourceId)?.supports.find((row) => row.field === 'constants.carbonicPKas[0]')?.where
+    expect(where).toContain('hydrous')
+    expect(where).not.toMatch(/apparent|taken together/)
+    // The page's body prints two other sets for the same constants, the second as the first constant and a difference.
+    for (const figure of ['6.77', '9.93', '3.49']) expect([figure, page.includes(figure)]).toEqual([figure, true])
+    expect((6.35 + 3.49).toFixed(2)).toBe('9.84')
+    for (const figure of ['6.77', '9.93', '3.49', '9.84']) expect([figure, first!.note?.includes(figure)]).toEqual([figure, true])
+    for (const figure of ['9.93', '9.84']) expect([figure, second!.note?.includes(figure)]).toEqual([figure, true])
   })
 
   it('gives every kept copy a hash, and every source something it supports', () => {
