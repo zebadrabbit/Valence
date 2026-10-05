@@ -2,7 +2,8 @@ import sources from '../sources.json'
 import { located } from '../support'
 
 // The titration lab's concept primer (spec 7.1): twelve cards for a reader with no chemistry background.
-// Nothing here quotes a source. Each paragraph says what it rests on in `support`, one line for each passage:
+// Nothing here quotes a source, and quotation.test.ts holds the cards and their support lines to that: none repeats
+// six words running of a page it rests on. Each paragraph says what it rests on in `support`, one line for each passage:
 // either a passage of a source, given by `located` (where it is, and in this project's words what it establishes),
 // or a line beginning "This lab:" for what is the lab's own (its set-up, its rules, its model, its arithmetic) and
 // is read in no source. The sources are listed in docs/research/phase-3/sources/MANIFEST.json and reach
@@ -69,8 +70,8 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
         "which cards to read first is this lab's advice.",
       ),
       paragraph(
-        'An acid is a substance that gives hydronium ions, H₃O⁺, when it dissolves in water. A base is a substance that gives hydroxide ions, OH⁻, when it dissolves in water.',
-        [[chem2e('4.2'), ACID_BASE, 'for reactions in water, an acid is a substance that dissolves to yield hydronium ions and a base is one that dissolves to yield hydroxide ions.']],
+        'A substance is an acid if it gives hydronium ions, H₃O⁺, when it dissolves in water. It is a base if it gives hydroxide ions, OH⁻, when it dissolves in water.',
+        [[chem2e('4.2'), ACID_BASE, 'for reactions in water, acids are the substances that dissolve to give hydronium ions and bases are those that dissolve to give hydroxide ions.']],
       ),
       paragraph(
         'Hydrochloric acid is hydrogen chloride, HCl, dissolved in water. It is a strong acid: practically every HCl molecule passes a hydrogen ion to a water molecule, which leaves a hydronium ion and a chloride ion, Cl⁻. Sodium hydroxide, NaOH, is a strong base: in water it separates completely into sodium ions, Na⁺, and hydroxide ions.',
@@ -78,7 +79,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
           [
             chem2e('4.2'),
             ACID_BASE,
-            'virtually every HCl molecule that dissolves in water reacts with it to give hydronium and chloride ions, which makes HCl a strong acid; and that NaOH dissolves and dissociates into sodium and hydroxide ions, as the ionic hydroxides that are strong bases do.',
+            'HCl is a strong acid, since nearly all of the HCl that dissolves gives up its hydrogen ion to water and leaves hydronium and chloride ions; and that NaOH dissolves and dissociates into sodium and hydroxide ions, as the ionic hydroxides that are strong bases do.',
           ],
         ],
       ),
@@ -88,7 +89,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
           [
             chem2e('4.2'),
             `${ACID_BASE}, from the definition of a neutralization reaction to the exercise after Example 4.4`,
-            'a neutralization reaction is one between an acid and a base whose products are often a salt and water, and that for a strong acid and an ionic hydroxide the net change is hydronium and hydroxide ions forming water.',
+            'a neutralization reaction is one in which an acid reacts with a base, usually giving water and a salt, and that for a strong acid and an ionic hydroxide the net change is hydronium and hydroxide ions forming water.',
           ],
           [chem2e('4.5'), 'section 4.5, Example 4.14 (Titration Analysis)', 'HCl and NaOH react as HCl(aq) + NaOH(aq) → NaCl(aq) + H2O(l), one mole of HCl for each mole of NaOH.'],
         ],
@@ -102,11 +103,11 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
     heading: 'Molarity',
     paragraphs: [
       paragraph('Chemists count particles in moles. A mole is a fixed number of particles, about 6.022 × 10²³, in the way that a dozen is twelve.', [
-        [chem2e('3.1'), 'section 3.1, under the heading The Mole', 'the mole is an amount unit like a pair or a dozen, and that one mole holds 6.02214076 × 10^23 atoms or molecules.'],
+        [chem2e('3.1'), 'section 3.1, under the heading The Mole', 'a mole is a unit for an amount, as a pair or a dozen is, and that one mole holds 6.02214076 × 10^23 atoms or molecules.'],
       ]),
       paragraph(
         'The concentration of a solution says how much of a substance is dissolved in a given volume of it. Molarity, written M, is the number of moles of the dissolved substance in one litre of solution. A 0.1 M solution of HCl has 0.1 mole of HCl in every litre.',
-        [[chem2e('3.3'), 'section 3.3, under the heading Solutions', 'molarity is defined as the number of moles of solute in exactly one liter of solution.']],
+        [[chem2e('3.3'), 'section 3.3, under the heading Solutions', 'the molarity of a solution is how many moles of solute one litre of it holds.']],
       ),
       paragraph(
         'So the moles in a measured volume are the molarity times the volume in litres. 25.00 mL is 0.02500 L, so 25.00 mL of 0.1000 M HCl holds 0.1000 × 0.02500 = 0.002500 mole of HCl.',
@@ -157,7 +158,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
             STANDARDS,
             'commercial NaOH contains sodium carbonate among its impurities and readily absorbs water from the atmosphere, so it cannot serve as a primary standard and its concentration is found by titration.',
           ],
-          [harvey('9.2'), TITRANTS, 'solid NaOH is always contaminated with carbonate from its contact with the atmosphere, because carbon dioxide reacts with hydroxide to form carbonate.'],
+          [harvey('9.2'), TITRANTS, 'solid NaOH always carries some carbonate, picked up from the air, because carbon dioxide reacts with hydroxide to form carbonate.'],
         ],
       ),
       paragraph(
@@ -194,7 +195,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
           [
             ACID_LAB,
             `the introduction and ${PART_A}`,
-            'a sodium hydroxide solution is standardized by titrating it with a standardized hydrochloric acid, whose exact molarity is read from the label of its bottle.',
+            'the sodium hydroxide solution is standardized against a hydrochloric acid that has itself been standardized, and that the exact molarity of that acid is read from the label of its bottle.',
           ],
         ],
         "the acid bottle and its exact label are the lab's set-up (spec 7.1). How the acid was standardized is not part of the lab.",
@@ -206,12 +207,12 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
     heading: 'Equivalence point and endpoint',
     paragraphs: [
       paragraph(
-        'The equivalence point is the moment when exactly enough NaOH has been added to react with all the HCl in the flask: the moles of NaOH added equal the moles of HCl that were there. To see it, an indicator is added to the flask: a dye that changes colour at or very near the equivalence point.',
+        'The equivalence point is the moment when exactly enough NaOH has been added to react with all the HCl in the flask: the moles of NaOH added equal the moles of HCl that were there. To see it, an indicator is added to the flask: a dye that changes colour at the equivalence point, or very close to it.',
         [
           [
             chem2e('4.5'),
             TITRATION,
-            'the equivalence point is the volume of titrant needed for complete reaction with the analyte, and that indicators are dyes added to the sample to change colour at or very near it.',
+            'the equivalence point is the volume of titrant that just reacts with all of the analyte, and that indicators are dyes added to the sample which change colour at that point or very close to it.',
           ],
         ],
       ),
@@ -221,7 +222,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
           [
             chem2e('4.5'),
             TITRATION,
-            'the volume of titrant actually measured is called the end point, and that a properly designed titration makes the difference between the end point and the equivalence point negligible.',
+            'the end point is the name for the titrant volume that is in fact measured, and that in a properly designed titration the two volumes differ by a negligible amount.',
           ],
         ],
       ),
@@ -244,7 +245,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
           [
             chem2e('14.7'),
             'section 14.7, under the heading Acid-Base Indicators, the paragraph on Figure 14.20',
-            'in the titration of a strong acid with a strong base the colour-change interval of phenolphthalein lies within the steep rise in pH around the equivalence point, which gives a sharp colour change.',
+            'when a strong base is run into a strong acid, the colour-change interval of phenolphthalein lies within the steep rise in pH around the equivalence point, which gives a sharp colour change.',
           ],
         ],
       ),
@@ -287,9 +288,9 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
           [
             BASE_LAB,
             PART_II,
-            'drops have to be split to reach a very faint pink, and that the sides of the flask are washed down with deionized water so that all of the reactants are in the solution.',
+            'drops have to be split to reach a very faint pink, and that the sides of the flask are washed down with deionized water so that none of either reactant is left on the glass.',
           ],
-          [ACID_LAB, PART_A, 'water in the flask does not change the number of moles of acid in it.'],
+          [ACID_LAB, PART_A, 'water in the flask leaves the amount of acid there, in moles, as it was.'],
         ],
         "touching the hanging drop to the wall of the flask is this lab's wording; the page read washes it off the tip. A half-drop here is 0.025 mL (spec 7.2).",
       ),
@@ -299,7 +300,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
           [
             ACID_LAB,
             `the heading General Notes and ${PART_A}`,
-            'the end point is reached when a single drop of sodium hydroxide leaves a faint pink that lasts for at least 30 seconds of swirling.',
+            'the titration has reached its end point once one more drop of sodium hydroxide leaves a faint pink that lasts for at least 30 seconds of swirling.',
           ],
           [BASE_LAB, PART_II, 'the flask is titrated to the first faint pink that lasts for 30 seconds.'],
           [BURET_USE, PERFORMING, 'the end point is a faint colour, that a more vivid colour may mean it has been passed, and that a titration which has gone well past it is done again.'],
@@ -312,7 +313,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
           [
             harvey('9.2'),
             `${TITRANTS}, the paragraphs on carbon dioxide`,
-            'any solution in contact with the atmosphere holds a little dissolved carbon dioxide, which reacts with hydroxide, and that at an end point between pH 6 and 10 this uses up hydroxide.',
+            'a solution open to the air always holds a little dissolved carbon dioxide, which reacts with hydroxide, and that at an end point between pH 6 and 10 this uses up hydroxide.',
           ],
         ],
         "that the faint pink of a real flask fades for this reason, and that this is why the rule gives a time, is this lab's inference from that passage: no source that says so was read. The closed flask, and a wait that takes no real time and cannot fail, are the lab's model (spec 7.2, 7.3).",
@@ -366,11 +367,11 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
       paragraph(
         'A burette is a long, narrow glass tube with a scale along it and a tap, called the stopcock, at the bottom. Its scale starts at 0.00 mL at the top and the numbers increase downward, so the reading grows as solution runs out. The volume delivered is the final reading minus the initial reading; the burette does not need to start at zero.',
         [
-          [harvey('9.1'), 'section 9.1, under the heading The Buret', 'a buret is a long, narrow graduated tube with a stopcock for dispensing the titrant.'],
+          [harvey('9.1'), 'section 9.1, under the heading The Buret', 'a buret is a long, narrow graduated tube, and that the titrant is let out of it through a stopcock.'],
           [
             'wikipedia-burette',
             "the article's opening section",
-            'a burette is graduated from the top downward, so that the volume dispensed is the difference between the starting and the final reading.',
+            'a burette is graduated from the top downward, so that the volume dispensed is found by taking the first reading from the last.',
           ],
           [BURET_USE, 'section 3, part 3 (Setting up the Buret Apparatus)', 'a titration need not start at the 0.00 mark, so long as the first reading is recorded for what it is.'],
         ],
@@ -381,12 +382,12 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
           [
             chem2e('1.5'),
             'section 1.5, under the heading Significant Figures in Measurement',
-            'a volume is read at the bottom of the meniscus, the lowest point of the curved surface of the liquid.',
+            "a volume is read where the liquid's curved surface, the meniscus, is lowest.",
           ],
           [
             'seely-buret',
             'the heading Read Buret Tubes',
-            'a buret is read with the line of sight perpendicular to the column, and that with the eye a little above or below, the marks no longer look parallel and the last digit is hard to judge.',
+            'a buret is read looking at the column squarely, at a right angle to it, and that with the eye a little above or below, the marks no longer look parallel and the last digit is hard to judge.',
           ],
           [
             harvey('2.4'),
@@ -404,8 +405,8 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
             'section 1.5, under the heading Significant Figures in Measurement',
             "a reading is made by mentally dividing the gap between two marks into tenths and estimating the last digit, and that this uncertain last digit is one of the measurement's significant figures.",
           ],
-          [chem2e('4.5'), 'section 4.5, the caption of Figure 4.16', 'a typical buret permits volume measurements to the nearest 0.01 mL.'],
-          ['seely-buret', 'the heading Read Buret Tubes', 'a 50 mL buret can be read to 0.01 mL when the line of sight is kept perpendicular with care.'],
+          [chem2e('4.5'), 'section 4.5, the caption of Figure 4.16', 'volumes can be measured to within 0.01 mL on an ordinary buret.'],
+          ['seely-buret', 'the heading Read Buret Tubes', 'readings to 0.01 mL are possible on a buret of 50 mL if care is taken to look at it squarely.'],
         ],
         'the burette is graduated every 0.1 mL (spec 7.1).',
       ),
@@ -421,12 +422,12 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
           [
             harvey('2.4'),
             'section 2.4, under the heading Equipment for Measuring Volume, its last paragraph',
-            'before use a pipet is rinsed with several small portions of the solution to be measured, to remove any liquid left in it.',
+            'before use a pipet is rinsed several times with a little of the solution it is to measure, to remove any liquid left in it.',
           ],
           [
             'seely-pipet',
             'the opening paragraphs, on cleaning volumetric glassware',
-            'volumetric pipets and burets that are still wet from cleaning are rinsed with small portions of the solution to be measured before they are used.',
+            'volumetric pipets and burets that are still wet from cleaning are rinsed, before they are used, with a little of the solution they are to measure.',
           ],
           [BURET_USE, PREPARING, 'the buret is rinsed three times with the titrant, which is let coat the whole inside and run through the tip.'],
           [ACID_LAB, PART_A, 'each buret is rinsed twice with portions of about 10 mL of the solution it is to hold before it is filled.'],
@@ -434,10 +435,10 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
         'one step stands for the portions here (spec 7.2), and the weakening the lab gives a burette or pipette that was not rinsed is larger than a bench gives (spec 7.3).',
       ),
       paragraph(
-        'The flask is different. It only has to be clean; it may be wet, and distilled water may be added to it during the titration. Water changes the concentration of the acid in the flask but not the number of moles of acid there, and it is the moles that the NaOH has to match.',
+        'The flask is different. It only has to be clean; it may be wet, and distilled water may be added to it during the titration. Water changes the concentration of the acid in the flask but not how many moles of acid are there, and it is the moles that the NaOH has to match.',
         [
-          [ACID_LAB, PART_A, 'the flask that receives the acid need not be dry, because the water in it does not change the number of moles of acid added.'],
-          [chem2e('3.3'), 'section 3.3, under the heading Dilution of Solutions', 'diluting a solution lowers its concentration but does not change the amount of solute in it.'],
+          [ACID_LAB, PART_A, 'the flask that receives the acid need not be dry, because water in it leaves the amount of acid added, in moles, as it was.'],
+          [chem2e('3.3'), 'section 3.3, under the heading Dilution of Solutions', 'diluting a solution lowers its concentration and leaves the amount of solute as it was.'],
         ],
       ),
       paragraph(
@@ -448,7 +449,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
             'the heading Cleaning Buret Tubes, the paragraphs on bubbles in the nozzle',
             'a bubble in the nozzle gives a wrong volume reading if it escapes during a titration, and that it is driven out by filling the buret and opening the valve.',
           ],
-          [BURET_USE, PREPARING, 'air bubbles trapped in the tip can throw off the measurements and are removed before the titration.'],
+          [BURET_USE, PREPARING, 'air caught in the tip can spoil the measurements, and is got rid of before the titration.'],
         ],
         'that the burette then reads more than was delivered is how the lab models the bubble (spec 7.3).',
       ),
@@ -492,33 +493,33 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
         'a statement about this simulation, not chemistry.',
       ),
       paragraph(
-        "In a real laboratory this experiment is done wearing eye protection and gloves. The acid and the base are dilute, about 0.1 M. Even so, a supplier's safety data sheet for hydrochloric acid of this strength says that it irritates the skin and causes serious eye irritation. The sheet for sodium hydroxide of this strength does not class it as hazardous. Both sheets say to rinse a splash on the skin or in the eyes with plenty of water for at least 15 minutes.",
+        "In a real laboratory this experiment is done wearing eye protection and gloves. The acid and the base are dilute, about 0.1 M. Even so, a supplier's safety data sheet for hydrochloric acid of this strength says that it irritates the skin and causes serious eye irritation. The sheet for sodium hydroxide of this strength does not class it as hazardous. Both sheets say that a splash on the skin or in the eyes is to be flushed with a lot of water, for 15 minutes or longer.",
         [
           [
             'fisher-sds-hcl-0.1n',
             SHEET_SECTIONS,
-            '0.1 N hydrochloric acid carries the signal word Warning, as causing skin irritation and serious eye irritation and as possibly corrosive to metals; that protective eyeglasses or goggles and gloves are to be worn; and that eyes and skin are to be rinsed with plenty of water for at least 15 minutes.',
+            '0.1 N hydrochloric acid carries the signal word Warning, as causing skin irritation and serious eye irritation and as possibly corrosive to metals; that protective eyeglasses or goggles and gloves are to be worn; and that eyes and skin are to be flushed with a lot of water, for 15 minutes or longer.',
           ],
           [
             'fisher-sds-naoh-0.1n',
             SHEET_SECTIONS,
-            '0.1 N sodium hydroxide is not considered hazardous under the United States hazard communication standard; that protective eyeglasses or goggles and gloves are still to be worn; and that eyes and skin are to be rinsed with plenty of water for at least 15 minutes.',
+            '0.1 N sodium hydroxide is not considered hazardous under the United States hazard communication standard; that protective eyeglasses or goggles and gloves are still to be worn; and that eyes and skin are to be flushed with a lot of water, for 15 minutes or longer.',
           ],
           [ACID_LAB, 'the heading General Safety', 'students doing this standardization wear safety goggles throughout, and gloves when they handle sodium hydroxide and phenolphthalein.'],
         ],
       ),
       paragraph(
-        'Each bottle on the bench lists hazard statements, with a note under them about the solution at the strength used here. The statements are not written for these dilute solutions. Those on the acid bottle are the classification of hydrochloric acid as such, and those on the other two bottles are for the pure substance. Hydrochloric acid and sodium hydroxide are both classified as causing severe skin burns and eye damage. Read the note as well as the statements.',
+        'Each bottle on the bench lists hazard statements, with a note under them about the solution at the strength used here. The statements are not written for these dilute solutions. Those on the acid bottle are the classification of hydrochloric acid as such, and those on the other two bottles are for the pure substance. Hydrochloric acid and sodium hydroxide both carry the statement H314: each is classified as corrosive to the skin and the eyes. Read the note as well as the statements.',
         [
           [
             'pubchem-cid-313',
             'the section GHS Classification, the entry for hydrochloric acid from Safe Work Australia',
-            'hydrochloric acid is classified with the signal word Danger, as causing severe skin burns and eye damage and as possibly causing respiratory irritation.',
+            'hydrochloric acid is classified with the signal word Danger and carries the statements H314 (corrosive to the skin and the eyes) and H335 (irritating to the airways).',
           ],
           [
             'pubchem-cid-14798',
             'the section GHS Classification, the entry for sodium hydroxide from Regulation (EC) No 1272/2008',
-            'sodium hydroxide is classified with the signal word Danger, as causing severe skin burns and eye damage.',
+            'sodium hydroxide is classified with the signal word Danger and carries the statement H314 (corrosive to the skin and the eyes).',
           ],
         ],
         "which entry each bottle carries, and the note under it, are in the lab's record (spec 7.1). The entries read do not say at what strength they stop applying, and the card does not either.",

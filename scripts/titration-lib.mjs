@@ -3,6 +3,7 @@
 // src/chem-data/titration/build.test.ts tests them on inputs they must refuse. Each throws with a message.
 // Everything reads what it is handed; nothing is fetched here.
 
+import { Buffer } from 'node:buffer'
 import { createHash } from 'node:crypto'
 
 // A printed figure is compared with a source as text, digit for digit, never as a float.
@@ -98,4 +99,47 @@ export function checkStrength(html, published) {
 export function checkSha256(bytes, sha256, file) {
   const actual = createHash('sha256').update(bytes).digest('hex')
   if (actual !== sha256) throw new Error(`${file}: sha256 is ${actual}, not the manifest's ${sha256}`)
+}
+
+// Quotation. Nothing the lab writes may repeat a run of QUOTED_RUN consecutive words of a page it rests on. The
+// pages are not kept, so what is kept of them is a fingerprint: a hash of each such run, from which no text can be
+// read back. scripts/fingerprint-sources.mjs writes it; src/chem-data/titration/quotation.test.ts holds the
+// primer and the hazard notes to it.
+export const QUOTED_RUN = 6
+
+/** The words of a text: its runs of letters and digits, in lower case. Punctuation and case make no difference to a run. */
+const words = (text) => text.toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? []
+
+// 32-bit FNV-1a.
+// ponytail: 32 bits. A run that was never in a page matches the fingerprint about once in 60 000 tries; it then
+// reads as a quotation and is reworded, so the check can ask too much and never too little.
+function hashOf(text) {
+  let hash = 0x811c9dc5
+  for (let i = 0; i < text.length; i++) hash = Math.imul(hash ^ text.charCodeAt(i), 0x01000193)
+  return hash >>> 0
+}
+
+/** The hash of every run of QUOTED_RUN consecutive words in a text, in order; none for a shorter text. */
+export function runHashes(text) {
+  const all = words(text)
+  return Array.from({ length: Math.max(0, all.length - QUOTED_RUN + 1) }, (_, i) => hashOf(all.slice(i, i + QUOTED_RUN).join(' ')))
+}
+
+/** A set of run hashes as stored: sorted, four bytes each, in base64. And back. */
+export const packHashes = (hashes) => Buffer.from(Uint32Array.from([...new Set(hashes)].sort((a, b) => a - b)).buffer).toString('base64')
+export const unpackHashes = (base64) => new Set(new Uint32Array(Uint8Array.from(Buffer.from(base64, 'base64')).buffer))
+
+/** The stretches of a text whose every run of QUOTED_RUN words is in the fingerprint, as lower-case words; empty when it quotes nothing. */
+export function quotedRuns(text, fingerprint) {
+  const all = words(text)
+  const hit = runHashes(text).map((hash) => fingerprint.has(hash))
+  const runs = []
+  for (let i = 0; i < hit.length; i++) {
+    if (!hit[i]) continue
+    let end = i
+    while (hit[end + 1]) end++
+    runs.push(all.slice(i, end + QUOTED_RUN).join(' '))
+    i = end
+  }
+  return runs
 }

@@ -12,7 +12,7 @@
           "H335: May cause respiratory irritation"
         ],
         "note": {
-          "value": "The acid on this bench is about 0.1 mol/L, which is about 0.4% hydrogen chloride by mass (worked out from the molarity, not read from a source). A supplier's safety data sheet for hydrochloric acid of this strength, which classifies under the United States hazard communication standard, gives the signal word Warning, not Danger: it says the solution irritates the skin, causes serious eye irritation and may corrode metals. The sheet calls for eye protection and gloves, and for rinsing a splash in the eyes or on the skin with plenty of water for at least 15 minutes.",
+          "value": "The acid on this bench is about 0.1 mol/L, which is about 0.4% hydrogen chloride by mass (worked out from the molarity, not read from a source). A supplier's safety data sheet for hydrochloric acid of this strength, which classifies under the United States hazard communication standard, gives the signal word Warning, not Danger: it says the solution irritates the skin, causes serious eye irritation and may corrode metals. The sheet calls for eye protection and gloves, and says that a splash in the eyes or on the skin is to be flushed with a lot of water, for 15 minutes or longer.",
           "sourceId": "fisher-sds-hcl-0.1n"
         },
         "sourceId": "pubchem-cid-313"
@@ -29,7 +29,7 @@
           "H314: Causes severe skin burns and eye damage"
         ],
         "note": {
-          "value": "The solution on this bench is about 0.1 mol/L, which is about 0.4% sodium hydroxide by mass (worked out from the molarity, not read from a source). A supplier's safety data sheet for a sodium hydroxide solution of this strength, which classifies under the United States hazard communication standard, does not classify it as hazardous and asks for no hazard label. The sheet still calls for eye protection and gloves, and for rinsing a splash in the eyes or on the skin with plenty of water for at least 15 minutes.",
+          "value": "The solution on this bench is about 0.1 mol/L, which is about 0.4% sodium hydroxide by mass (worked out from the molarity, not read from a source). A supplier's safety data sheet for a sodium hydroxide solution of this strength, which classifies under the United States hazard communication standard, does not classify it as hazardous and asks for no hazard label. The sheet still calls for eye protection and gloves, and says that a splash in the eyes or on the skin is to be flushed with a lot of water, for 15 minutes or longer.",
           "sourceId": "fisher-sds-naoh-0.1n"
         },
         "sourceId": "pubchem-cid-14798"
@@ -48,7 +48,7 @@
           "H361f: Suspected of damaging fertility"
         ],
         "note": {
-          "value": "The indicator on this bench is the 0.5% solution, used two or three drops at a time. The supplier's safety data sheet for that solution gives the signal word Danger: the liquid and its vapour are flammable, and it causes serious eye irritation, may cause cancer, may damage fertility or the unborn child, and may cause damage to organs. The sheet lists the solution as water and ethanol with a little methanol and 0.56% phenolphthalein by weight. It calls for gloves and eye protection, and for keeping the solution away from flames and other sources of ignition.",
+          "value": "The indicator on this bench is the 0.5% solution, used two or three drops at a time. The supplier's safety data sheet for that solution gives the signal word Danger and the statements H226, H319, H350, H360 and H371: the liquid and its vapour are flammable, it seriously irritates the eyes, and it may cause cancer, harm fertility or an unborn child, and harm organs. The sheet lists the solution as water and ethanol with a little methanol and 0.56% phenolphthalein by weight. It calls for gloves and eye protection, and for keeping the solution away from flames and other sources of ignition.",
           "sourceId": "ricca-sds-5600"
         },
         "sourceId": "pubchem-cid-4764"
