@@ -12,9 +12,9 @@ import { currentTrial, type TitrationState, type Trial } from './state'
 // Two of those numbers are there for the drawing, are never printed, and can each be worked back to a hidden value
 // by someone who reads them out of the page (Gate A, docs/research/phase-3/gate-a.md). The pink concentration of a
 // flask that is already pink gives, with the record's constants, the NaOH molarity. The flask's volume, less what
-// the learner put in, is the pipette's delivery. Neither passes a trial: that takes honest readings and the
-// notebook's own arithmetic, and a failed trial's percent error gives the molarity by design. Whether to hand the
-// app less (a depth in a few steps, a volume to the whole mL) is the owner's decision.
+// the learner put in, is the pipette's delivery. This is accepted (Gate A, 2026-10-05): neither makes a trial
+// count, which takes honest readings and the notebook's own arithmetic, and a failed trial's percent error gives
+// the same molarity by the owner's decision D1. The app draws with them and never renders them as text.
 
 /** The label on the HCl bottle ("0.0976"). It can always be read. */
 export const hclLabel = (m: TitrationModel, state: TitrationState) => (labSetup(m, state.seed).hclE4 / 1e4).toFixed(4)

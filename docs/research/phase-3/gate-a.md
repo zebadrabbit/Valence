@@ -2,7 +2,7 @@
 
 2026-10-05. The gate of `docs/superpowers/plans/2026-10-04-phase-3-titration-lab.md`, held after Tasks 1 to 13 and before any screen is built.
 
-**The gate is not closed.** Both must-fix findings are fixed and tested. Of the thirteen should-fix findings, nine were fixed at the gate, two (F7 and F8) are closed by the owner's answer of 2026-10-05, and two (F6 and F15) are left to the owner, with both sides given in the last section; for F6 a false comment was corrected and nothing else. The sentences written at this stage have been checked by tests and by running the reviewers' own probes again, but no independent reader has read them yet.
+**The gate is not closed.** Both must-fix findings are fixed and tested. Of the thirteen should-fix findings, nine were fixed at the gate, two (F7 and F8) are closed by the owner's answer of 2026-10-05, one (F6) is accepted as built, with its reason, and one (F15) is left to the owner, with both sides given in the last section. The sentences written at this stage have been checked by tests and by running the reviewers' own probes again, but no independent reader has read them yet.
 
 ## How the review was done
 
@@ -106,9 +106,18 @@ Findings are numbered F1 to F15 (must-fix and should-fix) and N1 to N15 (notes).
 - Re-checked: with the file moved away the test as it stood failed on its import, and so did the type check; after the change, 2 cases pass and 132 are skipped without the file, and all 134 pass with it. Every sentence written at this stage was run against the fingerprint before it was committed.
 - History: the file is still in the branch's earlier commits. It is taken out of them separately, before anything is pushed (the plan's Task 23).
 
-### Reproduced, and left for the owner
+### Decided without the owner, 2026-10-05
 
-**F6 (should-fix, R2) and N9 (note, R3). The flask view gives away the pipette's delivery and, once the flask is pink, the hidden NaOH molarity.** Reproduced with R2's test: exact at 400 of 400 seeds for both. Neither passes a trial. The plan's Global Constraints accept the pink concentration of a pink flask as a number the drawing needs, and its Task 13 pins the exact flask volume, so handing the app less changes the plan's interface and one of its test values. The header comment in `select.ts` claimed that no selector hands over such a number; it now says which two do (commit `3ecc4f8`). Nothing else was changed. Decision 2 below.
+Each of these was within what the owner's earlier decisions already settle, or is a matter of wording the owner reads anyway. Each is given with its reason, so that the owner can take it back.
+
+**F6 (should-fix, R2) and N9 (note, R3). The flask view gives away the pipette's delivery and, once the flask is pink, the hidden NaOH molarity.** Reproduced with R2's test: exact at 400 of 400 seeds for both. The plan's Global Constraints accepted the pink concentration of a pink flask as a number the drawing needs, and its Task 13 pins the exact flask volume. The header comment in `select.ts` claimed that no selector hands over such a number; it was corrected at the gate to say which two do (commit `3ecc4f8`).
+
+- Decided: accepted as built. The engine hands the app no less.
+- Reason: neither number can make a trial count. That takes honest readings, within 0.02 mL of the meniscus, and the notebook's own arithmetic, and from 2026-10-05 no technique error either. And a failed trial's percent error gives the same molarity at once, by the owner's decision D1. Handing over a depth in a few steps and a volume to the whole mL would change the bench view's fields and a test value of the plan's Task 13 to close a route that D1 leaves open by design.
+- Done: the plan's Global Constraint "No answer leaves the engine" now says what the comment at the head of `select.ts` says: three numbers reach the app for the drawing (the meniscus level, the flask's exact volume, the pink concentration of a pink flask), the last two can be worked back by someone who reads them out of the page, and that is accepted. The comment no longer calls it the owner's decision. Task 17 of the plan now says that the strength, `volumeUl` and `plumeKey` are never rendered as text, with a markup test for it. Spec 7.3 says the same under Colour.
+- Not changed: no code but that comment.
+
+### Reproduced, and left for the owner
 
 **F15 (should-fix, R3). The safety card names two of the indicator sheet's hazards and not the other three.** Confirmed against the saved sheet: it carries five hazard codes, and the card speaks of cancer and flammability only. The bottle's note names all five. What the safety card covers is the owner's to say (D15). No change. Decision 3 below.
 
@@ -124,7 +133,7 @@ Findings are numbered F1 to F15 (must-fix and should-fix) and N1 to N15 (notes).
 | N6 (R2) | Three points on the calculation text: rounding the average first, four decimal places against significant figures, and "at the endpoint" where the equivalence point is meant | No change. Open item 4 |
 | N7 (R2) | A wrong HCl molarity carried from Challenge into Guided is shown as done; "That does not need doing now." for a pipette that was never rinsed; "no pink remains" for a flask that was never pink | No change. Open item 4 |
 | N8 (R2) | A record made by hand can make the notebook show the hidden molarity | No change. Inside the risk spec 7.1 accepts: the stored record holds the seed |
-| N9 (R3) | The flask view's leak, confirmed from the bench's fields alone | With F6 |
+| N9 (R3) | The flask view's leak, confirmed from the bench's fields alone | With F6: accepted as built, 2026-10-05 |
 | N10 (R3) | Home says "in progress" for a record of the right version that the lab will refuse, until the lab page has been opened | No change. Open item 6 |
 | N11 (R3) | The stored schema lets through numbers no run can make (twelve fields with no upper bound, water that is not a whole portion) | No change. Nothing threw and no text was wrong for a record a run can make |
 | N12 (R3) | The titrating card gives no figure for when a 5 mL pour is safe, and teaches a small wash where the bench's is 10 mL | The second is fixed with F11. The first is open item 4 |
@@ -218,10 +227,7 @@ One thing R3 raised under F12 is carried forward and not fixed here: on a reload
 ### Open decisions
 
 1. **Does a trial that passes with a technique error named in it count toward the three?** Answered by the owner on 2026-10-05: it does not. See "Closed by the owner's answers" above. The narrower remedy for F8 alone, ending the bubble with the trial, was not needed and spec 7.3's table is unchanged.
-2. **Should the engine hand the app less about the flask?** (F6, N9.)
-   - As built, and as the plan's Global Constraints accept: the exact flask volume and the pink concentration of a pink flask reach the app for the drawing and are never printed. Someone who reads them out of the page can work back the pipette's delivery and the NaOH molarity before any trial is graded.
-   - Against changing: neither passes a trial; a failed trial's percent error gives the same molarity by design; the seed is in the export.
-   - For changing: it undoes the reason spec 7.3 gives for holding back a passed trial's percent error. The change is a depth in a few steps in place of a concentration, and a volume to the whole mL; it alters the bench view's fields and one test value of the plan's Task 13.
+2. **Should the engine hand the app less about the flask?** (F6, N9.) Decided on 2026-10-05 without the owner: no. See "Decided without the owner" above for the reason.
 3. **What the safety card says of the indicator.** (F15.) It names cancer and flammability. The sheet also carries statements on fertility and the unborn child, on damage to organs and on eye irritation, all of which the bottle's note gives. Either the card names them too, or the reproductive one at least, or it says that the sheet lists more and the note under the bottle gives it in full, or it stays as it is.
 4. **Wording the reviewers would change and this stage did not.** Each is the owner's call as the person who runs the lab.
    - The calculation card: say that the average is rounded first only because the notebook works it that way; say that four decimal places is this lab's convention, where a report would keep four significant figures; open with the equivalence point, which the endpoint stands for. (N6.)
