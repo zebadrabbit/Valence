@@ -84,18 +84,14 @@ export const WARNING_BUTTONS: Record<'fillBurette' | 'recordInitialReading' | 'p
   pipetteAliquot: { back: 'Go back and rinse it', on: 'Pipette anyway' },
 }
 
-// Closes each technique cause: the model's errors are larger than a bench's (spec 7.3), and the learner is told so
-// beside the figure that shows it. It gives no size, so it is as true of a part of a bubble as of a whole one.
-const LARGER_HERE = 'This lab makes the mistake cost more than it does at a real bench, so that it shows in the result.'
-
 /**
  * What went wrong in a trial. A cause is named under a failed trial, under a passed one and under one that has no
  * titre at all, so each says which way the error pushes a result, not what this trial's result was.
  */
 export const CAUSE_TEXT: Record<Cause, string> = {
-  'burette-not-conditioned': `The burette was not conditioned. Water left inside it diluted the NaOH, so the endpoint takes more of it. On its own that makes the titre too high and the calculated molarity too low: what is measured is the diluted NaOH in the burette, not the NaOH in the bottle. In this lab the NaOH in the burette stays diluted, through every refill, until the burette is conditioned. ${LARGER_HERE}`,
-  'tip-bubble': `There was an air bubble in the burette tip when the initial reading was taken. Air left the tip during the titration and NaOH took its place, so the level in the burette fell by more than the volume that reached the flask. On its own that makes the titre too high and the calculated molarity too low. ${LARGER_HERE}`,
-  'pipette-not-rinsed': `The pipette was not rinsed with HCl. Water left inside it diluted the acid, so the flask held less HCl than the calculation assumes, and the endpoint takes less NaOH. On its own that makes the titre too low and the calculated molarity too high. ${LARGER_HERE}`,
+  'burette-not-conditioned': 'The burette was not conditioned. Water left inside it diluted the NaOH, so the endpoint takes more of it. On its own that makes the titre too high and the calculated molarity too low: what is measured is the diluted NaOH in the burette, not the NaOH in the bottle. In this lab the NaOH in the burette stays diluted, through every refill, until the burette is conditioned.',
+  'tip-bubble': 'There was an air bubble in the burette tip when the initial reading was taken. Air left the tip during the titration and NaOH took its place, so the level in the burette fell by more than the volume that reached the flask. On its own that makes the titre too high and the calculated molarity too low.',
+  'pipette-not-rinsed': 'The pipette was not rinsed with HCl. Water left inside it diluted the acid, so the flask held less HCl than the calculation assumes, and the endpoint takes less NaOH. On its own that makes the titre too low and the calculated molarity too high.',
   'initial-misread': 'Your initial burette reading was more than 0.02 mL from the meniscus.',
   'final-misread': 'Your final burette reading was more than 0.02 mL from the meniscus.',
   // Of the molarity the trial was graded with: the notebook's may have been put right since.
@@ -133,7 +129,7 @@ const INVALID_LABEL: Record<InvalidReason, string> = {
 }
 
 /** The first line of an ended trial's feedback, and the note on water that closes it. A failed trial's first line carries its figure and is made in feedback(). */
-export const OUTCOME_TEXT: Record<'passed' | 'notCounted' | 'closeWithTechniqueError' | 'water' | InvalidReason, string> = {
+export const OUTCOME_TEXT: Record<'passed' | 'notCounted' | 'closeWithTechniqueError' | 'largerHere' | 'largerHereAndShown' | 'water' | InvalidReason, string> = {
   passed: 'Passed. Your NaOH molarity is within 1.0% of the true value, and the trial counts toward your three.',
   // The whole rule, so it reads the same under a misread, a miscopied label and a technique error (the owner's
   // decisions D1 and of 2026-10-05). The pipette is "not wet with water", not "rinsed": an aliquot drawn before it
@@ -145,6 +141,12 @@ export const OUTCOME_TEXT: Record<'passed' | 'notCounted' | 'closeWithTechniqueE
   // it ran out into a discarded flask.
   closeWithTechniqueError:
     'Mistakes in technique can push a result in opposite directions and cancel, and a small one may not move the result far. So a result this close does not show that the technique was sound.',
+  // The model's technique errors are larger than a bench's (spec 7.3), and the learner is told so once, after the
+  // causes, whenever a technique cause is named. It gives no size, so it is as true of a part of a bubble as of a
+  // whole one. Only a failed trial is told that the mistake shows in the result: a close one's did not, and an
+  // invalid one has none.
+  largerHere: 'This lab makes a technique mistake cost more than it does at a real bench.',
+  largerHereAndShown: 'This lab makes a technique mistake cost more than it does at a real bench, so that it shows in the result.',
   overshot:
     'Overshot: the flask has gone more than two drops too far, so this trial has no usable titre. Run the trial again, and change to half-drops once the pink is slow to fade.',
   // The spec's sentence (7.2), word for word.
@@ -178,8 +180,9 @@ function failedText(percentError: number): string {
 const TECHNIQUE: readonly Cause[] = ['burette-not-conditioned', 'tip-bubble', 'pipette-not-rinsed']
 
 /**
- * An ended trial's feedback, a line at a time: what happened, each named cause in the engine's order, what a close
- * result does not show when a technique cause is among them, then the note on water. An open trial has none.
+ * An ended trial's feedback, a line at a time: what happened, each named cause in the engine's order, then, when a
+ * technique cause is among them, what a close result does not show and that the lab makes such a mistake cost more
+ * than a bench does, then the note on water. An open trial has none.
  */
 export function feedback(outcome: TrialOutcome, waterUl: number): string[] {
   if (outcome.state === 'open') return []
@@ -196,6 +199,7 @@ export function feedback(outcome: TrialOutcome, waterUl: number): string[] {
     first,
     ...outcome.causes.map((cause) => CAUSE_TEXT[cause]),
     ...(outcome.state === 'passed' && technique ? [OUTCOME_TEXT.closeWithTechniqueError] : []),
+    ...(technique ? [outcome.state === 'failed' ? OUTCOME_TEXT.largerHereAndShown : OUTCOME_TEXT.largerHere] : []),
     ...(waterUl > 0 ? [OUTCOME_TEXT.water] : []),
   ]
 }

@@ -60,9 +60,10 @@ describe('feedback on a trial', () => {
     expect(feedback(afterCompletion(cleanPass, -0.126), 0)).toEqual(lines)
   })
 
-  it('a failed trial at −2.126 with one cause: the figure and its direction, then the cause', () => {
+  it('a failed trial at −2.126 with one technique cause: the figure and its direction, the cause, then that the lab makes such a mistake cost more', () => {
     const lines = feedback(failedLow, 0)
-    expect(lines).toHaveLength(2)
+    expect(lines).toHaveLength(3)
+    expect(lines[2]).toBe(OUTCOME_TEXT.largerHereAndShown)
     expect(lines[0]).toContain(percentErrorText(-2.126))
     expect(lines[0]).toContain('too low')
     expect(lines[0]).not.toContain('just outside')
@@ -79,7 +80,7 @@ describe('feedback on a trial', () => {
 
   it('a pass with two technique causes does not count: the sentence that says so, both causes in order, then the sentence on why a close result does not show sound technique; no percent error', () => {
     const lines = feedback(closeWithErrors, 0)
-    expect(lines).toEqual([OUTCOME_TEXT.notCounted, CAUSE_TEXT['burette-not-conditioned'], CAUSE_TEXT['pipette-not-rinsed'], OUTCOME_TEXT.closeWithTechniqueError])
+    expect(lines).toEqual([OUTCOME_TEXT.notCounted, CAUSE_TEXT['burette-not-conditioned'], CAUSE_TEXT['pipette-not-rinsed'], OUTCOME_TEXT.closeWithTechniqueError, OUTCOME_TEXT.largerHere])
     expect(lines.join(' ')).not.toMatch(PERCENT_ERROR)
     expect(feedback(afterCompletion(closeWithErrors, -0.021), 0)).toEqual(lines)
   })
@@ -88,7 +89,7 @@ describe('feedback on a trial', () => {
     for (const outcome of [notCounted, failedLow, ...REASONS.map(invalid)]) expect(feedback(outcome, 0)).not.toContain(OUTCOME_TEXT.closeWithTechniqueError)
     // One technique cause is enough, and a misread beside it changes nothing.
     const partBubble: TrialOutcome = { state: 'passed', percentError: null, causes: ['tip-bubble', 'final-misread'], counts: false }
-    expect(feedback(partBubble, 0)).toEqual([OUTCOME_TEXT.notCounted, CAUSE_TEXT['tip-bubble'], CAUSE_TEXT['final-misread'], OUTCOME_TEXT.closeWithTechniqueError])
+    expect(feedback(partBubble, 0)).toEqual([OUTCOME_TEXT.notCounted, CAUSE_TEXT['tip-bubble'], CAUSE_TEXT['final-misread'], OUTCOME_TEXT.closeWithTechniqueError, OUTCOME_TEXT.largerHere])
   })
 
   it('it says that mistakes can cancel and that a small one may not show, without a word of luck, and the rule names the three technique steps beside the readings and the label', () => {
@@ -109,7 +110,7 @@ describe('feedback on a trial', () => {
 
   it.each(REASONS)('an invalid trial, %s: its sentence, then its technique causes, and no percent error', (reason) => {
     const lines = feedback(invalid(reason), 0)
-    expect(lines).toEqual([OUTCOME_TEXT[reason], CAUSE_TEXT['tip-bubble'], CAUSE_TEXT['pipette-not-rinsed']])
+    expect(lines).toEqual([OUTCOME_TEXT[reason], CAUSE_TEXT['tip-bubble'], CAUSE_TEXT['pipette-not-rinsed'], OUTCOME_TEXT.largerHere])
     expect(lines.join(' ')).not.toMatch(PERCENT_ERROR)
   })
 
@@ -122,10 +123,24 @@ describe('feedback on a trial', () => {
     expect(Object.values(CAUSE_TEXT)).not.toContain(OUTCOME_TEXT.water)
   })
 
-  it('each technique cause says the lab makes the mistake cost more than a real bench does, and no other cause does', () => {
-    const larger = /more than it does at a real bench/
-    const technique = ['burette-not-conditioned', 'tip-bubble', 'pipette-not-rinsed']
-    for (const [cause, text] of Object.entries(CAUSE_TEXT)) expect([cause, larger.test(text)]).toEqual([cause, technique.includes(cause)])
+  it('that the lab makes a technique mistake cost more than a real bench does is said once, after the causes, when a technique cause is named: in no cause\'s own sentence, and never without one', () => {
+    const larger = /more than it does at a real bench/g
+    for (const [cause, text] of Object.entries(CAUSE_TEXT)) expect([cause, text.match(larger)]).toEqual([cause, null])
+    const threeCauses: TrialOutcome = { state: 'failed', percentError: -2.5, causes: ['burette-not-conditioned', 'tip-bubble', 'pipette-not-rinsed'], counts: false }
+    for (const outcome of [failedLow, threeCauses, closeWithErrors, ...REASONS.map(invalid)]) expect(feedback(outcome, 10000).join(' ').match(larger)).toHaveLength(1)
+    const misreadAndLabel: TrialOutcome = { state: 'failed', percentError: -2.5, causes: ['initial-misread', 'hcl-label-misrecorded'], counts: false }
+    const noTechniqueCause: TrialOutcome[] = [cleanPass, failedAtTheEdge, notCounted, misreadAndLabel, { state: 'invalid', reason: 'overshot', causes: [] }]
+    for (const outcome of noTechniqueCause) expect(feedback(outcome, 10000).join(' ').match(larger)).toBeNull()
+    // After every cause, and before the note on water.
+    expect(feedback(threeCauses, 10000).slice(-2)).toEqual([OUTCOME_TEXT.largerHereAndShown, OUTCOME_TEXT.water])
+  })
+
+  it('it says that the mistake shows in the result only under a failed trial: a trial that was close, or that has no result, is not told so', () => {
+    const shown = /shows in the result/
+    expect(OUTCOME_TEXT.largerHereAndShown).toMatch(shown)
+    expect(OUTCOME_TEXT.largerHere).not.toMatch(shown)
+    expect(feedback(failedLow, 0).join(' ')).toMatch(shown)
+    for (const outcome of [closeWithErrors, ...REASONS.map(invalid)]) expect(feedback(outcome, 0).join(' ')).not.toMatch(shown)
   })
 
   it('an open trial has none', () => {
@@ -160,7 +175,7 @@ describe("a trial with a technique error named in it, by the owner's decision of
     expect(outcome).toMatchObject({ state: 'passed', counts: false, causes: ['burette-not-conditioned', 'pipette-not-rinsed'] })
     expect(outcomeLabel(outcome)).toBe('Passed, not counted')
     expect(feedback(outcome, 0)[0]).toBe(OUTCOME_TEXT.notCounted)
-    expect(feedback(outcome, 0).at(-1)).toBe(OUTCOME_TEXT.closeWithTechniqueError)
+    expect(feedback(outcome, 0).slice(-2)).toEqual([OUTCOME_TEXT.closeWithTechniqueError, OUTCOME_TEXT.largerHere])
   })
 })
 
