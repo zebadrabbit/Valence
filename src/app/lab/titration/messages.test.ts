@@ -189,6 +189,22 @@ describe("a trial with a technique error named in it, by the owner's decision of
   })
 })
 
+describe('the technique causes a Challenge learner may never have met the words for', () => {
+  it('the burette cause says what conditioning is, and the bubble cause how the tip is cleared and when: Challenge shows no warning, and only one primer card tells either', () => {
+    expect(CAUSE_TEXT['burette-not-conditioned']).toMatch(/^The burette was not conditioned: it was not rinsed with a little of the NaOH solution before it was filled\./)
+    expect(CAUSE_TEXT['tip-bubble']).toMatch(/Before an initial reading, run a little NaOH through the tip to push any bubble out\.$/)
+    // The pipette cause already says what was not done.
+    expect(CAUSE_TEXT['pipette-not-rinsed']).toMatch(/^The pipette was not rinsed with HCl\./)
+    // Seed 7, Challenge, no technique step taken: the feedback itself tells both.
+    const lab = carefulTrial(m, prepared(m, 7, { condition: false, clearBubble: false, rinse: false }))
+    const outcome = trialOutcome(m, lab, currentTrial(lab))
+    expect(outcome).toMatchObject({ state: 'failed', causes: ['burette-not-conditioned', 'tip-bubble', 'pipette-not-rinsed'] })
+    const said = feedback(outcome, 0).join(' ')
+    expect(said).toMatch(/rinsed with a little of the NaOH solution before it was filled/)
+    expect(said).toMatch(/run a little NaOH through the tip/)
+  })
+})
+
 describe('a reading that is refused', () => {
   it('the re-read sentence does not say which way the reading is off, and its only numbers are the typed reading, 0.02 and 0.00', () => {
     const text = rereadText(1300)

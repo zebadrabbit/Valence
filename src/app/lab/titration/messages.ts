@@ -88,11 +88,12 @@ export const WARNING_BUTTONS: Record<'fillBurette' | 'recordInitialReading' | 'p
 
 /**
  * What went wrong in a trial. A cause is named under a failed trial, under a passed one and under one that has no
- * titre at all, so each says which way the error pushes a result, not what this trial's result was.
+ * titre at all, so each says which way the error pushes a result, not what this trial's result was. Challenge shows
+ * no warning, so the burette's cause says what conditioning is and the bubble's how the tip is cleared.
  */
 export const CAUSE_TEXT: Record<Cause, string> = {
-  'burette-not-conditioned': 'The burette was not conditioned. Water left inside it diluted the NaOH, so the endpoint takes more of it. On its own that makes the titre too high and the calculated molarity too low: what is measured is the diluted NaOH in the burette, not the NaOH in the bottle. In this lab the NaOH in the burette stays diluted, through every refill, until the burette is conditioned.',
-  'tip-bubble': 'There was an air bubble in the burette tip when the initial reading was taken. Air left the tip during the titration and NaOH took its place, so the level in the burette fell by more than the volume that reached the flask. On its own that makes the titre too high and the calculated molarity too low.',
+  'burette-not-conditioned': 'The burette was not conditioned: it was not rinsed with a little of the NaOH solution before it was filled. Water left inside it diluted the NaOH, so the endpoint takes more of it. On its own that makes the titre too high and the calculated molarity too low: what is measured is the diluted NaOH in the burette, not the NaOH in the bottle. In this lab the NaOH in the burette stays diluted, through every refill, until the burette is conditioned.',
+  'tip-bubble': 'There was an air bubble in the burette tip when the initial reading was taken. Air left the tip during the titration and NaOH took its place, so the level in the burette fell by more than the volume that reached the flask. On its own that makes the titre too high and the calculated molarity too low. Before an initial reading, run a little NaOH through the tip to push any bubble out.',
   'pipette-not-rinsed': 'The pipette was not rinsed with HCl. Water left inside it diluted the acid, so the flask held less HCl than the calculation assumes, and the endpoint takes less NaOH. On its own that makes the titre too low and the calculated molarity too high.',
   'initial-misread': 'Your initial burette reading was more than 0.02 mL from the meniscus.',
   'final-misread': 'Your final burette reading was more than 0.02 mL from the meniscus.',

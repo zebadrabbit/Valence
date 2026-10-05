@@ -212,6 +212,12 @@ After the commits above the branch was checked once more, at `44971d2`. One chec
 - The pipette is said by what it does, not by what it looks like: no passage was read that describes one, and the support line gives the 25.00 mL as the lab's set-up.
 - Re-checked: a case in `primer.test.ts`, seen failing first (the glassware card did not name the NaOH), holds each of the six glosses to stand at or before the word's first use on its card. The no-quotation test, run with the fingerprint made, passes on every changed paragraph and support line.
 
+**L4 (should-fix). Two causes named a mistake without saying what the step is.** After a Challenge trial the burette's cause said "was not conditioned" and "until the burette is conditioned", and the bubble's said only that there was a bubble at the initial reading. Guided's warnings say how each step is done; Challenge never shows them.
+
+- Reproduced: the feedback of a seed 7 trial with all three causes had no line that says how to condition a burette or clear its tip.
+- Done: the burette's cause opens "The burette was not conditioned: it was not rinsed with a little of the NaOH solution before it was filled." The bubble's ends "Before an initial reading, run a little NaOH through the tip to push any bubble out." It says "any bubble" because the cause is read after the trial, when the bubble has usually left. The pipette's cause already says what was not done.
+- Re-checked: a case in `messages.test.ts`, seen failing first, on the two sentences and on the feedback of that seed 7 trial.
+
 ## What the reviewers confirmed
 
 **Constants and sources (R1).**
