@@ -144,7 +144,7 @@ Each of these was within what the owner's earlier decisions already settle, or i
 | N14 (R3) | Expected values changed, removed or tested less directly since the plan was written, none of them in Tasks 9 to 13 | No change. Each is as its own report said |
 | N15 (R3) | `benchViewOf` reads four stored fields directly, where the plan says selectors and `can` alone | No change. All four are the learner's own doing |
 
-One thing R3 raised under F12 is carried forward and not fixed here: on a reload the stored last addition gives a plume again, so a plume drawn on mount would replay once. It is true of the last addition and harms nothing, and Task 17 decides whether to draw it.
+One thing R3 raised under F12 was carried forward: on a reload the stored last addition gives a plume again, so a plume drawn on mount would replay once. Decided on 2026-10-05 without the owner: it is not drawn. Task 17 of the plan now says that a plume animates only when `plumeKey` changes after the stand is mounted, never on first render, and its markup test expects no plume element on a first render where it expected one. The reason: a plume is the picture of an addition being made, and a reload makes none; the status line still gives the last addition's cue. No code exists yet for it to change.
 
 ## What the reviewers confirmed
 
