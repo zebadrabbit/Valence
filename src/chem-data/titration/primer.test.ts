@@ -349,6 +349,14 @@ describe('the titration primer: what it has to say', () => {
     expect(shown('safety')).toMatch(/A supplier's safety data sheet for a solution of this kind/)
   })
 
+  it('does not leave the dilute base as the harmless one of the pair: its sheet does not class it as hazardous, and the card says at once what that sheet still asks for', () => {
+    const { text, support } = section('safety').paragraphs[1]!
+    expect(text).toMatch(/does not class it as hazardous\. That is not the same as harmless: that sheet too calls for eye protection and gloves, and both sheets say that a splash on the skin or in the eyes is to be flushed with a lot of water/)
+    // It says no more than the sheet does, as the bottle's note and the paragraph's support line report it.
+    expect(titrationData.bottles.naoh.hazards.note.value).toMatch(/The sheet still calls for eye protection and gloves, and says that a splash in the eyes or on the skin is to be flushed with a lot of water/)
+    expect(support).toMatch(/fisher-sds-naoh-0\.1n: .*gloves are still to be worn/)
+  })
+
   it("says of the indicator all that its bottle says, and which is which: the three statements of the pure substance, and each of the five hazards that a sheet for the solution lists, which the bottle's note gives with their codes", () => {
     const { text, support } = section('safety').paragraphs[3]!
     const sentences = text.split(/(?<=\.) /)

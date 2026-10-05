@@ -241,6 +241,13 @@ After the commits above the branch was checked once more, at `44971d2`. One chec
 - Expected values changed, because the wording they pinned is replaced: the case expected "a hazard to health over the long term", "among other things" and "The note under the indicator bottle gives the full list", and now holds that none of the three is said.
 - **The owner reads the result (D15).**
 
+**L8 (should-fix). Read side by side, two sentences of the safety card left the dilute base as the harmless one of the pair.** The acid's sheet says it irritates the skin and causes serious eye irritation; the base's sheet does not class it as hazardous. Both sentences report their sheets rightly. The doubt is about what a first-year student takes away.
+
+- Reproduced by reading the card and the two bottle notes. Neither sheet is kept, so neither was checked against its source here; the card's support line and the base's note both report that its sheet still calls for eye protection and gloves and for flushing with water.
+- Done: after "does not class it as hazardous" the card now says "That is not the same as harmless: that sheet too calls for eye protection and gloves, and both sheets say that a splash on the skin or in the eyes is to be flushed with a lot of water, for 15 minutes or longer." It says no more than the sheet does.
+- Not done: the card does not say that a 0.1 M sodium hydroxide solution is strongly alkaline, or that alkali in the eye is treated as at least as serious as acid. The reviewer says a lab instructor would; no source was read for either. It is put to the owner below, who reads this card (D15).
+- Re-checked: a case in `primer.test.ts`, seen failing first, on the sentence and on the note and support line it rests on. The no-quotation test passes on the paragraph.
+
 ## What the reviewers confirmed
 
 **Constants and sources (R1).**

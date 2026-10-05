@@ -503,7 +503,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
         'a statement about this simulation, not chemistry.',
       ),
       paragraph(
-        "In a real laboratory this experiment is done wearing eye protection and gloves. The acid and the base are dilute, about 0.1 M. Even so, a supplier's safety data sheet for hydrochloric acid of this strength says that it irritates the skin and causes serious eye irritation. The sheet for sodium hydroxide of this strength does not class it as hazardous. Both sheets say that a splash on the skin or in the eyes is to be flushed with a lot of water, for 15 minutes or longer.",
+        "In a real laboratory this experiment is done wearing eye protection and gloves. The acid and the base are dilute, about 0.1 M. Even so, a supplier's safety data sheet for hydrochloric acid of this strength says that it irritates the skin and causes serious eye irritation. The sheet for sodium hydroxide of this strength does not class it as hazardous. That is not the same as harmless: that sheet too calls for eye protection and gloves, and both sheets say that a splash on the skin or in the eyes is to be flushed with a lot of water, for 15 minutes or longer.",
         [
           [
             'fisher-sds-hcl-0.1n',
