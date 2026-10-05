@@ -254,7 +254,9 @@ export function reduce(m: TitrationModel, state: TitrationState, action: Action)
     case 'addIndicatorDrop':
       return withTrial(state, { indicatorDrops: trial.indicatorDrops + 1, ...flaskChanged })
     case 'addWater':
-      return judged(m, withTrial(state, { waterUl: trial.waterUl + m.waterStepUl, ...flaskChanged }))
+      // Water is not titrant. After a wash there is no last addition for a plume to be of: worked out again on the
+      // thinner flask, the plume of the addition before it would be given a status that addition never had.
+      return judged(m, withTrial(state, { waterUl: trial.waterUl + m.waterStepUl, lastAdditionUl: 0, ...flaskChanged }))
     case 'recordInitialReading':
       return withTrial(state, { startLevelUl: burette.levelUl, initialReadingUl: action.readingUl })
     case 'deliver': {

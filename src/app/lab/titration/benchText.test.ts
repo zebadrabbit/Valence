@@ -15,6 +15,7 @@ import {
   STOPCOCK_ALREADY_CLOSED,
   streamMessage,
   swirlText,
+  undoneText,
 } from './benchText'
 import benchTextFile from './benchText.ts?raw'
 import { benchViewOf, type BenchView } from './benchView'
@@ -170,6 +171,55 @@ describe('the status line', () => {
   })
 })
 
+describe('what is said when a confirmed endpoint is undone (seed 6, where the second wash thins the pink to colourless)', () => {
+  const confirmed = titrateCarefully(m, prepared(m, 6, { mode: 'guided' })).state
+  const WASH: Action = { type: 'addWater' }
+
+  it('a wash, a drop and a half-drop after a pink that lasted each say that the wait and a final reading after it no longer apply', () => {
+    expect(view(confirmed).persistence).toBe('persisted')
+    const said = undoneText(view(confirmed))
+    expect(said).toMatch(/swirl and wait/)
+    expect(said).toMatch(/final reading/)
+    expect(said).toMatch(/no longer/)
+    // True of each of the three: the engine clears the wait, and the reading with it.
+    for (const action of [WASH, { type: 'deliver', amount: 'drop' }, { type: 'deliver', amount: 'half' }] as Action[]) {
+      const read = run(m, confirmed, [{ type: 'recordFinalReading', readingUl: Math.round(confirmed.burette.levelUl / 10) * 10 }])
+      expect(currentTrial(read).finalReadingUl).not.toBeNull()
+      expect(currentTrial(run(m, read, [action]))).toMatchObject({ finalReadingUl: null, waitedS: 0 })
+    }
+  })
+
+  it('nothing is added where no pink had lasted: not before a swirl, and not after one that found no pink', () => {
+    expect(undoneText(view(start))).toBe('')
+    expect(undoneText(midStream)).toBe('')
+    const faded = view(run(m, start, [{ type: 'swirlAndWait' }]))
+    expect(faded.persistence).toBe('faded')
+    expect(undoneText(faded)).toBe('')
+    expect(undoneText(view(run(m, confirmed, [WASH])))).toBe('')
+  })
+
+  it('after a wash the status line gives the colour and says nothing of a last addition, whichever way the colour went', () => {
+    const once = run(m, confirmed, [WASH])
+    expect(flaskStatus(view(confirmed), display)).toBe('Flask: faint pink. Swirled 30 s: the pink has lasted.')
+    expect(flaskStatus(view(once), display)).toBe('Flask: faint pink.')
+    const twice = run(m, once, [WASH])
+    expect(flaskStatus(view(twice), display)).toBe('Flask: colourless.')
+    expect(view(twice).plume).toBeNull()
+    // Titrant again, and the cue is back: it is of this addition.
+    expect(flaskStatus(view(run(m, twice, [{ type: 'deliver', amount: 'half' }])), display)).toBe('Flask: faint pink. Last addition: pink persists.')
+  })
+
+  it('over careful endpoints of seeds 1 to 100, washed up to three times: no status line names a last addition after a wash', () => {
+    for (let seed = 1; seed <= 100; seed++) {
+      let state = titrateCarefully(m, prepared(m, seed)).state
+      for (let wash = 0; wash < 3 && currentTrial(state).end === 'open'; wash++) {
+        state = run(m, state, [WASH])
+        expect([seed, wash, flaskStatus(view(state), display)]).toEqual([seed, wash, expect.not.stringContaining('Last addition')])
+      }
+    }
+  })
+})
+
 describe('every sentence of the bench', () => {
   const strings = (value: unknown): string[] =>
     typeof value === 'string' ? [value] : typeof value === 'object' && value !== null ? Object.values(value).flatMap(strings) : []
@@ -180,6 +230,7 @@ describe('every sentence of the bench', () => {
     ...(['drop', 'half'] as const).flatMap((amount) => [additionMessage(amount, ''), additionMessage(amount, additionMessage(amount, ''))]),
     swirlText('persisted'),
     swirlText('faded'),
+    undoneText(endpoint),
   ]
   const all = [...strings(benchText), ...said]
 

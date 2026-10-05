@@ -204,6 +204,16 @@ describe('the titration primer: what it has to say', () => {
     }
   })
 
+  it('says of the wash what this bench does: the half-drop is rinsed in for the learner, and a large rinse can thin a faint pink away', () => {
+    const card = shown('titrating')
+    // One wash of the bench is the record's 10 mL, far more than washes a half-drop down.
+    expect(titrationData.parameters.waterStepUl.value).toBe(10000)
+    expect(card).toMatch(/In this lab the half-drop is rinsed in for you/)
+    expect(card).toMatch(/10 mL/)
+    expect(card).toMatch(/no longer shows/)
+    expect(card).toMatch(/add another half-drop/)
+  })
+
   it('carries the corrections to the other cards', () => {
     // The acid was itself standardized, and is not called a primary standard.
     expect(shown('standardizing')).toMatch(/standardiz(ed|ing) the acid/)

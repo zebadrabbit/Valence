@@ -41,7 +41,7 @@ export interface FlaskView {
   pink: boolean
   overshot: boolean
   /**
-   * How the last addition's plume went; null before the first addition of a trial. Its status and nothing more:
+   * How the last addition's plume went; null before the first addition of a trial and after a wash of water. Its status and nothing more:
    * the share of the remaining acid behind it would give the equivalence volume after one addition.
    */
   plume: PlumeStatus | null

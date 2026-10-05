@@ -150,6 +150,21 @@ describe('the burette and the flask (seed 1)', () => {
   })
 })
 
+describe('a wash of distilled water (seed 6, a careful endpoint that the second wash thins to colourless)', () => {
+  it('leaves no plume: water is not an addition of titrant, so nothing is said of the last addition until titrant runs again', () => {
+    let s = titrateCarefully(m, prepared(m, 6)).state
+    expect(flaskView(m, s)).toMatchObject({ pink: true, plume: 'persists', persistence: 'persisted' })
+    s = run(m, s, [act('addWater')])
+    expect(currentTrial(s)).toMatchObject({ lastAdditionUl: 0, waitedS: 0, deliveredUl: 25150 })
+    expect(flaskView(m, s)).toMatchObject({ pink: true, plume: null, persistence: 'unchecked' })
+    s = run(m, s, [act('addWater')])
+    // The same titrant in more water: the flask is no longer pink, and the view does not call that a plume fading.
+    expect(flaskView(m, s)).toMatchObject({ pink: false, pinkConcentration: 0, plume: null, persistence: 'unchecked' })
+    s = run(m, s, [deliver('half')])
+    expect(flaskView(m, s).plume).toBe('persists')
+  })
+})
+
 describe('no answer leaves the engine through the flask (careful runs of seeds 1 to 10)', () => {
   it('until the flask is pink the view says of the chemistry only how the last plume faded, at once or slowly, and holds no number that follows the titrant still needed', () => {
     const said = new Map<string, unknown>()

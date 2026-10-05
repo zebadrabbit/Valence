@@ -94,6 +94,17 @@ export const ACTION_TEXT: Record<Exclude<BenchControl, 'deliver'>, string> = {
   swirlAndWait: `${SWIRLED}.`,
 }
 
+/**
+ * What a wash, a drop or a half-drop adds to its message when it undid a swirl and wait that had shown the pink to
+ * last; `before` is the view before the action. The engine clears the wait, and a final reading with it, whenever
+ * the flask changes. Empty when no pink had lasted, so the drops of an ordinary titration say nothing of it.
+ */
+export function undoneText(before: BenchView): string {
+  return before.persistence === 'persisted'
+    ? 'The flask has changed since the swirl and wait, so that wait no longer counts, and a final reading recorded after it no longer applies. Swirl and wait again before the final reading.'
+    : ''
+}
+
 /** What a swirl and wait says in the message line: that it was done, what it found, and what a pink that lasted allows. */
 export function swirlText(persistence: 'faded' | 'persisted'): string {
   return `${SWIRLED}: ${FOUND[persistence]}.${persistence === 'persisted' ? ' The final reading can be taken.' : ''}`

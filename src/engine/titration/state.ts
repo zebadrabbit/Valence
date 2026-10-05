@@ -25,7 +25,7 @@ const trialSchema = z.strictObject({
   initialReadingUl: count.nullable(),
   /** Titrant actually run into the flask. */
   deliveredUl: count,
-  /** Size of the last addition, for the plume; 0 before the first. */
+  /** Size of the last addition of titrant, for the plume; 0 before the first, and after a wash of water, which leaves none. */
   lastAdditionUl: count,
   /** Simulated seconds of swirling since the flask last changed. */
   waitedS: count,

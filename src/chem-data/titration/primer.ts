@@ -281,7 +281,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
         "the stream, the 5 mL run and the single drop are this lab's controls (spec 7.2), and the pink where a drop lands is its model of the flask.",
       ),
       paragraph(
-        'Near the end a whole drop is too much. Open the stopcock just enough for part of a drop to form on the burette tip, touch it off on the inside wall of the flask, and wash it down with distilled water. That is a half-drop. The water does no harm: it changes how dilute the acid is, not how much acid is there.',
+        'Near the end a whole drop is too much. Open the stopcock just enough for part of a drop to form on the burette tip, touch it off on the inside wall of the flask, and wash it down with distilled water. That is a half-drop. The water does no harm: it changes how dilute the acid is, not how much acid is there. In this lab the half-drop is rinsed in for you. The rinse of the flask wall that the bench offers is a larger one, 10 mL of water each time, and that much water can thin a very faint pink until it no longer shows. If that happens, add another half-drop.',
         [
           [
             BURET_USE,
@@ -295,7 +295,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
           ],
           [ACID_LAB, PART_A, 'water in the flask leaves the amount of acid there, in moles, as it was.'],
         ],
-        "touching the hanging drop to the wall of the flask is this lab's wording; the page read washes it off the tip. A half-drop here is 0.025 mL (spec 7.2).",
+        "touching the hanging drop to the wall of the flask is this lab's wording; the page read washes it off the tip. A half-drop here is 0.025 mL and adds no water, and one rinse of the bench is 10 mL (spec 7.2, 7.3). That so much water can thin a faint pink below what shows is the lab's model of the colour; no source was read for it.",
       ),
       paragraph(
         'The endpoint is the first faint pink that lasts through 30 seconds of swirling. A dark pink means too much NaOH has gone in. In this lab a flask that has gone more than two drops too far is spoiled, and the trial is started again.',
