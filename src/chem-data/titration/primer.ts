@@ -65,9 +65,9 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
     heading: 'Acids, bases and neutralisation',
     paragraphs: [
       paragraph(
-        'This primer has twelve cards. Read three of them before you go to the bench: Titrating to the endpoint, The calculation and Reading the burette. The others explain why the lab is done the way it is, and can wait until you want them.',
+        'This primer has twelve cards. Read three of them before you go to the bench, in this order: Reading the burette, Titrating to the endpoint and The calculation. The others explain why the lab is done the way it is, and can wait until you want them.',
         [],
-        "which cards to read first is this lab's advice.",
+        "which cards to read first, and in what order, is this lab's advice.",
       ),
       paragraph(
         'A substance is an acid if it gives hydronium ions, H₃O⁺, when it dissolves in water. It is a base if it gives hydroxide ions, OH⁻, when it dissolves in water.',
@@ -256,8 +256,9 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
     heading: 'Titrating to the endpoint',
     paragraphs: [
       paragraph(
-        "Before you start, work out roughly how much NaOH the flask will take. Take the NaOH as 0.1 M: the titre, in mL, will be about the acid's molarity × 25.00 ÷ 0.1. For 0.1200 M acid that is about 30 mL. The NaOH is only about 0.1 M, so the real endpoint can be a millilitre or so to either side.",
+        "Before you start, work out roughly how much NaOH the flask will take. That volume is called the titre. The strength of each solution is given as its molarity, written M: the moles of the substance in each litre of solution (the card Molarity explains this). Take the NaOH as 0.1 M: the titre, in mL, will be about the acid's molarity × 25.00 ÷ 0.1. For 0.1200 M acid that is about 30 mL. The NaOH is only about 0.1 M, so the real endpoint can be a millilitre or so to either side.",
         [
+          [chem2e('3.3'), 'section 3.3, under the heading Solutions', 'the molarity of a solution is how many moles of solute one litre of it holds.'],
           [
             BURET_USE,
             'section 4, under the heading Use your information',
@@ -267,13 +268,15 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
         "the estimate from the bottle's label is this lab's arithmetic, and a test repeats it: with the NaOH anywhere from 0.095 to 0.105 M (spec 7.1) the endpoint is at most 1.4 mL from the estimate.",
       ),
       paragraph(
-        'Swirl the flask the whole time, so that the NaOH mixes in. While you are still several millilitres short of your estimate, the NaOH can run in quickly; running in 5 mL at once is for this part only. Where the NaOH lands, the solution turns pink for a moment and clears as it mixes. Closer to the endpoint the pink takes longer to clear. When it starts to linger, close the stopcock and add one drop at a time.',
+        'Swirl the flask the whole time, so that the NaOH mixes in. The phenolphthalein in the flask is an indicator: a dye that is colourless in the acid and turns pink once the acid is used up. While you are still several millilitres short of your estimate, the NaOH can run in quickly; running in 5 mL at once is for this part only. Where the NaOH lands, the solution turns pink for a moment and clears as it mixes. Closer to the endpoint the pink takes longer to clear. When it starts to linger, close the stopcock and add one drop at a time.',
         [
           [
             BURET_USE,
             PERFORMING,
             'the flask is swirled to spread the titrant evenly, that bursts of colour which last more than a few seconds show the end point is close, and that the titrant is then slowed, to half drops if need be.',
           ],
+          [chem2e('4.5'), TITRATION, 'indicators are dyes added to the sample which change colour at the equivalence point or very close to it.'],
+          [chem2e('14.7'), 'section 14.7, under the heading Acid-Base Indicators', 'phenolphthalein is colourless in solutions of pH below 8.3 and red or pink in more basic ones.'],
         ],
         "the stream, the 5 mL run and the single drop are this lab's controls (spec 7.2), and the pink where a drop lands is its model of the flask.",
       ),

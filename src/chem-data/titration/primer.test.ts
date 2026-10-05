@@ -52,6 +52,22 @@ describe('the titration primer: its cards', () => {
     expect(first).toMatch(/can wait/)
   })
 
+  it('names the three in an order in which each can be followed, and explains in the first-read cards the words they lean on', () => {
+    const first = section('acids-and-bases').paragraphs[0]!.text
+    const at = (id: string) => first.indexOf(section(id).heading)
+    // The burette card says what a burette and its stopcock are, and the other two use both.
+    expect(at('burette')).toBeLessThan(at('titrating'))
+    expect(at('titrating')).toBeLessThan(at('calculation'))
+    expect(first).toMatch(/in this order/)
+    const card = shown('titrating')
+    // The titre is said to be a volume before a figure is given for it; M and the pink are explained, not assumed.
+    expect(card.indexOf('called the titre')).toBeGreaterThan(-1)
+    expect(card.indexOf('called the titre')).toBeLessThan(card.indexOf('× 25.00 ÷ 0.1'))
+    expect(card).toMatch(/molarity, written M/)
+    expect(card).toContain(section('molarity').heading)
+    expect(card).toMatch(/an indicator/)
+  })
+
   it('holds no institution text in any heading, paragraph or equation', () => {
     const prose = [
       ...TITRATION_PRIMER.map((s): [string, string] => [`${s.id} heading`, s.heading]),
