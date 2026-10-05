@@ -454,6 +454,11 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
         'that the burette then reads more than was delivered is how the lab models the bubble (spec 7.3).',
       ),
       paragraph(
+        'This lab makes each of these three mistakes cost more than it does at a real bench, so that it shows in your result: here each one, on its own, puts a trial outside the 1.0% allowed. A real burette tip holds less air than the bubble in this lab. And a real burette that was not conditioned is less diluted each time it is refilled; in this lab it stays diluted until you condition it.',
+        [],
+        'the size of each technique error, a tip bubble of 0.60 mL and a burette that stays 2.0% dilute through every refill are the model, and none of the three is true to a bench (spec 7.3). No source was read for what a bench gives.',
+      ),
+      paragraph(
         'Refill the burette before each trial and take a new initial reading. A burette that runs out before the endpoint leaves the trial with no usable titre. The burette does not need conditioning again: it is already wet with NaOH.',
         [[ACID_LAB, PART_A, 'the burets are refilled before each further titration.']],
         "the new initial reading, the trial lost when the burette runs out, and no second conditioning are this lab's rules (spec 7.2). The lab teaches the refill and does not force it.",
@@ -465,7 +470,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
     heading: 'How closely the trials agree',
     paragraphs: [
       paragraph(
-        'One titration can go wrong without showing it, so the measurement is repeated: this lab asks for three trials that count. Results that agree closely with each other are precise. Results that are close to the true value are accurate. Precise results are not always accurate: a mistake repeated every time, such as a burette that was never conditioned, gives results that agree with each other and are all wrong.',
+        'One titration can go wrong without showing it, so the measurement is repeated: this lab asks for three trials that count. Results that agree closely with each other are precise. Results that are close to the true value are accurate. Precise results are not always accurate: a mistake repeated every time, such as a molarity copied wrongly from the acid bottle and used in every calculation, gives results that agree with each other and are all wrong.',
         [
           [
             chem2e('1.5'),
@@ -474,7 +479,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
           ],
           [ACID_LAB, 'the introduction', 'at least three titrations are done, to make sure of the precision of the result.'],
         ],
-        "three trials that count, and the unconditioned burette as a mistake repeated, are the lab's own (spec 7.3).",
+        "three trials that count are the lab's rule (spec 7.3), and the miscopied label as a mistake repeated is its own example: the same wrong factor in every calculation.",
       ),
       paragraph(
         'This lab measures agreement by the relative deviation. Take the average of the three molarities, to four decimal places. Find how far each one is from that average, ignoring the sign, and average those distances. Divide by the average molarity and multiply by 1000. The answer is in parts per thousand: 2 parts per thousand means the trials are, on average, 0.2% away from their average.',

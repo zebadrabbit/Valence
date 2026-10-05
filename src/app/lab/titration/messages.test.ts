@@ -105,6 +105,12 @@ describe('feedback on a trial', () => {
     expect(Object.values(CAUSE_TEXT)).not.toContain(OUTCOME_TEXT.water)
   })
 
+  it('each technique cause says the lab makes the mistake cost more than a real bench does, and no other cause does', () => {
+    const larger = /more than it does at a real bench/
+    const technique = ['burette-not-conditioned', 'tip-bubble', 'pipette-not-rinsed']
+    for (const [cause, text] of Object.entries(CAUSE_TEXT)) expect([cause, larger.test(text)]).toEqual([cause, technique.includes(cause)])
+  })
+
   it('an open trial has none', () => {
     expect(feedback({ state: 'open' }, 10000)).toEqual([])
   })

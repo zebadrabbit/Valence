@@ -187,11 +187,11 @@
     },
     "tipBubbleUl": {
       "value": 600,
-      "rationale": "The air left in the burette tip by a fill from empty: 0.60 mL, exaggerated so that leaving it there fails grading on its own (spec 7.3)."
+      "rationale": "The air left in the burette tip by a fill from empty: 0.60 mL, exaggerated so that leaving it there fails grading on its own (spec 7.3). It is more air than a real burette's tip holds."
     },
     "tipBubbleEscapeUl": {
       "value": 5000,
-      "rationale": "A bubble that was not cleared leaves evenly over the first 5 mL delivered, so the meniscus falls 3 µL further than was delivered for each half-drop. Once gone it does not come back at a refill (spec 7.3)."
+      "rationale": "A bubble that was not cleared leaves evenly over the first 5 mL delivered, so the meniscus falls 3 µL further than was delivered for each half-drop. Once gone it does not come back at a refill (spec 7.3). Leaving evenly is not true to a bench either: a real bubble leaves at once."
     },
     "overshootUl": {
       "value": 100,

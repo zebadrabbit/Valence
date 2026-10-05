@@ -98,6 +98,8 @@ describe('the titration primer: what each paragraph rests on', () => {
       // The worked example, and the rule to round and not cut off.
       'calculation[2]',
       'calculation[3]',
+      // That the lab's technique errors are larger than a bench's.
+      'glassware[3]',
       // The definition of relative deviation.
       'precision[1]',
       // That the simulation replaces no safety training.
@@ -198,6 +200,18 @@ describe('the titration primer: what it has to say', () => {
     expect(shown('glassware')).toMatch(/[Rr]efill the burette before each trial/)
     expect(shown('burette')).toMatch(/eye level with/)
     expect(shown('burette')).toMatch(/reading view/)
+  })
+
+  it('says where a learner reads it what is not true to a bench: the size of each technique error, the bubble, and the burette that stays dilute', () => {
+    // Spec 7.3 names the three and says the documentation tells the learner so.
+    const card = shown('glassware')
+    expect(card).toMatch(/more than it does at a real bench/)
+    expect(card).toMatch(/holds less air than/)
+    expect(card).toMatch(/in this lab it stays diluted until you condition it/)
+    // A burette that was never conditioned gives results that agree only under this lab's rule, so it is not the
+    // example of a mistake repeated; the example is one that repeats at a real bench too.
+    expect(shown('precision')).not.toMatch(/conditioned/)
+    expect(shown('precision')).toMatch(/copied wrongly from the acid bottle/)
   })
 
   it('describes the three bottles in the safety card from the sources the stored bottles cite', () => {
