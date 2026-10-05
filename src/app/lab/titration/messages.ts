@@ -150,7 +150,7 @@ export const OUTCOME_TEXT: Record<'passed' | 'notCounted' | 'closeWithTechniqueE
   largerHere: 'This lab makes a technique mistake cost more than it does at a real bench.',
   largerHereAndShown: 'This lab makes a technique mistake cost more than it does at a real bench, so that it shows in the result.',
   overshot:
-    'Overshot: the flask has gone more than two drops too far, so this trial has no usable titre. Run the trial again, and change to half-drops once the pink is slow to fade.',
+    "Overshot: the flask has gone more than two drops too far, so this trial has no usable titre. Run the trial again: close the stopcock when the pink is slow to fade, go on by single drops, and change to half-drops when a drop's pink is slow to fade.",
   // The spec's sentence (7.2), word for word.
   'ran-out': 'The burette ran out before the endpoint, so this trial has no usable titre. Refill the burette before you start a trial.',
   discarded: 'You discarded this flask, so the trial has no result. Run the trial again.',

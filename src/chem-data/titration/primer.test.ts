@@ -250,6 +250,17 @@ describe('the titration primer: what it has to say', () => {
     }
   })
 
+  it("says that the cue goes with the size of the addition: a single drop's pink clears at once again at first, and a drop's pink that lingers is the sign for half-drops", () => {
+    const text = section('titrating').paragraphs[1]!.text
+    const [stream, drop, half] = [/When it starts to linger, close the stopcock and add one drop at a time\./, /at first its pink clears at once again/, /When a drop's pink lingers too, change to half-drops\./].map((said) => text.search(said))
+    expect(stream).toBeGreaterThan(-1)
+    expect(drop).toBeGreaterThan(stream!)
+    expect(half).toBeGreaterThan(drop!)
+    expect(text).toMatch(/does not mean the endpoint is far off/)
+    // A drop is a fifth of one addition of the stream.
+    expect(titrationData.parameters.streamUl.value / titrationData.parameters.dropUl.value).toBe(5)
+  })
+
   it('says of the wash what this bench does: the half-drop is rinsed in for the learner, and a large rinse can thin a faint pink away', () => {
     const card = shown('titrating')
     // One wash of the bench is the record's 10 mL, far more than washes a half-drop down.

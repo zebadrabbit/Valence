@@ -305,6 +305,9 @@ describe('every sentence of the bench', () => {
     expect(SLOW_DOWN_TEXT).toContain('a drop at a time')
     expect(SLOW_DOWN_TEXT).toContain('half-drops')
     expect(SLOW_DOWN_TEXT).not.toContain('has been closed')
+    // The hint first shows with the stream's own "pink fades slowly" in the status line, so it says whose pink is meant.
+    expect(SLOW_DOWN_TEXT).toMatch(/change to half-drops when a single drop's pink is slow to fade/)
+    expect(SLOW_DOWN_TEXT).not.toMatch(/once the pink is slow to fade/)
   })
 
   it('a press the bench dropped is told that the stopcock is already closed', () => {

@@ -119,10 +119,12 @@ export function swirlText(persistence: 'faded' | 'persisted'): string {
  * Guided's hint, shown for as long as the engine gives it. The stopcock is closed for the learner once, when the
  * hint first shows, and can be opened again, so the line does not say what the stopcock is doing now. It shows again
  * on a flask that a wash has thinned from pink to colourless, beside undoneText's "add a half-drop", so it sets a
- * limit ("no more than a drop") and does not say to go by drops.
+ * limit ("no more than a drop") and does not say to go by drops. It first shows with the stream's own "pink fades
+ * slowly" in the status line, and the next drop's pink fades at once, so it says that the sign for half-drops is a
+ * single drop's pink.
  */
 export const SLOW_DOWN_TEXT =
-  'Slow down: the endpoint is near. If the stopcock was open, it was closed when this hint appeared. Add no more than a drop at a time, and change to half-drops once the pink is slow to fade.'
+  "Slow down: the endpoint is near. If the stopcock was open, it was closed when this hint appeared. Add no more than a drop at a time, and change to half-drops when a single drop's pink is slow to fade."
 
 /** For a press that came just after the stopcock closed by itself, and was dropped so that it would not open it again. */
 export const STOPCOCK_ALREADY_CLOSED = 'The stopcock is already closed: it closed by itself a moment ago, so that press did nothing.'

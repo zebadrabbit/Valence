@@ -8,7 +8,7 @@ import { percentError } from './entries'
 import { equivalenceUl, flaskChemistry, isPink, type Flask } from './flask'
 import type { TitrationModel } from './model'
 import { PINNED_MODEL as m } from './pinnedModel'
-import { trialOutcome, trueNaoh } from './select'
+import { flaskView, trialOutcome, trueNaoh } from './select'
 import { labSetup } from './setup'
 import { currentTrial, titrationStateSchema, type TitrationState, type Trial } from './state'
 import { calculatedMolarityE6, honestReading, learner, type Technique } from './testkit'
@@ -522,6 +522,45 @@ describe("the primer's figure for the 5 mL pour (Gate A, N12)", () => {
       expect(pours).toBeGreaterThan(800 * 2)
       expect(closest).toBeGreaterThan(220)
       expect((closest / 1000).toFixed(2)).toBe('1.02')
+    },
+    SEED_LOOP_TIMEOUT,
+  )
+})
+
+describe("the primer's advice by the cue alone (Gate A, the last check)", () => {
+  it(
+    'the stream closed at its first "fades slowly", single drops until one fades slowly, then half-drops: the first drop fades at once again, and the endpoint is reached and never overshot, seeds 1-100 at 2 and 3 drops',
+    () => {
+      const plumeOf = (s: TitrationState) => flaskView(m, s).plume
+      /** Adds `amount` until `stop` says so. Returns the state and how many were added. */
+      const add = (s: TitrationState, amount: 'stream' | 'drop' | 'half', stop: (s: TitrationState) => boolean): [TitrationState, number] => {
+        let count = 0
+        do {
+          s = run(m, s, [{ type: 'deliver', amount }])
+          count++
+        } while (!stop(s))
+        return [s, count]
+      }
+      const slowlyOrPink = (s: TitrationState) => plumeOf(s) !== 'fades-at-once'
+      let mostDropsAtOnce = 0
+      for (const drops of DROPS) {
+        for (const seed of SEEDS) {
+          let s = prepared(m, seed, { drops })
+          expect(s.mode).toBe('challenge') // Guided's hint would close the stopcock for the learner
+          ;[s] = add(s, 'stream', slowlyOrPink)
+          expect([seed, plumeOf(s)]).toEqual([seed, 'fades-slowly'])
+          // The cue is of the addition's size: the drop that follows the stream's "fades slowly" fades at once.
+          const [afterDrops, dropCount] = add(s, 'drop', slowlyOrPink)
+          expect([seed, dropCount]).toEqual([seed, expect.toSatisfy((n: number) => n > 1)])
+          mostDropsAtOnce = Math.max(mostDropsAtOnce, dropCount - 1)
+          s = afterDrops
+          if (plumeOf(s) === 'fades-slowly') [s] = add(s, 'half', (after) => plumeOf(after) === 'persists')
+          expect([seed, currentTrial(s).end, isPink(m, flaskOf(m, s))]).toEqual([seed, 'open', true])
+          expect([seed, graded(finishHonestly(m, run(m, s, [{ type: 'swirlAndWait' }])))]).toEqual([seed, expect.objectContaining({ state: 'passed', counts: true })])
+        }
+      }
+      // As many as this many single drops in a row read "fades at once" before one fades slowly.
+      expect(mostDropsAtOnce).toBe(35)
     },
     SEED_LOOP_TIMEOUT,
   )

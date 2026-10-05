@@ -114,6 +114,16 @@ describe('feedback on a trial', () => {
     expect(lines.join(' ')).not.toMatch(PERCENT_ERROR)
   })
 
+  it("the overshot sentence gives the cue the primer's two answers, in order: the stream closed for single drops, then half-drops when a drop's pink is slow to fade", () => {
+    const text = OUTCOME_TEXT.overshot
+    const [stream, drops, halves] = [/close the stopcock when the pink is slow to fade/, /go on by single drops/, /change to half-drops when a drop's pink is slow to fade/].map((said) => text.search(said))
+    expect(stream).toBeGreaterThan(-1)
+    expect(drops).toBeGreaterThan(stream!)
+    expect(halves).toBeGreaterThan(drops!)
+    // Not half-drops as soon as any pink is slow to fade: the stream's is, a long way before a drop's.
+    expect(text).not.toMatch(/half-drops once the pink is slow to fade/)
+  })
+
   it("the ran-out sentence is the spec's, word for word", () => {
     expect(spec.includes(`message "${OUTCOME_TEXT['ran-out']}"`)).toBe(true)
   })
