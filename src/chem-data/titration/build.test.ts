@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest'
 import manifest from '../../../docs/research/phase-3/sources/MANIFEST.json'
 import noaaFile from '../../../docs/research/phase-3/sources/noaa-co2-annmean-gl.txt?raw'
 import sodiumHydroxideRecord from '../../../docs/research/phase-3/sources/pubchem-cid-14798-ghs.json'
-import hydrochloricAcidRecord from '../../../docs/research/phase-3/sources/pubchem-cid-313-ghs.json'
 import phenolphthaleinRecord from '../../../docs/research/phase-3/sources/pubchem-cid-4764-ghs.json'
 import phenolphthaleinProperties from '../../../docs/research/phase-3/sources/pubchem-cid-4764-properties.json'
 import carbonicAcidPage from '../../../docs/research/phase-3/sources/wikipedia-carbonic-acid-1376246456.json'
@@ -13,16 +12,18 @@ import input from '../../../docs/research/phase-3/titration.json'
 // tested here on inputs they must refuse. The script itself writes files, so its checks live in
 // scripts/titration-lib.mjs as plain functions.
 type Hazards = { signalWord: string; statements: string[] }
+type Sheet = { id: string; supports: { field: string; prints: string; where: string }[] }
 type Lib = {
   checkPublished(constant: { value: number; published?: string }, where: string): void
   checkAnnualMean(text: string, year: number, published: string): void
   checkMolecularWeight(properties: unknown, cid: number, published: string): void
   checkHazards(record: unknown, reference: string, hazards: Hazards): void
+  checkSheetHazards(sheet: Sheet, field: string, hazards: Hazards, never?: string[]): void
   checkWikipediaCopy(copy: unknown, citation: string, figures: string[]): void
   checkSha256(bytes: string, sha256: string, file: string): void
 }
 const [lib] = Object.values(import.meta.glob<Lib>('../../../scripts/titration-lib.mjs', { eager: true }))
-const { checkPublished, checkAnnualMean, checkMolecularWeight, checkHazards, checkWikipediaCopy, checkSha256 } = lib!
+const { checkPublished, checkAnnualMean, checkMolecularWeight, checkHazards, checkSheetHazards, checkWikipediaCopy, checkSha256 } = lib!
 
 const { hcl, naoh, indicator } = input.bottles
 const citation = (id: string) => manifest.sources.find((source) => source.id === id)!.citation
@@ -55,9 +56,9 @@ describe('checkMolecularWeight', () => {
   })
 })
 
+// The two bottles whose statements are read from a kept PubChem record. The acid's are not: see checkSheetHazards below.
 describe('checkHazards', () => {
-  it('accepts each bottle as the record stores it', () => {
-    expect(() => checkHazards(hydrochloricAcidRecord, hcl.reference, hcl.hazards)).not.toThrow()
+  it('accepts each of the two bottles as the record stores it', () => {
     expect(() => checkHazards(sodiumHydroxideRecord, naoh.reference, naoh.hazards)).not.toThrow()
     expect(() => checkHazards(phenolphthaleinRecord, indicator.reference, indicator.hazards)).not.toThrow()
   })
@@ -69,8 +70,10 @@ describe('checkHazards', () => {
   })
 
   it('refuses a stored statement with a word changed', () => {
-    const statements = ['H314: Causes serious skin burns and eye damage', hcl.hazards.statements[1]!]
-    expect(() => checkHazards(hydrochloricAcidRecord, hcl.reference, { ...hcl.hazards, statements })).toThrow(/does not print the statement "H314: Causes serious skin burns and eye damage"/)
+    const statements = ['H314: Causes serious skin burns and eye damage']
+    expect(() => checkHazards(sodiumHydroxideRecord, naoh.reference, { ...naoh.hazards, statements })).toThrow(/does not print the statement "H314: Causes serious skin burns and eye damage"/)
+    const [first, second] = indicator.hazards.statements as [string, string, string]
+    expect(() => checkHazards(phenolphthaleinRecord, indicator.reference, { ...indicator.hazards, statements: [first, second, 'H361f: Suspected of harming fertility'] })).toThrow(/does not print the statement "H361f: Suspected of harming fertility"/)
   })
 
   it('refuses a statement under the wrong code', () => {
@@ -78,17 +81,18 @@ describe('checkHazards', () => {
     expect(() => checkHazards(sodiumHydroxideRecord, naoh.reference, { ...naoh.hazards, statements })).toThrow(/does not print the statement "H315/)
   })
 
-  it('refuses a statement the record lists only under another entry: H331 for the HCl bottle', () => {
-    const gas = 'H331: Toxic if inhaled'
-    const statements = [hcl.hazards.statements[0]!, gas]
-    expect(() => checkHazards(hydrochloricAcidRecord, hcl.reference, { ...hcl.hazards, statements })).toThrow(/hydrochloric acid".*does not print the statement "H331: Toxic if inhaled"/)
-    // The record does print it, under the entry for hydrogen chloride, the gas.
-    const reference = 'Hazardous Chemical Information System (HCIS), Safe Work Australia: hydrogen chloride'
-    expect(() => checkHazards(hydrochloricAcidRecord, reference, { ...hcl.hazards, statements })).not.toThrow()
+  it('refuses a statement the record lists only under another entry: H335 for the NaOH bottle', () => {
+    const other = 'H335: May cause respiratory irritation'
+    const statements = [naoh.hazards.statements[0]!, other]
+    expect(() => checkHazards(sodiumHydroxideRecord, naoh.reference, { ...naoh.hazards, statements })).toThrow(/sodium hydroxide; caustic soda".*does not print the statement "H335: May cause respiratory irritation"/)
+    // The record does print it, under another classification's entry for sodium hydroxide.
+    const reference = 'Hazardous Chemical Information System (HCIS), Safe Work Australia: sodium hydroxide'
+    expect(() => checkHazards(sodiumHydroxideRecord, reference, { ...naoh.hazards, statements })).not.toThrow()
   })
 
   it('refuses a signal word the entry does not carry', () => {
-    expect(() => checkHazards(hydrochloricAcidRecord, hcl.reference, { ...hcl.hazards, signalWord: 'Warning' })).toThrow(/carries the signal word "Danger", not "Warning"/)
+    expect(() => checkHazards(sodiumHydroxideRecord, naoh.reference, { ...naoh.hazards, signalWord: 'Warning' })).toThrow(/carries the signal word "Danger", not "Warning"/)
+    expect(() => checkHazards(phenolphthaleinRecord, indicator.reference, { ...indicator.hazards, signalWord: 'Warning' })).toThrow(/carries the signal word "Danger", not "Warning"/)
   })
 
   it("refuses a record that leaves out one of the entry's statements, or changes their order", () => {
@@ -98,11 +102,80 @@ describe('checkHazards', () => {
   })
 
   it('refuses a reference that names no entry of the record, or more than one', () => {
-    expect(() => checkHazards(hydrochloricAcidRecord, 'Safe Work Australia: hydrochloric acid', hcl.hazards)).toThrow(/has 0 entries named/)
-    expect(() => checkHazards(sodiumHydroxideRecord, hcl.reference, hcl.hazards)).toThrow(/CID 14798 has 0 entries named/)
-    const twice = structuredClone(hydrochloricAcidRecord)
-    twice.Record.Reference.push(twice.Record.Reference.find((entry) => entry.ReferenceNumber === 59)!)
-    expect(() => checkHazards(twice, hcl.reference, hcl.hazards)).toThrow(/has 2 entries named/)
+    expect(() => checkHazards(sodiumHydroxideRecord, 'Regulation (EC) No 1272/2008: sodium hydroxide', naoh.hazards)).toThrow(/has 0 entries named/)
+    expect(() => checkHazards(phenolphthaleinRecord, naoh.reference, naoh.hazards)).toThrow(/CID 4764 has 0 entries named/)
+    const twice = structuredClone(sodiumHydroxideRecord)
+    twice.Record.Reference.push(twice.Record.Reference.find((entry) => entry.ReferenceNumber === 77)!)
+    expect(() => checkHazards(twice, naoh.reference, naoh.hazards)).toThrow(/has 2 entries named/)
+  })
+})
+
+// The acid bottle's statements are a supplier's safety data sheet's, for concentrated acid (the owner's decision of
+// 2026-10-05). The sheet is read and not kept, so the build has no copy to check them against. What it can still
+// check: the form of each statement, that the record and the manifest give the same account of the sheet, and that
+// H331 is not among the codes.
+describe('checkSheetHazards', () => {
+  const sheet: Sheet = manifest.sources.find((source) => source.id === hcl.hazards.sourceId)!
+  const field = 'bottles.hcl.hazards'
+  const [burns, harmful, metals] = hcl.hazards.statements as [string, string, string]
+  /** The sheet's rows with one changed: the manifest as it would read if the sheet printed something else. */
+  const printing = (rowField: string, prints: string): Sheet => ({ ...sheet, supports: sheet.supports.map((row) => (row.field === rowField ? { ...row, prints } : row)) })
+
+  it('accepts the acid bottle as the record stores it', () => {
+    expect(sheet.id).toBe('flinn-sds-395')
+    expect(() => checkSheetHazards(sheet, field, hcl.hazards, ['H331'])).not.toThrow()
+  })
+
+  it('reads a stored statement as the line the sheet prints, turned round: the codes first, then the statement', () => {
+    expect(sheet.supports.find((row) => row.field === `${field}.statements[0]`)!.prints).toBe('Causes severe skin and eye burns and damage (H314+H318)')
+    expect(burns).toBe('H314+H318: Causes severe skin and eye burns and damage')
+    // The codes stay in the order the sheet prints them.
+    expect(() => checkSheetHazards(sheet, field, { ...hcl.hazards, statements: [burns, 'H302+H332: Harmful if swallowed or inhaled', metals] })).toThrow(/prints "Harmful if swallowed or inhaled \(H332\+H302\)" for bottles\.hcl\.hazards\.statements\[1\], not the stored "H302\+H332: Harmful if swallowed or inhaled"/)
+  })
+
+  it('refuses a stored statement with a word changed, or under another code', () => {
+    expect(() => checkSheetHazards(sheet, field, { ...hcl.hazards, statements: [burns, harmful, 'H290: May be corrosive to metal'] })).toThrow(/prints "May be corrosive to metals \(H290\)" for bottles\.hcl\.hazards\.statements\[2\], not the stored "H290: May be corrosive to metal"/)
+    expect(() => checkSheetHazards(sheet, field, { ...hcl.hazards, statements: [burns, harmful, 'H291: May be corrosive to metals'] })).toThrow(/not the stored "H291: May be corrosive to metals"/)
+  })
+
+  it("refuses the gas's H331 on this bottle, as a line of its own or paired with another code, even where the manifest's rows print it too", () => {
+    const gas = 'H331: Toxic if inhaled'
+    expect(() => checkSheetHazards(sheet, field, { ...hcl.hazards, statements: [burns, harmful, metals, gas] }, ['H331'])).toThrow(/bottles\.hcl\.hazards\.statements\[3\] carries the code H331, which this bottle must not carry/)
+    const paired = 'H331+H302: Harmful if swallowed or inhaled'
+    const agreeing = printing(`${field}.statements[1]`, 'Harmful if swallowed or inhaled (H331+H302)')
+    expect(() => checkSheetHazards(agreeing, field, { ...hcl.hazards, statements: [burns, paired, metals] })).not.toThrow()
+    expect(() => checkSheetHazards(agreeing, field, { ...hcl.hazards, statements: [burns, paired, metals] }, ['H331'])).toThrow(/statements\[1\] carries the code H331/)
+  })
+
+  it('refuses a signal word the sheet does not print, and reads the capitals a sheet prints as the stored word', () => {
+    expect(sheet.supports.find((row) => row.field === `${field}.signalWord`)!.prints).toBe('DANGER')
+    expect(hcl.hazards.signalWord).toBe('Danger')
+    expect(() => checkSheetHazards(sheet, field, { ...hcl.hazards, signalWord: 'Warning' })).toThrow(/"flinn-sds-395" prints the signal word "DANGER", not "Warning"/)
+    expect(() => checkSheetHazards(printing(`${field}.signalWord`, 'WARNING'), field, hcl.hazards)).toThrow(/prints the signal word "WARNING", not "Danger"/)
+  })
+
+  it("refuses a record that leaves out one of the sheet's statements, adds one, or changes their order", () => {
+    expect(() => checkSheetHazards(sheet, field, { ...hcl.hazards, statements: [burns, harmful] })).toThrow(/has rows for 3 statements of bottles\.hcl\.hazards and the record stores 2: the bottle must carry all of them, in the sheet's order/)
+    expect(() => checkSheetHazards(sheet, field, { ...hcl.hazards, statements: [burns, harmful, metals, 'H335: May cause respiratory irritation'] })).toThrow(/has rows for 3 statements of bottles\.hcl\.hazards and the record stores 4/)
+    expect(() => checkSheetHazards(sheet, field, { ...hcl.hazards, statements: [harmful, burns, metals] })).toThrow(/for bottles\.hcl\.hazards\.statements\[0\], not the stored "H332\+H302/)
+  })
+
+  it.each(['Causes severe skin and eye burns and damage', 'H314 Causes severe skin and eye burns and damage', 'H314+: Causes severe skin and eye burns and damage', 'H314 + H318: Causes severe skin and eye burns and damage', 'H31: Causes burns', 'H314+H318:', 'Causes severe skin and eye burns and damage (H314+H318)'])(
+    'refuses %j, which is not a code or codes joined by a plus sign, then a colon and a statement',
+    (statement) => {
+      expect(() => checkSheetHazards(sheet, field, { ...hcl.hazards, statements: [statement, harmful, metals] })).toThrow(/bottles\.hcl\.hazards\.statements\[0\]: .* is not a hazard code, or codes joined by "\+", then a colon, a space and a statement/)
+    },
+  )
+
+  it('refuses a source whose rows say nothing of the bottle, or give two signal words', () => {
+    const other: Sheet = manifest.sources.find((source) => source.id === hcl.hazards.note.sourceId)!
+    expect(() => checkSheetHazards(other, field, hcl.hazards)).toThrow(/"fisher-sds-hcl-0\.1n" has 0 rows for bottles\.hcl\.hazards\.signalWord, expected 1/)
+    const twice = { ...sheet, supports: [...sheet.supports, sheet.supports.find((row) => row.field === `${field}.signalWord`)!] }
+    expect(() => checkSheetHazards(twice, field, hcl.hazards)).toThrow(/has 2 rows for bottles\.hcl\.hazards\.signalWord, expected 1/)
+  })
+
+  it('refuses a row that is not a statement followed by its codes in brackets', () => {
+    expect(() => checkSheetHazards(printing(`${field}.statements[2]`, 'H290: May be corrosive to metals'), field, hcl.hazards)).toThrow(/the row for bottles\.hcl\.hazards\.statements\[2\] prints "H290: May be corrosive to metals", which is not a statement and then its code or codes in brackets/)
   })
 })
 

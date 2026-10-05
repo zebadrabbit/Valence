@@ -82,7 +82,12 @@ describe('titrationData', () => {
 
   it('cites the three bottles as the lab shows them', () => {
     const covers = Object.fromEntries(titrationCitations(titrationData, sources).map((c) => [c.source.id, c.covers]))
-    expect(covers['pubchem-cid-313']).toEqual(['Hydrochloric acid, standardized: hazard classification'])
+    // The acid's statements are a supplier's sheet's for concentrated acid, not an entry of a PubChem record.
+    expect(covers['flinn-sds-395']).toEqual(['Hydrochloric acid, standardized: hazard classification'])
+    expect(covers['fisher-sds-hcl-0.1n']).toEqual(['Hydrochloric acid, standardized: hazards at the strength used'])
+    expect(covers['pubchem-cid-313']).toBeUndefined()
+    expect(sources.filter((s) => s.id === 'pubchem-cid-313')).toEqual([])
+    expect(covers['pubchem-cid-14798']).toEqual(['Sodium hydroxide solution, about 0.1 M: hazard classification'])
     expect(covers['pubchem-cid-4764']).toEqual(['Molar mass of phenolphthalein', 'Phenolphthalein indicator solution, 0.5%: hazard classification'])
     expect(covers['fisher-sds-naoh-0.1n']).toEqual(['Sodium hydroxide solution, about 0.1 M: hazards at the strength used'])
   })

@@ -341,12 +341,40 @@ describe('the titration primer: what it has to say', () => {
     for (const [key, bottle] of Object.entries(titrationData.bottles)) {
       expect([key, ids.has(bottle.hazards.sourceId), ids.has(bottle.hazards.note.sourceId)]).toEqual([key, true, true])
     }
-    // The acid bottle's statements are those of hydrochloric acid, not of a pure substance (D4).
+    // The acid bottle's statements are a sheet's for concentrated hydrochloric acid, not those of a pure substance (D4, as amended on 2026-10-05).
     expect(shown('safety')).not.toMatch(/pure hydrochloric|pure hydrogen chloride/)
     expect(shown('safety')).toMatch(/replaces/)
     // Which supplier's indicator is on the bench is assumed, so no sheet is called the sheet of this lab's bottle.
     expect(shown('safety')).not.toMatch(/The supplier's/)
     expect(shown('safety')).toMatch(/A supplier's safety data sheet for a solution of this kind/)
+  })
+
+  it("says what the acid bottle's statements are for: concentrated acid, with its strength, from the sheet the bottle cites", () => {
+    const { text, support, sourceIds } = section('safety').paragraphs[2]!
+    const { hcl, naoh } = titrationData.bottles
+    expect(text).toMatch(/Those on the acid bottle are for concentrated hydrochloric acid, 6 M to 12 M, and those on the other two bottles are for the pure substance\./)
+    expect(text).not.toMatch(/as such/)
+    // The strength the card gives is the one in the heading over the bottle's statements.
+    expect(hcl.classifiedAs).toContain('concentrated hydrochloric acid (6 M to 12 M)')
+    // The paragraph rests on the two sources the two bottles' statements are read from, and on no other.
+    expect(sourceIds).toEqual([hcl.hazards.sourceId, naoh.hazards.sourceId])
+    expect(sourceIds).toEqual(['flinn-sds-395', 'pubchem-cid-14798'])
+    expect(support).not.toMatch(/pubchem-cid-313|Australia|H335/)
+    // Its support line says of the sheet what the bottle stores of it: the signal word and every code.
+    const [ofTheSheet] = support.split('\n')
+    expect(ofTheSheet).toMatch(/^flinn-sds-395: not quoted; see /)
+    expect(ofTheSheet).toMatch(/6 M to 12 M/)
+    expect(ofTheSheet).toMatch(/signal word Danger/)
+    const codes = hcl.hazards.statements.flatMap((statement) => statement.split(':')[0]!.split('+'))
+    for (const code of codes) expect([code, ofTheSheet!.includes(code)]).toEqual([code, true])
+    expect(ofTheSheet!.match(/H\d{3}/g)!.sort()).toEqual([...codes].sort())
+    // What the card says both bottles carry is on both: the code H314, the acid's paired with another code.
+    expect(text).toMatch(/both carry the code H314/)
+    expect(hcl.hazards.statements[0]).toMatch(/^H314\+H318: /)
+    expect(naoh.hazards.statements[0]).toMatch(/^H314: /)
+    // The sheet gives the strengths it is for, so the card's own line no longer says that no entry read gives one.
+    expect(support).toMatch(/This lab: .*The sheet gives the strengths it is for/)
+    expect(support).not.toMatch(/The entries read do not say/)
   })
 
   it('does not leave the dilute base as the harmless one of the pair: its sheet does not class it as hazardous, and the card says at once what that sheet still asks for', () => {

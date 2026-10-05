@@ -7,7 +7,7 @@ The copies are as they were downloaded and are not edited by hand.
 | File | What it is |
 | --- | --- |
 | `noaa-co2-annmean-gl.txt` | NOAA Global Monitoring Laboratory's file of globally averaged annual mean CO₂ |
-| `pubchem-cid-313-ghs.json`, `pubchem-cid-14798-ghs.json`, `pubchem-cid-4764-ghs.json` | PubChem's GHS Classification section for hydrochloric acid, sodium hydroxide and phenolphthalein, from its PUG View service |
+| `pubchem-cid-14798-ghs.json`, `pubchem-cid-4764-ghs.json` | PubChem's GHS Classification section for sodium hydroxide and phenolphthalein, from its PUG View service |
 | `pubchem-cid-4764-properties.json` | PubChem's computed molecular weight and formula for phenolphthalein, from its PUG REST service |
 | `wikipedia-carbonic-acid-1376246456.json`, `wikipedia-drop-unit-1314848686.json` | Two Wikipedia revisions, as the MediaWiki API returns them: the revision's number, its time and its source text |
 
@@ -25,12 +25,22 @@ The NOAA and PubChem files are their publishers' data. They are not this project
 
 ## The quotation fingerprint
 
-`quotation-fingerprint.json` is not in the repository. It is a file that `scripts/fingerprint-sources.mjs` writes into this folder: a hash of every run of six consecutive words in the pages the primer cites, in the three safety data sheets the hazard notes rest on, and in the three PubChem records, as they were on the date it gives. `src/chem-data/titration/quotation.test.ts` holds the primer and the hazard notes to it: neither may repeat a run it lists.
+`quotation-fingerprint.json` is not in the repository. It is a file that `scripts/fingerprint-sources.mjs` writes into this folder: a hash of every run of six consecutive words in the pages the primer cites, in the four safety data sheets (the three the hazard notes rest on and the one the acid bottle's statements are read from), and in the two PubChem records, as they were on the date it gives. `src/chem-data/titration/quotation.test.ts` holds the primer and the hazard notes to it: neither may repeat a run it lists.
 
 It was kept here from 2026-10-05 until later the same day, with the statement that no text can be read back from it. That statement was wrong. The file holds no words, but a re-check rebuilt stretches of the pages from it: start from five words that are in a page, try each word of a dictionary as the sixth, keep the one whose run is in the fingerprint, and go on a word at a time. A file from which the pages can be rebuilt is too close to a copy of them, and none of those pages is kept. So `.gitignore` lists the file.
 
-To make it again: save each page under its id in the manifest, as `<id>.html`, `<id>.txt` (the text of a PDF) or `<id>.json`, in a folder outside the repository, and run `node scripts/fingerprint-sources.mjs <folder> <the date the pages were fetched>`. The test then runs. Where the file is absent, as in CI, the cases that need it are skipped and the test run reports them as skipped. The no-quotation rule is therefore checked when the words are written, on a machine that has the pages, and not on every build.
+To make it again: save each page under its id in the manifest, as `<id>.html`, `<id>.txt` (the text of a PDF, or of a page that a script draws, as a browser shows it) or `<id>.json`, in a folder outside the repository, and run `node scripts/fingerprint-sources.mjs <folder> <the date the pages were fetched>`. The test then runs. Where the file is absent, as in CI, the cases that need it are skipped and the test run reports them as skipped. The no-quotation rule is therefore checked when the words are written, on a machine that has the pages, and not on every build.
 
 ## A page that was kept and is not any more
 
 The strength of the indicator solution is read from Ricca Chemical Company's catalogue page for product number 5600. A copy of that page was kept here until 2026-10-05 and the build checked the stored figure against it. The page is a supplier's own, and the owner decided that it is cited, not kept. Its entry in the manifest, `ricca-5600`, now reads like those of the other pages that were read and not kept: the address, the day it was read (2026-10-04), and what it prints, which is the heading with 0.5% (w/v) in 50% (v/v) alcohol, and 5 g/L lower on the page. The entry's `fetchedSha256` is the sha256 of the page as it was fetched that day. It is a record of which page was read; no file here has that hash and nothing checks it. The stored figure now rests on that reading, and the build no longer checks it.
+
+## The acid bottle's statements, and a copy that went with them
+
+Until 2026-10-05 the hydrochloric acid bottle carried the signal word and the two statements of one entry of PubChem's record for CID 313, and a copy of that record's GHS Classification section was kept here as `pubchem-cid-313-ghs.json`, which the build checked the statements against. The entry said nothing of the strength it is for. The owner decided that the statements come instead from a supplier's safety data sheet that names its strength: Flinn Scientific's sheet for hydrochloric acid of 6 M to 12 M, which it calls concentrated. It is the manifest's `flinn-sds-395`, read on 2026-10-05 and not kept, like the other suppliers' pages.
+
+The sheet's page is drawn by a script, so fetching its address returns no text. It was read in a browser, and the entry's `fetchedSha256` is the sha256 of the text the page showed there that day. Like the indicator listing's, it is a record of which page was read; no file here has that hash and nothing checks it.
+
+The manifest's rows give what the sheet prints: the strengths in its title and in its composition table, its revision date, its signal word, and its three hazard statements, each followed by its code or codes in brackets. The record stores those three lines as the sheet words them, with the codes in front. Two of them carry a pair of codes under one statement, and the row for the first says why they are not split into a line for each code. One sentence of the sheet's hazard section is not a hazard statement and is not in the record, as the row for the third statement says.
+
+With no copy, the build cannot check the statements against the sheet. It checks their form, that they are the lines the manifest's rows print, all of them and in order, that the signal word is the row's, and that the code H331 is not among them. Nothing reads the PubChem record for CID 313 any more, so its copy and its entry in the manifest are gone; the bottle still stores the CID, which identifies the compound.

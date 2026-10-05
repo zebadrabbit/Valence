@@ -1,5 +1,6 @@
 // The checks the build makes on the titration lab's record (docs/research/phase-3/titration.json) against the kept
-// copies of its sources (docs/research/phase-3/sources/). build-chem-data.mjs runs them;
+// copies of its sources (docs/research/phase-3/sources/), and, for the one bottle whose statements are read from a
+// sheet that is not kept, against the manifest's account of that sheet. build-chem-data.mjs runs them;
 // src/chem-data/titration/build.test.ts tests them on inputs they must refuse. Each throws with a message.
 // Everything reads what it is handed; nothing is fetched here.
 
@@ -70,6 +71,48 @@ export function checkHazards(record, reference, { signalWord, statements }) {
   if (entryStatements.join('\n') !== statements.join('\n')) {
     throw new Error(`${where} prints ${entryStatements.join('; ')}: the bottle must carry all ${entryStatements.length} statements, in its order`)
   }
+}
+
+// A hazard statement as a sheet's bottle stores it: its code, or its codes joined by "+" as the sheet pairs them,
+// then a colon, a space and the statement.
+const SHEET_STATEMENT = /^(H\d{3}[A-Za-z]*(?:\+H\d{3}[A-Za-z]*)*): (\S.*)$/
+// The same statement as such a sheet prints it: the statement, then its code or codes in brackets.
+const SHEET_LINE = /^(\S.*) \((H\d{3}[A-Za-z]*(?:\+H\d{3}[A-Za-z]*)*)\)$/
+
+/**
+ * Throws unless a bottle's hazards are those the manifest records of a safety data sheet that was read and is not
+ * kept. There is no copy to read, so this cannot say that the sheet prints them. What it holds is their form, and
+ * that the record and the manifest give one account of the sheet: `sheet` is the cited source as the manifest lists
+ * it, and its `supports` rows for `field` say what the sheet prints. The signal word must be the one row's, whatever
+ * its case (a sheet prints DANGER, the record stores Danger). The statements must be the rows', all of them and in
+ * their order, each turned round: the sheet prints "May be corrosive to metals (H290)" and the record stores
+ * "H290: May be corrosive to metals", with the codes of a pair in the sheet's order. No statement may carry a code
+ * listed in `never`.
+ */
+export function checkSheetHazards(sheet, field, { signalWord, statements }, never = []) {
+  const rows = (name) => sheet.supports.filter((row) => row.field === `${field}.${name}`)
+  const signalWords = rows('signalWord')
+  if (signalWords.length !== 1) throw new Error(`the source "${sheet.id}" has ${signalWords.length} rows for ${field}.signalWord, expected 1`)
+  if (signalWords[0].prints.toLowerCase() !== signalWord.toLowerCase()) {
+    throw new Error(`the source "${sheet.id}" prints the signal word "${signalWords[0].prints}", not "${signalWord}"`)
+  }
+  statements.forEach((statement, i) => {
+    const [, codes] = SHEET_STATEMENT.exec(statement) ?? []
+    if (!codes) throw new Error(`${field}.statements[${i}]: ${JSON.stringify(statement)} is not a hazard code, or codes joined by "+", then a colon, a space and a statement`)
+    const refused = codes.split('+').find((code) => never.includes(code))
+    if (refused) throw new Error(`${field}.statements[${i}] carries the code ${refused}, which this bottle must not carry`)
+  })
+  const printed = sheet.supports.filter((row) => row.field.startsWith(`${field}.statements[`)).length
+  if (printed !== statements.length) {
+    throw new Error(`the source "${sheet.id}" has rows for ${printed} statements of ${field} and the record stores ${statements.length}: the bottle must carry all of them, in the sheet's order`)
+  }
+  statements.forEach((statement, i) => {
+    const [row, ...more] = rows(`statements[${i}]`)
+    if (!row || more.length > 0) throw new Error(`the source "${sheet.id}" has ${more.length + (row ? 1 : 0)} rows for ${field}.statements[${i}], expected 1`)
+    const [, said, codes] = SHEET_LINE.exec(row.prints) ?? []
+    if (!codes) throw new Error(`the source "${sheet.id}": the row for ${field}.statements[${i}] prints ${JSON.stringify(row.prints)}, which is not a statement and then its code or codes in brackets`)
+    if (`${codes}: ${said}` !== statement) throw new Error(`the source "${sheet.id}" prints ${JSON.stringify(row.prints)} for ${field}.statements[${i}], not the stored ${JSON.stringify(statement)}`)
+  })
 }
 
 /**

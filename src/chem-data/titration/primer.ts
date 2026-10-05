@@ -520,12 +520,12 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
         ],
       ),
       paragraph(
-        'Each bottle on the bench lists hazard statements, with a note under them about the solution at the strength used here. The statements are not written for these dilute solutions. Those on the acid bottle are the classification of hydrochloric acid as such, and those on the other two bottles are for the pure substance. Hydrochloric acid and sodium hydroxide both carry the statement H314: each is classified as corrosive to the skin and the eyes. Read the note as well as the statements.',
+        'Each bottle on the bench lists hazard statements, with a note under them about the solution at the strength used here. The statements are not written for these dilute solutions. Those on the acid bottle are for concentrated hydrochloric acid, 6 M to 12 M, and those on the other two bottles are for the pure substance. Concentrated hydrochloric acid and sodium hydroxide both carry the code H314: each is classified as corrosive to the skin and the eyes. Read the note as well as the statements.',
         [
           [
-            'pubchem-cid-313',
-            'the section GHS Classification, the entry for hydrochloric acid from Safe Work Australia',
-            'hydrochloric acid is classified with the signal word Danger and carries the statements H314 (corrosive to the skin and the eyes) and H335 (irritating to the airways).',
+            'flinn-sds-395',
+            "the sheet's title and its section 2 (hazards identification)",
+            'hydrochloric acid of 6 M to 12 M, which the sheet calls concentrated, carries the signal word Danger and three hazard statements: one under the codes H314 and H318, for severe burns and damage to the skin and the eyes, in category 1; one under H332 and H302, for harm when it is swallowed or breathed in; and one under H290, for possible corrosion of metals.',
           ],
           [
             'pubchem-cid-14798',
@@ -533,7 +533,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
             'sodium hydroxide is classified with the signal word Danger and carries the statement H314 (corrosive to the skin and the eyes).',
           ],
         ],
-        "which entry each bottle carries, and the note under it, are in the lab's record (spec 7.1). The entries read do not say at what strength they stop applying, and the card does not either.",
+        "which classification each bottle carries, and the note under it, are in the lab's record (spec 7.1). The sheet gives the strengths it is for, and the card repeats them. The entry for sodium hydroxide does not say at what strength it stops applying, and the card does not either. The sheet prints H314 paired with H318 under one statement, so the card says that both carry the code, not that both carry the same statement.",
       ),
       paragraph(
         "Phenolphthalein is classified as a substance that may cause cancer, and as suspected of causing genetic defects and of damaging fertility. Those are the statements on the indicator bottle, and they are for the pure substance. The indicator itself is a dilute solution of it in alcohol and water, and a titration uses two or three drops. A supplier's safety data sheet for a solution of this kind says that the solution is flammable, that it seriously irritates the eyes, and that it may cause cancer, may harm fertility or an unborn child, and may harm organs. The note under the statements on the indicator bottle gives the sheet's list, with its codes. The sheet calls for gloves and eye protection, and for keeping the solution away from flames.",

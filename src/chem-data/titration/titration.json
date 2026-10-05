@@ -4,18 +4,19 @@
       "name": "Hydrochloric acid, standardized",
       "formula": "HCl",
       "pubchemCid": 313,
-      "classifiedAs": "Hazards of hydrochloric acid, from the Safe Work Australia entry for the acid",
+      "classifiedAs": "Hazards of concentrated hydrochloric acid (6 M to 12 M), from a supplier's safety data sheet",
       "hazards": {
         "signalWord": "Danger",
         "statements": [
-          "H314: Causes severe skin burns and eye damage",
-          "H335: May cause respiratory irritation"
+          "H314+H318: Causes severe skin and eye burns and damage",
+          "H332+H302: Harmful if swallowed or inhaled",
+          "H290: May be corrosive to metals"
         ],
         "note": {
-          "value": "The acid on this bench is about 0.1 mol/L, which is about 0.4% hydrogen chloride by mass (worked out from the molarity, not read from a source). A supplier's safety data sheet for hydrochloric acid of this strength, which classifies under the United States hazard communication standard, gives the signal word Warning, not Danger: it says the solution irritates the skin, causes serious eye irritation and may corrode metals. The sheet calls for eye protection and gloves, and says that a splash in the eyes or on the skin is to be flushed with a lot of water, for 15 minutes or longer.",
+          "value": "The acid on this bench is about 0.1 mol/L, which is about 0.4% hydrogen chloride by mass (worked out from the molarity, not read from a source). A supplier's safety data sheet for hydrochloric acid of this strength, which is not the sheet the statements above come from and which classifies under the United States hazard communication standard, gives the signal word Warning, not Danger: it says the solution irritates the skin, causes serious eye irritation and may corrode metals. That sheet calls for eye protection and gloves, and says that a splash in the eyes or on the skin is to be flushed with a lot of water, for 15 minutes or longer.",
           "sourceId": "fisher-sds-hcl-0.1n"
         },
-        "sourceId": "pubchem-cid-313"
+        "sourceId": "flinn-sds-395"
       }
     },
     "naoh": {

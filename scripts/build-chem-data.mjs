@@ -21,7 +21,7 @@ import { join } from 'node:path'
 import process from 'node:process'
 import { parseSdf } from './parse-sdf.mjs'
 import { checkConfiguration, noteProblem, parseCiaawAbridged, parseNistIe, parsePubChem } from './periodic-table-lib.mjs'
-import { checkAnnualMean, checkHazards, checkMolecularWeight, checkPublished, checkSha256, checkWikipediaCopy } from './titration-lib.mjs'
+import { checkAnnualMean, checkHazards, checkMolecularWeight, checkPublished, checkSha256, checkSheetHazards, checkWikipediaCopy } from './titration-lib.mjs'
 
 const root = join(import.meta.dirname, '..')
 const research = join(root, 'docs/research/phase-2')
@@ -951,7 +951,9 @@ function buildPeriodicTable(otherSourceIds) {
 // model, and the model's parameters with their rationales. Every source is in sources/MANIFEST.json, and the ones
 // with a `file` have their copy kept beside it. A value whose source is kept is checked against the copy here. A
 // value read from a page or a PDF that is not kept cannot be: the manifest records what the source prints and
-// where, for a person to check, and src/chem-data/titration/inputs.test.ts holds the record to the manifest.
+// where, for a person to check, and src/chem-data/titration/inputs.test.ts holds the record to the manifest. The
+// acid bottle's hazard statements are of that kind, a sheet's that is read and not kept, and for them the build
+// itself holds the record to the manifest's rows.
 
 const BOTTLES = ['hcl', 'naoh', 'indicator']
 const CONSTANTS = ['waterIonProduct', 'indicatorPKas', 'indicatorMolarMass', 'indicatorStrength', 'indicatorDropVolume', 'henryCo2', 'atmosphericCo2', 'carbonicPKas']
@@ -960,6 +962,14 @@ const NOAA_ID = 'noaa-gml-co2-annmean-gl'
 const CARBONIC_ID = 'perrin-1982-wikipedia'
 const DROP_ID = 'drop-unit-wikipedia'
 const INDICATOR_RECORD_ID = 'pubchem-cid-4764'
+// The acid bottle's statements are not read from a PubChem record (the owner's decision of 2026-10-05, which amends
+// D4). They are those of a supplier's safety data sheet for concentrated hydrochloric acid, which was read and is
+// not kept, so the bottle must cite that sheet and is held to the manifest's rows for it.
+const ACID_SHEET_ID = 'flinn-sds-395'
+// "Toxic if inhaled". PubChem's record for CID 313, as it was read on 2026-10-04, printed this code under entries
+// named hydrogen chloride, the gas. D4 keeps the gas's statements off this bottle, which holds the acid, and the
+// sheet does not print the code, so the build refuses it there.
+const ACID_NEVER = ['H331']
 
 function buildTitration(otherSourceIds) {
   const read = (name) => readFileSync(join(titrationResearch, name))
@@ -1000,15 +1010,24 @@ function buildTitration(otherSourceIds) {
   onlyKeys(input.bottles, BOTTLES, 'titration.json: bottles')
   onlyKeys(input.constants, CONSTANTS, 'titration.json: constants')
 
-  // `reference` names the entry of the kept PubChem record the statements are read from. It is checked and not written out.
+  // The base's and the indicator's statements are read from the kept PubChem record of each: `reference` names the
+  // entry, and is checked and not written out. The acid's are a sheet's, and that bottle has no `reference`.
   const bottles = Object.fromEntries(
     BOTTLES.map((key) => {
       const where = `titration.json: bottles.${key}`
-      onlyKeys(input.bottles[key], ['name', 'formula', 'pubchemCid', 'classifiedAs', 'reference', 'hazards'], where)
+      const fromSheet = key === 'hcl'
+      onlyKeys(input.bottles[key], ['name', 'formula', 'pubchemCid', 'classifiedAs', ...(fromSheet ? [] : ['reference']), 'hazards'], where)
       const { reference, ...bottle } = input.bottles[key]
       onlyKeys(bottle.hazards, ['signalWord', 'statements', 'note', 'sourceId'], `${where}.hazards`)
       onlyKeys(bottle.hazards.note, ['value', 'sourceId'], `${where}.hazards.note`)
       sourceOf(bottle.hazards.note, `${where}.hazards.note`)
+      if (fromSheet) {
+        if (bottle.hazards.sourceId !== ACID_SHEET_ID) fail(`${where}.hazards: cites "${bottle.hazards.sourceId}", but the acid's statements are those of the sheet "${ACID_SHEET_ID}"`)
+        const sheet = sourceOf(bottle.hazards, `${where}.hazards`)
+        if (kept.get(sheet.id).length > 0) fail(`${where}.hazards: the sheet "${sheet.id}" is cited as read and not kept, but the manifest lists a copy of it`)
+        checkSheetHazards(sheet, `bottles.${key}.hazards`, bottle.hazards, ACID_NEVER)
+        return [key, bottle]
+      }
       const record = JSON.parse(copies(bottle.hazards, `${where}.hazards`, `pubchem-cid-${bottle.pubchemCid}`)[0])
       if (record.Record.RecordNumber !== bottle.pubchemCid) fail(`${where}: the kept record is that of CID ${record.Record.RecordNumber}`)
       checkHazards(record, reference, bottle.hazards)

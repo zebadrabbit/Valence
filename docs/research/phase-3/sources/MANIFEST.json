@@ -1,6 +1,6 @@
 {
   "retrieved": "2026-10-04",
-  "about": "Every source of the titration lab's record (docs/research/phase-3/titration.json) and of its primer (src/chem-data/titration/primer.ts), each fetched and read on the retrieval date, or on the later date its own citation gives. A source with `file` has its copy in this folder, as downloaded, with the sha256 of that copy; a source with none was read and no copy is kept. `fetchedSha256`, on a source with no copy, is the sha256 of the page as it was fetched on the day it was read: a record of which page that was, not the hash of any file here, and nothing checks it. `alsoKept` lists a second copy of the same record fetched from another address. Each `supports` row names one stored value by its path in the record, gives in `prints` the figure or label exactly as the source prints it, and says in `where`, in this project's words, where it is. A row whose field is `primer` marks a source the primer rests on: its `prints` is a title or a heading as the source prints it, and which passage a paragraph rests on, and what that passage establishes, is said in the paragraph's support line in the primer. A bottle's `reference` in the record is the name of the classification's source in the kept PubChem copy, a colon and a space, and the entry's name with the space around it removed. README.md in this folder gives the attribution the two Wikipedia copies require.",
+  "about": "Every source of the titration lab's record (docs/research/phase-3/titration.json) and of its primer (src/chem-data/titration/primer.ts), each fetched and read on the retrieval date, or on the later date its own citation gives. A source with `file` has its copy in this folder, as downloaded, with the sha256 of that copy; a source with none was read and no copy is kept. `fetchedSha256`, on a source with no copy, is the sha256 of the page as it was fetched on the day it was read, or, for a page that a script draws (the sheet `flinn-sds-395`), of the text the page showed in a browser that day: a record of which page that was, not the hash of any file here, and nothing checks it. `alsoKept` lists a second copy of the same record fetched from another address. Each `supports` row names one stored value by its path in the record, gives in `prints` the figure or label exactly as the source prints it, and says in `where`, in this project's words, where it is. A row whose field is `primer` marks a source the primer rests on: its `prints` is a title or a heading as the source prints it, and which passage a paragraph rests on, and what that passage establishes, is said in the paragraph's support line in the primer. The statements of two bottles, the base and the indicator, are read from a kept PubChem copy, and such a bottle's `reference` in the record is the name of the classification's source in that copy, a colon and a space, and the entry's name with the space around it removed. The acid bottle's statements are those of a supplier's safety data sheet for concentrated acid, read and not kept, and it has no `reference`: the rows of `flinn-sds-395` give what the sheet prints, and say in which form the statements are stored and why. README.md in this folder gives the attribution the two Wikipedia copies require.",
   "sources": [
     {
       "id": "tamura-1996",
@@ -176,35 +176,6 @@
       ]
     },
     {
-      "id": "pubchem-cid-313",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/compound/313",
-      "citation": "PubChem, National Library of Medicine (NCBI). Compound summary for CID 313 (hydrochloric acid), section GHS Classification: the entry \"hydrochloric acid\" that PubChem gives from the Hazardous Chemical Information System (HCIS) of Safe Work Australia, which is the entry for the acid, the solution. The record's entries named \"hydrogen chloride\" are for the gas and are not the ones used (data: https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/313/JSON?heading=GHS+Classification, retrieved 2026-10-04).",
-      "file": "pubchem-cid-313-ghs.json",
-      "sha256": "0bd32ef502d98ac0b90bdbffa37e6f4b4060b302688c5c0d57cbef885b568c92",
-      "supports": [
-        {
-          "field": "bottles.hcl.hazards.signalWord",
-          "prints": "Danger",
-          "where": "The entry named hydrochloric acid from Safe Work Australia's Hazardous Chemical Information System (reference number 59 in the copy), under Signal."
-        },
-        {
-          "field": "bottles.hcl.hazards.statements[0]",
-          "prints": "H314: Causes severe skin burns and eye damage [Danger Skin corrosion/irritation]",
-          "where": "The same entry, under GHS Hazard Statements, the first of two."
-        },
-        {
-          "field": "bottles.hcl.hazards.statements[1]",
-          "prints": "H335: May cause respiratory irritation [Warning Specific target organ toxicity, single exposure; Respiratory tract irritation]",
-          "where": "The same entry, the second statement. The two entries named hydrogen chloride (reference numbers 60 and 101) print H331 in its place; that code is the gas's and is not stored."
-        },
-        {
-          "field": "primer",
-          "prints": "GHS Classification",
-          "where": "The heading of the section the bottle's statements are read from. The primer's safety card says which entry's statements the bottle carries, as the rows above record."
-        }
-      ]
-    },
-    {
       "id": "pubchem-cid-14798",
       "url": "https://pubchem.ncbi.nlm.nih.gov/compound/14798",
       "citation": "PubChem, National Library of Medicine (NCBI). Compound summary for CID 14798 (sodium hydroxide), section GHS Classification: the entry \"sodium hydroxide; caustic soda\" that PubChem gives from Regulation (EC) No 1272/2008 of the European Parliament and of the Council (data: https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/14798/JSON?heading=GHS+Classification, retrieved 2026-10-04).",
@@ -253,6 +224,54 @@
           "field": "constants.indicatorStrength.note",
           "prints": "5 g/L",
           "where": "The table of reference methods lower on the page, in the reagent name of an ASTM method this product serves: the same strength as a mass in a volume, which is 0.5 g in 100 mL."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-395",
+      "url": "https://www.flinnsci.com/sds_395-hydrochloric-acid-6-m---12-m-concentrated/sds_395",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Hydrochloric Acid 6 M - 12 M (Concentrated), SDS number sds_395; revision date December 3, 2018 (read on 2026-10-05; no copy is kept).",
+      "fetchedSha256": "7f7a4674e69680d31910c4146a6f1e8a7527185259521bcd8de94ad93114b7c8",
+      "supports": [
+        {
+          "field": "bottles.hcl.classifiedAs",
+          "prints": "6 M - 12 M (Concentrated)",
+          "where": "The sheet's title, after the words Hydrochloric Acid: the strengths the sheet is for. The heading over the bottle's statements gives them as 6 M to 12 M."
+        },
+        {
+          "field": "bottles.hcl.classifiedAs",
+          "prints": "20-38%",
+          "where": "Section 3, the concentration column, in the row for hydrochloric acid, the rest being water: the composition the sheet gives for the solution its title names. The sheet does not say on what basis the percentage is."
+        },
+        {
+          "field": "bottles.hcl.hazards",
+          "prints": "December 3, 2018",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "bottles.hcl.hazards.signalWord",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Danger, the form its schema has for the word."
+        },
+        {
+          "field": "bottles.hcl.hazards.statements[0]",
+          "prints": "Causes severe skin and eye burns and damage (H314+H318)",
+          "where": "Section 2, the first of the three hazard classes it lists: category 1, for corrosion or irritation of the skin and damage to the eyes. The sheet prints each statement and then its code or codes in brackets, and where it pairs two codes it joins them with a plus sign and gives the pair one statement in wording of its own. The record stores the sheet's own three lines, each with its codes in front as printed, then a colon and the statement, and not one line for each code in the GHS's standard wording for that code: the sheet does not print that wording, and a line for each code would put under this source words that are not in it."
+        },
+        {
+          "field": "bottles.hcl.hazards.statements[1]",
+          "prints": "Harmful if swallowed or inhaled (H332+H302)",
+          "where": "Section 2, the second of the three: category 4, for acute toxicity by mouth and by breathing in. The two codes are stored in the order the sheet prints them."
+        },
+        {
+          "field": "bottles.hcl.hazards.statements[2]",
+          "prints": "May be corrosive to metals (H290)",
+          "where": "Section 2, the last of the three: category 1, for corrosion of metals. The section prints no other hazard code, and so not H331, which the build refuses on this bottle. After the three classes it has one more sentence, on a cancer listing for mists of the acid in industry: that sentence carries no hazard code, is not a GHS hazard statement, and is not carried into the record."
+        },
+        {
+          "field": "primer",
+          "prints": "Hydrochloric Acid 6 M - 12 M (Concentrated) Safety Data Sheet (SDS)",
+          "where": "The sheet's title. The primer's safety card rests on the title and on section 2, as the rows above record them."
         }
       ]
     },
