@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { findInstitutionText } from '@/chem-data/denylist'
 import { titrationData } from '@/chem-data/titration/data'
-import { can, createLab, currentTrial, modelFrom, trialOutcome, warnings, type Blocked, type TrialOutcome } from '@/engine/titration'
-import { honestReading, learner } from '@/engine/titration/testkit'
+import { can, createLab, currentTrial, modelFrom, trialOutcome, warnings, type Action, type Blocked, type TitrationState, type TrialOutcome } from '@/engine/titration'
+import { calculatedMolarityE6, honestReading, learner } from '@/engine/titration/testkit'
 import spec from '../../../../docs/superpowers/specs/2026-10-03-valence-v1-design.md?raw'
 import * as shellText from '../shellText'
 import { percentErrorText, readingText } from './format'
@@ -166,6 +166,36 @@ describe('feedback on a trial', () => {
     expect(OUTCOME_TEXT.largerHere).not.toMatch(shown)
     expect(feedback(failedLow, 0).join(' ')).toMatch(shown)
     for (const outcome of [closeWithErrors, ...REASONS.map(invalid)]) expect(feedback(outcome, 0).join(' ')).not.toMatch(shown)
+  })
+
+  it('under a failed trial it says so only when every cause named is a technique cause: beside a misread or a miscopied label the technique mistake may not be what shows (seed 1, Challenge)', () => {
+    const last = (lab: TitrationState) => {
+      const outcome = trialOutcome(m, lab, currentTrial(lab))
+      return { outcome, lines: feedback(outcome, 0) }
+    }
+    // The burette not conditioned and the pipette not rinsed cancel exactly: read honestly this trial is within 1.0%.
+    // With the final reading typed 0.60 mL high it fails, and the misread is what the result shows.
+    let lab = titrateCarefully(m, prepared(m, 1, { condition: false, rinse: false })).state
+    lab = run(m, lab, [{ type: 'recordFinalReading', readingUl: honestReading(lab.burette.levelUl) + 600 }])
+    const { initialReadingUl, finalReadingUl } = currentTrial(lab)
+    lab = run(m, lab, [{ type: 'submitMolarity', molarityE6: calculatedMolarityE6(m, lab.hclRecordedE6!, finalReadingUl! - initialReadingUl!) }])
+    const misread = last(lab)
+    expect(misread.outcome).toMatchObject({ state: 'failed', causes: ['burette-not-conditioned', 'pipette-not-rinsed', 'final-misread'] })
+    expect(misread.lines[0]).toContain('−2.34%')
+    expect(misread.lines.at(-1)).toBe(OUTCOME_TEXT.largerHere)
+    // What is left of a bubble, 0.03 mL, pushes the molarity down; the label copied 0.0020 too high pushes it up and fails the trial.
+    lab = run(m, prepared(m, 1, { clearBubble: false }), [...Array<Action>(19).fill({ type: 'deliver', amount: 'stream' }), { type: 'discardTrial' }, { type: 'startNextTrial' }])
+    expect(lab.burette.tipAirUl).toBe(30)
+    lab = carefulTrial(m, readyTrial(m, run(m, lab, [{ type: 'recordHclMolarity', molarityE6: lab.hclRecordedE6! + 2000 }])))
+    const label = last(lab)
+    expect(label.outcome).toMatchObject({ state: 'failed', causes: ['tip-bubble', 'hcl-label-misrecorded'] })
+    expect(label.lines[0]).toContain('+1.77%')
+    expect(label.lines[0]).toContain('too high')
+    expect(label.lines[1]).toContain('the calculated molarity too low')
+    expect(label.lines.at(-1)).toBe(OUTCOME_TEXT.largerHere)
+    // With technique causes alone, readings honest and the label right, the technique is what failed the trial.
+    const threeCauses: TrialOutcome = { state: 'failed', percentError: -2.5, causes: ['burette-not-conditioned', 'tip-bubble', 'pipette-not-rinsed'], counts: false }
+    for (const outcome of [failedLow, threeCauses]) expect(feedback(outcome, 0).at(-1)).toBe(OUTCOME_TEXT.largerHereAndShown)
   })
 
   it('an open trial has none', () => {

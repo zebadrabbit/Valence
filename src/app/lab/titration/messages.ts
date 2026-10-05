@@ -150,8 +150,8 @@ export const OUTCOME_TEXT: Record<'passed' | 'notCounted' | 'closeWithTechniqueE
     'Mistakes in technique can push a result in opposite directions and cancel, and a small one may not move the result far. So a result this close does not show that the technique was sound.',
   // The model's technique errors are larger than a bench's (spec 7.3), and the learner is told so once, after the
   // causes, whenever a technique cause is named. It gives no size, so it is as true of a part of a bubble as of a
-  // whole one. Only a failed trial is told that the mistake shows in the result: a close one's did not, and an
-  // invalid one has none.
+  // whole one. Only a failed trial with no other cause is told that the mistake shows in the result: a close one's
+  // did not, an invalid one has none, and beside a misread or a miscopied label the failure may be that one's doing.
   largerHere: 'This lab makes a technique mistake cost more than it does at a real bench.',
   largerHereAndShown: 'This lab makes a technique mistake cost more than it does at a real bench, so that it shows in the result.',
   overshot:
@@ -204,12 +204,13 @@ export function feedback(outcome: TrialOutcome, waterUl: number): string[] {
           ? OUTCOME_TEXT.passed
           : OUTCOME_TEXT.notCounted
   // The technique causes carry the names of Guided's three warnings, whose table is typed from the engine's union.
-  const technique = outcome.causes.some((cause) => cause in WARNING_TEXT)
+  const isTechnique = (cause: Cause) => cause in WARNING_TEXT
+  const technique = outcome.causes.some(isTechnique)
   return [
     first,
     ...outcome.causes.map((cause) => CAUSE_TEXT[cause]),
     ...(outcome.state === 'passed' && technique ? [OUTCOME_TEXT.closeWithTechniqueError] : []),
-    ...(technique ? [outcome.state === 'failed' ? OUTCOME_TEXT.largerHereAndShown : OUTCOME_TEXT.largerHere] : []),
+    ...(technique ? [outcome.state === 'failed' && outcome.causes.every(isTechnique) ? OUTCOME_TEXT.largerHereAndShown : OUTCOME_TEXT.largerHere] : []),
     ...(waterUl > 0 ? [OUTCOME_TEXT.water] : []),
   ]
 }

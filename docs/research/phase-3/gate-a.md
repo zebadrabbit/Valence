@@ -248,6 +248,12 @@ After the commits above the branch was checked once more, at `44971d2`. One chec
 - Not done: the card does not say that a 0.1 M sodium hydroxide solution is strongly alkaline, or that alkali in the eye is treated as at least as serious as acid. The reviewer says a lab instructor would; no source was read for either. It is put to the owner below, who reads this card (D15).
 - Re-checked: a case in `primer.test.ts`, seen failing first, on the sentence and on the note and support line it rests on. The no-quotation test passes on the paragraph.
 
+**L9 (should-fix). A failed trial was told that the technique mistake "shows in the result" when it did not.** The gate had the closing sentence say so under every failed trial that names a technique cause. A failed trial is not always one where the technique mistake is what failed it.
+
+- Reproduced on seed 1 in Challenge, both of the reviewer's cases. The burette not conditioned with the pipette not rinsed, which cancel, and the final reading typed 0.60 mL high: not passed at −2.34%, causes burette, pipette and final misread, last line "so that it shows in the result". And 0.03 mL of bubble left with the label copied 0.0020 too high: not passed at +1.77%, too high, under a bubble cause that says it makes the molarity too low, and the same last line.
+- Done: `feedback` adds "so that it shows in the result" only under a failed trial whose every named cause is a technique cause. With honest readings, the label's molarity and the notebook's own arithmetic, nothing else is left to fail such a trial. Beside a misread or the label it says only that this lab makes a technique mistake cost more than it does at a real bench. No sentence changed.
+- Re-checked: a case in `messages.test.ts` that makes both trials on the engine, seen failing first on the first of them.
+
 ## What the reviewers confirmed
 
 **Constants and sources (R1).**
