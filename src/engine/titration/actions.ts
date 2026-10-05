@@ -80,11 +80,15 @@ export function flaskOf(m: TitrationModel, state: TitrationState, trial: Trial =
 export const endpointConfirmed = (m: TitrationModel, state: TitrationState) =>
   currentTrial(state).waitedS >= m.persistSeconds && isPink(m, flaskOf(m, state))
 
+/** A whole number from 0. Not negative zero: JSON writes it as 0, so a state that stored it would not come back from a reload as it went in. */
+const isCount = (n: number) => Number.isSafeInteger(n) && n >= 0 && !Object.is(n, -0)
 /** A reading on the burette's scale, typed to 0.01 mL. */
-const isReading = (m: TitrationModel, ul: number) => Number.isInteger(ul) && ul >= 0 && ul <= m.buretteCapacityUl && ul % 10 === 0
+const isReading = (m: TitrationModel, ul: number) => isCount(ul) && ul <= m.buretteCapacityUl && ul % 10 === 0
 /** A molarity below 1 with exactly four decimal places. */
-const isMolarity = (e6: number) => Number.isInteger(e6) && e6 >= 0 && e6 < 1_000_000 && e6 % 100 === 0
-const misread = (m: TitrationModel, typedUl: number, levelUl: number) => Math.abs(typedUl - levelUl) > m.readingToleranceUl
+const isMolarity = (e6: number) => isCount(e6) && e6 < 1_000_000 && e6 % 100 === 0
+/** True when a typed reading is more than readingToleranceUl from the meniscus stored with it; false while either is missing. */
+export const misread = (m: TitrationModel, typedUl: number | null, levelUl: number | null) =>
+  typedUl !== null && levelUl !== null && Math.abs(typedUl - levelUl) > m.readingToleranceUl
 
 /** The trials that count toward completion (D1): graded, within tolerance, both readings within readingToleranceUl of the meniscus, and the HCl molarity used the label's. */
 export const countingTrials = (m: TitrationModel, state: TitrationState) => {
@@ -118,7 +122,7 @@ export function can(m: TitrationModel, state: TitrationState, action: Action): B
       return open && (trial.aliquot !== 'none' || trial.initialReadingUl !== null) ? 'trial-open' : null
     case 'recordSummary':
       if (state.status !== 'completed') return 'lab-not-completed'
-      return isMolarity(action.meanE6) && Number.isSafeInteger(action.deviationE2) && action.deviationE2 >= 0 ? null : 'invalid-entry'
+      return isMolarity(action.meanE6) && isCount(action.deviationE2) ? null : 'invalid-entry'
   }
   if (state.status === 'completed') return 'lab-completed'
   switch (action.type) {

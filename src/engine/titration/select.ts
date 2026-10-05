@@ -1,4 +1,4 @@
-import { countingTrials, endpointConfirmed, flaskOf } from './actions'
+import { countingTrials, endpointConfirmed, flaskOf, misread } from './actions'
 import { percentError, summarise, withinTolerance } from './entries'
 import { compareToEquivalence, flaskChemistry, isPink, plume, type PlumeStatus } from './flask'
 import type { TitrationModel } from './model'
@@ -101,9 +101,6 @@ function techniqueCauses(trial: Trial): Cause[] {
   if (trial.aliquot === 'diluted') causes.push('pipette-not-rinsed')
   return causes
 }
-
-const misread = (m: TitrationModel, typedUl: number | null, levelUl: number | null) =>
-  typedUl !== null && levelUl !== null && Math.abs(typedUl - levelUl) > m.readingToleranceUl
 
 /**
  * A trial's result for the notebook: whether it passed, the named causes, and the signed percent error of a failed

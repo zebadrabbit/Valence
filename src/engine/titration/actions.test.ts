@@ -825,6 +825,26 @@ describe('the stored shape', () => {
     expect(passes({ ...lab, trials: [] })).toBe(false)
   })
 
+  it('no entry is a negative zero, so every state an action can store comes back from JSON as it went in', () => {
+    // -0 is a whole number, not below 0 and on every grid, and JSON writes it as 0: once stored it would not survive a reload.
+    expect(JSON.parse(JSON.stringify({ readingUl: -0 }))).not.toEqual({ readingUl: -0 })
+    const challenge = createLab(1, 'challenge')
+    const filled = run(m, challenge, [hcl(97600), act('conditionBurette'), act('fillBurette'), act('clearTipBubble')])
+    const confirmed = titrate(prepared(m, 1))
+    let done = carefulTrial(m, prepared(m, 1))
+    for (let i = 0; i < 2; i++) done = carefulTrial(m, nextTrial(done))
+    expectBlocked(challenge, hcl(-0), 'invalid-entry')
+    expectBlocked(filled, initial(-0), 'invalid-entry')
+    expectBlocked(confirmed, final(-0), 'invalid-entry')
+    expectBlocked(run(m, confirmed, [final(28260)]), molarity(-0), 'invalid-entry')
+    expectBlocked(done, summary(-0, 0), 'invalid-entry')
+    expectBlocked(done, summary(94900, -0), 'invalid-entry')
+    // A plain zero is an entry still, and is stored as typed.
+    for (const s of [run(m, challenge, [hcl(0)]), run(m, filled, [initial(0)]), run(m, done, [summary(0, 0)])]) {
+      expect(titrationStateSchema.parse(JSON.parse(JSON.stringify(s)))).toEqual(s)
+    }
+  })
+
   it('refuses a trial whose index is not its place in the list', () => {
     expect(passes(withTrial({ index: 1 }))).toBe(false)
     const two = run(m, lab, [act('startNextTrial')])
