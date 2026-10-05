@@ -12,6 +12,7 @@ import {
   currentTrial,
   flaskView,
   hclLabel,
+  percentError,
   slowDownHint,
   summaryView,
   titrationStateSchema,
@@ -55,11 +56,16 @@ function streamOut(s: TitrationState): TitrationState {
 }
 const reloaded = (s: TitrationState) => keep(titrationStateSchema.parse(JSON.parse(JSON.stringify(s))))
 
-/** A trial's outcome with its percent error to three decimals, as the plan gives them. */
+/** A trial's outcome as the app is given it; a percent error in it is to three decimals, as the plan gives them. */
 function outcome(s: TitrationState, trial: Trial = currentTrial(s)) {
   const o = trialOutcome(m, s, trial)
-  return 'percentError' in o ? { ...o, percentError: o.percentError.toFixed(3) } : o
+  return 'percentError' in o && o.percentError !== null ? { ...o, percentError: o.percentError.toFixed(3) } : o
 }
+/**
+ * The signed percent error of a graded trial's molarity, to three decimals, worked with the function the outcome
+ * uses. The outcome holds a passed trial's back until three trials count, so its value is pinned here.
+ */
+const error = (s: TitrationState, trial: Trial = currentTrial(s)) => percentError(trial.molarityE6!, labSetup(m, s.seed).naohE5).toFixed(3)
 const steps = (s: TitrationState) => checklist(m, s).map(({ step, state }) => `${step}: ${state}`)
 const stepState = (s: TitrationState, step: string) => checklist(m, s).find((c) => c.step === step)?.state
 
@@ -219,8 +225,39 @@ describe('the outcome of a trial (seed 1)', () => {
     expect(outcome(titrate(prepared(m, 1)))).toEqual({ state: 'open' })
   })
 
-  it('the careful trial passes at -0.126 with no cause, and counts', () => {
-    expect(outcome(carefulTrial(m, prepared(m, 1)))).toEqual({ state: 'passed', percentError: '-0.126', causes: [], counts: true })
+  it('the careful trial passes at -0.126 with no cause, and counts; its percent error is not given', () => {
+    const s = carefulTrial(m, prepared(m, 1))
+    expect(outcome(s)).toEqual({ state: 'passed', percentError: null, causes: [], counts: true })
+    expect(error(s)).toBe('-0.126')
+  })
+
+  it('spec 7.3, a passing trial shows no percent error: it is held back until three trials count, then given for every graded trial', () => {
+    // One passed trial's percent error would give the hidden molarity: 0.0949 at -0.126% is 0.09502.
+    let s = carefulTrial(m, prepared(m, 1))
+    s = carefulTrial(m, nextTrial(s))
+    expect(s.trials.map((t) => outcome(s, t))).toEqual([
+      { state: 'passed', percentError: null, causes: [], counts: true },
+      { state: 'passed', percentError: null, causes: [], counts: true },
+    ])
+    expect(trueNaoh(m, s)).toBeNull()
+    s = carefulTrial(m, nextTrial(s))
+    expect(trueNaoh(m, s)).toBe('0.09502')
+    expect(s.trials.map((t) => outcome(s, t))).toEqual([
+      { state: 'passed', percentError: '-0.126', causes: [], counts: true },
+      { state: 'passed', percentError: '-0.232', causes: [], counts: true },
+      { state: 'passed', percentError: '-0.126', causes: [], counts: true },
+    ])
+    expect(s.trials.map((t) => error(s, t))).toEqual(['-0.126', '-0.232', '-0.126'])
+  })
+
+  it('a failed trial shows its percent error at once (D1), and a passed trial beside it still shows none', () => {
+    let s = carefulTrial(m, prepared(m, 1, { rinse: false }))
+    s = carefulTrial(m, nextTrial(s))
+    expect(s.trials.map((t) => outcome(s, t))).toEqual([
+      { state: 'failed', percentError: '1.873', causes: ['pipette-not-rinsed'], counts: false },
+      { state: 'passed', percentError: null, causes: [], counts: true },
+    ])
+    expect(error(s)).toBe('-0.232')
   })
 
   it('all three technique errors together: failed, the three causes in order', () => {
@@ -232,29 +269,37 @@ describe('the outcome of a trial (seed 1)', () => {
     let s = run(m, createLab(1, 'challenge'), [hcl(96700), act('conditionBurette'), act('fillBurette'), act('clearTipBubble'), initial(2650)])
     s = titrate(run(m, s, [act('rinsePipette'), act('pipetteAliquot'), act('addIndicatorDrop'), act('addIndicatorDrop')]))
     s = run(m, s, [final(28260), molarity(94400)])
-    expect(outcome(s)).toEqual({ state: 'passed', percentError: '-0.652', causes: ['initial-misread', 'hcl-label-misrecorded'], counts: false })
+    expect(outcome(s)).toEqual({ state: 'passed', percentError: null, causes: ['initial-misread', 'hcl-label-misrecorded'], counts: false })
+    expect(error(s)).toBe('-0.652')
   })
 
   it('the final reading typed 28.29, 27 uL off: passed at -0.232, the misread named, does not count', () => {
-    expect(outcome(finish(titrate(prepared(m, 1)), 28290))).toEqual({ state: 'passed', percentError: '-0.232', causes: ['final-misread'], counts: false })
+    const s = finish(titrate(prepared(m, 1)), 28290)
+    expect(outcome(s)).toEqual({ state: 'passed', percentError: null, causes: ['final-misread'], counts: false })
+    expect(error(s)).toBe('-0.232')
   })
 
   it('a reading 17 uL off is no cause, and the trial counts', () => {
-    expect(outcome(finish(titrate(prepared(m, 1)), 28280))).toEqual({ state: 'passed', percentError: '-0.126', causes: [], counts: true })
+    const s = finish(titrate(prepared(m, 1)), 28280)
+    expect(outcome(s)).toEqual({ state: 'passed', percentError: null, causes: [], counts: true })
+    expect(error(s)).toBe('-0.126')
   })
 
   it('a reading exactly 0.02 mL off is no cause, and one 0.03 mL off is (seed 11: meniscus at 1780 uL, then at 25 530)', () => {
-    const typed = (initialUl: number, finalUl: number) => outcome(finish(titrate(run(m, prepared(m, 11), [initial(initialUl)])), finalUl))
-    expect(typed(1760, 25530)).toEqual({ state: 'passed', percentError: '-0.199', causes: [], counts: true })
-    expect(typed(1750, 25530)).toEqual({ state: 'passed', percentError: '-0.199', causes: ['initial-misread'], counts: false })
+    const graded = (initialUl: number, finalUl: number) => finish(titrate(run(m, prepared(m, 11), [initial(initialUl)])), finalUl)
+    const typed = (initialUl: number, finalUl: number) => outcome(graded(initialUl, finalUl))
+    expect(typed(1760, 25530)).toEqual({ state: 'passed', percentError: null, causes: [], counts: true })
+    expect(typed(1750, 25530)).toEqual({ state: 'passed', percentError: null, causes: ['initial-misread'], counts: false })
+    expect([error(graded(1760, 25530)), error(graded(1750, 25530))]).toEqual(['-0.199', '-0.199'])
     expect(typed(1780, 25550)).toMatchObject({ state: 'passed', causes: [], counts: true })
     expect(typed(1780, 25560)).toMatchObject({ state: 'passed', causes: ['final-misread'], counts: false })
   })
 
   it('a trial keeps the cause of the HCl molarity it was graded with, after the notebook has been put right', () => {
     let s = carefulTrial(m, run(m, prepared(m, 1), [hcl(96700)]))
-    const expected = { state: 'passed', percentError: '-0.968', causes: ['hcl-label-misrecorded'], counts: false }
+    const expected = { state: 'passed', percentError: null, causes: ['hcl-label-misrecorded'], counts: false }
     expect(outcome(s)).toEqual(expected)
+    expect(error(s)).toBe('-0.968')
     s = run(m, s, [hcl(97600)])
     expect(outcome(s)).toEqual(expected)
   })
@@ -267,7 +312,9 @@ describe('the outcome of a trial (seed 1)', () => {
     const s = d1Route()
     expect(outcome(s, s.trials[0])).toEqual({ state: 'failed', percentError: '-2.126', causes: ['burette-not-conditioned'], counts: false })
     for (const trial of s.trials.slice(1)) {
-      expect(outcome(s, trial)).toEqual({ state: 'passed', percentError: '-0.021', causes: ['burette-not-conditioned', 'final-misread'], counts: false })
+      // Three trials that pass and none that counts: the lab is not done, so none of them shows a percent error.
+      expect(outcome(s, trial)).toEqual({ state: 'passed', percentError: null, causes: ['burette-not-conditioned', 'final-misread'], counts: false })
+      expect(error(s, trial)).toBe('-0.021')
     }
   })
 })
@@ -377,7 +424,14 @@ describe('records no lab could make', () => {
   it('a graded trial with no readings names no misread and does not count', () => {
     const graded = carefulTrial(m, prepared(m, 1))
     const s = reloaded({ ...graded, trials: [{ ...graded.trials[0]!, startLevelUl: null, initialReadingUl: null, endLevelUl: null, finalReadingUl: null }] })
-    expect(outcome(s)).toEqual({ state: 'passed', percentError: '-0.126', causes: [], counts: false })
+    expect(outcome(s)).toEqual({ state: 'passed', percentError: null, causes: [], counts: false })
+    expect(error(s)).toBe('-0.126')
+  })
+
+  it('three trials that count and a status that says in progress: the percent errors are given with the true molarity, whatever the status says', () => {
+    const s = reloaded({ ...completed(), status: 'in-progress' })
+    expect(trueNaoh(m, s)).toBe('0.09502')
+    expect(s.trials.map((t) => outcome(s, t))).toMatchObject([{ percentError: '-0.126' }, { percentError: '-0.232' }, { percentError: '-0.126' }])
   })
 })
 

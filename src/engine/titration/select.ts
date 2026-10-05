@@ -84,8 +84,13 @@ export type TrialOutcome =
   | { state: 'open' }
   /** Technique causes only: nothing was typed that could be judged. */
   | { state: 'invalid'; reason: 'overshot' | 'ran-out' | 'discarded'; causes: Cause[] }
-  /** `counts` is false for every failed trial, and for a passing one with a misread or a label that was not the bottle's (D1). */
-  | { state: 'passed' | 'failed'; percentError: number; causes: Cause[]; counts: boolean }
+  /** A failed trial shows its signed percent error (D1). `counts` is false for every failed trial. */
+  | { state: 'failed'; percentError: number; causes: Cause[]; counts: boolean }
+  /**
+   * `percentError` is null until three trials count: one passed trial's would give the hidden molarity, and the lab
+   * shows that molarity itself only then. `counts` is false with a misread or a label that was not the bottle's (D1).
+   */
+  | { state: 'passed'; percentError: number | null; causes: Cause[]; counts: boolean }
 
 /** What went wrong at the bench, from the stored trial alone. */
 function techniqueCauses(trial: Trial): Cause[] {
@@ -101,8 +106,8 @@ const misread = (m: TitrationModel, typedUl: number | null, levelUl: number | nu
   typedUl !== null && levelUl !== null && Math.abs(typedUl - levelUl) > m.readingToleranceUl
 
 /**
- * A trial's result for the notebook: its signed percent error and the named causes, never the expected value.
- * `trial` is one of `state.trials`.
+ * A trial's result for the notebook: whether it passed, the named causes, and the signed percent error of a failed
+ * trial, or of any graded trial once three count. Never the expected value. `trial` is one of `state.trials`.
  */
 export function trialOutcome(m: TitrationModel, state: TitrationState, trial: Trial): TrialOutcome {
   if (trial.end === 'open') return { state: 'open' }
@@ -114,12 +119,10 @@ export function trialOutcome(m: TitrationModel, state: TitrationState, trial: Tr
   if (misread(m, trial.initialReadingUl, trial.startLevelUl)) causes.push('initial-misread')
   if (misread(m, trial.finalReadingUl, trial.endLevelUl)) causes.push('final-misread')
   if (trial.hclUsedE6 !== hclE4 * 100) causes.push('hcl-label-misrecorded')
-  return {
-    state: withinTolerance(m, trial.molarityE6, naohE5) ? 'passed' : 'failed',
-    percentError: percentError(trial.molarityE6, naohE5),
-    causes,
-    counts: countingTrials(m, state).includes(trial),
-  }
+  const counting = countingTrials(m, state)
+  const error = percentError(trial.molarityE6, naohE5)
+  if (!withinTolerance(m, trial.molarityE6, naohE5)) return { state: 'failed', percentError: error, causes, counts: false }
+  return { state: 'passed', percentError: counting.length >= m.passesToComplete ? error : null, causes, counts: counting.includes(trial) }
 }
 
 /** The true NaOH molarity ("0.09502"); null until three trials count, whatever the record's status says. */

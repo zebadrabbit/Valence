@@ -3,10 +3,12 @@
 import { describe, expect, it } from 'vitest'
 import { titrationData } from '@/chem-data/titration/data'
 import { can, countingTrials, endpointConfirmed, flaskOf, type Action } from './actions'
+import { percentError } from './entries'
 import { equivalenceUl, flaskChemistry, isPink, type Flask } from './flask'
 import type { TitrationModel } from './model'
 import { PINNED_MODEL as m } from './pinnedModel'
 import { trialOutcome } from './select'
+import { labSetup } from './setup'
 import { currentTrial, titrationStateSchema, type TitrationState, type Trial } from './state'
 import { calculatedMolarityE6, learner, type Technique } from './testkit'
 
@@ -25,10 +27,21 @@ function graded(s: TitrationState, trial: Trial = currentTrial(s)) {
   if (outcome.state !== 'passed' && outcome.state !== 'failed') throw new Error(`trial ${trial.index} is ${outcome.state}`)
   return outcome
 }
+/**
+ * The signed percent error of a graded trial's molarity, worked with the function the outcome uses. The outcome
+ * itself holds a passed trial's back until three trials count (spec 7.3), so wherever it does give one, it is this.
+ */
+function errorOf(s: TitrationState, trial: Trial = currentTrial(s)): number {
+  const error = percentError(trial.molarityE6!, labSetup(m, s.seed).naohE5)
+  const outcome = graded(s, trial)
+  if (outcome.state === 'failed' || countingTrials(m, s).length >= m.passesToComplete) expect(outcome.percentError).toBe(error)
+  else expect(outcome.percentError).toBeNull()
+  return error
+}
 /** A graded trial as the plan gives it: pass or fail, the percent error to three decimals, the causes. */
 const result = (s: TitrationState, trial?: Trial) => {
-  const { state, percentError, causes } = graded(s, trial)
-  return { state, percentError: percentError.toFixed(3), causes }
+  const { state, causes } = graded(s, trial)
+  return { state, percentError: errorOf(s, trial).toFixed(3), causes }
 }
 /**
  * The careful first trial of a seed, titrated to its confirmed endpoint. Most checks start from it, and a state is
@@ -226,13 +239,17 @@ describe('spec 7.4 checks 7 and 8, a careful lab', () => {
           let s = finishHonestly(m, carefulRun(seed, drops).state)
           s = carefulTrial(m, nextTrial(s, { drops }))
           expect(s.status).toBe('in-progress')
+          // Two trials count and the lab is not done: neither shows its percent error.
+          expect(s.trials.map((trial) => graded(s, trial).percentError)).toEqual([null, null])
           s = carefulTrial(m, nextTrial(s, { drops }))
           expect(s.status).toBe('completed')
           expect(s.trials).toHaveLength(3)
           for (const trial of s.trials) {
             const outcome = graded(s, trial)
             expect(outcome).toMatchObject({ state: 'passed', causes: [], counts: true })
-            errors.push(outcome.percentError)
+            // The completed lab gives each trial's percent error, the one worked from its typed molarity.
+            expect(outcome.percentError).toBe(errorOf(s, trial))
+            errors.push(outcome.percentError!)
           }
         }
       }
@@ -260,7 +277,7 @@ describe('spec 7.4 check 8, technique errors: each alone moves the calculated mo
           expect(currentTrial(titrated).end).toBe('open') // not overshot: judged on this flask's own equivalence volume
           const flawed = finishHonestly(m, titrated)
           expect(graded(flawed)).toMatchObject({ state: 'failed', causes: [cause], counts: false })
-          const shift = graded(flawed).percentError - graded(careful).percentError
+          const shift = errorOf(flawed) - errorOf(careful)
           expect(sign * shift).toBeGreaterThan(1.5)
           shifts.push(shift)
         }
