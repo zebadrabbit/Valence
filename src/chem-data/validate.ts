@@ -2,6 +2,7 @@ import { findInstitutionText, findName } from './denylist'
 import { valenceElectrons } from './element'
 import { angleDeg, dihedralDeg, distance } from './geometry'
 import { periodicTableSchema, registrySchema, type PeriodicElement, type Registry, type Source } from './schema'
+import { titrationSchema } from './titration/data'
 
 export interface ValidateOptions {
   institutionNames?: readonly string[]
@@ -349,5 +350,22 @@ export function validatePeriodicTable(input: unknown, sources: readonly Source[]
     ...checkSourceIds(table, 'periodicTable', Array.isArray(sources) ? sources : []),
     ...checkPublished(table, 'periodicTable'),
     ...checkProse(table, 'periodicTable', Array.isArray(names) ? names : []),
+  ]
+}
+
+/**
+ * Checks the titration lab's record against the sources it cites: the schema, that every source named exists, that
+ * each `published` reads as the number stored beside it, and that no name, statement, note or rationale holds
+ * institution text. Returns a list of problems; an empty list means the record is valid. Never throws, whatever it
+ * is given. That each value is what its source prints is checked by the build script against the kept copies.
+ */
+export function validateTitration(input: unknown, sources: readonly Source[], options: ValidateOptions = {}): string[] {
+  const parsed = titrationSchema.safeParse(input)
+  if (!parsed.success) return schemaErrors(parsed.error.issues)
+  const names = options?.institutionNames
+  return [
+    ...checkSourceIds(parsed.data, 'titration', Array.isArray(sources) ? sources : []),
+    ...checkPublished(parsed.data, 'titration'),
+    ...checkProse(parsed.data, 'titration', Array.isArray(names) ? names : []),
   ]
 }

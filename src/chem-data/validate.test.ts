@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import type { Molecule, PeriodicElement } from './schema'
-import { validatePeriodicTable, validateRegistry } from './validate'
+import { FIXTURE_SOURCES, titrationFixture, titrationFixtureWith } from './titration/fixture'
+import { validatePeriodicTable, validateRegistry, validateTitration } from './validate'
 
-const hazards = { signalWord: 'Warning', statements: ['Harmful if swallowed'], note: 'Dilute solution.', sourceId: 's1' }
+const hazards = { signalWord: 'Warning', statements: ['Harmful if swallowed'], note: { value: 'Dilute solution.', sourceId: 's1' }, sourceId: 's1' }
 
 // Only the shells matter to the validator; the other values are placeholders.
 function element(symbol: string, atomicNumber: number, shells: number[]) {
@@ -751,5 +752,93 @@ describe('validatePeriodicTable', () => {
     table[0]!.notes = [{ row: 'density', text: 'Weighed at Example State.', sourceId: 's1' }]
     expect(validatePeriodicTable(table, sources)).toEqual([])
     expect(validatePeriodicTable(table, sources, { institutionNames: ['Example State'] }).join('\n')).toMatch(/contains the name/)
+  })
+})
+
+describe('validateTitration', () => {
+  const errorsWith = (path: string, value?: unknown) => validateTitration(titrationFixtureWith(path, value), FIXTURE_SOURCES)
+
+  it('accepts a valid record', () => {
+    expect(validateTitration(titrationFixture(), FIXTURE_SOURCES)).toEqual([])
+  })
+
+  describe('never throws on malformed input', () => {
+    it.each([null, 42, [], 'record', {}])('returns schema errors for %j', (input) => {
+      const errors = validateTitration(input, FIXTURE_SOURCES)
+      expect(errors.length).toBeGreaterThan(0)
+      expect(errors.every((e) => e.startsWith('schema:'))).toBe(true)
+    })
+
+    it('counts a missing list of sources as no sources, and takes missing options', () => {
+      const cited = validateTitration(titrationFixture(), []).length
+      expect(cited).toBe(16)
+      expect(validateTitration(titrationFixture(), null as unknown as []).length).toBe(cited)
+      expect(validateTitration(titrationFixture(), FIXTURE_SOURCES, null as unknown as undefined)).toEqual([])
+      expect(validateTitration(titrationFixture(), FIXTURE_SOURCES, { institutionNames: null as unknown as [] })).toEqual([])
+    })
+  })
+
+  it('rejects an unknown source on a constant', () => {
+    expect(errorsWith('constants.henryCo2.sourceId', 'nowhere')).toEqual(['titration.constants.henryCo2.sourceId: unknown source "nowhere"'])
+    expect(errorsWith('constants.indicatorPKas.1.sourceId', 'nowhere')).toEqual(['titration.constants.indicatorPKas[1].sourceId: unknown source "nowhere"'])
+  })
+
+  it("rejects an unknown source on a bottle's classification", () => {
+    expect(errorsWith('bottles.hcl.hazards.sourceId', 'nowhere')).toEqual(['titration.bottles.hcl.hazards.sourceId: unknown source "nowhere"'])
+  })
+
+  it('rejects an unknown source on a hazard note', () => {
+    expect(errorsWith('bottles.indicator.hazards.note.sourceId', 'nowhere')).toEqual([
+      'titration.bottles.indicator.hazards.note.sourceId: unknown source "nowhere"',
+    ])
+  })
+
+  it('rejects a published text that is not the stored value', () => {
+    expect(errorsWith('constants.henryCo2.published', '0.035')).toEqual(['titration.constants.henryCo2: published "0.035" is not the stored value 0.034'])
+    expect(errorsWith('constants.carbonicPKas.0.published', '6.3')).toEqual(['titration.constants.carbonicPKas[0]: published "6.3" is not the stored value 6.35'])
+  })
+
+  it('rejects a published text that is not a plain decimal, even where it reads as the value', () => {
+    expect(errorsWith('constants.henryCo2.published', 'about 0.034')).toEqual(['titration.constants.henryCo2: published "about 0.034" is not the stored value 0.034'])
+    expect(errorsWith('constants.waterIonProduct.published', '1e-14')).toEqual(['titration.constants.waterIonProduct: published "1e-14" is not the stored value 1e-14'])
+    expect(errorsWith('constants.waterIonProduct.published', '1.0 × 10⁻¹⁴').length).toBe(1)
+  })
+
+  it('accepts a published text with a trailing zero', () => {
+    expect(titrationFixture().constants.indicatorPKas[1]).toMatchObject({ value: 9.5, published: '9.50' })
+    expect(errorsWith('constants.indicatorStrength.published', '0.50')).toEqual([])
+  })
+
+  it('rejects a parameter with no rationale', () => {
+    expect(errorsWith('parameters.dropUl.rationale')).toEqual(['schema: parameters.dropUl.rationale: Invalid input: expected string, received undefined'])
+  })
+
+  it('rejects institution-specific text in a rationale', () => {
+    expect(errorsWith('parameters.dropUl.rationale', 'The dropper kept in Room 214 gives this drop.')).toEqual([
+      'titration.parameters.dropUl.rationale: looks like a location ("Room 214")',
+    ])
+  })
+
+  it('accepts a rationale that says "room temperature"', () => {
+    expect(errorsWith('parameters.dropUl.rationale', 'One drop at room temperature.')).toEqual([])
+  })
+
+  it("rejects institution-specific text in a hazard note, a constant's note and a bottle's name", () => {
+    expect(errorsWith('bottles.naoh.hazards.note.value', 'Kept in cabinet B3.').join()).toMatch(/hazards\.note\.value: looks like a location/)
+    expect(errorsWith('constants.waterIonProduct.note', 'As taught in CHEM 1411.').join()).toMatch(/waterIonProduct\.note: looks like a course number/)
+    expect(validateTitration(titrationFixtureWith('bottles.hcl.name', 'Example State hydrochloric acid'), FIXTURE_SOURCES, { institutionNames: ['Example State'] }).join()).toMatch(
+      /bottles\.hcl\.name: contains the name/,
+    )
+  })
+
+  it('rejects a hazard note with no source', () => {
+    const bare = errorsWith('bottles.hcl.hazards.note', 'A dilute solution.')
+    expect(bare.length).toBe(1)
+    expect(bare[0]).toMatch(/^schema: bottles\.hcl\.hazards\.note: /)
+    expect(errorsWith('bottles.hcl.hazards.note.sourceId')).toEqual(['schema: bottles.hcl.hazards.note.sourceId: Invalid input: expected string, received undefined'])
+  })
+
+  it('rejects a constant with no sourceId', () => {
+    expect(errorsWith('constants.indicatorMolarMass.sourceId')).toEqual(['schema: constants.indicatorMolarMass.sourceId: Invalid input: expected string, received undefined'])
   })
 })
