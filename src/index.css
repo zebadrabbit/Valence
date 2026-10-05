@@ -133,6 +133,8 @@
     }
   html {
     @apply font-sans;
+    /* Keeps the scrollbar's width reserved, so a page growing past the window does not shift sideways. */
+    scrollbar-gutter: stable;
     }
 }
 
