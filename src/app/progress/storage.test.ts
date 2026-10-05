@@ -6,8 +6,8 @@ import {
   createMemoryStore,
   exportAll,
   loadEntry,
+  NOT_SAVING_TEXT,
   peekStatus,
-  reportingStore,
   saveEntry,
   sessionStore,
   type KeyValueStore,
@@ -193,37 +193,104 @@ function fillable() {
   return { inner, store, state }
 }
 
-describe('reportingStore', () => {
-  it('reads and writes through to the store it wraps, and reports every write that succeeds', () => {
-    const inner = createMemoryStore()
-    const results: boolean[] = []
-    const store = reportingStore(inner, (saved) => results.push(saved))
-    expect(saveEntry(store, 'lab:titration', 1, { status: 'in-progress', seed: 42 })).toBe(true)
-    expect(inner.getItem('valence:lab:titration')).not.toBeNull()
-    expect(loadEntry(store, 'lab:titration', 1, schema)).toEqual({ status: 'in-progress', seed: 42 })
-    expect([store.length, store.key(0)]).toEqual([1, 'valence:lab:titration'])
-    clearAll(store)
-    expect(inner.length).toBe(0)
-    // One write, which succeeded. Reading and removing report nothing.
-    expect(results).toEqual([true])
+/**
+ * The store the app saves through, on storage that works unless told otherwise, with what `onPersistent` was told,
+ * in order. `refuse` is a save made while the storage is full.
+ */
+function session(persistent = true) {
+  const { inner, store: refusing, state } = fillable()
+  const told: boolean[] = []
+  const store = sessionStore({ store: refusing, persistent }, (now) => told.push(now))
+  const save = (name: string) => saveEntry(store, name, 1, { status: 'in-progress', seed: 42 })
+  const refuse = (name: string) => {
+    state.full = true
+    const saved = save(name)
+    state.full = false
+    return saved
+  }
+  return { inner, store, state, told, save, refuse }
+}
+
+describe('the not-saving notice: what sessionStore tells onPersistent, in order', () => {
+  it('a lab save refused, then preferences saved: false, false', () => {
+    const { inner, store, state, told, save, refuse } = session()
+    expect(refuse('lab:titration')).toBe(false)
+    expect(save('prefs')).toBe(true)
+    expect(told).toEqual([false, false])
+    // The save that was taken went to the store it wraps, and the refused one did not.
+    expect(inner.getItem('valence:prefs')).not.toBeNull()
+    expect(inner.getItem('valence:lab:titration')).toBeNull()
+    // A refused write is reported before its error reaches the caller.
+    state.full = true
+    let toldWhenThrown: boolean[] = []
+    try {
+      store.setItem('valence:lab:aqueous', '{}')
+    } catch {
+      toldWhenThrown = [...told]
+    }
+    expect(toldWhenThrown).toEqual([false, false, false])
   })
 
-  it('reports a save that fails mid-session, and the save still returns false; then the next one that succeeds', () => {
-    const { inner, store: refusing, state } = fillable()
-    const results: boolean[] = []
-    const store = reportingStore(refusing, (saved) => results.push(saved))
-    expect(saveEntry(store, 'prefs', 1, { a: 1 })).toBe(true)
-    expect(results).toEqual([true])
-    state.full = true
-    expect(saveEntry(store, 'prefs', 1, { a: 2 })).toBe(false)
-    expect(results).toEqual([true, false])
-    // What was saved before the failure is still there.
-    expect(JSON.parse(inner.getItem('valence:prefs') ?? '')).toEqual({ version: 1, data: { a: 1 } })
-    // "Clear my progress" frees the storage, and a save succeeds again.
+  it('... then the lab saved: false, false, true', () => {
+    const { told, save, refuse } = session()
+    refuse('lab:titration')
+    save('prefs')
+    expect(save('lab:titration')).toBe(true)
+    expect(told).toEqual([false, false, true])
+  })
+
+  it('two labs refused, the first saved, the second saved: false, false, false, true', () => {
+    const { told, save, refuse } = session()
+    refuse('lab:titration')
+    refuse('lab:aqueous')
+    save('lab:titration')
+    save('lab:aqueous')
+    expect(told).toEqual([false, false, false, true])
+  })
+
+  it('a lab refused, then its key removed: false, true', () => {
+    const { store, told, refuse } = session()
+    refuse('lab:titration')
+    store.removeItem('valence:lab:titration')
+    expect(told).toEqual([false, true])
+  })
+
+  it('preferences saved, a lab refused that was never stored, then clearAll: true, false, false, true', () => {
+    const { inner, store, told, save, refuse } = session()
+    save('prefs')
+    refuse('lab:titration')
+    // What was saved before the refusal is still there, and it is all there is.
+    expect(JSON.parse(exportAll(inner))).toEqual({ 'valence:prefs': { version: 1, data: { status: 'in-progress', seed: 42 } } })
     clearAll(store)
-    state.full = false
-    expect(saveEntry(store, 'prefs', 1, { a: 3 })).toBe(true)
-    expect(results).toEqual([true, false, true])
+    // The third is the removal of the preferences key: the lab was never stored, so no removal clears its refusal.
+    // The fourth is forgetRefused.
+    expect(told).toEqual([true, false, false, true])
+    expect(inner.length).toBe(0)
+  })
+
+  it('an in-memory store, a save and forgetRefused: false, false', () => {
+    const { store, told, save } = session(false)
+    expect(save('prefs')).toBe(true)
+    store.forgetRefused()
+    expect(told).toEqual([false, false])
+  })
+
+  it('nothing refused, two saves: true, true', () => {
+    const { inner, store, told, save } = session()
+    expect(save('lab:titration')).toBe(true)
+    expect(save('prefs')).toBe(true)
+    expect(told).toEqual([true, true])
+    // It reads through to the store it wraps, and reading reports nothing.
+    expect(inner.getItem('valence:lab:titration')).not.toBeNull()
+    expect(loadEntry(store, 'lab:titration', 1, schema)).toEqual({ status: 'in-progress', seed: 42 })
+    expect([store.length, store.key(0)]).toEqual([2, 'valence:lab:titration'])
+    expect(told).toEqual([true, true])
+  })
+})
+
+describe('NOT_SAVING_TEXT', () => {
+  it('is the sentence Settings showed before the lab page shared it, word for word', () => {
+    expect(NOT_SAVING_TEXT).toBe('This browser is not allowing Valence to save data. Your progress and settings will last only until you close this tab.')
   })
 })
 

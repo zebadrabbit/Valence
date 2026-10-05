@@ -66,38 +66,54 @@ export function browserStore(): { store: KeyValueStore; persistent: boolean } {
   }
 }
 
+export interface SessionStore extends KeyValueStore {
+  /** Forgets every refused save. clearAll calls it: once everything is cleared, nothing unsaved is left to lose. */
+  forgetRefused(): void
+}
+
 /**
- * The same store, but every write is reported to `onResult`: false for one the store refuses (storage full, or
- * blocked part-way through a session), before the error goes on to the caller, and true for one it takes.
+ * The store the app saves through, made from what browserStore gave. After every write, removal or clearing,
+ * `onPersistent` is told whether progress now outlasts the session: never with an in-memory store; with
+ * localStorage, only while no key's latest write was refused (storage full, or blocked part-way through a
+ * session). A refused write is reported before its error goes on to the caller.
  */
-export function reportingStore(store: KeyValueStore, onResult: (saved: boolean) => void): KeyValueStore {
+export function sessionStore(browser: { store: KeyValueStore; persistent: boolean }, onPersistent: (persistent: boolean) => void): SessionStore {
+  const { store } = browser
+  /** The keys whose latest write was refused. */
+  const refused = new Set<string>()
+  const report = () => onPersistent(browser.persistent && refused.size === 0)
   return {
     get length() {
       return store.length
     },
     key: (index) => store.key(index),
     getItem: (key) => store.getItem(key),
-    removeItem: (key) => store.removeItem(key),
     setItem: (key, value) => {
       try {
         store.setItem(key, value)
+        refused.delete(key)
       } catch (error) {
-        onResult(false)
+        refused.add(key)
         throw error
+      } finally {
+        report()
       }
-      onResult(true)
+    },
+    removeItem: (key) => {
+      store.removeItem(key)
+      refused.delete(key)
+      report()
+    },
+    forgetRefused: () => {
+      refused.clear()
+      report()
     },
   }
 }
 
-/**
- * The store the app saves through, made from what browserStore gave. After every save `onPersistent` is told
- * whether progress now outlasts the session: never with an in-memory store; with localStorage, not after a save
- * it refused, and again after the next one it takes (as when "Clear my progress" has made room).
- */
-export function sessionStore(browser: { store: KeyValueStore; persistent: boolean }, onPersistent: (persistent: boolean) => void): KeyValueStore {
-  return reportingStore(browser.store, (saved) => onPersistent(browser.persistent && saved))
-}
+/** The not-saving notice, held once so that every page that shows it says the same sentence. */
+export const NOT_SAVING_TEXT =
+  'This browser is not allowing Valence to save data. Your progress and settings will last only until you close this tab.'
 
 export function saveEntry(store: KeyValueStore, name: string, version: number, data: unknown): boolean {
   try {
@@ -182,6 +198,8 @@ export function exportAll(store: KeyValueStore): string {
   return JSON.stringify(out, null, 2)
 }
 
-export function clearAll(store: KeyValueStore): void {
+export function clearAll(store: KeyValueStore & { forgetRefused?(): void }): void {
   for (const key of ownKeys(store)) store.removeItem(key)
+  // An entry whose every save was refused was never stored, so no removal above answers for it.
+  store.forgetRefused?.()
 }
