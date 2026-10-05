@@ -457,9 +457,9 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
         'that the burette then reads more than was delivered is how the lab models the bubble (spec 7.3).',
       ),
       paragraph(
-        'This lab makes each of these three mistakes cost more than it does at a real bench, so that it shows in your result: here each one, on its own, puts a trial outside the 1.0% allowed. A real burette tip holds less air than the bubble in this lab. And a real burette that was not conditioned is less diluted each time it is refilled; in this lab it stays diluted until you condition it.',
+        'That makes three mistakes: a burette that was not conditioned, a pipette that was not rinsed, and an air bubble left in the burette tip. This lab makes each of them cost more than it does at a real bench. A real burette tip holds less air than the bubble in this lab. And a real burette that was not conditioned is less diluted each time it is refilled; in this lab it stays diluted until you condition it. Even so, a mistake does not always show in the result: two of them can push it in opposite directions and cancel. So a trial with one of these mistakes in it does not count toward the three trials this lab asks for, even when its result is close.',
         [],
-        'the size of each technique error, a tip bubble of 0.60 mL and a burette that stays 2.0% dilute through every refill are the model, and none of the three is true to a bench (spec 7.3). No source was read for what a bench gives.',
+        "the size of each technique error, a tip bubble of 0.60 mL and a burette that stays 2.0% dilute through every refill are the model, and none of the three is true to a bench (spec 7.3). No source was read for what a bench gives. That a trial with one of the three mistakes in it does not count is the lab's rule (spec 7.3, the owner's decision of 2026-10-05).",
       ),
       paragraph(
         'Refill the burette before each trial and take a new initial reading. A burette that runs out before the endpoint leaves the trial with no usable titre. The burette does not need conditioning again: it is already wet with NaOH.',

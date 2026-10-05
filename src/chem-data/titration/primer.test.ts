@@ -240,6 +240,17 @@ describe('the titration primer: what it has to say', () => {
     expect(shown('precision')).toMatch(/copied wrongly from the acid bottle/)
   })
 
+  it('names the three mistakes there, and says that a trial with one of them in it does not count even when its result is close; it does not say that each one alone fails a trial', () => {
+    const paragraph = section('glassware').paragraphs[3]!.text
+    for (const mistake of [/burette that was not conditioned/, /pipette that was not rinsed/, /air bubble left in the burette tip/]) expect([String(mistake), mistake.test(paragraph)]).toEqual([String(mistake), true])
+    expect(paragraph).toMatch(/does not count/)
+    expect(paragraph).toMatch(/even when its result is close/)
+    expect(paragraph).toMatch(/opposite directions and cancel/)
+    // What is left of a bubble after part of it has run out is small enough to leave a trial within 1.0% (Gate A, F8).
+    expect(paragraph).not.toMatch(/on its own/)
+    expect(paragraph).not.toMatch(/1\.0%/)
+  })
+
   it('describes the three bottles in the safety card from the sources the stored bottles cite', () => {
     const safety = section('safety')
     const ids = new Set(safety.paragraphs.flatMap((p) => p.sourceIds))
