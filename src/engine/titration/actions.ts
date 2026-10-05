@@ -90,7 +90,22 @@ const isMolarity = (e6: number) => isCount(e6) && e6 < 1_000_000 && e6 % 100 ===
 export const misread = (m: TitrationModel, typedUl: number | null, levelUl: number | null) =>
   typedUl !== null && levelUl !== null && Math.abs(typedUl - levelUl) > m.readingToleranceUl
 
-/** The trials that count toward completion (D1): graded, within tolerance, both readings within readingToleranceUl of the meniscus, and the HCl molarity used the label's. */
+/** The technique steps a trial was run without, from the stored trial alone. Not part of the public surface: trialOutcome names them. */
+export function techniqueCauses(trial: Trial): Warning[] {
+  const causes: Warning[] = []
+  if (trial.titrantDiluted) causes.push('burette-not-conditioned')
+  // Air leaving the tip lets the meniscus fall further than the volume that reached the flask.
+  if (trial.startLevelUl !== null && trial.endLevelUl !== null && trial.endLevelUl - trial.startLevelUl > trial.deliveredUl) causes.push('tip-bubble')
+  if (trial.aliquot === 'diluted') causes.push('pipette-not-rinsed')
+  return causes
+}
+
+/**
+ * The trials that count toward completion (D1): graded, within tolerance, both readings within readingToleranceUl of
+ * the meniscus, the HCl molarity used the label's, and no technique step skipped. Two skipped steps can push the
+ * result opposite ways and cancel, and what is left of a bubble can be too small to fail a trial, so a result
+ * within tolerance does not show the technique was sound (the owner's decision of 2026-10-05).
+ */
 export const countingTrials = (m: TitrationModel, state: TitrationState) => {
   const { hclE4, naohE5 } = labSetup(m, state.seed)
   return state.trials.filter(
@@ -105,7 +120,8 @@ export const countingTrials = (m: TitrationModel, state: TitrationState) => {
       t.endLevelUl !== null &&
       t.finalReadingUl !== null &&
       !misread(m, t.finalReadingUl, t.endLevelUl) &&
-      t.hclUsedE6 === hclE4 * 100,
+      t.hclUsedE6 === hclE4 * 100 &&
+      techniqueCauses(t).length === 0,
   )
 }
 

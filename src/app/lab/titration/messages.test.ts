@@ -43,11 +43,12 @@ const PERCENT_ERROR = /[+−]\d+\.\d\d%/
 const cleanPass: TrialOutcome = { state: 'passed', percentError: null, causes: [], counts: true }
 const failedLow: TrialOutcome = { state: 'failed', percentError: -2.126, causes: ['burette-not-conditioned'], counts: false }
 const failedAtTheEdge: TrialOutcome = { state: 'failed', percentError: 1.004, causes: [], counts: false }
-const passedInSpite: TrialOutcome = { state: 'passed', percentError: null, causes: ['burette-not-conditioned', 'pipette-not-rinsed'], counts: true }
+// Within 1.0% with technique errors named in it: by the owner's decision of 2026-10-05 it does not count.
+const closeWithErrors: TrialOutcome = { state: 'passed', percentError: null, causes: ['burette-not-conditioned', 'pipette-not-rinsed'], counts: false }
 const notCounted: TrialOutcome = { state: 'passed', percentError: null, causes: ['final-misread'], counts: false }
 const REASONS = ['overshot', 'ran-out', 'discarded'] as const
 const invalid = (reason: (typeof REASONS)[number]): TrialOutcome => ({ state: 'invalid', reason, causes: ['tip-bubble', 'pipette-not-rinsed'] })
-const ended = [cleanPass, failedLow, failedAtTheEdge, passedInSpite, notCounted, ...REASONS.map(invalid)]
+const ended = [cleanPass, failedLow, failedAtTheEdge, closeWithErrors, notCounted, ...REASONS.map(invalid)]
 /** The same outcome as it is given once three trials count. */
 const afterCompletion = (outcome: TrialOutcome, percentError: number): TrialOutcome => (outcome.state === 'passed' ? { ...outcome, percentError } : outcome)
 
@@ -76,11 +77,27 @@ describe('feedback on a trial', () => {
     expect(lines[0]).toContain('too high')
   })
 
-  it('a pass with two technique causes that counts: the in-spite line, then both causes in order, and no percent error', () => {
-    const lines = feedback(passedInSpite, 0)
-    expect(lines).toEqual([OUTCOME_TEXT.passedInSpite, CAUSE_TEXT['burette-not-conditioned'], CAUSE_TEXT['pipette-not-rinsed']])
+  it('a pass with two technique causes does not count: the sentence that says so, both causes in order, then the sentence on why a close result does not show sound technique; no percent error', () => {
+    const lines = feedback(closeWithErrors, 0)
+    expect(lines).toEqual([OUTCOME_TEXT.notCounted, CAUSE_TEXT['burette-not-conditioned'], CAUSE_TEXT['pipette-not-rinsed'], OUTCOME_TEXT.closeWithTechniqueError])
     expect(lines.join(' ')).not.toMatch(PERCENT_ERROR)
-    expect(feedback(afterCompletion(passedInSpite, -0.021), 0)).toEqual(lines)
+    expect(feedback(afterCompletion(closeWithErrors, -0.021), 0)).toEqual(lines)
+  })
+
+  it('that sentence is said of a technique cause only: not under a misread alone, a failed trial or an invalid one', () => {
+    for (const outcome of [notCounted, failedLow, ...REASONS.map(invalid)]) expect(feedback(outcome, 0)).not.toContain(OUTCOME_TEXT.closeWithTechniqueError)
+    // One technique cause is enough, and a misread beside it changes nothing.
+    const partBubble: TrialOutcome = { state: 'passed', percentError: null, causes: ['tip-bubble', 'final-misread'], counts: false }
+    expect(feedback(partBubble, 0)).toEqual([OUTCOME_TEXT.notCounted, CAUSE_TEXT['tip-bubble'], CAUSE_TEXT['final-misread'], OUTCOME_TEXT.closeWithTechniqueError])
+  })
+
+  it('it says that mistakes can cancel and that a small one may not show, without a word of luck, and the rule names the three technique steps beside the readings and the label', () => {
+    expect(OUTCOME_TEXT.closeWithTechniqueError).toMatch(/opposite directions and cancel/)
+    expect(OUTCOME_TEXT.closeWithTechniqueError).toMatch(/small/)
+    expect(OUTCOME_TEXT.closeWithTechniqueError).toMatch(/does not show that the technique was sound/)
+    expect(OUTCOME_TEXT.closeWithTechniqueError).not.toMatch(/luck|chance|fortun/i)
+    for (const named of ['conditioned', 'air bubble', 'pipette', 'readings', 'label']) expect(OUTCOME_TEXT.notCounted).toContain(named)
+    expect(Object.keys(OUTCOME_TEXT)).not.toContain('passedInSpite')
   })
 
   it('a pass with a misread final reading does not count: the sentence that says so, then the cause, and no percent error', () => {
@@ -131,18 +148,19 @@ describe('the Result cell', () => {
 
   it('a passed trial reads the same before completion and after', () => {
     expect(outcomeLabel(afterCompletion(cleanPass, -0.126))).toBe('Passed')
-    expect(outcomeLabel(afterCompletion(passedInSpite, -0.021))).toBe('Passed')
+    expect(outcomeLabel(afterCompletion(closeWithErrors, -0.021))).toBe('Passed, not counted')
     expect(outcomeLabel(afterCompletion(notCounted, -0.232))).toBe('Passed, not counted')
   })
 })
 
-describe('the rule the owner has still to settle, as built', () => {
-  it('seed 1, Challenge, the burette not conditioned and the pipette not rinsed: the two cancel, the trial passes and counts, and the in-spite line leads', () => {
+describe("a trial with a technique error named in it, by the owner's decision of 2026-10-05", () => {
+  it('seed 1, Challenge, the burette not conditioned and the pipette not rinsed: the two cancel, the trial is within 1.0% and does not count, and the feedback says why', () => {
     const lab = carefulTrial(m, prepared(m, 1, { condition: false, rinse: false }))
     const outcome = trialOutcome(m, lab, currentTrial(lab))
-    expect(outcome).toMatchObject({ state: 'passed', counts: true, causes: ['burette-not-conditioned', 'pipette-not-rinsed'] })
-    expect(outcomeLabel(outcome)).toBe('Passed')
-    expect(feedback(outcome, 0)[0]).toBe(OUTCOME_TEXT.passedInSpite)
+    expect(outcome).toMatchObject({ state: 'passed', counts: false, causes: ['burette-not-conditioned', 'pipette-not-rinsed'] })
+    expect(outcomeLabel(outcome)).toBe('Passed, not counted')
+    expect(feedback(outcome, 0)[0]).toBe(OUTCOME_TEXT.notCounted)
+    expect(feedback(outcome, 0).at(-1)).toBe(OUTCOME_TEXT.closeWithTechniqueError)
   })
 })
 
@@ -257,7 +275,7 @@ describe('the figures the sentences state', () => {
     expect(INVALID_ENTRY_TEXT.reading).toContain(readingText(m.buretteCapacityUl))
     expect(rereadText(1300)).toContain(readingText(m.readingToleranceUl))
     expect(OUTCOME_TEXT.notCounted).toContain(readingText(m.readingToleranceUl))
-    for (const text of [OUTCOME_TEXT.passed, OUTCOME_TEXT.passedInSpite, OUTCOME_TEXT.notCounted]) expect(text).toContain(`${m.gradeTolerancePercent.toFixed(1)}%`)
+    for (const text of [OUTCOME_TEXT.passed, OUTCOME_TEXT.notCounted]) expect(text).toContain(`${m.gradeTolerancePercent.toFixed(1)}%`)
     expect(BLOCKED_TEXT['needs-indicator']).toContain(`${m.indicatorDrops[0]} or ${m.indicatorDrops[1]} drops`)
     expect(STEP_TEXT.indicator.first).toContain(`${m.indicatorDrops[0]} or ${m.indicatorDrops[1]} drops`)
     // In words: "three trials", "Three drops", "two drops".

@@ -624,7 +624,7 @@ describe('spec 7.4 check 10, trial endings', () => {
      * rest any at all: actions drawn only at random seldom get through a titration, which is some 150 additions.
      */
     function walk(modelOf: (seed: number) => TitrationModel, seeds: readonly number[], steps: number, steadyShare: (seed: number) => number) {
-      const seen = { blocked: 0, graded: 0, overshot: 0, 'ran-out': 0, discarded: 0, completed: 0, pinkAtTheMark: 0, fadedAtTheMark: 0 }
+      const seen = { blocked: 0, graded: 0, overshot: 0, 'ran-out': 0, discarded: 0, completed: 0, closeWithAnError: 0, pinkAtTheMark: 0, fadedAtTheMark: 0 }
       for (const seed of seeds) {
         const model = modelOf(seed)
         const rng = mulberry32(seed)
@@ -658,7 +658,13 @@ describe('spec 7.4 check 10, trial endings', () => {
             if (before.end === 'open' && before.index === trial.index) seen[trial.end]++
             if (trial.end === 'ran-out' && action.type === 'addWater') seen.fadedAtTheMark++
           }
-          if (action.type === 'submitMolarity' && s.status === 'completed') seen.completed++
+          if (action.type === 'submitMolarity') {
+            // Read from the stored trial here, not through the engine's own test of a cause.
+            const flawed = (t: Trial) => t.titrantDiluted || t.aliquot !== 'clean' || t.endLevelUl! - t.startLevelUl! !== t.deliveredUl
+            if (countingTrials(model, s).some(flawed)) throw new Error(`${where}: a trial with a technique error in it counts`)
+            if (flawed(trial) && withinTolerance(model, trial.molarityE6!, labSetup(model, seed).naohE5)) seen.closeWithAnError++
+            if (s.status === 'completed') seen.completed++
+          }
         }
       }
       return seen
@@ -680,6 +686,8 @@ describe('spec 7.4 check 10, trial endings', () => {
       const seen = walk(cutShort, [1, 2, 3, 4, 5], 4000, () => 0.85)
       expect(seen.pinkAtTheMark).toBeGreaterThan(0)
       expect(seen.fadedAtTheMark).toBeGreaterThan(0)
+      // This walk also meets trials within 1.0% that have a technique error in them; the walk holds that none counts.
+      expect(seen.closeWithAnError).toBeGreaterThan(0)
     })
   })
 })
@@ -715,6 +723,34 @@ describe('spec 7.4 check 7, honest trial: a trial within 1.0% whose reading was 
     expect(typed(1750, 25530)).toEqual({ molarityE6: 100100, percent: '-0.199', passes: true, counts: false })
     expect(typed(1780, 25550)).toMatchObject({ passes: true, counts: true })
     expect(typed(1780, 25560)).toMatchObject({ passes: true, counts: false })
+  })
+
+  // The owner's decision of 2026-10-05: a technique error named in a trial keeps it from counting, however close its result.
+  it('an unconditioned burette with an unrinsed pipette: the two 2.0% dilutions cancel, so the titre is the careful 25.70 and the molarity 0.0949; passes and does not count', () => {
+    const s = carefulTrial(m, prepared(m, 1, { condition: false, rinse: false }))
+    // 0.0976 x 0.98 x 25.002 / (0.09502 x 0.98): the careful flask's own 25 680.86.
+    expect(equivalenceUl(flaskOf(m, s))).toBeCloseTo(25680.86, 2)
+    expect(currentTrial(s)).toMatchObject({ titrantDiluted: true, aliquot: 'diluted', startLevelUl: 2563, deliveredUl: 25700, endLevelUl: 28263 })
+    expect(verdict(s)).toEqual({ molarityE6: 94900, percent: '-0.126', passes: true, counts: false })
+    expect(s.status).toBe('in-progress')
+  })
+
+  it('a tip bubble with an unrinsed pipette: 25.20 mL reaches the flask (its equivalence volume is 25 167.24), the meniscus falls 25.80, the molarity is 0.0946; passes and does not count', () => {
+    const s = carefulTrial(m, prepared(m, 1, { clearBubble: false, rinse: false }))
+    expect(equivalenceUl(flaskOf(m, s))).toBeCloseTo(25167.24, 2)
+    // 1963 + 25 200 + the 600 of air: readings 1.96 and 27.76, titre 25.80, 2.4400 / 25.80 = 0.094574.
+    expect(currentTrial(s)).toMatchObject({ aliquot: 'diluted', startLevelUl: 1963, deliveredUl: 25200, endLevelUl: 27763, initialReadingUl: 1960, finalReadingUl: 27760 })
+    expect(verdict(s)).toEqual({ molarityE6: 94600, percent: '-0.442', passes: true, counts: false })
+  })
+
+  it('what is left of a bubble partly run out into a discarded flask: after 16 stream additions 0.12 mL of air, which the titre of the next trial, 25.85, takes in; the molarity is 0.0944; passes and does not count', () => {
+    let s = run(m, prepared(m, 1, { clearBubble: false }), [...Array.from({ length: 16 }, () => deliver('stream')), act('discardTrial')])
+    expect(s.burette).toMatchObject({ levelUl: 1963 + 4000 + 480, tipAirUl: 120 })
+    s = carefulTrial(m, nextTrial(s))
+    // Trial 2's fill level is 562 and its careful endpoint 25 725 delivered: 562 + 25 725 + 120 = 26 407. Readings 0.56 and 26.41, titre 25.85, 2.4400 / 25.85 = 0.094391.
+    expect(currentTrial(s)).toMatchObject({ startLevelUl: 562, deliveredUl: 25725, endLevelUl: 26407, initialReadingUl: 560, finalReadingUl: 26410 })
+    expect(verdict(s)).toEqual({ molarityE6: 94400, percent: '-0.652', passes: true, counts: false })
+    expect(s.burette.tipAirUl).toBe(0)
   })
 
   it('a failed trial does not count', () => {

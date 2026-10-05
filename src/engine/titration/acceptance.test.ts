@@ -7,7 +7,7 @@ import { percentError } from './entries'
 import { equivalenceUl, flaskChemistry, isPink, type Flask } from './flask'
 import type { TitrationModel } from './model'
 import { PINNED_MODEL as m } from './pinnedModel'
-import { trialOutcome } from './select'
+import { trialOutcome, trueNaoh } from './select'
 import { labSetup } from './setup'
 import { currentTrial, titrationStateSchema, type TitrationState, type Trial } from './state'
 import { calculatedMolarityE6, learner, type Technique } from './testkit'
@@ -372,6 +372,115 @@ describe('spec 7.4 check 7, honest trial: trials that do not count never complet
     ])
     expect(can(m, s, { type: 'startNextTrial' })).toBe('lab-completed')
   })
+})
+
+describe("spec 7.4 check 7, honest trial: a trial within 1.0% with a technique error named in it is passed and does not count (the owner's decision of 2026-10-05)", () => {
+  /** Nothing of the answer is released by trials that do not count: no true molarity, and no percent error of a passed trial. */
+  function expectWithheld(s: TitrationState) {
+    expect(s.status).toBe('in-progress')
+    expect(countingTrials(m, s)).toEqual([])
+    expect(trueNaoh(m, s)).toBeNull()
+    for (const trial of s.trials) {
+      const outcome = trialOutcome(m, s, trial)
+      if (outcome.state === 'passed') expect(outcome.percentError).toBeNull()
+    }
+  }
+  /**
+   * No dead end: a learner who from here does the right thing reaches three trials that count. They condition a
+   * burette that is not conditioned, clear whatever air is in the tip, and pipette with the pipette the last aliquot
+   * left wet with acid. The lab completes on the third such trial, and none of the three has a cause named in it.
+   */
+  function expectCompletesWhenPutRight(s: TitrationState, drops: number) {
+    const before = s.trials.length
+    for (let i = 0; i < m.passesToComplete; i++) {
+      expect(s.status).toBe('in-progress')
+      s = carefulTrial(m, nextTrial(s, { drops, condition: !s.burette.conditioned || s.burette.diluted, clearBubble: true }))
+      expect(graded(s)).toMatchObject({ state: 'passed', causes: [], counts: true })
+    }
+    expect(s.status).toBe('completed')
+    expect(countingTrials(m, s)).toEqual(s.trials.slice(before))
+  }
+
+  // Two pairs of mistakes push the result opposite ways. With the burette, the two 2.0% dilutions cancel exactly:
+  // the flask's equivalence volume is the careful one's. With the bubble, 0.60 mL more titre against 2.0% less acid.
+  it.each([
+    ['an unconditioned burette with an unrinsed pipette', { condition: false, rinse: false }, ['burette-not-conditioned', 'pipette-not-rinsed'], 200],
+    ['a tip bubble with an unrinsed pipette', { clearBubble: false, rinse: false }, ['tip-bubble', 'pipette-not-rinsed'], 186],
+  ] as const)(
+    '%s, seeds 1-100 at 2 and 3 drops, honest readings: never counts, and the learner who then does the right thing completes the lab',
+    (_name, technique, causes, passing) => {
+      let passed = 0
+      for (const drops of DROPS) {
+        for (const seed of SEEDS) {
+          const s = carefulTrial(m, prepared(m, seed, { drops, ...technique }))
+          const outcome = graded(s)
+          expect(outcome).toMatchObject({ causes, counts: false })
+          if (outcome.state === 'passed') passed++
+          expectWithheld(s)
+          expectCompletesWhenPutRight(s, drops)
+        }
+      }
+      // How many of the 200 are within 1.0%: these are the trials the decision is about.
+      expect(passed).toBe(passing)
+    },
+    SEED_LOOP_TIMEOUT,
+  )
+
+  /** A trial read with the whole bubble in the tip, run for `pours` stream additions, and its flask discarded. */
+  const partBubble = (seed: number, pours: number) =>
+    run(m, prepared(m, seed, { clearBubble: false }), [...Array.from({ length: pours }, () => STREAM), { type: 'discardTrial' }])
+
+  it(
+    'a tip bubble partly run out into a discarded flask (16 stream additions, 4 mL) does not count in the next trial, seeds 1-100: 0.12 mL of air is left, the trial is within 1.0% and names the bubble',
+    () => {
+      for (const seed of SEEDS) {
+        const discarded = partBubble(seed, 16)
+        expect(discarded.burette.tipAirUl).toBe(600 - 16 * 30)
+        const s = carefulTrial(m, nextTrial(discarded))
+        expect(graded(s)).toMatchObject({ state: 'passed', percentError: null, causes: ['tip-bubble'], counts: false })
+        expectWithheld(s)
+        // The rest of the bubble left the tip in that trial.
+        expect(s.burette.tipAirUl).toBe(0)
+        expectCompletesWhenPutRight(s, 2)
+      }
+    },
+    SEED_LOOP_TIMEOUT,
+  )
+
+  it(
+    'what is left of a part-escaped bubble can still be cleared, after any number of stream additions (seeds 1-100): the next trial then counts',
+    () => {
+      for (const seed of SEEDS) {
+        for (const pours of [1, 8, 12, 16, 19]) {
+          const discarded = partBubble(seed, pours)
+          const s = run(m, discarded, [{ type: 'startNextTrial' }, { type: 'fillBurette' }])
+          expect(s.burette.tipAirUl).toBe(600 - pours * 30) // a refill neither brings the bubble back nor takes it away
+          expect(can(m, s, { type: 'clearTipBubble' })).toBeNull()
+          if (pours === 16 || seed <= 10) expectCompletesWhenPutRight(discarded, 2)
+        }
+      }
+    },
+    SEED_LOOP_TIMEOUT,
+  )
+
+  it(
+    'no lab is completed on part bubbles: three trials each run after 18 stream additions into a discarded flask, the burette conditioned again before each, seeds 1-100',
+    () => {
+      for (const seed of SEEDS) {
+        let s = partBubble(seed, 18)
+        for (let k = 0; k < 3; k++) {
+          // Conditioning empties the burette, so the fill after it makes a new bubble.
+          if (k > 0) s = run(m, readyTrial(m, run(m, s, [{ type: 'startNextTrial' }]), { condition: true }), [...Array.from({ length: 18 }, () => STREAM), { type: 'discardTrial' }])
+          s = carefulTrial(m, nextTrial(s))
+          expect(graded(s)).toMatchObject({ state: 'passed', causes: ['tip-bubble'], counts: false })
+        }
+        expect(s.trials).toHaveLength(6)
+        expectWithheld(s)
+        expectCompletesWhenPutRight(s, 2)
+      }
+    },
+    SEED_LOOP_TIMEOUT,
+  )
 })
 
 describe('spec 7.4 check 12, reproducibility', () => {

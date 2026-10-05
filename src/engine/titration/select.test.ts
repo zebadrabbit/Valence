@@ -319,6 +319,40 @@ describe('the outcome of a trial (seed 1)', () => {
     expect(outcome(s)).toEqual(expected)
   })
 
+  it("a technique error in a trial within 1.0% (the owner's decision of 2026-10-05): passed, the causes named, does not count", () => {
+    // Unconditioned burette and unrinsed pipette: the two dilutions cancel, and the result is the careful trial's.
+    const cancelled = carefulTrial(m, prepared(m, 1, { condition: false, rinse: false }))
+    expect(outcome(cancelled)).toEqual({ state: 'passed', percentError: null, causes: ['burette-not-conditioned', 'pipette-not-rinsed'], counts: false })
+    expect(error(cancelled)).toBe('-0.126')
+    const withBubble = carefulTrial(m, prepared(m, 1, { clearBubble: false, rinse: false }))
+    expect(outcome(withBubble)).toEqual({ state: 'passed', percentError: null, causes: ['tip-bubble', 'pipette-not-rinsed'], counts: false })
+    expect(error(withBubble)).toBe('-0.442')
+  })
+
+  it('such a trial releases nothing: with two careful trials after it the lab is not done, no passed trial shows a percent error and the true molarity is not given; a third careful trial gives them all', () => {
+    let s = carefulTrial(m, prepared(m, 1, { clearBubble: false, rinse: false }))
+    for (let i = 0; i < 2; i++) s = carefulTrial(m, nextTrial(s))
+    expect(s.status).toBe('in-progress')
+    expect(countingTrials(m, s)).toEqual(s.trials.slice(1))
+    expect(s.trials.map((t) => outcome(s, t))).toEqual([
+      { state: 'passed', percentError: null, causes: ['tip-bubble', 'pipette-not-rinsed'], counts: false },
+      { state: 'passed', percentError: null, causes: [], counts: true },
+      { state: 'passed', percentError: null, causes: [], counts: true },
+    ])
+    expect(trueNaoh(m, s)).toBeNull()
+    expect(summaryView(m, run(m, { ...s, status: 'completed' }, [{ type: 'recordSummary', meanE6: 94900, deviationE2: 0 }]))).toBeNull()
+    s = carefulTrial(m, nextTrial(s))
+    expect(s.status).toBe('completed')
+    expect(trueNaoh(m, s)).toBe('0.09502')
+    expect(s.trials.map((t) => outcome(s, t))).toEqual([
+      { state: 'passed', percentError: '-0.442', causes: ['tip-bubble', 'pipette-not-rinsed'], counts: false },
+      { state: 'passed', percentError: '-0.232', causes: [], counts: true },
+      { state: 'passed', percentError: '-0.126', causes: [], counts: true },
+      { state: 'passed', percentError: '-0.126', causes: [], counts: true },
+    ])
+    expect(s.trials.map((t) => error(s, t))).toEqual(['-0.442', '-0.232', '-0.126', '-0.126'])
+  })
+
   it('an unconditioned burette: failed at -2.126, the burette named', () => {
     expect(outcome(carefulTrial(m, prepared(m, 1, { condition: false })))).toEqual({ state: 'failed', percentError: '-2.126', causes: ['burette-not-conditioned'], counts: false })
   })
@@ -633,8 +667,8 @@ describe('the checklist', () => {
 })
 
 describe('over every state these tests built', () => {
-  it('counts agrees with countingTrials for every trial, and a passing trial counts exactly when it has no misread and the label was right', () => {
-    const seen = { counting: 0, passedOnly: 0, failed: 0, invalid: 0, open: 0 }
+  it('counts agrees with countingTrials for every trial, and a passing trial counts exactly when no cause is named in it: no technique error, no misread, and the label right', () => {
+    const seen = { counting: 0, passedOnly: 0, passedWithTechniqueOnly: 0, failed: 0, invalid: 0, open: 0 }
     for (const s of built) {
       const counting = countingTrials(m, s)
       for (const trial of s.trials) {
@@ -642,10 +676,11 @@ describe('over every state these tests built', () => {
         const counts = 'counts' in o && o.counts
         expect(counts).toBe(counting.includes(trial))
         if (o.state === 'passed') {
-          const honest = !o.causes.some((cause) => cause === 'initial-misread' || cause === 'final-misread' || cause === 'hcl-label-misrecorded')
           // The hand-made trial with no readings has nothing to name and does not count.
-          if (trial.initialReadingUl !== null) expect(counts).toBe(honest)
+          if (trial.initialReadingUl !== null) expect(counts).toBe(o.causes.length === 0)
           seen[counts ? 'counting' : 'passedOnly']++
+          // The trials the owner's decision of 2026-10-05 is about: honest readings, the label right, and a technique error.
+          if (o.causes.length > 0 && o.causes.every((cause) => cause === 'burette-not-conditioned' || cause === 'tip-bubble' || cause === 'pipette-not-rinsed')) seen.passedWithTechniqueOnly++
         } else {
           expect(counts).toBe(false)
           seen[o.state]++

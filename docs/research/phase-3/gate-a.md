@@ -2,7 +2,7 @@
 
 2026-10-05. The gate of `docs/superpowers/plans/2026-10-04-phase-3-titration-lab.md`, held after Tasks 1 to 13 and before any screen is built.
 
-**The gate is not closed.** Both must-fix findings are fixed and tested. Of the thirteen should-fix findings, nine are fixed and four are left to the owner, with both sides given in the last section; for one of the four a false comment was corrected and nothing else. The sentences written at this stage have been checked by tests and by running the reviewers' own probes again, but no independent reader has read them yet.
+**The gate is not closed.** Both must-fix findings are fixed and tested. Of the thirteen should-fix findings, nine were fixed at the gate, two (F7 and F8) are closed by the owner's answer of 2026-10-05, and two (F6 and F15) are left to the owner, with both sides given in the last section; for F6 a false comment was corrected and nothing else. The sentences written at this stage have been checked by tests and by running the reviewers' own probes again, but no independent reader has read them yet.
 
 ## How the review was done
 
@@ -74,13 +74,25 @@ Findings are numbered F1 to F15 (must-fix and should-fix) and N1 to N15 (notes).
 - Re-checked: five new cases in `src/app/progress/storage.test.ts`, four seen failing first, for a value of another version, one of this version with the wrong shape, and one that is not JSON. R3's probe, run again: the fresh save is refused and the old record is still in the store.
 - Commit `bc58fe0`.
 
+### Closed by the owner's answers of 2026-10-05
+
+**Decision 1, answered: a trial with a technique cause named in it does not count toward the three.** The three causes are a burette not conditioned, a tip bubble and a pipette not rinsed. Such a trial can still be within 1.0% and is then shown as passed and not counted. This closes F7 and F8, which were found as follows.
+
+**F7 (should-fix, R2). A second pair of technique errors cancels.** Reproduced with R2's test on seeds 1 to 400: an uncleared tip bubble with an unrinsed pipette passed and counted at 381 seeds, the known pair (unconditioned burette with unrinsed pipette) at all 400, and each whole error alone at none. Only one such trial is possible in a lab.
+
+**F8 (should-fix, R2). A tip bubble partly run out into a discarded flask leaves a smaller bubble that passed and counted.** Reproduced: after 16 stream additions and a discard the next trial passed and counted at 400 of 400 seeds with the tip bubble named; after 12, at 72; after 8, at none; and a whole lab was completed this way at 100 of 100 seeds. Readings are honest throughout.
+
+- Done, in the engine: `countingTrials` leaves out a trial that has a technique cause, by `techniqueCauses`, which moved from `select.ts` to `actions.ts` so that the counting rule and the named causes use one test. Nothing else of the model changed: the bubble's row in spec 7.3's table is as it was.
+- Done, in the words: `OUTCOME_TEXT.passedInSpite` and its branch are gone. The does-not-count sentence now gives the whole rule, the three technique steps beside the readings and the label. After the causes of a trial within 1.0% that has a technique cause comes one new sentence: mistakes in technique can push a result in opposite directions and cancel, and a small one may not move the result far, so a result this close does not show that the technique was sound. It covers the pairs and the part bubble, does not scold and says nothing of luck.
+- What is released: the true molarity and a passed trial's percent error are given at the same count of three, so neither is given by trials that do not count. A test holds that a lab with one such trial and two careful ones is in progress and gives neither.
+- No dead end: from every state above, a learner who then conditions a burette that is not conditioned, clears whatever air is in the tip and pipettes with the pipette the last aliquot left wet with acid has three trials that count, and the lab completes on the third. What is left of a part-escaped bubble can be cleared in the next trial as the engine stood: `clearTipBubble` is refused only for an empty burette, a tip with no air, or once titrant has run in the open trial. Nothing had to be changed for it.
+- Re-checked, by tests seen failing first for the stated reason (the trial counted): hand-worked cases for seed 1 in `actions.test.ts` (the pair that cancels exactly, titre 25.70 and 0.0949; the bubble with the pipette, titre 25.80 and 0.0946; the part bubble, titre 25.85 and 0.0944); the outcomes and what is withheld in `select.test.ts`; and in `acceptance.test.ts`, over seeds 1 to 100, the two pairs at 2 and at 3 drops (within 1.0% in 200 and in 186 of 200 runs, counting in none), the part bubble after 16 stream additions, a lab of three part-bubble trials, and the way out of each. The walk of `actions.test.ts` now also holds, from the stored fields and not through the engine's own test, that no trial that counts has a technique error in it; on the burette cut short it failed before the change. The check that a part bubble can be cleared passed before the change, as a check should.
+- Re-checked, with R2's probes run again on seeds 1 to 400: the known pair is within 1.0% at 400 and counts at 0; the bubble with the pipette is within 1.0% at 381 and counts at 0; after 8, 12, 16 and 18 stream additions into a discarded flask the next trial counts at 0 of 400 each; a lab completed with the tip bubble named in all three counted trials: 0 of 100. R2's leaning of the readings 0.02 mL either way changes how many pass (186 to 400) and not that none counts.
+- Expected values changed, because the decision changes the rule they pinned: in `messages.test.ts`, a pass with two technique causes was expected to count and to lead with the in-spite line, and reads "Passed, not counted" where it read "Passed"; in `select.test.ts`, a passing trial was held to count exactly when it had no misread and the right label, and is now held to count exactly when no cause is named. No other expected value changed.
+
 ### Reproduced, and left for the owner
 
 **F6 (should-fix, R2) and N9 (note, R3). The flask view gives away the pipette's delivery and, once the flask is pink, the hidden NaOH molarity.** Reproduced with R2's test: exact at 400 of 400 seeds for both. Neither passes a trial. The plan's Global Constraints accept the pink concentration of a pink flask as a number the drawing needs, and its Task 13 pins the exact flask volume, so handing the app less changes the plan's interface and one of its test values. The header comment in `select.ts` claimed that no selector hands over such a number; it now says which two do (commit `3ecc4f8`). Nothing else was changed. Decision 2 below.
-
-**F7 (should-fix, R2). A second pair of technique errors cancels.** Reproduced with R2's test on seeds 1 to 400: an uncleared tip bubble with an unrinsed pipette passes and counts at 381 seeds, the known pair (unconditioned burette with unrinsed pipette) at all 400, and each whole error alone at none. Only one such trial is possible in a lab. Whether a trial that passes with a technique cause named in it counts is the question the plan already holds open beside `OUTCOME_TEXT.passedInSpite`. No change. Decision 1 below.
-
-**F8 (should-fix, R2). A tip bubble partly run out into a discarded flask leaves a smaller bubble that passes and counts.** Reproduced: after 16 stream additions and a discard the next trial passes and counts at 400 of 400 seeds with the tip bubble named; after 12, at 72; after 8, at none; and a whole lab was completed this way at 100 of 100 seeds. Readings are honest throughout. One remedy changes the model in spec 7.3's table (end the bubble with the trial); the other is Decision 1. No change.
 
 **F15 (should-fix, R3). The safety card names two of the indicator sheet's hazards and not the other three.** Confirmed against the saved sheet: it carries five hazard codes, and the card speaks of cancer and flammability only. The bottle's note names all five. What the safety card covers is the owner's to say (D15). No change. Decision 3 below.
 
@@ -184,17 +196,12 @@ One thing R3 raised under F12 is carried forward and not fixed here: on a reload
 - Primer, precision card: the example of a mistake repeated is now a miscopied molarity.
 - Primer, safety card: the rinse sentence; H314 named by code with "corrosive to the skin and the eyes"; "a supplier's safety data sheet for a solution of this kind".
 - The three hazard notes: the rinse sentence in the acid's and the base's; the indicator's opening and its list of hazards.
-- `src/app/lab/titration/messages.ts`: the sentence that closes each of the three technique causes.
+- `src/app/lab/titration/messages.ts`: the sentence that closes each of the three technique causes. After the owner's answer of 2026-10-05: `OUTCOME_TEXT.notCounted`, which now gives the whole counting rule, and `OUTCOME_TEXT.closeWithTechniqueError`.
 - `src/app/lab/titration/benchText.ts`: `undoneText`.
 
 ### Open decisions
 
-1. **Does a trial that passes with a technique error named in it count toward the three?** The plan's rule, still to be confirmed, is that it does, and the feedback says it passed in spite of the errors.
-   - For counting: the result is within 1.0% and the readings are honest; the feedback names every cause; only one cancelling trial is possible in a lab, since the pipette is wet with water once.
-   - Against: two pairs of errors cancel (F7), so a trial with two skipped steps counts at most or all seeds; and a lab can be completed with a tip bubble named in all three counted trials (F8), though it takes a deliberate discard after 3 to 5 mL each time.
-   - If such trials keep counting, R2 asks that the in-spite sentence say the errors pushed opposite ways and cancelled by chance. That is true of the pairs and not of a part bubble on its own, so the wording needs both cases.
-   - If they stop counting, the engine's `counts` becomes false for them, the in-spite sentence goes, and the not-counted sentence names the technique steps beside the readings and the label. F7 and F8 both close.
-   - A narrower remedy for F8 alone: clear what is left of a tip bubble when a trial into which titrant has run ends. It changes the bubble's row in spec 7.3's table.
+1. **Does a trial that passes with a technique error named in it count toward the three?** Answered by the owner on 2026-10-05: it does not. See "Closed by the owner's answers" above. The narrower remedy for F8 alone, ending the bubble with the trial, was not needed and spec 7.3's table is unchanged.
 2. **Should the engine hand the app less about the flask?** (F6, N9.)
    - As built, and as the plan's Global Constraints accept: the exact flask volume and the pink concentration of a pink flask reach the app for the drawing and are never printed. Someone who reads them out of the page can work back the pipette's delivery and the NaOH molarity before any trial is graded.
    - Against changing: neither passes a trial; a failed trial's percent error gives the same molarity by design; the seed is in the export.

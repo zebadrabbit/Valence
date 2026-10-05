@@ -1,4 +1,4 @@
-import { countingTrials, endpointConfirmed, flaskOf, misread } from './actions'
+import { countingTrials, endpointConfirmed, flaskOf, misread, techniqueCauses } from './actions'
 import { percentError, summarise, withinTolerance } from './entries'
 import { compareToEquivalence, flaskChemistry, isPink, plume, type PlumeStatus } from './flask'
 import type { TitrationModel } from './model'
@@ -96,19 +96,10 @@ export type TrialOutcome =
   | { state: 'failed'; percentError: number; causes: Cause[]; counts: boolean }
   /**
    * `percentError` is null until three trials count: one passed trial's would give the hidden molarity, and the lab
-   * shows that molarity itself only then. `counts` is false with a misread or a label that was not the bottle's (D1).
+   * shows that molarity itself only then. `counts` is true only when no cause is named: a technique step skipped, a
+   * misread or a label that was not the bottle's keeps a trial within tolerance from counting (D1).
    */
   | { state: 'passed'; percentError: number | null; causes: Cause[]; counts: boolean }
-
-/** What went wrong at the bench, from the stored trial alone. */
-function techniqueCauses(trial: Trial): Cause[] {
-  const causes: Cause[] = []
-  if (trial.titrantDiluted) causes.push('burette-not-conditioned')
-  // Air leaving the tip lets the meniscus fall further than the volume that reached the flask.
-  if (trial.startLevelUl !== null && trial.endLevelUl !== null && trial.endLevelUl - trial.startLevelUl > trial.deliveredUl) causes.push('tip-bubble')
-  if (trial.aliquot === 'diluted') causes.push('pipette-not-rinsed')
-  return causes
-}
 
 /**
  * A trial's result for the notebook: whether it passed, the named causes, and the signed percent error of a failed
@@ -120,7 +111,7 @@ export function trialOutcome(m: TitrationModel, state: TitrationState, trial: Tr
   // Only a record made by hand has a graded trial without a molarity: there is nothing to judge.
   if (trial.molarityE6 === null) return { state: 'open' }
   const { hclE4, naohE5 } = labSetup(m, state.seed)
-  const causes = techniqueCauses(trial)
+  const causes: Cause[] = techniqueCauses(trial)
   if (misread(m, trial.initialReadingUl, trial.startLevelUl)) causes.push('initial-misread')
   if (misread(m, trial.finalReadingUl, trial.endLevelUl)) causes.push('final-misread')
   if (trial.hclUsedE6 !== hclE4 * 100) causes.push('hcl-label-misrecorded')

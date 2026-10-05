@@ -133,16 +133,18 @@ const INVALID_LABEL: Record<InvalidReason, string> = {
 }
 
 /** The first line of an ended trial's feedback, and the note on water that closes it. A failed trial's first line carries its figure and is made in feedback(). */
-export const OUTCOME_TEXT: Record<'passed' | 'passedInSpite' | 'notCounted' | 'water' | InvalidReason, string> = {
+export const OUTCOME_TEXT: Record<'passed' | 'notCounted' | 'closeWithTechniqueError' | 'water' | InvalidReason, string> = {
   passed: 'Passed. Your NaOH molarity is within 1.0% of the true value, and the trial counts toward your three.',
-  // The plan's rule, which the owner has still to confirm: a trial within 1.0% that has a technique error named in
-  // it passes and counts. This sentence is the one place that says so. If the answer is that such a trial does not
-  // count, the engine's `counts` is false for it, feedback() never reaches this sentence and it goes, and
-  // `notCounted` names the technique steps beside the readings and the label.
-  passedInSpite:
-    'Passed: your NaOH molarity is within 1.0% of the true value, and the trial counts toward your three. But the technique errors named below were made in it, and it passed in spite of them.',
+  // The whole rule, so it reads the same under a misread, a miscopied label and a technique error (the owner's
+  // decisions D1 and of 2026-10-05). The pipette is "not wet with water", not "rinsed": an aliquot drawn before it
+  // leaves the pipette wet with acid, and the trial counts.
   notCounted:
-    'This trial is within 1.0%, but it does not count toward your three. A trial counts only when both burette readings are within 0.02 mL of the meniscus and the HCl molarity is the one on the label.',
+    'This trial is within 1.0%, but it does not count toward your three. A trial counts only when it was run with a conditioned burette, no air bubble in the tip at the initial reading and a pipette that was not wet with water, both burette readings are within 0.02 mL of the meniscus, and the HCl molarity is the one on the label.',
+  // Said after the causes of a trial within 1.0% that has a technique cause among them. Two cases: a pair of mistakes
+  // that cancel (a dilute burette or a tip bubble against a wet pipette), and what is left of a bubble after part of
+  // it ran out into a discarded flask.
+  closeWithTechniqueError:
+    'Mistakes in technique can push a result in opposite directions and cancel, and a small one may not move the result far. So a result this close does not show that the technique was sound.',
   overshot:
     'Overshot: the flask has gone more than two drops too far, so this trial has no usable titre. Run the trial again, and change to half-drops once the pink is slow to fade.',
   // The spec's sentence (7.2), word for word.
@@ -173,7 +175,12 @@ function failedText(percentError: number): string {
   return `Not passed. Percent error: ${percentErrorText(percentError)}${edge}. Your NaOH molarity is too ${percentError < 0 ? 'low' : 'high'}.`
 }
 
-/** An ended trial's feedback, a line at a time: what happened, each named cause in the engine's order, then the note on water. An open trial has none. */
+const TECHNIQUE: readonly Cause[] = ['burette-not-conditioned', 'tip-bubble', 'pipette-not-rinsed']
+
+/**
+ * An ended trial's feedback, a line at a time: what happened, each named cause in the engine's order, what a close
+ * result does not show when a technique cause is among them, then the note on water. An open trial has none.
+ */
 export function feedback(outcome: TrialOutcome, waterUl: number): string[] {
   if (outcome.state === 'open') return []
   const first =
@@ -181,12 +188,16 @@ export function feedback(outcome: TrialOutcome, waterUl: number): string[] {
       ? OUTCOME_TEXT[outcome.reason]
       : outcome.state === 'failed'
         ? failedText(outcome.percentError)
-        : !outcome.counts
-          ? OUTCOME_TEXT.notCounted
-          : outcome.causes.length > 0
-            ? OUTCOME_TEXT.passedInSpite
-            : OUTCOME_TEXT.passed
-  return [first, ...outcome.causes.map((cause) => CAUSE_TEXT[cause]), ...(waterUl > 0 ? [OUTCOME_TEXT.water] : [])]
+        : outcome.counts
+          ? OUTCOME_TEXT.passed
+          : OUTCOME_TEXT.notCounted
+  const technique = outcome.causes.some((cause) => TECHNIQUE.includes(cause))
+  return [
+    first,
+    ...outcome.causes.map((cause) => CAUSE_TEXT[cause]),
+    ...(outcome.state === 'passed' && technique ? [OUTCOME_TEXT.closeWithTechniqueError] : []),
+    ...(waterUl > 0 ? [OUTCOME_TEXT.water] : []),
+  ]
 }
 
 /** Guided's worked calculation, set out with the learner's own numbers and stopping before the answer. */
