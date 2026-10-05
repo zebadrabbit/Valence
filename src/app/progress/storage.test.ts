@@ -119,6 +119,84 @@ describe('saveEntry and loadEntry', () => {
   })
 })
 
+describe('an entry that cannot be loaded, on a store too full to take its backup (spec 10: the old value is kept, not deleted)', () => {
+  /** A store with a byte quota, as localStorage has: a write that would take the total past it is refused. */
+  function quotaStore(limit: number): KeyValueStore {
+    const store = createMemoryStore()
+    const size = () => Array.from({ length: store.length }, (_, i) => store.key(i)!).reduce((n, key) => n + key.length + store.getItem(key)!.length, 0)
+    return {
+      ...store,
+      get length() {
+        return store.length
+      },
+      setItem(key, value) {
+        const held = store.getItem(key)
+        if (size() - (held === null ? 0 : key.length + held.length) + key.length + value.length > limit) throw new Error('QuotaExceededError')
+        store.setItem(key, value)
+      },
+    }
+  }
+  const KEY = 'valence:lab:titration'
+  const BACKUP = 'valence:backup:lab:titration'
+  const FILLER = 'valence:lab:aqueous'
+  const fresh = { status: 'in-progress', seed: 9 } as const
+
+  /** The unloadable value under the lab's key and a filler beside it, with no room left for a backup; then the load. */
+  function loadedOnAFullStore(raw: string) {
+    const filler = 'x'.repeat(BACKUP.length + raw.length)
+    const inner = quotaStore(KEY.length + raw.length + FILLER.length + filler.length)
+    inner.setItem(KEY, raw)
+    inner.setItem(FILLER, filler)
+    const told: boolean[] = []
+    const store = sessionStore({ store: inner, persistent: true }, (persistent) => told.push(persistent))
+    expect(loadEntry(store, 'lab:titration', 1, schema)).toBeNull()
+    expect([store.getItem(KEY), store.getItem(BACKUP)]).toEqual([raw, null])
+    return { store, told }
+  }
+
+  it.each([
+    ['of another version', JSON.stringify({ version: 2, data: { status: 'in-progress', seed: 1, trials: [1, 2, 3] } })],
+    // Each is longer than the fresh record, so that only the rule, and not the quota, can refuse the save.
+    ['of this version with data of the wrong shape', JSON.stringify({ version: 1, data: { status: 'purple', seed: 1, trials: [1, 2, 3] } })],
+    ['that is not JSON', '{not json, and a good deal longer than the fresh record'],
+  ])('one %s is not saved over: the save is refused, the old value stays, and the notice shows', (_label, raw) => {
+    const { store, told } = loadedOnAFullStore(raw)
+    expect(saveEntry(store, 'lab:titration', 1, fresh)).toBe(false)
+    expect(saveEntry(store, 'lab:titration', 1, { ...fresh, seed: 10 })).toBe(false)
+    expect(store.getItem(KEY)).toBe(raw)
+    expect(store.getItem(BACKUP)).toBeNull()
+    // Not saving, and saying so: the lab's run is held for the session only.
+    expect(told.every((persistent) => !persistent)).toBe(true)
+    expect(told.length).toBeGreaterThan(0)
+  })
+
+  it('once there is room, the next save backs the old value up first and is then taken, and the notice goes', () => {
+    const raw = JSON.stringify({ version: 2, data: { status: 'in-progress', seed: 1, trials: [1, 2, 3] } })
+    const { store, told } = loadedOnAFullStore(raw)
+    expect(saveEntry(store, 'lab:titration', 1, fresh)).toBe(false)
+    store.removeItem(FILLER)
+    expect(saveEntry(store, 'lab:titration', 1, fresh)).toBe(true)
+    expect(store.getItem(BACKUP)).toBe(raw)
+    expect(loadEntry(store, 'lab:titration', 1, schema)).toEqual(fresh)
+    expect(told.at(-1)).toBe(true)
+    // And from then on it is an ordinary entry.
+    expect(saveEntry(store, 'lab:titration', 1, { ...fresh, seed: 10 })).toBe(true)
+    expect(store.getItem(BACKUP)).toBe(raw)
+  })
+
+  it('other entries are saved as before, and "Clear my progress" lets the entry itself be saved again', () => {
+    const raw = JSON.stringify({ version: 2, data: { status: 'in-progress', seed: 1, trials: [1, 2, 3] } })
+    const { store, told } = loadedOnAFullStore(raw)
+    store.removeItem(FILLER)
+    expect(saveEntry(store, 'prefs', 1, { a: 1 })).toBe(true)
+    clearAll(store)
+    expect(store.length).toBe(0)
+    expect(saveEntry(store, 'lab:titration', 1, fresh)).toBe(true)
+    expect(store.getItem(BACKUP)).toBeNull()
+    expect(told.at(-1)).toBe(true)
+  })
+})
+
 describe('peekStatus', () => {
   it('reports not-started when there is no entry or it is unreadable', () => {
     const store = createMemoryStore()

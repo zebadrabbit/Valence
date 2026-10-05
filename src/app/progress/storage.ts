@@ -115,9 +115,38 @@ export function sessionStore(browser: { store: KeyValueStore; persistent: boolea
 export const NOT_SAVING_TEXT =
   'This browser is not allowing Valence to save data. Your progress and settings will last only until you close this tab.'
 
+/**
+ * The entries a load set aside but could not back up, by the store they are in. Until the old value has its
+ * backup, nothing is saved over it (spec 10: it is kept, not deleted), so the entry lasts for the session only.
+ * The refused backup keeps the not-saving notice up for as long as that is so.
+ */
+const notBackedUp = new WeakMap<KeyValueStore, Set<string>>()
+
+/**
+ * Copies a value that could not be loaded to the first backup key that is free, or that already holds this very
+ * value. Throws when the store will not take it.
+ */
+function backUp(store: KeyValueStore, name: string, raw: string): void {
+  // ponytail: backups are never pruned; each is one broken value, and "Clear my progress" removes them all.
+  let backup = BACKUP_PREFIX + name
+  for (let n = 2, kept = store.getItem(backup); kept !== null && kept !== raw; n++, kept = store.getItem(backup)) {
+    backup = `${BACKUP_PREFIX}${name}:${n}`
+  }
+  store.setItem(backup, raw)
+}
+
+/** False when the store refused the write, or when the entry still holds a value that could not be loaded and has no backup yet. */
 export function saveEntry(store: KeyValueStore, name: string, version: number, data: unknown): boolean {
+  const key = PREFIX + name
   try {
-    store.setItem(PREFIX + name, JSON.stringify({ version, data }))
+    const waiting = notBackedUp.get(store)
+    if (waiting?.has(key)) {
+      // There may be room now. If not, this throws and the old value stays where it is.
+      const old = store.getItem(key)
+      if (old !== null) backUp(store, name, old)
+      waiting.delete(key)
+    }
+    store.setItem(key, JSON.stringify({ version, data }))
     return true
   } catch {
     return false
@@ -129,7 +158,9 @@ export function saveEntry(store: KeyValueStore, name: string, version: number, d
  * parsed, has another version, or fails the schema is moved to a backup key
  * (never deleted outright) and null is returned, so the caller starts fresh.
  * A later broken value does not replace an earlier backup: it goes under the
- * same key with ":2", ":3", ... after it.
+ * same key with ":2", ":3", ... after it. Where the store is too full for the
+ * backup, the value stays under its own key and saveEntry refuses to write
+ * over it until a save finds room to back it up first.
  */
 export function loadEntry<T>(store: KeyValueStore, name: string, version: number, schema: z.ZodType<T>): T | null {
   const key = PREFIX + name
@@ -145,16 +176,11 @@ export function loadEntry<T>(store: KeyValueStore, name: string, version: number
     // fall through to the backup
   }
   try {
-    // The first backup key that is free, or that already holds this very value.
-    // ponytail: backups are never pruned; each is one broken value, and "Clear my progress" removes them all.
-    let backup = BACKUP_PREFIX + name
-    for (let n = 2, kept = store.getItem(backup); kept !== null && kept !== raw; n++, kept = store.getItem(backup)) {
-      backup = `${BACKUP_PREFIX}${name}:${n}`
-    }
-    store.setItem(backup, raw)
+    backUp(store, name, raw)
     store.removeItem(key)
   } catch {
-    // Storage is full: leave the bad entry where it is.
+    // Storage is full: the bad entry stays where it is, and saveEntry will not write over it.
+    notBackedUp.set(store, (notBackedUp.get(store) ?? new Set()).add(key))
   }
   return null
 }
@@ -200,6 +226,7 @@ export function exportAll(store: KeyValueStore): string {
 
 export function clearAll(store: KeyValueStore & { forgetRefused?(): void }): void {
   for (const key of ownKeys(store)) store.removeItem(key)
+  notBackedUp.delete(store)
   // An entry whose every save was refused was never stored, so no removal above answers for it.
   store.forgetRefused?.()
 }
