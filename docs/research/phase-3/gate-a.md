@@ -6,7 +6,7 @@
 
 ## How the review was done
 
-Three reviewers, none of whom wrote the code under review, worked at commit `036c706`. None changed a tracked file.
+Three reviewers, none of whom wrote the code under review, worked at commit `cac9a56`. None changed a tracked file.
 
 | | What they were given | What they did |
 | --- | --- | --- |
@@ -25,21 +25,21 @@ Findings are numbered F1 to F15 (must-fix and should-fix) and N1 to N15 (notes).
 - Reproduced: the new test failed on 25 support lines and on three shown sentences outside the safety card.
 - Done: each line is reworded. `src/chem-data/titration/quotation.test.ts` now holds every shown paragraph, every support line (what it says the passage establishes, and every "This lab:" line) and the three hazard notes to the rule: none repeats a run of six words of a page it rests on. The pages are not kept, so the test compares against `docs/research/phase-3/sources/quotation-fingerprint.json`, a hash of every six-word run in the seventeen pages the primer cites, the three safety data sheets and the three PubChem records. `scripts/fingerprint-sources.mjs` writes it from pages saved outside the repository. This record said here that no text can be read back from the fingerprint. That was wrong, and the file is no longer kept: see "The quotation fingerprint is not kept either" below. A passage's location is left out of the test: a heading named there is the source's own name for the place.
 - Re-checked: the test went from 37 failing texts, these and those of F5, to none. R2's own scanner, run again over the reworded file, finds four runs in support lines, all four of them headings or example titles used as locations.
-- Commit `cf71756`.
+- Commit `b801314`.
 
 **F5 (must-fix, R2). Learner-facing safety text shared runs of 6, 9 and 14 words with the safety data sheets.** The rinse sentence in the safety card and in the acid and base notes; four hazard statements in a row, without their codes, in the indicator note; the wording of H314 without its code in the safety card.
 
 - Reproduced: the same test failed on two shown safety paragraphs, four of their support lines and all three notes.
 - Done: the rinse sentence is in the project's words in all three places. The indicator note gives the five codes the sheet prints and then says in its own words what each means. The safety card names H314 by its code and says the two substances are classified as corrosive to the skin and the eyes. Bottle statements stay as printed with their codes: they are data.
 - Re-checked: the test above; R2's scanner against the kept copies and the saved sheets finds nothing in `primer.ts`, and in the record only statements with their codes, the names of the two regulations and figures with their units.
-- Commit `cf71756`. **The owner reads the result (D4, D15): the hazards say the same, in different words.**
+- Commit `b801314`. **The owner reads the result (D4, D15): the hazards say the same, in different words.**
 
 **F3 (should-fix, R1). The indicator note treated the bench's bottle as one supplier's product**, while the strength's note in the same record says that this is assumed.
 
 - Reproduced by reading the two notes side by side.
 - Done: the note says the bench's indicator is taken to be a 0.5% (w/v) solution in 50% alcohol, and that a supplier's sheet for a solution of that kind gives what follows. The safety card says "a supplier's safety data sheet for a solution of this kind".
 - Re-checked: new cases in `inputs.test.ts` and `primer.test.ts`, seen failing first.
-- Commit `ea2608e`.
+- Commit `ca9dd9a`.
 
 **F1, F2 and F9 (should-fix, R1 twice and R2). Nothing a learner sees said the technique errors are larger than a bench gives, and the precision card stated one of the model's rules as a fact about benches.** Spec 7.3 names three things that are not true to a bench and says the learner is told. Only a support line, which is not shown, said so. The precision card's example of results that agree and are all wrong was a burette never conditioned, which agrees only because this lab holds the dilution at 2.0% through every refill.
 
@@ -48,14 +48,14 @@ Findings are numbered F1 to F15 (must-fix and should-fix) and N1 to N15 (notes).
 - Reworded on 2026-10-05, with the owner's answer on counting: the paragraph said that each of the three mistakes, on its own, puts a trial outside the 1.0% allowed. That is not true of what is left of a bubble after part of it has run out (F8). The paragraph now names the three mistakes, keeps the three statements about a real bench, and says that a mistake does not always show in the result, since two can push it in opposite directions and cancel, so a trial with one of them in it does not count even when its result is close. It gives no figure for what a trial is allowed: the card does not need one. A new case in `primer.test.ts`, seen failing first, holds it to that.
 - Not done: no figure is given for what a bench costs. R1's estimates (a few tenths of a percent) are a reviewer's judgement and no source was read for them.
 - Re-checked: new cases in `primer.test.ts` and `messages.test.ts`, seen failing first. For the change of 2026-10-05, two cases in `messages.test.ts` seen failing first: the sentence is in no cause's own text, is in the feedback exactly once for one, two or three technique causes and not at all without one, and says "shows in the result" under a failed trial only. The earlier case, which held each technique cause to carry the sentence, is replaced by them.
-- Commit `7bacdd2`.
+- Commit `04080c9`.
 
 **F10 (should-fix, R2). The three cards to read first used words defined on other cards.** The titrating card used the titre and the stopcock before the cards that say what they are, and leaned on molarity and the indicator.
 
 - Reproduced with R2's probe of where each term first appears.
 - Done: the card order is the plan's and is unchanged. The first paragraph now names the three in an order that can be followed: Reading the burette, Titrating to the endpoint, The calculation. The titrating card says that the volume of NaOH the flask takes is called the titre, says what M means and points to the Molarity card, and says the phenolphthalein in the flask is an indicator that turns pink once the acid is used up.
 - Re-checked: a new case in `primer.test.ts`, seen failing first.
-- Commit `972858f`.
+- Commit `b02e999`.
 
 **F11, F12 and F13 (should-fix, R2 and R3 twice). After a wash of distilled water the status line misdescribed the last addition, and a wash or a further drop erased a recorded final reading without a word.**
 
@@ -66,14 +66,14 @@ Findings are numbered F1 to F15 (must-fix and should-fix) and N1 to N15 (notes).
   - The primer: the titrating card now says that in this lab the half-drop is rinsed in for the learner, that the bench's rinse is 10 mL, that so much water can thin a very faint pink until it no longer shows, and to add another half-drop if it does.
 - Re-checked: six new cases across `select.test.ts`, `benchText.test.ts` and `primer.test.ts`, seen failing first, one of them over seeds 1 to 100 with up to three washes. Both reviewers' probes, run again, give "Flask: faint pink." and then "Flask: colourless." for seed 6.
 - Still open: whether a 10 mL portion is the right size for a rinse, given how often it washes a faint endpoint out. D3 fixes the portion, so that is the owner's.
-- Commit `7f9cbb8`.
+- Commit `eaa86fa`.
 
 **F14 (should-fix, R3). On a full store, an entry that could not be loaded was lost.** Its backup was refused, it was left under its own key, and the fresh lab's first save wrote over it. The not-saving notice then stayed up while every save was being taken.
 
 - Reproduced with R3's probe on a store with a byte quota.
 - Done: the promise of spec 10 is kept. `saveEntry` does not write over an entry that a load set aside and could not back up. It tries the backup again at each save and goes ahead once there is room. Until then the entry lasts for the session only, and the notice, which the refused backup keeps up, is true. "Clear my progress" removes the entry and lifts the hold. Spec 10 has a sentence on it.
 - Re-checked: five new cases in `src/app/progress/storage.test.ts`, four seen failing first, for a value of another version, one of this version with the wrong shape, and one that is not JSON. R3's probe, run again: the fresh save is refused and the old record is still in the store.
-- Commit `bc58fe0`.
+- Commit `8e17316`.
 
 ### Closed by the owner's answers of 2026-10-05
 
@@ -96,7 +96,7 @@ Findings are numbered F1 to F15 (must-fix and should-fix) and N1 to N15 (notes).
 - Done: `ricca-5600-listing.html` is out of the repository. Its manifest entry has no `file` and no `sha256`, and reads like the entries for the NIST pages and the IAPWS release: the address, the day the page was read (2026-10-04), and rows for what it prints, which are 0.5, the basis (w/v), the solvent 50% (v/v) Alcohol in the same heading, and 5 g/L lower on the page, each with where it is in this project's words. The sha256 of the page as fetched is kept under a field of its own, `fetchedSha256`, because `sha256` in the manifest is the hash of a kept file and there is none.
 - What is lost: the build's check of the strength against a copy (`checkStrength`) is gone. The figure now rests on a page read on 2026-10-04 and is no longer re-checked by the build; a page that changes is not noticed. The record's note on the strength, the sources README, the plan (D4, Tasks 2 and 4) and the spec (5.2, 7.3) say so.
 - Re-checked: the case in `inputs.test.ts` that held the kept copy to print the strength now holds the entry to the read-and-not-kept pattern and the folder to hold no HTML file; it and a case that `checkStrength` is gone were seen failing first. `npm run build:data` writes the new citation and note and nothing else.
-- History: the file is still in the branch's earlier commits. It is taken out of them separately, before anything is pushed (the plan's Task 23).
+- History: the file was taken out of the branch's earlier commits on 2026-10-05, before anything was pushed. The commits from the one that first added it to the one that removed it therefore do not pass their own tests if checked out.
 
 **The quotation fingerprint is not kept either, by the same reasoning.** The fix for F4 kept a fingerprint of the cited pages in the sources folder and said that no text can be read back from it. A re-check showed otherwise: starting from five words of a page and trying each word of a dictionary as the sixth, the fingerprint says which is right, and stretches of the pages come back a word at a time. A file from which the pages can be rebuilt is too close to a copy of pages that are cited and not kept.
 
@@ -104,13 +104,13 @@ Findings are numbered F1 to F15 (must-fix and should-fix) and N1 to N15 (notes).
 - What is lost: CI no longer holds the no-quotation rule for the primer and the hazard notes. It is a check made when the words are written, on a machine that has the pages. The plan's Global Constraint says so.
 - Corrected: every statement that no text can be read back from the fingerprint, in the sources README, in `scripts/titration-lib.mjs`, in `scripts/fingerprint-sources.mjs` and above in this record. The README says why the file is not kept and how to make it again.
 - Re-checked: with the file moved away the test as it stood failed on its import, and so did the type check; after the change, 2 cases pass and 132 are skipped without the file, and all 134 pass with it. Every sentence written at this stage was run against the fingerprint before it was committed.
-- History: the file is still in the branch's earlier commits. It is taken out of them separately, before anything is pushed (the plan's Task 23).
+- History: the file was taken out of the branch's earlier commits on 2026-10-05, before anything was pushed. The commits from the one that first added it to the one that removed it therefore do not pass their own tests if checked out.
 
 ### Decided without the owner, 2026-10-05
 
 These were not put to the owner. Each is given with its reason, so that the owner can take it back.
 
-**F6 (should-fix, R2) and N9 (note, R3). The flask view gives away the pipette's delivery and, once the flask is pink, the hidden NaOH molarity.** Reproduced with R2's test: exact at 400 of 400 seeds for both. The plan's Global Constraints accepted the pink concentration of a pink flask as a number the drawing needs, and its Task 13 pins the exact flask volume. The header comment in `select.ts` claimed that no selector hands over such a number; it was corrected at the gate to say which two do (commit `3ecc4f8`).
+**F6 (should-fix, R2) and N9 (note, R3). The flask view gives away the pipette's delivery and, once the flask is pink, the hidden NaOH molarity.** Reproduced with R2's test: exact at 400 of 400 seeds for both. The plan's Global Constraints accepted the pink concentration of a pink flask as a number the drawing needs, and its Task 13 pins the exact flask volume. The header comment in `select.ts` claimed that no selector hands over such a number; it was corrected at the gate to say which two do (commit `ea61da6`).
 
 - Decided: accepted as built. The engine hands the app no less.
 - Reason: neither number can make a trial count. That takes honest readings, within 0.02 mL of the meniscus, and the notebook's own arithmetic, and from 2026-10-05 no technique error either. And a failed trial's percent error gives the same molarity at once, by the owner's decision D1. Handing over a depth in a few steps and a volume to the whole mL would change the bench view's fields and a test value of the plan's Task 13 to close a route that D1 leaves open by design.
@@ -166,28 +166,28 @@ One thing R3 raised under F12 was carried forward: on a reload the stored last a
 
 ## After the owner's answers: what was done, by commit
 
-The commits of 2026-10-05 that followed the owner's two answers, in order. Each leaves lint, the build and the three data scripts passing with no diff. The ids are those of the local branch; the plan's Task 23 has them rewritten when the two removed files are taken out of the branch's history.
+The commits of 2026-10-05 that followed the owner's two answers, in order. Each leaves lint, the build and the three data scripts passing with no diff. The ids in this record are those of the branch after the two removed files were taken out of its history on 2026-10-05.
 
 | Commit | What it did |
 | --- | --- |
-| `bb20934` | A trial with a technique cause named in it does not count (the owner's answer on counting; F7, F8) |
-| `975fd0b` | The closing sentence on what is larger here than at a bench is said once, after the causes |
-| `c67625f` | The glassware card names the three mistakes and says such a trial does not count |
-| `5466aea` | The indicator's listing is cited, not kept (the owner's answer on the listing) |
-| `ec13c95` | The quotation fingerprint is not kept; its test is local |
-| `02dfd20` | What the flask view hands the app is accepted (F6, N9) |
-| `4edb5f4` | The safety card's paragraph on the indicator (F15) |
-| `13d29d2` | The plan's stand draws no plume on first render |
-| `85dc971` | Four wordings of the bench (N7) |
-| `80df353` | Primer wording from the reviewers' notes (N6, N12) |
-| `a5fbc52` | What Home shows for a record the lab will refuse (N10) |
-| `a4303b6` | The seven unsourced points, the owner's list and questions, and the plan's Tasks 21 and 23 |
-| `2065725` | The feedback tells a technique cause by the warnings' own table; no sentence and no behaviour changed |
+| `e11f10e` | A trial with a technique cause named in it does not count (the owner's answer on counting; F7, F8) |
+| `215d9b8` | The closing sentence on what is larger here than at a bench is said once, after the causes |
+| `ce55897` | The glassware card names the three mistakes and says such a trial does not count |
+| `aa9d6ea` | The indicator's listing is cited, not kept (the owner's answer on the listing) |
+| `1c96688` | The quotation fingerprint is not kept; its test is local |
+| `929844a` | What the flask view hands the app is accepted (F6, N9) |
+| `25316bd` | The safety card's paragraph on the indicator (F15) |
+| `4db3c95` | The plan's stand draws no plume on first render |
+| `80e1a12` | Four wordings of the bench (N7) |
+| `b11320c` | Primer wording from the reviewers' notes (N6, N12) |
+| `bc64116` | What Home shows for a record the lab will refuse (N10) |
+| `01b3231` | The seven unsourced points, the owner's list and questions, and the plan's Tasks 21 and 23 |
+| `1848985` | The feedback tells a technique cause by the warnings' own table; no sentence and no behaviour changed |
 | the commit after it | These last two rows |
 
 ## The last check, 2026-10-05
 
-After the commits above the branch was checked once more, at `44971d2`. One check read the primer as shown, in the order it tells the learner to read it, and the output of every wording function, and walked the engine with the advice in them. The other attacked the counting rule again and ran the build from a fresh clone. Between them they made 22 findings: one must-fix, ten should-fix and eleven notes. They are numbered here L1 to L11 (must-fix and should-fix) and M1 to M11 (notes). Each must-fix and should-fix was reproduced before anything was changed, and each fix was written test-first: the test was seen failing for the reason the finding gives, then the change was made. The reading check's probe printed the primer as shown and the output of every wording function, so the sentences written since the first review were read at this check as they then stood. After the last fix `npm run lint`, `npm run build`, `npm run build:data`, `npm run build:expected` and `npm run cross-check` pass and the generated files show no diff: 68 test files and 1964 tests where the quotation fingerprint has been made, and 1830 passed with 134 reported as skipped where it has not, as in CI. Every primer sentence written at this check was run against the fingerprint before it was committed.
+After the commits above the branch was checked once more, at `f4aef09`. One check read the primer as shown, in the order it tells the learner to read it, and the output of every wording function, and walked the engine with the advice in them. The other attacked the counting rule again and ran the build from a fresh clone. Between them they made 22 findings: one must-fix, ten should-fix and eleven notes. They are numbered here L1 to L11 (must-fix and should-fix) and M1 to M11 (notes). Each must-fix and should-fix was reproduced before anything was changed, and each fix was written test-first: the test was seen failing for the reason the finding gives, then the change was made. The reading check's probe printed the primer as shown and the output of every wording function, so the sentences written since the first review were read at this check as they then stood. After the last fix `npm run lint`, `npm run build`, `npm run build:data`, `npm run build:expected` and `npm run cross-check` pass and the generated files show no diff: 68 test files and 1964 tests where the quotation fingerprint has been made, and 1830 passed with 134 reported as skipped where it has not, as in CI. Every primer sentence written at this check was run against the fingerprint before it was committed.
 
 ### Fixed
 
@@ -267,17 +267,17 @@ Each leaves lint, the build and the three data scripts passing with no diff. The
 
 | Commit | What it did |
 | --- | --- |
-| `d1be539` | Four cards to read before the bench (L1) |
-| `30d1772` | The cue by the size of the addition, with one answer in the primer, the overshot feedback and the hint (L2) |
-| `3dba8a9` | Each word explained at or before its first use in the four cards (L3) |
-| `fa748f1` | What conditioning is, and how the tip is cleared, in the two causes (L4) |
-| `98a4732` | A result and a sentence of its own for a trial that a rinse ends at the last mark (L5) |
-| `a569a13` | "Ran out" kept for a burette with nothing left to deliver (L6) |
-| `50c9cee` | The safety card's paragraph on the indicator (L7, L10) |
-| `3d43784` | Not classed as hazardous is not the same as harmless (L8) |
-| `afa9e6e` | "Shows in the result" only under a failed trial with technique causes alone (L9) |
-| `1cad5f6` | A timeout of its own for every loop in the lab's tests (L11) |
-| `f94b04a` | The eleven notes, and the owner's answer on the tie rule in the spec (M9) |
+| `22ef752` | Four cards to read before the bench (L1) |
+| `d2f8e33` | The cue by the size of the addition, with one answer in the primer, the overshot feedback and the hint (L2) |
+| `44183c9` | Each word explained at or before its first use in the four cards (L3) |
+| `689fb28` | What conditioning is, and how the tip is cleared, in the two causes (L4) |
+| `8a99be7` | A result and a sentence of its own for a trial that a rinse ends at the last mark (L5) |
+| `f7bfadf` | "Ran out" kept for a burette with nothing left to deliver (L6) |
+| `30b356f` | The safety card's paragraph on the indicator (L7, L10) |
+| `0bc5964` | Not classed as hazardous is not the same as harmless (L8) |
+| `1b5e3f1` | "Shows in the result" only under a failed trial with technique causes alone (L9) |
+| `b0d7241` | A timeout of its own for every loop in the lab's tests (L11) |
+| `ac981ec` | The eleven notes, and the owner's answer on the tie rule in the spec (M9) |
 | the commit after it | The head of this record, the owner's lists, this table and the plan's gate |
 
 ### Notes of the last check
@@ -341,7 +341,7 @@ Each leaves lint, the build and the three data scripts passing with no diff. The
 
 ## What nobody checked
 
-- **The sentences written to fix the last check's findings.** They are listed in the last section. Tests hold them to their structure and to the no-quotation rule, but no independent reader has read them for chemistry or tone. The sentences written before the last check, after the first review, were read by it as they stood at `44971d2`.
+- **The sentences written to fix the last check's findings.** They are listed in the last section. Tests hold them to their structure and to the no-quotation rule, but no independent reader has read them for chemistry or tone. The sentences written before the last check, after the first review, were read by it as they stood at `f4aef09`.
 - **The primer's passages.** The wording of the support lines was compared with the pages; whether each location and each claim is right for its source was not gone through one by one. The points of the primer for which no source was read (the plan's ninth review item) were not judged one by one either. They are eight, with the one the last check added: that the faint pink of a real endpoint fades because the open flask takes up CO₂, and that this is why the rule gives a time; that a NaOH solution which has stood is standardized again; touching the hanging part-drop to the flask wall; the definition of relative deviation; which way an escaping tip bubble moves the reading; the glassware card's statements about a real bench (each mistake costs less there, a real tip holds less air than this lab's bubble, and a real burette that was not conditioned is less diluted at each refill); the titrating card's statement that a 10 mL rinse can thin a very faint pink until it no longer shows; and its statement that a single drop's pink clears at once again after the stream's has begun to linger.
 - **The pages as they stood when the primer was written.** No copy is kept. The comparison, and the fingerprint, are of the pages as served on 2026-10-05. A page that changes later is not noticed. Text inside images, and runs broken by a sheet's layout, are outside the scan.
 - **The fingerprint's limits.** A run of five words, or a close paraphrase, passes. A run that was never in a page can match by chance about once in 60 000 tries; it would then be reworded for nothing. Since 2026-10-05 the fingerprint is not in the repository, so the test runs only where it has been made again, and not in CI.
@@ -362,7 +362,7 @@ Each leaves lint, the build and the three data scripts passing with no diff. The
 
 These three, and nothing else, are what the plan asks the owner to read at this gate.
 
-1. **The primer**, `src/chem-data/titration/primer.ts`, the `text` of each paragraph. The plan asks in particular for: the card on titrating to the endpoint; the sentence that the acid was itself standardized; "about pH 8.3"; the word "conditioning"; the 30-second wait that in this model cannot fail; and what the safety card does and does not cover. Changed since the first review, and read by the last check as they stood at `44971d2` (some were changed again, and are in the second list):
+1. **The primer**, `src/chem-data/titration/primer.ts`, the `text` of each paragraph. The plan asks in particular for: the card on titrating to the endpoint; the sentence that the acid was itself standardized; "about pH 8.3"; the word "conditioning"; the 30-second wait that in this model cannot fail; and what the safety card does and does not cover. Changed since the first review, and read by the last check as they stood at `f4aef09` (some were changed again, and are in the second list):
    - the safety card's last paragraph, on what the indicator's sheet lists (F15);
    - the glassware card's fourth paragraph, which names the three mistakes and says that a trial with one of them in it does not count;
    - the titrating card's sentence that gives the 5 mL pour its 7 mL, and its four sentences on the bench's rinse;
@@ -417,7 +417,7 @@ From the last check, each recorded above with its reason: four cards to read fir
 
 ### Sentences written or changed at the last check, which no independent reader has read
 
-The gate does not close until someone independent, the owner or a reviewer, has read these for chemistry and tone. The sentences this section listed before the last check were read by it as they stood at `44971d2`; its findings on them are above.
+The gate does not close until someone independent, the owner or a reviewer, has read these for chemistry and tone. The sentences this section listed before the last check were read by it as they stood at `f4aef09`; its findings on them are above.
 
 - Primer: every paragraph listed under "What the owner reads", item 1, as written or changed again at the last check.
 - `src/app/lab/titration/messages.ts`: `BLOCKED_TEXT['needs-initial-reading']` and `['final-not-after-initial']`, where NaOH now runs from the burette and into the flask; the causes `burette-not-conditioned`, which says what conditioning is, and `tip-bubble`, which says how the tip is cleared; `OUTCOME_TEXT.overshot`; `OUTCOME_TEXT['washed-out']` and its label, "Invalid: pink rinsed away".
