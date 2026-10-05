@@ -197,6 +197,20 @@ describe('a reading that is refused', () => {
   })
 })
 
+describe('the pipette rinse that is refused', () => {
+  it('says why in a way that is true of a pipette that was rinsed and of one that an aliquot left wet with acid: it is wet with acid, and rinsing it changes nothing for this flask', () => {
+    // Challenge: the aliquot is drawn with the pipette still wet with water, and the engine then refuses the rinse.
+    const drawn = run(m, createLab(1, 'challenge'), [{ type: 'pipetteAliquot' }])
+    expect(currentTrial(drawn).aliquot).toBe('diluted')
+    expect(can(m, drawn, { type: 'rinsePipette' })).toBe('already-done')
+    expect(can(m, run(m, createLab(1, 'challenge'), [{ type: 'rinsePipette' }]), { type: 'rinsePipette' })).toBe('already-done')
+    expect(BLOCKED_TEXT['already-done']).toMatch(/already wet with acid/)
+    expect(BLOCKED_TEXT['already-done']).toMatch(/changes nothing for this flask/)
+    // It does not say that the pipette was rinsed, and gives nothing away about the aliquot.
+    expect(BLOCKED_TEXT['already-done']).not.toMatch(/was rinsed|has been rinsed|dilut/)
+  })
+})
+
 describe('the sentence for any reason the engine gives', () => {
   it('is the table’s, the entry’s, or the re-read sentence', () => {
     expect(blockedText('burette-empty')).toBe(BLOCKED_TEXT['burette-empty'])

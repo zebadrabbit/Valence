@@ -13,8 +13,10 @@ export const BLOCKED_TEXT: Record<Exclude<Blocked, 'invalid-entry' | 'reread'>, 
   'lab-not-completed': 'These are entered once three trials count.',
   'trial-ended': 'This trial is over. Start the next trial.',
   'trial-open': 'Finish or discard the trial under way first.',
-  // Said of the pipette rinse only, and also when the pipette was never rinsed: drawing an aliquot wet it with acid.
-  'already-done': 'That does not need doing now.',
+  // Said of the pipette rinse only. The engine gives it for a pipette that was rinsed and for one that was never
+  // rinsed and is wet with acid from the aliquot it drew, so the sentence is true of both and says which of the two
+  // it is of neither.
+  'already-done': 'The pipette is already wet with acid, so rinsing it now changes nothing for this flask.',
   'mid-titration': 'That cannot be done once NaOH has run into the flask.',
   'burette-empty': 'Fill the burette first.',
   'burette-at-bottom': 'The burette is at the 50 mL mark, the bottom of its scale. Nothing more can be delivered.',

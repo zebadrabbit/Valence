@@ -123,7 +123,7 @@ describe('the bench view of a real engine state', () => {
 
   it('a swirl and wait then: the line says what the wait found in place of the cue', () => {
     const swirled = run(m, midStream, [SWIRL])
-    expect(status(swirled)).toBe('Flask: colourless. Swirled 30 s: no pink remains.')
+    expect(status(swirled)).toBe('Flask: colourless. Swirled 30 s: no pink.')
     expect(view(swirled).plume).toBeNull()
     expect(view(swirled).persistence).toBe('faded')
   })

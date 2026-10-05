@@ -20,8 +20,11 @@ export const PLUME_TEXT: Record<PlumeStatus, string> = {
 
 const colourLabel = ({ flask }: BenchView, display: Display) => flaskColour({ ...flask, hasLiquid: flask.hasAliquot, ...display }).label
 
-/** What a swirl and wait found, in the status line and in the message line alike. */
-const FOUND = { persisted: 'the pink has lasted', faded: 'no pink remains' }
+/**
+ * What a swirl and wait found, in the status line and in the message line alike. Not "no pink remains": the model's
+ * flask is closed, so a wait finds no pink only in a flask that was not pink before it.
+ */
+const FOUND = { persisted: 'the pink has lasted', faded: 'no pink' }
 
 /**
  * The status line: the flask's colour, then the last addition's cue, or what a swirl and wait found in its place.
@@ -96,13 +99,15 @@ export const ACTION_TEXT: Record<Exclude<BenchControl, 'deliver'>, string> = {
 
 /**
  * What a wash, a drop or a half-drop adds to its message when it undid a swirl and wait that had shown the pink to
- * last; `before` is the view before the action. The engine clears the wait, and a final reading with it, whenever
- * the flask changes. Empty when no pink had lasted, so the drops of an ordinary titration say nothing of it.
+ * last; `before` and `after` are the views either side of the action. The engine clears the wait, and a final
+ * reading with it, whenever the flask changes. It ends with what to do next: the wait again while the flask is still
+ * pink, a half-drop where a wash has thinned the pink away. Empty when no pink had lasted, so the drops of an
+ * ordinary titration say nothing of it, and when the action ended the trial, which leaves nothing to do in it.
  */
-export function undoneText(before: BenchView): string {
-  return before.persistence === 'persisted'
-    ? 'The flask has changed since the swirl and wait, so that wait no longer counts, and a final reading recorded after it no longer applies. Swirl and wait again before the final reading.'
-    : ''
+export function undoneText(before: BenchView, after: BenchView): string {
+  if (before.persistence !== 'persisted' || after.trialEnd !== 'open') return ''
+  const undone = 'The flask has changed since the swirl and wait, so that wait no longer counts, and a final reading recorded after it no longer applies.'
+  return after.flask.pink ? `${undone} Swirl and wait again before the final reading.` : `${undone} The water has thinned the pink until it no longer shows, so add a half-drop.`
 }
 
 /** What a swirl and wait says in the message line: that it was done, what it found, and what a pink that lasted allows. */
@@ -112,10 +117,12 @@ export function swirlText(persistence: 'faded' | 'persisted'): string {
 
 /**
  * Guided's hint, shown for as long as the engine gives it. The stopcock is closed for the learner once, when the
- * hint first shows, and can be opened again, so the line does not say what the stopcock is doing now.
+ * hint first shows, and can be opened again, so the line does not say what the stopcock is doing now. It shows again
+ * on a flask that a wash has thinned from pink to colourless, beside undoneText's "add a half-drop", so it sets a
+ * limit ("no more than a drop") and does not say to go by drops.
  */
 export const SLOW_DOWN_TEXT =
-  'Slow down: the endpoint is near. If the stopcock was open, it was closed when this hint appeared. Go on a drop at a time, and change to half-drops once the pink is slow to fade.'
+  'Slow down: the endpoint is near. If the stopcock was open, it was closed when this hint appeared. Add no more than a drop at a time, and change to half-drops once the pink is slow to fade.'
 
 /** For a press that came just after the stopcock closed by itself, and was dropped so that it would not open it again. */
 export const STOPCOCK_ALREADY_CLOSED = 'The stopcock is already closed: it closed by itself a moment ago, so that press did nothing.'

@@ -146,9 +146,19 @@ describe('what a drop and a half-drop say', () => {
 describe('the swirl and wait', () => {
   it('says what the wait found, in the words of the status line', () => {
     expect(swirlText('persisted')).toContain('the pink has lasted')
-    expect(swirlText('faded')).toContain('no pink remains')
+    expect(swirlText('faded')).toBe('Flask swirled for 30 seconds: no pink.')
     expect(flaskStatus({ ...endpoint, persistence: 'persisted' }, display)).toContain('the pink has lasted')
-    expect(flaskStatus({ ...midStream, persistence: 'faded', plume: null }, display)).toContain('no pink remains')
+    expect(flaskStatus({ ...midStream, persistence: 'faded', plume: null }, display)).toBe('Flask: colourless. Swirled 30 s: no pink.')
+  })
+
+  it('does not say of a flask that was never pink that no pink remains: a wait finds no pink only in a flask that was not pink before it', () => {
+    // A flask with its indicator and no NaOH yet can be swirled, and has never been pink at all.
+    const untitrated = view(run(m, start, [{ type: 'swirlAndWait' }]))
+    expect(untitrated.plumeKey).toBe(0)
+    expect(flaskStatus(untitrated, display)).toBe('Flask: colourless. Swirled 30 s: no pink.')
+    for (const text of [swirlText('faded'), flaskStatus(untitrated, display)]) expect(text).not.toMatch(/remains/)
+    // The model's flask is closed: a mixed flask that is pink stays pink through the wait, at every careful endpoint of seeds 1 to 100.
+    for (let seed = 1; seed <= 100; seed++) expect([seed, view(titrateCarefully(m, prepared(m, seed)).state).persistence]).toEqual([seed, 'persisted'])
   })
 
   it("names the model's 30 seconds", () => {
@@ -177,7 +187,7 @@ describe('what is said when a confirmed endpoint is undone (seed 6, where the se
 
   it('a wash, a drop and a half-drop after a pink that lasted each say that the wait and a final reading after it no longer apply', () => {
     expect(view(confirmed).persistence).toBe('persisted')
-    const said = undoneText(view(confirmed))
+    const said = undoneText(view(confirmed), view(run(m, confirmed, [WASH])))
     expect(said).toMatch(/swirl and wait/)
     expect(said).toMatch(/final reading/)
     expect(said).toMatch(/no longer/)
@@ -190,12 +200,51 @@ describe('what is said when a confirmed endpoint is undone (seed 6, where the se
   })
 
   it('nothing is added where no pink had lasted: not before a swirl, and not after one that found no pink', () => {
-    expect(undoneText(view(start))).toBe('')
-    expect(undoneText(midStream)).toBe('')
-    const faded = view(run(m, start, [{ type: 'swirlAndWait' }]))
-    expect(faded.persistence).toBe('faded')
-    expect(undoneText(faded)).toBe('')
-    expect(undoneText(view(run(m, confirmed, [WASH])))).toBe('')
+    const after = (state: TitrationState, action: Action) => undoneText(view(state), view(run(m, state, [action])))
+    expect(after(start, { type: 'deliver', amount: 'drop' })).toBe('')
+    expect(undoneText(midStream, view(run(m, start, Array<Action>(41).fill(STREAM))))).toBe('')
+    const faded = run(m, start, [{ type: 'swirlAndWait' }])
+    expect(view(faded).persistence).toBe('faded')
+    expect(after(faded, WASH)).toBe('')
+    expect(after(run(m, confirmed, [WASH]), WASH)).toBe('')
+  })
+
+  it('while the flask is still pink it ends by saying to swirl and wait again; once a wash has left it no longer pink, by saying to add a half-drop', () => {
+    const once = run(m, confirmed, [WASH])
+    const stillPink = undoneText(view(confirmed), view(once))
+    expect(view(once).flask.pink).toBe(true)
+    expect(stillPink).toMatch(/Swirl and wait again before the final reading\.$/)
+    // The wait is done again on the washed flask, and the second wash thins the pink away.
+    const again = run(m, once, [{ type: 'swirlAndWait' }])
+    const twice = run(m, again, [WASH])
+    expect([view(again).persistence, view(twice).flask.pink, view(twice).trialEnd]).toEqual(['persisted', false, 'open'])
+    const thinned = undoneText(view(again), view(twice))
+    expect(thinned).toMatch(/add a half-drop\.$/)
+    expect(thinned).not.toMatch(/[Ss]wirl and wait again/)
+    // Both say what became of the wait and of a reading taken after it.
+    for (const text of [stillPink, thinned]) expect(text).toMatch(/that wait no longer counts, and a final reading recorded after it no longer applies/)
+    // A half-drop does bring the pink back, and after a drop or a half-drop the flask is still pink.
+    expect(view(run(m, twice, [{ type: 'deliver', amount: 'half' }])).flask.pink).toBe(true)
+    for (const amount of ['drop', 'half'] as const) expect(undoneText(view(confirmed), view(run(m, confirmed, [{ type: 'deliver', amount }])))).toBe(stillPink)
+  })
+
+  it("Guided's slow-down line, which shows again on the thinned flask, does not contradict it: no more than a drop at a time allows the half-drop", () => {
+    const twice = view(run(m, confirmed, [WASH, { type: 'swirlAndWait' }, WASH]))
+    expect([twice.slowDown, twice.flask.pink]).toEqual([true, false])
+    expect(SLOW_DOWN_TEXT).toMatch(/no more than a drop at a time/)
+    expect(SLOW_DOWN_TEXT).not.toMatch(/Go on a drop at a time/)
+  })
+
+  it('it says nothing when the wash ended the trial: there is no wait to do again and nothing to add (seed 1384, the burette at its last mark)', () => {
+    // Trial 2 with no refill runs to the mark just past its endpoint; the second wash there takes the pink away and the trial is over.
+    let s = learner().carefulTrial(m, prepared(m, 1384))
+    s = learner().readyTrial(m, run(m, s, [{ type: 'startNextTrial' }]), { fill: false })
+    while (view(s).controls.deliver === null) s = run(m, s, [STREAM])
+    s = run(m, s, [WASH, { type: 'swirlAndWait' }])
+    expect([view(s).persistence, view(s).burette.atBottom]).toEqual(['persisted', true])
+    const ended = run(m, s, [WASH])
+    expect(view(ended).trialEnd).toBe('ran-out')
+    expect(undoneText(view(s), view(ended))).toBe('')
   })
 
   it('after a wash the status line gives the colour and says nothing of a last addition, whichever way the colour went', () => {
@@ -230,7 +279,8 @@ describe('every sentence of the bench', () => {
     ...(['drop', 'half'] as const).flatMap((amount) => [additionMessage(amount, ''), additionMessage(amount, additionMessage(amount, ''))]),
     swirlText('persisted'),
     swirlText('faded'),
-    undoneText(endpoint),
+    undoneText({ ...endpoint, persistence: 'persisted' }, endpoint),
+    undoneText({ ...endpoint, persistence: 'persisted' }, { ...endpoint, flask: { ...endpoint.flask, pink: false } }),
   ]
   const all = [...strings(benchText), ...said]
 

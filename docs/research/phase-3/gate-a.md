@@ -62,7 +62,7 @@ Findings are numbered F1 to F15 (must-fix and should-fix) and N1 to N15 (notes).
 - Reproduced with both reviewers' probes: seed 6, a confirmed endpoint, read "Last addition: pink persists." after one wash and "Flask: colourless. Last addition: pink fades slowly." after two, with nothing added but water. Of 500 careful endpoints, 85 were washed colourless by one to three portions.
 - Done, in three parts.
   - The engine: a wash sets the trial's `lastAdditionUl` to 0. After a wash there is no plume and no cue, and the line gives the colour alone until titrant runs again. No stored field is added and no rule of the spec changes. R3 marked this change as the owner's because it touches the engine; it was made here because the defect is the plan's Review Focus 5 (words and picture that disagree) and the alternative left a false sentence on the screen. It is one line to take back, and it is listed for the owner below.
-  - The bench's words: `undoneText(before)` in `benchText.ts` is the sentence a wash, a drop or a half-drop adds when it undid a swirl and wait that had shown the pink to last: the wait no longer counts and a final reading recorded after it no longer applies. It is empty otherwise, so the drops of an ordinary titration say nothing of it. Task 19 puts it on the message line; the plan says so.
+  - The bench's words: `undoneText(before)` in `benchText.ts` is the sentence a wash, a drop or a half-drop adds when it undid a swirl and wait that had shown the pink to last: the wait no longer counts and a final reading recorded after it no longer applies. It is empty otherwise, so the drops of an ordinary titration say nothing of it. Task 19 puts it on the message line; the plan says so. (Its ending was changed later the same day, and it now takes the view after the action too: see "Four wordings of the bench" below.)
   - The primer: the titrating card now says that in this lab the half-drop is rinsed in for the learner, that the bench's rinse is 10 mL, that so much water can thin a very faint pink until it no longer shows, and to add another half-drop if it does.
 - Re-checked: six new cases across `select.test.ts`, `benchText.test.ts` and `primer.test.ts`, seen failing first, one of them over seeds 1 to 100 with up to three washes. Both reviewers' probes, run again, give "Flask: faint pink." and then "Flask: colourless." for seed 6.
 - Still open: whether a 10 mL portion is the right size for a rinse, given how often it washes a faint endpoint out. D3 fixes the portion, so that is the owner's.
@@ -124,6 +124,14 @@ Each of these was within what the owner's earlier decisions already settle, or i
 - Done with it: the paragraph's support line for the sheet now gives all five of the sheet's hazards in the project's words.
 - Re-checked: a new case in `primer.test.ts`, seen failing first; the no-quotation test, run with the fingerprint made, passes on the new paragraph and its support line.
 
+**Four wordings of the bench (N7, and what F11 to F13 left).** Decided on 2026-10-05 without the owner, each because the sentence as it stood said something false in a state a learner can reach.
+
+- `undoneText` ended "Swirl and wait again before the final reading." also where a wash had thinned the pink away, and a wait on a colourless flask finds nothing. It now takes the view after the action as well. While the flask is still pink it ends as before; where the wash left it no longer pink it says that the water has thinned the pink until it no longer shows, so add a half-drop, which is what the primer's titrating card says. It says nothing when the action ended the trial.
+- On that thinned flask Guided's hint shows again, and it said "Go on a drop at a time" beside "add a half-drop". It now says "Add no more than a drop at a time, and change to half-drops once the pink is slow to fade": a limit, which the half-drop keeps to.
+- "no pink remains" is now "no pink", in the status line and in the swirl's message. The model's flask is closed, so a wait finds no pink only in a flask that was not pink before it, and a flask with no NaOH in it yet can be swirled. One wording serves every case, so nothing has to tell them apart.
+- The refusal of a pipette rinse read "That does not need doing now." also for a pipette that was never rinsed. The engine gives the one reason for a rinsed pipette and for one an aliquot left wet with acid, and the words are handed nothing else, so the sentence is now true of both: the pipette is already wet with acid, so rinsing it now changes nothing for this flask.
+- Re-checked: seven cases in `benchText.test.ts`, `benchView.test.ts` and `messages.test.ts`, seen failing first. Expected values changed because the wording they pinned changed: "no pink remains" in three places, and `undoneText` called with two views.
+
 ### Notes
 
 | | Note | Disposition |
@@ -134,7 +142,7 @@ Each of these was within what the owner's earlier decisions already settle, or i
 | N4 (R1) | The carbonic acid page's body figures do not agree with each other or with its infobox | No change. The record reports them as printed and does not rest on them |
 | N5 (R2) | Shorter runs shared with sources in shown text | Partly fixed with F4: the test covers shown primer text, so the three primer sentences were reworded. The checklist's step for the indicator, which is the spec's own step 4, and the opening words of the meniscus sentence are generic and unchanged. The record's figures with their units are data |
 | N6 (R2) | Three points on the calculation text: rounding the average first, four decimal places against significant figures, and "at the endpoint" where the equivalence point is meant | No change. Open item 4 |
-| N7 (R2) | A wrong HCl molarity carried from Challenge into Guided is shown as done; "That does not need doing now." for a pipette that was never rinsed; "no pink remains" for a flask that was never pink | No change. Open item 4 |
+| N7 (R2) | A wrong HCl molarity carried from Challenge into Guided is shown as done; "That does not need doing now." for a pipette that was never rinsed; "no pink remains" for a flask that was never pink | The second and third are reworded: see "Four wordings of the bench". The first is unchanged: the plan lists it as not built, the trial's feedback names the label, and the trial does not count |
 | N8 (R2) | A record made by hand can make the notebook show the hidden molarity | No change. Inside the risk spec 7.1 accepts: the stored record holds the seed |
 | N9 (R3) | The flask view's leak, confirmed from the bench's fields alone | With F6: accepted as built, 2026-10-05 |
 | N10 (R3) | Home says "in progress" for a record of the right version that the lab will refuse, until the lab page has been opened | No change. Open item 6 |
@@ -225,7 +233,8 @@ One thing R3 raised under F12 was carried forward: on a reload the stored last a
 - Primer, safety card: the rinse sentence; H314 named by code with "corrosive to the skin and the eyes"; "a supplier's safety data sheet for a solution of this kind"; and, from 2026-10-05, the whole of what the last paragraph says the indicator's sheet lists.
 - The three hazard notes: the rinse sentence in the acid's and the base's; the indicator's opening and its list of hazards.
 - `src/app/lab/titration/messages.ts`: the sentence that closes each of the three technique causes. After the owner's answer of 2026-10-05: `OUTCOME_TEXT.notCounted`, which now gives the whole counting rule; `OUTCOME_TEXT.closeWithTechniqueError`; and `OUTCOME_TEXT.largerHere` and `largerHereAndShown`, the closing sentence in its two forms, with the three technique causes as they read without it.
-- `src/app/lab/titration/benchText.ts`: `undoneText`.
+- `src/app/lab/titration/benchText.ts`: `undoneText`, both endings; `SLOW_DOWN_TEXT`; "no pink" in the status line and in `swirlText`.
+- `src/app/lab/titration/messages.ts`: `BLOCKED_TEXT['already-done']`.
 
 ### Open decisions
 
@@ -235,7 +244,7 @@ One thing R3 raised under F12 was carried forward: on a reload the stored last a
 4. **Wording the reviewers would change and this stage did not.** Each is the owner's call as the person who runs the lab.
    - The calculation card: say that the average is rounded first only because the notebook works it that way; say that four decimal places is this lab's convention, where a report would keep four significant figures; open with the equivalence point, which the endpoint stands for. (N6.)
    - The titrating card: a figure for when the 5 mL pour is safe, for example only while more than 7 mL short of the estimate. (N12.)
-   - "That does not need doing now." for a pipette that was never rinsed; "no pink remains" for a flask that was never pink. (N7.)
+   - "That does not need doing now." for a pipette that was never rinsed; "no pink remains" for a flask that was never pink. (N7.) Both reworded on 2026-10-05: see "Four wordings of the bench".
    - A wrong HCl molarity carried from Challenge into a Guided trial is shown as done and makes the trial not count. Guided could clear it on the change of mode, or show the step as not done. (N7.)
    - "The water does no harm" stays in the titrating card, now followed by the sentences on the 10 mL rinse. Whether 10 mL is the right portion is D3's.
 5. **Two record notes R1 would tighten.** The strength note could say which check its range is for, or give the range in grams per 100 mL (N1). The K_w note could say the constant is used as a product of concentrations with no activity correction (N3). Neither changes a value.
