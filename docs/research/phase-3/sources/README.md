@@ -1,6 +1,6 @@
 # Saved copies
 
-The copies of other people's pages and data that the titration lab's record is built from and checked against. `MANIFEST.json` lists every source of the lab with its address, its citation and, for each value the record stores, the figure the source prints and where. It also lists the sources of the lab's primer (`src/chem-data/titration/primer.ts`), each with one row whose field is `primer`; none of those pages is kept, and the primer's own support lines say where each passage is and what it establishes. What is kept of them is `quotation-fingerprint.json` (below). A source with a `file` has its copy here, with the sha256 of that copy; the others were read on the retrieval date, or on the later date their own citation gives, and no copy is kept. A value read from one of those rests on what the manifest says the page printed that day: the build cannot check it again, and a page that has changed since is not noticed.
+The copies of other people's pages and data that the titration lab's record is built from and checked against. `MANIFEST.json` lists every source of the lab with its address, its citation and, for each value the record stores, the figure the source prints and where. It also lists the sources of the lab's primer (`src/chem-data/titration/primer.ts`), each with one row whose field is `primer`; none of those pages is kept, and the primer's own support lines say where each passage is and what it establishes. Nothing made from them is kept either (see "The quotation fingerprint" below). A source with a `file` has its copy here, with the sha256 of that copy; the others were read on the retrieval date, or on the later date their own citation gives, and no copy is kept. A value read from one of those rests on what the manifest says the page printed that day: the build cannot check it again, and a page that has changed since is not noticed.
 
 The copies are as they were downloaded and are not edited by hand.
 
@@ -10,7 +10,6 @@ The copies are as they were downloaded and are not edited by hand.
 | `pubchem-cid-313-ghs.json`, `pubchem-cid-14798-ghs.json`, `pubchem-cid-4764-ghs.json` | PubChem's GHS Classification section for hydrochloric acid, sodium hydroxide and phenolphthalein, from its PUG View service |
 | `pubchem-cid-4764-properties.json` | PubChem's computed molecular weight and formula for phenolphthalein, from its PUG REST service |
 | `wikipedia-carbonic-acid-1376246456.json`, `wikipedia-drop-unit-1314848686.json` | Two Wikipedia revisions, as the MediaWiki API returns them: the revision's number, its time and its source text |
-| `quotation-fingerprint.json` | Not a copy of anything: a hash of every run of six consecutive words in the pages the primer cites, in the three safety data sheets the hazard notes rest on, and in the three PubChem records, as they were on the date it gives. No text can be read back from it. `scripts/fingerprint-sources.mjs` writes it from pages fetched to a folder outside the repository, and `src/chem-data/titration/quotation.test.ts` holds the primer and the hazard notes to it: neither may repeat a run it lists |
 
 ## Attribution
 
@@ -23,6 +22,14 @@ Each is the work of Wikipedia's contributors, whose names are in the article's h
 Neither page is a primary source. The carbonic acid page is kept because the two stored acid constants were read there and nowhere else: its infobox cites a handbook that was not read. The database file of the U.S. Geological Survey's PHREEQC program was read afterwards to check them, and is listed in the manifest and not kept. The drop page is kept because the 0.05 mL drop was read only there.
 
 The NOAA and PubChem files are their publishers' data. They are not this project's work, and the repository's licence does not cover them.
+
+## The quotation fingerprint
+
+`quotation-fingerprint.json` is not in the repository. It is a file that `scripts/fingerprint-sources.mjs` writes into this folder: a hash of every run of six consecutive words in the pages the primer cites, in the three safety data sheets the hazard notes rest on, and in the three PubChem records, as they were on the date it gives. `src/chem-data/titration/quotation.test.ts` holds the primer and the hazard notes to it: neither may repeat a run it lists.
+
+It was kept here from 2026-10-05 until later the same day, with the statement that no text can be read back from it. That statement was wrong. The file holds no words, but a re-check rebuilt stretches of the pages from it: start from five words that are in a page, try each word of a dictionary as the sixth, keep the one whose run is in the fingerprint, and go on a word at a time. A file from which the pages can be rebuilt is too close to a copy of them, and none of those pages is kept. So `.gitignore` lists the file.
+
+To make it again: save each page under its id in the manifest, as `<id>.html`, `<id>.txt` (the text of a PDF) or `<id>.json`, in a folder outside the repository, and run `node scripts/fingerprint-sources.mjs <folder> <the date the pages were fetched>`. The test then runs. Where the file is absent, as in CI, the cases that need it are skipped and the test run reports them as skipped. The no-quotation rule is therefore checked when the words are written, on a machine that has the pages, and not on every build.
 
 ## A page that was kept and is not any more
 

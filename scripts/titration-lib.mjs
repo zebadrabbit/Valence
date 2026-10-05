@@ -94,9 +94,12 @@ export function checkSha256(bytes, sha256, file) {
 }
 
 // Quotation. Nothing the lab writes may repeat a run of QUOTED_RUN consecutive words of a page it rests on. The
-// pages are not kept, so what is kept of them is a fingerprint: a hash of each such run, from which no text can be
-// read back. scripts/fingerprint-sources.mjs writes it; src/chem-data/titration/quotation.test.ts holds the
-// primer and the hazard notes to it.
+// pages are not kept, so the test compares against a fingerprint of them: a hash of each such run.
+// scripts/fingerprint-sources.mjs writes it; src/chem-data/titration/quotation.test.ts holds the primer and the
+// hazard notes to it. The fingerprint is not kept in the repository either. It holds no words, but text can be
+// read back from it: from five words of a page, each word of a dictionary can be tried as the sixth and the hash
+// says which is right, and so on a word at a time. So it is written to a path .gitignore lists, and the test runs
+// only where it has been made.
 export const QUOTED_RUN = 6
 
 /** The words of a text: its runs of letters and digits, in lower case. Punctuation and case make no difference to a run. */

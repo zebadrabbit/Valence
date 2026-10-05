@@ -1,6 +1,9 @@
 // Writes docs/research/phase-3/sources/quotation-fingerprint.json: the hash of every run of six consecutive words
-// in the pages the titration primer and the hazard notes rest on. Those pages are not kept in the repository; the
-// fingerprint holds none of their text, and is what the no-quotation test compares against.
+// in the pages the titration primer and the hazard notes rest on. It is what the no-quotation test compares
+// against. Those pages are not kept in the repository, and the fingerprint is not either: .gitignore lists it,
+// because stretches of the pages can be rebuilt from it a word at a time (see scripts/titration-lib.mjs). Run this
+// again, on a machine that has the pages, before changing the primer or a hazard note; the test is skipped where
+// the file is absent.
 //
 //   node scripts/fingerprint-sources.mjs <folder> <date the pages were fetched, YYYY-MM-DD>
 //
