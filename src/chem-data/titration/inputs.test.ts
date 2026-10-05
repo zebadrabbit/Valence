@@ -162,8 +162,9 @@ describe('the titration inputs: sources', () => {
 })
 
 describe('the titration inputs: bottles', () => {
-  // The owner's decision of 2026-10-05, which amends D4. Before it the acid bottle carried the entry PubChem gives
-  // for hydrochloric acid from one regulator, which said nothing of the strength it is for.
+  // D4 as changed on 2026-10-05, on a reading of the owner's words that the owner has not confirmed. Before it the
+  // acid bottle carried the entry PubChem gives for hydrochloric acid from one regulator, which said nothing of the
+  // strength it is for.
   const SHEET_ID = 'flinn-sds-395'
   const sheet = source(SHEET_ID)!
   const printedFor = (field: string) => sheet.supports.filter((row) => row.field === field).map((row) => row.prints)

@@ -110,10 +110,10 @@ describe('checkHazards', () => {
   })
 })
 
-// The acid bottle's statements are a supplier's safety data sheet's, for concentrated acid (the owner's decision of
-// 2026-10-05). The sheet is read and not kept, so the build has no copy to check them against. What it can still
-// check: the form of each statement, that the record and the manifest give the same account of the sheet, and that
-// H331 is not among the codes.
+// The acid bottle's statements are a supplier's safety data sheet's, for concentrated acid (D4 as changed on
+// 2026-10-05, which the owner has not confirmed). The sheet is read and not kept, so the build has no copy to check
+// them against. What it can still check: the form of each statement, that the record and the manifest give the same
+// account of the sheet, and that H331 is not among the codes.
 describe('checkSheetHazards', () => {
   const sheet: Sheet = manifest.sources.find((source) => source.id === hcl.hazards.sourceId)!
   const field = 'bottles.hcl.hazards'

@@ -341,7 +341,7 @@ describe('the titration primer: what it has to say', () => {
     for (const [key, bottle] of Object.entries(titrationData.bottles)) {
       expect([key, ids.has(bottle.hazards.sourceId), ids.has(bottle.hazards.note.sourceId)]).toEqual([key, true, true])
     }
-    // The acid bottle's statements are a sheet's for concentrated hydrochloric acid, not those of a pure substance (D4, as amended on 2026-10-05).
+    // The acid bottle's statements are a sheet's for concentrated hydrochloric acid, not those of a pure substance (D4, as changed on 2026-10-05).
     expect(shown('safety')).not.toMatch(/pure hydrochloric|pure hydrogen chloride/)
     expect(shown('safety')).toMatch(/replaces/)
     // Which supplier's indicator is on the bench is assumed, so no sheet is called the sheet of this lab's bottle.

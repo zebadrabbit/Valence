@@ -962,9 +962,10 @@ const NOAA_ID = 'noaa-gml-co2-annmean-gl'
 const CARBONIC_ID = 'perrin-1982-wikipedia'
 const DROP_ID = 'drop-unit-wikipedia'
 const INDICATOR_RECORD_ID = 'pubchem-cid-4764'
-// The acid bottle's statements are not read from a PubChem record (the owner's decision of 2026-10-05, which amends
-// D4). They are those of a supplier's safety data sheet for concentrated hydrochloric acid, which was read and is
-// not kept, so the bottle must cite that sheet and is held to the manifest's rows for it.
+// The acid bottle's statements are not read from a PubChem record (D4 as changed on 2026-10-05, on a reading of the
+// owner's words that the owner has not confirmed). They are those of a supplier's safety data sheet for concentrated
+// hydrochloric acid, which was read and is not kept, so the bottle must cite that sheet and is held to the manifest's
+// rows for it.
 const ACID_SHEET_ID = 'flinn-sds-395'
 // "Toxic if inhaled". PubChem's record for CID 313, as it was read on 2026-10-04, printed this code under entries
 // named hydrogen chloride, the gas. D4 keeps the gas's statements off this bottle, which holds the acid, and the
