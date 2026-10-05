@@ -83,6 +83,26 @@ describe('the titration primer: its cards', () => {
     for (const word of [/\bmoles?\b/, /\bconcentration\b/, /\bendpoint\b/, /\btitre\b/]) expect([String(word), word.test(shown('glassware'))]).toEqual([String(word), false])
   })
 
+  it('explains, in the four cards as they are read, each word at or before its first use: the two solutions by name, the pipette, the 25.00, the endpoint, the indicator and the equivalence point', () => {
+    const [glassware, titrating, calculation] = ['glassware', 'titrating', 'calculation'].map(shown) as [string, string, string]
+    /** True when `gloss` is where `word` is first used in `text`, or before it. */
+    const glossedAtFirstUse = (text: string, word: RegExp, gloss: string) => text.includes(gloss) && text.indexOf(gloss) <= text.search(word)
+    // The glassware card is the first of the four to speak of either solution or of the pipette.
+    expect(shown('burette')).not.toMatch(/NaOH|HCl|pipette/)
+    expect(glossedAtFirstUse(glassware, /NaOH/, 'sodium hydroxide solution (NaOH)')).toBe(true)
+    expect(glossedAtFirstUse(glassware, /HCl/, 'hydrochloric acid (HCl)')).toBe(true)
+    expect(glossedAtFirstUse(glassware, /pipette/, 'The pipette measures out the 25.00 mL of hydrochloric acid (HCl) that goes into the flask.')).toBe(true)
+    // The titrating card names the NaOH again, and says what its 25.00 is.
+    expect(glossedAtFirstUse(titrating, /NaOH/, 'sodium hydroxide solution (NaOH)')).toBe(true)
+    expect(titrating).toMatch(/× 25\.00 ÷ 0\.1, where 25\.00 is the millilitres of acid in the flask/)
+    expect(glossedAtFirstUse(titrating, /endpoint/, 'endpoint: the first faint pink in the flask that lasts')).toBe(true)
+    // The pink is explained in the next sentence, before anything is done with it.
+    expect(titrating.indexOf('an indicator: a dye that is colourless in the acid and turns pink once the acid is used up')).toBeLessThan(titrating.indexOf('Before you start'))
+    expect(titrating.indexOf('Before you start')).toBeGreaterThan(-1)
+    // The card that says what the equivalence point is is not one of the four.
+    expect(glossedAtFirstUse(calculation, /equivalence point/, 'equivalence point: the moment when exactly enough NaOH has gone in to react with all the acid')).toBe(true)
+  })
+
   it('holds no institution text in any heading, paragraph or equation', () => {
     const prose = [
       ...TITRATION_PRIMER.map((s): [string, string] => [`${s.id} heading`, s.heading]),

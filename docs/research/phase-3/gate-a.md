@@ -205,6 +205,13 @@ After the commits above the branch was checked once more, at `44971d2`. One chec
 - Re-checked: three cases, in `primer.test.ts`, `messages.test.ts` and `benchText.test.ts`, seen failing first because the sentences were not there. A case in `acceptance.test.ts` runs the advice by the cue alone in Challenge, seeds 1 to 100 at 2 and at 3 drops: the first drop after the stream's "fades slowly" fades at once at every seed, as many as 35 in a row do, and every run reaches its endpoint, passes and counts. It passed as written: the engine is unchanged.
 - Not sourced: that a single drop's pink clears at once again is the lab's model of the cue, and the card's support line says no source was read for it. It is the eighth such point of the primer, listed under "What nobody checked".
 
+**L3 (should-fix). Four terms were used on the cards read first before anything explained them:** the 25.00 in the estimate, the endpoint (used in three paragraphs of the titrating card and defined in the fourth), the equivalence point (defined only on a card that is not read first), and the pipette, with NaOH and HCl used without their names.
+
+- Reproduced by reading the cards in the stated order.
+- Done. The glassware card, now the first of the four to speak of either solution, opens: two pieces of glassware measure the solutions; the burette delivers the sodium hydroxide solution (NaOH); the pipette measures out the 25.00 mL of hydrochloric acid (HCl) that goes into the flask. The titrating card opens with the endpoint, the first faint pink in the flask that lasts, and with the sentence on the indicator, which moved up from its second paragraph with the two passages it rests on; it names the NaOH again and says that 25.00 is the millilitres of acid in the flask. The calculation card says at its first use that the equivalence point is the moment when exactly enough NaOH has gone in to react with all the acid.
+- The pipette is said by what it does, not by what it looks like: no passage was read that describes one, and the support line gives the 25.00 mL as the lab's set-up.
+- Re-checked: a case in `primer.test.ts`, seen failing first (the glassware card did not name the NaOH), holds each of the six glosses to stand at or before the word's first use on its card. The no-quotation test, run with the fingerprint made, passes on every changed paragraph and support line.
+
 ## What the reviewers confirmed
 
 **Constants and sources (R1).**

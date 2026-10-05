@@ -256,8 +256,11 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
     heading: 'Titrating to the endpoint',
     paragraphs: [
       paragraph(
-        "Before you start, work out roughly how much NaOH the flask will take. That volume is called the titre. The strength of each solution is given as its molarity, written M: the moles of the substance in each litre of solution (the card Molarity explains this). Take the NaOH as 0.1 M: the titre, in mL, will be about the acid's molarity × 25.00 ÷ 0.1. For 0.1200 M acid that is about 30 mL. The NaOH is only about 0.1 M, so the real endpoint can be a millilitre or so to either side.",
+        "The aim is to stop at the endpoint: the first faint pink in the flask that lasts. The pink comes from the phenolphthalein in the flask, which is an indicator: a dye that is colourless in the acid and turns pink once the acid is used up. Before you start, work out roughly how much sodium hydroxide solution (NaOH) the flask will take to get there. That volume is called the titre. The strength of each solution is given as its molarity, written M: the moles of the substance in each litre of solution (the card Molarity explains this). Take the NaOH as 0.1 M: the titre, in mL, will be about the acid's molarity × 25.00 ÷ 0.1, where 25.00 is the millilitres of acid in the flask. For 0.1200 M acid that is about 30 mL. The NaOH is only about 0.1 M, so the real endpoint can be a millilitre or so to either side.",
         [
+          [BASE_LAB, PART_II, 'the flask is titrated to the first faint pink that lasts for 30 seconds.'],
+          [chem2e('4.5'), TITRATION, 'indicators are dyes added to the sample which change colour at the equivalence point or very close to it.'],
+          [chem2e('14.7'), 'section 14.7, under the heading Acid-Base Indicators', 'phenolphthalein is colourless in solutions of pH below 8.3 and red or pink in more basic ones.'],
           [chem2e('3.3'), 'section 3.3, under the heading Solutions', 'the molarity of a solution is how many moles of solute one litre of it holds.'],
           [
             BURET_USE,
@@ -265,18 +268,16 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
             'the volume of titrant a titration will need can be estimated by calculation beforehand, and that the titrant is then run in to a few millilitres short of the estimate before the rest is added with care.',
           ],
         ],
-        "the estimate from the bottle's label is this lab's arithmetic, and a test repeats it: with the NaOH anywhere from 0.095 to 0.105 M (spec 7.1) the endpoint is at most 1.4 mL from the estimate.",
+        "the estimate from the bottle's label is this lab's arithmetic, and a test repeats it: with the NaOH anywhere from 0.095 to 0.105 M (spec 7.1) the endpoint is at most 1.4 mL from the estimate. The 25.00 mL of acid in the flask is the lab's pipette (spec 7.1).",
       ),
       paragraph(
-        "Swirl the flask the whole time, so that the NaOH mixes in. The phenolphthalein in the flask is an indicator: a dye that is colourless in the acid and turns pink once the acid is used up. While you are still several millilitres short of your estimate, the NaOH can run in quickly. Run in 5 mL at once only while you are more than 7 mL short of your estimate. Where the NaOH lands, the solution turns pink for a moment and clears as it mixes. Closer to the endpoint the pink takes longer to clear. When it starts to linger, close the stopcock and add one drop at a time. A single drop is far less NaOH than the stream runs in, so at first its pink clears at once again; that does not mean the endpoint is far off. When a drop's pink lingers too, change to half-drops.",
+        "Swirl the flask the whole time, so that the NaOH mixes in. While you are still several millilitres short of your estimate, the NaOH can run in quickly. Run in 5 mL at once only while you are more than 7 mL short of your estimate. Where the NaOH lands, the solution turns pink for a moment and clears as it mixes. Closer to the endpoint the pink takes longer to clear. When it starts to linger, close the stopcock and add one drop at a time. A single drop is far less NaOH than the stream runs in, so at first its pink clears at once again; that does not mean the endpoint is far off. When a drop's pink lingers too, change to half-drops.",
         [
           [
             BURET_USE,
             PERFORMING,
             'the flask is swirled to spread the titrant evenly, that bursts of colour which last more than a few seconds show the end point is close, and that the titrant is then slowed, to half drops if need be.',
           ],
-          [chem2e('4.5'), TITRATION, 'indicators are dyes added to the sample which change colour at the equivalence point or very close to it.'],
-          [chem2e('14.7'), 'section 14.7, under the heading Acid-Base Indicators', 'phenolphthalein is colourless in solutions of pH below 8.3 and red or pink in more basic ones.'],
         ],
         "the stream, the 5 mL run and the single drop are this lab's controls (spec 7.2), and the pink where a drop lands is its model of the flask. That a single drop's pink clears at once again after the stream's has begun to linger is that model too (spec 7.2: the cue is worked from the share of the acid still in the flask that the addition used up), and tests repeat it; no source was read for it. The 7 mL is this lab's arithmetic, and tests repeat it: the endpoint comes at most 1.28 mL before the estimate, or 1.78 mL with a pipette that was not rinsed, so 5 mL run in from more than 7 mL short ends before it.",
       ),
@@ -328,8 +329,9 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
     heading: 'The calculation',
     paragraphs: [
       paragraph(
-        'The moles of NaOH added equal the moles of HCl in the flask at the equivalence point, because the two react one to one. The endpoint you measure stands for the equivalence point. Moles are molarity times volume, so:',
+        'The moles of NaOH added equal the moles of HCl in the flask at the equivalence point: the moment when exactly enough NaOH has gone in to react with all the acid. They are equal because the two react one to one. The endpoint you measure stands for the equivalence point. Moles are molarity times volume, so:',
         [
+          [chem2e('4.5'), TITRATION, 'the equivalence point is the volume of titrant that just reacts with all of the analyte.'],
           [
             chem2e('4.5'),
             'section 4.5, Example 4.14 (Titration Analysis) and the note that follows it',
@@ -420,7 +422,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
     heading: 'Conditioning, rinsing and the tip bubble',
     paragraphs: [
       paragraph(
-        'Glassware is washed with water, and some water stays behind on the inside. A wet burette dilutes the NaOH poured into it; a wet pipette dilutes the HCl drawn into it. Either way, the solution that is measured is weaker than the solution in the bottle. So before use the burette is rinsed with two or three small portions of the NaOH solution, which is called conditioning it, and the pipette is rinsed with a little of the HCl solution.',
+        'Two pieces of glassware measure the solutions in this lab. The burette delivers the sodium hydroxide solution (NaOH). The pipette measures out the 25.00 mL of hydrochloric acid (HCl) that goes into the flask. Both are washed with water, and some water stays behind on the inside. A wet burette dilutes the NaOH poured into it; a wet pipette dilutes the HCl drawn into it. Either way, the solution that is measured is weaker than the solution in the bottle. So before use the burette is rinsed with two or three small portions of the NaOH solution, which is called conditioning it, and the pipette is rinsed with a little of the HCl solution.',
         [
           [
             harvey('2.4'),
@@ -435,7 +437,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
           [BURET_USE, PREPARING, 'the buret is rinsed three times with the titrant, which is let coat the whole inside and run through the tip.'],
           [ACID_LAB, PART_A, 'each buret is rinsed twice with portions of about 10 mL of the solution it is to hold before it is filled.'],
         ],
-        'one step stands for the portions here (spec 7.2), and the weakening the lab gives a burette or pipette that was not rinsed is larger than a bench gives (spec 7.3).',
+        "which solution each piece measures, and the 25.00 mL of the pipette, are the lab's set-up (spec 7.1). One step stands for the portions here (spec 7.2), and the weakening the lab gives a burette or pipette that was not rinsed is larger than a bench gives (spec 7.3).",
       ),
       paragraph(
         'The flask is different. It only has to be clean; it may be wet, and distilled water may be added to it during the titration. Water makes the acid in the flask more dilute, but it does not change how much acid is there, and it is the amount of acid that the NaOH has to match.',
