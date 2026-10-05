@@ -179,8 +179,6 @@ function failedText(percentError: number): string {
   return `Not passed. Percent error: ${percentErrorText(percentError)}${edge}. Your NaOH molarity is too ${percentError < 0 ? 'low' : 'high'}.`
 }
 
-const TECHNIQUE: readonly Cause[] = ['burette-not-conditioned', 'tip-bubble', 'pipette-not-rinsed']
-
 /**
  * An ended trial's feedback, a line at a time: what happened, each named cause in the engine's order, then, when a
  * technique cause is among them, what a close result does not show and that the lab makes such a mistake cost more
@@ -196,7 +194,8 @@ export function feedback(outcome: TrialOutcome, waterUl: number): string[] {
         : outcome.counts
           ? OUTCOME_TEXT.passed
           : OUTCOME_TEXT.notCounted
-  const technique = outcome.causes.some((cause) => TECHNIQUE.includes(cause))
+  // The technique causes carry the names of Guided's three warnings, whose table is typed from the engine's union.
+  const technique = outcome.causes.some((cause) => cause in WARNING_TEXT)
   return [
     first,
     ...outcome.causes.map((cause) => CAUSE_TEXT[cause]),
