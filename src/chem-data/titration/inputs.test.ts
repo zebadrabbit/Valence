@@ -160,7 +160,7 @@ describe('the titration inputs: bottles', () => {
 
 describe('the titration inputs: parameters and prose', () => {
   it('gives every parameter a rationale that is a sentence', () => {
-    expect(Object.keys(input.parameters).length).toBe(29)
+    expect(Object.keys(input.parameters).length).toBe(31)
     for (const [key, parameter] of Object.entries(input.parameters)) {
       expect([key, /^[A-Z].{20,}\.$/s.test(parameter.rationale)]).toEqual([key, true])
     }
@@ -177,6 +177,15 @@ describe('the titration inputs: parameters and prose', () => {
     expect(rationale('molarityRoundingE6')).toMatch(/tie/)
     expect(rationale('faintPinkNameLimit')).toMatch(/Presentation only/)
     expect(rationale('pinkDisplayScale')).toMatch(/Presentation only/)
+  })
+
+  it('holds how long a drawn plume takes to fade as two durations, one for each way of fading, and nothing finer', () => {
+    // The app is handed the plume's status and no number, so the drawing's fade can follow from nothing else.
+    expect(value('plumeFadeAtOnceSeconds')).toBe(0.5)
+    expect(value('plumeFadeSlowlySeconds')).toBe(3)
+    for (const key of ['plumeFadeAtOnceSeconds', 'plumeFadeSlowlySeconds']) {
+      expect([key, /Presentation only/.test(input.parameters[key]!.rationale), /status/.test(input.parameters[key]!.rationale)]).toEqual([key, true, true])
+    }
   })
 
   it('holds no institution text in any name, statement, note or rationale', () => {

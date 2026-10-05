@@ -46,6 +46,7 @@ describe('titrationSchema', () => {
     ['a missing bottle', 'bottles.indicator'],
     ['a missing constant', 'constants.indicatorStrength'],
     ['a missing parameter', 'parameters.faintPinkNameLimit'],
+    ['a missing display duration of the plume', 'parameters.plumeFadeSlowlySeconds'],
   ])('refuses %s', (_, path) => {
     expect(parses(titrationFixtureWith(path))).toBe(false)
   })
@@ -55,6 +56,7 @@ describe('titrationSchema', () => {
     ['a range that is not two whole numbers', 'parameters.indicatorDrops.value', [2, 3, 4]],
     ['a volume that is not a whole number of microlitres', 'parameters.halfDropUl.value', 12.5],
     ['an empty rationale', 'parameters.dropUl.rationale', ''],
+    ['a plume that takes no time to fade', 'parameters.plumeFadeAtOnceSeconds.value', 0],
     ['a signal word GHS does not have', 'bottles.hcl.hazards.signalWord', 'Caution'],
   ])('refuses %s', (_, path, value) => {
     expect(parses(titrationFixtureWith(path, value))).toBe(false)

@@ -3,7 +3,7 @@
 import { describe, expect, it } from 'vitest'
 import { mulberry32, type Rng } from '../rng'
 import { flaskOf } from './actions'
-import { compareToEquivalence, isPink } from './flask'
+import { compareToEquivalence, equivalenceUl, isPink } from './flask'
 import {
   buretteView,
   checklist,
@@ -118,7 +118,7 @@ describe('the burette and the flask (seed 1)', () => {
     expect(flaskView(m, s)).toMatchObject({ hasAliquot: true, indicatorDrops: 2, waterUl: 0, volumeUl: 25102, pink: false, overshot: false, plume: null, persistence: 'unchecked' })
     expect(flaskView(m, s).pinkConcentration).toBeLessThan(1e-15)
     s = run(m, s, [deliver('stream')])
-    expect(flaskView(m, s).plume).toMatchObject({ status: 'fades-at-once' })
+    expect(flaskView(m, s).plume).toBe('fades-at-once')
     expect(flaskView(m, s).persistence).toBe('unchecked')
     s = run(m, s, [act('swirlAndWait')])
     expect(flaskView(m, s).persistence).toBe('faded')
@@ -127,7 +127,7 @@ describe('the burette and the flask (seed 1)', () => {
   it('the careful endpoint, the wait, and then drops to overshoot', () => {
     let s = toEndpoint(prepared(m, 1))
     const view = flaskView(m, s)
-    expect(view).toMatchObject({ pink: true, volumeUl: 50802, overshot: false, plume: { fraction: 1, status: 'persists', fadeSeconds: null }, persistence: 'unchecked' })
+    expect(view).toMatchObject({ pink: true, volumeUl: 50802, overshot: false, plume: 'persists', persistence: 'unchecked' })
     expect(view.pinkConcentration.toExponential(2)).toBe('3.51e-6')
     s = run(m, s, [act('swirlAndWait')])
     expect(flaskView(m, s).persistence).toBe('persisted')
@@ -141,6 +141,38 @@ describe('the burette and the flask (seed 1)', () => {
     const ranOut = streamOut(nextTrial(carefulTrial(m, prepared(m, 1)), { fill: false }))
     expect(currentTrial(ranOut).end).toBe('ran-out')
     expect(buretteView(m, ranOut)).toEqual({ filled: true, levelUl: 50000, tipBubble: false, atBottom: true })
+  })
+})
+
+describe('no answer leaves the engine through the flask (careful runs of seeds 1 to 10)', () => {
+  it('until the flask is pink the view says of the chemistry only how the last plume faded, at once or slowly, and holds no number that follows the titrant still needed', () => {
+    const said = new Map<string, unknown>()
+    const stillNeeded = new Set<number>()
+    for (let seed = 1; seed <= 10; seed++) {
+      let s = prepared(m, seed)
+      expect(flaskView(m, s)).toMatchObject({ pinkConcentration: 0, pink: false, plume: null })
+      const { additions } = titrateCarefully(m, s)
+      for (const a of additions) {
+        s = run(m, s, [deliver(a.amount)])
+        const { hasAliquot, indicatorDrops, waterUl, volumeUl, ...chemistry } = flaskView(m, s)
+        // What went into the flask is the learner's own doing, and counting additions gives it: it tells nothing of what is still needed.
+        expect([hasAliquot, indicatorDrops, waterUl, volumeUl]).toEqual([true, 2, 0, flaskOf(m, s).aliquotUl + 2 * m.indicatorDropUl + a.deliveredUl])
+        expect(['fades-at-once', 'fades-slowly', 'persists']).toContain(chemistry.plume)
+        if (a !== additions.at(-1)) {
+          said.set(JSON.stringify(chemistry), chemistry)
+          stillNeeded.add(equivalenceUl(flaskOf(m, s)) - a.deliveredUl)
+        }
+      }
+      // The endpoint: the first pink that lasts, and only now a concentration to draw it with.
+      expect(flaskView(m, s)).toMatchObject({ pink: true, plume: 'persists' })
+      expect(flaskView(m, s).pinkConcentration).toBeGreaterThanOrEqual(m.faintPinkConcentration)
+    }
+    // More than a thousand flasks, each with its own volume still to run in, and the view tells two of them apart.
+    expect(stillNeeded.size).toBeGreaterThan(1000)
+    expect([...said.values()]).toEqual([
+      { pinkConcentration: 0, pink: false, overshot: false, plume: 'fades-at-once', persistence: 'unchecked' },
+      { pinkConcentration: 0, pink: false, overshot: false, plume: 'fades-slowly', persistence: 'unchecked' },
+    ])
   })
 })
 

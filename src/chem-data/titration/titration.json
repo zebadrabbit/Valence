@@ -234,7 +234,7 @@
     },
     "plumeMixSeconds": {
       "value": 10,
-      "rationale": "The seconds of swirling taken to mix the whole flask: a plume fades in this time multiplied by the share of the remaining acid that its addition neutralised. Presentation only: nothing is graded by it."
+      "rationale": "The seconds of swirling taken to mix the whole flask: in the engine's own reckoning a plume fades in this time multiplied by the share of the remaining acid that its addition neutralised. That time stays inside the engine, because one such figure gives the equivalence volume; the app is handed the plume's status alone. Nothing is graded by it."
     },
     "persistSeconds": {
       "value": 30,
@@ -255,6 +255,14 @@
     "faintPinkNameLimit": {
       "value": 0.000015,
       "rationale": "The concentration of the pink form, in mol/L, below which a pink flask is named faint pink and from which it is named pink. It is set just above the deepest pink a careful endpoint reaches at any corner of the seeded ranges, which an acceptance test checks, so a correct endpoint is always named faint pink. Presentation only: no endpoint and no grade depends on it."
+    },
+    "plumeFadeAtOnceSeconds": {
+      "value": 0.5,
+      "rationale": "The real seconds the drawn plume takes to go when its status is that it fades at once. The app is handed the plume's status and no number, so every such plume fades over this one time. Chosen by eye, as a starting value the owner judges in the browser. Presentation only: no endpoint and no grade depends on it."
+    },
+    "plumeFadeSlowlySeconds": {
+      "value": 3,
+      "rationale": "The real seconds the drawn plume takes to go when its status is that it fades slowly: long enough beside the half second of a plume that fades at once for the two to be told apart by eye. Every such plume fades over this one time, however near the endpoint the flask is. Chosen by eye, as a starting value the owner judges in the browser. Presentation only: no endpoint and no grade depends on it."
     }
   }
 }

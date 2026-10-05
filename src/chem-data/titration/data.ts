@@ -73,6 +73,8 @@ export const titrationSchema = z.strictObject({
     airPressureBar: param(positive),
     pinkDisplayScale: param(positive),
     faintPinkNameLimit: param(positive),
+    plumeFadeAtOnceSeconds: param(positive),
+    plumeFadeSlowlySeconds: param(positive),
   }),
 })
 

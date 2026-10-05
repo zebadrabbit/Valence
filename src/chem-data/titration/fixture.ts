@@ -88,6 +88,8 @@ export function titrationFixture(): TitrationData {
       airPressureBar: parameter(1.01325),
       pinkDisplayScale: parameter(1e-5),
       faintPinkNameLimit: parameter(1.5e-5),
+      plumeFadeAtOnceSeconds: parameter(0.5),
+      plumeFadeSlowlySeconds: parameter(3),
     },
   }
 }

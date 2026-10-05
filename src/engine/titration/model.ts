@@ -42,7 +42,7 @@ export interface TitrationModel {
 
 /**
  * The engine's numbers, from the stored record. The two concentrations are worked out here and stored nowhere.
- * The record's other parameters (the air pressure, used here, and two of the drawing) are not the engine's.
+ * The record's other parameters (the air pressure, used here, and four of the drawing) are not the engine's.
  */
 export function modelFrom(data: TitrationData): TitrationModel {
   const { constants: c, parameters: p } = data
