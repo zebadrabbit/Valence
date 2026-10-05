@@ -1,0 +1,233 @@
+import { describe, expect, it } from 'vitest'
+import { findInstitutionText } from '@/chem-data/denylist'
+import { titrationData } from '@/chem-data/titration/data'
+import { createLab, currentTrial, modelFrom, type Action, type TitrationState } from '@/engine/titration'
+import { learner } from '@/engine/titration/testkit'
+import * as benchText from './benchText'
+import {
+  ACTION_TEXT,
+  additionMessage,
+  describeStand,
+  flaskStatus,
+  levelBracket,
+  PLUME_TEXT,
+  SLOW_DOWN_TEXT,
+  STOPCOCK_ALREADY_CLOSED,
+  streamMessage,
+  swirlText,
+} from './benchText'
+import benchTextFile from './benchText.ts?raw'
+import { benchViewOf, type BenchView } from './benchView'
+import { OUTCOME_TEXT } from './messages'
+import { CLOSED, openStream, POUR_ADDITIONS } from './stream'
+
+// Optional, untracked: see registry.test.ts.
+const local = import.meta.glob<string[]>('../../../chem-data/denylist.local.json', { eager: true, import: 'default' })
+const institutionNames = Object.values(local).flat()
+
+const m = modelFrom(titrationData)
+const display = { pinkDisplayScale: titrationData.parameters.pinkDisplayScale.value, faintPinkNameLimit: titrationData.parameters.faintPinkNameLimit.value }
+const { run, prepared, titrateCarefully } = learner()
+
+const view = (state: TitrationState) => benchViewOf(m, state)
+const STREAM: Action = { type: 'deliver', amount: 'stream' }
+const atLevel = (v: BenchView, levelUl: number): BenchView => ({ ...v, burette: { ...v.burette, levelUl } })
+
+const fresh = view(createLab(1, 'guided'))
+const start = prepared(m, 1, { mode: 'guided' })
+const midStream = view(run(m, start, Array<Action>(40).fill(STREAM)))
+const endpoint = view(titrateCarefully(m, start).state)
+/** The stream left open until the trial ends. */
+function streamedToTheEnd(state: TitrationState): TitrationState {
+  while (currentTrial(state).end === 'open') state = run(m, state, [STREAM])
+  return state
+}
+const overshot = view(streamedToTheEnd(start))
+
+describe('the burette level to a whole mL', () => {
+  it.each([
+    [0, 'between the 0 mL and 1 mL marks'],
+    [999, 'between the 0 mL and 1 mL marks'],
+    [1000, 'between the 1 mL and 2 mL marks'],
+    [49999, 'between the 49 mL and 50 mL marks'],
+    [50000, 'at the 50 mL mark, the bottom of the scale'],
+  ])('%i uL is %s', (levelUl, text) => {
+    expect(levelBracket(levelUl)).toBe(text)
+  })
+
+  it("ends at the model's last mark", () => {
+    expect(levelBracket(m.buretteCapacityUl)).toContain(`${m.buretteCapacityUl / 1000} mL mark`)
+    expect(levelBracket(m.buretteCapacityUl - 1)).toContain('between')
+  })
+})
+
+describe('the stand in words', () => {
+  it('a new lab', () => {
+    expect(describeStand(fresh, CLOSED, display)).toBe('The burette is empty. The stopcock is closed. The conical flask under the burette is empty.')
+  })
+
+  it('with the stream open at 12 563 uL: the marks either side, the open stopcock, the indicator and the colour', () => {
+    expect(midStream.burette.levelUl).toBe(12563)
+    const text = describeStand(midStream, openStream(null), display)
+    expect(text).toContain('between the 12 mL and 13 mL marks')
+    expect(text).toContain('The stopcock is open.')
+    expect(text).toContain('2 drops of indicator')
+    expect(text).toContain('the liquid is colourless')
+    expect(text).not.toContain('air bubble')
+  })
+
+  it('at the endpoint the liquid is faint pink, and overshot it is dark pink', () => {
+    expect(describeStand(endpoint, CLOSED, display)).toContain('the liquid is faint pink.')
+    expect(describeStand(endpoint, CLOSED, display)).toContain('The stopcock is closed.')
+    expect(overshot.trialEnd).toBe('overshot')
+    expect(describeStand(overshot, CLOSED, display)).toContain('the liquid is dark pink (overshot).')
+  })
+
+  it('counts the indicator as none, 1 drop or 2 drops', () => {
+    const drops = (indicatorDrops: number) => describeStand({ ...midStream, flask: { ...midStream.flask, indicatorDrops } }, CLOSED, display)
+    expect(drops(0)).toContain('holds the acid with no indicator;')
+    expect(drops(1)).toContain('holds the acid with 1 drop of indicator;')
+    expect(drops(3)).toContain('holds the acid with 3 drops of indicator;')
+  })
+
+  it.each([370, 12870, 26045, 49999, 50000])('at %i uL it gives no volume finer than a whole mL', (levelUl) => {
+    for (const v of [midStream, endpoint, overshot])
+      for (const stream of [CLOSED, openStream(null)]) expect(describeStand(atLevel(v, levelUl), stream, display)).not.toMatch(/\d\.\d/)
+  })
+})
+
+describe('what the stopcock says', () => {
+  const said = [streamMessage(openStream(null)), streamMessage(openStream(POUR_ADDITIONS[0])), streamMessage(openStream(POUR_ADDITIONS[1])), streamMessage(CLOSED)]
+
+  it('is one sentence each for an open stream, each pour and a closed stopcock', () => {
+    expect(new Set(said).size).toBe(4)
+    expect(said[0]).toContain('open')
+    expect(said[1]).toContain('1 mL')
+    expect(said[2]).toContain('5 mL')
+    expect(said[1]).not.toContain('5 mL')
+    expect(said[2]).not.toContain('1 mL')
+    expect(said[3]).toBe('Stopcock closed.')
+  })
+
+  it('a pour part of the way through says the same as when it began, so it is said once', () => {
+    expect(streamMessage({ open: true, pour: POUR_ADDITIONS[1], remaining: 7 })).toBe(said[2])
+  })
+
+  it("the pours are 1 mL and 5 mL of the model's stream addition", () => {
+    expect(POUR_ADDITIONS[0] * m.streamUl).toBe(1000)
+    expect(POUR_ADDITIONS[1] * m.streamUl).toBe(5000)
+  })
+})
+
+describe('what a drop and a half-drop say', () => {
+  it.each(['drop', 'half'] as const)('a %s says something new on each of three presses', (amount) => {
+    const first = additionMessage(amount, '')
+    const second = additionMessage(amount, first)
+    const third = additionMessage(amount, second)
+    expect(second).not.toBe(first)
+    expect(third).not.toBe(second)
+  })
+
+  it('a drop after a half-drop, and a half-drop after a drop, are new too', () => {
+    const half = additionMessage('half', '')
+    const drop = additionMessage('drop', half)
+    expect(drop).not.toBe(half)
+    expect(additionMessage('half', drop)).not.toBe(drop)
+    expect(additionMessage('drop', 'Stopcock closed.')).toBe(additionMessage('drop', ''))
+  })
+
+  it('the first half-drop says it is touched off on the flask wall and rinsed in', () => {
+    expect(additionMessage('half', '')).toContain('touched off on the flask wall and rinsed in')
+    expect(additionMessage('drop', '')).not.toContain('flask wall')
+  })
+})
+
+describe('the swirl and wait', () => {
+  it('says what the wait found, in the words of the status line', () => {
+    expect(swirlText('persisted')).toContain('the pink has lasted')
+    expect(swirlText('faded')).toContain('no pink remains')
+    expect(flaskStatus({ ...endpoint, persistence: 'persisted' }, display)).toContain('the pink has lasted')
+    expect(flaskStatus({ ...midStream, persistence: 'faded', plume: null }, display)).toContain('no pink remains')
+  })
+
+  it("names the model's 30 seconds", () => {
+    expect(m.persistSeconds).toBe(30)
+    for (const text of [swirlText('persisted'), swirlText('faded'), ACTION_TEXT.swirlAndWait]) expect(text).toContain(`${m.persistSeconds} seconds`)
+    expect(flaskStatus({ ...midStream, persistence: 'faded', plume: null }, display)).toContain(`Swirled ${m.persistSeconds} s`)
+  })
+})
+
+describe('the status line', () => {
+  it('names the three cues as the spec has them', () => {
+    expect(PLUME_TEXT).toEqual({ 'fades-at-once': 'pink fades at once', 'fades-slowly': 'pink fades slowly', persists: 'pink persists' })
+  })
+
+  it('says nothing of a cue for an empty flask, one with no indicator, or one that is overshot', () => {
+    expect(flaskStatus({ ...fresh, plume: 'fades-slowly' }, display)).toBe('Flask: empty.')
+    expect(flaskStatus({ ...midStream, flask: { ...midStream.flask, indicatorDrops: 0 } }, display)).toBe('Flask: colourless. No indicator in it.')
+    expect(overshot.plume).toBe('persists')
+    expect(flaskStatus(overshot, display)).toBe('Flask: dark pink (overshot).')
+  })
+})
+
+describe('every sentence of the bench', () => {
+  const strings = (value: unknown): string[] =>
+    typeof value === 'string' ? [value] : typeof value === 'object' && value !== null ? Object.values(value).flatMap(strings) : []
+  const views = [fresh, midStream, endpoint, overshot, atLevel(midStream, 50000), { ...midStream, persistence: 'faded' as const, plume: null }]
+  const said = [
+    ...views.flatMap((v) => [flaskStatus(v, display), describeStand(v, CLOSED, display), describeStand(v, openStream(null), display), levelBracket(v.burette.levelUl)]),
+    ...[openStream(null), openStream(POUR_ADDITIONS[0]), openStream(POUR_ADDITIONS[1]), CLOSED].map(streamMessage),
+    ...(['drop', 'half'] as const).flatMap((amount) => [additionMessage(amount, ''), additionMessage(amount, additionMessage(amount, ''))]),
+    swirlText('persisted'),
+    swirlText('faded'),
+  ]
+  const all = [...strings(benchText), ...said]
+
+  it('is one of more than 40', () => {
+    expect(new Set(all).size).toBeGreaterThan(40)
+  })
+
+  it('has no institution text', () => {
+    for (const text of all) expect([text, findInstitutionText(text, institutionNames)]).toEqual([text, null])
+  })
+
+  it('states no volume finer than a whole mL', () => {
+    for (const text of all) expect(text).not.toMatch(/\d\.\d/)
+  })
+
+  it('names nothing the engine keeps: no pH, no equivalence, no molarity', () => {
+    for (const text of all) expect(text).not.toMatch(/\bpH\b|equivalence|molarity|\bM\b/i)
+  })
+
+  it('the slow-down line is true whether or not the stopcock was open, and says how to go on', () => {
+    expect(SLOW_DOWN_TEXT).toMatch(/^Slow down/)
+    expect(SLOW_DOWN_TEXT).toContain('a drop at a time')
+    expect(SLOW_DOWN_TEXT).toContain('half-drops')
+    expect(SLOW_DOWN_TEXT).not.toContain('has been closed')
+  })
+
+  it('a press the bench dropped is told that the stopcock is already closed', () => {
+    expect(STOPCOCK_ALREADY_CLOSED).toContain('already closed')
+  })
+
+  it('the trial that ran out is worded once, in messages.ts, and not again here', () => {
+    expect(strings(benchText)).not.toContain(OUTCOME_TEXT['ran-out'])
+    expect(benchTextFile).not.toContain('ran out')
+  })
+
+  it('each prep action says what it did, in a sentence of its own', () => {
+    const texts = Object.values(ACTION_TEXT)
+    expect(Object.keys(ACTION_TEXT).sort()).toEqual(
+      ['addIndicatorDrop', 'addWater', 'clearTipBubble', 'conditionBurette', 'fillBurette', 'pipetteAliquot', 'rinsePipette', 'swirlAndWait'].sort(),
+    )
+    expect(new Set(texts).size).toBe(texts.length)
+    // The two that move the meniscus say that a reading taken before them is gone; conditioning leaves nothing to read.
+    for (const action of ['fillBurette', 'clearTipBubble'] as const) expect(ACTION_TEXT[action]).toMatch(/initial reading recorded before this .*no longer applies\.$/)
+    expect(ACTION_TEXT.conditionBurette).toContain('empty')
+  })
+
+  it('benchText.ts takes nothing from the engine but types, and never the model or the state', () => {
+    expect(benchTextFile).not.toMatch(/TitrationModel|TitrationState/)
+    expect(benchTextFile.match(/^import .*$/gm)?.filter((line) => line.includes('engine'))).toEqual([expect.stringMatching(/^import type \{/)])
+  })
+})
