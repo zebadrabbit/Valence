@@ -232,7 +232,7 @@ type Input = {
     name: string; formula: string; pubchemCid: number
     classifiedAs: string                 // what the statements classify, in the words of the tile's heading
     reference?: string                   // the entry in the kept PubChem record the statements are read from; input only. Absent on `hcl`, whose statements are a sheet's (D4)
-    hazards: { signalWord: 'Danger' | 'Warning' | 'None'; statements: string[]; note: { value: string; sourceId: string }; sourceId: string }
+    hazards: { signalWord: 'Danger' | 'Warning' | 'None'; statements: string[]; note: { value: string; sourceId: string; alsoSourceId?: string }; sourceId: string }   // alsoSourceId (from 2026-10-05): the second sheet of a note that rests on two
   }>
   constants: Record<string, Constant | Constant[]>   // { value, published?, unit, note?, sourceId }; atmosphericCo2 also has year
   parameters: Record<string, { value: number | [number, number]; rationale: string }>
@@ -263,7 +263,7 @@ Read: `engine.md` 2.3; `integration.md` section 2 (C26, C30, C31) and G14; `src/
 
 ```ts
 // src/chem-data/schema.ts
-export const hazardsSchema   // strict: { signalWord: 'Danger' | 'Warning' | 'None', statements: text[], note: cited(text), sourceId: id }
+export const hazardsSchema   // strict: { signalWord: 'Danger' | 'Warning' | 'None', statements: text[], note: cited(text) with an optional alsoSourceId (from 2026-10-05), sourceId: id }
 export type Hazards = z.infer<typeof hazardsSchema>
 
 // src/chem-data/titration/data.ts   (schema only in this task; titrationData is Task 4)
@@ -289,6 +289,7 @@ export function titrationCitations(data: TitrationData, sources: readonly Source
 - [x] `data.test.ts`, on a complete fixture written in the test: the fixture parses, K_w's empty `unit` included; an unknown key at any level, a parameter with no `rationale`, a constant with no `sourceId`, a bottle with no `classifiedAs` and an `atmosphericCo2` with no `year` each fail.
 - [x] `validate.test.ts`, each its own case on the fixture with one thing changed: an unknown source id (on a constant, on `hazards.sourceId`, on a note); a `published` that is not a plain decimal equal to its value; a parameter with no rationale; a rationale containing "Room 214"; a hazard note with no source; a constant with no `sourceId`. It accepts a rationale containing "room temperature". For `null`, `42` and `[]` it returns `schema:` errors and does not throw.
 - [x] `citations.test.ts`: for the fixture, each constant, each bottle's classification and each bottle's note appears under its own source; each source appears once; a source that supports two things lists both.
+- [x] From 2026-10-05, a hazard note can rest on two sources: a note keeps `{ value, sourceId }` and may name a second source in `alsoSourceId`. It is the smallest change that lets the acid's note cite the two sheets its strength lies between (D4). `schema.test.ts`: a note with `alsoSourceId` is accepted and given back whole; an empty one, a list, a further key, and a second source with no first are refused. `validate.test.ts`: an unknown `alsoSourceId` is an unknown source. `citations.test.ts`: the fixture's acid note is listed under both of its sources. The fixture's acid bottle has such a note, and the other two have none. The build refuses an `alsoSourceId` that is not in the manifest or that repeats the note's `sourceId`, and `inputs.test.ts` holds the stored record to the same.
 
 **Done when:** the four test files pass; the existing registry and periodic-table tests pass unchanged; `schema.test.ts` and `validate.test.ts` change, apart from the cases added here, only in that fixture.
 
@@ -982,7 +983,7 @@ Rules:
 - **DOM order** is primer, guide, bench, notebook, record at every width; `lab.css` only places them. Container queries on the page's own width, never the viewport's: one column below 78rem; the notebook beside the bench from 78rem, with the bench's track taking `minmax(56rem, 83rem)` and growing before the side column does; the guide as a left column from 110rem. Nothing in it animates.
 - **Narrow** (D14). The shell renders the notice, the primer (open) and the `record` slot. No bench, guide, working notebook, mode switch, field or button is in the DOM; before Start there is no record either. The bench is not mounted, which is what closes a running stopcock.
 - **Markup.** The lab's `h1` is the heading the layout focuses after navigation; the breadcrumb is Home, Lab, title. The mode is a `fieldset` with legend "Mode" and two radio inputs; locked, both are disabled and described by the reason. The docked notebook is an `aside` named "Lab notebook". The primer is one native `details`; each section a card with an `h2` and its Sources; at its foot, when given citations, a disclosure named "Sources for this lab's model". The not-saving notice is the sentence of Task 9 in a `role="status"` paragraph.
-- **Hazards.** A `details` named "Hazards": the signal word; a heading that names what is classified, from `classifiedAs`; the statements; "At the strength used here" and the note; then Sources, listing the classification's source and the note's.
+- **Hazards.** A `details` named "Hazards": the signal word; a heading that names what is classified, from `classifiedAs`; the statements; "At the strength used here" and the note; then Sources, listing the classification's source and the note's, which are two where the note has an `alsoSourceId`.
 - **Saving.** `save` sets the state and calls `saveEntry` in the event handler, never in an effect.
 - **Existing pieces.** `Card`, `Disclosure` and `Sources` come from `src/app/explore/InspectorCard.tsx` as they are. The source list is `@/chem-data/sources.json`, as `ElementCard.tsx` takes it, never `registry`, which would pull every molecule file into the lab's chunk.
 - **Markup tests of pages.** `LabShell`, `ModeSwitch`, `Primer` and `Hazards` take everything as props and render under `renderToStaticMarkup` as they are. A component that calls `useAppState` or `useMediaQuery` does not: in node the media hook has no server snapshot and throws, and `AppStateProvider` builds its store from the browser. So a markup test of the lab list or of the lab page (Tasks 15 and 21) replaces `@/app/AppState` (`useAppState` returning a `createMemoryStore` store the test holds, with `persistent` and `reducedMotion`) and `@/app/useMediaQuery` with `vi.mock`, as `src/app/explore/elements/page.test.ts` does for `react-router`.

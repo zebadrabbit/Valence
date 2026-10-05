@@ -771,7 +771,7 @@ describe('validateTitration', () => {
 
     it('counts a missing list of sources as no sources, and takes missing options', () => {
       const cited = validateTitration(titrationFixture(), []).length
-      expect(cited).toBe(16)
+      expect(cited).toBe(17)
       expect(validateTitration(titrationFixture(), null as unknown as []).length).toBe(cited)
       expect(validateTitration(titrationFixture(), FIXTURE_SOURCES, null as unknown as undefined)).toEqual([])
       expect(validateTitration(titrationFixture(), FIXTURE_SOURCES, { institutionNames: null as unknown as [] })).toEqual([])
@@ -791,6 +791,13 @@ describe('validateTitration', () => {
     expect(errorsWith('bottles.indicator.hazards.note.sourceId', 'nowhere')).toEqual([
       'titration.bottles.indicator.hazards.note.sourceId: unknown source "nowhere"',
     ])
+  })
+
+  it('rejects an unknown second source on a hazard note, and accepts a note with none', () => {
+    expect(titrationFixture().bottles.hcl.hazards.note.alsoSourceId).toBe('hcl-sheet-2')
+    expect(errorsWith('bottles.hcl.hazards.note.alsoSourceId', 'nowhere')).toEqual(['titration.bottles.hcl.hazards.note.alsoSourceId: unknown source "nowhere"'])
+    expect(titrationFixture().bottles.naoh.hazards.note.alsoSourceId).toBeUndefined()
+    expect(errorsWith('bottles.hcl.hazards.note.alsoSourceId')).toEqual([])
   })
 
   it('rejects a published text that is not the stored value', () => {

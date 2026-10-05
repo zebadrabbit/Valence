@@ -55,7 +55,7 @@ describe.skipIf(fingerprint === undefined)('no quotation, against the fingerprin
   it('has a fingerprint of every page the primer and the hazard notes rest on, in runs of six words', () => {
     expect(fingerprint!.runWords).toBe(6)
     expect(pages.size).toBeGreaterThan(60000)
-    const cited = new Set([...paragraphs.flatMap((p) => p.sourceIds), ...bottles.flatMap(([, bottle]) => [bottle.hazards.sourceId, bottle.hazards.note.sourceId])])
+    const cited = new Set([...paragraphs.flatMap((p) => p.sourceIds), ...bottles.flatMap(([, bottle]) => [bottle.hazards.sourceId, bottle.hazards.note.sourceId, ...(bottle.hazards.note.alsoSourceId === undefined ? [] : [bottle.hazards.note.alsoSourceId])])])
     expect([...cited].filter((id) => !fingerprint!.sources.includes(id))).toEqual([])
   })
 

@@ -106,7 +106,7 @@ function geometryEntries(molecule: Molecule, measurement: Measurement): Entry[] 
 
 /**
  * The sources of the titration lab's record: each constant of the model, and for each bottle the classification
- * its hazard statements are read from and the sheet behind the note on the strength used.
+ * its hazard statements are read from and the sheet, or the two sheets, behind the note on the strength used.
  */
 export function titrationCitations(data: TitrationData, sources: readonly Source[]): Citation[] {
   const { bottles, constants } = data
@@ -123,6 +123,7 @@ export function titrationCitations(data: TitrationData, sources: readonly Source
       ...[bottles.hcl, bottles.naoh, bottles.indicator].flatMap(({ name, hazards }): Entry[] => [
         [`${name}: hazard classification`, hazards.sourceId],
         [`${name}: hazards at the strength used`, hazards.note.sourceId],
+        ...(hazards.note.alsoSourceId === undefined ? [] : [[`${name}: hazards at the strength used`, hazards.note.alsoSourceId] as const]),
       ]),
     ],
     sources,

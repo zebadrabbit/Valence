@@ -15,7 +15,7 @@ type Bottle = {
   classifiedAs: string
   /** The entry of the kept PubChem record the statements are read from. The acid bottle has none: its statements are a sheet's. */
   reference?: string
-  hazards: { signalWord: string; statements: string[]; note: { value: string; sourceId: string }; sourceId: string }
+  hazards: { signalWord: string; statements: string[]; note: { value: string; sourceId: string; alsoSourceId?: string }; sourceId: string }
 }
 type Input = {
   bottles: Record<'hcl' | 'naoh' | 'indicator', Bottle>
@@ -50,9 +50,12 @@ describe('the titration inputs: sources', () => {
       ...bottles.flatMap(([key, b]) => [
         [`bottles.${key}.hazards`, b.hazards.sourceId],
         [`bottles.${key}.hazards.note`, b.hazards.note.sourceId],
+        ...(b.hazards.note.alsoSourceId === undefined ? [] : [[`bottles.${key}.hazards.note.alsoSourceId`, b.hazards.note.alsoSourceId]]),
       ]),
     ]
     expect(named.filter(([, id]) => !ids.includes(id!))).toEqual([])
+    // A note's second source, where it has one, is another source than its first.
+    for (const [key, b] of bottles) expect([key, b.hazards.note.alsoSourceId]).not.toEqual([key, b.hazards.note.sourceId])
   })
 
   it('has, for each printed figure, a manifest row that prints the same digits', () => {

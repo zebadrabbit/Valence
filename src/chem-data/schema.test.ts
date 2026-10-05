@@ -35,6 +35,16 @@ describe('hazardsSchema', () => {
     expect(hazardsSchema.safeParse({ ...hazards, note: 'Dilute.' }).success).toBe(false)
     expect(hazardsSchema.safeParse({ ...hazards, note: { value: 'Dilute.' } }).success).toBe(false)
   })
+
+  it('accepts a note that rests on a second source as well, named in alsoSourceId, and no other key', () => {
+    const note = { value: 'Dilute.', sourceId: 's1', alsoSourceId: 's2' }
+    expect(hazardsSchema.parse({ ...hazards, note }).note).toEqual(note)
+    expect(hazardsSchema.safeParse({ ...hazards, note: { ...note, alsoSourceId: '' } }).success).toBe(false)
+    expect(hazardsSchema.safeParse({ ...hazards, note: { ...note, alsoSourceId: ['s2'] } }).success).toBe(false)
+    expect(hazardsSchema.safeParse({ ...hazards, note: { ...note, thirdSourceId: 's3' } }).success).toBe(false)
+    // A second source with no first is not a cited note.
+    expect(hazardsSchema.safeParse({ ...hazards, note: { value: 'Dilute.', alsoSourceId: 's2' } }).success).toBe(false)
+  })
 })
 
 describe('reagentSchema', () => {

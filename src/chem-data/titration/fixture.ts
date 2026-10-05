@@ -16,6 +16,7 @@ const SOURCE_IDS = [
   'hcl-record',
   'naoh-record',
   'hcl-sheet',
+  'hcl-sheet-2',
   'naoh-sheet',
   'indicator-sheet',
 ] as const
@@ -27,7 +28,7 @@ type SourceId = (typeof SOURCE_IDS)[number]
 const constant = (value: number, unit: string, sourceId: SourceId) => ({ value, published: String(value), unit, sourceId })
 const parameter = <T>(value: T) => ({ value, rationale: 'A model parameter of the fixture.' })
 const range = (low: number, high: number) => parameter<[number, number]>([low, high])
-const bottle = (name: string, formula: string, pubchemCid: number, sourceId: SourceId, noteSourceId: SourceId) => ({
+const bottle = (name: string, formula: string, pubchemCid: number, sourceId: SourceId, noteSourceId: SourceId, alsoSourceId?: SourceId) => ({
   name,
   formula,
   pubchemCid,
@@ -35,16 +36,19 @@ const bottle = (name: string, formula: string, pubchemCid: number, sourceId: Sou
   hazards: {
     signalWord: 'Danger' as const,
     statements: ['H314: Causes severe skin burns and eye damage'],
-    note: { value: 'A dilute solution.', sourceId: noteSourceId },
+    note: { value: 'A dilute solution.', sourceId: noteSourceId, ...(alsoSourceId ? { alsoSourceId } : {}) },
     sourceId,
   },
 })
 
-/** The record, made afresh on each call. `indicator-record` supports two things: a molar mass and a classification. */
+/**
+ * The record, made afresh on each call. `indicator-record` supports two things: a molar mass and a classification.
+ * The acid's note rests on two sheets, the other two notes on one each.
+ */
 export function titrationFixture(): TitrationData {
   return {
     bottles: {
-      hcl: bottle('Hydrochloric acid', 'HCl', 313, 'hcl-record', 'hcl-sheet'),
+      hcl: bottle('Hydrochloric acid', 'HCl', 313, 'hcl-record', 'hcl-sheet', 'hcl-sheet-2'),
       naoh: bottle('Sodium hydroxide solution', 'NaOH', 14798, 'naoh-record', 'naoh-sheet'),
       indicator: bottle('Phenolphthalein indicator solution', 'C20H14O4', 4764, 'indicator-record', 'indicator-sheet'),
     },

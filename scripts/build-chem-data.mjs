@@ -1020,8 +1020,14 @@ function buildTitration(otherSourceIds) {
       onlyKeys(input.bottles[key], ['name', 'formula', 'pubchemCid', 'classifiedAs', ...(fromSheet ? [] : ['reference']), 'hazards'], where)
       const { reference, ...bottle } = input.bottles[key]
       onlyKeys(bottle.hazards, ['signalWord', 'statements', 'note', 'sourceId'], `${where}.hazards`)
-      onlyKeys(bottle.hazards.note, ['value', 'sourceId'], `${where}.hazards.note`)
-      sourceOf(bottle.hazards.note, `${where}.hazards.note`)
+      // A note rests on one sheet, or on two that between them cover the strength: the second is `alsoSourceId`.
+      const { note } = bottle.hazards
+      onlyKeys(note, ['value', 'sourceId'], `${where}.hazards.note`, ['alsoSourceId'])
+      sourceOf(note, `${where}.hazards.note`)
+      if (note.alsoSourceId !== undefined) {
+        if (note.alsoSourceId === note.sourceId) fail(`${where}.hazards.note: alsoSourceId names "${note.alsoSourceId}", the source the note already cites`)
+        sourceOf({ sourceId: note.alsoSourceId }, `${where}.hazards.note.alsoSourceId`)
+      }
       if (fromSheet) {
         if (bottle.hazards.sourceId !== ACID_SHEET_ID) fail(`${where}.hazards: cites "${bottle.hazards.sourceId}", but the acid's statements are those of the sheet "${ACID_SHEET_ID}"`)
         const sheet = sourceOf(bottle.hazards, `${where}.hazards`)

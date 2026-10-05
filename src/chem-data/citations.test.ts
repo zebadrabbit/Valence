@@ -119,7 +119,7 @@ describe('periodicCitations', () => {
 })
 
 describe('titrationCitations', () => {
-  it("lists each constant, each bottle's classification and each bottle's note under its own source, each source once", () => {
+  it("lists each constant, each bottle's classification and each bottle's note under its own source, each source once; a note that rests on two sources is under both", () => {
     expect(summary(titrationCitations(titrationFixture(), FIXTURE_SOURCES))).toEqual([
       ['water', ['Ion product of water']],
       ['indicator-paper', ['Acid constants of phenolphthalein']],
@@ -131,6 +131,7 @@ describe('titrationCitations', () => {
       ['carbonic', ['Acid constants of carbonic acid']],
       ['hcl-record', ['Hydrochloric acid: hazard classification']],
       ['hcl-sheet', ['Hydrochloric acid: hazards at the strength used']],
+      ['hcl-sheet-2', ['Hydrochloric acid: hazards at the strength used']],
       ['naoh-record', ['Sodium hydroxide solution: hazard classification']],
       ['naoh-sheet', ['Sodium hydroxide solution: hazards at the strength used']],
       ['indicator-sheet', ['Phenolphthalein indicator solution: hazards at the strength used']],

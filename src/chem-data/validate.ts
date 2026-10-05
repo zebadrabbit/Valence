@@ -38,7 +38,7 @@ function checkSourceIds(data: unknown, root: string, sources: readonly Source[])
   const errors: string[] = []
   const known = new Set(sources.map((s) => s.id))
   walkStrings(data, '', root, (key, text, path) => {
-    if (key === 'sourceId' && !known.has(text)) errors.push(`${path}: unknown source "${text}"`)
+    if ((key === 'sourceId' || key === 'alsoSourceId') && !known.has(text)) errors.push(`${path}: unknown source "${text}"`)
   })
   return errors
 }

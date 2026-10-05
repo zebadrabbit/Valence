@@ -37,8 +37,11 @@ export const speciesSchema = z.strictObject({
 export const hazardsSchema = z.strictObject({
   signalWord: z.enum(['Danger', 'Warning', 'None']),
   statements: z.array(text),
-  /** What holds at the strength used, which the classification need not describe. Cited on its own. */
-  note: cited(text),
+  /**
+   * What holds at the strength used, which the classification need not describe. Cited on its own. A note that
+   * rests on two sources (two data sheets that between them cover the strength) names the second in `alsoSourceId`.
+   */
+  note: cited(text).extend({ alsoSourceId: id.optional() }),
   sourceId: id,
 })
 

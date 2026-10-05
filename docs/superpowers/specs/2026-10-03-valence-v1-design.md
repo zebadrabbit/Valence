@@ -117,7 +117,7 @@ In the UI, each inspector card, station result, and energy panel has a "Sources"
 
 ### 5.3 Shapes
 
-**Reagent:** `id`, `name`, `formula`, `pubchemCid`, `form` (solution, solid, metal), `molarity` (solutions), `molarMass` (solids and metals), `appearance` (solids and metals), `ions` (species IDs and stoichiometric ratio), `hazards`, `sourceId`. Hazards are shown on the reagent's bottle card (on the titration bench, the bottle's tile). A hazards record holds the signal word, the statements, the `sourceId` of the classification, and `note`, the note for the concentration used, stored as `{ value, sourceId }`.
+**Reagent:** `id`, `name`, `formula`, `pubchemCid`, `form` (solution, solid, metal), `molarity` (solutions), `molarMass` (solids and metals), `appearance` (solids and metals), `ions` (species IDs and stoichiometric ratio), `hazards`, `sourceId`. Hazards are shown on the reagent's bottle card (on the titration bench, the bottle's tile). A hazards record holds the signal word, the statements, the `sourceId` of the classification, and `note`, the note for the concentration used, stored as `{ value, sourceId }`, with a second source in `alsoSourceId` where the note rests on two.
 
 **Species** (ions and products): `id`, `formula`, `composition` (element counts), `charge`, `state`, optional `solutionColor` (name and hex), thermodynamic values where a model needs them.
 
