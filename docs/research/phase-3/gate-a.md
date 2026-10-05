@@ -181,7 +181,9 @@ The commits of 2026-10-05 that followed the owner's two answers, in order. Each 
 | `85dc971` | Four wordings of the bench (N7) |
 | `80df353` | Primer wording from the reviewers' notes (N6, N12) |
 | `a5fbc52` | What Home shows for a record the lab will refuse (N10) |
-| the commit that carries this table | The seven unsourced points, the owner's list and questions, and the plan's Tasks 21 and 23 |
+| `a4303b6` | The seven unsourced points, the owner's list and questions, and the plan's Tasks 21 and 23 |
+| `2065725` | The feedback tells a technique cause by the warnings' own table; no sentence and no behaviour changed |
+| the commit after it | These last two rows |
 
 ## What the reviewers confirmed
 
