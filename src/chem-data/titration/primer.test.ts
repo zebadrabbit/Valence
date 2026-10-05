@@ -197,6 +197,37 @@ describe('the titration primer: what it has to say', () => {
     expect(((0.12 * 25) / 0.1).toFixed(0)).toBe('30')
   })
 
+  it("gives the 5 mL pour a figure that is safe by the model's own arithmetic: more than 7 mL short of the estimate", () => {
+    const { hclRangeE4, naohRangeE5, pipetteNominalUl, pipetteOffsetUl, wetPipetteStrengthPercent, streamUl } = titrationData.parameters
+    // The estimate is the label x 25.00 / 0.1. It is furthest past the real endpoint for the strongest acid, with the
+    // strongest NaOH and the pipette's smallest delivery: 0.1050 x (250 - 24.97 / 0.105) = 1.28 mL.
+    const label = hclRangeE4.value[1] / 1e4
+    const estimate = (label * 25) / 0.1
+    const earliestEndpoint = (acidPercent: number) => (label * (acidPercent / 100) * (pipetteNominalUl.value - pipetteOffsetUl.value)) / 1000 / (naohRangeE5.value[1] / 1e5)
+    expect((estimate - earliestEndpoint(100)).toFixed(2)).toBe('1.28')
+    // A pipette that was not rinsed takes the endpoint 2.0% earlier still: 0.1050 x (250 - 0.98 x 24.97 / 0.105) = 1.78 mL.
+    // The other two technique errors do not bring it forward: a dilute burette needs more NaOH, and a bubble changes the reading.
+    const furthestOut = estimate - earliestEndpoint(wetPipetteStrengthPercent.value)
+    expect(furthestOut.toFixed(2)).toBe('1.78')
+    const [, figure] = /Run in 5 mL at once only while you are more than (\d+) mL short of your estimate/.exec(shown('titrating')) ?? []
+    expect(figure).toBe('7')
+    // The pour is whole stream additions, so it is 5 mL exactly; from more than 7 mL short it ends more than 2 mL short.
+    expect(5000 % streamUl.value).toBe(0)
+    expect(Number(figure) - 5).toBeGreaterThan(furthestOut)
+  })
+
+  it('says in the calculation card that the endpoint stands for the equivalence point, and that four decimal places is this lab\'s convention', () => {
+    const [first, , , rounding] = section('calculation').paragraphs.map((p) => p.text)
+    expect(first).toMatch(/^The moles of NaOH added equal the moles of HCl in the flask at the equivalence point/)
+    expect(first).not.toMatch(/At the endpoint/)
+    expect(first).toMatch(/endpoint you measure stands for the equivalence point/)
+    expect(rounding).toMatch(/Four decimal places is this lab's convention/)
+  })
+
+  it('says in the precision card that the average is rounded first only because the notebook works it that way', () => {
+    expect(section('precision').paragraphs[1]!.text).toMatch(/to four decimal places; it is rounded first only because that is how the notebook works it\./)
+  })
+
   it('teaches the titration itself in the titrating card', () => {
     const card = shown('titrating')
     for (const said of [/[Ss]wirl/, /5 mL/, /linger/, /one drop at a time/, /part of a drop/, /wall of the flask/, /distilled water/, /half-drop/, /30 seconds/, /carbon dioxide/, /closed/]) {

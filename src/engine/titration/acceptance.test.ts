@@ -2,6 +2,7 @@
 // the files they belong to (ph, entries, actions), in cases named after them; what is here needs a whole run or a whole lab.
 import { describe, expect, it } from 'vitest'
 import { titrationData } from '@/chem-data/titration/data'
+import { TITRATION_PRIMER } from '@/chem-data/titration/primer'
 import { can, countingTrials, endpointConfirmed, flaskOf, type Action } from './actions'
 import { percentError } from './entries'
 import { equivalenceUl, flaskChemistry, isPink, type Flask } from './flask'
@@ -10,7 +11,7 @@ import { PINNED_MODEL as m } from './pinnedModel'
 import { trialOutcome, trueNaoh } from './select'
 import { labSetup } from './setup'
 import { currentTrial, titrationStateSchema, type TitrationState, type Trial } from './state'
-import { calculatedMolarityE6, learner, type Technique } from './testkit'
+import { calculatedMolarityE6, honestReading, learner, type Technique } from './testkit'
 
 const { run, readyTrial, prepared, titrateCarefully, finishHonestly, carefulTrial } = learner()
 
@@ -478,6 +479,49 @@ describe("spec 7.4 check 7, honest trial: a trial within 1.0% with a technique e
         expectWithheld(s)
         expectCompletesWhenPutRight(s, 2)
       }
+    },
+    SEED_LOOP_TIMEOUT,
+  )
+})
+
+describe("the primer's figure for the 5 mL pour (Gate A, N12)", () => {
+  it(
+    'a Challenge learner who runs in 5 mL whenever the burette shows more than 7 mL still to go to their estimate never reaches the endpoint by it: seeds 1-100, every combination of the three technique steps',
+    () => {
+      const card = TITRATION_PRIMER.find((s) => s.id === 'titrating')!.paragraphs.map((p) => p.text).join(' ')
+      const [, figure] = /Run in 5 mL at once only while you are more than (\d+) mL short of your estimate/.exec(card) ?? []
+      const shortUl = Number(figure) * 1000
+      const pour = Array.from({ length: 5000 / m.streamUl }, () => STREAM)
+      expect(pour).toHaveLength(20)
+      let closest = Infinity
+      let pours = 0
+      for (const seed of SEEDS) {
+        // The card's estimate: the label x 25.00 / 0.1, in uL.
+        const estimateUl = labSetup(m, seed).hclE4 * 25
+        for (const condition of [true, false]) {
+          for (const clearBubble of [true, false]) {
+            for (const rinse of [true, false]) {
+              let s = prepared(m, seed, { condition, clearBubble, rinse })
+              expect(s.mode).toBe('challenge') // Guided's hint would close the stopcock within 1 mL of the endpoint
+              // The titre so far as the learner has it: the meniscus read now, less the initial reading in the notebook.
+              const soFar = () => honestReading(s.burette.levelUl) - currentTrial(s).initialReadingUl!
+              while (estimateUl - soFar() > shortUl) {
+                s = run(m, s, pour)
+                pours++
+                const flask = flaskOf(m, s)
+                expect(currentTrial(s).end).toBe('open')
+                expect(isPink(m, flask)).toBe(false)
+                closest = Math.min(closest, equivalenceUl(flask) - flask.deliveredUl)
+              }
+            }
+          }
+        }
+      }
+      // Every run has pours in it (the smallest estimate is 21.25 mL). By the arithmetic of primer.test.ts no pour can
+      // end nearer than 0.22 mL to its flask's equivalence volume; over these 800 runs the nearest, as measured, is 1.02 mL.
+      expect(pours).toBeGreaterThan(800 * 2)
+      expect(closest).toBeGreaterThan(220)
+      expect((closest / 1000).toFixed(2)).toBe('1.02')
     },
     SEED_LOOP_TIMEOUT,
   )

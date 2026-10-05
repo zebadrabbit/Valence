@@ -268,7 +268,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
         "the estimate from the bottle's label is this lab's arithmetic, and a test repeats it: with the NaOH anywhere from 0.095 to 0.105 M (spec 7.1) the endpoint is at most 1.4 mL from the estimate.",
       ),
       paragraph(
-        'Swirl the flask the whole time, so that the NaOH mixes in. The phenolphthalein in the flask is an indicator: a dye that is colourless in the acid and turns pink once the acid is used up. While you are still several millilitres short of your estimate, the NaOH can run in quickly; running in 5 mL at once is for this part only. Where the NaOH lands, the solution turns pink for a moment and clears as it mixes. Closer to the endpoint the pink takes longer to clear. When it starts to linger, close the stopcock and add one drop at a time.',
+        'Swirl the flask the whole time, so that the NaOH mixes in. The phenolphthalein in the flask is an indicator: a dye that is colourless in the acid and turns pink once the acid is used up. While you are still several millilitres short of your estimate, the NaOH can run in quickly. Run in 5 mL at once only while you are more than 7 mL short of your estimate. Where the NaOH lands, the solution turns pink for a moment and clears as it mixes. Closer to the endpoint the pink takes longer to clear. When it starts to linger, close the stopcock and add one drop at a time.',
         [
           [
             BURET_USE,
@@ -278,7 +278,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
           [chem2e('4.5'), TITRATION, 'indicators are dyes added to the sample which change colour at the equivalence point or very close to it.'],
           [chem2e('14.7'), 'section 14.7, under the heading Acid-Base Indicators', 'phenolphthalein is colourless in solutions of pH below 8.3 and red or pink in more basic ones.'],
         ],
-        "the stream, the 5 mL run and the single drop are this lab's controls (spec 7.2), and the pink where a drop lands is its model of the flask.",
+        "the stream, the 5 mL run and the single drop are this lab's controls (spec 7.2), and the pink where a drop lands is its model of the flask. The 7 mL is this lab's arithmetic, and tests repeat it: the endpoint comes at most 1.28 mL before the estimate, or 1.78 mL with a pipette that was not rinsed, so 5 mL run in from more than 7 mL short ends before it.",
       ),
       paragraph(
         'Near the end a whole drop is too much. Open the stopcock just enough for part of a drop to form on the burette tip, touch it off on the inside wall of the flask, and wash it down with distilled water. That is a half-drop. The water does no harm: it changes how dilute the acid is, not how much acid is there. In this lab the half-drop is rinsed in for you. The rinse of the flask wall that the bench offers is a larger one, 10 mL of water each time, and that much water can thin a very faint pink until it no longer shows. If that happens, add another half-drop.',
@@ -328,7 +328,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
     heading: 'The calculation',
     paragraphs: [
       paragraph(
-        'At the endpoint the moles of NaOH added equal the moles of HCl in the flask, because the two react one to one. Moles are molarity times volume, so:',
+        'The moles of NaOH added equal the moles of HCl in the flask at the equivalence point, because the two react one to one. The endpoint you measure stands for the equivalence point. Moles are molarity times volume, so:',
         [
           [
             chem2e('4.5'),
@@ -357,7 +357,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
         "the example is this lab's own, with a bottle outside the range any run here can have; a test repeats its arithmetic.",
       ),
       paragraph(
-        'Keep every digit your calculator shows until the last step, and round only the final answer. Give the molarity to four decimal places, as the bottle label does. Round it; do not cut the extra digits off. In the example, 0.099668 rounds to 0.0997. Cut off, it would be 0.0996, and the lab would not accept it.',
+        "Keep every digit your calculator shows until the last step, and round only the final answer. Give the molarity to four decimal places, as the bottle label does. Four decimal places is this lab's convention. Round it; do not cut the extra digits off. In the example, 0.099668 rounds to 0.0997. Cut off, it would be 0.0996, and the lab would not accept it.",
         [],
         "four decimal places, rounded and not cut off, is this lab's rule for the molarity you type (spec 7.3). Where the fifth decimal place is a 5 with nothing after it, the lab accepts either neighbour.",
       ),
@@ -485,7 +485,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
         "three trials that count are the lab's rule (spec 7.3), and the miscopied label as a mistake repeated is its own example: the same wrong factor in every calculation.",
       ),
       paragraph(
-        'This lab measures agreement by the relative deviation. Take the average of the three molarities, to four decimal places. Find how far each one is from that average, ignoring the sign, and average those distances. Divide by the average molarity and multiply by 1000. The answer is in parts per thousand: 2 parts per thousand means the trials are, on average, 0.2% away from their average.',
+        'This lab measures agreement by the relative deviation. Take the average of the three molarities, to four decimal places; it is rounded first only because that is how the notebook works it. Find how far each one is from that average, ignoring the sign, and average those distances. Divide by the average molarity and multiply by 1000. The answer is in parts per thousand: 2 parts per thousand means the trials are, on average, 0.2% away from their average.',
         [],
         "the definition is this lab's (spec 7.3: the mean absolute deviation divided by the mean, in parts per thousand, worked from the average rounded to four decimal places). No source for it was read.",
       ),

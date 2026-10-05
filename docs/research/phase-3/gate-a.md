@@ -132,6 +132,14 @@ Each of these was within what the owner's earlier decisions already settle, or i
 - The refusal of a pipette rinse read "That does not need doing now." also for a pipette that was never rinsed. The engine gives the one reason for a rinsed pipette and for one an aliquot left wet with acid, and the words are handed nothing else, so the sentence is now true of both: the pipette is already wet with acid, so rinsing it now changes nothing for this flask.
 - Re-checked: seven cases in `benchText.test.ts`, `benchView.test.ts` and `messages.test.ts`, seen failing first. Expected values changed because the wording they pinned changed: "no pink remains" in three places, and `undoneText` called with two views.
 
+**Primer wording from the reviewers' notes (N6, N12).** Decided on 2026-10-05 without the owner, each kept small because the owner reads the primer.
+
+- The titrating card gives the 5 mL pour a figure: "Run in 5 mL at once only while you are more than 7 mL short of your estimate." Reason: the card told the learner to use the pour only while several millilitres short, and a learner in Challenge has no hint to stop them. The figure is the model's own arithmetic. The estimate is furthest past the real endpoint for the strongest acid, the strongest NaOH and the pipette's smallest delivery, 1.28 mL, and 1.78 mL with a pipette that was not rinsed; the other two technique errors do not bring the endpoint forward; so 5.00 mL run in from more than 7 mL short ends at least 0.22 mL before it. `primer.test.ts` repeats the arithmetic from the record. `acceptance.test.ts` runs it in Challenge over seeds 1 to 100 and all eight combinations of the three technique steps: no pour ends with the flask pink or the trial over, and the nearest any pour comes to its flask's equivalence volume is 1.02 mL.
+- The calculation card opens "The moles of NaOH added equal the moles of HCl in the flask at the equivalence point", and then says that the endpoint you measure stands for the equivalence point. It said "At the endpoint the moles ... equal", which is true of the equivalence point. It also says that four decimal places is this lab's convention.
+- The precision card says the average is rounded to four decimal places first only because that is how the notebook works it.
+- Re-checked: four cases, seen failing first. The no-quotation test, run with the fingerprint made, refused the first wording of the calculation card's opening, six words of which run together in a page the card cites; it was reworded and passes.
+- Not changed: `workedLines` in `messages.ts` still says "at the endpoint the moles of NaOH added equal the moles of HCl in the flask". It is outside the primer; it is listed for the owner below.
+
 ### Notes
 
 | | Note | Disposition |
@@ -141,13 +149,13 @@ Each of these was within what the owner's earlier decisions already settle, or i
 | N3 (R1) | K_w's unit is empty while its note speaks of the molar scale, and the note does not say the constant is used as a product of concentrations | No change. Open item 5 |
 | N4 (R1) | The carbonic acid page's body figures do not agree with each other or with its infobox | No change. The record reports them as printed and does not rest on them |
 | N5 (R2) | Shorter runs shared with sources in shown text | Partly fixed with F4: the test covers shown primer text, so the three primer sentences were reworded. The checklist's step for the indicator, which is the spec's own step 4, and the opening words of the meniscus sentence are generic and unchanged. The record's figures with their units are data |
-| N6 (R2) | Three points on the calculation text: rounding the average first, four decimal places against significant figures, and "at the endpoint" where the equivalence point is meant | No change. Open item 4 |
+| N6 (R2) | Three points on the calculation text: rounding the average first, four decimal places against significant figures, and "at the endpoint" where the equivalence point is meant | Reworded in the primer on 2026-10-05: see "Primer wording from the reviewers' notes" |
 | N7 (R2) | A wrong HCl molarity carried from Challenge into Guided is shown as done; "That does not need doing now." for a pipette that was never rinsed; "no pink remains" for a flask that was never pink | The second and third are reworded: see "Four wordings of the bench". The first is unchanged: the plan lists it as not built, the trial's feedback names the label, and the trial does not count |
 | N8 (R2) | A record made by hand can make the notebook show the hidden molarity | No change. Inside the risk spec 7.1 accepts: the stored record holds the seed |
 | N9 (R3) | The flask view's leak, confirmed from the bench's fields alone | With F6: accepted as built, 2026-10-05 |
 | N10 (R3) | Home says "in progress" for a record of the right version that the lab will refuse, until the lab page has been opened | No change. Open item 6 |
 | N11 (R3) | The stored schema lets through numbers no run can make (twelve fields with no upper bound, water that is not a whole portion) | No change. Nothing threw and no text was wrong for a record a run can make |
-| N12 (R3) | The titrating card gives no figure for when a 5 mL pour is safe, and teaches a small wash where the bench's is 10 mL | The second is fixed with F11. The first is open item 4 |
+| N12 (R3) | The titrating card gives no figure for when a 5 mL pour is safe, and teaches a small wash where the bench's is 10 mL | The second is fixed with F11. The first: the card now gives 7 mL, worked from the model and tested over seeds (2026-10-05) |
 | N13 (R3) | Dead code and duplicated test helpers; `ACTION_TEXT.swirlAndWait` is a sentence no caller should show | No change. For Task 19 and the branch review at Task 23 |
 | N14 (R3) | Expected values changed, removed or tested less directly since the plan was written, none of them in Tasks 9 to 13 | No change. Each is as its own report said |
 | N15 (R3) | `benchViewOf` reads four stored fields directly, where the plan says selectors and `can` alone | No change. All four are the learner's own doing |
@@ -227,7 +235,9 @@ One thing R3 raised under F12 was carried forward: on a reload the stored last a
 
 - Primer, first card: the three cards are named in a new order, and the sentences defining an acid and a base are reworded.
 - Primer, endpoint card: the indicator changes colour "at the equivalence point, or very close to it".
-- Primer, titrating card: what the titre is; what M means; that the phenolphthalein is an indicator that turns pink once the acid is used up; and four sentences on the bench's rinse and what to do if it thins the pink away.
+- Primer, titrating card: what the titre is; what M means; that the phenolphthalein is an indicator that turns pink once the acid is used up; four sentences on the bench's rinse and what to do if it thins the pink away; and, from 2026-10-05, the sentence that gives the 5 mL pour its 7 mL.
+- Primer, calculation card, from 2026-10-05: its opening sentence and the one after it, on the equivalence point and the endpoint; and "Four decimal places is this lab's convention."
+- Primer, precision card, from 2026-10-05: that the average is rounded first only because that is how the notebook works it.
 - Primer, glassware card: a new fourth paragraph on what is larger here than at a bench, reworded on 2026-10-05 to name the three mistakes and to say that a trial with one of them in it does not count even when its result is close; and "how many moles of acid are there" in the second.
 - Primer, precision card: the example of a mistake repeated is now a miscopied molarity.
 - Primer, safety card: the rinse sentence; H314 named by code with "corrosive to the skin and the eyes"; "a supplier's safety data sheet for a solution of this kind"; and, from 2026-10-05, the whole of what the last paragraph says the indicator's sheet lists.
@@ -242,8 +252,8 @@ One thing R3 raised under F12 was carried forward: on a reload the stored last a
 2. **Should the engine hand the app less about the flask?** (F6, N9.) Decided on 2026-10-05 without the owner: no. See "Decided without the owner" above for the reason.
 3. **What the safety card says of the indicator.** (F15.) Decided on 2026-10-05 without the owner: the card names the sheet's hazards by kind, cancer and harm to fertility or an unborn child by name, and points to the bottle's note for the full list. The owner reads the paragraph.
 4. **Wording the reviewers would change and this stage did not.** Each is the owner's call as the person who runs the lab.
-   - The calculation card: say that the average is rounded first only because the notebook works it that way; say that four decimal places is this lab's convention, where a report would keep four significant figures; open with the equivalence point, which the endpoint stands for. (N6.)
-   - The titrating card: a figure for when the 5 mL pour is safe, for example only while more than 7 mL short of the estimate. (N12.)
+   - The calculation card: say that the average is rounded first only because the notebook works it that way; say that four decimal places is this lab's convention, where a report would keep four significant figures; open with the equivalence point, which the endpoint stands for. (N6.) Done on 2026-10-05, without the clause on what a report would keep.
+   - The titrating card: a figure for when the 5 mL pour is safe, for example only while more than 7 mL short of the estimate. (N12.) Done on 2026-10-05: 7 mL.
    - "That does not need doing now." for a pipette that was never rinsed; "no pink remains" for a flask that was never pink. (N7.) Both reworded on 2026-10-05: see "Four wordings of the bench".
    - A wrong HCl molarity carried from Challenge into a Guided trial is shown as done and makes the trial not count. Guided could clear it on the change of mode, or show the step as not done. (N7.)
    - "The water does no harm" stays in the titrating card, now followed by the sentences on the 10 mL rinse. Whether 10 mL is the right portion is D3's.
