@@ -68,6 +68,26 @@ describe("the titration lab's stored entry", () => {
     expect(home(store)).toBe('not-started')
   })
 
+  it('Home reads the version and the status only, so until the lab page has loaded it a record of this version that the lab will refuse still reads as the status it claims (accepted at Gate A, N10; spec 10)', () => {
+    // Home cannot hold a record to the lab's own shape without loading the lab, which the rule on lazy loading forbids.
+    const refused = { ...lab, seed: -1 }
+    for (const [claimed, shown] of [
+      ['in-progress', 'in-progress'],
+      ['completed', 'completed'],
+    ] as const) {
+      const store = createMemoryStore()
+      store.setItem('valence:lab:titration', JSON.stringify({ version: titration.version, data: { ...refused, status: claimed } }))
+      expect(home(store)).toBe(shown)
+      // Opening the lab page loads the entry, which sets it aside; Home is right from then on.
+      expect(load(store)).toBeNull()
+      expect(home(store)).toBe('not-started')
+    }
+    // A record of another version is known to Home for what it is without the lab.
+    const other = createMemoryStore()
+    other.setItem('valence:lab:titration', JSON.stringify({ version: titration.version + 1, data: lab }))
+    expect(home(other)).toBe('not-started')
+  })
+
   it('the export holds the entry with its version and seed, and after clearing Home says not started', () => {
     const store = createMemoryStore()
     save(store, createLab(7, 'challenge'))

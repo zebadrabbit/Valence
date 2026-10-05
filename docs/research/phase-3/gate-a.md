@@ -140,6 +140,8 @@ Each of these was within what the owner's earlier decisions already settle, or i
 - Re-checked: four cases, seen failing first. The no-quotation test, run with the fingerprint made, refused the first wording of the calculation card's opening, six words of which run together in a page the card cites; it was reworded and passes.
 - Not changed: `workedLines` in `messages.ts` still says "at the endpoint the moles of NaOH added equal the moles of HCl in the flask". It is outside the primer; it is listed for the owner below.
 
+**N10. Home and a record the lab will refuse.** Decided on 2026-10-05 without the owner: accepted as built, and spec 10 is worded to match. Home shows "in progress", or "completed", for a record of the right version that fails the lab's schema, until the lab's page has opened and set it aside; from then on it says not started. Reason: Home reads the version and the status only. To do better it would have to hold the record to the lab's own shape, and that means loading the lab's schema into the home page, which the plan's Lazy rule forbids. The other remedy, making the lab's page the only place that says a run exists, would take the status off the list of labs. Only a record made or damaged by hand is affected, and nothing is lost: the page keeps the old value under a backup key. A case in `src/app/lab/titration/storage.test.ts` pins it; it passed as written, since it describes what was built.
+
 ### Notes
 
 | | Note | Disposition |
@@ -153,7 +155,7 @@ Each of these was within what the owner's earlier decisions already settle, or i
 | N7 (R2) | A wrong HCl molarity carried from Challenge into Guided is shown as done; "That does not need doing now." for a pipette that was never rinsed; "no pink remains" for a flask that was never pink | The second and third are reworded: see "Four wordings of the bench". The first is unchanged: the plan lists it as not built, the trial's feedback names the label, and the trial does not count |
 | N8 (R2) | A record made by hand can make the notebook show the hidden molarity | No change. Inside the risk spec 7.1 accepts: the stored record holds the seed |
 | N9 (R3) | The flask view's leak, confirmed from the bench's fields alone | With F6: accepted as built, 2026-10-05 |
-| N10 (R3) | Home says "in progress" for a record of the right version that the lab will refuse, until the lab page has been opened | No change. Open item 6 |
+| N10 (R3) | Home says "in progress" for a record of the right version that the lab will refuse, until the lab page has been opened | Accepted, 2026-10-05; spec 10 says so |
 | N11 (R3) | The stored schema lets through numbers no run can make (twelve fields with no upper bound, water that is not a whole portion) | No change. Nothing threw and no text was wrong for a record a run can make |
 | N12 (R3) | The titrating card gives no figure for when a 5 mL pour is safe, and teaches a small wash where the bench's is 10 mL | The second is fixed with F11. The first: the card now gives 7 mL, worked from the model and tested over seeds (2026-10-05) |
 | N13 (R3) | Dead code and duplicated test helpers; `ACTION_TEXT.swirlAndWait` is a sentence no caller should show | No change. For Task 19 and the branch review at Task 23 |
@@ -258,7 +260,7 @@ One thing R3 raised under F12 was carried forward: on a reload the stored last a
    - A wrong HCl molarity carried from Challenge into a Guided trial is shown as done and makes the trial not count. Guided could clear it on the change of mode, or show the step as not done. (N7.)
    - "The water does no harm" stays in the titrating card, now followed by the sentences on the 10 mL rinse. Whether 10 mL is the right portion is D3's.
 5. **Two record notes R1 would tighten.** The strength note could say which check its range is for, or give the range in grams per 100 mL (N1). The K_w note could say the constant is used as a product of concentrations with no activity correction (N3). Neither changes a value.
-6. **Home and a record the lab will refuse.** Home shows "in progress" for a record of the right version that fails the lab's schema, until the lab page has opened and set it aside; spec 10 says such an entry shows as not started. Either the spec is worded to match, since Home cannot load the lab's schema without loading the lab, or the lab page becomes the only place that says a run exists. (N10.)
+6. **Home and a record the lab will refuse.** (N10.) Decided on 2026-10-05 without the owner: accepted, and spec 10 is worded to match. See "Decided without the owner".
 7. **Two things this stage did that the owner may want to take back.**
    - A wash of water now clears the trial's last addition in the engine (F11 to F13). R3 had marked that change as the owner's.
    - A fingerprint of the cited pages was kept (F4). Settled on 2026-10-05: it is not kept, because text can be read back from it. See "Closed by the owner's answers".
