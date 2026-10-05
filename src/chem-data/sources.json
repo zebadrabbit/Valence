@@ -383,5 +383,90 @@
     "id": "ricca-sds-5600",
     "url": "https://www.riccachemical.com/WebsiteDocuments/SDS/R5600000.pdf",
     "citation": "Ricca Chemical Company. Safety Data Sheet: Phenolphthalein Indicator, 0.5% (w/v) in 50% (v/v) Alcohol, Neutralized, product number 5600; last revised 2026-05-25 (retrieved 2026-10-04)."
+  },
+  {
+    "id": "flowers-chem2e-1.5",
+    "url": "https://openstax.org/books/chemistry-2e/pages/1-5-measurement-uncertainty-accuracy-and-precision",
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 1.5 Measurement Uncertainty, Accuracy, and Precision; read and not kept (retrieved 2026-10-04). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
+  },
+  {
+    "id": "flowers-chem2e-3.1",
+    "url": "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 3.1 Formula Mass and the Mole Concept; read and not kept (retrieved 2026-10-04). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
+  },
+  {
+    "id": "flowers-chem2e-3.3",
+    "url": "https://openstax.org/books/chemistry-2e/pages/3-3-molarity",
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 3.3 Molarity; read and not kept (retrieved 2026-10-04). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
+  },
+  {
+    "id": "flowers-chem2e-4.2",
+    "url": "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 4.2 Classifying Chemical Reactions; read and not kept (retrieved 2026-10-04). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
+  },
+  {
+    "id": "flowers-chem2e-4.5",
+    "url": "https://openstax.org/books/chemistry-2e/pages/4-5-quantitative-chemical-analysis",
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 4.5 Quantitative Chemical Analysis; read and not kept (retrieved 2026-10-04). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
+  },
+  {
+    "id": "flowers-chem2e-14.2",
+    "url": "https://openstax.org/books/chemistry-2e/pages/14-2-ph-and-poh",
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 14.2 pH and pOH; read and not kept (retrieved 2026-10-04). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
+  },
+  {
+    "id": "flowers-chem2e-14.7",
+    "url": "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 14.7 Acid-Base Titrations; read and not kept (retrieved 2026-10-04). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
+  },
+  {
+    "id": "harvey-ac21-2.4",
+    "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Analytical_Chemistry_2.1_by_David_Harvey/Analytical_Chemistry_2.1_(Harvey)/02%3A_Basic_Tools_of_Analytical_Chemistry/2.04%3A_Basic_Equipment",
+    "citation": "Harvey, D. Analytical Chemistry 2.1; LibreTexts; Section 2.4 Basic Equipment; read and not kept (retrieved 2026-10-04)."
+  },
+  {
+    "id": "harvey-ac21-5.1",
+    "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Analytical_Chemistry_2.1_by_David_Harvey/Analytical_Chemistry_2.1_(Harvey)/05%3A_Standardizing_Analytical_Methods/5.01%3A_Analytical_Signals",
+    "citation": "Harvey, D. Analytical Chemistry 2.1; LibreTexts; Section 5.1 Analytical Signals; read and not kept (retrieved 2026-10-04)."
+  },
+  {
+    "id": "harvey-ac21-9.1",
+    "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Analytical_Chemistry_2.1_by_David_Harvey/Analytical_Chemistry_2.1_(Harvey)/09%3A_Titrimetric_Methods/9.01%3A_Overview_of_Titrimetry",
+    "citation": "Harvey, D. Analytical Chemistry 2.1; LibreTexts; Section 9.1 Overview of Titrimetry; read and not kept (retrieved 2026-10-04)."
+  },
+  {
+    "id": "harvey-ac21-9.2",
+    "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Analytical_Chemistry_2.1_by_David_Harvey/Analytical_Chemistry_2.1_(Harvey)/09%3A_Titrimetric_Methods/9.02%3A_AcidBase_Titrations",
+    "citation": "Harvey, D. Analytical Chemistry 2.1; LibreTexts; Section 9.2 Acid–Base Titrations; read and not kept (retrieved 2026-10-04)."
+  },
+  {
+    "id": "seely-buret",
+    "url": "https://chem.libretexts.org/Ancillary_Materials/Demos_Techniques_and_Experiments/General_Lab_Techniques/Proper_Use_of_a_Buret",
+    "citation": "Seely, O. Proper Use of a Buret; General Lab Techniques, LibreTexts; read and not kept (retrieved 2026-10-04)."
+  },
+  {
+    "id": "seely-pipet",
+    "url": "https://chem.libretexts.org/Ancillary_Materials/Demos_Techniques_and_Experiments/General_Lab_Techniques/Use_of_a_Volumetric_Pipet",
+    "citation": "Seely, O. Use of a Volumetric Pipet; General Lab Techniques, LibreTexts; read and not kept (retrieved 2026-10-04)."
+  },
+  {
+    "id": "wikipedia-burette",
+    "url": "https://en.wikipedia.org/w/index.php?title=Burette&oldid=1367898253",
+    "citation": "Wikipedia contributors. Burette; Wikipedia, revision 1367898253 of 2026-08-05, linked here; read and not kept (retrieved 2026-10-04)."
+  },
+  {
+    "id": "lmc-buret-use",
+    "url": "https://chem.libretexts.org/Courses/Los_Medanos_College/Chemistry_6_and_Chemistry_7_Combined_Laboratory_Manual_(Los_Medanos_College)/02:_Techniques/2.07:_Technique_G_Buret_Use_1_1_2",
+    "citation": "Los Medanos College. Technique G: Buret Use; page 2.7 of Chemistry 6 and Chemistry 7 Combined Laboratory Manual, LibreTexts; read and not kept (retrieved 2026-10-05)."
+  },
+  {
+    "id": "smc-equivalent-mass-lab",
+    "url": "https://chem.libretexts.org/Ancillary_Materials/Laboratory_Experiments/Wet_Lab_Experiments/General_Chemistry_Labs/Online_Chemistry_Lab_Manual/Chem_12_Experiments/04%3A_Determining_the_Equivalent_Mass_of_an_Unknown_Acid_by_Titration_(Experiment)",
+    "citation": "Santa Monica College. Determining the Equivalent Mass of an Unknown Acid by Titration (Experiment); experiment 4 of the Chem 12 Experiments in Online Chemistry Lab Manual, LibreTexts; read and not kept (retrieved 2026-10-05)."
+  },
+  {
+    "id": "ucd-standardization-lab",
+    "url": "https://chem.libretexts.org/Courses/University_of_California_Davis/UCD_Chem_002BH/Chem_2BH:_Laboratory_Manual/2:__Standardization_of_Acids_and_Bases_(Experiment)",
+    "citation": "University of California, Davis. Lab 2: Standardization of Acids and Bases (Experiment); Chem 2BH Laboratory Manual, LibreTexts; read and not kept (retrieved 2026-10-05)."
   }
 ]
