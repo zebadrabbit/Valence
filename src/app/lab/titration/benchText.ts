@@ -84,6 +84,13 @@ export function additionMessage(amount: 'drop' | 'half', previous: string): stri
   return previous === first ? again : first
 }
 
+/**
+ * A sentence for the message line, never the same text as `previous`, the line as it stands: a live region speaks
+ * only when its text changes, so the second drop of indicator, a second swirl that finds the same and a refusal
+ * given again, by the same button or by another, each say that they are said again.
+ */
+export const saidAgain = (text: string, previous: string) => (text !== '' && text === previous ? `Again: ${text}` : text)
+
 const SWIRLED = 'Flask swirled for 30 seconds'
 
 /** What each prep action says it did. The same in both modes: none says whether the step was needed or done well. */

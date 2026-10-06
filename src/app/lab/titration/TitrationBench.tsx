@@ -3,7 +3,7 @@ import { Disclosure } from '@/app/explore/InspectorCard'
 import type { Source } from '@/chem-data/schema'
 import type { TitrationData } from '@/chem-data/titration/data'
 import type { Action } from '@/engine/titration'
-import { ACTION_TEXT, additionMessage, describeStand, flaskStatus, SLOW_DOWN_TEXT, STOPCOCK_ALREADY_CLOSED, streamMessage, swirlText, undoneText } from './benchText'
+import { ACTION_TEXT, additionMessage, describeStand, flaskStatus, saidAgain, SLOW_DOWN_TEXT, STOPCOCK_ALREADY_CLOSED, streamMessage, swirlText, undoneText } from './benchText'
 import type { BenchAction, BenchView } from './benchView'
 import { flaskColour } from './flaskColour'
 import { blockedText, OUTCOME_TEXT, readingRecordedText } from './messages'
@@ -42,6 +42,8 @@ export interface TitrationBenchProps {
 export interface Said {
   text: string
   done?: { action: BenchAction; before: BenchView }
+  /** The line as it stood when this was said. Not given for a stream: open and closed never read the same. */
+  previous?: string
 }
 
 /** A press this soon after the stopcock closed itself was aimed at closing it, and does nothing. */
@@ -50,8 +52,12 @@ const CLOSED_BY_ITSELF_MS = 600
 const doneText = (action: BenchAction, previous: string) =>
   action.type !== 'deliver' ? ACTION_TEXT[action.type] : action.amount === 'stream' ? '' : additionMessage(action.amount, previous)
 
-/** The message line: what the last action did, or why the last press did nothing. Pure, exported for its test. */
+/** The message line: what the last action did, or why the last press did nothing, never in the words it already showed. Pure, exported for its test. */
 export function messageLine(said: Said, view: BenchView, stream: Stream): string {
+  return saidAgain(lineText(said, view, stream), said.previous ?? '')
+}
+
+function lineText(said: Said, view: BenchView, stream: Stream): string {
   if (!said.done) return said.text
   const { action, before } = said.done
   // The trial ended at the last mark with no pink: said here, at the bench, as well as in the notebook's result.
@@ -79,12 +85,16 @@ export function TitrationBench({ view, display, bottles, sources, reducedMotion,
   const meniscusWordsId = useId()
   const { stream, open, close, closedBySelfAt } = useStream(view.controls.deliver === null, () => void onAction({ type: 'deliver', amount: 'stream' }), view.slowDown)
 
+  const line = messageLine(said, view, stream)
+  /** Says it in the message line, with the line as it stands, so that the same sentence twice is still a change. */
+  const say = (next: Said) => setSaid({ ...next, previous: line })
+
   // The page hands an action back once the learner has gone on with it after a warning: it is said as any other is.
   if (confirmed !== handedBack) {
     setHandedBack(confirmed)
-    if (confirmed?.type === 'recordInitialReading') setSaid({ text: readingRecordedText('initial', confirmed.readingUl) })
+    if (confirmed?.type === 'recordInitialReading') say({ text: readingRecordedText('initial', confirmed.readingUl) })
     else if (confirmed) {
-      setSaid({ text: doneText(confirmed, said.text) })
+      say({ text: doneText(confirmed, said.text) })
       setActionsDone(actionsDone + 1)
     }
   }
@@ -94,16 +104,16 @@ export function TitrationBench({ view, display, bottles, sources, reducedMotion,
     close()
     const answer = onAction(action)
     if (answer === 'done') {
-      setSaid({ text: doneText(action, said.text), done: { action, before: view } })
+      say({ text: doneText(action, said.text), done: { action, before: view } })
       setActionsDone((count) => count + 1)
     }
     const reason = view.controls[action.type]
-    if (answer === 'refused' && reason !== null) setSaid({ text: blockedText(reason) })
+    if (answer === 'refused' && reason !== null) say({ text: blockedText(reason) })
   }
   const toggle = (pour: number | null) => {
     if (stream.open) return close()
-    if (closedBySelfAt !== null && performance.now() - closedBySelfAt < CLOSED_BY_ITSELF_MS) return setSaid({ text: STOPCOCK_ALREADY_CLOSED })
-    if (view.controls.deliver !== null) return setSaid({ text: blockedText(view.controls.deliver) })
+    if (closedBySelfAt !== null && performance.now() - closedBySelfAt < CLOSED_BY_ITSELF_MS) return say({ text: STOPCOCK_ALREADY_CLOSED })
+    if (view.controls.deliver !== null) return say({ text: blockedText(view.controls.deliver) })
     open(pour)
     setSaid({ text: '', done: { action: { type: 'deliver', amount: 'stream' }, before: view } })
     // Its additions go straight to the page and are not counted, and the first of them clears a final reading.
@@ -146,7 +156,7 @@ export function TitrationBench({ view, display, bottles, sources, reducedMotion,
           <p role="status">{flaskStatus(view, display)}</p>
           {/* Guided's hint. Always there, and empty until it applies, so that a screen reader says it when it comes. */}
           <p role="status">{view.slowDown ? SLOW_DOWN_TEXT : ''}</p>
-          <p role="status">{messageLine(said, view, stream)}</p>
+          <p role="status">{line}</p>
           {notice}
           <Disclosure summary="Text description of the burette and flask">
             <p className="text-muted-foreground">{standWords}</p>

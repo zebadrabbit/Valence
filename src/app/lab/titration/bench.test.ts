@@ -543,6 +543,27 @@ describe('the message line', () => {
     expect(messageLine(done(pink, SWIRL), view(run(m, pink, [SWIRL])), CLOSED)).toBe(swirlText('persisted'))
   })
 
+  it('says a sentence that is already showing with "Again:" before it, and plainly the time after, so that a live region speaks on every press', () => {
+    const reason = BLOCKED_TEXT['burette-empty']
+    const fresh = view(createLab(1, 'challenge'))
+    // A refusal, by the same button or by another with the same reason.
+    expect(messageLine({ text: reason, previous: '' }, fresh, CLOSED)).toBe(reason)
+    expect(messageLine({ text: reason, previous: reason }, fresh, CLOSED)).toBe(`Again: ${reason}`)
+    expect(messageLine({ text: reason, previous: `Again: ${reason}` }, fresh, CLOSED)).toBe(reason)
+    // An action that says the same each time it is done: the second and third drops of indicator.
+    const INDICATOR: BenchAction = { type: 'addIndicatorDrop' }
+    const oneDrop = prepared(m, 1, { drops: 1 })
+    const twoDrops = run(m, oneDrop, [INDICATOR])
+    const second = messageLine({ ...done(oneDrop, INDICATOR, ACTION_TEXT.addIndicatorDrop), previous: ACTION_TEXT.addIndicatorDrop }, view(twoDrops), CLOSED)
+    expect(second).toBe(`Again: ${ACTION_TEXT.addIndicatorDrop}`)
+    expect(messageLine({ ...done(twoDrops, INDICATOR, ACTION_TEXT.addIndicatorDrop), previous: second }, view(run(m, twoDrops, [INDICATOR])), CLOSED)).toBe(ACTION_TEXT.addIndicatorDrop)
+    // A second swirl that finds the same, whose sentence is worded from the view.
+    const swirled = run(m, ready, [SWIRL])
+    expect(messageLine({ ...done(swirled, SWIRL), previous: swirlText('faded') }, view(run(m, swirled, [SWIRL])), CLOSED)).toBe(`Again: ${swirlText('faded')}`)
+    // Nothing said is nothing said again.
+    expect(messageLine({ text: '', previous: '' }, fresh, CLOSED)).toBe('')
+  })
+
   it('follows the stopcock for a stream: open, a pour, and closed again however it closed', () => {
     const said = done(ready, deliver('stream'))
     const after = view(run(m, ready, [deliver('stream')]))
