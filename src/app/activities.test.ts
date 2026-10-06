@@ -2,6 +2,16 @@ import { describe, expect, it } from 'vitest'
 import { ACTIVITIES, activityStatus } from './activities'
 import { createMemoryStore, saveEntry } from './progress/storage'
 
+describe('the activities', () => {
+  it('open the titration lab at its own address, and the lab that is not built yet at the list of labs', () => {
+    expect(ACTIVITIES.map((activity) => [activity.entry, activity.to])).toEqual([
+      ['lab:titration', '/lab/titration'],
+      ['lab:aqueous', '/lab'],
+      ['mechanism:hcl-nahco3', '/learn'],
+    ])
+  })
+})
+
 describe('activityStatus', () => {
   it.each(ACTIVITIES.map((activity) => [activity.title, activity] as const))('reads "%s" with the version that activity loads and saves with', (_title, activity) => {
     const store = createMemoryStore()

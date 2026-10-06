@@ -1,16 +1,9 @@
 import { Link } from 'react-router'
 import { useAppState } from '@/app/AppState'
 import { PageHeader } from '@/app/PageHeader'
-import { ACTIVITIES, activityStatus } from '@/app/activities'
-import type { ActivityStatus } from '@/app/progress/storage'
+import { ACTIVITIES, activityStatus, STATUS_LABEL } from '@/app/activities'
 import { ELEMENT_INDEX } from '@/chem-data/elementIndex'
 import { LIBRARY_INDEX } from '@/chem-data/libraryIndex'
-
-const STATUS_LABEL: Record<ActivityStatus, string> = {
-  'not-started': 'Not started',
-  'in-progress': 'In progress',
-  completed: 'Completed',
-}
 
 export function Home() {
   const { store } = useAppState()
