@@ -13,7 +13,7 @@ type Bottle = {
   formula: string
   pubchemCid: number
   classifiedAs: string
-  /** The entry of the kept PubChem record the statements are read from. The acid bottle has none: its statements are a sheet's. */
+  /** The entry of a kept PubChem record the statements were read from until 2026-10-05. No bottle has one now: every bottle's statements are a sheet's. */
   reference?: string
   hazards: { signalWord: string; statements: string[]; note: { value: string; sourceId: string; alsoSourceId?: string }; sourceId: string }
 }
@@ -165,12 +165,16 @@ describe('the titration inputs: sources', () => {
 })
 
 describe('the titration inputs: bottles', () => {
-  // D4 as changed on 2026-10-05, on a reading of the owner's words that the owner has not confirmed. Before it the
-  // acid bottle carried the entry PubChem gives for hydrochloric acid from one regulator, which said nothing of the
-  // strength it is for.
-  const SHEET_ID = 'flinn-sds-395'
+  // D4 as the owner confirmed and widened it on 2026-10-05: each bottle's signal word and statements are those of
+  // one supplier's safety data sheet for the concentrated or the pure substance, read and not kept. Before, the acid
+  // bottle carried an entry of PubChem's record that gave no strength, and the other two the entries PubChem gives
+  // from a European regulation.
+  const SHEETS = { hcl: 'flinn-sds-395', naoh: 'flinn-sds-734', indicator: 'flinn-sds-591' } as const
+  const KEYS = ['hcl', 'naoh', 'indicator'] as const
+  const SHEET_ID = SHEETS.hcl
   const sheet = source(SHEET_ID)!
-  const printedFor = (field: string) => sheet.supports.filter((row) => row.field === field).map((row) => row.prints)
+  const printedBy = (id: string, field: string) => source(id)!.supports.filter((row) => row.field === field).map((row) => row.prints)
+  const printedFor = (field: string) => printedBy(SHEET_ID, field)
 
   it("gives the HCl bottle the signal word and the statements of a supplier's safety data sheet for concentrated acid, as the sheet prints them, and not the gas's H331", () => {
     const { hcl } = input.bottles
@@ -185,6 +189,18 @@ describe('the titration inputs: bottles', () => {
     expect(hcl.reference).toBeUndefined()
   })
 
+  it("gives the other two bottles the signal word and the statements of the same supplier's sheets for the solid, as each sheet prints them", () => {
+    const { naoh, indicator } = input.bottles
+    expect([naoh.hazards.sourceId, indicator.hazards.sourceId]).toEqual([SHEETS.naoh, SHEETS.indicator])
+    expect([naoh.hazards.signalWord, indicator.hazards.signalWord]).toEqual(['Danger', 'Danger'])
+    expect(naoh.hazards.statements).toEqual(['H314: Causes severe skin burns and eye damage', 'H290: May be corrosive to metals'])
+    // The sheet prints H361 with no letter after it, and gives it both halves: fertility and the unborn child.
+    expect(indicator.hazards.statements).toEqual(['H341: Suspected of causing genetic defects', 'H350: May cause cancer', 'H361: Suspected of damaging fertility or the unborn child'])
+    expect(JSON.stringify(input.bottles)).not.toContain('H361f')
+    // No bottle names an entry of a PubChem record any more, and none cites one for its hazards.
+    for (const key of KEYS) expect([key, input.bottles[key].reference, /pubchem/.test(input.bottles[key].hazards.sourceId)]).toEqual([key, undefined, false])
+  })
+
   it('says over the HCl bottle\'s statements whose hazards they are and at what strength', () => {
     const { classifiedAs } = input.bottles.hcl
     expect(classifiedAs).toBe("Hazards of concentrated hydrochloric acid (6 M to 12 M), from a supplier's safety data sheet")
@@ -194,24 +210,58 @@ describe('the titration inputs: bottles', () => {
     expect(printedFor('bottles.hcl.classifiedAs')).toEqual(['6 M - 12 M (Concentrated)', '20-38%'])
   })
 
-  it('lists the sheet in the manifest as a page that was read and not kept, with a row for the signal word, each statement, the strength and the revision date', () => {
-    expect(sheet.url).toBe('https://www.flinnsci.com/sds_395-hydrochloric-acid-6-m---12-m-concentrated/sds_395')
-    expect(sheet.file).toBeUndefined()
-    expect(sheet.sha256).toBeUndefined()
-    expect(sheet.fetchedSha256).toMatch(/^[0-9a-f]{64}$/)
-    expect(sheet.citation).toMatch(/Safety Data Sheet: Hydrochloric Acid 6 M - 12 M \(Concentrated\), SDS number sds_395; revision date December 3, 2018 \(read on 2026-10-05; no copy is kept\)\.$/)
-    expect(printedFor('bottles.hcl.hazards.signalWord')).toEqual(['DANGER'])
-    expect(input.bottles.hcl.hazards.statements.map((_, i) => printedFor(`bottles.hcl.hazards.statements[${i}]`))).toEqual([
-      ['Causes severe skin and eye burns and damage (H314+H318)'],
-      ['Harmful if swallowed or inhaled (H332+H302)'],
-      ['May be corrosive to metals (H290)'],
-    ])
-    expect(printedFor('bottles.hcl.hazards')).toEqual(['December 3, 2018'])
-    // Every row of the sheet is for the acid bottle or for the primer, and none is for a statement the bottle does not store.
-    expect(sheet.supports.map((row) => row.field).filter((field) => field !== 'primer' && !/^bottles\.hcl\.(classifiedAs|hazards(\.signalWord|\.statements\[[0-2]\])?)$/.test(field))).toEqual([])
+  it("says over the other two bottles' statements whose hazards they are and in what form: the solid, the pure substance", () => {
+    expect(input.bottles.naoh.classifiedAs).toBe("Hazards of solid sodium hydroxide, the pure substance, from a supplier's safety data sheet")
+    expect(input.bottles.indicator.classifiedAs).toBe("Hazards of solid phenolphthalein, the pure substance, from a supplier's safety data sheet")
+    // Each sheet's title names the substance and no strength; another row gives the form.
+    expect(printedBy(SHEETS.naoh, 'bottles.naoh.classifiedAs')).toEqual(['Sodium Hydroxide', 'Sodium hydroxide, solid'])
+    expect(printedBy(SHEETS.indicator, 'bottles.indicator.classifiedAs')).toEqual(['Phenolphthalein', 'Pale yellow powder'])
+    for (const key of ['naoh', 'indicator'] as const) {
+      expect([key, /regulation|PubChem|European/i.test(input.bottles[key].classifiedAs)]).toEqual([key, false])
+      // That the sheet is for the substance alone is said where its title is: nothing else is in its composition table.
+      expect([key, /alone/.test(source(SHEETS[key])!.supports.find((row) => row.field === `bottles.${key}.classifiedAs`)!.where)]).toEqual([key, true])
+    }
   })
 
-  it('says in the manifest which form the statements are stored in and why, and of the sheet\'s sentence on a cancer listing only that it is not carried', () => {
+  it('lists each sheet in the manifest as a page that was read and not kept, with a row for the signal word, each statement, the strength or form and the revision date', () => {
+    const expected = {
+      hcl: {
+        url: 'https://www.flinnsci.com/sds_395-hydrochloric-acid-6-m---12-m-concentrated/sds_395',
+        citation: /Safety Data Sheet: Hydrochloric Acid 6 M - 12 M \(Concentrated\), SDS number sds_395; revision date December 3, 2018 \(read on 2026-10-05; no copy is kept\)\.$/,
+        revised: 'December 3, 2018',
+        lines: ['Causes severe skin and eye burns and damage (H314+H318)', 'Harmful if swallowed or inhaled (H332+H302)', 'May be corrosive to metals (H290)'],
+      },
+      naoh: {
+        url: 'https://www.flinnsci.com/sds_734-sodium-hydroxide/sds_734',
+        citation: /Safety Data Sheet: Sodium Hydroxide, SDS number sds_734; revision date March 25, 2014 \(read on 2026-10-05; no copy is kept\)\.$/,
+        revised: 'March 25, 2014',
+        lines: ['Causes severe skin burns and eye damage (H314)', 'May be corrosive to metals (H290)'],
+      },
+      indicator: {
+        url: 'https://www.flinnsci.com/sds_591-phenolphthalein/sds_591',
+        citation: /Safety Data Sheet: Phenolphthalein, SDS number sds_591; revision date April 1, 2015 \(read on 2026-10-05; no copy is kept\)\.$/,
+        revised: 'April 1, 2015',
+        lines: ['Suspected of causing genetic defects (H341)', 'May cause cancer (H350)', 'Suspected of damaging fertility or the unborn child (H361)'],
+      },
+    }
+    for (const key of KEYS) {
+      const s = source(SHEETS[key])!
+      const field = `bottles.${key}`
+      expect([key, s.url, s.file, s.sha256]).toEqual([key, expected[key].url, undefined, undefined])
+      expect([key, /^[0-9a-f]{64}$/.test(s.fetchedSha256 ?? '')]).toEqual([key, true])
+      expect([key, expected[key].citation.test(s.citation)]).toEqual([key, true])
+      expect([key, printedBy(s.id, `${field}.hazards.signalWord`)]).toEqual([key, ['DANGER']])
+      expect([key, input.bottles[key].hazards.statements.map((_, i) => printedBy(s.id, `${field}.hazards.statements[${i}]`))]).toEqual([key, expected[key].lines.map((line) => [line])])
+      expect([key, printedBy(s.id, `${field}.hazards`)]).toEqual([key, [expected[key].revised]])
+      // Every row of the sheet is for its bottle or for the primer, and none is for a statement the bottle does not store.
+      const others = s.supports.map((row) => row.field).filter((f) => f !== 'primer' && f !== `${field}.classifiedAs` && f !== `${field}.hazards` && f !== `${field}.hazards.signalWord` && !new RegExp(`^bottles\\.${key}\\.hazards\\.statements\\[[0-${expected[key].lines.length - 1}]\\]$`).test(f))
+      expect([key, others]).toEqual([key, []])
+      // No two sheets are one page.
+      expect([key, manifest.sources.filter((other) => other.fetchedSha256 === s.fetchedSha256).length]).toEqual([key, 1])
+    }
+  })
+
+  it('says in the manifest which form the statements are stored in and why, and of each sheet\'s sentences that are not hazard statements only that they are not carried', () => {
     const where = sheet.supports.map((row) => row.where).join(' ')
     expect(where).toMatch(/The record stores the sheet's own three lines/)
     expect(where).toMatch(/not one line for each code/)
@@ -219,31 +269,31 @@ describe('the titration inputs: bottles', () => {
     const lines = sheet.supports.filter((row) => /cancer/i.test(`${row.prints} ${row.where}`))
     expect(lines.length).toBe(1)
     expect(lines[0]!.where).toMatch(/is not a GHS hazard statement, and is not carried into the record/)
-    expect(JSON.stringify(sheet)).not.toMatch(/carcinogen|IARC/i)
     for (const text of [input.bottles.hcl.classifiedAs, input.bottles.hcl.hazards.note.value, ...input.bottles.hcl.hazards.statements]) expect(text).not.toMatch(/cancer|carcinogen/i)
-  })
-
-  it('keeps no PubChem copy for the acid and lists none, now that nothing reads it', () => {
-    expect(manifest.sources.filter((s) => /cid[-/ ]313\b/i.test(`${s.id} ${s.url} ${s.file ?? ''}`))).toEqual([])
-    const keptRecords = Object.keys(import.meta.glob('../../../docs/research/phase-3/sources/pubchem-cid-*-ghs.json')).map((path) => path.split('/').pop())
-    expect(keptRecords.sort()).toEqual(['pubchem-cid-14798-ghs.json', 'pubchem-cid-4764-ghs.json'])
-    expect(manifest.sources.filter((s) => /Safe Work Australia/.test(JSON.stringify(s)))).toEqual([])
-  })
-
-  it('labels the other two bottles as the hazards of the pure substance', () => {
-    expect(input.bottles.naoh.classifiedAs).toContain('pure substance')
-    expect(input.bottles.indicator.classifiedAs).toContain('pure substance')
-    expect(input.bottles.naoh.hazards.statements.map((s) => s.split(':')[0])).toEqual(['H314'])
-    expect(input.bottles.indicator.hazards.statements.map((s) => s.split(':')[0])).toEqual(['H341', 'H350', 'H361f'])
-  })
-
-  it('reads the other two bottles\' statements from the kept PubChem record of each, under a named entry, as before', () => {
+    // The other two sheets' statements are stored in the same form, and their rows say so by pointing at the acid's.
     for (const key of ['naoh', 'indicator'] as const) {
-      const bottle = input.bottles[key]
-      expect([key, bottle.hazards.sourceId]).toEqual([key, `pubchem-cid-${bottle.pubchemCid}`])
-      expect([key, source(bottle.hazards.sourceId)?.file]).toEqual([key, `pubchem-cid-${bottle.pubchemCid}-ghs.json`])
-      expect([key, /^Regulation \(EC\) No 1272\/2008 of the European Parliament and of the Council: /.test(bottle.reference ?? '')]).toEqual([key, true])
+      const rows = source(SHEETS[key])!.supports
+      expect([key, /stored as the acid's are \(see `flinn-sds-395`\)/.test(rows.find((row) => row.field === `bottles.${key}.hazards.statements[0]`)!.where)]).toEqual([key, true])
+      // One line of each says what else the sheet's hazard section prints, and that it is left out.
+      expect([key, rows.filter((row) => /not carried into the record/.test(row.where)).length]).toEqual([key, 1])
     }
+    // The indicator's sheet has a sentence on a cancer listing too: it is not a hazard statement, and it is not repeated.
+    const listing = source(SHEETS.indicator)!.supports.filter((row) => /listing/i.test(row.where))
+    expect(listing.length).toBe(1)
+    expect(listing[0]!.where).toMatch(/is not a GHS hazard statement, and is not carried into the record/)
+    for (const key of KEYS) expect([key, /carcinogen|IARC|Toxicology Program|anticipated/i.test(JSON.stringify(source(SHEETS[key])))]).toEqual([key, false])
+  })
+
+  it('keeps no PubChem copy of a classification and lists none, now that no bottle reads one', () => {
+    expect(manifest.sources.filter((s) => /cid[-/ ](313|14798)\b/i.test(`${s.id} ${s.url} ${s.file ?? ''}`))).toEqual([])
+    expect(Object.keys(import.meta.glob('../../../docs/research/phase-3/sources/pubchem-cid-*-ghs.json'))).toEqual([])
+    expect(manifest.sources.filter((s) => /Safe Work Australia|GHS Classification|1272\/2008/.test(JSON.stringify(s)))).toEqual([])
+    // PubChem's record for phenolphthalein is still a source, for the molar mass alone, and its kept copy is the property table.
+    const record = source('pubchem-cid-4764')!
+    expect(record.file).toBe('pubchem-cid-4764-properties.json')
+    expect(record.supports.map((row) => row.field)).toEqual(['constants.indicatorMolarMass'])
+    expect(JSON.stringify(manifest)).not.toContain('alsoKept')
+    expect((input.constants.indicatorMolarMass as Constant).sourceId).toBe('pubchem-cid-4764')
   })
 
   it('rests each hazard note on a data sheet of its own, not on the source of the statements', () => {

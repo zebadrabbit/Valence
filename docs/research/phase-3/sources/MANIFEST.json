@@ -1,6 +1,6 @@
 {
   "retrieved": "2026-10-04",
-  "about": "Every source of the titration lab's record (docs/research/phase-3/titration.json) and of its primer (src/chem-data/titration/primer.ts), each fetched and read on the retrieval date, or on the later date its own citation gives. A source with `file` has its copy in this folder, as downloaded, with the sha256 of that copy; a source with none was read and no copy is kept. `fetchedSha256`, on a source with no copy, is the sha256 of the page as it was fetched on the day it was read, or, for a page that a script draws (the sheet `flinn-sds-395`), of the text the page showed in a browser that day: a record of which page that was, not the hash of any file here, and nothing checks it. `alsoKept` lists a second copy of the same record fetched from another address. Each `supports` row names one stored value by its path in the record, gives in `prints` the figure or label exactly as the source prints it, and says in `where`, in this project's words, where it is. A row whose field is `primer` marks a source the primer rests on: its `prints` is a title or a heading as the source prints it, and which passage a paragraph rests on, and what that passage establishes, is said in the paragraph's support line in the primer. The statements of two bottles, the base and the indicator, are read from a kept PubChem copy, and such a bottle's `reference` in the record is the name of the classification's source in that copy, a colon and a space, and the entry's name with the space around it removed. The acid bottle's statements are those of a supplier's safety data sheet for concentrated acid, read and not kept, and it has no `reference`: the rows of `flinn-sds-395` give what the sheet prints, and say in which form the statements are stored and why. README.md in this folder gives the attribution the two Wikipedia copies require.",
+  "about": "Every source of the titration lab's record (docs/research/phase-3/titration.json) and of its primer (src/chem-data/titration/primer.ts), each fetched and read on the retrieval date, or on the later date its own citation gives. A source with `file` has its copy in this folder, as downloaded, with the sha256 of that copy; a source with none was read and no copy is kept. `fetchedSha256`, on a source with no copy, is the sha256 of the page as it was fetched on the day it was read, or, for a page that a script draws (the sheets whose ids begin `flinn-sds-`), of the text the page showed in a browser that day: a record of which page that was, not the hash of any file here, and nothing checks it. Each `supports` row names one stored value by its path in the record, gives in `prints` the figure or label exactly as the source prints it, and says in `where`, in this project's words, where it is. A row whose field is `primer` marks a source the primer rests on: its `prints` is a title or a heading as the source prints it, and which passage a paragraph rests on, and what that passage establishes, is said in the paragraph's support line in the primer. The statements of all three bottles are those of one supplier's safety data sheets, read and not kept: the sheet for concentrated hydrochloric acid, and the sheets for sodium hydroxide and for phenolphthalein themselves, the solids. The owner asked for this supplier's sheets as the lab's reference for hazards. No bottle has a `reference`: the rows of each sheet give what it prints, and those of `flinn-sds-395` say in which form the statements are stored and why. README.md in this folder gives the attribution the two Wikipedia copies require.",
   "sources": [
     {
       "id": "tamura-1996",
@@ -132,70 +132,14 @@
     {
       "id": "pubchem-cid-4764",
       "url": "https://pubchem.ncbi.nlm.nih.gov/compound/4764",
-      "citation": "PubChem, National Library of Medicine (NCBI). Compound summary for CID 4764 (phenolphthalein): the computed molecular weight, and in the section GHS Classification the entry \"phenolphthalein\" that PubChem gives from Regulation (EC) No 1272/2008 of the European Parliament and of the Council (data: https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/4764/JSON?heading=GHS+Classification and https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/4764/property/MolecularWeight,MolecularFormula,IUPACName/JSON, retrieved 2026-10-04).",
-      "file": "pubchem-cid-4764-ghs.json",
-      "sha256": "3fb79a78d2e693a5557ccfefaa676af7eb4f4d64d2337c2d7ec8609f8df49518",
-      "alsoKept": [
-        {
-          "file": "pubchem-cid-4764-properties.json",
-          "sha256": "10623f113cc75cb929c5c93d34ed46c84ca207056442bc8fd63f756b283df4f3",
-          "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/4764/property/MolecularWeight,MolecularFormula,IUPACName/JSON"
-        }
-      ],
+      "citation": "PubChem, National Library of Medicine (NCBI). Compound summary for CID 4764 (phenolphthalein): the computed molecular weight (data: https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/4764/property/MolecularWeight,MolecularFormula,IUPACName/JSON, retrieved 2026-10-04).",
+      "file": "pubchem-cid-4764-properties.json",
+      "sha256": "10623f113cc75cb929c5c93d34ed46c84ca207056442bc8fd63f756b283df4f3",
       "supports": [
         {
           "field": "constants.indicatorMolarMass",
           "prints": "318.3",
-          "where": "The properties copy, the value of MolecularWeight, in g/mol; MolecularFormula beside it prints C20H14O4."
-        },
-        {
-          "field": "bottles.indicator.hazards.signalWord",
-          "prints": "Danger",
-          "where": "The GHS copy, the entry named phenolphthalein from Regulation (EC) No 1272/2008 (reference number 79 in the copy), under Signal."
-        },
-        {
-          "field": "bottles.indicator.hazards.statements[0]",
-          "prints": "H341: Suspected of causing genetic defects [Warning Germ cell mutagenicity]",
-          "where": "The same entry, under GHS Hazard Statements, the first of three."
-        },
-        {
-          "field": "bottles.indicator.hazards.statements[1]",
-          "prints": "H350: May cause cancer [Danger Carcinogenicity]",
-          "where": "The same entry, the second statement."
-        },
-        {
-          "field": "bottles.indicator.hazards.statements[2]",
-          "prints": "H361f ***: Suspected of damaging fertility [Warning Reproductive toxicity]",
-          "where": "The same entry, the third statement. The record prints three asterisks after the code, which the stored statement leaves out."
-        },
-        {
-          "field": "primer",
-          "prints": "GHS Classification",
-          "where": "The heading of the section the bottle's statements are read from. The primer's safety card says which entry's statements the bottle carries, as the rows above record."
-        }
-      ]
-    },
-    {
-      "id": "pubchem-cid-14798",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/compound/14798",
-      "citation": "PubChem, National Library of Medicine (NCBI). Compound summary for CID 14798 (sodium hydroxide), section GHS Classification: the entry \"sodium hydroxide; caustic soda\" that PubChem gives from Regulation (EC) No 1272/2008 of the European Parliament and of the Council (data: https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/14798/JSON?heading=GHS+Classification, retrieved 2026-10-04).",
-      "file": "pubchem-cid-14798-ghs.json",
-      "sha256": "418ce62dc712b73a3e5816897dff5de0ee3dea9e19d9dfbe0e810ce992c55e26",
-      "supports": [
-        {
-          "field": "bottles.naoh.hazards.signalWord",
-          "prints": "Danger",
-          "where": "The entry named sodium hydroxide; caustic soda from Regulation (EC) No 1272/2008 (reference number 77 in the copy), under Signal."
-        },
-        {
-          "field": "bottles.naoh.hazards.statements[0]",
-          "prints": "H314: Causes severe skin burns and eye damage [Danger Skin corrosion/irritation]",
-          "where": "The same entry, under GHS Hazard Statements, its only statement."
-        },
-        {
-          "field": "primer",
-          "prints": "GHS Classification",
-          "where": "The heading of the section the bottle's statements are read from. The primer's safety card says which entry's statements the bottle carries, as the rows above record."
+          "where": "The kept copy, PubChem's table of computed properties for the compound: the value of MolecularWeight, in g/mol; MolecularFormula beside it prints C20H14O4."
         }
       ]
     },
@@ -266,12 +210,103 @@
         {
           "field": "bottles.hcl.hazards.statements[2]",
           "prints": "May be corrosive to metals (H290)",
-          "where": "Section 2, the last of the three: category 1, for corrosion of metals. The section prints no other hazard code, and so not H331, which the build refuses on this bottle. After the three classes it has one more sentence, on a cancer listing for mists of the acid in industry: that sentence carries no hazard code, is not a GHS hazard statement, and is not carried into the record."
+          "where": "Section 2, the last of the three: category 1, for corrosion of metals. The section prints no other hazard code, and so not H331, which the build refuses on this bottle. After the three classes it has one more sentence, on a cancer listing for mists of the acid in industry: that sentence carries no hazard code, is not a GHS hazard statement, and is not carried into the record. Nor are the precautionary statements the section prints beside two of the classes, whose codes begin with P."
         },
         {
           "field": "primer",
           "prints": "Hydrochloric Acid 6 M - 12 M (Concentrated) Safety Data Sheet (SDS)",
           "where": "The sheet's title. The primer's safety card rests on the title and on section 2, as the rows above record them."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-734",
+      "url": "https://www.flinnsci.com/sds_734-sodium-hydroxide/sds_734",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Hydroxide, SDS number sds_734; revision date March 25, 2014 (read on 2026-10-05; no copy is kept).",
+      "fetchedSha256": "c154c843826cbb76d3c670a26f0cfb6201036f36f4c3d7464846c371d9d11317",
+      "supports": [
+        {
+          "field": "bottles.naoh.classifiedAs",
+          "prints": "Sodium Hydroxide",
+          "where": "The sheet's title, before the words Safety Data Sheet: the substance the sheet is for, with no strength. Section 3 lists sodium hydroxide alone, with no water and nothing in its concentration column, so the sheet is for the substance itself and not for a solution of it. The heading over the bottle's statements calls that the pure substance; the sheet does not use the word."
+        },
+        {
+          "field": "bottles.naoh.classifiedAs",
+          "prints": "Sodium hydroxide, solid",
+          "where": "Section 14, the shipping name: the form the sheet is for. Section 9 describes the substance as pellets or flakes. The heading over the bottle's statements says solid sodium hydroxide."
+        },
+        {
+          "field": "bottles.naoh.hazards",
+          "prints": "March 25, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "bottles.naoh.hazards.signalWord",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Danger, the form its schema has for the word."
+        },
+        {
+          "field": "bottles.naoh.hazards.statements[0]",
+          "prints": "Causes severe skin burns and eye damage (H314)",
+          "where": "Section 2, the first of the two hazard classes it lists: category 1, for corrosion or irritation of the skin. The statement is stored as the acid's are (see `flinn-sds-395`): the sheet's own line, with its code in front, then a colon and the statement."
+        },
+        {
+          "field": "bottles.naoh.hazards.statements[1]",
+          "prints": "May be corrosive to metals (H290)",
+          "where": "Section 2, the second and last of the two: category 1, for corrosion of metals. The section prints no other hazard code. Besides the two hazard statements it prints one precautionary statement, with a code that begins with P: that is not a hazard statement and is not carried into the record."
+        },
+        {
+          "field": "primer",
+          "prints": "Sodium Hydroxide Safety Data Sheet (SDS)",
+          "where": "The sheet's title. The primer's safety card rests on the title and on sections 2 and 3, as the rows above record them."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-591",
+      "url": "https://www.flinnsci.com/sds_591-phenolphthalein/sds_591",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Phenolphthalein, SDS number sds_591; revision date April 1, 2015 (read on 2026-10-05; no copy is kept).",
+      "fetchedSha256": "f29451e7f15f3b563f600592191c119900c6862040f22e544180fb4643d00b96",
+      "supports": [
+        {
+          "field": "bottles.indicator.classifiedAs",
+          "prints": "Phenolphthalein",
+          "where": "The sheet's title, before the words Safety Data Sheet: the substance the sheet is for, with no strength and no solvent. Section 3 lists phenolphthalein alone, with nothing in its concentration column, so the sheet is for the substance itself and not for a solution of it. The heading over the bottle's statements calls that the pure substance; the sheet does not use the word."
+        },
+        {
+          "field": "bottles.indicator.classifiedAs",
+          "prints": "Pale yellow powder",
+          "where": "Section 9, the first words of the description: the form the sheet is for. Section 5 calls the substance a solid. The heading over the bottle's statements says solid phenolphthalein."
+        },
+        {
+          "field": "bottles.indicator.hazards",
+          "prints": "April 1, 2015",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "bottles.indicator.hazards.signalWord",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Danger, the form its schema has for the word."
+        },
+        {
+          "field": "bottles.indicator.hazards.statements[0]",
+          "prints": "Suspected of causing genetic defects (H341)",
+          "where": "Section 2, the first of the three hazard classes it lists: category 2, for germ cell mutagenicity. The statement is stored as the acid's are (see `flinn-sds-395`): the sheet's own line, with its code in front, then a colon and the statement."
+        },
+        {
+          "field": "bottles.indicator.hazards.statements[1]",
+          "prints": "May cause cancer (H350)",
+          "where": "Section 2, the second of the three: category 1B, for causing cancer. After this statement the section has one more sentence, on the listing of phenolphthalein by a body of the United States government that assesses substances for cancer. That sentence carries no hazard code, is not a GHS hazard statement, and is not carried into the record; nor are the three precautionary statements the section prints, whose codes begin with P."
+        },
+        {
+          "field": "bottles.indicator.hazards.statements[2]",
+          "prints": "Suspected of damaging fertility or the unborn child (H361)",
+          "where": "Section 2, the last of the three: category 2, for reproductive toxicity. The sheet prints the code with no letter after it and gives the statement both of its halves. The section prints no other hazard code."
+        },
+        {
+          "field": "primer",
+          "prints": "Phenolphthalein Safety Data Sheet (SDS)",
+          "where": "The sheet's title. The primer's safety card rests on the title and on sections 2 and 3, as the rows above record them."
         }
       ]
     },
@@ -392,7 +427,7 @@
         {
           "field": "bottles.indicator.hazards.note",
           "prints": "H360",
-          "where": "The same sections: reproductive toxicity, category 1B; the solution may damage fertility or the unborn child. This is a more severe statement than the H361f of the pure substance's entry in the PubChem record."
+          "where": "The same sections: reproductive toxicity, category 1B; the solution may damage fertility or the unborn child. This is a more severe statement than the H361, in category 2, that the sheet for solid phenolphthalein prints (`flinn-sds-591`), from which the bottle's statements come."
         },
         {
           "field": "bottles.indicator.hazards.note",

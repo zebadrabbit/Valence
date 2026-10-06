@@ -75,20 +75,24 @@ describe('titrationData', () => {
 
   it('has every source it names among its citations, each once', () => {
     const named = new Set(JSON.stringify(titrationData).match(/(?<="sourceId":")[^"]+/g))
-    expect(named.size).toBe(13)
+    expect(named.size).toBe(14)
     const cited = titrationCitations(titrationData, sources).map((c) => c.source.id)
     expect([...cited].sort()).toEqual([...named].sort())
   })
 
   it('cites the three bottles as the lab shows them', () => {
     const covers = Object.fromEntries(titrationCitations(titrationData, sources).map((c) => [c.source.id, c.covers]))
-    // The acid's statements are a supplier's sheet's for concentrated acid, not an entry of a PubChem record.
+    // Each bottle's statements are a supplier's sheet's, for the concentrated or the pure substance, not an entry of a PubChem record.
     expect(covers['flinn-sds-395']).toEqual(['Hydrochloric acid, standardized: hazard classification'])
+    expect(covers['flinn-sds-734']).toEqual(['Sodium hydroxide solution, about 0.1 M: hazard classification'])
+    expect(covers['flinn-sds-591']).toEqual(['Phenolphthalein indicator solution, 0.5%: hazard classification'])
     expect(covers['fisher-sds-hcl-0.1n']).toEqual(['Hydrochloric acid, standardized: hazards at the strength used'])
-    expect(covers['pubchem-cid-313']).toBeUndefined()
-    expect(sources.filter((s) => s.id === 'pubchem-cid-313')).toEqual([])
-    expect(covers['pubchem-cid-14798']).toEqual(['Sodium hydroxide solution, about 0.1 M: hazard classification'])
-    expect(covers['pubchem-cid-4764']).toEqual(['Molar mass of phenolphthalein', 'Phenolphthalein indicator solution, 0.5%: hazard classification'])
     expect(covers['fisher-sds-naoh-0.1n']).toEqual(['Sodium hydroxide solution, about 0.1 M: hazards at the strength used'])
+    for (const gone of ['pubchem-cid-313', 'pubchem-cid-14798']) {
+      expect([gone, covers[gone]]).toEqual([gone, undefined])
+      expect(sources.filter((s) => s.id === gone)).toEqual([])
+    }
+    // PubChem's record for phenolphthalein is cited for the molar mass alone.
+    expect(covers['pubchem-cid-4764']).toEqual(['Molar mass of phenolphthalein'])
   })
 })

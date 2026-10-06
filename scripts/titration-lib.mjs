@@ -1,6 +1,6 @@
 // The checks the build makes on the titration lab's record (docs/research/phase-3/titration.json) against the kept
-// copies of its sources (docs/research/phase-3/sources/), and, for the one bottle whose statements are read from a
-// sheet that is not kept, against the manifest's account of that sheet. build-chem-data.mjs runs them;
+// copies of its sources (docs/research/phase-3/sources/), and, for the three bottles, whose statements are read from
+// safety data sheets that are not kept, against the manifest's account of each sheet. build-chem-data.mjs runs them;
 // src/chem-data/titration/build.test.ts tests them on inputs they must refuse. Each throws with a message.
 // Everything reads what it is handed; nothing is fetched here.
 
@@ -33,44 +33,6 @@ export function checkAnnualMean(text, year, published) {
 export function checkMolecularWeight(properties, cid, published) {
   const weight = properties.PropertyTable.Properties.find((row) => row.CID === cid)?.MolecularWeight
   if (weight !== published) throw new Error(`PubChem gives the molecular weight of CID ${cid} as ${weight}, not the stored ${published}`)
-}
-
-const withSubsections = (section) => [section, ...(section.Section ?? []).flatMap(withSubsections)]
-
-/**
- * Throws unless a bottle's hazards are those of one entry of a kept PubChem record (its GHS Classification section).
- * `reference` names the entry: the name of the classification's source, a colon and a space, and the entry's name.
- * The signal word must be the entry's, and the statements the entry's, all of them and in its order. A statement is
- * compared as its H-code and its text: PubChem prints " ***" after some codes and the statement's own signal word
- * and hazard class in brackets after the text, and neither is stored.
- */
-export function checkHazards(record, reference, { signalWord, statements }) {
-  const { RecordNumber: cid, Reference: references, Section: sections } = record.Record
-  const entries = references.filter((entry) => `${entry.SourceName}: ${entry.Name.trim()}` === reference)
-  if (entries.length !== 1) throw new Error(`the PubChem record for CID ${cid} has ${entries.length} entries named "${reference}", expected 1`)
-  const where = `the entry "${reference}" of the PubChem record for CID ${cid}`
-  const lines = sections.flatMap(withSubsections).find((section) => section.TOCHeading === 'GHS Classification')?.Information ?? []
-  const strings = (name) =>
-    lines
-      .filter((line) => line.ReferenceNumber === entries[0].ReferenceNumber && line.Name === name)
-      .flatMap((line) => line.Value.StringWithMarkup.map((markup) => markup.String))
-
-  const signalWords = strings('Signal')
-  if (signalWords.length !== 1 || signalWords[0] !== signalWord) {
-    throw new Error(`${where} carries the signal word ${JSON.stringify(signalWords.join(', '))}, not "${signalWord}"`)
-  }
-  // "H361f ***: Suspected of damaging fertility [Warning Reproductive toxicity]" is "H361f: Suspected of damaging fertility".
-  const entryStatements = strings('GHS Hazard Statements').map((text) => {
-    const [, code, said] = /^(H\d{3}[A-Za-z]*)(?: \*\*\*)?: (.+) \[[^\]]*\]$/.exec(text) ?? []
-    if (!code) throw new Error(`${where} has a hazard statement this script cannot read: ${JSON.stringify(text)}`)
-    return `${code}: ${said}`
-  })
-  for (const statement of statements) {
-    if (!entryStatements.includes(statement)) throw new Error(`${where} does not print the statement "${statement}"`)
-  }
-  if (entryStatements.join('\n') !== statements.join('\n')) {
-    throw new Error(`${where} prints ${entryStatements.join('; ')}: the bottle must carry all ${entryStatements.length} statements, in its order`)
-  }
 }
 
 // A hazard statement as a sheet's bottle stores it: its code, or its codes joined by "+" as the sheet pairs them,

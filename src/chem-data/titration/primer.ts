@@ -58,6 +58,7 @@ const PART_II = 'the heading Part II. Standardization of the NaOH Solution'
 const PERFORMING = 'section 3, part 4 (Performing the Titration)'
 const PREPARING = 'section 3, part 2 (Preparing the Buret)'
 const SHEET_SECTIONS = 'sections 2 (hazard identification), 4 (first-aid measures) and 8 (exposure controls and personal protection)'
+const SOLID_SHEET = "the sheet's title and its sections 2 (hazards identification) and 3 (composition)"
 
 export const TITRATION_PRIMER: readonly PrimerSection[] = [
   {
@@ -528,20 +529,20 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
             'hydrochloric acid of 6 M to 12 M, which the sheet calls concentrated, carries the signal word Danger and three hazard statements: one under the codes H314 and H318, for severe burns and damage to the skin and the eyes, in category 1; one under H332 and H302, for harm when it is swallowed or breathed in; and one under H290, for possible corrosion of metals.',
           ],
           [
-            'pubchem-cid-14798',
-            'the section GHS Classification, the entry for sodium hydroxide from Regulation (EC) No 1272/2008',
-            'sodium hydroxide is classified with the signal word Danger and carries the statement H314 (corrosive to the skin and the eyes).',
+            'flinn-sds-734',
+            SOLID_SHEET,
+            'sodium hydroxide itself, a solid with nothing else listed in it, carries the signal word Danger and two hazard statements: one under the code H314, for severe burns to the skin and damage to the eyes, in category 1; and one under H290, for possible corrosion of metals.',
           ],
         ],
-        "which classification each bottle carries, and the note under it, are in the lab's record (spec 7.1). The sheet gives the strengths it is for, and the card repeats them. The entry for sodium hydroxide does not say at what strength it stops applying, and the card does not either. The sheet prints H314 paired with H318 under one statement, so the card says that both carry the code, not that both carry the same statement.",
+        "which sheet each bottle's statements come from, and the note under them, are in the lab's record (spec 7.1). The acid's sheet gives the strengths it is for, and the card repeats them. The sheet for sodium hydroxide is for the solid with nothing else in it, and so is the sheet for phenolphthalein that the next paragraph rests on; the card calls that the pure substance, a word the sheets do not use. The acid's sheet prints H314 paired with H318 under one statement, so the card says that both carry the code, not that both carry the same statement.",
       ),
       paragraph(
-        "Phenolphthalein is classified as a substance that may cause cancer, and as suspected of causing genetic defects and of damaging fertility. Those are the statements on the indicator bottle, and they are for the pure substance. The indicator itself is a dilute solution of it in alcohol and water, and a titration uses two or three drops. A supplier's safety data sheet for a solution of this kind says that the solution is flammable, that it seriously irritates the eyes, and that it may cause cancer, may harm fertility or an unborn child, and may harm organs. The note under the statements on the indicator bottle gives the sheet's list, with its codes. The sheet calls for gloves and eye protection, and for keeping the solution away from flames.",
+        "Phenolphthalein is classified as a substance that may cause cancer, and as suspected of causing genetic defects and of harming fertility or an unborn child. Those are the statements on the indicator bottle, and they are for the pure substance. The indicator itself is a dilute solution of it in alcohol and water, and a titration uses two or three drops. A supplier's safety data sheet for a solution of this kind says that the solution is flammable, that it seriously irritates the eyes, and that it may cause cancer, may harm fertility or an unborn child, and may harm organs. The note under the statements on the indicator bottle gives the sheet's list, with its codes. The sheet calls for gloves and eye protection, and for keeping the solution away from flames.",
         [
           [
-            'pubchem-cid-4764',
-            'the section GHS Classification, the entry for phenolphthalein from Regulation (EC) No 1272/2008',
-            'phenolphthalein is classified with the signal word Danger, as possibly causing cancer and as suspected of causing genetic defects and of damaging fertility.',
+            'flinn-sds-591',
+            SOLID_SHEET,
+            'phenolphthalein itself, a solid with nothing else listed in it, carries the signal word Danger and three hazard statements: under H341, that it is suspected of causing genetic defects; under H350, that it may cause cancer; and under H361, that it is suspected of harming fertility or an unborn child.',
           ],
           [
             'ricca-sds-5600',
@@ -549,7 +550,7 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
             'the 0.5% indicator solution in 50% alcohol carries the signal word Danger, as a flammable liquid and vapour that seriously irritates the eyes and may cause cancer, harm fertility or an unborn child, and harm organs; and that it is to be kept away from flames and other sources of ignition and handled with protective gloves and eye protection.',
           ],
         ],
-        "two or three drops is this lab's amount (spec 7.2). That the bottle on this bench is a solution of the kind the sheet is for is assumed (spec 7.3). The card says in its own words each of the three statements the bottle carries for the pure substance and each of the five hazards the sheet lists for the solution; the bottle's note gives the sheet's five with their codes.",
+        "two or three drops is this lab's amount (spec 7.2). The first sheet is for the solid; the second is another supplier's, for a solution. That the bottle on this bench is a solution of the kind the second sheet is for is assumed (spec 7.3). The card says in its own words each of the three statements the bottle carries for the pure substance and each of the five hazards the sheet lists for the solution; the bottle's note gives the sheet's five with their codes.",
       ),
     ],
   },

@@ -352,12 +352,7 @@
   {
     "id": "pubchem-cid-4764",
     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/4764",
-    "citation": "PubChem, National Library of Medicine (NCBI). Compound summary for CID 4764 (phenolphthalein): the computed molecular weight, and in the section GHS Classification the entry \"phenolphthalein\" that PubChem gives from Regulation (EC) No 1272/2008 of the European Parliament and of the Council (data: https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/4764/JSON?heading=GHS+Classification and https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/4764/property/MolecularWeight,MolecularFormula,IUPACName/JSON, retrieved 2026-10-04)."
-  },
-  {
-    "id": "pubchem-cid-14798",
-    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/14798",
-    "citation": "PubChem, National Library of Medicine (NCBI). Compound summary for CID 14798 (sodium hydroxide), section GHS Classification: the entry \"sodium hydroxide; caustic soda\" that PubChem gives from Regulation (EC) No 1272/2008 of the European Parliament and of the Council (data: https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/14798/JSON?heading=GHS+Classification, retrieved 2026-10-04)."
+    "citation": "PubChem, National Library of Medicine (NCBI). Compound summary for CID 4764 (phenolphthalein): the computed molecular weight (data: https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/4764/property/MolecularWeight,MolecularFormula,IUPACName/JSON, retrieved 2026-10-04)."
   },
   {
     "id": "ricca-5600",
@@ -368,6 +363,16 @@
     "id": "flinn-sds-395",
     "url": "https://www.flinnsci.com/sds_395-hydrochloric-acid-6-m---12-m-concentrated/sds_395",
     "citation": "Flinn Scientific, Inc. Safety Data Sheet: Hydrochloric Acid 6 M - 12 M (Concentrated), SDS number sds_395; revision date December 3, 2018 (read on 2026-10-05; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-734",
+    "url": "https://www.flinnsci.com/sds_734-sodium-hydroxide/sds_734",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Hydroxide, SDS number sds_734; revision date March 25, 2014 (read on 2026-10-05; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-591",
+    "url": "https://www.flinnsci.com/sds_591-phenolphthalein/sds_591",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Phenolphthalein, SDS number sds_591; revision date April 1, 2015 (read on 2026-10-05; no copy is kept)."
   },
   {
     "id": "fisher-sds-hcl-0.1n",

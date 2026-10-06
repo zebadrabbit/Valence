@@ -341,7 +341,7 @@ describe('the titration primer: what it has to say', () => {
     for (const [key, bottle] of Object.entries(titrationData.bottles)) {
       expect([key, ids.has(bottle.hazards.sourceId), ids.has(bottle.hazards.note.sourceId)]).toEqual([key, true, true])
     }
-    // The acid bottle's statements are a sheet's for concentrated hydrochloric acid, not those of a pure substance (D4, as changed on 2026-10-05).
+    // The acid bottle's statements are a sheet's for concentrated hydrochloric acid, not those of a pure substance (D4, as the owner confirmed it on 2026-10-05).
     expect(shown('safety')).not.toMatch(/pure hydrochloric|pure hydrogen chloride/)
     expect(shown('safety')).toMatch(/replaces/)
     // Which supplier's indicator is on the bench is assumed, so no sheet is called the sheet of this lab's bottle.
@@ -358,8 +358,17 @@ describe('the titration primer: what it has to say', () => {
     expect(hcl.classifiedAs).toContain('concentrated hydrochloric acid (6 M to 12 M)')
     // The paragraph rests on the two sources the two bottles' statements are read from, and on no other.
     expect(sourceIds).toEqual([hcl.hazards.sourceId, naoh.hazards.sourceId])
-    expect(sourceIds).toEqual(['flinn-sds-395', 'pubchem-cid-14798'])
-    expect(support).not.toMatch(/pubchem-cid-313|Australia|H335/)
+    expect(sourceIds).toEqual(['flinn-sds-395', 'flinn-sds-734'])
+    expect(support).not.toMatch(/pubchem|Australia|H335|Regulation|entry/)
+    // The other two bottles' statements are each a sheet's for the solid with nothing else in it, which the card calls the pure substance.
+    expect(naoh.classifiedAs).toContain('solid sodium hydroxide, the pure substance')
+    expect(titrationData.bottles.indicator.classifiedAs).toContain('solid phenolphthalein, the pure substance')
+    // Its support line for the base's sheet says what that bottle stores of it: the form, the signal word and every code.
+    const ofTheBase = support.split('\n')[1]!
+    expect(ofTheBase).toMatch(/^flinn-sds-734: not quoted; see /)
+    expect(ofTheBase).toMatch(/solid/)
+    expect(ofTheBase).toMatch(/signal word Danger/)
+    expect(ofTheBase.match(/H\d{3}/g)!.sort()).toEqual(naoh.hazards.statements.map((statement) => statement.split(':')[0]!).sort())
     // Its support line says of the sheet what the bottle stores of it: the signal word and every code.
     const [ofTheSheet] = support.split('\n')
     expect(ofTheSheet).toMatch(/^flinn-sds-395: not quoted; see /)
@@ -372,9 +381,9 @@ describe('the titration primer: what it has to say', () => {
     expect(text).toMatch(/both carry the code H314/)
     expect(hcl.hazards.statements[0]).toMatch(/^H314\+H318: /)
     expect(naoh.hazards.statements[0]).toMatch(/^H314: /)
-    // The sheet gives the strengths it is for, so the card's own line no longer says that no entry read gives one.
-    expect(support).toMatch(/This lab: .*The sheet gives the strengths it is for/)
-    expect(support).not.toMatch(/The entries read do not say/)
+    // The acid's sheet gives the strengths it is for, so the card's own line no longer says that no entry read gives one.
+    expect(support).toMatch(/This lab: .*The acid's sheet gives the strengths it is for/)
+    expect(support).not.toMatch(/The entries read do not say|does not say at what strength/)
   })
 
   it('does not leave the dilute base as the harmless one of the pair: its sheet does not class it as hazardous, and the card says at once what that sheet still asks for', () => {
@@ -386,12 +395,19 @@ describe('the titration primer: what it has to say', () => {
   })
 
   it("says of the indicator all that its bottle says, and which is which: the three statements of the pure substance, and each of the five hazards that a sheet for the solution lists, which the bottle's note gives with their codes", () => {
-    const { text, support } = section('safety').paragraphs[3]!
+    const { text, support, sourceIds } = section('safety').paragraphs[3]!
     const sentences = text.split(/(?<=\.) /)
     // The statements on the bottle are the pure substance's, and the card leaves none of the three out.
     const { statements, note } = titrationData.bottles.indicator.hazards
-    expect(statements.map((statement) => statement.split(':')[0])).toEqual(['H341', 'H350', 'H361f'])
-    for (const said of [/may cause cancer/, /suspected of causing genetic defects/, /suspected of causing genetic defects and of damaging fertility/]) expect([String(said), said.test(sentences[0]!)]).toEqual([String(said), true])
+    expect(statements.map((statement) => statement.split(':')[0])).toEqual(['H341', 'H350', 'H361'])
+    // The sheet's third statement is for fertility or the unborn child, and the card says both: it said fertility alone when the bottle carried H361f.
+    expect(statements[2]).toMatch(/fertility or the unborn child$/)
+    for (const said of [/may cause cancer/, /suspected of causing genetic defects/, /suspected of causing genetic defects and of harming fertility or an unborn child\.$/]) expect([String(said), said.test(sentences[0]!)]).toEqual([String(said), true])
+    // It rests on the sheet the bottle's statements come from and on the sheet under its note, and on no PubChem record.
+    expect(sourceIds).toEqual([titrationData.bottles.indicator.hazards.sourceId, note.sourceId])
+    expect(sourceIds[0]).toBe('flinn-sds-591')
+    expect(support).not.toMatch(/pubchem|Regulation|entry/)
+    expect(support.split('\n')[0]!.match(/H\d{3}/g)).toEqual(['H341', 'H350', 'H361'])
     expect(sentences[1]).toBe('Those are the statements on the indicator bottle, and they are for the pure substance.')
     // The note under them is a sheet's for the solution, with five codes, and the card leaves none of the five out.
     for (const code of ['H226', 'H319', 'H350', 'H360', 'H371']) expect([code, note.value.includes(code)]).toEqual([code, true])
