@@ -10,6 +10,8 @@ import { meniscusText } from './meniscusText'
 import { INVALID_ENTRY_TEXT } from './messages'
 import { ReadingInput, recordReading, type ReadingInputProps } from './ReadingInput'
 import { MeniscusWords, ReadingView } from './ReadingView'
+import { StopcockControls, type StopcockControlsProps } from './StopcockControls'
+import { CLOSED, openStream, POUR_ADDITIONS } from './stream'
 import { plumeToDraw, TitrationStand, type TitrationStandProps } from './TitrationStand'
 
 const count = (html: string, pattern: RegExp) => [...html.matchAll(pattern)].length
@@ -275,5 +277,77 @@ describe('the shelf drawings', () => {
 
   it('a bottle carries the lines of its label', () => {
     expect(svgTexts(renderToStaticMarkup(createElement(Bottle, { lines: ['HCl', '0.0976 M'] })))).toEqual(['HCl', '0.0976 M'])
+  })
+})
+
+describe('the stopcock controls', () => {
+  const props: StopcockControlsProps = {
+    stream: CLOSED,
+    controls: { clearTipBubble: null, deliver: null, swirlAndWait: null },
+    onClearTip: () => {},
+    onAdd: () => {},
+    onToggle: () => {},
+    onSwirl: () => {},
+  }
+  const controls = (patch: Partial<StopcockControlsProps> = {}) => renderToStaticMarkup(createElement(StopcockControls, { ...props, ...patch }))
+  /** Each button's opening tag and its name, in the order of the markup. */
+  const buttons = (html: string) => [...html.matchAll(/(<button[^>]*>)([^<]*)<\/button>/g)].map((match) => ({ tag: match[1]!, name: match[2]! }))
+  const names = (html: string) => buttons(html).map((button) => button.name)
+  const unavailable = (html: string) => buttons(html).filter((button) => button.tag.includes('aria-disabled="true"')).map((button) => button.name)
+  const FINE_FIRST = ['Add half-drop', 'Add drop', 'Run in 1 mL', 'Run in 5 mL', 'Open stopcock']
+
+  it('are seven buttons: Clear the tip, the five of the group named Stopcock with the fine ones first, then the swirl', () => {
+    const html = controls()
+    expect(names(html)).toEqual(['Clear the tip', ...FINE_FIRST, 'Swirl and wait 30 s'])
+    const group = /<div role="group" aria-label="Stopcock"[^>]*>(.*?)<\/div>/s.exec(html)![1]!
+    expect(names(group)).toEqual(FINE_FIRST)
+    expect(unavailable(html)).toEqual([])
+  })
+
+  it('mark a button the engine has no use for as unavailable, and leave it focusable', () => {
+    const html = controls({ controls: { clearTipBubble: 'no-tip-bubble', deliver: 'needs-indicator', swirlAndWait: 'flask-empty' } })
+    expect(unavailable(html)).toEqual(['Clear the tip', ...FINE_FIRST, 'Swirl and wait 30 s'])
+    for (const { tag } of buttons(html)) {
+      expect(tag).not.toMatch(/ disabled=|tabindex="-1"/)
+      expect(tag).toContain('type="button"')
+    }
+    expect(unavailable(controls({ controls: { clearTipBubble: 'no-tip-bubble', deliver: null, swirlAndWait: null } }))).toEqual(['Clear the tip'])
+    expect(unavailable(controls({ controls: { clearTipBubble: null, deliver: null, swirlAndWait: 'flask-empty' } }))).toEqual(['Swirl and wait 30 s'])
+  })
+
+  it('make the open stopcock a toggle: not pressed while closed, pressed and reading Close stopcock while its stream runs', () => {
+    const toggle = (html: string) => buttons(html)[5]!
+    expect(toggle(controls())).toEqual({ tag: expect.stringContaining('aria-pressed="false"'), name: 'Open stopcock' })
+    expect(toggle(controls({ stream: openStream(null) }))).toEqual({ tag: expect.stringContaining('aria-pressed="true"'), name: 'Close stopcock' })
+    // No other button is a toggle.
+    expect(count(controls(), /aria-pressed/g)).toBe(1)
+    expect(count(controls({ stream: openStream(POUR_ADDITIONS[0]) }), /aria-pressed/g)).toBe(1)
+  })
+
+  it('while a stream runs, leave only the button that started it, which then closes the stopcock', () => {
+    const others = (mine: string) => ['Clear the tip', ...FINE_FIRST, 'Swirl and wait 30 s'].map((name) => (name === mine ? 'Close stopcock' : name))
+    const running = [
+      [openStream(null), 'Open stopcock'],
+      [openStream(POUR_ADDITIONS[0]), 'Run in 1 mL'],
+      [openStream(POUR_ADDITIONS[1]), 'Run in 5 mL'],
+      // A pour part-way through is still that pour's.
+      [{ open: true, pour: POUR_ADDITIONS[1], remaining: 7 }, 'Run in 5 mL'],
+    ] as const
+    for (const [stream, mine] of running) {
+      // Mid-titration the engine has no use for clearing the tip.
+      const html = controls({ stream, controls: { clearTipBubble: 'mid-titration', deliver: null, swirlAndWait: null } })
+      expect(names(html)).toEqual(others(mine))
+      expect(unavailable(html)).toEqual(others(mine).filter((name) => name !== 'Close stopcock'))
+    }
+  })
+
+  it('leave the button that closes a running stream usable when the engine can take no more', () => {
+    const html = controls({ stream: openStream(null), controls: { clearTipBubble: 'trial-ended', deliver: 'trial-ended', swirlAndWait: 'trial-ended' } })
+    expect(unavailable(html)).not.toContain('Close stopcock')
+    expect(names(html)).toContain('Close stopcock')
+  })
+
+  it('print no number but the two pours', () => {
+    expect(words(controls()).match(/\d+/g)).toEqual(['1', '5', '30'])
   })
 })
