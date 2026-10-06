@@ -71,7 +71,8 @@ export function messageLine(said: Said, view: BenchView, stream: Stream): string
 export function TitrationBench({ view, display, bottles, sources, reducedMotion, onAction, onReading, confirmed = null, notice, ref }: TitrationBenchProps) {
   const [said, setSaid] = useState<Said>({ text: '' })
   const [handedBack, setHandedBack] = useState(confirmed)
-  // Counts the actions done, as the key of the reading field: its reply is of a reading the action may have cleared.
+  // Counts the actions done, an opening of the stopcock among them, as the key of the reading field: its reply is of
+  // a reading the action may have cleared.
   // A reading recorded after a warning is not counted, so the field that focus returns to is still the one it left.
   const [actionsDone, setActionsDone] = useState(0)
   const standWordsId = useId()
@@ -105,6 +106,8 @@ export function TitrationBench({ view, display, bottles, sources, reducedMotion,
     if (view.controls.deliver !== null) return setSaid({ text: blockedText(view.controls.deliver) })
     open(pour)
     setSaid({ text: '', done: { action: { type: 'deliver', amount: 'stream' }, before: view } })
+    // Its additions go straight to the page and are not counted, and the first of them clears a final reading.
+    setActionsDone((count) => count + 1)
   }
 
   const standWords = describeStand(view, stream, display)
