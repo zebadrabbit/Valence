@@ -263,7 +263,7 @@
         {
           "field": "bottles.hcl.hazards.note",
           "prints": "P280",
-          "where": "Section 8: the precautionary statement that calls for protective gloves, protective clothing and eye protection."
+          "where": "Section 8: the precautionary statement that calls for eye protection, gloves and protective clothing."
         },
         {
           "field": "bottles.hcl.hazards.note",
@@ -321,7 +321,7 @@
         {
           "field": "bottles.hcl.hazards.note",
           "prints": "P280",
-          "where": "Section 8: the precautionary statement that calls for protective gloves, protective clothing and eye protection. Section 4 says that eyes are to be rinsed with water for several minutes and skin washed with plenty of water."
+          "where": "Section 8: the precautionary statement that calls for eye protection, gloves and protective clothing. Section 4 says that eyes are to be rinsed with water for several minutes and skin washed with plenty of water."
         },
         {
           "field": "primer",
@@ -407,7 +407,7 @@
         {
           "field": "bottles.naoh.hazards.note",
           "prints": "P280",
-          "where": "Section 8: the precautionary statement that calls for protective gloves, protective clothing and eye protection."
+          "where": "Section 8: the precautionary statement that calls for eye protection, gloves and protective clothing."
         },
         {
           "field": "bottles.naoh.hazards.note",
@@ -502,7 +502,7 @@
         {
           "field": "bottles.indicator.hazards.note",
           "prints": "H360",
-          "where": "The same sections: reproductive toxicity, category 1B; the solution may damage fertility or the unborn child. This is a more severe statement than the H361, in category 2, that the sheet for solid phenolphthalein prints (`flinn-sds-591`), from which the bottle's statements come."
+          "where": "The same sections: reproductive toxicity, category 1B; the solution may harm fertility or an unborn child. This is a more severe statement than the H361, in category 2, that the sheet for solid phenolphthalein prints (`flinn-sds-591`), from which the bottle's statements come."
         },
         {
           "field": "bottles.indicator.hazards.note",

@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import manifest from '../../../docs/research/phase-3/sources/MANIFEST.json'
 import { titrationData } from './data'
 import { TITRATION_PRIMER } from './primer'
 
@@ -11,6 +12,10 @@ import { TITRATION_PRIMER } from './primer'
 // With it, this can say that a run is in one of the pages but not which page, and a sentence can only be put
 // right by rewording it. A passage's location is left out: a heading or a title named there is the source's own
 // name for the place.
+// The manifest's rows for the safety data sheets are held to the same rule, in what each says of where a figure is
+// (`where`): that is this project's prose about a sheet, and a sheet's precautionary statements and first-aid
+// lines are prose, not data. What a row gives as printed (`prints`: a title, a figure, a signal word, a hazard
+// statement with its code) is data and is left out, and so is a citation, which names the sheet by its title.
 type Lib = {
   QUOTED_RUN: number
   runHashes(text: string): number[]
@@ -29,6 +34,10 @@ const bottles = Object.entries(titrationData.bottles)
 
 /** What a support line says in this project's words: all of a "This lab:" line, and of a located passage what it establishes. */
 const ownWords = (line: string) => (line.startsWith('This lab: ') ? line : (line.split('. It establishes that ')[1] ?? line))
+
+/** A safety data sheet in the manifest: the bottles' statements and their notes rest on these and on nothing else. */
+const sheets = manifest.sources.filter((s) => /-sds-/.test(s.id))
+const located: [string, string][] = sheets.flatMap((s) => s.supports.map((row, i): [string, string] => [`${s.id}, row ${i + 1} (${row.prints})`, row.where]))
 
 const written: [string, string][] = [
   ...paragraphs.map(({ where, text }): [string, string] => [`${where}, shown`, text]),
@@ -49,6 +58,12 @@ describe('no quotation: the check itself', () => {
   it('has something to check: the primer and the three hazard notes', () => {
     expect(written.length).toBeGreaterThan(100)
   })
+
+  it("has the manifest's rows to check for every safety data sheet a bottle cites, and for no other source", () => {
+    const cited = new Set(bottles.flatMap(([, { hazards }]) => [hazards.sourceId, hazards.note.sourceId, ...(hazards.note.alsoSourceId === undefined ? [] : [hazards.note.alsoSourceId])]))
+    expect(sheets.map((s) => s.id).sort()).toEqual([...cited].sort())
+    expect(located.length).toBeGreaterThan(40)
+  })
 })
 
 describe.skipIf(fingerprint === undefined)('no quotation, against the fingerprint of the pages (skipped where the fingerprint is absent: it is not kept in the repository)', () => {
@@ -61,5 +76,9 @@ describe.skipIf(fingerprint === undefined)('no quotation, against the fingerprin
 
   it.each(written)('%s repeats no run of six words of a page', (_where, text) => {
     expect(quotedRuns(text, pages)).toEqual([])
+  })
+
+  it.each(located)("the manifest's %s says where it is without repeating a run of six words of a page", (_row, where) => {
+    expect(quotedRuns(where, pages)).toEqual([])
   })
 })
