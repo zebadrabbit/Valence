@@ -110,10 +110,11 @@ export function TitrationBench({ view, display, bottles, sources, reducedMotion,
   const standWords = describeStand(view, stream, display)
   return (
     <section ref={ref} aria-label="Bench" tabIndex={-1} className="bench rounded-lg border bg-card p-3 outline-none focus-visible:ring-2 focus-visible:ring-ring">
+      <h2 className="sr-only">Bench</h2>
       <div className="bench-grid">
         <Shelf view={view} bottles={bottles} sources={sources} act={act} />
         <div role="group" aria-label="Burette and flask" className="bench-stand-group grid content-start gap-2 text-sm">
-          <div className="grid grid-cols-[minmax(0,1fr)_9rem] items-center gap-3">
+          <div className="bench-stand-row">
             <div className="bench-drawing">
               <TitrationStand
                 burette={view.burette}

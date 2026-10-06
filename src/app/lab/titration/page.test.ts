@@ -4,13 +4,14 @@ import { MemoryRouter } from 'react-router'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { ACTIVITIES } from '@/app/activities'
 import { NARROW_NOTICE, SHELL_TEXT } from '@/app/lab/shellText'
+import { labProgress } from '@/app/lab/useLabProgress'
 import { Lab } from '@/app/pages/Lab'
 import { createMemoryStore, loadEntry, saveEntry, type KeyValueStore } from '@/app/progress/storage'
 import { titrationData } from '@/chem-data/titration/data'
 import { checklist, createLab, currentTrial, modelFrom, titrationStateSchema, type Action, type TitrationState } from '@/engine/titration'
 import { honestReading, learner } from '@/engine/titration/testkit'
 import { Guide } from './Guide'
-import { BLOCKED_TEXT, CAUSE_TEXT, completedText, GUIDE_TRIAL_OVER, NOTEBOOK_TEXT, OUTCOME_TEXT, SUMMARY, workedLines } from './messages'
+import { BLOCKED_TEXT, CAUSE_TEXT, completedText, GUIDE_TRIAL_OVER, NOTEBOOK_TEXT, OUTCOME_TEXT, SUMMARY, WARNING_TEXT, workedLines } from './messages'
 import { NotebookPanel, TrialRecord } from './Notebook'
 import { TitrationPage } from './TitrationPage'
 import labCss from '../lab.css?raw'
@@ -35,6 +36,39 @@ beforeEach(() => {
   app.persistent = true
   app.wide = true
 })
+
+// States built with the test kit. The notebook, the record and the guide take everything as props and need no mock.
+const m = modelFrom(titrationData)
+const { run, readyTrial, prepared, titrateCarefully, carefulTrial, finishHonestly } = learner()
+const NEXT: Action = { type: 'startNextTrial' }
+const STREAM: Action = { type: 'deliver', amount: 'stream' }
+/** What a reader meets: the tags gone, each run of them a single bar. */
+const read = (html: string) => html.replace(/<[^>]+>/g, '|').replace(/\s*\|[\s|]*/g, '|')
+/** A signed figure to two decimals with its percent sign, as messages.test.ts has it. */
+const PERCENT_ERROR = /[+−]\d+\.\d\d%/
+const TRUE_NAOH = '0.09502'
+
+// Seed 1, Challenge. Trial 1: the burette not conditioned, the bubble cleared, the pipette rinsed, honest readings.
+const afterOne = carefulTrial(m, prepared(m, 1, { condition: false }))
+// Trial 2: refilled, its initial reading recorded, and streamed to overshoot.
+let overshot = readyTrial(m, run(m, afterOne, [NEXT]))
+while (currentTrial(overshot).end === 'open') overshot = run(m, overshot, [STREAM])
+// Trial 3: after conditioning, filling and clearing the new bubble, with its initial reading recorded.
+let third = run(m, overshot, [NEXT, { type: 'conditionBurette' }, { type: 'fillBurette' }, { type: 'clearTipBubble' }])
+third = run(m, third, [{ type: 'recordInitialReading', readingUl: honestReading(third.burette.levelUl) }])
+/** The pass that does not count: the final reading typed 28.29, 27 µL from the meniscus. */
+const misreadPass = (() => {
+  let s = run(m, titrateCarefully(m, prepared(m, 1)).state, [{ type: 'recordFinalReading', readingUl: 28290 }])
+  s = run(m, s, [{ type: 'submitMolarity', molarityE6: 94800 }])
+  return s
+})()
+/** Three careful trials: the lab is complete (0.0949, 0.0948, 0.0949). */
+const completed = (() => {
+  let s = carefulTrial(m, prepared(m, 1))
+  for (let i = 0; i < 2; i++) s = carefulTrial(m, readyTrial(m, run(m, s, [NEXT])))
+  return s
+})()
+const summarised = run(m, completed, [{ type: 'recordSummary', meanE6: 94900, deviationE2: 47 }])
 
 describe('the list of labs', () => {
   const items = () => [...draw(createElement(Lab)).matchAll(/<li[^>]*>(.*?)<\/li>/gs)].map((match) => match[1]!)
@@ -72,6 +106,54 @@ describe('the list of labs', () => {
 describe('the titration page', () => {
   const page = () => draw(createElement(TitrationPage))
 
+  // The hook's state does not run in the node environment: a markup render mounts the page and no more. So the
+  // mount is held to its one read here, and what Start and an action then write is held on labProgress, the two
+  // calls the hook makes of it; that a second render and a change of mode read nothing more is checked in a browser.
+  describe('and its stored entry', () => {
+    const KEY = 'valence:lab:titration'
+    /** The store, with every call made of it in order. */
+    function counting() {
+      const inner = createMemoryStore()
+      const calls: string[] = []
+      const store: KeyValueStore = {
+        get length() {
+          return inner.length
+        },
+        key: (index) => inner.key(index),
+        getItem: (key) => (calls.push(`get ${key}`), inner.getItem(key)),
+        setItem: (key, value) => (calls.push(`set ${key}`), inner.setItem(key, value)),
+        removeItem: (key) => (calls.push(`remove ${key}`), inner.removeItem(key)),
+      }
+      return { store, calls }
+    }
+
+    it.each([
+      ['nothing stored', null, true],
+      ['a run stored', third, true],
+      ['a run stored, in a narrow window', third, false],
+    ] as const)('mounting the page reads the entry exactly once and writes nothing: %s', (_, stored, wide) => {
+      const { store, calls } = counting()
+      if (stored) saveEntry(store, titration.entry, titration.version, stored)
+      calls.length = 0
+      app.store = store
+      app.wide = wide
+      page()
+      expect(calls).toEqual([`get ${KEY}`])
+    })
+
+    it('the first write comes with Start or an action, each one write and no read', () => {
+      const { store, calls } = counting()
+      const progress = labProgress(store, titration, titrationStateSchema)
+      expect(progress.load()).toBeNull()
+      expect(calls).toEqual([`get ${KEY}`])
+      const started = createLab(1, 'guided')
+      progress.save(started)
+      progress.save(run(m, started, [{ type: 'rinsePipette' }]))
+      progress.save({ ...started, mode: 'challenge' })
+      expect(calls).toEqual([`get ${KEY}`, `set ${KEY}`, `set ${KEY}`, `set ${KEY}`])
+    })
+  })
+
   it('with nothing stored shows Start, the mode choice on Guided and the primer open, and stores nothing', () => {
     const html = page()
     expect(html).toMatch(new RegExp(`<h1[^>]*>${titration.title}</h1>`))
@@ -95,7 +177,7 @@ describe('the titration page', () => {
     expect(html).toContain('<aside aria-label="Lab notebook"')
     // A new lab has no trial under way, so the mode can be changed.
     expect(html).not.toContain(SHELL_TEXT.modeLocked)
-    expect(html).not.toMatch(/<input[^>]*disabled/)
+    expect(html).not.toMatch(/<input type="radio"[^>]*disabled/)
     expect(app.store.getItem('valence:lab:titration')).toBe(stored)
     expect(loadEntry(app.store, titration.entry, titration.version, titrationStateSchema)).toEqual(lab)
   })
@@ -104,7 +186,8 @@ describe('the titration page', () => {
     const lab = createLab(1, 'guided')
     save({ ...lab, trials: [{ ...lab.trials[0]!, aliquot: 'clean' }] })
     const html = page()
-    expect(count(html, /<input[^>]*disabled=""/g)).toBe(2)
+    expect(count(html, /<input type="radio"[^>]*>/g)).toBe(2)
+    expect(count(html, /<input type="radio"[^>]*disabled=""/g)).toBe(2)
     expect(html).toContain(SHELL_TEXT.modeLocked)
   })
 
@@ -114,9 +197,57 @@ describe('the titration page', () => {
     expect(html).toContain('Sources for this lab&#x27;s model</summary>')
   })
 
-  it('does not print the seed, which the notebook shows', () => {
+  it('prints the seed once, in the notebook', () => {
     save(createLab(1384, 'guided'))
-    expect(page().replace(/<a [^>]*>.*?<\/a>/gs, '')).not.toContain('1384')
+    const html = page().replace(/<a [^>]*>.*?<\/a>/gs, '')
+    expect(count(html, /1384/g)).toBe(1)
+    expect(/<aside aria-label="Lab notebook"[^>]*>.*<\/aside>/s.exec(html)![0]).toContain('>Seed 1384<')
+  })
+
+  it('with a run has its four slots filled in order: the guide, the bench, the notebook and the record', () => {
+    save(third)
+    const challenge = page()
+    const at = (html: string) => ['<section aria-label="Guided checklist"', '<section aria-label="Bench"', '<aside aria-label="Lab notebook"', `>${NOTEBOOK_TEXT.recordHeading}</h2>`].map((mark) => html.indexOf(mark))
+    // Challenge has no guide.
+    expect(at(challenge)[0]).toBe(-1)
+    expect(at(challenge).slice(1).every((index) => index > 0)).toBe(true)
+    save(run(m, createLab(1, 'guided'), [{ type: 'fillBurette' }]))
+    const guided = page()
+    expect(at(guided).every((index) => index > 0)).toBe(true)
+    expect(at(guided)).toEqual([...at(guided)].sort((a, b) => a - b))
+    // The bench is the run's: the label of its acid, and the field its next reading is typed in.
+    expect(guided).toContain('Label: HCl, 0.0976 M. Standardized.')
+    expect(guided).toMatch(/<label[^>]*>Initial burette reading \(mL\)<\/label>/)
+    // No warning is showing, and the stopcock is closed.
+    expect(guided).not.toContain(WARNING_TEXT['burette-not-conditioned'].title)
+    expect(guided).toContain('The stopcock is closed.')
+  })
+
+  it('gives the bench the reduced-motion setting of the app', () => {
+    // An addition draws its plume only after the stand is mounted, so no markup has one; the setting is checked in a browser.
+    save(third)
+    expect(page()).not.toMatch(/bench-plume|bench-drop/)
+  })
+
+  it('in a narrow window with a run shows the notice, the primer and the record with the trial under way, and no bench and no field', () => {
+    app.wide = false
+    save(third)
+    const html = page()
+    expect(html).toContain(NARROW_NOTICE.withRun)
+    expect(html).toMatch(PRIMER(true))
+    expect(html).toContain(`>${NOTEBOOK_TEXT.recordHeading}</h2>`)
+    expect(html).toContain('>In progress</td>')
+    expect(html).toContain('>Invalid: overshot</td>')
+    expect(html).not.toContain('aria-label="Bench"')
+    expect(html).not.toContain('<aside')
+    expect(html).not.toMatch(/<(input|button|select|textarea)/)
+  })
+
+  it('a stored record that does not fit leaves the lab not started', () => {
+    app.store.setItem('valence:lab:titration', JSON.stringify({ version: titration.version, data: { ...createLab(1, 'guided'), seed: -1 } }))
+    const html = page()
+    expect(html).toContain(`>${SHELL_TEXT.start}</button>`)
+    expect(html).not.toContain('aria-label="Bench"')
   })
 
   it('in a narrow window shows the notice and the primer, and nothing to press', () => {
@@ -137,39 +268,6 @@ describe('the titration page', () => {
     expect(count(page(), /<p role="status"/g)).toBe(1)
   })
 })
-
-// The notebook, the record and the guide take everything as props: states built with the test kit, no mock.
-const m = modelFrom(titrationData)
-const { run, readyTrial, prepared, titrateCarefully, carefulTrial, finishHonestly } = learner()
-const NEXT: Action = { type: 'startNextTrial' }
-const STREAM: Action = { type: 'deliver', amount: 'stream' }
-/** What a reader meets: the tags gone, each run of them a single bar. */
-const read = (html: string) => html.replace(/<[^>]+>/g, '|').replace(/\s*\|[\s|]*/g, '|')
-/** A signed figure to two decimals with its percent sign, as messages.test.ts has it. */
-const PERCENT_ERROR = /[+−]\d+\.\d\d%/
-const TRUE_NAOH = '0.09502'
-
-// Seed 1, Challenge. Trial 1: the burette not conditioned, the bubble cleared, the pipette rinsed, honest readings.
-const afterOne = carefulTrial(m, prepared(m, 1, { condition: false }))
-// Trial 2: refilled, its initial reading recorded, and streamed to overshoot.
-let overshot = readyTrial(m, run(m, afterOne, [NEXT]))
-while (currentTrial(overshot).end === 'open') overshot = run(m, overshot, [STREAM])
-// Trial 3: after conditioning, filling and clearing the new bubble, with its initial reading recorded.
-let third = run(m, overshot, [NEXT, { type: 'conditionBurette' }, { type: 'fillBurette' }, { type: 'clearTipBubble' }])
-third = run(m, third, [{ type: 'recordInitialReading', readingUl: honestReading(third.burette.levelUl) }])
-/** The pass that does not count: the final reading typed 28.29, 27 µL from the meniscus. */
-const misreadPass = (() => {
-  let s = run(m, titrateCarefully(m, prepared(m, 1)).state, [{ type: 'recordFinalReading', readingUl: 28290 }])
-  s = run(m, s, [{ type: 'submitMolarity', molarityE6: 94800 }])
-  return s
-})()
-/** Three careful trials: the lab is complete (0.0949, 0.0948, 0.0949). */
-const completed = (() => {
-  let s = carefulTrial(m, prepared(m, 1))
-  for (let i = 0; i < 2; i++) s = carefulTrial(m, readyTrial(m, run(m, s, [NEXT])))
-  return s
-})()
-const summarised = run(m, completed, [{ type: 'recordSummary', meanE6: 94900, deviationE2: 47 }])
 
 describe('the record of trials', () => {
   const record = (state: TitrationState) => renderToStaticMarkup(createElement(TrialRecord, { m, state }))
