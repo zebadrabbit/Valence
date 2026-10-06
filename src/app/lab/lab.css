@@ -1,0 +1,54 @@
+/*
+ * Where a lab page's four slots sit. The DOM order is guide, bench, notebook, record at every width; this file
+ * only places them. Every rule follows the width the page itself has, with the menu open or closed, never the
+ * window's. Loaded with a lab page, so none of it is in the app shell's stylesheet. Nothing here animates.
+ */
+.lab-page {
+  container: lab / inline-size;
+}
+
+.lab-grid {
+  display: grid;
+  gap: 1rem;
+  align-items: start;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: 'guide' 'bench' 'notebook' 'record';
+}
+.lab-grid-no-guide {
+  grid-template-areas: 'bench' 'notebook' 'record';
+}
+.lab-guide {
+  grid-area: guide;
+  min-width: 0;
+}
+.lab-bench {
+  grid-area: bench;
+  min-width: 0;
+}
+.lab-notebook {
+  grid-area: notebook;
+  min-width: 0;
+}
+.lab-record {
+  grid-area: record;
+  min-width: 0;
+}
+
+/* The notebook beside the bench. The bench's track is the one that grows first, up to the width its drawings fill. */
+@container lab (min-width: 78rem) {
+  .lab-grid {
+    grid-template-columns: minmax(56rem, 83rem) minmax(21rem, 1fr);
+    grid-template-areas: 'guide guide' 'bench notebook' 'record record';
+  }
+  .lab-grid-no-guide {
+    grid-template-areas: 'bench notebook' 'record record';
+  }
+}
+
+/* The guide as a column on the left. A lab with no guide keeps the two columns above. */
+@container lab (min-width: 110rem) {
+  .lab-grid:not(.lab-grid-no-guide) {
+    grid-template-columns: minmax(17rem, 1fr) minmax(56rem, 83rem) minmax(21rem, 1.2fr);
+    grid-template-areas: 'guide bench notebook' 'record record record';
+  }
+}

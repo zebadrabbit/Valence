@@ -1,7 +1,8 @@
-import { createContext, useContext, useEffect, useState, useSyncExternalStore, type ReactNode } from 'react'
+import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 import { applyAppearance } from './firstPaint'
 import { DEFAULT_PREFS, loadPrefs, resolveTri, savePrefs, type Prefs } from './preferences'
 import { browserStore, clearAll, sessionStore, type KeyValueStore } from './progress/storage'
+import { useMediaQuery } from './useMediaQuery'
 
 interface AppState {
   store: KeyValueStore
@@ -17,17 +18,6 @@ interface AppState {
 }
 
 const AppStateContext = createContext<AppState | null>(null)
-
-function useMediaQuery(query: string): boolean {
-  return useSyncExternalStore(
-    (onChange) => {
-      const media = window.matchMedia(query)
-      media.addEventListener('change', onChange)
-      return () => media.removeEventListener('change', onChange)
-    },
-    () => window.matchMedia(query).matches,
-  )
-}
 
 export function AppStateProvider({ children }: { children: ReactNode }) {
   const [browser] = useState(browserStore)

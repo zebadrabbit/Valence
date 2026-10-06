@@ -11,7 +11,9 @@ export const ACTIVITIES = [
   { entry: ENTRY.mechanism, version: 1, kind: 'Mechanism', title: 'HCl + NaHCO₃, step by step', to: '/learn' },
 ] as const
 
+export type Activity = (typeof ACTIVITIES)[number]
+
 /** An activity's status as Home shows it, read with the version the activity itself loads with. */
-export function activityStatus(store: KeyValueStore, activity: (typeof ACTIVITIES)[number]): ActivityStatus {
+export function activityStatus(store: KeyValueStore, activity: Activity): ActivityStatus {
   return peekStatus(store, activity.entry, activity.version)
 }

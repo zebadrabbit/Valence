@@ -11,6 +11,13 @@ export const SHELL_TEXT = {
   planned: 'Planned. Not built yet.',
 }
 
+/** What each Sources control of a lab says about what it shows that no source is cited for. */
+export const UNSOURCED_TEXT = {
+  primer: "What a card says about this lab's own set-up, rules and model, and the arithmetic of its examples, is Valence's own and is read in no source.",
+  model: "The model's other values are this lab's own choices, each stored with its reason, and are read in no source.",
+  hazards: 'The note on the strength used here is written by Valence from the sources listed for it.',
+}
+
 /** What a window too narrow for the bench shows in its place: the title, the body, then one of the two closing sentences. */
 export const NARROW_NOTICE = {
   title: 'This lab needs a wider window.',
