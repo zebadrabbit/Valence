@@ -3,15 +3,22 @@
 import { createElement, Fragment } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
+import sources from '@/chem-data/sources.json'
+import { titrationData } from '@/chem-data/titration/data'
+import { createLab, modelFrom, type TitrationState } from '@/engine/titration'
+import { learner } from '@/engine/titration/testkit'
 import { Bottle, Dropper, Pipette, WashBottle } from './apparatus'
+import { ACTION_TEXT, flaskStatus, SLOW_DOWN_TEXT, streamMessage, swirlText, undoneText } from './benchText'
+import { benchViewOf, type BenchAction } from './benchView'
 import { standY } from './buretteGeometry'
 import { DARK_PINK, PINK, type FlaskColour } from './flaskColour'
 import { meniscusText } from './meniscusText'
-import { INVALID_ENTRY_TEXT } from './messages'
+import { BLOCKED_TEXT, INVALID_ENTRY_TEXT, OUTCOME_TEXT } from './messages'
 import { ReadingInput, recordReading, type ReadingInputProps } from './ReadingInput'
 import { MeniscusWords, ReadingView } from './ReadingView'
 import { StopcockControls, type StopcockControlsProps } from './StopcockControls'
 import { CLOSED, openStream, POUR_ADDITIONS } from './stream'
+import { messageLine, TitrationBench, type TitrationBenchProps } from './TitrationBench'
 import { plumeToDraw, TitrationStand, type TitrationStandProps } from './TitrationStand'
 
 const count = (html: string, pattern: RegExp) => [...html.matchAll(pattern)].length
@@ -349,5 +356,227 @@ describe('the stopcock controls', () => {
 
   it('print no number but the two pours', () => {
     expect(words(controls()).match(/\d+/g)).toEqual(['1', '5', '30'])
+  })
+})
+
+// The whole bench, on views of real engine states: the stored record's model, seed 1.
+const m = modelFrom(titrationData)
+const P = titrationData.parameters
+const display = {
+  pinkDisplayScale: P.pinkDisplayScale.value,
+  faintPinkNameLimit: P.faintPinkNameLimit.value,
+  plumeFadeAtOnceSeconds: P.plumeFadeAtOnceSeconds.value,
+  plumeFadeSlowlySeconds: P.plumeFadeSlowlySeconds.value,
+}
+const { run, prepared, titrateCarefully } = learner()
+const deliver = (amount: 'stream' | 'drop' | 'half'): BenchAction => ({ type: 'deliver', amount })
+const WASH: BenchAction = { type: 'addWater' }
+const SWIRL: BenchAction = { type: 'swirlAndWait' }
+
+describe('the bench', () => {
+  const bench = (state: TitrationState, patch: Partial<TitrationBenchProps> = {}) =>
+    renderToStaticMarkup(
+      createElement(TitrationBench, {
+        view: benchViewOf(m, state),
+        display,
+        bottles: titrationData.bottles,
+        sources,
+        reducedMotion: false,
+        onAction: () => 'done' as const,
+        onReading: () => ({ accepted: true, text: '' }),
+        ...patch,
+      }),
+    )
+  /** The shelf's tiles in the order of the markup: each one's heading and its markup. */
+  const tiles = (html: string) => {
+    const shelf = /<div role="group" aria-label="Reagents and glassware"[^>]*>(.*)<div role="group" aria-label="Burette and flask"/s.exec(html)![1]!
+    return shelf
+      .split(/<div role="group" aria-labelledby=/)
+      .slice(1)
+      .map((tile) => ({ heading: /<h3[^>]*>([^<]*)<\/h3>/.exec(tile)![1]!, html: tile }))
+  }
+  const buttons = (html: string) => [...html.matchAll(/(<button[^>]*>)([^<]*)<\/button>/g)].map((match) => ({ tag: match[1]!, name: match[2]! }))
+  const names = (html: string) => buttons(html).map((button) => button.name)
+  const hazards = (html: string) => count(html, /<summary[^>]*>Hazards<\/summary>/g)
+  const fresh = createLab(1, 'guided')
+  const filled = run(m, fresh, [{ type: 'fillBurette' }])
+  const ready = prepared(m, 1, { mode: 'guided' })
+
+  it('is a region named Bench holding three groups in order: the shelf, the burette and flask, the reading', () => {
+    const html = bench(fresh)
+    expect(html).toMatch(/^<section aria-label="Bench"/)
+    expect([...html.matchAll(/role="group" aria-label="([^"]*)"/g)].map((match) => match[1])).toEqual(['Reagents and glassware', 'Burette and flask', 'Stopcock', 'Burette reading'])
+  })
+
+  it('has five tiles in order, each a group named by its heading, with its controls', () => {
+    const shelf = tiles(bench(fresh))
+    expect(shelf.map((tile) => tile.heading)).toEqual(['Hydrochloric acid', 'Sodium hydroxide', 'Pipette, 25.00 mL, with filler', 'Phenolphthalein indicator', 'Distilled water'])
+    for (const tile of shelf) expect(tile.html).toMatch(new RegExp(`^"([^"]*)"[^>]*>.*<h3 id="\\1"`, 's'))
+    expect(shelf.map((tile) => names(tile.html))).toEqual([[], ['Condition burette', 'Fill burette'], ['Rinse pipette with HCl', 'Pipette HCl into flask'], ['Add 1 drop of indicator'], ['Rinse down flask']])
+    // Each drawing is hidden: the tile says the same in text.
+    for (const tile of shelf) expect(count(tile.html, /<svg[^>]* aria-hidden="true"/g)).toBe(1)
+  })
+
+  it('has three Hazards disclosures, one in each bottle\'s tile, the indicator\'s among them', () => {
+    const html = bench(fresh)
+    expect(hazards(html)).toBe(3)
+    expect(tiles(html).map((tile) => hazards(tile.html))).toEqual([1, 1, 0, 1, 0])
+    const [hcl, naoh, , indicator] = tiles(html)
+    expect(hcl!.html).toContain(titrationData.bottles.hcl.classifiedAs.replaceAll("'", '&#x27;'))
+    expect(naoh!.html).toContain(titrationData.bottles.naoh.classifiedAs.replaceAll("'", '&#x27;'))
+    expect(indicator!.html).toContain(titrationData.bottles.indicator.classifiedAs.replaceAll("'", '&#x27;'))
+    for (const tile of [hcl!, naoh!, indicator!]) expect(tile.html).toMatch(/<summary[^>]*>Sources<\/summary>/)
+  })
+
+  it('shows the label of the HCl bottle as text, as the drawing has it', () => {
+    const [hcl] = tiles(bench(fresh))
+    expect(words(hcl!.html.replace(/<svg.*?<\/svg>/s, ''))).toContain('Label: HCl, 0.0976 M. Standardized.')
+    expect(svgTexts(hcl!.html)).toEqual(['HCl', '0.0976 M'])
+  })
+
+  it('says what has been done in words beside a tick, and counts the drops and the rinses as text', () => {
+    const state = (html: string) => tiles(html).map((tile) => [...tile.html.matchAll(/<p[^>]*><span aria-hidden="true">✓ <\/span>([^<]*)<\/p>/g)].map((match) => match[1]))
+    expect(state(bench(fresh))).toEqual([[], [], [], [], []])
+    expect(names(bench(filled))).toContain('Refill burette')
+    expect(names(bench(filled))).not.toContain('Fill burette')
+    // Filled without conditioning: the tile does not say it was conditioned.
+    expect(state(bench(filled))[1]).toEqual(['Burette filled.'])
+    expect(state(bench(ready))).toEqual([[], ['Burette conditioned.', 'Burette filled.'], ['Pipette wet with HCl.', 'HCl is in the flask.'], [], []])
+    expect(words(tiles(bench(ready))[3]!.html)).toContain('Drops in the flask: 2')
+    expect(words(tiles(bench(run(m, ready, [WASH, WASH])))[4]!.html)).toContain('Rinses of this flask: 2')
+    // Conditioning leaves the burette empty.
+    expect(state(bench(run(m, fresh, [{ type: 'conditionBurette' }])))[1]).toEqual(['Burette conditioned.'])
+  })
+
+  it('marks a control the engine has blocked as unavailable and leaves it focusable', () => {
+    const view = benchViewOf(m, filled)
+    const html = bench(filled)
+    const unavailable = buttons(html)
+      .filter((button) => button.tag.includes('aria-disabled="true"'))
+      .map((button) => button.name)
+    // Record is the field's own, and is tied to its reason.
+    expect(unavailable).toEqual(['Add 1 drop of indicator', 'Rinse down flask', 'Add half-drop', 'Add drop', 'Run in 1 mL', 'Run in 5 mL', 'Open stopcock', 'Swirl and wait 30 s'])
+    expect(view.controls).toMatchObject({ conditionBurette: null, fillBurette: null, clearTipBubble: null, rinsePipette: null, pipetteAliquot: null, addIndicatorDrop: 'flask-empty', addWater: 'flask-empty', deliver: 'flask-empty', swirlAndWait: 'flask-empty' })
+    for (const { tag } of buttons(html)) expect(tag).not.toMatch(/ disabled=|tabindex="-1"/)
+    // A trial that is over: every control says so.
+    const over = run(m, ready, [{ type: 'discardTrial' }])
+    expect(buttons(bench(over)).filter((button) => !button.tag.includes('aria-disabled="true"'))).toEqual([])
+  })
+
+  it('puts the status line, the slow-down line, the message line and the notice under the stopcock in that order, before the reading', () => {
+    const { additions } = titrateCarefully(m, ready)
+    const near = run(m, ready, additions.slice(0, -3).map((addition) => deliver(addition.amount)))
+    const view = benchViewOf(m, near)
+    expect(view.slowDown).toBe(true)
+    const html = bench(near, { notice: createElement('div', { id: 'notice' }) })
+    const at = [
+      html.indexOf('>Swirl and wait 30 s</button>'),
+      html.indexOf(`<p role="status">${flaskStatus(view, display)}</p>`),
+      html.indexOf(`<p role="status">${SLOW_DOWN_TEXT.replaceAll("'", '&#x27;')}</p>`),
+      html.indexOf('<p role="status"></p>'),
+      html.indexOf('<div id="notice">'),
+      html.indexOf('aria-label="Burette reading"'),
+    ]
+    expect(at.every((index) => index > 0)).toBe(true)
+    expect(at).toEqual([...at].sort((a, b) => a - b))
+    // The slow-down line is there and empty when the hint does not apply, so that a reader hears it arrive.
+    const quiet = bench(ready)
+    expect(count(quiet, /<p role="status"><\/p>/g)).toBe(2)
+    expect(quiet).not.toContain('Slow down')
+  })
+
+  it('describes the stand in a hidden paragraph and in a closed disclosure, and the reading view by the meniscus in words', () => {
+    const html = bench(ready)
+    const standId = attribute(html, 'svg', 'aria-describedby')!
+    expect(textOf(html, standId)).toContain('The stopcock is closed.')
+    expect(html).toMatch(/<summary[^>]*>Text description of the burette and flask<\/summary>/)
+    expect(html).toContain(meniscusText(benchViewOf(m, ready).burette.levelUl))
+    expect(html).toMatch(/<label[^>]*>Initial burette reading \(mL\)<\/label>/)
+  })
+
+  it('gives the reading field its reason when no reading can be recorded', () => {
+    const html = bench(fresh)
+    expect(html).toMatch(/<input[^>]* disabled=""/)
+    expect(words(html)).toContain(BLOCKED_TEXT['burette-empty'])
+    expect(bench(filled)).not.toMatch(/<input[^>]* disabled=""/)
+  })
+
+  it("holds no number with two decimals, the nominal volume of the pipette and the stored text of the bottles' hazards apart", () => {
+    // A hazard note is the record's own text, the same in every state, and one gives a strength in percent.
+    const HAZARDS = /<details><summary[^>]*>Hazards<\/summary>.*?(?=<div role="group")/gs
+    const { state: atEndpoint } = titrateCarefully(m, ready)
+    let overshot = atEndpoint
+    while (benchViewOf(m, overshot).trialEnd === 'open') overshot = run(m, overshot, [deliver('drop')])
+    expect(benchViewOf(m, overshot).trialEnd).toBe('overshot')
+    for (const state of [fresh, filled, ready, atEndpoint, overshot]) {
+      const html = bench(state)
+      expect(count(html, HAZARDS)).toBe(3)
+      const read = words(html.replace(HAZARDS, '')).replaceAll('25.00 mL', '')
+      expect(read).not.toMatch(/\d\.\d\d(?!\d)/)
+    }
+  })
+
+  it('draws no plume and no drop under reduced motion, given as a prop', () => {
+    expect(bench(ready, { reducedMotion: true })).not.toMatch(/bench-plume|bench-drop/)
+  })
+})
+
+describe('the message line', () => {
+  const view = (state: TitrationState) => benchViewOf(m, state)
+  const ready = prepared(m, 1, { mode: 'guided' })
+  const { state: confirmedEndpoint } = titrateCarefully(m, ready)
+  const done = (before: TitrationState, action: BenchAction, text = '') => ({ text, done: { action, before: view(before) } })
+
+  it('is the text it was given when nothing was done: a reason, or nothing yet', () => {
+    expect(messageLine({ text: '' }, view(ready), CLOSED)).toBe('')
+    expect(messageLine({ text: BLOCKED_TEXT['flask-empty'] }, view(ready), CLOSED)).toBe(BLOCKED_TEXT['flask-empty'])
+  })
+
+  it('says what a prep action did', () => {
+    const before = createLab(1, 'guided')
+    const action: BenchAction = { type: 'conditionBurette' }
+    expect(messageLine(done(before, action, ACTION_TEXT.conditionBurette), view(run(m, before, [action])), CLOSED)).toBe(ACTION_TEXT.conditionBurette)
+  })
+
+  it('says what a swirl and wait found, from the view after it', () => {
+    expect(messageLine(done(ready, SWIRL), view(run(m, ready, [SWIRL])), CLOSED)).toBe(swirlText('faded'))
+    const pink = run(m, confirmedEndpoint, [deliver('half')])
+    expect(messageLine(done(pink, SWIRL), view(run(m, pink, [SWIRL])), CLOSED)).toBe(swirlText('persisted'))
+  })
+
+  it('follows the stopcock for a stream: open, a pour, and closed again however it closed', () => {
+    const said = done(ready, deliver('stream'))
+    const after = view(run(m, ready, [deliver('stream')]))
+    expect(messageLine(said, after, openStream(null))).toBe(streamMessage(openStream(null)))
+    expect(messageLine(said, after, openStream(POUR_ADDITIONS[0]))).toBe(streamMessage(openStream(POUR_ADDITIONS[0])))
+    expect(messageLine(said, after, CLOSED)).toBe('Stopcock closed.')
+  })
+
+  it('adds, after a drop or a wash that undid a pink that had lasted, that the wait no longer counts', () => {
+    for (const action of [deliver('half'), deliver('drop'), WASH]) {
+      const after = view(run(m, confirmedEndpoint, [action]))
+      const undone = undoneText(view(confirmedEndpoint), after)
+      expect(undone).not.toBe('')
+      expect(messageLine(done(confirmedEndpoint, action, 'Said.'), after, CLOSED)).toBe(`Said. ${undone}`)
+    }
+    // An ordinary drop says nothing of it.
+    expect(messageLine(done(ready, deliver('drop'), 'Drop added.'), view(run(m, ready, [deliver('drop')])), CLOSED)).toBe('Drop added.')
+  })
+
+  it('gives the ran-out sentence when the action ended the trial at the last mark, and the wash\'s own when a wash did', () => {
+    // Trial 2 without a refill: the burette reaches the 50 mL mark before the endpoint.
+    let low = run(m, confirmedEndpoint, [{ type: 'discardTrial' }, { type: 'startNextTrial' }])
+    low = learner().readyTrial(m, low, { fill: false })
+    let before = low
+    while (view(low).trialEnd === 'open') {
+      before = low
+      low = run(m, low, [deliver('stream')])
+    }
+    expect(view(low).trialEnd).toBe('ran-out')
+    expect(messageLine(done(before, deliver('stream')), view(low), CLOSED)).toBe(OUTCOME_TEXT['ran-out'])
+    expect(messageLine(done(before, deliver('drop'), 'Drop added.'), view(low), CLOSED)).toBe(OUTCOME_TEXT['ran-out'])
+    expect(messageLine(done(before, WASH, ACTION_TEXT.addWater), view(low), CLOSED)).toBe(OUTCOME_TEXT['washed-out'])
+    // Once the trial has ended, a later press is told only its own reason.
+    expect(messageLine({ text: BLOCKED_TEXT['trial-ended'] }, view(low), CLOSED)).toBe(BLOCKED_TEXT['trial-ended'])
   })
 })

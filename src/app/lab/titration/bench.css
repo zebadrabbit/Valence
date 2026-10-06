@@ -45,3 +45,47 @@
     opacity: 0;
   }
 }
+
+/*
+ * Where the bench's three groups sit, by the bench's own width and never the window's. The order in the page is
+ * shelf, stand, reading at every width. Narrow: the shelf runs across the top, as many tiles across as fit, and the
+ * stand and the reading view sit side by side under it. From 54rem: three columns, the shelf one tile across.
+ */
+.bench {
+  container: bench / inline-size;
+}
+.bench-grid {
+  display: grid;
+  gap: 1rem;
+  align-items: start;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+  grid-template-areas: 'shelf shelf' 'stand reading';
+}
+.bench-shelf {
+  grid-area: shelf;
+  display: grid;
+  gap: 0.5rem;
+  align-items: start;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+}
+.bench-stand-group {
+  grid-area: stand;
+  min-width: 0;
+}
+.bench-reading-group {
+  grid-area: reading;
+  min-width: 0;
+}
+@container bench (min-width: 54rem) {
+  .bench-grid {
+    grid-template-columns: minmax(15rem, 1fr) minmax(22rem, 1.2fr) minmax(12rem, 0.85fr);
+    grid-template-areas: 'shelf stand reading';
+  }
+  .bench-shelf {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+/* The column a drawing is held to: its height is bounded by this box's width (100cqw above). */
+.bench-drawing {
+  container-type: inline-size;
+}

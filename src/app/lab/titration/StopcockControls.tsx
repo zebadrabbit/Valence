@@ -19,8 +19,8 @@ const noRepeat = (event: KeyboardEvent) => {
 }
 
 /** A button that stays focusable when it cannot be used, so that focus never drops to the page when a press makes its own button unavailable. */
-function Control({ unavailable, ...props }: { unavailable: boolean } & ComponentProps<typeof Button>) {
-  return <Button type="button" variant="outline" aria-disabled={unavailable || undefined} onKeyDown={noRepeat} {...props} className="aria-disabled:opacity-50" />
+export function Control({ unavailable, className = '', ...props }: { unavailable: boolean } & ComponentProps<typeof Button>) {
+  return <Button type="button" variant="outline" aria-disabled={unavailable || undefined} onKeyDown={noRepeat} {...props} className={`aria-disabled:opacity-50 ${className}`} />
 }
 
 // A test holds the two pours to 1 mL and 5 mL of the model's stream addition.

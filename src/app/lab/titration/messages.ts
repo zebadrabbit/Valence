@@ -56,6 +56,9 @@ const reread = (typed: string) =>
 
 export const rereadText = (typedUl: number) => reread(`${readingText(typedUl)} mL`)
 
+/** What is said once a burette reading is in the notebook: the learner's own number, as it was typed. */
+export const readingRecordedText = (which: 'initial' | 'final', typedUl: number) => `Recorded ${readingText(typedUl)} mL as the ${which} reading.`
+
 /**
  * The sentence for any reason the engine gives. Without an entry, 'invalid-entry' is taken to be a reading: a typed
  * text the lab could read at all is refused by the engine only when it is a reading off the burette's scale.
