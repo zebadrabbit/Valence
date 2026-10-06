@@ -110,6 +110,11 @@ describe('what the stopcock says', () => {
     expect(said[3]).toBe('Stopcock closed.')
   })
 
+  it('says of an open stopcock, a stream or a pour, both ways to close it: the same button again, or Escape from anywhere on the page', () => {
+    for (const open of said.slice(0, 3)) expect(open).toMatch(/Press again, or press Escape, to close it/)
+    expect(said[3]).not.toContain('Escape')
+  })
+
   it('a pour part of the way through says the same as when it began, so it is said once', () => {
     expect(streamMessage({ open: true, pour: POUR_ADDITIONS[1], remaining: 7 })).toBe(said[2])
   })
