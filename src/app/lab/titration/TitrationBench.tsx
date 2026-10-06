@@ -96,7 +96,8 @@ export function TitrationBench({ view, display, bottles, sources, reducedMotion,
   // checked there leaves a sentence of the bench before it standing beside one that contradicts it.
   if (notebookDone !== notebookSeen) {
     setNotebookSeen(notebookDone)
-    setSaid({ text: '' })
+    // An open stopcock keeps its sentence: it says how to close it, and the close is said through it.
+    if (!stream.open) setSaid({ text: '' })
   }
   // The page hands an action back once the learner has gone on with it after a warning: it is said as any other is.
   if (confirmed !== handedBack) {
