@@ -270,12 +270,16 @@ describe('the hazards of a bottle', () => {
     expect(draw(hcl)).toMatch(/^<details><summary[^>]*>Hazards<\/summary>/)
   })
 
-  it('on the acid shows the signal word, then what is classified, then each statement whole and in the stored order', () => {
+  it('on the acid shows what is classified, then under that heading its signal word and each statement whole and in the stored order', () => {
     const html = draw(hcl)
     expect(html).toContain('Signal word: Danger')
     expect(headings(html)).toEqual([escaped(hcl.classifiedAs), 'At the strength used here'])
     expect(headings(html)[0]).not.toContain('pure substance')
-    expect(html.indexOf('Signal word')).toBeLessThan(html.indexOf('<h4'))
+    // The signal word belongs to the classification the heading names, not to the solution on the bench: it is
+    // read after that heading and before the heading of the note on the bench's strength.
+    const [classified, signalWord, list, strength] = [escaped(hcl.classifiedAs), 'Signal word', '<ul', 'At the strength used here'].map((part) => html.indexOf(part))
+    expect([classified, signalWord, list, strength]).toEqual([...[classified, signalWord, list, strength]].sort((a, b) => a! - b!))
+    expect(classified).toBeGreaterThan(-1)
     const drawn = statements(html)
     expect(drawn).toEqual(hcl.hazards.statements)
     expect(drawn).toHaveLength(3)
