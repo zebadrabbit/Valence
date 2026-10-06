@@ -5,6 +5,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { ACTIVITIES } from '@/app/activities'
 import { NARROW_NOTICE, SHELL_TEXT } from '@/app/lab/shellText'
 import { labProgress } from '@/app/lab/useLabProgress'
+import { Home } from '@/app/pages/Home'
 import { Lab } from '@/app/pages/Lab'
 import { createMemoryStore, loadEntry, saveEntry, type KeyValueStore } from '@/app/progress/storage'
 import { titrationData } from '@/chem-data/titration/data'
@@ -23,7 +24,7 @@ const app = vi.hoisted(() => ({ store: undefined as unknown as KeyValueStore, pe
 vi.mock('@/app/AppState', () => ({ useAppState: () => ({ store: app.store, persistent: app.persistent, reducedMotion: false }) }))
 vi.mock('@/app/useMediaQuery', () => ({ useMediaQuery: () => app.wide }))
 
-const [titration, aqueous] = ACTIVITIES
+const [titration, aqueous, mechanism] = ACTIVITIES
 const draw = (element: ReactElement) => renderToStaticMarkup(createElement(MemoryRouter, null, element))
 const save = (state: TitrationState) => saveEntry(app.store, titration.entry, titration.version, state)
 const count = (html: string, pattern: RegExp) => [...html.matchAll(pattern)].length
@@ -92,6 +93,21 @@ describe('the list of labs', () => {
     expect(text(second!)).toContain(`|${aqueous.title}|`)
     expect(text(second!)).toContain(`|${SHELL_TEXT.planned}|`)
     expect(second).not.toContain('Completed')
+  })
+
+  it('Home gives an activity that has no page yet the same: text and the planned sentence, not a link and a status; the lab that is built keeps both', () => {
+    for (const planned of [aqueous, mechanism]) saveEntry(app.store, planned.entry, planned.version, { status: 'completed' })
+    const home = [...draw(createElement(Home)).matchAll(/<li[^>]*>(.*?)<\/li>/gs)].map((match) => match[1]!)
+    const item = (title: string) => home.find((html) => html.includes(title))!
+    for (const planned of [aqueous, mechanism]) {
+      expect([planned.title, item(planned.title).includes('<a ')]).toEqual([planned.title, false])
+      expect(text(item(planned.title))).toContain(`|${planned.title}|`)
+      expect(text(item(planned.title))).toContain(`|${SHELL_TEXT.planned}|`)
+      expect(text(item(planned.title))).not.toMatch(/Not started|In progress|Completed/)
+    }
+    expect(item(titration.title)).toMatch(/<a [^>]*href="\/lab\/titration"/)
+    expect(text(item(titration.title))).toContain('|Not started|')
+    expect(text(item(titration.title))).not.toContain(SHELL_TEXT.planned)
   })
 
   it('lists the labs only, under the heading Lab, and saves nothing', () => {

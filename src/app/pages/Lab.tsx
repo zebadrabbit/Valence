@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 import { useAppState } from '@/app/AppState'
 import { PageHeader } from '@/app/PageHeader'
-import { ACTIVITIES, activityStatus, STATUS_LABEL } from '@/app/activities'
+import { ACTIVITIES, activityStatus, hasPage, STATUS_LABEL } from '@/app/activities'
 import { SHELL_TEXT } from '@/app/lab/shellText'
 
 /** #/lab: the labs, each with its status as Home shows it. A lab whose address is still this page has none of its own yet. */
@@ -13,7 +13,7 @@ export function Lab() {
       <PageHeader title="Lab" />
       <ul className="grid max-w-3xl gap-3">
         {ACTIVITIES.filter((activity) => activity.kind === 'Lab').map((activity) => {
-          const built = activity.to !== '/lab'
+          const built = hasPage(activity)
           return (
             <li key={activity.entry} className="rounded-lg border bg-card p-4">
               {built ? (

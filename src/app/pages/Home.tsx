@@ -1,7 +1,8 @@
 import { Link } from 'react-router'
 import { useAppState } from '@/app/AppState'
 import { PageHeader } from '@/app/PageHeader'
-import { ACTIVITIES, activityStatus, STATUS_LABEL } from '@/app/activities'
+import { ACTIVITIES, activityStatus, hasPage, STATUS_LABEL } from '@/app/activities'
+import { SHELL_TEXT } from '@/app/lab/shellText'
 import { ELEMENT_INDEX } from '@/chem-data/elementIndex'
 import { LIBRARY_INDEX } from '@/chem-data/libraryIndex'
 
@@ -36,15 +37,23 @@ export function Home() {
             for each element that gives its values and their sources.
           </p>
         </li>
-        {ACTIVITIES.map((activity) => (
-          <li key={activity.entry} className="rounded-lg border bg-card p-4">
-            <p className="text-sm text-muted-foreground">{activity.kind}</p>
-            <Link to={activity.to} className="font-medium underline-offset-4 hover:underline">
-              {activity.title}
-            </Link>
-            <p className="mt-1 text-sm">{STATUS_LABEL[activityStatus(store, activity)]}</p>
-          </li>
-        ))}
+        {ACTIVITIES.map((activity) => {
+          // As the list of labs has it: an activity with no page yet is not a link and has no status.
+          const built = hasPage(activity)
+          return (
+            <li key={activity.entry} className="rounded-lg border bg-card p-4">
+              <p className="text-sm text-muted-foreground">{activity.kind}</p>
+              {built ? (
+                <Link to={activity.to} className="font-medium underline-offset-4 hover:underline">
+                  {activity.title}
+                </Link>
+              ) : (
+                <span className="font-medium">{activity.title}</span>
+              )}
+              <p className="mt-1 text-sm">{built ? STATUS_LABEL[activityStatus(store, activity)] : SHELL_TEXT.planned}</p>
+            </li>
+          )
+        })}
       </ul>
     </>
   )
