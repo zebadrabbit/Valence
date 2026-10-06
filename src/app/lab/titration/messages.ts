@@ -5,7 +5,33 @@ import { molarityText, percentErrorText, readingText } from './format'
 // does not compile. Nothing here takes the model or the state: a sentence can say only what it is handed, which is
 // what the learner typed and what the engine's selectors give out.
 
-export const NOTEBOOK_TEXT = { check: 'Check', discard: 'Discard this flask', nextTrial: 'Start the next trial' }
+export const NOTEBOOK_TEXT = {
+  heading: 'Notebook',
+  record: 'Record',
+  check: 'Check',
+  discard: 'Discard this flask',
+  nextTrial: 'Start the next trial',
+  hcl: 'HCl molarity, from the bottle label (M)',
+  naoh: 'Your NaOH molarity (M)',
+  hclRecorded: 'HCl molarity (M)',
+  worked: 'Work it out',
+  notYet: '—',
+  recordHeading: 'Record of this run',
+  recordCaption: 'Every trial of this run: what you recorded, and how it ended.',
+  hclInRecord: 'HCl molarity in the notebook (M)',
+  columns: ['Trial', 'Initial reading (mL)', 'Final reading (mL)', 'Titre (mL)', 'NaOH molarity (M)', 'Result'],
+} as const
+
+/** The run's seed, as the notebook shows it: with it, the same bottles can be set out again. */
+export const seedText = (seed: number) => `Seed ${seed}`
+
+/** The tally: trials that have ended, and how many of those the lab needs have counted. */
+export const tallyText = (finished: number, counting: number, needed: number) => `Trials finished: ${finished}. Trials that count: ${counting} of the ${needed} needed.`
+
+/** `number` is the trial's, counted from 1. */
+export const trialHeading = (number: number) => `Trial ${number}`
+/** The heading of the last result: the trial, and its result in words (`outcomeLabel`). */
+export const resultHeading = (number: number, label: string) => `Result of trial ${number}: ${label}`
 
 /**
  * Why a control cannot be used now. Each names what is missing and nothing else, so it reads the same in both modes.
@@ -58,6 +84,9 @@ export const rereadText = (typedUl: number) => reread(`${readingText(typedUl)} m
 
 /** What is said once a burette reading is in the notebook: the learner's own number, as it was typed. */
 export const readingRecordedText = (which: 'initial' | 'final', typedUl: number) => `Recorded ${readingText(typedUl)} mL as the ${which} reading.`
+
+/** What is said once the HCl molarity is in the notebook: the learner's own number. */
+export const hclRecordedText = (typedE6: number) => `Recorded ${molarityText(typedE6)} M as the HCl molarity.`
 
 /**
  * The sentence for any reason the engine gives. Without an entry, 'invalid-entry' is taken to be a reading: a typed
@@ -125,6 +154,10 @@ export const STEP_TEXT: Record<Step, { first: string; later: string }> = {
 }
 
 export const STEP_STATE_TEXT: Record<'done' | 'next' | 'todo' | 'skipped', string> = { done: 'Done', next: 'Next', todo: 'To do', skipped: 'Skipped' }
+
+/** The guide as one line: where the learner is in the list, and the step that comes next. */
+export const guideLine = (position: number, total: number, label: string) => `Step ${position} of ${total}, next: ${label}`
+export const guideHeading = (number: number) => `Steps of trial ${number}`
 
 /** What the guide says in place of a next step once the trial has ended. True after completion too, so it does not say to begin another. */
 export const GUIDE_TRIAL_OVER = 'This trial is over. What comes next is in the notebook.'

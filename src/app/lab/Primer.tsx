@@ -12,7 +12,7 @@ export function subscriptParts(text: string): { text: string; sub: boolean }[] {
     .filter((part) => part.text !== '')
 }
 
-function Subscripted({ text }: { text: string }) {
+export function Subscripted({ text }: { text: string }) {
   return subscriptParts(text).map((part, i) => (part.sub ? <sub key={i}>{part.text}</sub> : part.text))
 }
 
