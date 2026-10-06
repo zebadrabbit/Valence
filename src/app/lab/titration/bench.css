@@ -1,0 +1,12 @@
+/*
+ * The sizes of the bench's two drawings. Loaded with the lab page, so none of it is in the app shell's stylesheet.
+ *
+ * Each drawing is as tall as the window allows and never shorter than 26rem, the least height at which the
+ * meniscus has been read from the enlarged scale. Where its column is a size container the drawing is also held
+ * to the column's width, so that it is never wider than its column.
+ */
+.bench-reading {
+  display: block;
+  max-width: 100%;
+  height: min(clamp(26rem, calc(100vh - 22rem), 46rem), calc(100cqw * 576 / 260));
+}
