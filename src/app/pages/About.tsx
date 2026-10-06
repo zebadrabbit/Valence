@@ -53,6 +53,18 @@ export function About() {
             </a>
             .
           </p>
+          <p className="mb-2">
+            The titration lab's model takes its constants from the International Association for the Properties of
+            Water and Steam (IAPWS), NIST, the NOAA Global Monitoring Laboratory, PubChem, a paper in Analytical
+            Sciences and a supplier's catalogue page, and, for the size of a drop and the two constants of carbonic
+            acid, from two Wikipedia pages. The hazard statements on its bottles are those of Flinn Scientific's safety
+            data sheets for the concentrated or the pure substance. The note under each rests on a safety data sheet
+            for a solution of the strength on the bench, the indicator's from a different supplier, Ricca Chemical
+            Company. The sheets were read on the dates their citations give, and no copy of them is kept. The lab's
+            primer rests on OpenStax Chemistry 2e, David Harvey's Analytical Chemistry 2.1 and pages on laboratory
+            technique, and quotes none of them. None of these publishers is connected with Valence or has reviewed it.
+            At a real bench, follow the safety data sheet of the product in hand and the laboratory's own rules.
+          </p>
           <ul className="list-disc pl-5">
             {sources.map((source) => (
               <li key={source.id}>
