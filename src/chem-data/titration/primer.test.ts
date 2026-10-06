@@ -409,7 +409,10 @@ describe('the titration primer: what it has to say', () => {
     expect(text).toMatch(/Treat the acid as the stricter sheet says\./)
     // The base: its sheet classes it as an irritant, and the card no longer says that a sheet does not class it as hazardous.
     expect(text).toMatch(/The sheet for sodium hydroxide solutions of less than 0\.3 M says that the solution irritates the skin and the eyes\./)
-    expect(text).not.toMatch(/does not class it as hazardous|not the same as harmless|15 minutes|flushed/)
+    expect(text).not.toMatch(/does not class it as hazardous|not the same as harmless|flushed/)
+    // The 15 minutes is no sheet's: it is given as a laboratory's own rule, by the owner's answer of 2026-10-05, after the
+    // sentence that the sheets give no time.
+    expect(text).toMatch(/The sheets give no time for the rinsing\. A laboratory sets its own rule, and a common one is 15 minutes at the eyewash; follow the rule of the laboratory you are in\.$/)
     // What all three sheets ask for, in the words the two notes use. The first aid for the eyes is given whole (Gate A, B1):
     // each sheet goes on from several minutes of rinsing to the contact lenses and to more rinsing, and a card that stopped
     // at the several minutes was read as the whole instruction.
