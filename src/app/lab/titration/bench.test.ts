@@ -322,13 +322,12 @@ describe('the stopcock controls', () => {
     expect(unavailable(controls({ controls: { clearTipBubble: null, deliver: null, swirlAndWait: 'flask-empty' } }))).toEqual(['Swirl and wait 30 s'])
   })
 
-  it('make the open stopcock a toggle: not pressed while closed, pressed and reading Close stopcock while its stream runs', () => {
-    const toggle = (html: string) => buttons(html)[5]!
-    expect(toggle(controls())).toEqual({ tag: expect.stringContaining('aria-pressed="false"'), name: 'Open stopcock' })
-    expect(toggle(controls({ stream: openStream(null) }))).toEqual({ tag: expect.stringContaining('aria-pressed="true"'), name: 'Close stopcock' })
-    // No other button is a toggle.
-    expect(count(controls(), /aria-pressed/g)).toBe(1)
-    expect(count(controls({ stream: openStream(POUR_ADDITIONS[0]) }), /aria-pressed/g)).toBe(1)
+  it('say whether the stopcock is open by the name of its button alone: no button carries a pressed state beside a name that changes', () => {
+    const toggle = (html: string) => buttons(html)[5]!.name
+    expect(toggle(controls())).toBe('Open stopcock')
+    expect(toggle(controls({ stream: openStream(null) }))).toBe('Close stopcock')
+    // "Close stopcock, pressed" is heard as closed while it is open.
+    for (const stream of [CLOSED, openStream(null), openStream(POUR_ADDITIONS[0])]) expect(controls({ stream })).not.toContain('aria-pressed')
   })
 
   it('while a stream runs, leave only the button that started it, which then closes the stopcock', () => {

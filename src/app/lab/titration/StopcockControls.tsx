@@ -57,14 +57,14 @@ export function StopcockControls({ stream, controls, onClearTip, onAdd, onToggle
           Add drop
         </Control>
         {POURS.map(({ pour, name }) => {
-          // The button that opened the stopcock is the one that closes it: focus is already on it.
+          // The button that opened the stopcock is the one that closes it: focus is already on it. Its name says
+          // which it will do, and it has no pressed state: a name that changes with one is heard as "Close stopcock, pressed".
           const mine = running && stream.pour === pour
           return (
             <Control
               key={name}
               unavailable={!mine && (controls.deliver !== null || running)}
               variant={mine ? 'default' : 'outline'}
-              aria-pressed={pour === null ? mine : undefined}
               onClick={() => (mine || !running) && onToggle(pour)}
             >
               {mine ? 'Close stopcock' : name}

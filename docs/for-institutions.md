@@ -100,7 +100,6 @@ As above, there has been no audit and this is no claim of conformance.
 
 - **The bench needs a window at least 768 CSS pixels wide.** A learner who needs 200% zoom on a 1366-pixel screen, or who has only a phone, can read the primer and a saved run's record and cannot do the lab there.
 - While a stream or a measured pour is running, the other stopcock buttons cannot be used, and pressing one says nothing new: the running button reads "Close stopcock". A Record or Check button whose field cannot be used yet has its reason beside it all the time and does nothing when pressed.
-- The stream's button changes its name with its state: "Open stopcock", not pressed, becomes "Close stopcock", pressed. A screen reader may read the second in a way that can be taken either way.
 - When a trial ends by itself during a stream (an overshoot, or the burette's last mark), focus moves from the stopcock button to the result in the notebook.
 - Each new trial starts with "The meniscus in words" and any open Hazards disclosure closed, so a learner who reads the burette from the words opens that disclosure once in each trial.
 - During a stream, additions come every 0.4 seconds and the status line changes only when the flask's colour or the cue changes. Whether a screen reader announces a change in time to act on it is not known.
