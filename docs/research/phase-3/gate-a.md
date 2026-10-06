@@ -6,6 +6,8 @@
 
 **Added on 2026-10-05, when the screens had been built.** Three things in the paragraph above have changed since it was written, and the last section, "After the gate: the screens were built", sets them out. The safety card's sentence was reworded (B3, below), so it is no longer left word for word. The owner answered the question on the rinse time ("After the gate: the rinse time"). And Tasks 14 to 21 of the plan, the screens, were built with this gate still formally open, on the owner's instruction to build the phase straight through with one deep review at the end. Where a statement further down was made untrue by what was built, a note beginning "As built" or "As run", or a bracket that says what has happened since, follows it; nothing else of the record was rewritten.
 
+**Added on 2026-10-05, after the deep review that closed the phase.** The one review of the whole branch has its own record, `deep-review.md`, beside this file. Its fixes changed three things this gate's record speaks of; the last section, "After the gate: the deep review", gives them.
+
 ## How the review was done
 
 Three reviewers, none of whom wrote the code under review, worked at commit `cac9a56`. None changed a tracked file.
@@ -701,7 +703,7 @@ Not seen by anyone for this record: how the lab looks; whether a person can read
 
 Tasks 14 to 21 wrote labels, headings, button names and a few sentences straight into components and into `shellText.ts` and `messages.ts`. They are listed, task by task, in the plan's "As built" notes, each list headed as words that no one has read. Three of them are sentences about what is and is not sourced (`UNSOURCED_TEXT`). None has been read by anyone independent, for chemistry or for tone. The plan's Task 23 has the branch's reviewer read them once.
 
-Two things the builders put to the owner bear on what this gate decided about hazards. In the Hazards disclosure of a bottle, "Signal word: Danger" stands above the heading that says whose hazards the statements are, so read cold it can be taken for the solution on the bench; for the sodium hydroxide, the sheet for the bench's strength gives Warning. And the sodium hydroxide bottle's drawn label reads "NaOH" with no strength. Both are in the plan's list for the owner's look.
+Two things the builders put to the owner bear on what this gate decided about hazards. In the Hazards disclosure of a bottle, "Signal word: Danger" stands above the heading that says whose hazards the statements are, so read cold it can be taken for the solution on the bench; for the sodium hydroxide, the sheet for the bench's strength gives Warning. And the sodium hydroxide bottle's drawn label reads "NaOH" with no strength. Both are in the plan's list for the owner's look. (Since then the deep review rated the first a finding and it was fixed: the signal word now stands under the heading, with the statements. See "After the gate: the deep review".)
 
 ### Still open from this gate
 
@@ -710,3 +712,13 @@ Two things the builders put to the owner bear on what this gate decided about ha
 - **The eight points of the primer for which no source was read**, which nobody has judged one by one. `docs/for-institutions.md` lists them.
 - **The sentences no independent reader has read**: those listed at the end of "For the owner to read", and the words written since the gate.
 - **A chemistry instructor.** None has reviewed the lab. The reviewers of this gate were AI reviewers, and `docs/for-institutions.md` says so.
+
+## After the gate: the deep review, 2026-10-05
+
+The one deep review of the whole branch, made when the screens and the documents were done, is recorded in `deep-review.md`. This section says only what its fixes changed of what this gate's record says. No constant, no model parameter, no stored field, no sentence of the primer and no hazard statement or note was changed by them.
+
+- **The signal word.** In a bottle's Hazards disclosure the signal word is now under the heading that says whose classification it is, with the statements. The stored record is unchanged; what changed is the order on the page, so that "Danger" is not read before anything has said it is the concentrated or the pure substance's.
+- **The engine, once.** The section above says that nothing in `src/engine/` was changed by Tasks 14 to 21. The deep review's fix wave changed one rule there: Guided's checklist calls the label step done only when the notebook holds the label's own molarity (`select.ts`, with a test). Before, a molarity miscopied in Challenge and carried into Guided by a change of mode between trials was shown as that step done. What counts, what is refused and what is stored are as this gate left them.
+- **Loading the entry (F14).** The page still reads its entry from the store once, when it mounts, and saves nothing before that. It now also takes the record another tab saves, from the browser's notice of the change and without writing; and where the mount's read sets a record aside, the page says so. N10's accepted mismatch on the home page stands as it was.
+- **Still open from this gate:** as listed above. The deep review read the screens and the documents; it was told not to read the primer, the hazard notes and the wording files sentence by sentence again, and its record says so.
+
