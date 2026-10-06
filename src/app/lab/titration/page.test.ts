@@ -243,11 +243,27 @@ describe('the titration page', () => {
     expect(html).not.toMatch(/<(input|button|select|textarea)/)
   })
 
-  it('a stored record that does not fit leaves the lab not started', () => {
-    app.store.setItem('valence:lab:titration', JSON.stringify({ version: titration.version, data: { ...createLab(1, 'guided'), seed: -1 } }))
+  it('a stored record that does not fit leaves the lab not started, and the page says that a saved run was kept, until a new one is started', () => {
+    const said = (html: string) => [...html.matchAll(/<p role="status"[^>]*>([^<]*)<\/p>/g)].map((match) => match[1]!.replaceAll('&quot;', '"'))
+    expect(said(page())).toEqual([])
+    const raw = JSON.stringify({ version: titration.version, data: { ...createLab(1, 'guided'), seed: -1 } })
+    app.store.setItem('valence:lab:titration', raw)
     const html = page()
     expect(html).toContain(`>${SHELL_TEXT.start}</button>`)
     expect(html).not.toContain('aria-label="Bench"')
+    expect(said(html)).toEqual([SHELL_TEXT.setAside])
+    expect(app.store.getItem('valence:backup:lab:titration')).toBe(raw)
+    // Opened again in the same session, before Start, it still says so; on the narrow page too.
+    expect(said(page())).toEqual([SHELL_TEXT.setAside])
+    app.wide = false
+    expect(said(page())).toEqual([SHELL_TEXT.setAside])
+    app.wide = true
+    save(createLab(1, 'guided'))
+    expect(page()).not.toContain('could not be opened')
+    // A record of another version is the same to the learner.
+    app.store = createMemoryStore()
+    app.store.setItem('valence:lab:titration', JSON.stringify({ version: titration.version + 1, data: createLab(1, 'guided') }))
+    expect(said(page())).toEqual([SHELL_TEXT.setAside])
   })
 
   it('in a narrow window shows the notice and the primer, and nothing to press', () => {

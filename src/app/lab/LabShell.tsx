@@ -16,6 +16,8 @@ export interface LabShellProps {
   started: boolean
   /** AppState.persistent: false while the browser is not keeping progress. */
   persistent: boolean
+  /** True where a saved run of the lab could not be loaded and was set aside: the page says so until a new run is started. */
+  setAside?: boolean
   mode: Mode
   onMode(mode: Mode): void
   /** The reason the mode cannot be changed now. */
@@ -36,13 +38,18 @@ export interface LabShellProps {
 
 /** The frame every lab page has: heading, mode, Start or Restart, the primer, then the lab's four slots. */
 export function LabShell(props: LabShellProps) {
-  const { title, narrow, started, persistent, mode, onMode, modeLocked, onStart, onRestart, primer, guide, bench, notebook, record } = props
+  const { title, narrow, started, persistent, setAside = false, mode, onMode, modeLocked, onStart, onRestart, primer, guide, bench, notebook, record } = props
   const head = (
     <>
       <PageHeader title={title} parent={{ to: '/lab', label: 'Lab' }} />
       {!persistent && (
         <p role="status" className="mb-4 max-w-prose rounded-md border p-3 text-sm">
           {NOT_SAVING_TEXT}
+        </p>
+      )}
+      {setAside && (
+        <p role="status" className="mb-4 max-w-prose rounded-md border p-3 text-sm">
+          {SHELL_TEXT.setAside}
         </p>
       )}
     </>

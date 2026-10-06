@@ -9,6 +9,8 @@ export const SHELL_TEXT = {
   primer: 'Primer: the ideas behind this lab',
   modeLocked: 'The mode can be changed between trials, not during one.',
   planned: 'Planned. Not built yet.',
+  setAside:
+    'A saved run of this lab could not be opened in this version of Valence. It has been kept, and "Export my progress" on the Settings page includes it. The lab starts fresh here.',
 }
 
 /** What each Sources control of a lab says about what it shows that no source is cited for. */

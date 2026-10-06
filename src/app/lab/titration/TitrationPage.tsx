@@ -95,7 +95,7 @@ export function TitrationPage() {
   const { persistent, reducedMotion } = useAppState()
   // The rail's own query (Layout.tsx), so no width falls between the two.
   const narrow = !useMediaQuery('(min-width: 768px)')
-  const [lab, save] = useLabProgress(TITRATION, titrationStateSchema)
+  const [lab, save, { setAside }] = useLabProgress(TITRATION, titrationStateSchema)
   // The mode chosen before Start. From Start on, the mode is the run's.
   const [chosen, setChosen] = useState<Mode>('guided')
   const [asked, setAsked] = useState<Asked | null>(null)
@@ -140,7 +140,7 @@ export function TitrationPage() {
     onRestart: start,
     primer: (open: boolean) => <Primer sections={TITRATION_PRIMER} sources={sources} open={open} modelCitations={MODEL_CITATIONS} />,
   }
-  if (lab === null) return <LabShell {...shell} started={false} onMode={setChosen} bench={null} notebook={null} record={null} />
+  if (lab === null) return <LabShell {...shell} started={false} setAside={setAside} onMode={setChosen} bench={null} notebook={null} record={null} />
 
   const view = benchViewOf(MODEL, lab)
   const dispatch = (action: Action) => {

@@ -120,6 +120,17 @@ describe('the lab shell', () => {
     }
   })
 
+  it('says in one status paragraph that a saved run was set aside, on the wide page and the narrow, and nothing of it otherwise', () => {
+    for (const narrow of [false, true]) {
+      const html = shell({ started: false, setAside: true, narrow })
+      expect([...html.matchAll(/<p role="status"[^>]*>([^<]*)<\/p>/g)].map((match) => match[1])).toEqual([escaped(SHELL_TEXT.setAside)])
+      expect(shell({ started: false, narrow })).not.toContain('role="status"')
+    }
+    // It says what became of the run and where it can be had, and makes no promise of opening it.
+    expect(SHELL_TEXT.setAside).toMatch(/kept/)
+    expect(SHELL_TEXT.setAside).toContain('Export my progress')
+  })
+
   it('hands the reason the mode is locked to the mode switch', () => {
     expect(shell({ modeLocked: SHELL_TEXT.modeLocked })).toContain(SHELL_TEXT.modeLocked)
     expect(shell()).not.toContain(SHELL_TEXT.modeLocked)

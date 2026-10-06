@@ -116,6 +116,16 @@ export const NOT_SAVING_TEXT =
   'This browser is not allowing Valence to save data. Your progress and settings will last only until you close this tab.'
 
 /**
+ * The entries a load has set aside in this session, by the store they were in, until something is saved under them
+ * or everything is cleared. A page that starts fresh because of one says so (wasSetAside): without it the learner
+ * sees a lab that was never started and no word that a saved run existed and was kept.
+ */
+const setAside = new WeakMap<KeyValueStore, Set<string>>()
+
+/** True when a load of this entry found a value it could not use, and no new one has been saved under it since. */
+export const wasSetAside = (store: KeyValueStore, name: string) => setAside.get(store)?.has(PREFIX + name) ?? false
+
+/**
  * The entries a load set aside but could not back up, by the store they are in. Until the old value has its
  * backup, nothing is saved over it (spec 10: it is kept, not deleted), so the entry lasts for the session only.
  * The refused backup keeps the not-saving notice up for as long as that is so.
@@ -147,9 +157,22 @@ export function saveEntry(store: KeyValueStore, name: string, version: number, d
       waiting.delete(key)
     }
     store.setItem(key, JSON.stringify({ version, data }))
+    setAside.get(store)?.delete(key)
     return true
   } catch {
     return false
+  }
+}
+
+/** The data a stored value holds for this version and schema, or undefined where it cannot be read as that. Changes nothing. */
+export function readEntry<T>(raw: string, version: number, schema: z.ZodType<T>): T | undefined {
+  try {
+    const envelope = envelopeSchema.parse(JSON.parse(raw))
+    if (envelope.version !== version) return undefined
+    const data = schema.safeParse(envelope.data)
+    return data.success ? data.data : undefined
+  } catch {
+    return undefined
   }
 }
 
@@ -166,15 +189,9 @@ export function loadEntry<T>(store: KeyValueStore, name: string, version: number
   const key = PREFIX + name
   const raw = store.getItem(key)
   if (raw === null) return null
-  try {
-    const envelope = envelopeSchema.parse(JSON.parse(raw))
-    if (envelope.version === version) {
-      const data = schema.safeParse(envelope.data)
-      if (data.success) return data.data
-    }
-  } catch {
-    // fall through to the backup
-  }
+  const data = readEntry(raw, version, schema)
+  if (data !== undefined) return data
+  setAside.set(store, (setAside.get(store) ?? new Set()).add(key))
   try {
     backUp(store, name, raw)
     store.removeItem(key)
@@ -188,6 +205,9 @@ export function loadEntry<T>(store: KeyValueStore, name: string, version: number
 /**
  * Reads an activity's status without validating or resetting its entry. `version` is the one the activity
  * loads with: an entry of another version is one loadEntry would set aside, so it counts as not started.
+ * ponytail: an entry of this version that its activity's schema refuses still reads here as begun, until the
+ * activity's page has loaded it, set it aside and said so. Home would have to load the activity's schema, and
+ * with it the lab, to know sooner.
  */
 export function peekStatus(store: KeyValueStore, name: string, version: number): ActivityStatus {
   const raw = store.getItem(PREFIX + name)
@@ -227,6 +247,7 @@ export function exportAll(store: KeyValueStore): string {
 export function clearAll(store: KeyValueStore & { forgetRefused?(): void }): void {
   for (const key of ownKeys(store)) store.removeItem(key)
   notBackedUp.delete(store)
+  setAside.delete(store)
   // An entry whose every save was refused was never stored, so no removal above answers for it.
   store.forgetRefused?.()
 }

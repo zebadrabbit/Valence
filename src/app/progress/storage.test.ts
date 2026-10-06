@@ -8,8 +8,10 @@ import {
   loadEntry,
   NOT_SAVING_TEXT,
   peekStatus,
+  readEntry,
   saveEntry,
   sessionStore,
+  wasSetAside,
   type KeyValueStore,
 } from './storage'
 
@@ -194,6 +196,79 @@ describe('an entry that cannot be loaded, on a store too full to take its backup
     expect(saveEntry(store, 'lab:titration', 1, fresh)).toBe(true)
     expect(store.getItem(BACKUP)).toBeNull()
     expect(told.at(-1)).toBe(true)
+  })
+})
+
+describe('readEntry', () => {
+  const good = { status: 'in-progress', seed: 42 }
+
+  it('gives the data of a value of this version that fits the schema', () => {
+    expect(readEntry(JSON.stringify({ version: 1, data: good }), 1, schema)).toEqual(good)
+  })
+
+  it.each([
+    ['unparseable JSON', '{not json'],
+    ['a missing envelope', '"just a string"'],
+    ['another version', JSON.stringify({ version: 2, data: good })],
+    ['data of the wrong shape', JSON.stringify({ version: 1, data: { status: 'purple' } })],
+  ])('gives undefined for %s', (_label, raw) => {
+    expect(readEntry(raw, 1, schema)).toBeUndefined()
+  })
+})
+
+describe('wasSetAside', () => {
+  const bad = JSON.stringify({ version: 99, data: { status: 'completed', seed: 1 } })
+
+  it('is false of an entry that was never stored, and of one that loaded', () => {
+    const store = createMemoryStore()
+    loadEntry(store, 'lab:titration', 1, schema)
+    expect(wasSetAside(store, 'lab:titration')).toBe(false)
+    saveEntry(store, 'lab:titration', 1, { status: 'in-progress', seed: 42 })
+    loadEntry(store, 'lab:titration', 1, schema)
+    expect(wasSetAside(store, 'lab:titration')).toBe(false)
+  })
+
+  it('is true once a load has set the entry aside, of that entry in that store only, and on every later load of the session', () => {
+    const store = createMemoryStore()
+    store.setItem('valence:lab:titration', bad)
+    loadEntry(store, 'lab:titration', 1, schema)
+    expect(wasSetAside(store, 'lab:titration')).toBe(true)
+    expect(wasSetAside(store, 'lab:aqueous')).toBe(false)
+    expect(wasSetAside(createMemoryStore(), 'lab:titration')).toBe(false)
+    // The entry is gone from its key by now: the page that is opened again is still told.
+    expect(loadEntry(store, 'lab:titration', 1, schema)).toBeNull()
+    expect(wasSetAside(store, 'lab:titration')).toBe(true)
+  })
+
+  it('is true where the store had no room for the backup, too: the value is kept in place', () => {
+    // Stored before the store filled up.
+    const store = createMemoryStore()
+    store.setItem('valence:lab:titration', bad)
+    const refusing: KeyValueStore = {
+      ...store,
+      get length() {
+        return store.length
+      },
+      setItem() {
+        throw new Error('QuotaExceededError')
+      },
+    }
+    expect(loadEntry(refusing, 'lab:titration', 1, schema)).toBeNull()
+    expect(refusing.getItem('valence:lab:titration')).toBe(bad)
+    expect(wasSetAside(refusing, 'lab:titration')).toBe(true)
+  })
+
+  it('is false again once something is saved under the entry, or everything is cleared', () => {
+    const store = createMemoryStore()
+    store.setItem('valence:lab:titration', bad)
+    loadEntry(store, 'lab:titration', 1, schema)
+    saveEntry(store, 'lab:titration', 1, { status: 'in-progress', seed: 42 })
+    expect(wasSetAside(store, 'lab:titration')).toBe(false)
+    store.setItem('valence:lab:titration', bad)
+    loadEntry(store, 'lab:titration', 1, schema)
+    expect(wasSetAside(store, 'lab:titration')).toBe(true)
+    clearAll(store)
+    expect(wasSetAside(store, 'lab:titration')).toBe(false)
   })
 })
 
