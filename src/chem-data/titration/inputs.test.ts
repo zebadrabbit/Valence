@@ -355,6 +355,23 @@ describe('the titration inputs: bottles', () => {
     expect(value).not.toMatch(/does not classify|no hazard label|harmless|hazard communication standard|15 minutes/)
   })
 
+  it("gives in the acid's and the base's notes the whole of what their sheets say for a splash in the eyes, and has a row for it under each of the three sheets", () => {
+    // Gate A, B1. Each of the three sheets goes on, after the rinsing for several minutes, to the contact lenses and to
+    // more rinsing. A note that stopped at the several minutes gave a shorter first aid than its sheet does.
+    const EYES = 'a splash in the eyes is to be rinsed with water for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up'
+    for (const key of ['hcl', 'naoh'] as const) {
+      const { value } = input.bottles[key].hazards.note
+      expect([key, value.includes(EYES), value.match(/several minutes/g)]).toEqual([key, true, ['several minutes']])
+    }
+    for (const id of Object.keys(TITLE)) {
+      const rows = source(id)!.supports.filter((row) => row.prints === 'P305+P351+P338')
+      expect([id, rows.length]).toEqual([id, 1])
+      expect([id, /^Section 4, under the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that\. The sheet gives no number of minutes\./.test(rows[0]!.where)]).toEqual([id, true])
+      // No other row of the sheet gives the rinsing, so none gives it short.
+      expect([id, source(id)!.supports.filter((row) => /several minutes/.test(row.where)).length]).toEqual([id, 1])
+    }
+  })
+
   it("keeps the indicator's note on the sheet it rested on, another supplier's, for a solution of the strength and solvent the bottle is taken to be, and says so", () => {
     const { value } = input.bottles.indicator.hazards.note
     expect(value).toMatch(/A safety data sheet for a solution of that kind, from a different supplier than the statements above, gives the signal word Danger and the statements H226, H319, H350, H360 and H371/)

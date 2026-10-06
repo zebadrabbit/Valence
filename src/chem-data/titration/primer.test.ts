@@ -410,11 +410,20 @@ describe('the titration primer: what it has to say', () => {
     // The base: its sheet classes it as an irritant, and the card no longer says that a sheet does not class it as hazardous.
     expect(text).toMatch(/The sheet for sodium hydroxide solutions of less than 0\.3 M says that the solution irritates the skin and the eyes\./)
     expect(text).not.toMatch(/does not class it as hazardous|not the same as harmless|15 minutes|flushed/)
-    // What all three sheets ask for, in the words the two notes use.
-    expect(text).toMatch(/All three sheets call for eye protection, gloves and protective clothing, and say that a splash in the eyes is to be rinsed with water for several minutes and a splash on the skin washed off with water\.$/)
+    // What all three sheets ask for, in the words the two notes use. The first aid for the eyes is given whole (Gate A, B1):
+    // each sheet goes on from several minutes of rinsing to the contact lenses and to more rinsing, and a card that stopped
+    // at the several minutes was read as the whole instruction.
+    const EYES = 'a splash in the eyes is to be rinsed with water for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up'
+    expect(text).toContain(`All three sheets call for eye protection, gloves and protective clothing. All three say that ${EYES}, and that a splash on the skin is to be washed off with water.`)
     for (const note of [hcl.hazards.note.value, naoh.hazards.note.value]) {
       expect(note).toMatch(/eye protection, gloves and protective clothing/)
-      expect(note).toMatch(/rinsed with water for several minutes/)
+      expect(note).toContain(EYES)
+    }
+    // Nowhere does the rinsing end at the several minutes: not on the card, in a note, or in what the card says each sheet establishes.
+    const rinsings = [text, hcl.hazards.note.value, naoh.hazards.note.value, ...support.split('\n').slice(0, 3)]
+    for (const said of rinsings) {
+      expect([said, said.match(/several minutes/g)?.length]).toEqual([said, 1])
+      expect([said, /for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up/.test(said)]).toEqual([said, true])
     }
     // The card is in the lab's own words; the codes are in the notes. Its support lines give every code the notes give.
     expect(text).not.toMatch(/H\d{3}|Warning|Danger/)

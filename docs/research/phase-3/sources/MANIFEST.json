@@ -272,8 +272,13 @@
         },
         {
           "field": "bottles.hcl.hazards.note",
+          "prints": "P305+P351+P338",
+          "where": "Section 4, under the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that. The sheet gives no number of minutes."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
           "prints": "P310",
-          "where": "Section 4, after the rinsing of the eyes with water for several minutes: a poison centre or a doctor is to be called at once. The same section says that after contact with the skin or the hair the clothing that was wetted is taken off at once and the skin rinsed with water."
+          "where": "Section 4, straight after the codes for the eyes: a poison centre or a doctor is to be called at once. The same section says that after contact with the skin or the hair the clothing that was wetted is taken off at once and the skin rinsed with water."
         },
         {
           "field": "primer",
@@ -321,7 +326,12 @@
         {
           "field": "bottles.hcl.hazards.note",
           "prints": "P280",
-          "where": "Section 8: the precautionary statement that calls for eye protection, gloves and protective clothing. Section 4 says that eyes are to be rinsed with water for several minutes and skin washed with plenty of water."
+          "where": "Section 8: the precautionary statement that calls for eye protection, gloves and protective clothing."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "P305+P351+P338",
+          "where": "Section 4, under the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that. The sheet gives no number of minutes. The same section says that skin is to be washed with plenty of water, and that medical advice is to be sought if irritation of the eyes lasts or irritation of the skin sets in. The acid's note gives the first aid of the stricter sheet (`flinn-sds-395.2`); the primer's safety card says what this sheet and the other two have in common."
         },
         {
           "field": "primer",
@@ -412,7 +422,7 @@
         {
           "field": "bottles.naoh.hazards.note",
           "prints": "P305+P351+P338",
-          "where": "Section 4: eyes are to be rinsed with water for several minutes. The same section says that skin is to be washed with plenty of water, and that medical advice is to be sought if irritation of the eyes lasts or irritation of the skin sets in."
+          "where": "Section 4, under the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that. The sheet gives no number of minutes. The same section says that skin is to be washed with plenty of water, and that medical advice is to be sought if irritation of the eyes lasts or irritation of the skin sets in."
         },
         {
           "field": "primer",
