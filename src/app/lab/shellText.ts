@@ -24,6 +24,6 @@ export const UNSOURCED_TEXT = {
 export const NARROW_NOTICE = {
   title: 'This lab needs a wider window.',
   body: 'The bench is shown in windows at least 768 pixels wide. Use a wider window, a tablet turned sideways, or a computer; if the page is zoomed in, zooming out brings the bench back. Progress is kept in the browser it was made in, so a run started on another device will not appear here.',
-  withRun: 'Below are the primer and the notebook of your saved run.',
+  withRun: 'Below are the primer and the record of your saved run.',
   withoutRun: 'Below is the primer.',
 }

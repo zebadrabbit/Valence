@@ -236,6 +236,10 @@ describe('the titration page', () => {
     expect(html).toContain(NARROW_NOTICE.withRun)
     expect(html).toMatch(PRIMER(true))
     expect(html).toContain(`>${NOTEBOOK_TEXT.recordHeading}</h2>`)
+    // The notice calls what is below it what its heading calls it. "Notebook" is the wide page's panel, not shown here.
+    expect(NARROW_NOTICE.withRun).toContain('the record of your saved run')
+    expect(NARROW_NOTICE.withRun).not.toMatch(/notebook/i)
+    expect(html).not.toContain(`>${NOTEBOOK_TEXT.heading}</h2>`)
     expect(html).toContain('>In progress</td>')
     expect(html).toContain('>Invalid: overshot</td>')
     expect(html).not.toContain('aria-label="Bench"')
