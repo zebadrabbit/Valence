@@ -432,7 +432,7 @@ describe('the titration primer: what it has to say', () => {
     // what the three share (Gate A, B2): the call at once after a splash in the eyes, the wetted clothing off at once, and the
     // hood or well-ventilated room. Without them a learner who read the card and not the note had a milder response to the
     // acid than the sheet they were told to follow. It is the paragraph's last sentence, after what the three sheets share.
-    expect(text).toMatch(/washed off with water\. For the acid, the stricter sheet also says to call a poison centre or a doctor at once after a splash in the eyes, to take off at once any clothing the acid has wetted, and to work in a fume hood or a well-ventilated room\.$/)
+    expect(text).toMatch(/washed off with water\. For the acid, the stricter sheet also says to call a poison centre or a doctor at once after a splash in the eyes, to take off at once any clothing the acid has wetted, and to work in a fume hood or a well-ventilated room\. The sheets give no time for the rinsing\./)
     // Each of the three is in the acid's note, which gives them as that sheet's, and in what the card says that sheet establishes.
     for (const said of [/a poison centre or a doctor is to be called at once/, /the wet clothing is to come off at once/, /a fume hood or a well-ventilated room/]) expect([String(said), said.test(hcl.hazards.note.value)]).toEqual([String(said), true])
     const ofTheStricter = support.split('\n')[1]!
