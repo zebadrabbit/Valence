@@ -372,6 +372,20 @@ describe('the notebook panel', () => {
     expect(read(panel(guidedAtEndpoint))).toContain('|Initial reading (mL)|2.56|Final reading (mL)|28.26|Titre (mL)|25.70|')
   })
 
+  it('under an ended trial shows the HCl molarity that trial was calculated with, not one recorded since', () => {
+    // Challenge, label 0.0976: recorded as 0.1234, a careful trial checked with it, then the label put right.
+    let s = run(m, createLab(1, 'challenge'), [{ type: 'recordHclMolarity', molarityE6: 123400 }])
+    s = carefulTrial(m, readyTrial(m, s, { condition: true, clearBubble: true, rinse: true }))
+    s = run(m, s, [{ type: 'recordHclMolarity', molarityE6: 97600 }])
+    expect(read(panel(s))).toContain('|Trial 1|HCl molarity (M)|0.1234|')
+    expect(read(panel(s))).toContain(CAUSE_TEXT['hcl-label-misrecorded'])
+    // The record names its figure as the notebook's, and the next trial starts from that one.
+    expect(read(renderToStaticMarkup(createElement(TrialRecord, { m, state: s })))).toContain('|HCl molarity in the notebook (M): 0.0976|')
+    expect(read(panel(run(m, s, [NEXT])))).toContain('|Trial 2|HCl molarity (M)|0.0976|')
+    // A trial that ended with nothing calculated has no molarity of its own to show.
+    expect(read(panel(overshot))).toContain('|Trial 2|HCl molarity (M)|0.0976|')
+  })
+
   it('offers to discard the flask while the trial is open, and the next trial only once it has ended', () => {
     expect(buttons(panel(third))).toEqual([NOTEBOOK_TEXT.record, NOTEBOOK_TEXT.check, NOTEBOOK_TEXT.discard])
     const html = panel(overshot)

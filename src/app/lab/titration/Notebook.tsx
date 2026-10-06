@@ -207,7 +207,8 @@ export function NotebookPanel({ m, state, onHclMolarity, onMolarity, onDiscard, 
         <h3 className="font-medium">{trialHeading(trial.index + 1)}</h3>
         <Pairs
           pairs={[
-            [NOTEBOOK_TEXT.hclRecorded, molarity(state.hclRecordedE6)],
+            // The molarity this trial was calculated with, once it has been: the notebook's can be changed between trials.
+            [NOTEBOOK_TEXT.hclRecorded, molarity(trial.hclUsedE6 ?? state.hclRecordedE6)],
             [INITIAL, reading(trial.initialReadingUl)],
             [FINAL, reading(trial.finalReadingUl)],
             [TITRE, reading(titreUl)],
