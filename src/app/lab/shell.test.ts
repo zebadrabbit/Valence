@@ -14,7 +14,7 @@ import { LabShell, type LabShellProps } from './LabShell'
 import { ModeSwitch } from './ModeSwitch'
 import { Primer, subscriptParts } from './Primer'
 import { NARROW_NOTICE, SHELL_TEXT } from './shellText'
-import { labProgress } from './useLabProgress'
+import { labProgress, writtenElsewhere } from './useLabProgress'
 
 // The markup the shell puts its wording and its slots in. Focus, keys, the confirm on Restart and the layout at
 // each width are checked in a browser.
@@ -353,6 +353,47 @@ describe('labProgress', () => {
     progress.save(second)
     expect(written).toHaveLength(2)
     expect(labProgress(store, activity, schema).load()).toEqual(second)
+  })
+
+  describe('a write of the entry by another tab', () => {
+    const key = storageKey(activity.entry)
+    const theirs = { status: 'in-progress', n: 7 }
+    const raw = JSON.stringify({ version: activity.version, data: theirs })
+
+    it('is taken: the record the other tab saved is what this tab shows next', () => {
+      const { store, written } = counting()
+      labProgress(store, activity, schema).save({ status: 'in-progress', n: 1 })
+      store.setItem(key, raw)
+      written.length = 0
+      expect(writtenElsewhere(store, activity, schema, raw)).toEqual(theirs)
+      // Taking it writes nothing.
+      expect(written).toEqual([])
+    })
+
+    it('is taken as "not started" where the other tab removed the entry', () => {
+      const { store } = counting()
+      expect(writtenElsewhere(store, activity, schema, null)).toBeNull()
+    })
+
+    it('is left alone, and left in place, where this version cannot read it: it may be a newer version that wrote it', () => {
+      const { store, written } = counting()
+      for (const other of [JSON.stringify({ version: activity.version + 1, data: theirs }), JSON.stringify({ version: activity.version, data: { other: 1 } }), '{not json']) {
+        store.setItem(key, other)
+        written.length = 0
+        expect(writtenElsewhere(store, activity, schema, other)).toBeUndefined()
+        expect(written).toEqual([])
+        expect(store.getItem(key)).toBe(other)
+        expect(store.length).toBe(1)
+      }
+    })
+
+    it('is left alone where this tab\'s own store does not hold it: a browser that is not saving shows no stored progress', () => {
+      const { store } = counting()
+      expect(writtenElsewhere(store, activity, schema, raw)).toBeUndefined()
+      labProgress(store, activity, schema).save({ status: 'in-progress', n: 1 })
+      expect(writtenElsewhere(store, activity, schema, raw)).toBeUndefined()
+      expect(writtenElsewhere(store, activity, schema, null)).toBeUndefined()
+    })
   })
 
   it('sets aside what does not fit the schema, as loadEntry does', () => {

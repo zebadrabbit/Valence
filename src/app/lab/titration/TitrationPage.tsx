@@ -87,15 +87,15 @@ function WarningGroup({ asked, onBack, onGoOn, ref }: { asked: Asked; onBack(): 
 
 /**
  * #/lab/titration: the one place the engine, the bench and the notebook meet. The state is the stored record, read
- * once when the page mounts; every action of the learner's is decided on here, and every change of the state is
- * saved, the additions of an open stopcock and a trial the engine ended included. Nothing is stored until Start,
- * so opening the page leaves Home at "Not started".
+ * once when the page mounts and taken again only when another tab saves it; every action of the learner's is
+ * decided on here, and every change of the state is saved, the additions of an open stopcock and a trial the
+ * engine ended included. Nothing is stored until Start, so opening the page leaves Home at "Not started".
  */
 export function TitrationPage() {
   const { persistent, reducedMotion } = useAppState()
   // The rail's own query (Layout.tsx), so no width falls between the two.
   const narrow = !useMediaQuery('(min-width: 768px)')
-  const [lab, save, { setAside }] = useLabProgress(TITRATION, titrationStateSchema)
+  const [lab, save, { setAside, taken }] = useLabProgress(TITRATION, titrationStateSchema)
   // The mode chosen before Start. From Start on, the mode is the run's.
   const [chosen, setChosen] = useState<Mode>('guided')
   const [asked, setAsked] = useState<Asked | null>(null)
@@ -103,6 +103,14 @@ export function TitrationPage() {
   const [confirmed, setConfirmed] = useState<AskedAction | null>(null)
   // Counts what the notebook has done, for the bench, whose message line is then of the bench as it was before.
   const [notebookDone, setNotebookDone] = useState(0)
+  // A record taken from another tab: a warning held for an action on the one before is dropped with it, and the
+  // bench and the notebook are made anew (their keys), with the stopcock closed and nothing said.
+  const [takenSeen, setTakenSeen] = useState(taken)
+  if (taken !== takenSeen) {
+    setTakenSeen(taken)
+    setAsked(null)
+    setConfirmed(null)
+  }
   const warningRef = useRef<HTMLDivElement>(null)
   const resultRef = useRef<HTMLElement>(null)
   const benchRef = useRef<HTMLElement>(null)
@@ -195,9 +203,9 @@ export function TitrationPage() {
       modeLocked={can(MODEL, lab, { type: 'setMode', mode }) !== null ? SHELL_TEXT.modeLocked : undefined}
       guide={lab.mode === 'guided' ? <Guide steps={checklist(MODEL, lab)} trialIndex={currentTrial(lab).index} /> : undefined}
       bench={
-        // A bench of its own for each trial of each run: the stopcock closed, nothing said yet, no plume.
+        // A bench of its own for each trial of each run, and for a record taken from another tab: the stopcock closed, nothing said yet, no plume.
         <TitrationBench
-          key={`${lab.seed}:${trials}`}
+          key={`${lab.seed}:${trials}:${taken}`}
           ref={benchRef}
           view={view}
           display={DISPLAY}
@@ -213,7 +221,7 @@ export function TitrationPage() {
       }
       notebook={
         <NotebookPanel
-          key={lab.seed}
+          key={`${lab.seed}:${taken}`}
           m={MODEL}
           state={lab}
           onHclMolarity={(molarityE6) => entry({ type: 'recordHclMolarity', molarityE6 }, 'hcl-molarity', hclRecordedText(molarityE6))}
