@@ -425,6 +425,17 @@ describe('the titration primer: what it has to say', () => {
       expect([said, said.match(/several minutes/g)?.length]).toEqual([said, 1])
       expect([said, /for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up/.test(said)]).toEqual([said, true])
     }
+    // The card tells the learner to treat the acid as the stricter sheet says, so it also says what that sheet asks for beyond
+    // what the three share (Gate A, B2): the call at once after a splash in the eyes, the wetted clothing off at once, and the
+    // hood or well-ventilated room. Without them a learner who read the card and not the note had a milder response to the
+    // acid than the sheet they were told to follow. It is the paragraph's last sentence, after what the three sheets share.
+    expect(text).toMatch(/washed off with water\. For the acid, the stricter sheet also says to call a poison centre or a doctor at once after a splash in the eyes, to take off at once any clothing the acid has wetted, and to work in a fume hood or a well-ventilated room\.$/)
+    // Each of the three is in the acid's note, which gives them as that sheet's, and in what the card says that sheet establishes.
+    for (const said of [/a poison centre or a doctor is to be called at once/, /the wet clothing is to come off at once/, /a fume hood or a well-ventilated room/]) expect([String(said), said.test(hcl.hazards.note.value)]).toEqual([String(said), true])
+    const ofTheStricter = support.split('\n')[1]!
+    for (const said of [/a poison centre or a doctor called at once/, /the wetted clothing is to come off at once/, /in a hood or a well-ventilated room/]) expect([String(said), said.test(ofTheStricter)]).toEqual([String(said), true])
+    // The other two sheets ask for none of the three, and the card's lines for them claim none.
+    for (const line of [support.split('\n')[0]!, support.split('\n')[2]!]) expect([line, /poison|hood|ventilat|clothing is to come off/.test(line)]).toEqual([line, false])
     // The card is in the lab's own words; the codes are in the notes. Its support lines give every code the notes give.
     expect(text).not.toMatch(/H\d{3}|Warning|Danger/)
     const lines = support.split('\n')
