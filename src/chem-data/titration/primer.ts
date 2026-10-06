@@ -57,7 +57,7 @@ const PART_A = 'the heading Part A: Standardization of a Sodium Hydroxide Soluti
 const PART_II = 'the heading Part II. Standardization of the NaOH Solution'
 const PERFORMING = 'section 3, part 4 (Performing the Titration)'
 const PREPARING = 'section 3, part 2 (Preparing the Buret)'
-const SHEET_SECTIONS = 'sections 2 (hazard identification), 4 (first-aid measures) and 8 (exposure controls and personal protection)'
+const SOLUTION_SHEET = "the sheet's title and its sections 2 (hazards identification), 4 (first aid measures) and 8 (exposure controls, personal protection)"
 const SOLID_SHEET = "the sheet's title and its sections 2 (hazards identification) and 3 (composition)"
 
 export const TITRATION_PRIMER: readonly PrimerSection[] = [
@@ -505,20 +505,26 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
         'a statement about this simulation, not chemistry.',
       ),
       paragraph(
-        "In a real laboratory this experiment is done wearing eye protection and gloves. The acid and the base are dilute, about 0.1 M. Even so, a supplier's safety data sheet for hydrochloric acid of this strength says that it irritates the skin and causes serious eye irritation. The sheet for sodium hydroxide of this strength does not class it as hazardous. That is not the same as harmless: that sheet too calls for eye protection and gloves, and both sheets say that a splash on the skin or in the eyes is to be flushed with a lot of water, for 15 minutes or longer.",
+        "In a real laboratory this experiment is done wearing eye protection and gloves. The acid and the base are dilute, about 0.1 M. Even so, a supplier's safety data sheets for solutions this dilute give hazards for both. The acid's strength sits at the line between two of the sheets. The one for hydrochloric acid of less than 0.1 M says that it irritates the skin and the eyes, and that it may be harmful if it is swallowed, breathed in or gets on the skin. The one for 0.1 M to 2.4 M says that it burns the skin severely and damages the eyes, that it may irritate the airways, and that it may be harmful if swallowed. Treat the acid as the stricter sheet says. The sheet for sodium hydroxide solutions of less than 0.3 M says that the solution irritates the skin and the eyes. All three sheets call for eye protection, gloves and protective clothing, and say that a splash in the eyes is to be rinsed with water for several minutes and a splash on the skin washed off with water.",
         [
           [
-            'fisher-sds-hcl-0.1n',
-            SHEET_SECTIONS,
-            '0.1 N hydrochloric acid carries the signal word Warning, as causing skin irritation and serious eye irritation and as possibly corrosive to metals; that protective eyeglasses or goggles and gloves are to be worn; and that eyes and skin are to be flushed with a lot of water, for 15 minutes or longer.',
+            'flinn-sds-395.3',
+            SOLUTION_SHEET,
+            'hydrochloric acid of less than 0.1 M carries the signal word Warning and two hazard statements: one under H303, H313 and H333, for possible harm when it is swallowed, breathed in or on the skin; and one under H315 and H320, for irritation of the skin and of the eyes; that eye protection, gloves and protective clothing are to be worn; and that eyes are to be rinsed with water for several minutes and skin washed with a lot of water.',
           ],
           [
-            'fisher-sds-naoh-0.1n',
-            SHEET_SECTIONS,
-            '0.1 N sodium hydroxide is not considered hazardous under the United States hazard communication standard; that protective eyeglasses or goggles and gloves are still to be worn; and that eyes and skin are to be flushed with a lot of water, for 15 minutes or longer.',
+            'flinn-sds-395.2',
+            SOLUTION_SHEET,
+            'hydrochloric acid of 0.1 M to 2.4 M carries the signal word Danger and three hazard statements: under H314, for severe burns to the skin and damage to the eyes, in category 1; under H335, for irritation of the airways; and under H303, for possible harm when it is swallowed; that eye protection, gloves and protective clothing are to be worn; and that eyes are to be rinsed with water for several minutes, a poison centre or a doctor called at once, and skin rinsed with water once the wetted clothing is off.',
+          ],
+          [
+            'flinn-sds-735.2',
+            SOLUTION_SHEET,
+            'sodium hydroxide solutions of less than 0.3 M carry the signal word Warning and one hazard statement, under H315 and H320, for irritation of the skin and of the eyes; that eye protection, gloves and protective clothing are to be worn; and that eyes are to be rinsed with water for several minutes and skin washed with a lot of water.',
           ],
           [ACID_LAB, 'the heading General Safety', 'students doing this standardization wear safety goggles throughout, and gloves when they handle sodium hydroxide and phenolphthalein.'],
         ],
+        "that the acid's strength sits at the line between two sheets is from the lab's record and the sheets' titles: the label runs from 0.0850 to 0.1050 M (spec 7.1), one sheet is for less than 0.1 M and the other for 0.1 M and above. Treating the acid as the stricter sheet says is the owner's decision (Gate A, question 11). The sodium hydroxide is between 0.0950 and 0.1050 M, all of it under the one sheet. The card says every hazard statement of the three sheets in its own words; the notes under the acid's and the base's statements give them with their codes.",
       ),
       paragraph(
         'Each bottle on the bench lists hazard statements, with a note under them about the solution at the strength used here. The statements are not written for these dilute solutions. Those on the acid bottle are for concentrated hydrochloric acid, 6 M to 12 M, and those on the other two bottles are for the pure substance. Concentrated hydrochloric acid and sodium hydroxide both carry the code H314: each is classified as corrosive to the skin and the eyes. Read the note as well as the statements.',

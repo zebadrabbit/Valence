@@ -56,4 +56,22 @@ Besides hazard statements, a sheet's hazard section prints precautionary stateme
 
 Nothing reads a PubChem classification any more, so the three copies are gone, and so are the manifest's entries for CID 313 and CID 14798. PubChem's record for phenolphthalein, CID 4764, is still the source of the stored molar mass, and its table of properties is still kept and checked. Each bottle still stores its CID, which identifies the compound.
 
-The same supplier has sheets for these substances at other strengths, the strengths on this bench among them. The notes under the statements do not rest on them yet: `../gate-a.md`, questions 6 and 11, which the owner has answered, and the change that follows this one.
+## The notes under the statements
+
+The note under each bottle's statements says what a safety data sheet gives for the solution at the strength on this bench. By the same decision of the owner, each rests on the same supplier's sheet or sheets for that strength, where the supplier has one for that solution. They were read on 2026-10-05, in a browser, and are cited and not kept.
+
+| Bottle | Sheet or sheets | The manifest's id |
+| --- | --- | --- |
+| Hydrochloric acid, labelled 0.0850 to 0.1050 M | Hydrochloric Acid Solution Less than 0.1 M, SDS number sds_395.3, and Hydrochloric Acid Solution 0.1 M - 2.4 M, SDS number sds_395.2; both revised December 3, 2018 | `flinn-sds-395.3`, `flinn-sds-395.2` |
+| Sodium hydroxide, 0.0950 to 0.1050 M | Sodium Hydroxide Solution Less than 0.3 M, SDS number sds_735.2, revised December 3, 2018 | `flinn-sds-735.2` |
+| Indicator, taken to be 0.5% (w/v) in 50% alcohol | Another supplier's: Ricca Chemical Company's sheet for its product number 5600, a solution of that strength in that solvent | `ricca-sds-5600` |
+
+The acid's label lies on both sides of the 0.1 M at which the supplier's sheets change, so its note rests on two sheets and says what each gives: Warning below 0.1 M, and Danger with the code H314 from 0.1 M up. It says that the bench's acid sits at the line between them and is handled as the stricter says, which is the owner's decision. The two sheets' tables of composition draw the line elsewhere: the sheet titled for 0.1 M to 2.4 M gives 2-10% hydrochloric acid, which by mass starts near 0.55 mol/L. The note follows the titles and does not use that figure; the manifest's row for it says so. A note that rests on two sheets names the second in `alsoSourceId`.
+
+The base's strength is wholly under one sheet. That sheet gives Warning and one statement, for irritation of the skin and the eyes.
+
+The indicator's note stays on the sheet it rested on. The first supplier has two sheets with phenolphthalein in their titles: the one for the solid, which the bottle's statements come from, and sds_592, Phenolphthalein Alcohol Solution, whose table of composition gives 2% or less of phenolphthalein in 98% or more of denatured ethyl alcohol. That is a solution in alcohol alone. The record takes this lab's bottle to be 0.5% (w/v) in 50% alcohol, about half water, so sds_592 is not a sheet for it and is not a source of the record; `../gate-a.md` gives what it prints. The note says that its sheet is from a different supplier than the statements above it.
+
+Until 2026-10-05 the acid's and the base's notes each rested on a third supplier's sheet for a 0.1 N solution. Nothing reads those two sheets any more, so their entries are out of the manifest. No copy of either was ever kept here.
+
+None of the first supplier's sheets says which rule its classification is made under, and no note says that any does. As with the statements, **the build cannot check a note against its sheets: no copy is kept.** `src/chem-data/titration/inputs.test.ts` holds each note to the manifest's rows for its sheets: every hazard code and signal word a note names is printed by a row, and for the acid and the base every statement a row prints is named in the note.

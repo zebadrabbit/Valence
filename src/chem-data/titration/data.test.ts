@@ -74,8 +74,9 @@ describe('titrationData', () => {
   })
 
   it('has every source it names among its citations, each once', () => {
-    const named = new Set(JSON.stringify(titrationData).match(/(?<="sourceId":")[^"]+/g))
-    expect(named.size).toBe(14)
+    // A note that rests on two sheets names the second in alsoSourceId.
+    const named = new Set(JSON.stringify(titrationData).match(/(?<="(?:sourceId|alsoSourceId)":")[^"]+/g))
+    expect(named.size).toBe(15)
     const cited = titrationCitations(titrationData, sources).map((c) => c.source.id)
     expect([...cited].sort()).toEqual([...named].sort())
   })
@@ -86,9 +87,12 @@ describe('titrationData', () => {
     expect(covers['flinn-sds-395']).toEqual(['Hydrochloric acid, standardized: hazard classification'])
     expect(covers['flinn-sds-734']).toEqual(['Sodium hydroxide solution, about 0.1 M: hazard classification'])
     expect(covers['flinn-sds-591']).toEqual(['Phenolphthalein indicator solution, 0.5%: hazard classification'])
-    expect(covers['fisher-sds-hcl-0.1n']).toEqual(['Hydrochloric acid, standardized: hazards at the strength used'])
-    expect(covers['fisher-sds-naoh-0.1n']).toEqual(['Sodium hydroxide solution, about 0.1 M: hazards at the strength used'])
-    for (const gone of ['pubchem-cid-313', 'pubchem-cid-14798']) {
+    // The notes rest on the same supplier's sheets for the strength on the bench: two for the acid, whose label lies on both sides of the line between them.
+    expect(covers['flinn-sds-395.2']).toEqual(['Hydrochloric acid, standardized: hazards at the strength used'])
+    expect(covers['flinn-sds-395.3']).toEqual(['Hydrochloric acid, standardized: hazards at the strength used'])
+    expect(covers['flinn-sds-735.2']).toEqual(['Sodium hydroxide solution, about 0.1 M: hazards at the strength used'])
+    expect(covers['ricca-sds-5600']).toEqual(['Phenolphthalein indicator solution, 0.5%: hazards at the strength used'])
+    for (const gone of ['pubchem-cid-313', 'pubchem-cid-14798', 'fisher-sds-hcl-0.1n', 'fisher-sds-naoh-0.1n']) {
       expect([gone, covers[gone]]).toEqual([gone, undefined])
       expect(sources.filter((s) => s.id === gone)).toEqual([])
     }

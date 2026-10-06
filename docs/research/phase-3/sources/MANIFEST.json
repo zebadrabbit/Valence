@@ -1,6 +1,6 @@
 {
   "retrieved": "2026-10-04",
-  "about": "Every source of the titration lab's record (docs/research/phase-3/titration.json) and of its primer (src/chem-data/titration/primer.ts), each fetched and read on the retrieval date, or on the later date its own citation gives. A source with `file` has its copy in this folder, as downloaded, with the sha256 of that copy; a source with none was read and no copy is kept. `fetchedSha256`, on a source with no copy, is the sha256 of the page as it was fetched on the day it was read, or, for a page that a script draws (the sheets whose ids begin `flinn-sds-`), of the text the page showed in a browser that day: a record of which page that was, not the hash of any file here, and nothing checks it. Each `supports` row names one stored value by its path in the record, gives in `prints` the figure or label exactly as the source prints it, and says in `where`, in this project's words, where it is. A row whose field is `primer` marks a source the primer rests on: its `prints` is a title or a heading as the source prints it, and which passage a paragraph rests on, and what that passage establishes, is said in the paragraph's support line in the primer. The statements of all three bottles are those of one supplier's safety data sheets, read and not kept: the sheet for concentrated hydrochloric acid, and the sheets for sodium hydroxide and for phenolphthalein themselves, the solids. The owner asked for this supplier's sheets as the lab's reference for hazards. No bottle has a `reference`: the rows of each sheet give what it prints, and those of `flinn-sds-395` say in which form the statements are stored and why. README.md in this folder gives the attribution the two Wikipedia copies require.",
+  "about": "Every source of the titration lab's record (docs/research/phase-3/titration.json) and of its primer (src/chem-data/titration/primer.ts), each fetched and read on the retrieval date, or on the later date its own citation gives. A source with `file` has its copy in this folder, as downloaded, with the sha256 of that copy; a source with none was read and no copy is kept. `fetchedSha256`, on a source with no copy, is the sha256 of the page as it was fetched on the day it was read, or, for a page that a script draws (the sheets whose ids begin `flinn-sds-`), of the text the page showed in a browser that day: a record of which page that was, not the hash of any file here, and nothing checks it. Each `supports` row names one stored value by its path in the record, gives in `prints` the figure or label exactly as the source prints it, and says in `where`, in this project's words, where it is. A row whose field is `primer` marks a source the primer rests on: its `prints` is a title or a heading as the source prints it, and which passage a paragraph rests on, and what that passage establishes, is said in the paragraph's support line in the primer. The statements of all three bottles are those of one supplier's safety data sheets, read and not kept: the sheet for concentrated hydrochloric acid, and the sheets for sodium hydroxide and for phenolphthalein themselves, the solids. The owner asked for this supplier's sheets as the lab's reference for hazards. The note under the acid's statements and the note under the base's rest on the same supplier's sheets for solutions of the strength on the bench, two for the acid and one for the base; the note under the indicator's rests on another supplier's sheet, for a solution of the strength and solvent the bottle is taken to be, because the first supplier's sheet for a phenolphthalein solution is for one in alcohol alone. No bottle has a `reference`: the rows of each sheet give what it prints, and those of `flinn-sds-395` say in which form the statements are stored and why. README.md in this folder gives the attribution the two Wikipedia copies require.",
   "sources": [
     {
       "id": "tamura-1996",
@@ -220,6 +220,117 @@
       ]
     },
     {
+      "id": "flinn-sds-395.2",
+      "url": "https://www.flinnsci.com/sds_395.2-hydrochloric-acid-solution-0.1-m---2.4-m/sds_395.2",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Hydrochloric Acid Solution 0.1 M - 2.4 M, SDS number sds_395.2; revision date December 3, 2018 (read on 2026-10-05; no copy is kept).",
+      "fetchedSha256": "e87543f4779f511cff7a0c1f1c63896c9269d8ac45586be975e4003b4944f3c7",
+      "supports": [
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "0.1 M - 2.4 M",
+          "where": "The sheet's title, after the words Hydrochloric Acid Solution: the strengths the sheet is for. By this title the 51 values of the bottle's label from 0.1000 to 0.1050 M are under this sheet, and the 150 below them under the sheet for less than 0.1 M (`flinn-sds-395.3`). The note rests on both, and says that the acid is handled as this one, the stricter, says: that is the owner's decision of 2026-10-05."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "December 3, 2018",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the note gives it as Danger."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "Causes severe skin burns and eye damage (H314)",
+          "where": "Section 2, the first of the three hazard classes it lists: category 1, for corrosion or irritation of the skin. The note gives the code and says the statement in the project's words."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "May cause respiratory irritation (H335)",
+          "where": "Section 2, the second of the three: category 3, for toxicity to one organ after a single exposure, here irritation of the airways."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "May be harmful if swallowed (H303)",
+          "where": "Section 2, the last of the three: category 5, for acute toxicity by mouth. The section prints no other hazard code. It prints one precautionary statement, whose code begins with P, and after the three classes the sentence on a cancer listing for mists of the acid in industry that the sheet for concentrated acid has: neither of those is a GHS hazard statement, and they are not carried into the record."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "2-10%",
+          "where": "Section 3, the concentration column, in the row for hydrochloric acid, the rest being water. The sheet does not say on what basis the percentage is. Taken by mass, 2% is about 0.55 mol/L (worked out as the note's 0.4% is), so the table starts well above the 0.1 M of the sheet's own title, and above every value of this bottle's label. The note follows the titles, which put the label on both sides of the line between the two sheets, and does not use this figure."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "P280",
+          "where": "Section 8: the precautionary statement that calls for protective gloves, protective clothing and eye protection."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "P271",
+          "where": "Sections 7 and 8: the precautionary statement that the acid is used only in a hood or where the air is well changed."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "P310",
+          "where": "Section 4, after the rinsing of the eyes with water for several minutes: a poison centre or a doctor is to be called at once. The same section says that after contact with the skin or the hair the clothing that was wetted is taken off at once and the skin rinsed with water."
+        },
+        {
+          "field": "primer",
+          "prints": "Hydrochloric Acid Solution 0.1 M - 2.4 M Safety Data Sheet (SDS)",
+          "where": "The sheet's title. The primer's safety card rests on the title and on sections 2, 4 and 8, as the rows above record them."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-395.3",
+      "url": "https://www.flinnsci.com/sds_395.3-hydrochloric-acid-solution-less-than-0.1-m/sds_395.3",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Hydrochloric Acid Solution Less than 0.1 M, SDS number sds_395.3; revision date December 3, 2018 (read on 2026-10-05; no copy is kept).",
+      "fetchedSha256": "ec9b827d09641955c24e33d8cf7004b07f3c37db6ced890b08a36fdc8655eff8",
+      "supports": [
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "Less than 0.1 M",
+          "where": "The sheet's title, after the words Hydrochloric Acid Solution: the strengths the sheet is for. The bottle's label runs from 0.0850 to 0.1050 M, so by this title 150 of its 201 values, those below 0.1000 M, are under this sheet, and the other 51 are under the sheet for 0.1 M to 2.4 M (`flinn-sds-395.2`). The note rests on both."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "December 3, 2018",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "WARNING",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the note gives it as Warning."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "May be harmful if swallowed, inhaled or in contact with skin (H303+H313+H333)",
+          "where": "Section 2, the first of the two hazard classes it lists: category 5, for acute toxicity by mouth, through the skin and by breathing in. The note gives the three codes and says the statement in the project's words."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "Causes skin and eye irritation (H315+H320)",
+          "where": "Section 2, the second and last of the two: categories 2 and 2B, for irritation of the skin and of the eyes. The section prints no other hazard code and no precautionary statement. After the two classes it has the sentence on a cancer listing for mists of the acid in industry that the sheet for concentrated acid has: that sentence carries no hazard code, is not a GHS hazard statement, and is not carried into the record."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "<2%>",
+          "where": "Section 3, the concentration column, in the row for hydrochloric acid, the rest being water; it is printed so, with both brackets. The note's 0.4% is worked out from the molarity and not read here."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "P280",
+          "where": "Section 8: the precautionary statement that calls for protective gloves, protective clothing and eye protection. Section 4 says that eyes are to be rinsed with water for several minutes and skin washed with plenty of water."
+        },
+        {
+          "field": "primer",
+          "prints": "Hydrochloric Acid Solution Less than 0.1 M Safety Data Sheet (SDS)",
+          "where": "The sheet's title. The primer's safety card rests on the title and on sections 2, 4 and 8, as the rows above record them."
+        }
+      ]
+    },
+    {
       "id": "flinn-sds-734",
       "url": "https://www.flinnsci.com/sds_734-sodium-hydroxide/sds_734",
       "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Hydroxide, SDS number sds_734; revision date March 25, 2014 (read on 2026-10-05; no copy is kept).",
@@ -259,6 +370,54 @@
           "field": "primer",
           "prints": "Sodium Hydroxide Safety Data Sheet (SDS)",
           "where": "The sheet's title. The primer's safety card rests on the title and on sections 2 and 3, as the rows above record them."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-735.2",
+      "url": "https://www.flinnsci.com/sds_735.2-sodium-hydroxide-solution-less-than-0.3-m/sds_735.2",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Hydroxide Solution Less than 0.3 M, SDS number sds_735.2; revision date December 3, 2018 (read on 2026-10-05; no copy is kept).",
+      "fetchedSha256": "5c8bd20a5695e1733ef82a15a88af40e79500758859f7cbea96931776a75f88e",
+      "supports": [
+        {
+          "field": "bottles.naoh.hazards.note",
+          "prints": "Less than 0.3 M",
+          "where": "The sheet's title, after the words Sodium Hydroxide Solution: the strengths the sheet is for. The solution on the bench is between 0.0950 and 0.1050 M, all of it under this title, so the note rests on this sheet alone. The supplier's next sheet is for 0.3 M to 6.0 M."
+        },
+        {
+          "field": "bottles.naoh.hazards.note",
+          "prints": "December 3, 2018",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "bottles.naoh.hazards.note",
+          "prints": "WARNING",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the note gives it as Warning."
+        },
+        {
+          "field": "bottles.naoh.hazards.note",
+          "prints": "Causes skin and eye irritation (H315+H320)",
+          "where": "Section 2, the one hazard class it lists: categories 2 and 2B, for irritation of the skin and of the eyes. The section prints no other hazard code, no precautionary statement and no other sentence, so this sheet has nothing that is not carried into the record."
+        },
+        {
+          "field": "bottles.naoh.hazards.note",
+          "prints": "0.4-1.1%",
+          "where": "Section 3, the concentration column, in the row for sodium hydroxide, the rest being water. The sheet does not say on what basis the percentage is. The note's 0.4% is worked out from the molarity and not read here; it is the foot of this range."
+        },
+        {
+          "field": "bottles.naoh.hazards.note",
+          "prints": "P280",
+          "where": "Section 8: the precautionary statement that calls for protective gloves, protective clothing and eye protection."
+        },
+        {
+          "field": "bottles.naoh.hazards.note",
+          "prints": "P305+P351+P338",
+          "where": "Section 4: eyes are to be rinsed with water for several minutes. The same section says that skin is to be washed with plenty of water, and that medical advice is to be sought if irritation of the eyes lasts or irritation of the skin sets in."
+        },
+        {
+          "field": "primer",
+          "prints": "Sodium Hydroxide Solution Less than 0.3 M Safety Data Sheet (SDS)",
+          "where": "The sheet's title. The primer's safety card rests on the title and on sections 2, 4 and 8, as the rows above record them."
         }
       ]
     },
@@ -307,90 +466,6 @@
           "field": "primer",
           "prints": "Phenolphthalein Safety Data Sheet (SDS)",
           "where": "The sheet's title. The primer's safety card rests on the title and on sections 2 and 3, as the rows above record them."
-        }
-      ]
-    },
-    {
-      "id": "fisher-sds-hcl-0.1n",
-      "url": "https://www.fishersci.com/store/msds?partNumber=SA541&productDescription=HYDROCHLORIC+ACID+0.1N+1L&vendorId=VN00033897&countryCode=US&language=en",
-      "citation": "Fisher Scientific Company. Safety Data Sheet: Hydrochloric Acid Solution, 0.1N (Certified), catalogue number SA54; revision 7 of 18 December 2025 (retrieved 2026-10-04).",
-      "supports": [
-        {
-          "field": "bottles.hcl.hazards.note",
-          "prints": "29 CFR 1910.1200",
-          "where": "The head of the first page, above section 1: the rule the sheet says it was drawn up under, the United States hazard communication standard of 2024. The sheet's classification in section 2 is made under that rule."
-        },
-        {
-          "field": "bottles.hcl.hazards.note",
-          "prints": "Warning",
-          "where": "Section 2, label elements: the signal word."
-        },
-        {
-          "field": "bottles.hcl.hazards.note",
-          "prints": "Category 2",
-          "where": "Section 2, classification: the category for skin corrosion or irritation, and again for serious eye damage or eye irritation. The hazard statements under the signal word say that the solution irritates the skin and causes serious irritation of the eyes."
-        },
-        {
-          "field": "bottles.hcl.hazards.note",
-          "prints": "Category 1",
-          "where": "Section 2, classification: the category for corrosion of metals, with a hazard statement that the solution may corrode them."
-        },
-        {
-          "field": "bottles.hcl.hazards.note",
-          "prints": "<2.0",
-          "where": "Section 3: the weight percent of hydrochloric acid in the solution, the rest being water. The sheet gives no closer figure, so the note's 0.4% is worked out and not read."
-        },
-        {
-          "field": "bottles.hcl.hazards.note",
-          "prints": "15 minutes",
-          "where": "Section 4, first aid: the least time to rinse the eyes, and to wash the skin, with plenty of water."
-        },
-        {
-          "field": "bottles.hcl.hazards.note",
-          "prints": "Eye/face Protection",
-          "where": "Section 8: the heading of the row that calls for protective glasses or goggles. The row after it calls for gloves and protective clothing."
-        },
-        {
-          "field": "primer",
-          "prints": "4. First-aid measures",
-          "where": "The heading of section 4. The primer's safety card rests on this section and on sections 2 and 8, as the rows above record them."
-        }
-      ]
-    },
-    {
-      "id": "fisher-sds-naoh-0.1n",
-      "url": "https://www.fishersci.com/store/msds?partNumber=SS2761&productDescription=SODIUM+HYDROXIDE+0.1N+1L&vendorId=VN00033897&countryCode=US&language=en",
-      "citation": "Fisher Scientific Company. Safety Data Sheet: Sodium hydroxide solutions, 0.1N, catalogue number SS276; revision 7 of 18 December 2025 (retrieved 2026-10-04).",
-      "supports": [
-        {
-          "field": "bottles.naoh.hazards.note",
-          "prints": "29 CFR 1910.1200",
-          "where": "The head of the first page, above section 1: the rule the sheet says it was drawn up under, the United States hazard communication standard of 2024."
-        },
-        {
-          "field": "bottles.naoh.hazards.note",
-          "prints": "None required",
-          "where": "Section 2, label elements. The classification above it says that the product is not considered hazardous under the United States hazard communication standard of 2024."
-        },
-        {
-          "field": "bottles.naoh.hazards.note",
-          "prints": "0.04 - 0.4",
-          "where": "Section 3: the weight percent of sodium hydroxide in the solution, the rest being water. The note's 0.4% is worked out and not read; it is the top of this range."
-        },
-        {
-          "field": "bottles.naoh.hazards.note",
-          "prints": "15 minutes",
-          "where": "Section 4, first aid: the least time to rinse the eyes, and to wash the skin, with plenty of water."
-        },
-        {
-          "field": "bottles.naoh.hazards.note",
-          "prints": "Eye/face Protection",
-          "where": "Section 8: the heading of the row that calls for protective glasses or goggles. The row after it calls for gloves and protective clothing."
-        },
-        {
-          "field": "primer",
-          "prints": "4. First-aid measures",
-          "where": "The heading of section 4. The primer's safety card rests on this section and on sections 2 and 8, as the rows above record them."
         }
       ]
     },

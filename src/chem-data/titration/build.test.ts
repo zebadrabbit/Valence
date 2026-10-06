@@ -144,8 +144,9 @@ describe('checkSheetHazards', () => {
   )
 
   it('refuses a source whose rows say nothing of the bottle, or give two signal words', () => {
+    // The sheet under the acid's note has rows for the note, and none for the bottle's own signal word and statements.
     const other: Sheet = manifest.sources.find((source) => source.id === hcl.hazards.note.sourceId)!
-    expect(() => checkSheetHazards(other, field, hcl.hazards)).toThrow(/"fisher-sds-hcl-0\.1n" has 0 rows for bottles\.hcl\.hazards\.signalWord, expected 1/)
+    expect(() => checkSheetHazards(other, field, hcl.hazards)).toThrow(/"flinn-sds-395\.2" has 0 rows for bottles\.hcl\.hazards\.signalWord, expected 1/)
     const twice = { ...sheet, supports: [...sheet.supports, sheet.supports.find((row) => row.field === `${field}.signalWord`)!] }
     expect(() => checkSheetHazards(twice, field, hcl.hazards)).toThrow(/has 2 rows for bottles\.hcl\.hazards\.signalWord, expected 1/)
   })

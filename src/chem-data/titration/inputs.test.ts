@@ -296,34 +296,111 @@ describe('the titration inputs: bottles', () => {
     expect((input.constants.indicatorMolarMass as Constant).sourceId).toBe('pubchem-cid-4764')
   })
 
-  it('rests each hazard note on a data sheet of its own, not on the source of the statements', () => {
-    for (const [key, bottle] of bottles) {
-      expect([key, bottle.hazards.note.sourceId]).not.toEqual([key, bottle.hazards.sourceId])
-      expect([key, /^(fisher|ricca)-sds-/.test(bottle.hazards.note.sourceId)]).toEqual([key, true])
+  // The notes (D4, as the owner answered questions 6 and 11 of Gate A on 2026-10-05): each rests on the same
+  // supplier's sheet or sheets for the strength on this bench, where the supplier has one for that solution.
+  const noteSources = (key: 'hcl' | 'naoh' | 'indicator') => {
+    const { note } = input.bottles[key].hazards
+    return [note.sourceId, ...(note.alsoSourceId === undefined ? [] : [note.alsoSourceId])]
+  }
+  const noteRows = (key: 'hcl' | 'naoh' | 'indicator') => noteSources(key).flatMap((id) => source(id)!.supports.filter((row) => row.field === `bottles.${key}.hazards.note`))
+  /** The strengths a sheet's title gives it, in mol/L: [from, below]. */
+  const TITLE = { 'flinn-sds-395.3': 'Less than 0.1 M', 'flinn-sds-395.2': '0.1 M - 2.4 M', 'flinn-sds-735.2': 'Less than 0.3 M' } as const
+
+  it('rests each hazard note on a data sheet for the solution, not on the sheet the statements come from: two for the acid, one each for the others', () => {
+    expect(noteSources('hcl')).toEqual(['flinn-sds-395.2', 'flinn-sds-395.3'])
+    expect(noteSources('naoh')).toEqual(['flinn-sds-735.2'])
+    expect(noteSources('indicator')).toEqual(['ricca-sds-5600'])
+    for (const key of KEYS) expect([key, noteSources(key).includes(input.bottles[key].hazards.sourceId)]).toEqual([key, false])
+    // Each of those sheets is read and not kept, and says in its title what solution it is for.
+    for (const id of Object.keys(TITLE) as (keyof typeof TITLE)[]) {
+      const s = source(id)!
+      expect([id, s.file, /^[0-9a-f]{64}$/.test(s.fetchedSha256 ?? ''), /\(read on 2026-10-05; no copy is kept\)\.$/.test(s.citation)]).toEqual([id, undefined, true, true])
+      expect([id, s.citation.includes(TITLE[id]), s.supports.some((row) => row.prints === TITLE[id])]).toEqual([id, true, true])
+      expect([id, s.url.startsWith(`https://www.flinnsci.com/sds_${id.slice('flinn-sds-'.length)}-`), s.url.endsWith(`/sds_${id.slice('flinn-sds-'.length)}`)]).toEqual([id, true, true])
     }
   })
 
-  it('tells the sheet under the HCl bottle\'s note from the sheet its statements come from, and keeps what the note said', () => {
+  it("puts the acid's label on both sides of the line between the two sheets its note rests on, and the base's wholly under one sheet", () => {
+    // The acid: 201 labels from 0.0850 to 0.1050 M. One sheet's title stops below 0.1 M and the other's starts at it.
+    const [low, high] = input.parameters.hclRangeE4!.value as [number, number]
+    expect([low, high]).toEqual([850, 1050])
+    const labels = Array.from({ length: high - low + 1 }, (_, i) => low + i)
+    expect([labels.filter((label) => label < 1000).length, labels.filter((label) => label >= 1000).length]).toEqual([150, 51])
+    // The base: 0.09500 to 0.10500 M, all of it under a title that says less than 0.3 M.
+    const [from, to] = input.parameters.naohRangeE5!.value as [number, number]
+    expect([from, to]).toEqual([9500, 10500])
+    expect(to).toBeLessThan(30000)
+  })
+
+  it("says in the HCl bottle's note what each of the two sheets gives, that the bench's acid sits at the line between them, and that it is handled as the stricter one says", () => {
     const { value } = input.bottles.hcl.hazards.note
-    expect(value).toMatch(/A supplier's safety data sheet for hydrochloric acid of this strength, which is not the sheet the statements above come from/)
-    expect(value).toMatch(/gives the signal word Warning, not Danger: it says the solution irritates the skin, causes serious eye irritation and may corrode metals\./)
-    expect(value).toMatch(/That sheet calls for eye protection and gloves, and says that a splash in the eyes or on the skin is to be flushed with a lot of water, for 15 minutes or longer\.$/)
-    expect(input.bottles.hcl.hazards.note.sourceId).toBe('fisher-sds-hcl-0.1n')
+    expect(value).toMatch(/Its label reads between 0\.0850 and 0\.1050 mol\/L/)
+    expect(value).toMatch(/this acid sits at the line between two of them/)
+    // Each sheet by the strengths in its title, with its signal word and every one of its codes.
+    const [under, over] = value.split('The sheet for 0.1 M to 2.4 M').map((part, i) => (i === 0 ? part.slice(part.indexOf('The sheet for less than 0.1 M')) : part.slice(0, part.indexOf('Handle this acid'))))
+    expect(under).toMatch(/^The sheet for less than 0\.1 M gives the signal word Warning and two statements/)
+    expect(under!.match(/H\d{3}/g)).toEqual(['H303', 'H313', 'H333', 'H315', 'H320'])
+    expect(over).toMatch(/^ gives the signal word Danger and three statements/)
+    expect(over!.match(/H\d{3}/g)).toEqual(['H314', 'H335', 'H303'])
+    expect(value).toMatch(/Handle this acid as the stricter sheet says, the one that gives Danger\./)
+    // It does not make the acid sound milder than the stricter sheet does.
+    expect(value).not.toMatch(/mild|not Danger|harmless|only an? irritant|weak|safe\b/i)
+    expect(value).not.toMatch(/hazard communication standard|15 minutes/)
   })
 
-  it("says which country's rule the two suppliers' sheets under the notes classify under: the base's statements come from another system, and the sheet the acid's come from does not name its rule", () => {
-    expect(JSON.stringify(sheet)).not.toMatch(/1910\.1200/)
-    expect(sheet.supports.map((row) => row.where).join(' ')).toMatch(/does not say which rule its classification is made under/)
+  it("says in the NaOH bottle's note what the one sheet that covers its strength gives: Warning, and irritation of the skin and the eyes", () => {
+    const { value } = input.bottles.naoh.hazards.note
+    expect(value).toMatch(/The same supplier's sheet for sodium hydroxide solutions of less than 0\.3 M, which covers this strength, gives the signal word Warning and one statement, under the codes H315 and H320: the solution irritates the skin and the eyes\./)
+    // The sheet it rested on before did not class the solution as hazardous; this one does, and the note no longer says otherwise.
+    expect(value).not.toMatch(/does not classify|no hazard label|harmless|hazard communication standard|15 minutes/)
+  })
+
+  it("keeps the indicator's note on the sheet it rested on, another supplier's, for a solution of the strength and solvent the bottle is taken to be, and says so", () => {
+    const { value } = input.bottles.indicator.hazards.note
+    expect(value).toMatch(/A safety data sheet for a solution of that kind, from a different supplier than the statements above, gives the signal word Danger and the statements H226, H319, H350, H360 and H371/)
+    // The sheet is for 0.5% (w/v) in 50% alcohol; the statements' supplier's sheet for a phenolphthalein solution is for one in alcohol alone, and is no source of the record.
+    expect(source('ricca-sds-5600')!.citation).toMatch(/0\.5% \(w\/v\) in 50% \(v\/v\) Alcohol/)
+    expect(manifest.sources.filter((s) => /sds_592|flinn-sds-592/.test(JSON.stringify(s)))).toEqual([])
+  })
+
+  it('names in a note no hazard code and no signal word that a row of its own sheet or sheets does not print', () => {
+    for (const key of KEYS) {
+      const printed = noteRows(key).map((row) => row.prints).join(' | ')
+      const { value } = input.bottles[key].hazards.note
+      const codes = [...new Set(value.match(/H\d{3}/g))]
+      expect([key, codes.length > 0, codes.filter((code) => !printed.includes(code))]).toEqual([key, true, []])
+      const words = [...new Set(value.match(/\b(Danger|Warning)\b/g))]
+      expect([key, words.length > 0, words.filter((word) => !noteRows(key).some((row) => row.prints.toLowerCase() === word.toLowerCase()))]).toEqual([key, true, []])
+    }
+    // And the other way for the supplier's three sheets: every statement a row prints, with its codes, is in the note.
     for (const key of ['hcl', 'naoh'] as const) {
-      const { note } = input.bottles[key].hazards
-      expect([key, /classifies under the United States hazard communication standard/.test(note.value)]).toEqual([key, true])
-      expect([key, source(note.sourceId)?.supports.some((row) => row.field === `bottles.${key}.hazards.note` && row.prints === '29 CFR 1910.1200')]).toEqual([key, true])
+      const lines = noteRows(key).map((row) => row.prints).filter((prints) => /\(H\d{3}/.test(prints))
+      expect([key, lines.length]).toEqual([key, key === 'hcl' ? 5 : 1])
+      for (const line of lines) for (const code of line.match(/H\d{3}/g)!) expect([key, code, input.bottles[key].hazards.note.value.includes(code)]).toEqual([key, code, true])
     }
   })
 
-  it("calls each note's sheet a supplier's sheet for a solution of that kind, since which product is on this bench is assumed and not established", () => {
+  it('says of no sheet which rule it classifies under: none of the supplier\'s sheets names one, and the two that did are no longer sources', () => {
+    expect(manifest.sources.filter((s) => /^fisher-/.test(s.id) || /fishersci/.test(s.url))).toEqual([])
+    expect(JSON.stringify(manifest)).not.toMatch(/1910\.1200/)
+    for (const s of manifest.sources.filter((s) => s.id.startsWith('flinn-sds-'))) {
+      expect([s.id, s.supports.some((row) => /does not say which rule its classification is made under/.test(row.where))]).toEqual([s.id, true])
+    }
+    for (const key of KEYS) expect([key, /hazard communication standard|United States|European/.test(input.bottles[key].hazards.note.value)]).toEqual([key, false])
+  })
+
+  it("says in the manifest, in one line for each of the supplier's sheets under a note, what its hazard section prints that is not a hazard statement, and that it is not carried", () => {
+    for (const id of Object.keys(TITLE)) {
+      const rows = source(id)!.supports
+      expect([id, rows.filter((row) => /not carried into the record/.test(row.where)).length]).toEqual([id, 1])
+      expect([id, /carcinogen|IARC/i.test(JSON.stringify(source(id)))]).toEqual([id, false])
+    }
+    for (const key of KEYS) expect([key, /cancer listing|mists/i.test(input.bottles[key].hazards.note.value)]).toEqual([key, false])
+  })
+
+  it("names each note's sheet by the solution the sheet is for, and says nothing of whose product is on this bench, which is assumed and not established", () => {
     for (const [key, bottle] of bottles) {
-      expect([key, /A supplier's safety data sheet for /.test(bottle.hazards.note.value)]).toEqual([key, true])
+      expect([key, /Flinn|Ricca|Fisher|product|bought|purchas|\bstocks?\b/i.test(bottle.hazards.note.value)]).toEqual([key, false])
       expect([key, /The supplier's/.test(bottle.hazards.note.value)]).toEqual([key, false])
     }
     // The strength's own note says the bottle being such a solution is an assumption; the hazard note may not say more.

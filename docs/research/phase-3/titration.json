@@ -13,8 +13,9 @@
           "H290: May be corrosive to metals"
         ],
         "note": {
-          "value": "The acid on this bench is about 0.1 mol/L, which is about 0.4% hydrogen chloride by mass (worked out from the molarity, not read from a source). A supplier's safety data sheet for hydrochloric acid of this strength, which is not the sheet the statements above come from and which classifies under the United States hazard communication standard, gives the signal word Warning, not Danger: it says the solution irritates the skin, causes serious eye irritation and may corrode metals. That sheet calls for eye protection and gloves, and says that a splash in the eyes or on the skin is to be flushed with a lot of water, for 15 minutes or longer.",
-          "sourceId": "fisher-sds-hcl-0.1n"
+          "value": "The acid on this bench is about 0.1 mol/L, which is about 0.4% hydrogen chloride by mass (worked out from the molarity, not read from a source). Its label reads between 0.0850 and 0.1050 mol/L, and the same supplier's sheets for dilute hydrochloric acid change at 0.1 M, so this acid sits at the line between two of them. The sheet for less than 0.1 M gives the signal word Warning and two statements: under the codes H303, H313 and H333, that the solution may be harmful if it is swallowed, breathed in or gets on the skin; and under H315 and H320, that it irritates the skin and the eyes. The sheet for 0.1 M to 2.4 M gives the signal word Danger and three statements: under H314, that the solution burns the skin severely and damages the eyes; under H335, that it may irritate the airways; and under H303, that it may be harmful if swallowed. Handle this acid as the stricter sheet says, the one that gives Danger. Both sheets call for eye protection, gloves and protective clothing, and the stricter one for working in a fume hood or a well-ventilated room. The stricter sheet says that a splash in the eyes is to be rinsed with water for several minutes and a poison centre or a doctor called at once, and that after a splash on the skin the wet clothing is to come off at once and the skin be rinsed with water.",
+          "sourceId": "flinn-sds-395.2",
+          "alsoSourceId": "flinn-sds-395.3"
         },
         "sourceId": "flinn-sds-395"
       }
@@ -31,8 +32,8 @@
           "H290: May be corrosive to metals"
         ],
         "note": {
-          "value": "The solution on this bench is about 0.1 mol/L, which is about 0.4% sodium hydroxide by mass (worked out from the molarity, not read from a source). A supplier's safety data sheet for a sodium hydroxide solution of this strength, which classifies under the United States hazard communication standard, does not classify it as hazardous and asks for no hazard label. The sheet still calls for eye protection and gloves, and says that a splash in the eyes or on the skin is to be flushed with a lot of water, for 15 minutes or longer.",
-          "sourceId": "fisher-sds-naoh-0.1n"
+          "value": "The solution on this bench is about 0.1 mol/L, which is about 0.4% sodium hydroxide by mass (worked out from the molarity, not read from a source). The same supplier's sheet for sodium hydroxide solutions of less than 0.3 M, which covers this strength, gives the signal word Warning and one statement, under the codes H315 and H320: the solution irritates the skin and the eyes. The sheet calls for eye protection, gloves and protective clothing. It says that a splash in the eyes is to be rinsed with water for several minutes and a splash on the skin washed off with plenty of water, and that medical advice is to be sought if the eyes stay irritated or the skin becomes irritated.",
+          "sourceId": "flinn-sds-735.2"
         },
         "sourceId": "flinn-sds-734"
       }
@@ -50,7 +51,7 @@
           "H361: Suspected of damaging fertility or the unborn child"
         ],
         "note": {
-          "value": "The indicator on this bench is taken to be a 0.5% (w/v) solution in 50% alcohol, used two or three drops at a time. A supplier's safety data sheet for a solution of that kind gives the signal word Danger and the statements H226, H319, H350, H360 and H371: the liquid and its vapour are flammable, it seriously irritates the eyes, and it may cause cancer, harm fertility or an unborn child, and harm organs. The sheet lists its solution as water and ethanol with a little methanol and 0.56% phenolphthalein by weight. It calls for gloves and eye protection, and for keeping the solution away from flames and other sources of ignition.",
+          "value": "The indicator on this bench is taken to be a 0.5% (w/v) solution in 50% alcohol, used two or three drops at a time. A safety data sheet for a solution of that kind, from a different supplier than the statements above, gives the signal word Danger and the statements H226, H319, H350, H360 and H371: the liquid and its vapour are flammable, it seriously irritates the eyes, and it may cause cancer, harm fertility or an unborn child, and harm organs. The sheet lists its solution as water and ethanol with a little methanol and 0.56% phenolphthalein by weight. It calls for gloves and eye protection, and for keeping the solution away from flames and other sources of ignition.",
           "sourceId": "ricca-sds-5600"
         },
         "sourceId": "flinn-sds-591"

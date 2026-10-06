@@ -365,24 +365,29 @@
     "citation": "Flinn Scientific, Inc. Safety Data Sheet: Hydrochloric Acid 6 M - 12 M (Concentrated), SDS number sds_395; revision date December 3, 2018 (read on 2026-10-05; no copy is kept)."
   },
   {
+    "id": "flinn-sds-395.2",
+    "url": "https://www.flinnsci.com/sds_395.2-hydrochloric-acid-solution-0.1-m---2.4-m/sds_395.2",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Hydrochloric Acid Solution 0.1 M - 2.4 M, SDS number sds_395.2; revision date December 3, 2018 (read on 2026-10-05; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-395.3",
+    "url": "https://www.flinnsci.com/sds_395.3-hydrochloric-acid-solution-less-than-0.1-m/sds_395.3",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Hydrochloric Acid Solution Less than 0.1 M, SDS number sds_395.3; revision date December 3, 2018 (read on 2026-10-05; no copy is kept)."
+  },
+  {
     "id": "flinn-sds-734",
     "url": "https://www.flinnsci.com/sds_734-sodium-hydroxide/sds_734",
     "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Hydroxide, SDS number sds_734; revision date March 25, 2014 (read on 2026-10-05; no copy is kept)."
   },
   {
+    "id": "flinn-sds-735.2",
+    "url": "https://www.flinnsci.com/sds_735.2-sodium-hydroxide-solution-less-than-0.3-m/sds_735.2",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Hydroxide Solution Less than 0.3 M, SDS number sds_735.2; revision date December 3, 2018 (read on 2026-10-05; no copy is kept)."
+  },
+  {
     "id": "flinn-sds-591",
     "url": "https://www.flinnsci.com/sds_591-phenolphthalein/sds_591",
     "citation": "Flinn Scientific, Inc. Safety Data Sheet: Phenolphthalein, SDS number sds_591; revision date April 1, 2015 (read on 2026-10-05; no copy is kept)."
-  },
-  {
-    "id": "fisher-sds-hcl-0.1n",
-    "url": "https://www.fishersci.com/store/msds?partNumber=SA541&productDescription=HYDROCHLORIC+ACID+0.1N+1L&vendorId=VN00033897&countryCode=US&language=en",
-    "citation": "Fisher Scientific Company. Safety Data Sheet: Hydrochloric Acid Solution, 0.1N (Certified), catalogue number SA54; revision 7 of 18 December 2025 (retrieved 2026-10-04)."
-  },
-  {
-    "id": "fisher-sds-naoh-0.1n",
-    "url": "https://www.fishersci.com/store/msds?partNumber=SS2761&productDescription=SODIUM+HYDROXIDE+0.1N+1L&vendorId=VN00033897&countryCode=US&language=en",
-    "citation": "Fisher Scientific Company. Safety Data Sheet: Sodium hydroxide solutions, 0.1N, catalogue number SS276; revision 7 of 18 December 2025 (retrieved 2026-10-04)."
   },
   {
     "id": "ricca-sds-5600",

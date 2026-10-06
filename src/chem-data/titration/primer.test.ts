@@ -340,7 +340,13 @@ describe('the titration primer: what it has to say', () => {
     const ids = new Set(safety.paragraphs.flatMap((p) => p.sourceIds))
     for (const [key, bottle] of Object.entries(titrationData.bottles)) {
       expect([key, ids.has(bottle.hazards.sourceId), ids.has(bottle.hazards.note.sourceId)]).toEqual([key, true, true])
+      // A note that rests on two sheets has both under the card.
+      expect([key, bottle.hazards.note.alsoSourceId === undefined || ids.has(bottle.hazards.note.alsoSourceId)]).toEqual([key, true])
     }
+    // And the card rests on no sheet that no bottle cites: the sheets it rested on before the owner's answer of 2026-10-05 are gone.
+    const cited = new Set(Object.values(titrationData.bottles).flatMap(({ hazards }) => [hazards.sourceId, hazards.note.sourceId, hazards.note.alsoSourceId]))
+    expect([...ids].filter((id) => /sds/.test(id) && !cited.has(id))).toEqual([])
+    expect([...ids].filter((id) => /fisher|pubchem/.test(id))).toEqual([])
     // The acid bottle's statements are a sheet's for concentrated hydrochloric acid, not those of a pure substance (D4, as the owner confirmed it on 2026-10-05).
     expect(shown('safety')).not.toMatch(/pure hydrochloric|pure hydrogen chloride/)
     expect(shown('safety')).toMatch(/replaces/)
@@ -386,12 +392,40 @@ describe('the titration primer: what it has to say', () => {
     expect(support).not.toMatch(/The entries read do not say|does not say at what strength/)
   })
 
-  it('does not leave the dilute base as the harmless one of the pair: its sheet does not class it as hazardous, and the card says at once what that sheet still asks for', () => {
-    const { text, support } = section('safety').paragraphs[1]!
-    expect(text).toMatch(/does not class it as hazardous\. That is not the same as harmless: that sheet too calls for eye protection and gloves, and both sheets say that a splash on the skin or in the eyes is to be flushed with a lot of water/)
-    // It says no more than the sheet does, as the bottle's note and the paragraph's support line report it.
-    expect(titrationData.bottles.naoh.hazards.note.value).toMatch(/The sheet still calls for eye protection and gloves, and says that a splash in the eyes or on the skin is to be flushed with a lot of water/)
-    expect(support).toMatch(/fisher-sds-naoh-0\.1n: .*gloves are still to be worn/)
+  it("says of the dilute acid and base what the supplier's sheets for their strength give, every statement of each: the acid at the line between two sheets and treated as the stricter says, the base an irritant", () => {
+    const { text, support, sourceIds } = section('safety').paragraphs[1]!
+    const { hcl, naoh } = titrationData.bottles
+    // The two sentences the paragraph opened with stand as they were.
+    expect(text).toMatch(/^In a real laboratory this experiment is done wearing eye protection and gloves\. The acid and the base are dilute, about 0\.1 M\. Even so, /)
+    // It rests on the sheets under the two bottles' notes, and on the lab page that says what students wear.
+    expect(sourceIds).toEqual([hcl.hazards.note.alsoSourceId, hcl.hazards.note.sourceId, naoh.hazards.note.sourceId, 'smc-equivalent-mass-lab'])
+    expect(sourceIds.slice(0, 3)).toEqual(['flinn-sds-395.3', 'flinn-sds-395.2', 'flinn-sds-735.2'])
+    // The acid: both sheets, each by its strengths and with every statement of it, and which one to go by.
+    expect(text).toMatch(/The acid's strength sits at the line between two of the sheets\./)
+    const under = /The one for hydrochloric acid of less than 0\.1 M says ([^.]+)\./.exec(text)![1]!
+    for (const said of [/irritates the skin and the eyes/, /may be harmful if it is swallowed, breathed in or gets on the skin/]) expect([String(said), said.test(under)]).toEqual([String(said), true])
+    const over = /The one for 0\.1 M to 2\.4 M says ([^.]+)\./.exec(text)![1]!
+    for (const said of [/burns the skin severely and damages the eyes/, /may irritate the airways/, /may be harmful if swallowed/]) expect([String(said), said.test(over)]).toEqual([String(said), true])
+    expect(text).toMatch(/Treat the acid as the stricter sheet says\./)
+    // The base: its sheet classes it as an irritant, and the card no longer says that a sheet does not class it as hazardous.
+    expect(text).toMatch(/The sheet for sodium hydroxide solutions of less than 0\.3 M says that the solution irritates the skin and the eyes\./)
+    expect(text).not.toMatch(/does not class it as hazardous|not the same as harmless|15 minutes|flushed/)
+    // What all three sheets ask for, in the words the two notes use.
+    expect(text).toMatch(/All three sheets call for eye protection, gloves and protective clothing, and say that a splash in the eyes is to be rinsed with water for several minutes and a splash on the skin washed off with water\.$/)
+    for (const note of [hcl.hazards.note.value, naoh.hazards.note.value]) {
+      expect(note).toMatch(/eye protection, gloves and protective clothing/)
+      expect(note).toMatch(/rinsed with water for several minutes/)
+    }
+    // The card is in the lab's own words; the codes are in the notes. Its support lines give every code the notes give.
+    expect(text).not.toMatch(/H\d{3}|Warning|Danger/)
+    const lines = support.split('\n')
+    const codesIn = (texts: string) => [...new Set(texts.match(/H\d{3}/g))].sort()
+    expect(codesIn(lines.slice(0, 2).join(' '))).toEqual(codesIn(hcl.hazards.note.value))
+    expect(codesIn(lines[2]!)).toEqual(codesIn(naoh.hazards.note.value))
+    expect(lines[0]).toMatch(/^flinn-sds-395\.3: .*signal word Warning/)
+    expect(lines[1]).toMatch(/^flinn-sds-395\.2: .*signal word Danger/)
+    expect(lines[2]).toMatch(/^flinn-sds-735\.2: .*signal word Warning/)
+    expect(support).toMatch(/This lab: .*0\.0850 to 0\.1050 M/)
   })
 
   it("says of the indicator all that its bottle says, and which is which: the three statements of the pure substance, and each of the five hazards that a sheet for the solution lists, which the bottle's note gives with their codes", () => {
