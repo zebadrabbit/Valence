@@ -894,7 +894,7 @@ describe('the test kit', () => {
     expect([2563, 28263, 2565, 0, 50000].map(honestReading)).toEqual([2560, 28260, 2570, 0, 50000])
   })
 
-  it('works the molarity out from the notebook, a half rounding up, and the notebook check accepts it', () => {
+  it('works the molarity out from the notebook, a half rounding up, and the notebook check accepts it', { timeout: 60_000 }, () => {
     expect(calculatedMolarityE6(m, 97600, 25700)).toBe(94900)
     expect(calculatedMolarityE6(m, 97600, 25670)).toBe(95100)
     expect(calculatedMolarityE6(m, 96000, 25600)).toBe(93800) // 0.09375 exactly

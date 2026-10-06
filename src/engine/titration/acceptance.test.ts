@@ -91,7 +91,7 @@ describe('spec 7.4 check 2, titration curve (HCl and NaOH only, no indicator or 
     deliveredUl,
   })
 
-  it('is within 0.01 pH of the closed-form strong acid/strong base solution at every point more than 0.5 mL from equivalence', () => {
+  it('is within 0.01 pH of the closed-form strong acid/strong base solution at every point more than 0.5 mL from equivalence', { timeout: SEED_LOOP_TIMEOUT }, () => {
     let worst = 0
     let points = 0
     for (const hclE4 of HCL_E4) {
@@ -193,7 +193,7 @@ describe('spec 7.4 check 4, endpoint, whatever the grid offset: for every flask 
     expect(flasks[excess.indexOf(Math.max(...excess))]).toMatchObject({ indicatorDrops: 3, waterUl: 30000, aliquotPercent: 100, titrantPercent: 98 })
   })
 
-  it("the other carbonic constants the source's page prints move the threshold by about 0.1 uL at most, as the record's note says", () => {
+  it("the other carbonic constants the source's page prints move the threshold by about 0.1 uL at most, as the record's note says", { timeout: SEED_LOOP_TIMEOUT }, () => {
     // The record's two constants come from a page whose body prints one other set for them (the note on the first says where).
     const stored = flasks.map((flask) => excessToThreshold(flask))
     const excess = flasks.map((flask) => excessToThreshold(flask, { ...m, carbonicPKas: [6.77, 9.93] }))

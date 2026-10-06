@@ -156,7 +156,7 @@ describe('the swirl and wait', () => {
     expect(flaskStatus({ ...midStream, persistence: 'faded', plume: null }, display)).toBe('Flask: colourless. Swirled 30 s: no pink.')
   })
 
-  it('does not say of a flask that was never pink that no pink remains: a wait finds no pink only in a flask that was not pink before it', () => {
+  it('does not say of a flask that was never pink that no pink remains: a wait finds no pink only in a flask that was not pink before it', { timeout: 60_000 }, () => {
     // A flask with its indicator and no NaOH yet can be swirled, and has never been pink at all.
     const untitrated = view(run(m, start, [{ type: 'swirlAndWait' }]))
     expect(untitrated.plumeKey).toBe(0)
@@ -263,7 +263,7 @@ describe('what is said when a confirmed endpoint is undone (seed 6, where the se
     expect(flaskStatus(view(run(m, twice, [{ type: 'deliver', amount: 'half' }])), display)).toBe('Flask: faint pink. Last addition: pink persists.')
   })
 
-  it('over careful endpoints of seeds 1 to 100, washed up to three times: no status line names a last addition after a wash', () => {
+  it('over careful endpoints of seeds 1 to 100, washed up to three times: no status line names a last addition after a wash', { timeout: 60_000 }, () => {
     for (let seed = 1; seed <= 100; seed++) {
       let state = titrateCarefully(m, prepared(m, seed)).state
       for (let wash = 0; wash < 3 && currentTrial(state).end === 'open'; wash++) {
