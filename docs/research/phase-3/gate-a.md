@@ -474,6 +474,11 @@ After the changes made on the owner's answer, someone who had not made them chec
 - Reproduced: the acid's note cites `flinn-sds-395.2` and, as its second source, `flinn-sds-395.3`; it has no "That sheet" and names no rule; the manifest has no entry for the sheet for 0.1 N acid; and a case in `inputs.test.ts` refuses the name of that rule in any note.
 - Done: the two items are marked as replaced on the owner's answer on the supplier's sheets, in the way this record marks other superseded text, and say what replaced them; the list's heading says that two of its items are so marked. The reviewers' line has the same kind of bracket as the line above it. No other item of that list is out of date: each was read against the record as it stands.
 
+**B6 (should-fix). The plan's account of the safety card still gave the indicator's third statement as it was before the move.** Task 10 of the plan said that the card calls phenolphthalein suspected of damaging fertility. The card and the bottle say fertility or an unborn child, since the sheet's statement is under H361 and has both halves. The same passage of the plan had been brought up to date for the acid and the base.
+
+- Reproduced: the sentence in the plan, beside the first sentence of the card's fourth paragraph, the bottle's third statement, and sds_591, read again.
+- Done: the plan's sentence now says what the card says, and that it said fertility alone while the bottle carried H361f. The plan and the spec were searched for any other account of that statement as it was; the three places that still name H361f each say that it is what the bottle carried before.
+
 ## What the reviewers confirmed
 
 **Constants and sources (R1).**
