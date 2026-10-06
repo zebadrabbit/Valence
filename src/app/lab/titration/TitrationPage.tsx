@@ -101,6 +101,8 @@ export function TitrationPage() {
   const [asked, setAsked] = useState<Asked | null>(null)
   // The action the learner went on with after a warning, for the bench to say, until the next action.
   const [confirmed, setConfirmed] = useState<AskedAction | null>(null)
+  // Counts what the notebook has done, for the bench, whose message line is then of the bench as it was before.
+  const [notebookDone, setNotebookDone] = useState(0)
   const warningRef = useRef<HTMLDivElement>(null)
   const resultRef = useRef<HTMLElement>(null)
   const benchRef = useRef<HTMLElement>(null)
@@ -154,9 +156,15 @@ export function TitrationPage() {
     if (decision.kind === 'do') dispatch(action)
     return decision
   }
+  /** An action taken in the notebook. */
+  const fromNotebook = (action: Action): Decision => {
+    const decision = attempt(action)
+    if (decision.kind === 'do') setNotebookDone((count) => count + 1)
+    return decision
+  }
   /** A typed entry of the notebook: what a refusal says is put under its field. */
   const entry = (action: Action, field: keyof typeof INVALID_ENTRY_TEXT, accepted = ''): EntryReply => {
-    const decision = attempt(action)
+    const decision = fromNotebook(action)
     return decision.kind === 'do' ? { accepted: true, text: accepted } : { accepted: false, text: decision.kind === 'refuse' ? blockedText(decision.reason, field) : '' }
   }
   const onReading = (readingUl: number): ReadingReply => {
@@ -200,6 +208,7 @@ export function TitrationPage() {
           onReading={onReading}
           confirmed={confirmed}
           notice={asked && <WarningGroup ref={warningRef} asked={asked} onBack={() => answer(false)} onGoOn={() => answer(true)} />}
+          notebookDone={notebookDone}
         />
       }
       notebook={
@@ -209,7 +218,7 @@ export function TitrationPage() {
           state={lab}
           onHclMolarity={(molarityE6) => entry({ type: 'recordHclMolarity', molarityE6 }, 'hcl-molarity', hclRecordedText(molarityE6))}
           onMolarity={(molarityE6) => entry({ type: 'submitMolarity', molarityE6 }, 'molarity')}
-          onDiscard={() => attempt({ type: 'discardTrial' })}
+          onDiscard={() => fromNotebook({ type: 'discardTrial' })}
           onNextTrial={() => attempt({ type: 'startNextTrial' })}
           onSummary={(meanE6, deviationE2) => entry({ type: 'recordSummary', meanE6, deviationE2 }, 'molarity')}
           resultRef={resultRef}

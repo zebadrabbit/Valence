@@ -31,6 +31,8 @@ export interface TitrationBenchProps {
   confirmed?: BenchAction | Extract<Action, { type: 'recordInitialReading' }> | null
   /** A Guided warning, drawn under the message line. Nothing else goes here. */
   notice?: ReactNode
+  /** Counts what the notebook has done. The message line is of the bench as it was before, and is cleared. */
+  notebookDone?: number
   /** The bench itself, which can take focus: the page moves it here when a new trial starts. */
   ref?: Ref<HTMLElement>
 }
@@ -74,9 +76,10 @@ function lineText(said: Said, view: BenchView, stream: Stream): string {
  * a reading is typed in. It holds no engine state. Every action goes to the page and the view comes back; what it
  * keeps is the open stopcock and what the message line last said.
  */
-export function TitrationBench({ view, display, bottles, sources, reducedMotion, onAction, onReading, confirmed = null, notice, ref }: TitrationBenchProps) {
+export function TitrationBench({ view, display, bottles, sources, reducedMotion, onAction, onReading, confirmed = null, notice, notebookDone = 0, ref }: TitrationBenchProps) {
   const [said, setSaid] = useState<Said>({ text: '' })
   const [handedBack, setHandedBack] = useState(confirmed)
+  const [notebookSeen, setNotebookSeen] = useState(notebookDone)
   // Counts the actions done, an opening of the stopcock among them, as the key of the reading field: its reply is of
   // a reading the action may have cleared.
   // A reading recorded after a warning is not counted, so the field that focus returns to is still the one it left.
@@ -89,6 +92,12 @@ export function TitrationBench({ view, display, bottles, sources, reducedMotion,
   /** Says it in the message line, with the line as it stands, so that the same sentence twice is still a change. */
   const say = (next: Said) => setSaid({ ...next, previous: line })
 
+  // The line does not outlive what it was about: an entry accepted in the notebook, a flask discarded or a trial
+  // checked there leaves a sentence of the bench before it standing beside one that contradicts it.
+  if (notebookDone !== notebookSeen) {
+    setNotebookSeen(notebookDone)
+    setSaid({ text: '' })
+  }
   // The page hands an action back once the learner has gone on with it after a warning: it is said as any other is.
   if (confirmed !== handedBack) {
     setHandedBack(confirmed)
@@ -107,6 +116,8 @@ export function TitrationBench({ view, display, bottles, sources, reducedMotion,
       say({ text: doneText(action, said.text), done: { action, before: view } })
       setActionsDone((count) => count + 1)
     }
+    // Held for a warning: the warning is the answer, under a line that says nothing of an earlier press.
+    if (answer === 'asked') setSaid({ text: '' })
     const reason = view.controls[action.type]
     if (answer === 'refused' && reason !== null) say({ text: blockedText(reason) })
   }
@@ -174,7 +185,10 @@ export function TitrationBench({ view, display, bottles, sources, reducedMotion,
             onReading={(readingUl) => {
               // A burette is not read while it runs.
               close()
-              return onReading(readingUl)
+              const reply = onReading(readingUl)
+              // Recorded, and said so under the field: "The final reading can be taken." does not stand over it.
+              if (reply.accepted) setSaid({ text: '' })
+              return reply
             }}
           />
         </div>
