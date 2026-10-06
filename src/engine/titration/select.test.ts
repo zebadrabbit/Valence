@@ -519,6 +519,14 @@ describe('the checklist', () => {
     ])
   })
 
+  it('calls the label step done only for the molarity the label prints: one miscopied in Challenge is next again in Guided, until it is put right', () => {
+    // Recorded as 0.1234 in Challenge, where any molarity is taken, and the mode changed before the first trial is begun.
+    let s = run(m, createLab(1, 'challenge'), [hcl(123400), { type: 'setMode', mode: 'guided' }, act('conditionBurette'), act('fillBurette')])
+    expect(steps(s).slice(0, 4)).toEqual(['hcl: next', 'condition: done', 'fill: done', 'tip-bubble: todo'])
+    s = run(m, s, [hcl(97600)])
+    expect(steps(s).slice(0, 4)).toEqual(['hcl: done', 'condition: done', 'fill: done', 'tip-bubble: next'])
+  })
+
   it('after the label, conditioning and filling, the tip is next; cleared, the fill is still done at 2563 uL and the reading is next', () => {
     let s = run(m, recorded(), [act('conditionBurette'), act('fillBurette')])
     expect(steps(s).slice(0, 5)).toEqual(['hcl: done', 'condition: done', 'fill: done', 'tip-bubble: next', 'initial-reading: todo'])

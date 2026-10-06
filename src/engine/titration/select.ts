@@ -165,7 +165,8 @@ export function checklist(m: TitrationModel, state: TitrationState): { step: Ste
   // Drawing an aliquot wets the pipette with acid, so pipetteRinsed alone would call the step done.
   const drawnUnrinsed = trial.aliquot === 'diluted'
   const steps: { step: Step; listed?: boolean; done: boolean; skipped?: boolean }[] = [
-    { step: 'hcl', done: state.hclRecordedE6 !== null },
+    // The label's own molarity, the only one Guided records: one miscopied in Challenge before the mode was changed is not this step done.
+    { step: 'hcl', done: state.hclRecordedE6 === labSetup(m, state.seed).hclE4 * 100 },
     { step: 'condition', listed: first || !burette.conditioned || burette.diluted, done: burette.conditioned && !burette.diluted, skipped: burette.filled && burette.diluted },
     // Filled for this trial: the meniscus was near the top when it was read, or is now. Clearing the tip lowers a fresh fill by the bubble.
     { step: 'fill', done: burette.filled && (trial.startLevelUl ?? burette.levelUl) <= m.fillLevelMaxUl + m.tipBubbleUl },
