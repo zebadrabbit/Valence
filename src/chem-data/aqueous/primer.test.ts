@@ -220,7 +220,7 @@ describe('the aqueous primer: what it has to say', () => {
     expect(shown('solubility')).toMatch(/has a row for each positive ion and a column for each negative ion\. Where a row and a column cross, it says whether the compound the two ions make is soluble or insoluble/)
     expect(shown('solubility')).toMatch(/take a positive ion from one bottle and a negative ion from the other, and find where the two cross/)
     expect(shown('solubility')).toContain('only the pairs that these ten stations can bring together; any other pair is marked "not listed"')
-    expect(shown('solubility')).toContain('It opens from the "Solubility table" button at the top of the Lab tab.')
+    expect(shown('solubility')).toContain('Once the lab is started, it opens from the "Solubility table" button at the top of the Lab tab.')
     expect(shown('solubility')).not.toMatch(/lists pairs|beside them/)
     // The patterns it states are those of the stored rows.
     const soluble = (anion: string) => aqueousData.solubility.filter((r) => r.anionId === anion).map((r) => r.soluble)
