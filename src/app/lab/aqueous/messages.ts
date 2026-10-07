@@ -24,15 +24,6 @@ export function stationTitle(data: AqueousData, stationId: string): string {
 /** An amount as the bench gives it: a volume to 0.1 mL, a mass to two figures. */
 export const amountText = ({ value, unit }: { value: number; unit: 'mL' | 'g' }) => `${unit === 'mL' ? value.toFixed(1) : value.toPrecision(2)} ${unit}`
 
-/** What goes into the tube, one line for each reagent: "2.0 mL of iron(III) chloride solution, 0.5 M". */
-export function reagentLines(data: AqueousData, stationId: string): string[] {
-  const { station } = stationOf(data, stationId)
-  return station.reagentIds.map((id, i) => {
-    const { name } = data.reagents.find((r) => r.id === id)!
-    return `${amountText(station.amounts[i]!)} of ${name[0]!.toLowerCase()}${name.slice(1)}`
-  })
-}
-
 export const BENCH_TEXT = {
   mix: 'Mix the two in the tube',
   mixed: 'Mixed',
@@ -40,7 +31,6 @@ export const BENCH_TEXT = {
   hints: 'Hints',
   expected: 'What to expect',
   notes: 'Notes on this station',
-  record: 'Record',
   check: 'Check',
   noReaction: 'No reaction',
   reactants: 'Reactants',

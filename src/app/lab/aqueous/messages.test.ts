@@ -28,7 +28,6 @@ import {
   observationFeedback,
   observationLines,
   observationRefusal,
-  reagentLines,
   seenText,
   stationTitle,
   toolFirstText,
@@ -54,13 +53,11 @@ describe('what a station is called and what goes into its tube', () => {
     expect(() => stationTitle(data, 'aq-11')).toThrow('no station "aq-11"')
   })
 
-  it('gives the amounts of spec 8.2, in its digits', () => {
-    expect(reagentLines(data, 'aq-01')).toEqual(['2.0 mL of iron(III) chloride solution, 0.5 M', '2.0 mL of sodium hydroxide solution, 1 M'])
-    expect(reagentLines(data, 'aq-07')).toEqual(['0.10 g of calcium carbonate, powder', '3.0 mL of hydrochloric acid, 1 M'])
-    expect(reagentLines(data, 'aq-08')).toEqual(['2.0 mL of hydrochloric acid, 6 M', '2.0 mL of sodium hydroxide solution, 6 M'])
-    expect(reagentLines(data, 'aq-09')[1]).toBe('2.0 mL of silver nitrate solution, 0.1 M')
-    expect(reagentLines(data, 'aq-10')).toEqual(['0.012 g of magnesium ribbon', '5.0 mL of hydrochloric acid, 3 M'])
-    expect([amountText({ value: 2, unit: 'mL' }), amountText({ value: 0.1, unit: 'g' })]).toEqual(['2.0 mL', '0.10 g'])
+  it('gives the amounts of spec 8.2, in its digits: a volume to 0.1 mL and a mass to two figures', () => {
+    const amounts = (stationId: string) => data.stations.find((s) => s.id === stationId)!.amounts.map(amountText)
+    expect(amounts('aq-01')).toEqual(['2.0 mL', '2.0 mL'])
+    expect(amounts('aq-07')).toEqual(['0.10 g', '3.0 mL'])
+    expect(amounts('aq-10')).toEqual(['0.012 g', '5.0 mL'])
   })
 })
 
@@ -285,7 +282,7 @@ describe('every sentence', () => {
       ...Object.values(TOOL_LABEL),
       ...Object.values(PROBLEM_TEXT),
       ...Object.values(FORM_LABEL),
-      ...ids.flatMap((id) => [stationTitle(data, id), ...reagentLines(data, id), ...expectedLines(data, id), seenText(data, id), ...TOOL_USES.map((tool) => toolOutcome(data, id, tool))]),
+      ...ids.flatMap((id) => [stationTitle(data, id), ...expectedLines(data, id), seenText(data, id), ...TOOL_USES.map((tool) => toolOutcome(data, id, tool))]),
     ]
     for (const text of all) expect(findInstitutionText(text, []), text).toBeNull()
   })
