@@ -1492,14 +1492,16 @@ As built:
 
 ### Task 23: Close
 
-- [ ] Spec 7.4's thirteen checks pass in CI on the pull request. CI runs on pull requests and on pushes to `main`, not on a push to the branch.
-- [ ] Every line of Gate B is ticked or carries a note; every finding of Gate A has its fix and its re-check.
-- [ ] `npm run build`, `build:data`, `build:expected` and `cross-check` leave no diff.
-- [ ] Spec section 7 is read once more against the lab as built. Where the two differ, the difference goes to the owner: the spec is corrected or the lab is.
-- [ ] An independent review of the whole branch, starting from Review Focus. One fix wave, one re-check.
-- [ ] In that review, the labels and headings written straight into components in Tasks 14 to 21 (button names, tile and column headings, legends, captions) are read once for chemistry: they were written after Gate A and no gate has read them.
+- [x] Spec 7.4's thirteen checks pass in CI on the pull request. CI runs on pull requests and on pushes to `main`, not on a push to the branch.
+- [x] Every line of Gate B is ticked or carries a note; every finding of Gate A has its fix and its re-check.
+- [x] `npm run build`, `build:data`, `build:expected` and `cross-check` leave no diff.
+- [x] Spec section 7 is read once more against the lab as built. Where the two differ, the difference goes to the owner: the spec is corrected or the lab is.
+- [x] An independent review of the whole branch, starting from Review Focus. One fix wave, one re-check.
+- [x] In that review, the labels and headings written straight into components in Tasks 14 to 21 (button names, tile and column headings, legends, captions) are read once for chemistry: they were written after Gate A and no gate has read them.
 - [x] Before the branch is pushed or merged, the two files removed at Gate A, `docs/research/phase-3/sources/ricca-5600-listing.html` and `docs/research/phase-3/sources/quotation-fingerprint.json`, are taken out of its history, and the commit ids quoted in `gate-a.md` and in this plan are rewritten to the new ones. Done on 2026-10-05. Before the push, `git log --all -- <the two paths>` is run again and shows nothing on this branch.
-- [ ] The branch is presented to the owner before merging.
+- [x] The branch is presented to the owner before merging.
+
+**As closed, 2026-10-06.** The owner ran the lab several times on a tablet after the deep review and the changes that followed it (tabs, the primer one topic at a time, colour roles, entries made, the calculator), and asked for the merge. Gate B's owner lines were answered by that use, not line by line. The branch went to a pull request so that CI ran on it before `main` took it. What nobody checked stays as `docs/research/phase-3/deep-review.md` and `docs/for-institutions.md` list it: no screen reader, no browser but Chromium in the automated checks, no chemistry instructor.
 
 **Done when:** all eight are done.
 
