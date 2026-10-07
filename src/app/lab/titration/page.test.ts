@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { MemoryRouter } from 'react-router'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { ACTIVITIES } from '@/app/activities'
+import { ROLE } from '@/app/lab/roles'
 import { NARROW_NOTICE, SHELL_TEXT } from '@/app/lab/shellText'
 import { labProgress } from '@/app/lab/useLabProgress'
 import { Home } from '@/app/pages/Home'
@@ -10,11 +11,11 @@ import { Lab } from '@/app/pages/Lab'
 import { createMemoryStore, loadEntry, saveEntry, type KeyValueStore } from '@/app/progress/storage'
 import { titrationData } from '@/chem-data/titration/data'
 import { TITRATION_PRIMER } from '@/chem-data/titration/primer'
-import { checklist, createLab, currentTrial, modelFrom, titrationStateSchema, type Action, type TitrationState } from '@/engine/titration'
+import { can, checklist, countingTrials, createLab, currentTrial, modelFrom, titrationStateSchema, trialOutcome, type Action, type TitrationState } from '@/engine/titration'
 import { honestReading, learner } from '@/engine/titration/testkit'
 import { Guide } from './Guide'
-import { BLOCKED_TEXT, CAUSE_TEXT, completedText, GUIDE_TRIAL_OVER, NOTEBOOK_TEXT, OUTCOME_TEXT, SUMMARY, WARNING_TEXT, workedLines } from './messages'
-import { NotebookPanel, TrialRecord } from './Notebook'
+import { BLOCKED_TEXT, CAUSE_TEXT, completedText, GUIDE_TRIAL_OVER, INVALID_ENTRY_TEXT, NOTEBOOK_TEXT, outcomeRole, OUTCOME_TEXT, SUMMARY, WARNING_TEXT, workedLines } from './messages'
+import { Field, NotebookPanel, TrialRecord } from './Notebook'
 import { TitrationPage } from './TitrationPage'
 import labCss from '../lab.css?raw'
 
@@ -215,13 +216,13 @@ describe('the titration page', () => {
     expect(loadEntry(app.store, titration.entry, titration.version, titrationStateSchema)).toEqual(lab)
   })
 
-  it('locks the mode while a trial is under way, with the reason', () => {
+  it('locks the mode while a trial is under way, with the reason, which carries the role of a held reason', () => {
     const lab = createLab(1, 'guided')
     save({ ...lab, trials: [{ ...lab.trials[0]!, aliquot: 'clean' }] })
     const html = page()
     expect(count(html, /<input type="radio"[^>]*>/g)).toBe(2)
     expect(count(html, /<input type="radio"[^>]*disabled=""/g)).toBe(2)
-    expect(html).toContain(SHELL_TEXT.modeLocked)
+    expect(html).toContain(`class="${ROLE.held}">${SHELL_TEXT.modeLocked}</p>`)
   })
 
   it.each([
@@ -280,8 +281,9 @@ describe('the titration page', () => {
     const guided = page()
     expect(at(guided).every((index) => index > 0)).toBe(true)
     expect(at(guided)).toEqual([...at(guided)].sort((a, b) => a - b))
-    // The bench is the run's: the label of its acid, and the field its next reading is typed in.
-    expect(guided).toContain('Label: HCl, 0.0976 M. Standardized.')
+    // The bench is the run's: the label of its acid, and the field its next reading is typed in. (Before 2026-10-06
+    // the label was one run of text; what is read off it is now in a span of its own, so the tags are taken out.)
+    expect(guided.replace(/<[^>]+>/g, '')).toContain('Label: HCl, 0.0976 M. Standardized.')
     expect(guided).toMatch(/<label[^>]*>Initial burette reading \(mL\)<\/label>/)
     // No warning is showing, and the stopcock is closed.
     expect(guided).not.toContain(WARNING_TEXT['burette-not-conditioned'].title)
@@ -398,6 +400,26 @@ describe('the record of trials', () => {
     expect(record(createLab(1, 'guided')).split('<table')[0]).toContain('—')
   })
 
+  it('carries the value role on each figure that is there and on no dash, and on the result the role its words have', () => {
+    const html = record(third)
+    const cells = [...html.matchAll(/<td class="([^"]*)">([^<]*)<\/td>/g)].map((match) => [match[2], match[1]!.replace('py-1 pr-3', '').trim()])
+    expect(cells).toEqual([
+      ...[['2.56'], ['28.79'], ['26.23'], ['0.0930']].map(([figure]) => [figure, ROLE.value]),
+      ['Not passed, −2.13%', ROLE.failed],
+      ['0.56', ROLE.value],
+      ...['—', '—', '—'].map((dash) => [dash, '']),
+      ['Invalid: overshot', ROLE.failed],
+      ['2.04', ROLE.value],
+      ...['—', '—', '—'].map((dash) => [dash, '']),
+      ['In progress', ''],
+    ])
+    expect(html).toContain(`HCl molarity in the notebook (M): <span class="${ROLE.value}">0.0976</span>`)
+    expect(record(createLab(1, 'guided'))).toContain('HCl molarity in the notebook (M): <span>—</span>')
+    // A pass that counts is good; one that does not count is neither good nor failed, and its words say both halves.
+    expect([...record(completed).matchAll(/<td class="py-1 pr-3 ([^"]*)">Passed<\/td>/g)].map((match) => match[1])).toEqual([ROLE.done, ROLE.done, ROLE.done])
+    expect(record(misreadPass)).toContain('<td class="py-1 pr-3">Passed, not counted</td>')
+  })
+
   it('is read-only, in a box that scrolls by itself and can take focus', () => {
     for (const state of [createLab(1, 'guided'), third, completed, summarised]) expect(record(state)).not.toMatch(/<(input|button|select|textarea)/)
     expect(record(third)).toMatch(/<div tabindex="0" role="region" aria-label="[^"]+" class="[^"]*overflow-x-auto/)
@@ -435,23 +457,34 @@ describe('the notebook panel', () => {
         onSummary: () => ({ accepted: true, text: '' }),
       }),
     )
-  /** Each labelled field: its label's text and its input's tag. */
+  /** Each labelled field: its label's text, its label's tag and its input's tag. (Before 2026-10-06 a label had no id; "Change" is now described by it.) */
   const fields = (html: string) =>
-    [...html.matchAll(/<label for="([^"]*)"[^>]*>([^<]*)<\/label>/g)].map(([, id, label]) => ({ label, input: new RegExp(`<input id="${id}"[^>]*>`).exec(html)![0] }))
+    [...html.matchAll(/(<label[^>]* for="([^"]*)"[^>]*>)([^<]*)<\/label>/g)].map(([, tag, id, label]) => ({ label, tag: tag!, input: new RegExp(`<input id="${id}"[^>]*>`).exec(html)![0] }))
   const buttons = (html: string) => [...html.matchAll(/<button[^>]*>([^<]*)<\/button>/g)].map((match) => match[1])
+  /** What a field shows. */
+  const valueOf = (input: string) => /value="([^"]*)"/.exec(input)![1]
   const textOf = (html: string, id: string) => read(new RegExp(`<(\\w+) id="${id}"[^>]*>(.*?)</\\1>`, 's').exec(html)![2]!)
+  /** The block of the last result: the id of its heading, and what it holds. */
+  const block = (html: string) => /<section tabindex="-1" aria-labelledby="([^"]*)"[^>]*>(.*?)<\/section>/s.exec(html)
+  /** A heading's words, as a reader meets them. */
+  const headingOf = (html: string) => /<h3[^>]*>(.*?)<\/h3>/.exec(html)![1]!.replace(/<[^>]+>/g, '')
   const guidedAtEndpoint = (() => {
     const s = titrateCarefully(m, prepared(m, 1, { mode: 'guided' })).state
     return run(m, s, [{ type: 'recordFinalReading', readingUl: honestReading(s.burette.levelUl) }])
   })()
 
+  // Before 2026-10-06 this case held the first field, the HCl molarity, to being enabled in a run that had already
+  // recorded it: an empty box for something done. It now holds that field to being disabled and showing the entry;
+  // a run that has not recorded it has the field enabled, and the case on the fields after their entries has the rest.
   it('with a trial under way has two labelled fields, the second disabled and tied to its reason, and each a form of its own', () => {
     const html = panel(third)
     const [hcl, naoh, ...rest] = fields(html)
     expect(rest).toEqual([])
     expect([hcl!.label, naoh!.label]).toEqual(['HCl molarity, from the bottle label (M)', 'Your NaOH molarity (M)'])
     for (const { input } of [hcl!, naoh!]) expect(input).toMatch(/type="text" inputMode="decimal"/i)
-    expect(hcl!.input).not.toContain('disabled=""')
+    expect(hcl!.input).toContain('disabled=""')
+    expect(valueOf(hcl!.input)).toBe('0.0976')
+    expect(fields(panel(createLab(1, 'guided')))[0]!.input).not.toContain('disabled=""')
     expect(naoh!.input).toContain('disabled=""')
     expect(textOf(html, /aria-describedby="([^"]*)"/.exec(naoh!.input)![1]!)).toContain(BLOCKED_TEXT['needs-final-reading'])
     expect(count(html, /<form/g)).toBe(2)
@@ -472,29 +505,33 @@ describe('the notebook panel', () => {
     s = run(m, s, [{ type: 'recordHclMolarity', molarityE6: 97600 }])
     expect(read(panel(s))).toContain('|Trial 1|HCl molarity (M)|0.1234|')
     expect(read(panel(s))).toContain(CAUSE_TEXT['hcl-label-misrecorded'])
-    // The record names its figure as the notebook's, and the next trial starts from that one.
-    expect(read(renderToStaticMarkup(createElement(TrialRecord, { m, state: s })))).toContain('|HCl molarity in the notebook (M): 0.0976|')
+    // The record names its figure as the notebook's, and the next trial starts from that one. (Before 2026-10-06
+    // the name and the figure were one run of text; the figure is now in a span of its own, in the role of a value.)
+    expect(read(renderToStaticMarkup(createElement(TrialRecord, { m, state: s })))).toContain('|HCl molarity in the notebook (M):|0.0976|')
     expect(read(panel(run(m, s, [NEXT])))).toContain('|Trial 2|HCl molarity (M)|0.0976|')
     // A trial that ended with nothing calculated has no molarity of its own to show.
     expect(read(panel(overshot))).toContain('|Trial 2|HCl molarity (M)|0.0976|')
   })
 
+  // Before 2026-10-06 the first button of both lists was Record: the HCl molarity's field was empty and offered again
+  // in a run that had recorded it. It is Change now, in both: the engine takes that entry again during a trial and between two.
   it('offers to discard the flask while the trial is open, and the next trial only once it has ended', () => {
-    expect(buttons(panel(third))).toEqual([NOTEBOOK_TEXT.record, NOTEBOOK_TEXT.check, NOTEBOOK_TEXT.discard])
+    expect(buttons(panel(third))).toEqual([NOTEBOOK_TEXT.change, NOTEBOOK_TEXT.check, NOTEBOOK_TEXT.discard])
     const html = panel(overshot)
-    expect(buttons(html)).toEqual([NOTEBOOK_TEXT.record, NOTEBOOK_TEXT.check, NOTEBOOK_TEXT.nextTrial])
+    expect(buttons(html)).toEqual([NOTEBOOK_TEXT.change, NOTEBOOK_TEXT.check, NOTEBOOK_TEXT.nextTrial])
     // The field of a trial that is over says so.
     expect(read(html)).toContain(BLOCKED_TEXT['trial-ended'])
   })
 
+  // Before 2026-10-06 the heading was one run of text. Its two parts are now each in a span, for their roles; the
+  // words a reader meets are the same, and the case holds them with the tags taken out.
   it('holds the last result in a block that can take focus: the result in words, then its feedback', () => {
-    const block = (html: string) => /<section tabindex="-1" aria-labelledby="([^"]*)"[^>]*>(.*?)<\/section>/s.exec(html)
     const [, headingId, body] = block(panel(overshot))!
     expect(body).toContain(`<h3 id="${headingId}"`)
-    expect(read(body!)).toContain('|Result of trial 2: Invalid: overshot|')
+    expect(headingOf(body!)).toBe('Result of trial 2: Invalid: overshot')
     expect(read(body!)).toContain(OUTCOME_TEXT.overshot.replaceAll("'", '&#x27;'))
     // It stays while the next trial is run, and a lab with no trial ended has none.
-    expect(read(block(panel(third))![2]!)).toContain('|Result of trial 2: Invalid: overshot|')
+    expect(headingOf(block(panel(third))![2]!)).toBe('Result of trial 2: Invalid: overshot')
     expect(block(panel(createLab(1, 'guided')))).toBeNull()
   })
 
@@ -512,7 +549,8 @@ describe('the notebook panel', () => {
   it('a pass that does not count leaves the tally at none of three and gives no percent error', () => {
     const html = panel(misreadPass)
     expect(read(html)).toContain('|Trials finished: 1. Trials that count: 0 of the 3 needed.|')
-    expect(read(html)).toContain('|Result of trial 1: Passed, not counted|')
+    // (Before 2026-10-06 the heading was one run of text: see the case on the block of the last result.)
+    expect(headingOf(block(html)![2]!)).toBe('Result of trial 1: Passed, not counted')
     expect(html).toContain(OUTCOME_TEXT.notCounted)
     expect(html).not.toMatch(PERCENT_ERROR)
   })
@@ -560,6 +598,192 @@ describe('the notebook panel', () => {
   })
 })
 
+describe('the colour roles in the notebook', () => {
+  const panel = (state: TitrationState) =>
+    renderToStaticMarkup(createElement(NotebookPanel, { m, state, onHclMolarity: () => ({ accepted: true, text: '' }), onMolarity: () => ({ accepted: true, text: '' }), onDiscard: () => {}, onNextTrial: () => {}, onSummary: () => ({ accepted: true, text: '' }) }))
+  const labels = (html: string) => Object.fromEntries([...html.matchAll(/<label[^>]* class="([^"]*)"[^>]*>([^<]*)<\/label>/g)].map((match) => [match[2]!, match[1]!.includes(ROLE.entry)]))
+
+  it('a value: the heading of the trial, whose result the last one is, and each figure of the trial that is there, a dash never', () => {
+    const html = panel(third)
+    expect(html).toContain(`<h3 class="font-medium ${ROLE.value}">Trial 3</h3>`)
+    expect(html).toContain(`<span class="${ROLE.value}">Result of trial 2</span>: `)
+    expect([...html.matchAll(/<dd class="([^"]*)">([^<]*)<\/dd>/g)].map((match) => [match[2], match[1]!.includes(ROLE.value)])).toEqual([['0.0976', true], ['2.04', true], ['—', false], ['—', false]])
+    // The notebook's own values and the learner's, once both are there.
+    expect(count(panel(summarised), new RegExp(`<dd class="[^"]*${ROLE.value}">`, 'g'))).toBe(8)
+  })
+
+  it('a result: good where it passed and counts, failed where it did not pass or has no usable titre, and neither where it passed and does not count', () => {
+    const result = (state: TitrationState) => /<\/span>: <span(?: class="([^"]*)")?>([^<]*)<\/span><\/h3>/.exec(panel(state))!.slice(1)
+    expect(result(completed)).toEqual([ROLE.done, 'Passed'])
+    expect(result(afterOne)).toEqual([ROLE.failed, 'Not passed, −2.13%'])
+    expect(result(overshot)).toEqual([ROLE.failed, 'Invalid: overshot'])
+    expect(result(misreadPass)).toEqual([undefined, 'Passed, not counted'])
+    // The role follows the outcome and nothing else: the four ways a trial has no usable titre are all failed, an open trial has none.
+    for (const reason of ['overshot', 'ran-out', 'washed-out', 'discarded'] as const) expect(outcomeRole({ state: 'invalid', reason, causes: [] })).toBe('failed')
+    expect(outcomeRole({ state: 'open' })).toBeNull()
+    expect(outcomeRole(trialOutcome(m, completed, completed.trials[0]!))).toBe('done')
+    expect(outcomeRole(trialOutcome(m, misreadPass, misreadPass.trials[0]!))).toBeNull()
+  })
+
+  it('an entry: the label of a field only while that field waits for typing', () => {
+    // A new lab: the HCl molarity waits; the NaOH molarity cannot be entered yet.
+    expect(labels(panel(createLab(1, 'guided')))).toEqual({ [NOTEBOOK_TEXT.hcl]: true, [NOTEBOOK_TEXT.naoh]: false })
+    // Recorded, and no final reading yet: neither waits.
+    expect(labels(panel(third))).toEqual({ [NOTEBOOK_TEXT.hcl]: false, [NOTEBOOK_TEXT.naoh]: false })
+    // Both readings in: the NaOH molarity waits.
+    const atEndpoint = titrateCarefully(m, prepared(m, 1)).state
+    expect(labels(panel(run(m, atEndpoint, [{ type: 'recordFinalReading', readingUl: honestReading(atEndpoint.burette.levelUl) }])))).toEqual({ [NOTEBOOK_TEXT.hcl]: false, [NOTEBOOK_TEXT.naoh]: true })
+    // Complete: the two of a trial are over, and the summary's two wait until they are entered.
+    expect(labels(panel(completed))).toEqual({ [NOTEBOOK_TEXT.hcl]: false, [NOTEBOOK_TEXT.naoh]: false, [SUMMARY.ownAverage]: true, [SUMMARY.ownDeviation]: true })
+    expect(labels(panel(summarised))).toEqual({ [NOTEBOOK_TEXT.hcl]: false, [NOTEBOOK_TEXT.naoh]: false, [SUMMARY.ownAverage]: false, [SUMMARY.ownDeviation]: false })
+  })
+
+  it('a held reason: the sentence under a field that takes no entry now', () => {
+    expect(panel(third)).toContain(`<p class="${ROLE.held}">${BLOCKED_TEXT['needs-final-reading']}</p>`)
+    expect(panel(overshot)).toContain(`<p class="${ROLE.held}">${BLOCKED_TEXT['trial-ended']}</p>`)
+    expect(count(panel(completed), new RegExp(`<p class="${ROLE.held}">${BLOCKED_TEXT['lab-completed']}</p>`, 'g'))).toBe(2)
+  })
+
+  it('reads the same with every role taken off: each role is on words, and the words are the ones the notebook had', () => {
+    for (const state of [createLab(1, 'guided'), third, overshot, afterOne, misreadPass, completed, summarised]) {
+      const html = panel(state)
+      for (const role of Object.values(ROLE)) for (const [, held] of html.matchAll(new RegExp(`<[a-z0-9]+[^>]* class="[^"]*\\b${role}\\b[^"]*"[^>]*>([^<]*)<`, 'g'))) expect([role, held!.trim()]).not.toEqual([role, ''])
+    }
+    // "Result of trial 2: Invalid: overshot" is said whole, as before the roles.
+    expect(panel(overshot).replace(/<[^>]+>/g, '')).toContain('Result of trial 2: Invalid: overshot')
+  })
+})
+
+describe('a field of the notebook after its entry', () => {
+  const panel = (state: TitrationState) =>
+    renderToStaticMarkup(createElement(NotebookPanel, { m, state, onHclMolarity: () => ({ accepted: true, text: '' }), onMolarity: () => ({ accepted: true, text: '' }), onDiscard: () => {}, onNextTrial: () => {}, onSummary: () => ({ accepted: true, text: '' }) }))
+  const LABEL_E6 = 97600
+  /** Each form of the panel: its fields as [label, what it shows, disabled], its buttons, and the paragraphs under its fields. */
+  const forms = (state: TitrationState) =>
+    [...panel(state).matchAll(/<form.*?<\/form>/gs)].map(([form]) => ({
+      fields: [...form.matchAll(/<label[^>]*>([^<]*)<\/label>.*?(<input[^>]*>)/gs)].map((match) => [match[1], /value="([^"]*)"/.exec(match[2]!)![1], match[2]!.includes('disabled=""')]),
+      buttons: [...form.matchAll(/(<button[^>]*>)([^<]*)<\/button>/g)].map((match) => `${match[2]!.replaceAll('&#x27;', "'")}${match[1]!.includes('aria-disabled="true"') ? ' (unavailable)' : ''}`),
+      under: [...form.matchAll(/<div id="[^"]*">(.*?)<\/div>/gs)].map((match) => match[1]!.replace(/<[^>]+>/g, '')).filter((said) => said !== ''),
+    }))
+  const atEndpoint = titrateCarefully(m, prepared(m, 1)).state
+  const bothReadings = run(m, atEndpoint, [{ type: 'recordFinalReading', readingUl: honestReading(atEndpoint.burette.levelUl) }])
+
+  it('the HCl molarity: disabled and shown once recorded, with Change during a trial and between two, and with the reason and no Change once the lab is complete', () => {
+    expect(forms(createLab(1, 'challenge'))[0]).toEqual({ fields: [[NOTEBOOK_TEXT.hcl, '', false]], buttons: ['Record'], under: [] })
+    for (const state of [third, bothReadings, overshot, afterOne]) expect(forms(state)[0]).toEqual({ fields: [[NOTEBOOK_TEXT.hcl, '0.0976', true]], buttons: ['Change'], under: [] })
+    expect(forms(completed)[0]).toEqual({ fields: [[NOTEBOOK_TEXT.hcl, '0.0976', true]], buttons: ['Record (unavailable)'], under: [BLOCKED_TEXT['lab-completed']] })
+  })
+
+  it('the NaOH molarity: checking it ends the trial, so once entered it is shown with the one reason and never with Change', () => {
+    expect(forms(third)[1]).toEqual({ fields: [[NOTEBOOK_TEXT.naoh, '', true]], buttons: ['Check (unavailable)'], under: [BLOCKED_TEXT['needs-final-reading']] })
+    expect(forms(bothReadings)[1]).toEqual({ fields: [[NOTEBOOK_TEXT.naoh, '', false]], buttons: ['Check'], under: [] })
+    expect(forms(afterOne)[1]).toEqual({ fields: [[NOTEBOOK_TEXT.naoh, '0.0930', true]], buttons: ['Check (unavailable)'], under: [BLOCKED_TEXT['trial-ended']] })
+    // A trial that ended with no molarity entered: the field is empty, with the same one reason.
+    expect(forms(overshot)[1]).toEqual({ fields: [[NOTEBOOK_TEXT.naoh, '', true]], buttons: ['Check (unavailable)'], under: [BLOCKED_TEXT['trial-ended']] })
+    expect(forms(completed)[1]).toEqual({ fields: [[NOTEBOOK_TEXT.naoh, '0.0949', true]], buttons: ['Check (unavailable)'], under: [BLOCKED_TEXT['lab-completed']] })
+  })
+
+  it("the two summary entries: disabled and shown once made, with Change, and the notebook's values still beside them", () => {
+    expect(forms(completed)[2]).toEqual({ fields: [[SUMMARY.ownAverage, '', false], [SUMMARY.ownDeviation, '', false]], buttons: [SUMMARY.reveal], under: [] })
+    expect(forms(summarised)[2]).toEqual({ fields: [[SUMMARY.ownAverage, '0.0949', true], [SUMMARY.ownDeviation, '0.47', true]], buttons: ['Change'], under: [] })
+    expect(read(panel(summarised)).replaceAll('&#x27;', "'")).toContain(`|${SUMMARY.average}|0.0949|`)
+  })
+
+  it('Change is there exactly when the engine would take the entry again, in every state of two runs', () => {
+    const states = [createLab(1, 'guided'), createLab(1, 'challenge'), prepared(m, 1), third, bothReadings, overshot, afterOne, run(m, afterOne, [NEXT]), misreadPass, completed, summarised]
+    const seen = new Set<string>()
+    for (const state of states) {
+      const trial = currentTrial(state)
+      const [hcl, naoh, summary] = forms(state)
+      const asked: [form: typeof hcl, entered: boolean, again: boolean][] = [
+        [hcl, state.hclRecordedE6 !== null, can(m, state, { type: 'recordHclMolarity', molarityE6: LABEL_E6 }) === null],
+        [naoh, trial.molarityE6 !== null, can(m, state, { type: 'submitMolarity', molarityE6: trial.molarityE6 ?? 0 }) === null],
+        [summary, state.summary !== null, can(m, state, { type: 'recordSummary', meanE6: 94900, deviationE2: 47 }) === null],
+      ]
+      for (const [form, entered, again] of asked) {
+        if (!form) continue
+        expect(form.buttons.includes('Change')).toBe(entered && again)
+        // An entry that is made is shown in a disabled field, and no state leaves a field both empty and done.
+        if (entered) for (const [, value, disabled] of form.fields) expect([value !== '', disabled]).toEqual([true, true])
+        seen.add(`${entered}:${again}`)
+      }
+    }
+    expect([...seen].sort()).toEqual(['false:false', 'false:true', 'true:false', 'true:true'])
+  })
+
+  // The screenshot of 2026-10-06: a refusal stood under a field of a trial that was over, beside "This trial is over.".
+  it('a field that takes no entry shows its one reason, no refusal of an earlier entry, and no mark of an invalid one', () => {
+    const field = (props: { disabled?: boolean; held?: string | null; error?: string }) =>
+      renderToStaticMarkup(createElement(Field, { label: NOTEBOOK_TEXT.naoh, value: '0.0930', onChange: () => {}, noteId: 'note', ...props }))
+    const refused = INVALID_ENTRY_TEXT.molarity
+    // While it takes typing, a refusal is said and the field is marked.
+    expect(field({ error: refused })).toContain(`<div id="note"><p role="alert">${refused}</p></div>`)
+    expect(field({ error: refused })).toContain('aria-invalid="true"')
+    // Once the trial is over, with that refusal still held by the form:
+    const over = field({ disabled: true, held: BLOCKED_TEXT['trial-ended'], error: refused })
+    expect(over).toContain(`<div id="note"><p class="${ROLE.held}">${BLOCKED_TEXT['trial-ended']}</p></div>`)
+    expect(over).not.toContain(refused)
+    expect(over).not.toContain('aria-invalid="')
+    expect(over).not.toContain('role="alert"')
+    // And a field that is done and can be changed has nothing under it.
+    expect(field({ disabled: true, error: refused })).toContain('<div id="note"></div>')
+    // The reason is the field's description.
+    expect(/<input[^>]*>/.exec(over)![0]).toContain('aria-describedby="note"')
+  })
+})
+
+describe('a Challenge learner who miscopied the label', () => {
+  const panel = (state: TitrationState) =>
+    renderToStaticMarkup(createElement(NotebookPanel, { m, state, onHclMolarity: () => ({ accepted: true, text: '' }), onMolarity: () => ({ accepted: true, text: '' }), onDiscard: () => {}, onNextTrial: () => {}, onSummary: () => ({ accepted: true, text: '' }) }))
+  /** The HCl molarity's form: what its field shows, and its buttons. */
+  const hcl = (state: TitrationState) => {
+    const form = /<form.*?<\/form>/s.exec(panel(state))![0]
+    return { shown: /value="([^"]*)"/.exec(form)![1], disabled: /<input[^>]* disabled=""/.test(form), buttons: [...form.matchAll(/<button[^>]*>([^<]*)<\/button>/g)].map((match) => match[1]) }
+  }
+  const CORRECT: Action = { type: 'recordHclMolarity', molarityE6: 97600 }
+
+  it('is shown the wrong entry in a disabled field with Change beside it, at every point of the run, and so can still correct it and reach three trials that count', () => {
+    // The label reads 0.0976; 0.0967 is typed, and Challenge takes it.
+    let s = run(m, createLab(1, 'challenge'), [{ type: 'recordHclMolarity', molarityE6: 96700 }])
+    const changeable = () => {
+      expect(hcl(s)).toEqual({ shown: '0.0967', disabled: true, buttons: [NOTEBOOK_TEXT.change] })
+      // What Change leads to is the engine's to allow, and it does.
+      expect(can(m, s, CORRECT)).toBeNull()
+    }
+    changeable()
+    s = readyTrial(m, s, { condition: true, clearBubble: true, rinse: true })
+    changeable()
+    s = titrateCarefully(m, s).state
+    changeable()
+    s = finishHonestly(m, s)
+    // The trial is over and does not count: its field of the NaOH molarity is shut, and the label's is not.
+    expect(countingTrials(m, s)).toHaveLength(0)
+    expect(read(panel(s))).toContain(CAUSE_TEXT['hcl-label-misrecorded'])
+    changeable()
+    s = run(m, s, [NEXT])
+    changeable()
+    s = run(m, s, [CORRECT])
+    expect(hcl(s)).toEqual({ shown: '0.0976', disabled: true, buttons: [NOTEBOOK_TEXT.change] })
+    for (let trial = 0; trial < 3; trial++) {
+      if (trial > 0) s = run(m, s, [NEXT])
+      s = carefulTrial(m, readyTrial(m, s))
+    }
+    expect(countingTrials(m, s)).toHaveLength(3)
+    expect(s.status).toBe('completed')
+    // Complete: the engine takes no molarity now, so there is no Change, and the field says why.
+    expect(hcl(s)).toEqual({ shown: '0.0976', disabled: true, buttons: [NOTEBOOK_TEXT.record] })
+    expect(can(m, s, CORRECT)).toBe('lab-completed')
+    expect(read(panel(s))).toContain(BLOCKED_TEXT['lab-completed'])
+  })
+
+  it('who corrects it in the middle of the trial has that trial count', () => {
+    let s = run(m, createLab(1, 'challenge'), [{ type: 'recordHclMolarity', molarityE6: 96700 }])
+    s = titrateCarefully(m, readyTrial(m, s, { condition: true, clearBubble: true, rinse: true })).state
+    s = finishHonestly(m, run(m, s, [CORRECT]))
+    expect(countingTrials(m, s)).toHaveLength(1)
+  })
+})
+
 describe('the guide', () => {
   const guide = (state: TitrationState) => renderToStaticMarkup(createElement(Guide, { steps: checklist(m, state), trialIndex: currentTrial(state).index }))
   const items = (html: string) => [...html.matchAll(/<li[^>]*>(.*?)<\/li>/gs)].map((match) => ({ tag: match[0].slice(0, match[0].indexOf('>') + 1), text: read(match[1]!) }))
@@ -578,7 +802,11 @@ describe('the guide', () => {
       '|→|Clear the air bubble from the burette tip|(Next)|',
     ])
     expect(list[4]!.text).toBe('|○|Record the initial burette reading|(To do)|')
-    expect(count(html, /<span aria-hidden="true">[✓✕→○]<\/span>/g)).toBe(11)
+    // Before 2026-10-06 no mark had a class. The tick of a step done now carries the done role, and no other mark has one.
+    expect(count(html, /<span aria-hidden="true"[^>]*>[✓✕→○]<\/span>/g)).toBe(11)
+    expect([...html.matchAll(/<span aria-hidden="true"( class="[^"]*")?>([✓✕→○])<\/span>/g)].map((match) => [match[2], match[1] ?? ''])).toEqual(
+      list.map((item) => (item.text.startsWith('|✓|') ? ['✓', ` class="${ROLE.done}"`] : [item.text[1], ''])),
+    )
   })
 
   it('draws both forms in one render, the one line and the list, for the stylesheet to show one', () => {
@@ -604,6 +832,25 @@ describe('the guide', () => {
 })
 
 describe('lab.css', () => {
+  it('defines each colour role once for the light theme and once for the dark, and a class for every role a component carries', () => {
+    const css = labCss.replace(/\/\*.*?\*\//gs, '').replace(/\s+/g, ' ')
+    const block = (selector: string) => [...css.matchAll(new RegExp(`(?:^|\\})\\s*${selector} \\{([^}]*)\\}`, 'g'))].map((match) => match[1]!)
+    const [light, ...moreLight] = block(':root')
+    const [dark, ...moreDark] = block('\\.dark')
+    expect([moreLight, moreDark]).toEqual([[], []])
+    const names = (declarations: string) => [...declarations.matchAll(/(--lab-[a-z-]+):/g)].map((match) => match[1]).sort()
+    // The same six in each theme, each defined once; a failed result has none of its own and is the theme's destructive colour.
+    expect(names(light!)).toEqual(['--lab-done', '--lab-entry', '--lab-held', '--lab-pink', '--lab-pink-deep', '--lab-value'])
+    expect(names(dark!)).toEqual(names(light!))
+    for (const role of Object.values(ROLE)) {
+      const [rule, ...more] = block(`\\.${role}`)
+      expect([role, more]).toEqual([role, []])
+      expect([role, rule!.trim()]).toEqual([role, `color: var(--${role === ROLE.failed ? 'destructive' : role});`])
+    }
+    // A role is a colour of text and nothing else: no rule of the file hides, moves or sizes by one.
+    expect(css.match(/\.lab-(?:value|entry|done|failed|pink|pink-deep|held)\b[^{]*\{[^}]*\}/g)).toHaveLength(7)
+  })
+
   it('shows the guide as one line below 110rem of page and as the list from there, the other form not displayed', () => {
     const css = labCss.replace(/\/\*.*?\*\//gs, '').replace(/\s+/g, ' ')
     expect(css).toContain('.lab-guide-list { display: none; }')

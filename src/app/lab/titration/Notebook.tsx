@@ -1,5 +1,6 @@
 import { useId, useState, type ReactNode, type Ref } from 'react'
 import { Subscripted } from '@/app/lab/Primer'
+import { ROLE } from '@/app/lab/roles'
 import { Button } from '@/components/ui/button'
 import {
   can,
@@ -16,6 +17,7 @@ import {
   type TitrationState,
   type Trial,
 } from '@/engine/titration'
+import { ENTRY_INPUT, fieldState, useEntryFocus } from './entry'
 import { deviationE2Text, deviationText, molarityText, readingText } from './format'
 import {
   blockedText,
@@ -24,7 +26,8 @@ import {
   INVALID_ENTRY_TEXT,
   NOTEBOOK_TEXT,
   outcomeLabel,
-  resultHeading,
+  outcomeRole,
+  resultName,
   seedText,
   SUMMARY,
   tallyText,
@@ -56,6 +59,12 @@ const [, INITIAL, FINAL, TITRE] = NOTEBOOK_TEXT.columns
 const reading = (ul: number | null) => (ul === null ? NOTEBOOK_TEXT.notYet : readingText(ul))
 const molarity = (e6: number | null) => (e6 === null ? NOTEBOOK_TEXT.notYet : molarityText(e6))
 const titre = ({ initialReadingUl, finalReadingUl }: Trial) => (initialReadingUl === null || finalReadingUl === null ? null : finalReadingUl - initialReadingUl)
+/** The role of a figure the notebook holds. The dash of one not yet there is no figure, and is plain. */
+const valueRole = (text: string) => (text === NOTEBOOK_TEXT.notYet ? '' : ROLE.value)
+/** The role of a result beside its words; none for a trial still open or a pass that does not count. */
+const resultRole = (role: ReturnType<typeof outcomeRole>) => (role === null ? '' : ROLE[role])
+/** Classes as one attribute, with none left empty. */
+const classes = (...names: string[]) => names.filter(Boolean).join(' ') || undefined
 
 /** The engine's answers that are about the value typed and not about the state. */
 const ABOUT_THE_VALUE: readonly Blocked[] = ['invalid-entry', 'not-the-label', 'calculation-mismatch']
@@ -73,7 +82,7 @@ function Pairs({ pairs }: { pairs: readonly (readonly [term: string, value: stri
       {pairs.map(([term, value]) => (
         <div key={term} className="col-span-2 grid grid-cols-subgrid">
           <dt className="text-muted-foreground">{term}</dt>
-          <dd className="text-right tabular-nums">{value}</dd>
+          <dd className={classes('text-right tabular-nums', valueRole(value))}>{value}</dd>
         </div>
       ))}
     </dl>
@@ -81,41 +90,109 @@ function Pairs({ pairs }: { pairs: readonly (readonly [term: string, value: stri
 }
 
 /**
- * One labelled field of a form, with what is said of it tied to it: `blocked`, why it cannot be used yet, or
- * `error`, what its last entry was refused with. `children` sit beside the input.
+ * One labelled field of a form, with what is said of it tied to it: `held`, why it takes no entry now, or `error`,
+ * what its last entry was refused with. A field that takes none shows no refusal and is not marked invalid: the
+ * one reason is all that is under it. Its label carries the entry role only while it waits for typing. `children`
+ * sit beside the input. Exported for its test.
  */
-function Field({ label, value, onChange, noteId, blocked = null, error = '', children }: { label: string; value: string; onChange(value: string): void; noteId: string; blocked?: string | null; error?: string; children?: ReactNode }) {
+export function Field({
+  label,
+  value,
+  onChange,
+  noteId,
+  labelId,
+  disabled = false,
+  held = null,
+  error = '',
+  inputRef,
+  children,
+}: {
+  label: string
+  value: string
+  onChange(value: string): void
+  noteId: string
+  labelId?: string
+  disabled?: boolean
+  held?: string | null
+  error?: string
+  inputRef?: Ref<HTMLInputElement>
+  children?: ReactNode
+}) {
   const id = useId()
+  const refused = !disabled && error !== ''
   return (
     <div className="grid gap-1.5">
-      <label htmlFor={id} className="font-medium">
+      <label id={labelId} htmlFor={id} className={disabled ? 'font-medium' : `font-medium ${ROLE.entry}`}>
         {label}
       </label>
-      <div className="flex gap-1.5">
+      <div className="flex flex-wrap gap-1.5">
         <input
+          ref={inputRef}
           id={id}
           type="text"
           inputMode="decimal"
           autoComplete="off"
           value={value}
-          disabled={blocked !== null}
-          aria-invalid={error !== '' || undefined}
+          disabled={disabled}
+          aria-invalid={refused || undefined}
           aria-describedby={noteId}
           onChange={(event) => onChange(event.target.value)}
-          className="h-8 w-24 rounded-md border bg-background px-2 tabular-nums outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50 aria-invalid:border-destructive"
+          className={ENTRY_INPUT}
         />
         {children}
       </div>
-      <div id={noteId}>{blocked !== null ? <p className="text-muted-foreground">{blocked}</p> : error !== '' && <p role="alert">{error}</p>}</div>
+      <div id={noteId}>{held !== null ? <p className={ROLE.held}>{held}</p> : refused && <p role="alert">{error}</p>}</div>
     </div>
   )
 }
 
-/** A molarity typed to four decimal places, in a form of its own: Enter submits it. `invalid` is said of a text that is not one. */
-function MolarityEntry({ label, button, invalid, blocked, onEntry }: { label: string; button: string; invalid: string; blocked: string | null; onEntry(molarityE6: number): EntryReply }) {
+/** Beside a field while its entry is changed: puts it back as it was. Focus is moved first, to the button that stays. */
+function Cancel({ to, onCancel }: { to: { current: HTMLButtonElement | null }; onCancel(): void }) {
+  return (
+    <Button
+      type="button"
+      variant="outline"
+      onClick={() => {
+        to.current?.focus()
+        onCancel()
+      }}
+    >
+      {NOTEBOOK_TEXT.cancel}
+    </Button>
+  )
+}
+
+/**
+ * A molarity typed to four decimal places, in a form of its own: Enter submits it. `invalid` is said of a text that
+ * is not one. `recorded` is the entry once it is made: the field is then disabled and shows it, and the button
+ * reads "Change" for as long as the engine would take the entry again (`blocked` is null).
+ */
+function MolarityEntry({
+  label,
+  button,
+  invalid,
+  blocked,
+  recorded,
+  onEntry,
+}: {
+  label: string
+  button: string
+  invalid: string
+  blocked: string | null
+  recorded: number | null
+  onEntry(molarityE6: number): EntryReply
+}) {
   const [text, setText] = useState('')
+  const [changing, setChanging] = useState(false)
   const [reply, setReply] = useState<EntryReply>({ accepted: true, text: '' })
   const noteId = useId()
+  const labelId = useId()
+  const { editable, changeable, cancellable } = fieldState(recorded !== null, blocked !== null, changing)
+  const focus = useEntryFocus(editable)
+  const settle = () => {
+    setChanging(false)
+    setText('')
+  }
   return (
     <form
       noValidate
@@ -123,36 +200,97 @@ function MolarityEntry({ label, button, invalid, blocked, onEntry }: { label: st
       onSubmit={(event) => {
         event.preventDefault()
         if (blocked !== null) return
+        if (changeable) {
+          setText(molarityText(recorded!))
+          return setChanging(true)
+        }
         const molarityE6 = parseMolarity(text)
         const answer = molarityE6 === null ? { accepted: false, text: invalid } : onEntry(molarityE6)
-        if (answer.accepted) setText('')
+        if (answer.accepted) settle()
         setReply(answer)
       }}
     >
-      <Field label={label} value={text} onChange={setText} noteId={noteId} blocked={blocked} error={reply.accepted ? '' : reply.text}>
-        {/* Stays focusable when it cannot be used, with the reason as its description. */}
-        <Button type="submit" variant="outline" aria-disabled={blocked !== null || undefined} aria-describedby={blocked !== null ? noteId : undefined} className="aria-disabled:opacity-50">
-          {button}
+      <Field
+        label={label}
+        value={editable ? text : recorded === null ? '' : molarityText(recorded)}
+        onChange={setText}
+        noteId={noteId}
+        labelId={labelId}
+        disabled={!editable}
+        held={blocked}
+        error={reply.accepted ? '' : reply.text}
+        inputRef={focus.field}
+      >
+        {/* Stays focusable when it cannot be used, with the reason as its description. As "Change" it is described by the field it is of, which the Tab key passes over while it is disabled. */}
+        <Button
+          ref={focus.button}
+          type="submit"
+          variant="outline"
+          aria-disabled={blocked !== null || undefined}
+          aria-describedby={blocked !== null ? noteId : changeable ? labelId : undefined}
+          className="aria-disabled:opacity-50"
+        >
+          {changeable ? NOTEBOOK_TEXT.change : button}
         </Button>
+        {cancellable && (
+          <Cancel
+            to={focus.button}
+            onCancel={() => {
+              settle()
+              setReply({ accepted: true, text: '' })
+            }}
+          />
+        )}
       </Field>
       <p role="status">{blocked === null && reply.accepted ? reply.text : ''}</p>
     </form>
   )
 }
 
-/** The learner's own average and relative deviation: one form, two fields. `worked` is Guided's average, set out. */
-function SummaryEntry({ worked, onSummary }: { worked: string | null; onSummary: NotebookPanelProps['onSummary'] }) {
+/**
+ * The learner's own average and relative deviation: one form, two fields, and one entry of the engine's. `worked` is
+ * Guided's average, set out. Once the two are entered the fields are disabled and show them, the notebook's own
+ * values stay beside them below, and the button reads "Change" while the engine would take the entry again.
+ */
+function SummaryEntry({
+  worked,
+  blocked,
+  recorded,
+  onSummary,
+}: {
+  worked: string | null
+  blocked: string | null
+  recorded: TitrationState['summary']
+  onSummary: NotebookPanelProps['onSummary']
+}) {
   const [mean, setMean] = useState('')
   const [deviation, setDeviation] = useState('')
+  const [changing, setChanging] = useState(false)
   const [errors, setErrors] = useState({ mean: '', deviation: '' })
   const meanNoteId = useId()
   const deviationNoteId = useId()
+  const meanLabelId = useId()
+  const deviationLabelId = useId()
+  const { editable, changeable, cancellable } = fieldState(recorded !== null, blocked !== null, changing)
+  const focus = useEntryFocus(editable)
+  const settle = () => {
+    setChanging(false)
+    setMean('')
+    setDeviation('')
+    setErrors({ mean: '', deviation: '' })
+  }
   return (
     <form
       noValidate
       className="grid justify-items-start gap-2"
       onSubmit={(event) => {
         event.preventDefault()
+        if (blocked !== null) return
+        if (changeable) {
+          setMean(molarityText(recorded!.meanE6))
+          setDeviation(deviationE2Text(recorded!.deviationE2))
+          return setChanging(true)
+        }
         const meanE6 = parseMolarity(mean)
         const deviationE2 = parseDeviation(deviation)
         if (meanE6 === null || deviationE2 === null) {
@@ -160,16 +298,45 @@ function SummaryEntry({ worked, onSummary }: { worked: string | null; onSummary:
           return
         }
         const reply = onSummary(meanE6, deviationE2)
-        setErrors({ mean: reply.accepted ? '' : reply.text, deviation: '' })
+        if (reply.accepted) settle()
+        else setErrors({ mean: reply.text, deviation: '' })
       }}
     >
       <p>{SUMMARY.ask}</p>
       {worked !== null && <p>{worked}</p>}
-      <Field label={SUMMARY.ownAverage} value={mean} onChange={setMean} noteId={meanNoteId} error={errors.mean} />
-      <Field label={SUMMARY.ownDeviation} value={deviation} onChange={setDeviation} noteId={deviationNoteId} error={errors.deviation} />
-      <Button type="submit" variant="outline">
-        {SUMMARY.reveal}
-      </Button>
+      <Field
+        label={SUMMARY.ownAverage}
+        value={editable ? mean : recorded ? molarityText(recorded.meanE6) : ''}
+        onChange={setMean}
+        noteId={meanNoteId}
+        labelId={meanLabelId}
+        disabled={!editable}
+        held={blocked}
+        error={errors.mean}
+        inputRef={focus.field}
+      />
+      <Field
+        label={SUMMARY.ownDeviation}
+        value={editable ? deviation : recorded ? deviationE2Text(recorded.deviationE2) : ''}
+        onChange={setDeviation}
+        noteId={deviationNoteId}
+        labelId={deviationLabelId}
+        disabled={!editable}
+        error={errors.deviation}
+      />
+      <div className="flex flex-wrap gap-1.5">
+        <Button
+          ref={focus.button}
+          type="submit"
+          variant="outline"
+          aria-disabled={blocked !== null || undefined}
+          aria-describedby={blocked !== null ? meanNoteId : changeable ? `${meanLabelId} ${deviationLabelId}` : undefined}
+          className="aria-disabled:opacity-50"
+        >
+          {changeable ? NOTEBOOK_TEXT.change : SUMMARY.reveal}
+        </Button>
+        {cancellable && <Cancel to={focus.button} onCancel={settle} />}
+      </div>
     </form>
   )
 }
@@ -182,6 +349,7 @@ function SummaryEntry({ worked, onSummary }: { worked: string | null; onSummary:
 export function NotebookPanel({ m, state, onHclMolarity, onMolarity, onDiscard, onNextTrial, onSummary, resultRef }: NotebookPanelProps) {
   const trial = currentTrial(state)
   const last = [...state.trials].reverse().find(({ end }) => end !== 'open')
+  const lastOutcome = last && trialOutcome(m, state, last)
   const counting = countingTrials(m, state)
   const naoh = trueNaoh(m, state)
   const summary = summaryView(m, state)
@@ -200,11 +368,12 @@ export function NotebookPanel({ m, state, onHclMolarity, onMolarity, onDiscard, 
         button={NOTEBOOK_TEXT.record}
         invalid={INVALID_ENTRY_TEXT['hcl-molarity']}
         blocked={entryBlocked(m, state, { type: 'recordHclMolarity', molarityE6: 0 })}
+        recorded={state.hclRecordedE6}
         onEntry={onHclMolarity}
       />
 
       <div className="grid gap-2">
-        <h3 className="font-medium">{trialHeading(trial.index + 1)}</h3>
+        <h3 className={`font-medium ${ROLE.value}`}>{trialHeading(trial.index + 1)}</h3>
         <Pairs
           pairs={[
             // The molarity this trial was calculated with, once it has been: the notebook's can be changed between trials.
@@ -232,6 +401,7 @@ export function NotebookPanel({ m, state, onHclMolarity, onMolarity, onDiscard, 
           button={NOTEBOOK_TEXT.check}
           invalid={INVALID_ENTRY_TEXT.molarity}
           blocked={entryBlocked(m, state, { type: 'submitMolarity', molarityE6: 0 })}
+          recorded={trial.molarityE6}
           onEntry={onMolarity}
         />
         {can(m, state, { type: 'discardTrial' }) === null && (
@@ -241,12 +411,13 @@ export function NotebookPanel({ m, state, onHclMolarity, onMolarity, onDiscard, 
         )}
       </div>
 
-      {last && (
+      {last && lastOutcome && (
         <section ref={resultRef} tabIndex={-1} aria-labelledby={resultId} className="grid gap-1.5 rounded-md border p-2 outline-none focus-visible:ring-2 focus-visible:ring-ring">
+          {/* The words are resultHeading's: whose result, in the role of a name, then the result, in the role of what it is. */}
           <h3 id={resultId} className="font-medium">
-            {resultHeading(last.index + 1, outcomeLabel(trialOutcome(m, state, last)))}
+            <span className={ROLE.value}>{resultName(last.index + 1)}</span>: <span className={classes(resultRole(outcomeRole(lastOutcome)))}>{outcomeLabel(lastOutcome)}</span>
           </h3>
-          {feedback(trialOutcome(m, state, last), last.waterUl).map((line) => (
+          {feedback(lastOutcome, last.waterUl).map((line) => (
             <p key={line}>{line}</p>
           ))}
         </section>
@@ -264,7 +435,12 @@ export function NotebookPanel({ m, state, onHclMolarity, onMolarity, onDiscard, 
         ) : (
           <>
             <p>{completedText(naoh)}</p>
-            <SummaryEntry worked={state.mode === 'guided' ? workedAverage(counting.map((counted) => counted.molarityE6!)) : null} onSummary={onSummary} />
+            <SummaryEntry
+              worked={state.mode === 'guided' ? workedAverage(counting.map((counted) => counted.molarityE6!)) : null}
+              blocked={entryBlocked(m, state, { type: 'recordSummary', meanE6: 0, deviationE2: 0 })}
+              recorded={state.summary}
+              onSummary={onSummary}
+            />
           </>
         )}
         {/* Always there, and empty until both of the learner's values are in, so that a screen reader says the notebook's when they come. Nothing is marked. */}
@@ -297,7 +473,7 @@ export function TrialRecord({ m, state }: { m: TitrationModel; state: TitrationS
     <section className="grid gap-2 rounded-lg border bg-card p-3 text-sm">
       <h2 className="font-medium">{NOTEBOOK_TEXT.recordHeading}</h2>
       <p>
-        {NOTEBOOK_TEXT.hclInRecord}: {molarity(state.hclRecordedE6)}
+        {NOTEBOOK_TEXT.hclInRecord}: <span className={classes(valueRole(molarity(state.hclRecordedE6)))}>{molarity(state.hclRecordedE6)}</span>
       </p>
       {/* On a small screen the table scrolls sideways in this box, which the keyboard can reach. */}
       <div tabIndex={0} role="region" aria-label={NOTEBOOK_TEXT.recordHeading} className="overflow-x-auto rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring">
@@ -321,11 +497,13 @@ export function TrialRecord({ m, state }: { m: TitrationModel; state: TitrationS
                   <th scope="row" className="py-1 pr-3 font-medium">
                     {trial.index + 1}
                   </th>
-                  {[reading(trial.initialReadingUl), reading(trial.finalReadingUl), reading(titre(trial)), molarity(trial.molarityE6), outcomeLabel(outcome)].map((cell, column) => (
-                    <td key={column} className="py-1 pr-3">
+                  {/* Four figures, each in the role of a value once it is there, then the result in its own. */}
+                  {[reading(trial.initialReadingUl), reading(trial.finalReadingUl), reading(titre(trial)), molarity(trial.molarityE6)].map((cell, column) => (
+                    <td key={column} className={classes('py-1 pr-3', valueRole(cell))}>
                       {cell}
                     </td>
                   ))}
+                  <td className={classes('py-1 pr-3', resultRole(outcomeRole(outcome)))}>{outcomeLabel(outcome)}</td>
                 </tr>
                 {lines.length > 0 && (
                   <tr>

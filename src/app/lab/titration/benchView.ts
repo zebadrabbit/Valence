@@ -39,8 +39,10 @@ export interface BenchView {
   trialEnd: 'open' | 'graded' | 'overshot' | 'ran-out' | 'discarded'
   /** Final once titrant has been delivered in the trial, else initial; never null, so the field always has its label. */
   readingWanted: 'initial' | 'final'
-  /** Why that reading cannot be recorded now; null when it can. */
+  /** Why that reading cannot be recorded now; null when it can, for the first time or again. */
   readingBlocked: Blocked | null
+  /** That reading as the learner typed it, once it is in the notebook; never the meniscus. */
+  readingRecorded: number | null
   slowDown: boolean
 }
 
@@ -81,6 +83,7 @@ export function benchViewOf(m: TitrationModel, state: TitrationState): BenchView
     trialEnd: trial.end,
     readingWanted,
     readingBlocked: reading !== null && ABOUT_THE_VALUE.includes(reading) ? null : reading,
+    readingRecorded: readingWanted === 'initial' ? trial.initialReadingUl : trial.finalReadingUl,
     slowDown: slowDownHint(m, state),
   }
 }

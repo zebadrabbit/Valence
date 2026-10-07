@@ -1,9 +1,23 @@
 import { useId, useState, type ReactNode, type Ref } from 'react'
 import { Disclosure } from '@/app/explore/InspectorCard'
+import { ROLE } from '@/app/lab/roles'
 import type { Source } from '@/chem-data/schema'
 import type { TitrationData } from '@/chem-data/titration/data'
 import type { Action } from '@/engine/titration'
-import { ACTION_TEXT, additionMessage, describeStand, flaskStatus, saidAgain, SLOW_DOWN_TEXT, STOPCOCK_ALREADY_CLOSED, streamMessage, swirlText, undoneText } from './benchText'
+import {
+  ACTION_TEXT,
+  additionMessage,
+  ALREADY_CONDITIONED,
+  describeStand,
+  FLASK,
+  flaskStatus,
+  saidAgain,
+  SLOW_DOWN_TEXT,
+  STOPCOCK_ALREADY_CLOSED,
+  streamMessage,
+  swirlText,
+  undoneText,
+} from './benchText'
 import type { BenchAction, BenchView } from './benchView'
 import { flaskColour } from './flaskColour'
 import { blockedText, OUTCOME_TEXT, readingRecordedText } from './messages'
@@ -46,6 +60,8 @@ export interface TitrationBenchProps {
 export interface Said {
   text: string
   done?: { action: BenchAction; before: BenchView }
+  /** The text is why a press did nothing: the line is drawn in the role of a held reason. */
+  held?: boolean
   /** The line as it stood when this was said. Not given for a stream: open and closed never read the same. */
   previous?: string
 }
@@ -55,6 +71,14 @@ const CLOSED_BY_ITSELF_MS = 600
 
 const doneText = (action: BenchAction, previous: string) =>
   action.type !== 'deliver' ? ACTION_TEXT[action.type] : action.amount === 'stream' ? '' : additionMessage(action.amount, previous)
+
+/**
+ * What the bench answers a press with by itself, the action never sent to the page; null for every press it sends.
+ * There is one: a burette that is conditioned is not conditioned again (ALREADY_CONDITIONED says why this is the
+ * bench's to answer). Where the engine has a reason of its own, that is the one said. Pure, exported for its test.
+ */
+export const benchAnswer = (action: BenchAction, view: BenchView): string | null =>
+  action.type === 'conditionBurette' && view.burette.conditioned && view.controls.conditionBurette === null ? ALREADY_CONDITIONED : null
 
 /** The message line: what the last action did, or why the last press did nothing, never in the words it already showed. Pure, exported for its test. */
 export function messageLine(said: Said, view: BenchView, stream: Stream): string {
@@ -86,6 +110,8 @@ export function TitrationBench({ view, display, bottles, sources, reducedMotion,
   // a reading the action may have cleared.
   // A reading recorded after a warning is not counted, so the field that focus returns to is still the one it left.
   const [actionsDone, setActionsDone] = useState(0)
+  // Counts the readings recorded after a warning: the field is not made anew for one, and is told by this that its entry is made.
+  const [readingsConfirmed, setReadingsConfirmed] = useState(0)
   const standWordsId = useId()
   const meniscusWordsId = useId()
   const { stream, open, close, closedBySelfAt } = useStream(view.controls.deliver === null, () => void onAction({ type: 'deliver', amount: 'stream' }), view.slowDown, shown)
@@ -104,8 +130,10 @@ export function TitrationBench({ view, display, bottles, sources, reducedMotion,
   // The page hands an action back once the learner has gone on with it after a warning: it is said as any other is.
   if (confirmed !== handedBack) {
     setHandedBack(confirmed)
-    if (confirmed?.type === 'recordInitialReading') say({ text: readingRecordedText('initial', confirmed.readingUl) })
-    else if (confirmed) {
+    if (confirmed?.type === 'recordInitialReading') {
+      say({ text: readingRecordedText('initial', confirmed.readingUl) })
+      setReadingsConfirmed(readingsConfirmed + 1)
+    } else if (confirmed) {
       say({ text: doneText(confirmed, said.text) })
       setActionsDone(actionsDone + 1)
     }
@@ -114,6 +142,8 @@ export function TitrationBench({ view, display, bottles, sources, reducedMotion,
   const act = (action: BenchAction) => {
     // Whatever else is picked up, the stopcock is closed first.
     close()
+    const own = benchAnswer(action, view)
+    if (own !== null) return say({ text: own, held: true })
     const answer = onAction(action)
     if (answer === 'done') {
       say({ text: doneText(action, said.text), done: { action, before: view } })
@@ -122,12 +152,12 @@ export function TitrationBench({ view, display, bottles, sources, reducedMotion,
     // Held for a warning: the warning is the answer, under a line that says nothing of an earlier press.
     if (answer === 'asked') setSaid({ text: '' })
     const reason = view.controls[action.type]
-    if (answer === 'refused' && reason !== null) say({ text: blockedText(reason) })
+    if (answer === 'refused' && reason !== null) say({ text: blockedText(reason), held: true })
   }
   const toggle = (pour: number | null) => {
     if (stream.open) return close()
-    if (closedBySelfAt !== null && performance.now() - closedBySelfAt < CLOSED_BY_ITSELF_MS) return say({ text: STOPCOCK_ALREADY_CLOSED })
-    if (view.controls.deliver !== null) return say({ text: blockedText(view.controls.deliver) })
+    if (closedBySelfAt !== null && performance.now() - closedBySelfAt < CLOSED_BY_ITSELF_MS) return say({ text: STOPCOCK_ALREADY_CLOSED, held: true })
+    if (view.controls.deliver !== null) return say({ text: blockedText(view.controls.deliver), held: true })
     open(pour)
     setSaid({ text: '', done: { action: { type: 'deliver', amount: 'stream' }, before: view } })
     // Its additions go straight to the page and are not counted, and the first of them clears a final reading.
@@ -135,6 +165,10 @@ export function TitrationBench({ view, display, bottles, sources, reducedMotion,
   }
 
   const standWords = describeStand(view, stream, display)
+  const colour = flaskColour({ ...view.flask, hasLiquid: view.flask.hasAliquot, ...display })
+  // The words after "Flask: " carry the pink while the flask is pink, and a deeper one once it is overshot; a
+  // colourless or an empty flask is plain, whatever its last addition did. The colour's name is in the words.
+  const flaskRole = colour.name === 'dark pink' ? ROLE.deepPink : colour.name === 'pink' || colour.name === 'faint pink' ? ROLE.pink : undefined
   return (
     <section ref={ref} aria-label="Bench" tabIndex={-1} className="bench rounded-lg border bg-card p-3 outline-none focus-visible:ring-2 focus-visible:ring-ring">
       <h2 className="sr-only">Bench</h2>
@@ -149,7 +183,7 @@ export function TitrationBench({ view, display, bottles, sources, reducedMotion,
                 plume={view.plume}
                 plumeKey={view.plumeKey}
                 plumeFadeSeconds={{ atOnce: display.plumeFadeAtOnceSeconds, slowly: display.plumeFadeSlowlySeconds }}
-                colour={flaskColour({ ...view.flask, hasLiquid: view.flask.hasAliquot, ...display })}
+                colour={colour}
                 stopcockOpen={stream.open}
                 reducedMotion={reducedMotion}
                 describedBy={standWordsId}
@@ -167,10 +201,15 @@ export function TitrationBench({ view, display, bottles, sources, reducedMotion,
           <p id={standWordsId} hidden>
             {standWords}
           </p>
-          <p role="status">{flaskStatus(view, display)}</p>
+          <p role="status">
+            {FLASK}
+            <span className={flaskRole}>{flaskStatus(view, display).slice(FLASK.length)}</span>
+          </p>
           {/* Guided's hint. Always there, and empty until it applies, so that a screen reader says it when it comes. */}
           <p role="status">{view.slowDown ? SLOW_DOWN_TEXT : ''}</p>
-          <p role="status">{line}</p>
+          <p role="status" className={said.held ? ROLE.held : undefined}>
+            {line}
+          </p>
           {notice}
           <Disclosure summary="Text description of the burette and flask">
             <p className="text-muted-foreground">{standWords}</p>
@@ -184,6 +223,8 @@ export function TitrationBench({ view, display, bottles, sources, reducedMotion,
           <ReadingInput
             key={actionsDone}
             wanted={view.readingWanted}
+            recorded={view.readingRecorded}
+            settled={readingsConfirmed}
             blockedText={view.readingBlocked === null ? null : blockedText(view.readingBlocked)}
             onReading={(readingUl) => {
               // A burette is not read while it runs.

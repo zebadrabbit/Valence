@@ -1,5 +1,6 @@
 import { useId } from 'react'
 import type { Mode } from './LabShell'
+import { ROLE } from './roles'
 import { SHELL_TEXT } from './shellText'
 
 /** Guided or Challenge: two native radio buttons. `disabled` is the reason the mode cannot be changed now. */
@@ -24,7 +25,7 @@ export function ModeSwitch({ mode, onChange, disabled }: { mode: Mode; onChange(
         </label>
       ))}
       {disabled !== undefined && (
-        <p id={reasonId} className="text-muted-foreground">
+        <p id={reasonId} className={ROLE.held}>
           {disabled}
         </p>
       )}

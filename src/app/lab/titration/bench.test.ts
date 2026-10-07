@@ -5,20 +5,22 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 import sources from '@/chem-data/sources.json'
 import { titrationData } from '@/chem-data/titration/data'
-import { createLab, modelFrom, type TitrationState } from '@/engine/titration'
-import { learner } from '@/engine/titration/testkit'
+import { ROLE } from '@/app/lab/roles'
+import { can, createLab, currentTrial, modelFrom, type TitrationState } from '@/engine/titration'
+import { calculatedMolarityE6, honestReading, learner } from '@/engine/titration/testkit'
 import { Bottle, Dropper, Pipette, WashBottle } from './apparatus'
-import { ACTION_TEXT, flaskStatus, SLOW_DOWN_TEXT, streamMessage, swirlText, undoneText } from './benchText'
+import { ACTION_TEXT, ALREADY_CONDITIONED, FLASK, flaskStatus, SLOW_DOWN_TEXT, STEP_BUTTON, stepsDone, streamMessage, swirlText, undoneText } from './benchText'
 import { benchViewOf, type BenchAction } from './benchView'
 import { standY } from './buretteGeometry'
 import { DARK_PINK, PINK, type FlaskColour } from './flaskColour'
 import { meniscusText } from './meniscusText'
-import { BLOCKED_TEXT, INVALID_ENTRY_TEXT, invalidReadingText, OUTCOME_TEXT } from './messages'
-import { ReadingInput, recordReading, type ReadingInputProps } from './ReadingInput'
+import { fieldState } from './entry'
+import { BLOCKED_TEXT, INVALID_ENTRY_TEXT, invalidReadingText, NOTEBOOK_TEXT, OUTCOME_TEXT } from './messages'
+import { ReadingInput, recordReading, replyUnder, type ReadingInputProps } from './ReadingInput'
 import { MeniscusWords, ReadingView } from './ReadingView'
 import { StopcockControls, type StopcockControlsProps } from './StopcockControls'
 import { CLOSED, CLOSED_UNSEEN, openStream, POUR_ADDITIONS } from './stream'
-import { messageLine, TitrationBench, type TitrationBenchProps } from './TitrationBench'
+import { benchAnswer, messageLine, TitrationBench, type TitrationBenchProps } from './TitrationBench'
 import { plumeToDraw, TitrationStand, type TitrationStandProps } from './TitrationStand'
 
 const count = (html: string, pattern: RegExp) => [...html.matchAll(pattern)].length
@@ -27,8 +29,16 @@ const svgTexts = (html: string) => [...html.matchAll(/<text[^>]*>(.*?)<\/text>/g
 const attribute = (html: string, tag: string, name: string) => new RegExp(`<${tag}[^>]* ${name}="([^"]*)"`).exec(html)?.[1]
 /** Everything a learner can read in it: the markup with its tags and their attributes taken out. */
 const words = (html: string) => html.replace(/<[^>]+>/g, ' ')
+/** The same as a reader meets it: the tags gone and nothing put in their place, so words in a span of their own still read on. */
+const text = (html: string) => html.replace(/<[^>]+>/g, '')
 /** The text of the element with this id. */
 const textOf = (html: string, id: string) => new RegExp(`<p[^>]* id="${id}"[^>]*>([^<]*)</p>`).exec(html)?.[1]
+const escaped = (words: string) => words.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+/** The class of the span that holds exactly these words: '' when it has none, undefined when no span holds them. */
+const roleOf = (html: string, held: string) => {
+  const match = new RegExp(`<span(?: class="([^"]*)")?>${escaped(held)}</span>`).exec(html)
+  return match ? (match[1] ?? '') : undefined
+}
 
 describe('the reading view', () => {
   const reading = (levelUl: number, filled = true, running = false) =>
@@ -133,6 +143,72 @@ describe('the reading field', () => {
     expect(record).toContain('aria-disabled="true"')
     expect(record).toContain(`aria-describedby="${describedBy}"`)
     expect(record).not.toMatch(/ disabled=|tabindex="-1"/)
+  })
+
+  const buttonNames = (html: string) => [...html.matchAll(/<button[^>]*>([^<]*)<\/button>/g)].map((match) => match[1])
+  const labelTag = (html: string) => /<label[^>]*>/.exec(html)![0]
+
+  it('once its reading is recorded is disabled and shows it, and the button reads Change, described by the label of the field it is of', () => {
+    const html = field({ recorded: 2560 })
+    expect(html).toMatch(/<input[^>]* disabled=""/)
+    expect(attribute(html, 'input', 'value')).toBe('2.56')
+    expect(buttonNames(html)).toEqual([NOTEBOOK_TEXT.change])
+    const change = /<button[^>]*>Change<\/button>/.exec(html)![0]
+    // Still the form's own button, so the one that had focus as Record keeps it as Change.
+    expect(change).toContain('type="submit"')
+    expect(change).not.toContain('aria-disabled="')
+    expect(change).toContain(`aria-describedby="${/<label id="([^"]*)"/.exec(html)![1]}"`)
+    // Nothing is under it but its reply, which is empty.
+    expect(html).not.toContain(ROLE.held)
+  })
+
+  it('once its reading is recorded and no reading can be taken again, shows it with the one reason under it and no Change', () => {
+    const html = field({ recorded: 28260, wanted: 'final', blockedText: BLOCKED_TEXT['trial-ended'] })
+    expect(html).toMatch(/<input[^>]* disabled=""/)
+    expect(attribute(html, 'input', 'value')).toBe('28.26')
+    expect(buttonNames(html)).toEqual([NOTEBOOK_TEXT.record])
+    expect(/<button[^>]*>Record<\/button>/.exec(html)![0]).toContain('aria-disabled="true"')
+    expect(textOf(html, attribute(html, 'input', 'aria-describedby')!)).toBe(BLOCKED_TEXT['trial-ended'])
+    // The reply's paragraph is there for a reader to hear it arrive, and is empty.
+    expect([...html.matchAll(/<p[^>]*>([^<]*)<\/p>/g)].map((match) => match[1])).toEqual([BLOCKED_TEXT['trial-ended'], ''])
+    expect(html).not.toContain('aria-invalid="')
+  })
+
+  it('carries the entry role on its label only while it waits for typing, and the held role on its reason', () => {
+    expect(labelTag(field())).toContain(ROLE.entry)
+    expect(labelTag(field({ blockedText: BLOCKED }))).not.toContain(ROLE.entry)
+    expect(labelTag(field({ recorded: 2560 }))).not.toContain(ROLE.entry)
+    expect(labelTag(field({ recorded: 2560, blockedText: BLOCKED }))).not.toContain(ROLE.entry)
+    expect(field({ blockedText: BLOCKED })).toMatch(new RegExp(`<p id="[^"]*" class="${ROLE.held}">${escaped(BLOCKED)}</p>`))
+    // The words are the same with the roles taken off: the label names the field and the sentence gives the reason.
+    expect(text(field({ blockedText: BLOCKED }))).toBe(`Initial burette reading (mL)Record${BLOCKED}`)
+  })
+
+  // The screenshot of 2026-10-06: "Write the reading to two decimal places..." stood under a field of a trial that
+  // was over, beside "This trial is over.", and the field had the outline of an invalid entry.
+  it('says nothing of an earlier entry, and marks nothing invalid, under a field that takes no reading now', () => {
+    const refused = { wanted: 'final', text: INVALID_ENTRY_TEXT.reading, invalid: true } as const
+    expect(replyUnder(refused, 'final', false)).toBe(refused)
+    expect(replyUnder(refused, 'final', true)).toBeNull()
+    // And a reply is of the reading it answered: an initial reading's is not said of the final one.
+    expect(replyUnder({ ...refused, wanted: 'initial' }, 'final', false)).toBeNull()
+  })
+})
+
+describe('a field that takes one entry', () => {
+  it('waits for typing until the entry is made, and then only while it is being changed', () => {
+    expect(fieldState(false, false, false)).toEqual({ editable: true, changeable: false, cancellable: false })
+    expect(fieldState(true, false, false)).toEqual({ editable: false, changeable: true, cancellable: false })
+    expect(fieldState(true, false, true)).toEqual({ editable: true, changeable: false, cancellable: true })
+  })
+
+  it('held by the engine is never editable and offers no change, whatever was entered and whatever was pressed', () => {
+    for (const recorded of [false, true])
+      for (const changing of [false, true]) expect(fieldState(recorded, true, changing)).toEqual({ editable: false, changeable: false, cancellable: false })
+  })
+
+  it('with nothing entered has nothing to cancel, even if a change was under way when the entry went', () => {
+    expect(fieldState(false, false, true)).toEqual({ editable: true, changeable: false, cancellable: false })
   })
 })
 
@@ -381,7 +457,7 @@ const display = {
   plumeFadeAtOnceSeconds: P.plumeFadeAtOnceSeconds.value,
   plumeFadeSlowlySeconds: P.plumeFadeSlowlySeconds.value,
 }
-const { run, prepared, titrateCarefully } = learner()
+const { run, prepared, readyTrial, carefulTrial, titrateCarefully } = learner()
 const deliver = (amount: 'stream' | 'drop' | 'half'): BenchAction => ({ type: 'deliver', amount })
 const WASH: BenchAction = { type: 'addWater' }
 const SWIRL: BenchAction = { type: 'swirlAndWait' }
@@ -406,9 +482,16 @@ describe('the bench', () => {
     return shelf
       .split(/<div role="group" aria-labelledby=/)
       .slice(1)
-      .map((tile) => ({ heading: /<h3[^>]*>([^<]*)<\/h3>/.exec(tile)![1]!, html: tile }))
+      // Before 2026-10-06 a heading was text alone; the pipette's now holds its volume in a span of its own.
+      .map((tile) => ({ heading: text(/<h3[^>]*>(.*?)<\/h3>/.exec(tile)![1]!), html: tile }))
   }
-  const buttons = (html: string) => [...html.matchAll(/(<button[^>]*>)([^<]*)<\/button>/g)].map((match) => ({ tag: match[1]!, name: match[2]! }))
+  const TICK = /<span aria-hidden="true"[^>]*>✓ <\/span>/
+  /**
+   * Each button's opening tag, its name and whether it shows a tick. The name is the words: the tick is hidden from
+   * assistive technology and is no part of it. Before 2026-10-06 no button held anything but its name.
+   */
+  const buttons = (html: string) =>
+    [...html.matchAll(/(<button[^>]*>)(.*?)<\/button>/gs)].map((match) => ({ tag: match[1]!, name: text(match[2]!.replace(TICK, '')), ticked: TICK.test(match[2]!) }))
   const names = (html: string) => buttons(html).map((button) => button.name)
   const hazards = (html: string) => count(html, /<summary[^>]*>Hazards<\/summary>/g)
   const fresh = createLab(1, 'guided')
@@ -441,24 +524,264 @@ describe('the bench', () => {
     for (const tile of [hcl!, naoh!, indicator!]) expect(tile.html).toMatch(/<summary[^>]*>Sources<\/summary>/)
   })
 
+  // Before 2026-10-06 the label was one run of text; what is read off it is now in a span of its own, in the role of a value.
   it('shows the label of the HCl bottle as text, as the drawing has it', () => {
     const [hcl] = tiles(bench(fresh))
-    expect(words(hcl!.html.replace(/<svg.*?<\/svg>/s, ''))).toContain('Label: HCl, 0.0976 M. Standardized.')
+    expect(text(hcl!.html.replace(/<svg.*?<\/svg>/s, ''))).toContain('Label: HCl, 0.0976 M. Standardized.')
     expect(svgTexts(hcl!.html)).toEqual(['HCl', '0.0976 M'])
   })
 
-  it('says what has been done in words beside a tick, and counts the drops and the rinses as text', () => {
-    const state = (html: string) => tiles(html).map((tile) => [...tile.html.matchAll(/<p[^>]*><span aria-hidden="true">✓ <\/span>([^<]*)<\/p>/g)].map((match) => match[1]))
-    expect(state(bench(fresh))).toEqual([[], [], [], [], []])
-    expect(names(bench(filled))).toContain('Refill burette')
-    expect(names(bench(filled))).not.toContain('Fill burette')
-    // Filled without conditioning: the tile does not say it was conditioned.
-    expect(state(bench(filled))[1]).toEqual(['Burette filled.'])
-    expect(state(bench(ready))).toEqual([[], ['Burette conditioned.', 'Burette filled.'], ['Pipette wet with HCl.', 'HCl is in the flask.'], [], []])
-    expect(words(tiles(bench(ready))[3]!.html)).toContain('Drops in the flask: 2')
-    expect(words(tiles(bench(run(m, ready, [WASH, WASH])))[4]!.html)).toContain('Rinses of this flask: 2')
-    // Conditioning leaves the burette empty.
-    expect(state(bench(run(m, fresh, [{ type: 'conditionBurette' }])))[1]).toEqual(['Burette conditioned.'])
+  // Before 2026-10-06 this case held each step done to a line of its own, a tick and words in a paragraph
+  // ("Burette conditioned.", "Burette filled.", "Pipette wet with HCl.", "HCl is in the flask."), over a button that
+  // kept the name of the action. The owner asked for the two as one control, so the lines are gone and the case
+  // after this one holds the buttons. The counts are values, not steps, and are still text.
+  it('has no status line of a step done, and counts the drops and the rinses as text', () => {
+    for (const state of [fresh, filled, ready]) for (const tile of tiles(bench(state))) expect(tile.html).not.toMatch(/<p[^>]*><span aria-hidden="true"/)
+    expect(text(tiles(bench(ready))[3]!.html)).toContain('Drops in the flask: 2')
+    expect(text(tiles(bench(run(m, ready, [WASH, WASH])))[4]!.html)).toContain('Rinses of this flask: 2')
+  })
+
+  describe('the four steps that are one button each', () => {
+    /** The four in the order of the shelf: the name, a tick or none, and whether a press can do anything. */
+    const steps = (state: TitrationState) =>
+      tiles(bench(state))
+        .slice(1, 3)
+        .flatMap((tile) => buttons(tile.html))
+        .map((button) => `${button.ticked ? '✓ ' : ''}${button.name}${button.tag.includes('aria-disabled="true"') ? ' (unavailable)' : ''}`)
+    const conditioned = run(m, fresh, [{ type: 'conditionBurette' }])
+    const pipetted = run(m, fresh, [{ type: 'pipetteAliquot' }])
+    const titrating = run(m, ready, [deliver('drop')])
+    const over = run(m, ready, [{ type: 'discardTrial' }])
+    const next = run(m, over, [{ type: 'startNextTrial' }])
+    const overBeforePipetting = run(m, fresh, [{ type: 'discardTrial' }])
+
+    it('are named for the action until the step is done, and from then for what is so, with a tick in front', () => {
+      expect(steps(fresh)).toEqual(['Condition burette', 'Fill burette', 'Rinse pipette with HCl', 'Pipette HCl into flask'])
+      // Conditioning leaves the burette empty: it is conditioned and not filled.
+      expect(steps(conditioned)).toEqual(['✓ Burette conditioned (unavailable)', 'Fill burette', 'Rinse pipette with HCl', 'Pipette HCl into flask'])
+      // Filled without conditioning: the button does not say it was conditioned, and conditioning is still to do.
+      expect(steps(filled)).toEqual(['Condition burette', '✓ Burette filled. Refill', 'Rinse pipette with HCl', 'Pipette HCl into flask'])
+      expect(steps(run(m, fresh, [{ type: 'rinsePipette' }]))).toEqual(['Condition burette', 'Fill burette', '✓ Pipette wet with HCl (unavailable)', 'Pipette HCl into flask'])
+      expect(steps(ready)).toEqual(['✓ Burette conditioned (unavailable)', '✓ Burette filled. Refill', '✓ Pipette wet with HCl (unavailable)', '✓ HCl is in the flask (unavailable)'])
+    })
+
+    it('say of a pipette that drew its acid without the rinse what is true of it: wet with HCl, never rinsed', () => {
+      expect(pipetted.pipetteRinsed).toBe(true)
+      expect(steps(pipetted).slice(2)).toEqual(['✓ Pipette wet with HCl (unavailable)', '✓ HCl is in the flask (unavailable)'])
+      expect(Object.values(STEP_BUTTON).map((words) => words.done).join(' ')).not.toMatch(/rinsed/i)
+    })
+
+    it('keep the fill both a state and an action: filled is said in every state, and Refill is unavailable exactly when the engine cannot fill', () => {
+      for (const state of [filled, ready, titrating, over, next]) {
+        const view = benchViewOf(m, state)
+        expect(view.burette.filled).toBe(true)
+        expect(steps(state)[1]).toBe(`✓ Burette filled. Refill${view.controls.fillBurette === null ? '' : ' (unavailable)'}`)
+      }
+      expect([filled, ready, titrating, over, next].map((state) => benchViewOf(m, state).controls.fillBurette)).toEqual([null, null, 'mid-titration', 'trial-ended', null])
+      // The word for the press is the only part drawn faint, and only then; "Burette filled." is never faint.
+      const refill = (state: TitrationState) => /<span( class="[^"]*")?> Refill<\/span>/.exec(bench(state))![1] ?? ''
+      expect([filled, titrating, over].map(refill)).toEqual(['', ' class="opacity-50"', ' class="opacity-50"'])
+    })
+
+    it('in a trial that is over and in the next one say what is still so: the burette and the pipette stay as they were, and the flask is a new one', () => {
+      expect(steps(over)).toEqual(['✓ Burette conditioned (unavailable)', '✓ Burette filled. Refill (unavailable)', '✓ Pipette wet with HCl (unavailable)', '✓ HCl is in the flask (unavailable)'])
+      expect(steps(next)).toEqual(['✓ Burette conditioned (unavailable)', '✓ Burette filled. Refill', '✓ Pipette wet with HCl (unavailable)', 'Pipette HCl into flask'])
+      // A step not done in a trial that is over is still named for its action, and is unavailable like any other control.
+      expect(steps(overBeforePipetting)).toEqual(['Condition burette (unavailable)', 'Fill burette (unavailable)', 'Rinse pipette with HCl (unavailable)', 'Pipette HCl into flask (unavailable)'])
+    })
+
+    it('are done exactly where the view says so, and every one that is done and cannot be done again is unavailable', () => {
+      for (const state of [fresh, conditioned, filled, pipetted, ready, titrating, over, next, overBeforePipetting]) {
+        const done = stepsDone(benchViewOf(m, state))
+        const shown = steps(state)
+        ;(['conditionBurette', 'fillBurette', 'rinsePipette', 'pipetteAliquot'] as const).forEach((step, at) => {
+          expect([step, shown[at]!.startsWith('✓ ')]).toEqual([step, done[step]])
+          if (done[step] && STEP_BUTTON[step].again === null) expect(shown[at]).toMatch(/ \(unavailable\)$/)
+        })
+      }
+    })
+
+    /** The class that draws a button faint, as its own and not as a variant's ("disabled:opacity-50" is in every button). */
+    const FAINT = /[" ]opacity-50[" ]/
+
+    it('a done button is focusable, is not drawn faint, and its tick is hidden from assistive technology and carries the done role', () => {
+      const [condition, fill, rinse, aliquot] = tiles(bench(ready))
+        .slice(1, 3)
+        .flatMap((tile) => [...tile.html.matchAll(/<button[^>]*>.*?<\/button>/gs)].map((match) => match[0]))
+      for (const button of [condition!, fill!, rinse!, aliquot!]) {
+        expect(button).not.toMatch(/ disabled=|tabindex="-1"/)
+        expect(button.slice(0, button.indexOf('>'))).not.toMatch(FAINT)
+        expect(button).toContain(`<span aria-hidden="true" class="${ROLE.done}">✓ </span>`)
+      }
+      // A button that is unavailable and not done is drawn faint, as before.
+      expect(/<button[^>]*>Add half-drop<\/button>/.exec(bench(fresh))![0]).toMatch(FAINT)
+    })
+
+    it('the engine has a reason for every done step but a conditioned burette between titrations, which the bench answers itself and does not condition again', () => {
+      const CONDITION: BenchAction = { type: 'conditionBurette' }
+      for (const state of [conditioned, ready, next]) {
+        expect(benchViewOf(m, state).controls.conditionBurette).toBeNull()
+        // What the bench withholds: the engine would do it, and it would only empty the burette.
+        expect(run(m, state, [CONDITION]).burette).toMatchObject({ conditioned: true, filled: false })
+        expect(benchAnswer(CONDITION, benchViewOf(m, state))).toBe(ALREADY_CONDITIONED)
+      }
+      // A burette not yet conditioned is conditioned by the press, and where the engine has a reason the engine's is said.
+      for (const state of [fresh, filled, titrating, over]) expect(benchAnswer(CONDITION, benchViewOf(m, state))).toBeNull()
+      expect([titrating, over].map((state) => benchViewOf(m, state).controls.conditionBurette)).toEqual(['mid-titration', 'trial-ended'])
+      // Every other press goes to the page, a done step's among them: the engine refuses those with its own reason.
+      for (const state of [pipetted, ready, titrating, over]) {
+        const view = benchViewOf(m, state)
+        expect(view.controls.rinsePipette).not.toBeNull()
+        expect(view.controls.pipetteAliquot).not.toBeNull()
+        for (const type of ['fillBurette', 'rinsePipette', 'pipetteAliquot', 'addIndicatorDrop', 'addWater', 'clearTipBubble', 'swirlAndWait'] as const) expect(benchAnswer({ type }, view)).toBeNull()
+        expect(benchAnswer(deliver('drop'), view)).toBeNull()
+      }
+      // Its sentence is true: once conditioned, no fill is dilute, so conditioning again is never what is needed to go on.
+      expect(ALREADY_CONDITIONED).toMatch(/already conditioned.*stays conditioned through every refill/)
+      let state = ready
+      for (let refill = 0; refill < 2; refill++) {
+        state = readyTrial(m, run(m, carefulTrial(m, state), [{ type: 'startNextTrial' }]))
+        expect([state.burette.conditioned, state.burette.diluted]).toEqual([true, false])
+      }
+    })
+  })
+
+  describe('carries each colour role on the kind of text it is for, beside words that say the same', () => {
+    const { state: atEndpoint } = titrateCarefully(m, ready)
+    let overshot = atEndpoint
+    while (benchViewOf(m, overshot).trialEnd === 'open') overshot = run(m, overshot, [deliver('drop')])
+    /** The status line: its words, and the role of what follows "Flask: ". */
+    const status = (state: TitrationState) => {
+      const [, role, said] = /<p role="status">Flask: <span(?: class="([^"]*)")?>([^<]*)<\/span><\/p>/.exec(bench(state))!
+      return { role: role ?? '', line: `${FLASK}${said}` }
+    }
+
+    it('a value read off the shelf: the acid label, the volume of the pipette, the drops and the rinses', () => {
+      const html = bench(run(m, ready, [WASH]))
+      expect(roleOf(html, 'HCl, 0.0976 M. Standardized.')).toBe(ROLE.value)
+      expect(roleOf(html, '25.00 mL')).toBe(ROLE.value)
+      const [, , , indicator, water] = tiles(html)
+      expect(indicator!.html).toContain(`Drops in the flask: <span class="${ROLE.value}">2</span>`)
+      expect(water!.html).toContain(`Rinses of this flask: <span class="${ROLE.value}">1</span>`)
+    })
+
+    it('the flask: pink only while it is pink, deeper once overshot, and plain while it is colourless or empty, whatever its last addition did', () => {
+      expect(status(fresh)).toEqual({ role: '', line: 'Flask: empty.' })
+      expect(status(ready)).toEqual({ role: '', line: 'Flask: colourless.' })
+      // A plume that fades says "pink" of a flask that is not: the words do, and the role does not.
+      const streamed = run(m, ready, [deliver('stream')])
+      expect(status(streamed)).toEqual({ role: '', line: 'Flask: colourless. Last addition: pink fades at once.' })
+      expect(status(atEndpoint)).toEqual({ role: ROLE.pink, line: 'Flask: faint pink. Swirled 30 s: the pink has lasted.' })
+      expect(status(overshot)).toEqual({ role: ROLE.deepPink, line: 'Flask: dark pink (overshot).' })
+      // The line is the status line's own words in every state: the span takes nothing from it and adds nothing.
+      for (const state of [fresh, ready, streamed, atEndpoint, overshot]) expect(status(state).line).toBe(flaskStatus(benchViewOf(m, state), display))
+    })
+
+    it('the reason a reading cannot be taken, held; and the label of the reading field, an entry, only while it waits', () => {
+      const label = (state: TitrationState) => /<label[^>]*>(?:Initial|Final) burette reading \(mL\)<\/label>/.exec(bench(state))![0]
+      expect(bench(fresh)).toContain(`class="${ROLE.held}">${BLOCKED_TEXT['burette-empty']}</p>`)
+      expect(label(fresh)).not.toContain(ROLE.entry)
+      expect(label(filled)).toContain(ROLE.entry)
+      // Recorded: the field is done, and its label is plain again.
+      expect(label(ready)).not.toContain(ROLE.entry)
+      expect(bench(overshot)).toContain(`class="${ROLE.held}">${BLOCKED_TEXT['trial-ended']}</p>`)
+    })
+
+    it('reads the same with every role taken off: no role is on an element that has no words or mark of its own', () => {
+      for (const state of [fresh, filled, ready, atEndpoint, overshot]) {
+        const html = bench(state)
+        for (const role of Object.values(ROLE)) for (const [, held] of html.matchAll(new RegExp(`<(?:span|p|label|h3)[^>]* class="[^"]*\\b${role}\\b[^"]*"[^>]*>([^<]*)<`, 'g'))) expect([role, held!.trim()]).not.toEqual([role, ''])
+      }
+    })
+  })
+
+  describe('the reading field after its entry', () => {
+    const { state: confirmed } = titrateCarefully(m, ready)
+    const recorded = run(m, confirmed, [{ type: 'recordFinalReading', readingUl: honestReading(confirmed.burette.levelUl) }])
+    const graded = carefulTrial(m, ready)
+    let overshot = confirmed
+    while (benchViewOf(m, overshot).trialEnd === 'open') overshot = run(m, overshot, [deliver('drop')])
+    /** The field as the bench draws it: its label, what it shows, whether it is disabled, its buttons, and the paragraphs under it. */
+    const field = (state: TitrationState) => {
+      const form = /<form.*<\/form>/s.exec(bench(state))![0]
+      return {
+        label: /<label[^>]*>([^<]*)<\/label>/.exec(form)![1],
+        value: attribute(form, 'input', 'value'),
+        disabled: /<input[^>]* disabled=""/.test(form),
+        buttons: buttons(form).map((button) => `${button.name}${button.tag.includes('aria-disabled="true"') ? ' (unavailable)' : ''}`),
+        under: [...form.matchAll(/<p[^>]*>([^<]*)<\/p>/g)].map((match) => match[1]).filter((said) => said !== ''),
+      }
+    }
+    /** Whether the engine would take that reading again now, as the learner typed it. */
+    const again = (state: TitrationState) => {
+      const view = benchViewOf(m, state)
+      const type = view.readingWanted === 'initial' ? 'recordInitialReading' : 'recordFinalReading'
+      return view.readingRecorded !== null && can(m, state, { type, readingUl: view.readingRecorded }) === null
+    }
+
+    it('is disabled and shows the reading as the learner typed it, with Change while the engine would take the reading again', () => {
+      // The initial reading, before any NaOH has run.
+      expect(field(ready)).toEqual({ label: 'Initial burette reading (mL)', value: '2.56', disabled: true, buttons: ['Change'], under: [] })
+      // The final reading, at an endpoint that has lasted the wait and before the molarity is checked.
+      expect(field(recorded)).toEqual({ label: 'Final burette reading (mL)', value: '28.26', disabled: true, buttons: ['Change'], under: [] })
+      expect([again(ready), again(recorded)]).toEqual([true, true])
+    })
+
+    it('in a trial that is over is disabled with that one reason and nothing else, shows what was entered, and has no Change', () => {
+      const over = BLOCKED_TEXT['trial-ended']
+      expect(field(graded)).toEqual({ label: 'Final burette reading (mL)', value: '28.26', disabled: true, buttons: ['Record (unavailable)'], under: [over] })
+      // Ended with no final reading: an empty field, and the same one reason.
+      expect(field(overshot)).toEqual({ label: 'Final burette reading (mL)', value: '', disabled: true, buttons: ['Record (unavailable)'], under: [over] })
+      // Discarded before any NaOH ran: the initial reading it had is shown.
+      expect(field(run(m, ready, [{ type: 'discardTrial' }]))).toEqual({ label: 'Initial burette reading (mL)', value: '2.56', disabled: true, buttons: ['Record (unavailable)'], under: [over] })
+      expect([again(graded), again(overshot)]).toEqual([false, false])
+    })
+
+    it('has Change exactly when the engine would take the reading again, over a whole careful trial and the start of the next', () => {
+      let state: TitrationState = createLab(1, 'challenge')
+      const seen: boolean[] = []
+      const look = () => {
+        const { buttons: shown, value, disabled } = field(state)
+        const view = benchViewOf(m, state)
+        expect(shown.includes('Change')).toBe(again(state))
+        // A reading that is recorded is shown and the field is disabled; one that is not leaves it empty.
+        expect([value, disabled || view.readingBlocked === null]).toEqual([view.readingRecorded === null ? '' : (view.readingRecorded / 1000).toFixed(2), true])
+        if (view.readingRecorded !== null) expect(disabled).toBe(true)
+        seen.push(shown.includes('Change'))
+      }
+      const step = (...actions: Parameters<typeof run>[2]) => {
+        state = run(m, state, actions)
+        look()
+      }
+      look()
+      step({ type: 'recordHclMolarity', molarityE6: 97600 }, { type: 'conditionBurette' }, { type: 'fillBurette' })
+      step({ type: 'recordInitialReading', readingUl: honestReading(state.burette.levelUl) })
+      // Clearing the tip moves the meniscus: the reading is gone, and the field waits again.
+      step({ type: 'clearTipBubble' })
+      step({ type: 'recordInitialReading', readingUl: honestReading(state.burette.levelUl) })
+      step({ type: 'rinsePipette' }, { type: 'pipetteAliquot' }, { type: 'addIndicatorDrop' }, { type: 'addIndicatorDrop' })
+      for (const { amount } of titrateCarefully(m, state).additions) step(deliver(amount))
+      step(SWIRL)
+      step({ type: 'recordFinalReading', readingUl: honestReading(state.burette.levelUl) })
+      // One more half-drop undoes the wait and the final reading with it.
+      step(deliver('half'))
+      step(SWIRL)
+      step({ type: 'recordFinalReading', readingUl: honestReading(state.burette.levelUl) })
+      step({ type: 'submitMolarity', molarityE6: calculatedMolarityE6(m, state.hclRecordedE6!, currentTrial(state).finalReadingUl! - currentTrial(state).initialReadingUl!) })
+      expect(currentTrial(state).end).toBe('graded')
+      step({ type: 'startNextTrial' })
+      // Both answers were met on the way.
+      expect(new Set(seen)).toEqual(new Set([true, false]))
+    })
+
+    it("shows the learner's own reading and never the meniscus: a misread in Challenge is shown as it was typed", () => {
+      const state = run(m, createLab(1, 'challenge'), [{ type: 'conditionBurette' }, { type: 'fillBurette' }, { type: 'clearTipBubble' }])
+      const level = state.burette.levelUl
+      const misread = run(m, state, [{ type: 'recordInitialReading', readingUl: 3000 }])
+      expect(Math.abs(level - 3000)).toBeGreaterThan(m.readingToleranceUl)
+      expect(field(misread).value).toBe('3.00')
+      expect(bench(misread)).not.toContain((honestReading(level) / 1000).toFixed(2))
+    })
   })
 
   it('marks a control the engine has blocked as unavailable and leaves it focusable', () => {
@@ -484,7 +807,8 @@ describe('the bench', () => {
     const html = bench(near, { notice: createElement('div', { id: 'notice' }) })
     const at = [
       html.indexOf('>Swirl and wait 30 s</button>'),
-      html.indexOf(`<p role="status">${flaskStatus(view, display)}</p>`),
+      // Before 2026-10-06 the status line was one run of text; what follows "Flask: " is now in a span, for the flask's role.
+      html.indexOf(`<p role="status">${FLASK}<span>${flaskStatus(view, display).slice(FLASK.length)}</span></p>`),
       html.indexOf(`<p role="status">${SLOW_DOWN_TEXT.replaceAll("'", '&#x27;')}</p>`),
       html.indexOf('<p role="status"></p>'),
       html.indexOf('<div id="notice">'),

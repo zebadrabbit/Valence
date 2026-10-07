@@ -26,12 +26,15 @@ const colourLabel = ({ flask }: BenchView, display: Display) => flaskColour({ ..
  */
 const FOUND = { persisted: 'the pink has lasted', faded: 'no pink' }
 
+/** What the status line begins with. The bench draws what follows it in the flask's colour role. */
+export const FLASK = 'Flask: '
+
 /**
  * The status line: the flask's colour, then the last addition's cue, or what a swirl and wait found in its place.
  * It is the same text for every addition until the colour's name or the cue changes, so a live region speaks only then.
  */
 export function flaskStatus(view: BenchView, display: Display): string {
-  const colour = `Flask: ${colourLabel(view, display)}.`
+  const colour = `${FLASK}${colourLabel(view, display)}.`
   // An overshot flask has no cue: its colour says it.
   if (!view.flask.hasAliquot || view.flask.overshot) return colour
   if (view.flask.indicatorDrops === 0) return `${colour} No indicator in it.`
@@ -91,6 +94,38 @@ export function additionMessage(amount: 'drop' | 'half', previous: string): stri
  * given again, by the same button or by another, each say that they are said again.
  */
 export const saidAgain = (text: string, previous: string) => (text !== '' && text === previous ? `Again: ${text}` : text)
+
+/**
+ * The shelf's four steps that are one button each (the owner's request of 2026-10-06): `todo` is what a press does,
+ * and names the button until the step is done; `done` is what is so from then, and names it with a tick in front.
+ * Each `done` is true in every state it shows in: "wet with HCl", not "rinsed", because a pipette that drew its
+ * acid unrinsed is wet with acid too, and the engine holds the two alike. A fill can be done again, so its button
+ * says both: that the burette is filled, and `again`, what a press does.
+ */
+export const STEP_BUTTON = {
+  conditionBurette: { todo: 'Condition burette', done: 'Burette conditioned', again: null },
+  fillBurette: { todo: 'Fill burette', done: 'Burette filled.', again: 'Refill' },
+  rinsePipette: { todo: 'Rinse pipette with HCl', done: 'Pipette wet with HCl', again: null },
+  pipetteAliquot: { todo: 'Pipette HCl into flask', done: 'HCl is in the flask', again: null },
+} as const
+
+export type StepControl = keyof typeof STEP_BUTTON
+
+/** Which of those steps are done, from the view alone. */
+export const stepsDone = ({ burette, pipetteRinsed, flask }: BenchView): Record<StepControl, boolean> => ({
+  conditionBurette: burette.conditioned,
+  fillBurette: burette.filled,
+  rinsePipette: pipetteRinsed,
+  pipetteAliquot: flask.hasAliquot,
+})
+
+/**
+ * What a press on "Burette conditioned" is told while the engine has no reason of its own to give. The engine
+ * would condition a burette twice, which empties it and changes nothing else: once conditioned it is never filled
+ * dilute again. So the bench does not send the action, and says this. It is the one press the bench answers
+ * without the engine's word.
+ */
+export const ALREADY_CONDITIONED = 'The burette is already conditioned, and in this lab it stays conditioned through every refill.'
 
 const SWIRLED = 'Flask swirled for 30 seconds'
 

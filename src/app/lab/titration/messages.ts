@@ -9,6 +9,9 @@ export const NOTEBOOK_TEXT = {
   heading: 'Notebook',
   record: 'Record',
   check: 'Check',
+  // Beside a field whose entry is made, where the engine would take the entry again, and beside it while it is changed.
+  change: 'Change',
+  cancel: 'Cancel',
   discard: 'Discard this flask',
   nextTrial: 'Start the next trial',
   hcl: 'HCl molarity, from the bottle label (M)',
@@ -30,8 +33,19 @@ export const tallyText = (finished: number, counting: number, needed: number) =>
 
 /** `number` is the trial's, counted from 1. */
 export const trialHeading = (number: number) => `Trial ${number}`
-/** The heading of the last result: the trial, and its result in words (`outcomeLabel`). */
-export const resultHeading = (number: number, label: string) => `Result of trial ${number}: ${label}`
+/** The heading of the last result: whose it is, then the result in words (`outcomeLabel`). The page draws the two apart, each in its own role. */
+export const resultName = (number: number) => `Result of trial ${number}`
+export const resultHeading = (number: number, label: string) => `${resultName(number)}: ${label}`
+
+/**
+ * The colour role of a result, beside its words: good for a trial that passed and counts, failed for one that did
+ * not pass or has no usable titre. A trial still open has none, and neither has a pass that does not count, which
+ * is neither: its words say both halves.
+ */
+export function outcomeRole(outcome: TrialOutcome): 'done' | 'failed' | null {
+  if (outcome.state === 'passed') return outcome.counts ? 'done' : null
+  return outcome.state === 'open' ? null : 'failed'
+}
 
 /**
  * Why a control cannot be used now. Each names what is missing and nothing else, so it reads the same in both modes.

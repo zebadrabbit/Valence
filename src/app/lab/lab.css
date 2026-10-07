@@ -1,9 +1,53 @@
 /*
- * Where the parts of a lab page sit. The Lab tab's DOM order is guide, bench, notebook at every width; this file
- * only places them, and lays out the primer. Every rule follows the width the page itself has, with the menu open
- * or closed, never the window's. Loaded with a lab page, so none of it is in the app shell's stylesheet. Nothing
- * here animates.
+ * Where the parts of a lab page sit, and the colours of its roles. The Lab tab's DOM order is guide, bench,
+ * notebook at every width; this file only places them, and lays out the primer. Every rule of layout follows the
+ * width the page itself has, with the menu open or closed, never the window's. Loaded with a lab page, so none of
+ * it is in the app shell's stylesheet. Nothing here animates.
  */
+
+/*
+ * The colour roles (roles.ts says what carries each). Each is defined once for the light theme and once for the
+ * dark, in the same hue: dark enough to read on the light theme's white, light enough to read on the dark theme's
+ * card. A failed result has no value of its own: it is the theme's destructive colour. Colour is an added cue.
+ * Each role sits on words or a mark that say the same, so nothing here may be the only place a thing is told.
+ */
+:root {
+  --lab-value: oklch(0.5 0.1 215);
+  --lab-entry: oklch(0.545 0.113 88);
+  --lab-done: oklch(0.5 0.14 150);
+  --lab-pink: oklch(0.53 0.21 355);
+  --lab-pink-deep: oklch(0.42 0.17 355);
+  --lab-held: oklch(0.555 0.18 42);
+}
+.dark {
+  --lab-value: oklch(0.82 0.12 210);
+  --lab-entry: oklch(0.89 0.17 100);
+  --lab-done: oklch(0.8 0.19 148);
+  --lab-pink: oklch(0.74 0.2 350);
+  --lab-pink-deep: oklch(0.67 0.23 355);
+  --lab-held: oklch(0.79 0.15 60);
+}
+.lab-value {
+  color: var(--lab-value);
+}
+.lab-entry {
+  color: var(--lab-entry);
+}
+.lab-done {
+  color: var(--lab-done);
+}
+.lab-failed {
+  color: var(--destructive);
+}
+.lab-pink {
+  color: var(--lab-pink);
+}
+.lab-pink-deep {
+  color: var(--lab-pink-deep);
+}
+.lab-held {
+  color: var(--lab-held);
+}
 
 /*
  * The tab bar stays at the top of the window while a panel scrolls under it. Whatever is brought into view inside

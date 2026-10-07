@@ -159,6 +159,23 @@ describe('the bench view of a real engine state', () => {
     expect(v.readingBlocked).toBeNull()
   })
 
+  it('gives the reading the field stands for as the learner typed it, once it is recorded, and nothing until then or once it is undone', () => {
+    expect(view(filled).readingRecorded).toBeNull()
+    // The initial reading, recorded by the scripted learner as the meniscus to the nearest 0.01 mL.
+    expect(view(ready())).toMatchObject({ readingWanted: 'initial', readingRecorded: honestReading(ready().burette.levelUl) })
+    // Typed 30 µL off in Challenge: the view holds what was typed, never the level.
+    const off = run(m, readyTrial(m, createLab(1, 'challenge'), { fill: true }), [{ type: 'recordInitialReading', readingUl: 2000 }])
+    expect([view(off).readingRecorded, view(off).burette.levelUl]).toEqual([2000, 1963])
+    // Once NaOH has run the field stands for the final reading, which is not yet taken.
+    expect(view(confirmed)).toMatchObject({ readingWanted: 'final', readingRecorded: null })
+    const read = run(m, confirmed, [{ type: 'recordFinalReading', readingUl: honestReading(confirmed.burette.levelUl) }])
+    expect(view(read).readingRecorded).toBe(honestReading(confirmed.burette.levelUl))
+    // A half-drop after it changes the flask: the engine drops the final reading, and so does the view.
+    expect(view(run(m, read, [deliver('half')])).readingRecorded).toBeNull()
+    // A trial that is over keeps what was entered in it.
+    expect(view(carefulTrial(m, ready()))).toMatchObject({ readingWanted: 'final', readingRecorded: 28260, readingBlocked: 'trial-ended' })
+  })
+
   it('overshot: dark pink, and every control and the reading say the trial is over', () => {
     const v = view(streamToTheEnd(ready()))
     expect(flaskStatus(v, display)).toBe('Flask: dark pink (overshot).')
@@ -211,10 +228,12 @@ describe('the bench view of a real engine state', () => {
     expect(view(run(m, ready(), repeat({ type: 'addWater' }, 3))).controls.addWater).toBe('water-full')
   })
 
-  it('has the keys of the plan and no other, so nothing else of the engine reaches the bench', () => {
+  // Before 2026-10-06 the list had no `readingRecorded`: the reading field was emptied once its reading was recorded,
+  // and now shows it. It is the learner's own typed reading, which the notebook shows too, and never the meniscus.
+  it('has the keys of the plan and one more, the reading as the learner typed it, so nothing else of the engine reaches the bench', () => {
     const v = view(midStream)
     expect(Object.keys(v).sort()).toEqual(
-      ['burette', 'controls', 'flask', 'hclLabel', 'persistence', 'pipetteRinsed', 'plume', 'plumeKey', 'readingBlocked', 'readingWanted', 'slowDown', 'trialEnd'].sort(),
+      ['burette', 'controls', 'flask', 'hclLabel', 'persistence', 'pipetteRinsed', 'plume', 'plumeKey', 'readingBlocked', 'readingRecorded', 'readingWanted', 'slowDown', 'trialEnd'].sort(),
     )
     expect(Object.keys(v.flask).sort()).toEqual(['hasAliquot', 'indicatorDrops', 'overshot', 'pink', 'pinkConcentration', 'volumeUl', 'waterPortions'].sort())
     expect(Object.keys(v.controls).sort()).toEqual([...CONTROLS].sort())

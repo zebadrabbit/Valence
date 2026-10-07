@@ -1,3 +1,4 @@
+import { ROLE } from '@/app/lab/roles'
 import type { Step } from '@/engine/titration'
 import { GUIDE_TRIAL_OVER, guideHeading, guideLine, STEP_STATE_TEXT, STEP_TEXT } from './messages'
 
@@ -25,7 +26,10 @@ export function Guide({ steps, trialIndex }: { steps: { step: Step; state: StepS
         <ol className="grid gap-1.5">
           {steps.map(({ step, state }) => (
             <li key={step} aria-current={state === 'next' ? 'step' : undefined} className="grid grid-cols-[1rem_minmax(0,1fr)] gap-1.5 aria-[current]:font-medium">
-              <span aria-hidden="true">{MARK[state]}</span>
+              {/* The tick of a step done is in the role of a done mark; the other marks are plain. The state is in words beside each. */}
+              <span aria-hidden="true" className={state === 'done' ? ROLE.done : undefined}>
+                {MARK[state]}
+              </span>
               <span>
                 {label(step)} <span className="font-normal text-muted-foreground">({STEP_STATE_TEXT[state]})</span>
               </span>
