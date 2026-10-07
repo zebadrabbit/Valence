@@ -1,10 +1,9 @@
 import { useEffect, useId, useRef, useState } from 'react'
-import { ChevronDown, ChevronUp } from 'lucide-react'
 import { Disclosure, Note, Sources } from '@/app/explore/InspectorCard'
-import { Button } from '@/components/ui/button'
 import { citations, type Citation } from '@/chem-data/citations'
 import type { Source } from '@/chem-data/schema'
 import { termIndex, type PrimerParagraph, type PrimerSection } from '@/chem-data/titration/primer'
+import { Paged } from './Paged'
 import { PRIMER_TEXT, UNSOURCED_TEXT } from './shellText'
 
 /** "M_NaOH" as M, then NaOH to go below the line: an underscore, then the subscript's letters. */
@@ -77,9 +76,8 @@ function Formatted({ paragraph }: { paragraph: PrimerParagraph }) {
 }
 
 /**
- * A lab's concept primer, one topic at a time: the list of topics (beside the card where the primer is wide enough,
- * behind a button above it where it is not; lab.css decides), the card with its place, its sources and the way to
- * the topics either side, and under it, when given `modelCitations`, the sources of the constants the lab's model
+ * A lab's concept primer, one topic at a time (Paged): the list of topics, the card with its place, its sources and
+ * the way to the topics either side, and under it, when given `modelCitations`, the sources of the constants the lab's model
  * runs on, which no card shows. `readFirst` holds the ids of the topics marked "Read first". `opensAt` is the topic
  * shown when the primer mounts, the first unless told: the markup tests draw the other eleven with it.
  *
@@ -100,11 +98,8 @@ export function Primer({
   modelCitations?: readonly Citation[] | undefined
 }) {
   const [index, setIndex] = useState(opensAt)
-  // The list of topics, where it is behind its button.
-  const [listed, setListed] = useState(false)
   const headingId = useId()
   const placeId = useId()
-  const listId = useId()
   const headingRef = useRef<HTMLHeadingElement>(null)
   const shown = useRef(index)
   useEffect(() => {
@@ -113,119 +108,77 @@ export function Primer({
   }, [index])
 
   const section = sections[index]!
-  const previous = sections[index - 1]
-  const next = sections[index + 1]
   const go = (to: number) => {
     setIndex(to)
-    setListed(false)
     // The topic already shown: its heading takes focus all the same, as the list is closed under it.
     if (to === index) headingRef.current?.focus()
   }
   const first = (id: string) => readFirst.includes(id)
 
   return (
-    <div className="primer">
-      <div className="primer-layout">
-        <nav
-          aria-label={PRIMER_TEXT.topics}
-          className="primer-menu text-sm"
-          onKeyDown={(event) => {
-            if (event.key === 'Escape' && listed) setListed(false)
-          }}
-        >
-          <Button variant="outline" className="primer-topics-button" aria-expanded={listed} aria-controls={listId} onClick={() => setListed(!listed)}>
-            {PRIMER_TEXT.topics}
-            {listed ? <ChevronUp aria-hidden="true" /> : <ChevronDown aria-hidden="true" />}
-          </Button>
-          <ol id={listId} className={`primer-topics ${listed ? 'primer-topics-listed' : ''} gap-0.5`}>
-            {sections.map(({ id, heading }, i) => (
-              <li key={id}>
-                <button
-                  type="button"
-                  aria-current={i === index ? 'true' : undefined}
-                  onClick={() => go(i)}
-                  className="grid w-full grid-cols-[1.5rem_minmax(0,1fr)] gap-1 rounded-md border-l-4 border-transparent px-2 py-1.5 text-left outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring aria-[current]:border-foreground aria-[current]:bg-muted aria-[current]:font-medium"
-                >
-                  <span className="tabular-nums text-muted-foreground">{i + 1}.</span>
-                  <span>
-                    {heading}
-                    {first(id) && <span className="block text-xs font-normal text-muted-foreground">{PRIMER_TEXT.readFirst}</span>}
-                  </span>
-                </button>
-              </li>
-            ))}
-          </ol>
-          {/* The key to the set-off sentences, drawn as one of them. */}
-          <p className={`mt-3 text-xs text-muted-foreground ${LAB_RULE}`}>{PRIMER_TEXT.ruleKey}</p>
-        </nav>
-        <div className="grid min-w-0 content-start gap-3">
-          {/* A card of its own for each topic, so that the Sources of one are not left open over the next. */}
-          <section key={section.id} aria-labelledby={headingId} className="grid min-w-0 gap-3 rounded-lg border bg-card p-4 text-sm">
-            <div className="grid gap-1">
-              <p id={placeId} className="text-xs text-muted-foreground">
-                {PRIMER_TEXT.place(index + 1, sections.length)}
-                {first(section.id) && (
-                  <>
-                    {' · '}
-                    <span className="font-medium text-foreground">{PRIMER_TEXT.readFirst}</span>
-                  </>
-                )}
-              </p>
-              <h2 ref={headingRef} id={headingId} tabIndex={-1} aria-describedby={placeId} className="w-fit rounded-sm text-lg font-semibold outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                {section.heading}
-              </h2>
-            </div>
-            {section.paragraphs.map((paragraph) => (
-              <div key={paragraph.text} className="grid gap-1">
-                <p className="max-w-[75ch] leading-relaxed">
-                  {paragraph.label && (
-                    <>
-                      <strong className="font-semibold">{paragraph.label}.</strong>{' '}
-                    </>
-                  )}
-                  <Formatted paragraph={paragraph} />
-                </p>
-                {paragraph.equation && (
-                  <p className="pl-4 font-medium">
-                    <Subscripted text={paragraph.equation} />
-                  </p>
-                )}
-              </div>
-            ))}
-            <Sources citations={citations(section.paragraphs.flatMap((paragraph) => paragraph.sourceIds.map((id) => ['This card', id] as const)), sources)} derived={UNSOURCED_TEXT.primer} />
-          </section>
-          <div className="flex flex-wrap justify-between gap-2">
-            {previous && (
-              <Button variant="outline" className="h-auto min-h-9 max-w-full py-1.5 text-left whitespace-normal" onClick={() => go(index - 1)}>
-                <span aria-hidden="true">←</span> {PRIMER_TEXT.previous(previous.heading)}
-              </Button>
+    <Paged
+      items={sections.map(({ id, heading }) => ({ id, heading, note: first(id) ? PRIMER_TEXT.readFirst : undefined }))}
+      index={index}
+      onGo={go}
+      text={{ list: PRIMER_TEXT.topics, previous: PRIMER_TEXT.previous, next: PRIMER_TEXT.next }}
+      // The key to the set-off sentences, drawn as one of them.
+      listKey={<p className={`mt-3 text-xs text-muted-foreground ${LAB_RULE}`}>{PRIMER_TEXT.ruleKey}</p>}
+      after={
+        modelCitations && (
+          // ponytail: the list is a copy of the one in Sources, whose summary is always "Sources" and which is taken
+          // as it is. A third list of this kind is the time to give Sources a summary of its own.
+          <Disclosure summary="Sources for this lab's model">
+            <ul className="grid grid-cols-[minmax(0,1fr)] gap-2 text-xs wrap-anywhere">
+              {modelCitations.map(({ source, covers }) => (
+                <li key={source.id}>
+                  <span className="font-medium">{covers.join(', ')}: </span>
+                  <a href={source.url} target="_blank" rel="noreferrer" className="underline underline-offset-4">
+                    {source.citation}
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <Note>{UNSOURCED_TEXT.model}</Note>
+          </Disclosure>
+        )
+      }
+    >
+      {/* A card of its own for each topic, so that the Sources of one are not left open over the next. */}
+      <section key={section.id} aria-labelledby={headingId} className="grid min-w-0 gap-3 rounded-lg border bg-card p-4 text-sm">
+        <div className="grid gap-1">
+          <p id={placeId} className="text-xs text-muted-foreground">
+            {PRIMER_TEXT.place(index + 1, sections.length)}
+            {first(section.id) && (
+              <>
+                {' · '}
+                <span className="font-medium text-foreground">{PRIMER_TEXT.readFirst}</span>
+              </>
             )}
-            {next && (
-              <Button variant="outline" className="ml-auto h-auto min-h-9 max-w-full py-1.5 text-left whitespace-normal" onClick={() => go(index + 1)}>
-                {PRIMER_TEXT.next(next.heading)} <span aria-hidden="true">→</span>
-              </Button>
+          </p>
+          <h2 ref={headingRef} id={headingId} tabIndex={-1} aria-describedby={placeId} className="w-fit rounded-sm text-lg font-semibold outline-none focus-visible:ring-2 focus-visible:ring-ring">
+            {section.heading}
+          </h2>
+        </div>
+        {section.paragraphs.map((paragraph) => (
+          <div key={paragraph.text} className="grid gap-1">
+            <p className="max-w-[75ch] leading-relaxed">
+              {paragraph.label && (
+                <>
+                  <strong className="font-semibold">{paragraph.label}.</strong>{' '}
+                </>
+              )}
+              <Formatted paragraph={paragraph} />
+            </p>
+            {paragraph.equation && (
+              <p className="pl-4 font-medium">
+                <Subscripted text={paragraph.equation} />
+              </p>
             )}
           </div>
-          {modelCitations && (
-            // ponytail: the list is a copy of the one in Sources, whose summary is always "Sources" and which is taken
-            // as it is. A third list of this kind is the time to give Sources a summary of its own.
-            <Disclosure summary="Sources for this lab's model">
-              <ul className="grid grid-cols-[minmax(0,1fr)] gap-2 text-xs wrap-anywhere">
-                {modelCitations.map(({ source, covers }) => (
-                  <li key={source.id}>
-                    <span className="font-medium">{covers.join(', ')}: </span>
-                    <a href={source.url} target="_blank" rel="noreferrer" className="underline underline-offset-4">
-                      {source.citation}
-                      <span className="sr-only"> (opens in a new tab)</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              <Note>{UNSOURCED_TEXT.model}</Note>
-            </Disclosure>
-          )}
-        </div>
-      </div>
-    </div>
+        ))}
+        <Sources citations={citations(section.paragraphs.flatMap((paragraph) => paragraph.sourceIds.map((id) => ['This card', id] as const)), sources)} derived={UNSOURCED_TEXT.primer} />
+      </section>
+    </Paged>
   )
 }

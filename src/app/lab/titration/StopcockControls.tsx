@@ -1,5 +1,4 @@
-import type { ComponentProps, KeyboardEvent } from 'react'
-import { Button } from '@/components/ui/button'
+import { Control } from '@/app/lab/Control'
 import type { BenchView } from './benchView'
 import { POUR_ADDITIONS, type Stream } from './stream'
 
@@ -11,19 +10,6 @@ export interface StopcockControlsProps {
   /** Opens a stream (null) or a measured pour; closes it if that one is running. */
   onToggle(pour: number | null): void
   onSwirl(): void
-}
-
-/** One press, one addition: a held key repeats Enter, and on a button every repeat is a click. */
-const noRepeat = (event: KeyboardEvent) => {
-  if (event.repeat && (event.key === 'Enter' || event.key === ' ')) event.preventDefault()
-}
-
-/**
- * A button that stays focusable when it cannot be used, so that focus never drops to the page when a press makes its own button unavailable.
- * `dimmed` is whether it is drawn faint, as an unavailable button is unless it says so: one that reads as a step done is unavailable and not faint.
- */
-export function Control({ unavailable, dimmed = unavailable, className = '', ...props }: { unavailable: boolean; dimmed?: boolean } & ComponentProps<typeof Button>) {
-  return <Button type="button" variant="outline" aria-disabled={unavailable || undefined} onKeyDown={noRepeat} {...props} className={`${dimmed ? 'opacity-50' : ''} ${className}`} />
 }
 
 // A test holds the two pours to 1 mL and 5 mL of the model's stream addition.

@@ -3,8 +3,8 @@ import type { Mode } from './LabShell'
 import { ROLE } from './roles'
 import { SHELL_TEXT } from './shellText'
 
-/** Guided or Challenge: two native radio buttons. `disabled` is the reason the mode cannot be changed now. */
-export function ModeSwitch({ mode, onChange, disabled }: { mode: Mode; onChange(mode: Mode): void; disabled?: string | undefined }) {
+/** Guided or Challenge: two native radio buttons. `disabled` is the reason the mode cannot be changed now. `text` is what each mode does in this lab, where the shell's own words are not true of it. */
+export function ModeSwitch({ mode, onChange, disabled, text = SHELL_TEXT }: { mode: Mode; onChange(mode: Mode): void; disabled?: string | undefined; text?: Record<Mode, string> | undefined }) {
   const name = useId()
   const reasonId = useId()
   return (
@@ -21,7 +21,7 @@ export function ModeSwitch({ mode, onChange, disabled }: { mode: Mode; onChange(
             disabled={disabled !== undefined}
             aria-describedby={disabled === undefined ? undefined : reasonId}
           />
-          {SHELL_TEXT[value]}
+          {text[value]}
         </label>
       ))}
       {disabled !== undefined && (

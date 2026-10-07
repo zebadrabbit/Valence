@@ -17,11 +17,21 @@ export const SHELL_TEXT = {
     'A saved run of this lab could not be opened in this version of Valence. It has been kept, and "Export my progress" on the Settings page includes it. The lab starts fresh here.',
 }
 
+/**
+ * A sentence for a message line, never the same text as `previous`, the line as it stands: a live region speaks
+ * only when its text changes, so a sentence that is said twice running says that it is said again.
+ */
+export const saidAgain = (text: string, previous: string) => (text !== '' && text === previous ? `Again: ${text}` : text)
+
+/** A panel that floats over a lab's page: the name of its grip and of its close button, from the panel's own name. */
+export const PANEL_TEXT = {
+  move: (name: string) => `${name}. Drag, or use the arrow keys, to move it`,
+  close: (name: string) => `Close ${name[0]!.toLowerCase()}${name.slice(1)}`,
+}
+
 /** The calculator that floats over a lab's page. */
 export const CALCULATOR_TEXT = {
   name: 'Calculator',
-  move: 'Calculator. Drag, or use the arrow keys, to move it',
-  close: 'Close calculator',
   sum: 'Sum',
   clear: 'Clear',
   back: 'Delete the last character',

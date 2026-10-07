@@ -1,3 +1,4 @@
+import { saidAgain } from '@/app/lab/shellText'
 import type { PlumeStatus } from '@/engine/titration'
 import type { BenchControl, BenchView } from './benchView'
 import { BURETTE_CAPACITY_UL } from './buretteGeometry'
@@ -88,12 +89,9 @@ export function additionMessage(amount: 'drop' | 'half', previous: string): stri
   return previous === first ? again : first
 }
 
-/**
- * A sentence for the message line, never the same text as `previous`, the line as it stands: a live region speaks
- * only when its text changes, so the second drop of indicator, a second swirl that finds the same and a refusal
- * given again, by the same button or by another, each say that they are said again.
- */
-export const saidAgain = (text: string, previous: string) => (text !== '' && text === previous ? `Again: ${text}` : text)
+// The message line's rule on a sentence said twice is every lab's (shellText.ts): here it is the second drop of
+// indicator, a second swirl that finds the same and a refusal given again, by the same button or by another.
+export { saidAgain }
 
 /**
  * The shelf's four steps that are one button each (the owner's request of 2026-10-06): `todo` is what a press does,

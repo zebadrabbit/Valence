@@ -136,6 +136,21 @@ describe('the lab shell', () => {
     expect(has(html, ['guide', 'bench', 'notebook', 'record'])).toEqual([false, true, true, true])
   })
 
+  it('leaves out the notebook where the lab hands it none: the bench alone, with no docked notebook named and none of the grid that places one', () => {
+    const html = shell({ guide: undefined, notebook: undefined })
+    expect(has(html, ['guide', 'bench', 'notebook', 'record'])).toEqual([false, true, false, true])
+    expect(html).not.toContain('<aside')
+    expect(html).not.toContain('lab-grid')
+    expect(html).toContain('<div class="lab-page"><div class="lab-bench"><div id="bench" data-shown="true">')
+  })
+
+  it("hands the mode switch the lab's own words for its two modes, where the lab has them", () => {
+    const html = shell({ modeText: { guided: 'Guided: with hints.', challenge: 'Challenge: without.' } })
+    expect(html).toContain('Guided: with hints.')
+    expect(html).toContain('Challenge: without.')
+    expect(html).not.toContain(escaped(SHELL_TEXT.guided))
+  })
+
   it('tells the bench that its tab is the one shown', () => {
     // That it is told otherwise on another tab is state, and is checked in a browser.
     expect(shell()).toContain('<div id="bench" data-shown="true">')
@@ -262,6 +277,11 @@ describe('the mode switch', () => {
   it('labels each radio button with what its mode does', () => {
     const labels = [...draw().matchAll(/<label[^>]*>(.*?)<\/label>/g)].map((match) => match[1]!.replace(/<[^>]+>/g, ''))
     expect(labels).toEqual([SHELL_TEXT.guided, SHELL_TEXT.challenge])
+  })
+
+  it("labels each with the lab's own words where it is handed them", () => {
+    const html = renderToStaticMarkup(createElement(ModeSwitch, { mode: 'guided', onChange: () => {}, text: { guided: 'One.', challenge: 'Two.' } }))
+    expect([...html.matchAll(/<label[^>]*>(.*?)<\/label>/g)].map((match) => match[1]!.replace(/<[^>]+>/g, ''))).toEqual(['One.', 'Two.'])
   })
 
   it('locked, disables both and ties the reason to each', () => {
