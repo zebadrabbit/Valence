@@ -29,9 +29,12 @@ export function fieldState(recorded: boolean, held: boolean, changing: boolean):
 /**
  * A key pressed anywhere in an entry's form. Escape, while a change is open, is its Cancel: `cancel` is the form's
  * own, and null while there is nothing to cancel. The key is not stopped: Escape also closes an open stopcock.
+ * A held Enter is one press, in the field and on the buttons: Enter in the field records and moves focus to the
+ * button, and each repeat would then be a press on it, opening the field as "Change" and recording again in turn.
  */
-export function entryKey(event: { key: string }, cancel: (() => void) | null) {
+export function entryKey(event: { key: string; repeat: boolean; preventDefault(): void }, cancel: (() => void) | null) {
   if (event.key === 'Escape') cancel?.()
+  if (event.key === 'Enter' && event.repeat) event.preventDefault()
 }
 
 /**

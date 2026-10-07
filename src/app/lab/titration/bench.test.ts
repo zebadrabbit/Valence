@@ -196,6 +196,12 @@ describe('the reading field', () => {
 })
 
 describe('a field that takes one entry', () => {
+  /** A key as the form is handed it, with whether its default was prevented. */
+  const pressed = (key: string, repeat = false) => {
+    const event = { key, repeat, dropped: false, preventDefault: () => void (event.dropped = true) }
+    return event
+  }
+
   it('waits for typing until the entry is made, and then only while it is being changed', () => {
     expect(fieldState(false, false, false)).toEqual({ editable: true, changeable: false, cancellable: false })
     expect(fieldState(true, false, false)).toEqual({ editable: false, changeable: true, cancellable: false })
@@ -215,11 +221,24 @@ describe('a field that takes one entry', () => {
   it('takes Escape as its Cancel while a change is open, and as nothing while there is nothing to cancel', () => {
     let cancelled = 0
     const cancel = () => void cancelled++
-    entryKey({ key: 'Escape' }, cancel)
+    entryKey(pressed('Escape'), cancel)
     expect(cancelled).toBe(1)
-    for (const key of ['Enter', 'Tab', ' ', 'Backspace', 'e']) entryKey({ key }, cancel)
+    for (const key of ['Enter', 'Tab', ' ', 'Backspace', 'e']) entryKey(pressed(key), cancel)
     expect(cancelled).toBe(1)
-    expect(() => entryKey({ key: 'Escape' }, null)).not.toThrow()
+    expect(() => entryKey(pressed('Escape'), null)).not.toThrow()
+  })
+
+  // Enter in the field records and moves focus to the button, which then reads Change: every repeat of a held key
+  // would be a press on it, opening the field and recording again in turn.
+  it('takes a held Enter as one press: the repeats are dropped, and no other key is', () => {
+    const dropped = (key: string, repeat: boolean) => {
+      const event = pressed(key, repeat)
+      entryKey(event, null)
+      return event.dropped
+    }
+    expect([dropped('Enter', false), dropped('Enter', true)]).toEqual([false, true])
+    // A held digit or Backspace repeats as it does in any field.
+    for (const key of ['1', '.', 'Backspace', 'ArrowLeft', 'Tab', 'Escape']) expect([key, dropped(key, true)]).toEqual([key, false])
   })
 })
 
