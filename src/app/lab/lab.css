@@ -58,6 +58,33 @@
   scroll-margin-top: 4.5rem;
 }
 
+/*
+ * A control drawn smaller than a finger: the buttons that open the floating panels, a disclosure's summary (Hazards,
+ * Sources), the paged list's button and its two ways on. Each has a hit area of 44 px each way all the same: an
+ * area laid over the control that draws nothing and takes no room, so the control looks as it did and the page is
+ * laid out as it was. A control that is larger keeps its own size. Under an open disclosure the area stands on the
+ * summary's foot and reaches upward, so that it does not lie over the first line of what the disclosure shows.
+ */
+.lab-tap,
+.lab-panel summary {
+  position: relative;
+}
+.lab-tap::after,
+.lab-panel summary::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, 2.75rem);
+  height: max(100%, 2.75rem);
+  transform: translate(-50%, -50%);
+}
+.lab-panel details[open] > summary::after {
+  top: auto;
+  bottom: 0;
+  transform: translateX(-50%);
+}
+
 .lab-page {
   container: lab / inline-size;
 }

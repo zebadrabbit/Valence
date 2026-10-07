@@ -211,6 +211,8 @@ describe('the list of stations', () => {
     const head = html.split('<div class="primer">')[0]!
     expect(buttons(head).map(({ name }) => name)).toEqual([SOLUBILITY_TEXT.name, 'Calculator'])
     for (const { tag } of buttons(head)) expect(tag).toContain('aria-expanded="false"')
+    // Drawn small, with a finger's hit area laid over each (lab.css).
+    for (const { tag } of buttons(head)) expect(tag).toMatch(/class="[^"]*\blab-tap\b/)
     expect(head).toContain('<p role="status" class="text-sm font-medium"></p>')
     expect(bench(complete).html.split('<div class="primer">')[0]).toContain(`</span>${PAGE_TEXT.completed}</p>`)
   })

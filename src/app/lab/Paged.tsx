@@ -54,7 +54,7 @@ export function Paged({
             if (event.key === 'Escape' && listed) setListed(false)
           }}
         >
-          <Button variant="outline" className="primer-topics-button" aria-expanded={listed} aria-controls={listId} onClick={() => setListed(!listed)}>
+          <Button variant="outline" className="primer-topics-button lab-tap" aria-expanded={listed} aria-controls={listId} onClick={() => setListed(!listed)}>
             {text.list}
             {listed ? <ChevronUp aria-hidden="true" /> : <ChevronDown aria-hidden="true" />}
           </Button>
@@ -82,12 +82,12 @@ export function Paged({
           {children}
           <div className="flex flex-wrap justify-between gap-2">
             {previous && (
-              <Button variant="outline" className="h-auto min-h-9 max-w-full py-1.5 text-left whitespace-normal" onClick={() => go(index - 1)}>
+              <Button variant="outline" className="lab-tap h-auto min-h-9 max-w-full py-1.5 text-left whitespace-normal" onClick={() => go(index - 1)}>
                 <span aria-hidden="true">←</span> {text.previous(previous.heading)}
               </Button>
             )}
             {next && (
-              <Button variant="outline" className="ml-auto h-auto min-h-9 max-w-full py-1.5 text-left whitespace-normal" onClick={() => go(index + 1)}>
+              <Button variant="outline" className="lab-tap ml-auto h-auto min-h-9 max-w-full py-1.5 text-left whitespace-normal" onClick={() => go(index + 1)}>
                 {text.next(next.heading)} <span aria-hidden="true">→</span>
               </Button>
             )}

@@ -76,7 +76,8 @@ export function FloatingPanel({
 
   return (
     <>
-      <Button ref={opener} type="button" variant="outline" size="sm" aria-expanded={open} onClick={() => (open ? close() : show())} onKeyDown={(event) => event.key === 'Escape' && open && close()}>
+      {/* Drawn small; lab.css lays a finger's hit area over it, and over the grip and the close button. */}
+      <Button ref={opener} type="button" variant="outline" size="sm" className="lab-tap" aria-expanded={open} onClick={() => (open ? close() : show())} onKeyDown={(event) => event.key === 'Escape' && open && close()}>
         {icon}
         {name}
       </Button>
@@ -96,7 +97,7 @@ export function FloatingPanel({
               <button
                 type="button"
                 aria-label={PANEL_TEXT.move(name)}
-                className="flex h-9 min-w-0 flex-1 cursor-move touch-none items-center gap-2 rounded-md px-2 text-left font-medium outline-none select-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring"
+                className="lab-tap flex h-9 min-w-0 flex-1 cursor-move touch-none items-center gap-2 rounded-md px-2 text-left font-medium outline-none select-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring"
                 onPointerDown={grab}
                 onPointerMove={drag}
                 onPointerUp={() => (grabbed.current = null)}
@@ -106,7 +107,7 @@ export function FloatingPanel({
                 <GripHorizontal aria-hidden="true" className="size-4 text-muted-foreground" />
                 {name}
               </button>
-              <Button type="button" variant="ghost" size="icon" aria-label={PANEL_TEXT.close(name)} onClick={close}>
+              <Button type="button" variant="ghost" size="icon" className="lab-tap" aria-label={PANEL_TEXT.close(name)} onClick={close}>
                 <X aria-hidden="true" />
               </Button>
             </div>

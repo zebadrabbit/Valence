@@ -364,6 +364,25 @@ describe('the primer', () => {
     expect(css.indexOf('.primer-topics-listed {')).toBeGreaterThan(css.indexOf('.primer-topics {'))
   })
 
+  it('gives a control drawn smaller than a finger a hit area of 44 px that draws nothing and moves nothing: lab.css lays it over the control', () => {
+    const css = labCss.replace(/\/\*.*?\*\//gs, '').replace(/\s+/g, ' ')
+    // The class, and every disclosure of a lab page: Hazards and Sources among them.
+    expect(css).toContain('.lab-tap, .lab-panel summary { position: relative; }')
+    const [, area] = /\.lab-tap::after, \.lab-panel summary::after \{([^}]*)\}/.exec(css)!
+    expect(area).toContain("content: '';")
+    expect(area).toContain('position: absolute;')
+    // 2.75rem is 44 px, each way; a control that is larger keeps its own size.
+    expect(area).toContain('width: max(100%, 2.75rem);')
+    expect(area).toContain('height: max(100%, 2.75rem);')
+    // Nothing is drawn and nothing takes room: no colour, no border, no size on the control itself.
+    expect(area).not.toMatch(/background|border|outline|shadow/)
+    expect(css).not.toMatch(/\.lab-tap \{[^}]*(height|width|padding|margin)/)
+    // The list's button and the two ways on carry the class, in the primer and wherever else the paged list is used.
+    const paged = draw(1)
+    const tagged = [...paged.matchAll(/<button[^>]*class="[^"]*\blab-tap\b[^"]*"[^>]*>(.*?)<\/button>/gs)].map((match) => text(match[1]!).replace(/[←→]/g, '').trim())
+    expect(tagged).toEqual([PRIMER_TEXT.topics, PRIMER_TEXT.previous(TITRATION_PRIMER[0]!.heading), PRIMER_TEXT.next(TITRATION_PRIMER[2]!.heading)])
+  })
+
   it('marks with the words "Read first" the four topics the first paragraph says to read first, in the list and on the card, and no other', () => {
     expect(PRIMER_TEXT.readFirst).toBe('Read first')
     const first = TITRATION_PRIMER[0]!.paragraphs[0]!.text
