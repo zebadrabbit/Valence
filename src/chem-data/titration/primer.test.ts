@@ -213,8 +213,6 @@ describe('the titration primer: how its text is drawn, so that a topic is quick 
       'glassware[3]',
       'glassware[3]',
       'glassware[3]',
-      // The lab's own measure of agreement.
-      'precision[1]',
     ])
     for (const [where, sentence, text] of labRules) {
       const at = text.indexOf(sentence)
@@ -228,6 +226,9 @@ describe('the titration primer: how its text is drawn, so that a topic is quick 
     // Not the chemistry that happens to say "here", and not the safety card, where nothing is the simulation's rule.
     expect(section('acids-and-bases').paragraphs.flatMap((p) => p.labRules ?? [])).toEqual([])
     expect(section('safety').paragraphs.flatMap((p) => p.labRules ?? [])).toEqual([])
+    // Nor the measure of agreement: relative deviation in parts per thousand is a measure a real bench uses too, so the sentence
+    // that names the lab there states the lab's choice and no departure from a bench. (The review's judgement; no source was read.)
+    expect(section('precision').paragraphs.flatMap((p) => p.labRules ?? [])).toEqual([])
   })
 
   it('takes the four cards marked "Read first" from the first paragraph, in the order it gives them', () => {

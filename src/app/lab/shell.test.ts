@@ -429,7 +429,8 @@ describe('the primer', () => {
         for (const { classes } of setOff) expect(classes).toMatch(/\bblock\b.*\bborder-l-4\b.*\bbg-muted/)
       })
     })
-    expect(total).toBe(10)
+    // Eleven sentences in eight paragraphs, in nine blocks: the card on the three mistakes has four in two.
+    expect(total).toBe(9)
     // The card on the three mistakes: three sentences that adjoin are one block, the fourth another, and what lies between is not set off.
     const mistakes = blocks(drawnParagraphs(cardOf(each[9]!))[3]!.body).map(({ words }) => words)
     expect(mistakes).toEqual([

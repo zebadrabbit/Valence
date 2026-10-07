@@ -580,13 +580,8 @@ export const TITRATION_PRIMER: readonly PrimerSection[] = [
         "three trials that count are the lab's rule (spec 7.3), and the miscopied label as a mistake repeated is its own example: the same wrong factor in every calculation.",
       ),
       paragraph(
-        {
-          label: 'The measure used',
-          terms: ['relative deviation'],
-          labRules: [
-            'This lab measures agreement by the relative deviation.',
-          ],
-        },
+        // Its first sentence names the lab and is not set off: it states the lab's choice of a measure that a real bench uses too.
+        { label: 'The measure used', terms: ['relative deviation'] },
         'This lab measures agreement by the relative deviation. Take the average of the three molarities, to four decimal places; it is rounded first only because that is how the notebook works it. Find how far each one is from that average, ignoring the sign, and average those distances. Divide by the average molarity and multiply by 1000. The answer is in parts per thousand: 2 parts per thousand means the trials are, on average, 0.2% away from their average.',
         [],
         "the definition is this lab's (spec 7.3: the mean absolute deviation divided by the mean, in parts per thousand, worked from the average rounded to four decimal places). No source for it was read.",
