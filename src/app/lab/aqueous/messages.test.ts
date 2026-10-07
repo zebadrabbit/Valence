@@ -236,6 +236,25 @@ describe("the page's own wording", () => {
     expect(SOLUBILITY_TEXT.key).toMatch(/not listed.*no station here brings together.*says nothing of whether its compound dissolves/)
     expect(data.stations).toHaveLength(10)
   })
+
+  it('marks in the solubility table the one pair that dissolves and reacts all the same, and says so in words under it', () => {
+    const { cationId, anionId } = SOLUBILITY_TEXT.reacting
+    // The record stores the pair as soluble, and it is the pair of ions that react at a station, giving ammonia.
+    expect(data.solubility.find((row) => row.cationId === cationId && row.anionId === anionId)?.soluble).toBe(true)
+    const stations = data.stations.filter((s) => s.equations.netIonic !== null && [cationId, anionId].every((id) => s.equations.netIonic!.reactants.some((term) => term.speciesId === id)))
+    expect(stations.map((s) => s.id)).toEqual(['aq-06'])
+    expect(stations[0]!.equations.netIonic!.products.map((term) => term.speciesId)).toContain('ammonia')
+    // No other pair the table calls soluble is the two reactants of a station's net ionic equation.
+    for (const row of data.solubility) {
+      const reacts = data.stations.some((s) => s.equations.netIonic !== null && [row.cationId, row.anionId].every((id) => s.equations.netIonic!.reactants.some((term) => term.speciesId === id)))
+      expect(row.soluble && reacts, `${row.cationId} ${row.anionId}`).toBe(row.cationId === cationId && row.anionId === anionId)
+    }
+    const note = SOLUBILITY_TEXT.reactingNote('Gases and heat as signs of a reaction')
+    expect(note).toBe(`${SOLUBILITY_TEXT.mark} Ammonium ions and hydroxide ions make no solid together, but they do react: they give ammonia. See "Gases and heat as signs of a reaction" in the primer.`)
+    expect(SOLUBILITY_TEXT.marked).toBe('see the note under the table')
+    // It gives no formula and no state, so nothing of an equation as it is entered.
+    expect(note).not.toMatch(/[₀-₉⁺⁻→]|\((aq|s|l|g)\)/)
+  })
 })
 
 describe('every sentence', () => {

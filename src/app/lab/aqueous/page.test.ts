@@ -641,7 +641,8 @@ describe('the solubility table', () => {
     const anions = [...new Set(data.solubility.map((row) => row.anionId))]
     const cations = [...new Set(data.solubility.map((row) => row.cationId))]
     const cells = [...html.matchAll(/<tr><th scope="row".*?<\/tr>/gs)].map((row) => [...row[0].matchAll(/<td[^>]*>(.*?)<\/td>/g)].map((cell) => cell[1]))
-    expect(cells).toEqual(
+    const { reacting } = SOLUBILITY_TEXT
+    expect(cells.map((row) => row.map((cell) => text(cell!.split('<sup')[0]!)))).toEqual(
       cations.map((cation) =>
         anions.map((anion) => {
           const row = data.solubility.find((r) => r.cationId === cation && r.anionId === anion)
@@ -649,11 +650,19 @@ describe('the solubility table', () => {
         }),
       ),
     )
-    const all = cells.flat()
+    // One cell carries the footnote's sign, with words for a screen reader in place of the sign: ammonium with hydroxide.
+    const marked = cells.flatMap((row, r) => row.flatMap((cell, c) => (cell!.includes('<sup') ? [[cations[r], anions[c], cell]] : [])))
+    expect(marked).toEqual([[reacting.cationId, reacting.anionId, `${SOLUBILITY_TEXT.soluble}<sup aria-hidden="true">${SOLUBILITY_TEXT.mark}</sup><span class="sr-only">, ${SOLUBILITY_TEXT.marked}</span>`]])
+    const all = cells.flat().map((cell) => text(cell!.split('<sup')[0]!))
     expect([all.filter((c) => c === 'insoluble').length, all.filter((c) => c === 'soluble').length, all.filter((c) => c === 'not listed').length]).toEqual([6, 17, 27])
     expect(data.solubility).toHaveLength(23)
     expect(formula('silver-ion')).toBe('Ag⁺')
     expect(html).toContain(`>${SOLUBILITY_TEXT.key}</p>`)
+    // The note under the table says in words what the sign means, and names the primer's topic on gases by its own heading.
+    const topic = AQUEOUS_PRIMER.find((section) => section.id === 'signs')!.heading
+    expect(html).toContain(`>${escaped(SOLUBILITY_TEXT.reactingNote(topic))}</p>`)
+    expect(html.indexOf('</table>')).toBeLessThan(html.indexOf(escaped(SOLUBILITY_TEXT.reactingNote(topic))))
+    expect(count(html, /<sup aria-hidden="true">\*<\/sup>/g)).toBe(1)
     // It names no solid: which compound a pair makes is the learner's to write.
     for (const row of data.solubility) if (row.precipitateId) expect(text(html)).not.toContain(text(draw(createElement(EquationLine, { data, entry: { noReaction: false, reactants: [{ speciesId: row.precipitateId, coefficient: 1, state: 's' }], products: [] } }))).split('(s)')[0]!)
   })

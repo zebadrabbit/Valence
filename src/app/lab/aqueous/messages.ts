@@ -267,6 +267,16 @@ export const SOLUBILITY_TEXT = {
   insoluble: 'insoluble',
   notListed: 'not listed',
   key: 'A pair marked not listed is one that no station here brings together. This table does not hold it, which says nothing of whether its compound dissolves.',
+  /**
+   * The one pair the record stores as soluble whose two ions react all the same, at station 6. Its cell keeps the
+   * stored word and carries the sign, and the note under the table says what the sign means.
+   */
+  reacting: { cationId: 'ammonium-ion', anionId: 'hydroxide-ion' },
+  mark: '*',
+  /** In the marked cell, for a screen reader, in place of the sign. */
+  marked: 'see the note under the table',
+  /** The note under the table. `topic` is the heading of the primer's card on gases. */
+  reactingNote: (topic: string) => `* Ammonium ions and hydroxide ions make no solid together, but they do react: they give ammonia. See "${topic}" in the primer.`,
 } as const
 
 /** The Record tab. */
