@@ -1,5 +1,5 @@
 import { GripHorizontal, X } from 'lucide-react'
-import { useRef, useState, type KeyboardEvent, type PointerEvent, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type KeyboardEvent, type PointerEvent, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { Button } from '@/components/ui/button'
 import { clampToWindow } from './calc'
@@ -14,7 +14,7 @@ const leftAt = new Map<string, { x: number; y: number }>()
 /**
  * A button that opens a panel floating over the page, and the panel: a learner looks something up or works a sum
  * without leaving the lab. The panel is not modal, so the bench stays usable under it. It is moved by dragging its
- * grip or with the arrow keys on it, stays inside the window, and is closed by its own button, by the button that
+ * grip or with the arrow keys on it, stays inside the window, also when the window is made smaller, and is closed by its own button, by the button that
  * opened it, or by Escape, which puts focus back on that button.
  *
  * `width` and `height` are the panel's size in pixels, the height an estimate until it is drawn; `fromRight` is how
@@ -47,6 +47,22 @@ export function FloatingPanel({
     leftAt.set(name, next)
     setAt(next)
   }
+  // A window made smaller under an open panel (a tablet turned upright, a window resized) would leave the panel
+  // outside it, where no pointer reaches its grip: it is brought back inside as the window changes.
+  useEffect(() => {
+    if (!open) return
+    const keepInside = () => {
+      const was = leftAt.get(name)
+      if (was === undefined) return
+      const size = panel.current?.getBoundingClientRect() ?? { width, height }
+      const next = clampToWindow(was.x, was.y, size, { width: window.innerWidth, height: window.innerHeight })
+      leftAt.set(name, next)
+      setAt(next)
+    }
+    window.addEventListener('resize', keepInside)
+    return () => window.removeEventListener('resize', keepInside)
+  }, [open, name, width, height])
+
   const show = () => {
     // First opened at the right of the window, under the tabs; afterwards where it was left.
     const start = leftAt.get(name) ?? { x: window.innerWidth - width - fromRight, y: 96 }
