@@ -58,7 +58,11 @@ describe('the aqueous primer: its cards', () => {
     for (const [word, card] of [['ion', 0], ['(aq)', 0], ['strong electrolyte', 0], ['H⁺', 0], ['insoluble', 1], ['spectator', 2], ['coefficient', 2], ['wafting', 3], ['litmus', 3], ['splint', 3]] as const) {
       expect(upTo(card), word).toContain(word)
     }
-    // The equations card uses "precipitate", which the card before it in the primer defines but which is not read first: it says what one is in passing.
+    // The equations card uses "precipitate", which the card before it in the primer defines but which is not read first:
+    // it says what one is where the word first stands in the cards read first, and not only in passing further down.
+    const all = read.join(' ')
+    expect(all.indexOf('precipitate')).toBe(all.indexOf('is called a precipitate') + 'is called a '.length)
+    expect(shown('equations')).toMatch(/a bright yellow solid, lead\(II\) iodide\. A solid that forms like this, out of two solutions, is called a precipitate\./)
     expect(shown('equations')).toMatch(/precipitate stays whole, because its ions are locked together in the solid/)
   })
 
@@ -212,9 +216,12 @@ describe('the aqueous primer: what it has to say', () => {
     expect(aqueousData.species.find((s) => s.id === 'ammonia')!.acceptedStates).toEqual(['g', 'aq'])
   })
 
-  it('reads the solubility table the way the record stores it: a pair of ions to a row, and only the pairs of these stations', () => {
-    expect(shown('solubility')).toMatch(/lists pairs of ions: one positive ion, one negative ion.*soluble or insoluble/)
-    expect(shown('solubility')).toContain('only the pairs that these ten stations can bring together')
+  it('reads the solubility table as the page draws it: a row for each positive ion, a column for each negative ion, only the pairs of these stations, and where it opens from', () => {
+    expect(shown('solubility')).toMatch(/has a row for each positive ion and a column for each negative ion\. Where a row and a column cross, it says whether the compound the two ions make is soluble or insoluble/)
+    expect(shown('solubility')).toMatch(/take a positive ion from one bottle and a negative ion from the other, and find where the two cross/)
+    expect(shown('solubility')).toContain('only the pairs that these ten stations can bring together; any other pair is marked "not listed"')
+    expect(shown('solubility')).toContain('It opens from the "Solubility table" button at the top of the Lab tab.')
+    expect(shown('solubility')).not.toMatch(/lists pairs|beside them/)
     // The patterns it states are those of the stored rows.
     const soluble = (anion: string) => aqueousData.solubility.filter((r) => r.anionId === anion).map((r) => r.soluble)
     expect(soluble('nitrate-ion').every(Boolean)).toBe(true)
@@ -227,6 +234,9 @@ describe('the aqueous primer: what it has to say', () => {
     expect(shown('signs')).toMatch(/carbon dioxide gas.*hydrogen gas.*ammonia.*heat is released/s)
     expect(shown('signs')).toContain('The temperature rise this lab reports is idealised.')
     expect(shown('no-reaction')).toMatch(/nothing reacts.*"No reaction" can always be chosen/s)
+    // Every rule of the model that gives a gas or heat is ruled out, the one that needs no acid too: ammonium with a base, as at station 6.
+    expect(shown('no-reaction')).toContain('If there is no acid to meet a carbonate, a base or a metal, and no base to meet an ammonium ion, there is no gas and no heat.')
+    expect(aqueousData.stations[5]!.equations.netIonic!.reactants.map((term) => term.speciesId)).toEqual(['ammonium-ion', 'hydroxide-ion'])
     expect(section('limiting').paragraphs.length).toBe(1)
     expect(shown('limiting')).toMatch(/limiting reagent.*in excess/)
   })

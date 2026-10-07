@@ -104,9 +104,9 @@ export const AQUEOUS_PRIMER: readonly PrimerSection[] = [
       ),
       paragraph(
         { label: 'Reading the table' },
-        'The solubility table of this lab lists pairs of ions: one positive ion, one negative ion, and beside them whether the compound the two make is soluble or insoluble. To use it, take a positive ion from one bottle and a negative ion from the other, and look for that pair. The table holds only the pairs that these ten stations can bring together.',
+        'The solubility table of this lab has a row for each positive ion and a column for each negative ion. Where a row and a column cross, it says whether the compound the two ions make is soluble or insoluble. To use it, take a positive ion from one bottle and a negative ion from the other, and find where the two cross. The table holds only the pairs that these ten stations can bring together; any other pair is marked "not listed". It opens from the "Solubility table" button at the top of the Lab tab.',
         [[TABLE, TABLE_4_1, 'whether a compound dissolves can be read from which ions it holds, each row of the table giving ions whose compounds are soluble or insoluble and the exceptions.']],
-        "the table by pairs is this lab's own form of the book's table (spec 8.1): one row for each pair of ions the stations can bring together, each read from the row of the book's table that covers it.",
+        "the table by pairs is this lab's own form of the book's table (spec 8.1): one entry for each pair of ions the stations can bring together, each read from the row of the book's table that covers it. That the page draws it as rows of positive ions by columns of negative ions, marks a pair it does not hold as not listed, and opens it from a button on the Lab tab is how the page is built (spec 8.5).",
       ),
     ],
   },
@@ -147,8 +147,8 @@ export const AQUEOUS_PRIMER: readonly PrimerSection[] = [
     paragraphs: [
       paragraph(
         { label: 'An example' },
-        'Take a reaction that is at none of the stations. Lead(II) nitrate solution and potassium iodide solution are both colourless. Mixed, they give a bright yellow precipitate of lead(II) iodide. The same reaction can be written in three ways.',
-        [[TABLE, PRECIPITATION, 'lead nitrate solution mixed with potassium iodide solution gives solid lead iodide, which is bright yellow.']],
+        'Take a reaction that is at none of the stations. Lead(II) nitrate solution and potassium iodide solution are both colourless. Mixed, they give a bright yellow solid, lead(II) iodide. A solid that forms like this, out of two solutions, is called a precipitate. The same reaction can be written in three ways.',
+        [[TABLE, PRECIPITATION, 'lead nitrate solution mixed with potassium iodide solution gives solid lead iodide, which is bright yellow, and that a reaction in which substances that were dissolved give a solid product is a precipitation reaction.']],
         'that the two solutions are colourless is not stated in the passage; no source was read for it.',
       ),
       paragraph(
@@ -269,9 +269,9 @@ export const AQUEOUS_PRIMER: readonly PrimerSection[] = [
     paragraphs: [
       paragraph(
         { label: 'No reaction' },
-        'Sometimes two solutions are mixed and nothing reacts. If every new pair of ions is soluble, no solid forms. If there is no acid to meet a carbonate, a base or a metal, there is no gas and no heat. The ions simply share the tube.',
+        'Sometimes two solutions are mixed and nothing reacts. If every new pair of ions is soluble, no solid forms. If there is no acid to meet a carbonate, a base or a metal, and no base to meet an ammonium ion, there is no gas and no heat. The ions simply share the tube.',
         [[TABLE, PRECIPITATION, 'a precipitate is expected only where some pairing of the ions present is an insoluble compound.']],
-        'the other three conditions are the remaining rules of the model (spec 8.1), each of which needs an acid or, for ammonia, a base.',
+        'the other four conditions are the remaining rules of the model (spec 8.1): three need an acid, and the fourth, which gives ammonia, needs a base to meet an ammonium ion.',
       ),
       paragraph(
         { label: 'What is seen', labRules: ['In this lab "No reaction" can always be chosen in place of an equation.'] },
