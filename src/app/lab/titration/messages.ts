@@ -96,8 +96,20 @@ export const INVALID_ENTRY_TEXT: Record<'reading' | 'hcl-molarity' | 'molarity' 
  */
 export function invalidReadingText(typed: string): string {
   const text = typed.trim()
+  // A value below 1 written to three or more decimals is a molarity typed into the wrong box.
+  if (/^0?\.\d{3,}$/.test(text)) return `${text} looks like a molarity, not a burette reading. This box takes the reading from the burette, in mL, for example 24.30. A molarity goes in the notebook.`
   if (!/^\d{1,2}(\.\d?)?$/.test(text)) return INVALID_ENTRY_TEXT.reading
   return `${text} has too few significant figures for a burette reading. A burette is read to 0.01 mL, so the second decimal is part of the reading even when it is a zero: 1.60, not 1.6. Estimate it between the marks and write it.`
+}
+
+/**
+ * The refusal of a text typed as a molarity. A value of 1 or more ("22.75", "21.7", "25") is a volume typed into
+ * the wrong box, and is told so; anything else gets `otherwise`, the field's own sentence on its form.
+ */
+export function invalidMolarityText(typed: string, otherwise: string): string {
+  const text = typed.trim()
+  if (!/^[1-9]\d?(\.\d*)?$/.test(text)) return otherwise
+  return `${text} looks like a volume in mL, not a molarity. This box takes a molarity, for example 0.1234. A burette reading goes in the box under the burette.`
 }
 
 // Guided's answer to a reading off the meniscus. It does not say which way the reading is off.

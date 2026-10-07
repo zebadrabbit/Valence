@@ -15,7 +15,7 @@ import { standY } from './buretteGeometry'
 import { DARK_PINK, PINK, type FlaskColour } from './flaskColour'
 import { meniscusText } from './meniscusText'
 import { entryKey, fieldState } from './entry'
-import { BLOCKED_TEXT, INVALID_ENTRY_TEXT, invalidReadingText, NOTEBOOK_TEXT, OUTCOME_TEXT } from './messages'
+import { BLOCKED_TEXT, INVALID_ENTRY_TEXT, invalidMolarityText, invalidReadingText, NOTEBOOK_TEXT, OUTCOME_TEXT } from './messages'
 import { ReadingInput, recordReading, replyUnder, type ReadingInputProps } from './ReadingInput'
 import { MeniscusWords, ReadingView } from './ReadingView'
 import { StopcockControls, type StopcockControlsProps } from './StopcockControls'
@@ -274,6 +274,20 @@ describe('what Record does with the text in the field', () => {
     // The hint does not finish the reading for the learner: it never offers the typed value with a zero added.
     expect(invalidReadingText('48.4')).not.toContain('48.40')
     expect(invalidReadingText('24.37x')).toBe(INVALID_ENTRY_TEXT.reading)
+    expect(sent).toEqual([])
+  })
+
+  it('tells a value typed into the wrong box what it looks like and where it goes', () => {
+    // A molarity in the burette's box.
+    for (const text of ['0.0949', '.0949', '0.099654']) expect(invalidReadingText(text)).toBe(`${text} looks like a molarity, not a burette reading. This box takes the reading from the burette, in mL, for example 24.30. A molarity goes in the notebook.`)
+    expect(recordReading('0.0949', onReading)).toMatchObject({ accepted: false, invalid: true })
+    // A reading below 1 mL is a reading, and is taken.
+    expect(recordReading('0.50', onReading)).toMatchObject({ accepted: true })
+    sent.length = 0
+    // A volume in a molarity's box.
+    for (const text of ['22.75', '21.7', '25', '1.05']) expect(invalidMolarityText(text, 'the form')).toBe(`${text} looks like a volume in mL, not a molarity. This box takes a molarity, for example 0.1234. A burette reading goes in the box under the burette.`)
+    // Anything else gets the field's own sentence: the hint guesses only when the form leaves no doubt.
+    for (const text of ['0.50', '0.09', '0.09491', 'abc', '', '100.5']) expect(invalidMolarityText(text, 'the form')).toBe('the form')
     expect(sent).toEqual([])
   })
 
@@ -592,12 +606,12 @@ describe('the bench', () => {
       // Filled without conditioning: the button does not say it was conditioned, and conditioning is still to do.
       expect(steps(filled)).toEqual(['Condition burette', '✓ Burette filled. Refill', 'Rinse pipette with HCl', 'Pipette HCl into flask'])
       expect(steps(run(m, fresh, [{ type: 'rinsePipette' }]))).toEqual(['Condition burette', 'Fill burette', '✓ Pipette wet with HCl (unavailable)', 'Pipette HCl into flask'])
-      expect(steps(ready)).toEqual(['✓ Burette conditioned (unavailable)', '✓ Burette filled. Refill', '✓ Pipette wet with HCl (unavailable)', '✓ HCl is in the flask (unavailable)'])
+      expect(steps(ready)).toEqual(['✓ Burette conditioned (unavailable)', '✓ Burette filled. Refill', '✓ Pipette wet with HCl (unavailable)', '✓ HCl pipetted into the flask (unavailable)'])
     })
 
     it('say of a pipette that drew its acid without the rinse what is true of it: wet with HCl, never rinsed', () => {
       expect(pipetted.pipetteRinsed).toBe(true)
-      expect(steps(pipetted).slice(2)).toEqual(['✓ Pipette wet with HCl (unavailable)', '✓ HCl is in the flask (unavailable)'])
+      expect(steps(pipetted).slice(2)).toEqual(['✓ Pipette wet with HCl (unavailable)', '✓ HCl pipetted into the flask (unavailable)'])
       expect(Object.values(STEP_BUTTON).map((words) => words.done).join(' ')).not.toMatch(/rinsed/i)
     })
 
@@ -628,7 +642,7 @@ describe('the bench', () => {
     })
 
     it('in a trial that is over and in the next one say what is still so: the burette and the pipette stay as they were, and the flask is a new one', () => {
-      expect(steps(over)).toEqual(['✓ Burette conditioned (unavailable)', '✓ Burette filled. Refill (unavailable)', '✓ Pipette wet with HCl (unavailable)', '✓ HCl is in the flask (unavailable)'])
+      expect(steps(over)).toEqual(['✓ Burette conditioned (unavailable)', '✓ Burette filled. Refill (unavailable)', '✓ Pipette wet with HCl (unavailable)', '✓ HCl pipetted into the flask (unavailable)'])
       expect(steps(next)).toEqual(['✓ Burette conditioned (unavailable)', '✓ Burette filled. Refill', '✓ Pipette wet with HCl (unavailable)', 'Pipette HCl into flask'])
       // A step not done in a trial that is over is still named for its action, and is unavailable like any other control.
       expect(steps(overBeforePipetting)).toEqual(['Condition burette (unavailable)', 'Fill burette (unavailable)', 'Rinse pipette with HCl (unavailable)', 'Pipette HCl into flask (unavailable)'])

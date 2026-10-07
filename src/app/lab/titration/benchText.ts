@@ -101,15 +101,14 @@ export const saidAgain = (text: string, previous: string) => (text !== '' && tex
  * Each `done` is to be true in every state it shows in: "wet with HCl", not "rinsed", because a pipette that drew its
  * acid unrinsed is wet with acid too, and the engine holds the two alike. A fill can be done again, so its button
  * says both: that the burette is filled, and `again`, what a press does. A burette run out to its last mark is not
- * called filled (stepsDone). One name is looser than that: "HCl is in the flask" stays through the titration and
- * the end of the trial, when the acid in the flask has been neutralised. The words are the owner's status line's,
- * and whether they change is the owner's to say (the deep review's record, 2026-10-06).
+ * called filled (stepsDone). The flask's says what was done, "HCl pipetted into the flask", and not that the acid
+ * is in it: by the endpoint the acid has been neutralised, and the button still shows.
  */
 export const STEP_BUTTON = {
   conditionBurette: { todo: 'Condition burette', done: 'Burette conditioned', again: null },
   fillBurette: { todo: 'Fill burette', done: 'Burette filled.', again: 'Refill' },
   rinsePipette: { todo: 'Rinse pipette with HCl', done: 'Pipette wet with HCl', again: null },
-  pipetteAliquot: { todo: 'Pipette HCl into flask', done: 'HCl is in the flask', again: null },
+  pipetteAliquot: { todo: 'Pipette HCl into flask', done: 'HCl pipetted into the flask', again: null },
 } as const
 
 export type StepControl = keyof typeof STEP_BUTTON

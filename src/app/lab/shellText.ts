@@ -17,6 +17,19 @@ export const SHELL_TEXT = {
     'A saved run of this lab could not be opened in this version of Valence. It has been kept, and "Export my progress" on the Settings page includes it. The lab starts fresh here.',
 }
 
+/** The calculator that floats over a lab's page. */
+export const CALCULATOR_TEXT = {
+  name: 'Calculator',
+  move: 'Calculator. Drag, or use the arrow keys, to move it',
+  close: 'Close calculator',
+  sum: 'Sum',
+  clear: 'Clear',
+  back: 'Delete the last character',
+  equals: 'Equals',
+  notASum: 'That is not a sum the calculator can work out.',
+  note: 'Every digit is shown: round only your final answer.',
+}
+
 /** The primer's own controls: the list of its topics, where the card shown stands in it, the mark on a topic to read before the bench, and the two ways on. */
 export const PRIMER_TEXT = {
   topics: 'Topics',

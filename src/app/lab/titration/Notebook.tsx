@@ -1,4 +1,5 @@
 import { useId, useState, type ReactNode, type Ref } from 'react'
+import { Calculator } from '@/app/lab/Calculator'
 import { Subscripted } from '@/app/lab/Primer'
 import { ROLE } from '@/app/lab/roles'
 import { Button } from '@/components/ui/button'
@@ -24,6 +25,7 @@ import {
   completedText,
   feedback,
   INVALID_ENTRY_TEXT,
+  invalidMolarityText,
   NOTEBOOK_TEXT,
   outcomeLabel,
   outcomeRole,
@@ -205,7 +207,7 @@ function MolarityEntry({
           return setChanging(true)
         }
         const molarityE6 = parseMolarity(text)
-        const answer = molarityE6 === null ? { accepted: false, text: invalid } : onEntry(molarityE6)
+        const answer = molarityE6 === null ? { accepted: false, text: invalidMolarityText(text, invalid) } : onEntry(molarityE6)
         if (answer.accepted) settle()
         setReply(answer)
       }}
@@ -292,7 +294,7 @@ function SummaryEntry({
         const meanE6 = parseMolarity(mean)
         const deviationE2 = parseDeviation(deviation)
         if (meanE6 === null || deviationE2 === null) {
-          setErrors({ mean: meanE6 === null ? INVALID_ENTRY_TEXT.molarity : '', deviation: deviationE2 === null ? INVALID_ENTRY_TEXT.deviation : '' })
+          setErrors({ mean: meanE6 === null ? invalidMolarityText(mean, INVALID_ENTRY_TEXT.molarity) : '', deviation: deviationE2 === null ? INVALID_ENTRY_TEXT.deviation : '' })
           return
         }
         const reply = onSummary(meanE6, deviationE2)
@@ -356,7 +358,10 @@ export function NotebookPanel({ m, state, onHclMolarity, onMolarity, onDiscard, 
   return (
     <div className="grid gap-4 rounded-lg border bg-card p-3 text-sm">
       <div>
-        <h2 className="font-medium">{NOTEBOOK_TEXT.heading}</h2>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h2 className="font-medium">{NOTEBOOK_TEXT.heading}</h2>
+          <Calculator />
+        </div>
         <p className="text-muted-foreground">{seedText(state.seed)}</p>
         <p className="text-muted-foreground">{tallyText(state.trials.filter(({ end }) => end !== 'open').length, counting.length, m.passesToComplete)}</p>
       </div>
