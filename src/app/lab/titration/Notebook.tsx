@@ -17,7 +17,7 @@ import {
   type TitrationState,
   type Trial,
 } from '@/engine/titration'
-import { ENTRY_INPUT, fieldState, useEntryFocus } from './entry'
+import { ENTRY_INPUT, entryKey, fieldState, useEntryFocus } from './entry'
 import { deviationE2Text, deviationText, molarityText, readingText } from './format'
 import {
   blockedText,
@@ -146,17 +146,10 @@ export function Field({
   )
 }
 
-/** Beside a field while its entry is changed: puts it back as it was. Focus is moved first, to the button that stays. */
-function Cancel({ to, onCancel }: { to: { current: HTMLButtonElement | null }; onCancel(): void }) {
+/** Beside a field while its entry is changed: puts it back as it was, as Escape does anywhere in its form. */
+function Cancel({ onCancel }: { onCancel(): void }) {
   return (
-    <Button
-      type="button"
-      variant="outline"
-      onClick={() => {
-        to.current?.focus()
-        onCancel()
-      }}
-    >
+    <Button type="button" variant="outline" onClick={onCancel}>
       {NOTEBOOK_TEXT.cancel}
     </Button>
   )
@@ -193,10 +186,17 @@ function MolarityEntry({
     setChanging(false)
     setText('')
   }
+  const cancel = () => {
+    // First, while the button that takes focus is the one that stays.
+    focus.button.current?.focus()
+    settle()
+    setReply({ accepted: true, text: '' })
+  }
   return (
     <form
       noValidate
       className="grid gap-1.5"
+      onKeyDown={(event) => entryKey(event, cancellable ? cancel : null)}
       onSubmit={(event) => {
         event.preventDefault()
         if (blocked !== null) return
@@ -232,15 +232,7 @@ function MolarityEntry({
         >
           {changeable ? NOTEBOOK_TEXT.change : button}
         </Button>
-        {cancellable && (
-          <Cancel
-            to={focus.button}
-            onCancel={() => {
-              settle()
-              setReply({ accepted: true, text: '' })
-            }}
-          />
-        )}
+        {cancellable && <Cancel onCancel={cancel} />}
       </Field>
       <p role="status">{blocked === null && reply.accepted ? reply.text : ''}</p>
     </form>
@@ -279,10 +271,16 @@ function SummaryEntry({
     setDeviation('')
     setErrors({ mean: '', deviation: '' })
   }
+  const cancel = () => {
+    // First, while the button that takes focus is the one that stays.
+    focus.button.current?.focus()
+    settle()
+  }
   return (
     <form
       noValidate
       className="grid justify-items-start gap-2"
+      onKeyDown={(event) => entryKey(event, cancellable ? cancel : null)}
       onSubmit={(event) => {
         event.preventDefault()
         if (blocked !== null) return
@@ -335,7 +333,7 @@ function SummaryEntry({
         >
           {changeable ? NOTEBOOK_TEXT.change : SUMMARY.reveal}
         </Button>
-        {cancellable && <Cancel to={focus.button} onCancel={settle} />}
+        {cancellable && <Cancel onCancel={cancel} />}
       </div>
     </form>
   )

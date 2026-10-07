@@ -14,7 +14,7 @@ import { benchViewOf, type BenchAction } from './benchView'
 import { standY } from './buretteGeometry'
 import { DARK_PINK, PINK, type FlaskColour } from './flaskColour'
 import { meniscusText } from './meniscusText'
-import { fieldState } from './entry'
+import { entryKey, fieldState } from './entry'
 import { BLOCKED_TEXT, INVALID_ENTRY_TEXT, invalidReadingText, NOTEBOOK_TEXT, OUTCOME_TEXT } from './messages'
 import { ReadingInput, recordReading, replyUnder, type ReadingInputProps } from './ReadingInput'
 import { MeniscusWords, ReadingView } from './ReadingView'
@@ -209,6 +209,17 @@ describe('a field that takes one entry', () => {
 
   it('with nothing entered has nothing to cancel, even if a change was under way when the entry went', () => {
     expect(fieldState(false, false, true)).toEqual({ editable: true, changeable: false, cancellable: false })
+  })
+
+  // What the key does to the three forms, and where focus goes, is checked in a browser.
+  it('takes Escape as its Cancel while a change is open, and as nothing while there is nothing to cancel', () => {
+    let cancelled = 0
+    const cancel = () => void cancelled++
+    entryKey({ key: 'Escape' }, cancel)
+    expect(cancelled).toBe(1)
+    for (const key of ['Enter', 'Tab', ' ', 'Backspace', 'e']) entryKey({ key }, cancel)
+    expect(cancelled).toBe(1)
+    expect(() => entryKey({ key: 'Escape' }, null)).not.toThrow()
   })
 })
 

@@ -2,7 +2,7 @@ import { useId, useState } from 'react'
 import { ROLE } from '@/app/lab/roles'
 import { Button } from '@/components/ui/button'
 import { parseReading } from '@/engine/titration'
-import { ENTRY_INPUT, fieldState, useEntryFocus } from './entry'
+import { ENTRY_INPUT, entryKey, fieldState, useEntryFocus } from './entry'
 import { readingText } from './format'
 import { invalidReadingText, NOTEBOOK_TEXT } from './messages'
 
@@ -55,7 +55,7 @@ export const replyUnder = (reply: Reply, wanted: Reply['wanted'], blocked: boole
  * The one place a burette reading is typed: a text field, so that the characters typed are the ones parsed, and
  * Record. Enter records. Once the reading is recorded the field is disabled and shows it, and the button reads
  * "Change" for as long as the engine would take the reading again; where it would not, the field has the reason
- * under it and nothing else.
+ * under it and nothing else. A change that is open is put back by Cancel, and by Escape anywhere in the form.
  */
 export function ReadingInput({ wanted, recorded = null, blockedText, settled = 0, onReading }: ReadingInputProps) {
   const [text, setText] = useState('')
@@ -78,11 +78,19 @@ export function ReadingInput({ wanted, recorded = null, blockedText, settled = 0
     setSettledSeen(settled)
     settle()
   }
+  /** Puts the field back as it was, with the entry that was never replaced. By the Cancel button and by Escape. */
+  const cancel = () => {
+    // First, while the button that takes focus is the one that stays.
+    button.current?.focus()
+    settle()
+    setReply({ wanted, text: '', invalid: false })
+  }
 
   return (
     <form
       noValidate
       className="grid gap-1.5 text-sm"
+      onKeyDown={(event) => entryKey(event, cancellable ? cancel : null)}
       onSubmit={(event) => {
         event.preventDefault()
         if (blocked) return
@@ -124,16 +132,7 @@ export function ReadingInput({ wanted, recorded = null, blockedText, settled = 0
           {changeable ? NOTEBOOK_TEXT.change : NOTEBOOK_TEXT.record}
         </Button>
         {cancellable && (
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() => {
-              // First, while the button that takes focus is the one that stays.
-              button.current?.focus()
-              settle()
-              setReply({ wanted, text: '', invalid: false })
-            }}
-          >
+          <Button type="button" variant="outline" onClick={cancel}>
             {NOTEBOOK_TEXT.cancel}
           </Button>
         )}

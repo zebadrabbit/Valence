@@ -27,6 +27,14 @@ export function fieldState(recorded: boolean, held: boolean, changing: boolean):
 }
 
 /**
+ * A key pressed anywhere in an entry's form. Escape, while a change is open, is its Cancel: `cancel` is the form's
+ * own, and null while there is nothing to cancel. The key is not stopped: Escape also closes an open stopcock.
+ */
+export function entryKey(event: { key: string }, cancel: (() => void) | null) {
+  if (event.key === 'Escape') cancel?.()
+}
+
+/**
  * Keeps focus on something that can hold it. When the field stops taking typing while focus is in it (Enter
  * recorded the entry, and a disabled field cannot keep focus), focus goes to the form's button, which then reads
  * "Change" or says why not. When Change makes it editable, focus goes into the field with the old entry selected.
