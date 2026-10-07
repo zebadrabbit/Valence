@@ -46,7 +46,8 @@ const SHEET_LINE = /^(\S.*) \((H\d{3}[A-Za-z]*(?:\+H\d{3}[A-Za-z]*)*)\)$/
  * kept. There is no copy to read, so this cannot say that the sheet prints them. What it holds is their form, and
  * that the record and the manifest give one account of the sheet: `sheet` is the cited source as the manifest lists
  * it, and its `supports` rows for `field` say what the sheet prints. The signal word must be the one row's, whatever
- * its case (a sheet prints DANGER, the record stores Danger). The statements must be the rows', all of them and in
+ * its case (a sheet prints DANGER, the record stores Danger; a sheet that prints none has a row that prints nothing,
+ * and the record stores None). The statements must be the rows', all of them and in
  * their order, each turned round: the sheet prints "May be corrosive to metals (H290)" and the record stores
  * "H290: May be corrosive to metals", with the codes of a pair in the sheet's order. No statement may carry a code
  * listed in `never`.
@@ -55,7 +56,9 @@ export function checkSheetHazards(sheet, field, { signalWord, statements }, neve
   const rows = (name) => sheet.supports.filter((row) => row.field === `${field}.${name}`)
   const signalWords = rows('signalWord')
   if (signalWords.length !== 1) throw new Error(`the source "${sheet.id}" has ${signalWords.length} rows for ${field}.signalWord, expected 1`)
-  if (signalWords[0].prints.toLowerCase() !== signalWord.toLowerCase()) {
+  // A sheet that classes its substance as no hazard prints no signal word: its row prints nothing, and the record stores None.
+  const printedWord = signalWords[0].prints === '' ? 'None' : signalWords[0].prints
+  if (printedWord.toLowerCase() !== signalWord.toLowerCase()) {
     throw new Error(`the source "${sheet.id}" prints the signal word "${signalWords[0].prints}", not "${signalWord}"`)
   }
   statements.forEach((statement, i) => {

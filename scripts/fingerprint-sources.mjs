@@ -5,7 +5,10 @@
 // again, on a machine that has the pages, before changing the primer or a hazard note; the test is skipped where
 // the file is absent.
 //
-//   node scripts/fingerprint-sources.mjs <folder> <date the pages were fetched, YYYY-MM-DD>
+//   node scripts/fingerprint-sources.mjs <folder> <date the pages were fetched, YYYY-MM-DD> [<sources folder>]
+//
+// The third argument is the sources folder of another lab (docs/research/phase-4/sources), whose pages are then
+// fingerprinted into a file of the same name there, for that lab's own no-quotation test.
 //
 // The folder holds one file for each source, named by its id in the manifest: <id>.html (a saved page), <id>.txt
 // (the text of a PDF, extracted with any tool) or <id>.json (a kept copy, of which every string is read).
@@ -16,9 +19,9 @@ import path from 'node:path'
 import process from 'node:process'
 import { packHashes, QUOTED_RUN, runHashes } from './titration-lib.mjs'
 
-const [folder, retrieved] = process.argv.slice(2)
+const [folder, retrieved, into = path.join(import.meta.dirname, '../docs/research/phase-3/sources')] = process.argv.slice(2)
 if (!folder || !/^\d{4}-\d{2}-\d{2}$/.test(retrieved ?? '')) {
-  process.stderr.write('usage: node scripts/fingerprint-sources.mjs <folder> <YYYY-MM-DD>\n')
+  process.stderr.write('usage: node scripts/fingerprint-sources.mjs <folder> <YYYY-MM-DD> [<sources folder>]\n')
   process.exit(1)
 }
 
@@ -41,5 +44,5 @@ const READERS = { '.html': (text) => [pageText(text)], '.txt': (text) => [text],
 const files = readdirSync(folder).filter((file) => path.extname(file) in READERS).sort()
 const hashes = files.flatMap((file) => READERS[path.extname(file)](readFileSync(path.join(folder, file), 'utf8')).flatMap(runHashes))
 const out = { retrieved, runWords: QUOTED_RUN, sources: files.map((file) => path.basename(file, path.extname(file))), hashes: packHashes(hashes) }
-writeFileSync(path.join(import.meta.dirname, '../docs/research/phase-3/sources/quotation-fingerprint.json'), `${JSON.stringify(out, null, 2)}\n`)
+writeFileSync(path.join(into, 'quotation-fingerprint.json'), `${JSON.stringify(out, null, 2)}\n`)
 process.stdout.write(`${out.sources.length} sources, ${new Set(hashes).size} runs of ${QUOTED_RUN} words\n`)

@@ -2,6 +2,7 @@ import { findInstitutionText, findName } from './denylist'
 import { valenceElectrons } from './element'
 import { angleDeg, dihedralDeg, distance } from './geometry'
 import { periodicTableSchema, registrySchema, type PeriodicElement, type Registry, type Source } from './schema'
+import { aqueousSchema, type AqueousData } from './aqueous/data'
 import { titrationSchema } from './titration/data'
 
 export interface ValidateOptions {
@@ -9,7 +10,7 @@ export interface ValidateOptions {
 }
 
 // Keys whose strings are identifiers or codes, not prose.
-const CODE_KEYS = new Set(['id', 'formula', 'displayFormula', 'hex', 'element', 'symbol', 'unit', 'precipitate', 'gas', 'variantGroup'])
+const CODE_KEYS = new Set(['id', 'formula', 'displayFormula', 'hex', 'element', 'symbol', 'unit', 'precipitate', 'gas', 'variantGroup', 'colouredIons', 'paletteSpecies'])
 const isProseKey = (key: string) => !CODE_KEYS.has(key) && !/Ids?$/.test(key)
 
 type Visit = (key: string, text: string, path: string) => void
@@ -54,34 +55,36 @@ function checkSources(registry: Registry): string[] {
 }
 
 function checkReferences(registry: Registry): string[] {
-  const errors = [
-    ...duplicates(registry.species.map((s) => s.id), 'species'),
-    ...duplicates(registry.reagents.map((r) => r.id), 'reagents'),
-    ...duplicates(registry.stations.map((s) => s.id), 'stations'),
+  return [
+    ...checkBench(registry),
     ...duplicates(registry.elements.map((e) => e.symbol), 'elements'),
     ...duplicates(registry.molecules.map((m) => m.id), 'molecules'),
     ...duplicates(registry.moDiagrams.map((d) => d.moleculeId), 'MO diagrams'),
   ]
-  const species = new Set(registry.species.map((s) => s.id))
-  const reagents = new Set(registry.reagents.map((r) => r.id))
+}
 
-  for (const reagent of registry.reagents) {
-    for (const ion of reagent.ions) {
-      if (!species.has(ion.speciesId)) errors.push(`reagent "${reagent.id}": unknown species "${ion.speciesId}"`)
-    }
+/** The ids of a lab bench: each species, reagent and station named once, and every id a record names one that exists. */
+function checkBench({ species: allSpecies, reagents: allReagents, observations, stations }: Pick<Registry, 'species' | 'reagents' | 'observations' | 'stations'>): string[] {
+  const errors = [
+    ...duplicates(allSpecies.map((s) => s.id), 'species'),
+    ...duplicates(allReagents.map((r) => r.id), 'reagents'),
+    ...duplicates(stations.map((s) => s.id), 'stations'),
+  ]
+  const species = new Set(allSpecies.map((s) => s.id))
+  const reagents = new Set(allReagents.map((r) => r.id))
+  const unknown = (owner: string, ids: readonly (string | null | undefined)[]) => {
+    for (const id of ids) if (typeof id === 'string' && !species.has(id)) errors.push(`${owner}: unknown species "${id}"`)
   }
-  for (const observation of registry.observations) {
-    if (!species.has(observation.productId)) errors.push(`observation: unknown species "${observation.productId}"`)
-  }
-  for (const station of registry.stations) {
+
+  for (const one of allSpecies) unknown(`species "${one.id}"`, one.ions?.map((ion) => ion.speciesId) ?? [])
+  for (const reagent of allReagents) unknown(`reagent "${reagent.id}"`, [...reagent.ions.map((ion) => ion.speciesId), reagent.speciesId])
+  unknown('observation', observations.map((observation) => observation.productId))
+  for (const station of stations) {
     for (const reagentId of station.reagentIds) {
       if (!reagents.has(reagentId)) errors.push(`station "${station.id}": unknown reagent "${reagentId}"`)
     }
-    for (const productId of [station.expected.precipitate, station.expected.gas]) {
-      if (productId !== null && !species.has(productId)) {
-        errors.push(`station "${station.id}": unknown species "${productId}"`)
-      }
-    }
+    const terms = Object.values(station.equations).flatMap((equation) => (equation ? [...equation.reactants, ...equation.products] : []))
+    unknown(`station "${station.id}"`, [station.expected.precipitate, station.expected.gas, ...station.expected.colouredIons, ...station.paletteSpecies, ...terms.map((term) => term.speciesId)])
   }
   return errors
 }
@@ -367,5 +370,32 @@ export function validateTitration(input: unknown, sources: readonly Source[], op
     ...checkSourceIds(parsed.data, 'titration', Array.isArray(sources) ? sources : []),
     ...checkPublished(parsed.data, 'titration'),
     ...checkProse(parsed.data, 'titration', Array.isArray(names) ? names : []),
+  ]
+}
+
+/**
+ * Checks the aqueous reactions lab's record against the sources it cites: the schema, that every source named
+ * exists, that every id a record names is one the record holds, that each `published` reads as the number stored
+ * beside it, and that no name, note, hint, caution or rationale holds institution text. Returns a list of problems;
+ * an empty list means the record is valid. Never throws, whatever it is given. That each value is what its source
+ * prints is the build script's to hold to the manifest; that the chemistry is consistent (the equations balance,
+ * the engine reaches each station's expected result) is tested with the engine.
+ */
+export function validateAqueous(input: unknown, sources: readonly Source[], options: ValidateOptions = {}): string[] {
+  const parsed = aqueousSchema.safeParse(input)
+  if (!parsed.success) return schemaErrors(parsed.error.issues)
+  const data: AqueousData = parsed.data
+  const names = options?.institutionNames
+  const species = new Set(data.species.map((s) => s.id))
+  const tables = [
+    ...data.solubility.flatMap((row) => [row.cationId, row.anionId, row.precipitateId]),
+    ...data.activitySeries.flatMap((row) => [row.metalId, row.ionId]),
+  ].flatMap((id) => (id === undefined || species.has(id) ? [] : [`tables: unknown species "${id}"`]))
+  return [
+    ...checkBench(data),
+    ...tables,
+    ...checkSourceIds(data, 'aqueous', Array.isArray(sources) ? sources : []),
+    ...checkPublished(data, 'aqueous'),
+    ...checkProse(data, 'aqueous', Array.isArray(names) ? names : []),
   ]
 }

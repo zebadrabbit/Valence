@@ -1,5 +1,6 @@
 import type { Measurement } from './measure'
 import type { Element, MoDiagram, Molecule, Source } from './schema'
+import type { AqueousData } from './aqueous/data'
 import type { TitrationData } from './titration/data'
 
 // What an inspector card's "Sources" control lists (spec 5.1): each source once, with the values it covers.
@@ -125,6 +126,48 @@ export function titrationCitations(data: TitrationData, sources: readonly Source
         [`${name}: hazards at the strength used`, hazards.note.sourceId],
         ...(hazards.note.alsoSourceId === undefined ? [] : [[`${name}: hazards at the strength used`, hazards.note.alsoSourceId] as const]),
       ]),
+    ],
+    sources,
+  )
+}
+
+/**
+ * The sources behind one station of the aqueous reactions lab (spec 5.1): its two reagents and their hazards, the
+ * species of its equations, the solubility of each pair of its ions, the look of what forms, what its temperature
+ * rise is worked out with, and its notes.
+ */
+export function stationCitations(data: AqueousData, stationId: string, sources: readonly Source[]): Citation[] {
+  const station = data.stations.find((s) => s.id === stationId)
+  if (!station) throw new Error(`no station "${stationId}"`)
+  const reagents = station.reagentIds.map((id) => data.reagents.find((r) => r.id === id)!)
+  const terms = Object.values(station.equations).flatMap((equation) => (equation ? [...equation.reactants, ...equation.products] : []))
+  const speciesIds = [...new Set([...reagents.flatMap((r) => [...r.ions.map((ion) => ion.speciesId), ...(r.speciesId ? [r.speciesId] : [])]), ...terms.map((term) => term.speciesId)])]
+  const species = speciesIds.map((id) => data.species.find((s) => s.id === id)!)
+  const formed = [station.expected.precipitate, station.expected.gas].flatMap((id) => data.observations.filter((o) => o.productId === id))
+  const heated = station.expected.temperature !== 'none'
+  const also = (label: string, cited: { sourceId: string; alsoSourceId?: string }): Entry[] => [[label, cited.sourceId], ...(cited.alsoSourceId === undefined ? [] : [[label, cited.alsoSourceId] as const])]
+  return citations(
+    [
+      ...reagents.flatMap((r): Entry[] => [
+        [`${r.name}: the compound`, r.sourceId],
+        ...(r.molarMass ? [[`${r.name}: molar mass`, r.molarMass.sourceId] as const] : []),
+        ...(r.appearance ? [[`${r.name}: appearance`, r.appearance.sourceId] as const] : []),
+        [`${r.name}: hazard classification`, r.hazards.sourceId],
+        ...also(`${r.name}: hazards at the strength used`, r.hazards.note),
+      ]),
+      ...species.map((s): Entry => ['Formulas, charges and states of the species', s.sourceId]),
+      ...species.flatMap((s): Entry[] => (s.solutionColor ? [['Colours of the ions in solution', s.solutionColor.sourceId]] : [])),
+      ...data.solubility.filter((row) => speciesIds.includes(row.cationId) && speciesIds.includes(row.anionId)).map((row): Entry => ['Solubility of each pair of ions', row.sourceId]),
+      ...data.activitySeries.filter((row) => speciesIds.includes(row.metalId)).map((row): Entry => ['Place of the metal in the activity series', row.sourceId]),
+      ...formed.flatMap((row) => also('Colour, texture and odour of what forms', row)),
+      ...(heated
+        ? [
+            ...species.flatMap((s): Entry[] => (s.enthalpyOfFormation ? [['Enthalpies of formation, for the temperature rise', s.enthalpyOfFormation.sourceId]] : [])),
+            ['Heat capacity and density of the liquid, taken as water (idealised)', data.constants.solutionHeatCapacity.sourceId] as const,
+            ['Heat capacity and density of the liquid, taken as water (idealised)', data.constants.solutionDensity.sourceId] as const,
+          ]
+        : []),
+      ...station.notes.flatMap((note) => also('Notes on this station', note)),
     ],
     sources,
   )

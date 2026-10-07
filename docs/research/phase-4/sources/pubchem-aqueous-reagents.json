@@ -1,0 +1,78 @@
+{
+  "PropertyTable": {
+    "Properties": [
+      {
+        "CID": 24380,
+        "MolecularFormula": "Cl3Fe",
+        "MolecularWeight": "162.20",
+        "Title": "Iron chloride (FeCl3)"
+      },
+      {
+        "CID": 14798,
+        "MolecularFormula": "HNaO",
+        "MolecularWeight": "39.997",
+        "Title": "Sodium Hydroxide"
+      },
+      {
+        "CID": 10340,
+        "MolecularFormula": "CNa2O3",
+        "MolecularWeight": "105.988",
+        "Title": "Sodium Carbonate"
+      },
+      {
+        "CID": 24462,
+        "MolecularFormula": "CuO4S",
+        "MolecularWeight": "159.61",
+        "Title": "Copper Sulfate"
+      },
+      {
+        "CID": 24385,
+        "MolecularFormula": "Cl2Ni",
+        "MolecularWeight": "129.60",
+        "Title": "Nickel Dichloride"
+      },
+      {
+        "CID": 25204,
+        "MolecularFormula": "BaCl2",
+        "MolecularWeight": "208.23",
+        "Title": "Barium chloride"
+      },
+      {
+        "CID": 24288,
+        "MolecularFormula": "Cl2Co",
+        "MolecularWeight": "129.84",
+        "Title": "Cobaltchloride"
+      },
+      {
+        "CID": 22985,
+        "MolecularFormula": "H4N2O3",
+        "MolecularWeight": "80.044",
+        "Title": "Ammonium nitrate"
+      },
+      {
+        "CID": 10112,
+        "MolecularFormula": "CCaO3",
+        "MolecularWeight": "100.09",
+        "Title": "Calcium Carbonate"
+      },
+      {
+        "CID": 313,
+        "MolecularFormula": "ClH",
+        "MolecularWeight": "36.46",
+        "Title": "Hydrochloric Acid"
+      },
+      {
+        "CID": 24470,
+        "MolecularFormula": "AgNO3",
+        "MolecularWeight": "169.873",
+        "Title": "Silver Nitrate"
+      },
+      {
+        "CID": 5462224,
+        "MolecularFormula": "Mg",
+        "MolecularWeight": "24.305",
+        "Title": "Magnesium"
+      }
+    ]
+  }
+}
