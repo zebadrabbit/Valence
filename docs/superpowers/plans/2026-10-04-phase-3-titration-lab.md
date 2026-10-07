@@ -1628,6 +1628,8 @@ Not checked: how any of it looks, which is the owner's to judge, and above all t
 
 Left for the owner, none of them changed: the six colours in both themes; whether the light theme's entry label should be a yellow mark behind the label and not a dark gold; whether the figures in the notebook and the record should carry the value colour or only the things the owner marked; whether "Burette filled. Refill" reads well as one button; that two buttons on the page can read "Change" at once, the HCl molarity's and a reading's, told apart by their descriptions; whether a done step button should look less like a button still.
 
+**The check of this, and what was done.** A reviewer who had not built it checked it the same day, and the deep review's record (`docs/research/phase-3/deep-review.md`) says what was found and what became of each thing. In short: a burette that has run out to its last mark is no longer called filled, so `stepsDone` counts the fill as done only while the burette can deliver; Escape anywhere in an entry's form is its Cancel, and a held Enter is one press, both by `entryKey` in `entry.ts`, which the three forms hand their keys to; the `Role` type and `resultHeading` are gone. Left for the owner besides the list above: whether "HCl is in the flask" should read "HCl pipetted into the flask", since the acid is neutralised by the endpoint; whether a part-used burette at the start of a later trial should keep its tick; and the orange of a held reason beside the red of a failed result in the light theme. 2275 tests in 72 files. That the forms use `entryKey`, and where focus rests after Escape, run only in a browser, as the focus after an entry does.
+
 ---
 
 ## Not built in phase 3, and not verified
