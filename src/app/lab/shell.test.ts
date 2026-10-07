@@ -9,12 +9,13 @@ import { titrationCitations } from '@/chem-data/citations'
 import sources from '@/chem-data/sources.json'
 import { titrationData } from '@/chem-data/titration/data'
 import { READ_FIRST, termIndex, TITRATION_PRIMER } from '@/chem-data/titration/primer'
+import { aqueousData } from '@/chem-data/aqueous/data'
 import { Hazards } from './Hazards'
 import labCss from './lab.css?raw'
 import { LabShell, openingTab, tabShift, type LabShellProps } from './LabShell'
 import { ModeSwitch } from './ModeSwitch'
 import { pieces, Primer, subscriptParts } from './Primer'
-import { NARROW_NOTICE, PRIMER_TEXT, SHELL_TEXT } from './shellText'
+import { HAZARDS_TEXT, NARROW_NOTICE, PRIMER_TEXT, SHELL_TEXT } from './shellText'
 import { labProgress, writtenElsewhere } from './useLabProgress'
 
 // The markup the shell puts its wording and its slots in. Focus, keys, which tab a press shows, the confirm on
@@ -561,6 +562,27 @@ describe('the hazards of a bottle', () => {
   it('draws a line that begins with two codes as it is stored, whatever the bottle', () => {
     const hazards = { ...naoh.hazards, statements: ['H999+H998+H997: Third, second, first', 'H001: Before it in a sorted list'] }
     expect(statements(draw({ ...naoh, hazards }))).toEqual(hazards.statements)
+  })
+
+  it('on a bottle whose sheet lists no statement says so in a sentence, with no signal word line and no empty list, and still shows the heading and the note', () => {
+    const caco3 = aqueousData.reagents.find((r) => r.id === 'caco3')!
+    expect(caco3.hazards).toMatchObject({ signalWord: 'None', statements: [] })
+    const html = renderToStaticMarkup(createElement(Hazards, { classifiedAs: caco3.classifiedAs!, hazards: caco3.hazards, sources, solid: true }))
+    expect(headings(html)).toEqual([escaped(caco3.classifiedAs!), 'As it is used here'])
+    expect(html).toContain(`<p>${HAZARDS_TEXT.none}</p>`)
+    expect(html).not.toContain('Signal word:')
+    expect(html).not.toContain('<ul class="grid list-disc')
+    expect(html).toContain(`>${escaped(caco3.hazards.note.value)}</p>`)
+    expect(hrefs(html)).toEqual([sourceUrl('flinn-sds-195')])
+  })
+
+  it('heads the note of a solid or a metal "As it is used here", and of a solution "At the strength used here"', () => {
+    const [mg, hcl3] = ['mg', 'hcl-3m'].map((id) => aqueousData.reagents.find((r) => r.id === id)!)
+    const of = (r: typeof mg, solid: boolean) => renderToStaticMarkup(createElement(Hazards, { classifiedAs: r!.classifiedAs!, hazards: r!.hazards, sources, solid }))
+    expect(headings(of(mg, true))[1]).toBe('As it is used here')
+    expect(of(mg, true)).toContain('Signal word: Danger')
+    expect(of(mg, true)).not.toContain('strength used here')
+    expect(headings(of(hcl3, false))[1]).toBe('At the strength used here')
   })
 })
 

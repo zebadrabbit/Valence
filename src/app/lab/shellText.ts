@@ -45,6 +45,15 @@ export const UNSOURCED_TEXT = {
   primer: "What a card says about this lab's own set-up, rules and model, and the arithmetic of its examples, is Valence's own and is read in no source.",
   model: "The model's other values are this lab's own choices, each stored with its reason, and are read in no source.",
   hazards: 'The note on the strength used here is written by Valence from the sources listed for it.',
+  hazardsSolid: 'The note on the reagent as it is used here is written by Valence from the sources listed for it.',
+}
+
+/** The headings and the one sentence of a bottle's Hazards that are not the record's. */
+export const HAZARDS_TEXT = {
+  strength: 'At the strength used here',
+  /** Over the note of a solid or a metal, which has no strength. */
+  asUsed: 'As it is used here',
+  none: 'This safety data sheet lists no signal word and no hazard statement.',
 }
 
 /** What a window too narrow for the bench shows on the Lab tab in its place: the title, the body, then one of the two closing sentences. */
