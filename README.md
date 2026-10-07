@@ -13,7 +13,7 @@ No chemistry instructor has reviewed either lab, no screen reader has been used 
 - [v1 design spec](docs/superpowers/specs/2026-10-03-valence-v1-design.md): what is being built first.
 - [Periodic table design spec](docs/superpowers/specs/2026-10-03-periodic-table-design.md), and [the research record it is built from](docs/research/periodic-table/README.md).
 - The titration lab's research record: [its sources, and which of them are kept](docs/research/phase-3/sources/README.md), and [the chemistry review held before its screens were built](docs/research/phase-3/gate-a.md).
-- The aqueous reactions lab's research record: [its sources, and what could not be sourced](docs/research/phase-4/sources/README.md), and [the record of how its screens were built and what nobody checked](docs/research/phase-4/build-record.md).
+- The aqueous reactions lab's research record: [its sources, and what could not be sourced](docs/research/phase-4/sources/README.md), and [the record of how its screens were built, what the review at the close of the phase found and changed, and what nobody checked](docs/research/phase-4/build-record.md).
 - [Original design document](Chem%20Lab%20Explorer%20-%20Design%20Document.md): the full vision, including labs planned after v1.
 - [Information for institutional reviewers](docs/for-institutions.md): IT, privacy, accessibility, procurement, curriculum and lab safety facts.
 
