@@ -48,9 +48,12 @@ export const BENCH_TEXT = {
   done: 'Station done: the observation and all three equations are correct.',
 } as const
 
-/** What a field of the observation asks. */
+/**
+ * What a field of the observation asks. The first asks what solid the tube holds at the end and not what went in:
+ * the powder of station 7 and the ribbon of station 10 dissolve, and the answer there is "no solid".
+ */
 export const FIELD_LABEL: Record<Field, string> = {
-  solid: 'Solid in the tube after mixing',
+  solid: 'Solid in the tube once any reaction is over',
   liquid: 'Colour of the liquid',
   bubbles: 'Bubbles of gas',
   odor: 'Smell, wafted',
@@ -122,7 +125,7 @@ export function toolOutcome(data: AqueousData, stationId: string, tool: ToolUse)
 
 // How a field is spoken of in feedback.
 const FIELD_NAME: Record<Field, string> = {
-  solid: 'the solid',
+  solid: 'the solid in the tube at the end',
   liquid: 'the colour of the liquid',
   bubbles: 'whether a gas comes off',
   odor: 'the smell',

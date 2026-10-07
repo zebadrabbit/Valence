@@ -597,7 +597,7 @@ describe('the record', () => {
       [FORM_LABEL.netIonic, 'Fe3+(aq) + 3OH−(aq) → Fe(OH)3(s)', `✓ ${PAGE_TEXT.correct}`],
     ])
     expect(groups[1]!.map((cells) => cells.slice(-2))).toEqual([
-      ['Solid in the tube after mixing: white.Colour of the liquid: colourless.Bubbles of gas: no bubbles.', PAGE_TEXT.notCorrect],
+      ['Solid in the tube once any reaction is over: white.Colour of the liquid: colourless.Bubbles of gas: no bubbles.', PAGE_TEXT.notCorrect],
       [PAGE_TEXT.notEntered, PAGE_TEXT.notEntered],
       [PAGE_TEXT.notEntered, PAGE_TEXT.notEntered],
       ['Cu2+(aq) → CuCO3(aq)', PAGE_TEXT.notCorrect],

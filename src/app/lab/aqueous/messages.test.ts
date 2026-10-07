@@ -128,16 +128,16 @@ describe('the observation form', () => {
   })
 
   it('says in words what a correct observation holds, one line for each field of the station', () => {
-    expect(expectedLines(data, 'aq-01')).toEqual(['Solid in the tube after mixing: rust-brown.', 'Colour of the liquid: yellow-orange.', 'Bubbles of gas: no bubbles.'])
-    expect(expectedLines(data, 'aq-06')).toEqual(['Solid in the tube after mixing: no solid.', 'Colour of the liquid: colourless.', 'Bubbles of gas: no bubbles.', 'Smell, wafted: sharp and pungent.', 'Red litmus dipped in the liquid: turns blue.', 'Moist red litmus held above the liquid: turns blue.'])
-    expect(expectedLines(data, 'aq-10')).toEqual(['Solid in the tube after mixing: no solid.', 'Colour of the liquid: colourless.', 'Bubbles of gas: bubbles rise.', 'Temperature of the tube: warm.', 'Lit splint at the mouth of the tube: a pop.'])
+    expect(expectedLines(data, 'aq-01')).toEqual(['Solid in the tube once any reaction is over: rust-brown.', 'Colour of the liquid: yellow-orange.', 'Bubbles of gas: no bubbles.'])
+    expect(expectedLines(data, 'aq-06')).toEqual(['Solid in the tube once any reaction is over: no solid.', 'Colour of the liquid: colourless.', 'Bubbles of gas: no bubbles.', 'Smell, wafted: sharp and pungent.', 'Red litmus dipped in the liquid: turns blue.', 'Moist red litmus held above the liquid: turns blue.'])
+    expect(expectedLines(data, 'aq-10')).toEqual(['Solid in the tube once any reaction is over: no solid.', 'Colour of the liquid: colourless.', 'Bubbles of gas: bubbles rise.', 'Temperature of the tube: warm.', 'Lit splint at the mouth of the tube: a pop.'])
     for (const station of data.stations) expect(expectedLines(data, station.id).length).toBe(fieldsOf(station).length)
   })
 
   it('tells a wrong observation which fields to look at again, and never what they should be', () => {
     expect(observationFeedback([])).toBe('That is what this tube shows.')
     expect(observationFeedback(['liquid'])).toBe('Not yet. Look again at the colour of the liquid.')
-    expect(observationFeedback(['solid', 'liquid', 'bubbles'])).toBe('Not yet. Look again at the solid, the colour of the liquid and whether a gas comes off.')
+    expect(observationFeedback(['solid', 'liquid', 'bubbles'])).toBe('Not yet. Look again at the solid in the tube at the end, the colour of the liquid and whether a gas comes off.')
     for (const station of data.stations) {
       const feedback = observationFeedback(fieldsOf(station))
       for (const value of Object.values(expectedObservation(station))) if (value !== 'none') expect(feedback, station.id).not.toContain(value)
@@ -205,7 +205,7 @@ describe("the page's own wording", () => {
   })
 
   it('writes a recorded observation in the lines an expected one is written in', () => {
-    expect(observationLines({ liquid: 'pink', solid: 'none' })).toEqual(['Solid in the tube after mixing: no solid.', 'Colour of the liquid: pink.'])
+    expect(observationLines({ liquid: 'pink', solid: 'none' })).toEqual(['Solid in the tube once any reaction is over: no solid.', 'Colour of the liquid: pink.'])
     for (const station of data.stations) expect(observationLines(expectedObservation(station))).toEqual(expectedLines(data, station.id))
   })
 
