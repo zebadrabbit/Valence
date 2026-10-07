@@ -37,11 +37,11 @@ describe('the aqueous reactions lab', () => {
         'aq-03 | precipitation | nickel-ii-ion,carbonate-ion | 0.00 | {"solid":"pale green","liquid":"colourless","bubbles":"none"} | 1 nickel-ii-ion(aq) + 1 carbonate-ion(aq) -> 1 nickel-ii-carbonate(s)',
         'aq-04 | precipitation | barium-ion,sulfate-ion | 0.00 | {"solid":"white","liquid":"blue","bubbles":"none"} | 1 barium-ion(aq) + 1 sulfate-ion(aq) -> 1 barium-sulfate(s)',
         'aq-05 |  |  | 0.00 | {"solid":"none","liquid":"orange","bubbles":"none"} | no reaction',
-        'aq-06 | ammonia | ammonium-ion | 0.00 | {"odor":"sharp and pungent","litmusInLiquid":"turns blue","litmusInVapour":"turns blue"} | 1 ammonium-ion(aq) + 1 hydroxide-ion(aq) -> 1 ammonia(g) + 1 water(l)',
+        'aq-06 | ammonia | ammonium-ion | 0.00 | {"solid":"none","liquid":"colourless","bubbles":"none","odor":"sharp and pungent","litmusInLiquid":"turns blue","litmusInVapour":"turns blue"} | 1 ammonium-ion(aq) + 1 hydroxide-ion(aq) -> 1 ammonia(g) + 1 water(l)',
         'aq-07 | acid-carbonate | calcium-carbonate | 0.00 | {"solid":"none","liquid":"colourless","bubbles":"bubbles"} | 1 calcium-carbonate(s) + 2 hydrogen-ion(aq) -> 1 calcium-ion(aq) + 1 water(l) + 1 carbon-dioxide(g)',
-        'aq-08 | neutralisation | hydrogen-ion,hydroxide-ion | 40.07 | {"temperature":"hot"} | 1 hydrogen-ion(aq) + 1 hydroxide-ion(aq) -> 1 water(l)',
+        'aq-08 | neutralisation | hydrogen-ion,hydroxide-ion | 40.07 | {"solid":"none","liquid":"colourless","bubbles":"none","temperature":"hot"} | 1 hydrogen-ion(aq) + 1 hydroxide-ion(aq) -> 1 water(l)',
         'aq-09 | precipitation | silver-ion | 0.00 | {"solid":"white","liquid":"pink","bubbles":"none"} | 1 silver-ion(aq) + 1 chloride-ion(aq) -> 1 silver-chloride(s)',
-        'aq-10 | metal-acid | magnesium | 11.03 | {"temperature":"warm","splint":"pop"} | 1 magnesium(s) + 2 hydrogen-ion(aq) -> 1 magnesium-ion(aq) + 1 hydrogen(g)',
+        'aq-10 | metal-acid | magnesium | 11.03 | {"solid":"none","liquid":"colourless","bubbles":"bubbles","temperature":"warm","splint":"pop"} | 1 magnesium(s) + 2 hydrogen-ion(aq) -> 1 magnesium-ion(aq) + 1 hydrogen(g)',
       ],
     })
   })

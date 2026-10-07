@@ -9,23 +9,23 @@ const term = (speciesId: string, coefficient = 1, state: Term['state'] = data.sp
 const equation = (reactants: Term[], products: Term[]): Entry => ({ noReaction: false, reactants, products })
 
 describe('what a station asks to be observed', () => {
-  it('is the fields its tools can show, and no others', () => {
+  it('is what the eye sees at every station, then the fields its other tools can show, and no others', () => {
     expect(data.stations.map((s) => [s.id, fieldsOf(s).join(' ')])).toEqual([
       ['aq-01', 'solid liquid bubbles'],
       ['aq-02', 'solid liquid bubbles'],
       ['aq-03', 'solid liquid bubbles'],
       ['aq-04', 'solid liquid bubbles'],
       ['aq-05', 'solid liquid bubbles'],
-      ['aq-06', 'odor litmusInLiquid litmusInVapour'],
+      ['aq-06', 'solid liquid bubbles odor litmusInLiquid litmusInVapour'],
       ['aq-07', 'solid liquid bubbles'],
-      ['aq-08', 'temperature'],
+      ['aq-08', 'solid liquid bubbles temperature'],
       ['aq-09', 'solid liquid bubbles'],
-      ['aq-10', 'temperature splint'],
+      ['aq-10', 'solid liquid bubbles temperature splint'],
     ])
   })
 
-  it('has the tools of spec 8.2: litmus in two positions at station 6, touch or thermometer at station 8, the splint and touch at station 10', () => {
-    expect(data.stations.map((s) => s.observationTools.join(' '))).toEqual(['eye', 'eye', 'eye', 'eye', 'eye', 'waft litmus', 'eye', 'touch thermometer', 'eye', 'splint touch'])
+  it('has the eye at every station and the tools of spec 8.2: litmus in two positions at station 6, touch or thermometer at station 8, the splint and touch at station 10', () => {
+    expect(data.stations.map((s) => s.observationTools.join(' '))).toEqual(['eye', 'eye', 'eye', 'eye', 'eye', 'eye waft litmus', 'eye', 'eye touch thermometer', 'eye', 'eye splint touch'])
     expect(usesOf(station(6))).toEqual(['waft', 'litmus-liquid', 'litmus-vapour'])
     expect(usesOf(station(8))).toEqual(['touch', 'thermometer'])
     expect(usesOf(station(10))).toEqual(['touch', 'splint'])
@@ -46,11 +46,11 @@ describe('what a station asks to be observed', () => {
       'aq-03': { solid: 'pale green', liquid: 'colourless', bubbles: 'none' },
       'aq-04': { solid: 'white', liquid: 'blue', bubbles: 'none' },
       'aq-05': { solid: 'none', liquid: 'orange', bubbles: 'none' },
-      'aq-06': { odor: 'sharp and pungent', litmusInLiquid: 'turns blue', litmusInVapour: 'turns blue' },
+      'aq-06': { solid: 'none', liquid: 'colourless', bubbles: 'none', odor: 'sharp and pungent', litmusInLiquid: 'turns blue', litmusInVapour: 'turns blue' },
       'aq-07': { solid: 'none', liquid: 'colourless', bubbles: 'bubbles' },
-      'aq-08': { temperature: 'hot' },
+      'aq-08': { solid: 'none', liquid: 'colourless', bubbles: 'none', temperature: 'hot' },
       'aq-09': { solid: 'white', liquid: 'pink', bubbles: 'none' },
-      'aq-10': { temperature: 'warm', splint: 'pop' },
+      'aq-10': { solid: 'none', liquid: 'colourless', bubbles: 'bubbles', temperature: 'warm', splint: 'pop' },
     })
   })
 
@@ -73,12 +73,12 @@ describe('the observation check', () => {
 
   it('names each field that is not', () => {
     expect(wrongFields(station(1), { solid: 'white', liquid: 'yellow-orange', bubbles: 'bubbles' })).toEqual(['solid', 'bubbles'])
-    expect(wrongFields(station(6), { odor: 'none', litmusInLiquid: 'turns blue', litmusInVapour: 'stays red' })).toEqual(['odor', 'litmusInVapour'])
-    expect(wrongFields(station(8), {})).toEqual(['temperature'])
+    expect(wrongFields(station(6), { solid: 'none', liquid: 'colourless', bubbles: 'none', odor: 'none', litmusInLiquid: 'turns blue', litmusInVapour: 'stays red' })).toEqual(['odor', 'litmusInVapour'])
+    expect(wrongFields(station(8), {})).toEqual(['solid', 'liquid', 'bubbles', 'temperature'])
   })
 
   it('neither asks nor grades a field the station does not show', () => {
-    expect(wrongFields(station(8), { temperature: 'hot', solid: 'black' })).toEqual([])
+    expect(wrongFields(station(8), { ...expectedObservation(station(8)), splint: 'pop', odor: 'like vinegar' })).toEqual([])
   })
 })
 

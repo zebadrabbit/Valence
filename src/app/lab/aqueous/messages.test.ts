@@ -118,8 +118,8 @@ describe('the observation form', () => {
 
   it('says in words what a correct observation holds, one line for each field of the station', () => {
     expect(expectedLines(data, 'aq-01')).toEqual(['Solid in the tube after mixing: rust-brown.', 'Colour of the liquid: yellow-orange.', 'Bubbles of gas: no bubbles.'])
-    expect(expectedLines(data, 'aq-06')).toEqual(['Smell, wafted: sharp and pungent.', 'Red litmus dipped in the liquid: turns blue.', 'Moist red litmus held above the liquid: turns blue.'])
-    expect(expectedLines(data, 'aq-10')).toEqual(['Temperature of the tube: warm.', 'Lit splint at the mouth of the tube: a pop.'])
+    expect(expectedLines(data, 'aq-06')).toEqual(['Solid in the tube after mixing: no solid.', 'Colour of the liquid: colourless.', 'Bubbles of gas: no bubbles.', 'Smell, wafted: sharp and pungent.', 'Red litmus dipped in the liquid: turns blue.', 'Moist red litmus held above the liquid: turns blue.'])
+    expect(expectedLines(data, 'aq-10')).toEqual(['Solid in the tube after mixing: no solid.', 'Colour of the liquid: colourless.', 'Bubbles of gas: bubbles rise.', 'Temperature of the tube: warm.', 'Lit splint at the mouth of the tube: a pop.'])
     for (const station of data.stations) expect(expectedLines(data, station.id).length).toBe(fieldsOf(station).length)
   })
 

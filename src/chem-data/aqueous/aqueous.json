@@ -2157,6 +2157,7 @@
         }
       ],
       "observationTools": [
+        "eye",
         "waft",
         "litmus"
       ],
@@ -2448,6 +2449,7 @@
         }
       ],
       "observationTools": [
+        "eye",
         "touch",
         "thermometer"
       ],
@@ -2708,6 +2710,7 @@
         }
       ],
       "observationTools": [
+        "eye",
         "splint",
         "touch"
       ],

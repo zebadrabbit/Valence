@@ -72,14 +72,14 @@ describe('what can be done, and what it does', () => {
     expect(refused(observation)).toBeNull()
     expect(refused({ ...observation, odor: 'like roses' })).toBe('invalid-entry')
     expect(refused({ odor: observation.odor })).toBe('invalid-entry')
-    expect(refused({ ...observation, solid: 'white' })).toBe('invalid-entry')
+    expect(refused({ ...observation, splint: 'pop' })).toBe('invalid-entry')
     expect(reduce(data, state, { type: 'recordObservation', stationId: 'aq-06', observation }).stations[5]!.observation).toEqual(observation)
   })
 
   it('takes either the touch or the thermometer for the temperature at station 8, and needs no tool for what the eye sees', () => {
     for (const tool of ['touch', 'thermometer'] as const) {
       const state = run(data, mixed('aq-08'), [{ type: 'useTool', stationId: 'aq-08', tool }])
-      expect(can(data, state, { type: 'recordObservation', stationId: 'aq-08', observation: { temperature: 'hot' } })).toBeNull()
+      expect(can(data, state, { type: 'recordObservation', stationId: 'aq-08', observation: expectedObservation(data.stations[7]!) })).toBeNull()
     }
     expect(can(data, mixed('aq-01'), { type: 'recordObservation', stationId: 'aq-01', observation: expectedObservation(data.stations[0]!) })).toBeNull()
   })
@@ -130,7 +130,7 @@ describe('the view of a station', () => {
   })
 
   it('lists the station\'s tools and fields', () => {
-    expect(stationView(data, createLab(data, 'guided'), 'aq-10')).toMatchObject({ mixed: false, uses: ['touch', 'splint'], used: [], fields: ['temperature', 'splint'], observation: null, wrongFields: null, done: false })
+    expect(stationView(data, createLab(data, 'guided'), 'aq-10')).toMatchObject({ mixed: false, uses: ['touch', 'splint'], used: [], fields: ['solid', 'liquid', 'bubbles', 'temperature', 'splint'], observation: null, wrongFields: null, done: false })
   })
 })
 
@@ -252,7 +252,7 @@ describe('no state a learner can reach leaves them unable to go on', () => {
       expect(finish(state).status, `seed ${seed}`).toBe('completed')
     }
     // The walks do meet refusals, about half their actions, and none of them finishes the lab by chance: the check is of states part-way.
-    expect([refused, done]).toEqual([1169, 0])
+    expect([refused, done]).toEqual([1177, 0])
   }, 30_000)
 })
 
