@@ -22,6 +22,7 @@ const IONIC_EQUATIONS = 'section 4.1, under the heading Equations for Ionic Reac
 const NITROGEN_HYDRIDES = 'section 18.5, under the heading Nitrogen Hydrogen Compounds'
 const HEAT_EXAMPLE = 'section 5.2, the example headed Heat Produced by an Exothermic Reaction'
 const SHEET = "the sheet's title and its section 2 (hazards identification)"
+const FIRST_AID = "the sheet's section 4 (first aid measures)"
 
 export const AQUEOUS_PRIMER: readonly PrimerSection[] = [
   {
@@ -410,6 +411,17 @@ export const AQUEOUS_PRIMER: readonly PrimerSection[] = [
           ['flinn-sds-195', SHEET, 'the sheet for calcium carbonate prints no signal word and no hazard statement.'],
         ],
         "what each bottle's statements classify is in the heading the record stores over them (spec 5.2), and a test holds this card to those headings.",
+      ),
+      paragraph(
+        { label: 'A splash' },
+        'Where a sheet gives first aid for a splash in the eyes, it is to rinse them with water for several minutes and then to keep the rinsing up; none gives a number of minutes for the eyes. The two sheets for iron(III) chloride solution also ask for flushing with water for 15 minutes or more, without saying what is to be flushed, and the two for cobalt chloride print no first aid for the eyes at all. A laboratory sets its own rule, and a common one is 15 minutes at the eyewash; follow the rule of the laboratory you are in.',
+        [
+          ['flinn-sds-339', FIRST_AID, 'the eyes are rinsed with water for several minutes and the rinsing then kept up, with no number of minutes for the eyes; and that a further sentence asks for flushing with water for 15 minutes or longer and does not say what is flushed.'],
+          ['flinn-sds-339.01', FIRST_AID, 'the section says the same of the eyes and has the same further sentence on flushing.'],
+          ['flinn-sds-255', FIRST_AID, 'the section has lines for breathing in, for the skin and for swallowing, and none for the eyes.'],
+          ['flinn-sds-255.51', FIRST_AID, 'this section too has lines for breathing in, for the skin and for swallowing, and none for the eyes.'],
+        ],
+        "what each bottle's sheet gives for the eyes is in the note the record stores under the bottle's statements, and a test holds this card to those notes. That a laboratory's own rule is 15 minutes at the eyewash is the owner's statement of the rule where they work (2026-10-05); no source was read for it, and its sentence is the one the titration lab's primer ends its paragraph on the two solutions with.",
       ),
     ],
   },

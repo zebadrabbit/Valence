@@ -5,6 +5,7 @@ import { findInstitutionText } from '../denylist'
 import { termIndex, type PrimerParagraph } from '../primer'
 import sources from '../sources.json'
 import { aqueousData } from './data'
+import { TITRATION_PRIMER } from '../titration/primer'
 import { AQUEOUS_PRIMER, READ_FIRST } from './primer'
 
 const local = import.meta.glob<string[]>('../denylist.local.json', { eager: true, import: 'default' })
@@ -145,7 +146,7 @@ describe('the aqueous primer: what each paragraph rests on', () => {
     expect([...own].sort()).toEqual([...withRow].sort())
     const ofReagents = new Set(aqueousData.reagents.flatMap((r) => [r.hazards.sourceId, r.hazards.note.sourceId, ...(r.hazards.note.alsoSourceId ? [r.hazards.note.alsoSourceId] : [])]))
     const rest = [...cited].filter((id) => !own.includes(id))
-    expect(rest.length).toBe(16)
+    expect(rest.length).toBe(18)
     for (const id of rest) {
       expect(sheets.some((s) => s.id === id), id).toBe(true)
       expect(ofReagents.has(id), id).toBe(true)
@@ -242,7 +243,7 @@ describe('the aqueous primer: what it has to say', () => {
   it('rests its safety card on the sheets the bottles cite, and says of each sheet only what the hazard manifest\'s rows print for it', () => {
     const ofReagents = new Set(aqueousData.reagents.flatMap((r) => [r.hazards.sourceId, r.hazards.note.sourceId, ...(r.hazards.note.alsoSourceId ? [r.hazards.note.alsoSourceId] : [])]))
     const lines = [...section('safety').paragraphs, ...section('observing').paragraphs].flatMap((p) => p.support.split('\n')).filter((line) => line.startsWith('flinn-sds-'))
-    expect(lines.length).toBe(19)
+    expect(lines.length).toBe(23)
     for (const line of lines) {
       const id = line.slice(0, line.indexOf(':'))
       const sheet = sheets.find((s) => s.id === id)!
@@ -272,5 +273,24 @@ describe('the aqueous primer: what it has to say', () => {
     const corrosive = aqueousData.reagents.filter((r) => /under (the code )?H314/.test(r.hazards.note.value)).map((r) => r.id)
     expect(corrosive).toEqual(['naoh-1m', 'naoh-6m', 'hcl-1m', 'hcl-3m', 'hcl-6m'])
     expect(shown('safety')).toMatch(/hydrochloric acid, at each of its three strengths, and the sodium hydroxide solution, at both of its, are corrosive/)
+  })
+
+  it("ends its safety card with what the notes give for a splash in the eyes, and with the owner's rule in the words the titration primer gives it in", () => {
+    const last = section('safety').paragraphs.at(-1)!
+    const rule = 'A laboratory sets its own rule, and a common one is 15 minutes at the eyewash; follow the rule of the laboratory you are in.'
+    expect(last.label).toBe('A splash')
+    expect(last.text.endsWith(rule)).toBe(true)
+    expect(TITRATION_PRIMER.find((s) => s.id === 'safety')!.paragraphs[1]!.text.endsWith(rule)).toBe(true)
+    expect(last.support).toMatch(/This lab: .*is the owner's statement of the rule where they work \(2026-10-05\); no source was read for it/)
+    // What the card says of the sheets is what the notes under the bottles say: rinsing for several minutes for the
+    // eyes on every bottle but one, a number of minutes on one bottle only, and that not said to be for the eyes.
+    const { reagents } = aqueousData
+    const note = (id: string) => reagents.find((r) => r.id === id)!.hazards.note.value
+    expect(reagents.filter((r) => !/eyes (is|are) to be rinsed (out )?with water for several minutes/.test(r.hazards.note.value)).map((r) => r.id)).toEqual(['cocl2-0.5m'])
+    expect(note('cocl2-0.5m')).toContain('Neither sheet prints any first aid for a splash in the eyes.')
+    expect(reagents.filter((r) => /\d+ minutes/.test(r.hazards.note.value)).map((r) => r.id)).toEqual(['fecl3-0.5m'])
+    expect(note('fecl3-0.5m')).toContain('kept up for 15 minutes or more, without saying whether that is for the skin or for the eyes')
+    expect(last.text).toMatch(/none gives a number of minutes for the eyes.*iron\(III\) chloride solution.*15 minutes or more, without saying what is to be flushed.*cobalt chloride print no first aid for the eyes/)
+    expect(last.sourceIds).toEqual(['flinn-sds-339', 'flinn-sds-339.01', 'flinn-sds-255', 'flinn-sds-255.51'])
   })
 })
