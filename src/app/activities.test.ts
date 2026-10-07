@@ -3,10 +3,10 @@ import { ACTIVITIES, activityStatus } from './activities'
 import { createMemoryStore, saveEntry } from './progress/storage'
 
 describe('the activities', () => {
-  it('open the titration lab at its own address, and the lab that is not built yet at the list of labs', () => {
+  it('open each lab at its own address, and the mechanism, which is not built yet, at the page that lists its kind', () => {
     expect(ACTIVITIES.map((activity) => [activity.entry, activity.to])).toEqual([
       ['lab:titration', '/lab/titration'],
-      ['lab:aqueous', '/lab'],
+      ['lab:aqueous', '/lab/aqueous'],
       ['mechanism:hcl-nahco3', '/learn'],
     ])
   })

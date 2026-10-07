@@ -1,10 +1,13 @@
 import type { AqueousData } from '@/chem-data/aqueous/data'
-import { choicesFor, describeStationResult, expectedObservation, stationResult, type Action, type Blocked, type Entry, type Field, type Form, type Problem, type ToolUse } from '@/engine/aqueous'
+import { choicesFor, describeStationResult, expectedObservation, stationResult, type Action, type Blocked, type Entry, type Field, type Form, type Mode, type Observation, type Problem, type State, type ToolUse } from '@/engine/aqueous'
+import type { Side } from './builder'
+import type { Progress } from './stationLook'
 
 // Every sentence the aqueous reactions lab says that is chemistry, keyed by the engine's identifiers, so that an
 // identifier with no sentence does not compile. A sentence can say only what it is handed: the lab's record and
 // what the engine works out from it. The hints, the notes and the two cautions are in the record itself, with
-// their sources (src/chem-data/aqueous/aqueous.json); this module words everything else.
+// their sources (src/chem-data/aqueous/aqueous.json); this module words everything else, and from PAGE_TEXT down
+// what the page says that is not chemistry: its headings, its buttons and the names of its controls.
 
 const stationOf = (data: AqueousData, stationId: string) => {
   const index = data.stations.findIndex((s) => s.id === stationId)
@@ -71,11 +74,12 @@ export const choiceLabel = (field: Field, choice: string): string => CHOICE_TEXT
 /** The choices of a field, each with the label the form shows: the stored value is the record's word. */
 export const choiceList = (data: AqueousData, field: Field) => choicesFor(data, field).map((value) => ({ value, label: choiceLabel(field, value) }))
 
+/** An observation in words, one line for each field it holds: "Colour of the liquid: pink." */
+export const observationLines = (observation: Observation): string[] =>
+  (Object.keys(FIELD_LABEL) as Field[]).filter((field) => observation[field] !== undefined).map((field) => `${FIELD_LABEL[field]}: ${choiceLabel(field, observation[field]!)}.`)
+
 /** What a correct observation holds, in words, for Guided mode and for Challenge once the learner has recorded their own. */
-export function expectedLines(data: AqueousData, stationId: string): string[] {
-  const expected = expectedObservation(stationOf(data, stationId).station)
-  return (Object.keys(expected) as Field[]).map((field) => `${FIELD_LABEL[field]}: ${choiceLabel(field, expected[field]!)}.`)
-}
+export const expectedLines = (data: AqueousData, stationId: string): string[] => observationLines(expectedObservation(stationOf(data, stationId).station))
 
 /** The name of each way of applying a tool, as its button reads. 'sniff' is offered so that it can be refused with the safety note. */
 export const TOOL_LABEL: Record<ToolUse | 'sniff', string> = {
@@ -180,3 +184,96 @@ export function blockedText(data: AqueousData, action: Action, blocked: Blocked)
         : 'Choose one answer for each question.'
   }
 }
+
+/** What each mode does in this lab (spec 8.3), beside its radio button: the shell's own two sentences are the titration lab's. */
+export const MODE_TEXT: Record<Mode, string> = {
+  guided: 'Guided: each station shows its hints, and what a correct observation holds, from the start.',
+  challenge: 'Challenge: a station shows no hints, and nothing of what to expect, until you have recorded your own observation there.',
+}
+
+/** The list of stations, where the one shown stands in it, and the two ways on. */
+export const STATION_TEXT = {
+  list: 'Stations',
+  place: (number: number, total: number) => `Station ${number} of ${total}`,
+  previous: (title: string) => `Previous: ${title}`,
+  next: (title: string) => `Next: ${title}`,
+}
+
+/** How far a station has come, in the list and on its card, beside a mark that says the same. */
+export const PROGRESS_TEXT: Record<Progress, string> = { 'not-started': 'Not started', started: 'Started', observed: 'Observed', done: 'Done' }
+
+/** The page's own headings, buttons and names of controls. */
+export const PAGE_TEXT = {
+  tube: 'The tube',
+  tools: 'Tools',
+  observations: 'Observations',
+  equations: 'Equations',
+  amount: 'Amount',
+  tubePicture: 'The test tube after mixing',
+  /** After the name of a tool that has been applied, for a screen reader; the eye has a tick. */
+  used: 'used',
+  checkObservations: 'Check observations',
+  /** Beside a question whose recorded answer is not the tube's, until it is answered again. */
+  lookAgain: 'Look again',
+  change: 'Change',
+  cancel: 'Cancel',
+  correct: 'Correct',
+  notCorrect: 'Not correct yet',
+  notEntered: 'Not entered yet',
+  /** In Challenge, where the hints and the expected observation will be. */
+  challengeHidden: 'In Challenge, the hints and what to expect are shown once you have recorded your own observation.',
+  yourEquation: 'Your equation',
+  nothingBuilt: 'Nothing chosen yet.',
+  palette: 'Substances to choose from',
+  paletteHelp: 'Choose a substance, then the side it goes on.',
+  reactant: 'Reactant',
+  product: 'Product',
+  add: 'Add',
+  asA: 'as a',
+  /** The name of the two buttons that ask which side: "Add Fe³⁺ as a", then Reactant or Product. */
+  whichSide: (formula: string) => `Add ${formula} as a`,
+  coefficient: 'Coefficient',
+  fewer: 'One fewer',
+  more: 'One more',
+  state: 'State',
+  remove: (formula: string) => `Remove ${formula}`,
+  /** Where the built equation has a side with nothing on it. */
+  incomplete: `Put at least one substance on each side, or choose "${BENCH_TEXT.noReaction}".`,
+  coefficientLimit: 'A coefficient here is a whole number from 1 to 9.',
+  completed: 'Lab complete: all ten stations have a correct observation and three correct equations.',
+  sources: 'What the tube shows, the temperature rise and whether an entry is correct are worked out by Valence from these values. The hints are written by Valence.',
+} as const
+
+/** A state symbol said in full, as the name of its choice. */
+export const STATE_NAME: Record<State, string> = { aq: 'dissolved in water', s: 'solid', l: 'liquid', g: 'gas' }
+/** The four state symbols with what each stands for, once over the three builders. */
+export const STATE_KEY = `States: ${(Object.keys(STATE_NAME) as State[]).map((state) => `(${state}) ${STATE_NAME[state]}`).join(', ')}.`
+
+/** Why a species is not added to a side again. */
+export const alreadyOnSide = (formula: string, side: Side) => `${formula} is already among the ${side === 'reactants' ? 'reactants' : 'products'}.`
+
+/** Under a question that waits for a tool: which one to use first. Any one of them shows it. */
+export const toolFirstText = (uses: readonly ToolUse[]) => `Not yet. First use: ${uses.map((use) => TOOL_LABEL[use]).join(', or ')}.`
+
+/** The solubility table, as a panel that floats over the page. */
+export const SOLUBILITY_TEXT = {
+  name: 'Solubility table',
+  caption: 'Whether the compound of a positive ion and a negative ion dissolves in water, for the pairs of ions these ten stations can bring together.',
+  corner: 'Positive ion, by negative ion',
+  soluble: 'soluble',
+  insoluble: 'insoluble',
+  notListed: 'not listed',
+  key: 'A pair marked not listed is one that no station here brings together. This table does not hold it, which says nothing of whether its compound dissolves.',
+} as const
+
+/** The Record tab. */
+export const RECORD_TEXT = {
+  region: 'Record of the ten stations',
+  caption: 'What was recorded at each of the ten stations, as it was last checked',
+  station: 'Station',
+  entry: 'Entry',
+  entered: 'As recorded',
+  result: 'Result',
+  observation: 'Observation',
+  notMixed: 'Not mixed yet',
+} as const

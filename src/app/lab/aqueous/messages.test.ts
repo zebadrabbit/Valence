@@ -7,8 +7,17 @@ import {
   BENCH_TEXT,
   FIELD_LABEL,
   FORM_LABEL,
+  MODE_TEXT,
+  PAGE_TEXT,
   PROBLEM_TEXT,
+  PROGRESS_TEXT,
+  RECORD_TEXT,
+  SOLUBILITY_TEXT,
+  STATE_KEY,
+  STATE_NAME,
+  STATION_TEXT,
   TOOL_LABEL,
+  alreadyOnSide,
   amountText,
   blockedText,
   choiceLabel,
@@ -17,9 +26,11 @@ import {
   equationText,
   expectedLines,
   observationFeedback,
+  observationLines,
   reagentLines,
   seenText,
   stationTitle,
+  toolFirstText,
   toolOutcome,
 } from './messages'
 
@@ -171,6 +182,59 @@ describe('why something cannot be done', () => {
     const equation: Action = { type: 'enterEquation', stationId: 'aq-01', form: 'molecular', entry: { noReaction: false, reactants: [], products: [] } }
     expect(blockedText(data, equation, 'invalid-entry')).toMatch(/at least one substance on each side.*"No reaction"/)
     expect(blockedText(data, { type: 'recordObservation', stationId: 'aq-01', observation: {} }, 'invalid-entry')).toBe('Choose one answer for each question.')
+  })
+})
+
+describe("the page's own wording", () => {
+  const strings = (texts: Record<string, unknown>) => Object.values(texts).filter((text): text is string => typeof text === 'string')
+
+  it('says what each mode does in this lab as spec 8.3 has it, and not in the words of the titration lab', () => {
+    expect(MODE_TEXT.guided).toMatch(/^Guided: .*hints.*correct observation.*from the start\.$/)
+    expect(MODE_TEXT.challenge).toMatch(/^Challenge: .*no hints.*until you have recorded your own observation/)
+    for (const text of Object.values(MODE_TEXT)) expect(text).not.toMatch(/checklist|warning|trial/)
+  })
+
+  it('says where a station stands and names the way to the ones either side by their titles', () => {
+    expect(STATION_TEXT.place(3, 10)).toBe('Station 3 of 10')
+    expect(STATION_TEXT.previous(stationTitle(data, 'aq-02'))).toBe('Previous: Station 2: Sodium carbonate and copper(II) sulfate')
+    expect(STATION_TEXT.next(stationTitle(data, 'aq-04'))).toBe('Next: Station 4: Barium chloride and copper(II) sulfate')
+  })
+
+  it('has a word for each of the four ways a station can stand, each its own', () => {
+    expect(PROGRESS_TEXT).toEqual({ 'not-started': 'Not started', started: 'Started', observed: 'Observed', done: 'Done' })
+  })
+
+  it('writes a recorded observation in the lines an expected one is written in', () => {
+    expect(observationLines({ liquid: 'pink', solid: 'none' })).toEqual(['Solid in the tube after mixing: no solid.', 'Colour of the liquid: pink.'])
+    for (const station of data.stations) expect(observationLines(expectedObservation(station))).toEqual(expectedLines(data, station.id))
+  })
+
+  it('says which tool a question waits for, and that either will do where two show the same thing', () => {
+    expect(toolFirstText(['waft'])).toBe('Not yet. First use: Waft the vapour towards your nose.')
+    expect(toolFirstText(['touch', 'thermometer'])).toBe('Not yet. First use: Touch the outside of the tube, or Read the thermometer.')
+  })
+
+  it('names the four state symbols in full, and says why a species is not added to a side twice', () => {
+    expect(STATE_NAME).toEqual({ aq: 'dissolved in water', s: 'solid', l: 'liquid', g: 'gas' })
+    expect(STATE_KEY).toBe('States: (aq) dissolved in water, (s) solid, (l) liquid, (g) gas.')
+    expect(alreadyOnSide('Fe³⁺', 'reactants')).toBe('Fe³⁺ is already among the reactants.')
+    expect(alreadyOnSide('H₂O', 'products')).toBe('H₂O is already among the products.')
+  })
+
+  it('gives no answer and scolds nobody: no formula, no colour of a station, and none of the words a refusal can do without', () => {
+    const all = [...strings(PAGE_TEXT), ...strings(SOLUBILITY_TEXT), ...strings(RECORD_TEXT), ...Object.values(MODE_TEXT), ...Object.values(PROGRESS_TEXT), ...strings(STATION_TEXT)]
+    expect(all.length).toBeGreaterThan(40)
+    for (const text of all) {
+      expect(text).not.toMatch(/[₀-₉⁺⁻]|wrong|fail|must|cannot|error|invalid/i)
+      for (const colour of [...data.choices.solid, ...data.choices.liquid].filter((c) => c !== 'none')) expect(text, text).not.toContain(colour)
+      expect(findInstitutionText(text, []), text).toBeNull()
+    }
+  })
+
+  it('says of the solubility table only what the record holds: the pairs of these stations, soluble or insoluble, and that a pair it does not hold is not judged', () => {
+    expect(SOLUBILITY_TEXT.caption).toContain('the pairs of ions these ten stations can bring together')
+    expect(SOLUBILITY_TEXT.key).toMatch(/not listed.*no station here brings together.*says nothing of whether its compound dissolves/)
+    expect(data.stations).toHaveLength(10)
   })
 })
 

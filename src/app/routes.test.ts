@@ -1,6 +1,7 @@
 import { matchRoutes } from 'react-router'
 import { describe, expect, it } from 'vitest'
 import { PeriodicTablePage } from '@/app/explore/elements/PeriodicTablePage'
+import { AqueousPage } from '@/app/lab/aqueous/AqueousPage'
 import { TitrationPage } from '@/app/lab/titration/TitrationPage'
 import { Lab } from '@/app/pages/Lab'
 import { periodicTable } from '@/chem-data/periodic'
@@ -56,13 +57,23 @@ describe('the routes', () => {
     expect(loaded.Component).toBe(TitrationPage)
   })
 
+  it('load the aqueous reactions lab at #/lab/aqueous, lazily', async () => {
+    const { path, route } = page('/lab/aqueous')
+    expect(path).toBe('lab/aqueous')
+    expect(typeof route.lazy).toBe('function')
+    expect(route.element).toBeUndefined()
+    const loaded = await (route.lazy as () => Promise<{ Component: unknown }>)()
+    expect(loaded.Component).toBe(AqueousPage)
+    expect(page('/lab/aqueous/3')).toMatchObject({ path: '*' })
+  })
+
   it('still open the list of labs at #/lab, with no chunk to load, and send an address below a lab to the not-found page', () => {
     const { path, route } = page('/lab')
     expect(path).toBe('lab')
     expect(route.lazy).toBeUndefined()
     expect((route.element as { type: unknown }).type).toBe(Lab)
     expect(page('/lab/titration/more')).toMatchObject({ path: '*' })
-    expect(page('/lab/aqueous')).toMatchObject({ path: '*' })
+    expect(page('/lab/nowhere')).toMatchObject({ path: '*' })
   })
 
   it('open Home at the root', () => {
