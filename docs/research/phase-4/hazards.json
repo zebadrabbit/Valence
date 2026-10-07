@@ -1,0 +1,244 @@
+{
+  "fecl3-0.5m": {
+    "classifiedAs": "Hazards of solid iron(III) chloride hexahydrate, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H302: Harmful if swallowed",
+        "H315: Causes skin irritation",
+        "H318: Causes serious eye damage"
+      ],
+      "note": {
+        "value": "The solution on this bench is 0.5 mol/L, which is about 8% iron(III) chloride by mass (worked out from the molarity, not read from a source). The same supplier has no sheet for a solution of this strength: one of its sheets is for iron(III) chloride solutions of 0.1 M or less and the next is for 1 M to 2.3 M, and this solution lies between the two. So this note rests on the stricter of them, the sheet for 1 M to 2.3 M, and this solution is handled as that sheet says. It gives the signal word Warning and three statements: under H303, that the solution may be harmful if swallowed; under H316, that it causes mild irritation of the skin; and under H319, that it seriously irritates the eyes. The sheet for 0.1 M or less also gives Warning, with two statements: H316 again, and for the eyes H320, irritation that it does not call serious. Each sheet gives its solution a pH of about 1. Both call for eye protection, gloves and protective clothing. Both say that a splash in the eyes is to be rinsed with water for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up, and that medical advice is to be sought if the eyes stay irritated or the skin becomes irritated. Both also ask for flushing with water at once, kept up for 15 minutes or more, without saying whether that is for the skin or for the eyes.",
+        "sourceId": "flinn-sds-339",
+        "alsoSourceId": "flinn-sds-339.01"
+      },
+      "sourceId": "flinn-sds-338"
+    }
+  },
+  "naoh-1m": {
+    "classifiedAs": "Hazards of solid sodium hydroxide, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H314: Causes severe skin burns and eye damage",
+        "H290: May be corrosive to metals"
+      ],
+      "note": {
+        "value": "The solution on this bench is 1 mol/L, which is about 4% sodium hydroxide by mass (worked out from the molarity, not read from a source). The same supplier's sheet for sodium hydroxide solutions of 0.3 M to 6.0 M, which covers this strength, gives the signal word Danger and one statement, under the code H314: the solution burns the skin severely and damages the eyes. The sheet calls for eye protection, gloves and protective clothing, and says that the mist, the vapour or the spray of the solution is not to be breathed. It says that a poison centre or a doctor is to be called at once. It says that a splash in the eyes is to be rinsed with water for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up. After a splash on the skin or the hair, it says, the wet clothing is to come off at once and the skin be rinsed with water.",
+        "sourceId": "flinn-sds-735"
+      },
+      "sourceId": "flinn-sds-734"
+    }
+  },
+  "naoh-6m": {
+    "classifiedAs": "Hazards of solid sodium hydroxide, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H314: Causes severe skin burns and eye damage",
+        "H290: May be corrosive to metals"
+      ],
+      "note": {
+        "value": "The solution on this bench is 6 mol/L, which is about 20% sodium hydroxide by mass (worked out from the molarity and a density of about 1.2 g/mL, not read from a source). It is at the very top of the same supplier's sheet for sodium hydroxide solutions of 0.3 M to 6.0 M; the next sheet begins at 6.1 M and runs to 19 M. Both give the signal word Danger and, under the code H314, the statement that the solution burns the skin severely and damages the eyes. The sheet that begins at 6.1 M adds a second statement, under H290: the solution may corrode metals. Handle this solution as the stricter sheet says, the one that begins at 6.1 M. Both sheets call for eye protection, gloves and protective clothing, and say that the mist, the vapour or the spray of the solution is not to be breathed. Both say that a poison centre or a doctor is to be called at once. They say that a splash in the eyes is to be rinsed with water for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up, and that after a splash on the skin or the hair the wet clothing is to come off at once and the skin be rinsed with water.",
+        "sourceId": "flinn-sds-735",
+        "alsoSourceId": "flinn-sds-734.1"
+      },
+      "sourceId": "flinn-sds-734"
+    }
+  },
+  "na2co3-0.5m": {
+    "classifiedAs": "Hazards of solid sodium carbonate (anhydrous), the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Warning",
+      "statements": [
+        "H303: May be harmful if swallowed",
+        "H316: Causes mild skin irritation",
+        "H319: Causes serious eye irritation"
+      ],
+      "note": {
+        "value": "The solution on this bench is 0.5 mol/L, which is about 5% sodium carbonate by mass (worked out from the molarity, not read from a source). The same supplier has one sheet for sodium carbonate solution, with no strength in its title; its table of composition runs from 1% to 20% sodium carbonate, which takes in this strength. That sheet gives the signal word Warning and one statement, under the code H316: the solution causes mild irritation of the skin. It has no statement for the eyes, though the sheet for the solid, above, has one. The sheet calls for eye protection, gloves and protective clothing. It says that a splash in the eyes is to be rinsed with water for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up, that a splash on the skin is to be washed off with plenty of water, and that medical advice is to be sought if the skin becomes irritated.",
+        "sourceId": "flinn-sds-719"
+      },
+      "sourceId": "flinn-sds-716"
+    }
+  },
+  "cuso4-0.5m": {
+    "classifiedAs": "Hazards of solid copper(II) sulfate pentahydrate, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H301: Toxic if swallowed",
+        "H315+H319: Causes skin and serious eye irritation"
+      ],
+      "note": {
+        "value": "The solution on this bench is 0.5 mol/L, which is between 7% and 8% copper(II) sulfate by mass (worked out from the molarity, not read from a source). The same supplier's sheet for copper(II) sulfate solutions of 0.5 M to 1.5 M, which covers this strength at its lower end, gives the signal word Warning and two statements: under H302, that the solution is harmful if swallowed; and under H315 and H320, that it irritates the skin and the eyes. The sheet calls for eye protection, gloves and protective clothing, and says that nobody is to eat, drink or smoke while using the solution. It says that a splash in the eyes is to be rinsed with water for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up, that a splash on the skin is to be washed off with plenty of water, and that medical advice is to be sought if the eyes stay irritated or the skin becomes irritated. If the solution is swallowed, it says, the mouth is to be rinsed, and a poison centre or a doctor called if the person feels unwell.",
+        "sourceId": "flinn-sds-286"
+      },
+      "sourceId": "flinn-sds-285"
+    }
+  },
+  "nicl2-0.5m": {
+    "classifiedAs": "Hazards of solid nickel(II) chloride hexahydrate, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H301+H331: Toxic if swallowed or inhaled",
+        "H315: Causes skin irritation",
+        "H317+H334: May cause an allergic skin reaction, allergy or asthma symptoms or breathing difficulties if inhaled",
+        "H341: Suspected of causing genetic defects",
+        "H350: May cause cancer",
+        "H360: May damage fertility or the unborn child",
+        "H372: Causes damage to organs through prolonged or repeated exposure"
+      ],
+      "note": {
+        "value": "The solution on this bench is 0.5 mol/L, which is about 6% nickel(II) chloride by mass (worked out from the molarity, not read from a source). The same supplier's one sheet for a solution of nickel chloride in water does not reach this strength: its table of composition stops at 3% of the hexahydrate, and this solution holds about 12 g of the hexahydrate in each 100 mL, some four times as much. Even so, that sheet gives the signal word Danger and five statements: under H303, that its solution may be harmful if swallowed; under H316, that it causes mild irritation of the skin; under H350, that it may cause cancer; under H360, that it may harm fertility or an unborn child; and under H372, that it damages organs in a person exposed to it for a long time or again and again. With no sheet for a solution this concentrated, handle this one as the sheet for the solid says, whose statements are those above. Besides the last three of those five, the solid's sheet says that the substance is toxic if it is swallowed or breathed in (H301 and H331), that it irritates the skin (H315), that it may set off an allergy of the skin, or asthma or trouble with breathing if it is breathed in (H317 and H334), and that it is suspected of doing damage to the genes (H341). The solid's sheet calls for eye protection, gloves and protective clothing, for work in a fume hood or a well-ventilated room, and for breathing protection, and says that clothing the substance has got onto is not to leave the workplace. It says that a poison centre or a doctor is to be called by anyone who has been exposed to the substance or is worried that they have. It says that a splash in the eyes is to be rinsed with water for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up, and that medical advice is to be sought if the eyes stay irritated. Skin is to be rinsed with water for several minutes, it says, and medical advice sought if the skin becomes irritated or a rash appears. If the substance is swallowed, the mouth is to be rinsed and a poison centre or a doctor called at once.",
+        "sourceId": "flinn-sds-541",
+        "alsoSourceId": "flinn-sds-542"
+      },
+      "sourceId": "flinn-sds-541"
+    }
+  },
+  "bacl2-0.5m": {
+    "classifiedAs": "Hazards of solid barium chloride dihydrate, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H301: Toxic if swallowed",
+        "H332: Harmful if inhaled"
+      ],
+      "note": {
+        "value": "The solution on this bench is 0.5 mol/L, which is about 10% barium chloride by mass (worked out from the molarity, not read from a source). The same supplier's sheet for barium chloride solutions of less than 1 M, which covers this strength, gives the signal word Warning and one statement, under the codes H303 and H333: the solution may be harmful if it is swallowed or breathed in. In its section on toxicology the same sheet still calls barium chloride highly toxic, and names the heart, the nerves and the kidneys among the organs it harms. The sheet calls for eye protection, gloves and protective clothing. It says that a splash in the eyes is to be rinsed with water for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up, and that a splash on the skin is to be washed off with plenty of water. If the solution is swallowed, it says, the mouth is to be rinsed, and a poison centre or a doctor called if the person feels unwell.",
+        "sourceId": "flinn-sds-94.01"
+      },
+      "sourceId": "flinn-sds-94"
+    }
+  },
+  "cocl2-0.5m": {
+    "classifiedAs": "Hazards of solid cobalt(II) chloride hexahydrate, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H350: May cause cancer",
+        "H302: Harmful if swallowed",
+        "H317+H334: May cause an allergic skin reaction or asthma symptoms or breathing difficulties if inhaled",
+        "H341: Suspected of causing genetic defects",
+        "H360: May damage fertility or the unborn child"
+      ],
+      "note": {
+        "value": "The solution on this bench is 0.5 mol/L, which is about 6% cobalt(II) chloride by mass (worked out from the molarity, not read from a source). The same supplier has sheets for solutions of cobalt chloride in water at 2.5% and at 10%, both counted as the hexahydrate, and none for a more concentrated one; this solution holds about 12 g of the hexahydrate in each 100 mL, a little over the 10%. The sheet for the 10% solution gives the signal word Danger and four statements: under H350, that the solution may cause cancer; under H317 and H334, that it may set off an allergy of the skin, or asthma or trouble with breathing if it is breathed in; under H341, that it is suspected of doing damage to the genes; and under H360, that it may harm fertility or an unborn child. With no sheet for a solution this concentrated, handle this one as the sheet for the solid says, whose statements are those above: it gives all four of those and adds, under H302, that the substance is harmful if swallowed. Both sheets call for eye protection, gloves and protective clothing, and for breathing protection where the air is not changed well enough; the sheet for the 10% solution also calls for work in a fume hood or a well-ventilated room. Both say that a poison centre or a doctor is to be called, that skin is to be rinsed with water for several minutes, and that clothing the substance has got onto is to be washed before it is worn again and is not to leave the workplace. Neither sheet prints any first aid for a splash in the eyes.",
+        "sourceId": "flinn-sds-255",
+        "alsoSourceId": "flinn-sds-255.51"
+      },
+      "sourceId": "flinn-sds-255"
+    }
+  },
+  "nh4no3-0.5m": {
+    "classifiedAs": "Hazards of solid ammonium nitrate, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Warning",
+      "statements": [
+        "H272: May intensify fire; oxidizer",
+        "H303: May be harmful if swallowed",
+        "H315: Causes skin irritation",
+        "H319: Causes serious eye irritation",
+        "H335: May cause respiratory irritation"
+      ],
+      "note": {
+        "value": "The solution on this bench is 0.5 mol/L, which is about 4% ammonium nitrate by mass (worked out from the molarity, not read from a source). The same supplier has one sheet for ammonium nitrate solution, with no strength in its title; its table of composition runs from 4% to 12% ammonium nitrate, and this solution is at the foot of that range. The sheet prints no signal word and no hazard statement: it says that its solution is not classed as hazardous, and that every laboratory chemical is to be treated with caution all the same. It calls for eye protection, gloves and protective clothing. It says that a splash in the eyes is to be rinsed with water for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up, and that a splash on the skin is to be washed off with plenty of water. It also says to keep the solution from strong acids, from powdered metals, from reducing agents and from organic matter.",
+        "sourceId": "flinn-sds-61.5"
+      },
+      "sourceId": "flinn-sds-61"
+    }
+  },
+  "caco3": {
+    "classifiedAs": "Hazards of solid calcium carbonate, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "None",
+      "statements": [],
+      "note": {
+        "value": "The calcium carbonate on this bench is a solid, used a small amount of powder at a time. The supplier's sheet for calcium carbonate, which is for a white powder, prints no signal word and no hazard statement: it says that the substance is not classed as hazardous, and that every laboratory chemical is to be treated with caution all the same. In its section on toxicology the sheet calls the substance an irritant, and it gives a limit for its dust in the air of a workplace, 15 mg/m3. The sheet calls for eye protection, gloves and protective clothing. It says that powder in the eyes is to be rinsed out with water for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up, and that powder on the skin is to be washed off with plenty of water. It notes that calcium carbonate gives off carbon dioxide as it dissolves in acids.",
+        "sourceId": "flinn-sds-195"
+      },
+      "sourceId": "flinn-sds-195"
+    }
+  },
+  "hcl-1m": {
+    "classifiedAs": "Hazards of concentrated hydrochloric acid (6 M to 12 M), from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H314+H318: Causes severe skin and eye burns and damage",
+        "H332+H302: Harmful if swallowed or inhaled",
+        "H290: May be corrosive to metals"
+      ],
+      "note": {
+        "value": "The acid on this bench is 1 mol/L, which is about 3.6% hydrogen chloride by mass (worked out from the molarity, not read from a source). The same supplier's sheet for hydrochloric acid solutions of 0.1 M to 2.4 M, which covers this strength, gives the signal word Danger and three statements: under H314, that the solution burns the skin severely and damages the eyes; under H335, that it may irritate the airways; and under H303, that it may be harmful if swallowed. The sheet calls for eye protection, gloves and protective clothing, and for working in a fume hood or a well-ventilated room. It says that a splash in the eyes is to be rinsed with water for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up, and that a poison centre or a doctor is to be called at once. After a splash on the skin, it says, the wet clothing is to come off at once and the skin be rinsed with water.",
+        "sourceId": "flinn-sds-395.2"
+      },
+      "sourceId": "flinn-sds-395"
+    }
+  },
+  "hcl-3m": {
+    "classifiedAs": "Hazards of concentrated hydrochloric acid (6 M to 12 M), from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H314+H318: Causes severe skin and eye burns and damage",
+        "H332+H302: Harmful if swallowed or inhaled",
+        "H290: May be corrosive to metals"
+      ],
+      "note": {
+        "value": "The acid on this bench is 3 mol/L, which is a little over 10% hydrogen chloride by mass (worked out from the molarity, not read from a source). The same supplier's sheet for hydrochloric acid solutions of 2.5 M to 5.9 M, which covers this strength, gives the signal word Danger and four statements: under H314 and H318, that the solution burns the skin and the eyes severely and damages them; under H335, that it may irritate the airways; under H302, that it is harmful if swallowed; and under H290, that it may corrode metals. The sheet calls for eye protection, gloves and protective clothing, and for working in a fume hood or a well-ventilated room, and says that the mist, the vapour or the spray of the acid is not to be breathed. It says that a poison centre or a doctor is to be called at once. It says that a splash in the eyes is to be rinsed with water for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up. After a splash on the skin or the hair, it says, the wet clothing is to come off at once and the skin be rinsed with water.",
+        "sourceId": "flinn-sds-395.1"
+      },
+      "sourceId": "flinn-sds-395"
+    }
+  },
+  "hcl-6m": {
+    "classifiedAs": "Hazards of concentrated hydrochloric acid (6 M to 12 M), from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H314+H318: Causes severe skin and eye burns and damage",
+        "H332+H302: Harmful if swallowed or inhaled",
+        "H290: May be corrosive to metals"
+      ],
+      "note": {
+        "value": "The acid on this bench is 6 mol/L, which is about 20% hydrogen chloride by mass (worked out from the molarity and a density of about 1.1 g/mL, not read from a source). The sheet the statements above come from is for acid of 6 M to 12 M, so it covers this acid, the least concentrated it is for, and the statements apply to it as they stand. The sheet gives the signal word Danger and three statements: under H314 and H318, that the acid burns the skin and the eyes severely and damages them; under H332 and H302, that it is harmful if it is swallowed or breathed in; and under H290, that it may corrode metals. The sheet calls for eye protection, gloves and protective clothing, and for working in a fume hood or a well-ventilated room, and says that the mist, the vapour or the spray of the acid is not to be breathed. It says that a poison centre or a doctor is to be called at once. It says that a splash in the eyes is to be rinsed with water for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up. After a splash on the skin or the hair, it says, the wet clothing is to come off at once and the skin be rinsed with water.",
+        "sourceId": "flinn-sds-395"
+      },
+      "sourceId": "flinn-sds-395"
+    }
+  },
+  "agno3-0.1m": {
+    "classifiedAs": "Hazards of solid silver nitrate, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H272: May intensify fire; oxidizer",
+        "H302: Harmful if swallowed",
+        "H314: Causes severe skin burns and eye damage"
+      ],
+      "note": {
+        "value": "The solution on this bench is 0.1 mol/L, which is about 1.7% silver nitrate by mass (worked out from the molarity, not read from a source). The same supplier's sheet for silver nitrate solutions of 0.2 M or less, which covers this strength, gives the signal word Warning and one statement, under the codes H315 and H319: the solution irritates the skin and seriously irritates the eyes. The sheet calls for eye protection, gloves and protective clothing. It says that a splash in the eyes is to be rinsed with water for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up, that a splash on the skin is to be washed off with plenty of water, and that medical advice is to be sought if the eyes stay irritated or the skin becomes irritated. If the solution is swallowed, it says, the mouth is to be rinsed, the person is not to be made to vomit, and a doctor or a poison centre is to be called at once.",
+        "sourceId": "flinn-sds-692"
+      },
+      "sourceId": "flinn-sds-691"
+    }
+  },
+  "mg": {
+    "classifiedAs": "Hazards of magnesium metal, as turnings or ribbon, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H228: Flammable solid"
+      ],
+      "note": {
+        "value": "The magnesium on this bench is a short piece of ribbon. The supplier's sheet for magnesium, which is for the metal as turnings or ribbon, gives the signal word Danger and one statement, under the code H228: the metal is a solid that burns readily. The sheet says to keep it away from flames, sparks, heat and hot surfaces. It says that burning magnesium is put out with dry sand or with an extinguisher of class D, and never with water, with which it reacts violently. It lists water and acids among the things the metal is to be kept from; at this bench a short piece is put into acid on purpose, as the experiment. The sheet calls for eye protection, gloves and protective clothing. It says that eyes are to be rinsed with water for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up, and that skin is to be washed with plenty of water. In its section on toxicology it calls the dust of the metal irritating.",
+        "sourceId": "flinn-sds-468"
+      },
+      "sourceId": "flinn-sds-468"
+    }
+  }
+}
