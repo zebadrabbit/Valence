@@ -14,6 +14,15 @@ export type LabTab = keyof typeof SHELL_TEXT.tabs
 /** The tab a lab page opens on: the primer until there is a run, the lab once there is one, in progress or completed. */
 export const openingTab = (started: boolean): LabTab => (started ? 'lab' : 'primer')
 
+/**
+ * How far the window is scrolled when a tab comes to be shown. `barTop` is where the top of the tabs is in the
+ * window, below zero while the bar is stuck; `left` is how far under the bar the tab's panel was when the tab was
+ * last left, and 0 if it was not under it or has not been seen. A tab left under the bar comes back to that place;
+ * any other is shown from the top of its panel where the bar is stuck, and the window is not moved where it is
+ * not. Start puts the bar at the top of the window, so that the top of the Lab tab is what is under it.
+ */
+export const tabShift = (barTop: number, left: number, start: boolean): number => (start ? barTop : left > 0 ? barTop + left : Math.min(barTop, 0))
+
 export interface LabShellProps {
   title: string
   /** True in a window narrower than 768 px (spec 11): the Lab tab then holds the notice in place of the bench, and nothing on the page changes a run. */
@@ -46,8 +55,10 @@ export interface LabShellProps {
   record: ReactNode
 }
 
-// The size of the page's own text, as before the tabs: what a panel holds sets its own.
-const PANEL = 'lab-panel rounded-md pt-2 text-base focus-visible:ring-2 focus-visible:ring-ring'
+// The size of the page's own text, as before the tabs: what a panel holds sets its own. Base UI leaves the panel
+// that is being left laid out for one more frame, over the next one, for a transition out; there is none here, so
+// it is out of the layout at once, and what is measured or focused in that frame is where it will stay.
+const PANEL = 'lab-panel rounded-md pt-2 text-base focus-visible:ring-2 focus-visible:ring-ring data-ending-style:hidden'
 
 /**
  * The frame every lab page has: the heading, the notices, the mode and Start or Restart, then three tabs under a
@@ -55,7 +66,8 @@ const PANEL = 'lab-panel rounded-md pt-2 text-base focus-visible:ring-2 focus-vi
  *
  * A panel that is not shown stays mounted, hidden and inert: it keeps its state, and it is out of the tab order
  * and of a screen reader's reading. Start and Restart show the Lab tab; Start also moves focus to its panel, since
- * the button that was pressed is gone.
+ * the button that was pressed is gone, and puts the bar at the top of the window. Each tab is shown again where
+ * it was left (`tabShift`), so a look at the primer in the middle of a trial does not lose the place on the bench.
  */
 export function LabShell(props: LabShellProps) {
   const { title, narrow, started, persistent, setAside = false, mode, onMode, modeLocked, onStart, onRestart, primer, guide, bench, notebook, record } = props
@@ -64,20 +76,29 @@ export function LabShell(props: LabShellProps) {
   const lab = useRef<HTMLDivElement>(null)
   const startPressed = useRef(false)
   const shown = useRef(tab)
+  // How far under the bar each tab's panel was when the tab was last left.
+  const left = useRef<Record<LabTab, number>>({ primer: 0, lab: 0, record: 0 })
 
   useEffect(() => {
-    // A change of tab made with the bar stuck to the top of the window: the new panel is shown from its top.
-    if (shown.current !== tab && tabs.current && tabs.current.getBoundingClientRect().top < 0) tabs.current.scrollIntoView()
-    shown.current = tab
-    if (startPressed.current && started && tab === 'lab') {
+    const start = startPressed.current && started && tab === 'lab'
+    if (start) {
       startPressed.current = false
-      lab.current?.focus()
+      // The window is moved by the line below, not by the browser in answer to the focus.
+      lab.current?.focus({ preventScroll: true })
     }
+    if ((start || shown.current !== tab) && tabs.current) {
+      window.scrollBy({ top: tabShift(tabs.current.getBoundingClientRect().top, left.current[tab], start), behavior: 'instant' })
+    }
+    shown.current = tab
   }, [tab, started])
 
+  const show = (next: LabTab) => {
+    left.current[tab] = Math.max(0, -(tabs.current?.getBoundingClientRect().top ?? 0))
+    setTab(next)
+  }
   const start = () => {
     startPressed.current = true
-    setTab('lab')
+    show('lab')
     onStart()
   }
   const startButton = <Button onClick={start}>{SHELL_TEXT.start}</Button>
@@ -103,7 +124,9 @@ export function LabShell(props: LabShellProps) {
               variant="outline"
               onClick={() => {
                 if (!window.confirm(SHELL_TEXT.restartConfirm)) return
-                setTab('lab')
+                show('lab')
+                // The place kept was on the bench of the run that is erased.
+                left.current.lab = 0
                 onRestart()
               }}
             >
@@ -114,7 +137,7 @@ export function LabShell(props: LabShellProps) {
           )}
         </div>
       )}
-      <Tabs ref={tabs} value={tab} onValueChange={(next: LabTab) => setTab(next)} className="gap-0">
+      <Tabs ref={tabs} value={tab} onValueChange={(next: LabTab) => show(next)} className="gap-0">
         <div className="sticky top-0 z-10 border-b bg-background py-2">
           <TabsList variant="line" aria-label={title} className="group-data-horizontal/tabs:h-10">
             {(Object.keys(SHELL_TEXT.tabs) as LabTab[]).map((value) => (

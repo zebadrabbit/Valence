@@ -11,7 +11,7 @@ import { titrationData } from '@/chem-data/titration/data'
 import { READ_FIRST, termIndex, TITRATION_PRIMER } from '@/chem-data/titration/primer'
 import { Hazards } from './Hazards'
 import labCss from './lab.css?raw'
-import { LabShell, openingTab, type LabShellProps } from './LabShell'
+import { LabShell, openingTab, tabShift, type LabShellProps } from './LabShell'
 import { ModeSwitch } from './ModeSwitch'
 import { pieces, Primer, subscriptParts } from './Primer'
 import { NARROW_NOTICE, PRIMER_TEXT, SHELL_TEXT } from './shellText'
@@ -100,6 +100,25 @@ describe('the lab shell', () => {
     expect([has(primer!.body, ['primer']), has(lab!.body, ['guide', 'bench', 'notebook']), has(record!.body, ['record'])]).toEqual([[true], [true, true, true], [true]])
     expect(has(primer!.body, ['bench', 'record'])).toEqual([false, false])
     expect(has(lab!.body, ['primer', 'record'])).toEqual([false, false])
+  })
+
+  it('takes the panel that is being left out of the layout at once, so that the one shown is in its place when focus and the window are moved', () => {
+    // Base UI leaves the panel that is left laid out for one more frame, marked data-ending-style, with the next panel under it:
+    // a place measured in that frame is one whole panel too far down the page. That it is so is checked in a browser.
+    for (const html of [shell(), shell({ started: false }), shell({ narrow: true })]) {
+      expect(panels(html).map(({ tag }) => /class="[^"]* data-ending-style:hidden[ "]/.test(tag))).toEqual([true, true, true])
+    }
+  })
+
+  it('moves the window, when a tab comes to be shown, back to where that tab was left under the bar, or else to the top of its panel; and on Start puts the bar at the top', () => {
+    // tabShift(where the top of the tabs is in the window, how far under the bar the tab was left, whether Start was pressed): how far to scroll.
+    // Left some way under the bar: back to that place, wherever the window is now.
+    expect([tabShift(-300, 480, false), tabShift(0, 480, false), tabShift(150, 480, false)]).toEqual([180, 480, 630])
+    // Not seen yet, or left while the bar was not stuck: from its top where the bar is stuck now, and not moved where it is not.
+    expect([tabShift(-300, 0, false), tabShift(150, 0, false)]).toEqual([-300, 0])
+    // Start, from above the tabs or from the Lab tab: the bar at the top of the window, the checklist's line and the shelf under it,
+    // whatever place was kept for the Lab tab while it had no run.
+    expect([tabShift(150, 0, true), tabShift(-300, 0, true), tabShift(-300, 480, true)]).toEqual([150, -300, -300])
   })
 
   // Before the tabs this case held one order down the page: primer, guide, bench, notebook, record.
