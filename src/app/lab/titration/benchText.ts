@@ -100,7 +100,8 @@ export const saidAgain = (text: string, previous: string) => (text !== '' && tex
  * and names the button until the step is done; `done` is what is so from then, and names it with a tick in front.
  * Each `done` is true in every state it shows in: "wet with HCl", not "rinsed", because a pipette that drew its
  * acid unrinsed is wet with acid too, and the engine holds the two alike. A fill can be done again, so its button
- * says both: that the burette is filled, and `again`, what a press does.
+ * says both: that the burette is filled, and `again`, what a press does. A burette run out to its last mark is not
+ * called filled (stepsDone).
  */
 export const STEP_BUTTON = {
   conditionBurette: { todo: 'Condition burette', done: 'Burette conditioned', again: null },
@@ -111,10 +112,13 @@ export const STEP_BUTTON = {
 
 export type StepControl = keyof typeof STEP_BUTTON
 
-/** Which of those steps are done, from the view alone. */
+/**
+ * Which of those steps are done, from the view alone. The fill is done only while the burette can still deliver:
+ * at its last mark it has run out, whatever is left under the mark, and its button is named for the fill again.
+ */
 export const stepsDone = ({ burette, pipetteRinsed, flask }: BenchView): Record<StepControl, boolean> => ({
   conditionBurette: burette.conditioned,
-  fillBurette: burette.filled,
+  fillBurette: burette.filled && !burette.atBottom,
   rinsePipette: pipetteRinsed,
   pipetteAliquot: flask.hasAliquot,
 })

@@ -571,7 +571,7 @@ describe('the bench', () => {
       expect(Object.values(STEP_BUTTON).map((words) => words.done).join(' ')).not.toMatch(/rinsed/i)
     })
 
-    it('keep the fill both a state and an action: filled is said in every state, and Refill is unavailable exactly when the engine cannot fill', () => {
+    it('keep the fill both a state and an action: filled is said in every state where the burette can still deliver, and Refill is unavailable exactly when the engine cannot fill', () => {
       for (const state of [filled, ready, titrating, over, next]) {
         const view = benchViewOf(m, state)
         expect(view.burette.filled).toBe(true)
@@ -581,6 +581,20 @@ describe('the bench', () => {
       // The word for the press is the only part drawn faint, and only then; "Burette filled." is never faint.
       const refill = (state: TitrationState) => /<span( class="[^"]*")?> Refill<\/span>/.exec(bench(state))![1] ?? ''
       expect([filled, titrating, over].map(refill)).toEqual(['', ' class="opacity-50"', ' class="opacity-50"'])
+    })
+
+    it('do not call a burette filled that has run to its last mark: the fill is named for its action again, with no tick, in the trial that ran out and in the next', () => {
+      // Trial 2 with no refill: the stream runs to the 50 mL mark with no pink, and the trial is over.
+      let ranOut = readyTrial(m, run(m, carefulTrial(m, ready), [{ type: 'startNextTrial' }]), { fill: false })
+      while (currentTrial(ranOut).end === 'open') ranOut = run(m, ranOut, [deliver('stream')])
+      const after = run(m, ranOut, [{ type: 'startNextTrial' }])
+      expect(currentTrial(ranOut).end).toBe('ran-out')
+      // The engine's burette still holds solution below the mark, and can deliver none of it.
+      for (const state of [ranOut, after]) expect(benchViewOf(m, state).burette).toMatchObject({ filled: true, atBottom: true })
+      expect([ranOut, after].map((state) => steps(state)[1])).toEqual(['Fill burette (unavailable)', 'Fill burette'])
+      // The rest of the shelf is as in any trial that is over, and a fill puts the tick back.
+      expect(steps(ranOut)[0]).toBe('✓ Burette conditioned (unavailable)')
+      expect(steps(run(m, after, [{ type: 'fillBurette' }]))[1]).toBe('✓ Burette filled. Refill')
     })
 
     it('in a trial that is over and in the next one say what is still so: the burette and the pipette stay as they were, and the flask is a new one', () => {
