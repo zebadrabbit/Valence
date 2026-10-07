@@ -98,14 +98,16 @@ export function StationCard({ data, sources, stationId, view, reducedMotion, can
   const headingId = useId()
   const placeId = useId()
   const seenId = useId()
+  const heldId = useId()
   const [tubeSaid, sayOfTube] = useSaid()
   const [toolSaid, sayOfTool] = useSaid()
   const progress = progressOf(view)
   // What the record alone fixes for a station, worked out once for the card's life and not at every press.
   const fixed = useMemo(() => ({ look: tubeLook(data, stationId), seen: seenText(data, stationId), cited: stationCitations(data, stationId, sources) }), [data, stationId, sources])
   const mix: Action = { type: 'mix', stationId }
-  // Whatever holds the whole lab holds every entry here, and is said once under each entry's button.
+  // Whatever holds the whole lab holds every entry here. It is said once, at the station's head, and that sentence is the description of each entry's button.
   const completed = can(mix) === 'lab-completed' ? blockedText(data, mix, 'lab-completed') : null
+  const held = completed === null ? null : heldId
   /** A press of a button of the tube or the tools: done, or refused with the engine's reason. */
   const press = (action: Action, say: typeof sayOfTube, done: string) => {
     const blocked = can(action)
@@ -141,6 +143,11 @@ export function StationCard({ data, sources, stationId, view, reducedMotion, can
             </>
           )}
         </p>
+        {completed !== null && (
+          <p id={heldId} className={`text-sm ${ROLE.held}`}>
+            {completed}
+          </p>
+        )}
       </div>
 
       <Step heading={PAGE_TEXT.tube}>
@@ -222,7 +229,7 @@ export function StationCard({ data, sources, stationId, view, reducedMotion, can
             data={data}
             view={view}
             shownBy={(field) => usesShowing(station, field)}
-            held={completed}
+            held={held}
             refusal={(observation) => {
               const action: Action = { type: 'recordObservation', stationId, observation }
               const blocked = can(action)
@@ -257,7 +264,7 @@ export function StationCard({ data, sources, stationId, view, reducedMotion, can
               form={form}
               palette={station.paletteSpecies}
               judged={view.equations[form]}
-              held={completed}
+              held={held}
               refusal={(entry) => {
                 const action: Action = { type: 'enterEquation', stationId, form, entry }
                 const blocked = can(action)

@@ -535,20 +535,23 @@ describe('an equation builder', () => {
 describe('a lab that is complete', () => {
   const { station } = bench(complete, 'aq-06')
 
-  it('says on each station that it is done, and holds every entry with the one reason under its button, which is the button\'s description', () => {
+  it('says on each station that it is done, and once, at its head, why no entry is taken: the one sentence that describes every entry\'s button', () => {
     expect(read(station)).toContain(`|✓|${BENCH_TEXT.done}|`)
     const reason = blockedText(data, { type: 'mix', stationId: 'aq-06' }, 'lab-completed')
-    expect(count(station, new RegExp(`<p id="[^"]+" class="${ROLE.held}">${reason}</p>`, 'g'))).toBe(4)
-    for (const form of FORMS) {
-      const drawn = builder(station, form)
-      const [, noteId] = new RegExp(`<p id="([^"]+)" class="${ROLE.held}">`).exec(drawn)!
+    // Once for the station, over its cards, and not under each of its four entries.
+    expect(count(station, new RegExp(reason, 'g'))).toBe(1)
+    const [, noteId] = new RegExp(`<p id="([^"]+)" class="text-sm ${ROLE.held}">${reason}</p>`).exec(station.split('<h3')[0]!)!
+    for (const drawn of [card(station, PAGE_TEXT.observations).split('<form')[1]!, ...FORMS.map((form) => builder(station, form))]) {
       const [button] = buttons(drawn)
       expect(buttons(drawn)).toHaveLength(1)
       expect(button!.tag).toContain('aria-disabled="true"')
       expect(button!.tag).toContain(`aria-describedby="${noteId}"`)
+      expect(drawn).not.toContain(ROLE.held)
     }
     expect(count(card(station, PAGE_TEXT.observations), /<fieldset disabled=""/g)).toBe(6)
     expect(station).not.toContain(`>${PAGE_TEXT.change}</button>`)
+    // A lab that is not complete has no such sentence.
+    expect(bench(done(fresh(), 'aq-06'), 'aq-06').station).not.toContain(reason)
   })
 
   it('leaves every button of the tube and the tools focusable and unavailable', () => {

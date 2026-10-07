@@ -18,7 +18,7 @@ export interface EquationBuilderProps {
   palette: readonly string[]
   /** The equation last entered in this form, with what the engine finds wrong with it. */
   judged: StationView['equations'][Form]
-  /** Why no equation can be entered here now whatever is built, or null. */
+  /** Where no equation can be entered here now whatever is built, the id of the sentence on the station that says why; else null. */
   held: string | null
   /** Why this entry cannot be entered as it stands, in words, or null. */
   refusal(entry: Entry): string | null
@@ -54,7 +54,6 @@ export function EquationBuilder({ data, form, palette, judged, held, refusal, on
   const [checked, setChecked] = useState<boolean | null>(judged ? judged.problem === null : null)
   const headingId = useId()
   const name = useId()
-  const noteId = useId()
   const button = useRef<HTMLButtonElement>(null)
   const firstSide = useRef<HTMLButtonElement>(null)
   const species = useRef(new Map<string, HTMLButtonElement | null>())
@@ -89,7 +88,7 @@ export function EquationBuilder({ data, form, palette, judged, held, refusal, on
     if (next === draft) say(PAGE_TEXT.coefficientLimit, true)
     else change(next)
   }
-  const reason = held ?? (editable ? refusal(entered(draft)) : null)
+  const reason = held !== null || !editable ? null : refusal(entered(draft))
 
   return (
     <form
@@ -105,7 +104,7 @@ export function EquationBuilder({ data, form, palette, judged, held, refusal, on
       onSubmit={(event) => {
         event.preventDefault()
         if (changeable) return setChanging(true)
-        // What holds the whole builder is under the button already, and is the button's description.
+        // What holds the whole builder is said at the station's head, and is the button's description.
         if (held !== null) return
         if (reason !== null) return say(reason, true)
         const problem = onEnter(entered(draft))
@@ -264,8 +263,8 @@ export function EquationBuilder({ data, form, palette, judged, held, refusal, on
           ref={button}
           type="submit"
           variant="outline"
-          aria-disabled={(!changeable && reason !== null) || undefined}
-          aria-describedby={held !== null ? noteId : headingId}
+          aria-disabled={held !== null || (!changeable && reason !== null) || undefined}
+          aria-describedby={held ?? headingId}
           className={`aria-disabled:opacity-50 ${TAP}`}
         >
           {changeable ? PAGE_TEXT.change : BENCH_TEXT.check}
@@ -276,11 +275,6 @@ export function EquationBuilder({ data, form, palette, judged, held, refusal, on
           </Button>
         )}
       </div>
-      {held !== null && (
-        <p id={noteId} className={ROLE.held}>
-          {held}
-        </p>
-      )}
       <Line said={said} mark={checked === null || said.held ? undefined : <Mark ok={checked} />} />
     </form>
   )

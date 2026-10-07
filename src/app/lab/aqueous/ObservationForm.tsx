@@ -12,7 +12,7 @@ export interface ObservationFormProps {
   view: StationView
   /** For each field, the uses of a tool any one of which shows it; none for what the eye sees. */
   shownBy(field: Field): ToolUse[]
-  /** Why nothing can be recorded here now whatever is chosen, or null. */
+  /** Where nothing can be recorded here now whatever is chosen, the id of the sentence on the station that says why; else null. */
   held: string | null
   /** Why this observation cannot be recorded as it stands, in words, or null. */
   refusal(observation: Observation): string | null
@@ -37,12 +37,11 @@ export function ObservationForm({ data, view, shownBy, held, refusal, onRecord }
   // What the line says is of the observation as recorded: null once an answer has been changed since.
   const [judged, setJudged] = useState<boolean | null>(view.wrongFields === null ? null : view.wrongFields.length === 0)
   const name = useId()
-  const noteId = useId()
   const correct = view.wrongFields?.length === 0
   const { editable, changeable, cancellable } = fieldState(correct, held !== null, changing)
   const focus = useEntryFocus(editable)
   const shown = editable ? draft : (recorded ?? {})
-  const reason = held ?? (editable ? refusal(draft) : null)
+  const reason = held !== null || !editable ? null : refusal(draft)
 
   const cancel = () => {
     focus.button.current?.focus()
@@ -62,7 +61,7 @@ export function ObservationForm({ data, view, shownBy, held, refusal, onRecord }
           setDraft(recorded!)
           return setChanging(true)
         }
-        // What holds the whole form is under the button already, and is the button's description.
+        // What holds the whole form is said at the station's head, and is the button's description.
         if (held !== null) return
         if (reason !== null) return say(reason, true)
         const wrong = onRecord(draft)
@@ -110,7 +109,7 @@ export function ObservationForm({ data, view, shownBy, held, refusal, onRecord }
       })}
       <div className="flex flex-wrap gap-1.5">
         {/* Stays focusable when it cannot be used, and says why when pressed. */}
-        <Button ref={focus.button} type="submit" variant="outline" aria-disabled={(!changeable && reason !== null) || undefined} aria-describedby={held !== null ? noteId : undefined} className="min-h-11 aria-disabled:opacity-50">
+        <Button ref={focus.button} type="submit" variant="outline" aria-disabled={held !== null || (!changeable && reason !== null) || undefined} aria-describedby={held ?? undefined} className="min-h-11 aria-disabled:opacity-50">
           {changeable ? PAGE_TEXT.change : PAGE_TEXT.checkObservations}
         </Button>
         {cancellable && (
@@ -119,11 +118,6 @@ export function ObservationForm({ data, view, shownBy, held, refusal, onRecord }
           </Button>
         )}
       </div>
-      {held !== null && (
-        <p id={noteId} className={ROLE.held}>
-          {held}
-        </p>
-      )}
       <Line said={said} mark={judged === null || said.held ? undefined : <Mark ok={judged} />} />
     </form>
   )
