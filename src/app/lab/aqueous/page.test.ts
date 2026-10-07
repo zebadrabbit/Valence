@@ -418,14 +418,27 @@ describe('a recorded observation', () => {
     expect(form).not.toContain(ROLE.entry)
   })
 
-  it('brings the station\'s notes once it is correct, where the station has any', () => {
-    const observed = run(data, fresh(), stationScript(data, 'aq-06').slice(0, 5))
-    const { station } = bench(observed, 'aq-06')
-    expect(cards(station)).toEqual([PAGE_TEXT.tube, PAGE_TEXT.tools, PAGE_TEXT.observations, BENCH_TEXT.notes, PAGE_TEXT.equations])
-    for (const note of data.stations[5]!.notes) expect(card(station, BENCH_TEXT.notes)).toContain(`<p>${escaped(note.value)}</p>`)
-    expect(cards(bench(run(data, fresh(), stationScript(data, 'aq-06').slice(0, 4)), 'aq-06').station)).not.toContain(BENCH_TEXT.notes)
+  it('keeps the station\'s notes until the station is done, in both modes: a note may name a product or give an equation, and no entry is helped by it', () => {
+    const script = stationScript(data, 'aq-06')
+    for (const mode of ['guided', 'challenge'] as const) {
+      // The observation correct and two of the three equations: no notes yet.
+      const almost = run(data, fresh(mode), script.slice(0, -1))
+      expect(stationView(data, almost, 'aq-06').wrongFields).toEqual([])
+      expect(cards(bench(almost, 'aq-06').station)).toEqual([PAGE_TEXT.tube, PAGE_TEXT.tools, PAGE_TEXT.observations, PAGE_TEXT.equations])
+      for (const note of data.stations[5]!.notes) expect(bench(almost, 'aq-06').station).not.toContain(escaped(note.value))
+      // Done: the notes, after the equations.
+      const { station } = bench(run(data, fresh(mode), script), 'aq-06')
+      expect(cards(station)).toEqual([PAGE_TEXT.tube, PAGE_TEXT.tools, PAGE_TEXT.observations, PAGE_TEXT.equations, BENCH_TEXT.notes])
+      for (const note of data.stations[5]!.notes) expect(card(station, BENCH_TEXT.notes)).toContain(`<p>${escaped(note.value)}</p>`)
+    }
+    // The control: its note says outright what all three equations are, and is not on the page while one is still to enter.
+    const control = stationScript(data, 'aq-05')
+    expect(data.stations[4]!.notes[0]!.value).toContain('The answer to all three equations is')
+    expect(bench(run(data, fresh('challenge'), control.slice(0, -1)), 'aq-05').station).not.toContain('The answer to all three equations is')
+    expect(bench(run(data, fresh('challenge'), control), 'aq-05').station).toContain('The answer to all three equations is')
+    // A station with no notes has no such card when it is done.
     expect(data.stations[3]!.notes).toEqual([])
-    expect(cards(right)).not.toContain(BENCH_TEXT.notes)
+    expect(cards(bench(done(fresh(), 'aq-04'), 'aq-04').station)).not.toContain(BENCH_TEXT.notes)
   })
 })
 

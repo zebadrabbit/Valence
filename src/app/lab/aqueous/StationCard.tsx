@@ -87,7 +87,8 @@ function Listed({ heading, items }: { heading: string; items: readonly string[] 
  * One station, as a short column of steps, each a card: the tube, with its two reagents and Mix; once it is mixed,
  * the tools and then the observations; and the three equations, which the engine takes at any time. A card is
  * there only when the engine has a use for it, and a button on a card that cannot be used now stays focusable and
- * says why when pressed. The station's notes come once its observation is correct, and its Sources are at its foot.
+ * says why when pressed. The station's notes come once the station is done, under the equations, and its Sources
+ * are at its foot.
  *
  * The card keeps what is chosen and built but not yet checked, and what its message lines last said; everything
  * the lab stores comes to it as `view` and leaves it through `act`.
@@ -243,16 +244,6 @@ export function StationCard({ data, sources, stationId, view, reducedMotion, can
         </Step>
       )}
 
-      {view.wrongFields?.length === 0 && station.notes.length > 0 && (
-        <Step heading={BENCH_TEXT.notes}>
-          <div className="grid max-w-[75ch] gap-2 leading-relaxed">
-            {station.notes.map((note) => (
-              <p key={note.value}>{note.value}</p>
-            ))}
-          </div>
-        </Step>
-      )}
-
       <Step heading={PAGE_TEXT.equations}>
         {view.guidanceShown && <Listed heading={BENCH_TEXT.hints} items={station.hints} />}
         <p className="text-muted-foreground">{STATE_KEY}</p>
@@ -280,6 +271,17 @@ export function StationCard({ data, sources, stationId, view, reducedMotion, can
           ))}
         </div>
       </Step>
+
+      {/* Once the station is done and not before: a note may name a product or give an equation outright, as the control's does. */}
+      {view.done && station.notes.length > 0 && (
+        <Step heading={BENCH_TEXT.notes}>
+          <div className="grid max-w-[75ch] gap-2 leading-relaxed">
+            {station.notes.map((note) => (
+              <p key={note.value}>{note.value}</p>
+            ))}
+          </div>
+        </Step>
+      )}
 
       <Sources citations={fixed.cited} derived={PAGE_TEXT.sources} />
     </section>
