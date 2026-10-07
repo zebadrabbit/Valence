@@ -98,10 +98,12 @@ export const saidAgain = (text: string, previous: string) => (text !== '' && tex
 /**
  * The shelf's four steps that are one button each (the owner's request of 2026-10-06): `todo` is what a press does,
  * and names the button until the step is done; `done` is what is so from then, and names it with a tick in front.
- * Each `done` is true in every state it shows in: "wet with HCl", not "rinsed", because a pipette that drew its
+ * Each `done` is to be true in every state it shows in: "wet with HCl", not "rinsed", because a pipette that drew its
  * acid unrinsed is wet with acid too, and the engine holds the two alike. A fill can be done again, so its button
  * says both: that the burette is filled, and `again`, what a press does. A burette run out to its last mark is not
- * called filled (stepsDone).
+ * called filled (stepsDone). One name is looser than that: "HCl is in the flask" stays through the titration and
+ * the end of the trial, when the acid in the flask has been neutralised. The words are the owner's status line's,
+ * and whether they change is the owner's to say (the deep review's record, 2026-10-06).
  */
 export const STEP_BUTTON = {
   conditionBurette: { todo: 'Condition burette', done: 'Burette conditioned', again: null },

@@ -411,7 +411,7 @@ export function NotebookPanel({ m, state, onHclMolarity, onMolarity, onDiscard, 
 
       {last && lastOutcome && (
         <section ref={resultRef} tabIndex={-1} aria-labelledby={resultId} className="grid gap-1.5 rounded-md border p-2 outline-none focus-visible:ring-2 focus-visible:ring-ring">
-          {/* The words are resultHeading's: whose result, in the role of a name, then the result, in the role of what it is. */}
+          {/* Whose result, in the role of a name, then a colon and the result, in the role of what it is. */}
           <h3 id={resultId} className="font-medium">
             <span className={ROLE.value}>{resultName(last.index + 1)}</span>: <span className={classes(resultRole(outcomeRole(lastOutcome)))}>{outcomeLabel(lastOutcome)}</span>
           </h3>

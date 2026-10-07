@@ -33,9 +33,8 @@ export const tallyText = (finished: number, counting: number, needed: number) =>
 
 /** `number` is the trial's, counted from 1. */
 export const trialHeading = (number: number) => `Trial ${number}`
-/** The heading of the last result: whose it is, then the result in words (`outcomeLabel`). The page draws the two apart, each in its own role. */
+/** The heading of the last result begins with whose it is; a colon and the result in words (`outcomeLabel`) follow. The page draws the two apart, each in its own role. */
 export const resultName = (number: number) => `Result of trial ${number}`
-export const resultHeading = (number: number, label: string) => `${resultName(number)}: ${label}`
 
 /**
  * The colour role of a result, beside its words: good for a trial that passed and counts, failed for one that did

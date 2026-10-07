@@ -51,7 +51,9 @@ interface Asked {
 /**
  * Guided's warning before a technique step is skipped, drawn in the bench's notice slot: a group named by the
  * warnings it lists, which takes focus, with one way back and one way on however many it lists. It is not modal:
- * any other action drops it, and after a reload the action has simply not happened.
+ * any other action that reaches the page drops it, and after a reload the action has simply not happened. The one
+ * press the bench answers by itself (benchAnswer: a conditioned burette pressed again) does not reach the page and
+ * leaves it showing, still true and still to be answered.
  */
 function WarningGroup({ asked, onBack, onGoOn, ref }: { asked: Asked; onBack(): void; onGoOn(): void; ref: Ref<HTMLDivElement> }) {
   const id = useId()

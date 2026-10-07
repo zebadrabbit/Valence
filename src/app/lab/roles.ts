@@ -17,5 +17,3 @@ export const ROLE = {
   /** The sentence that says why something cannot be done now. */
   held: 'lab-held',
 } as const
-
-export type Role = (typeof ROLE)[keyof typeof ROLE]
