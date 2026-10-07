@@ -105,6 +105,9 @@ function reactionsOf(data: AqueousData, rule: Rule, tube: Tube): Reaction[] {
 // The order of spec 8.1. A tube holds two reagents and nothing is added later, so one pass is enough.
 const RULES: readonly Rule[] = ['precipitation', 'acid-carbonate', 'ammonia', 'neutralisation', 'metal-acid']
 
+// ponytail: only the two rules spec 8.1 gives heat to are given any (neutralisation, and a metal with an acid). The
+// enthalpies of the other three were not read, so their tubes are reported as no warmer. That holds while no tool
+// measures the temperature at their stations; read those enthalpies before a thermometer is offered at one.
 /** kJ released by one mole of the reaction as written, from the formation enthalpies of what it makes and uses up. */
 function heatReleased(data: AqueousData, reaction: Reaction): number {
   const formation = ([id, coefficient]: Term) => {
