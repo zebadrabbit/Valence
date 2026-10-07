@@ -20,6 +20,7 @@ import {
   amountText,
   blockedText,
   expectedLines,
+  observationRefusal,
   seenText,
   stationTitle,
   toolOutcome,
@@ -232,9 +233,8 @@ export function StationCard({ data, sources, stationId, view, reducedMotion, can
             shownBy={(field) => usesShowing(station, field)}
             held={held}
             refusal={(observation) => {
-              const action: Action = { type: 'recordObservation', stationId, observation }
-              const blocked = can(action)
-              return blocked === null ? null : blockedText(data, action, blocked)
+              const blocked = can({ type: 'recordObservation', stationId, observation })
+              return blocked === null ? null : observationRefusal(data, stationId, view.used, blocked)
             }}
             onRecord={(observation) => {
               act({ type: 'recordObservation', stationId, observation })

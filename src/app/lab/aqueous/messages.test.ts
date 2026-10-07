@@ -27,6 +27,7 @@ import {
   expectedLines,
   observationFeedback,
   observationLines,
+  observationRefusal,
   reagentLines,
   seenText,
   stationTitle,
@@ -74,7 +75,8 @@ describe('what each tool shows at each station', () => {
       'aq-06 litmus-liquid': 'Red litmus paper dipped in the liquid turns blue.',
       'aq-06 litmus-vapour': 'Moist red litmus paper held above the liquid, touching neither the liquid nor the glass, turns blue.',
       'aq-08 touch': `The tube feels hot. ${data.cautions.hotTube.value}`,
-      'aq-08 thermometer': 'The thermometer rises by about 40 °C. That figure is idealised: it is worked out as if no heat escaped from the tube and the liquid were plain water, so a real tube warms somewhat less.',
+      // The thermometer says which of the question's answers its figure is, as the touch does: a rise alone would leave warm or hot to a guess.
+      'aq-08 thermometer': 'The thermometer rises by about 40 °C, so the tube is hot. That figure is idealised: it is worked out as if no heat escaped from the tube and the liquid were plain water, so a real tube warms somewhat less.',
       'aq-10 touch': 'The tube feels warm.',
       'aq-10 splint': 'A lit splint held at the mouth of the tube gives a sharp pop.',
     })
@@ -182,6 +184,24 @@ describe('why something cannot be done', () => {
     const equation: Action = { type: 'enterEquation', stationId: 'aq-01', form: 'molecular', entry: { noReaction: false, reactants: [], products: [] } }
     expect(blockedText(data, equation, 'invalid-entry')).toMatch(/at least one substance on each side.*"No reaction"/)
     expect(blockedText(data, { type: 'recordObservation', stationId: 'aq-01', observation: {} }, 'invalid-entry')).toBe('Choose one answer for each question.')
+  })
+
+  it('tells a learner who checks while a question still waits for its tool to use the tool, and not to answer what cannot be answered yet', () => {
+    // Station 6, mixed, the three questions of the eye answered and no tool used: the engine finds the entry not whole.
+    const mixed = reduce(data, createLab(data, 'challenge'), { type: 'mix', stationId: 'aq-06' })
+    const seen = { solid: 'none', liquid: 'colourless', bubbles: 'none' }
+    const blocked = can(data, mixed, { type: 'recordObservation', stationId: 'aq-06', observation: seen })!
+    expect(blocked).toBe('invalid-entry')
+    expect(observationRefusal(data, 'aq-06', [], blocked)).toBe('Some questions wait for a tool. Use the tool named under each of them, then choose one answer for each question.')
+    expect(observationRefusal(data, 'aq-06', ['waft', 'litmus-liquid'], blocked)).toBe(PAGE_TEXT.toolsFirst)
+    // Every tool used: what is missing is an answer.
+    expect(observationRefusal(data, 'aq-06', ['waft', 'litmus-liquid', 'litmus-vapour'], blocked)).toBe('Choose one answer for each question.')
+    // Either of two tools opens the one question they both show.
+    expect(observationRefusal(data, 'aq-08', ['thermometer'], blocked)).toBe('Choose one answer for each question.')
+    expect(observationRefusal(data, 'aq-08', [], blocked)).toBe(PAGE_TEXT.toolsFirst)
+    // A station of the eye alone never waits, and any other reason keeps its own sentence.
+    expect(observationRefusal(data, 'aq-01', [], blocked)).toBe('Choose one answer for each question.')
+    expect(observationRefusal(data, 'aq-06', [], 'lab-completed')).toBe(blockedText(data, { type: 'mix', stationId: 'aq-06' }, 'lab-completed'))
   })
 })
 

@@ -1,5 +1,5 @@
 import type { AqueousData } from '@/chem-data/aqueous/data'
-import { choicesFor, describeStationResult, expectedObservation, stationResult, type Action, type Blocked, type Entry, type Field, type Form, type Mode, type Observation, type Problem, type State, type ToolUse } from '@/engine/aqueous'
+import { choicesFor, describeStationResult, expectedObservation, fieldsOf, stationResult, usesShowing, type Action, type Blocked, type Entry, type Field, type Form, type Mode, type Observation, type Problem, type State, type ToolUse } from '@/engine/aqueous'
 import type { Side } from './builder'
 import type { Progress } from './stationLook'
 
@@ -116,7 +116,10 @@ export function toolOutcome(data: AqueousData, stationId: string, tool: ToolUse)
       return { none: 'The tube feels no warmer than before.', warm: 'The tube feels warm.', hot: `The tube feels hot. ${data.cautions.hotTube.value}` }[result.temperature]
     case 'thermometer': {
       const rise = Math.round(result.temperatureRiseC)
-      return rise === 0 ? 'The thermometer does not move.' : `The thermometer rises by about ${rise} °C. That figure is idealised: it is worked out as if no heat escaped from the tube and the liquid were plain water, so a real tube warms somewhat less.`
+      if (rise === 0) return 'The thermometer does not move.'
+      // Which of the question's answers the figure is, as the touch says it: a rise alone would leave warm or hot to a guess.
+      const felt = { none: 'which is too little to feel', warm: 'so the tube is warm', hot: 'so the tube is hot' }[result.temperature]
+      return `The thermometer rises by about ${rise} °C, ${felt}. That figure is idealised: it is worked out as if no heat escaped from the tube and the liquid were plain water, so a real tube warms somewhat less.`
     }
     case 'splint':
       return expected.toolResults.splint === 'pop' ? 'A lit splint held at the mouth of the tube gives a sharp pop.' : 'A lit splint held at the mouth of the tube burns on as before.'
@@ -188,6 +191,20 @@ export function blockedText(data: AqueousData, action: Action, blocked: Blocked)
   }
 }
 
+/**
+ * Why an observation is not recorded as it stands. Where a question still waits for its tool, that is the reason
+ * given: its answers cannot be chosen yet, so "one answer for each question" alone would ask for what cannot be
+ * done. `used` is the ways a tool has been applied at the station.
+ */
+export function observationRefusal(data: AqueousData, stationId: string, used: readonly ToolUse[], blocked: Blocked): string {
+  const { station } = stationOf(data, stationId)
+  const waits = fieldsOf(station).some((field) => {
+    const uses = usesShowing(station, field)
+    return uses.length > 0 && !uses.some((use) => used.includes(use))
+  })
+  return blocked === 'invalid-entry' && waits ? PAGE_TEXT.toolsFirst : blockedText(data, { type: 'recordObservation', stationId, observation: {} }, blocked)
+}
+
 /** What each mode does in this lab (spec 8.3), beside its radio button: the shell's own two sentences are the titration lab's. */
 export const MODE_TEXT: Record<Mode, string> = {
   guided: 'Guided: each station shows its hints, and what a correct observation holds, from the start.',
@@ -218,6 +235,8 @@ export const PAGE_TEXT = {
   checkObservations: 'Check observations',
   /** Beside a question whose recorded answer is not the tube's, until it is answered again. */
   lookAgain: 'Look again',
+  /** Where the observations are checked while a question still waits for its tool. */
+  toolsFirst: 'Some questions wait for a tool. Use the tool named under each of them, then choose one answer for each question.',
   change: 'Change',
   cancel: 'Cancel',
   correct: 'Correct',
