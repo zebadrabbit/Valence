@@ -3,8 +3,8 @@ import manifest from '../../../docs/research/phase-3/sources/MANIFEST.json'
 import { titrationData } from './data'
 import { TITRATION_PRIMER } from './primer'
 
-// No quotation: the primer (what it shows, and what each paragraph says it rests on) and the three hazard notes
-// share no run of six consecutive words with a page they rest on. The pages are not kept, and neither is the
+// No quotation: the primer (what it shows, the label at the head of a paragraph included, and what each paragraph
+// says it rests on) and the three hazard notes share no run of six consecutive words with a page they rest on. The pages are not kept, and neither is the
 // fingerprint of them this compares against, the hash of every such run: stretches of a page can be rebuilt from it
 // a word at a time. scripts/fingerprint-sources.mjs writes it, to a path .gitignore lists, from pages saved outside
 // the repository. So this is a check made when the words are written, on a machine that has the pages. Where the
@@ -40,7 +40,8 @@ const sheets = manifest.sources.filter((s) => /-sds-/.test(s.id))
 const located: [string, string][] = sheets.flatMap((s) => s.supports.map((row, i): [string, string] => [`${s.id}, row ${i + 1} (${row.prints})`, row.where]))
 
 const written: [string, string][] = [
-  ...paragraphs.map(({ where, text }): [string, string] => [`${where}, shown`, text]),
+  // As it is shown: the label, a full stop, then the text, so that a run across the two is seen as well.
+  ...paragraphs.map(({ where, label, text }): [string, string] => [`${where}, shown`, label === undefined ? text : `${label}. ${text}`]),
   ...paragraphs.flatMap(({ where, support }) => support.split('\n').map((line, i): [string, string] => [`${where}, support line ${i + 1}`, ownWords(line)])),
   ...bottles.map(([key, bottle]): [string, string] => [`the note on the ${key} bottle`, bottle.hazards.note.value]),
 ]
@@ -57,6 +58,12 @@ describe('no quotation: the check itself', () => {
 
   it('has something to check: the primer and the three hazard notes', () => {
     expect(written.length).toBeGreaterThan(100)
+  })
+
+  it('checks each label with the paragraph it heads', () => {
+    const labelled = paragraphs.filter((p) => p.label !== undefined)
+    expect(labelled.length).toBe(40)
+    for (const { where, label, text } of labelled) expect(written).toContainEqual([`${where}, shown`, `${label}. ${text}`])
   })
 
   it("has the manifest's rows to check for every safety data sheet a bottle cites, and for no other source", () => {

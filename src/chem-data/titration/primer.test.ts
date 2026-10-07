@@ -1,10 +1,11 @@
+import { createHash } from 'node:crypto'
 import { describe, expect, it } from 'vitest'
 import manifestFile from '../../../docs/research/phase-3/sources/MANIFEST.json'
 import { findInstitutionText } from '../denylist'
 import sources from '../sources.json'
 import supportFile from '../support.ts?raw'
 import { titrationData } from './data'
-import { TITRATION_PRIMER, type PrimerParagraph } from './primer'
+import { READ_FIRST, termIndex, TITRATION_PRIMER, type PrimerParagraph } from './primer'
 
 // Optional, untracked: see registry.test.ts.
 const local = import.meta.glob<string[]>('../denylist.local.json', { eager: true, import: 'default' })
@@ -107,10 +108,134 @@ describe('the titration primer: its cards', () => {
     const prose = [
       ...TITRATION_PRIMER.map((s): [string, string] => [`${s.id} heading`, s.heading]),
       ...paragraphs.map(([where, p]): [string, string] => [where, p.text]),
+      ...paragraphs.flatMap(([where, p]): [string, string][] => (p.label === undefined ? [] : [[`${where} label`, p.label]])),
       ...paragraphs.flatMap(([where, p]): [string, string][] => (p.equation === undefined ? [] : [[`${where} equation`, p.equation]])),
     ]
-    expect(prose.length).toBeGreaterThan(12 + paragraphs.length)
+    expect(prose.length).toBeGreaterThan(12 + 2 * paragraphs.length)
     for (const [what, text] of prose) expect([what, findInstitutionText(text, institutionNames)]).toEqual([what, null])
+  })
+})
+
+describe('the titration primer: how its text is drawn, so that a topic is quick to find', () => {
+  // The wording the owner approved, as it stood before any of this was added: for each card the sha256 of the JSON
+  // of [heading, [text, equation or null] for each paragraph], worked from
+  // `git show e054036:src/chem-data/titration/primer.ts`. A label, a bold term or a sentence set off changes none of it.
+  const APPROVED: Record<string, string> = {
+    'acids-and-bases': '29b1a83d5f1834a97905492904766d0b355d5d0b63105cc63c32e90c5be2d7bf',
+    molarity: 'd7719ed2568a54f454bb24dc602f6b96a4604f9b93651aa5a6629a7feb3b04e4',
+    titration: '9bb4a3912f32eae6cb43eec3e54fa9a8a6a6b4a531d5520365215dd0ba89e22e',
+    standardizing: 'a9041107e7668f014fb585812b4b4c11e5b74319a2e3ef72f289cae42f967bdf',
+    endpoint: '9f33513540d36a55fda6615a797c868d44620b218205917dd4553b59a3b96427',
+    phenolphthalein: '2d20b1a416fda2c665eaad47e67f9349245c8735dd476b2a09fce027907484f6',
+    titrating: '5d9a065e4c0f6a15926596dccf84078d91f8d42066d3f731debbbdb607b070cd',
+    calculation: '013181b8585e874101fbdb6bc60ad95db6d9acf3e476d722871d43d0c7cd33c9',
+    burette: 'ea13f99c5637a5b614b6cdbd5d01f9f893ec81388d9b8672b17d7696c6a3390c',
+    glassware: 'e45e842fb4cac61cfe5454dd7daceba90392f802540daf1e7dcc94811d1cedff',
+    precision: 'e1390b8d013fa4feae78ed49441d2c0a124106b32286ad31ed3647d87780da42',
+    safety: 'ae1d3ba28220ef02335287974b05d557faa68682ded3a0f7d4f178e620b568ea',
+  }
+  const labelled = paragraphs.filter(([, p]) => p.label !== undefined)
+  const terms = paragraphs.flatMap(([where, p]) => (p.terms ?? []).map((term): [string, string, string] => [where, term, p.text]))
+  const labRules = paragraphs.flatMap(([where, p]) => (p.labRules ?? []).map((sentence): [string, string, string] => [where, sentence, p.text]))
+
+  it('leaves every heading, paragraph and equation byte for byte as the owner approved it', () => {
+    const now = Object.fromEntries(
+      TITRATION_PRIMER.map((s) => [s.id, createHash('sha256').update(JSON.stringify([s.heading, ...s.paragraphs.map((p) => [p.text, p.equation ?? null])])).digest('hex')]),
+    )
+    expect(now).toEqual(APPROVED)
+    expect(paragraphs).toHaveLength(40)
+  })
+
+  it('heads every paragraph of a card that has more than one with a label of one to four words, its own within the card', () => {
+    for (const s of TITRATION_PRIMER) {
+      const labels = s.paragraphs.map((p) => p.label)
+      if (s.paragraphs.length > 1) expect([s.id, labels.filter((label) => label === undefined)]).toEqual([s.id, []])
+      expect([s.id, new Set(labels).size]).toEqual([s.id, labels.length])
+    }
+    expect(labelled).toHaveLength(40)
+    for (const [where, { label }] of labelled) {
+      expect([where, label, label!.split(' ').length <= 4]).toEqual([where, label, true])
+      // Words only: the full stop after it is the page's.
+      expect([where, label]).toEqual([where, expect.stringMatching(/^[A-Za-z][A-Za-z0-9' -]*[A-Za-z]$/)])
+    }
+  })
+
+  it("gives no label that repeats its card's heading, makes a claim or names a value", () => {
+    for (const s of TITRATION_PRIMER) for (const p of s.paragraphs) expect([s.id, p.label, p.label!.toLowerCase() === s.heading.toLowerCase()]).toEqual([s.id, p.label, false])
+    for (const [where, { label }] of labelled) {
+      // A claim has a verb that asserts, forbids or promises. A label is a name for what the paragraph is about.
+      expect([where, label, /\b(is|are|was|were|has|have|does|do|must|should|can|cannot|will|always|never|not|no)\b/i.test(label!)]).toEqual([where, label, false])
+      // The one figure in a label is the 30 seconds of the wait, which the bench's own button gives. No molarity, no volume.
+      expect([where, label, label!.replace('30-second', '').match(/\d|\bmL\b|\bM\b|%/)]).toEqual([where, label, null])
+    }
+  })
+
+  it('finds every term in the text of its paragraph, as a word of its own, and lists a term once in the whole primer', () => {
+    expect(terms.length).toBeGreaterThan(20)
+    for (const [where, term, text] of terms) {
+      expect([where, term]).toEqual([where, expect.stringMatching(/^[A-Za-z][A-Za-z -]*[A-Za-z]$/)])
+      expect([where, term, termIndex(text, term) >= 0]).toEqual([where, term, true])
+    }
+    const listed = terms.map(([, term]) => term.toLowerCase())
+    expect(listed.filter((term, i) => listed.indexOf(term) !== i)).toEqual([])
+    // Each where it is defined, in the card that is about it: the four cards read first use these words before then.
+    const where = (term: string) => terms.find(([, listed]) => listed === term)?.[0]
+    expect([where('Molarity'), where('mole'), where('endpoint'), where('equivalence point'), where('indicator')]).toEqual(['molarity[1]', 'molarity[0]', 'endpoint[1]', 'endpoint[0]', 'endpoint[0]'])
+    expect([where('titre'), where('meniscus'), where('conditioning'), where('relative deviation')]).toEqual(['titrating[0]', 'burette[1]', 'glassware[0]', 'precision[1]'])
+  })
+
+  it('finds a term where it stands as a word, not inside a longer one', () => {
+    expect(termIndex('Counted in moles. A mole is a fixed number.', 'mole')).toBe('Counted in moles. A '.length)
+    expect(termIndex('Every HCl molecule.', 'mole')).toBe(-1)
+    expect(termIndex('Change to half-drops. That is a half-drop.', 'half-drop')).toBe('Change to half-drops. That is a '.length)
+    expect(termIndex('A half-drop.', 'drop')).toBe(-1)
+    expect(termIndex('Phenolphthalein. pH is a scale.', 'pH')).toBe('Phenolphthalein. '.length)
+    // The bold word is the one being defined, not an earlier use of it.
+    expect(section('titrating').paragraphs[0]!.text.slice(termIndex(section('titrating').paragraphs[0]!.text, 'titre') - 14).startsWith('is called the titre.')).toBe(true)
+    expect(section('molarity').paragraphs[0]!.text.slice(termIndex(section('molarity').paragraphs[0]!.text, 'mole') - 2).startsWith('A mole is')).toBe(true)
+  })
+
+  it("sets off only whole sentences of the paragraph that name the lab themselves, each a rule of the simulation's and not of a bench", () => {
+    expect(labRules.map(([where]) => where)).toEqual([
+      // The NaOH that does not change, and the label that is exact.
+      'standardizing[1]',
+      'standardizing[3]',
+      // The half-drop rinsed in, the spoiled flask, the closed flask and its wait.
+      'titrating[2]',
+      'titrating[3]',
+      'titrating[4]',
+      // Four decimal places.
+      'calculation[3]',
+      // The eye that is always level.
+      'burette[1]',
+      // What each mistake costs here, the bubble, the burette that stays dilute, and the trial that does not count.
+      'glassware[3]',
+      'glassware[3]',
+      'glassware[3]',
+      'glassware[3]',
+      // The lab's own measure of agreement.
+      'precision[1]',
+    ])
+    for (const [where, sentence, text] of labRules) {
+      const at = text.indexOf(sentence)
+      expect([where, sentence, at >= 0]).toEqual([where, sentence, true])
+      // A whole sentence: it starts the text or follows a full stop, and ends with its own.
+      expect([where, sentence, at === 0 || text.slice(at - 2, at) === '. ', sentence.endsWith('.'), at + sentence.length === text.length || text[at + sentence.length] === ' ']).toEqual([where, sentence, true, true, true])
+      expect([where, sentence, sentence.slice(0, -1).includes('. ')]).toEqual([where, sentence, false])
+      // In its own words: nothing on the page is added to say that it is the lab speaking.
+      expect([where, sentence, /\b(this lab|here)\b/i.test(sentence)]).toEqual([where, sentence, true])
+    }
+    // Not the chemistry that happens to say "here", and not the safety card, where nothing is the simulation's rule.
+    expect(section('acids-and-bases').paragraphs.flatMap((p) => p.labRules ?? [])).toEqual([])
+    expect(section('safety').paragraphs.flatMap((p) => p.labRules ?? [])).toEqual([])
+  })
+
+  it('takes the four cards marked "Read first" from the first paragraph, in the order it gives them', () => {
+    const first = section('acids-and-bases').paragraphs[0]!.text
+    expect(READ_FIRST).toEqual(['burette', 'glassware', 'titrating', 'calculation'])
+    expect(first).toContain(`in this order: ${READ_FIRST.map((id) => section(id).heading).join('; ')}.`)
+    // And no other card is named there.
+    expect(TITRATION_PRIMER.filter((s) => first.includes(s.heading)).map((s) => s.id).sort()).toEqual([...READ_FIRST].sort())
   })
 })
 
