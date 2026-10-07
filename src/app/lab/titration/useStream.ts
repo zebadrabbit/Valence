@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { CLOSED, openStream, STREAM_INTERVAL_MS, streamTick, type Stream } from './stream'
+import { CLOSED, CLOSED_UNSEEN, openStream, STREAM_INTERVAL_MS, streamTick, type Stream } from './stream'
 
 /**
  * The open stopcock: the only clock on the bench. While a stream or a measured pour is open it asks streamTick once
@@ -11,6 +11,10 @@ import { CLOSED, openStream, STREAM_INTERVAL_MS, streamTick, type Stream } from 
  * open: Guided's hint. A stream opened again while the hint still shows stays open. Escape closes it wherever
  * focus is on the page.
  *
+ * It also closes itself when `shown` turns false, which is the lab page showing another of its tabs with the bench
+ * still mounted: nothing runs in unseen. That it was closed for the learner is said when the bench is shown again,
+ * not before, so that the message line changes where it can be seen and heard.
+ *
  * `closedBySelfAt` is when it last closed itself, as performance.now() gives it, and null after a close the learner
  * made: a press aimed at closing a stream can land just after it has closed itself, and must not open it again.
  */
@@ -18,6 +22,7 @@ export function useStream(
   canDeliver: boolean,
   deliver: () => void,
   slowDown: boolean,
+  shown = true,
 ): { stream: Stream; open(pour: number | null): void; close(): void; closedBySelfAt: number | null } {
   const [state, setState] = useState<{ stream: Stream; closedBySelfAt: number | null }>({ stream: CLOSED, closedBySelfAt: null })
   // What the timer reads when it fires: the stream as it is at that moment, rendered or not, and the engine's latest word.
@@ -65,6 +70,17 @@ export function useStream(
   useEffect(() => {
     if (slowDown) closeItself()
   }, [slowDown, closeItself])
+
+  const closedUnseen = useRef(false)
+  useEffect(() => {
+    if (!shown) {
+      closedUnseen.current ||= live.current.stream.open
+      closeItself()
+    } else if (closedUnseen.current) {
+      closedUnseen.current = false
+      set(CLOSED_UNSEEN)
+    }
+  }, [shown, set, closeItself])
 
   return {
     stream: state.stream,

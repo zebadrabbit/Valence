@@ -9,6 +9,7 @@ import { Home } from '@/app/pages/Home'
 import { Lab } from '@/app/pages/Lab'
 import { createMemoryStore, loadEntry, saveEntry, type KeyValueStore } from '@/app/progress/storage'
 import { titrationData } from '@/chem-data/titration/data'
+import { TITRATION_PRIMER } from '@/chem-data/titration/primer'
 import { checklist, createLab, currentTrial, modelFrom, titrationStateSchema, type Action, type TitrationState } from '@/engine/titration'
 import { honestReading, learner } from '@/engine/titration/testkit'
 import { Guide } from './Guide'
@@ -30,7 +31,16 @@ const save = (state: TitrationState) => saveEntry(app.store, titration.entry, ti
 const count = (html: string, pattern: RegExp) => [...html.matchAll(pattern)].length
 /** The mode whose radio button is checked. */
 const checkedMode = (html: string) => [...html.matchAll(/<input[^>]*>/g)].filter((match) => match[0].includes('checked=""')).map((match) => match[0].match(/value="([^"]*)"/)?.[1])
-const PRIMER = (open: boolean) => new RegExp(`<details${open ? ' open=""' : ''}><summary[^>]*>${SHELL_TEXT.primer}</summary>`)
+/** The name of the tab that is selected. */
+const selectedTab = (html: string) => [...html.matchAll(/<button[^>]*role="tab"[^>]*>([^<]*)<\/button>/g)].filter((match) => match[0].includes('aria-selected="true"')).map((match) => match[1])
+/** The three panels, Primer, Lab and Record: whether each is shown, and what it holds. */
+const panels = (html: string) =>
+  html
+    .split(/(?=<div[^>]*role="tabpanel")/)
+    .slice(1)
+    .map((panel) => ({ shown: !panel.slice(0, panel.indexOf('>')).includes('hidden=""'), body: panel.slice(panel.indexOf('>') + 1) }))
+/** Every button that is not a tab, by its text. */
+const pressed = (html: string) => [...html.matchAll(/<button(?![^>]*role="tab")[^>]*>(.*?)<\/button>/gs)].map((match) => match[1]!.replace(/<[^>]+>/g, ''))
 
 beforeEach(() => {
   app.store = createMemoryStore()
@@ -170,25 +180,32 @@ describe('the titration page', () => {
     })
   })
 
-  it('with nothing stored shows Start, the mode choice on Guided and the primer open, and stores nothing', () => {
+  // Before the tabs this case held the primer to being an open disclosure.
+  it('with nothing stored opens on the Primer tab, shows Start above the tabs and on the Lab tab, the mode choice on Guided, and stores nothing', () => {
     const html = page()
     expect(html).toMatch(new RegExp(`<h1[^>]*>${titration.title}</h1>`))
-    expect(html).toContain(`>${SHELL_TEXT.start}</button>`)
+    expect(count(html, new RegExp(`>${SHELL_TEXT.start}</button>`, 'g'))).toBe(2)
     expect(html).not.toContain(SHELL_TEXT.restart)
-    expect(html).toMatch(PRIMER(true))
+    expect(selectedTab(html)).toEqual(['Primer'])
+    const [primer, lab, record] = panels(html)
+    expect([primer!.shown, lab!.shown, record!.shown]).toEqual([true, false, false])
+    expect(lab!.body).toContain(SHELL_TEXT.notStarted)
+    expect(record!.body).toContain(SHELL_TEXT.noRecord)
     expect(checkedMode(html)).toEqual(['guided'])
     expect(html).not.toContain('<aside')
     expect(app.store.length).toBe(0)
   })
 
-  it('with a saved new lab shows Restart and no Start, the primer closed, the mode of the run, and leaves the entry as it was', () => {
+  // Before the tabs this case held the primer to being a closed disclosure.
+  it('with a saved new lab opens on the Lab tab, shows Restart and no Start, the mode of the run, and leaves the entry as it was', () => {
     const lab = createLab(1384, 'challenge')
     save(lab)
     const stored = app.store.getItem('valence:lab:titration')
     const html = page()
     expect(html).toContain(`>${SHELL_TEXT.restart}</button>`)
     expect(html).not.toContain(SHELL_TEXT.start)
-    expect(html).toMatch(PRIMER(false))
+    expect(selectedTab(html)).toEqual(['Lab'])
+    expect(panels(html).map((panel) => panel.shown)).toEqual([false, true, false])
     expect(checkedMode(html)).toEqual(['challenge'])
     expect(html).toContain('<aside aria-label="Lab notebook"')
     // A new lab has no trial under way, so the mode can be changed.
@@ -207,10 +224,35 @@ describe('the titration page', () => {
     expect(html).toContain(SHELL_TEXT.modeLocked)
   })
 
-  it("has the primer's twelve cards and, at its foot, the sources of the lab's model", () => {
+  it.each([
+    ['no run', null, 'Primer'],
+    ['a run in progress', third, 'Lab'],
+    ['a completed run', completed, 'Lab'],
+    ['a completed run with its summary entered', summarised, 'Lab'],
+  ] as const)('opens on the right tab for %s, and keeps the two not shown hidden and inert, out of the tab order', (_, stored, tab) => {
+    if (stored) save(stored)
+    const before = app.store.getItem('valence:lab:titration')
     const html = page()
-    expect(count(html, /<h2/g)).toBe(12)
-    expect(html).toContain('Sources for this lab&#x27;s model</summary>')
+    expect(selectedTab(html)).toEqual([tab])
+    const tags = html.split(/(?=<div[^>]*role="tabpanel")/).slice(1).map((panel) => panel.slice(0, panel.indexOf('>') + 1))
+    expect(tags).toHaveLength(3)
+    expect(tags.map((tag) => tag.includes('hidden=""') && tag.includes('inert=""'))).toEqual(['Primer', 'Lab', 'Record'].map((name) => name !== tab))
+    expect(tags.map((tag) => tag.includes('hidden=""') || tag.includes('inert=""'))).toEqual(['Primer', 'Lab', 'Record'].map((name) => name !== tab))
+    // The tab is state of the open page only: choosing it stores nothing and changes nothing stored.
+    expect(app.store.getItem('valence:lab:titration')).toBe(before)
+    expect(app.store.length).toBe(stored ? 1 : 0)
+  })
+
+  // Before the tabs this case counted the twelve cards' headings in the page.
+  it("has on the Primer tab the list of the twelve topics, the first of them as a card, the four to read first marked, and under the card the sources of the lab's model", () => {
+    const [primer, lab, record] = panels(page())
+    expect(count(primer!.body, /<h2/g)).toBe(1)
+    expect(primer!.body).toMatch(new RegExp(`<h2[^>]*>${TITRATION_PRIMER[0]!.heading}</h2>`))
+    expect(count(primer!.body, /<li><button/g)).toBe(12)
+    expect(primer!.body).toContain('>Topic 1 of 12<')
+    expect(count(primer!.body, />Read first</g)).toBe(4)
+    expect(primer!.body).toContain('Sources for this lab&#x27;s model</summary>')
+    for (const other of [lab!, record!]) expect(other.body).not.toContain('Sources for this lab&#x27;s model')
   })
 
   it('prints the seed once, in the notebook', () => {
@@ -220,9 +262,16 @@ describe('the titration page', () => {
     expect(/<aside aria-label="Lab notebook"[^>]*>.*<\/aside>/s.exec(html)![0]).toContain('>Seed 1384<')
   })
 
-  it('with a run has its four slots filled in order: the guide, the bench, the notebook and the record', () => {
+  // Before the tabs the four were down one page; the record is now on a tab of its own.
+  it('with a run has its four slots filled in order: the guide, the bench and the notebook on the Lab tab, and the record on the Record tab', () => {
     save(third)
     const challenge = page()
+    const [, labPanel, recordPanel] = panels(challenge)
+    expect(labPanel!.body).toContain('<section aria-label="Bench"')
+    expect(labPanel!.body).toContain('<aside aria-label="Lab notebook"')
+    expect(labPanel!.body).not.toContain(`>${NOTEBOOK_TEXT.recordHeading}</h2>`)
+    expect(recordPanel!.body).toContain(`>${NOTEBOOK_TEXT.recordHeading}</h2>`)
+    expect(count(challenge, /<table/g)).toBe(1)
     const at = (html: string) => ['<section aria-label="Guided checklist"', '<section aria-label="Bench"', '<aside aria-label="Lab notebook"', `>${NOTEBOOK_TEXT.recordHeading}</h2>`].map((mark) => html.indexOf(mark))
     // Challenge has no guide.
     expect(at(challenge)[0]).toBe(-1)
@@ -245,14 +294,18 @@ describe('the titration page', () => {
     expect(page()).not.toMatch(/bench-plume|bench-drop/)
   })
 
-  it('in a narrow window with a run shows the notice, the primer and the record with the trial under way, and no bench and no field', () => {
+  // Before the tabs the narrow page was one page down, with the primer open and no button at all.
+  it('in a narrow window with a run opens on the Lab tab with the notice in place of the bench, has the record with the trial under way on the Record tab, and no bench, no field and nothing that changes the run', () => {
     app.wide = false
     save(third)
     const html = page()
-    expect(html).toContain(NARROW_NOTICE.withRun)
-    expect(html).toMatch(PRIMER(true))
-    expect(html).toContain(`>${NOTEBOOK_TEXT.recordHeading}</h2>`)
-    // The notice calls what is below it what its heading calls it. "Notebook" is the wide page's panel, not shown here.
+    const [primer, lab, record] = panels(html)
+    expect(selectedTab(html)).toEqual(['Lab'])
+    expect(lab!.body).toContain(NARROW_NOTICE.withRun)
+    expect(record!.body).toContain(`>${NOTEBOOK_TEXT.recordHeading}</h2>`)
+    expect(pressed(html)).toEqual(pressed(primer!.body))
+    expect(html).not.toContain(SHELL_TEXT.restart)
+    // The notice calls the record what its heading calls it. "Notebook" is the wide page's panel, not shown here.
     expect(NARROW_NOTICE.withRun).toContain('the record of your saved run')
     expect(NARROW_NOTICE.withRun).not.toMatch(/notebook/i)
     expect(html).not.toContain(`>${NOTEBOOK_TEXT.heading}</h2>`)
@@ -260,7 +313,7 @@ describe('the titration page', () => {
     expect(html).toContain('>Invalid: overshot</td>')
     expect(html).not.toContain('aria-label="Bench"')
     expect(html).not.toContain('<aside')
-    expect(html).not.toMatch(/<(input|button|select|textarea)/)
+    expect(html).not.toMatch(/<(input|select|textarea)/)
   })
 
   it('a stored record that does not fit leaves the lab not started, and the page says that a saved run was kept, until a new one is started', () => {
@@ -286,13 +339,17 @@ describe('the titration page', () => {
     expect(said(page())).toEqual([SHELL_TEXT.setAside])
   })
 
-  it('in a narrow window shows the notice and the primer, and nothing to press', () => {
+  // Before the tabs this case held the narrow page to having no button; it now has its tabs and the primer's own.
+  it('in a narrow window with no run opens on the Primer tab, holds the notice on the Lab tab, and offers no Start and no field', () => {
     app.wide = false
     const html = page()
-    expect(html).toContain(NARROW_NOTICE.title)
-    expect(html).toContain(NARROW_NOTICE.withoutRun)
-    expect(html).toMatch(PRIMER(true))
-    expect(html).not.toContain('<button')
+    const [primer, lab, record] = panels(html)
+    expect(selectedTab(html)).toEqual(['Primer'])
+    expect(lab!.body).toContain(NARROW_NOTICE.title)
+    expect(lab!.body).toContain(NARROW_NOTICE.withoutRun)
+    expect(record!.body).toContain(SHELL_TEXT.noRecord)
+    expect(html).not.toContain(SHELL_TEXT.start)
+    expect(pressed(html)).toEqual(pressed(primer!.body))
     expect(html).not.toContain('<input')
     save(createLab(1, 'guided'))
     expect(page()).toContain(NARROW_NOTICE.withRun)

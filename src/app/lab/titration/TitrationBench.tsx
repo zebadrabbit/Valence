@@ -24,6 +24,8 @@ export interface TitrationBenchProps {
   sources: readonly Source[]
   /** From the page, so that the bench reads no app state. */
   reducedMotion: boolean
+  /** False while the lab page shows another of its tabs: the bench is still mounted, and an open stopcock is closed. */
+  shown?: boolean
   /** 'done': the action was taken. 'asked': it is held for a Guided warning, shown in `notice`. 'refused': the engine blocked it. */
   onAction(action: BenchAction): 'done' | 'asked' | 'refused'
   onReading(readingUl: number): ReadingReply
@@ -76,7 +78,7 @@ function lineText(said: Said, view: BenchView, stream: Stream): string {
  * a reading is typed in. It holds no engine state. Every action goes to the page and the view comes back; what it
  * keeps is the open stopcock and what the message line last said.
  */
-export function TitrationBench({ view, display, bottles, sources, reducedMotion, onAction, onReading, confirmed = null, notice, notebookDone = 0, ref }: TitrationBenchProps) {
+export function TitrationBench({ view, display, bottles, sources, reducedMotion, shown = true, onAction, onReading, confirmed = null, notice, notebookDone = 0, ref }: TitrationBenchProps) {
   const [said, setSaid] = useState<Said>({ text: '' })
   const [handedBack, setHandedBack] = useState(confirmed)
   const [notebookSeen, setNotebookSeen] = useState(notebookDone)
@@ -86,7 +88,7 @@ export function TitrationBench({ view, display, bottles, sources, reducedMotion,
   const [actionsDone, setActionsDone] = useState(0)
   const standWordsId = useId()
   const meniscusWordsId = useId()
-  const { stream, open, close, closedBySelfAt } = useStream(view.controls.deliver === null, () => void onAction({ type: 'deliver', amount: 'stream' }), view.slowDown)
+  const { stream, open, close, closedBySelfAt } = useStream(view.controls.deliver === null, () => void onAction({ type: 'deliver', amount: 'stream' }), view.slowDown, shown)
 
   const line = messageLine(said, view, stream)
   /** Says it in the message line, with the line as it stands, so that the same sentence twice is still a change. */

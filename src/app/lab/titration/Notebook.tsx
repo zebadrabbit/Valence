@@ -289,8 +289,8 @@ export function NotebookPanel({ m, state, onHclMolarity, onMolarity, onDiscard, 
 }
 
 /**
- * The record of the run, across the page: every trial with what was recorded in it and how it ended, an ended
- * trial's feedback under its row. Read-only, so it is also what a narrow window shows of a saved run.
+ * The record of the run, on the page's Record tab: every trial with what was recorded in it and how it ended, an
+ * ended trial's feedback under its row. Read-only, so it is also what a narrow window shows of a saved run.
  */
 export function TrialRecord({ m, state }: { m: TitrationModel; state: TitrationState }) {
   return (

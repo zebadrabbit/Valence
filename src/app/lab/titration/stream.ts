@@ -10,9 +10,11 @@ export const POUR_ADDITIONS = [4, 20] as const
  * Closed, or open. `pour` is the measured pour that was asked for, null for a stream left open until it is closed,
  * and so also says which button opened it; `remaining` is how many additions of that pour are still to come.
  */
-export type Stream = { open: false } | { open: true; pour: number | null; remaining: number | null }
+export type Stream = { open: false; unseen?: true } | { open: true; pour: number | null; remaining: number | null }
 
 export const CLOSED: Stream = { open: false }
+/** Closed for the learner because the bench stopped being shown while the stopcock was open: the bench says so. */
+export const CLOSED_UNSEEN: Stream = { open: false, unseen: true }
 
 export function openStream(pour: number | null): Stream {
   return { open: true, pour, remaining: pour }

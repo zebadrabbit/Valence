@@ -1,8 +1,19 @@
 /*
- * Where a lab page's four slots sit. The DOM order is guide, bench, notebook, record at every width; this file
- * only places them. Every rule follows the width the page itself has, with the menu open or closed, never the
- * window's. Loaded with a lab page, so none of it is in the app shell's stylesheet. Nothing here animates.
+ * Where the parts of a lab page sit. The Lab tab's DOM order is guide, bench, notebook at every width; this file
+ * only places them, and lays out the primer. Every rule follows the width the page itself has, with the menu open
+ * or closed, never the window's. Loaded with a lab page, so none of it is in the app shell's stylesheet. Nothing
+ * here animates.
  */
+
+/*
+ * The tab bar stays at the top of the window while a panel scrolls under it. Whatever is brought into view inside
+ * a panel, by focus or by a script, stops short of the bar and is not left behind it.
+ */
+.lab-panel,
+.lab-panel * {
+  scroll-margin-top: 4.5rem;
+}
+
 .lab-page {
   container: lab / inline-size;
 }
@@ -12,10 +23,10 @@
   gap: 1rem;
   align-items: start;
   grid-template-columns: minmax(0, 1fr);
-  grid-template-areas: 'guide' 'bench' 'notebook' 'record';
+  grid-template-areas: 'guide' 'bench' 'notebook';
 }
 .lab-grid-no-guide {
-  grid-template-areas: 'bench' 'notebook' 'record';
+  grid-template-areas: 'bench' 'notebook';
 }
 .lab-guide {
   grid-area: guide;
@@ -29,19 +40,15 @@
   grid-area: notebook;
   min-width: 0;
 }
-.lab-record {
-  grid-area: record;
-  min-width: 0;
-}
 
 /* The notebook beside the bench. The bench's track is the one that grows first, up to the width its drawings fill. */
 @container lab (min-width: 78rem) {
   .lab-grid {
     grid-template-columns: minmax(56rem, 83rem) minmax(21rem, 1fr);
-    grid-template-areas: 'guide guide' 'bench notebook' 'record record';
+    grid-template-areas: 'guide guide' 'bench notebook';
   }
   .lab-grid-no-guide {
-    grid-template-areas: 'bench notebook' 'record record';
+    grid-template-areas: 'bench notebook';
   }
 }
 
@@ -57,12 +64,46 @@
 @container lab (min-width: 110rem) {
   .lab-grid:not(.lab-grid-no-guide) {
     grid-template-columns: minmax(17rem, 1fr) minmax(56rem, 83rem) minmax(21rem, 1.2fr);
-    grid-template-areas: 'guide bench notebook' 'record record record';
+    grid-template-areas: 'guide bench notebook';
   }
   .lab-guide-line {
     display: none;
   }
   .lab-guide-list {
     display: block;
+  }
+}
+
+/*
+ * The primer. Its list of topics is drawn once. Below 46rem of primer it is behind its button, above the card,
+ * and displayed only while the button has it listed; from 46rem it is a column beside the card and the button is
+ * not displayed, so a screen reader and the Tab key meet no control that does nothing.
+ */
+.primer {
+  container: primer / inline-size;
+}
+.primer-layout {
+  display: grid;
+  gap: 1rem;
+  align-items: start;
+  grid-template-columns: minmax(0, 1fr);
+}
+.primer-topics {
+  display: none;
+  margin-top: 0.5rem;
+}
+.primer-topics-listed {
+  display: grid;
+}
+@container primer (min-width: 46rem) {
+  .primer-layout {
+    grid-template-columns: 15rem minmax(0, 1fr);
+  }
+  .primer-topics-button {
+    display: none;
+  }
+  .primer-topics {
+    display: grid;
+    margin-top: 0;
   }
 }

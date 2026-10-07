@@ -17,7 +17,7 @@ import { BLOCKED_TEXT, INVALID_ENTRY_TEXT, invalidReadingText, OUTCOME_TEXT } fr
 import { ReadingInput, recordReading, type ReadingInputProps } from './ReadingInput'
 import { MeniscusWords, ReadingView } from './ReadingView'
 import { StopcockControls, type StopcockControlsProps } from './StopcockControls'
-import { CLOSED, openStream, POUR_ADDITIONS } from './stream'
+import { CLOSED, CLOSED_UNSEEN, openStream, POUR_ADDITIONS } from './stream'
 import { messageLine, TitrationBench, type TitrationBenchProps } from './TitrationBench'
 import { plumeToDraw, TitrationStand, type TitrationStandProps } from './TitrationStand'
 
@@ -584,6 +584,9 @@ describe('the message line', () => {
     expect(messageLine(said, after, openStream(null))).toBe(streamMessage(openStream(null)))
     expect(messageLine(said, after, openStream(POUR_ADDITIONS[0]))).toBe(streamMessage(openStream(POUR_ADDITIONS[0])))
     expect(messageLine(said, after, CLOSED)).toBe('Stopcock closed.')
+    // Closed for the learner when they left the Lab tab: the line says that, once the bench is shown again.
+    expect(messageLine(said, after, CLOSED_UNSEEN)).toBe(streamMessage(CLOSED_UNSEEN))
+    expect(messageLine(said, after, CLOSED_UNSEEN)).toMatch(/^Stopcock closed: .*left the Lab tab\.$/)
   })
 
   it('adds, after a drop or a wash that undid a pink that had lasted, that the wait no longer counts', () => {

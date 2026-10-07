@@ -64,10 +64,11 @@ export function describeStand(view: BenchView, stream: Stream, display: Display)
 /**
  * What opening and closing the stopcock say. The additions of a stream say nothing: a pour says the same from its
  * first addition to its last. An open stopcock is told both ways to close it: Tab leaves it running, and Escape
- * closes it wherever focus is (useStream), which nothing else on the page says.
+ * closes it wherever focus is (useStream), which nothing else on the page says. A stopcock that was closed for the
+ * learner when they left the Lab tab says so, by the tab's name (a test holds it to the shell's).
  */
 export function streamMessage(stream: Stream): string {
-  if (!stream.open) return 'Stopcock closed.'
+  if (!stream.open) return stream.unseen ? 'Stopcock closed: it was closed when you left the Lab tab.' : 'Stopcock closed.'
   if (stream.pour === null) return 'Stopcock open: NaOH is running into the flask. Press again, or press Escape, to close it.'
   // A test holds the two pours to 1 mL and 5 mL of the model's stream addition.
   return `Running in ${stream.pour === POUR_ADDITIONS[0] ? 1 : 5} mL, then the stopcock closes. Press again, or press Escape, to close it sooner.`

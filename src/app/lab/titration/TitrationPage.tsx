@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button'
 import { titrationCitations } from '@/chem-data/citations'
 import sources from '@/chem-data/sources.json'
 import { titrationData } from '@/chem-data/titration/data'
-import { TITRATION_PRIMER } from '@/chem-data/titration/primer'
+import { READ_FIRST, TITRATION_PRIMER } from '@/chem-data/titration/primer'
 import { can, checklist, createLab, currentTrial, modelFrom, reduce, titrationStateSchema, type Action, type Mode, type Warning } from '@/engine/titration'
 import { benchViewOf } from './benchView'
 import { decide, readingAction, type Decision } from './controller'
@@ -146,9 +146,9 @@ export function TitrationPage() {
     mode,
     onStart: start,
     onRestart: start,
-    primer: (open: boolean) => <Primer sections={TITRATION_PRIMER} sources={sources} open={open} modelCitations={MODEL_CITATIONS} />,
+    primer: <Primer sections={TITRATION_PRIMER} sources={sources} readFirst={READ_FIRST} modelCitations={MODEL_CITATIONS} />,
   }
-  if (lab === null) return <LabShell {...shell} started={false} setAside={setAside} onMode={setChosen} bench={null} notebook={null} record={null} />
+  if (lab === null) return <LabShell {...shell} started={false} setAside={setAside} onMode={setChosen} bench={() => null} notebook={null} record={null} />
 
   const view = benchViewOf(MODEL, lab)
   const dispatch = (action: Action) => {
@@ -202,11 +202,12 @@ export function TitrationPage() {
       onMode={(next) => attempt({ type: 'setMode', mode: next })}
       modeLocked={can(MODEL, lab, { type: 'setMode', mode }) !== null ? SHELL_TEXT.modeLocked : undefined}
       guide={lab.mode === 'guided' ? <Guide steps={checklist(MODEL, lab)} trialIndex={currentTrial(lab).index} /> : undefined}
-      bench={
+      bench={(shown) => (
         // A bench of its own for each trial of each run, and for a record taken from another tab: the stopcock closed, nothing said yet, no plume.
         <TitrationBench
           key={`${lab.seed}:${trials}:${taken}`}
           ref={benchRef}
+          shown={shown}
           view={view}
           display={DISPLAY}
           bottles={titrationData.bottles}
@@ -218,7 +219,7 @@ export function TitrationPage() {
           notice={asked && <WarningGroup ref={warningRef} asked={asked} onBack={() => answer(false)} onGoOn={() => answer(true)} />}
           notebookDone={notebookDone}
         />
-      }
+      )}
       notebook={
         <NotebookPanel
           key={`${lab.seed}:${taken}`}

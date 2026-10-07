@@ -20,7 +20,8 @@ import {
 import benchTextFile from './benchText.ts?raw'
 import { benchViewOf, type BenchView } from './benchView'
 import { OUTCOME_TEXT } from './messages'
-import { CLOSED, openStream, POUR_ADDITIONS } from './stream'
+import { SHELL_TEXT } from '../shellText'
+import { CLOSED, CLOSED_UNSEEN, openStream, POUR_ADDITIONS } from './stream'
 
 // Optional, untracked: see registry.test.ts.
 const local = import.meta.glob<string[]>('../../../chem-data/denylist.local.json', { eager: true, import: 'default' })
@@ -117,6 +118,16 @@ describe('what the stopcock says', () => {
 
   it('a pour part of the way through says the same as when it began, so it is said once', () => {
     expect(streamMessage({ open: true, pour: POUR_ADDITIONS[1], remaining: 7 })).toBe(said[2])
+  })
+
+  it('a stopcock that was closed for the learner when they left the Lab tab says so, by the name the tab has, and is closed like any other', () => {
+    const unseen = streamMessage(CLOSED_UNSEEN)
+    expect(unseen).toBe('Stopcock closed: it was closed when you left the Lab tab.')
+    expect(unseen).toContain(`the ${SHELL_TEXT.tabs.lab} tab`)
+    expect(unseen.startsWith(said[3]!.slice(0, -1))).toBe(true)
+    expect(unseen).not.toBe(said[3])
+    expect(CLOSED_UNSEEN.open).toBe(false)
+    expect(describeStand(midStream, CLOSED_UNSEEN, display)).toBe(describeStand(midStream, CLOSED, display))
   })
 
   it("the pours are 1 mL and 5 mL of the model's stream addition", () => {
@@ -280,7 +291,7 @@ describe('every sentence of the bench', () => {
   const views = [fresh, midStream, endpoint, overshot, atLevel(midStream, 50000), { ...midStream, persistence: 'faded' as const, plume: null }]
   const said = [
     ...views.flatMap((v) => [flaskStatus(v, display), describeStand(v, CLOSED, display), describeStand(v, openStream(null), display), levelBracket(v.burette.levelUl)]),
-    ...[openStream(null), openStream(POUR_ADDITIONS[0]), openStream(POUR_ADDITIONS[1]), CLOSED].map(streamMessage),
+    ...[openStream(null), openStream(POUR_ADDITIONS[0]), openStream(POUR_ADDITIONS[1]), CLOSED, CLOSED_UNSEEN].map(streamMessage),
     ...(['drop', 'half'] as const).flatMap((amount) => [additionMessage(amount, ''), additionMessage(amount, additionMessage(amount, ''))]),
     swirlText('persisted'),
     swirlText('faded'),
