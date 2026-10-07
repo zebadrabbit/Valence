@@ -2,7 +2,7 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { Disclosure, Note, Sources } from '@/app/explore/InspectorCard'
 import { citations, type Citation } from '@/chem-data/citations'
 import type { Source } from '@/chem-data/schema'
-import { termIndex, type PrimerParagraph, type PrimerSection } from '@/chem-data/titration/primer'
+import { termIndex, type PrimerParagraph, type PrimerSection } from '@/chem-data/primer'
 import { Paged } from './Paged'
 import { PRIMER_TEXT, UNSOURCED_TEXT } from './shellText'
 
