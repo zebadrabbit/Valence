@@ -139,9 +139,9 @@ export function LabShell(props: LabShellProps) {
       )}
       <Tabs ref={tabs} value={tab} onValueChange={(next: LabTab) => show(next)} className="gap-0">
         <div className="sticky top-0 z-10 border-b bg-background py-2">
-          <TabsList variant="line" aria-label={title} className="group-data-horizontal/tabs:h-10">
+          <TabsList variant="line" aria-label={title} className="group-data-horizontal/tabs:h-12">
             {(Object.keys(SHELL_TEXT.tabs) as LabTab[]).map((value) => (
-              <TabsTrigger key={value} value={value} className="px-4 text-base data-active:font-semibold">
+              <TabsTrigger key={value} value={value} className="min-h-11 px-4 text-base data-active:font-semibold">
                 {SHELL_TEXT.tabs[value]}
               </TabsTrigger>
             ))}

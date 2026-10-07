@@ -24,6 +24,7 @@ export const PRIMER_TEXT = {
   readFirst: 'Read first',
   previous: (heading: string) => `Previous: ${heading}`,
   next: (heading: string) => `Next: ${heading}`,
+  ruleKey: 'A sentence set off like this one is a rule of this simulation, not of a real bench.',
 }
 
 /** What each Sources control of a lab says about what it shows that no source is cited for. */

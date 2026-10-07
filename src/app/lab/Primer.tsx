@@ -45,6 +45,9 @@ export function pieces({ text, terms = [], labRules = [] }: Pick<PrimerParagraph
 }
 
 /** A paragraph's text as it is drawn: its terms bold, its sentences on the simulation's own rules behind a rule down their side. */
+/** How a sentence that states a rule of the simulation alone is set off; the key under the topic list is drawn the same. */
+const LAB_RULE = 'border-l-4 border-foreground/40 bg-muted/60 py-1 pr-2 pl-3'
+
 function Formatted({ paragraph }: { paragraph: PrimerParagraph }) {
   const runs: Piece[][] = []
   for (const piece of pieces(paragraph)) {
@@ -64,7 +67,7 @@ function Formatted({ paragraph }: { paragraph: PrimerParagraph }) {
     )
     // A block inside the paragraph, which stays one paragraph: no word is added, and the sentence names the lab itself.
     return run[0]!.labRule ? (
-      <span key={i} className="my-1.5 block border-l-4 border-foreground/40 bg-muted/60 py-1 pr-2 pl-3">
+      <span key={i} className={`my-1.5 block ${LAB_RULE}`}>
         {words}
       </span>
     ) : (
@@ -123,7 +126,13 @@ export function Primer({
   return (
     <div className="primer">
       <div className="primer-layout">
-        <nav aria-label={PRIMER_TEXT.topics} className="primer-menu text-sm">
+        <nav
+          aria-label={PRIMER_TEXT.topics}
+          className="primer-menu text-sm"
+          onKeyDown={(event) => {
+            if (event.key === 'Escape' && listed) setListed(false)
+          }}
+        >
           <Button variant="outline" className="primer-topics-button" aria-expanded={listed} aria-controls={listId} onClick={() => setListed(!listed)}>
             {PRIMER_TEXT.topics}
             {listed ? <ChevronUp aria-hidden="true" /> : <ChevronDown aria-hidden="true" />}
@@ -146,6 +155,8 @@ export function Primer({
               </li>
             ))}
           </ol>
+          {/* The key to the set-off sentences, drawn as one of them. */}
+          <p className={`mt-3 text-xs text-muted-foreground ${LAB_RULE}`}>{PRIMER_TEXT.ruleKey}</p>
         </nav>
         <div className="grid min-w-0 content-start gap-3">
           {/* A card of its own for each topic, so that the Sources of one are not left open over the next. */}
