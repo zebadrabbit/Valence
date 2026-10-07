@@ -76,6 +76,17 @@ export const INVALID_ENTRY_TEXT: Record<'reading' | 'hcl-molarity' | 'molarity' 
   deviation: 'Write the relative deviation as a number of parts per thousand, with no more than two decimal places, for example 1.5.',
 }
 
+/**
+ * The refusal of a text typed as a burette reading. A number written short of two decimals ("48.4", "1.6", "24")
+ * gets the hint on significant figures, by the owner's request; its example is fixed, so the hint never finishes
+ * the learner's own reading with a zero. Anything else gets the sentence on the form.
+ */
+export function invalidReadingText(typed: string): string {
+  const text = typed.trim()
+  if (!/^\d{1,2}(\.\d?)?$/.test(text)) return INVALID_ENTRY_TEXT.reading
+  return `${text} has too few significant figures for a burette reading. A burette is read to 0.01 mL, so the second decimal is part of the reading even when it is a zero: 1.60, not 1.6. Estimate it between the marks and write it.`
+}
+
 // Guided's answer to a reading off the meniscus. It does not say which way the reading is off.
 const reread = (typed: string) =>
   `${typed} is more than 0.02 mL from the meniscus, so it has not been recorded. Read the bottom of the curve. The numbers on a burette run downward from 0.00 at the top, so the reading is the value of the mark just above the meniscus plus your estimate of how far below that mark it sits.`

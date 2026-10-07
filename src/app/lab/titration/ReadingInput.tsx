@@ -1,7 +1,7 @@
 import { useId, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { parseReading } from '@/engine/titration'
-import { INVALID_ENTRY_TEXT } from './messages'
+import { invalidReadingText } from './messages'
 
 /**
  * accepted: the reading was recorded. Not accepted, with a text: refused, and the text says why.
@@ -26,7 +26,7 @@ export interface ReadingInputProps {
  */
 export function recordReading(text: string, onReading: ReadingInputProps['onReading']): ReadingReply & { invalid: boolean } {
   const readingUl = parseReading(text)
-  if (readingUl === null) return { accepted: false, text: INVALID_ENTRY_TEXT.reading, invalid: true }
+  if (readingUl === null) return { accepted: false, text: invalidReadingText(text), invalid: true }
   return { ...onReading(readingUl), invalid: false }
 }
 

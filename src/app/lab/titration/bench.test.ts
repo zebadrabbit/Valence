@@ -13,7 +13,7 @@ import { benchViewOf, type BenchAction } from './benchView'
 import { standY } from './buretteGeometry'
 import { DARK_PINK, PINK, type FlaskColour } from './flaskColour'
 import { meniscusText } from './meniscusText'
-import { BLOCKED_TEXT, INVALID_ENTRY_TEXT, OUTCOME_TEXT } from './messages'
+import { BLOCKED_TEXT, INVALID_ENTRY_TEXT, invalidReadingText, OUTCOME_TEXT } from './messages'
 import { ReadingInput, recordReading, type ReadingInputProps } from './ReadingInput'
 import { MeniscusWords, ReadingView } from './ReadingView'
 import { StopcockControls, type StopcockControlsProps } from './StopcockControls'
@@ -152,8 +152,22 @@ describe('what Record does with the text in the field', () => {
 
   it('refuses any other text with the reading sentence, marks it invalid and sends nothing', () => {
     sent.length = 0
-    for (const text of ['24.3', '24', '24,37', '24.370', '', 'abc', '-1.00', '1e1'])
+    for (const text of ['24,37', '24.370', '', 'abc', '-1.00', '1e1'])
       expect(recordReading(text, onReading)).toEqual({ accepted: false, text: INVALID_ENTRY_TEXT.reading, invalid: true })
+    expect(sent).toEqual([])
+  })
+
+  it('refuses a reading written short of two decimals with the hint on significant figures, naming what was typed', () => {
+    sent.length = 0
+    for (const text of ['48.4', '1.6', ' 24.3 ', '24', '24.']) {
+      const reply = recordReading(text, onReading)
+      expect(reply).toEqual({ accepted: false, text: invalidReadingText(text), invalid: true })
+      expect(reply.text).toContain(`${text.trim()} has too few significant figures`)
+      expect(reply.text).not.toBe(INVALID_ENTRY_TEXT.reading)
+    }
+    // The hint does not finish the reading for the learner: it never offers the typed value with a zero added.
+    expect(invalidReadingText('48.4')).not.toContain('48.40')
+    expect(invalidReadingText('24.37x')).toBe(INVALID_ENTRY_TEXT.reading)
     expect(sent).toEqual([])
   })
 
