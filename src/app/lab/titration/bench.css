@@ -1,0 +1,100 @@
+/*
+ * The sizes of the bench's two drawings, and the two animations of the stand. Loaded with the lab page, so none of
+ * it is in the app shell's stylesheet.
+ *
+ * Each drawing is as tall as the window allows and never shorter than 26rem, the least height at which the
+ * meniscus has been read from the enlarged scale. Where its column is a size container the drawing is also held
+ * to the column's width, so that it is never wider than its column.
+ */
+.bench-reading,
+.bench-stand {
+  display: block;
+  max-width: 100%;
+}
+.bench-reading {
+  height: min(clamp(26rem, calc(100vh - 22rem), 46rem), calc(100cqw * 576 / 260));
+}
+.bench-stand {
+  height: min(clamp(26rem, calc(100vh - 22rem), 46rem), calc(100cqw * 640 / 300));
+}
+
+/*
+ * The plume: a patch of pink where the titrant lands. One that fades is given its duration by the stand, from the
+ * lab's record; one that persists has no animation and stays. The stand draws neither a plume nor a drop under the
+ * app's reduced-motion setting, and the app's own rule would stop them if it did.
+ */
+.bench-plume {
+  opacity: 0.85;
+}
+.bench-plume-fading {
+  animation: bench-plume-fade ease-out forwards;
+}
+@keyframes bench-plume-fade {
+  to {
+    opacity: 0;
+  }
+}
+
+/* A single addition: a drop that falls from the tip into the neck of the flask. */
+.bench-drop {
+  animation: bench-drop-fall 220ms ease-in forwards;
+}
+@keyframes bench-drop-fall {
+  to {
+    transform: translateY(26px);
+    opacity: 0;
+  }
+}
+
+/*
+ * Where the bench's three groups sit, by the bench's own width and never the window's. The order in the page is
+ * shelf, stand, reading at every width. Narrow: the shelf runs across the top, as many tiles across as fit, and the
+ * stand and the reading view sit side by side under it. From 54rem: three columns, the shelf one tile across.
+ */
+.bench {
+  container: bench / inline-size;
+}
+.bench-grid {
+  display: grid;
+  gap: 1rem;
+  align-items: start;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+  grid-template-areas: 'shelf shelf' 'stand reading';
+}
+.bench-shelf {
+  grid-area: shelf;
+  display: grid;
+  gap: 0.5rem;
+  align-items: start;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+}
+.bench-stand-group {
+  grid-area: stand;
+  min-width: 0;
+}
+.bench-reading-group {
+  grid-area: reading;
+  min-width: 0;
+}
+/* The stand, then the stopcock's buttons: wrapping under it while the bench is narrow, in a column beside it from 54rem. */
+.bench-stand-row {
+  display: grid;
+  gap: 0.75rem;
+  align-items: center;
+}
+@container bench (min-width: 54rem) {
+  .bench-grid {
+    grid-template-columns: minmax(15rem, 1fr) minmax(22rem, 1.2fr) minmax(12rem, 0.85fr);
+    grid-template-areas: 'shelf stand reading';
+  }
+  .bench-shelf {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .bench-stand-row {
+    grid-template-columns: minmax(0, 1fr) 9rem;
+  }
+}
+/* The column a drawing is held to: its height is bounded by this box's width (100cqw above). */
+.bench-drawing {
+  container-type: inline-size;
+}

@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { bondCitations, citations, elementCitations, measurementCitations, periodicCitations } from './citations'
+import { bondCitations, citations, elementCitations, measurementCitations, periodicCitations, titrationCitations } from './citations'
 import { measure } from './measure'
 import { registry } from './registry'
+import { FIXTURE_SOURCES, titrationFixture } from './titration/fixture'
 
 const { sources, elements } = registry
 const element = (symbol: string) => elements.find((e) => e.symbol === symbol)!
@@ -114,5 +115,43 @@ describe('periodicCitations', () => {
 
   it('throws on a source id that does not resolve', () => {
     expect(() => periodicCitations([{ label: 'Density', sourceIds: ['missing'] }], undefined, sources)).toThrow(/unknown source "missing"/)
+  })
+})
+
+describe('titrationCitations', () => {
+  it("lists each constant, each bottle's classification and each bottle's note under its own source, each source once; a note that rests on two sources is under both", () => {
+    expect(summary(titrationCitations(titrationFixture(), FIXTURE_SOURCES))).toEqual([
+      ['water', ['Ion product of water']],
+      ['indicator-paper', ['Acid constants of phenolphthalein']],
+      ['indicator-record', ['Molar mass of phenolphthalein', 'Phenolphthalein indicator solution: hazard classification']],
+      ['listing', ['Strength of the indicator solution']],
+      ['drop', ['Volume of one drop of indicator']],
+      ['henry', ["Henry's law constant of carbon dioxide in water"]],
+      ['air', ['Carbon dioxide in air, 2025']],
+      ['carbonic', ['Acid constants of carbonic acid']],
+      ['hcl-record', ['Hydrochloric acid: hazard classification']],
+      ['hcl-sheet', ['Hydrochloric acid: hazards at the strength used']],
+      ['hcl-sheet-2', ['Hydrochloric acid: hazards at the strength used']],
+      ['naoh-record', ['Sodium hydroxide solution: hazard classification']],
+      ['naoh-sheet', ['Sodium hydroxide solution: hazards at the strength used']],
+      ['indicator-sheet', ['Phenolphthalein indicator solution: hazards at the strength used']],
+    ])
+  })
+
+  it('names every source of the record, and no other', () => {
+    const cited = titrationCitations(titrationFixture(), [...FIXTURE_SOURCES, { id: 'unused', url: 'https://example.org/unused', citation: 'Unused' }])
+    expect(cited.map((c) => c.source.id).sort()).toEqual(FIXTURE_SOURCES.map((s) => s.id).sort())
+  })
+
+  it('lists a constant of a list under its own source when the two differ', () => {
+    const data = titrationFixture()
+    data.constants.carbonicPKas[1]!.sourceId = 'water'
+    const cited = summary(titrationCitations(data, FIXTURE_SOURCES))
+    expect(cited[0]).toEqual(['water', ['Ion product of water', 'Acid constants of carbonic acid']])
+    expect(cited.find(([id]) => id === 'carbonic')).toEqual(['carbonic', ['Acid constants of carbonic acid']])
+  })
+
+  it('throws on a source id that does not resolve', () => {
+    expect(() => titrationCitations(titrationFixture(), FIXTURE_SOURCES.slice(1))).toThrow(/unknown source "water"/)
   })
 })

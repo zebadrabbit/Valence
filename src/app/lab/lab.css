@@ -1,0 +1,153 @@
+/*
+ * Where the parts of a lab page sit, and the colours of its roles. The Lab tab's DOM order is guide, bench,
+ * notebook at every width; this file only places them, and lays out the primer. Every rule of layout follows the
+ * width the page itself has, with the menu open or closed, never the window's. Loaded with a lab page, so none of
+ * it is in the app shell's stylesheet. Nothing here animates.
+ */
+
+/*
+ * The colour roles (roles.ts says what carries each). Each is defined once for the light theme and once for the
+ * dark, in the same hue: dark enough to read on the light theme's white, light enough to read on the dark theme's
+ * card. A failed result has no value of its own: it is the theme's destructive colour. Colour is an added cue.
+ * Each role sits on words or a mark that say the same, so nothing here may be the only place a thing is told.
+ */
+:root {
+  --lab-value: oklch(0.5 0.1 215);
+  --lab-entry: oklch(0.545 0.113 88);
+  --lab-done: oklch(0.5 0.14 150);
+  --lab-pink: oklch(0.53 0.21 355);
+  --lab-pink-deep: oklch(0.42 0.17 355);
+  --lab-held: oklch(0.555 0.18 42);
+}
+.dark {
+  --lab-value: oklch(0.82 0.12 210);
+  --lab-entry: oklch(0.89 0.17 100);
+  --lab-done: oklch(0.8 0.19 148);
+  --lab-pink: oklch(0.74 0.2 350);
+  --lab-pink-deep: oklch(0.67 0.23 355);
+  --lab-held: oklch(0.79 0.15 60);
+}
+.lab-value {
+  color: var(--lab-value);
+}
+.lab-entry {
+  color: var(--lab-entry);
+}
+.lab-done {
+  color: var(--lab-done);
+}
+.lab-failed {
+  color: var(--destructive);
+}
+.lab-pink {
+  color: var(--lab-pink);
+}
+.lab-pink-deep {
+  color: var(--lab-pink-deep);
+}
+.lab-held {
+  color: var(--lab-held);
+}
+
+/*
+ * The tab bar stays at the top of the window while a panel scrolls under it. Whatever is brought into view inside
+ * a panel, by focus or by a script, stops short of the bar and is not left behind it.
+ */
+.lab-panel,
+.lab-panel * {
+  scroll-margin-top: 4.5rem;
+}
+
+.lab-page {
+  container: lab / inline-size;
+}
+
+.lab-grid {
+  display: grid;
+  gap: 1rem;
+  align-items: start;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: 'guide' 'bench' 'notebook';
+}
+.lab-grid-no-guide {
+  grid-template-areas: 'bench' 'notebook';
+}
+.lab-guide {
+  grid-area: guide;
+  min-width: 0;
+}
+.lab-bench {
+  grid-area: bench;
+  min-width: 0;
+}
+.lab-notebook {
+  grid-area: notebook;
+  min-width: 0;
+}
+
+/* The notebook beside the bench. The bench's track is the one that grows first, up to the width its drawings fill. */
+@container lab (min-width: 78rem) {
+  .lab-grid {
+    grid-template-columns: minmax(56rem, 83rem) minmax(21rem, 1fr);
+    grid-template-areas: 'guide guide' 'bench notebook';
+  }
+  .lab-grid-no-guide {
+    grid-template-areas: 'bench notebook';
+  }
+}
+
+/*
+ * A guide draws both of its forms, one line and a list, and one of them is displayed, so that a screen reader
+ * meets one: the line while the guide runs across the top, the list once it is a column.
+ */
+.lab-guide-list {
+  display: none;
+}
+
+/* The guide as a column on the left. A lab with no guide keeps the two columns above. */
+@container lab (min-width: 110rem) {
+  .lab-grid:not(.lab-grid-no-guide) {
+    grid-template-columns: minmax(17rem, 1fr) minmax(56rem, 83rem) minmax(21rem, 1.2fr);
+    grid-template-areas: 'guide bench notebook';
+  }
+  .lab-guide-line {
+    display: none;
+  }
+  .lab-guide-list {
+    display: block;
+  }
+}
+
+/*
+ * The primer. Its list of topics is drawn once. Below 46rem of primer it is behind its button, above the card,
+ * and displayed only while the button has it listed; from 46rem it is a column beside the card and the button is
+ * not displayed, so a screen reader and the Tab key meet no control that does nothing.
+ */
+.primer {
+  container: primer / inline-size;
+}
+.primer-layout {
+  display: grid;
+  gap: 1rem;
+  align-items: start;
+  grid-template-columns: minmax(0, 1fr);
+}
+.primer-topics {
+  display: none;
+  margin-top: 0.5rem;
+}
+.primer-topics-listed {
+  display: grid;
+}
+@container primer (min-width: 46rem) {
+  .primer-layout {
+    grid-template-columns: 15rem minmax(0, 1fr);
+  }
+  .primer-topics-button {
+    display: none;
+  }
+  .primer-topics {
+    display: grid;
+    margin-top: 0;
+  }
+}

@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { z } from 'zod'
-import { cited, elementSchema, moleculeSchema, param, periodicElementSchema, reagentSchema, sourceSchema } from './schema'
+import { cited, elementSchema, hazardsSchema, moleculeSchema, param, periodicElementSchema, reagentSchema, sourceSchema } from './schema'
 
-const hazards = { signalWord: 'Danger', statements: ['Causes severe skin burns'], note: 'Dilute.', sourceId: 's1' }
+const hazards = { signalWord: 'Danger', statements: ['Causes severe skin burns'], note: { value: 'Dilute.', sourceId: 's1' }, sourceId: 's1' }
 
 describe('cited and param', () => {
   it('cited requires a sourceId', () => {
@@ -23,6 +23,27 @@ describe('sourceSchema', () => {
   it('requires an http(s) url', () => {
     expect(sourceSchema.safeParse({ id: 's1', url: 'https://example.org', citation: 'Example' }).success).toBe(true)
     expect(sourceSchema.safeParse({ id: 's1', url: 'example.org', citation: 'Example' }).success).toBe(false)
+  })
+})
+
+describe('hazardsSchema', () => {
+  it('accepts a note that is cited: { value, sourceId }', () => {
+    expect(hazardsSchema.safeParse(hazards).success).toBe(true)
+  })
+
+  it('rejects a note that is a bare string, which names no source', () => {
+    expect(hazardsSchema.safeParse({ ...hazards, note: 'Dilute.' }).success).toBe(false)
+    expect(hazardsSchema.safeParse({ ...hazards, note: { value: 'Dilute.' } }).success).toBe(false)
+  })
+
+  it('accepts a note that rests on a second source as well, named in alsoSourceId, and no other key', () => {
+    const note = { value: 'Dilute.', sourceId: 's1', alsoSourceId: 's2' }
+    expect(hazardsSchema.parse({ ...hazards, note }).note).toEqual(note)
+    expect(hazardsSchema.safeParse({ ...hazards, note: { ...note, alsoSourceId: '' } }).success).toBe(false)
+    expect(hazardsSchema.safeParse({ ...hazards, note: { ...note, alsoSourceId: ['s2'] } }).success).toBe(false)
+    expect(hazardsSchema.safeParse({ ...hazards, note: { ...note, thirdSourceId: 's3' } }).success).toBe(false)
+    // A second source with no first is not a cited note.
+    expect(hazardsSchema.safeParse({ ...hazards, note: { value: 'Dilute.', alsoSourceId: 's2' } }).success).toBe(false)
   })
 })
 

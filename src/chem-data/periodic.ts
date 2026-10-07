@@ -1,5 +1,6 @@
 import data from './periodic-table.json'
 import { periodicTableSchema, type PeriodicElement } from './schema'
+import { located } from './support'
 
 /**
  * Shown wherever a source lists no value for an element. Deliberately not "not measured": an empty
@@ -86,13 +87,8 @@ export type Description = { name?: string; text: string; sourceIds: string[]; su
 // A passage of any other source is given by `located`.
 export type Passage = readonly [sourceId: string, passage: string]
 
-/**
- * A passage of a source whose words are not this project's to copy: where it is (the heading or section, and the
- * address) and, in this project's own words, what it establishes. `establishes` completes "It establishes that".
- */
-export function located(url: string, where: string, establishes: string): string {
-  return `not quoted; see ${where}, ${url}. It establishes that ${establishes}`
-}
+// `located` is in support.ts, where a file that needs nothing else of this one can take it. It is still exported here.
+export { located }
 
 const openstax = (section: string) => `openstax-chem2e-${section}`
 const RED_BOOK = 'iupac-red-book-2005'

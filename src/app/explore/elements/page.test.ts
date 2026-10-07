@@ -405,6 +405,9 @@ describe('the description of a highlight', () => {
 })
 
 describe('the element card', () => {
+  // For a case that draws every element's card. Each runs near two seconds beside the rest of the suite, and
+  // vitest's default is five: a loaded machine or a CI runner is slower than the one a test was written on.
+  const EVERY_ELEMENT_TIMEOUT = 60_000
   const card = (symbol: string) => routed('/explore/elements', createElement(ElementCard, { element: element(symbol) }))
   // A row as the card draws it: the label, the value under it, then its sentences.
   const drawn = (label: string, value: string, sentences: readonly string[] = []) =>
@@ -486,7 +489,7 @@ describe('the element card', () => {
     expect(gold).not.toMatch(/<a [^>]*href="\/explore\//)
   })
 
-  it('shows the emission spectrum for hydrogen, sodium and xenon, and for no other element', () => {
+  it('shows the emission spectrum for hydrogen, sodium and xenon, and for no other element', { timeout: EVERY_ELEMENT_TIMEOUT }, () => {
     const shown = periodicTable.filter((e) => card(e.symbol).includes('Emission spectrum of the isolated atom')).map((e) => e.symbol)
     expect(shown).toEqual(['H', 'Na', 'Xe'])
     expect(card('H')).toContain('656.279 nm')
@@ -520,7 +523,7 @@ describe('the element card', () => {
     }
   })
 
-  it('renders for every element', () => {
+  it('renders for every element', { timeout: EVERY_ELEMENT_TIMEOUT }, () => {
     for (const e of periodicTable) expect([e.symbol, card(e.symbol).includes(`${e.name} (${e.symbol})</h2>`)]).toEqual([e.symbol, true])
   })
 })

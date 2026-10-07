@@ -33,10 +33,15 @@ export const speciesSchema = z.strictObject({
   sourceId: id,
 })
 
-const hazardsSchema = z.strictObject({
+// The record sourceId covers the signal word and the statements, which are one GHS classification.
+export const hazardsSchema = z.strictObject({
   signalWord: z.enum(['Danger', 'Warning', 'None']),
   statements: z.array(text),
-  note: text,
+  /**
+   * What holds at the strength used, which the classification need not describe. Cited on its own. A note that
+   * rests on two sources (two data sheets that between them cover the strength) names the second in `alsoSourceId`.
+   */
+  note: cited(text).extend({ alsoSourceId: id.optional() }),
   sourceId: id,
 })
 
@@ -327,6 +332,7 @@ export const registrySchema = z.strictObject({
 
 export type Source = z.infer<typeof sourceSchema>
 export type Species = z.infer<typeof speciesSchema>
+export type Hazards = z.infer<typeof hazardsSchema>
 export type Reagent = z.infer<typeof reagentSchema>
 export type Observation = z.infer<typeof observationSchema>
 export type Station = z.infer<typeof stationSchema>

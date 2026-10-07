@@ -6,12 +6,15 @@ Valence recreates common general chemistry bench labs so anyone can perform them
 
 ## Status
 
-Phases 1 and 2 of 5 are built. Phase 1 is the foundation: the app shell, themes, guest progress storage, and the chemistry-data validator. Phase 2 is the molecule explorer: 31 molecules in 3D and as Lewis structures, with atom, bond and measurement cards, three valence display levels, and a Ctrl+K search. The explorer also has a periodic table of all 118 elements, added after phase 2: coloured by chemical family or by a property, with a card of sourced values for each element and links to and from the molecules. Phase 3, the titration lab, is next, followed by the aqueous reactions lab and the mechanism timeline.
+Phases 1 to 3 of 5 are built. Phase 1 is the foundation: the app shell, themes, guest progress storage, and the chemistry-data validator. Phase 2 is the molecule explorer: 31 molecules in 3D and as Lewis structures, with atom, bond and measurement cards, three valence display levels, and a Ctrl+K search. The explorer also has a periodic table of all 118 elements, added after phase 2: coloured by chemical family or by a property, with a card of sourced values for each element and links to and from the molecules. Phase 3 is the titration lab: a sodium hydroxide solution is standardized against hydrochloric acid on a drawn bench, in a Guided or a Challenge mode, each trial is checked against a seeded model, and the run is still there after a reload. The lab needs a window at least 768 pixels wide. The aqueous reactions lab and the mechanism timeline are next.
+
+No chemistry instructor has reviewed the lab, no screen reader has been used on it, and it has been run in Chromium only. [Information for institutional reviewers](docs/for-institutions.md) says what was checked, by whom, and what was not.
 
 - [v1 design spec](docs/superpowers/specs/2026-10-03-valence-v1-design.md): what is being built first.
 - [Periodic table design spec](docs/superpowers/specs/2026-10-03-periodic-table-design.md), and [the research record it is built from](docs/research/periodic-table/README.md).
+- The titration lab's research record: [its sources, and which of them are kept](docs/research/phase-3/sources/README.md), and [the chemistry review held before its screens were built](docs/research/phase-3/gate-a.md).
 - [Original design document](Chem%20Lab%20Explorer%20-%20Design%20Document.md): the full vision, including labs planned after v1.
-- [Information for institutional reviewers](docs/for-institutions.md): IT, privacy, accessibility, procurement, and curriculum facts.
+- [Information for institutional reviewers](docs/for-institutions.md): IT, privacy, accessibility, procurement, curriculum and lab safety facts.
 
 ## Development
 
@@ -22,7 +25,7 @@ Requires Node 22.22 or a later 22 release, Node 24, or Node 26 or newer. Node 23
     npm test           # run the tests, including chem-data validation
     npm run lint       # architecture rules: chemistry code stays pure and deterministic
     npm run build      # lint, test, type-check, and build to dist/; a failure at any step stops the build
-    npm run build:data # regenerate src/chem-data/ JSON from docs/research/phase-2/ and docs/research/periodic-table/
+    npm run build:data # regenerate src/chem-data/ JSON from docs/research/phase-2/, docs/research/periodic-table/ and docs/research/phase-3/
     npm run build:expected # regenerate the expected-values test fixture from docs/research/phase-2/expected.json
     npm run cross-check # rewrite docs/research/periodic-table/cross-check.md from the saved sources
 
@@ -35,7 +38,7 @@ To have the validator reject specific institution names, create `src/chem-data/d
 - One mechanism timeline: HCl + NaHCO₃.
 - Guest-only; progress is saved in the browser.
 
-Every chemistry value in the app has a cited source. The explorer's values are hand-curated and covered by tests. The periodic table's values are built by script from saved copies of PubChem, CIAAW and NIST data, cross-checked, with a note on the card wherever a value needs one.
+Every chemistry value in the app has a cited source. The explorer's values are hand-curated and covered by tests. The periodic table's values are built by script from saved copies of PubChem, CIAAW and NIST data, cross-checked, with a note on the card wherever a value needs one. The titration lab's constants come from IAPWS, NIST, the NOAA Global Monitoring Laboratory, PubChem, a paper in Analytical Sciences, a supplier's catalogue page and two Wikipedia pages; the hazard statements on its bottles are those of Flinn Scientific's safety data sheets, with a note from a safety data sheet for the solution at the strength used (the indicator's from Ricca Chemical Company); and its primer rests on OpenStax Chemistry 2e, David Harvey's Analytical Chemistry 2.1 and pages on laboratory technique, quoting none of them. The safety data sheets and most of the other pages were read and are not kept, so the build cannot check the lab's record against them again. None of these publishers is connected with Valence or has reviewed it. The About page lists every source.
 
 ## License
 

@@ -7,6 +7,8 @@
 // Reads docs/research/periodic-table/ (saved downloads and decisions.json) and writes:
 //   periodic-table.json, element-index.json, and into sources.json its sources and the ones the group, period and
 //   block descriptions cite
+// Reads docs/research/phase-3/ (titration.json and the saved copies its sources/MANIFEST.json lists) and writes:
+//   titration/titration.json, and into sources.json the titration lab's sources
 //
 // Deterministic: the same inputs give byte-identical outputs. Anything
 // unexpected in the inputs stops the build with a message and writes nothing.
@@ -19,10 +21,12 @@ import { join } from 'node:path'
 import process from 'node:process'
 import { parseSdf } from './parse-sdf.mjs'
 import { checkConfiguration, noteProblem, parseCiaawAbridged, parseNistIe, parsePubChem } from './periodic-table-lib.mjs'
+import { checkAnnualMean, checkMolecularWeight, checkPublished, checkSha256, checkSheetHazards, checkWikipediaCopy } from './titration-lib.mjs'
 
 const root = join(import.meta.dirname, '..')
 const research = join(root, 'docs/research/phase-2')
 const periodicResearch = join(root, 'docs/research/periodic-table')
+const titrationResearch = join(root, 'docs/research/phase-3')
 const out = join(root, 'src/chem-data')
 
 function fail(message) {
@@ -940,6 +944,128 @@ function buildPeriodicTable(otherSourceIds) {
   return { elements, sources }
 }
 
+// ---------------------------------------------------------------------------
+// Titration lab
+//
+// The record is authored in docs/research/phase-3/titration.json: three bottles, the cited constants of the flask
+// model, and the model's parameters with their rationales. Every source is in sources/MANIFEST.json, and the ones
+// with a `file` have their copy kept beside it. A value whose source is kept is checked against the copy here. A
+// value read from a page or a PDF that is not kept cannot be: the manifest records what the source prints and
+// where, for a person to check, and src/chem-data/titration/inputs.test.ts holds the record to the manifest. The
+// three bottles' hazard statements are of that kind, each a sheet's that is read and not kept, and for them the
+// build itself holds the record to the manifest's rows. That is agreement between the record and the manifest. With
+// no copy kept, the build cannot check the record against the sheets themselves.
+
+const BOTTLES = ['hcl', 'naoh', 'indicator']
+const CONSTANTS = ['waterIonProduct', 'indicatorPKas', 'indicatorMolarMass', 'indicatorStrength', 'indicatorDropVolume', 'henryCo2', 'atmosphericCo2', 'carbonicPKas']
+// The sources whose kept copy a constant is checked against: the constant must cite that source and no other.
+const NOAA_ID = 'noaa-gml-co2-annmean-gl'
+const CARBONIC_ID = 'perrin-1982-wikipedia'
+const DROP_ID = 'drop-unit-wikipedia'
+const INDICATOR_RECORD_ID = 'pubchem-cid-4764'
+// No bottle's statements are read from a PubChem record (D4, as the owner confirmed and widened it on 2026-10-05:
+// the supplier's safety data sheets are the lab's reference for hazards). Each bottle carries the signal word and
+// the statements of that supplier's sheet for the concentrated or the pure substance: concentrated hydrochloric
+// acid, and sodium hydroxide and phenolphthalein themselves, the solids. The sheets were read and are not kept, so
+// each bottle must cite its own sheet and is held to the manifest's rows for it.
+const STATEMENT_SHEETS = { hcl: 'flinn-sds-395', naoh: 'flinn-sds-734', indicator: 'flinn-sds-591' }
+// "Toxic if inhaled". PubChem's record for CID 313, as it was read on 2026-10-04, printed this code under entries
+// named hydrogen chloride, the gas. D4 keeps the gas's statements off the acid's bottle, and its sheet does not
+// print the code, so the build refuses it there.
+const NEVER_ON = { hcl: ['H331'] }
+
+function buildTitration(otherSourceIds) {
+  const read = (name) => readFileSync(join(titrationResearch, name))
+  const input = JSON.parse(read('titration.json'))
+  const manifest = JSON.parse(read('sources/MANIFEST.json'))
+
+  const sources = manifest.sources.map(({ id, url, citation }) => {
+    if ([id, url, citation].some((text) => typeof text !== 'string' || text.trim() === '')) fail(`phase-3 MANIFEST.json: the source "${id}" needs an id, a url and a citation`)
+    if (otherSourceIds.includes(id)) fail(`phase-3 MANIFEST.json: the source id "${id}" is already in use`)
+    return { id, url, citation }
+  })
+  if (new Set(sources.map((s) => s.id)).size !== sources.length) fail('phase-3 MANIFEST.json repeats a source id')
+  const sourceOf = ({ sourceId }, where) => manifest.sources.find((s) => s.id === sourceId) ?? fail(`${where}: unknown source "${sourceId}"`)
+
+  // The kept copy of each source that has one, as text. It is the file the manifest hashed, so a check below reads
+  // what was read when the record was written.
+  const kept = new Map(
+    manifest.sources.map((source) => [
+      source.id,
+      [source]
+        .filter((copy) => copy.file !== undefined)
+        .map(({ file, sha256 }) => {
+          const bytes = read(join('sources', file))
+          checkSha256(bytes, sha256, file)
+          return bytes.toString('utf8')
+        }),
+    ]),
+  )
+  /** The kept copies of the source a value cites, which must be the source `id` where one is given. */
+  const copies = (cited, where, id = cited.sourceId) => {
+    if (cited.sourceId !== id) fail(`${where}: cites "${cited.sourceId}", but is checked against the kept copy of "${id}"`)
+    const texts = kept.get(sourceOf(cited, where).id)
+    if (texts.length === 0) fail(`${where}: the source "${id}" has no kept copy to check the value against`)
+    return texts
+  }
+
+  onlyKeys(input, ['bottles', 'constants', 'parameters'], 'titration.json')
+  onlyKeys(input.bottles, BOTTLES, 'titration.json: bottles')
+  onlyKeys(input.constants, CONSTANTS, 'titration.json: constants')
+
+  // Each bottle's statements are its sheet's. No bottle names an entry of a PubChem record any more, so none has a
+  // `reference`, and the record is written out as it is authored.
+  const bottles = Object.fromEntries(
+    BOTTLES.map((key) => {
+      const where = `titration.json: bottles.${key}`
+      onlyKeys(input.bottles[key], ['name', 'formula', 'pubchemCid', 'classifiedAs', 'hazards'], where)
+      const bottle = input.bottles[key]
+      onlyKeys(bottle.hazards, ['signalWord', 'statements', 'note', 'sourceId'], `${where}.hazards`)
+      // A note rests on one sheet, or on two that between them cover the strength: the second is `alsoSourceId`.
+      const { note } = bottle.hazards
+      onlyKeys(note, ['value', 'sourceId'], `${where}.hazards.note`, ['alsoSourceId'])
+      sourceOf(note, `${where}.hazards.note`)
+      if (note.alsoSourceId !== undefined) {
+        if (note.alsoSourceId === note.sourceId) fail(`${where}.hazards.note: alsoSourceId names "${note.alsoSourceId}", the source the note already cites`)
+        sourceOf({ sourceId: note.alsoSourceId }, `${where}.hazards.note.alsoSourceId`)
+      }
+      if (bottle.hazards.sourceId !== STATEMENT_SHEETS[key]) fail(`${where}.hazards: cites "${bottle.hazards.sourceId}", but this bottle's statements are those of the sheet "${STATEMENT_SHEETS[key]}"`)
+      const sheet = sourceOf(bottle.hazards, `${where}.hazards`)
+      if (kept.get(sheet.id).length > 0) fail(`${where}.hazards: the sheet "${sheet.id}" is cited as read and not kept, but the manifest lists a copy of it`)
+      checkSheetHazards(sheet, `bottles.${key}.hazards`, bottle.hazards, NEVER_ON[key] ?? [])
+      return [key, bottle]
+    }),
+  )
+
+  const { constants } = input
+  const where = (key) => `titration.json: constants.${key}`
+  for (const key of CONSTANTS) {
+    for (const constant of [constants[key]].flat()) {
+      onlyKeys(constant, ['value', 'unit', 'sourceId'], where(key), ['published', 'note', ...(key === 'atmosphericCo2' ? ['year'] : [])])
+      checkPublished(constant, where(key))
+      sourceOf(constant, where(key))
+    }
+  }
+  // The checks against the kept copies. Each compares the figure the record says its source prints, digit for digit.
+  const figure = (key, constant = constants[key]) => constant.published ?? fail(`${where(key)}: a value checked against a kept copy needs the figure its source prints`)
+  const { atmosphericCo2, indicatorMolarMass, indicatorDropVolume, carbonicPKas } = constants
+  checkAnnualMean(copies(atmosphericCo2, where('atmosphericCo2'), NOAA_ID)[0], atmosphericCo2.year, figure('atmosphericCo2'))
+  // The kept copy of PubChem's record for the indicator is its table of computed properties.
+  const properties = JSON.parse(copies(indicatorMolarMass, where('indicatorMolarMass'), INDICATOR_RECORD_ID)[0])
+  if (!properties.PropertyTable) fail(`${where('indicatorMolarMass')}: the kept copy is not PubChem's property table`)
+  checkMolecularWeight(properties, bottles.indicator.pubchemCid, figure('indicatorMolarMass'))
+  // The indicator's strength is not among them: its catalogue listing was read and is not kept, like the papers and
+  // the NIST pages, so it rests on what the manifest says the page printed on the day it was read.
+  for (const [key, list, id] of [['carbonicPKas', carbonicPKas, CARBONIC_ID], ['indicatorDropVolume', [indicatorDropVolume], DROP_ID]]) {
+    const [copy] = list.map((constant) => copies(constant, where(key), id)[0])
+    checkWikipediaCopy(JSON.parse(copy), sourceOf(list[0], where(key)).citation, list.map((constant) => figure(key, constant)))
+  }
+
+  for (const [key, parameter] of Object.entries(input.parameters)) onlyKeys(parameter, ['value', 'rationale'], `titration.json: parameters.${key}`)
+
+  return { titration: { bottles, constants, parameters: input.parameters }, sources }
+}
+
 // A static import list keeps the registry free of bundler-only APIs.
 function moleculeIndex(molecules) {
   const name = (id) => id.replace(/-(.)/g, (_, c) => c.toUpperCase())
@@ -973,7 +1099,9 @@ function main() {
   const { diagrams, sources: moSources } = buildMoDiagrams(molecules)
   const otherSources = [...elementSources, ...moleculeSources, ...moSources]
   const { elements: periodicTable, sources: periodicTableSources } = buildPeriodicTable(otherSources.map((s) => s.id))
-  const sources = [...otherSources, ...periodicTableSources]
+  const earlierSources = [...otherSources, ...periodicTableSources]
+  const { titration, sources: titrationSources } = buildTitration(earlierSources.map((s) => s.id))
+  const sources = [...earlierSources, ...titrationSources]
   if (new Set(sources.map((s) => s.id)).size !== sources.length) fail('duplicate source ids')
 
   // Everything is built before anything is written.
@@ -987,9 +1115,10 @@ function main() {
   writeFileSync(join(out, 'library-index.json'), toJson(libraryIndex(molecules)))
   writeFileSync(join(out, 'periodic-table.json'), toJson(periodicTable))
   writeFileSync(join(out, 'element-index.json'), toJson(elementIndex(periodicTable)))
+  writeFileSync(join(out, 'titration/titration.json'), toJson(titration))
   writeFileSync(join(out, 'sources.json'), toJson(sources))
   process.stdout.write(
-    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, ${sources.length} sources.\n`,
+    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, ${sources.length} sources.\n`,
   )
 }
 

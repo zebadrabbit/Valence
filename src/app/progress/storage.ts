@@ -66,45 +66,113 @@ export function browserStore(): { store: KeyValueStore; persistent: boolean } {
   }
 }
 
+export interface SessionStore extends KeyValueStore {
+  /** Forgets every refused save. clearAll calls it: once everything is cleared, nothing unsaved is left to lose. */
+  forgetRefused(): void
+}
+
 /**
- * The same store, but every write is reported to `onResult`: false for one the store refuses (storage full, or
- * blocked part-way through a session), before the error goes on to the caller, and true for one it takes.
+ * The store the app saves through, made from what browserStore gave. After every write, removal or clearing,
+ * `onPersistent` is told whether progress now outlasts the session: never with an in-memory store; with
+ * localStorage, only while no key's latest write was refused (storage full, or blocked part-way through a
+ * session). A refused write is reported before its error goes on to the caller.
  */
-export function reportingStore(store: KeyValueStore, onResult: (saved: boolean) => void): KeyValueStore {
+export function sessionStore(browser: { store: KeyValueStore; persistent: boolean }, onPersistent: (persistent: boolean) => void): SessionStore {
+  const { store } = browser
+  /** The keys whose latest write was refused. */
+  const refused = new Set<string>()
+  const report = () => onPersistent(browser.persistent && refused.size === 0)
   return {
     get length() {
       return store.length
     },
     key: (index) => store.key(index),
     getItem: (key) => store.getItem(key),
-    removeItem: (key) => store.removeItem(key),
     setItem: (key, value) => {
       try {
         store.setItem(key, value)
+        refused.delete(key)
       } catch (error) {
-        onResult(false)
+        refused.add(key)
         throw error
+      } finally {
+        report()
       }
-      onResult(true)
+    },
+    removeItem: (key) => {
+      store.removeItem(key)
+      refused.delete(key)
+      report()
+    },
+    forgetRefused: () => {
+      refused.clear()
+      report()
     },
   }
 }
 
+/** The not-saving notice, held once so that every page that shows it says the same sentence. */
+export const NOT_SAVING_TEXT =
+  'This browser is not allowing Valence to save data. Your progress and settings will last only until you close this tab.'
+
 /**
- * The store the app saves through, made from what browserStore gave. After every save `onPersistent` is told
- * whether progress now outlasts the session: never with an in-memory store; with localStorage, not after a save
- * it refused, and again after the next one it takes (as when "Clear my progress" has made room).
+ * The entries a load has set aside in this session, by the store they were in, until something is saved under them
+ * or everything is cleared. A page that starts fresh because of one says so (wasSetAside): without it the learner
+ * sees a lab that was never started and no word that a saved run existed and was kept.
  */
-export function sessionStore(browser: { store: KeyValueStore; persistent: boolean }, onPersistent: (persistent: boolean) => void): KeyValueStore {
-  return reportingStore(browser.store, (saved) => onPersistent(browser.persistent && saved))
+const setAside = new WeakMap<KeyValueStore, Set<string>>()
+
+/** True when a load of this entry found a value it could not use, and no new one has been saved under it since. */
+export const wasSetAside = (store: KeyValueStore, name: string) => setAside.get(store)?.has(PREFIX + name) ?? false
+
+/**
+ * The entries a load set aside but could not back up, by the store they are in. Until the old value has its
+ * backup, nothing is saved over it (spec 10: it is kept, not deleted), so the entry lasts for the session only.
+ * The refused backup keeps the not-saving notice up for as long as that is so.
+ */
+const notBackedUp = new WeakMap<KeyValueStore, Set<string>>()
+
+/**
+ * Copies a value that could not be loaded to the first backup key that is free, or that already holds this very
+ * value. Throws when the store will not take it.
+ */
+function backUp(store: KeyValueStore, name: string, raw: string): void {
+  // ponytail: backups are never pruned; each is one broken value, and "Clear my progress" removes them all.
+  let backup = BACKUP_PREFIX + name
+  for (let n = 2, kept = store.getItem(backup); kept !== null && kept !== raw; n++, kept = store.getItem(backup)) {
+    backup = `${BACKUP_PREFIX}${name}:${n}`
+  }
+  store.setItem(backup, raw)
 }
 
+/** False when the store refused the write, or when the entry still holds a value that could not be loaded and has no backup yet. */
 export function saveEntry(store: KeyValueStore, name: string, version: number, data: unknown): boolean {
+  const key = PREFIX + name
   try {
-    store.setItem(PREFIX + name, JSON.stringify({ version, data }))
+    const waiting = notBackedUp.get(store)
+    if (waiting?.has(key)) {
+      // There may be room now. If not, this throws and the old value stays where it is.
+      const old = store.getItem(key)
+      if (old !== null) backUp(store, name, old)
+      waiting.delete(key)
+    }
+    store.setItem(key, JSON.stringify({ version, data }))
+    setAside.get(store)?.delete(key)
     return true
   } catch {
     return false
+  }
+}
+
+/** The data a stored value holds for this version and schema, or undefined where it cannot be read as that. Changes nothing. */
+export function readEntry<T>(raw: string, version: number, schema: z.ZodType<T>): T | undefined {
+  try {
+    const envelope = envelopeSchema.parse(JSON.parse(raw))
+    if (envelope.version !== version) return undefined
+    const data = schema.safeParse(envelope.data)
+    return data.success ? data.data : undefined
+  } catch {
+    return undefined
   }
 }
 
@@ -113,32 +181,23 @@ export function saveEntry(store: KeyValueStore, name: string, version: number, d
  * parsed, has another version, or fails the schema is moved to a backup key
  * (never deleted outright) and null is returned, so the caller starts fresh.
  * A later broken value does not replace an earlier backup: it goes under the
- * same key with ":2", ":3", ... after it.
+ * same key with ":2", ":3", ... after it. Where the store is too full for the
+ * backup, the value stays under its own key and saveEntry refuses to write
+ * over it until a save finds room to back it up first.
  */
 export function loadEntry<T>(store: KeyValueStore, name: string, version: number, schema: z.ZodType<T>): T | null {
   const key = PREFIX + name
   const raw = store.getItem(key)
   if (raw === null) return null
+  const data = readEntry(raw, version, schema)
+  if (data !== undefined) return data
+  setAside.set(store, (setAside.get(store) ?? new Set()).add(key))
   try {
-    const envelope = envelopeSchema.parse(JSON.parse(raw))
-    if (envelope.version === version) {
-      const data = schema.safeParse(envelope.data)
-      if (data.success) return data.data
-    }
-  } catch {
-    // fall through to the backup
-  }
-  try {
-    // The first backup key that is free, or that already holds this very value.
-    // ponytail: backups are never pruned; each is one broken value, and "Clear my progress" removes them all.
-    let backup = BACKUP_PREFIX + name
-    for (let n = 2, kept = store.getItem(backup); kept !== null && kept !== raw; n++, kept = store.getItem(backup)) {
-      backup = `${BACKUP_PREFIX}${name}:${n}`
-    }
-    store.setItem(backup, raw)
+    backUp(store, name, raw)
     store.removeItem(key)
   } catch {
-    // Storage is full: leave the bad entry where it is.
+    // Storage is full: the bad entry stays where it is, and saveEntry will not write over it.
+    notBackedUp.set(store, (notBackedUp.get(store) ?? new Set()).add(key))
   }
   return null
 }
@@ -146,6 +205,9 @@ export function loadEntry<T>(store: KeyValueStore, name: string, version: number
 /**
  * Reads an activity's status without validating or resetting its entry. `version` is the one the activity
  * loads with: an entry of another version is one loadEntry would set aside, so it counts as not started.
+ * ponytail: an entry of this version that its activity's schema refuses still reads here as begun, until the
+ * activity's page has loaded it, set it aside and said so. Home would have to load the activity's schema, and
+ * with it the lab, to know sooner.
  */
 export function peekStatus(store: KeyValueStore, name: string, version: number): ActivityStatus {
   const raw = store.getItem(PREFIX + name)
@@ -182,6 +244,10 @@ export function exportAll(store: KeyValueStore): string {
   return JSON.stringify(out, null, 2)
 }
 
-export function clearAll(store: KeyValueStore): void {
+export function clearAll(store: KeyValueStore & { forgetRefused?(): void }): void {
   for (const key of ownKeys(store)) store.removeItem(key)
+  notBackedUp.delete(store)
+  setAside.delete(store)
+  // An entry whose every save was refused was never stored, so no removal above answers for it.
+  store.forgetRefused?.()
 }

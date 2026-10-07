@@ -8,3 +8,5 @@ coverage/
 .DS_Store
 .claude/settings.local.json
 src/chem-data/denylist.local.json
+# Written by scripts/fingerprint-sources.mjs for the no-quotation test. Not kept: see docs/research/phase-3/sources/README.md.
+docs/research/phase-3/sources/quotation-fingerprint.json

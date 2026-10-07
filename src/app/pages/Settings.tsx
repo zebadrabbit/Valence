@@ -2,7 +2,7 @@ import { useId } from 'react'
 import { useAppState } from '@/app/AppState'
 import { PageHeader } from '@/app/PageHeader'
 import { VALENCE_LEVELS, type Prefs, type Tri } from '@/app/preferences'
-import { exportAll } from '@/app/progress/storage'
+import { exportAll, NOT_SAVING_TEXT } from '@/app/progress/storage'
 import { Button } from '@/components/ui/button'
 
 const SELECT_CLASS = 'h-9 rounded-md border bg-background px-2 text-sm'
@@ -42,8 +42,7 @@ export function Settings() {
 
       {!persistent && (
         <p role="status" className="mb-6 max-w-prose rounded-md border p-3 text-sm">
-          This browser is not allowing Valence to save data. Your progress and settings will last only until you close
-          this tab.
+          {NOT_SAVING_TEXT}
         </p>
       )}
 

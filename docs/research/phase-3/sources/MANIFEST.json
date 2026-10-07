@@ -1,0 +1,749 @@
+{
+  "retrieved": "2026-10-04",
+  "about": "Every source of the titration lab's record (docs/research/phase-3/titration.json) and of its primer (src/chem-data/titration/primer.ts), each fetched and read on the retrieval date, or on the later date its own citation gives. A source with `file` has its copy in this folder, as downloaded, with the sha256 of that copy; a source with none was read and no copy is kept. `fetchedSha256`, on a source with no copy, is the sha256 of the page as it was fetched on the day it was read, or, for a page that a script draws (the sheets whose ids begin `flinn-sds-`), of the text the page showed in a browser that day: a record of which page that was, not the hash of any file here, and nothing checks it. Each `supports` row names one stored value by its path in the record, gives in `prints` the figure or label exactly as the source prints it, and says in `where`, in this project's words, where it is. A row whose field is `primer` marks a source the primer rests on: its `prints` is a title or a heading as the source prints it, and which passage a paragraph rests on, and what that passage establishes, is said in the paragraph's support line in the primer. The statements of all three bottles are those of one supplier's safety data sheets, read and not kept: the sheet for concentrated hydrochloric acid, and the sheets for sodium hydroxide and for phenolphthalein themselves, the solids. The owner asked for this supplier's sheets as the lab's reference for hazards. The note under the acid's statements and the note under the base's rest on the same supplier's sheets for solutions of the strength on the bench, two for the acid and one for the base; the note under the indicator's rests on another supplier's sheet, for a solution of the strength and solvent the bottle is taken to be, because the first supplier's sheet for a phenolphthalein solution is for one in alcohol alone. No bottle has a `reference`: the rows of each sheet give what it prints, and those of `flinn-sds-395` say in which form the statements are stored and why. README.md in this folder gives the attribution the two Wikipedia copies require.",
+  "sources": [
+    {
+      "id": "tamura-1996",
+      "url": "https://www.jstage.jst.go.jp/article/analsci1985/12/6/12_6_927/_pdf",
+      "citation": "Tamura, Z.; Abe, S.; Ito, K.; Maeda, M. Spectrophotometric Analysis of the Relationship between Dissociation and Coloration, and of the Structural Formulas of Phenolphthalein in Aqueous Solution. Anal. Sci. 1996, 12 (6), 927-930. https://doi.org/10.2116/analsci.12.927 (read as the publisher's PDF on J-STAGE, linked here; retrieved 2026-10-04).",
+      "supports": [
+        {
+          "field": "constants.indicatorPKas[0]",
+          "prints": "9.05",
+          "where": "The abstract, and the results on page 929: the first of phenolphthalein's two acid constants, estimated from absorption spectra measured in 0.2 M phosphate buffers at 25 ± 2 °C."
+        },
+        {
+          "field": "constants.indicatorPKas[1]",
+          "prints": "9.50",
+          "where": "The same two places: the second acid constant. The abstract says that only the form that has lost both protons is coloured, and gives a third constant of 12 for the slow fading in strong base, which the model leaves out."
+        }
+      ]
+    },
+    {
+      "id": "iapws-r11-24",
+      "url": "https://iapws.org/technical-guidance/release/Ionization.download",
+      "citation": "International Association for the Properties of Water and Steam. IAPWS R11-24, Revised Release on the Ionization Constant of H2O (2024) (retrieved 2026-10-04).",
+      "supports": [
+        {
+          "field": "constants.waterIonProduct",
+          "prints": "13.99",
+          "where": "Table 3, the first row (liquid water at 0.1 MPa below 100 °C), the column for 25 °C: the release's pK_w. Section 3 says the model takes the ions on the molal standard state."
+        },
+        {
+          "field": "constants.waterIonProduct.note",
+          "prints": "13.906672",
+          "where": "Table 2, the release's own test value at 300 K and a density of 1.0 g/cm³. The equations (2) to (4), written out with the parameters of Table 1, were checked against it before being worked at 298.15 K and 0.99705 g/cm³, where they give 13.994."
+        }
+      ]
+    },
+    {
+      "id": "nist-webbook-water-density",
+      "url": "https://webbook.nist.gov/cgi/fluid.cgi?Action=Load&ID=C7732185&Type=IsoBar&Digits=5&P=0.1&THigh=25&TLow=25&TInc=1&RefState=DEF&TUnit=C&PUnit=MPa&DUnit=kg%2Fm3&HUnit=kJ%2Fmol&WUnit=m%2Fs&VisUnit=uPa*s&STUnit=N%2Fm",
+      "citation": "Lemmon, E. W.; Bell, I. H.; Huber, M. L.; McLinden, M. O. Thermophysical Properties of Fluid Systems. In NIST Chemistry WebBook, NIST Standard Reference Database Number 69; Linstrom, P. J., Mallard, W. G., Eds.; National Institute of Standards and Technology: Gaithersburg, MD. https://doi.org/10.18434/T4D303 Isobaric properties for water at 0.1 MPa and 25 °C (retrieved 2026-10-04).",
+      "supports": [
+        {
+          "field": "constants.waterIonProduct.note",
+          "prints": "997.05",
+          "where": "The table of isobaric data at 0.1 MPa, its one row (25 °C), the density column in kg/m³. It is the density of liquid water used to work the release's equation and to convert pK_w from the molal to the molar scale."
+        }
+      ]
+    },
+    {
+      "id": "nist-webbook-co2-henry",
+      "url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C124389&Mask=10",
+      "citation": "NIST Chemistry WebBook, NIST Standard Reference Database Number 69; Linstrom, P. J., Mallard, W. G., Eds.; National Institute of Standards and Technology: Gaithersburg, MD. Carbon dioxide, Henry's Law data, compiled by R. Sander (retrieved 2026-10-04).",
+      "supports": [
+        {
+          "field": "constants.henryCo2",
+          "prints": "0.034",
+          "where": "The table of Henry's law data, the column for the constant for solubility in water at 298.15 K, in mol/(kg*bar). Eleven of its seventeen rows print this figure; the others print 0.035 three times and 0.045, 0.032 and 0.031 once each. On the retrieval date no row named its reference."
+        }
+      ]
+    },
+    {
+      "id": "noaa-gml-co2-annmean-gl",
+      "url": "https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_annmean_gl.txt",
+      "citation": "NOAA Global Monitoring Laboratory. Trends in Atmospheric Carbon Dioxide: globally averaged marine surface annual mean data (co2_annmean_gl.txt), file created 2026-09-05 (retrieved 2026-10-04). See https://gml.noaa.gov/ccgg/trends/ for the method.",
+      "file": "noaa-co2-annmean-gl.txt",
+      "sha256": "e0b1f499baad55c72447c91566847b547c3c3b613e20c93366de694a60e6b57d",
+      "supports": [
+        {
+          "field": "constants.atmosphericCo2",
+          "prints": "425.62",
+          "where": "The row for the year 2025, the column of means, beside an uncertainty of 0.05. The file's header gives the unit as a mole fraction in dry air in micromoles per mole (ppm), and says that the last year's figure may still be revised."
+        }
+      ]
+    },
+    {
+      "id": "perrin-1982-wikipedia",
+      "url": "https://en.wikipedia.org/w/index.php?title=Carbonic_acid&oldid=1376246456",
+      "citation": "Perrin, D. D., Ed. Ionisation Constants of Inorganic Acids and Bases in Aqueous Solution, 2nd ed.; IUPAC Chemical Data Series 29; Pergamon: Oxford, 1982. The book was not read: the two constants were taken from a secondary transcription, Wikipedia's article Carbonic acid, revision 1376246456 of 2026-09-23, linked here, whose infobox cites the book's entry for carbonic acid (retrieved 2026-10-04).",
+      "file": "wikipedia-carbonic-acid-1376246456.json",
+      "sha256": "8560a47cb792ec967da3f25057418538402186e55ad3301b37d91a8f18225f81",
+      "supports": [
+        {
+          "field": "constants.carbonicPKas[0]",
+          "prints": "6.35",
+          "where": "The infobox's acidity line, the second of its three figures, the one marked hydrous, with no temperature beside it. The first figure, 3.75, is marked anhydrous and 25 °C and is not the one the model uses. The page's section on bicarbonate and carbonate prints 6.35 again for this constant, and before it 6.77, worked out for 25 °C and a solution with no other ions."
+        },
+        {
+          "field": "constants.carbonicPKas[1]",
+          "prints": "10.33",
+          "where": "The same line of the infobox, its third figure, with no temperature beside it: the second constant. The page's section on bicarbonate and carbonate prints 9.93 for this constant, worked out for 25 °C and a solution with no other ions. Beside its second 6.35 the same section prints a difference of 3.49 and cites for it Pines et al., J. Phys. Chem. B 2016, 120, 2440, a paper this project did not read; the difference is not taken as a value of this constant and nothing is worked from it."
+        }
+      ]
+    },
+    {
+      "id": "usgs-phreeqc-dat",
+      "url": "https://water.usgs.gov/water-resources/software/PHREEQC/",
+      "citation": "U.S. Geological Survey. PHREEQC version 3, release 3.8.6-17100: the database file database/phreeqc.dat in the archive phreeqc-3.8.6-17100.tar.gz, which the page linked here lists; read and not kept (retrieved 2026-10-05). A copy of the file on GitHub (https://github.com/usgs-coupled/phreeqc3, database/phreeqc.dat at commit b0b3be7), fetched the same day, prints the same two figures. That a log_k in such a file is the constant at 25 °C is the definition in the program's manual: Parkhurst, D. L.; Appelo, C. A. J. Description of Input and Examples for PHREEQC Version 3; U.S. Geological Survey Techniques and Methods, book 6, chapter A43; 2013; the entry for SOLUTION_SPECIES (https://water.usgs.gov/water-resources/software/PHREEQC/documentation/phreeqc3-html/phreeqc3-50.htm, read the same day).",
+      "supports": [
+        {
+          "field": "constants.carbonicPKas[0].note",
+          "prints": "16.681",
+          "where": "Under SOLUTION_SPECIES, the log_k line of the reaction in which carbonate takes up two hydrogen ions and gives dissolved carbon dioxide and water (line 241 of the file): the constant at 25 °C, by the manual's definition of log_k. The first constant with dissolved carbon dioxide as the acid is this figure less the 10.329 of the reaction before it, 6.352, which is worked out in the note and not printed in the file."
+        },
+        {
+          "field": "constants.carbonicPKas[0].note",
+          "prints": "10.329",
+          "where": "Under SOLUTION_SPECIES, the log_k line of the reaction in which carbonate takes up one hydrogen ion and gives bicarbonate (line 234 of the file): the constant at 25 °C, taken from the 16.681 to give the first constant."
+        },
+        {
+          "field": "constants.carbonicPKas[1].note",
+          "prints": "10.329",
+          "where": "The same line: read the other way, bicarbonate giving up its hydrogen ion, it is the second constant at 25 °C."
+        }
+      ]
+    },
+    {
+      "id": "drop-unit-wikipedia",
+      "url": "https://en.wikipedia.org/w/index.php?title=Drop_(unit)&oldid=1314848686",
+      "citation": "Wikipedia contributors. Drop (unit); Wikipedia, revision 1314848686 of 2025-10-03, linked here (retrieved 2026-10-04).",
+      "file": "wikipedia-drop-unit-1314848686.json",
+      "sha256": "092e901047eebaf7fa1de3faff3d48cbf4cbd6433b1935616e298fbd4d8ea259",
+      "supports": [
+        {
+          "field": "constants.indicatorDropVolume",
+          "prints": "0.05",
+          "where": "The article's account of the drop in pharmacy: the metric drop, in mL, which it also gives as 50 μL and as 20 drops to the millilitre. The sentence that gives the figure carries no reference of its own."
+        }
+      ]
+    },
+    {
+      "id": "pubchem-cid-4764",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/compound/4764",
+      "citation": "PubChem, National Library of Medicine (NCBI). Compound summary for CID 4764 (phenolphthalein): the computed molecular weight (data: https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/4764/property/MolecularWeight,MolecularFormula,IUPACName/JSON, retrieved 2026-10-04).",
+      "file": "pubchem-cid-4764-properties.json",
+      "sha256": "10623f113cc75cb929c5c93d34ed46c84ca207056442bc8fd63f756b283df4f3",
+      "supports": [
+        {
+          "field": "constants.indicatorMolarMass",
+          "prints": "318.3",
+          "where": "The kept copy, PubChem's table of computed properties for the compound: the value of MolecularWeight, in g/mol; MolecularFormula beside it prints C20H14O4."
+        }
+      ]
+    },
+    {
+      "id": "ricca-5600",
+      "url": "https://www.riccachemical.com/products/chemical-indicators/ph-indicators/acid-base-indicators/5600-(-r5600000-)",
+      "citation": "Ricca Chemical Company. Catalogue listing for product number 5600 (R5600000), a phenolphthalein indicator solution of 0.5% (w/v) in 50% (v/v) alcohol, neutralized (read on 2026-10-04; no copy is kept).",
+      "fetchedSha256": "7f425aaba0925aefceaf7113f6f77e1a4cc173b7363b0b90b38564a221156edd",
+      "supports": [
+        {
+          "field": "constants.indicatorStrength",
+          "prints": "0.5",
+          "where": "The page's title and the product's heading: the strength of the solution, a percentage."
+        },
+        {
+          "field": "constants.indicatorStrength.note",
+          "prints": "(w/v)",
+          "where": "Directly after the percentage sign in the same heading: the basis the listing states, weight per volume."
+        },
+        {
+          "field": "constants.indicatorStrength.note",
+          "prints": "50% (v/v) Alcohol",
+          "where": "The same heading, after the strength: the solvent. The listing does not say which alcohol; the heading ends with the word Neutralized."
+        },
+        {
+          "field": "constants.indicatorStrength.note",
+          "prints": "5 g/L",
+          "where": "The table of reference methods lower on the page, in the reagent name of an ASTM method this product serves: the same strength as a mass in a volume, which is 0.5 g in 100 mL."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-395",
+      "url": "https://www.flinnsci.com/sds_395-hydrochloric-acid-6-m---12-m-concentrated/sds_395",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Hydrochloric Acid 6 M - 12 M (Concentrated), SDS number sds_395; revision date December 3, 2018 (read on 2026-10-05; no copy is kept).",
+      "fetchedSha256": "7f7a4674e69680d31910c4146a6f1e8a7527185259521bcd8de94ad93114b7c8",
+      "supports": [
+        {
+          "field": "bottles.hcl.classifiedAs",
+          "prints": "6 M - 12 M (Concentrated)",
+          "where": "The sheet's title, after the words Hydrochloric Acid: the strengths the sheet is for. The heading over the bottle's statements gives them as 6 M to 12 M."
+        },
+        {
+          "field": "bottles.hcl.classifiedAs",
+          "prints": "20-38%",
+          "where": "Section 3, the concentration column, in the row for hydrochloric acid, the rest being water: the composition the sheet gives for the solution its title names. The sheet does not say on what basis the percentage is."
+        },
+        {
+          "field": "bottles.hcl.hazards",
+          "prints": "December 3, 2018",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "bottles.hcl.hazards.signalWord",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Danger, the form its schema has for the word."
+        },
+        {
+          "field": "bottles.hcl.hazards.statements[0]",
+          "prints": "Causes severe skin and eye burns and damage (H314+H318)",
+          "where": "Section 2, the first of the three hazard classes it lists: category 1, for corrosion or irritation of the skin and damage to the eyes. The sheet prints each statement and then its code or codes in brackets, and where it pairs two codes it joins them with a plus sign and gives the pair one statement in wording of its own. The record stores the sheet's own three lines, each with its codes in front as printed, then a colon and the statement, and not one line for each code in the GHS's standard wording for that code: the sheet does not print that wording, and a line for each code would put under this source words that are not in it."
+        },
+        {
+          "field": "bottles.hcl.hazards.statements[1]",
+          "prints": "Harmful if swallowed or inhaled (H332+H302)",
+          "where": "Section 2, the second of the three: category 4, for acute toxicity by mouth and by breathing in. The two codes are stored in the order the sheet prints them."
+        },
+        {
+          "field": "bottles.hcl.hazards.statements[2]",
+          "prints": "May be corrosive to metals (H290)",
+          "where": "Section 2, the last of the three: category 1, for corrosion of metals. The section prints no other hazard code, and so not H331, which the build refuses on this bottle. After the three classes it has one more sentence, on a cancer listing for mists of the acid in industry: that sentence carries no hazard code, is not a GHS hazard statement, and is not carried into the record. Nor are the precautionary statements the section prints beside two of the classes, whose codes begin with P."
+        },
+        {
+          "field": "primer",
+          "prints": "Hydrochloric Acid 6 M - 12 M (Concentrated) Safety Data Sheet (SDS)",
+          "where": "The sheet's title. The primer's safety card rests on the title and on section 2, as the rows above record them."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-395.2",
+      "url": "https://www.flinnsci.com/sds_395.2-hydrochloric-acid-solution-0.1-m---2.4-m/sds_395.2",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Hydrochloric Acid Solution 0.1 M - 2.4 M, SDS number sds_395.2; revision date December 3, 2018 (read on 2026-10-05; no copy is kept).",
+      "fetchedSha256": "e87543f4779f511cff7a0c1f1c63896c9269d8ac45586be975e4003b4944f3c7",
+      "supports": [
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "0.1 M - 2.4 M",
+          "where": "The sheet's title, after the words Hydrochloric Acid Solution: the strengths the sheet is for. By this title the 51 values of the bottle's label from 0.1000 to 0.1050 M are under this sheet, and the 150 below them under the sheet for less than 0.1 M (`flinn-sds-395.3`). The note rests on both, and says that the acid is handled as this one, the stricter, says: that is the owner's decision of 2026-10-05."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "December 3, 2018",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the note gives it as Danger."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "Causes severe skin burns and eye damage (H314)",
+          "where": "Section 2, the first of the three hazard classes it lists: category 1, for corrosion or irritation of the skin. The note gives the code and says the statement in the project's words."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "May cause respiratory irritation (H335)",
+          "where": "Section 2, the second of the three: category 3, for toxicity to one organ after a single exposure, here irritation of the airways."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "May be harmful if swallowed (H303)",
+          "where": "Section 2, the last of the three: category 5, for acute toxicity by mouth. The section prints no other hazard code. It prints one precautionary statement, whose code begins with P, and after the three classes the sentence on a cancer listing for mists of the acid in industry that the sheet for concentrated acid has: neither of those is a GHS hazard statement, and they are not carried into the record."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "2-10%",
+          "where": "Section 3, the concentration column, in the row for hydrochloric acid, the rest being water. The sheet does not say on what basis the percentage is. Taken by mass, 2% is about 0.55 mol/L (worked out as the note's 0.4% is), so the table starts well above the 0.1 M of the sheet's own title, and above every value of this bottle's label. The note follows the titles, which put the label on both sides of the line between the two sheets, and does not use this figure."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "P280",
+          "where": "Section 8: the precautionary statement that calls for eye protection, gloves and protective clothing."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "P271",
+          "where": "Sections 7 and 8: the precautionary statement that the acid is used only in a hood or where the air is well changed."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "P305+P351+P338",
+          "where": "Section 4, under the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that. The sheet gives no number of minutes."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "P310",
+          "where": "Section 4, straight after the codes for the eyes: a poison centre or a doctor is to be called at once. The same section says that after contact with the skin or the hair the clothing that was wetted is taken off at once and the skin rinsed with water."
+        },
+        {
+          "field": "primer",
+          "prints": "Hydrochloric Acid Solution 0.1 M - 2.4 M Safety Data Sheet (SDS)",
+          "where": "The sheet's title. The primer's safety card rests on the title and on sections 2, 4 and 8, as the rows above record them."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-395.3",
+      "url": "https://www.flinnsci.com/sds_395.3-hydrochloric-acid-solution-less-than-0.1-m/sds_395.3",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Hydrochloric Acid Solution Less than 0.1 M, SDS number sds_395.3; revision date December 3, 2018 (read on 2026-10-05; no copy is kept).",
+      "fetchedSha256": "ec9b827d09641955c24e33d8cf7004b07f3c37db6ced890b08a36fdc8655eff8",
+      "supports": [
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "Less than 0.1 M",
+          "where": "The sheet's title, after the words Hydrochloric Acid Solution: the strengths the sheet is for. The bottle's label runs from 0.0850 to 0.1050 M, so by this title 150 of its 201 values, those below 0.1000 M, are under this sheet, and the other 51 are under the sheet for 0.1 M to 2.4 M (`flinn-sds-395.2`). The note rests on both."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "December 3, 2018",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "WARNING",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the note gives it as Warning."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "May be harmful if swallowed, inhaled or in contact with skin (H303+H313+H333)",
+          "where": "Section 2, the first of the two hazard classes it lists: category 5, for acute toxicity by mouth, through the skin and by breathing in. The note gives the three codes and says the statement in the project's words."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "Causes skin and eye irritation (H315+H320)",
+          "where": "Section 2, the second and last of the two: categories 2 and 2B, for irritation of the skin and of the eyes. The section prints no other hazard code and no precautionary statement. After the two classes it has the sentence on a cancer listing for mists of the acid in industry that the sheet for concentrated acid has: that sentence carries no hazard code, is not a GHS hazard statement, and is not carried into the record."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "<2%>",
+          "where": "Section 3, the concentration column, in the row for hydrochloric acid, the rest being water; it is printed so, with both brackets. The note's 0.4% is worked out from the molarity and not read here."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "P280",
+          "where": "Section 8: the precautionary statement that calls for eye protection, gloves and protective clothing."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "P305+P351+P338",
+          "where": "Section 4, under the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that. The sheet gives no number of minutes. The same section says that skin is to be washed with plenty of water, and that medical advice is to be sought if irritation of the eyes lasts or irritation of the skin sets in. The acid's note gives the first aid of the stricter sheet (`flinn-sds-395.2`); the primer's safety card says what this sheet and the other two have in common."
+        },
+        {
+          "field": "primer",
+          "prints": "Hydrochloric Acid Solution Less than 0.1 M Safety Data Sheet (SDS)",
+          "where": "The sheet's title. The primer's safety card rests on the title and on sections 2, 4 and 8, as the rows above record them."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-734",
+      "url": "https://www.flinnsci.com/sds_734-sodium-hydroxide/sds_734",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Hydroxide, SDS number sds_734; revision date March 25, 2014 (read on 2026-10-05; no copy is kept).",
+      "fetchedSha256": "c154c843826cbb76d3c670a26f0cfb6201036f36f4c3d7464846c371d9d11317",
+      "supports": [
+        {
+          "field": "bottles.naoh.classifiedAs",
+          "prints": "Sodium Hydroxide",
+          "where": "The sheet's title, before the words Safety Data Sheet: the substance the sheet is for, with no strength. Section 3 lists sodium hydroxide alone, with no water and nothing in its concentration column, so the sheet is for the substance itself and not for a solution of it. The heading over the bottle's statements calls that the pure substance; the sheet does not use the word."
+        },
+        {
+          "field": "bottles.naoh.classifiedAs",
+          "prints": "Sodium hydroxide, solid",
+          "where": "Section 14, the shipping name: the form the sheet is for. Section 9 describes the substance as pellets or flakes. The heading over the bottle's statements says solid sodium hydroxide."
+        },
+        {
+          "field": "bottles.naoh.hazards",
+          "prints": "March 25, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "bottles.naoh.hazards.signalWord",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Danger, the form its schema has for the word."
+        },
+        {
+          "field": "bottles.naoh.hazards.statements[0]",
+          "prints": "Causes severe skin burns and eye damage (H314)",
+          "where": "Section 2, the first of the two hazard classes it lists: category 1, for corrosion or irritation of the skin. The statement is stored as the acid's are (see `flinn-sds-395`): the sheet's own line, with its code in front, then a colon and the statement."
+        },
+        {
+          "field": "bottles.naoh.hazards.statements[1]",
+          "prints": "May be corrosive to metals (H290)",
+          "where": "Section 2, the second and last of the two: category 1, for corrosion of metals. The section prints no other hazard code. Besides the two hazard statements it prints one precautionary statement, with a code that begins with P: that is not a hazard statement and is not carried into the record."
+        },
+        {
+          "field": "primer",
+          "prints": "Sodium Hydroxide Safety Data Sheet (SDS)",
+          "where": "The sheet's title. The primer's safety card rests on the title and on sections 2 and 3, as the rows above record them."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-735.2",
+      "url": "https://www.flinnsci.com/sds_735.2-sodium-hydroxide-solution-less-than-0.3-m/sds_735.2",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Hydroxide Solution Less than 0.3 M, SDS number sds_735.2; revision date December 3, 2018 (read on 2026-10-05; no copy is kept).",
+      "fetchedSha256": "5c8bd20a5695e1733ef82a15a88af40e79500758859f7cbea96931776a75f88e",
+      "supports": [
+        {
+          "field": "bottles.naoh.hazards.note",
+          "prints": "Less than 0.3 M",
+          "where": "The sheet's title, after the words Sodium Hydroxide Solution: the strengths the sheet is for. The solution on the bench is between 0.0950 and 0.1050 M, all of it under this title, so the note rests on this sheet alone. The supplier's next sheet is for 0.3 M to 6.0 M."
+        },
+        {
+          "field": "bottles.naoh.hazards.note",
+          "prints": "December 3, 2018",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "bottles.naoh.hazards.note",
+          "prints": "WARNING",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the note gives it as Warning."
+        },
+        {
+          "field": "bottles.naoh.hazards.note",
+          "prints": "Causes skin and eye irritation (H315+H320)",
+          "where": "Section 2, the one hazard class it lists: categories 2 and 2B, for irritation of the skin and of the eyes. The section prints no other hazard code, no precautionary statement and no other sentence, so this sheet has nothing that is not carried into the record."
+        },
+        {
+          "field": "bottles.naoh.hazards.note",
+          "prints": "0.4-1.1%",
+          "where": "Section 3, the concentration column, in the row for sodium hydroxide, the rest being water. The sheet does not say on what basis the percentage is. The note's 0.4% is worked out from the molarity and not read here; it is the foot of this range."
+        },
+        {
+          "field": "bottles.naoh.hazards.note",
+          "prints": "P280",
+          "where": "Section 8: the precautionary statement that calls for eye protection, gloves and protective clothing."
+        },
+        {
+          "field": "bottles.naoh.hazards.note",
+          "prints": "P305+P351+P338",
+          "where": "Section 4, under the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that. The sheet gives no number of minutes. The same section says that skin is to be washed with plenty of water, and that medical advice is to be sought if irritation of the eyes lasts or irritation of the skin sets in."
+        },
+        {
+          "field": "primer",
+          "prints": "Sodium Hydroxide Solution Less than 0.3 M Safety Data Sheet (SDS)",
+          "where": "The sheet's title. The primer's safety card rests on the title and on sections 2, 4 and 8, as the rows above record them."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-591",
+      "url": "https://www.flinnsci.com/sds_591-phenolphthalein/sds_591",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Phenolphthalein, SDS number sds_591; revision date April 1, 2015 (read on 2026-10-05; no copy is kept).",
+      "fetchedSha256": "f29451e7f15f3b563f600592191c119900c6862040f22e544180fb4643d00b96",
+      "supports": [
+        {
+          "field": "bottles.indicator.classifiedAs",
+          "prints": "Phenolphthalein",
+          "where": "The sheet's title, before the words Safety Data Sheet: the substance the sheet is for, with no strength and no solvent. Section 3 lists phenolphthalein alone, with nothing in its concentration column, so the sheet is for the substance itself and not for a solution of it. The heading over the bottle's statements calls that the pure substance; the sheet does not use the word."
+        },
+        {
+          "field": "bottles.indicator.classifiedAs",
+          "prints": "Pale yellow powder",
+          "where": "Section 9, the first words of the description: the form the sheet is for. Section 5 calls the substance a solid. The heading over the bottle's statements says solid phenolphthalein."
+        },
+        {
+          "field": "bottles.indicator.hazards",
+          "prints": "April 1, 2015",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "bottles.indicator.hazards.signalWord",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Danger, the form its schema has for the word."
+        },
+        {
+          "field": "bottles.indicator.hazards.statements[0]",
+          "prints": "Suspected of causing genetic defects (H341)",
+          "where": "Section 2, the first of the three hazard classes it lists: category 2, for germ cell mutagenicity. The statement is stored as the acid's are (see `flinn-sds-395`): the sheet's own line, with its code in front, then a colon and the statement."
+        },
+        {
+          "field": "bottles.indicator.hazards.statements[1]",
+          "prints": "May cause cancer (H350)",
+          "where": "Section 2, the second of the three: category 1B, for causing cancer. After this statement the section has one more sentence, on the listing of phenolphthalein by a body of the United States government that assesses substances for cancer. That sentence carries no hazard code, is not a GHS hazard statement, and is not carried into the record; nor are the three precautionary statements the section prints, whose codes begin with P."
+        },
+        {
+          "field": "bottles.indicator.hazards.statements[2]",
+          "prints": "Suspected of damaging fertility or the unborn child (H361)",
+          "where": "Section 2, the last of the three: category 2, for reproductive toxicity. The sheet prints the code with no letter after it and gives the statement both of its halves. The section prints no other hazard code."
+        },
+        {
+          "field": "primer",
+          "prints": "Phenolphthalein Safety Data Sheet (SDS)",
+          "where": "The sheet's title. The primer's safety card rests on the title and on sections 2 and 3, as the rows above record them."
+        }
+      ]
+    },
+    {
+      "id": "ricca-sds-5600",
+      "url": "https://www.riccachemical.com/WebsiteDocuments/SDS/R5600000.pdf",
+      "citation": "Ricca Chemical Company. Safety Data Sheet: Phenolphthalein Indicator, 0.5% (w/v) in 50% (v/v) Alcohol, Neutralized, product number 5600; last revised 2026-05-25 (retrieved 2026-10-04).",
+      "supports": [
+        {
+          "field": "bottles.indicator.hazards.note",
+          "prints": "5600",
+          "where": "Section 1.1, the product number: the sheet is for the solution of the catalogue listing the indicator's strength is read from."
+        },
+        {
+          "field": "bottles.indicator.hazards.note",
+          "prints": "Danger",
+          "where": "Section 2.2, label elements: the signal word."
+        },
+        {
+          "field": "bottles.indicator.hazards.note",
+          "prints": "H226",
+          "where": "Sections 2.1 and 2.2: flammable liquids, category 3; the liquid and its vapour are flammable."
+        },
+        {
+          "field": "bottles.indicator.hazards.note",
+          "prints": "H319",
+          "where": "The same sections: eye irritation, category 2; serious irritation of the eyes."
+        },
+        {
+          "field": "bottles.indicator.hazards.note",
+          "prints": "H350",
+          "where": "The same sections: carcinogenicity, category 1B; the solution may cause cancer."
+        },
+        {
+          "field": "bottles.indicator.hazards.note",
+          "prints": "H360",
+          "where": "The same sections: reproductive toxicity, category 1B; the solution may harm fertility or an unborn child. This is a more severe statement than the H361, in category 2, that the sheet for solid phenolphthalein prints (`flinn-sds-591`), from which the bottle's statements come."
+        },
+        {
+          "field": "bottles.indicator.hazards.note",
+          "prints": "H371",
+          "where": "The same sections: specific target organ toxicity after a single exposure, category 2; the solution may damage organs."
+        },
+        {
+          "field": "bottles.indicator.hazards.note",
+          "prints": "0.56",
+          "where": "Section 3.1: the weight percent of phenolphthalein. The same table gives water 55.59, ethanol 41.76, methanol 2.09 and sodium hydroxide below 0.1."
+        },
+        {
+          "field": "bottles.indicator.hazards.note",
+          "prints": "P210",
+          "where": "Section 2.2, prevention: keeping the solution away from heat, sparks, flames and other sources of ignition."
+        },
+        {
+          "field": "bottles.indicator.hazards.note",
+          "prints": "P280",
+          "where": "Section 2.2, prevention: protective gloves and eye protection."
+        },
+        {
+          "field": "primer",
+          "prints": "Phenolphthalein Indicator, 0.5% (w/v) in 50% (v/v) Alcohol, Neutralized",
+          "where": "Section 1.1, the product's name. The primer's safety card rests on section 2, as the rows above record it."
+        }
+      ]
+    },
+    {
+      "id": "flowers-chem2e-1.5",
+      "url": "https://openstax.org/books/chemistry-2e/pages/1-5-measurement-uncertainty-accuracy-and-precision",
+      "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 1.5 Measurement Uncertainty, Accuracy, and Precision; read and not kept (retrieved 2026-10-04). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction",
+      "supports": [
+        {
+          "field": "primer",
+          "prints": "Measurement Uncertainty, Accuracy, and Precision",
+          "where": "The section's title. Read under its headings Significant Figures in Measurement and Accuracy and Precision."
+        }
+      ]
+    },
+    {
+      "id": "flowers-chem2e-3.1",
+      "url": "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
+      "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 3.1 Formula Mass and the Mole Concept; read and not kept (retrieved 2026-10-04). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction",
+      "supports": [
+        {
+          "field": "primer",
+          "prints": "Formula Mass and the Mole Concept",
+          "where": "The section's title. Read under its heading The Mole."
+        }
+      ]
+    },
+    {
+      "id": "flowers-chem2e-3.3",
+      "url": "https://openstax.org/books/chemistry-2e/pages/3-3-molarity",
+      "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 3.3 Molarity; read and not kept (retrieved 2026-10-04). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction",
+      "supports": [
+        {
+          "field": "primer",
+          "prints": "Molarity",
+          "where": "The section's title. Read under its headings Solutions and Dilution of Solutions, with Example 3.15 between them."
+        }
+      ]
+    },
+    {
+      "id": "flowers-chem2e-4.2",
+      "url": "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
+      "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 4.2 Classifying Chemical Reactions; read and not kept (retrieved 2026-10-04). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction",
+      "supports": [
+        {
+          "field": "primer",
+          "prints": "Classifying Chemical Reactions",
+          "where": "The section's title. Read under its heading Acid-Base Reactions."
+        }
+      ]
+    },
+    {
+      "id": "flowers-chem2e-4.5",
+      "url": "https://openstax.org/books/chemistry-2e/pages/4-5-quantitative-chemical-analysis",
+      "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 4.5 Quantitative Chemical Analysis; read and not kept (retrieved 2026-10-04). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction",
+      "supports": [
+        {
+          "field": "primer",
+          "prints": "Quantitative Chemical Analysis",
+          "where": "The section's title. Read under its heading Titration, with Figure 4.16 and Example 4.14."
+        }
+      ]
+    },
+    {
+      "id": "flowers-chem2e-14.2",
+      "url": "https://openstax.org/books/chemistry-2e/pages/14-2-ph-and-poh",
+      "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 14.2 pH and pOH; read and not kept (retrieved 2026-10-04). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction",
+      "supports": [
+        {
+          "field": "primer",
+          "prints": "pH and pOH",
+          "where": "The section's title. Read at Table 14.1."
+        }
+      ]
+    },
+    {
+      "id": "flowers-chem2e-14.7",
+      "url": "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
+      "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 14.7 Acid-Base Titrations; read and not kept (retrieved 2026-10-04). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction",
+      "supports": [
+        {
+          "field": "primer",
+          "prints": "Acid-Base Titrations",
+          "where": "The section's title. Read under its heading Acid-Base Indicators, with the paragraph on Figure 14.20."
+        }
+      ]
+    },
+    {
+      "id": "harvey-ac21-2.4",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Analytical_Chemistry_2.1_by_David_Harvey/Analytical_Chemistry_2.1_(Harvey)/02%3A_Basic_Tools_of_Analytical_Chemistry/2.04%3A_Basic_Equipment",
+      "citation": "Harvey, D. Analytical Chemistry 2.1; LibreTexts; Section 2.4 Basic Equipment; read and not kept (retrieved 2026-10-04).",
+      "supports": [
+        {
+          "field": "primer",
+          "prints": "2.4: Basic Equipment",
+          "where": "The page's title. Read under its heading Equipment for Measuring Volume."
+        }
+      ]
+    },
+    {
+      "id": "harvey-ac21-5.1",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Analytical_Chemistry_2.1_by_David_Harvey/Analytical_Chemistry_2.1_(Harvey)/05%3A_Standardizing_Analytical_Methods/5.01%3A_Analytical_Signals",
+      "citation": "Harvey, D. Analytical Chemistry 2.1; LibreTexts; Section 5.1 Analytical Signals; read and not kept (retrieved 2026-10-04).",
+      "supports": [
+        {
+          "field": "primer",
+          "prints": "5.1: Analytical Signals",
+          "where": "The page's title. Read under its heading Primary and Secondary Standards."
+        }
+      ]
+    },
+    {
+      "id": "harvey-ac21-9.1",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Analytical_Chemistry_2.1_by_David_Harvey/Analytical_Chemistry_2.1_(Harvey)/09%3A_Titrimetric_Methods/9.01%3A_Overview_of_Titrimetry",
+      "citation": "Harvey, D. Analytical Chemistry 2.1; LibreTexts; Section 9.1 Overview of Titrimetry; read and not kept (retrieved 2026-10-04).",
+      "supports": [
+        {
+          "field": "primer",
+          "prints": "9.1: Overview of Titrimetry",
+          "where": "The page's title. Read under its heading The Buret."
+        }
+      ]
+    },
+    {
+      "id": "harvey-ac21-9.2",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Analytical_Chemistry_2.1_by_David_Harvey/Analytical_Chemistry_2.1_(Harvey)/09%3A_Titrimetric_Methods/9.02%3A_AcidBase_Titrations",
+      "citation": "Harvey, D. Analytical Chemistry 2.1; LibreTexts; Section 9.2 Acid–Base Titrations; read and not kept (retrieved 2026-10-04).",
+      "supports": [
+        {
+          "field": "primer",
+          "prints": "9.2: Acid–Base Titrations",
+          "where": "The page's title. Read under its heading Selecting and Standardizing a Titrant."
+        }
+      ]
+    },
+    {
+      "id": "seely-buret",
+      "url": "https://chem.libretexts.org/Ancillary_Materials/Demos_Techniques_and_Experiments/General_Lab_Techniques/Proper_Use_of_a_Buret",
+      "citation": "Seely, O. Proper Use of a Buret; General Lab Techniques, LibreTexts; read and not kept (retrieved 2026-10-04).",
+      "supports": [
+        {
+          "field": "primer",
+          "prints": "Proper Use of a Buret",
+          "where": "The page's title. Read under its headings Read Buret Tubes and Cleaning Buret Tubes."
+        }
+      ]
+    },
+    {
+      "id": "seely-pipet",
+      "url": "https://chem.libretexts.org/Ancillary_Materials/Demos_Techniques_and_Experiments/General_Lab_Techniques/Use_of_a_Volumetric_Pipet",
+      "citation": "Seely, O. Use of a Volumetric Pipet; General Lab Techniques, LibreTexts; read and not kept (retrieved 2026-10-04).",
+      "supports": [
+        {
+          "field": "primer",
+          "prints": "Use of a Volumetric Pipet",
+          "where": "The page's title. Read in its opening paragraphs, on cleaning volumetric glassware."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-burette",
+      "url": "https://en.wikipedia.org/w/index.php?title=Burette&oldid=1367898253",
+      "citation": "Wikipedia contributors. Burette; Wikipedia, revision 1367898253 of 2026-08-05, linked here; read and not kept (retrieved 2026-10-04).",
+      "supports": [
+        {
+          "field": "primer",
+          "prints": "Burette reading",
+          "where": "A heading of the article. Read in its opening section and under this heading. The article is not a primary source, and the pages it cites were not read."
+        }
+      ]
+    },
+    {
+      "id": "lmc-buret-use",
+      "url": "https://chem.libretexts.org/Courses/Los_Medanos_College/Chemistry_6_and_Chemistry_7_Combined_Laboratory_Manual_(Los_Medanos_College)/02:_Techniques/2.07:_Technique_G_Buret_Use_1_1_2",
+      "citation": "Los Medanos College. Technique G: Buret Use; page 2.7 of Chemistry 6 and Chemistry 7 Combined Laboratory Manual, LibreTexts; read and not kept (retrieved 2026-10-05).",
+      "supports": [
+        {
+          "field": "primer",
+          "prints": "Technique G: Buret Use",
+          "where": "The page's title. Read in its sections 3 and 4, down to the heading Adding titrant by half-drops."
+        }
+      ]
+    },
+    {
+      "id": "smc-equivalent-mass-lab",
+      "url": "https://chem.libretexts.org/Ancillary_Materials/Laboratory_Experiments/Wet_Lab_Experiments/General_Chemistry_Labs/Online_Chemistry_Lab_Manual/Chem_12_Experiments/04%3A_Determining_the_Equivalent_Mass_of_an_Unknown_Acid_by_Titration_(Experiment)",
+      "citation": "Santa Monica College. Determining the Equivalent Mass of an Unknown Acid by Titration (Experiment); experiment 4 of the Chem 12 Experiments in Online Chemistry Lab Manual, LibreTexts; read and not kept (retrieved 2026-10-05).",
+      "supports": [
+        {
+          "field": "primer",
+          "prints": "Part A: Standardization of a Sodium Hydroxide Solution",
+          "where": "A heading of the page. Read in its introduction, under General Notes and under this heading, where a sodium hydroxide solution is standardized against a standardized hydrochloric acid whose molarity is on its label."
+        }
+      ]
+    },
+    {
+      "id": "ucd-standardization-lab",
+      "url": "https://chem.libretexts.org/Courses/University_of_California_Davis/UCD_Chem_002BH/Chem_2BH:_Laboratory_Manual/2:__Standardization_of_Acids_and_Bases_(Experiment)",
+      "citation": "University of California, Davis. Lab 2: Standardization of Acids and Bases (Experiment); Chem 2BH Laboratory Manual, LibreTexts; read and not kept (retrieved 2026-10-05).",
+      "supports": [
+        {
+          "field": "primer",
+          "prints": "Part II. Standardization of the NaOH Solution",
+          "where": "A heading of the page. Read under Part I. Preparation of Solutions and under this heading."
+        }
+      ]
+    }
+  ]
+}

@@ -173,6 +173,42 @@ describe('architecture lint rules', () => {
     expect(await ruleIds(lazy, 'src/app/pages/x.tsx')).toEqual([])
   })
 
+  // The titration engine below its index holds each run's hidden values: the app is given the index only.
+  it.each([
+    ['@/engine/titration/flask', 'src/app/lab/titration/benchView.ts'],
+    ['../../../engine/titration/setup', 'src/app/lab/titration/benchView.ts'],
+    ['@/engine/titration/actions', 'src/app/pages/x.tsx'],
+    ['@/engine/titration/flask', 'src/app/lab/titration/benchView.test.ts'],
+    ['@/engine/titration/pinnedModel', 'src/app/lab/titration/benchView.test.ts'],
+    ['@/engine/titration/testkit/internals', 'src/app/lab/titration/benchView.test.ts'],
+    ['@/engine/titration/testkit', 'src/app/lab/titration/TitrationBench.tsx'],
+    ['@/engine/titration/flask', 'src/app/explore/scene/x.tsx'],
+    ['@/engine/titration/flask', 'src/main.tsx'],
+  ])('rejects importing %s in %s', async (source, filePath) => {
+    expect(await ruleIds(`import * as m from "${source}"\nexport const v = m\n`, filePath)).toEqual(['no-restricted-imports'])
+    // A type import is refused too: the types below the index describe the hidden values.
+    expect(await ruleIds(`import type * as M from "${source}"\nexport type V = typeof M\n`, filePath)).toEqual(['no-restricted-imports'])
+  })
+
+  it.each([
+    ['@/engine/titration', 'src/app/lab/titration/benchView.ts'],
+    ['../../../engine/titration', 'src/app/lab/titration/benchView.ts'],
+    ['@/engine/titration', 'src/app/lab/titration/benchView.test.ts'],
+    ['@/engine/titration/testkit', 'src/app/lab/titration/benchView.test.ts'],
+    ['../../../engine/titration/testkit', 'src/app/lab/titration/controller.test.tsx'],
+    // Another folder whose name ends the same way is not the engine's.
+    ['@/app/lab/titration/benchView', 'src/app/pages/x.tsx'],
+    ['./titration/benchView', 'src/app/lab/x.tsx'],
+  ])('accepts importing %s in %s', async (source, filePath) => {
+    expect(await ruleIds(`import * as m from "${source}"\nexport const v = m\n`, filePath)).toEqual([])
+  })
+
+  it('still rejects Three.js and a scene module in a test file under src/app outside a scene folder', async () => {
+    for (const source of ['three', '@react-three/fiber', '@/app/explore/scene/MoleculeViewer']) {
+      expect([source, await ruleIds(`import * as m from "${source}"\nexport const v = m\n`, 'src/app/lab/titration/x.test.ts')]).toEqual([source, ['no-restricted-imports']])
+    }
+  })
+
   it('accepts Math.random and the clock in chem-data and mechanisms', async () => {
     const code = 'export const a = [Math.random(), Date.now(), new Date()]\n'
     expect(await ruleIds(code, 'src/chem-data/x.ts')).toEqual([])

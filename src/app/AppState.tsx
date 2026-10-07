@@ -1,11 +1,12 @@
-import { createContext, useContext, useEffect, useState, useSyncExternalStore, type ReactNode } from 'react'
+import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 import { applyAppearance } from './firstPaint'
 import { DEFAULT_PREFS, loadPrefs, resolveTri, savePrefs, type Prefs } from './preferences'
 import { browserStore, clearAll, sessionStore, type KeyValueStore } from './progress/storage'
+import { useMediaQuery } from './useMediaQuery'
 
 interface AppState {
   store: KeyValueStore
-  /** False when localStorage is unavailable, or refused the last save, and progress lasts only for this session. */
+  /** False when localStorage is unavailable, or the latest save of any entry was refused, and progress lasts only for this session. */
   persistent: boolean
   prefs: Prefs
   /** The theme in effect: the learner's choice, or the system's when set to System. */
@@ -18,23 +19,12 @@ interface AppState {
 
 const AppStateContext = createContext<AppState | null>(null)
 
-function useMediaQuery(query: string): boolean {
-  return useSyncExternalStore(
-    (onChange) => {
-      const media = window.matchMedia(query)
-      media.addEventListener('change', onChange)
-      return () => media.removeEventListener('change', onChange)
-    },
-    () => window.matchMedia(query).matches,
-  )
-}
-
 export function AppStateProvider({ children }: { children: ReactNode }) {
   const [browser] = useState(browserStore)
   const [persistent, setPersistent] = useState(browser.persistent)
   // Every save in the app goes through this store, so one that is refused part-way through a session is noticed,
-  // and so is the next that succeeds. The report is put off until the caller has finished: a load that fails to
-  // write its backup runs during a render.
+  // and so is the save of that entry that next succeeds. The report is put off until the caller has finished: a
+  // load that fails to write its backup runs during a render.
   const [store] = useState(() => sessionStore(browser, (now) => queueMicrotask(() => setPersistent(now))))
   const [prefs, setPrefs] = useState(() => loadPrefs(store))
 
