@@ -200,7 +200,7 @@ describe('the manifest', () => {
 
   it('says nothing about a licence in the citation of any OpenStax page, and gives those pages ids of their own', () => {
     const pages = sources.filter((s) => s.url.includes('openstax.org'))
-    expect(pages.length).toBe(9)
+    expect(pages.length).toBe(10)
     for (const page of pages) {
       expect(page.id).toMatch(/^flowers-chem2e-\d+\.\d+(-solubility)?$/)
       expect(page.citation).not.toMatch(/licen[cs]e|CC BY|creativecommons/i)

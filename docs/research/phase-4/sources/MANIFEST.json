@@ -127,6 +127,20 @@
       ]
     },
     {
+      "id": "flowers-chem2e-2.6",
+      "url": "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
+      "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 2.6 Ionic and Molecular Compounds; read and not kept (retrieved 2026-10-06). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Ionic and Molecular Compounds",
+          "where": "The section's title. Read at its opening paragraphs and under its headings Common Polyatomic Ions and Ionic Compounds."
+        }
+      ]
+    },
+    {
       "id": "flowers-chem2e-4.1",
       "url": "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
       "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 4.1 Writing and Balancing Chemical Equations; read and not kept (retrieved 2026-10-06). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction",
@@ -164,7 +178,7 @@
             "constants.solutionHeatCapacity"
           ],
           "prints": "4.184",
-          "where": "The solution to the example headed Heat Produced by an Exothermic Reaction, in which hydrochloric acid and sodium hydroxide solution are mixed in a calorimeter: the specific heat of water in J/g °C, which the solution says is used for the mixed solution because that solution is mostly water. An earlier example in the section prints the same quantity once as 4.18. The record stores 4.18, the figure of spec 5.2."
+          "where": "The solution to the section's worked example in which hydrochloric acid and sodium hydroxide solution are mixed in a calorimeter: the specific heat of water in J/g °C, which the solution says is used for the mixed solution because that solution is mostly water. An earlier example in the section prints the same quantity once as 4.18. The record stores 4.18, the figure of spec 5.2."
         },
         {
           "fields": [
@@ -185,7 +199,7 @@
             "primer"
           ],
           "prints": "Calorimetry",
-          "where": "The section's title. Read at its example headed Heat Produced by an Exothermic Reaction."
+          "where": "The section's title. Read at its worked example in which an acid and a base are mixed in a calorimeter."
         }
       ]
     },
@@ -247,7 +261,7 @@
             "observations[ammonia]"
           ],
           "prints": "Nitrogen Hydrogen Compounds",
-          "where": "The heading. Under it the section gives ammonia as NH3, prints it as NH3(g) in an equation, calls it a gas without colour and with a sharp, pungent smell, and says that it is made in the laboratory from an ammonium salt and a strong base such as sodium hydroxide."
+          "where": "The heading. Under it the section gives ammonia as NH3, prints it as NH3(g) in an equation, calls it a gas without colour and with a sharp, pungent smell, and says that it is made in the laboratory from an ammonium salt and a strong base, sodium hydroxide being its example."
         },
         {
           "fields": [
@@ -305,7 +319,7 @@
             "stations[aq-01].notes[0]"
           ],
           "prints": "Hydroxides",
-          "where": "The heading. Under it the section says that a soluble hydroxide added to a solution of a salt of a metal of the first transition series gives a gelatinous precipitate, and that in some cases, of which iron(III) is its example, the precipitate is a hydrated oxide of the metal and holds no hydroxide ions. The texture stored for the solid is from here; its colour is from the other source of the row."
+          "where": "The heading. Under it the section says that a soluble hydroxide added to a dissolved salt of a first-row transition metal gives a gelatinous precipitate, and that in some cases, of which iron(III) is its example, the precipitate is a hydrated oxide of the metal and holds no hydroxide ions. The texture stored for the solid is from here; its colour is from the other source of the row."
         },
         {
           "fields": [
@@ -313,6 +327,13 @@
           ],
           "prints": "NiCO3(s)",
           "where": "Under the heading Carbonates: the product of the net ionic equation the section gives for a nickel salt solution and sodium carbonate, with nickel nitrate as the salt."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Occurrence, Preparation, and Properties of Transition Metals and Their Compounds",
+          "where": "The section's title. Read under its heading Hydroxides."
         }
       ]
     },
@@ -573,7 +594,7 @@
             "species[cobalt-ii-ion].solutionColor"
           ],
           "prints": "pink hexaaquacobalt(II) ion",
-          "where": "The page's first sentence: the simplest ion that cobalt forms in solution. The hex value is this project's choice for drawing the colour."
+          "where": "The page's first sentence: the plainest ion that cobalt gives when dissolved. The hex value is this project's choice for drawing the colour."
         }
       ]
     },
@@ -587,7 +608,7 @@
             "stations[aq-03].notes[0]"
           ],
           "prints": "xMCO3,yM(OH)2,zH2O",
-          "where": "The note in the part of the page on ions with a charge of 2+: the kind of formula that describes the precipitates better than the plain carbonate does, a basic carbonate. The page names cobalt(II), copper(II) and iron(II) among those ions and does not name nickel(II); it also says that these ions give no carbon dioxide with carbonate, where the Wikipedia page on basic copper carbonate gives carbon dioxide as a product. The note on the station says nothing of the gas."
+          "where": "The note in the part of the page on the doubly charged ions: the kind of formula that describes the precipitates better than the plain carbonate does, a basic carbonate. The page names cobalt(II), copper(II) and iron(II) among those ions and does not name nickel(II); it also says that these ions give no carbon dioxide with carbonate, where the Wikipedia page on basic copper carbonate gives carbon dioxide as a product. The note on the station says nothing of the gas."
         }
       ]
     },
@@ -608,7 +629,7 @@
             "stations[aq-02].notes[0]"
           ],
           "prints": "basic copper carbonate",
-          "where": "The page links to this compound from its first line and says, in its introduction and under its heading on preparation, that the plain carbonate is seldom met because it is hard to prepare, and that mixing solutions of copper(II) sulfate and sodium carbonate under ordinary conditions gives a basic carbonate and not CuCO3."
+          "where": "The page links to this compound from its first line and says, in its introduction and under its heading on preparation, that the plain carbonate is seldom met because it is hard to prepare, and that sodium carbonate solution mixed with copper(II) sulfate solution under ordinary conditions gives a basic carbonate and not CuCO3."
         }
       ]
     },
@@ -622,7 +643,7 @@
             "stations[aq-02].notes[0]"
           ],
           "prints": "Cu2(CO3)(OH)2",
-          "where": "The formula in the page's first paragraph, which calls the compound a green solid, the mineral malachite. Under its heading on preparation the page says that it precipitates when solutions of copper(II) sulfate and sodium carbonate are combined, with carbon dioxide given off. The note writes the formula as Cu₂(OH)₂CO₃, the same atoms in the order of spec 8.2, and says nothing of the gas."
+          "where": "The formula in the page's first paragraph, which calls the compound a green solid, the mineral malachite. Under its heading on preparation the page says that it precipitates when sodium carbonate solution and copper(II) sulfate solution are combined, with carbon dioxide given off. The note writes the formula as Cu₂(OH)₂CO₃, the same atoms in the order of spec 8.2, and says nothing of the gas."
         }
       ]
     },
@@ -643,7 +664,7 @@
             "stations[aq-03].notes[0]"
           ],
           "prints": "Basic nickel carbonate",
-          "where": "The page says that the basic carbonate can be made by treating solutions of nickel sulfate with sodium carbonate. The salt at this station is the chloride, which the page does not speak of."
+          "where": "The page says that sodium carbonate added to nickel sulfate solution is a way of making the basic carbonate. The salt at this station is the chloride, which the page does not speak of."
         }
       ]
     },
@@ -658,6 +679,13 @@
           ],
           "prints": "Colorless gas",
           "where": "The appearance line of the page's infobox. Its odour line gives none at low concentrations and a sharp, acidic smell at high ones; the record stores none."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Carbon dioxide",
+          "where": "The page's title. Read at its infobox and its section on physical properties."
         }
       ]
     },
@@ -720,7 +748,7 @@
             "observations[copper-ii-carbonate]"
           ],
           "prints": "blue-green",
-          "where": "The sheet's first sentence, on what the compound looks like: a powder of this colour that does not dissolve in cold water. The sheet makes it from copper(II) sulfate and sodium carbonate solutions, the two of this station, mixed warm. It is the colour of the basic carbonate, the solid that really forms; the record stores it under the simple carbonate that the station's equations write."
+          "where": "The sheet's first sentence, on what the compound looks like: a powder of this colour that does not dissolve in cold water. The sheet makes it from sodium carbonate solution and copper(II) sulfate solution, the two of this station, mixed warm. It is the colour of the basic carbonate, the solid that really forms; the record stores it under the simple carbonate that the station's equations write."
         }
       ]
     },
