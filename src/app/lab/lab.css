@@ -84,6 +84,12 @@
   bottom: 0;
   transform: translateX(-50%);
 }
+/* The same for a disclosure that carries the class itself, outside a panel: the mode's choice, over the tabs. */
+details[open] > summary.lab-tap::after {
+  top: auto;
+  bottom: 0;
+  transform: translateX(-50%);
+}
 
 .lab-page {
   container: lab / inline-size;

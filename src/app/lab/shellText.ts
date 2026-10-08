@@ -3,6 +3,9 @@
 export const SHELL_TEXT = {
   guided: 'Guided: a checklist of the steps, a warning before you skip one that matters, and hints as you go.',
   challenge: 'Challenge: no checklist, warnings or hints. Mistakes carry into your result and are named afterwards.',
+  /** The mode's choice is closed until it is opened: the one line that stands for it, and the name of each mode in that line. */
+  mode: 'Mode',
+  modeName: { guided: 'Guided', challenge: 'Challenge' },
   start: 'Start the lab',
   restart: 'Restart lab',
   restartConfirm: 'Restart this lab? Everything recorded in this run will be erased. This cannot be undone.',

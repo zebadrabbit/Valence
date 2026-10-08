@@ -269,9 +269,26 @@ describe('the mode switch', () => {
   const draw = (disabled?: string) => renderToStaticMarkup(createElement(ModeSwitch, { mode: 'challenge', onChange: () => {}, disabled }))
   const inputs = (html: string) => [...html.matchAll(/<input[^>]*>/g)].map((match) => match[0])
 
-  it('is a fieldset named Mode with two radio buttons of one group, the mode in force checked', () => {
+  // Until 2026-10-07 the fieldset stood open over the tabs, its legend the visible word "Mode" and its two sentences
+  // always on the page. The owner asked for it collapsed, in as little room as it can have: it is now a disclosure,
+  // closed until it is opened, whose summary says which mode is in force.
+  it('is a disclosure, closed, whose summary names the mode in force, with a finger\'s hit area', () => {
     const html = draw()
-    expect(html).toMatch(/^<fieldset[^>]*><legend[^>]*>Mode<\/legend>/)
+    expect(html).toMatch(/^<details[^>]*><summary class="[^"]*\blab-tap\b[^"]*">Mode: <span[^>]*>Challenge<\/span><\/summary>/)
+    expect(html.slice(0, html.indexOf('>'))).not.toContain('open')
+    expect(renderToStaticMarkup(createElement(ModeSwitch, { mode: 'guided', onChange: () => {} }))).toMatch(/<summary[^>]*>Mode: <span[^>]*>Guided<\/span><\/summary>/)
+    expect(SHELL_TEXT.modeName).toEqual({ guided: 'Guided', challenge: 'Challenge' })
+    // The name in the summary is the word each mode's sentence begins with, in the shell's words and in a lab's own.
+    for (const mode of ['guided', 'challenge'] as const) expect(SHELL_TEXT[mode].startsWith(`${SHELL_TEXT.modeName[mode]}: `), mode).toBe(true)
+    // Opened, the area stands on the summary's foot and reaches upward, clear of the first choice under it.
+    const css = labCss.replace(/\/\*.*?\*\//gs, '').replace(/\s+/g, ' ')
+    expect(css).toMatch(/details\[open\] > summary\.lab-tap::after \{ top: auto; bottom: 0; transform: translateX\(-50%\); \}/)
+  })
+
+  it('holds, in the disclosure, a fieldset named Mode with two radio buttons of one group, the mode in force checked', () => {
+    const html = draw()
+    expect(html).toMatch(/<\/summary><fieldset[^>]*><legend class="sr-only">Mode<\/legend>/)
+    expect(html.endsWith('</fieldset></details>')).toBe(true)
     const [guided, challenge, ...rest] = inputs(html)
     expect(rest).toEqual([])
     expect(guided).toMatch(/type="radio"/)
