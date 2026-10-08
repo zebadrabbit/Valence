@@ -23,6 +23,12 @@ export interface StationView {
    * Challenge once the learner has recorded an observation of their own.
    */
   guidanceShown: boolean
+  /**
+   * For each form, how many terms each side of the correct equation has, which is the row of empty places Guided
+   * draws to be filled: the two counts and nothing else of the equation. Null in Challenge at all times, and where
+   * nothing reacts, so that neither the count of terms nor that there is no equation is given.
+   */
+  template: Record<Form, { reactants: number; products: number } | null>
   /** The observation and all three equations are correct. */
   done: boolean
 }
@@ -34,6 +40,10 @@ export function stationView(data: AqueousData, state: AqueousState, stationId: s
     const entry = station.equations[form]
     return entry === null ? null : { entry, problem: checkEquation(data, curated, form, entry) }
   }
+  const counts = (form: Form) => {
+    const equation = curated.equations[form]
+    return state.mode !== 'guided' || equation === null ? null : { reactants: equation.reactants.length, products: equation.products.length }
+  }
   return {
     mixed: station.mixed,
     uses: usesOf(curated),
@@ -43,6 +53,7 @@ export function stationView(data: AqueousData, state: AqueousState, stationId: s
     wrongFields: station.observation === null ? null : wrongFields(curated, station.observation),
     equations: Object.fromEntries(FORMS.map((form) => [form, judged(form)])) as StationView['equations'],
     guidanceShown: state.mode === 'guided' || station.observation !== null,
+    template: Object.fromEntries(FORMS.map((form) => [form, counts(form)])) as StationView['template'],
     done: stationDone(data, stationId, station),
   }
 }

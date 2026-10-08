@@ -155,6 +155,22 @@ describe('the view of a station', () => {
     expect(JSON.stringify(state)).not.toMatch(/correct|problem|done/)
   })
 
+  it('gives Guided the count of terms on each side of each curated equation and nothing else of it, and Challenge and the station where nothing reacts no count at all', () => {
+    for (const station of data.stations) {
+      const { template } = stationView(data, createLab(data, 'guided'), station.id)
+      for (const form of FORMS) {
+        const curated = station.equations[form]
+        expect(template[form], `${station.id} ${form}`).toEqual(curated === null ? null : { reactants: curated.reactants.length, products: curated.products.length })
+      }
+      expect(JSON.stringify(template)).not.toMatch(/-|coefficient|species/)
+      // In Challenge the count is not given at any time: not once an observation is recorded, and not once the equation is correct.
+      const challenge = run(data, createLab(data, 'challenge'), stationScript(data, station.id))
+      for (const state of [createLab(data, 'challenge'), challenge]) expect(stationView(data, state, station.id).template).toEqual({ molecular: null, completeIonic: null, netIonic: null })
+    }
+    expect(stationView(data, createLab(data, 'guided'), 'aq-01').template).toEqual({ molecular: { reactants: 2, products: 2 }, completeIonic: { reactants: 4, products: 3 }, netIonic: { reactants: 2, products: 1 } })
+    expect(stationView(data, createLab(data, 'guided'), 'aq-05').template).toEqual({ molecular: null, completeIonic: null, netIonic: null })
+  })
+
   it('lists the station\'s tools and fields', () => {
     expect(stationView(data, createLab(data, 'guided'), 'aq-10')).toMatchObject({ mixed: false, uses: [...LOOKS, 'touch', 'splint'], used: [], fields: ['solid', 'liquid', 'bubbles', 'temperature', 'splint'], observation: null, wrongFields: null, done: false })
   })
