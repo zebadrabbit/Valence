@@ -65,6 +65,18 @@ export function About() {
             technique, and quotes none of them. None of these publishers is connected with Valence or has reviewed it.
             At a real bench, follow the safety data sheet of the product in hand and the laboratory's own rules.
           </p>
+          <p className="mb-2">
+            The aqueous reactions lab takes the solubility of each pair of ions, the forms of an equation and the place
+            of magnesium above hydrogen from OpenStax Chemistry 2e; its enthalpies of formation from the NBS tables of
+            chemical thermodynamic properties of 1982, as NIST serves them; its molar masses from PubChem; and its
+            colours, textures and odours from pages on the characteristic reactions of metal ions, a page of Chemguide,
+            a university's instruction sheet and Wikipedia. The hazard statements on its fifteen reagents are those of
+            Flinn Scientific's safety data sheets for the concentrated or the pure substance, and the note under each
+            rests on a sheet for the reagent as it is on the bench; where no sheet covers that strength, the note says
+            so. The sheets were read on the dates their citations give, and no copy of them is kept. The lab's primer
+            also rests on Prudent Practices in the Laboratory and on a laboratory manual, and quotes none of its
+            sources. None of these publishers is connected with Valence or has reviewed it.
+          </p>
           <ul className="list-disc pl-5">
             {sources.map((source) => (
               <li key={source.id}>

@@ -1,0 +1,2693 @@
+{
+  "species": [
+    {
+      "id": "iron-iii-ion",
+      "formula": "Fe³⁺",
+      "name": {
+        "value": "iron(III)",
+        "sourceId": "flowers-chem2e-2.7"
+      },
+      "composition": {
+        "Fe": 1
+      },
+      "charge": 3,
+      "state": "aq",
+      "solutionColor": {
+        "value": {
+          "name": "yellow-orange",
+          "hex": "#D99A2B"
+        },
+        "sourceId": "birk-iron"
+      },
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "id": "copper-ii-ion",
+      "formula": "Cu²⁺",
+      "name": {
+        "value": "copper(II)",
+        "sourceId": "flowers-chem2e-2.7"
+      },
+      "composition": {
+        "Cu": 1
+      },
+      "charge": 2,
+      "state": "aq",
+      "solutionColor": {
+        "value": {
+          "name": "blue",
+          "hex": "#3B82C4"
+        },
+        "sourceId": "birk-copper"
+      },
+      "sourceId": "flowers-chem2e-17.3"
+    },
+    {
+      "id": "nickel-ii-ion",
+      "formula": "Ni²⁺",
+      "name": {
+        "value": "nickel(II)",
+        "sourceId": "flowers-chem2e-2.7"
+      },
+      "composition": {
+        "Ni": 1
+      },
+      "charge": 2,
+      "state": "aq",
+      "solutionColor": {
+        "value": {
+          "name": "green",
+          "hex": "#4CAF6E"
+        },
+        "sourceId": "birk-nickel"
+      },
+      "sourceId": "flowers-chem2e-17.3"
+    },
+    {
+      "id": "cobalt-ii-ion",
+      "formula": "Co²⁺",
+      "name": {
+        "value": "cobalt(II)",
+        "sourceId": "flowers-chem2e-2.7"
+      },
+      "composition": {
+        "Co": 1
+      },
+      "charge": 2,
+      "state": "aq",
+      "solutionColor": {
+        "value": {
+          "name": "pink",
+          "hex": "#E2749A"
+        },
+        "sourceId": "chemguide-cobalt"
+      },
+      "sourceId": "flowers-chem2e-17.3"
+    },
+    {
+      "id": "barium-ion",
+      "formula": "Ba²⁺",
+      "name": {
+        "value": "barium",
+        "sourceId": "flowers-chem2e-4.2-solubility"
+      },
+      "composition": {
+        "Ba": 1
+      },
+      "charge": 2,
+      "state": "aq",
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "id": "silver-ion",
+      "formula": "Ag⁺",
+      "name": {
+        "value": "silver",
+        "sourceId": "flowers-chem2e-4.2-solubility"
+      },
+      "composition": {
+        "Ag": 1
+      },
+      "charge": 1,
+      "state": "aq",
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "id": "sodium-ion",
+      "formula": "Na⁺",
+      "name": {
+        "value": "sodium",
+        "sourceId": "flowers-chem2e-2.6"
+      },
+      "composition": {
+        "Na": 1
+      },
+      "charge": 1,
+      "state": "aq",
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "id": "ammonium-ion",
+      "formula": "NH₄⁺",
+      "name": {
+        "value": "ammonium",
+        "sourceId": "flowers-chem2e-2.6"
+      },
+      "composition": {
+        "N": 1,
+        "H": 4
+      },
+      "charge": 1,
+      "state": "aq",
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "id": "calcium-ion",
+      "formula": "Ca²⁺",
+      "name": {
+        "value": "calcium",
+        "sourceId": "flowers-chem2e-2.6"
+      },
+      "composition": {
+        "Ca": 1
+      },
+      "charge": 2,
+      "state": "aq",
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "id": "magnesium-ion",
+      "formula": "Mg²⁺",
+      "name": {
+        "value": "magnesium",
+        "sourceId": "flowers-chem2e-2.6"
+      },
+      "composition": {
+        "Mg": 1
+      },
+      "charge": 2,
+      "state": "aq",
+      "enthalpyOfFormation": {
+        "value": -466.85,
+        "published": "-466.85",
+        "sourceId": "nbs-tables-1982"
+      },
+      "sourceId": "nbs-tables-1982"
+    },
+    {
+      "id": "hydrogen-ion",
+      "formula": "H⁺",
+      "name": {
+        "value": "hydrogen",
+        "sourceId": "flowers-chem2e-2.7"
+      },
+      "composition": {
+        "H": 1
+      },
+      "charge": 1,
+      "state": "aq",
+      "enthalpyOfFormation": {
+        "value": 0,
+        "published": "0",
+        "sourceId": "nbs-tables-1982"
+      },
+      "sourceId": "flowers-chem2e-17.3"
+    },
+    {
+      "id": "chloride-ion",
+      "formula": "Cl⁻",
+      "name": {
+        "value": "chloride",
+        "sourceId": "flowers-chem2e-2.6"
+      },
+      "composition": {
+        "Cl": 1
+      },
+      "charge": -1,
+      "state": "aq",
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "id": "hydroxide-ion",
+      "formula": "OH⁻",
+      "name": {
+        "value": "hydroxide",
+        "sourceId": "flowers-chem2e-2.6"
+      },
+      "composition": {
+        "O": 1,
+        "H": 1
+      },
+      "charge": -1,
+      "state": "aq",
+      "enthalpyOfFormation": {
+        "value": -229.994,
+        "published": "-229.994",
+        "sourceId": "nbs-tables-1982"
+      },
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "id": "carbonate-ion",
+      "formula": "CO₃²⁻",
+      "name": {
+        "value": "carbonate",
+        "sourceId": "flowers-chem2e-2.6"
+      },
+      "composition": {
+        "C": 1,
+        "O": 3
+      },
+      "charge": -2,
+      "state": "aq",
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "id": "hydrogen-carbonate-ion",
+      "formula": "HCO₃⁻",
+      "composition": {
+        "H": 1,
+        "C": 1,
+        "O": 3
+      },
+      "charge": -1,
+      "state": "aq",
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "id": "sulfate-ion",
+      "formula": "SO₄²⁻",
+      "name": {
+        "value": "sulfate",
+        "sourceId": "flowers-chem2e-2.6"
+      },
+      "composition": {
+        "S": 1,
+        "O": 4
+      },
+      "charge": -2,
+      "state": "aq",
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "id": "nitrate-ion",
+      "formula": "NO₃⁻",
+      "name": {
+        "value": "nitrate",
+        "sourceId": "flowers-chem2e-2.6"
+      },
+      "composition": {
+        "N": 1,
+        "O": 3
+      },
+      "charge": -1,
+      "state": "aq",
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "id": "iron-iii-chloride",
+      "formula": "FeCl₃",
+      "composition": {
+        "Fe": 1,
+        "Cl": 3
+      },
+      "charge": 0,
+      "state": "aq",
+      "ions": [
+        {
+          "speciesId": "iron-iii-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "chloride-ion",
+          "ratio": 3
+        }
+      ],
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "sodium-hydroxide",
+      "formula": "NaOH",
+      "composition": {
+        "Na": 1,
+        "O": 1,
+        "H": 1
+      },
+      "charge": 0,
+      "state": "aq",
+      "ions": [
+        {
+          "speciesId": "sodium-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "hydroxide-ion",
+          "ratio": 1
+        }
+      ],
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "sodium-carbonate",
+      "formula": "Na₂CO₃",
+      "composition": {
+        "Na": 2,
+        "C": 1,
+        "O": 3
+      },
+      "charge": 0,
+      "state": "aq",
+      "ions": [
+        {
+          "speciesId": "sodium-ion",
+          "ratio": 2
+        },
+        {
+          "speciesId": "carbonate-ion",
+          "ratio": 1
+        }
+      ],
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "copper-ii-sulfate",
+      "formula": "CuSO₄",
+      "composition": {
+        "Cu": 1,
+        "S": 1,
+        "O": 4
+      },
+      "charge": 0,
+      "state": "aq",
+      "ions": [
+        {
+          "speciesId": "copper-ii-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "sulfate-ion",
+          "ratio": 1
+        }
+      ],
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "nickel-ii-chloride",
+      "formula": "NiCl₂",
+      "composition": {
+        "Ni": 1,
+        "Cl": 2
+      },
+      "charge": 0,
+      "state": "aq",
+      "ions": [
+        {
+          "speciesId": "nickel-ii-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "chloride-ion",
+          "ratio": 2
+        }
+      ],
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "barium-chloride",
+      "formula": "BaCl₂",
+      "composition": {
+        "Ba": 1,
+        "Cl": 2
+      },
+      "charge": 0,
+      "state": "aq",
+      "ions": [
+        {
+          "speciesId": "barium-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "chloride-ion",
+          "ratio": 2
+        }
+      ],
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "cobalt-ii-chloride",
+      "formula": "CoCl₂",
+      "composition": {
+        "Co": 1,
+        "Cl": 2
+      },
+      "charge": 0,
+      "state": "aq",
+      "ions": [
+        {
+          "speciesId": "cobalt-ii-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "chloride-ion",
+          "ratio": 2
+        }
+      ],
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "ammonium-nitrate",
+      "formula": "NH₄NO₃",
+      "composition": {
+        "N": 2,
+        "H": 4,
+        "O": 3
+      },
+      "charge": 0,
+      "state": "aq",
+      "ions": [
+        {
+          "speciesId": "ammonium-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "nitrate-ion",
+          "ratio": 1
+        }
+      ],
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "hydrochloric-acid",
+      "formula": "HCl",
+      "composition": {
+        "H": 1,
+        "Cl": 1
+      },
+      "charge": 0,
+      "state": "aq",
+      "ions": [
+        {
+          "speciesId": "hydrogen-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "chloride-ion",
+          "ratio": 1
+        }
+      ],
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "silver-nitrate",
+      "formula": "AgNO₃",
+      "composition": {
+        "Ag": 1,
+        "N": 1,
+        "O": 3
+      },
+      "charge": 0,
+      "state": "aq",
+      "ions": [
+        {
+          "speciesId": "silver-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "nitrate-ion",
+          "ratio": 1
+        }
+      ],
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "sodium-chloride",
+      "formula": "NaCl",
+      "composition": {
+        "Na": 1,
+        "Cl": 1
+      },
+      "charge": 0,
+      "state": "aq",
+      "ions": [
+        {
+          "speciesId": "sodium-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "chloride-ion",
+          "ratio": 1
+        }
+      ],
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "id": "sodium-sulfate",
+      "formula": "Na₂SO₄",
+      "composition": {
+        "Na": 2,
+        "S": 1,
+        "O": 4
+      },
+      "charge": 0,
+      "state": "aq",
+      "ions": [
+        {
+          "speciesId": "sodium-ion",
+          "ratio": 2
+        },
+        {
+          "speciesId": "sulfate-ion",
+          "ratio": 1
+        }
+      ],
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "id": "copper-ii-chloride",
+      "formula": "CuCl₂",
+      "composition": {
+        "Cu": 1,
+        "Cl": 2
+      },
+      "charge": 0,
+      "state": "aq",
+      "ions": [
+        {
+          "speciesId": "copper-ii-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "chloride-ion",
+          "ratio": 2
+        }
+      ],
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "id": "sodium-nitrate",
+      "formula": "NaNO₃",
+      "composition": {
+        "Na": 1,
+        "N": 1,
+        "O": 3
+      },
+      "charge": 0,
+      "state": "aq",
+      "ions": [
+        {
+          "speciesId": "sodium-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "nitrate-ion",
+          "ratio": 1
+        }
+      ],
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "id": "calcium-chloride",
+      "formula": "CaCl₂",
+      "composition": {
+        "Ca": 1,
+        "Cl": 2
+      },
+      "charge": 0,
+      "state": "aq",
+      "ions": [
+        {
+          "speciesId": "calcium-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "chloride-ion",
+          "ratio": 2
+        }
+      ],
+      "sourceId": "flowers-chem2e-18.6"
+    },
+    {
+      "id": "cobalt-ii-nitrate",
+      "formula": "Co(NO₃)₂",
+      "composition": {
+        "Co": 1,
+        "N": 2,
+        "O": 6
+      },
+      "charge": 0,
+      "state": "aq",
+      "ions": [
+        {
+          "speciesId": "cobalt-ii-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "nitrate-ion",
+          "ratio": 2
+        }
+      ],
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "id": "magnesium-chloride",
+      "formula": "MgCl₂",
+      "composition": {
+        "Mg": 1,
+        "Cl": 2
+      },
+      "charge": 0,
+      "state": "aq",
+      "ions": [
+        {
+          "speciesId": "magnesium-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "chloride-ion",
+          "ratio": 2
+        }
+      ],
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "id": "iron-iii-hydroxide",
+      "formula": "Fe(OH)₃",
+      "composition": {
+        "Fe": 1,
+        "O": 3,
+        "H": 3
+      },
+      "charge": 0,
+      "state": "s",
+      "sourceId": "birk-iron"
+    },
+    {
+      "id": "copper-ii-carbonate",
+      "formula": "CuCO₃",
+      "composition": {
+        "Cu": 1,
+        "C": 1,
+        "O": 3
+      },
+      "charge": 0,
+      "state": "s",
+      "sourceId": "wikipedia-copper-ii-carbonate"
+    },
+    {
+      "id": "nickel-ii-carbonate",
+      "formula": "NiCO₃",
+      "composition": {
+        "Ni": 1,
+        "C": 1,
+        "O": 3
+      },
+      "charge": 0,
+      "state": "s",
+      "sourceId": "flowers-chem2e-19.1"
+    },
+    {
+      "id": "barium-sulfate",
+      "formula": "BaSO₄",
+      "composition": {
+        "Ba": 1,
+        "S": 1,
+        "O": 4
+      },
+      "charge": 0,
+      "state": "s",
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "id": "silver-chloride",
+      "formula": "AgCl",
+      "composition": {
+        "Ag": 1,
+        "Cl": 1
+      },
+      "charge": 0,
+      "state": "s",
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "id": "calcium-carbonate",
+      "formula": "CaCO₃",
+      "composition": {
+        "Ca": 1,
+        "C": 1,
+        "O": 3
+      },
+      "charge": 0,
+      "state": "s",
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "magnesium",
+      "formula": "Mg",
+      "composition": {
+        "Mg": 1
+      },
+      "charge": 0,
+      "state": "s",
+      "enthalpyOfFormation": {
+        "value": 0,
+        "published": "0",
+        "sourceId": "nbs-tables-1982"
+      },
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "iron-ii-hydroxide",
+      "formula": "Fe(OH)₂",
+      "composition": {
+        "Fe": 1,
+        "O": 2,
+        "H": 2
+      },
+      "charge": 0,
+      "state": "s",
+      "sourceId": "birk-iron"
+    },
+    {
+      "id": "copper-ii-hydroxide",
+      "formula": "Cu(OH)₂",
+      "composition": {
+        "Cu": 1,
+        "O": 2,
+        "H": 2
+      },
+      "charge": 0,
+      "state": "s",
+      "sourceId": "birk-copper"
+    },
+    {
+      "id": "nickel-ii-hydroxide",
+      "formula": "Ni(OH)₂",
+      "composition": {
+        "Ni": 1,
+        "O": 2,
+        "H": 2
+      },
+      "charge": 0,
+      "state": "s",
+      "sourceId": "birk-nickel"
+    },
+    {
+      "id": "carbon-dioxide",
+      "formula": "CO₂",
+      "name": {
+        "value": "carbon dioxide",
+        "sourceId": "flowers-chem2e-2.7"
+      },
+      "composition": {
+        "C": 1,
+        "O": 2
+      },
+      "charge": 0,
+      "state": "g",
+      "sourceId": "flowers-chem2e-18.6"
+    },
+    {
+      "id": "ammonia",
+      "formula": "NH₃",
+      "name": {
+        "value": "ammonia",
+        "sourceId": "flowers-chem2e-18.5"
+      },
+      "composition": {
+        "N": 1,
+        "H": 3
+      },
+      "charge": 0,
+      "state": "g",
+      "acceptedStates": [
+        "g",
+        "aq"
+      ],
+      "sourceId": "flowers-chem2e-18.5"
+    },
+    {
+      "id": "hydrogen",
+      "formula": "H₂",
+      "name": {
+        "value": "hydrogen",
+        "sourceId": "flowers-chem2e-18.5"
+      },
+      "composition": {
+        "H": 2
+      },
+      "charge": 0,
+      "state": "g",
+      "enthalpyOfFormation": {
+        "value": 0,
+        "published": "0",
+        "sourceId": "nbs-tables-1982"
+      },
+      "sourceId": "flowers-chem2e-17.3"
+    },
+    {
+      "id": "water",
+      "formula": "H₂O",
+      "name": {
+        "value": "water",
+        "sourceId": "flowers-chem2e-2.7"
+      },
+      "composition": {
+        "H": 2,
+        "O": 1
+      },
+      "charge": 0,
+      "state": "l",
+      "enthalpyOfFormation": {
+        "value": -285.83,
+        "published": "-285.830",
+        "sourceId": "nbs-tables-1982"
+      },
+      "sourceId": "flowers-chem2e-17.3"
+    }
+  ],
+  "reagents": [
+    {
+      "id": "fecl3-0.5m",
+      "name": "Iron(III) chloride solution, 0.5 M",
+      "formula": "FeCl₃",
+      "pubchemCid": 24380,
+      "form": "solution",
+      "molarity": 0.5,
+      "ions": [
+        {
+          "speciesId": "iron-iii-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "chloride-ion",
+          "ratio": 3
+        }
+      ],
+      "speciesId": "iron-iii-chloride",
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "naoh-1m",
+      "name": "Sodium hydroxide solution, 1 M",
+      "formula": "NaOH",
+      "pubchemCid": 14798,
+      "form": "solution",
+      "molarity": 1,
+      "ions": [
+        {
+          "speciesId": "sodium-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "hydroxide-ion",
+          "ratio": 1
+        }
+      ],
+      "speciesId": "sodium-hydroxide",
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "naoh-6m",
+      "name": "Sodium hydroxide solution, 6 M",
+      "formula": "NaOH",
+      "pubchemCid": 14798,
+      "form": "solution",
+      "molarity": 6,
+      "ions": [
+        {
+          "speciesId": "sodium-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "hydroxide-ion",
+          "ratio": 1
+        }
+      ],
+      "speciesId": "sodium-hydroxide",
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "na2co3-0.5m",
+      "name": "Sodium carbonate solution, 0.5 M",
+      "formula": "Na₂CO₃",
+      "pubchemCid": 10340,
+      "form": "solution",
+      "molarity": 0.5,
+      "ions": [
+        {
+          "speciesId": "sodium-ion",
+          "ratio": 2
+        },
+        {
+          "speciesId": "carbonate-ion",
+          "ratio": 1
+        }
+      ],
+      "speciesId": "sodium-carbonate",
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "cuso4-0.5m",
+      "name": "Copper(II) sulfate solution, 0.5 M",
+      "formula": "CuSO₄",
+      "pubchemCid": 24462,
+      "form": "solution",
+      "molarity": 0.5,
+      "ions": [
+        {
+          "speciesId": "copper-ii-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "sulfate-ion",
+          "ratio": 1
+        }
+      ],
+      "speciesId": "copper-ii-sulfate",
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "nicl2-0.5m",
+      "name": "Nickel(II) chloride solution, 0.5 M",
+      "formula": "NiCl₂",
+      "pubchemCid": 24385,
+      "form": "solution",
+      "molarity": 0.5,
+      "ions": [
+        {
+          "speciesId": "nickel-ii-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "chloride-ion",
+          "ratio": 2
+        }
+      ],
+      "speciesId": "nickel-ii-chloride",
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "bacl2-0.5m",
+      "name": "Barium chloride solution, 0.5 M",
+      "formula": "BaCl₂",
+      "pubchemCid": 25204,
+      "form": "solution",
+      "molarity": 0.5,
+      "ions": [
+        {
+          "speciesId": "barium-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "chloride-ion",
+          "ratio": 2
+        }
+      ],
+      "speciesId": "barium-chloride",
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "cocl2-0.5m",
+      "name": "Cobalt(II) chloride solution, 0.5 M",
+      "formula": "CoCl₂",
+      "pubchemCid": 24288,
+      "form": "solution",
+      "molarity": 0.5,
+      "ions": [
+        {
+          "speciesId": "cobalt-ii-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "chloride-ion",
+          "ratio": 2
+        }
+      ],
+      "speciesId": "cobalt-ii-chloride",
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "nh4no3-0.5m",
+      "name": "Ammonium nitrate solution, 0.5 M",
+      "formula": "NH₄NO₃",
+      "pubchemCid": 22985,
+      "form": "solution",
+      "molarity": 0.5,
+      "ions": [
+        {
+          "speciesId": "ammonium-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "nitrate-ion",
+          "ratio": 1
+        }
+      ],
+      "speciesId": "ammonium-nitrate",
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "caco3",
+      "name": "Calcium carbonate, powder",
+      "formula": "CaCO₃",
+      "pubchemCid": 10112,
+      "form": "solid",
+      "molarMass": {
+        "value": 100.09,
+        "published": "100.09",
+        "sourceId": "pubchem-aqueous-reagents"
+      },
+      "appearance": {
+        "value": "white powder",
+        "sourceId": "wikipedia-calcium-carbonate"
+      },
+      "ions": [
+        {
+          "speciesId": "calcium-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "carbonate-ion",
+          "ratio": 1
+        }
+      ],
+      "speciesId": "calcium-carbonate",
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "hcl-1m",
+      "name": "Hydrochloric acid, 1 M",
+      "formula": "HCl",
+      "pubchemCid": 313,
+      "form": "solution",
+      "molarity": 1,
+      "ions": [
+        {
+          "speciesId": "hydrogen-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "chloride-ion",
+          "ratio": 1
+        }
+      ],
+      "speciesId": "hydrochloric-acid",
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "hcl-3m",
+      "name": "Hydrochloric acid, 3 M",
+      "formula": "HCl",
+      "pubchemCid": 313,
+      "form": "solution",
+      "molarity": 3,
+      "ions": [
+        {
+          "speciesId": "hydrogen-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "chloride-ion",
+          "ratio": 1
+        }
+      ],
+      "speciesId": "hydrochloric-acid",
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "hcl-6m",
+      "name": "Hydrochloric acid, 6 M",
+      "formula": "HCl",
+      "pubchemCid": 313,
+      "form": "solution",
+      "molarity": 6,
+      "ions": [
+        {
+          "speciesId": "hydrogen-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "chloride-ion",
+          "ratio": 1
+        }
+      ],
+      "speciesId": "hydrochloric-acid",
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "agno3-0.1m",
+      "name": "Silver nitrate solution, 0.1 M",
+      "formula": "AgNO₃",
+      "pubchemCid": 24470,
+      "form": "solution",
+      "molarity": 0.1,
+      "ions": [
+        {
+          "speciesId": "silver-ion",
+          "ratio": 1
+        },
+        {
+          "speciesId": "nitrate-ion",
+          "ratio": 1
+        }
+      ],
+      "speciesId": "silver-nitrate",
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "mg",
+      "name": "Magnesium ribbon",
+      "formula": "Mg",
+      "pubchemCid": 5462224,
+      "form": "metal",
+      "molarMass": {
+        "value": 24.305,
+        "published": "24.305",
+        "sourceId": "pubchem-aqueous-reagents"
+      },
+      "appearance": {
+        "value": "silvery metal ribbon",
+        "sourceId": "birk-magnesium"
+      },
+      "ions": [
+        {
+          "speciesId": "magnesium-ion",
+          "ratio": 1
+        }
+      ],
+      "speciesId": "magnesium",
+      "sourceId": "pubchem-aqueous-reagents"
+    }
+  ],
+  "solubility": [
+    {
+      "cationId": "iron-iii-ion",
+      "anionId": "hydroxide-ion",
+      "soluble": false,
+      "precipitateId": "iron-iii-hydroxide",
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "cationId": "copper-ii-ion",
+      "anionId": "carbonate-ion",
+      "soluble": false,
+      "precipitateId": "copper-ii-carbonate",
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "cationId": "nickel-ii-ion",
+      "anionId": "carbonate-ion",
+      "soluble": false,
+      "precipitateId": "nickel-ii-carbonate",
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "cationId": "barium-ion",
+      "anionId": "sulfate-ion",
+      "soluble": false,
+      "precipitateId": "barium-sulfate",
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "cationId": "silver-ion",
+      "anionId": "chloride-ion",
+      "soluble": false,
+      "precipitateId": "silver-chloride",
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "cationId": "calcium-ion",
+      "anionId": "carbonate-ion",
+      "soluble": false,
+      "precipitateId": "calcium-carbonate",
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "cationId": "iron-iii-ion",
+      "anionId": "chloride-ion",
+      "soluble": true,
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "cationId": "nickel-ii-ion",
+      "anionId": "chloride-ion",
+      "soluble": true,
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "cationId": "barium-ion",
+      "anionId": "chloride-ion",
+      "soluble": true,
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "cationId": "cobalt-ii-ion",
+      "anionId": "chloride-ion",
+      "soluble": true,
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "cationId": "copper-ii-ion",
+      "anionId": "chloride-ion",
+      "soluble": true,
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "cationId": "calcium-ion",
+      "anionId": "chloride-ion",
+      "soluble": true,
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "cationId": "magnesium-ion",
+      "anionId": "chloride-ion",
+      "soluble": true,
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "cationId": "sodium-ion",
+      "anionId": "chloride-ion",
+      "soluble": true,
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "cationId": "sodium-ion",
+      "anionId": "hydroxide-ion",
+      "soluble": true,
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "cationId": "sodium-ion",
+      "anionId": "carbonate-ion",
+      "soluble": true,
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "cationId": "sodium-ion",
+      "anionId": "sulfate-ion",
+      "soluble": true,
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "cationId": "sodium-ion",
+      "anionId": "nitrate-ion",
+      "soluble": true,
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "cationId": "ammonium-ion",
+      "anionId": "nitrate-ion",
+      "soluble": true,
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "cationId": "ammonium-ion",
+      "anionId": "hydroxide-ion",
+      "soluble": true,
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "cationId": "silver-ion",
+      "anionId": "nitrate-ion",
+      "soluble": true,
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "cationId": "cobalt-ii-ion",
+      "anionId": "nitrate-ion",
+      "soluble": true,
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    },
+    {
+      "cationId": "copper-ii-ion",
+      "anionId": "sulfate-ion",
+      "soluble": true,
+      "sourceId": "flowers-chem2e-4.2-solubility"
+    }
+  ],
+  "activitySeries": [
+    {
+      "metalId": "magnesium",
+      "ionId": "magnesium-ion",
+      "aboveHydrogen": true,
+      "sourceId": "flowers-chem2e-17.3"
+    }
+  ],
+  "observations": [
+    {
+      "productId": "iron-iii-hydroxide",
+      "color": "rust-brown",
+      "texture": "gelatinous",
+      "sourceId": "birk-iron",
+      "alsoSourceId": "flowers-chem2e-19.1"
+    },
+    {
+      "productId": "copper-ii-carbonate",
+      "color": "blue-green",
+      "sourceId": "put-copper-hydroxide-carbonate"
+    },
+    {
+      "productId": "nickel-ii-carbonate",
+      "color": "pale green",
+      "sourceId": "wikipedia-nickel-ii-carbonate"
+    },
+    {
+      "productId": "barium-sulfate",
+      "color": "white",
+      "texture": "fine",
+      "sourceId": "birk-barium"
+    },
+    {
+      "productId": "silver-chloride",
+      "color": "white",
+      "sourceId": "birk-silver"
+    },
+    {
+      "productId": "carbon-dioxide",
+      "color": "colourless",
+      "odor": "none",
+      "sourceId": "wikipedia-carbon-dioxide"
+    },
+    {
+      "productId": "ammonia",
+      "color": "colourless",
+      "odor": "sharp and pungent",
+      "sourceId": "flowers-chem2e-18.5"
+    },
+    {
+      "productId": "hydrogen",
+      "color": "colourless",
+      "odor": "none",
+      "sourceId": "flowers-chem2e-18.5"
+    }
+  ],
+  "constants": {
+    "solutionHeatCapacity": {
+      "value": 4.18,
+      "unit": "J/(g·°C)",
+      "note": "The specific heat of water, used for every mixed solution: an idealisation (spec 5.2). The section prints the figure to four digits, 4.184, and once as 4.18 in a worked example; the three-figure value is stored. The difference moves a computed temperature rise by a tenth of a percent.",
+      "sourceId": "flowers-chem2e-5.2"
+    },
+    "solutionDensity": {
+      "value": 1,
+      "published": "1.0",
+      "unit": "g/mL",
+      "note": "The density of water, used for every mixed solution: an idealisation (spec 5.2). The mass that warms is taken as the volume of the liquid times this figure; a solid or a metal added to it is left out.",
+      "sourceId": "flowers-chem2e-5.2"
+    }
+  },
+  "parameters": {
+    "warmFromC": {
+      "value": 5,
+      "rationale": "A computed temperature rise of at least this many degrees Celsius is recorded as warm. Chosen so that the magnesium tube, which the model warms by about 11 °C, is warm to the touch, and so that a rise too small to feel in a test tube reads as no change."
+    },
+    "hotFromC": {
+      "value": 25,
+      "rationale": "A computed temperature rise of at least this many degrees Celsius is recorded as hot. Chosen so that the tube of 6 M acid and 6 M base, which the model warms by about 40 °C to some 60 °C or more, is hot, and the magnesium tube is not."
+    }
+  },
+  "choices": {
+    "solid": [
+      "none",
+      "white",
+      "rust-brown",
+      "blue-green",
+      "pale green",
+      "blue",
+      "black"
+    ],
+    "liquid": [
+      "colourless",
+      "yellow-orange",
+      "orange",
+      "pink",
+      "blue",
+      "green"
+    ],
+    "odor": [
+      "none",
+      "sharp and pungent",
+      "like rotten eggs",
+      "like vinegar"
+    ]
+  },
+  "cautions": {
+    "sniffing": {
+      "value": "Do not put your nose over a tube and breathe in. A guide to safe practice in laboratories says that sniffing a chemical is in general not encouraged, that it is done only where a procedure calls for it and the substance has been checked beforehand, and that a toxic or unknown substance is never sniffed on purpose. Where a procedure does call for it, the vapour is wafted gently towards the nose. Use the waft tool.",
+      "sourceId": "nrc-prudent-practices-2011"
+    },
+    "hotTube": {
+      "value": "Careful: this tube is hot, and what went into it is corrosive. The acid and the base are each strong enough to burn skin and damage eyes, and a real tube never holds exactly equal amounts of the two, so the mixture may still be strongly acidic or strongly basic. Do not close your hand around the tube: touch the outside briefly, or use the thermometer.",
+      "sourceId": "flinn-sds-395",
+      "alsoSourceId": "flinn-sds-735"
+    }
+  },
+  "stations": [
+    {
+      "id": "aq-01",
+      "name": "Iron(III) chloride and sodium hydroxide",
+      "reagentIds": [
+        "fecl3-0.5m",
+        "naoh-1m"
+      ],
+      "amounts": [
+        {
+          "value": 2,
+          "unit": "mL"
+        },
+        {
+          "value": 2,
+          "unit": "mL"
+        }
+      ],
+      "observationTools": [
+        "eye"
+      ],
+      "equations": {
+        "molecular": {
+          "reactants": [
+            {
+              "speciesId": "iron-iii-chloride",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "sodium-hydroxide",
+              "coefficient": 3
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "iron-iii-hydroxide",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "sodium-chloride",
+              "coefficient": 3
+            }
+          ]
+        },
+        "completeIonic": {
+          "reactants": [
+            {
+              "speciesId": "iron-iii-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "chloride-ion",
+              "coefficient": 3
+            },
+            {
+              "speciesId": "sodium-ion",
+              "coefficient": 3
+            },
+            {
+              "speciesId": "hydroxide-ion",
+              "coefficient": 3
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "iron-iii-hydroxide",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "sodium-ion",
+              "coefficient": 3
+            },
+            {
+              "speciesId": "chloride-ion",
+              "coefficient": 3
+            }
+          ]
+        },
+        "netIonic": {
+          "reactants": [
+            {
+              "speciesId": "iron-iii-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "hydroxide-ion",
+              "coefficient": 3
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "iron-iii-hydroxide",
+              "coefficient": 1
+            }
+          ]
+        }
+      },
+      "expected": {
+        "precipitate": "iron-iii-hydroxide",
+        "precipitateColor": "rust-brown",
+        "gas": null,
+        "bubbles": false,
+        "temperature": "none",
+        "liquidColor": "yellow-orange",
+        "colouredIons": [
+          "iron-iii-ion"
+        ],
+        "odor": null,
+        "toolResults": {}
+      },
+      "paletteSpecies": [
+        "iron-iii-chloride",
+        "sodium-hydroxide",
+        "iron-iii-hydroxide",
+        "sodium-chloride",
+        "iron-iii-ion",
+        "chloride-ion",
+        "sodium-ion",
+        "hydroxide-ion",
+        "iron-ii-hydroxide",
+        "water"
+      ],
+      "hints": [
+        "Write down every ion that is in the tube once the two solutions are mixed: two from each bottle.",
+        "Pair each positive ion with the negative ion that came from the other bottle, and look each pair up in the solubility table.",
+        "An iron(III) ion carries three positive charges and a hydroxide ion one negative charge. How many hydroxide ions does one iron(III) ion need? Is there enough hydroxide in the tube for all of the iron?"
+      ],
+      "notes": [
+        {
+          "value": "The solid is written Fe(OH)₃ here, as it usually is. What settles out of a real tube is better described as a hydrated iron(III) oxide: iron, oxygen and water, in no fixed proportion.",
+          "sourceId": "flowers-chem2e-19.1"
+        }
+      ]
+    },
+    {
+      "id": "aq-02",
+      "name": "Sodium carbonate and copper(II) sulfate",
+      "reagentIds": [
+        "na2co3-0.5m",
+        "cuso4-0.5m"
+      ],
+      "amounts": [
+        {
+          "value": 2,
+          "unit": "mL"
+        },
+        {
+          "value": 2,
+          "unit": "mL"
+        }
+      ],
+      "observationTools": [
+        "eye"
+      ],
+      "equations": {
+        "molecular": {
+          "reactants": [
+            {
+              "speciesId": "sodium-carbonate",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "copper-ii-sulfate",
+              "coefficient": 1
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "copper-ii-carbonate",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "sodium-sulfate",
+              "coefficient": 1
+            }
+          ]
+        },
+        "completeIonic": {
+          "reactants": [
+            {
+              "speciesId": "sodium-ion",
+              "coefficient": 2
+            },
+            {
+              "speciesId": "carbonate-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "copper-ii-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "sulfate-ion",
+              "coefficient": 1
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "copper-ii-carbonate",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "sodium-ion",
+              "coefficient": 2
+            },
+            {
+              "speciesId": "sulfate-ion",
+              "coefficient": 1
+            }
+          ]
+        },
+        "netIonic": {
+          "reactants": [
+            {
+              "speciesId": "copper-ii-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "carbonate-ion",
+              "coefficient": 1
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "copper-ii-carbonate",
+              "coefficient": 1
+            }
+          ]
+        }
+      },
+      "expected": {
+        "precipitate": "copper-ii-carbonate",
+        "precipitateColor": "blue-green",
+        "gas": null,
+        "bubbles": false,
+        "temperature": "none",
+        "liquidColor": "colourless",
+        "colouredIons": [],
+        "odor": null,
+        "toolResults": {}
+      },
+      "paletteSpecies": [
+        "sodium-carbonate",
+        "copper-ii-sulfate",
+        "copper-ii-carbonate",
+        "sodium-sulfate",
+        "sodium-ion",
+        "carbonate-ion",
+        "copper-ii-ion",
+        "sulfate-ion",
+        "copper-ii-hydroxide",
+        "sodium-chloride"
+      ],
+      "hints": [
+        "Write down every ion that is in the tube once the two solutions are mixed: two from each bottle.",
+        "Pair each positive ion with the negative ion that came from the other bottle, and look each pair up in the solubility table.",
+        "The blue of the copper(II) sulfate solution belongs to one of its two ions. If the liquid ends up colourless, where has that ion gone?"
+      ],
+      "notes": [
+        {
+          "value": "The equation checked here is the simple carbonate: Cu²⁺ + CO₃²⁻ → CuCO₃. The solid that really forms when these two solutions meet is a basic carbonate, which holds hydroxide as well as carbonate, such as Cu₂(OH)₂CO₃. The blue-green recorded here is that solid's colour. Plain CuCO₃ is hard to make at all.",
+          "sourceId": "wikipedia-copper-ii-carbonate",
+          "alsoSourceId": "wikipedia-basic-copper-carbonate"
+        }
+      ]
+    },
+    {
+      "id": "aq-03",
+      "name": "Sodium carbonate and nickel(II) chloride",
+      "reagentIds": [
+        "na2co3-0.5m",
+        "nicl2-0.5m"
+      ],
+      "amounts": [
+        {
+          "value": 2,
+          "unit": "mL"
+        },
+        {
+          "value": 2,
+          "unit": "mL"
+        }
+      ],
+      "observationTools": [
+        "eye"
+      ],
+      "equations": {
+        "molecular": {
+          "reactants": [
+            {
+              "speciesId": "sodium-carbonate",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "nickel-ii-chloride",
+              "coefficient": 1
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "nickel-ii-carbonate",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "sodium-chloride",
+              "coefficient": 2
+            }
+          ]
+        },
+        "completeIonic": {
+          "reactants": [
+            {
+              "speciesId": "sodium-ion",
+              "coefficient": 2
+            },
+            {
+              "speciesId": "carbonate-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "nickel-ii-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "chloride-ion",
+              "coefficient": 2
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "nickel-ii-carbonate",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "sodium-ion",
+              "coefficient": 2
+            },
+            {
+              "speciesId": "chloride-ion",
+              "coefficient": 2
+            }
+          ]
+        },
+        "netIonic": {
+          "reactants": [
+            {
+              "speciesId": "nickel-ii-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "carbonate-ion",
+              "coefficient": 1
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "nickel-ii-carbonate",
+              "coefficient": 1
+            }
+          ]
+        }
+      },
+      "expected": {
+        "precipitate": "nickel-ii-carbonate",
+        "precipitateColor": "pale green",
+        "gas": null,
+        "bubbles": false,
+        "temperature": "none",
+        "liquidColor": "colourless",
+        "colouredIons": [],
+        "odor": null,
+        "toolResults": {}
+      },
+      "paletteSpecies": [
+        "sodium-carbonate",
+        "nickel-ii-chloride",
+        "nickel-ii-carbonate",
+        "sodium-chloride",
+        "sodium-ion",
+        "carbonate-ion",
+        "nickel-ii-ion",
+        "chloride-ion",
+        "nickel-ii-hydroxide",
+        "water"
+      ],
+      "hints": [
+        "Write down every ion that is in the tube once the two solutions are mixed: two from each bottle.",
+        "Pair each positive ion with the negative ion that came from the other bottle, and look each pair up in the solubility table.",
+        "Count the chloride ions: one NiCl₂ gives two. They have to be balanced on the other side of the equation as well."
+      ],
+      "notes": [
+        {
+          "value": "The equation checked here is the simple carbonate: Ni²⁺ + CO₃²⁻ → NiCO₃. As with copper, the solid that really forms from a nickel salt solution and sodium carbonate is a basic carbonate, with hydroxide in it as well as carbonate.",
+          "sourceId": "wikipedia-nickel-ii-carbonate",
+          "alsoSourceId": "chemguide-carbonates"
+        }
+      ]
+    },
+    {
+      "id": "aq-04",
+      "name": "Barium chloride and copper(II) sulfate",
+      "reagentIds": [
+        "bacl2-0.5m",
+        "cuso4-0.5m"
+      ],
+      "amounts": [
+        {
+          "value": 2,
+          "unit": "mL"
+        },
+        {
+          "value": 2,
+          "unit": "mL"
+        }
+      ],
+      "observationTools": [
+        "eye"
+      ],
+      "equations": {
+        "molecular": {
+          "reactants": [
+            {
+              "speciesId": "barium-chloride",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "copper-ii-sulfate",
+              "coefficient": 1
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "barium-sulfate",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "copper-ii-chloride",
+              "coefficient": 1
+            }
+          ]
+        },
+        "completeIonic": {
+          "reactants": [
+            {
+              "speciesId": "barium-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "chloride-ion",
+              "coefficient": 2
+            },
+            {
+              "speciesId": "copper-ii-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "sulfate-ion",
+              "coefficient": 1
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "barium-sulfate",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "copper-ii-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "chloride-ion",
+              "coefficient": 2
+            }
+          ]
+        },
+        "netIonic": {
+          "reactants": [
+            {
+              "speciesId": "barium-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "sulfate-ion",
+              "coefficient": 1
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "barium-sulfate",
+              "coefficient": 1
+            }
+          ]
+        }
+      },
+      "expected": {
+        "precipitate": "barium-sulfate",
+        "precipitateColor": "white",
+        "gas": null,
+        "bubbles": false,
+        "temperature": "none",
+        "liquidColor": "blue",
+        "colouredIons": [
+          "copper-ii-ion"
+        ],
+        "odor": null,
+        "toolResults": {}
+      },
+      "paletteSpecies": [
+        "barium-chloride",
+        "copper-ii-sulfate",
+        "barium-sulfate",
+        "copper-ii-chloride",
+        "barium-ion",
+        "chloride-ion",
+        "copper-ii-ion",
+        "sulfate-ion",
+        "copper-ii-carbonate",
+        "water"
+      ],
+      "hints": [
+        "Write down every ion that is in the tube once the two solutions are mixed: two from each bottle.",
+        "Pair each positive ion with the negative ion that came from the other bottle, and look each pair up in the solubility table.",
+        "The liquid is still blue after the solid has formed. Which ion gives it that colour, and has anything happened to that ion?"
+      ],
+      "notes": []
+    },
+    {
+      "id": "aq-05",
+      "name": "Cobalt(II) chloride and iron(III) chloride",
+      "reagentIds": [
+        "cocl2-0.5m",
+        "fecl3-0.5m"
+      ],
+      "amounts": [
+        {
+          "value": 2,
+          "unit": "mL"
+        },
+        {
+          "value": 2,
+          "unit": "mL"
+        }
+      ],
+      "observationTools": [
+        "eye"
+      ],
+      "equations": {
+        "molecular": null,
+        "completeIonic": null,
+        "netIonic": null
+      },
+      "expected": {
+        "precipitate": null,
+        "precipitateColor": null,
+        "gas": null,
+        "bubbles": false,
+        "temperature": "none",
+        "liquidColor": "orange",
+        "colouredIons": [
+          "cobalt-ii-ion",
+          "iron-iii-ion"
+        ],
+        "odor": null,
+        "toolResults": {}
+      },
+      "paletteSpecies": [
+        "cobalt-ii-chloride",
+        "iron-iii-chloride",
+        "cobalt-ii-ion",
+        "iron-iii-ion",
+        "chloride-ion",
+        "iron-iii-hydroxide",
+        "water"
+      ],
+      "hints": [
+        "Write down every ion that is in the tube. Both bottles hold a chloride.",
+        "A solid needs a positive ion and a negative ion that are insoluble together. How many different negative ions are there here, and what does the solubility table say of each pairing?"
+      ],
+      "notes": [
+        {
+          "value": "Nothing reacts here. The only negative ion in the tube is chloride, and iron(III) chloride and cobalt(II) chloride both dissolve, so no pairing of these ions makes a solid, and there is no acid, base or metal for anything else to happen. The two colours only blend. The answer to all three equations is \"No reaction\".",
+          "sourceId": "flowers-chem2e-4.2-solubility"
+        }
+      ]
+    },
+    {
+      "id": "aq-06",
+      "name": "Ammonium nitrate and sodium hydroxide",
+      "reagentIds": [
+        "nh4no3-0.5m",
+        "naoh-1m"
+      ],
+      "amounts": [
+        {
+          "value": 2,
+          "unit": "mL"
+        },
+        {
+          "value": 2,
+          "unit": "mL"
+        }
+      ],
+      "observationTools": [
+        "eye",
+        "waft",
+        "litmus"
+      ],
+      "equations": {
+        "molecular": {
+          "reactants": [
+            {
+              "speciesId": "ammonium-nitrate",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "sodium-hydroxide",
+              "coefficient": 1
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "sodium-nitrate",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "ammonia",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "water",
+              "coefficient": 1
+            }
+          ]
+        },
+        "completeIonic": {
+          "reactants": [
+            {
+              "speciesId": "ammonium-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "nitrate-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "sodium-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "hydroxide-ion",
+              "coefficient": 1
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "sodium-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "nitrate-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "ammonia",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "water",
+              "coefficient": 1
+            }
+          ]
+        },
+        "netIonic": {
+          "reactants": [
+            {
+              "speciesId": "ammonium-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "hydroxide-ion",
+              "coefficient": 1
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "ammonia",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "water",
+              "coefficient": 1
+            }
+          ]
+        }
+      },
+      "expected": {
+        "precipitate": null,
+        "precipitateColor": null,
+        "gas": "ammonia",
+        "bubbles": false,
+        "temperature": "none",
+        "liquidColor": "colourless",
+        "colouredIons": [],
+        "odor": "sharp and pungent",
+        "toolResults": {
+          "litmusInLiquid": "turns blue",
+          "litmusInVapour": "turns blue"
+        }
+      },
+      "paletteSpecies": [
+        "ammonium-nitrate",
+        "sodium-hydroxide",
+        "sodium-nitrate",
+        "ammonia",
+        "water",
+        "ammonium-ion",
+        "nitrate-ion",
+        "sodium-ion",
+        "hydroxide-ion",
+        "hydrogen",
+        "carbon-dioxide"
+      ],
+      "hints": [
+        "No solid forms here, so look for another sign. One of the ions in the tube is a weak acid and another is a strong base.",
+        "When an ammonium ion gives a hydrogen ion to a hydroxide ion, what is left of the ammonium ion, and what has the hydroxide ion become?",
+        "Ammonia and water are molecules, not ions. Write each as a whole formula in every equation."
+      ],
+      "notes": [
+        {
+          "value": "Red litmus dipped into the liquid turns blue, but that proves nothing about ammonia: there is sodium hydroxide left over in the tube, and it would turn the paper blue with no ammonium nitrate there at all. Moist red litmus held above the liquid, touching neither the liquid nor the glass, turns blue only if a basic gas reaches it. That gas is ammonia.",
+          "sourceId": "birk-ammonium",
+          "alsoSourceId": "wikipedia-litmus"
+        },
+        {
+          "value": "Do not expect to see the gas bubbling out: ammonia is very soluble in water, and most of it stays dissolved. The smell and the litmus held in the vapour are the signs.",
+          "sourceId": "flowers-chem2e-18.5"
+        }
+      ]
+    },
+    {
+      "id": "aq-07",
+      "name": "Calcium carbonate and hydrochloric acid",
+      "reagentIds": [
+        "caco3",
+        "hcl-1m"
+      ],
+      "amounts": [
+        {
+          "value": 0.1,
+          "unit": "g"
+        },
+        {
+          "value": 3,
+          "unit": "mL"
+        }
+      ],
+      "observationTools": [
+        "eye"
+      ],
+      "equations": {
+        "molecular": {
+          "reactants": [
+            {
+              "speciesId": "calcium-carbonate",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "hydrochloric-acid",
+              "coefficient": 2
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "calcium-chloride",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "water",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "carbon-dioxide",
+              "coefficient": 1
+            }
+          ]
+        },
+        "completeIonic": {
+          "reactants": [
+            {
+              "speciesId": "calcium-carbonate",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "hydrogen-ion",
+              "coefficient": 2
+            },
+            {
+              "speciesId": "chloride-ion",
+              "coefficient": 2
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "calcium-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "chloride-ion",
+              "coefficient": 2
+            },
+            {
+              "speciesId": "water",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "carbon-dioxide",
+              "coefficient": 1
+            }
+          ]
+        },
+        "netIonic": {
+          "reactants": [
+            {
+              "speciesId": "calcium-carbonate",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "hydrogen-ion",
+              "coefficient": 2
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "calcium-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "water",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "carbon-dioxide",
+              "coefficient": 1
+            }
+          ]
+        }
+      },
+      "expected": {
+        "precipitate": null,
+        "precipitateColor": null,
+        "gas": "carbon-dioxide",
+        "bubbles": true,
+        "temperature": "none",
+        "liquidColor": "colourless",
+        "colouredIons": [],
+        "odor": null,
+        "toolResults": {}
+      },
+      "paletteSpecies": [
+        "calcium-carbonate",
+        "hydrochloric-acid",
+        "calcium-chloride",
+        "water",
+        "carbon-dioxide",
+        "hydrogen-ion",
+        "chloride-ion",
+        "calcium-ion",
+        "carbonate-ion",
+        "hydrogen"
+      ],
+      "hints": [
+        "The white powder is a solid that does not dissolve in water, so it is not split into ions: it goes into every equation as one formula.",
+        "Each carbonate takes two hydrogen ions from the acid. Is there enough acid in the tube for all of the powder?",
+        "The gas contains the carbon of the carbonate."
+      ],
+      "notes": []
+    },
+    {
+      "id": "aq-08",
+      "name": "Hydrochloric acid and sodium hydroxide, both 6 M",
+      "reagentIds": [
+        "hcl-6m",
+        "naoh-6m"
+      ],
+      "amounts": [
+        {
+          "value": 2,
+          "unit": "mL"
+        },
+        {
+          "value": 2,
+          "unit": "mL"
+        }
+      ],
+      "observationTools": [
+        "eye",
+        "touch",
+        "thermometer"
+      ],
+      "equations": {
+        "molecular": {
+          "reactants": [
+            {
+              "speciesId": "hydrochloric-acid",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "sodium-hydroxide",
+              "coefficient": 1
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "sodium-chloride",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "water",
+              "coefficient": 1
+            }
+          ]
+        },
+        "completeIonic": {
+          "reactants": [
+            {
+              "speciesId": "hydrogen-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "chloride-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "sodium-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "hydroxide-ion",
+              "coefficient": 1
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "sodium-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "chloride-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "water",
+              "coefficient": 1
+            }
+          ]
+        },
+        "netIonic": {
+          "reactants": [
+            {
+              "speciesId": "hydrogen-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "hydroxide-ion",
+              "coefficient": 1
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "water",
+              "coefficient": 1
+            }
+          ]
+        }
+      },
+      "expected": {
+        "precipitate": null,
+        "precipitateColor": null,
+        "gas": null,
+        "bubbles": false,
+        "temperature": "hot",
+        "liquidColor": "colourless",
+        "colouredIons": [],
+        "odor": null,
+        "toolResults": {}
+      },
+      "paletteSpecies": [
+        "hydrochloric-acid",
+        "sodium-hydroxide",
+        "sodium-chloride",
+        "water",
+        "hydrogen-ion",
+        "chloride-ion",
+        "sodium-ion",
+        "hydroxide-ion",
+        "hydrogen",
+        "carbon-dioxide"
+      ],
+      "hints": [
+        "Nothing changes to the eye. A reaction can also show itself by heat.",
+        "An acid gives hydrogen ions and a base gives hydroxide ions. What do one of each make together?",
+        "Water is a molecule and a liquid: write it as a whole formula."
+      ],
+      "notes": [
+        {
+          "value": "There is nothing to see: both solutions are colourless, and so is the solution of salt they make. Heat is the only sign that anything has happened. The temperature rise worked out for this tube is idealised: it assumes that no heat escapes and that the liquid warms as easily as plain water, so a real tube gets somewhat less hot.",
+          "sourceId": "flowers-chem2e-5.2"
+        }
+      ]
+    },
+    {
+      "id": "aq-09",
+      "name": "Cobalt(II) chloride and silver nitrate",
+      "reagentIds": [
+        "cocl2-0.5m",
+        "agno3-0.1m"
+      ],
+      "amounts": [
+        {
+          "value": 2,
+          "unit": "mL"
+        },
+        {
+          "value": 2,
+          "unit": "mL"
+        }
+      ],
+      "observationTools": [
+        "eye"
+      ],
+      "equations": {
+        "molecular": {
+          "reactants": [
+            {
+              "speciesId": "cobalt-ii-chloride",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "silver-nitrate",
+              "coefficient": 2
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "silver-chloride",
+              "coefficient": 2
+            },
+            {
+              "speciesId": "cobalt-ii-nitrate",
+              "coefficient": 1
+            }
+          ]
+        },
+        "completeIonic": {
+          "reactants": [
+            {
+              "speciesId": "cobalt-ii-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "chloride-ion",
+              "coefficient": 2
+            },
+            {
+              "speciesId": "silver-ion",
+              "coefficient": 2
+            },
+            {
+              "speciesId": "nitrate-ion",
+              "coefficient": 2
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "silver-chloride",
+              "coefficient": 2
+            },
+            {
+              "speciesId": "cobalt-ii-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "nitrate-ion",
+              "coefficient": 2
+            }
+          ]
+        },
+        "netIonic": {
+          "reactants": [
+            {
+              "speciesId": "silver-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "chloride-ion",
+              "coefficient": 1
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "silver-chloride",
+              "coefficient": 1
+            }
+          ]
+        }
+      },
+      "expected": {
+        "precipitate": "silver-chloride",
+        "precipitateColor": "white",
+        "gas": null,
+        "bubbles": false,
+        "temperature": "none",
+        "liquidColor": "pink",
+        "colouredIons": [
+          "cobalt-ii-ion"
+        ],
+        "odor": null,
+        "toolResults": {}
+      },
+      "paletteSpecies": [
+        "cobalt-ii-chloride",
+        "silver-nitrate",
+        "silver-chloride",
+        "cobalt-ii-nitrate",
+        "cobalt-ii-ion",
+        "chloride-ion",
+        "silver-ion",
+        "nitrate-ion",
+        "sodium-nitrate",
+        "water"
+      ],
+      "hints": [
+        "Write down every ion that is in the tube once the two solutions are mixed: two from each bottle.",
+        "Pair each positive ion with the negative ion that came from the other bottle, and look each pair up in the solubility table.",
+        "The silver nitrate solution is much weaker than the cobalt(II) chloride solution. Which ion runs out first, and which ions are left over in the liquid?"
+      ],
+      "notes": []
+    },
+    {
+      "id": "aq-10",
+      "name": "Magnesium and hydrochloric acid",
+      "reagentIds": [
+        "mg",
+        "hcl-3m"
+      ],
+      "amounts": [
+        {
+          "value": 0.012,
+          "unit": "g"
+        },
+        {
+          "value": 5,
+          "unit": "mL"
+        }
+      ],
+      "observationTools": [
+        "eye",
+        "splint",
+        "touch"
+      ],
+      "equations": {
+        "molecular": {
+          "reactants": [
+            {
+              "speciesId": "magnesium",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "hydrochloric-acid",
+              "coefficient": 2
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "magnesium-chloride",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "hydrogen",
+              "coefficient": 1
+            }
+          ]
+        },
+        "completeIonic": {
+          "reactants": [
+            {
+              "speciesId": "magnesium",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "hydrogen-ion",
+              "coefficient": 2
+            },
+            {
+              "speciesId": "chloride-ion",
+              "coefficient": 2
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "magnesium-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "chloride-ion",
+              "coefficient": 2
+            },
+            {
+              "speciesId": "hydrogen",
+              "coefficient": 1
+            }
+          ]
+        },
+        "netIonic": {
+          "reactants": [
+            {
+              "speciesId": "magnesium",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "hydrogen-ion",
+              "coefficient": 2
+            }
+          ],
+          "products": [
+            {
+              "speciesId": "magnesium-ion",
+              "coefficient": 1
+            },
+            {
+              "speciesId": "hydrogen",
+              "coefficient": 1
+            }
+          ]
+        }
+      },
+      "expected": {
+        "precipitate": null,
+        "precipitateColor": null,
+        "gas": "hydrogen",
+        "bubbles": true,
+        "temperature": "warm",
+        "liquidColor": "colourless",
+        "colouredIons": [],
+        "odor": null,
+        "toolResults": {
+          "splint": "pop"
+        }
+      },
+      "paletteSpecies": [
+        "magnesium",
+        "hydrochloric-acid",
+        "magnesium-chloride",
+        "hydrogen",
+        "hydrogen-ion",
+        "chloride-ion",
+        "magnesium-ion",
+        "water",
+        "carbon-dioxide"
+      ],
+      "hints": [
+        "The ribbon is a metal, a solid: it goes into every equation as one formula, with no charge.",
+        "The metal ends up dissolved, as an ion with two positive charges. Something else must have taken up the charge it gave away.",
+        "The gas is an element whose molecules hold two atoms."
+      ],
+      "notes": []
+    }
+  ]
+}

@@ -97,20 +97,24 @@ describe('the list of labs', () => {
     expect(text(items()[0]!)).toContain('|Completed|')
   })
 
-  it('shows the lab that has no page yet as text, with the planned sentence and no status', () => {
+  it('links the aqueous reactions lab the same way, with its own status, and no lab is shown as planned', () => {
+    const second = () => items()[1]!
+    expect([...second().matchAll(/<a [^>]*href="([^"]*)"[^>]*>(.*?)<\/a>/g)].map((match) => [match[1], match[2]])).toEqual([['/lab/aqueous', aqueous.title]])
+    expect(text(second())).toContain('|Not started|')
     saveEntry(app.store, aqueous.entry, aqueous.version, { status: 'completed' })
-    const [, second] = items()
-    expect(second).not.toContain('<a ')
-    expect(text(second!)).toContain(`|${aqueous.title}|`)
-    expect(text(second!)).toContain(`|${SHELL_TEXT.planned}|`)
-    expect(second).not.toContain('Completed')
+    expect(text(second())).toContain('|Completed|')
+    expect(text(items()[0]!)).toContain('|Not started|')
+    expect(items().join('')).not.toContain(SHELL_TEXT.planned)
   })
 
-  it('Home gives an activity that has no page yet the same: text and the planned sentence, not a link and a status; the lab that is built keeps both', () => {
-    for (const planned of [aqueous, mechanism]) saveEntry(app.store, planned.entry, planned.version, { status: 'completed' })
+  it('Home gives an activity that has no page yet text and the planned sentence, not a link and a status; the two labs, which are built, have both', () => {
+    for (const planned of [mechanism]) saveEntry(app.store, planned.entry, planned.version, { status: 'completed' })
     const home = [...draw(createElement(Home)).matchAll(/<li[^>]*>(.*?)<\/li>/gs)].map((match) => match[1]!)
     const item = (title: string) => home.find((html) => html.includes(title))!
-    for (const planned of [aqueous, mechanism]) {
+    expect(item(aqueous.title)).toMatch(/<a [^>]*href="\/lab\/aqueous"/)
+    expect(text(item(aqueous.title))).toContain('|Not started|')
+    expect(text(item(aqueous.title))).not.toContain(SHELL_TEXT.planned)
+    for (const planned of [mechanism]) {
       expect([planned.title, item(planned.title).includes('<a ')]).toEqual([planned.title, false])
       expect(text(item(planned.title))).toContain(`|${planned.title}|`)
       expect(text(item(planned.title))).toContain(`|${SHELL_TEXT.planned}|`)

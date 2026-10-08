@@ -23,13 +23,29 @@ export const sourceSchema = z.strictObject({
 
 const hex = z.string().regex(/^#[0-9a-fA-F]{6}$/)
 
+const state = z.enum(['aq', 's', 'l', 'g'])
+/** An ion of a compound, and how many of it one formula unit holds. */
+const counted = z.strictObject({ speciesId: id, ratio: z.number().int().positive() })
+
+// The record sourceId covers the formula, the composition, the charge and the state.
 export const speciesSchema = z.strictObject({
   id,
   formula: text,
+  /**
+   * What the species is called, where a page says its name: an ion as it is said before the word "ion"
+   * ("iron(III)", "chloride"), a molecule by its own name ("water"). Cited on its own.
+   */
+  name: cited(text).optional(),
   composition: z.record(z.string(), z.number().int().positive()),
   charge: z.number().int(),
-  state: z.enum(['aq', 's', 'l', 'g']),
+  state,
+  /** Every state a learner's equation may give this species, where that is more than the one above: ammonia leaves as a gas and is also in solution. */
+  acceptedStates: z.array(state).min(2).optional(),
   solutionColor: cited(z.strictObject({ name: text, hex })).optional(),
+  /** Standard enthalpy of formation at 298.15 K in kJ/mol, where a model needs it (spec 5.3). */
+  enthalpyOfFormation: citedNumber(z.number()).optional(),
+  /** For a dissolved strong electrolyte written as one formula: the ions an ionic equation splits it into. */
+  ions: z.array(counted).min(2).optional(),
   sourceId: id,
 })
 
@@ -53,9 +69,13 @@ export const reagentSchema = z
     pubchemCid: z.number().int().positive(),
     form: z.enum(['solution', 'solid', 'metal']),
     molarity: z.number().positive().optional(),
-    molarMass: cited(z.number().positive()).optional(),
+    molarMass: citedNumber(z.number().positive()).optional(),
     appearance: cited(text).optional(),
-    ions: z.array(z.strictObject({ speciesId: id, ratio: z.number().int().positive() })),
+    ions: z.array(counted),
+    /** The species this reagent is in a molecular equation: the dissolved compound, the solid or the metal. */
+    speciesId: id.optional(),
+    /** What the hazard statements classify, in the words of the heading over them (spec 5.2). */
+    classifiedAs: text.optional(),
     hazards: hazardsSchema,
     sourceId: id,
   })
@@ -74,29 +94,50 @@ export const reagentSchema = z
     }
   })
 
+// One source for the row, or two where the colour is read in one place and the texture or the odour in another.
 export const observationSchema = z.strictObject({
   productId: id,
   color: text,
   texture: text.optional(),
   odor: text.optional(),
   sourceId: id,
+  alsoSourceId: id.optional(),
 })
 
 const amountSchema = z.strictObject({ value: z.number().positive(), unit: z.enum(['mL', 'g']) })
 
+/** One side of an equation: each species once, with its coefficient. The state is the species' own. */
+const side = z.array(z.strictObject({ speciesId: id, coefficient: z.number().int().positive() })).min(1)
+/** A curated equation, or null where there is none to write: the station where nothing reacts (spec 5.3). */
+const equation = z.strictObject({ reactants: side, products: side }).nullable()
+const litmus = z.enum(['stays red', 'turns blue'])
+
 export const stationSchema = z.strictObject({
   id,
+  name: text,
   reagentIds: z.tuple([id, id]),
   amounts: z.tuple([amountSchema, amountSchema]),
   observationTools: z.array(z.enum(['eye', 'waft', 'litmus', 'touch', 'thermometer', 'splint'])).min(1),
+  equations: z.strictObject({ molecular: equation, completeIonic: equation, netIonic: equation }),
+  /** The test oracle (spec 8.2): what the engine must work out, and what a correct observation records. */
   expected: z.strictObject({
     precipitate: id.nullable(),
+    precipitateColor: text.nullable(),
     gas: id.nullable(),
+    /** Whether the gas is seen to bubble out of the liquid. */
+    bubbles: z.boolean(),
     temperature: z.enum(['none', 'warm', 'hot']),
     liquidColor: text,
+    /** The coloured ions still dissolved, which give the liquid its colour. */
+    colouredIons: z.array(id),
     odor: text.nullable(),
+    /** What a tool shows that the fields above do not hold: litmus in each of its two positions, and the lit splint. */
+    toolResults: z.strictObject({ litmusInLiquid: litmus.optional(), litmusInVapour: litmus.optional(), splint: z.enum(['pop', 'no change']).optional() }),
   }),
-  notes: z.array(text),
+  /** The species a learner builds this station's equations from: those of the curated equations, and distractors. */
+  paletteSpecies: z.array(id).min(1),
+  hints: z.array(text),
+  notes: z.array(cited(text).extend({ alsoSourceId: id.optional() })),
 })
 
 // The record sourceId covers symbol, name and atomic number. Radii are in Å.

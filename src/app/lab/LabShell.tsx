@@ -1,3 +1,4 @@
+import { ExternalLink } from 'lucide-react'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { PageHeader } from '@/app/PageHeader'
 import { NOT_SAVING_TEXT } from '@/app/progress/storage'
@@ -37,6 +38,8 @@ export interface LabShellProps {
   onMode(mode: Mode): void
   /** The reason the mode cannot be changed now. */
   modeLocked?: string | undefined
+  /** What each mode does in this lab, where it is not what the shell's own two sentences say. */
+  modeText?: Record<Mode, string>
   onStart(): void
   /** Called once the learner has confirmed. */
   onRestart(): void
@@ -49,8 +52,8 @@ export interface LabShellProps {
    * was typed and said there is kept, and nothing on it may go on running unseen.
    */
   bench(shown: boolean): ReactNode
-  /** The working part of the notebook, on the Lab tab, beside the bench where there is room. */
-  notebook: ReactNode
+  /** The working part of the notebook, on the Lab tab, beside the bench where there is room. A lab whose bench holds what is entered hands none, and its bench has the tab's whole width. */
+  notebook?: ReactNode
   /** The Record tab: the record of what has been done in the run. */
   record: ReactNode
 }
@@ -70,7 +73,7 @@ const PANEL = 'lab-panel rounded-md pt-2 text-base focus-visible:ring-2 focus-vi
  * it was left (`tabShift`), so a look at the primer in the middle of a trial does not lose the place on the bench.
  */
 export function LabShell(props: LabShellProps) {
-  const { title, narrow, started, persistent, setAside = false, mode, onMode, modeLocked, onStart, onRestart, primer, guide, bench, notebook, record } = props
+  const { title, narrow, started, persistent, setAside = false, mode, onMode, modeLocked, modeText, onStart, onRestart, primer, guide, bench, notebook, record } = props
   const [tab, setTab] = useState(() => openingTab(started))
   const tabs = useRef<HTMLDivElement>(null)
   const lab = useRef<HTMLDivElement>(null)
@@ -118,7 +121,7 @@ export function LabShell(props: LabShellProps) {
       )}
       {!narrow && (
         <div className="mb-2 flex flex-wrap items-end justify-between gap-4">
-          <ModeSwitch mode={mode} onChange={onMode} disabled={modeLocked} />
+          <ModeSwitch mode={mode} onChange={onMode} disabled={modeLocked} text={modeText} />
           {started ? (
             <Button
               variant="outline"
@@ -138,7 +141,7 @@ export function LabShell(props: LabShellProps) {
         </div>
       )}
       <Tabs ref={tabs} value={tab} onValueChange={(next: LabTab) => show(next)} className="gap-0">
-        <div className="sticky top-0 z-10 border-b bg-background py-2">
+        <div className="sticky top-0 z-10 flex flex-wrap items-center justify-between gap-x-4 border-b bg-background py-2">
           <TabsList variant="line" aria-label={title} className="group-data-horizontal/tabs:h-12">
             {(Object.keys(SHELL_TEXT.tabs) as LabTab[]).map((value) => (
               <TabsTrigger key={value} value={value} className="min-h-11 px-4 text-base data-active:font-semibold">
@@ -146,6 +149,17 @@ export function LabShell(props: LabShellProps) {
               </TabsTrigger>
             ))}
           </TabsList>
+          {/* In the bar that stays in view, on every tab: the periodic table in a tab of its own, so that the lab is not left. */}
+          <a
+            href="#/explore/elements"
+            target="_blank"
+            rel="noopener"
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-md px-2 text-sm font-medium underline-offset-4 outline-none hover:underline focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            {SHELL_TEXT.periodicTable}
+            <ExternalLink aria-hidden="true" className="size-4" />
+            <span className="sr-only">{SHELL_TEXT.newTab}</span>
+          </a>
         </div>
         <TabsContent value="primer" keepMounted className={PANEL}>
           {primer}
@@ -161,13 +175,17 @@ export function LabShell(props: LabShellProps) {
             </div>
           ) : started ? (
             <div className="lab-page">
-              <div className={`lab-grid ${guide ? '' : 'lab-grid-no-guide'}`}>
-                {guide && <div className="lab-guide">{guide}</div>}
+              {notebook === undefined ? (
                 <div className="lab-bench">{bench(tab === 'lab')}</div>
-                <aside aria-label="Lab notebook" className="lab-notebook">
-                  {notebook}
-                </aside>
-              </div>
+              ) : (
+                <div className={`lab-grid ${guide ? '' : 'lab-grid-no-guide'}`}>
+                  {guide && <div className="lab-guide">{guide}</div>}
+                  <div className="lab-bench">{bench(tab === 'lab')}</div>
+                  <aside aria-label="Lab notebook" className="lab-notebook">
+                    {notebook}
+                  </aside>
+                </div>
+              )}
             </div>
           ) : (
             <div className="grid max-w-prose justify-items-start gap-3 text-sm">

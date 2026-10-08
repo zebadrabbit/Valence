@@ -148,9 +148,17 @@ function validRegistry() {
           { value: 2, unit: 'mL' },
           { value: 2, unit: 'mL' },
         ],
+        name: 'Barium chloride and copper(II) sulfate',
         observationTools: ['eye'],
-        expected: { precipitate: 'baso4', gas: null, temperature: 'none', liquidColor: 'blue', odor: null },
-        notes: ['Spectator ions keep their colour at room temperature.'],
+        equations: {
+          molecular: null,
+          completeIonic: null,
+          netIonic: { reactants: [{ speciesId: 'ba', coefficient: 1 }, { speciesId: 'so4', coefficient: 1 }], products: [{ speciesId: 'baso4', coefficient: 1 }] },
+        },
+        expected: { precipitate: 'baso4', precipitateColor: 'white', gas: null, bubbles: false, temperature: 'none', liquidColor: 'blue', colouredIons: ['cu'], odor: null, toolResults: {} },
+        paletteSpecies: ['ba', 'so4', 'baso4', 'cl'],
+        hints: ['List the ions.'],
+        notes: [{ value: 'Spectator ions keep their colour at room temperature.', sourceId: 's1' }],
       },
     ],
     elements: [element('H', 1, [1]), element('C', 6, [2, 4]), element('O', 8, [2, 6])],
@@ -596,8 +604,8 @@ describe('validateRegistry', () => {
 
     it('rejects a location in a note', () => {
       const r = validRegistry()
-      r.stations[0]!.notes.push('Reagents are kept in Room 214.')
-      expect(validateRegistry(r).join('\n')).toMatch(/registry\.stations\[0\]\.notes\[1\]: looks like a location/)
+      r.stations[0]!.notes.push({ value: 'Reagents are kept in Room 214.', sourceId: 's1' })
+      expect(validateRegistry(r).join('\n')).toMatch(/registry\.stations\[0\]\.notes\[1\]\.value: looks like a location/)
     })
 
     it('rejects a course number in a name', () => {

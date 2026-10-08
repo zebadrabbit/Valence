@@ -1,4 +1,5 @@
 import { useId, type ReactNode } from 'react'
+import { Control } from '@/app/lab/Control'
 import { Hazards } from '@/app/lab/Hazards'
 import { ROLE } from '@/app/lab/roles'
 import type { Source } from '@/chem-data/schema'
@@ -6,7 +7,6 @@ import type { TitrationData } from '@/chem-data/titration/data'
 import { Bottle, Dropper, Pipette, WashBottle } from './apparatus'
 import { STEP_BUTTON, stepsDone, type StepControl } from './benchText'
 import type { BenchAction, BenchView } from './benchView'
-import { Control } from './StopcockControls'
 
 export interface ShelfProps {
   view: BenchView

@@ -35,8 +35,8 @@ describe('PALETTE_ITEMS', () => {
     ])
   })
 
-  it('sends the titration lab to its page, the lab that is not built yet to the Lab page, and the mechanism to the Learn page', () => {
-    expect(PALETTE_ITEMS.filter((item) => item.kind === 'Lab').map((item) => item.to)).toEqual(['/lab/titration', '/lab'])
+  it('sends each lab to its page, and the mechanism, which is not built yet, to the Learn page', () => {
+    expect(PALETTE_ITEMS.filter((item) => item.kind === 'Lab').map((item) => item.to)).toEqual(['/lab/titration', '/lab/aqueous'])
     expect(PALETTE_ITEMS.filter((item) => item.kind === 'Mechanism').map((item) => item.to)).toEqual(['/learn'])
   })
 

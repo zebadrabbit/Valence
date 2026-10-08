@@ -1,0 +1,867 @@
+{
+  "retrieved": "2026-10-06",
+  "about": "Every source of the aqueous reactions lab's record (docs/research/phase-4/aqueous.json) and of its primer (src/chem-data/aqueous/primer.ts), each fetched and read on the retrieval date, but for one that was fetched and read a day later and says so in its citation. A source with `file` has its copy in this folder, as downloaded, with the sha256 of that copy; a source with none was read and no copy is kept. `fetchedSha256`, on a source with no copy, is the sha256 of the file as it was fetched that day: a record of which file was read, not the hash of anything here, and nothing checks it. Each `supports` row names in `fields` the stored values it supports, each by its place in the record with the item's id in brackets (species[water].enthalpyOfFormation, solubility[silver-ion+chloride-ion], stations[aq-02].notes[0]); gives in `prints` a figure, a formula, a label or a heading exactly as the source prints it; and says in `where`, in this project's words, where that is and what the source says there. A row whose field is `primer` marks a source the primer rests on: which passage a paragraph rests on, and what that passage establishes, is said in the paragraph's support line in the primer. The build holds the record to these rows: every source a value cites must have a row that names the value, and where the record stores the figure a source prints, a row for it must print that figure. No source is quoted beyond such figures, formulas, labels and headings. The reagents' hazard statements and the notes under them are not in this file: they are in hazards.json and sources/hazard-manifest.json, which the build merges in. README.md in this folder says what could not be sourced.",
+  "sources": [
+    {
+      "id": "flowers-chem2e-4.2-solubility",
+      "url": "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
+      "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 4.2 Classifying Chemical Reactions, read under its headings Precipitation Reactions and Solubility Rules and Oxidation-Reduction Reactions; read and not kept (retrieved 2026-10-06). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction",
+      "supports": [
+        {
+          "fields": [
+            "species[iron-iii-ion]",
+            "species[barium-ion]",
+            "species[silver-ion]",
+            "species[sodium-ion]",
+            "species[ammonium-ion]",
+            "species[calcium-ion]",
+            "species[chloride-ion]",
+            "species[hydroxide-ion]",
+            "species[carbonate-ion]",
+            "species[hydrogen-carbonate-ion]",
+            "species[sulfate-ion]",
+            "species[nitrate-ion]"
+          ],
+          "prints": "Table 4.1",
+          "where": "Under the heading Precipitation Reactions and Solubility Rules. The table prints each of these ions with its charge, either as an ion whose compounds are soluble or insoluble or among the exceptions: the ammonium ion and Na+ among the group I cations, Cl-, HCO3-, NO3-, SO42-, CO32- and OH-, and Ag+, Ba2+, Ca2+ and Fe3+ among the exceptions."
+        },
+        {
+          "fields": [
+            "solubility[silver-ion+chloride-ion]",
+            "solubility[iron-iii-ion+chloride-ion]",
+            "solubility[nickel-ii-ion+chloride-ion]",
+            "solubility[barium-ion+chloride-ion]",
+            "solubility[cobalt-ii-ion+chloride-ion]",
+            "solubility[copper-ii-ion+chloride-ion]",
+            "solubility[calcium-ion+chloride-ion]",
+            "solubility[magnesium-ion+chloride-ion]",
+            "solubility[sodium-ion+chloride-ion]"
+          ],
+          "prints": "compounds with Ag+, Hg22+, and Pb2+",
+          "where": "Table 4.1, the soluble compounds, the row for Cl-, Br- and I-: its column of exceptions. Silver is among them, so the pair of silver and chloride is stored as insoluble; iron(III), nickel(II), barium, cobalt(II), copper(II), calcium, magnesium and sodium are not, so their chlorides are stored as soluble."
+        },
+        {
+          "fields": [
+            "solubility[barium-ion+sulfate-ion]",
+            "solubility[sodium-ion+sulfate-ion]",
+            "solubility[copper-ii-ion+sulfate-ion]"
+          ],
+          "prints": "compounds with Ag+, Ba2+, Ca2+, Hg22+, Pb2+ and Sr2+",
+          "where": "Table 4.1, the soluble compounds, the row for SO42-: its column of exceptions. Barium is among them, so the pair of barium and sulfate is stored as insoluble; copper(II) and sodium are not."
+        },
+        {
+          "fields": [
+            "solubility[copper-ii-ion+carbonate-ion]",
+            "solubility[nickel-ii-ion+carbonate-ion]",
+            "solubility[calcium-ion+carbonate-ion]",
+            "solubility[sodium-ion+carbonate-ion]"
+          ],
+          "prints": "compounds with group 1 cations and NH4+",
+          "where": "Table 4.1, the insoluble compounds, the row for CO32-, CrO42-, PO43- and S2-: its column of exceptions. Sodium is a group 1 cation, so sodium carbonate is stored as soluble; copper(II), nickel(II) and calcium are not exceptions, so their carbonates are stored as insoluble."
+        },
+        {
+          "fields": [
+            "solubility[iron-iii-ion+hydroxide-ion]",
+            "solubility[sodium-ion+hydroxide-ion]"
+          ],
+          "prints": "compounds with group 1 cations and Ba2+",
+          "where": "Table 4.1, the insoluble compounds, the row for OH-: its column of exceptions. Sodium is a group 1 cation, so sodium hydroxide is stored as soluble; iron(III) is not an exception, so its hydroxide is stored as insoluble."
+        },
+        {
+          "fields": [
+            "solubility[sodium-ion+nitrate-ion]",
+            "solubility[ammonium-ion+nitrate-ion]",
+            "solubility[silver-ion+nitrate-ion]",
+            "solubility[cobalt-ii-ion+nitrate-ion]"
+          ],
+          "prints": "none",
+          "where": "Table 4.1, the soluble compounds, the row for C2H3O2-, HCO3-, NO3- and ClO3-: its column of exceptions holds this one word, so every nitrate here is stored as soluble."
+        },
+        {
+          "fields": [
+            "solubility[ammonium-ion+hydroxide-ion]"
+          ],
+          "prints": "none",
+          "where": "Table 4.1, the soluble compounds, the row for NH4+ and the group I cations: its column of exceptions holds this one word. The row for OH- among the insoluble compounds names only group 1 cations and Ba2+ as exceptions and does not name ammonium, so the table read line by line gives two answers for this pair. It is stored as soluble, by the ammonium row. No precipitate of the two ions is at issue in this lab: they react by another rule, to give ammonia and water."
+        },
+        {
+          "fields": [
+            "species[sodium-chloride]",
+            "species[sodium-sulfate]",
+            "species[copper-ii-chloride]",
+            "species[sodium-nitrate]",
+            "species[cobalt-ii-nitrate]",
+            "species[magnesium-chloride]"
+          ],
+          "prints": "Soluble Ionic Compounds",
+          "where": "The first heading of Table 4.1. Each of these formulas is the neutral compound of two ions whose pair the table gives as soluble. The formula is worked out from the two ions' charges and, but for NaNO3, which the section's text prints, is not printed in the section."
+        },
+        {
+          "fields": [
+            "species[barium-sulfate]"
+          ],
+          "prints": "BaSO4",
+          "where": "The solution to part (a) of the example headed Predicting Precipitation Reactions, which names this compound as insoluble; an equation further down the section prints it as BaSO4(s)."
+        },
+        {
+          "fields": [
+            "species[silver-chloride]"
+          ],
+          "prints": "AgCl(s)",
+          "where": "The net ionic equation after Table 4.1, in which silver and chloride ions give this solid; the text before it calls silver chloride insoluble."
+        },
+        {
+          "fields": [
+            "stations[aq-05].notes[0]"
+          ],
+          "prints": "compounds with Ag+, Hg22+, and Pb2+",
+          "where": "Table 4.1, the row for Cl-, Br- and I-: the only chlorides it gives as insoluble are those of three ions, and neither cobalt(II) nor iron(III) is one of them."
+        },
+        {
+          "fields": [
+            "species[barium-ion].name",
+            "species[silver-ion].name"
+          ],
+          "prints": "Predicting Precipitation Reactions",
+          "where": "The heading of the worked example under Precipitation Reactions and Solubility Rules. The exercise after it names Ba2+ the barium ion, and the paragraph before it calls the compound of Ag+ and the nitrate ion silver nitrate, the positive ion's name standing first. Section 4.1 of the book writes the same ion once as silver(I); the record stores the name without the numeral, as the name of the compound has it."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Classifying Chemical Reactions",
+          "where": "The section's title. Read under its headings Precipitation Reactions and Solubility Rules and Oxidation-Reduction Reactions."
+        }
+      ]
+    },
+    {
+      "id": "flowers-chem2e-2.6",
+      "url": "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
+      "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 2.6 Ionic and Molecular Compounds; read and not kept (retrieved 2026-10-06). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction",
+      "supports": [
+        {
+          "fields": [
+            "species[ammonium-ion].name",
+            "species[hydroxide-ion].name",
+            "species[carbonate-ion].name",
+            "species[sulfate-ion].name",
+            "species[nitrate-ion].name"
+          ],
+          "prints": "Common Polyatomic Ions",
+          "where": "The title of Table 2.5. Its rows give each of these five names beside the ion's formula with its charge."
+        },
+        {
+          "fields": [
+            "species[sodium-ion].name",
+            "species[calcium-ion].name",
+            "species[magnesium-ion].name",
+            "species[chloride-ion].name"
+          ],
+          "prints": "Ionic Compounds",
+          "where": "The heading. Under it the section calls Na+ a sodium cation and Cl− a chloride anion. Its opening paragraphs say that a metal's ion takes the metal's name, with Ca2+, a calcium ion, as the example, and a worked example before the heading calls Mg2+ a magnesium ion."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Ionic and Molecular Compounds",
+          "where": "The section's title. Read at its opening paragraphs, at the paragraph and table on polyatomic ions (Table 2.5, Common Polyatomic Ions), and under its heading Ionic Compounds as far as the worked example on a compound with a polyatomic ion."
+        }
+      ]
+    },
+    {
+      "id": "flowers-chem2e-2.7",
+      "url": "https://openstax.org/books/chemistry-2e/pages/2-7-chemical-nomenclature",
+      "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 2.7 Chemical Nomenclature; read and not kept (retrieved 2026-10-07). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction",
+      "supports": [
+        {
+          "fields": [
+            "species[iron-iii-ion].name",
+            "species[copper-ii-ion].name",
+            "species[nickel-ii-ion].name",
+            "species[cobalt-ii-ion].name"
+          ],
+          "prints": "Compounds Containing a Metal Ion with a Variable Charge",
+          "where": "The heading. Under it the section says that most transition metals form positive ions of more than one charge, and that the charge is then given as a Roman numeral in brackets after the metal's name. It prints iron(III) chloride for FeCl3 and, in the worked example that follows, copper(II) for Cu2+. Nickel(II) and cobalt(II) are not printed there: each is formed by the same rule from the charge of 2+ that the record stores for the ion."
+        },
+        {
+          "fields": [
+            "species[hydrogen-ion].name"
+          ],
+          "prints": "Binary Acids",
+          "where": "The heading. Under it the section says that many acids give hydrogen ions, written H+, when they are dissolved in water."
+        },
+        {
+          "fields": [
+            "species[carbon-dioxide].name",
+            "species[water].name"
+          ],
+          "prints": "Compounds Composed of Two Elements",
+          "where": "The heading. Under it the section names CO2 carbon dioxide and says that H2O is called water."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Chemical Nomenclature",
+          "where": "The section's title. Read under its headings Compounds Containing Only Monatomic Ions and Compounds Containing Polyatomic Ions, with the three tables there."
+        }
+      ]
+    },
+    {
+      "id": "flowers-chem2e-4.1",
+      "url": "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
+      "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 4.1 Writing and Balancing Chemical Equations; read and not kept (retrieved 2026-10-06). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Writing and Balancing Chemical Equations",
+          "where": "The section's title. Read under its headings Balancing Equations and Equations for Ionic Reactions, and under Additional Information in Chemical Equations."
+        }
+      ]
+    },
+    {
+      "id": "flowers-chem2e-4.4",
+      "url": "https://openstax.org/books/chemistry-2e/pages/4-4-reaction-yields",
+      "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 4.4 Reaction Yields; read and not kept (retrieved 2026-10-06). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Reaction Yields",
+          "where": "The section's title. Read under its heading Limiting Reactant."
+        }
+      ]
+    },
+    {
+      "id": "flowers-chem2e-5.2",
+      "url": "https://openstax.org/books/chemistry-2e/pages/5-2-calorimetry",
+      "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 5.2 Calorimetry; read and not kept (retrieved 2026-10-06). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction",
+      "supports": [
+        {
+          "fields": [
+            "constants.solutionHeatCapacity"
+          ],
+          "prints": "4.184",
+          "where": "The solution to the section's worked example in which hydrochloric acid and sodium hydroxide solution are mixed in a calorimeter: the specific heat of water in J/g °C, which the solution says is used for the mixed solution because that solution is mostly water. An earlier example in the section prints the same quantity once as 4.18. The record stores 4.18, the figure of spec 5.2."
+        },
+        {
+          "fields": [
+            "constants.solutionDensity"
+          ],
+          "prints": "1.0",
+          "where": "The same solution: the density of water in g/mL, given as approximate and used for the mixed solution."
+        },
+        {
+          "fields": [
+            "stations[aq-08].notes[0]"
+          ],
+          "prints": "Heat Produced by an Exothermic Reaction",
+          "where": "The example's title. In it the two solutions, both at 22.0 °C, reach 28.9 °C once mixed, and the solution says what is assumed: that the calorimeter takes up no heat, that none passes to the surroundings, and that the liquid has water's specific heat and density."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Calorimetry",
+          "where": "The section's title. Read at its worked example in which an acid and a base are mixed in a calorimeter."
+        }
+      ]
+    },
+    {
+      "id": "flowers-chem2e-11.2",
+      "url": "https://openstax.org/books/chemistry-2e/pages/11-2-electrolytes",
+      "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 11.2 Electrolytes; read and not kept (retrieved 2026-10-06). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Electrolytes",
+          "where": "The section's title. Read under its headings Ionic Electrolytes and Covalent Electrolytes."
+        }
+      ]
+    },
+    {
+      "id": "flowers-chem2e-17.3",
+      "url": "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
+      "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 17.3 Electrode and Cell Potentials; read and not kept (retrieved 2026-10-06). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction",
+      "supports": [
+        {
+          "fields": [
+            "species[copper-ii-ion]",
+            "species[nickel-ii-ion]",
+            "species[cobalt-ii-ion]",
+            "species[hydrogen-ion]",
+            "species[hydrogen]",
+            "species[water]"
+          ],
+          "prints": "Selected Standard Reduction Potentials at 25 °C",
+          "where": "The title of Table 17.1. Its half-reactions print each of these species with its charge and state: Cu2+(aq), Ni2+(aq), Co2+(aq), H+(aq), H2(g) and H2O(l)."
+        },
+        {
+          "fields": [
+            "activitySeries[magnesium]"
+          ],
+          "prints": "−2.372",
+          "where": "Table 17.1, the potential in volts of the half-reaction in which the magnesium ion takes up two electrons and gives Mg(s). It lies below the 0.00 that the table prints for 2H+(aq) + 2e− giving H2(g), and the text after the table says that a reaction is predicted to go when the oxidant stands above the reductant in the table: so hydrogen ions oxidise magnesium metal. As the text of the page was taken out of it for reading, the row gives the ion as Mg2(aq), without the sign of its charge."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Electrode and Cell Potentials",
+          "where": "The section's title. Read at Table 17.1 and the paragraphs after it."
+        }
+      ]
+    },
+    {
+      "id": "flowers-chem2e-18.5",
+      "url": "https://openstax.org/books/chemistry-2e/pages/18-5-occurrence-preparation-and-compounds-of-hydrogen",
+      "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 18.5 Occurrence, Preparation, and Compounds of Hydrogen; read and not kept (retrieved 2026-10-06). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction",
+      "supports": [
+        {
+          "fields": [
+            "species[ammonia]",
+            "observations[ammonia]"
+          ],
+          "prints": "Nitrogen Hydrogen Compounds",
+          "where": "The heading. Under it the section gives ammonia as NH3, prints it as NH3(g) in an equation, calls it a gas without colour and with a sharp, pungent smell, and says that it is made in the laboratory from an ammonium salt and a strong base, sodium hydroxide being its example."
+        },
+        {
+          "fields": [
+            "observations[hydrogen]"
+          ],
+          "prints": "H2",
+          "where": "The section's first paragraph, which gives hydrogen at ordinary temperatures as a gas of H2 molecules with no colour, smell or taste."
+        },
+        {
+          "fields": [
+            "stations[aq-06].notes[1]"
+          ],
+          "prints": "658 L",
+          "where": "Under the heading Nitrogen Hydrogen Compounds: the volume of ammonia gas, at standard temperature and pressure, that one litre of water dissolves. The section calls ammonia quite soluble in water."
+        },
+        {
+          "fields": [
+            "species[ammonia].name",
+            "species[hydrogen].name"
+          ],
+          "prints": "Ammonia, NH3",
+          "where": "The first words under the heading Nitrogen Hydrogen Compounds, which give the compound's name with its formula. The section's second paragraph calls the gas made of H2 molecules hydrogen."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Occurrence, Preparation, and Compounds of Hydrogen",
+          "where": "The section's title. Read at its first paragraph and under its headings Reaction of Metals with Acids, Reactions with Elements and Nitrogen Hydrogen Compounds."
+        }
+      ]
+    },
+    {
+      "id": "flowers-chem2e-18.6",
+      "url": "https://openstax.org/books/chemistry-2e/pages/18-6-occurrence-preparation-and-properties-of-carbonates",
+      "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 18.6 Occurrence, Preparation, and Properties of Carbonates; read and not kept (retrieved 2026-10-06). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction",
+      "supports": [
+        {
+          "fields": [
+            "species[carbon-dioxide]",
+            "species[calcium-chloride]"
+          ],
+          "prints": "CaCO3(s)+2HCl(aq)⟶CaCl2(aq)+CO2(g)+H2O(l)",
+          "where": "The equation the section gives for calcium carbonate and hydrochloric acid, after the sentence that says what carbonates give with acids: a salt of the metal, carbon dioxide gas and water. It prints both of these species with their states."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Occurrence, Preparation, and Properties of Carbonates",
+          "where": "The section's title. Read at the paragraph on carbonates and acids and the equation after it."
+        }
+      ]
+    },
+    {
+      "id": "flowers-chem2e-19.1",
+      "url": "https://openstax.org/books/chemistry-2e/pages/19-1-occurrence-preparation-and-properties-of-transition-metals-and-their-compounds",
+      "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 19.1 Occurrence, Preparation, and Properties of Transition Metals and Their Compounds; read and not kept (retrieved 2026-10-06). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction",
+      "supports": [
+        {
+          "fields": [
+            "observations[iron-iii-hydroxide]",
+            "stations[aq-01].notes[0]"
+          ],
+          "prints": "Hydroxides",
+          "where": "The heading. Under it the section says that a soluble hydroxide added to a dissolved salt of a first-row transition metal gives a gelatinous precipitate, and that in some cases, of which iron(III) is its example, the precipitate is a hydrated oxide of the metal and holds no hydroxide ions. The texture stored for the solid is from here; its colour is from the other source of the row."
+        },
+        {
+          "fields": [
+            "species[nickel-ii-carbonate]"
+          ],
+          "prints": "NiCO3(s)",
+          "where": "Under the heading Carbonates: the product of the net ionic equation the section gives for a nickel salt solution and sodium carbonate, with nickel nitrate as the salt."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Occurrence, Preparation, and Properties of Transition Metals and Their Compounds",
+          "where": "The section's title. Read under its heading Hydroxides."
+        }
+      ]
+    },
+    {
+      "id": "nbs-tables-1982",
+      "url": "https://srd.nist.gov/JPCRD/jpcrdS2Vol11.pdf",
+      "citation": "Wagman, D. D.; Evans, W. H.; Parker, V. B.; Schumm, R. H.; Halow, I.; Bailey, S. M.; Churney, K. L.; Nuttall, R. L. The NBS Tables of Chemical Thermodynamic Properties: Selected Values for Inorganic and C1 and C2 Organic Substances in SI Units. J. Phys. Chem. Ref. Data 1982, 11, Supplement No. 2. Read as the scanned PDF that the National Institute of Standards and Technology serves, linked here; pages 2-38 and 2-260 were read as images of the page, which has no text layer; no copy is kept (retrieved 2026-10-06).",
+      "fetchedSha256": "65249690c25a3c98275279863264b870e9a955f51651ff3845ac3bc47f32de59",
+      "supports": [
+        {
+          "fields": [
+            "species[hydrogen-ion].enthalpyOfFormation"
+          ],
+          "prints": "0",
+          "where": "Page 2-38, Table 2:H (hydrogen), the row for H+ in the state ao, the standard state in water: the column of the standard enthalpy of formation at 298.15 K, in kJ/mol."
+        },
+        {
+          "fields": [
+            "species[hydroxide-ion].enthalpyOfFormation"
+          ],
+          "prints": "-229.994",
+          "where": "Page 2-38, Table 2:H, the row for OH- in the state ao: the same column."
+        },
+        {
+          "fields": [
+            "species[water].enthalpyOfFormation"
+          ],
+          "prints": "-285.830",
+          "where": "Page 2-38, Table 2:H, the row for H2O in the state l, the liquid: the same column."
+        },
+        {
+          "fields": [
+            "species[hydrogen].enthalpyOfFormation"
+          ],
+          "prints": "0",
+          "where": "Page 2-38, Table 2:H, the row for H2 in the state g: the same column. It is the element in its reference state."
+        },
+        {
+          "fields": [
+            "species[magnesium].enthalpyOfFormation"
+          ],
+          "prints": "0",
+          "where": "Page 2-260, Table 93:Mg (magnesium), the row for Mg in the state cr, the crystal: the same column. It is the element in its reference state."
+        },
+        {
+          "fields": [
+            "species[magnesium-ion].enthalpyOfFormation"
+          ],
+          "prints": "-466.85",
+          "where": "Page 2-260, Table 93:Mg, the row for Mg2+ in the state ao: the same column."
+        },
+        {
+          "fields": [
+            "species[magnesium-ion]"
+          ],
+          "prints": "Mg2+",
+          "where": "Page 2-260, Table 93:Mg: the formula of the row whose state is ao, the ion in water. The table prints a molar mass of 24.3120 for magnesium, the atomic weight of its day; the record takes the molar mass of the metal from PubChem, 24.305."
+        }
+      ]
+    },
+    {
+      "id": "pubchem-aqueous-reagents",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/24380,14798,10340,24462,24385,25204,24288,22985,10112,313,24470,5462224/property/MolecularFormula,MolecularWeight,Title/JSON",
+      "citation": "PubChem [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2004-. Molecular formula, molecular weight and title of the twelve compounds of the aqueous reactions lab, from the PUG REST service (retrieved 2026-10-06). Source: National Library of Medicine.",
+      "file": "pubchem-aqueous-reagents.json",
+      "sha256": "fe219571fa75544ea55831d6c86bdb11df551a4666da2e5698abfb7bfe8377e4",
+      "supports": [
+        {
+          "fields": [
+            "reagents[fecl3-0.5m]",
+            "reagents[naoh-1m]",
+            "reagents[naoh-6m]",
+            "reagents[na2co3-0.5m]",
+            "reagents[cuso4-0.5m]",
+            "reagents[nicl2-0.5m]",
+            "reagents[bacl2-0.5m]",
+            "reagents[cocl2-0.5m]",
+            "reagents[nh4no3-0.5m]",
+            "reagents[caco3]",
+            "reagents[hcl-1m]",
+            "reagents[hcl-3m]",
+            "reagents[hcl-6m]",
+            "reagents[agno3-0.1m]",
+            "reagents[mg]",
+            "species[iron-iii-chloride]",
+            "species[sodium-hydroxide]",
+            "species[sodium-carbonate]",
+            "species[copper-ii-sulfate]",
+            "species[nickel-ii-chloride]",
+            "species[barium-chloride]",
+            "species[cobalt-ii-chloride]",
+            "species[ammonium-nitrate]",
+            "species[hydrochloric-acid]",
+            "species[silver-nitrate]",
+            "species[calcium-carbonate]",
+            "species[magnesium]"
+          ],
+          "prints": "PropertyTable",
+          "where": "The kept copy's one table, with a row for each compound: its CID, its molecular formula, its molecular weight and its title. PubChem writes a formula's elements in alphabetical order (Cl3Fe, HNaO, CCaO3); the record stores each formula as it is usually written, with the same atoms, and the build checks each reagent's CID against the table. A solution's strength is this lab's own (spec 8.2) and is not in the table."
+        },
+        {
+          "fields": [
+            "reagents[caco3].molarMass"
+          ],
+          "prints": "100.09",
+          "where": "The row for CID 10112, calcium carbonate: its molecular weight, in g/mol."
+        },
+        {
+          "fields": [
+            "reagents[mg].molarMass"
+          ],
+          "prints": "24.305",
+          "where": "The row for CID 5462224, magnesium: its molecular weight, in g/mol."
+        }
+      ]
+    },
+    {
+      "id": "birk-iron",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Iron__(Fe)",
+      "citation": "Birk, J. P. Characteristic Reactions of Iron (Fe³⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-06).",
+      "supports": [
+        {
+          "fields": [
+            "species[iron-iii-ion].solutionColor"
+          ],
+          "prints": "yellow or amber-colored",
+          "where": "Under the page's heading for the characteristic reactions of the two iron ions: what many solutions of the iron(III) ion look like, because the ion reacts with water; the ion itself is given as colourless or pale pink. The record calls the colour yellow-orange, the word of spec 8.2. The hex value beside it is this project's choice for drawing that colour and is read in no source."
+        },
+        {
+          "fields": [
+            "observations[iron-iii-hydroxide]"
+          ],
+          "prints": "red-brown",
+          "where": "Under Aqueous Ammonia: the colour of the Fe(OH)3 that iron(III) ions give; under Sodium Hydroxide the page says that sodium hydroxide gives the same solid. The record calls the colour rust-brown, the word of spec 8.2. The texture is from the other source of the row."
+        },
+        {
+          "fields": [
+            "species[iron-iii-hydroxide]",
+            "species[iron-ii-hydroxide]"
+          ],
+          "prints": "Fe(OH)3(s)",
+          "where": "Under Sodium Hydroxide: the product of the equation for iron(III) and hydroxide ions; the equation before it prints Fe(OH)2(s) for iron(II)."
+        }
+      ]
+    },
+    {
+      "id": "birk-copper",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Copper_Ions_(Cu)",
+      "citation": "Birk, J. P. Characteristic Reactions of Copper Ions (Cu²⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-06).",
+      "supports": [
+        {
+          "fields": [
+            "species[copper-ii-ion].solutionColor"
+          ],
+          "prints": "blue hydrated ion",
+          "where": "The page's first sentence on the characteristic reactions of the copper(II) ion: the form in which copper(II) is usually met. The hex value is this project's choice for drawing the colour."
+        },
+        {
+          "fields": [
+            "species[copper-ii-hydroxide]"
+          ],
+          "prints": "Cu(OH)2",
+          "where": "Under Aqueous Ammonia: the light blue solid that copper(II) ions give with ammonia; under Sodium Hydroxide the page says that sodium hydroxide precipitates it too."
+        }
+      ]
+    },
+    {
+      "id": "birk-nickel",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Nickel_Ions_(Ni)",
+      "citation": "Birk, J. P. Characteristic Reactions of Nickel Ions (Ni²⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-06).",
+      "supports": [
+        {
+          "fields": [
+            "species[nickel-ii-ion].solutionColor"
+          ],
+          "prints": "green hydrated ion",
+          "where": "The page's first sentence on the characteristic reactions of the nickel(II) ion. The hex value is this project's choice for drawing the colour."
+        },
+        {
+          "fields": [
+            "species[nickel-ii-hydroxide]"
+          ],
+          "prints": "Ni(OH)2",
+          "where": "Under Aqueous Ammonia: the green gelatinous solid that nickel(II) ions give; under Sodium Hydroxide the page says that sodium hydroxide precipitates it too."
+        }
+      ]
+    },
+    {
+      "id": "birk-barium",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Barium_(Ba)",
+      "citation": "Birk, J. P. Characteristic Reactions of Barium (Ba²⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-06).",
+      "supports": [
+        {
+          "fields": [
+            "observations[barium-sulfate]"
+          ],
+          "prints": "white, finely divided precipitate",
+          "where": "Under Sulfate Ion: what barium ions give with a source of sulfate. The record stores white and, for the texture, fine."
+        }
+      ]
+    },
+    {
+      "id": "birk-silver",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Silver_Ions_(Ag)",
+      "citation": "Birk, J. P. Characteristic Reactions of Silver Ions (Ag⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-06).",
+      "supports": [
+        {
+          "fields": [
+            "observations[silver-chloride]"
+          ],
+          "prints": "white silver(I) chloride",
+          "where": "Under Chloride Ion: what soluble chlorides precipitate silver ions as. The page gives no texture, and the record stores none."
+        }
+      ]
+    },
+    {
+      "id": "birk-ammonium",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Ammonium_Ion_(NH)",
+      "citation": "Birk, J. P. Characteristic Reactions of Ammonium Ion (NH₄⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-06).",
+      "supports": [
+        {
+          "fields": [
+            "stations[aq-06].notes[0]"
+          ],
+          "prints": "moistened red litmus paper",
+          "where": "Under Sodium Hydroxide: hydroxide added to an ammonium salt gives off ammonia gas, which turns this paper blue and can also be known by its smell; the page calls the reaction a confirming test for the ammonium ion."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Characteristic Reactions of Ammonium Ion (NH₄⁺)",
+          "where": "The page's title. Read under its heading Sodium Hydroxide."
+        }
+      ]
+    },
+    {
+      "id": "birk-magnesium",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Magnesium_Ions_(Mg)",
+      "citation": "Birk, J. P. Characteristic Reactions of Magnesium Ions (Mg²⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-06).",
+      "supports": [
+        {
+          "fields": [
+            "reagents[mg].appearance"
+          ],
+          "prints": "silvery metal",
+          "where": "The page's line of characteristics of the element. That the metal is on the bench as ribbon is this lab's own (spec 8.2)."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-cobalt",
+      "url": "https://www.chemguide.co.uk/inorganic/transition/cobalt.html",
+      "citation": "Clark, J. Chemguide: Cobalt; read and not kept (retrieved 2026-10-06).",
+      "supports": [
+        {
+          "fields": [
+            "species[cobalt-ii-ion].solutionColor"
+          ],
+          "prints": "pink hexaaquacobalt(II) ion",
+          "where": "The page's first sentence: the plainest ion that cobalt gives when dissolved. The hex value is this project's choice for drawing the colour."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-carbonates",
+      "url": "https://www.chemguide.co.uk/inorganic/complexions/aquaco3.html",
+      "citation": "Clark, J. Chemguide: Reactions of Hexaaqua Metal Ions with Carbonate Ions; read and not kept (retrieved 2026-10-06).",
+      "supports": [
+        {
+          "fields": [
+            "stations[aq-03].notes[0]"
+          ],
+          "prints": "xMCO3,yM(OH)2,zH2O",
+          "where": "The note in the part of the page on the doubly charged ions: the kind of formula that describes the precipitates better than the plain carbonate does, a basic carbonate. The page names cobalt(II), copper(II) and iron(II) among those ions and does not name nickel(II); it also says that these ions give no carbon dioxide with carbonate, where the Wikipedia page on basic copper carbonate gives carbon dioxide as a product. The note on the station says nothing of the gas."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-copper-ii-carbonate",
+      "url": "https://en.wikipedia.org/w/index.php?title=Copper(II)_carbonate&oldid=1339207964",
+      "citation": "Wikipedia, Copper(II) carbonate, revision 1339207964 of 2026-02-19; a secondary source, read and not kept (retrieved 2026-10-06).",
+      "supports": [
+        {
+          "fields": [
+            "species[copper-ii-carbonate]"
+          ],
+          "prints": "CuCO3",
+          "where": "The formula the page gives the neutral carbonate, the compound of one copper(II) ion and one carbonate ion."
+        },
+        {
+          "fields": [
+            "stations[aq-02].notes[0]"
+          ],
+          "prints": "basic copper carbonate",
+          "where": "The page links to this compound from its first line and says, in its introduction and under its heading on preparation, that the plain carbonate is seldom met because it is hard to prepare, and that sodium carbonate solution mixed with copper(II) sulfate solution under ordinary conditions gives a basic carbonate and not CuCO3."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-basic-copper-carbonate",
+      "url": "https://en.wikipedia.org/w/index.php?title=Basic_copper_carbonate&oldid=1350776409",
+      "citation": "Wikipedia, Basic copper carbonate, revision 1350776409 of 2026-04-23; a secondary source, read and not kept (retrieved 2026-10-06).",
+      "supports": [
+        {
+          "fields": [
+            "stations[aq-02].notes[0]"
+          ],
+          "prints": "Cu2(CO3)(OH)2",
+          "where": "The formula in the page's first paragraph, which calls the compound a green solid, the mineral malachite. Under its heading on preparation the page says that it precipitates when sodium carbonate solution and copper(II) sulfate solution are combined, with carbon dioxide given off. The note writes the formula as Cu₂(OH)₂CO₃, the same atoms in the order of spec 8.2, and says nothing of the gas."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-nickel-ii-carbonate",
+      "url": "https://en.wikipedia.org/w/index.php?title=Nickel(II)_carbonate&oldid=1313977670",
+      "citation": "Wikipedia, Nickel(II) carbonate, revision 1313977670 of 2025-09-29; a secondary source, read and not kept (retrieved 2026-10-06).",
+      "supports": [
+        {
+          "fields": [
+            "observations[nickel-ii-carbonate]"
+          ],
+          "prints": "light green powder",
+          "where": "The appearance line of the page's infobox. The record calls the colour pale green, the word of spec 8.2."
+        },
+        {
+          "fields": [
+            "stations[aq-03].notes[0]"
+          ],
+          "prints": "Basic nickel carbonate",
+          "where": "The page says that sodium carbonate added to nickel sulfate solution is a way of making the basic carbonate. The salt at this station is the chloride, which the page does not speak of."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-carbon-dioxide",
+      "url": "https://en.wikipedia.org/w/index.php?title=Carbon_dioxide&oldid=1377189480",
+      "citation": "Wikipedia, Carbon dioxide, revision 1377189480 of 2026-09-28; a secondary source, read and not kept (retrieved 2026-10-06).",
+      "supports": [
+        {
+          "fields": [
+            "observations[carbon-dioxide]"
+          ],
+          "prints": "Colorless gas",
+          "where": "The appearance line of the page's infobox. Its odour line gives none at low concentrations and a sharp, acidic smell at high ones; the record stores none."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Carbon dioxide",
+          "where": "The page's title. Read at its infobox and its section on physical properties."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-calcium-carbonate",
+      "url": "https://en.wikipedia.org/w/index.php?title=Calcium_carbonate&oldid=1378195553",
+      "citation": "Wikipedia, Calcium carbonate, revision 1378195553 of 2026-10-03; a secondary source, read and not kept (retrieved 2026-10-06).",
+      "supports": [
+        {
+          "fields": [
+            "reagents[caco3].appearance"
+          ],
+          "prints": "Fine white powder or colorless crystals",
+          "where": "The appearance line of the page's infobox, before its words on taste. The record stores white powder, the form on this bench."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-litmus",
+      "url": "https://en.wikipedia.org/w/index.php?title=Litmus&oldid=1376875886",
+      "citation": "Wikipedia, Litmus, revision 1376875886 of 2026-09-26; a secondary source, read and not kept (retrieved 2026-10-06).",
+      "supports": [
+        {
+          "fields": [
+            "stations[aq-06].notes[0]"
+          ],
+          "prints": "red litmus paper turns blue",
+          "where": "The page's first paragraph and its section on uses: what the paper does in a basic solution. The same section says that wet litmus paper can be used to test gases that dissolve in water."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Litmus",
+          "where": "The page's title. Read at its first paragraph and its section on uses."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-splint",
+      "url": "https://en.wikipedia.org/w/index.php?title=Splint_(laboratory_equipment)&oldid=1296681077",
+      "citation": "Wikipedia, Splint (laboratory equipment), revision 1296681077 of 2025-06-21; a secondary source, read and not kept (retrieved 2026-10-06).",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Splint (laboratory equipment)",
+          "where": "The page's title. Read at its introduction and its part on the burning splint test."
+        }
+      ]
+    },
+    {
+      "id": "put-copper-hydroxide-carbonate",
+      "url": "https://zchaoianalityczna.put.poznan.pl/CT%20II%20Inorg/Preparaty/Copper(II)%20hydroxide%20carbonate_JZ_AMS%20new.pdf",
+      "citation": "Poznań University of Technology, Division of General and Analytical Chemistry. Copper(II) hydroxide carbonate, CuCO3·Cu(OH)2: a one-page instruction for preparing the compound in a teaching laboratory (PDF dated 2020-12-11); read and not kept (retrieved 2026-10-06).",
+      "supports": [
+        {
+          "fields": [
+            "observations[copper-ii-carbonate]"
+          ],
+          "prints": "blue-green",
+          "where": "The sheet's first sentence, on what the compound looks like: a powder of this colour that does not dissolve in cold water. The sheet makes it from sodium carbonate solution and copper(II) sulfate solution, the two of this station, mixed warm. It is the colour of the basic carbonate, the solid that really forms; the record stores it under the simple carbonate that the station's equations write."
+        }
+      ]
+    },
+    {
+      "id": "nrc-prudent-practices-2011",
+      "url": "https://www.nationalacademies.org/read/12654/chapter/7",
+      "citation": "National Research Council. Prudent Practices in the Laboratory: Handling and Management of Chemical Hazards, Updated Version; The National Academies Press: Washington, DC, 2011; Chapter 6, Working with Chemicals; https://doi.org/10.17226/12654; read and not kept (retrieved 2026-10-06).",
+      "supports": [
+        {
+          "fields": [
+            "cautions.sniffing"
+          ],
+          "prints": "6.C.2.4 Avoiding Inhalation of Hazardous Chemicals",
+          "where": "The section's number and heading. Its first three sentences and its footnote 1 say when a laboratory chemical may be sniffed at all, that the practice is in general not encouraged, what is never to be sniffed on purpose, and that where an instruction calls for it the vapour is wafted gently towards the nose and not breathed in directly."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "6.C.2.4 Avoiding Inhalation of Hazardous Chemicals",
+          "where": "The section's number and heading. Read with its footnote 1."
+        }
+      ]
+    },
+    {
+      "id": "pa-adopt-lab-manual-wafting",
+      "url": "https://cuny.manifoldapp.org/read/chemistry-techniques-and-explorations-an-introductory-chemistry-laboratory-manual/section/52ff548d-68ee-4c31-8b9a-8ee625383544",
+      "citation": "Chemistry Techniques and Explorations: An Introductory Chemistry Laboratory Manual; a PA-ADOPT text, read on the Manifold site of the City University of New York, at the page linked here; the author's name was not found on the page read; read and not kept (retrieved 2026-10-06).",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Wafting to smell a gas",
+          "where": "The heading on the page. Read with the lines before it on a splint held in a gas that neither burns nor supports burning."
+        }
+      ]
+    }
+  ]
+}

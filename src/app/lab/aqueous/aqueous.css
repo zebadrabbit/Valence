@@ -1,0 +1,30 @@
+/*
+ * The aqueous reactions lab's one animation. Loaded with the lab page, so none of it is in the app shell's
+ * stylesheet.
+ *
+ * Bubbles in the drawn tube rise three times and then rest where they are drawn, so that nothing on the page moves
+ * for longer than five seconds. The tube gives them this class only where the app's reduced-motion setting allows,
+ * and the app's own rule would stop them if it did not.
+ */
+.aq-bubble {
+  animation: aq-bubble-rise 1.6s ease-in 3;
+}
+.aq-bubble:nth-of-type(2n) {
+  animation-delay: 0.5s;
+}
+.aq-bubble:nth-of-type(3n) {
+  animation-delay: 0.9s;
+}
+@keyframes aq-bubble-rise {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-54px);
+    opacity: 0;
+  }
+}

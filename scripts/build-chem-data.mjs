@@ -9,6 +9,9 @@
 //   block descriptions cite
 // Reads docs/research/phase-3/ (titration.json and the saved copies its sources/MANIFEST.json lists) and writes:
 //   titration/titration.json, and into sources.json the titration lab's sources
+// Reads docs/research/phase-4/ (aqueous.json, hazards.json, the two manifests under sources/ and the one kept copy)
+// and writes:
+//   aqueous/aqueous.json, and into sources.json the aqueous reactions lab's sources
 //
 // Deterministic: the same inputs give byte-identical outputs. Anything
 // unexpected in the inputs stops the build with a message and writes nothing.
@@ -21,12 +24,14 @@ import { join } from 'node:path'
 import process from 'node:process'
 import { parseSdf } from './parse-sdf.mjs'
 import { checkConfiguration, noteProblem, parseCiaawAbridged, parseNistIe, parsePubChem } from './periodic-table-lib.mjs'
+import { checkReagents, checkSupported, mergeHazards, newSources } from './aqueous-lib.mjs'
 import { checkAnnualMean, checkMolecularWeight, checkPublished, checkSha256, checkSheetHazards, checkWikipediaCopy } from './titration-lib.mjs'
 
 const root = join(import.meta.dirname, '..')
 const research = join(root, 'docs/research/phase-2')
 const periodicResearch = join(root, 'docs/research/periodic-table')
 const titrationResearch = join(root, 'docs/research/phase-3')
+const aqueousResearch = join(root, 'docs/research/phase-4')
 const out = join(root, 'src/chem-data')
 
 function fail(message) {
@@ -1066,6 +1071,54 @@ function buildTitration(otherSourceIds) {
   return { titration: { bottles, constants, parameters: input.parameters }, sources }
 }
 
+// ---------------------------------------------------------------------------
+// Aqueous reactions lab
+//
+// The record is authored in docs/research/phase-4/aqueous.json: the species, the fifteen reagents, the solubility
+// of each pair of ions the stations can bring together, the activity series, the observation rows, the constants
+// and parameters of the temperature rise, the choices an observation is recorded from, the two cautions and the
+// ten stations. Every source is in sources/MANIFEST.json, each row of which names the stored values it supports;
+// the build holds the record to those rows, and checks the reagents against the one kept copy, PubChem's table.
+// The reagents' hazards are authored apart, in hazards.json with sources/hazard-manifest.json, and merged in here:
+// like the titration lab's bottles they are a supplier's safety data sheets, read and not kept, so the build holds
+// them to that manifest's rows and cannot check them against the sheets themselves.
+
+const AQUEOUS_KEYS = ['species', 'reagents', 'solubility', 'activitySeries', 'observations', 'constants', 'parameters', 'choices', 'cautions', 'stations']
+const AQUEOUS_REAGENTS = ['fecl3-0.5m', 'naoh-1m', 'naoh-6m', 'na2co3-0.5m', 'cuso4-0.5m', 'nicl2-0.5m', 'bacl2-0.5m', 'cocl2-0.5m', 'nh4no3-0.5m', 'caco3', 'hcl-1m', 'hcl-3m', 'hcl-6m', 'agno3-0.1m', 'mg']
+const AQUEOUS_REAGENTS_ID = 'pubchem-aqueous-reagents'
+// As on the titration bench (D4): the statements of hydrogen chloride gas are kept off a bottle of the acid.
+const AQUEOUS_NEVER = { 'hcl-1m': ['H331'], 'hcl-3m': ['H331'], 'hcl-6m': ['H331'] }
+
+function buildAqueous(earlierSources) {
+  const read = (name) => readFileSync(join(aqueousResearch, name))
+  const json = (name) => JSON.parse(read(name))
+  const input = json('aqueous.json')
+  const manifest = json('sources/MANIFEST.json')
+  const hazardManifest = json('sources/hazard-manifest.json')
+
+  onlyKeys(input, AQUEOUS_KEYS, 'aqueous.json')
+  if (input.reagents.map((r) => r.id).join() !== AQUEOUS_REAGENTS.join()) fail('aqueous.json: the reagents are not the fifteen of spec 8.2, in their order')
+  if (input.stations.length !== 10) fail(`aqueous.json: expected 10 stations, found ${input.stations.length}`)
+
+  const labSources = newSources(manifest.sources, earlierSources, 'phase-4 MANIFEST.json')
+  if (labSources.length !== manifest.sources.length) fail('phase-4 MANIFEST.json: a source id is already in use')
+  const sheetSources = newSources(hazardManifest.sources, [...earlierSources, ...labSources], 'phase-4 hazard-manifest.json')
+
+  const copy = manifest.sources.find((s) => s.id === AQUEOUS_REAGENTS_ID) ?? fail(`phase-4 MANIFEST.json: no source "${AQUEOUS_REAGENTS_ID}"`)
+  for (const source of manifest.sources) {
+    if ((source.file !== undefined) !== (source.id === AQUEOUS_REAGENTS_ID)) fail(`phase-4 MANIFEST.json: "${AQUEOUS_REAGENTS_ID}" is the one source with a kept copy`)
+  }
+  const bytes = read(join('sources', copy.file))
+  checkSha256(bytes, copy.sha256, copy.file)
+  checkReagents(input, JSON.parse(bytes.toString('utf8')))
+
+  const aqueous = { ...input, reagents: mergeHazards(input.reagents, json('hazards.json'), hazardManifest.sources, AQUEOUS_NEVER) }
+  checkSupported(aqueous, manifest.sources, hazardManifest.sources)
+  for (const [key, parameter] of Object.entries(input.parameters)) onlyKeys(parameter, ['value', 'rationale'], `aqueous.json: parameters.${key}`)
+
+  return { aqueous, sources: [...labSources, ...sheetSources] }
+}
+
 // A static import list keeps the registry free of bundler-only APIs.
 function moleculeIndex(molecules) {
   const name = (id) => id.replace(/-(.)/g, (_, c) => c.toUpperCase())
@@ -1101,7 +1154,8 @@ function main() {
   const { elements: periodicTable, sources: periodicTableSources } = buildPeriodicTable(otherSources.map((s) => s.id))
   const earlierSources = [...otherSources, ...periodicTableSources]
   const { titration, sources: titrationSources } = buildTitration(earlierSources.map((s) => s.id))
-  const sources = [...earlierSources, ...titrationSources]
+  const { aqueous, sources: aqueousSources } = buildAqueous([...earlierSources, ...titrationSources])
+  const sources = [...earlierSources, ...titrationSources, ...aqueousSources]
   if (new Set(sources.map((s) => s.id)).size !== sources.length) fail('duplicate source ids')
 
   // Everything is built before anything is written.
@@ -1116,9 +1170,11 @@ function main() {
   writeFileSync(join(out, 'periodic-table.json'), toJson(periodicTable))
   writeFileSync(join(out, 'element-index.json'), toJson(elementIndex(periodicTable)))
   writeFileSync(join(out, 'titration/titration.json'), toJson(titration))
+  mkdirSync(join(out, 'aqueous'), { recursive: true })
+  writeFileSync(join(out, 'aqueous/aqueous.json'), toJson(aqueous))
   writeFileSync(join(out, 'sources.json'), toJson(sources))
   process.stdout.write(
-    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, ${sources.length} sources.\n`,
+    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, ${sources.length} sources.\n`,
   )
 }
 

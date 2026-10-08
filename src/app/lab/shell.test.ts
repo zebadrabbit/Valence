@@ -9,12 +9,13 @@ import { titrationCitations } from '@/chem-data/citations'
 import sources from '@/chem-data/sources.json'
 import { titrationData } from '@/chem-data/titration/data'
 import { READ_FIRST, termIndex, TITRATION_PRIMER } from '@/chem-data/titration/primer'
+import { aqueousData } from '@/chem-data/aqueous/data'
 import { Hazards } from './Hazards'
 import labCss from './lab.css?raw'
 import { LabShell, openingTab, tabShift, type LabShellProps } from './LabShell'
 import { ModeSwitch } from './ModeSwitch'
 import { pieces, Primer, subscriptParts } from './Primer'
-import { NARROW_NOTICE, PRIMER_TEXT, SHELL_TEXT } from './shellText'
+import { HAZARDS_TEXT, NARROW_NOTICE, PRIMER_TEXT, SHELL_TEXT } from './shellText'
 import { labProgress, writtenElsewhere } from './useLabProgress'
 
 // The markup the shell puts its wording and its slots in. Focus, keys, which tab a press shows, the confirm on
@@ -79,6 +80,17 @@ describe('the lab shell', () => {
     expect(order).toEqual([...order].sort((a, b) => a - b))
   })
 
+  it('has in the tab bar, at every width and before and after Start, one link to the periodic table that opens in a new browser tab and says so', () => {
+    for (const html of [shell(), shell({ started: false }), shell({ narrow: true })]) {
+      const links = [...html.matchAll(/<a [^>]*href="#\/explore\/elements"[^>]*>(.*?)<\/a>/gs)]
+      expect(links).toHaveLength(1)
+      expect(links[0]![0]).toMatch(/target="_blank"/)
+      expect(links[0]![0]).toMatch(/rel="noopener"/)
+      expect(links[0]![1]).toContain('Periodic table')
+      expect(links[0]![1]).toContain('(opens in a new tab)')
+    }
+  })
+
   it('opens on the Primer tab while there is no run, and on the Lab tab when there is one', () => {
     expect([openingTab(false), openingTab(true)]).toEqual(['primer', 'lab'])
     expect(selectedTab(shell({ started: false }))).toEqual(['Primer'])
@@ -133,6 +145,21 @@ describe('the lab shell', () => {
   it('leaves out the guide where the lab hands it none', () => {
     const html = shell({ guide: undefined })
     expect(has(html, ['guide', 'bench', 'notebook', 'record'])).toEqual([false, true, true, true])
+  })
+
+  it('leaves out the notebook where the lab hands it none: the bench alone, with no docked notebook named and none of the grid that places one', () => {
+    const html = shell({ guide: undefined, notebook: undefined })
+    expect(has(html, ['guide', 'bench', 'notebook', 'record'])).toEqual([false, true, false, true])
+    expect(html).not.toContain('<aside')
+    expect(html).not.toContain('lab-grid')
+    expect(html).toContain('<div class="lab-page"><div class="lab-bench"><div id="bench" data-shown="true">')
+  })
+
+  it("hands the mode switch the lab's own words for its two modes, where the lab has them", () => {
+    const html = shell({ modeText: { guided: 'Guided: with hints.', challenge: 'Challenge: without.' } })
+    expect(html).toContain('Guided: with hints.')
+    expect(html).toContain('Challenge: without.')
+    expect(html).not.toContain(escaped(SHELL_TEXT.guided))
   })
 
   it('tells the bench that its tab is the one shown', () => {
@@ -242,9 +269,26 @@ describe('the mode switch', () => {
   const draw = (disabled?: string) => renderToStaticMarkup(createElement(ModeSwitch, { mode: 'challenge', onChange: () => {}, disabled }))
   const inputs = (html: string) => [...html.matchAll(/<input[^>]*>/g)].map((match) => match[0])
 
-  it('is a fieldset named Mode with two radio buttons of one group, the mode in force checked', () => {
+  // Until 2026-10-07 the fieldset stood open over the tabs, its legend the visible word "Mode" and its two sentences
+  // always on the page. The owner asked for it collapsed, in as little room as it can have: it is now a disclosure,
+  // closed until it is opened, whose summary says which mode is in force.
+  it('is a disclosure, closed, whose summary names the mode in force, with a finger\'s hit area', () => {
     const html = draw()
-    expect(html).toMatch(/^<fieldset[^>]*><legend[^>]*>Mode<\/legend>/)
+    expect(html).toMatch(/^<details[^>]*><summary class="[^"]*\blab-tap\b[^"]*">Mode: <span[^>]*>Challenge<\/span><\/summary>/)
+    expect(html.slice(0, html.indexOf('>'))).not.toContain('open')
+    expect(renderToStaticMarkup(createElement(ModeSwitch, { mode: 'guided', onChange: () => {} }))).toMatch(/<summary[^>]*>Mode: <span[^>]*>Guided<\/span><\/summary>/)
+    expect(SHELL_TEXT.modeName).toEqual({ guided: 'Guided', challenge: 'Challenge' })
+    // The name in the summary is the word each mode's sentence begins with, in the shell's words and in a lab's own.
+    for (const mode of ['guided', 'challenge'] as const) expect(SHELL_TEXT[mode].startsWith(`${SHELL_TEXT.modeName[mode]}: `), mode).toBe(true)
+    // Opened, the area stands on the summary's foot and reaches upward, clear of the first choice under it.
+    const css = labCss.replace(/\/\*.*?\*\//gs, '').replace(/\s+/g, ' ')
+    expect(css).toMatch(/details\[open\] > summary\.lab-tap::after \{ top: auto; bottom: 0; transform: translateX\(-50%\); \}/)
+  })
+
+  it('holds, in the disclosure, a fieldset named Mode with two radio buttons of one group, the mode in force checked', () => {
+    const html = draw()
+    expect(html).toMatch(/<\/summary><fieldset[^>]*><legend class="sr-only">Mode<\/legend>/)
+    expect(html.endsWith('</fieldset></details>')).toBe(true)
     const [guided, challenge, ...rest] = inputs(html)
     expect(rest).toEqual([])
     expect(guided).toMatch(/type="radio"/)
@@ -261,6 +305,11 @@ describe('the mode switch', () => {
   it('labels each radio button with what its mode does', () => {
     const labels = [...draw().matchAll(/<label[^>]*>(.*?)<\/label>/g)].map((match) => match[1]!.replace(/<[^>]+>/g, ''))
     expect(labels).toEqual([SHELL_TEXT.guided, SHELL_TEXT.challenge])
+  })
+
+  it("labels each with the lab's own words where it is handed them", () => {
+    const html = renderToStaticMarkup(createElement(ModeSwitch, { mode: 'guided', onChange: () => {}, text: { guided: 'One.', challenge: 'Two.' } }))
+    expect([...html.matchAll(/<label[^>]*>(.*?)<\/label>/g)].map((match) => match[1]!.replace(/<[^>]+>/g, ''))).toEqual(['One.', 'Two.'])
   })
 
   it('locked, disables both and ties the reason to each', () => {
@@ -341,6 +390,25 @@ describe('the primer', () => {
     expect(css).toContain('.primer-topics-listed { display: grid; }')
     expect(css).toMatch(/@container primer \(min-width: 46rem\) \{[^@]*\.primer-topics-button \{ display: none; \} \.primer-topics \{ display: grid;/)
     expect(css.indexOf('.primer-topics-listed {')).toBeGreaterThan(css.indexOf('.primer-topics {'))
+  })
+
+  it('gives a control drawn smaller than a finger a hit area of 44 px that draws nothing and moves nothing: lab.css lays it over the control', () => {
+    const css = labCss.replace(/\/\*.*?\*\//gs, '').replace(/\s+/g, ' ')
+    // The class, and every disclosure of a lab page: Hazards and Sources among them.
+    expect(css).toContain('.lab-tap, .lab-panel summary { position: relative; }')
+    const [, area] = /\.lab-tap::after, \.lab-panel summary::after \{([^}]*)\}/.exec(css)!
+    expect(area).toContain("content: '';")
+    expect(area).toContain('position: absolute;')
+    // 2.75rem is 44 px, each way; a control that is larger keeps its own size.
+    expect(area).toContain('width: max(100%, 2.75rem);')
+    expect(area).toContain('height: max(100%, 2.75rem);')
+    // Nothing is drawn and nothing takes room: no colour, no border, no size on the control itself.
+    expect(area).not.toMatch(/background|border|outline|shadow/)
+    expect(css).not.toMatch(/\.lab-tap \{[^}]*(height|width|padding|margin)/)
+    // The list's button and the two ways on carry the class, in the primer and wherever else the paged list is used.
+    const paged = draw(1)
+    const tagged = [...paged.matchAll(/<button[^>]*class="[^"]*\blab-tap\b[^"]*"[^>]*>(.*?)<\/button>/gs)].map((match) => text(match[1]!).replace(/[←→]/g, '').trim())
+    expect(tagged).toEqual([PRIMER_TEXT.topics, PRIMER_TEXT.previous(TITRATION_PRIMER[0]!.heading), PRIMER_TEXT.next(TITRATION_PRIMER[2]!.heading)])
   })
 
   it('marks with the words "Read first" the four topics the first paragraph says to read first, in the list and on the card, and no other', () => {
@@ -561,6 +629,27 @@ describe('the hazards of a bottle', () => {
   it('draws a line that begins with two codes as it is stored, whatever the bottle', () => {
     const hazards = { ...naoh.hazards, statements: ['H999+H998+H997: Third, second, first', 'H001: Before it in a sorted list'] }
     expect(statements(draw({ ...naoh, hazards }))).toEqual(hazards.statements)
+  })
+
+  it('on a bottle whose sheet lists no statement says so in a sentence, with no signal word line and no empty list, and still shows the heading and the note', () => {
+    const caco3 = aqueousData.reagents.find((r) => r.id === 'caco3')!
+    expect(caco3.hazards).toMatchObject({ signalWord: 'None', statements: [] })
+    const html = renderToStaticMarkup(createElement(Hazards, { classifiedAs: caco3.classifiedAs!, hazards: caco3.hazards, sources, solid: true }))
+    expect(headings(html)).toEqual([escaped(caco3.classifiedAs!), 'As it is used here'])
+    expect(html).toContain(`<p>${HAZARDS_TEXT.none}</p>`)
+    expect(html).not.toContain('Signal word:')
+    expect(html).not.toContain('<ul class="grid list-disc')
+    expect(html).toContain(`>${escaped(caco3.hazards.note.value)}</p>`)
+    expect(hrefs(html)).toEqual([sourceUrl('flinn-sds-195')])
+  })
+
+  it('heads the note of a solid or a metal "As it is used here", and of a solution "At the strength used here"', () => {
+    const [mg, hcl3] = ['mg', 'hcl-3m'].map((id) => aqueousData.reagents.find((r) => r.id === id)!)
+    const of = (r: typeof mg, solid: boolean) => renderToStaticMarkup(createElement(Hazards, { classifiedAs: r!.classifiedAs!, hazards: r!.hazards, sources, solid }))
+    expect(headings(of(mg, true))[1]).toBe('As it is used here')
+    expect(of(mg, true)).toContain('Signal word: Danger')
+    expect(of(mg, true)).not.toContain('strength used here')
+    expect(headings(of(hcl3, false))[1]).toBe('At the strength used here')
   })
 })
 

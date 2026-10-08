@@ -8,14 +8,16 @@ import { ENTRY, peekStatus, type ActivityStatus, type KeyValueStore } from './pr
  */
 export const ACTIVITIES = [
   { entry: ENTRY.titration, version: 1, kind: 'Lab', title: 'Standardization of a base by titration', to: '/lab/titration' },
-  { entry: ENTRY.aqueous, version: 1, kind: 'Lab', title: 'Reactions in aqueous solution', to: '/lab' },
+  { entry: ENTRY.aqueous, version: 1, kind: 'Lab', title: 'Reactions in aqueous solution', to: '/lab/aqueous' },
   { entry: ENTRY.mechanism, version: 1, kind: 'Mechanism', title: 'HCl + NaHCO₃, step by step', to: '/learn' },
 ] as const
 
 export type Activity = (typeof ACTIVITIES)[number]
 
 /** False while an activity has no page of its own: its address is still the page that lists its kind. Home and the list of labs then show it as planned, with no link and no status. */
-export const hasPage = (activity: Activity) => activity.to !== '/lab' && activity.to !== '/learn'
+export const hasPage = (activity: Activity) => !LISTS.includes(activity.to)
+/** The pages that list a kind of activity. */
+const LISTS: readonly string[] = ['/lab', '/learn']
 
 /** An activity's status as Home shows it, read with the version the activity itself loads with. */
 export function activityStatus(store: KeyValueStore, activity: Activity): ActivityStatus {

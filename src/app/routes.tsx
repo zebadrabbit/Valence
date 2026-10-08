@@ -30,6 +30,7 @@ export const routes: RouteObject[] = [
       },
       { path: 'lab', element: <Lab /> },
       { path: 'lab/titration', lazy: async () => ({ Component: (await import('@/app/lab/titration/TitrationPage')).TitrationPage }) },
+      { path: 'lab/aqueous', lazy: async () => ({ Component: (await import('@/app/lab/aqueous/AqueousPage')).AqueousPage }) },
       { path: 'learn', element: <Learn /> },
       { path: 'settings', element: <Settings /> },
       { path: 'about', element: <About /> },
