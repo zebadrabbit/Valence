@@ -1,6 +1,6 @@
 {
   "retrieved": "2026-10-06",
-  "about": "Every source of the aqueous reactions lab's record (docs/research/phase-4/aqueous.json) and of its primer (src/chem-data/aqueous/primer.ts), each fetched and read on the retrieval date. A source with `file` has its copy in this folder, as downloaded, with the sha256 of that copy; a source with none was read and no copy is kept. `fetchedSha256`, on a source with no copy, is the sha256 of the file as it was fetched that day: a record of which file was read, not the hash of anything here, and nothing checks it. Each `supports` row names in `fields` the stored values it supports, each by its place in the record with the item's id in brackets (species[water].enthalpyOfFormation, solubility[silver-ion+chloride-ion], stations[aq-02].notes[0]); gives in `prints` a figure, a formula, a label or a heading exactly as the source prints it; and says in `where`, in this project's words, where that is and what the source says there. A row whose field is `primer` marks a source the primer rests on: which passage a paragraph rests on, and what that passage establishes, is said in the paragraph's support line in the primer. The build holds the record to these rows: every source a value cites must have a row that names the value, and where the record stores the figure a source prints, a row for it must print that figure. No source is quoted beyond such figures, formulas, labels and headings. The reagents' hazard statements and the notes under them are not in this file: they are in hazards.json and sources/hazard-manifest.json, which the build merges in. README.md in this folder says what could not be sourced.",
+  "about": "Every source of the aqueous reactions lab's record (docs/research/phase-4/aqueous.json) and of its primer (src/chem-data/aqueous/primer.ts), each fetched and read on the retrieval date, but for one that was fetched and read a day later and says so in its citation. A source with `file` has its copy in this folder, as downloaded, with the sha256 of that copy; a source with none was read and no copy is kept. `fetchedSha256`, on a source with no copy, is the sha256 of the file as it was fetched that day: a record of which file was read, not the hash of anything here, and nothing checks it. Each `supports` row names in `fields` the stored values it supports, each by its place in the record with the item's id in brackets (species[water].enthalpyOfFormation, solubility[silver-ion+chloride-ion], stations[aq-02].notes[0]); gives in `prints` a figure, a formula, a label or a heading exactly as the source prints it; and says in `where`, in this project's words, where that is and what the source says there. A row whose field is `primer` marks a source the primer rests on: which passage a paragraph rests on, and what that passage establishes, is said in the paragraph's support line in the primer. The build holds the record to these rows: every source a value cites must have a row that names the value, and where the record stores the figure a source prints, a row for it must print that figure. No source is quoted beyond such figures, formulas, labels and headings. The reagents' hazard statements and the notes under them are not in this file: they are in hazards.json and sources/hazard-manifest.json, which the build merges in. README.md in this folder says what could not be sourced.",
   "sources": [
     {
       "id": "flowers-chem2e-4.2-solubility",
@@ -119,6 +119,14 @@
         },
         {
           "fields": [
+            "species[barium-ion].name",
+            "species[silver-ion].name"
+          ],
+          "prints": "Predicting Precipitation Reactions",
+          "where": "The heading of the worked example under Precipitation Reactions and Solubility Rules. The exercise after it names Ba2+ the barium ion, and the paragraph before it calls the compound of Ag+ and the nitrate ion silver nitrate, the positive ion's name standing first. Section 4.1 of the book writes the same ion once as silver(I); the record stores the name without the numeral, as the name of the compound has it."
+        },
+        {
+          "fields": [
             "primer"
           ],
           "prints": "Classifying Chemical Reactions",
@@ -133,10 +141,63 @@
       "supports": [
         {
           "fields": [
+            "species[ammonium-ion].name",
+            "species[hydroxide-ion].name",
+            "species[carbonate-ion].name",
+            "species[sulfate-ion].name",
+            "species[nitrate-ion].name"
+          ],
+          "prints": "Common Polyatomic Ions",
+          "where": "The title of Table 2.5. Its rows give each of these five names beside the ion's formula with its charge."
+        },
+        {
+          "fields": [
+            "species[sodium-ion].name",
+            "species[calcium-ion].name",
+            "species[magnesium-ion].name",
+            "species[chloride-ion].name"
+          ],
+          "prints": "Ionic Compounds",
+          "where": "The heading. Under it the section calls Na+ a sodium cation and Cl− a chloride anion. Its opening paragraphs say that a metal's ion takes the metal's name, with Ca2+, a calcium ion, as the example, and a worked example before the heading calls Mg2+ a magnesium ion."
+        },
+        {
+          "fields": [
             "primer"
           ],
           "prints": "Ionic and Molecular Compounds",
           "where": "The section's title. Read at its opening paragraphs and under its headings Common Polyatomic Ions and Ionic Compounds."
+        }
+      ]
+    },
+    {
+      "id": "flowers-chem2e-2.7",
+      "url": "https://openstax.org/books/chemistry-2e/pages/2-7-chemical-nomenclature",
+      "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 2.7 Chemical Nomenclature; read and not kept (retrieved 2026-10-07). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction",
+      "supports": [
+        {
+          "fields": [
+            "species[iron-iii-ion].name",
+            "species[copper-ii-ion].name",
+            "species[nickel-ii-ion].name",
+            "species[cobalt-ii-ion].name"
+          ],
+          "prints": "Compounds Containing a Metal Ion with a Variable Charge",
+          "where": "The heading. Under it the section says that most transition metals form positive ions of more than one charge, and that the charge is then given as a Roman numeral in brackets after the metal's name. It prints iron(III) chloride for FeCl3 and, in the worked example that follows, copper(II) for Cu2+. Nickel(II) and cobalt(II) are not printed there: each is formed by the same rule from the charge of 2+ that the record stores for the ion."
+        },
+        {
+          "fields": [
+            "species[hydrogen-ion].name"
+          ],
+          "prints": "Binary Acids",
+          "where": "The heading. Under it the section says that many acids give hydrogen ions, written H+, when they are dissolved in water."
+        },
+        {
+          "fields": [
+            "species[carbon-dioxide].name",
+            "species[water].name"
+          ],
+          "prints": "Compounds Composed of Two Elements",
+          "where": "The heading. Under it the section names CO2 carbon dioxide and says that H2O is called water."
         }
       ]
     },
@@ -276,6 +337,14 @@
           ],
           "prints": "658 L",
           "where": "Under the heading Nitrogen Hydrogen Compounds: the volume of ammonia gas, at standard temperature and pressure, that one litre of water dissolves. The section calls ammonia quite soluble in water."
+        },
+        {
+          "fields": [
+            "species[ammonia].name",
+            "species[hydrogen].name"
+          ],
+          "prints": "Ammonia, NH3",
+          "where": "The first words under the heading Nitrogen Hydrogen Compounds, which give the compound's name with its formula. The section's second paragraph calls the gas made of H2 molecules hydrogen."
         },
         {
           "fields": [

@@ -3,6 +3,10 @@
     {
       "id": "iron-iii-ion",
       "formula": "Fe³⁺",
+      "name": {
+        "value": "iron(III)",
+        "sourceId": "flowers-chem2e-2.7"
+      },
       "composition": {
         "Fe": 1
       },
@@ -20,6 +24,10 @@
     {
       "id": "copper-ii-ion",
       "formula": "Cu²⁺",
+      "name": {
+        "value": "copper(II)",
+        "sourceId": "flowers-chem2e-2.7"
+      },
       "composition": {
         "Cu": 1
       },
@@ -37,6 +45,10 @@
     {
       "id": "nickel-ii-ion",
       "formula": "Ni²⁺",
+      "name": {
+        "value": "nickel(II)",
+        "sourceId": "flowers-chem2e-2.7"
+      },
       "composition": {
         "Ni": 1
       },
@@ -54,6 +66,10 @@
     {
       "id": "cobalt-ii-ion",
       "formula": "Co²⁺",
+      "name": {
+        "value": "cobalt(II)",
+        "sourceId": "flowers-chem2e-2.7"
+      },
       "composition": {
         "Co": 1
       },
@@ -71,6 +87,10 @@
     {
       "id": "barium-ion",
       "formula": "Ba²⁺",
+      "name": {
+        "value": "barium",
+        "sourceId": "flowers-chem2e-4.2-solubility"
+      },
       "composition": {
         "Ba": 1
       },
@@ -81,6 +101,10 @@
     {
       "id": "silver-ion",
       "formula": "Ag⁺",
+      "name": {
+        "value": "silver",
+        "sourceId": "flowers-chem2e-4.2-solubility"
+      },
       "composition": {
         "Ag": 1
       },
@@ -91,6 +115,10 @@
     {
       "id": "sodium-ion",
       "formula": "Na⁺",
+      "name": {
+        "value": "sodium",
+        "sourceId": "flowers-chem2e-2.6"
+      },
       "composition": {
         "Na": 1
       },
@@ -101,6 +129,10 @@
     {
       "id": "ammonium-ion",
       "formula": "NH₄⁺",
+      "name": {
+        "value": "ammonium",
+        "sourceId": "flowers-chem2e-2.6"
+      },
       "composition": {
         "N": 1,
         "H": 4
@@ -112,6 +144,10 @@
     {
       "id": "calcium-ion",
       "formula": "Ca²⁺",
+      "name": {
+        "value": "calcium",
+        "sourceId": "flowers-chem2e-2.6"
+      },
       "composition": {
         "Ca": 1
       },
@@ -122,6 +158,10 @@
     {
       "id": "magnesium-ion",
       "formula": "Mg²⁺",
+      "name": {
+        "value": "magnesium",
+        "sourceId": "flowers-chem2e-2.6"
+      },
       "composition": {
         "Mg": 1
       },
@@ -137,6 +177,10 @@
     {
       "id": "hydrogen-ion",
       "formula": "H⁺",
+      "name": {
+        "value": "hydrogen",
+        "sourceId": "flowers-chem2e-2.7"
+      },
       "composition": {
         "H": 1
       },
@@ -152,6 +196,10 @@
     {
       "id": "chloride-ion",
       "formula": "Cl⁻",
+      "name": {
+        "value": "chloride",
+        "sourceId": "flowers-chem2e-2.6"
+      },
       "composition": {
         "Cl": 1
       },
@@ -162,6 +210,10 @@
     {
       "id": "hydroxide-ion",
       "formula": "OH⁻",
+      "name": {
+        "value": "hydroxide",
+        "sourceId": "flowers-chem2e-2.6"
+      },
       "composition": {
         "O": 1,
         "H": 1
@@ -178,6 +230,10 @@
     {
       "id": "carbonate-ion",
       "formula": "CO₃²⁻",
+      "name": {
+        "value": "carbonate",
+        "sourceId": "flowers-chem2e-2.6"
+      },
       "composition": {
         "C": 1,
         "O": 3
@@ -201,6 +257,10 @@
     {
       "id": "sulfate-ion",
       "formula": "SO₄²⁻",
+      "name": {
+        "value": "sulfate",
+        "sourceId": "flowers-chem2e-2.6"
+      },
       "composition": {
         "S": 1,
         "O": 4
@@ -212,6 +272,10 @@
     {
       "id": "nitrate-ion",
       "formula": "NO₃⁻",
+      "name": {
+        "value": "nitrate",
+        "sourceId": "flowers-chem2e-2.6"
+      },
       "composition": {
         "N": 1,
         "O": 3
@@ -710,6 +774,10 @@
     {
       "id": "carbon-dioxide",
       "formula": "CO₂",
+      "name": {
+        "value": "carbon dioxide",
+        "sourceId": "flowers-chem2e-2.7"
+      },
       "composition": {
         "C": 1,
         "O": 2
@@ -721,6 +789,10 @@
     {
       "id": "ammonia",
       "formula": "NH₃",
+      "name": {
+        "value": "ammonia",
+        "sourceId": "flowers-chem2e-18.5"
+      },
       "composition": {
         "N": 1,
         "H": 3
@@ -736,6 +808,10 @@
     {
       "id": "hydrogen",
       "formula": "H₂",
+      "name": {
+        "value": "hydrogen",
+        "sourceId": "flowers-chem2e-18.5"
+      },
       "composition": {
         "H": 2
       },
@@ -751,6 +827,10 @@
     {
       "id": "water",
       "formula": "H₂O",
+      "name": {
+        "value": "water",
+        "sourceId": "flowers-chem2e-2.7"
+      },
       "composition": {
         "H": 2,
         "O": 1
@@ -1922,7 +2002,7 @@
       ],
       "notes": [
         {
-          "value": "Nothing reacts here. The only negative ion in the tube is chloride, and cobalt(II) chloride and iron(III) chloride both dissolve, so no pairing of these ions makes a solid, and there is no acid, base or metal for anything else to happen. The two colours only blend. The answer to all three equations is \"No reaction\".",
+          "value": "Nothing reacts here. The only negative ion in the tube is chloride, and iron(III) chloride and cobalt(II) chloride both dissolve, so no pairing of these ions makes a solid, and there is no acid, base or metal for anything else to happen. The two colours only blend. The answer to all three equations is \"No reaction\".",
           "sourceId": "flowers-chem2e-4.2-solubility"
         }
       ]

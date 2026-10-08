@@ -31,6 +31,11 @@ const counted = z.strictObject({ speciesId: id, ratio: z.number().int().positive
 export const speciesSchema = z.strictObject({
   id,
   formula: text,
+  /**
+   * What the species is called, where a page says its name: an ion as it is said before the word "ion"
+   * ("iron(III)", "chloride"), a molecule by its own name ("water"). Cited on its own.
+   */
+  name: cited(text).optional(),
   composition: z.record(z.string(), z.number().int().positive()),
   charge: z.number().int(),
   state,

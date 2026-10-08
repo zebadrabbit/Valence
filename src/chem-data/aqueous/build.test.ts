@@ -200,7 +200,8 @@ describe('the manifest', () => {
 
   it('says nothing about a licence in the citation of any OpenStax page, and gives those pages ids of their own', () => {
     const pages = sources.filter((s) => s.url.includes('openstax.org'))
-    expect(pages.length).toBe(10)
+    // Ten until 2026-10-07, when section 2.7 was read for the names of the ions and for the primer's worked steps.
+    expect(pages.length).toBe(11)
     for (const page of pages) {
       expect(page.id).toMatch(/^flowers-chem2e-\d+\.\d+(-solubility)?$/)
       expect(page.citation).not.toMatch(/licen[cs]e|CC BY|creativecommons/i)

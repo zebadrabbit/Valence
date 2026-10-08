@@ -77,6 +77,42 @@ describe('aqueousData', () => {
     expect(aqueousData.species.filter((s) => !named.has(s.id)).map((s) => s.id)).toEqual([])
   })
 
+  it('names every ion that a bottle gives or an equation of a station holds, and the liquid and the three gases that are written whole, each name with a source of its own', () => {
+    const inEquations = aqueousData.stations.flatMap((s) => Object.values(s.equations).flatMap((e) => (e ? [...e.reactants, ...e.products].map((term) => term.speciesId) : [])))
+    const met = new Set([...aqueousData.reagents.flatMap((r) => r.ions.map((ion) => ion.speciesId)), ...inEquations])
+    // An ion is named as it is said before the word "ion": the iron(III) ion, the chloride ion.
+    expect(Object.fromEntries(aqueousData.species.filter((s) => s.name).map((s) => [s.id, s.name!.value]))).toEqual({
+      'iron-iii-ion': 'iron(III)',
+      'copper-ii-ion': 'copper(II)',
+      'nickel-ii-ion': 'nickel(II)',
+      'cobalt-ii-ion': 'cobalt(II)',
+      'barium-ion': 'barium',
+      'silver-ion': 'silver',
+      'sodium-ion': 'sodium',
+      'ammonium-ion': 'ammonium',
+      'calcium-ion': 'calcium',
+      'magnesium-ion': 'magnesium',
+      'hydrogen-ion': 'hydrogen',
+      'chloride-ion': 'chloride',
+      'hydroxide-ion': 'hydroxide',
+      'carbonate-ion': 'carbonate',
+      'sulfate-ion': 'sulfate',
+      'nitrate-ion': 'nitrate',
+      'carbon-dioxide': 'carbon dioxide',
+      ammonia: 'ammonia',
+      hydrogen: 'hydrogen',
+      water: 'water',
+    })
+    // No compound and no solid is named here (a reagent has its own name), and neither is the one ion that no bottle gives and no equation holds.
+    for (const s of aqueousData.species) expect(s.name !== undefined, s.id).toBe(met.has(s.id) && (s.charge !== 0 || s.state === 'l' || s.state === 'g'))
+    expect(species('hydrogen-carbonate-ion').name).toBeUndefined()
+    // A metal that the record holds in two charges is named with its charge, and so are the others the bottles name so.
+    const numbered = aqueousData.species.filter((one) => one.name?.value.endsWith(')'))
+    expect(numbered.map((s) => s.id)).toEqual(['iron-iii-ion', 'copper-ii-ion', 'nickel-ii-ion', 'cobalt-ii-ion'])
+    for (const s of numbered) expect(s.name!.value.endsWith(`(${'I'.repeat(s.charge)})`), s.id).toBe(true)
+    for (const s of aqueousData.species.filter((one) => one.name)) expect(sources.some((source) => source.id === s.name!.sourceId), s.id).toBe(true)
+  })
+
   it('writes each formula with the atoms and the charge stored beside it', () => {
     for (const s of aqueousData.species) expect(read(s.formula), s.id).toEqual({ composition: s.composition, charge: s.charge })
     for (const r of aqueousData.reagents) expect(read(r.formula).composition, r.id).toEqual(species(r.speciesId!).composition)

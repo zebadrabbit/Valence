@@ -190,7 +190,7 @@ export const AQUEOUS_PRIMER: readonly PrimerSection[] = [
       paragraph(
         { label: 'Balancing', terms: ['coefficient'], labRules: ['In this lab an equation is also accepted with all of its coefficients multiplied by the same whole number.'] },
         'Every equation must balance: the same number of each kind of atom on both sides and, in an ionic equation, the same total charge. The number written in front of a formula is its coefficient, and says how many of that unit take part. In this lab an equation is also accepted with all of its coefficients multiplied by the same whole number.',
-        [[chem2e('4.1'), 'section 4.1, under the headings Balancing Equations and Equations for Ionic Reactions', 'a balanced equation has equal numbers of atoms of each element on its two sides, that the numbers placed in front of formulas are coefficients, and that the ionic equations of its examples carry equal charge on the two sides.']],
+        [[chem2e('4.1'), 'section 4.1, under the headings Balancing Equations and Equations for Ionic Reactions', 'a balanced equation has, for each element, as many atoms on one side as on the other, that the numbers placed in front of formulas are coefficients, and that the ionic equations of its examples carry equal charge on the two sides.']],
         'accepting coefficients in the same proportion is the rule of spec 8.3.',
       ),
     ],
