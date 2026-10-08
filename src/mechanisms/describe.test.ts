@@ -13,19 +13,19 @@ describe('describeMechanismState: the scene in words, for a reader who cannot se
   })
 
   it('in the prologue: the acid alone, with nothing of the solid, and its two ions with how far apart', () => {
-    expect(said(0.1)).toBe('Before mixing. 40% of the way through. In the scene: a hydronium ion, a water molecule and a chloride ion. Taking part: the hydronium ion and the chloride ion, 6.1 Å apart, centre to centre.')
+    expect(said(0.1)).toBe('Before mixing. 40% of the way through. In the scene: a hydronium ion, a water molecule and a chloride ion. Taking part: the hydronium ion and the chloride ion, 5.4 Å apart, centre to centre.')
     for (const t of [0, 0.03, 0.06, 0.1, 0.159]) expect(said(t)).not.toMatch(/sodium|carbonate/)
   })
 
   it('in step 1: the solid comes in as one unit, its two ions are named once they have moved apart, and the energies begin', () => {
     expect(said(0.2)).toBe(
-      'Step 1 of 4: Dissolving. 25% of the way through. In the scene: a unit of solid sodium hydrogen carbonate, a hydronium ion, a water molecule and a chloride ion. Taking part: the unit of solid sodium hydrogen carbonate, 6.3 Å from its nearest neighbour, a water molecule. Over the whole of this step, free energy changes by +2.3 kJ/mol and enthalpy by +18.7 kJ/mol.',
+      'Step 1 of 4: Dissolving. 25% of the way through. In the scene: a unit of solid sodium hydrogen carbonate, a hydronium ion, a water molecule and a chloride ion. Taking part: the unit of solid sodium hydrogen carbonate, 4.9 Å from its nearest neighbour, a hydronium ion. Over the whole of this step, free energy changes by +2.3 kJ/mol and enthalpy by +18.7 kJ/mol.',
     )
     // Until the solid has come apart, nothing names its two ions.
     for (const t of [0.16, 0.2, 0.24, 0.279]) expect(said(t)).not.toMatch(/sodium ion|hydrogen carbonate ion/)
     expect(said(0.281)).toContain('In the scene: a sodium ion, a hydrogen carbonate ion, a hydronium ion, a water molecule and a chloride ion. Taking part: the sodium ion and the hydrogen carbonate ion, 5.9 Å apart, centre to centre.')
     // At the start of step 1 nothing has been counted yet, so there is no total to give.
-    expect(said(0.16)).toMatch(/a water molecule\. Over the whole of this step, free energy changes by \+2\.3 kJ\/mol and enthalpy by \+18\.7 kJ\/mol\.$/)
+    expect(said(0.16)).toMatch(/7\.9 Å from its nearest neighbour, a hydronium ion\. Over the whole of this step, free energy changes by \+2\.3 kJ\/mol and enthalpy by \+18\.7 kJ\/mol\.$/)
   })
 
   it('in step 2, as the proton moves: the bond that is breaking and the bond that is forming, each with how far it has gone', () => {
@@ -33,7 +33,7 @@ describe('describeMechanismState: the scene in words, for a reader who cannot se
       'Step 2 of 4: Proton transfer. 63% of the way through. In the scene: a sodium ion, a hydrogen carbonate ion, a hydronium ion, a water molecule and a chloride ion. Taking part: the hydrogen carbonate ion and the hydronium ion, 3.8 Å apart, centre to centre. The bond between the oxygen and a hydrogen of the hydronium ion is breaking: 84% of it is left. A bond between an oxygen of the hydrogen carbonate ion and a hydrogen of the hydronium ion is forming: 16% formed. Over the whole of this step, free energy changes by −19.9 kJ/mol. Its enthalpy is counted with step 3.',
     )
     // The two approach before any bond changes.
-    expect(said(0.37)).toContain('the hydrogen carbonate ion and the hydronium ion, 5.1 Å apart')
+    expect(said(0.37)).toContain('the hydrogen carbonate ion and the hydronium ion, 4.5 Å apart')
     expect(said(0.37)).not.toMatch(/breaking|forming/)
     // Once the proton is more than half-way across, the two are named as what they have become.
     expect(said(0.475)).toContain(
@@ -72,7 +72,7 @@ describe('describeMechanismState: the scene in words, for a reader who cannot se
 
   it('at the end: the two spectator ions, and the totals', () => {
     expect(said(1)).toBe(
-      'Back in the beaker. At its end. In the scene: a sodium ion, a carbon dioxide molecule, three water molecules and a chloride ion. Taking part: the sodium ion and the chloride ion, 8.0 Å apart, centre to centre. Over the four steps together, free energy changes by −42.4 kJ/mol and enthalpy by +31.4 kJ/mol.',
+      'Back in the beaker. At its end. In the scene: a sodium ion, a carbon dioxide molecule, three water molecules and a chloride ion. Taking part: the sodium ion and the chloride ion, 15.8 Å apart, centre to centre. Over the four steps together, free energy changes by −42.4 kJ/mol and enthalpy by +31.4 kJ/mol.',
     )
   })
 

@@ -58,6 +58,48 @@ export function turnAbout(point, a, b, degrees) {
   return add(a, turned)
 }
 
+/** The solution of a small set of linear equations by elimination, or null where they do not have just one. */
+function solve(matrix, right) {
+  const rows = matrix.map((row, i) => [...row, right[i]])
+  const n = rows.length
+  for (let col = 0; col < n; col++) {
+    const pivot = rows.slice(col).reduce((best, row) => (Math.abs(row[col]) > Math.abs(best[col]) ? row : best))
+    if (Math.abs(pivot[col]) < 1e-9) return null
+    rows.splice(rows.indexOf(pivot), 1)
+    rows.splice(col, 0, pivot)
+    for (const row of rows) {
+      if (row === pivot) continue
+      const k = row[col] / pivot[col]
+      for (let j = col; j <= n; j++) row[j] -= k * pivot[j]
+    }
+  }
+  return rows.map((row, i) => row[n] / row[i])
+}
+
+/**
+ * The smallest sphere that holds every point. It is the smallest of the spheres that pass through one, two, three
+ * or four of the points and hold the rest, and each of those is tried: a keyframe frames a dozen atoms at most.
+ */
+export function enclosingSphere(points) {
+  /** The smallest sphere with all of `set` on its surface: its centre is as far from the first point as from each other. */
+  const through = (set) => {
+    const [first, ...rest] = set
+    const edges = rest.map((p) => sub(p, first))
+    const mix = solve(edges.map((a) => edges.map((b) => dot(a, b))), edges.map((a) => dot(a, a) / 2))
+    if (!mix) return null
+    const centre = edges.reduce((c, edge, i) => add(c, scale(edge, mix[i])), first)
+    return { centre, radius: distance(centre, first) }
+  }
+  let best = null
+  const grow = (set, from) => {
+    const sphere = through(set)
+    if (sphere && (!best || sphere.radius < best.radius) && points.every((p) => distance(p, sphere.centre) <= sphere.radius + 1e-9)) best = sphere
+    if (set.length < 4) for (let i = from; i < points.length; i++) grow([...set, points[i]], i + 1)
+  }
+  for (let i = 0; i < points.length; i++) grow([points[i]], i + 1)
+  return best
+}
+
 const onlyKeys = (object, keys, where, optional = []) => {
   const given = object && typeof object === 'object' ? Object.keys(object) : []
   if (given.some((key) => !keys.includes(key) && !optional.includes(key)) || keys.some((key) => !given.includes(key))) {
@@ -68,7 +110,9 @@ const onlyKeys = (object, keys, where, optional = []) => {
 /**
  * The keyframes of a choreography: for each, every actor's position, the bond list with orders, the species the
  * actors make up, and what the camera frames. A keyframe's bonds are those of the library records of the species
- * placed in it, so at every keyframe each species has its library record's connectivity by construction.
+ * placed in it, so at every keyframe each species has its library record's connectivity by construction. A
+ * keyframe's `frame` names one actor of each species its camera is to hold; the camera is the smallest sphere that
+ * holds the centre of every atom of those species.
  *
  * A keyframe lists only what it places anew. A species placed earlier stays where it was put until a keyframe
  * places one of its atoms again; all its atoms must then be placed again, in that keyframe. A point is given as
@@ -160,9 +204,11 @@ export function buildKeyframes(choreography, molecules, elements) {
     scene.sort((a, b) => first(a) - first(b))
 
     if (keyframe.frame.length === 0 || keyframe.frame.some((id) => !at.has(id))) throw new Error(`${where}: the camera frames actors of the scene, at least one`)
-    const framed = keyframe.frame.map((id) => at.get(id))
-    const target = scale(framed.reduce(add, [0, 0, 0]), 1 / framed.length)
-    const camera = { target: target.map(round), radius: round(Math.max(...framed.map((p) => distance(p, target)))) }
+    // Each actor named stands for its whole species, so that nothing framed is cut by the edge of the picture.
+    const framedSpecies = keyframe.frame.map((id) => scene.find((entry) => entry.atoms.includes(id)))
+    if (new Set(framedSpecies).size !== framedSpecies.length) throw new Error(`${where}: the camera's frame names each species once, by one of its actors`)
+    const { centre, radius } = enclosingSphere(framedSpecies.flatMap((entry) => entry.positions))
+    const camera = { target: centre.map(round), radius: round(radius) }
 
     const units = (keyframe.units ?? []).map((unit, i) => {
       const here = `${where}, unit ${i + 1}`

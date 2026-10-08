@@ -16,7 +16,8 @@ export const PAGE_TEXT = {
   /** The name of the 3D picture. */
   scene: '3D scene of the reaction, atom by atom',
   /** The one helper line under the scene. */
-  sceneHint: 'Point at a molecule or an ion, or tap it, to see its name. Drag to turn the scene; it is framed again when the timeline moves.',
+  sceneHint:
+    'Point at a molecule or an ion, or tap it, to see its name. Drag to turn the scene; it is framed again when the timeline moves. Every ball is drawn much smaller than the atom or ion it stands for, so that the bonds can be seen.',
   loading: 'Loading the 3D scene…',
   /** After the sentence that the 3D model could not start or be drawn. */
   noScene: 'The scene is described in words here instead.',

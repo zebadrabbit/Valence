@@ -23,34 +23,59 @@ export const OUTLINE_COLOR = '#1f2937'
 
 export const noRaycast = () => null
 
-/** A sphere with its outline: a slightly larger shell drawn from its inside faces. Not a click target. */
-export function Ball({ position, radius, color, outline, segments = 32 }: { position: Vec3; radius: number; color: string; outline: number; segments?: number }) {
+/**
+ * How an overlay is drawn: a mark on the picture (a mechanism's curved arrow) that nothing in the scene hides. Its
+ * shapes ignore depth and are drawn last, every outline before every fill, so that one overlay shape lies over
+ * another with no edge between them.
+ */
+const OVERLAY = { outline: 10, fill: 11 }
+
+/** A sphere with its outline: a slightly larger shell drawn from its inside faces. Not a click target. `overlay` draws it over everything else in the scene. */
+export function Ball({ position, radius, color, outline, segments = 32, overlay = false }: { position: Vec3; radius: number; color: string; outline: number; segments?: number; overlay?: boolean }) {
   return (
     <group position={position}>
-      <mesh scale={radius} raycast={noRaycast}>
+      <mesh scale={radius} raycast={noRaycast} renderOrder={overlay ? OVERLAY.fill : 0}>
         <sphereGeometry args={[1, segments, segments / 2]} />
-        <meshStandardMaterial color={color} roughness={0.5} />
+        <meshStandardMaterial color={color} roughness={0.5} depthTest={!overlay} />
       </mesh>
-      <mesh scale={radius + outline} raycast={noRaycast}>
+      <mesh scale={radius + outline} raycast={noRaycast} renderOrder={overlay ? OVERLAY.outline : 0}>
         <sphereGeometry args={[1, segments, segments / 2]} />
-        <meshBasicMaterial color={OUTLINE_COLOR} side={BackSide} />
+        <meshBasicMaterial color={OUTLINE_COLOR} side={BackSide} depthTest={!overlay} />
       </mesh>
     </group>
   )
 }
 
-/** A cylinder with its outline. Not a click target. */
-export function StickShape({ stick, color, outline }: { stick: Stick; color: string; outline: number }) {
+/** A cylinder with its outline. Not a click target. `overlay` draws it over everything else in the scene. */
+export function StickShape({ stick, color, outline, overlay = false }: { stick: Stick; color: string; outline: number; overlay?: boolean }) {
   return (
     <group position={stick.position} quaternion={stick.quaternion}>
-      <mesh scale={[stick.radius, stick.length, stick.radius]} raycast={noRaycast}>
+      <mesh scale={[stick.radius, stick.length, stick.radius]} raycast={noRaycast} renderOrder={overlay ? OVERLAY.fill : 0}>
         {/* Unit cylinder along +Y. */}
         <cylinderGeometry args={[1, 1, 1, 16]} />
-        <meshStandardMaterial color={color} roughness={0.6} />
+        <meshStandardMaterial color={color} roughness={0.6} depthTest={!overlay} />
       </mesh>
-      <mesh scale={[stick.radius + outline, stick.length + 2 * outline, stick.radius + outline]} raycast={noRaycast}>
+      <mesh scale={[stick.radius + outline, stick.length + 2 * outline, stick.radius + outline]} raycast={noRaycast} renderOrder={overlay ? OVERLAY.outline : 0}>
         <cylinderGeometry args={[1, 1, 1, 16]} />
-        <meshBasicMaterial color={OUTLINE_COLOR} side={BackSide} />
+        <meshBasicMaterial color={OUTLINE_COLOR} side={BackSide} depthTest={!overlay} />
+      </mesh>
+    </group>
+  )
+}
+
+/**
+ * A cone with its outline, its point at the top of +Y. Not a click target. `overlay` as for a ball.
+ */
+export function ConeShape({ position, quaternion, radius, length, color, outline, overlay = false }: { position: Vec3; quaternion: Quat; radius: number; length: number; color: string; outline: number; overlay?: boolean }) {
+  return (
+    <group position={position} quaternion={quaternion}>
+      <mesh scale={[radius, length, radius]} raycast={noRaycast} renderOrder={overlay ? OVERLAY.fill : 0}>
+        <coneGeometry args={[1, 1, 16]} />
+        <meshStandardMaterial color={color} roughness={0.6} depthTest={!overlay} />
+      </mesh>
+      <mesh scale={[radius + outline, length + 2 * outline, radius + outline]} raycast={noRaycast} renderOrder={overlay ? OVERLAY.outline : 0}>
+        <coneGeometry args={[1, 1, 16]} />
+        <meshBasicMaterial color={OUTLINE_COLOR} side={BackSide} depthTest={!overlay} />
       </mesh>
     </group>
   )

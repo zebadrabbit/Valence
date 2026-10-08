@@ -13,7 +13,7 @@ import stored from './hcl-nahco3.json'
 // the choreography to each other. Tested here on the real inputs and on inputs it must refuse. The script itself
 // writes files, so this work lives in scripts/mechanism-lib.mjs and scripts/aqueous-lib.mjs as plain functions.
 type Anchors = { origin: { atom: number; at: Vec3 }; aim: { atom: number; toward: Vec3 }; roll?: { atom: number; toward: Vec3 } }
-type Built = { id: string; t: number; positions: Vec3[]; bonds: { a: string; b: string; order: number }[]; species: { speciesId?: string; ion?: string; atoms: string[] }[] }
+type Built = { id: string; t: number; positions: Vec3[]; bonds: { a: string; b: string; order: number }[]; species: { speciesId?: string; ion?: string; atoms: string[] }[]; camera: { target: Vec3; radius: number } }
 type Lib = {
   placeRigid(atoms: Vec3[], anchors: Anchors, where: string): Vec3[]
   turnAbout(point: Vec3, a: Vec3, b: Vec3, degrees: number): Vec3
@@ -129,6 +129,26 @@ describe('buildKeyframes', () => {
     expect(keyframes.at(-1)!.bonds.filter((b) => b.order === 2)).toHaveLength(2)
   })
 
+  it('frames whole species: a keyframe names one actor of each species its camera is to hold, and the sphere holds every atom of each, as small as does', () => {
+    const index = new Map(choreography.actors.map((a, i) => [a.id, i]))
+    for (const [k, keyframe] of keyframes.entries()) {
+      const framed = keyframe.species.filter((one) => choreography.keyframes[k]!.frame.some((id) => one.atoms.includes(id)))
+      expect(framed.length).toBe(choreography.keyframes[k]!.frame.length)
+      const points = framed.flatMap((one) => one.atoms.map((id) => keyframe.positions[index.get(id)!]!))
+      const farthest = Math.max(...points.map((p) => distance(p, keyframe.camera.target)))
+      expect(farthest).toBeLessThanOrEqual(keyframe.camera.radius + 1e-3)
+      expect(farthest).toBeGreaterThan(keyframe.camera.radius - 1e-3)
+      // No smaller than half the widest stretch between two of the atoms, and within a hair of it where two atoms are the whole width.
+      const widest = Math.max(...points.flatMap((p) => points.map((q) => distance(p, q))))
+      expect(keyframe.camera.radius).toBeGreaterThanOrEqual(widest / 2 - 1e-3)
+      expect(keyframe.camera.radius).toBeLessThan(widest / 2 / Math.cos(Math.PI / 6))
+    }
+    // A sphere about the middle of the points, not about their average: one ion beside a five-atom ion is not pulled off-centre.
+    const solidIn = keyframes.find((one) => one.id === 'solid-in')!
+    const at = (id: string) => solidIn.positions[index.get(id)!]!
+    expect(distance(solidIn.camera.target, at('na'))).toBeCloseTo(solidIn.camera.radius, 2)
+  })
+
   const broken = (change: (c: typeof choreography) => void) => {
     const changed = copy(choreography)
     change(changed)
@@ -171,15 +191,15 @@ describe('checkContacts', () => {
 
   it('refuses two atoms of different species on top of each other at a keyframe', () => {
     const crowded = copy(choreography)
-    at(crowded, 'beaker').place[4]!.at = [3.4, 6.2, 2.2]
+    at(crowded, 'beaker').place[4]!.at = [-3.6, 4.2, 2]
     expect(() => checkContacts(crowded.actors, buildKeyframes(crowded, moleculeFiles, elements))).toThrow(/keyframe "beaker": o-hydronium and cl, of different species, are 1\.20 Å apart/)
   })
 
   it('refuses an atom that passes through another on its way between two keyframes', () => {
     const through = copy(choreography)
-    // The sodium ion is sent to the far side of the chloride ion, straight through it.
-    at(through, 'dissolved').place[0]!.at = [11.465, 5.6, -4]
-    expect(() => checkContacts(through.actors, buildKeyframes(through, moleculeFiles, elements))).toThrow(/between "solid-in" and "dissolved": na and cl pass within/)
+    // The sodium ion is sent to the far side of the hydrogen carbonate ion it lies beside, straight through its carbon.
+    at(through, 'dissolved').place[0]!.at = [-3.735, 0, 0]
+    expect(() => checkContacts(through.actors, buildKeyframes(through, moleculeFiles, elements))).toThrow(/between "solid-in" and "dissolved": na and \S+ pass within/)
   })
 })
 

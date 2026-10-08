@@ -322,11 +322,30 @@ describe('the camera target', () => {
     }
   })
 
-  it('closes in on the two that react in step 2, and takes in the whole scene at both ends', () => {
-    const middle = state(mechanism, at('encounter'))
-    expect(middle.camera.radius).toBeLessThan(2.5)
-    expect(distance(middle.camera.target, atom(middle, 'h-transfer').position)).toBeLessThan(1.5)
-    expect(state(mechanism, 0).camera.radius).toBeGreaterThan(8)
-    expect(state(mechanism, 1).camera.radius).toBeGreaterThan(8)
+  it('frames each chapter on what takes part in it: at a chapter\'s start every atom of every species it is about is inside the camera\'s sphere', () => {
+    for (const chapter of mechanism.chapters.filter((c) => c.kind !== 'bookend')) {
+      const s = state(mechanism, chapter.range[0])
+      for (const one of s.species.filter((x) => x.active)) {
+        // The solid is on its way in when step 1 begins, and is framed when it has arrived.
+        if ('unit' in one) continue
+        for (const id of one.atoms) expect([chapter.id, id, distance(atom(s, id).position, s.camera.target) <= s.camera.radius + 1e-3]).toEqual([chapter.id, id, true])
+      }
+    }
+    const arrived = state(mechanism, at('solid-in'))
+    for (const a of arrived.atoms.filter((x) => x.active)) expect(distance(a.position, arrived.camera.target)).toBeLessThanOrEqual(arrived.camera.radius + 1e-3)
+  })
+
+  it('frames closely: nowhere along the track is the camera\'s sphere wider than 4.5 Å, and where bonds change it is under 3.5 Å', () => {
+    for (const t of grid) expect([t, state(mechanism, t).camera.radius < 4.5]).toEqual([t, true])
+    for (const t of grid.filter((x) => state(mechanism, x).electronPaths.length > 0)) expect([t, state(mechanism, t).camera.radius < 3.5]).toEqual([t, true])
+  })
+
+  it('does not show the solid before the question of step 1 is asked: when step 1 begins the unit is above the top of the picture, whatever shape the picture has', () => {
+    const s = state(mechanism, at('solid-ready'))
+    // The scene frames a sphere with a margin of 1.15 in a field of view of 45 degrees, so what shows above its
+    // target is 1.15 / cos(22.5°) of the radius it frames, whatever the picture's width; and it frames the
+    // camera's radius with room for a ball, none of which is as much as half an ångström.
+    const top = s.camera.target[1] + (1.15 / Math.cos(Math.PI / 8)) * (s.camera.radius + 0.5)
+    for (const id of s.species.find((one) => 'unit' in one)!.atoms) expect(atom(s, id).position[1] - 0.5).toBeGreaterThan(top)
   })
 })

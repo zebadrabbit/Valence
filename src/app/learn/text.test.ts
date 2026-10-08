@@ -91,7 +91,7 @@ describe('the scene in words, while a question waits', () => {
       expect(words(asked)).not.toMatch(/Taking part|Dissolving|Proton transfer|Decomposition|Gas escapes/)
       expect(words(asked)).toMatch(/^Step \d of 4\. At its start\. In the scene: /)
       // Every other sentence is there, in its order.
-      expect(whole.replace(/Step (\d) of 4: [A-Za-z ]+\./, 'Step $1 of 4.').replace(/ Taking part: .*? (centre to centre|a water molecule)\./, '')).toBe(words(asked))
+      expect(whole.replace(/Step (\d) of 4: [A-Za-z ]+\./, 'Step $1 of 4.').replace(/ Taking part: .*? (centre to centre|a water molecule|a hydronium ion)\./, '')).toBe(words(asked))
     }
     // Before step 1 the solid is one unit in these words too: its two ions are the answer to the question.
     expect(words(run(createProgress('challenge'), { type: 'seek', t: 0.16 }))).toBe(
@@ -156,6 +156,10 @@ describe('every sentence the page adds', () => {
     expect(PAGE_TEXT.realTime('seconds')).toBe('Real time: seconds')
     expect(ENERGY_TEXT.onBarrier('not to scale')).toBe('barrier: not to scale')
     expect(ENERGY_TEXT.onLevel('derived')).toBe('level: derived')
+  })
+
+  it('says under the scene that every ball is drawn smaller than the atom or ion it stands for, and why', () => {
+    expect(PAGE_TEXT.sceneHint).toMatch(/Every ball is drawn much smaller than the atom or ion it stands for, so that the bonds can be seen\./)
   })
 
   it('tells a learner under reduced motion why there is no Play', () => {

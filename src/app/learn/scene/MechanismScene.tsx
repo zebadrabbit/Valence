@@ -7,22 +7,20 @@
 
 import { useEffect, useMemo, useRef, type RefObject } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { BackSide, CanvasTexture, SRGBColorSpace, Vector3 } from 'three'
+import { CanvasTexture, SRGBColorSpace, Vector3 } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import type { Vec3 } from '@/chem-data/geometry'
 import { registry } from '@/chem-data/registry'
 import type { MechanismState } from '@/mechanisms'
 import { framingDistance } from '@/app/explore/scene/sceneMath'
 import { STICK_COLOR } from '@/app/explore/scene/sceneModel'
-import { Ball, ContextLossWatcher, Headlight, OUTLINE_COLOR, PickTarget, StickShape, noRaycast } from '@/app/explore/scene/shapes'
-import { PAIR_DOT_RADIUS, drawing, type DrawnArrow } from './drawing'
+import { Ball, ConeShape, ContextLossWatcher, Headlight, PickTarget, StickShape, noRaycast } from '@/app/explore/scene/shapes'
+import { PAIR_DOT_RADIUS, VIEW_FROM, drawing, type DrawnArrow } from './drawing'
 
 const FOV = 45
-/** The direction the camera looks from: a little to the right and above, as the explorer's does at first. */
-const HOME: Vec3 = [0.35, 0.3, 1]
 // An electron pair and its arrow, in the colour the explorer draws a lone pair in. The arrow's shape says what it is.
 const ELECTRON_COLOR = '#fde047'
-// An ion's charge is written in dark letters with a white edge, so it reads on a sphere of any colour.
+// An ion's charge is written in dark letters with a white edge, so it reads over anything behind it, in either theme.
 const LABEL_INK = '#18181b'
 const LABEL_EDGE = '#ffffff'
 
@@ -53,7 +51,7 @@ export function MechanismScene({ state, looked, onLook, callout, label, describe
         // No tone mapping: the element colours are shown as stored.
         flat
         dpr={[1, 2]}
-        camera={{ fov: FOV, near: 0.1, far: 500, position: [...HOME] }}
+        camera={{ fov: FOV, near: 0.1, far: 500, position: [...VIEW_FROM] }}
         gl={{ antialias: true, alpha: true }}
         role="img"
         aria-label={label}
@@ -94,34 +92,24 @@ export function MechanismScene({ state, looked, onLook, callout, label, describe
   )
 }
 
-/** A curved arrow with the pair of electrons on it: the shaft in pieces, a cone for its head, and two dots. */
+/** A curved arrow with the pair of electrons on it: the shaft in pieces, a cone for its head, and two dots. Drawn over everything else, as a mark on the picture is. */
 function Arrow({ arrow, outline }: { arrow: DrawnArrow; outline: number }) {
   const { head } = arrow
   return (
     <>
       {arrow.shaft.map((stick, i) => (
-        <StickShape key={i} stick={stick} color={ELECTRON_COLOR} outline={outline} />
+        <StickShape key={i} stick={stick} color={ELECTRON_COLOR} outline={outline} overlay />
       ))}
-      <group position={head.position} quaternion={head.quaternion}>
-        {/* A unit cone along +Y, its point at the top. */}
-        <mesh scale={[head.radius, head.length, head.radius]} raycast={noRaycast}>
-          <coneGeometry args={[1, 1, 16]} />
-          <meshStandardMaterial color={ELECTRON_COLOR} roughness={0.6} />
-        </mesh>
-        <mesh scale={[head.radius + outline, head.length + 2 * outline, head.radius + outline]} raycast={noRaycast}>
-          <coneGeometry args={[1, 1, 16]} />
-          <meshBasicMaterial color={OUTLINE_COLOR} side={BackSide} />
-        </mesh>
-      </group>
+      <ConeShape position={head.position} quaternion={head.quaternion} radius={head.radius} length={head.length} color={ELECTRON_COLOR} outline={outline} overlay />
       {arrow.pair.map((position, i) => (
-        <Ball key={i} position={position} radius={PAIR_DOT_RADIUS} color={ELECTRON_COLOR} outline={outline} segments={16} />
+        <Ball key={i} position={position} radius={PAIR_DOT_RADIUS} color={ELECTRON_COLOR} outline={outline} segments={16} overlay />
       ))}
     </>
   )
 }
 
-/** An ion's symbol and charge, written on its sphere and always facing the viewer. */
-function IonLabel({ position, text, height }: { position: Vec3; text: string; height: number }) {
+/** An ion's symbol and charge, written beside its ball and always facing the viewer. */
+function IonLabel({ position, text, height, offset }: { position: Vec3; text: string; height: number; offset: number }) {
   const texture = useMemo(() => {
     const canvas = document.createElement('canvas')
     canvas.width = 256
@@ -129,22 +117,25 @@ function IonLabel({ position, text, height }: { position: Vec3; text: string; he
     const pen = canvas.getContext('2d')
     if (pen) {
       pen.font = '600 80px "Inter Variable", system-ui, sans-serif'
-      pen.textAlign = 'center'
+      // From the left edge: the sprite's left edge is put beside the ball.
+      pen.textAlign = 'left'
       pen.textBaseline = 'middle'
       pen.lineJoin = 'round'
       pen.lineWidth = 12
       pen.strokeStyle = LABEL_EDGE
-      pen.strokeText(text, 128, 68)
+      pen.strokeText(text, 8, 68)
       pen.fillStyle = LABEL_INK
-      pen.fillText(text, 128, 68)
+      pen.fillText(text, 8, 68)
     }
     const made = new CanvasTexture(canvas)
     made.colorSpace = SRGBColorSpace
     return made
   }, [text])
   useEffect(() => () => texture.dispose(), [texture])
+  const width = height * 2
   return (
-    <sprite position={position} scale={[height * 2, height, 1]} renderOrder={5} raycast={noRaycast}>
+    // `center` is the point of the sprite that sits on `position`: left of the sprite by the offset, and at half its height.
+    <sprite position={position} scale={[width, height, 1]} center={[-offset / width, 0.5]} renderOrder={5} raycast={noRaycast}>
       <spriteMaterial map={texture} depthTest={false} />
     </sprite>
   )
@@ -222,7 +213,7 @@ function Framing({ target, radius }: { target: Vec3; radius: number }) {
       controls.minDistance = distance / 4
       controls.maxDistance = distance * 3
       controls.target.set(x, y, z)
-      camera.position.set(...HOME).setLength(distance).add(controls.target)
+      camera.position.set(...VIEW_FROM).setLength(distance).add(controls.target)
       controls.update()
       invalidate()
     }
