@@ -35,7 +35,7 @@ import {
 import { Beaker } from './Beaker'
 import { Energy } from './EnergyPanel'
 import { MechanismPage } from './MechanismPage'
-import { BEAKER_TEXT, ENERGY_TEXT, MODE_TEXT, PAGE_TEXT, speciesLabel } from './text'
+import { BEAKER_TEXT, ENERGY_TEXT, MODE_TEXT, PAGE_TEXT, speciesLabel, withheld } from './text'
 
 // The mechanism timeline's page as markup, on a store the test holds. AppStateProvider builds its store from the
 // browser, the check for WebGL asks the document for a canvas, and the 3D scene is three.js: each is given
@@ -471,7 +471,7 @@ describe('the mechanism page: Challenge', () => {
 })
 
 describe('the energy panel', () => {
-  const panel = (t: number, name = (id: string) => chapterHeading(mechanism, id)) => renderToStaticMarkup(createElement(Energy, { mechanism, t, name }))
+  const panel = (t: number, kept: ReadonlySet<string> = new Set()) => renderToStaticMarkup(createElement(Energy, { mechanism, t, kept }))
 
   it('draws free energy as the main curve and enthalpy alongside, each named in words on the chart, with a cursor', () => {
     const html = panel(0.445)
@@ -577,9 +577,48 @@ describe('the energy panel', () => {
   })
 
   it('names a step as the page does: by its number alone while Challenge keeps its name back', () => {
-    const html = panel(0.3, (id) => (id === 'decomposition' ? 'Step 3 of 4' : chapterHeading(mechanism, id)))
+    const html = panel(0.3, new Set(['decomposition']))
     expect(html).not.toContain('Decomposition')
     expect(html).toContain('Step 3 of 4')
+  })
+
+  it('gives nothing of a step away while Challenge keeps its name back: its figures are there, and not its note, how they were worked out, or the sources', () => {
+    const all = new Set(steps.map((step) => step.id))
+    // Where step 1's question is asked: the figures of the step, and of every step in the table.
+    const asked = panel(0.16, all)
+    for (const line of energyLines(mechanism, 'dissolving')) expect(asked).toContain(escaped(line.text))
+    expect(figures(asked).length).toBeGreaterThan(8)
+    // No step's name, no species a step makes, and no word of what a step does.
+    expect(asked).not.toMatch(/Dissolving|Proton transfer|Decomposition|Gas escapes/)
+    expect(asked).not.toMatch(/HCO₃|Na⁺|CO₂|H₂CO₃|carbonic acid|proton|hydrogen carbonate|sodium ion|decomposition|uphill|pKa|lasts/i)
+    // The note on step 1 names the ion the solid gives: it waits.
+    expect(asked).not.toContain(escaped(steps[0]!.notes[0]!))
+    // How each value was worked out names the change it was worked out over: each step's waits, with a line that says so.
+    for (const step of steps) for (const line of energyLines(mechanism, step.id)) expect([step.id, asked.includes(escaped(line.method))]).toEqual([step.id, false])
+    expect(count(asked, new RegExp(escaped(ENERGY_TEXT.workedLater), 'g'))).toBe(4)
+    // The sources' own titles would answer: the control waits until no step is kept back, with a line that says so.
+    expect(asked).not.toContain('>Sources</summary>')
+    expect(asked).not.toContain('href="http')
+    expect(asked).toContain(`<p class="text-xs text-muted-foreground">${escaped(ENERGY_TEXT.sourcesLater)}</p>`)
+
+    // With steps 1 and 2 behind, theirs are shown and those of the steps ahead still wait.
+    const half = panel(0.52, new Set(['decomposition', 'gas-escapes']))
+    for (const id of ['dissolving', 'proton-transfer']) for (const line of energyLines(mechanism, id)) expect(half).toContain(escaped(`${line.text}. ${line.method}`))
+    for (const id of ['decomposition', 'gas-escapes']) for (const line of energyLines(mechanism, id)) expect(half).not.toContain(escaped(line.method))
+    expect(count(half, new RegExp(escaped(ENERGY_TEXT.workedLater), 'g'))).toBe(2)
+    expect(half).not.toMatch(/splits|CO₂\(g\)|lasts|Eyring/)
+    expect(half).not.toContain('>Sources</summary>')
+    // In step 1 with its question answered, its note is back.
+    expect(panel(0.2, new Set(['proton-transfer', 'decomposition', 'gas-escapes']))).toContain(escaped(steps[0]!.notes[0]!))
+    // With nothing kept back, everything is there.
+    expect(panel(0.16)).toContain('>Sources</summary>')
+    expect(panel(0.16)).not.toContain(escaped(ENERGY_TEXT.workedLater))
+  })
+
+  it('is handed, by the page, the steps Challenge keeps back: on a page where step 1\'s question waits, the panel\'s button is there and the page names no step', () => {
+    store(run(createProgress('challenge'), { type: 'advance', t: 0.3 }))
+    expect(button(page(), ENERGY_PANEL.title)).toBeDefined()
+    expect(withheld(mechanism, run(createProgress('challenge'), { type: 'advance', t: 0.3 }))).toEqual(new Set(steps.map((step) => step.id)))
   })
 })
 

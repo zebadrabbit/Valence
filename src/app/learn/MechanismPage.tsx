@@ -16,7 +16,6 @@ import {
   chapterHeading,
   chapterStart,
   createProgress,
-  describeMechanismState,
   hclNahco3 as mechanism,
   mechanismProgressSchema,
   pendingPrediction,
@@ -176,7 +175,7 @@ export function MechanismPage() {
   const question = pendingPrediction(mechanism, run)
   const kept = withheld(mechanism, run)
   const name = (chapterId: string) => chapterName(mechanism, chapterId, kept)
-  const description = sceneWords(mechanism, run, describeMechanismState(mechanism, t, registry.elements))
+  const description = sceneWords(mechanism, run, registry.elements)
   const { previous, next } = ways(mechanism, t)
   const answer = run.mode === 'challenge' && chapter.kind === 'step' ? run.answers.find((given) => given.questionId === chapter.question?.id) : undefined
   const feedback = answer ? predictionFeedback(mechanism, answer.questionId, answer.optionId) : null
@@ -214,7 +213,7 @@ export function MechanismPage() {
           )}
         </div>
         <div className="flex flex-wrap items-center gap-x-2">
-          <EnergyPanel mechanism={mechanism} t={t} name={name} />
+          <EnergyPanel mechanism={mechanism} t={t} kept={kept} />
           <PeriodicTableLink />
         </div>
       </div>

@@ -1,4 +1,5 @@
-import { PREDICTION, chapterAnnouncement, chapterAt, chapterHeading, pendingPrediction, predictionResults, predictionsOf, stepsOf, type Mechanism, type MechanismProgress, type MechanismState, type Mode } from '@/mechanisms'
+import type { Element } from '@/chem-data/schema'
+import { PREDICTION, chapterAnnouncement, chapterAt, chapterHeading, mechanismDescription, pendingPrediction, predictionResults, predictionsOf, stepsOf, type Mechanism, type MechanismProgress, type MechanismState, type Mode } from '@/mechanisms'
 
 // Everything the mechanism timeline's page says that is not in the mechanism's record or in the wording written
 // before the page (src/mechanisms/wording.ts): the names of its controls, its few helper lines, and why a control
@@ -69,6 +70,9 @@ export const ENERGY_TEXT = {
   /** Under the curves: what of them is worked out and what is only drawn. */
   drawn: 'Between two levels each curve is a drawing. Only the levels, and the height of a barrier that has a value, are worked out.',
   worked: 'How each value was worked out',
+  /** In Challenge, in place of a step's working and of the sources, while they would answer a question that has not been asked. */
+  workedLater: 'Shown once the question of this step is answered.',
+  sourcesLater: 'The sources are listed here once every question is answered: some of their titles give an answer away.',
   unsourced: "Where the atoms are between and around the reacting molecules is Valence's own choreography, not a measured or computed path. The timescales of steps 1 and 4 are everyday observations with no source.",
 } as const
 
@@ -121,16 +125,18 @@ export function positionText(mechanism: Mechanism, t: number, kept: ReadonlySet<
 }
 
 /**
- * The scene in words as the page gives it. While a question waits it is the model's description less what would
- * answer the question: the step's name, and the sentence that says which species the step is about. At any other
- * time it is the model's description, whole.
+ * The scene in words as the page gives it: the model's description, less what the page does not show. At a
+ * bookend the page draws a beaker and no atoms, so the words are the chapter, the picture of the beaker and, after
+ * the last step, the totals. While a question waits they leave out what would answer it: the step's name, and the
+ * sentence that says which species the step is about.
  */
-export function sceneWords(mechanism: Mechanism, progress: MechanismProgress, description: string): string {
-  if (!pendingPrediction(mechanism, progress)) return description
-  // ponytail: the sentence is found by the words it begins with, which are the model's (src/mechanisms/describe.ts).
-  // If those change, the test of this function fails; the model handing over its sentences one by one would end that.
+export function sceneWords(mechanism: Mechanism, progress: MechanismProgress, elements: readonly Element[]): string {
+  const said = mechanismDescription(mechanism, progress.position, elements)
   const chapter = chapterAt(mechanism, progress.position)
-  return description.replace(chapterHeading(mechanism, chapter.id), chapterName(mechanism, chapter.id, new Set([chapter.id]))).replace(/ Taking part: .*?\.(?= [A-Z]|$)/, '')
+  const asked = pendingPrediction(mechanism, progress) !== null
+  const lead = `${asked ? chapterName(mechanism, chapter.id, new Set([chapter.id])) : said.heading}. ${said.through}.`
+  const sentences = chapter.kind === 'bookend' ? [lead, chapter.range[1] === 1 ? BEAKER_TEXT.after : BEAKER_TEXT.before, said.energies] : [lead, said.scene, asked ? '' : said.taking, ...said.changing, said.energies]
+  return sentences.filter((sentence) => sentence !== '').join(' ')
 }
 
 /** What is announced when the timeline enters a chapter (spec 9.1): the chapter, or the question where one waits. */

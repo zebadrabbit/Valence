@@ -6,13 +6,13 @@ import { registry } from '@/chem-data/registry'
 import sources from '@/chem-data/sources.json'
 import { ENERGY_PANEL, chapterAt, energyAt, energyLines, energyPanelNotes, mechanismCitations, stepNotes, stepsOf, type Mechanism } from '@/mechanisms'
 import { CHART, chartScale, curveLabels, curvePath } from './energyChart'
-import { ENERGY_TEXT } from './text'
+import { ENERGY_TEXT, chapterName } from './text'
 
 export interface EnergyProps {
   mechanism: Mechanism
   t: number
-  /** A chapter as the page names it now: Challenge keeps the name of a step back. */
-  name(chapterId: string): string
+  /** The steps whose names Challenge keeps back, each until its question is answered or the timeline has gone into it. Empty in Guided. */
+  kept: ReadonlySet<string>
 }
 
 /**
@@ -48,8 +48,13 @@ const minus = (value: number) => (value > 0 ? `+${value}` : String(value).replac
  * table of all four steps, for anyone who cannot use the curves; the panel's notes; how each value was worked out;
  * and the sources. The curves and the cursor are drawn. Every figure that is printed is a step's own or the sum of
  * the four: where the cursor stands part-way through a step is a point on a drawing and is printed nowhere.
+ *
+ * Of a step that Challenge keeps back the panel gives the figures and no words: not its name, not its note, and
+ * not how its values were worked out, which names the change they were worked out over. The sources wait until no
+ * step is kept back, since a source's title can be an answer.
  */
-export function Energy({ mechanism, t, name }: EnergyProps) {
+export function Energy({ mechanism, t, kept }: EnergyProps) {
+  const name = (chapterId: string) => chapterName(mechanism, chapterId, kept)
   const scale = chartScale(mechanism)
   const steps = stepsOf(mechanism)
   const current = chapterAt(mechanism, t)
@@ -129,9 +134,7 @@ export function Energy({ mechanism, t, name }: EnergyProps) {
             ))}
           </ul>
           {/* The record's own note on the step (spec 9.2). What follows from how a value was obtained is with how it was worked out. */}
-          {current.notes.map((note) => (
-            <Note key={note}>{note}</Note>
-          ))}
+          {!kept.has(current.id) && current.notes.map((note) => <Note key={note}>{note}</Note>)}
         </section>
       )}
       {/* After the last step: the whole change. */}
@@ -184,23 +187,27 @@ export function Energy({ mechanism, t, name }: EnergyProps) {
           {steps.map((step) => (
             <li key={step.id}>
               <span className="font-medium">{name(step.id)}</span>
-              <ul className="mt-1 grid list-disc gap-1 pl-5">
-                {energyLines(mechanism, step.id).map((line) => (
-                  <li key={line.quantity}>
-                    {line.text}. {line.method}
-                  </li>
-                ))}
-                {stepNotes(mechanism, step.id)
-                  .slice(step.notes.length)
-                  .map((note) => (
-                    <li key={note}>{note}</li>
+              {kept.has(step.id) ? (
+                <p className="mt-1">{ENERGY_TEXT.workedLater}</p>
+              ) : (
+                <ul className="mt-1 grid list-disc gap-1 pl-5">
+                  {energyLines(mechanism, step.id).map((line) => (
+                    <li key={line.quantity}>
+                      {line.text}. {line.method}
+                    </li>
                   ))}
-              </ul>
+                  {stepNotes(mechanism, step.id)
+                    .slice(step.notes.length)
+                    .map((note) => (
+                      <li key={note}>{note}</li>
+                    ))}
+                </ul>
+              )}
             </li>
           ))}
         </ul>
       </Disclosure>
-      <Sources citations={mechanismCitations(mechanism, registry.molecules, sources)} derived={ENERGY_TEXT.unsourced} />
+      {kept.size > 0 ? <Note>{ENERGY_TEXT.sourcesLater}</Note> : <Sources citations={mechanismCitations(mechanism, registry.molecules, sources)} derived={ENERGY_TEXT.unsourced} />}
     </>
   )
 }

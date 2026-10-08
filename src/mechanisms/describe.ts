@@ -14,25 +14,52 @@ const article = (noun: string) => (/^(?!uni)[aeiou]/i.test(noun) ? 'an' : 'a')
 const and = (items: readonly string[]) => (items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} and ${items.at(-1)}`)
 const speciesId = (s: SceneSpecies) => ('unit' in s ? s.unit : 'ion' in s ? s.ion : s.speciesId)
 
-/**
- * What the scene shows at scrub position `t`: the chapter and how far through it, what is in the scene, which
- * species take part and how far apart they are, each bond that is breaking, forming or changing order, and, from
- * step 1 on, the energies: each step's whole change and the totals of whole steps, never a point on a drawn curve.
- */
-export function describeMechanismState(mechanism: Mechanism, t: number, elements: readonly Element[]): string {
+/** The scene in words, sentence by sentence, for a page that leaves some of them out. An empty string where there is nothing to say. */
+export type MechanismDescription = {
+  /** "Step 2 of 4: Proton transfer", and how far through it: "At its start", "63% of the way through". */
+  heading: string
+  through: string
+  /** What is in the scene. */
+  scene: string
+  /** Which species the chapter is about, and how near they are. */
+  taking: string
+  /** One sentence for each bond that is breaking, forming or changing order. */
+  changing: string[]
+  /** From step 1 on: a step's whole change, and totals of whole steps. */
+  energies: string
+}
+
+/** The sentences of `describeMechanismState`, apart. */
+export function mechanismDescription(mechanism: Mechanism, t: number, elements: readonly Element[]): MechanismDescription {
   const s = state(mechanism, t)
   const name = (one: SceneSpecies) => mechanism.species.find((x) => x.id === speciesId(one))?.name ?? speciesId(one)
   const elementName = (symbol: string) => elements.find((e) => e.symbol === symbol)?.name.toLowerCase() ?? symbol
 
   const [start, end] = s.chapter.range
   const through = Math.round((100 * (s.t - start)) / (end - start))
-  const lead = `${chapterHeading(mechanism, s.chapter.id)}. ${through === 0 ? 'At its start' : through === 100 ? 'At its end' : `${through}% of the way through`}.`
 
   const counts = new Map<string, number>()
   for (const one of s.species) counts.set(name(one), (counts.get(name(one)) ?? 0) + 1)
   const scene = `In the scene: ${and([...counts].map(([noun, n]) => (n === 1 ? `${article(noun)} ${noun}` : `${NUMBERS[n] ?? n} ${noun}s`)))}.`
 
-  return [lead, scene, taking(s, name), ...changing(mechanism, s, name, elementName), energies(mechanism, s)].filter((sentence) => sentence !== '').join(' ')
+  return {
+    heading: chapterHeading(mechanism, s.chapter.id),
+    through: through === 0 ? 'At its start' : through === 100 ? 'At its end' : `${through}% of the way through`,
+    scene,
+    taking: taking(s, name),
+    changing: changing(mechanism, s, name, elementName),
+    energies: energies(mechanism, s),
+  }
+}
+
+/**
+ * What the scene shows at scrub position `t`: the chapter and how far through it, what is in the scene, which
+ * species take part and how far apart they are, each bond that is breaking, forming or changing order, and, from
+ * step 1 on, the energies: each step's whole change and the totals of whole steps, never a point on a drawn curve.
+ */
+export function describeMechanismState(mechanism: Mechanism, t: number, elements: readonly Element[]): string {
+  const { heading, through, scene, taking: about, changing: bonds, energies: figures } = mechanismDescription(mechanism, t, elements)
+  return [`${heading}. ${through}.`, scene, about, ...bonds, figures].filter((sentence) => sentence !== '').join(' ')
 }
 
 const centre = (s: MechanismState, one: SceneSpecies): Vec3 => scale(one.atoms.map((id) => s.atoms.find((a) => a.id === id)!.position).reduce(add), 1 / one.atoms.length)

@@ -80,10 +80,10 @@ describe('Challenge keeps the name of a step back until its question is answered
   })
 })
 
-describe('the scene in words, while a question waits', () => {
-  const words = (progress: MechanismProgress) => sceneWords(mechanism, progress, describeMechanismState(mechanism, progress.position, registry.elements))
+describe('the scene in words, as the page gives it', () => {
+  const words = (progress: MechanismProgress) => sceneWords(mechanism, progress, registry.elements)
 
-  it('leaves out the name of the step and which species the step is about, and keeps the rest', () => {
+  it('while a question waits, leaves out the name of the step and which species the step is about, and keeps the rest', () => {
     for (const prediction of predictionsOf(mechanism)) {
       const asked = run(createProgress('challenge'), { type: 'seek', t: prediction.at })
       const whole = describeMechanismState(mechanism, prediction.at, registry.elements)
@@ -99,10 +99,19 @@ describe('the scene in words, while a question waits', () => {
     )
   })
 
-  it('is the model\'s description, whole, wherever no question waits', () => {
+  it('is the model\'s description, whole, wherever atoms are drawn and no question waits', () => {
     for (const progress of [run(createProgress('guided'), { type: 'seek', t: 0.16 }), run(createProgress('challenge'), { type: 'seek', t: 0.2 }), run(createProgress('challenge'), { type: 'seek', t: 0.16 }, { type: 'answer', questionId: 'dissolving', optionId: 'ions' })]) {
       expect(words(progress)).toBe(describeMechanismState(mechanism, progress.position, registry.elements))
     }
+    for (const t of [0.06, 0.1, 0.3, 0.445, 0.69, 0.8, 0.9399]) expect(words(run(createProgress('guided'), { type: 'seek', t }))).toBe(describeMechanismState(mechanism, t, registry.elements))
+  })
+
+  it('at a bookend describes the beaker that is drawn there, not molecules that are not: the chapter, the picture, and after the last step the totals', () => {
+    expect(words(createProgress('guided'))).toBe(`In the beaker. At its start. ${BEAKER_TEXT.before}`)
+    expect(words(run(createProgress('guided'), { type: 'seek', t: 0.03 }))).toBe(`In the beaker. 50% of the way through. ${BEAKER_TEXT.before}`)
+    expect(words(run(createProgress('guided'), { type: 'seek', t: 1 }))).toBe(`Back in the beaker. At its end. ${BEAKER_TEXT.after} Over the four steps together, free energy changes by −42.4 kJ/mol and enthalpy by +31.4 kJ/mol.`)
+    // No molecule is named where none is drawn; the carbon dioxide that has left is not said to be in the scene.
+    for (const t of [0, 0.03, 0.0599, 0.94, 0.97, 1]) expect(words(run(createProgress('guided'), { type: 'seek', t }))).not.toMatch(/In the scene|Taking part|molecule|ion\b/)
   })
 })
 
