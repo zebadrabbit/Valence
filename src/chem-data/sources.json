@@ -748,5 +748,15 @@
     "id": "flinn-sds-735",
     "url": "https://www.flinnsci.com/sds_735-sodium-hydroxide-solution-0.3-m---6.0-m/sds_735",
     "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Hydroxide Solution 0.3 M - 6.0 M, SDS number sds_735; revision date December 3, 2018 (read on 2026-10-06; no copy is kept)."
+  },
+  {
+    "id": "pines-2016",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5747581/",
+    "citation": "Pines, D.; Ditkovich, J.; Mukra, T.; Miller, Y.; Kiefer, P. M.; Daschakraborty, S.; Hynes, J. T.; Pines, E. How Acidic Is Carbonic Acid? J. Phys. Chem. B 2016, 120, 2440-2451. (https://doi.org/10.1021/acs.jpcb.5b12428) Read as the authors' manuscript in PubMed Central (PMC5747581), linked here, fetched as XML through the National Center for Biotechnology Information's E-utilities; read in full and not kept (retrieved 2026-10-07)."
+  },
+  {
+    "id": "nist-codata-2022",
+    "url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+    "citation": "Mohr, P. J.; Newell, D. B.; Taylor, B. N.; Tiesinga, E. Fundamental Physical Constants: Complete Listing, 2022 CODATA adjustment. National Institute of Standards and Technology. Read as the text file linked here; read and not kept (retrieved 2026-10-07)."
   }
 ]

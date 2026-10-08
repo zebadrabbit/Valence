@@ -12,6 +12,9 @@
 // Reads docs/research/phase-4/ (aqueous.json, hazards.json, the two manifests under sources/ and the one kept copy)
 // and writes:
 //   aqueous/aqueous.json, and into sources.json the aqueous reactions lab's sources
+// Reads docs/research/phase-5/ (mechanism.json, choreography.json and sources/MANIFEST.json) and writes, under
+// src/mechanisms/:
+//   hcl-nahco3.json, the mechanism timeline's record with its keyframes, and into sources.json its sources
 //
 // Deterministic: the same inputs give byte-identical outputs. Anything
 // unexpected in the inputs stops the build with a message and writes nothing.
@@ -25,6 +28,7 @@ import process from 'node:process'
 import { parseSdf } from './parse-sdf.mjs'
 import { checkConfiguration, noteProblem, parseCiaawAbridged, parseNistIe, parsePubChem } from './periodic-table-lib.mjs'
 import { checkReagents, checkSupported, mergeHazards, newSources } from './aqueous-lib.mjs'
+import { buildMechanism } from './mechanism-lib.mjs'
 import { checkAnnualMean, checkMolecularWeight, checkPublished, checkSha256, checkSheetHazards, checkWikipediaCopy } from './titration-lib.mjs'
 
 const root = join(import.meta.dirname, '..')
@@ -32,6 +36,7 @@ const research = join(root, 'docs/research/phase-2')
 const periodicResearch = join(root, 'docs/research/periodic-table')
 const titrationResearch = join(root, 'docs/research/phase-3')
 const aqueousResearch = join(root, 'docs/research/phase-4')
+const mechanismResearch = join(root, 'docs/research/phase-5')
 const out = join(root, 'src/chem-data')
 
 function fail(message) {
@@ -1119,6 +1124,26 @@ function buildAqueous(earlierSources) {
   return { aqueous, sources: [...labSources, ...sheetSources] }
 }
 
+// ---------------------------------------------------------------------------
+// Mechanism timeline
+
+// The record is authored in docs/research/phase-5/: mechanism.json holds the cited values the energies are worked
+// out from, the chapters with their words, bonds and questions; choreography.json places library species at each
+// keyframe and maps their atoms to actors. Every source is in sources/MANIFEST.json, each row of which names the
+// stored values it supports, and the build holds the record to those rows as it does the aqueous lab's. None of
+// the sources is kept, so the build cannot check a value against its source: it holds the record and the manifest
+// to one account. The keyframes, the step energies and the checks between the two files are scripts/mechanism-lib.mjs.
+function buildMechanismRecord(earlierSources, molecules, elements) {
+  const json = (name) => JSON.parse(readFileSync(join(mechanismResearch, name), 'utf8'))
+  const record = json('mechanism.json')
+  const manifest = json('sources/MANIFEST.json')
+  if (manifest.sources.some((source) => source.file !== undefined)) fail('phase-5 MANIFEST.json: no source of the mechanism has a kept copy')
+  const sources = newSources(manifest.sources, earlierSources, 'phase-5 MANIFEST.json')
+  checkSupported(record, manifest.sources)
+  for (const [key, parameter] of Object.entries(record.thermo.parameters)) onlyKeys(parameter, ['value', 'rationale'], `mechanism.json: parameters.${key}`)
+  return { mechanism: buildMechanism(record, json('choreography.json'), molecules, elements), sources }
+}
+
 // A static import list keeps the registry free of bundler-only APIs.
 function moleculeIndex(molecules) {
   const name = (id) => id.replace(/-(.)/g, (_, c) => c.toUpperCase())
@@ -1155,7 +1180,9 @@ function main() {
   const earlierSources = [...otherSources, ...periodicTableSources]
   const { titration, sources: titrationSources } = buildTitration(earlierSources.map((s) => s.id))
   const { aqueous, sources: aqueousSources } = buildAqueous([...earlierSources, ...titrationSources])
-  const sources = [...earlierSources, ...titrationSources, ...aqueousSources]
+  const labSources = [...earlierSources, ...titrationSources, ...aqueousSources]
+  const { mechanism, sources: mechanismSources } = buildMechanismRecord(labSources, molecules, elements)
+  const sources = [...labSources, ...mechanismSources]
   if (new Set(sources.map((s) => s.id)).size !== sources.length) fail('duplicate source ids')
 
   // Everything is built before anything is written.
@@ -1172,9 +1199,11 @@ function main() {
   writeFileSync(join(out, 'titration/titration.json'), toJson(titration))
   mkdirSync(join(out, 'aqueous'), { recursive: true })
   writeFileSync(join(out, 'aqueous/aqueous.json'), toJson(aqueous))
+  mkdirSync(join(root, 'src/mechanisms'), { recursive: true })
+  writeFileSync(join(root, 'src/mechanisms', `${mechanism.id}.json`), toJson(mechanism))
   writeFileSync(join(out, 'sources.json'), toJson(sources))
   process.stdout.write(
-    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, ${sources.length} sources.\n`,
+    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the mechanism timeline's record, ${sources.length} sources.\n`,
   )
 }
 

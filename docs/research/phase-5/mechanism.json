@@ -1,0 +1,386 @@
+{
+  "id": "hcl-nahco3",
+  "title": "HCl + NaHCO₃, step by step",
+  "species": [
+    { "id": "Na", "name": "sodium ion", "formula": "Na⁺" },
+    { "id": "Cl", "name": "chloride ion", "formula": "Cl⁻" },
+    { "id": "hydronium", "name": "hydronium ion", "formula": "H₃O⁺" },
+    { "id": "bicarbonate", "name": "hydrogen carbonate ion", "formula": "HCO₃⁻" },
+    { "id": "carbonic-acid", "name": "carbonic acid molecule", "formula": "H₂CO₃" },
+    { "id": "water", "name": "water molecule", "formula": "H₂O" },
+    { "id": "carbon-dioxide", "name": "carbon dioxide molecule", "formula": "CO₂" }
+  ],
+  "thermo": {
+    "standardState": {
+      "value": "Standard conditions: 25 °C; a pure solid or liquid; a gas at 1 bar; a dissolved species at one mole per kilogram of water, which is close to 1 M.",
+      "sourceId": "nbs-tables-1982"
+    },
+    "formation": [
+      {
+        "id": "sodium-hydrogen-carbonate",
+        "formula": "NaHCO₃",
+        "state": "cr",
+        "enthalpy": { "value": -950.81, "published": "-950.81", "sourceId": "nbs-tables-1982" },
+        "gibbs": { "value": -851.0, "published": "-851.0", "sourceId": "nbs-tables-1982" },
+        "note": {
+          "value": "The tables mark this row: its two values were chosen so that dissolving the solid comes out right, which is the use made of them here.",
+          "sourceId": "nbs-tables-1982"
+        }
+      },
+      {
+        "id": "sodium-ion",
+        "formula": "Na⁺",
+        "state": "ao",
+        "enthalpy": { "value": -240.12, "published": "-240.12", "sourceId": "nbs-tables-1982" },
+        "gibbs": { "value": -261.905, "published": "-261.905", "sourceId": "nbs-tables-1982" }
+      },
+      {
+        "id": "hydrogen-carbonate-ion",
+        "formula": "HCO₃⁻",
+        "state": "ao",
+        "enthalpy": { "value": -691.99, "published": "-691.99", "sourceId": "nbs-tables-1982" },
+        "gibbs": { "value": -586.77, "published": "-586.77", "sourceId": "nbs-tables-1982" }
+      },
+      {
+        "id": "hydrogen-ion",
+        "formula": "H⁺",
+        "state": "ao",
+        "enthalpy": { "value": 0, "published": "0", "sourceId": "nbs-tables-1982" },
+        "gibbs": { "value": 0, "published": "0", "sourceId": "nbs-tables-1982" }
+      },
+      {
+        "id": "water",
+        "formula": "H₂O",
+        "state": "l",
+        "enthalpy": { "value": -285.83, "published": "-285.830", "sourceId": "nbs-tables-1982" },
+        "gibbs": { "value": -237.129, "published": "-237.129", "sourceId": "nbs-tables-1982" }
+      },
+      {
+        "id": "carbon-dioxide-aqueous",
+        "formula": "CO₂",
+        "state": "ao",
+        "enthalpy": { "value": -413.8, "published": "-413.80", "sourceId": "nbs-tables-1982" },
+        "gibbs": { "value": -385.98, "published": "-385.98", "sourceId": "nbs-tables-1982" },
+        "note": {
+          "value": "The tables also list H₂CO₃ in water, at −699.65 and −623.08 kJ/mol, and describe it as dissolved CO₂ with a water molecule counted in. That entry is not the carbonic acid molecule of steps 2 and 3, and is not used.",
+          "sourceId": "nbs-tables-1982"
+        }
+      },
+      {
+        "id": "carbon-dioxide-gas",
+        "formula": "CO₂",
+        "state": "g",
+        "enthalpy": { "value": -393.509, "published": "-393.509", "sourceId": "nbs-tables-1982" },
+        "gibbs": { "value": -394.359, "published": "-394.359", "sourceId": "nbs-tables-1982" }
+      }
+    ],
+    "carbonicAcid": {
+      "pKa": {
+        "value": 3.49,
+        "published": "3.49",
+        "sourceId": "pines-2016",
+        "note": "The acid constant of the carbonic acid molecule itself, with an uncertainty of 0.05. It was measured at 20.5 °C and is used here at 25 °C with no correction. The 6.35 of textbooks is a different constant: it counts dissolved carbon dioxide as if it were the acid."
+      },
+      "lifetime": {
+        "value": 60,
+        "published": "60",
+        "unit": "ms",
+        "sourceId": "pines-2016",
+        "note": "How long a molecule of carbonic acid lasts in water at room temperature before it splits into carbon dioxide and water. The source gives it as about 60 ms, from earlier studies."
+      }
+    },
+    "protonTransfer": {
+      "onContactRate": {
+        "value": 57000000000,
+        "unit": "s⁻¹",
+        "sourceId": "pines-2016",
+        "note": "How fast a proton moves to a hydrogen carbonate ion from an acid already touching it: once every 18 picoseconds. The acid of the measurement was a dye made acidic by a flash of light, not a hydronium ion. No rate was read for the hydronium ion itself."
+      }
+    },
+    "constants": {
+      "gasConstant": { "value": 8.314462618, "unit": "J/(mol·K)", "sourceId": "nist-codata-2022" },
+      "boltzmannConstant": { "value": 1.380649e-23, "unit": "J/K", "sourceId": "nist-codata-2022" },
+      "planckConstant": { "value": 6.62607015e-34, "unit": "J·s", "sourceId": "nist-codata-2022" }
+    },
+    "parameters": {
+      "temperature": {
+        "value": 298.15,
+        "rationale": "In kelvin: the temperature of the tables' values, used for the two energies that are worked out here from an acid constant and from a lifetime."
+      },
+      "schematicBarrier": {
+        "value": 10,
+        "rationale": "In kJ/mol: the height at which the energy panel draws a barrier that has no cited or derived value. It is a drawing choice and says nothing of the real barrier, and the panel labels such a barrier as not to scale."
+      }
+    }
+  },
+  "energyNote": "Heat is absorbed in dissolving the solid and in releasing the gas. The reaction goes forward all the same, because the escaping gas increases entropy: a measure of how spread out matter and energy are. Free energy (Gibbs free energy, G) counts both the heat and the entropy. A change runs by itself when G falls.",
+  "chapters": [
+    {
+      "id": "beaker-start",
+      "kind": "bookend",
+      "title": "In the beaker",
+      "from": "beaker",
+      "to": "acid",
+      "timescale": null,
+      "explanation": {
+        "intro": "A white powder, sodium hydrogen carbonate (baking soda), is about to go into a beaker of hydrochloric acid. The mixture will fizz.",
+        "expanded": "The fizz is a gas, carbon dioxide, leaving the liquid. The chapters that follow zoom in until single atoms can be seen, and follow one unit of the solid and one unit of the acid through four steps. Each ball is an atom. Each stick is a bond: a pair of electrons that two atoms share. The water that fills the beaker is not drawn, except for the few water molecules that take part."
+      },
+      "active": []
+    },
+    {
+      "id": "prologue",
+      "kind": "prologue",
+      "title": "Before mixing",
+      "from": "acid",
+      "to": "solid-ready",
+      "timescale": { "value": "before mixing", "rationale": "The chapter shows the acid as it is in its bottle. Nothing happens in it, so it has no duration." },
+      "explanation": {
+        "intro": "This is the acid before anything is added. Hydrochloric acid is hydrogen chloride, HCl, dissolved in water, and in water it has come apart completely.",
+        "expanded": "A proton is a hydrogen atom without its electron, so it carries a positive charge. Each hydrogen chloride has given a proton to a water molecule. That makes a hydronium ion, H₃O⁺: a water molecule with one extra proton. What is left of the hydrogen chloride is a chloride ion, Cl⁻, with a negative charge. An ion is an atom, or a group of atoms, that carries a charge. Water molecules crowd round every ion. They are not drawn here. One water molecule is drawn because it has a part to play in step 3."
+      },
+      "active": ["o-hydronium", "h-transfer", "h-hydronium-1", "h-hydronium-2", "cl"]
+    },
+    {
+      "id": "dissolving",
+      "kind": "step",
+      "title": "Dissolving",
+      "from": "solid-ready",
+      "to": "dissolved",
+      "timescale": {
+        "value": "seconds, depending on particle size and stirring",
+        "rationale": "No source was read for how long the solid takes to dissolve. The label is an everyday observation, and no number rests on it."
+      },
+      "explanation": {
+        "intro": "The solid goes into the acid and comes apart into ions. Sodium ions go one way and hydrogen carbonate ions another, and water closes round each.",
+        "expanded": "Solid sodium hydrogen carbonate is made of ions already: sodium ions, Na⁺, and hydrogen carbonate ions, HCO₃⁻ (also called bicarbonate), held side by side by the pull between opposite charges. Water separates them. No bond inside the hydrogen carbonate ion breaks: its hydrogen, its carbon and its three oxygens stay joined. One ion of each kind stands here for the whole solid. Pulling the ions out of the solid takes in heat."
+      },
+      "active": ["na", "c", "o-hydroxyl", "o-acceptor", "o-carbonyl", "h-hydroxyl"],
+      "bondsBroken": [],
+      "bondsFormed": [],
+      "orderChanges": [],
+      "electronPaths": [],
+      "reaction": { "reactants": ["sodium-hydrogen-carbonate"], "products": ["sodium-ion", "hydrogen-carbonate-ion"] },
+      "deltaH": "formation",
+      "deltaG": "formation",
+      "notes": ["Slightly uphill at 1 M; it dissolves because the acid removes HCO₃⁻ as it forms."],
+      "question": {
+        "id": "dissolving",
+        "prompt": "The solid is about to go into the acid. What happens to it first?",
+        "options": [
+          {
+            "id": "atoms",
+            "text": "It comes apart into separate sodium, hydrogen, carbon and oxygen atoms.",
+            "correct": false,
+            "feedback": "Dissolving does not break the bonds inside the hydrogen carbonate ion. Its hydrogen, its carbon and its three oxygens stay joined, and only the sodium ion leaves it."
+          },
+          {
+            "id": "ions",
+            "text": "It comes apart into sodium ions and hydrogen carbonate ions.",
+            "correct": true,
+            "feedback": "Yes. The solid is made of these two ions, and water separates them. No bond inside the hydrogen carbonate ion breaks."
+          },
+          {
+            "id": "molecules",
+            "text": "It stays whole, as NaHCO₃ units that spread through the water.",
+            "correct": false,
+            "feedback": "The solid is made of ions, not of separate NaHCO₃ molecules. Water pulls the sodium ions and the hydrogen carbonate ions apart."
+          },
+          {
+            "id": "gas-first",
+            "text": "It gives off carbon dioxide at once, before it dissolves.",
+            "correct": false,
+            "feedback": "The carbon dioxide comes later. First the ions separate. Then a hydrogen carbonate ion has to take a proton from the acid."
+          }
+        ]
+      }
+    },
+    {
+      "id": "proton-transfer",
+      "kind": "step",
+      "title": "Proton transfer",
+      "from": "dissolved",
+      "to": "acid-formed",
+      "timescale": { "value": "picoseconds to nanoseconds", "sourceId": "pines-2016" },
+      "explanation": {
+        "intro": "A hydronium ion meets the hydrogen carbonate ion and gives it a proton. That makes carbonic acid, H₂CO₃, and leaves an ordinary water molecule.",
+        "expanded": "The proton moves from the oxygen of the hydronium ion to an oxygen of the hydrogen carbonate ion. A lone pair is a pair of electrons on one atom that is not shared in a bond. A lone pair on that oxygen becomes the new bond to the proton, and the pair that held the proton to the hydronium ion stays behind on its oxygen as a lone pair. The curved arrows show where each pair goes. One positive and one negative charge cancel, so carbonic acid and water carry no charge. Once an acid and the ion are touching, a move like this takes picoseconds: millionths of a millionth of a second. Finding each other in the water takes longer."
+      },
+      "active": ["o-hydronium", "h-transfer", "h-hydronium-1", "h-hydronium-2", "c", "o-hydroxyl", "o-acceptor", "o-carbonyl", "h-hydroxyl"],
+      "bondsBroken": [["o-hydronium", "h-transfer"]],
+      "bondsFormed": [["o-acceptor", "h-transfer"]],
+      "orderChanges": [],
+      "electronPaths": [
+        { "from": { "lonePair": "o-acceptor" }, "to": { "bond": ["o-acceptor", "h-transfer"] } },
+        { "from": { "bond": ["o-hydronium", "h-transfer"] }, "to": { "lonePair": "o-hydronium" } }
+      ],
+      "reaction": null,
+      "deltaH": "with-next",
+      "deltaG": "acid-constant",
+      "activationG": "schematic",
+      "notes": [],
+      "question": {
+        "id": "proton-transfer",
+        "prompt": "A hydronium ion, H₃O⁺, meets the hydrogen carbonate ion, HCO₃⁻. What happens next?",
+        "options": [
+          {
+            "id": "to-hydrogen-carbonate",
+            "text": "The hydronium ion gives a proton to the hydrogen carbonate ion, making carbonic acid, H₂CO₃.",
+            "correct": true,
+            "feedback": "Yes. The proton moves to an oxygen of the hydrogen carbonate ion. That leaves carbonic acid and a water molecule, neither with a charge."
+          },
+          {
+            "id": "to-hydronium",
+            "text": "The hydrogen carbonate ion gives its proton to the hydronium ion, making a carbonate ion, CO₃²⁻.",
+            "correct": false,
+            "feedback": "A hydronium ion already holds one proton more than water does, and it is the one that gives. A hydrogen carbonate ion gives up its proton to a base. In acid it takes one."
+          },
+          {
+            "id": "pair",
+            "text": "The two stay stuck together as a pair, because opposite charges attract.",
+            "correct": false,
+            "feedback": "The opposite charges do bring them together, but they do not stay as a pair. A proton moves across, and that leaves two molecules with no charge: carbonic acid and water."
+          },
+          {
+            "id": "sodium-back",
+            "text": "The hydrogen carbonate ion goes back to the sodium ion, and the solid forms again.",
+            "correct": false,
+            "feedback": "The sodium ion stays on its own, with water round it. It takes no part in this step or in any other."
+          }
+        ]
+      }
+    },
+    {
+      "id": "decomposition",
+      "kind": "step",
+      "title": "Decomposition",
+      "from": "acid-formed",
+      "to": "split",
+      "timescale": { "value": "tens of milliseconds; the slow step", "sourceId": "pines-2016" },
+      "explanation": {
+        "intro": "Carbonic acid does not last. It splits into water and carbon dioxide, CO₂. Of the two steps that break and make bonds, this is by far the slower.",
+        "expanded": "Carbonic acid has two O–H groups on its carbon. For the split, the hydrogen of one has to reach the oxygen of the other, and a water molecule passes it along. First that O–H group turns to face the water. Then, in one move, the water takes its hydrogen and gives one of its own hydrogens to the other oxygen. That oxygen now holds two hydrogens. It breaks away from the carbon as a water molecule, and the carbon is left with two double bonds, one to each oxygen that stays: carbon dioxide. The carbon dioxide is still dissolved. A molecule of carbonic acid lasts about 60 thousandths of a second at room temperature, far longer than the proton took to arrive."
+      },
+      "active": ["c", "o-hydroxyl", "o-acceptor", "o-carbonyl", "h-hydroxyl", "h-transfer", "o-relay", "h-relay-give", "h-relay-keep"],
+      "bondsBroken": [
+        ["o-hydroxyl", "h-hydroxyl"],
+        ["o-relay", "h-relay-give"],
+        ["c", "o-acceptor"]
+      ],
+      "bondsFormed": [
+        ["o-relay", "h-hydroxyl"],
+        ["o-acceptor", "h-relay-give"]
+      ],
+      "orderChanges": [{ "bond": ["c", "o-hydroxyl"], "from": 1, "to": 2 }],
+      "electronPaths": [
+        { "from": { "lonePair": "o-relay" }, "to": { "bond": ["o-relay", "h-hydroxyl"] } },
+        { "from": { "bond": ["o-hydroxyl", "h-hydroxyl"] }, "to": { "bond": ["c", "o-hydroxyl"] } },
+        { "from": { "bond": ["c", "o-acceptor"] }, "to": { "lonePair": "o-acceptor" } },
+        { "from": { "lonePair": "o-acceptor" }, "to": { "bond": ["o-acceptor", "h-relay-give"] } },
+        { "from": { "bond": ["o-relay", "h-relay-give"] }, "to": { "lonePair": "o-relay" } }
+      ],
+      "reaction": { "reactants": ["hydrogen-ion", "hydrogen-carbonate-ion"], "products": ["carbon-dioxide-aqueous", "water"] },
+      "deltaH": "formation-with-previous",
+      "deltaG": "remainder",
+      "activationG": "eyring",
+      "notes": [],
+      "question": {
+        "id": "decomposition",
+        "prompt": "Carbonic acid, H₂CO₃, has formed. What happens to it next?",
+        "options": [
+          {
+            "id": "carbonate",
+            "text": "It gives both its protons to water, making a carbonate ion, CO₃²⁻.",
+            "correct": false,
+            "feedback": "In this much acid the protons stay on. Carbonic acid breaks up another way, into water and carbon dioxide."
+          },
+          {
+            "id": "hydrogen-gas",
+            "text": "Its two hydrogens leave together as hydrogen gas, H₂, which is the fizz.",
+            "correct": false,
+            "feedback": "The two hydrogens end up in a water molecule, not in hydrogen gas. An acid gives hydrogen gas with some metals, not with a hydrogen carbonate."
+          },
+          {
+            "id": "splits",
+            "text": "It splits into a water molecule and a carbon dioxide molecule.",
+            "correct": true,
+            "feedback": "Yes. A water molecule passes a hydrogen from one O–H group to the other. The oxygen that ends with two hydrogens leaves as water, and carbon dioxide is left."
+          },
+          {
+            "id": "stays",
+            "text": "It stays as it is, and the fizz is carbonic acid leaving as a gas.",
+            "correct": false,
+            "feedback": "Carbonic acid lasts only about 60 thousandths of a second in water. The gas that leaves is carbon dioxide."
+          }
+        ]
+      }
+    },
+    {
+      "id": "gas-escapes",
+      "kind": "step",
+      "title": "Gas escapes",
+      "from": "split",
+      "to": "gas-gone",
+      "timescale": {
+        "value": "seconds",
+        "rationale": "No source was read for how long the bubbles take to form and leave. The label is an everyday observation, and no number rests on it."
+      },
+      "explanation": {
+        "intro": "The water cannot hold this much carbon dioxide. Its molecules gather into bubbles, rise and leave. That is the fizz.",
+        "expanded": "No bond changes in this step. The carbon dioxide molecule joins others in a bubble of gas and leaves the liquid. The bubble itself is not drawn atom by atom. The sodium ion and the chloride ion took no part in any step and stay dissolved. Ions like these are called spectator ions. Leaving the liquid takes in heat, and it happens all the same, because molecules in a gas are far more spread out than the same molecules held in a liquid."
+      },
+      "active": ["c", "o-hydroxyl", "o-carbonyl"],
+      "bondsBroken": [],
+      "bondsFormed": [],
+      "orderChanges": [],
+      "electronPaths": [],
+      "reaction": { "reactants": ["carbon-dioxide-aqueous"], "products": ["carbon-dioxide-gas"] },
+      "deltaH": "formation",
+      "deltaG": "formation",
+      "notes": [],
+      "question": {
+        "id": "gas-escapes",
+        "prompt": "Carbon dioxide is dissolved in the liquid, with sodium ions and chloride ions near it. What happens next?",
+        "options": [
+          {
+            "id": "salt-settles",
+            "text": "The sodium ions and the chloride ions join and settle out as solid salt.",
+            "correct": false,
+            "feedback": "Sodium chloride dissolves well in water, so its ions stay apart. Solid salt would be left only if the water were taken away."
+          },
+          {
+            "id": "steam",
+            "text": "The carbon dioxide stays dissolved, and the bubbles are steam.",
+            "correct": false,
+            "feedback": "Nothing here boils the water, so there is no steam. The bubbles are carbon dioxide: more of it than the water can hold."
+          },
+          {
+            "id": "goes-back",
+            "text": "The carbon dioxide joins with water again and turns back into hydrogen carbonate ions.",
+            "correct": false,
+            "feedback": "In acid the balance lies far on the side of carbon dioxide and water. The carbon dioxide leaves as gas, and little goes back."
+          },
+          {
+            "id": "bubbles",
+            "text": "The carbon dioxide gathers into bubbles and leaves, and the two kinds of ion stay dissolved.",
+            "correct": true,
+            "feedback": "Yes. The carbon dioxide leaves as gas, which is the fizz. The sodium ions and the chloride ions took no part and stay in the water."
+          }
+        ]
+      }
+    },
+    {
+      "id": "beaker-end",
+      "kind": "bookend",
+      "title": "Back in the beaker",
+      "from": "gas-gone",
+      "to": "beaker-after",
+      "timescale": null,
+      "explanation": {
+        "intro": "The fizzing stops when the acid or the solid runs out. What is left is salt water: sodium ions and chloride ions dissolved in water.",
+        "expanded": "Overall, solid sodium hydrogen carbonate and hydrochloric acid became dissolved sodium chloride, water and carbon dioxide gas. The change took in heat, and it still ran by itself. The energy panel shows how: free energy, which counts both heat and how spread out things become, falls over the whole change, and at every step but the first."
+      },
+      "active": ["na", "cl"]
+    }
+  ]
+}

@@ -25,7 +25,7 @@ function walkStrings(value: unknown, key: string, path: string, visit: Visit): v
   }
 }
 
-function duplicates(ids: readonly string[], label: string): string[] {
+export function duplicates(ids: readonly string[], label: string): string[] {
   const seen = new Set<string>()
   const errors: string[] = []
   for (const id of ids) {
@@ -35,7 +35,7 @@ function duplicates(ids: readonly string[], label: string): string[] {
   return errors
 }
 
-function checkSourceIds(data: unknown, root: string, sources: readonly Source[]): string[] {
+export function checkSourceIds(data: unknown, root: string, sources: readonly Source[]): string[] {
   const errors: string[] = []
   const known = new Set(sources.map((s) => s.id))
   walkStrings(data, '', root, (key, text, path) => {
@@ -254,7 +254,7 @@ function checkMeasurements(registry: Registry): string[] {
 // (above): the build script fails on a missing one, and registry.test.ts pins the values that have none.
 const PLAIN_NUMBER = /^-?\d+(\.\d+)?$/
 
-function checkPublished(value: unknown, path: string): string[] {
+export function checkPublished(value: unknown, path: string): string[] {
   if (Array.isArray(value)) return value.flatMap((item, i) => checkPublished(item, `${path}[${i}]`))
   if (!value || typeof value !== 'object') return []
   const errors = Object.entries(value).flatMap(([key, child]) => checkPublished(child, `${path}.${key}`))
@@ -267,7 +267,7 @@ function checkPublished(value: unknown, path: string): string[] {
 
 const HEX_COLOR = /^#[0-9a-fA-F]{6}$/
 
-function checkProse(data: unknown, root: string, names: readonly string[]): string[] {
+export function checkProse(data: unknown, root: string, names: readonly string[]): string[] {
   const errors: string[] = []
   walkStrings(data, '', root, (key, text, path) => {
     // Citations and URLs legitimately contain codes and years: check names only.
@@ -301,7 +301,7 @@ export function validateRegistry(input: unknown, options: ValidateOptions = {}):
   ]
 }
 
-const schemaErrors = (issues: readonly { path: PropertyKey[]; message: string }[]) =>
+export const schemaErrors = (issues: readonly { path: PropertyKey[]; message: string }[]) =>
   issues.map((issue) => `schema: ${issue.path.map(String).join('.')}: ${issue.message}`)
 
 function checkNumbering(table: readonly PeriodicElement[]): string[] {

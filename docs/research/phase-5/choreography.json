@@ -1,0 +1,138 @@
+{
+  "actors": [
+    { "id": "na", "element": "Na" },
+    { "id": "c", "element": "C" },
+    { "id": "o-hydroxyl", "element": "O" },
+    { "id": "o-acceptor", "element": "O" },
+    { "id": "o-carbonyl", "element": "O" },
+    { "id": "h-hydroxyl", "element": "H" },
+    { "id": "o-hydronium", "element": "O" },
+    { "id": "h-transfer", "element": "H" },
+    { "id": "h-hydronium-1", "element": "H" },
+    { "id": "h-hydronium-2", "element": "H" },
+    { "id": "o-relay", "element": "O" },
+    { "id": "h-relay-give", "element": "H" },
+    { "id": "h-relay-keep", "element": "H" },
+    { "id": "cl", "element": "Cl" }
+  ],
+  "keyframes": [
+    {
+      "id": "beaker",
+      "t": 0,
+      "frame": ["na", "c", "o-hydronium", "o-relay", "cl"],
+      "place": [
+        { "species": "bicarbonate", "atoms": ["o-hydroxyl", "o-acceptor", "o-carbonyl", "c", "h-hydroxyl"], "origin": { "atom": "c", "at": [-9, 9, 0] }, "aim": { "atom": "o-carbonyl", "toward": [-8, 9, 0] }, "roll": { "atom": "o-hydroxyl", "toward": [-9, 8, 0] } },
+        { "ion": "Na", "charge": 1, "atom": "na", "at": [-5.265, 9, 0] },
+        { "species": "hydronium", "atoms": ["o-hydronium", "h-transfer", "h-hydronium-1", "h-hydronium-2"], "origin": { "atom": "o-hydronium", "at": [3.4, 6.2, 1] }, "aim": { "atom": "h-transfer", "toward": [2.4, 5.2, 0.6] }, "roll": { "atom": "h-hydronium-1", "toward": [5, 7, 1] } },
+        { "species": "water", "atoms": ["o-relay", "h-relay-give", "h-relay-keep"], "origin": { "atom": "o-relay", "at": [-5, -2.2, 1.2] }, "aim": { "atom": "h-relay-give", "toward": [-4, -1.4, 1] }, "roll": { "atom": "h-relay-keep", "toward": [-6, -2.2, 2] } },
+        { "ion": "Cl", "charge": -1, "atom": "cl", "at": [7.6, 2.8, -2] }
+      ]
+    },
+    { "id": "acid", "t": 0.06, "easing": "linear", "frame": ["na", "c", "o-hydronium", "o-relay", "cl"], "place": [] },
+    { "id": "solid-ready", "t": 0.16, "easing": "linear", "frame": ["o-hydronium", "cl", "o-relay"], "place": [] },
+    {
+      "id": "solid-in",
+      "t": 0.24,
+      "easing": "easeInOut",
+      "frame": ["na", "c", "o-hydroxyl", "o-acceptor", "o-carbonyl"],
+      "place": [
+        { "species": "bicarbonate", "atoms": ["o-hydroxyl", "o-acceptor", "o-carbonyl", "c", "h-hydroxyl"], "origin": { "atom": "c", "at": [0, 0, 0] }, "aim": { "atom": "o-carbonyl", "toward": [1, 0, 0] }, "roll": { "atom": "o-hydroxyl", "toward": [0, -1, 0] } },
+        { "ion": "Na", "charge": 1, "atom": "na", "at": [3.735, 0, 0] }
+      ]
+    },
+    {
+      "id": "dissolved",
+      "t": 0.32,
+      "easing": "easeInOut",
+      "frame": ["na", "c", "o-hydronium", "o-relay"],
+      "place": [
+        { "ion": "Na", "charge": 1, "atom": "na", "at": [7.2, -4.4, 1.5] },
+        { "species": "hydronium", "atoms": ["o-hydronium", "h-transfer", "h-hydronium-1", "h-hydronium-2"], "origin": { "atom": "o-hydronium", "at": [2.6, 5.6, 0.6] }, "aim": { "atom": "h-transfer", "toward": "o-acceptor" }, "roll": { "atom": "h-hydronium-1", "toward": [4.4, 6.6, 0.6] } },
+        { "species": "water", "atoms": ["o-relay", "h-relay-give", "h-relay-keep"], "origin": { "atom": "o-relay", "at": [-3.5, 0.3, 0.5] }, "aim": { "atom": "h-relay-give", "toward": "o-acceptor" }, "roll": { "atom": "h-relay-keep", "toward": [-4.5, 0.3, 1.5] } }
+      ]
+    },
+    {
+      "id": "encounter",
+      "t": 0.42,
+      "easing": "easeInOut",
+      "frame": ["c", "o-acceptor", "o-hydronium", "h-transfer"],
+      "place": [
+        { "species": "hydronium", "atoms": ["o-hydronium", "h-transfer", "h-hydronium-1", "h-hydronium-2"], "origin": { "atom": "o-hydronium", "at": [0.913, 3.458, 0] }, "aim": { "atom": "h-transfer", "toward": "o-acceptor" }, "roll": { "atom": "h-hydronium-1", "toward": [2.7, 4.5, 0] } }
+      ]
+    },
+    {
+      "id": "acid-formed",
+      "t": 0.52,
+      "easing": "easeInOut",
+      "frame": ["c", "o-acceptor", "o-hydronium", "h-transfer", "o-relay"],
+      "place": [
+        { "species": "carbonic-acid", "atoms": ["o-hydroxyl", "o-acceptor", "o-carbonyl", "c", "h-hydroxyl", "h-transfer"], "origin": { "atom": "c", "at": [0, 0, 0] }, "aim": { "atom": "o-carbonyl", "toward": [1, 0, 0] }, "roll": { "atom": "o-hydroxyl", "toward": [0, -1, 0] } },
+        { "species": "water", "atoms": ["o-hydronium", "h-hydronium-1", "h-hydronium-2"], "origin": { "atom": "o-hydronium", "at": [0.71, 3.417, 0] }, "aim": { "atom": "h-hydronium-1", "toward": [2.5, 4.3, 0] }, "roll": { "atom": "h-hydronium-2", "toward": [0.3, 4.4, 0.9] } }
+      ]
+    },
+    {
+      "id": "turning-1",
+      "t": 0.555,
+      "easing": "linear",
+      "frame": ["c", "o-hydroxyl", "o-acceptor", "o-relay"],
+      "place": [
+        { "species": "carbonic-acid", "atoms": ["o-hydroxyl", "o-acceptor", "o-carbonyl", "c", "h-hydroxyl", "h-transfer"], "origin": { "atom": "c", "at": [0, 0, 0] }, "aim": { "atom": "o-carbonyl", "toward": [1, 0, 0] }, "roll": { "atom": "o-hydroxyl", "toward": [0, -1, 0] }, "twist": [{ "about": ["c", "o-hydroxyl"], "atoms": ["h-hydroxyl"], "degrees": 60 }] },
+        { "species": "water", "atoms": ["o-hydronium", "h-hydronium-1", "h-hydronium-2"], "origin": { "atom": "o-hydronium", "at": [0.84, 3.58, 0.1] }, "aim": { "atom": "h-hydronium-1", "toward": [2.6, 4.43, 0.1] }, "roll": { "atom": "h-hydronium-2", "toward": [0.43, 4.57, 1] } },
+        { "species": "water", "atoms": ["o-relay", "h-relay-give", "h-relay-keep"], "origin": { "atom": "o-relay", "at": [-3.4, 0.27, 0.33] }, "aim": { "atom": "h-relay-give", "toward": [-1.1, 1.6, 0.2] }, "roll": { "atom": "h-relay-keep", "toward": [-4.4, 0.27, 1.33] } }
+      ]
+    },
+    {
+      "id": "turning-2",
+      "t": 0.59,
+      "easing": "linear",
+      "frame": ["c", "o-hydroxyl", "o-acceptor", "o-relay"],
+      "place": [
+        { "species": "carbonic-acid", "atoms": ["o-hydroxyl", "o-acceptor", "o-carbonyl", "c", "h-hydroxyl", "h-transfer"], "origin": { "atom": "c", "at": [0, 0, 0] }, "aim": { "atom": "o-carbonyl", "toward": [1, 0, 0] }, "roll": { "atom": "o-hydroxyl", "toward": [0, -1, 0] }, "twist": [{ "about": ["c", "o-hydroxyl"], "atoms": ["h-hydroxyl"], "degrees": 120 }] },
+        { "species": "water", "atoms": ["o-hydronium", "h-hydronium-1", "h-hydronium-2"], "origin": { "atom": "o-hydronium", "at": [0.97, 3.74, 0.2] }, "aim": { "atom": "h-hydronium-1", "toward": [2.7, 4.57, 0.2] }, "roll": { "atom": "h-hydronium-2", "toward": [0.57, 4.73, 1.1] } },
+        { "species": "water", "atoms": ["o-relay", "h-relay-give", "h-relay-keep"], "origin": { "atom": "o-relay", "at": [-3.3, 0.23, 0.17] }, "aim": { "atom": "h-relay-give", "toward": [-1.3, 2.1, 0.35] }, "roll": { "atom": "h-relay-keep", "toward": [-4.3, 0.23, 1.17] } }
+      ]
+    },
+    {
+      "id": "relay-ready",
+      "t": 0.62,
+      "easing": "linear",
+      "frame": ["c", "o-hydroxyl", "o-acceptor", "o-relay"],
+      "place": [
+        { "species": "carbonic-acid", "atoms": ["o-hydroxyl", "o-acceptor", "o-carbonyl", "c", "h-hydroxyl", "h-transfer"], "origin": { "atom": "c", "at": [0, 0, 0] }, "aim": { "atom": "o-carbonyl", "toward": [1, 0, 0] }, "roll": { "atom": "o-hydroxyl", "toward": [0, -1, 0] }, "twist": [{ "about": ["c", "o-hydroxyl"], "atoms": ["h-hydroxyl"], "degrees": 180 }] },
+        { "species": "water", "atoms": ["o-hydronium", "h-hydronium-1", "h-hydronium-2"], "origin": { "atom": "o-hydronium", "at": [1.1, 3.9, 0.3] }, "aim": { "atom": "h-hydronium-1", "toward": [2.8, 4.7, 0.3] }, "roll": { "atom": "h-hydronium-2", "toward": [0.7, 4.9, 1.2] } },
+        { "species": "water", "atoms": ["o-relay", "h-relay-give", "h-relay-keep"], "origin": { "atom": "o-relay", "at": [-3.2, 0.2, 0] }, "aim": { "atom": "h-relay-give", "toward": [-1.53, 2.71, 0.5] }, "roll": { "atom": "h-relay-keep", "toward": [-4.2, 0.2, 1] } }
+      ]
+    },
+    {
+      "id": "split",
+      "t": 0.76,
+      "easing": "easeInOut",
+      "frame": ["c", "o-hydroxyl", "o-carbonyl", "o-acceptor", "o-relay"],
+      "place": [
+        { "species": "carbon-dioxide", "atoms": ["c", "o-hydroxyl", "o-carbonyl"], "origin": { "atom": "c", "at": [0.22, -0.55, 0] }, "aim": { "atom": "o-carbonyl", "toward": [1.237, 0.012, 0] } },
+        { "species": "water", "atoms": ["o-hydronium", "h-hydronium-1", "h-hydronium-2"], "origin": { "atom": "o-hydronium", "at": [1.6, 4.5, 0.5] }, "aim": { "atom": "h-hydronium-1", "toward": [3.3, 5.3, 0.5] }, "roll": { "atom": "h-hydronium-2", "toward": [1.2, 5.5, 1.4] } },
+        { "species": "water", "atoms": ["o-acceptor", "h-transfer", "h-relay-give"], "origin": { "atom": "o-acceptor", "at": [-1.7, 2.65, 0] }, "aim": { "atom": "h-transfer", "toward": [-1.507, 3.631, 0] }, "roll": { "atom": "h-relay-give", "toward": [-2.7, 2.65, 0] } },
+        { "species": "water", "atoms": ["o-relay", "h-hydroxyl", "h-relay-keep"], "origin": { "atom": "o-relay", "at": [-3.6, -0.6, 0] }, "aim": { "atom": "h-hydroxyl", "toward": "o-hydroxyl" }, "roll": { "atom": "h-relay-keep", "toward": [-4.6, -0.6, 1] } }
+      ]
+    },
+    {
+      "id": "lifting",
+      "t": 0.84,
+      "easing": "easeInOut",
+      "frame": ["c", "o-hydronium", "o-acceptor", "o-relay"],
+      "place": [
+        { "species": "carbon-dioxide", "atoms": ["c", "o-hydroxyl", "o-carbonyl"], "origin": { "atom": "c", "at": [0.6, 0.6, 3.6] }, "aim": { "atom": "o-carbonyl", "toward": [1.6, 1.4, 3.9] } }
+      ]
+    },
+    {
+      "id": "gas-gone",
+      "t": 0.94,
+      "easing": "easeInOut",
+      "frame": ["na", "c", "o-hydronium", "o-acceptor", "o-relay", "cl"],
+      "place": [
+        { "species": "carbon-dioxide", "atoms": ["c", "o-hydroxyl", "o-carbonyl"], "origin": { "atom": "c", "at": [1.5, 13, 5] }, "aim": { "atom": "o-carbonyl", "toward": [2.2, 14, 5.4] } }
+      ]
+    },
+    { "id": "beaker-after", "t": 1, "easing": "linear", "frame": ["na", "c", "o-hydronium", "o-acceptor", "o-relay", "cl"], "place": [] }
+  ]
+}
