@@ -3,17 +3,23 @@ import { checkProse, checkPublished, checkSourceIds, duplicates, schemaErrors, t
 import { mechanismSchema, type Mechanism } from './schema'
 
 /** Every id of a kind that the record names somewhere, each with where it is named. */
-function named(mechanism: Mechanism): { actors: [string, string][]; species: [string, string][]; formation: [string, string][]; chapters: [string, string][] } {
+function named(mechanism: Mechanism): { actors: [string, string][]; species: [string, string][]; units: [string, string][]; formation: [string, string][]; chapters: [string, string][] } {
   const actors: [string, string][] = []
   const species: [string, string][] = []
+  const units: [string, string][] = []
   const formation: [string, string][] = []
   const chapters: [string, string][] = []
+  for (const actor of mechanism.actors) if (actor.enters !== undefined) chapters.push([actor.enters, `actor "${actor.id}"`])
   for (const keyframe of mechanism.keyframes) {
     const where = `keyframe "${keyframe.id}"`
     for (const bond of keyframe.bonds) actors.push([bond.a, where], [bond.b, where])
     for (const one of keyframe.species) {
       for (const id of one.atoms) actors.push([id, where])
       species.push(['ion' in one ? one.ion : one.speciesId, where])
+    }
+    for (const unit of keyframe.units ?? []) {
+      for (const id of unit.atoms) actors.push([id, where])
+      units.push([unit.unit, where])
     }
   }
   for (const chapter of mechanism.chapters) {
@@ -25,7 +31,7 @@ function named(mechanism: Mechanism): { actors: [string, string][]; species: [st
     for (const id of [...(chapter.reaction?.reactants ?? []), ...(chapter.reaction?.products ?? [])]) formation.push([id, where])
     for (const id of chapter.deltaH?.covers ?? []) chapters.push([id, where])
   }
-  return { actors, species, formation, chapters }
+  return { actors, species, units, formation, chapters }
 }
 
 function checkReferences(mechanism: Mechanism, library: readonly Molecule[], sources: readonly Source[]): string[] {
@@ -43,6 +49,8 @@ function checkReferences(mechanism: Mechanism, library: readonly Molecule[], sou
     ...unknown('actor', refs.actors, mechanism.actors.map((a) => a.id)),
     // A species of the scene is a record of the library or a monatomic ion, and either way the record names it.
     ...unknown('species', refs.species, mechanism.species.map((s) => s.id).filter((id) => library.some((m) => m.id === id) || mechanism.actors.some((a) => a.ion && a.element === id))),
+    // A unit of a solid is neither, and the record names it too.
+    ...unknown('unit', refs.units, mechanism.species.map((s) => s.id)),
     ...unknown('formation value', refs.formation, mechanism.thermo.formation.map((f) => f.id)),
     ...unknown('chapter', refs.chapters, mechanism.chapters.map((c) => c.id)),
     ...unknown('source', energies, sources.map((s) => s.id)),
@@ -71,7 +79,7 @@ function checkTrack(mechanism: Mechanism): string[] {
 
 /**
  * Checks a mechanism's record (spec 5.1): the schema, that every source named exists, that every id the record
- * names (an actor, a species of the library, a formation value, a chapter) is one that exists, that the track is
+ * names (an actor, a species of the library, a unit, a formation value, a chapter) is one that exists, that the track is
  * whole, that each `published` reads as the number stored beside it, and that no text a learner sees holds
  * institution text. Returns a list of problems; an empty list means the record is valid. Never throws, whatever
  * it is given. That each value is what its source prints is the build script's to hold to the manifest; that the

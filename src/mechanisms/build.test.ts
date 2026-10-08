@@ -30,7 +30,7 @@ const { checkSupported, newSources } = checks!
 
 // The authored files as loosely as a test that breaks them needs: what each key may hold is the build's to say.
 type Placed = { species?: string; ion?: string; charge?: number; atom?: string; atoms?: string[]; at?: unknown; aim?: { atom: string; toward: unknown } }
-type Choreography = { actors: { id: string; element: string }[]; keyframes: { id: string; t: number; easing?: string; frame: string[]; place: Placed[] }[] }
+type Choreography = { actors: { id: string; element: string; enters?: string }[]; keyframes: { id: string; t: number; easing?: string; frame: string[]; units?: { unit: string; of: string[] }[]; place: Placed[] }[] }
 type Authored = {
   species: unknown[]
   thermo: { formation: { gibbs: { sourceId: string } }[]; carbonicAcid: { pKa: { published: string } } }
@@ -217,7 +217,23 @@ describe('buildMechanism', () => {
 
   it('refuses an actor it does not know and species it has no name for', () => {
     expect(broken((r) => step(r, 'dissolving').active.push('k'))).toThrow(/chapter "dissolving": unknown actor "k"/)
-    expect(broken((r) => r.species.pop())).toThrow(/`species` names each species the choreography places, once/)
+    expect(broken((r) => r.species.pop())).toThrow(/`species` names each species the choreography places and each unit it holds together, once/)
+  })
+
+  it('refuses a unit that is not two species of the scene, and an actor that enters half a species, at no chapter, or after a chapter that is about it', () => {
+    const moved = (change: (c: Choreography) => void) => () => {
+      const c = copy(choreography)
+      change(c)
+      return build(authored, c)
+    }
+    expect(moved((c) => (at(c, 'solid-in').units = [{ unit: 'sodium-hydrogen-carbonate', of: ['na', 'nobody'] }]))).toThrow(/keyframe "solid-in", unit 1: no species of the scene has the actor "nobody"/)
+    expect(moved((c) => (at(c, 'solid-in').units = [{ unit: 'sodium-hydrogen-carbonate', of: ['c', 'o-carbonyl'] }]))).toThrow(/a unit is two species or more, each named once/)
+    expect(moved((c) => (at(c, 'solid-in').units = [{ unit: 'pair', of: ['na', 'c'] }]))).toThrow(/`species` names each species/)
+    expect(moved((c) => delete c.actors.find((a) => a.id === 'h-hydroxyl')!.enters)).toThrow(/actor "na": at "beaker" it is in a species or a unit that does not all enter at "dissolving"/)
+    expect(moved((c) => delete c.actors.find((a) => a.id === 'na')!.enters)).toThrow(/at "beaker" it is in a species or a unit that does not all enter at "dissolving"/)
+    expect(moved((c) => (c.actors.find((a) => a.id === 'cl')!.enters = 'nowhere'))).toThrow(/actor "cl": it enters at the start of a chapter after the first, and "nowhere" is not one/)
+    expect(moved((c) => (c.actors.find((a) => a.id === 'cl')!.enters = 'beaker-start'))).toThrow(/actor "cl": it enters at the start of a chapter after the first/)
+    expect(moved((c) => (c.actors.find((a) => a.id === 'cl')!.enters = 'dissolving'))).toThrow(/actor "cl": the chapter "prologue" is about it, and it enters only at "dissolving"/)
   })
 
   it('refuses a way of working out an energy that the steps around it do not allow', () => {

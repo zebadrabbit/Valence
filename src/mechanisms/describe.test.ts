@@ -9,22 +9,23 @@ const said = (t: number) => describeMechanismState(mechanism, t, registry.elemen
 
 describe('describeMechanismState: the scene in words, for a reader who cannot see it (spec 11)', () => {
   it('at the start: the chapter, and what is in the scene; no energies before step 1', () => {
-    expect(said(0)).toBe('In the beaker. At its start. In the scene: a sodium ion, a hydrogen carbonate ion, a hydronium ion, a water molecule and a chloride ion.')
+    expect(said(0)).toBe('In the beaker. At its start. In the scene: a hydronium ion, a water molecule and a chloride ion.')
   })
 
-  it('in the prologue: the two ions of the acid, and how far apart', () => {
-    expect(said(0.1)).toBe(
-      'Before mixing. 40% of the way through. In the scene: a sodium ion, a hydrogen carbonate ion, a hydronium ion, a water molecule and a chloride ion. Taking part: the hydronium ion and the chloride ion, 6.1 Å apart, centre to centre.',
-    )
+  it('in the prologue: the acid alone, with nothing of the solid, and its two ions with how far apart', () => {
+    expect(said(0.1)).toBe('Before mixing. 40% of the way through. In the scene: a hydronium ion, a water molecule and a chloride ion. Taking part: the hydronium ion and the chloride ion, 6.1 Å apart, centre to centre.')
+    for (const t of [0, 0.03, 0.06, 0.1, 0.159]) expect(said(t)).not.toMatch(/sodium|carbonate/)
   })
 
-  it('in step 1: the two ions of the solid move apart, and the energies begin', () => {
+  it('in step 1: the solid comes in as one unit, its two ions are named once they have moved apart, and the energies begin', () => {
     expect(said(0.2)).toBe(
-      'Step 1 of 4: Dissolving. 25% of the way through. In the scene: a sodium ion, a hydrogen carbonate ion, a hydronium ion, a water molecule and a chloride ion. Taking part: the sodium ion and the hydrogen carbonate ion, 3.8 Å apart, centre to centre. Over the whole of this step, free energy changes by +2.3 kJ/mol and enthalpy by +18.7 kJ/mol.',
+      'Step 1 of 4: Dissolving. 25% of the way through. In the scene: a unit of solid sodium hydrogen carbonate, a hydronium ion, a water molecule and a chloride ion. Taking part: the unit of solid sodium hydrogen carbonate, 6.3 Å from its nearest neighbour, a water molecule. Over the whole of this step, free energy changes by +2.3 kJ/mol and enthalpy by +18.7 kJ/mol.',
     )
-    expect(said(0.28)).toContain('the sodium ion and the hydrogen carbonate ion, 5.9 Å apart')
+    // Until the solid has come apart, nothing names its two ions.
+    for (const t of [0.16, 0.2, 0.24, 0.279]) expect(said(t)).not.toMatch(/sodium ion|hydrogen carbonate ion/)
+    expect(said(0.281)).toContain('In the scene: a sodium ion, a hydrogen carbonate ion, a hydronium ion, a water molecule and a chloride ion. Taking part: the sodium ion and the hydrogen carbonate ion, 5.9 Å apart, centre to centre.')
     // At the start of step 1 nothing has been counted yet, so there is no total to give.
-    expect(said(0.16)).toMatch(/centre to centre\. Over the whole of this step, free energy changes by \+2\.3 kJ\/mol and enthalpy by \+18\.7 kJ\/mol\.$/)
+    expect(said(0.16)).toMatch(/a water molecule\. Over the whole of this step, free energy changes by \+2\.3 kJ\/mol and enthalpy by \+18\.7 kJ\/mol\.$/)
   })
 
   it('in step 2, as the proton moves: the bond that is breaking and the bond that is forming, each with how far it has gone', () => {
@@ -34,6 +35,10 @@ describe('describeMechanismState: the scene in words, for a reader who cannot se
     // The two approach before any bond changes.
     expect(said(0.37)).toContain('the hydrogen carbonate ion and the hydronium ion, 5.1 Å apart')
     expect(said(0.37)).not.toMatch(/breaking|forming/)
+    // Once the proton is more than half-way across, the two are named as what they have become.
+    expect(said(0.475)).toContain(
+      'In the scene: a sodium ion, a carbonic acid molecule, two water molecules and a chloride ion. Taking part: the carbonic acid molecule and one of the two water molecules, 3.8 Å apart, centre to centre. The bond between the oxygen of a water molecule and a hydrogen of the carbonic acid molecule is breaking: 43% of it is left. A bond between an oxygen and a hydrogen of the carbonic acid molecule is forming: 57% formed.',
+    )
   })
 
   it('in step 3: which of the two waters takes part, and all six bonds that change, the two carbon-oxygen bonds told apart', () => {
@@ -43,10 +48,20 @@ describe('describeMechanismState: the scene in words, for a reader who cannot se
         'The bond between an oxygen and the carbon of the carbonic acid molecule is turning from a single bond into a double bond: 50% of the way. ' +
         'The bond between an oxygen and a hydrogen of the carbonic acid molecule is breaking: 50% of it is left. ' +
         'Another bond between an oxygen and the carbon of the carbonic acid molecule is breaking: 50% of it is left. ' +
-        'The bond between the oxygen and a hydrogen of the water molecule is breaking: 50% of it is left. ' +
-        'A bond between an oxygen of the carbonic acid molecule and a hydrogen of the water molecule is forming: 50% formed. ' +
-        'A bond between the oxygen of the water molecule and a hydrogen of the carbonic acid molecule is forming: 50% formed. ' +
+        'The bond between the oxygen and a hydrogen of a water molecule is breaking: 50% of it is left. ' +
+        'A bond between an oxygen of the carbonic acid molecule and a hydrogen of a water molecule is forming: 50% formed. ' +
+        'A bond between the oxygen of a water molecule and a hydrogen of the carbonic acid molecule is forming: 50% formed. ' +
         'Over the whole of this step, free energy changes by −16.4 kJ/mol, and enthalpy by −7.6 kJ/mol over steps 2 and 3 together.',
+    )
+    // Past the middle of the relay the bonds that count are the new ones, and the names follow them.
+    expect(said(0.695)).toContain(
+      'In the scene: a sodium ion, a carbon dioxide molecule, three water molecules and a chloride ion. Taking part: the carbon dioxide molecule and two of the three water molecules. ' +
+        'The bond between an oxygen and the carbon of the carbon dioxide molecule is turning from a single bond into a double bond: 55% of the way. ' +
+        'The bond between an oxygen of the carbon dioxide molecule and a hydrogen of a water molecule is breaking: 45% of it is left. ' +
+        'The bond between the oxygen of a water molecule and the carbon of the carbon dioxide molecule is breaking: 45% of it is left. ' +
+        'The bond between the oxygen of one water molecule and a hydrogen of another is breaking: 45% of it is left. ' +
+        'A bond between the oxygen and a hydrogen of a water molecule is forming: 55% formed. ' +
+        'Another bond between the oxygen and a hydrogen of a water molecule is forming: 55% formed.',
     )
   })
 

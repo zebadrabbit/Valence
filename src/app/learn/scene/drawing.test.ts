@@ -35,11 +35,23 @@ describe('drawing: what the 3D scene of a mechanism draws at one scrub position'
     expect(labels).toHaveLength(2)
   })
 
+  it('writes no charge on the sodium of the solid until the solid has come apart: the picture names it as the list does, as one unit', () => {
+    expect(drawn(0.1).labels.map((l) => l.text)).toEqual(['Cl⁻'])
+    for (const t of [0.16, 0.2, 0.24, 0.279]) expect(drawn(t).labels.map((l) => l.text)).toEqual(['Cl⁻'])
+    expect(drawn(0.281).labels.map((l) => l.text)).toEqual(['Na⁺', 'Cl⁻'])
+    // The unit is one thing to point at: one sphere that holds the six atoms.
+    const unit = drawn(0.2)
+    expect(unit.species).toHaveLength(4)
+    for (const atom of unit.atoms.slice(0, 6)) expect(distance(atom.position, unit.species[0]!.center) + atom.radius).toBeLessThanOrEqual(unit.species[0]!.radius + 1e-9)
+  })
+
   it('draws a whole bond as whole sticks: two halves for a single bond, four for a double', () => {
-    // At the start: three O-H of hydronium, two O-H of water, and in hydrogen carbonate one O-H, two C-O and one C=O.
+    // At the start, the acid alone: three O-H of hydronium and two O-H of water.
     const start = drawn(0)
     expect(start.sticks.every((s) => !s.partial)).toBe(true)
-    expect(start.sticks).toHaveLength(8 * 2 + 4)
+    expect(start.sticks).toHaveLength(5 * 2)
+    // With the solid in: in hydrogen carbonate one more O-H, two C-O and one C=O.
+    expect(drawn(0.2).sticks).toHaveLength(8 * 2 + 4)
     // At the end: six O-H of three waters and the two C=O of carbon dioxide.
     expect(drawn(1).sticks).toHaveLength(6 * 2 + 2 * 4)
   })

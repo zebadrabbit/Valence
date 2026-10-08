@@ -1,11 +1,11 @@
 {
   "actors": [
-    { "id": "na", "element": "Na" },
-    { "id": "c", "element": "C" },
-    { "id": "o-hydroxyl", "element": "O" },
-    { "id": "o-acceptor", "element": "O" },
-    { "id": "o-carbonyl", "element": "O" },
-    { "id": "h-hydroxyl", "element": "H" },
+    { "id": "na", "element": "Na", "enters": "dissolving" },
+    { "id": "c", "element": "C", "enters": "dissolving" },
+    { "id": "o-hydroxyl", "element": "O", "enters": "dissolving" },
+    { "id": "o-acceptor", "element": "O", "enters": "dissolving" },
+    { "id": "o-carbonyl", "element": "O", "enters": "dissolving" },
+    { "id": "h-hydroxyl", "element": "H", "enters": "dissolving" },
     { "id": "o-hydronium", "element": "O" },
     { "id": "h-transfer", "element": "H" },
     { "id": "h-hydronium-1", "element": "H" },
@@ -20,6 +20,7 @@
       "id": "beaker",
       "t": 0,
       "frame": ["na", "c", "o-hydronium", "o-relay", "cl"],
+      "units": [{ "unit": "sodium-hydrogen-carbonate", "of": ["na", "c"] }],
       "place": [
         { "species": "bicarbonate", "atoms": ["o-hydroxyl", "o-acceptor", "o-carbonyl", "c", "h-hydroxyl"], "origin": { "atom": "c", "at": [-9, 9, 0] }, "aim": { "atom": "o-carbonyl", "toward": [-8, 9, 0] }, "roll": { "atom": "o-hydroxyl", "toward": [-9, 8, 0] } },
         { "ion": "Na", "charge": 1, "atom": "na", "at": [-5.265, 9, 0] },
@@ -28,13 +29,14 @@
         { "ion": "Cl", "charge": -1, "atom": "cl", "at": [7.6, 2.8, -2] }
       ]
     },
-    { "id": "acid", "t": 0.06, "easing": "linear", "frame": ["na", "c", "o-hydronium", "o-relay", "cl"], "place": [] },
-    { "id": "solid-ready", "t": 0.16, "easing": "linear", "frame": ["o-hydronium", "cl", "o-relay"], "place": [] },
+    { "id": "acid", "t": 0.06, "easing": "linear", "frame": ["na", "c", "o-hydronium", "o-relay", "cl"], "units": [{ "unit": "sodium-hydrogen-carbonate", "of": ["na", "c"] }], "place": [] },
+    { "id": "solid-ready", "t": 0.16, "easing": "linear", "frame": ["o-hydronium", "cl", "o-relay"], "units": [{ "unit": "sodium-hydrogen-carbonate", "of": ["na", "c"] }], "place": [] },
     {
       "id": "solid-in",
       "t": 0.24,
       "easing": "easeInOut",
       "frame": ["na", "c", "o-hydroxyl", "o-acceptor", "o-carbonyl"],
+      "units": [{ "unit": "sodium-hydrogen-carbonate", "of": ["na", "c"] }],
       "place": [
         { "species": "bicarbonate", "atoms": ["o-hydroxyl", "o-acceptor", "o-carbonyl", "c", "h-hydroxyl"], "origin": { "atom": "c", "at": [0, 0, 0] }, "aim": { "atom": "o-carbonyl", "toward": [1, 0, 0] }, "roll": { "atom": "o-hydroxyl", "toward": [0, -1, 0] } },
         { "ion": "Na", "charge": 1, "atom": "na", "at": [3.735, 0, 0] }

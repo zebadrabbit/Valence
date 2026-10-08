@@ -308,6 +308,16 @@ describe('the mechanism page: the scene and its words', () => {
     for (const one of state(mechanism, 0.4).species) expect(section).toContain(`>${speciesLabel(mechanism, one)}</button>`)
   })
 
+  it('lists nothing of the solid before it is added, and then the solid as one unit until it has come apart', () => {
+    const listed = (t: number) => {
+      at(t)
+      return text(page().match(new RegExp(`<section aria-label="${PAGE_TEXT.inScene}"[^>]*>(.*?)</section>`, 's'))![1]!)
+    }
+    expect(listed(0.1)).toBe(`|${PAGE_TEXT.takingPart}|hydronium ion, H₃O⁺|chloride ion, Cl⁻|${PAGE_TEXT.lookingOn}|water molecule, H₂O|`)
+    expect(listed(0.2)).toBe(`|${PAGE_TEXT.takingPart}|unit of solid sodium hydrogen carbonate, NaHCO₃|${PAGE_TEXT.lookingOn}|hydronium ion, H₃O⁺|water molecule, H₂O|chloride ion, Cl⁻|`)
+    expect(listed(0.3)).toBe(`|${PAGE_TEXT.takingPart}|sodium ion, Na⁺|hydrogen carbonate ion, HCO₃⁻|${PAGE_TEXT.lookingOn}|hydronium ion, H₃O⁺|water molecule, H₂O|chloride ion, Cl⁻|`)
+  })
+
   it('gives the chapter in words, one chapter at a time: its heading, its short text, and the longer text closed until it is opened', () => {
     at(0.4)
     const html = page()
@@ -395,7 +405,10 @@ describe('the mechanism page: Challenge', () => {
     expect(html).not.toContain(PAGE_TEXT.takingPart)
     expect(html).not.toContain(PAGE_TEXT.lookingOn)
     const section = html.match(new RegExp(`<section aria-label="${PAGE_TEXT.inScene}"[^>]*>(.*?)</section>`, 's'))![1]!
-    expect(text(section)).toBe(`|${PAGE_TEXT.inScene}|sodium ion, Na⁺|hydrogen carbonate ion, HCO₃⁻|hydronium ion, H₃O⁺|water molecule, H₂O|chloride ion, Cl⁻|`)
+    expect(text(section)).toBe(`|${PAGE_TEXT.inScene}|unit of solid sodium hydrogen carbonate, NaHCO₃|hydronium ion, H₃O⁺|water molecule, H₂O|chloride ion, Cl⁻|`)
+    // Nor what the solid is made of: nowhere on the page is a sodium ion or a hydrogen carbonate ion named, but in the answers offered.
+    const offered = dissolving!.question.options.reduce((rest, option) => rest.replace(escaped(option.text), ''), html)
+    expect(offered).not.toMatch(/sodium ion|hydrogen carbonate ion|Na⁺|HCO₃⁻/)
     expect(html).not.toContain('Real time')
   })
 

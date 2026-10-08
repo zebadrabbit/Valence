@@ -41,23 +41,39 @@ describe('the track', () => {
 describe('continuity (spec 9.3)', () => {
   it.each(boundaries.filter((t) => t > 0 && t < 1))('just before and just after the boundary at %s, every atom is in the same place within 0.001 Å', (t) => {
     const [before, at, after] = [state(mechanism, t - 1e-7), state(mechanism, t), state(mechanism, t + 1e-7)]
-    at.atoms.forEach((atom, i) => {
-      expect(distance(before.atoms[i]!.position, atom.position)).toBeLessThan(1e-3)
-      expect(distance(after.atoms[i]!.position, atom.position)).toBeLessThan(1e-3)
-    })
+    const place = (s: typeof at, id: string) => s.atoms.find((atom) => atom.id === id)?.position
+    for (const atom of at.atoms) {
+      // An atom that is added at this boundary has no place before it: it is where the keyframe has it, and stays.
+      const was = place(before, atom.id)
+      if (was) expect(distance(was, atom.position)).toBeLessThan(1e-3)
+      else expect(mechanism.actors.find((a) => a.id === atom.id)!.enters).toBe(chapterAt(mechanism, t).id)
+      expect(distance(place(after, atom.id)!, atom.position)).toBeLessThan(1e-3)
+    }
+    // Nothing leaves the scene at a boundary.
+    expect(before.atoms.every((atom) => place(at, atom.id))).toBe(true)
     // The camera's target and the energy cursor do not jump either.
     expect(distance(before.camera.target, after.camera.target)).toBeLessThan(1e-3)
     expect(Math.abs(before.energy.g - after.energy.g)).toBeLessThan(1e-2)
     expect(Math.abs(before.energy.h - after.energy.h)).toBeLessThan(1e-2)
   })
 
-  it('at a boundary the state is the keyframe itself: its positions and its whole bonds', () => {
+  it('at a boundary the state is the keyframe itself: its positions and its whole bonds, for every atom that is in the scene by then', () => {
     for (const t of boundaries) {
       const keyframe = keyframeAt(t)
       const at = state(mechanism, t)
-      expect(at.atoms.map((a) => a.position)).toEqual(keyframe.positions)
-      expect(at.bonds.map((b) => `${pairKey(b.a, b.b)} ${b.order}`).sort()).toEqual(keyframe.bonds.map((b) => `${pairKey(b.a, b.b)} ${b.order}`).sort())
+      const there = (id: string) => at.atoms.some((a) => a.id === id)
+      expect(at.atoms.map((a) => a.position)).toEqual(keyframe.positions.filter((_, i) => there(mechanism.actors[i]!.id)))
+      expect(at.bonds.map((b) => `${pairKey(b.a, b.b)} ${b.order}`).sort()).toEqual(keyframe.bonds.filter((b) => there(b.a)).map((b) => `${pairKey(b.a, b.b)} ${b.order}`).sort())
       expect(at.bonds.every((b) => !b.partial)).toBe(true)
+    }
+  })
+
+  it('the record places every actor at every keyframe, the ones not yet in the scene too: what the scene leaves out, it leaves out whole', () => {
+    for (const t of boundaries) {
+      const [keyframe, at] = [keyframeAt(t), state(mechanism, t)]
+      const there = new Set(at.atoms.map((a) => a.id))
+      for (const species of keyframe.species) expect(new Set(species.atoms.map((id) => there.has(id))).size).toBe(1)
+      expect(there.size).toBe(t < chapterStart(mechanism, 'dissolving')! ? 8 : mechanism.actors.length)
     }
   })
 })

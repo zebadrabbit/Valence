@@ -74,6 +74,10 @@ const onlyKeys = (object, keys, where, optional = []) => {
  * places one of its atoms again; all its atoms must then be placed again, in that keyframe. A point is given as
  * coordinates, or as the id of an actor that stays or that was placed earlier in the same keyframe.
  *
+ * A keyframe's `units` are the species it holds together as one named thing (the ions of one unit of a solid that
+ * has not come apart): each names the unit and one actor of each of its species. Unlike a place, a unit is said
+ * at every keyframe at which it holds.
+ *
  * `molecules` are the library's records and `elements` its elements; a monatomic ion must have a cited ionic
  * radius for its charge there.
  */
@@ -84,7 +88,7 @@ export function buildKeyframes(choreography, molecules, elements) {
   if (new Set(ids).size !== ids.length) throw new Error('choreography.json: an actor id is given twice')
   const elementOf = new Map(actors.map((a) => [a.id, a.element]))
   for (const actor of actors) {
-    onlyKeys(actor, ['id', 'element'], `actor "${actor.id}"`)
+    onlyKeys(actor, ['id', 'element'], `actor "${actor.id}"`, ['enters'])
     if (!elements.some((e) => e.symbol === actor.element)) throw new Error(`actor "${actor.id}": unknown element "${actor.element}"`)
   }
 
@@ -92,7 +96,7 @@ export function buildKeyframes(choreography, molecules, elements) {
   let scene = []
   const built = keyframes.map((keyframe, index) => {
     const where = `keyframe "${keyframe.id}"`
-    onlyKeys(keyframe, ['id', 't', 'frame', 'place'], where, ['easing'])
+    onlyKeys(keyframe, ['id', 't', 'frame', 'place'], where, ['easing', 'units'])
     if ((index === 0) !== (keyframe.easing === undefined)) throw new Error(`${where}: every keyframe but the first names the easing of the move that ends at it`)
     if (keyframe.easing !== undefined && !EASINGS.includes(keyframe.easing)) throw new Error(`${where}: unknown easing "${keyframe.easing}"`)
 
@@ -159,6 +163,15 @@ export function buildKeyframes(choreography, molecules, elements) {
     const framed = keyframe.frame.map((id) => at.get(id))
     const target = scale(framed.reduce(add, [0, 0, 0]), 1 / framed.length)
     const camera = { target: target.map(round), radius: round(Math.max(...framed.map((p) => distance(p, target)))) }
+
+    const units = (keyframe.units ?? []).map((unit, i) => {
+      const here = `${where}, unit ${i + 1}`
+      onlyKeys(unit, ['unit', 'of'], here)
+      const parts = unit.of.map((id) => scene.find((entry) => entry.atoms.includes(id)) ?? (() => { throw new Error(`${here}: no species of the scene has the actor "${id}"`) })())
+      if (parts.length < 2 || new Set(parts).size !== parts.length) throw new Error(`${here}: a unit is two species or more, each named once by one of its actors`)
+      return { unit: unit.unit, atoms: ids.filter((id) => parts.some((entry) => entry.atoms.includes(id))) }
+    })
+    if (new Set(units.flatMap((unit) => unit.atoms)).size !== units.flatMap((unit) => unit.atoms).length) throw new Error(`${where}: a species is in one unit at most`)
     return {
       id: keyframe.id,
       t: keyframe.t,
@@ -166,6 +179,7 @@ export function buildKeyframes(choreography, molecules, elements) {
       positions: ids.map((id) => at.get(id).map(round)),
       bonds: scene.flatMap((entry) => entry.bonds),
       species: scene.map((entry) => entry.species),
+      ...(units.length > 0 ? { units } : {}),
       camera,
     }
   })
@@ -297,7 +311,10 @@ const KINDS_IN_ORDER = /^bookend prologue( step)+ bookend$/
  *   every keyframe;
  * - each step's bonds broken and formed and its changes of order are exactly the difference between the bond
  *   lists at its two ends (spec 9.3), and they happen within one move of the step;
- * - no two atoms sit on or pass through each other (`checkContacts`).
+ * - no two atoms sit on or pass through each other (`checkContacts`);
+ * - an actor that `enters` does so at the start of a chapter after the first, together with the whole of the
+ *   species and of the unit it is then part of, and no chapter before that one is about it; a unit is one the
+ *   record names.
  */
 export function buildMechanism(record, choreography, molecules, elements) {
   onlyKeys(record, ['id', 'title', 'species', 'thermo', 'energyNote', 'chapters'], 'mechanism.json')
@@ -352,6 +369,20 @@ export function buildMechanism(record, choreography, molecules, elements) {
     return { ...without(common, ['deltaH', 'deltaG', 'activationG']), ...energies.get(chapter.id) }
   })
 
+  const enters = new Map(choreography.actors.filter((actor) => actor.enters !== undefined).map((actor) => [actor.id, actor.enters]))
+  for (const [actorId, chapterId] of enters) {
+    const where = `actor "${actorId}"`
+    const index = chapters.findIndex((chapter) => chapter.id === chapterId)
+    if (index < 1) throw new Error(`${where}: it enters at the start of a chapter after the first, and "${chapterId}" is not one`)
+    const early = chapters.slice(0, index).find((chapter) => chapter.active.includes(actorId))
+    if (early) throw new Error(`${where}: the chapter "${early.id}" is about it, and it enters only at "${chapterId}"`)
+    // Up to the keyframe it enters at, what it is part of enters with it: nothing is ever half in the scene.
+    for (const keyframe of keyframes.filter((k) => k.t <= chapters[index].range[0])) {
+      const together = [...keyframe.species, ...(keyframe.units ?? [])].find((s) => s.atoms.includes(actorId) && s.atoms.some((id) => enters.get(id) !== chapterId))
+      if (together) throw new Error(`${where}: at "${keyframe.id}" it is in a species or a unit that does not all enter at "${chapterId}"`)
+    }
+  }
+
   const actors = choreography.actors.map((actor) => {
     const ion = keyframes[0].species.find((s) => s.ion !== undefined && s.atoms[0] === actor.id)
     if (!ion) return actor
@@ -359,9 +390,9 @@ export function buildMechanism(record, choreography, molecules, elements) {
     const radius = elements.find((e) => e.symbol === ion.ion).ionicRadii.find((r) => r.charge === ion.charge)
     return { ...actor, ion: { charge: ion.charge, coordination: radius.coordination, radius: { value: radius.value, sourceId: radius.sourceId } } }
   })
-  const placedIds = unique(keyframes.flatMap((k) => k.species.map((s) => s.speciesId ?? s.ion)))
+  const placedIds = unique(keyframes.flatMap((k) => [...k.species.map((s) => s.speciesId ?? s.ion), ...(k.units ?? []).map((u) => u.unit)]))
   const named = record.species.map((s) => s.id)
-  if ([...placedIds].sort().join() !== [...named].sort().join()) throw new Error(`mechanism.json: \`species\` names each species the choreography places, once: ${placedIds.join(', ')}`)
+  if ([...placedIds].sort().join() !== [...named].sort().join()) throw new Error(`mechanism.json: \`species\` names each species the choreography places and each unit it holds together, once: ${placedIds.join(', ')}`)
 
   return {
     id: record.id,

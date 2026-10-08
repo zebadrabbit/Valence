@@ -19,10 +19,13 @@ describe("the mechanism page's own words", () => {
   })
 
   it('name a species of the scene by its name and its formula, as its callout and the list beside the scene have it', () => {
-    expect(state(mechanism, 0.2).species.map((one) => speciesLabel(mechanism, one))).toEqual(['sodium ion, Na⁺', 'hydrogen carbonate ion, HCO₃⁻', 'hydronium ion, H₃O⁺', 'water molecule, H₂O', 'chloride ion, Cl⁻'])
+    expect(state(mechanism, 0.3).species.map((one) => speciesLabel(mechanism, one))).toEqual(['sodium ion, Na⁺', 'hydrogen carbonate ion, HCO₃⁻', 'hydronium ion, H₃O⁺', 'water molecule, H₂O', 'chloride ion, Cl⁻'])
+    // The solid is one thing, with one name, until it has come apart; and before it is added it is not there to name.
+    expect(state(mechanism, 0.2).species.map((one) => speciesLabel(mechanism, one))).toEqual(['unit of solid sodium hydrogen carbonate, NaHCO₃', 'hydronium ion, H₃O⁺', 'water molecule, H₂O', 'chloride ion, Cl⁻'])
+    expect(state(mechanism, 0.1).species.map((one) => speciesLabel(mechanism, one))).toEqual(['hydronium ion, H₃O⁺', 'water molecule, H₂O', 'chloride ion, Cl⁻'])
     expect(state(mechanism, 0.9).species.map((one) => speciesLabel(mechanism, one))).toEqual(['sodium ion, Na⁺', 'carbon dioxide molecule, CO₂', 'water molecule, H₂O', 'water molecule, H₂O', 'water molecule, H₂O', 'chloride ion, Cl⁻'])
     // At every position every species has a name: never an id.
-    for (let i = 0; i <= 100; i++) for (const one of state(mechanism, i / 100).species) expect(speciesLabel(mechanism, one)).toMatch(/^[a-z ]+ (ion|molecule), \S+$/)
+    for (let i = 0; i <= 100; i++) for (const one of state(mechanism, i / 100).species) expect(speciesLabel(mechanism, one)).toMatch(/^([a-z ]+ (ion|molecule)|unit of solid [a-z ]+), \S+$/)
   })
 
   it('say where the timeline stands, for the slider: the chapter and how far through it', () => {
@@ -90,8 +93,9 @@ describe('the scene in words, while a question waits', () => {
       // Every other sentence is there, in its order.
       expect(whole.replace(/Step (\d) of 4: [A-Za-z ]+\./, 'Step $1 of 4.').replace(/ Taking part: .*? (centre to centre|a water molecule)\./, '')).toBe(words(asked))
     }
+    // Before step 1 the solid is one unit in these words too: its two ions are the answer to the question.
     expect(words(run(createProgress('challenge'), { type: 'seek', t: 0.16 }))).toBe(
-      'Step 1 of 4. At its start. In the scene: a sodium ion, a hydrogen carbonate ion, a hydronium ion, a water molecule and a chloride ion. Over the whole of this step, free energy changes by +2.3 kJ/mol and enthalpy by +18.7 kJ/mol.',
+      'Step 1 of 4. At its start. In the scene: a unit of solid sodium hydrogen carbonate, a hydronium ion, a water molecule and a chloride ion. Over the whole of this step, free energy changes by +2.3 kJ/mol and enthalpy by +18.7 kJ/mol.',
     )
   })
 

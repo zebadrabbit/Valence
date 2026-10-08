@@ -54,8 +54,11 @@ describe('the mechanism record', () => {
     }
   })
 
-  it('names every species its keyframes place, and a real timescale for the prologue and each step', () => {
-    const placed = new Set(hclNahco3.keyframes.flatMap((k) => k.species.map((s) => ('ion' in s ? s.ion : s.speciesId))))
+  it('names every species its keyframes place and the one unit they hold together, and a real timescale for the prologue and each step', () => {
+    const placed = new Set(hclNahco3.keyframes.flatMap((k) => [...k.species.map((s) => ('ion' in s ? s.ion : s.speciesId)), ...(k.units ?? []).map((u) => u.unit)]))
+    expect(hclNahco3.keyframes.flatMap((k) => (k.units ?? []).map((u) => `${k.id}: ${u.unit} of ${u.atoms.join(' ')}`))).toEqual(
+      ['beaker', 'acid', 'solid-ready', 'solid-in'].map((id) => `${id}: sodium-hydrogen-carbonate of na c o-hydroxyl o-acceptor o-carbonyl h-hydroxyl`),
+    )
     expect(hclNahco3.species.map((s) => s.id).sort()).toEqual([...placed].sort())
     expect(hclNahco3.chapters.map((c) => c.timescale?.value ?? null)).toEqual([
       null,

@@ -16,7 +16,8 @@ export const EASINGS: Record<EasingName, (u: number) => number> = {
 export type SceneAtom = { id: string; element: string; position: Vec3; active: boolean; ion?: { charge: number; radius: number } }
 /** `order` is the order drawn: whole at a keyframe, and between two keyframes that give the bond different orders (none counts as 0) a fraction, with `partial` set. */
 export type SceneBond = { a: string; b: string; order: number; partial: boolean }
-export type SceneSpecies = Keyframe['species'][number] & { active: boolean }
+/** A library species, a monatomic ion, or a unit of a solid that has not come apart yet: its ions, named as one thing. */
+export type SceneSpecies = (Keyframe['species'][number] | { unit: string; atoms: string[] }) & { active: boolean }
 /** One pair of electrons on its way: where it leaves from and arrives, in ångström, and how far along it is. */
 export type ScenePath = { from: Vec3; to: Vec3; fromSite: ElectronSite; toSite: ElectronSite; progress: number }
 
@@ -24,9 +25,13 @@ export type MechanismState = {
   /** The scrub position the state is of, held to 0..1. */
   t: number
   chapter: Chapter
+  /** The atoms that are in the scene at `t`: an actor that `enters` at a later chapter is not there yet. */
   atoms: SceneAtom[]
   bonds: SceneBond[]
-  /** What the atoms make up, as of the last keyframe passed; `active` where the chapter is about the species. */
+  /**
+   * What the atoms make up at `t`, from the bonds as they are there: a bond counts once it is more than half
+   * formed, and until less than half of it is left. `active` where the chapter is about the species.
+   */
   species: SceneSpecies[]
   /** Empty except during the move of a step in which its bonds change. */
   electronPaths: ScenePath[]
@@ -72,33 +77,57 @@ const sameBonds = (a: Keyframe, b: Keyframe) => {
   return list(a) === list(b)
 }
 
+const sameAtoms = (a: readonly string[], b: readonly string[]) => a.length === b.length && a.every((id, i) => id === b[i])
+
+/**
+ * What the atoms make up part-way through a move. A species of the keyframe behind or of the one ahead is there
+ * when the bonds that count at this point, among those that touch its atoms, are that keyframe's own: so the
+ * species change when the bonds do, half-way through the move in which they change, and not at its last frame.
+ * A unit of a solid is held together by no bond, and is one thing by the same rule: until the move that parts it
+ * is more than half done.
+ */
+function speciesAt(from: Keyframe, to: Keyframe, progress: number, bonds: readonly SceneBond[]): (Keyframe['species'][number] | { unit: string; atoms: string[] })[] {
+  const orderIn = (keyframe: Keyframe, bond: SceneBond) => keyframe.bonds.find((b) => pairKey(b.a, b.b) === pairKey(bond.a, bond.b))?.order ?? 0
+  const counted = bonds.filter((bond) => (orderIn(to, bond) > orderIn(from, bond) ? bond.order > 0.5 : bond.order >= 0.5))
+  const touching = (list: readonly { a: string; b: string }[], atoms: readonly string[]) => list.filter((b) => atoms.includes(b.a) || atoms.includes(b.b)).map((b) => pairKey(b.a, b.b)).sort().join()
+  const there = (keyframe: Keyframe) => keyframe.species.filter((one) => touching(keyframe.bonds, one.atoms) === touching(counted, one.atoms))
+  const behind = there(from)
+  const species = [...behind, ...there(to).filter((one) => !behind.some((other) => sameAtoms(other.atoms, one.atoms)))]
+
+  const held = (progress > 0.5 ? to : from).units ?? []
+  return [...species.filter((one) => !held.some((unit) => one.atoms.every((id) => unit.atoms.includes(id)))), ...held]
+}
+
 /** The scene at scrub position `t`, from 0 to 1 (spec 9.1). A position outside that is held to it. */
 export function state(mechanism: Mechanism, t: number): MechanismState {
   const at = clamp(t)
   const chapter = chapterAt(mechanism, at)
   const { from, to, progress } = moveAt(mechanism, at)
   const active = new Set(chapter.active)
+  // An actor that enters at a chapter is in the scene from that chapter's start on.
+  const here = new Set(mechanism.actors.filter((actor) => actor.enters === undefined || at >= (chapterStart(mechanism, actor.enters) ?? 0)).map((actor) => actor.id))
 
-  const atoms = mechanism.actors.map((actor, i): SceneAtom => ({
-    id: actor.id,
-    element: actor.element,
-    position: lerp(from.positions[i]!, to.positions[i]!, progress),
-    active: active.has(actor.id),
-    ...(actor.ion ? { ion: { charge: actor.ion.charge, radius: actor.ion.radius.value } } : {}),
-  }))
-  const where = (id: string) => atoms.find((atom) => atom.id === id)!.position
+  const positions = new Map(mechanism.actors.map((actor, i) => [actor.id, lerp(from.positions[i]!, to.positions[i]!, progress)]))
+  const where = (id: string) => positions.get(id)!
+  const atoms = mechanism.actors
+    .filter((actor) => here.has(actor.id))
+    .map((actor): SceneAtom => ({ id: actor.id, element: actor.element, position: where(actor.id), active: active.has(actor.id), ...(actor.ion ? { ion: { charge: actor.ion.charge, radius: actor.ion.radius.value } } : {}) }))
 
   const orderIn = (keyframe: Keyframe) => new Map(keyframe.bonds.map((bond) => [pairKey(bond.a, bond.b), bond.order as number]))
   const [before, after] = [orderIn(from), orderIn(to)]
-  const bonds = [...from.bonds, ...to.bonds.filter((bond) => !before.has(pairKey(bond.a, bond.b)))].flatMap((bond): SceneBond[] => {
+  const allBonds = [...from.bonds, ...to.bonds.filter((bond) => !before.has(pairKey(bond.a, bond.b)))].flatMap((bond): SceneBond[] => {
     const key = pairKey(bond.a, bond.b)
     const [start, end] = [before.get(key) ?? 0, after.get(key) ?? 0]
     const order = start + (end - start) * progress
     return order > 0 ? [{ a: bond.a, b: bond.b, order, partial: start !== end && progress > 0 && progress < 1 }] : []
   })
+  const bonds = allBonds.filter((bond) => here.has(bond.a) && here.has(bond.b))
 
-  const settled = progress >= 1 ? to : from
-  const species = settled.species.map((s): SceneSpecies => ({ ...s, active: s.atoms.some((id) => active.has(id)) }))
+  const first = (one: { atoms: readonly string[] }) => Math.min(...one.atoms.map((id) => mechanism.actors.findIndex((actor) => actor.id === id)))
+  const species = speciesAt(from, to, progress, allBonds)
+    .filter((one) => one.atoms.every((id) => here.has(id)))
+    .sort((a, b) => first(a) - first(b))
+    .map((one): SceneSpecies => ({ ...one, active: one.atoms.some((id) => active.has(id)) }))
 
   const site = (s: ElectronSite): Vec3 => ('lonePair' in s ? where(s.lonePair) : scale(add(where(s.bond[0]), where(s.bond[1])), 0.5))
   const reacting = chapter.kind === 'step' && !sameBonds(from, to)

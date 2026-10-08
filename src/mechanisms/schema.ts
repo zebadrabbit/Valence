@@ -88,6 +88,11 @@ const keyframe = z.strictObject({
   bonds: z.array(z.strictObject({ a: id, b: id, order })),
   /** What the actors make up at this keyframe: library species by id, each with its actors in its record's atom order, and monatomic ions. */
   species: z.array(z.union([z.strictObject({ speciesId: id, atoms: z.array(id).min(2) }), z.strictObject({ ion: id, charge: z.number().int(), atoms: z.array(id).min(1).max(1) })])),
+  /**
+   * Species of this keyframe that are held together as one thing and named as one: the ions of one unit of a
+   * solid, before it has come apart. `atoms` are all the atoms of those species, in the actors' order.
+   */
+  units: z.array(z.strictObject({ unit: id, atoms: z.array(id).min(2) })).optional(),
   /** What the camera frames: a point and the radius about it that holds the atoms of interest. */
   camera: z.strictObject({ target: vec3, radius: z.number().positive() }),
 })
@@ -108,10 +113,14 @@ const constant = cited(z.number().positive()).extend({ unit: text })
 export const mechanismSchema = z.strictObject({
   id,
   title: text,
-  /** How each species of the scene is named and written: a library record's id, or the symbol of a monatomic ion. */
+  /** How each species of the scene is named and written: a library record's id, the symbol of a monatomic ion, or the id of a unit of a solid. */
   species: z.array(z.strictObject({ id, name: text, formula: text })),
-  /** One stable id and element for each atom, for the whole timeline. A monatomic ion is drawn as a sphere of its cited ionic radius, in ångström. */
-  actors: z.array(z.strictObject({ id, element: text, ion: z.strictObject({ charge: z.number().int(), coordination: z.number().int().positive(), radius: cited(z.number().positive()) }).optional() })).min(1),
+  /**
+   * One stable id and element for each atom, for the whole timeline. A monatomic ion is drawn as a sphere sized by
+   * its cited ionic radius, in ångström. `enters` is the chapter from whose start the atom is in the scene: the
+   * record places every actor at every keyframe, and the scene leaves out what has not been added yet.
+   */
+  actors: z.array(z.strictObject({ id, element: text, enters: id.optional(), ion: z.strictObject({ charge: z.number().int(), coordination: z.number().int().positive(), radius: cited(z.number().positive()) }).optional() })).min(1),
   chapters: z.array(z.union([step, interlude])).min(1),
   keyframes: z.array(keyframe).min(2),
   thermo: z.strictObject({

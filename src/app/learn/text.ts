@@ -78,7 +78,7 @@ export const BEAKER_TEXT = {
 
 /** "hydronium ion, H₃O⁺": a species of the scene as its callout and the list beside the scene name it. */
 export function speciesLabel(mechanism: Mechanism, one: MechanismState['species'][number]): string {
-  const id = 'ion' in one ? one.ion : one.speciesId
+  const id = 'unit' in one ? one.unit : 'ion' in one ? one.ion : one.speciesId
   const species = mechanism.species.find((s) => s.id === id)
   if (!species) throw new Error(`no name for the species "${id}"`)
   return `${species.name}, ${species.formula}`

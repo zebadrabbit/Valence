@@ -9,9 +9,10 @@ import { chapterHeading, kJ } from './wording'
 
 const NUMBERS = ['no', 'one', 'two', 'three', 'four', 'five', 'six']
 const ORDERS = ['no bond', 'a single bond', 'a double bond', 'a triple bond']
-const article = (noun: string) => (/^[aeiou]/i.test(noun) ? 'an' : 'a')
+/** "an ion", "a unit": by the sound the noun begins with, for the nouns the scene has. */
+const article = (noun: string) => (/^(?!uni)[aeiou]/i.test(noun) ? 'an' : 'a')
 const and = (items: readonly string[]) => (items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} and ${items.at(-1)}`)
-const speciesId = (s: SceneSpecies) => ('ion' in s ? s.ion : s.speciesId)
+const speciesId = (s: SceneSpecies) => ('unit' in s ? s.unit : 'ion' in s ? s.ion : s.speciesId)
 
 /**
  * What the scene shows at scrub position `t`: the chapter and how far through it, what is in the scene, which
@@ -42,12 +43,13 @@ function taking(s: MechanismState, name: (one: SceneSpecies) => string): string 
   const active = s.species.filter((one) => one.active)
   const [first, second] = active
   if (!first) return ''
-  /** "the hydronium ion", or "one of the two water molecules" where the scene has others like it that look on. */
-  const the = (one: SceneSpecies) => {
-    const alike = s.species.filter((other) => name(other) === name(one))
-    return alike.length > 1 && alike.some((other) => !other.active) ? `one of the ${NUMBERS[alike.length] ?? alike.length} ${name(one)}s` : `the ${name(one)}`
-  }
-  const names = and(active.map(the))
+  /** "the hydronium ion", or "two of the three water molecules" where the scene has others like them that look on. */
+  const told = [...new Set(active.map(name))].map((noun) => {
+    const [taking, alike] = [active.filter((one) => name(one) === noun).length, s.species.filter((one) => name(one) === noun).length]
+    if (alike === 1) return `the ${noun}`
+    return taking === alike ? `the ${NUMBERS[alike] ?? alike} ${noun}s` : `${NUMBERS[taking] ?? taking} of the ${NUMBERS[alike] ?? alike} ${noun}s`
+  })
+  const names = and(told)
   if (active.length === 2 && second) return `Taking part: ${names}, ${apart(s, first, second)} apart, centre to centre.`
   if (active.length > 1) return `Taking part: ${names}.`
   const others = s.species.filter((one) => one !== first)
@@ -66,6 +68,8 @@ function changing(mechanism: Mechanism, s: MechanismState, name: (one: SceneSpec
     const alike = owner(atomId).atoms.filter((id) => element(id) === element(atomId)).length
     return alike === 1 ? `the ${element(atomId)}` : `${article(element(atomId))} ${element(atomId)}`
   }
+  /** "the carbonic acid molecule", or "a water molecule" where the scene has more than one. */
+  const the = (one: SceneSpecies) => (s.species.filter((other) => name(other) === name(one)).length > 1 ? `${article(name(one))} ${name(one)}` : `the ${name(one)}`)
   const told = new Set<string>()
   return s.bonds
     .filter((bond) => bond.partial)
@@ -73,7 +77,7 @@ function changing(mechanism: Mechanism, s: MechanismState, name: (one: SceneSpec
       const [before, after] = [orderIn(from, bond), orderIn(to, bond)]
       const percent = Math.round((100 * (bond.order - before)) / (after - before))
       const [a, b] = [owner(bond.a), owner(bond.b)]
-      const where = a === b ? `${atomIn(bond.a)} and ${atomIn(bond.b)} of the ${name(a)}` : `${atomIn(bond.a)} of the ${name(a)} and ${atomIn(bond.b)} of the ${name(b)}`
+      const where = a === b ? `${atomIn(bond.a)} and ${atomIn(bond.b)} of ${the(a)}` : name(a) === name(b) ? `${atomIn(bond.a)} of one ${name(a)} and ${atomIn(bond.b)} of another` : `${atomIn(bond.a)} of ${the(a)} and ${atomIn(bond.b)} of ${the(b)}`
       // Two bonds of one species can read alike (carbon to one oxygen, carbon to another): the second is told as another.
       const bondBetween = `${told.has(where) ? 'Another' : before === 0 ? 'A' : 'The'} bond between ${where}`
       told.add(where)

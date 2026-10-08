@@ -2,6 +2,7 @@
   "id": "hcl-nahco3",
   "title": "HCl + NaHCO₃, step by step",
   "species": [
+    { "id": "sodium-hydrogen-carbonate", "name": "unit of solid sodium hydrogen carbonate", "formula": "NaHCO₃" },
     { "id": "Na", "name": "sodium ion", "formula": "Na⁺" },
     { "id": "Cl", "name": "chloride ion", "formula": "Cl⁻" },
     { "id": "hydronium", "name": "hydronium ion", "formula": "H₃O⁺" },

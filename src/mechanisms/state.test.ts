@@ -56,10 +56,12 @@ describe('state is a pure function of the scrub position (spec 9.1)', () => {
     expect(state(mechanism, 7).t).toBe(1)
   })
 
-  it('has every atom, with its element, at every position', () => {
+  it('has every atom that is in the scene yet, with its element, at every position: the solid\'s six from the start of step 1, the rest throughout', () => {
+    const solid = ['na', 'c', 'o-hydroxyl', 'o-acceptor', 'o-carbonyl', 'h-hydroxyl']
     for (const t of grid) {
       const s = state(mechanism, t)
-      expect(s.atoms.map((a) => `${a.id} ${a.element}`)).toEqual(mechanism.actors.map((a) => `${a.id} ${a.element}`))
+      const there = mechanism.actors.filter((a) => t >= at('solid-ready') || !solid.includes(a.id))
+      expect(s.atoms.map((a) => `${a.id} ${a.element}`)).toEqual(there.map((a) => `${a.id} ${a.element}`))
       expect(s.atoms.every((a) => a.position.every(Number.isFinite))).toBe(true)
     }
   })
@@ -203,6 +205,8 @@ describe('what the choreography looks like (spec 9.1, and the brief: chemically 
         const shortest = Math.min(length(from, whole.a, whole.b), length(to, whole.a, whole.b))
         for (let step = 1; step < 10; step++) {
           const s = state(mechanism, from.t + ((to.t - from.t) * step) / 10)
+          // A bond of something that has not been added yet is not in the scene.
+          if (!s.atoms.some((a) => a.id === whole.a)) continue
           expect([from.id, whole.a, whole.b, distance(atom(s, whole.a).position, atom(s, whole.b).position) > 0.9 * shortest]).toEqual([from.id, whole.a, whole.b, true])
         }
       }
@@ -210,21 +214,76 @@ describe('what the choreography looks like (spec 9.1, and the brief: chemically 
   })
 })
 
-describe('active species', () => {
-  it('names the species of the scene as of the last keyframe passed, and marks the ones the chapter is about', () => {
-    const names = (t: number) => state(mechanism, t).species.map((s) => `${'ion' in s ? s.ion : s.speciesId}${s.active ? '*' : ''}`)
-    expect(names(0.03)).toEqual(['Na', 'bicarbonate', 'hydronium', 'water', 'Cl'])
-    expect(names(0.1)).toEqual(['Na', 'bicarbonate', 'hydronium*', 'water', 'Cl*'])
-    expect(names(0.2)).toEqual(['Na*', 'bicarbonate*', 'hydronium', 'water', 'Cl'])
-    expect(names(0.4)).toEqual(['Na', 'bicarbonate*', 'hydronium*', 'water', 'Cl'])
-    // While the proton is on its way the species are still the two that met.
-    expect(names(0.47)).toEqual(['Na', 'bicarbonate*', 'hydronium*', 'water', 'Cl'])
-    expect(names(0.52)).toEqual(['Na', 'carbonic-acid*', 'water', 'water*', 'Cl'])
+describe('what is in the scene, and what each thing is', () => {
+  const names = (t: number) => state(mechanism, t).species.map((s) => `${'unit' in s ? s.unit : 'ion' in s ? s.ion : s.speciesId}${s.active ? '*' : ''}`)
+
+  it('leaves the solid out until it is added, at the start of step 1: before that the scene is the acid', () => {
+    expect(mechanism.actors.filter((a) => a.enters).map((a) => `${a.id} ${a.enters}`)).toEqual(['na', 'c', 'o-hydroxyl', 'o-acceptor', 'o-carbonyl', 'h-hydroxyl'].map((id) => `${id} dissolving`))
+    for (const t of [0, 0.03, 0.06, 0.1, 0.155]) {
+      const s = state(mechanism, t)
+      expect(s.atoms.map((a) => a.id)).toEqual(['o-hydronium', 'h-transfer', 'h-hydronium-1', 'h-hydronium-2', 'o-relay', 'h-relay-give', 'h-relay-keep', 'cl'])
+      expect(s.species.map((one) => ('ion' in one ? one.ion : 'unit' in one ? one.unit : one.speciesId))).toEqual(['hydronium', 'water', 'Cl'])
+      // No bond is drawn to an atom that is not there.
+      expect(s.bonds.every((b) => s.atoms.some((a) => a.id === b.a) && s.atoms.some((a) => a.id === b.b))).toBe(true)
+      expect(s.bonds).toHaveLength(5)
+    }
+    expect(state(mechanism, at('solid-ready')).atoms).toHaveLength(mechanism.actors.length)
+  })
+
+  it('has every atom of the scene in exactly one of its species, at every position', () => {
+    for (let i = 0; i <= 1000; i++) {
+      const s = state(mechanism, i / 1000)
+      expect(s.species.flatMap((one) => one.atoms).sort()).toEqual(s.atoms.map((a) => a.id).sort())
+    }
+  })
+
+  it('names the solid as one unit until it has come apart: until the move that parts its two ions is half done', () => {
+    expect(names(at('solid-ready'))).toEqual(['sodium-hydrogen-carbonate*', 'hydronium', 'water', 'Cl'])
+    expect(state(mechanism, 0.2).species[0]).toEqual({ unit: 'sodium-hydrogen-carbonate', atoms: ['na', 'c', 'o-hydroxyl', 'o-acceptor', 'o-carbonyl', 'h-hydroxyl'], active: true })
+    expect(names(at('solid-in'))).toEqual(['sodium-hydrogen-carbonate*', 'hydronium', 'water', 'Cl'])
+    expect(names(0.279)).toEqual(['sodium-hydrogen-carbonate*', 'hydronium', 'water', 'Cl'])
+    expect(names(0.281)).toEqual(['Na*', 'bicarbonate*', 'hydronium', 'water', 'Cl'])
+    expect(names(at('dissolved'))).toEqual(['Na', 'bicarbonate*', 'hydronium*', 'water', 'Cl'])
+    // Nowhere after that is anything a unit.
+    for (const t of grid.filter((x) => x > 0.28)) expect(state(mechanism, t).species.some((one) => 'unit' in one)).toBe(false)
+  })
+
+  it('names each species from the bonds as they are: a bond counts once it is more than half formed, and until less than half of it is left', () => {
+    const [start, end] = [at('encounter'), at('acid-formed')]
+    const middle = (start + end) / 2
+    // Step 2: the proton is still the hydronium ion's until it is half-way across, and carbonic acid's from then on.
+    expect(names(start + 0.01)).toEqual(['Na', 'bicarbonate*', 'hydronium*', 'water', 'Cl'])
+    expect(names(middle)).toEqual(['Na', 'bicarbonate*', 'hydronium*', 'water', 'Cl'])
+    expect(names(middle + 0.005)).toEqual(['Na', 'carbonic-acid*', 'water*', 'water', 'Cl'])
+    expect(names(end)).toEqual(['Na', 'carbonic-acid*', 'water', 'water*', 'Cl'])
+    expect(state(mechanism, middle + 0.005).species[1]).toMatchObject({ speciesId: 'carbonic-acid', atoms: ['o-hydroxyl', 'o-acceptor', 'o-carbonyl', 'c', 'h-hydroxyl', 'h-transfer'] })
+    // Step 3: carbonic acid and the water until the relay is half done, then carbon dioxide and two new waters.
+    const relay = (at('relay-ready') + at('split')) / 2
+    expect(names(relay)).toEqual(['Na', 'carbonic-acid*', 'water', 'water*', 'Cl'])
+    // In the actors' order: the water that left the carbon, the water that relayed, and the one that was the hydronium ion.
+    expect(names(relay + 0.005)).toEqual(['Na', 'carbon-dioxide*', 'water*', 'water*', 'water', 'Cl'])
     expect(names(0.8)).toEqual(['Na', 'carbon-dioxide*', 'water', 'water', 'water', 'Cl'])
     expect(names(1)).toEqual(['Na*', 'carbon-dioxide', 'water', 'water', 'water', 'Cl*'])
   })
 
-  it('marks the same atoms as taking part as the species they are in', () => {
+  it('a species named at a position has the bonds that count there, and no others: every bond over half is inside one species', () => {
+    for (let i = 0; i <= 1000; i++) {
+      const s = state(mechanism, i / 1000)
+      const { from, to } = moveAt(mechanism, s.t)
+      const orderIn = (k: typeof from, a: string, b: string) => k.bonds.find((x) => (x.a === a && x.b === b) || (x.a === b && x.b === a))?.order ?? 0
+      for (const b of s.bonds) {
+        const forming = orderIn(to, b.a, b.b) > orderIn(from, b.a, b.b)
+        const counts = forming ? b.order > 0.5 : b.order >= 0.5
+        const together = s.species.some((one) => one.atoms.includes(b.a) && one.atoms.includes(b.b))
+        expect([s.t, b.a, b.b, together]).toEqual([s.t, b.a, b.b, counts])
+      }
+    }
+  })
+
+  it('marks the species the chapter is about, and the same atoms as taking part as the species they are in', () => {
+    expect(names(0.03)).toEqual(['hydronium', 'water', 'Cl'])
+    expect(names(0.1)).toEqual(['hydronium*', 'water', 'Cl*'])
+    expect(names(0.4)).toEqual(['Na', 'bicarbonate*', 'hydronium*', 'water', 'Cl'])
     const s = state(mechanism, 0.4)
     expect(s.atoms.filter((a) => a.active).map((a) => a.id)).toEqual(['c', 'o-hydroxyl', 'o-acceptor', 'o-carbonyl', 'h-hydroxyl', 'o-hydronium', 'h-transfer', 'h-hydronium-1', 'h-hydronium-2'])
   })

@@ -3,6 +3,11 @@
   "title": "HCl + NaHCO₃, step by step",
   "species": [
     {
+      "id": "sodium-hydrogen-carbonate",
+      "name": "unit of solid sodium hydrogen carbonate",
+      "formula": "NaHCO₃"
+    },
+    {
       "id": "Na",
       "name": "sodium ion",
       "formula": "Na⁺"
@@ -42,6 +47,7 @@
     {
       "id": "na",
       "element": "Na",
+      "enters": "dissolving",
       "ion": {
         "charge": 1,
         "coordination": 6,
@@ -53,23 +59,28 @@
     },
     {
       "id": "c",
-      "element": "C"
+      "element": "C",
+      "enters": "dissolving"
     },
     {
       "id": "o-hydroxyl",
-      "element": "O"
+      "element": "O",
+      "enters": "dissolving"
     },
     {
       "id": "o-acceptor",
-      "element": "O"
+      "element": "O",
+      "enters": "dissolving"
     },
     {
       "id": "o-carbonyl",
-      "element": "O"
+      "element": "O",
+      "enters": "dissolving"
     },
     {
       "id": "h-hydroxyl",
-      "element": "H"
+      "element": "H",
+      "enters": "dissolving"
     },
     {
       "id": "o-hydronium",
@@ -807,6 +818,19 @@
           ]
         }
       ],
+      "units": [
+        {
+          "unit": "sodium-hydrogen-carbonate",
+          "atoms": [
+            "na",
+            "c",
+            "o-hydroxyl",
+            "o-acceptor",
+            "o-carbonyl",
+            "h-hydroxyl"
+          ]
+        }
+      ],
       "camera": {
         "target": [
           -1.653,
@@ -979,6 +1003,19 @@
           "charge": -1,
           "atoms": [
             "cl"
+          ]
+        }
+      ],
+      "units": [
+        {
+          "unit": "sodium-hydrogen-carbonate",
+          "atoms": [
+            "na",
+            "c",
+            "o-hydroxyl",
+            "o-acceptor",
+            "o-carbonyl",
+            "h-hydroxyl"
           ]
         }
       ],
@@ -1157,6 +1194,19 @@
           ]
         }
       ],
+      "units": [
+        {
+          "unit": "sodium-hydrogen-carbonate",
+          "atoms": [
+            "na",
+            "c",
+            "o-hydroxyl",
+            "o-acceptor",
+            "o-carbonyl",
+            "h-hydroxyl"
+          ]
+        }
+      ],
       "camera": {
         "target": [
           2,
@@ -1329,6 +1379,19 @@
           "charge": -1,
           "atoms": [
             "cl"
+          ]
+        }
+      ],
+      "units": [
+        {
+          "unit": "sodium-hydrogen-carbonate",
+          "atoms": [
+            "na",
+            "c",
+            "o-hydroxyl",
+            "o-acceptor",
+            "o-carbonyl",
+            "h-hydroxyl"
           ]
         }
       ],

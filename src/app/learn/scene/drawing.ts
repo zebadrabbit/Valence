@@ -36,7 +36,7 @@ export type Drawing = {
   arrows: DrawnArrow[]
   /** For each species of the state, in its order: the sphere that holds it. */
   species: Sphere[]
-  /** The charge of a monatomic ion, written on it: "Na⁺". */
+  /** The charge of a monatomic ion that is a species of its own, written on it: "Na⁺". */
   labels: { position: Vec3; text: string; height: number }[]
   outline: number
   /** What the camera frames: the state's own point, and its radius with room for the largest ball or sphere the chapter is about, since the state's radius holds centres. */
@@ -72,7 +72,8 @@ export function drawing(state: MechanismState, elements: readonly Element[]): Dr
       const sphere = boundingSphere(one.atoms.map((id) => at(id).position), one.atoms.map((id) => at(id).radius))
       return { center: sphere.center, radius: Math.max(sphere.radius, MIN_PICK_RADIUS) }
     }),
-    labels: state.atoms.flatMap((atom) => (atom.ion ? [{ position: atom.position, text: `${atom.element}${chargeText(atom.ion.charge)}`, height: atom.ion.radius }] : [])),
+    // An ion has its charge written on it once it is a thing of its own: not while it is part of a unit of a solid, which has one name.
+    labels: state.atoms.flatMap((atom) => (atom.ion && state.species.some((one) => 'ion' in one && one.atoms[0] === atom.id) ? [{ position: atom.position, text: `${atom.element}${chargeText(atom.ion.charge)}`, height: atom.ion.radius }] : [])),
     outline: state.camera.radius * OUTLINE_FRACTION,
     camera: { target: state.camera.target, radius: state.camera.radius + Math.max(...atoms.filter((_, i) => state.atoms[i]!.active || state.chapter.active.length === 0).map((atom) => atom.radius)) },
   }
