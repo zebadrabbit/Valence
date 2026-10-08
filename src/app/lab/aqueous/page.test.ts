@@ -11,7 +11,7 @@ import { aqueousData as data } from '@/chem-data/aqueous/data'
 import { AQUEOUS_PRIMER } from '@/chem-data/aqueous/primer'
 import { stationCitations } from '@/chem-data/citations'
 import sources from '@/chem-data/sources.json'
-import { FORMS, aqueousStateSchema, can, createLab, expectedObservation, reduce, stationView, type Action, type AqueousState } from '@/engine/aqueous'
+import { FORMS, LOOKS, aqueousStateSchema, can, createLab, describeStationResult, expectedObservation, reduce, stationView, type Action, type AqueousState } from '@/engine/aqueous'
 import { correctEntry, run, stationScript } from '@/engine/aqueous/testkit'
 import { AqueousBench } from './AqueousBench'
 import { AqueousPage } from './AqueousPage'
@@ -21,6 +21,7 @@ import {
   BENCH_TEXT,
   FIELD_LABEL,
   FORM_LABEL,
+  LOOK_PART,
   MODE_TEXT,
   PAGE_TEXT,
   PROBLEM_TEXT,
@@ -34,9 +35,9 @@ import {
   equationText,
   expectedLines,
   observationFeedback,
-  seenText,
   stationTitle,
   toolFirstText,
+  toolOutcome,
 } from './messages'
 import { SolubilityGrid } from './SolubilityTable'
 import aqueousCss from './aqueous.css?raw'
@@ -83,6 +84,15 @@ function bench(state: AqueousState, stationId = 'aq-01', reducedMotion = false) 
 /** The cards of a station, by their h3. */
 const cards = (station: string) => [...station.matchAll(/<h3[^>]*>(.*?)<\/h3>/g)].map((match) => match[1])
 const card = (station: string, heading: string) => station.split(/(?=<section aria-labelledby="[^"]+" class="grid min-w-0 justify-items-start)/).find((part) => part.includes(`>${heading}</h3>`))!
+/** The drawn tube, and the buttons laid over the sections of what is in it, from the top: each by the look it is, its name and where it lies, in hundredths of the picture. */
+const TUBE = '<svg viewBox="0 0 320 300"'
+const parts = (html: string) =>
+  [...html.matchAll(/<button type="button" data-part="([^"]+)" aria-label="([^"]+)"([^>]*)>(.*?)<\/button>/gs)].map(([, look, name, tag, body]) => {
+    const [, left, top, width, height] = /style="left:([\d.]+)%;top:([\d.]+)%;width:([\d.]+)%;height:([\d.]+)%/.exec(tag!)!.map(Number)
+    return { look: look!, name: name!, tag: tag!, body: body!, left: left!, top: top!, width: width!, height: height! }
+  })
+/** Looking at each part of a station's tube, which is what opens the eye's three questions. */
+const looks = (stationId: string) => LOOKS.map((tool): Action => ({ type: 'useTool', stationId, tool }))
 const builder = (station: string, form: (typeof FORMS)[number]) => station.split(/(?=<form [^>]*aria-labelledby)/).find((part) => part.includes(`>${FORM_LABEL[form]}</h4>`))!.split('</form>')[0]!
 
 beforeEach(() => {
@@ -165,7 +175,7 @@ describe('the aqueous reactions page', () => {
 })
 
 describe('the list of stations', () => {
-  const state = run(data, done(fresh(), 'aq-01'), [...stationScript(data, 'aq-02').slice(0, 2), { type: 'mix', stationId: 'aq-03' }])
+  const state = run(data, done(fresh(), 'aq-01'), [...stationScript(data, 'aq-02').slice(0, 5), { type: 'mix', stationId: 'aq-03' }])
   const { html, stations, shown } = bench(state, 'aq-03')
   const listed = [...html.match(/<ol[^>]*>(.*?)<\/ol>/s)![1]!.matchAll(/<li><button([^>]*)>(.*?)<\/button><\/li>/gs)].map(([, tag, body]) => ({ current: tag!.includes('aria-current="true"'), words: read(body!) }))
 
@@ -244,7 +254,9 @@ describe('a station before its tube is mixed', () => {
     const mix = buttons(tube).find(({ name }) => name === BENCH_TEXT.mix)!
     expect(mix.tag).not.toContain('aria-disabled="true"')
     expect(tube).toMatch(new RegExp(`<p id="[^"]+" role="status"[^>]*>${BENCH_TEXT.notMixed}</p>`))
-    expect(tube).not.toContain('<svg viewBox="0 0 120 190"')
+    expect(tube).not.toContain(TUBE)
+    expect(parts(tube)).toEqual([])
+    expect(tube).not.toContain(PAGE_TEXT.explore)
   })
 
   it('takes equations already, as the engine does: three builders, each with "No reaction", the palette and Check', () => {
@@ -272,16 +284,91 @@ describe('a station once its tube is mixed', () => {
     expect(mix.tag).not.toMatch(FAINT)
   })
 
-  it('draws the tube as a picture described by the words under it, which say what is seen at every station', () => {
+  it('draws the tube as a picture described by the line beside it, which says what to do with the picture and is a status line', () => {
     for (const { id } of data.stations) {
       const tube = card(bench(mixed(id), id).station, PAGE_TEXT.tube)
-      const [, describedBy] = new RegExp(`<svg viewBox="0 0 120 190" role="img" aria-label="${PAGE_TEXT.tubePicture}" aria-describedby="([^"]+)"`).exec(tube)!
-      expect(tube, id).toContain(`<p id="${describedBy}" role="status" class="max-w-prose flex-1 basis-64">${escaped(seenText(data, id))}</p>`)
+      const [, describedBy] = new RegExp(`${TUBE} role="img" aria-label="${PAGE_TEXT.tubePicture}" aria-describedby="([^"]+)"`).exec(tube)!
+      expect(tube, id).toContain(`<p id="${describedBy}" role="status">${PAGE_TEXT.explore}</p>`)
     }
   })
 
+  it('says nowhere what is seen in the tube until a part of it is looked at: not the whole of it, and not a part', () => {
+    for (const mode of ['guided', 'challenge'] as const) {
+      for (const { id } of data.stations) {
+        const { station } = bench(mixed(id, mode), id)
+        const shown = station.replace(/<details>.*?<\/details>/gs, '')
+        expect(shown, id).not.toContain(escaped(describeStationResult(data, id)))
+        for (const look of LOOKS) expect(station, `${id} ${look}`).not.toContain(escaped(toolOutcome(data, id, look)))
+        // Nor the colours, on the two cards of the tube and of the observations, in text or in an attribute: but among the choices of the questions, in the drawing's own fills and, in Guided, in the list that is closed.
+        const beside = [PAGE_TEXT.tube, PAGE_TEXT.observations].map((heading) => card(shown, heading)).join('').replace(/<fieldset.*?<\/fieldset>/gs, '').replace(/<svg.*?<\/svg>/gs, '')
+        const { liquidColor, precipitateColor } = data.stations[number(id)]!.expected
+        for (const colour of [liquidColor, precipitateColor]) if (colour) expect(beside.replace(/ (?:class|style|id|type|name)="[^"]*"/g, ''), `${id} ${colour}`).not.toContain(colour)
+      }
+    }
+  })
+
+  it('lays a real button over each section of what is in the tube, stacked as they are drawn: the surface, the liquid, the bottom, each named for the look it is', () => {
+    for (const { id } of data.stations) {
+      const drawn = parts(card(bench(mixed(id), id).station, PAGE_TEXT.tube))
+      expect(drawn.map(({ look, name }) => [look, name]), id).toEqual([
+        ['look-surface', TOOL_LABEL['look-surface']],
+        ['look-liquid', TOOL_LABEL['look-liquid']],
+        ['look-bottom', TOOL_LABEL['look-bottom']],
+      ])
+      for (const part of drawn) {
+        // Never unavailable: a look changes nothing but that the part has been looked at. And closed: no callout until it is looked at.
+        expect(part.tag, part.name).not.toMatch(/disabled/)
+        expect(part.body, part.name).toBe('')
+      }
+    }
+  })
+
+  it('makes each section a target a finger finds where the picture has its 300 px of height, the bottom with no solid in it and the surface with no bubbles too, inside the glass and with no gap between two', () => {
+    for (const id of ['aq-01', 'aq-05', 'aq-07']) {
+      const [surface, liquid, bottom] = parts(card(bench(mixed(id), id).station, PAGE_TEXT.tube))
+      for (const part of [surface!, liquid!, bottom!]) {
+        expect((part.height / 100) * 300, part.name).toBeGreaterThanOrEqual(44)
+        expect((part.width / 100) * 320, part.name).toBeGreaterThanOrEqual(44)
+        // The glass is drawn from 48 to 128 of the picture's 320.
+        expect((part.left / 100) * 320).toBeGreaterThanOrEqual(48)
+        expect(((part.left + part.width) / 100) * 320).toBeLessThanOrEqual(128)
+      }
+      expect(liquid!.top).toBeCloseTo(surface!.top + surface!.height, 5)
+      expect(bottom!.top).toBeCloseTo(liquid!.top + liquid!.height, 5)
+      // The surface of the liquid is drawn inside the top section, and the solid fills the bottom one.
+      const svg = new RegExp(`${TUBE}.*?</svg>`, 's').exec(bench(mixed(id), id).station)![0]
+      const [, line] = /<line x1="48" x2="128" y1="(\d+)"/.exec(svg)!
+      expect(Number(line)).toBeGreaterThan((surface!.top / 100) * 300)
+      expect(Number(line)).toBeLessThan((liquid!.top / 100) * 300)
+      if (id === 'aq-01') expect(Number(/<rect x="48" y="(\d+)"[^>]*stroke-width="1.2"/.exec(svg)![1])).toBeCloseTo((bottom!.top / 100) * 300, 5)
+    }
+  })
+
+  it('says beside the picture, of each part and in the picture\'s order, whether it has been looked at: a mark and the words, and the same in the name of the part\'s button', () => {
+    const list = (state: AqueousState) => [...card(bench(state).station, PAGE_TEXT.tube).matchAll(/<li><span aria-hidden="true"( class="[^"]+")?>(.) <\/span>(.*?)<\/li>/g)].map(([, role, mark, words]) => [mark, words, role ?? ''])
+    expect(list(mixed('aq-01'))).toEqual([
+      ['○', `${LOOK_PART['look-surface']}: ${PAGE_TEXT.notLookedAt}`, ''],
+      ['○', `${LOOK_PART['look-liquid']}: ${PAGE_TEXT.notLookedAt}`, ''],
+      ['○', `${LOOK_PART['look-bottom']}: ${PAGE_TEXT.notLookedAt}`, ''],
+    ])
+    const one = run(data, mixed('aq-01'), [{ type: 'useTool', stationId: 'aq-01', tool: 'look-liquid' }])
+    expect(list(one)).toEqual([
+      ['○', `${LOOK_PART['look-surface']}: ${PAGE_TEXT.notLookedAt}`, ''],
+      ['✓', `${LOOK_PART['look-liquid']}: ${PAGE_TEXT.lookedAt}`, ` class="${ROLE.done}"`],
+      ['○', `${LOOK_PART['look-bottom']}: ${PAGE_TEXT.notLookedAt}`, ''],
+    ])
+    expect(parts(card(bench(one).station, PAGE_TEXT.tube)).map(({ name }) => name)).toEqual([TOOL_LABEL['look-surface'], `${TOOL_LABEL['look-liquid']}, ${PAGE_TEXT.lookedAt}`, TOOL_LABEL['look-bottom']])
+    // A section not yet looked at is drawn with a dashed edge; one that has been is not.
+    expect(parts(card(bench(one).station, PAGE_TEXT.tube)).map(({ tag }) => tag.includes('border-dashed'))).toEqual([true, false, true])
+  })
+
+  it('has a line for what a look shows, for a screen reader alone, beside the line for what a press of Mix says', () => {
+    const tube = card(bench(mixed('aq-01')).station, PAGE_TEXT.tube)
+    expect(tube).toContain('<div class="sr-only"><p role="status"></p></div><p role="status"></p>')
+  })
+
   it('draws the liquid in its colour on a white card, a layer of solid where one forms, and bubbles where a gas comes off', () => {
-    const drawn = (stationId: string, reducedMotion = false) => /<svg viewBox="0 0 120 190".*?<\/svg>/s.exec(bench(mixed(stationId), stationId, reducedMotion).station)![0]
+    const drawn = (stationId: string, reducedMotion = false) => new RegExp(`${TUBE}.*?</svg>`, 's').exec(bench(mixed(stationId), stationId, reducedMotion).station)![0]
     expect(drawn('aq-04')).toContain('fill="#ffffff" stroke="#3f3f46" stroke-opacity="0.35"')
     expect(drawn('aq-04')).toContain(`fill="${data.species.find((s) => s.id === 'copper-ii-ion')!.solutionColor!.value.hex}"`)
     expect(count(drawn('aq-04'), /<rect/g)).toBe(3)
@@ -290,10 +377,12 @@ describe('a station once its tube is mixed', () => {
     expect(count(drawn('aq-07'), /<circle/g)).toBe(6)
     expect(count(drawn('aq-10'), /<circle/g)).toBe(6)
     expect(count(drawn('aq-06'), /<circle/g)).toBe(0)
+    // No wider than its card, and 300 px tall where the card has the room.
+    expect(card(bench(mixed('aq-04'), 'aq-04').station, PAGE_TEXT.tube)).toContain('<div class="relative w-80 max-w-full shrink-0">')
   })
 
   it('moves the bubbles only where the reduced-motion setting allows, and then not for longer than five seconds', () => {
-    const drawn = (reducedMotion: boolean) => /<svg viewBox="0 0 120 190".*?<\/svg>/s.exec(bench(mixed('aq-07'), 'aq-07', reducedMotion).station)![0]
+    const drawn = (reducedMotion: boolean) => new RegExp(`${TUBE}.*?</svg>`, 's').exec(bench(mixed('aq-07'), 'aq-07', reducedMotion).station)![0]
     expect(count(drawn(false), /class="aq-bubble"/g)).toBe(6)
     expect(drawn(true)).not.toContain('aq-bubble')
     expect(count(drawn(true), /<circle/g)).toBe(6)
@@ -304,6 +393,7 @@ describe('a station once its tube is mixed', () => {
 
   it('has no tools card where the eye is the only tool, and one button for each way of applying a tool where there are more', () => {
     expect(cards(bench(mixed('aq-01')).station)).toEqual([PAGE_TEXT.tube, PAGE_TEXT.observations, PAGE_TEXT.equations])
+    // A look at the tube is not a button of the tools card: it is made on the picture.
     const names = (stationId: string) => buttons(card(bench(mixed(stationId), stationId).station, PAGE_TEXT.tools)).map(({ name }) => name)
     expect(names('aq-06')).toEqual([TOOL_LABEL.waft, TOOL_LABEL['litmus-liquid'], TOOL_LABEL['litmus-vapour'], TOOL_LABEL.sniff])
     expect(names('aq-08')).toEqual([TOOL_LABEL.touch, TOOL_LABEL.thermometer])
@@ -328,7 +418,7 @@ describe('a station once its tube is mixed', () => {
   })
 
   it('asks one question for each field the station shows, each a group of radio buttons of one name with a choice for each answer, none chosen', () => {
-    const form = card(bench(mixed('aq-06'), 'aq-06').station, PAGE_TEXT.observations)
+    const form = card(bench(run(data, mixed('aq-06'), looks('aq-06')), 'aq-06').station, PAGE_TEXT.observations)
     const groups = [...form.matchAll(/<fieldset([^>]*)><legend[^>]*>(.*?)<\/legend>(.*?)<\/fieldset>/gs)].map(([, tag, legend, body]) => ({ disabled: tag!.includes('disabled=""'), legend: text(legend!), names: new Set([...body!.matchAll(/name="([^"]+)"/g)].map((match) => match[1])), choices: [...body!.matchAll(/<label[^>]*>(.*?)<\/label>/g)].map((match) => text(match[1]!)), body: body! }))
     expect(groups.map(({ legend }) => legend)).toEqual(stationView(data, mixed('aq-06'), 'aq-06').fields.map((field) => FIELD_LABEL[field]))
     expect(groups).toHaveLength(6)
@@ -336,7 +426,7 @@ describe('a station once its tube is mixed', () => {
     expect(new Set(groups.flatMap(({ names }) => [...names])).size).toBe(6)
     expect(groups[0]!.choices).toEqual(['no solid', 'white', 'rust-brown', 'blue-green', 'pale green', 'blue', 'black'])
     expect(form).not.toContain('checked=""')
-    // What the eye sees can be answered at once; what a tool shows waits for the tool, and says which.
+    // What the eye has looked at can be answered; what a tool shows waits for the tool, and says which.
     expect(groups.map(({ disabled }) => disabled)).toEqual([false, false, false, true, true, true])
     expect(groups[3]!.body).toContain(`<p class="${ROLE.held}">${toolFirstText(['waft'])}</p>`)
     expect(groups[0]!.body).not.toContain(ROLE.held)
@@ -344,9 +434,24 @@ describe('a station once its tube is mixed', () => {
     expect(count(form, /<label class="flex min-h-11 /g)).toBe(groups.reduce((n, { choices }) => n + choices.length, 0))
   })
 
+  it('keeps each of the eye\'s three questions closed until its own part of the tube has been looked at, and says under it which part that is', () => {
+    const groups = (state: AqueousState) => [...card(bench(state).station, PAGE_TEXT.observations).matchAll(/<fieldset([^>]*)>(.*?)<\/fieldset>/gs)].map(([, tag, body]) => ({ disabled: tag!.includes('disabled=""'), waits: new RegExp(`<p class="${ROLE.held}">(.*?)</p>`).exec(body!)?.[1] ?? null }))
+    expect(groups(mixed('aq-01'))).toEqual([
+      { disabled: true, waits: toolFirstText(['look-bottom']) },
+      { disabled: true, waits: toolFirstText(['look-liquid']) },
+      { disabled: true, waits: toolFirstText(['look-surface']) },
+    ])
+    const one = run(data, mixed('aq-01'), [{ type: 'useTool', stationId: 'aq-01', tool: 'look-liquid' }])
+    expect(groups(one).map(({ disabled }) => disabled)).toEqual([true, false, true])
+    expect(groups(one)[1]!.waits).toBeNull()
+    expect(groups(run(data, mixed('aq-01'), looks('aq-01'))).map(({ disabled }) => disabled)).toEqual([false, false, false])
+    // The same in Challenge: a look opens a question and shows nothing of what is expected.
+    expect(groups(run(data, mixed('aq-01', 'challenge'), looks('aq-01'))).map(({ disabled }) => disabled)).toEqual([false, false, false])
+  })
+
   it('opens a question once its tool has been used: either the touch or the thermometer for the temperature', () => {
     for (const tool of ['touch', 'thermometer'] as const) {
-      const state = run(data, mixed('aq-08'), [{ type: 'useTool', stationId: 'aq-08', tool }])
+      const state = run(data, mixed('aq-08'), [...looks('aq-08'), { type: 'useTool', stationId: 'aq-08', tool }])
       const form = card(bench(state, 'aq-08').station, PAGE_TEXT.observations)
       expect(count(form, /<fieldset disabled=""/g)).toBe(0)
       expect(form).not.toContain('Not yet.')
@@ -373,14 +478,14 @@ describe('a station once its tube is mixed', () => {
     for (const line of expectedLines(data, 'aq-02')) expect(count(guided, new RegExp(line, 'g'))).toBe(1)
     expect(read(card(guided, PAGE_TEXT.equations))).toContain(`|${BENCH_TEXT.hints}|${data.stations[1]!.hints.map(escaped).join('|')}|`)
     expect(guided).not.toContain(PAGE_TEXT.challengeHidden)
-    const challenge = bench(mixed('aq-02', 'challenge'), 'aq-02').station
+    const challenge = bench(run(data, mixed('aq-02', 'challenge'), looks('aq-02')), 'aq-02').station
     expect(challenge).not.toContain(BENCH_TEXT.expected)
     expect(challenge).not.toContain(BENCH_TEXT.hints)
     for (const line of expectedLines(data, 'aq-02')) expect(challenge).not.toContain(line)
     for (const hint of data.stations[1]!.hints) expect(challenge).not.toContain(escaped(hint))
     expect(card(challenge, PAGE_TEXT.observations)).toContain(`</form><p class="max-w-prose text-muted-foreground">${PAGE_TEXT.challengeHidden}</p>`)
     // Once the learner has recorded their own, right or not, Challenge shows both: the hints, and the same closed list.
-    const recorded = run(data, mixed('aq-02', 'challenge'), [{ type: 'recordObservation', stationId: 'aq-02', observation: { solid: 'white', liquid: 'blue', bubbles: 'none' } }])
+    const recorded = run(data, mixed('aq-02', 'challenge'), [...looks('aq-02'), { type: 'recordObservation', stationId: 'aq-02', observation: { solid: 'white', liquid: 'blue', bubbles: 'none' } }])
     const after = bench(recorded, 'aq-02').station
     expect(card(after, PAGE_TEXT.observations)).toMatch(new RegExp(`</form><details><summary[^>]*>${BENCH_TEXT.expected}</summary>`))
     expect(after).toContain(BENCH_TEXT.hints)
@@ -389,7 +494,7 @@ describe('a station once its tube is mixed', () => {
 })
 
 describe('a recorded observation', () => {
-  const at = (observation: Record<string, string>) => run(data, fresh('challenge'), [{ type: 'mix', stationId: 'aq-04' }, { type: 'recordObservation', stationId: 'aq-04', observation }])
+  const at = (observation: Record<string, string>) => run(data, fresh('challenge'), [{ type: 'mix', stationId: 'aq-04' }, ...looks('aq-04'), { type: 'recordObservation', stationId: 'aq-04', observation }])
   const wrong = bench(at({ solid: 'blue', liquid: 'blue', bubbles: 'bubbles' }), 'aq-04').station
   const right = bench(at(expectedObservation(data.stations[3]!)), 'aq-04').station
 
@@ -574,8 +679,11 @@ describe('a lab that is complete', () => {
     expect(bench(done(fresh(), 'aq-06'), 'aq-06').station).not.toContain(reason)
   })
 
-  it('leaves every button of the tube and the tools focusable and unavailable', () => {
-    for (const heading of [PAGE_TEXT.tube, PAGE_TEXT.tools]) for (const { tag, name } of buttons(card(station, heading))) expect(tag, name).toContain('aria-disabled="true"')
+  it('leaves every button of the tube and the tools focusable and unavailable, but the three parts of the picture, which can still be looked at', () => {
+    for (const heading of [PAGE_TEXT.tube, PAGE_TEXT.tools]) for (const { tag, name } of buttons(card(station, heading)).filter(({ tag }) => !tag.includes('data-part'))) expect(tag, name).toContain('aria-disabled="true"')
+    const drawn = parts(card(station, PAGE_TEXT.tube))
+    expect(drawn.map(({ name }) => name)).toEqual((['look-surface', 'look-liquid', 'look-bottom'] as const).map((look) => `${TOOL_LABEL[look]}, ${PAGE_TEXT.lookedAt}`))
+    for (const { tag } of drawn) expect(tag).not.toMatch(/disabled/)
   })
 
   it('does not say a station is done before it is', () => {
@@ -590,6 +698,7 @@ describe('the record', () => {
   const wrongEntry = { noReaction: false, reactants: [{ speciesId: 'copper-ii-ion', coefficient: 1, state: 'aq' as const }], products: [{ speciesId: 'copper-ii-carbonate', coefficient: 1, state: 'aq' as const }] }
   const state = run(data, done(fresh(), 'aq-01'), [
     { type: 'mix', stationId: 'aq-02' },
+    ...looks('aq-02'),
     { type: 'recordObservation', stationId: 'aq-02', observation: { solid: 'white', liquid: 'colourless', bubbles: 'none' } },
     { type: 'enterEquation', stationId: 'aq-02', form: 'netIonic', entry: wrongEntry },
     { type: 'mix', stationId: 'aq-03' },

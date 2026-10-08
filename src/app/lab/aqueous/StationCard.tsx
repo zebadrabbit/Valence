@@ -7,11 +7,12 @@ import { Bottle } from '@/app/lab/titration/apparatus'
 import type { AqueousData } from '@/chem-data/aqueous/data'
 import { stationCitations } from '@/chem-data/citations'
 import type { Source } from '@/chem-data/schema'
-import { FORMS, checkEquation, usesShowing, wrongFields, type Action, type Blocked, type StationView, type ToolUse } from '@/engine/aqueous'
+import { FORMS, checkEquation, isLook, usesShowing, wrongFields, type Action, type Blocked, type Look, type StationView, type ToolUse } from '@/engine/aqueous'
 import { EquationBuilder } from './EquationBuilder'
 import { Line, useSaid } from './Line'
 import {
   BENCH_TEXT,
+  LOOK_PART,
   PAGE_TEXT,
   PROGRESS_TEXT,
   STATE_KEY,
@@ -21,13 +22,12 @@ import {
   blockedText,
   expectedLines,
   observationRefusal,
-  seenText,
   stationTitle,
   toolOutcome,
 } from './messages'
 import { ObservationForm } from './ObservationForm'
 import { progressOf, tubeLook, type Progress } from './stationLook'
-import { Tube } from './Tube'
+import { STACK, Tube } from './Tube'
 
 /** Beside a station's progress in words, and hidden from a screen reader, which is given the words. */
 export const PROGRESS_MARK: Record<Progress, string> = { 'not-started': '○', started: '◔', observed: '◑', done: '✓' }
@@ -83,7 +83,9 @@ function Listed({ items }: { items: readonly string[] }) {
 
 /**
  * One station, as a short column of steps, each a card: the tube, with its two reagents and Mix; once it is mixed,
- * the tools and then the observations; and the three equations, which the engine takes at any time. A card is
+ * the picture of it to explore, the tools and then the observations; and the three equations, which the engine
+ * takes at any time. Nothing says what is seen in the tube but the part of the picture that is looked at, and each
+ * of the eye's questions waits for its part. A card is
  * there only when the engine has a use for it, and a button on a card that cannot be used now stays focusable and
  * says why when pressed. The station's notes come once the station is done, under the equations, and its Sources
  * are at its foot.
@@ -100,9 +102,10 @@ export function StationCard({ data, sources, stationId, view, reducedMotion, can
   const heldId = useId()
   const [tubeSaid, sayOfTube] = useSaid()
   const [toolSaid, sayOfTool] = useSaid()
+  const [lookSaid, sayOfLook] = useSaid()
   const progress = progressOf(view)
   // What the record alone fixes for a station, worked out once for the card's life and not at every press.
-  const fixed = useMemo(() => ({ look: tubeLook(data, stationId), seen: seenText(data, stationId), cited: stationCitations(data, stationId, sources) }), [data, stationId, sources])
+  const fixed = useMemo(() => ({ look: tubeLook(data, stationId), cited: stationCitations(data, stationId, sources) }), [data, stationId, sources])
   const mix: Action = { type: 'mix', stationId }
   // Whatever holds the whole lab holds every entry here. It is said once, at the station's head, and that sentence is the description of each entry's button.
   const completed = can(mix) === 'lab-completed' ? blockedText(data, mix, 'lab-completed') : null
@@ -115,6 +118,13 @@ export function StationCard({ data, sources, stationId, view, reducedMotion, can
     say(done)
   }
   const tool = (use: ToolUse | 'sniff'): Action => ({ type: 'useTool', stationId, tool: use })
+  // The eye's uses are made on the picture of the tube; the tools card has the rest.
+  const tools = view.uses.filter((use) => !isLook(use))
+  /** A part of the tube is looked at: stored the first time, where the engine takes it, and said each time. A completed lab stores nothing and can still be looked at. */
+  const look = (part: Look) => {
+    if (!view.used.includes(part) && can(tool(part)) === null) act(tool(part))
+    sayOfLook(toolOutcome(data, stationId, part))
+  }
   // Smelling the tube directly is offered where the engine answers it with the caution: where wafting is a tool.
   const sniffed = view.uses.includes('waft')
 
@@ -182,20 +192,41 @@ export function StationCard({ data, sources, stationId, view, reducedMotion, can
             BENCH_TEXT.mix
           )}
         </Control>
-        <div className="flex flex-wrap items-center gap-4">
-          {view.mixed && <Tube look={fixed.look} reducedMotion={reducedMotion} describedBy={seenId} />}
-          {/* What is seen, in words: said when the tube is mixed, and the description of the drawing. */}
-          <p id={seenId} role="status" className="max-w-prose flex-1 basis-64">
-            {view.mixed ? fixed.seen : BENCH_TEXT.notMixed}
-          </p>
+        <div className="flex w-full flex-wrap items-start gap-4">
+          {view.mixed && <Tube look={fixed.look} reducedMotion={reducedMotion} describedBy={seenId} uses={view.uses} used={view.used} seen={(part) => toolOutcome(data, stationId, part)} onLook={look} />}
+          <div className="grid max-w-prose flex-1 basis-56 content-start gap-2">
+            {/* What to do with the picture, said when the tube is mixed, and the picture's description. What is seen is not said here: a part says it when it is looked at. */}
+            <p id={seenId} role="status">
+              {view.mixed ? PAGE_TEXT.explore : BENCH_TEXT.notMixed}
+            </p>
+            {view.mixed && (
+              <ul className="grid gap-1">
+                {STACK.filter((part) => view.uses.includes(part)).map((part) => {
+                  const looked = view.used.includes(part)
+                  return (
+                    <li key={part}>
+                      <span aria-hidden="true" className={looked ? ROLE.done : undefined}>
+                        {looked ? '✓' : '○'}{' '}
+                      </span>
+                      {LOOK_PART[part]}: {looked ? PAGE_TEXT.lookedAt : PAGE_TEXT.notLookedAt}
+                    </li>
+                  )
+                })}
+              </ul>
+            )}
+          </div>
+        </div>
+        {/* What the part looked at shows, for a screen reader: the eye has the callout beside the part. */}
+        <div className="sr-only">
+          <Line said={lookSaid} />
         </div>
         <Line said={tubeSaid} />
       </Step>
 
-      {view.mixed && view.uses.length > 0 && (
+      {view.mixed && tools.length > 0 && (
         <Step heading={PAGE_TEXT.tools}>
           <div className="flex flex-wrap gap-1.5">
-            {view.uses.map((use) => (
+            {tools.map((use) => (
               <Control key={use} unavailable={can(tool(use)) !== null} className="h-auto min-h-11 px-3 py-1 text-left whitespace-normal" onClick={() => press(tool(use), sayOfTool, toolOutcome(data, stationId, use))}>
                 <span>
                   {view.used.includes(use) && (

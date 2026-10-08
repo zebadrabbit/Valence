@@ -17,14 +17,14 @@
 }
 @keyframes aq-bubble-rise {
   from {
-    transform: translateY(20px);
+    transform: translateY(30px);
     opacity: 0;
   }
   25% {
     opacity: 1;
   }
   to {
-    transform: translateY(-36px);
+    transform: translateY(-54px);
     opacity: 0;
   }
 }

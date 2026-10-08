@@ -8,7 +8,7 @@ import { stationDone, type AqueousState } from './state'
 
 export interface StationView {
   mixed: boolean
-  /** The ways the station's tools can be applied, and those that have been. */
+  /** The ways the station's tools can be applied, the eye's three looks at the tube among them, and those that have been. */
   uses: ToolUse[]
   used: ToolUse[]
   /** The fields its observation is recorded in. */

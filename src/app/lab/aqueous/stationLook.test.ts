@@ -1,8 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { aqueousData as data } from '@/chem-data/aqueous/data'
-import { createLab, stationView } from '@/engine/aqueous'
+import { createLab, describeStationResult, stationView } from '@/engine/aqueous'
 import { run, stationScript } from '@/engine/aqueous/testkit'
-import { seenText } from './messages'
 import { blend, openingStation, progressOf, tubeLook } from './stationLook'
 
 describe('what the drawn tube shows', () => {
@@ -23,10 +22,10 @@ describe('what the drawn tube shows', () => {
     })
   })
 
-  it('agrees with the expected record and with the words under it: the same solid, the same colour of liquid, bubbles or none', () => {
+  it('agrees with the expected record and with the engine\'s description of the tube: the same solid, the same colour of liquid, bubbles or none', () => {
     for (const station of data.stations) {
       const look = looks[station.id]!
-      const words = seenText(data, station.id)
+      const words = describeStationResult(data, station.id)
       expect(look.liquid.name, station.id).toBe(station.expected.liquidColor)
       expect(look.solid?.name ?? null, station.id).toBe(station.expected.precipitateColor)
       expect(look.bubbles, station.id).toBe(station.expected.bubbles)
@@ -67,15 +66,16 @@ describe('how far a station has come', () => {
 
   it('is not started until the tube is mixed or an equation entered, started from then, observed once the observation is correct, and done with the three equations', () => {
     const script = stationScript(data, 'aq-06')
-    expect(script.map((action) => action.type)).toEqual(['mix', 'useTool', 'useTool', 'useTool', 'recordObservation', 'enterEquation', 'enterEquation', 'enterEquation'])
-    expect([0, 1, 4, 5, 7, 8].map((n) => at(n))).toEqual(['not-started', 'started', 'started', 'observed', 'observed', 'done'])
+    // Three looks at the tube, then the station's three tools.
+    expect(script.map((action) => action.type)).toEqual(['mix', ...Array.from({ length: 6 }, () => 'useTool'), 'recordObservation', 'enterEquation', 'enterEquation', 'enterEquation'])
+    expect([0, 1, 4, 7, 8, 10, 11].map((n) => at(n))).toEqual(['not-started', 'started', 'started', 'started', 'observed', 'observed', 'done'])
   })
 
   it('is started by an equation entered before the tube is mixed, and by an observation that is not yet correct', () => {
     const lab = createLab(data, 'guided')
     const early = run(data, lab, [stationScript(data, 'aq-01').at(-1)!])
     expect(progressOf(stationView(data, early, 'aq-01'))).toBe('started')
-    const wrong = run(data, lab, [{ type: 'mix', stationId: 'aq-01' }, { type: 'recordObservation', stationId: 'aq-01', observation: { solid: 'white', liquid: 'colourless', bubbles: 'none' } }])
+    const wrong = run(data, lab, [...stationScript(data, 'aq-01').slice(0, 4), { type: 'recordObservation', stationId: 'aq-01', observation: { solid: 'white', liquid: 'colourless', bubbles: 'none' } }])
     expect(progressOf(stationView(data, wrong, 'aq-01'))).toBe('started')
   })
 })

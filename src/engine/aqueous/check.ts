@@ -11,16 +11,23 @@ export type Field = (typeof FIELDS)[number]
 export type Observation = Partial<Record<Field, string>>
 
 export type Tool = Station['observationTools'][number]
-/** A tool as it is applied. The eye needs no applying; litmus has two positions (spec 8.2). */
-export const TOOL_USES = ['waft', 'litmus-liquid', 'litmus-vapour', 'touch', 'thermometer', 'splint'] as const
+/**
+ * The eye as it is applied: by looking at one part of what is in the tube, as the parts lie in it. The bottom,
+ * where a solid settles; the liquid; and the liquid's surface, where bubbles rise and break.
+ */
+export const LOOKS = ['look-bottom', 'look-liquid', 'look-surface'] as const
+export type Look = (typeof LOOKS)[number]
+/** A tool as it is applied. The eye has its three parts of the tube; litmus has two positions (spec 8.2). */
+export const TOOL_USES = [...LOOKS, 'waft', 'litmus-liquid', 'litmus-vapour', 'touch', 'thermometer', 'splint'] as const
 export type ToolUse = (typeof TOOL_USES)[number]
+export const isLook = (use: string): use is Look => (LOOKS as readonly string[]).includes(use)
 
-const USES: Record<Tool, readonly ToolUse[]> = { eye: [], waft: ['waft'], litmus: ['litmus-liquid', 'litmus-vapour'], touch: ['touch'], thermometer: ['thermometer'], splint: ['splint'] }
-/** The fields each tool shows; a tool that is applied shows them by the uses listed. */
-const SHOWS: Record<Field, readonly ToolUse[] | 'eye'> = {
-  solid: 'eye',
-  liquid: 'eye',
-  bubbles: 'eye',
+const USES: Record<Tool, readonly ToolUse[]> = { eye: LOOKS, waft: ['waft'], litmus: ['litmus-liquid', 'litmus-vapour'], touch: ['touch'], thermometer: ['thermometer'], splint: ['splint'] }
+/** The uses that show each field: any one of them, where there are two. */
+const SHOWS: Record<Field, readonly ToolUse[]> = {
+  solid: ['look-bottom'],
+  liquid: ['look-liquid'],
+  bubbles: ['look-surface'],
   odor: ['waft'],
   litmusInLiquid: ['litmus-liquid'],
   litmusInVapour: ['litmus-vapour'],
@@ -31,15 +38,11 @@ const SHOWS: Record<Field, readonly ToolUse[] | 'eye'> = {
 /** The ways the station's tools can be applied, in the order of TOOL_USES. */
 export const usesOf = (station: Station): ToolUse[] => TOOL_USES.filter((use) => station.observationTools.some((tool) => USES[tool].includes(use)))
 
-/** The uses, among the station's, any one of which shows a field; none for a field the eye shows. */
-export const usesShowing = (station: Station, field: Field): ToolUse[] => {
-  const shows = SHOWS[field]
-  return shows === 'eye' ? [] : usesOf(station).filter((use) => shows.includes(use))
-}
+/** The uses, among the station's, any one of which shows a field. */
+export const usesShowing = (station: Station, field: Field): ToolUse[] => usesOf(station).filter((use) => SHOWS[field].includes(use))
 
 /** The fields the station's tools can show, which are the ones asked and graded. */
-export const fieldsOf = (station: Station): Field[] =>
-  FIELDS.filter((field) => (SHOWS[field] === 'eye' ? station.observationTools.includes('eye') : usesShowing(station, field).length > 0))
+export const fieldsOf = (station: Station): Field[] => FIELDS.filter((field) => usesShowing(station, field).length > 0)
 
 /** What a field is recorded from. */
 export function choicesFor(data: AqueousData, field: Field): readonly string[] {

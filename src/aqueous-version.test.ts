@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { ACTIVITIES } from './app/activities'
 import { aqueousData } from './chem-data/aqueous/data'
-import { expectedObservation } from './engine/aqueous/check'
+import { TOOL_USES, expectedObservation } from './engine/aqueous/check'
 import { stationResult } from './engine/aqueous/react'
 import { createLab } from './engine/aqueous/state'
 import { correctEntry } from './engine/aqueous/testkit'
@@ -23,6 +23,8 @@ describe('the aqueous reactions lab', () => {
       entry,
       version,
       state: { ...createLab(aqueousData, 'guided'), stations: createLab(aqueousData, 'guided').stations.slice(0, 1) },
+      // What a station's `used` can hold. The first three are the parts of the tube looked at, which an observation of what the eye sees is held to.
+      uses: [...TOOL_USES],
       stations: aqueousData.stations.map((station) => {
         const result = stationResult(aqueousData, station.id)
         return [station.id, result.rules.join(), result.limiting.join(), result.temperatureRiseC.toFixed(2), JSON.stringify(expectedObservation(station)), written(station.id)].join(' | ')
@@ -31,6 +33,7 @@ describe('the aqueous reactions lab', () => {
       entry: 'lab:aqueous',
       version: 1,
       state: { mode: 'guided', status: 'in-progress', stations: [{ mixed: false, used: [], observation: null, equations: { molecular: null, completeIonic: null, netIonic: null } }] },
+      uses: ['look-bottom', 'look-liquid', 'look-surface', 'waft', 'litmus-liquid', 'litmus-vapour', 'touch', 'thermometer', 'splint'],
       stations: [
         'aq-01 | precipitation | hydroxide-ion | 0.00 | {"solid":"rust-brown","liquid":"yellow-orange","bubbles":"none"} | 1 iron-iii-ion(aq) + 3 hydroxide-ion(aq) -> 1 iron-iii-hydroxide(s)',
         'aq-02 | precipitation | copper-ii-ion,carbonate-ion | 0.00 | {"solid":"blue-green","liquid":"colourless","bubbles":"none"} | 1 copper-ii-ion(aq) + 1 carbonate-ion(aq) -> 1 copper-ii-carbonate(s)',

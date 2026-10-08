@@ -1,7 +1,7 @@
 import type { AqueousData } from '@/chem-data/aqueous/data'
-import { choicesFor, describeStationResult, expectedObservation, fieldsOf, stationResult, usesShowing, type Action, type Blocked, type Entry, type Field, type Form, type Mode, type Observation, type Problem, type State, type ToolUse } from '@/engine/aqueous'
+import { choicesFor, expectedObservation, fieldsOf, isLook, stationResult, usesShowing, type Action, type Blocked, type Entry, type Field, type Form, type Look, type Mode, type Observation, type Problem, type State, type ToolUse } from '@/engine/aqueous'
 import type { Side } from './builder'
-import type { Progress } from './stationLook'
+import { tubeLook, type Progress } from './stationLook'
 
 // Every sentence the aqueous reactions lab says that is chemistry, keyed by the engine's identifiers, so that an
 // identifier with no sentence does not compile. A sentence can say only what it is handed: the lab's record and
@@ -75,8 +75,15 @@ export const observationLines = (observation: Observation): string[] =>
 /** What a correct observation holds, in words, for Guided mode and for Challenge once the learner has recorded their own. */
 export const expectedLines = (data: AqueousData, stationId: string): string[] => observationLines(expectedObservation(stationOf(data, stationId).station))
 
-/** The name of each way of applying a tool, as its button reads. 'sniff' is offered so that it can be refused with the safety note. */
+/** The three parts of what is in a mixed tube, as they lie in it, each as the list beside the picture names it. */
+export const LOOK_PART: Record<Look, string> = { 'look-bottom': 'The bottom of the tube', 'look-liquid': 'The liquid', 'look-surface': 'The surface of the liquid' }
+const lower = (text: string) => `${text[0]!.toLowerCase()}${text.slice(1)}`
+
+/** The name of each way of applying a tool, as its button reads; for the eye, of each part of the drawn tube. 'sniff' is offered so that it can be refused with the safety note. */
 export const TOOL_LABEL: Record<ToolUse | 'sniff', string> = {
+  'look-bottom': `Look at ${lower(LOOK_PART['look-bottom'])}`,
+  'look-liquid': `Look at ${lower(LOOK_PART['look-liquid'])}`,
+  'look-surface': `Look at ${lower(LOOK_PART['look-surface'])}`,
   waft: 'Waft the vapour towards your nose',
   sniff: 'Smell the tube directly',
   'litmus-liquid': 'Dip red litmus paper in the liquid',
@@ -86,17 +93,34 @@ export const TOOL_LABEL: Record<ToolUse | 'sniff', string> = {
   splint: 'Hold a lit splint at the mouth of the tube',
 }
 
-/** What the eye sees in the mixed tube: the engine's own description. */
-export const seenText = (data: AqueousData, stationId: string) => describeStationResult(data, stationId)
-
 /**
- * What a tool shows at a station once it is applied. The smell, the litmus and the splint are the station's
- * curated results; the warmth is the engine's, and a hot tube carries the record's caution with it (spec 8.2).
+ * What a tool shows at a station once it is applied. A look at a part of the tube says what is seen in that part
+ * and nothing of the other two: it names no formula and explains nothing, so that it gives a learner in Challenge
+ * what the picture gives and no more. The liquid's colour and the bubbles are the drawing's own (tubeLook), so the
+ * words and the picture cannot differ. The smell, the litmus and the splint are the station's curated results; the
+ * warmth is the engine's, and a hot tube carries the record's caution with it (spec 8.2).
  */
 export function toolOutcome(data: AqueousData, stationId: string, tool: ToolUse): string {
-  const { expected } = stationOf(data, stationId).station
+  const { station } = stationOf(data, stationId)
+  const { expected } = station
   const result = stationResult(data, stationId)
   switch (tool) {
+    case 'look-bottom': {
+      if (result.precipitate !== null) {
+        const texture = data.observations.find((o) => o.productId === result.precipitate)?.texture
+        const look = [tubeLook(data, stationId).solid!.name, texture].filter(Boolean).join(', ')
+        return `${/^[aeiou]/.test(look) ? 'An' : 'A'} ${look} solid has settled here.`
+      }
+      // A powder or a ribbon that went in: gone when the reaction has used it up, as it is at stations 7 and 10.
+      const went = station.reagentIds.map((id) => data.reagents.find((r) => r.id === id)!).find((r) => r.form !== 'solution')
+      if (went === undefined) return 'No solid has settled.'
+      const what = went.appearance?.value ?? 'solid'
+      return result.remaining.some((amount) => amount.speciesId === went.speciesId) ? `Some of the ${what} is left here.` : `The ${what} has dissolved. No solid is left here.`
+    }
+    case 'look-liquid':
+      return `The liquid is ${tubeLook(data, stationId).liquid.name}.`
+    case 'look-surface':
+      return tubeLook(data, stationId).bubbles ? 'Bubbles rise through the liquid and break at the surface.' : 'No bubbles rise.'
     case 'waft':
       return expected.odor === null ? 'Wafted towards your nose, the vapour has no smell.' : `Wafted towards your nose, the vapour has a ${expected.odor} smell.`
     case 'litmus-liquid':
@@ -174,7 +198,7 @@ export function blockedText(data: AqueousData, action: Action, blocked: Blocked)
     case 'sniffing':
       return data.cautions.sniffing.value
     case 'tool-not-used':
-      return 'Use each tool before you record what it shows.'
+      return 'Look at each part of the tube, and use each tool, before you record what it shows.'
     case 'invalid-entry':
       return action.type === 'enterEquation'
         ? `An equation needs at least one substance on each side, none of them twice on one side, and a coefficient from 1 to 99 for each. Or choose "${BENCH_TEXT.noReaction}".`
@@ -183,16 +207,13 @@ export function blockedText(data: AqueousData, action: Action, blocked: Blocked)
 }
 
 /**
- * Why an observation is not recorded as it stands. Where a question still waits for its tool, that is the reason
- * given: its answers cannot be chosen yet, so "one answer for each question" alone would ask for what cannot be
+ * Why an observation is not recorded as it stands. Where a question still waits, for a look at its part of the
+ * tube or for its tool, that is the reason given: its answers cannot be chosen yet, so "one answer for each question" alone would ask for what cannot be
  * done. `used` is the ways a tool has been applied at the station.
  */
 export function observationRefusal(data: AqueousData, stationId: string, used: readonly ToolUse[], blocked: Blocked): string {
   const { station } = stationOf(data, stationId)
-  const waits = fieldsOf(station).some((field) => {
-    const uses = usesShowing(station, field)
-    return uses.length > 0 && !uses.some((use) => used.includes(use))
-  })
+  const waits = fieldsOf(station).some((field) => !usesShowing(station, field).some((use) => used.includes(use)))
   return blocked === 'invalid-entry' && waits ? PAGE_TEXT.toolsFirst : blockedText(data, { type: 'recordObservation', stationId, observation: {} }, blocked)
 }
 
@@ -221,13 +242,18 @@ export const PAGE_TEXT = {
   equations: 'Equations',
   amount: 'Amount',
   tubePicture: 'The test tube after mixing',
+  /** Beside the picture once the tube is mixed: what to do with it. It is the picture's description too. */
+  explore: 'Hover over or tap each part of the tube to look at it.',
+  /** After the name of a part of the tube, in the list beside the picture and in the name of the part's button. */
+  lookedAt: 'looked at',
+  notLookedAt: 'not looked at yet',
   /** After the name of a tool that has been applied, for a screen reader; the eye has a tick. */
   used: 'used',
   checkObservations: 'Check observations',
   /** Beside a question whose recorded answer is not the tube's, until it is answered again. */
   lookAgain: 'Look again',
-  /** Where the observations are checked while a question still waits for its tool. */
-  toolsFirst: 'Some questions wait for a tool. Use the tool named under each of them, then choose one answer for each question.',
+  /** Where the observations are checked while a question still waits, for a look at its part of the tube or for its tool. */
+  toolsFirst: 'Some questions are not open yet. Each says under it what to do first. Then choose one answer for each question.',
   change: 'Change',
   cancel: 'Cancel',
   correct: 'Correct',
@@ -265,8 +291,9 @@ export const STATE_KEY = `States: ${(Object.keys(STATE_NAME) as State[]).map((st
 /** Why a species is not added to a side again. */
 export const alreadyOnSide = (formula: string, side: Side) => `${formula} is already among the ${side === 'reactants' ? 'reactants' : 'products'}.`
 
-/** Under a question that waits for a tool: which one to use first. Any one of them shows it. */
-export const toolFirstText = (uses: readonly ToolUse[]) => `Not yet. First use: ${uses.map((use) => TOOL_LABEL[use]).join(', or ')}.`
+/** Under a question that waits: the part of the drawn tube to look at first, or the tool to use first. Any one of the tools named shows it. */
+export const toolFirstText = (uses: readonly ToolUse[]) =>
+  uses.every(isLook) ? `Not yet. First ${uses.map((use) => lower(TOOL_LABEL[use])).join(', or ')} in the picture.` : `Not yet. First use: ${uses.map((use) => TOOL_LABEL[use]).join(', or ')}.`
 
 /** The solubility table, as a panel that floats over the page. */
 export const SOLUBILITY_TEXT = {

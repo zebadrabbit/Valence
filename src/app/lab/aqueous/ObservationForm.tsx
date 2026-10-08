@@ -10,7 +10,7 @@ import { FIELD_LABEL, PAGE_TEXT, choiceList, observationFeedback, toolFirstText 
 export interface ObservationFormProps {
   data: AqueousData
   view: StationView
-  /** For each field, the uses of a tool any one of which shows it; none for what the eye sees. */
+  /** For each field, the uses of a tool any one of which shows it: for what the eye sees, the look at its part of the tube. */
   shownBy(field: Field): ToolUse[]
   /** Where nothing can be recorded here now whatever is chosen, the id of the sentence on the station that says why; else null. */
   held: string | null
@@ -25,8 +25,8 @@ const CHOICE =
 
 /**
  * The observation of a station: one question for each field its tools can show, each a group of radio buttons, and
- * one button that records and checks them all. A question whose tool has not been used yet is disabled, with the
- * tool to use under it. Once the observation is correct the questions are disabled and show it, and the button
+ * one button that records and checks them all. A question whose part of the tube has not been looked at, or whose
+ * tool has not been used yet, is disabled, with what to do first under it. Once the observation is correct the questions are disabled and show it, and the button
  * reads "Change", as an entry made in the titration lab does.
  */
 export function ObservationForm({ data, view, shownBy, held, refusal, onRecord }: ObservationFormProps) {

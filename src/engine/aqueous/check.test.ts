@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { aqueousData as data } from '@/chem-data/aqueous/data'
-import { FIELDS, FORMS, checkEquation, choicesFor, expectedObservation, fieldsOf, usesOf, usesShowing, wrongFields, type Entry, type Term } from './check'
+import { FIELDS, FORMS, LOOKS, TOOL_USES, checkEquation, choicesFor, expectedObservation, fieldsOf, isLook, usesOf, usesShowing, wrongFields, type Entry, type Term } from './check'
 import { stationOf } from './react'
 import { correctEntry } from './testkit'
 
@@ -26,12 +26,23 @@ describe('what a station asks to be observed', () => {
 
   it('has the eye at every station and the tools of spec 8.2: litmus in two positions at station 6, touch or thermometer at station 8, the splint and touch at station 10', () => {
     expect(data.stations.map((s) => s.observationTools.join(' '))).toEqual(['eye', 'eye', 'eye', 'eye', 'eye', 'eye waft litmus', 'eye', 'eye touch thermometer', 'eye', 'eye splint touch'])
-    expect(usesOf(station(6))).toEqual(['waft', 'litmus-liquid', 'litmus-vapour'])
-    expect(usesOf(station(8))).toEqual(['touch', 'thermometer'])
-    expect(usesOf(station(10))).toEqual(['touch', 'splint'])
-    expect(usesOf(station(1))).toEqual([])
+    expect(usesOf(station(6))).toEqual([...LOOKS, 'waft', 'litmus-liquid', 'litmus-vapour'])
+    expect(usesOf(station(8))).toEqual([...LOOKS, 'touch', 'thermometer'])
+    expect(usesOf(station(10))).toEqual([...LOOKS, 'touch', 'splint'])
+    expect(usesOf(station(1))).toEqual([...LOOKS])
     expect(usesShowing(station(8), 'temperature')).toEqual(['touch', 'thermometer'])
-    expect(usesShowing(station(1), 'solid')).toEqual([])
+  })
+
+  it('applies the eye by looking at a part of what is in the tube, and each part shows one thing: the bottom the solid, the liquid its colour, the surface the bubbles', () => {
+    expect(LOOKS).toEqual(['look-bottom', 'look-liquid', 'look-surface'])
+    expect(TOOL_USES.slice(0, 3)).toEqual(LOOKS)
+    for (const s of data.stations) {
+      expect([usesShowing(s, 'solid'), usesShowing(s, 'liquid'), usesShowing(s, 'bubbles')], s.id).toEqual([['look-bottom'], ['look-liquid'], ['look-surface']])
+      // Every field asked is shown by some use, and a look shows nothing a tool does.
+      for (const field of fieldsOf(s)) expect(usesShowing(s, field).length, `${s.id} ${field}`).toBeGreaterThan(0)
+      for (const field of ['odor', 'litmusInLiquid', 'litmusInVapour', 'temperature', 'splint'] as const) expect(usesShowing(s, field).some(isLook), `${s.id} ${field}`).toBe(false)
+    }
+    expect([isLook('look-bottom'), isLook('waft'), isLook('sniff')]).toEqual([true, false, false])
   })
 
   it('offers every expected value among the choices of its field', () => {

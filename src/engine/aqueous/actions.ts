@@ -9,6 +9,7 @@ import { isEntry, observationProblem, statusOf, type AqueousState, type Mode, ty
 export type Action =
   | { type: 'setMode'; mode: Mode }
   | { type: 'mix'; stationId: string }
+  // Looking at a part of the tube is a use of the eye, and is stored as any tool's is: what the eye sees is recorded only once its part has been looked at.
   // 'sniff' is smelling the tube directly. It is never done: asking for it is answered with the safety note (spec 8.2).
   | { type: 'useTool'; stationId: string; tool: ToolUse | 'sniff' }
   | { type: 'recordObservation'; stationId: string; observation: Observation }

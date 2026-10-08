@@ -19,7 +19,7 @@ const entrySchema = z.strictObject({ noReaction: z.boolean(), reactants: z.array
 const stationSchema = z.strictObject({
   /** The two reagents have been put together in the tube. */
   mixed: z.boolean(),
-  /** The ways a tool has been applied to the tube, each once, in the order they were first applied. */
+  /** The ways a tool has been applied to the tube, each once, in the order they were first applied. Looking at a part of the tube is one. */
   used: z.array(z.enum(TOOL_USES)),
   /** The observation last recorded: one choice for each field the station's tools show. */
   observation: z.strictObject(Object.fromEntries(FIELDS.map((field) => [field, text.optional()])) as Record<(typeof FIELDS)[number], z.ZodOptional<typeof text>>).nullable(),
@@ -38,16 +38,13 @@ export type StationState = z.infer<typeof stationSchema>
 export type AqueousState = z.infer<typeof stateSchema>
 export type Mode = AqueousState['mode']
 
-/** Why an observation cannot be recorded as it stands, or null: its fields are the station's, each value one of the field's choices, and each was shown by a tool that has been applied. */
+/** Why an observation cannot be recorded as it stands, or null: its fields are the station's, each value one of the field's choices, and each was shown by a tool that has been applied, the eye's by a look at their part of the tube. */
 export function observationProblem(data: AqueousData, stationId: string, used: readonly string[], observation: Observation): 'invalid-entry' | 'tool-not-used' | null {
   const station = stationOf(data, stationId)
   const fields = fieldsOf(station)
   const keys = Object.keys(observation).filter((key) => observation[key as keyof Observation] !== undefined)
   if (keys.length !== fields.length || fields.some((field) => !choicesFor(data, field).includes(observation[field] ?? ''))) return 'invalid-entry'
-  const unseen = fields.some((field) => {
-    const uses = usesShowing(station, field)
-    return uses.length > 0 && !uses.some((use) => used.includes(use))
-  })
+  const unseen = fields.some((field) => !usesShowing(station, field).some((use) => used.includes(use)))
   return unseen ? 'tool-not-used' : null
 }
 

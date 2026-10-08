@@ -2,8 +2,8 @@ import type { AqueousData } from '@/chem-data/aqueous/data'
 import { stationResult, type StationView } from '@/engine/aqueous'
 
 // What the page works out for its drawing and its list of stations. Nothing here is chemistry of its own: the tube
-// is drawn from the engine's result, as the words under it are (describeStationResult), and a station's progress is
-// read off the engine's view of it.
+// is drawn from the engine's result, the words for each part of it are worded from this drawing and that result
+// (toolOutcome), and a station's progress is read off the engine's view of it.
 
 export interface TubeLook {
   liquid: { name: string; hex: string }
@@ -15,10 +15,10 @@ export interface TubeLook {
 /** A liquid with no coloured ion in it, drawn as water is on the titration lab's white card. */
 const WATER = '#e8edf2'
 
-// The colour a solid is drawn in, by the name the record stores for it. The name, which is under the drawing in
-// words, is what has a source; the value here is the drawing's rendering of that name and nothing is read from it.
+// The colour a solid is drawn in, by the name the record stores for it. The name, which the bottom of the tube says
+// in words when it is looked at, is what has a source; the value here is the drawing's rendering of that name and nothing is read from it.
 const SOLID_HEX: Record<string, string> = { 'rust-brown': '#8b4a2b', 'blue-green': '#4fa6a0', 'pale green': '#a9d8a0', white: '#ffffff' }
-/** A solid whose colour the drawing has no value for: drawn grey, and named under the drawing all the same. */
+/** A solid whose colour the drawing has no value for: drawn grey, and named in words all the same. */
 const UNKNOWN_SOLID = '#9ca3af'
 
 /** The mean of some colours, channel by channel: how the drawing shows two coloured ions in one liquid. */

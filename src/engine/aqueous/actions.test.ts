@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { aqueousData as data } from '@/chem-data/aqueous/data'
 import { mulberry32 } from '../rng'
 import { can, reduce, type Action } from './actions'
-import { FORMS, choicesFor, expectedObservation, fieldsOf, usesOf, type Entry, type Observation } from './check'
+import { FORMS, LOOKS, TOOL_USES, choicesFor, expectedObservation, fieldsOf, usesOf, type Entry, type Observation } from './check'
 import { doneStations, stationView } from './select'
 import { aqueousStateSchema, createLab, type AqueousState } from './state'
 import { correctEntry, run, stationScript } from './testkit'
@@ -12,6 +12,8 @@ const reload = (state: AqueousState): AqueousState => schema.parse(JSON.parse(JS
 const ids = data.stations.map((s) => s.id)
 const noReaction: Entry = { noReaction: true, reactants: [], products: [] }
 const mixed = (stationId: string, state = createLab(data, 'guided')) => reduce(data, state, { type: 'mix', stationId })
+/** Looking at each part of what is in the tube: what opens the eye's three questions. */
+const looks = (stationId: string) => LOOKS.map((tool): Action => ({ type: 'useTool', stationId, tool }))
 
 describe('a lab that has just been started', () => {
   it('has ten untouched stations and is in progress', () => {
@@ -53,6 +55,20 @@ describe('what can be done, and what it does', () => {
     expect(reduce(data, wafted, { type: 'useTool', stationId: 'aq-06', tool: 'waft' })).toBe(wafted)
   })
 
+  it('looks at a part of the tube as a tool is applied: only once the tube is mixed, stored once with the station, and kept by a reload', () => {
+    const fresh = createLab(data, 'challenge')
+    for (const tool of LOOKS) expect(can(data, fresh, { type: 'useTool', stationId: 'aq-01', tool })).toBe('not-mixed')
+    let state = mixed('aq-01', fresh)
+    for (const tool of LOOKS) expect(can(data, state, { type: 'useTool', stationId: 'aq-01', tool })).toBeNull()
+    state = run(data, state, [{ type: 'useTool', stationId: 'aq-01', tool: 'look-liquid' }])
+    expect(state.stations[0]!.used).toEqual(['look-liquid'])
+    expect(reduce(data, state, { type: 'useTool', stationId: 'aq-01', tool: 'look-liquid' })).toBe(state)
+    expect(reload(state)).toEqual(state)
+    expect(state.stations[1]!.used).toEqual([])
+    // Looking gives nothing away: no hints and no expected observation come with it in Challenge.
+    expect(stationView(data, run(data, state, looks('aq-01').slice(0, 1)), 'aq-01')).toMatchObject({ used: ['look-liquid', 'look-bottom'], guidanceShown: false, observation: null })
+  })
+
   it('never smells a tube directly: the request is refused with the safety note, wherever wafting is the tool', () => {
     const state = mixed('aq-06')
     expect(can(data, state, { type: 'useTool', stationId: 'aq-06', tool: 'sniff' })).toBe('sniffing')
@@ -63,7 +79,7 @@ describe('what can be done, and what it does', () => {
   it('records an observation only of a mixed tube, in the station\'s own fields, from the choices, and of what a tool has shown', () => {
     const observation = expectedObservation(data.stations[5]!)
     expect(can(data, createLab(data, 'guided'), { type: 'recordObservation', stationId: 'aq-06', observation })).toBe('not-mixed')
-    let state = mixed('aq-06')
+    let state = run(data, mixed('aq-06'), looks('aq-06'))
     expect(can(data, state, { type: 'recordObservation', stationId: 'aq-06', observation })).toBe('tool-not-used')
     state = run(data, state, [{ type: 'useTool', stationId: 'aq-06', tool: 'waft' }, { type: 'useTool', stationId: 'aq-06', tool: 'litmus-vapour' }])
     expect(can(data, state, { type: 'recordObservation', stationId: 'aq-06', observation })).toBe('tool-not-used')
@@ -76,12 +92,22 @@ describe('what can be done, and what it does', () => {
     expect(reduce(data, state, { type: 'recordObservation', stationId: 'aq-06', observation }).stations[5]!.observation).toEqual(observation)
   })
 
-  it('takes either the touch or the thermometer for the temperature at station 8, and needs no tool for what the eye sees', () => {
+  it('takes either the touch or the thermometer for the temperature at station 8', () => {
     for (const tool of ['touch', 'thermometer'] as const) {
-      const state = run(data, mixed('aq-08'), [{ type: 'useTool', stationId: 'aq-08', tool }])
+      const state = run(data, mixed('aq-08'), [...looks('aq-08'), { type: 'useTool', stationId: 'aq-08', tool }])
       expect(can(data, state, { type: 'recordObservation', stationId: 'aq-08', observation: expectedObservation(data.stations[7]!) })).toBeNull()
     }
-    expect(can(data, mixed('aq-01'), { type: 'recordObservation', stationId: 'aq-01', observation: expectedObservation(data.stations[0]!) })).toBeNull()
+  })
+
+  it('records what the eye sees only once each part of the tube has been looked at: the bottom for the solid, the liquid for its colour, the surface for the bubbles', () => {
+    const record: Action = { type: 'recordObservation', stationId: 'aq-01', observation: expectedObservation(data.stations[0]!) }
+    expect(can(data, mixed('aq-01'), record)).toBe('tool-not-used')
+    for (const left of LOOKS) {
+      const state = run(data, mixed('aq-01'), looks('aq-01').filter((action) => action.type === 'useTool' && action.tool !== left))
+      expect(can(data, state, record), left).toBe('tool-not-used')
+      expect(reduce(data, state, record)).toBe(state)
+    }
+    expect(can(data, run(data, mixed('aq-01'), looks('aq-01')), record)).toBeNull()
   })
 
   it('takes an equation at any time, built from the station\'s palette with no species twice on a side, or "No reaction" alone', () => {
@@ -116,7 +142,7 @@ describe('the view of a station', () => {
     expect(stationView(data, createLab(data, 'guided'), 'aq-01').guidanceShown).toBe(true)
     let state = mixed('aq-01', createLab(data, 'challenge'))
     expect(stationView(data, state, 'aq-01').guidanceShown).toBe(false)
-    state = run(data, state, [{ type: 'recordObservation', stationId: 'aq-01', observation: { solid: 'white', liquid: 'colourless', bubbles: 'none' } }])
+    state = run(data, state, [...looks('aq-01'), { type: 'recordObservation', stationId: 'aq-01', observation: { solid: 'white', liquid: 'colourless', bubbles: 'none' } }])
     expect(stationView(data, state, 'aq-01')).toMatchObject({ guidanceShown: true, wrongFields: ['solid', 'liquid'], done: false })
     expect(stationView(data, state, 'aq-02').guidanceShown).toBe(false)
   })
@@ -130,7 +156,7 @@ describe('the view of a station', () => {
   })
 
   it('lists the station\'s tools and fields', () => {
-    expect(stationView(data, createLab(data, 'guided'), 'aq-10')).toMatchObject({ mixed: false, uses: ['touch', 'splint'], used: [], fields: ['solid', 'liquid', 'bubbles', 'temperature', 'splint'], observation: null, wrongFields: null, done: false })
+    expect(stationView(data, createLab(data, 'guided'), 'aq-10')).toMatchObject({ mixed: false, uses: [...LOOKS, 'touch', 'splint'], used: [], fields: ['solid', 'liquid', 'bubbles', 'temperature', 'splint'], observation: null, wrongFields: null, done: false })
   })
 })
 
@@ -215,7 +241,7 @@ describe('no state a learner can reach leaves them unable to go on', () => {
     return pick<Action>([
       { type: 'setMode', mode: pick(['guided', 'challenge'] as const) },
       { type: 'mix', stationId },
-      { type: 'useTool', stationId, tool: pick(['waft', 'litmus-liquid', 'litmus-vapour', 'touch', 'thermometer', 'splint', 'sniff'] as const) },
+      { type: 'useTool', stationId, tool: pick([...TOOL_USES, 'sniff'] as const) },
       { type: 'recordObservation', stationId, observation: pick([observation, expectedObservation(station), {}]) },
       { type: 'enterEquation', stationId, form: pick(FORMS), entry: pick(entries) },
     ])
@@ -252,7 +278,7 @@ describe('no state a learner can reach leaves them unable to go on', () => {
       expect(finish(state).status, `seed ${seed}`).toBe('completed')
     }
     // The walks do meet refusals, about half their actions, and none of them finishes the lab by chance: the check is of states part-way.
-    expect([refused, done]).toEqual([1177, 0])
+    expect([refused, done]).toEqual([1208, 0])
   }, 30_000)
 })
 
@@ -274,8 +300,11 @@ describe('the stored record', () => {
     expect(edited((s) => void s.stations.pop())).toBe(false)
     expect(edited((s) => void (s.status = 'in-progress'))).toBe(false)
     expect(edited((s) => void (s.stations[0]!.equations.netIonic = null))).toBe(false) // completed, but a station is not done
-    expect(edited((s) => void (s.stations[5]!.used = ['waft', 'waft', 'litmus-liquid', 'litmus-vapour']))).toBe(false)
+    expect(edited((s) => void (s.stations[5]!.used = [...LOOKS, 'waft', 'waft', 'litmus-liquid', 'litmus-vapour']))).toBe(false)
     expect(edited((s) => void (s.stations[0]!.used = ['splint']))).toBe(false)
+    // An observation of a part of the tube that was never looked at.
+    expect(edited((s) => void (s.stations[0]!.used = ['look-bottom', 'look-liquid']))).toBe(false)
+    expect(edited((s) => void (s.stations[0]!.used = ['look-surface', 'look-bottom', 'look-liquid']))).toBe(true)
     expect(edited((s) => void (s.stations[0]!.mixed = false))).toBe(false)
     expect(edited((s) => void (s.stations[0]!.observation!.solid = 'purple'))).toBe(false)
     expect(edited((s) => void (s.stations[0]!.equations.netIonic!.products[0]!.speciesId = 'unobtainium'))).toBe(false)

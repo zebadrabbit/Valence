@@ -1,12 +1,13 @@
 import { describe, expect, it } from 'vitest'
 import { aqueousData as data } from '@/chem-data/aqueous/data'
 import { findInstitutionText } from '@/chem-data/denylist'
-import { FIELDS, FORMS, TOOL_USES, can, createLab, expectedObservation, fieldsOf, reduce, stationResult, usesOf, type Action, type Blocked, type Problem } from '@/engine/aqueous'
+import { FIELDS, FORMS, LOOKS, TOOL_USES, can, createLab, describeStationResult, expectedObservation, fieldsOf, isLook, reduce, stationResult, usesOf, type Action, type Blocked, type Problem } from '@/engine/aqueous'
 import { correctEntry } from '@/engine/aqueous/testkit'
 import {
   BENCH_TEXT,
   FIELD_LABEL,
   FORM_LABEL,
+  LOOK_PART,
   MODE_TEXT,
   PAGE_TEXT,
   PROBLEM_TEXT,
@@ -28,11 +29,11 @@ import {
   observationFeedback,
   observationLines,
   observationRefusal,
-  seenText,
   stationTitle,
   toolFirstText,
   toolOutcome,
 } from './messages'
+import { tubeLook } from './stationLook'
 
 const ids = data.stations.map((s) => s.id)
 
@@ -62,12 +63,57 @@ describe('what a station is called and what goes into its tube', () => {
 })
 
 describe('what each tool shows at each station', () => {
-  it('says what the eye sees in the engine\'s own words', () => {
-    for (const id of ids) expect(seenText(data, id)).toMatch(/The liquid( above it)? is [a-z -]+\.$/)
+  it('says what is seen in each part of each tube: at the bottom, in the liquid, and at its surface', () => {
+    const none = ['No solid has settled.', 'The liquid is colourless.', 'No bubbles rise.']
+    const fizz = 'Bubbles rise through the liquid and break at the surface.'
+    expect(Object.fromEntries(data.stations.map((s) => [s.id, LOOKS.map((look) => toolOutcome(data, s.id, look))]))).toEqual({
+      'aq-01': ['A rust-brown, gelatinous solid has settled here.', 'The liquid is yellow-orange.', 'No bubbles rise.'],
+      'aq-02': ['A blue-green solid has settled here.', 'The liquid is colourless.', 'No bubbles rise.'],
+      'aq-03': ['A pale green solid has settled here.', 'The liquid is colourless.', 'No bubbles rise.'],
+      'aq-04': ['A white, fine solid has settled here.', 'The liquid is blue.', 'No bubbles rise.'],
+      'aq-05': ['No solid has settled.', 'The liquid is orange.', 'No bubbles rise.'],
+      'aq-06': none,
+      'aq-07': ['The white powder has dissolved. No solid is left here.', 'The liquid is colourless.', fizz],
+      'aq-08': none,
+      'aq-09': ['A white solid has settled here.', 'The liquid is pink.', 'No bubbles rise.'],
+      'aq-10': ['The silvery metal ribbon has dissolved. No solid is left here.', 'The liquid is colourless.', fizz],
+    })
+  })
+
+  it('holds what is seen in each part to the expected record, to the drawing and to the engine\'s own description of the tube', () => {
+    for (const station of data.stations) {
+      const [bottom, liquid, surface] = LOOKS.map((look) => toolOutcome(data, station.id, look)) as [string, string, string]
+      const { expected } = station
+      const solid = expected.precipitateColor ?? null
+      expect(liquid, station.id).toBe(`The liquid is ${expected.liquidColor}.`)
+      expect(bottom.endsWith('solid has settled here.'), station.id).toBe(solid !== null)
+      if (solid !== null) expect(bottom, station.id).toMatch(new RegExp(`^A ${solid}[ ,]`))
+      expect(surface.startsWith('Bubbles rise'), station.id).toBe(expected.bubbles)
+      const drawn = tubeLook(data, station.id)
+      expect([drawn.liquid.name, drawn.solid?.name ?? null, drawn.bubbles], station.id).toEqual([expected.liquidColor, solid, expected.bubbles])
+      const whole = describeStationResult(data, station.id)
+      expect(whole, station.id).toContain(`is ${expected.liquidColor}.`)
+      expect(whole.includes('solid forms.') && !whole.startsWith('No solid'), station.id).toBe(solid !== null)
+      expect(whole.includes('dissolves completely'), station.id).toBe(bottom.includes('has dissolved'))
+      expect(whole.includes('bubbles of'), station.id).toBe(expected.bubbles)
+    }
+  })
+
+  it('says of a part only what is seen in that part, with no formula and nothing a tool has to be applied for', () => {
+    for (const station of data.stations) {
+      const [bottom, liquid, surface] = LOOKS.map((look) => toolOutcome(data, station.id, look)) as [string, string, string]
+      expect(bottom, station.id).not.toMatch(/bubble|liquid/i)
+      expect(liquid, station.id).not.toMatch(/solid|bubble|settled/i)
+      expect(surface, station.id).not.toMatch(/solid|settled|colour/i)
+      // The colour of the liquid is in the liquid's sentence alone, and that of the solid in the bottom's.
+      expect(`${bottom} ${surface}`, station.id).not.toContain(station.expected.liquidColor)
+      if (station.expected.precipitateColor) expect(`${liquid} ${surface}`, station.id).not.toContain(station.expected.precipitateColor)
+      for (const text of [bottom, liquid, surface]) expect(text, station.id).not.toMatch(/[₀-₉⁺⁻]|smell|litmus|warm|hot|pop|splint/)
+    }
   })
 
   it('has an outcome for every tool of every station', () => {
-    expect(Object.fromEntries(data.stations.flatMap((s) => usesOf(s).map((tool) => [`${s.id} ${tool}`, toolOutcome(data, s.id, tool)])))).toEqual({
+    expect(Object.fromEntries(data.stations.flatMap((s) => usesOf(s).filter((tool) => !isLook(tool)).map((tool) => [`${s.id} ${tool}`, toolOutcome(data, s.id, tool)])))).toEqual({
       'aq-06 waft': 'Wafted towards your nose, the vapour has a sharp and pungent smell.',
       'aq-06 litmus-liquid': 'Red litmus paper dipped in the liquid turns blue.',
       'aq-06 litmus-vapour': 'Moist red litmus paper held above the liquid, touching neither the liquid nor the glass, turns blue.',
@@ -107,6 +153,8 @@ describe('what each tool shows at each station', () => {
 
   it('names every way of applying a tool, and smelling the tube directly, which is always refused', () => {
     for (const tool of [...TOOL_USES, 'sniff'] as const) expect(TOOL_LABEL[tool].length).toBeGreaterThan(10)
+    expect(LOOKS.map((look) => TOOL_LABEL[look])).toEqual(['Look at the bottom of the tube', 'Look at the liquid', 'Look at the surface of the liquid'])
+    expect(LOOKS.map((look) => LOOK_PART[look])).toEqual(['The bottom of the tube', 'The liquid', 'The surface of the liquid'])
     const mixed = reduce(data, createLab(data, 'guided'), { type: 'mix', stationId: 'aq-06' })
     const sniff: Action = { type: 'useTool', stationId: 'aq-06', tool: 'sniff' }
     expect(blockedText(data, sniff, can(data, mixed, sniff)!)).toBe(data.cautions.sniffing.value)
@@ -183,21 +231,23 @@ describe('why something cannot be done', () => {
     expect(blockedText(data, { type: 'recordObservation', stationId: 'aq-01', observation: {} }, 'invalid-entry')).toBe('Choose one answer for each question.')
   })
 
-  it('tells a learner who checks while a question still waits for its tool to use the tool, and not to answer what cannot be answered yet', () => {
+  it('tells a learner who checks while a question still waits for a look or for its tool to do that first, and not to answer what cannot be answered yet', () => {
     // Station 6, mixed, the three questions of the eye answered and no tool used: the engine finds the entry not whole.
     const mixed = reduce(data, createLab(data, 'challenge'), { type: 'mix', stationId: 'aq-06' })
     const seen = { solid: 'none', liquid: 'colourless', bubbles: 'none' }
     const blocked = can(data, mixed, { type: 'recordObservation', stationId: 'aq-06', observation: seen })!
     expect(blocked).toBe('invalid-entry')
-    expect(observationRefusal(data, 'aq-06', [], blocked)).toBe('Some questions wait for a tool. Use the tool named under each of them, then choose one answer for each question.')
-    expect(observationRefusal(data, 'aq-06', ['waft', 'litmus-liquid'], blocked)).toBe(PAGE_TEXT.toolsFirst)
+    expect(observationRefusal(data, 'aq-06', [...LOOKS], blocked)).toBe('Some questions are not open yet. Each says under it what to do first. Then choose one answer for each question.')
+    expect(observationRefusal(data, 'aq-06', [...LOOKS, 'waft', 'litmus-liquid'], blocked)).toBe(PAGE_TEXT.toolsFirst)
     // Every tool used: what is missing is an answer.
-    expect(observationRefusal(data, 'aq-06', ['waft', 'litmus-liquid', 'litmus-vapour'], blocked)).toBe('Choose one answer for each question.')
+    expect(observationRefusal(data, 'aq-06', [...LOOKS, 'waft', 'litmus-liquid', 'litmus-vapour'], blocked)).toBe('Choose one answer for each question.')
     // Either of two tools opens the one question they both show.
-    expect(observationRefusal(data, 'aq-08', ['thermometer'], blocked)).toBe('Choose one answer for each question.')
-    expect(observationRefusal(data, 'aq-08', [], blocked)).toBe(PAGE_TEXT.toolsFirst)
-    // A station of the eye alone never waits, and any other reason keeps its own sentence.
-    expect(observationRefusal(data, 'aq-01', [], blocked)).toBe('Choose one answer for each question.')
+    expect(observationRefusal(data, 'aq-08', [...LOOKS, 'thermometer'], blocked)).toBe('Choose one answer for each question.')
+    expect(observationRefusal(data, 'aq-08', [...LOOKS], blocked)).toBe(PAGE_TEXT.toolsFirst)
+    // A station of the eye alone waits too, until each of the three parts of its tube has been looked at.
+    expect(observationRefusal(data, 'aq-01', [], blocked)).toBe(PAGE_TEXT.toolsFirst)
+    expect(observationRefusal(data, 'aq-01', ['look-bottom', 'look-surface'], blocked)).toBe(PAGE_TEXT.toolsFirst)
+    expect(observationRefusal(data, 'aq-01', [...LOOKS], blocked)).toBe('Choose one answer for each question.')
     expect(observationRefusal(data, 'aq-06', [], 'lab-completed')).toBe(blockedText(data, { type: 'mix', stationId: 'aq-06' }, 'lab-completed'))
   })
 })
@@ -231,7 +281,17 @@ describe("the page's own wording", () => {
     expect(toolFirstText(['touch', 'thermometer'])).toBe('Not yet. First use: Touch the outside of the tube, or Read the thermometer.')
   })
 
-  it('names the closed list for what it holds, and says in Challenge when it comes', () => {
+  it('says which part of the tube a question of the eye waits for, and where to look at it', () => {
+    expect(LOOKS.map((look) => toolFirstText([look]))).toEqual([
+      'Not yet. First look at the bottom of the tube in the picture.',
+      'Not yet. First look at the liquid in the picture.',
+      'Not yet. First look at the surface of the liquid in the picture.',
+    ])
+  })
+
+  it('tells a learner to explore the picture, says of each part whether it has been looked at, and names the closed list for what it holds', () => {
+    expect(PAGE_TEXT.explore).toBe('Hover over or tap each part of the tube to look at it.')
+    expect([PAGE_TEXT.lookedAt, PAGE_TEXT.notLookedAt]).toEqual(['looked at', 'not looked at yet'])
     expect(BENCH_TEXT.expected).toBe('What a correct observation holds')
     expect(PAGE_TEXT.challengeHidden).toBe('In Challenge, the hints and what a correct observation holds come once you have recorded your own observation.')
   })
@@ -287,7 +347,7 @@ describe('every sentence', () => {
       ...Object.values(TOOL_LABEL),
       ...Object.values(PROBLEM_TEXT),
       ...Object.values(FORM_LABEL),
-      ...ids.flatMap((id) => [stationTitle(data, id), ...expectedLines(data, id), seenText(data, id), ...TOOL_USES.map((tool) => toolOutcome(data, id, tool))]),
+      ...ids.flatMap((id) => [stationTitle(data, id), ...expectedLines(data, id), ...TOOL_USES.map((tool) => toolOutcome(data, id, tool))]),
     ]
     for (const text of all) expect(findInstitutionText(text, []), text).toBeNull()
   })
