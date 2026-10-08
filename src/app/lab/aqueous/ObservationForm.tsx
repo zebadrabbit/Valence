@@ -1,5 +1,4 @@
 import { useId, useState } from 'react'
-import { CHOICE } from '@/app/lab/Control'
 import { ROLE } from '@/app/lab/roles'
 import { entryKey, fieldState, useEntryFocus } from '@/app/lab/titration/entry'
 import { Button } from '@/components/ui/button'
@@ -20,6 +19,9 @@ export interface ObservationFormProps {
   /** Records it, and hands back the fields that are not the tube's. Called only with one that can be recorded. */
   onRecord(observation: Observation): Field[]
 }
+
+const CHOICE =
+  'flex min-h-11 cursor-pointer items-center gap-2 rounded-md border px-3 py-1 has-checked:border-foreground has-checked:bg-muted has-checked:font-medium has-disabled:cursor-default has-focus-visible:ring-2 has-focus-visible:ring-ring'
 
 /**
  * The observation of a station: one question for each field its tools can show, each a group of radio buttons, and
