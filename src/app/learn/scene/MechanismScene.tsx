@@ -3,7 +3,8 @@
 //
 // Everything drawn is worked out from `state` in drawing.ts, at every render, and nothing is eased or kept from
 // the frame before: the same scrub position gives the same picture whichever way it was reached (spec 9.1). The
-// camera is the one thing a learner moves, and it goes back to the chapter's own framing when the timeline moves.
+// camera is the one thing a learner moves: their turn and zoom are kept as the timeline moves, until they ask for
+// the chapter's own view back.
 
 import { useEffect, useMemo, useRef, type RefObject } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
@@ -19,6 +20,9 @@ import { FOV, PAIR_DOT_RADIUS, VIEW_FROM, drawing, type DrawnArrow } from './dra
 
 // An electron pair and its arrow, in the colour the explorer draws a lone pair in. The arrow's shape says what it is.
 const ELECTRON_COLOR = '#fde047'
+// The arrows that show a pair moving are not the colour of the pairs themselves, so that the two can be told apart;
+// an arrow is also told by its head.
+const ARROW_COLOR = '#22d3ee'
 // An ion's charge is written beside its ball, over the page's own background: dark letters with a light edge in
 // the light theme and light letters with a dark edge in the dark one, so that it reads over a ball behind it too.
 const LABEL = { light: { ink: '#18181b', edge: '#ffffff' }, dark: { ink: '#fafafa', edge: '#18181b' } }
@@ -37,9 +41,13 @@ export interface MechanismSceneProps {
   label: string
   describedBy: string
   onContextLost?(lost: boolean): void
+  /** Changes when the learner asks for the chapter's own view back. */
+  viewReset: number
+  /** The learner has turned or zoomed the scene, or has given that up. */
+  onOwnView(own: boolean): void
 }
 
-export function MechanismScene({ state, looked, onLook, callout, dark, label, describedBy, onContextLost }: MechanismSceneProps) {
+export function MechanismScene({ state, looked, onLook, callout, dark, label, describedBy, onContextLost, viewReset, onOwnView }: MechanismSceneProps) {
   const drawn = drawing(state, registry.elements)
   const calloutRef = useRef<HTMLDivElement>(null)
   const lookedAt = looked === null ? undefined : drawn.species[looked]
@@ -62,7 +70,7 @@ export function MechanismScene({ state, looked, onLook, callout, dark, label, de
       >
         <ambientLight intensity={1.4} />
         <Headlight />
-        <Framing target={drawn.camera.target} radius={drawn.camera.radius} at={state.t} />
+        <Framing target={drawn.camera.target} radius={drawn.camera.radius} reset={viewReset} onOwnView={onOwnView} />
         <ContextLossWatcher onChange={onContextLost} />
         {drawn.atoms.map((atom) => (
           <Ball key={atom.id} position={atom.position} radius={atom.radius} color={atom.color} outline={drawn.outline} />
@@ -99,9 +107,9 @@ function Arrow({ arrow, outline }: { arrow: DrawnArrow; outline: number }) {
   return (
     <>
       {arrow.shaft.map((stick, i) => (
-        <StickShape key={i} stick={stick} color={ELECTRON_COLOR} outline={outline} overlay />
+        <StickShape key={i} stick={stick} color={ARROW_COLOR} outline={outline} overlay />
       ))}
-      <ConeShape position={head.position} quaternion={head.quaternion} radius={head.radius} length={head.length} color={ELECTRON_COLOR} outline={outline} overlay />
+      <ConeShape position={head.position} quaternion={head.quaternion} radius={head.radius} length={head.length} color={ARROW_COLOR} outline={outline} overlay />
       {arrow.pair.map((position, i) => (
         <Ball key={i} position={position} radius={PAIR_DOT_RADIUS} color={ELECTRON_COLOR} outline={outline} segments={16} overlay />
       ))}
@@ -164,67 +172,68 @@ function Anchor({ at, lift, target }: { at: Vec3; lift: number; target: RefObjec
   return null
 }
 
-// ponytail: a turn or a zoom lasts until the timeline next moves, so a learner cannot watch a whole step play from
-// their own angle. Keeping the learner's direction across frames would need a control that gives the framing back.
 /**
  * The camera. It frames what the chapter is about: it looks at the state's camera target from the home direction,
- * from as far as holds the radius the drawing gives it. A learner can turn and zoom it with a pointer, and their view holds
- * while the timeline is still. When the timeline moves, the camera is the chapter's again, at once and with no
- * glide; if it moves while the learner is holding the scene, that waits until they let go (spec 9.1). `at` is the
- * scrub position: the framing is the chapter's again at every move of it, also through a stretch of the track in
- * which the chapter's camera stands still.
+ * from as far as holds the radius the drawing gives it. A learner can turn and zoom it with a pointer, and their
+ * view is kept as the timeline moves: the direction they look from, and how much closer or further than the
+ * chapter's own distance. What the camera looks AT stays the chapter's, so the action is followed. The chapter's
+ * own view comes back when `reset` changes (the page's "Reset view"). Nothing glides. This departs from spec 9.1's
+ * "resumes on release" by the owner's word (2026-10-08): a zoom that was lost at every move of the timeline.
  */
-function Framing({ target, radius, at }: { target: Vec3; radius: number; at: number }) {
+function Framing({ target, radius, reset, onOwnView }: { target: Vec3; radius: number; reset: number; onOwnView(own: boolean): void }) {
   const camera = useThree((s) => s.camera)
   const canvas = useThree((s) => s.gl.domElement)
   const invalidate = useThree((s) => s.invalidate)
   const aspect = useThree((s) => s.size.width / s.size.height)
   const controls = useMemo(() => new OrbitControls(camera), [camera])
-  const held = useRef(false)
-  /** The framing that is waiting for the learner to let go, if the timeline moved meanwhile. */
-  const waiting = useRef<(() => void) | null>(null)
+  /** The learner's own view: the direction looked from, and their distance as a share of the chapter's. Null: the chapter's. */
+  const own = useRef<{ direction: Vec3; zoom: number } | null>(null)
+  /** The chapter's own distance at this moment, to measure the learner's zoom against. */
+  const distanceNow = useRef(1)
+  const seenReset = useRef(reset)
 
   // With frameloop="demand" nothing draws unless asked, so every camera change requests one frame.
   useEffect(() => {
     const onChange = () => invalidate()
-    const onStart = () => {
-      held.current = true
-    }
+    // A turn, a pinch or a turn of the wheel has ended: what it left is the learner's view from here on.
     const onEnd = () => {
-      held.current = false
-      waiting.current?.()
+      const offset = camera.position.clone().sub(controls.target)
+      const length = offset.length()
+      if (!(length > 0)) return
+      own.current = { direction: [offset.x / length, offset.y / length, offset.z / length], zoom: length / distanceNow.current }
+      onOwnView(true)
     }
     controls.enablePan = false
     // No inertia: nothing here moves but by the learner's hand or the timeline's.
     controls.enableDamping = false
     controls.connect(canvas)
     controls.addEventListener('change', onChange)
-    controls.addEventListener('start', onStart)
     controls.addEventListener('end', onEnd)
     return () => {
       controls.removeEventListener('change', onChange)
-      controls.removeEventListener('start', onStart)
       controls.removeEventListener('end', onEnd)
       controls.disconnect()
     }
-  }, [controls, canvas, invalidate])
+  }, [camera, controls, canvas, invalidate, onOwnView])
 
   const [x, y, z] = target
   useEffect(() => {
     if (!(aspect > 0)) return
-    const frame = () => {
-      waiting.current = null
-      const distance = framingDistance(radius, FOV, aspect)
-      controls.minDistance = distance / 4
-      controls.maxDistance = distance * 3
-      controls.target.set(x, y, z)
-      camera.position.set(...VIEW_FROM).setLength(distance).add(controls.target)
-      controls.update()
-      invalidate()
+    if (reset !== seenReset.current) {
+      seenReset.current = reset
+      own.current = null
+      onOwnView(false)
     }
-    if (held.current) waiting.current = frame
-    else frame()
-  }, [camera, controls, invalidate, x, y, z, radius, aspect, at])
+    const distance = framingDistance(radius, FOV, aspect)
+    distanceNow.current = distance
+    controls.minDistance = distance / 4
+    controls.maxDistance = distance * 3
+    controls.target.set(x, y, z)
+    const view = own.current
+    camera.position.set(...(view ? view.direction : VIEW_FROM)).setLength(distance * Math.min(Math.max(view?.zoom ?? 1, 0.25), 3)).add(controls.target)
+    controls.update()
+    invalidate()
+  }, [camera, controls, invalidate, onOwnView, x, y, z, radius, aspect, reset])
 
   return null
 }

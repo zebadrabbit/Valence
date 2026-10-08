@@ -18,8 +18,10 @@ export const PAGE_TEXT = {
   scene: '3D scene of the reaction, atom by atom',
   /** The one helper line under the scene. */
   sceneHint:
-    'Point at a molecule or an ion, or tap it, to see its name. Drag to turn the scene; it is framed again when the timeline moves. Every ball is drawn much smaller than the atom or ion it stands for, so that the bonds can be seen.',
+    'Point at a molecule or an ion, or tap it, to see its name. Drag to turn the scene, and pinch or scroll to zoom; your view is kept as the timeline moves, until you press "Reset view". Every ball is drawn much smaller than the atom or ion it stands for, so that the bonds can be seen.',
   loading: 'Loading the 3D scene…',
+  // Over the scene once the learner has turned or zoomed it: gives the chapter's own view back.
+  resetView: 'Reset view',
   /** After the sentence that the 3D model could not start or be drawn. */
   noScene: 'The scene is described in words here instead.',
   paused: 'The browser paused the 3D scene. It usually comes back by itself; if it does not, reload the page.',

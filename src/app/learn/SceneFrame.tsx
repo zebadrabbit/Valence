@@ -1,6 +1,7 @@
 import { lazy, Suspense, useState } from 'react'
 import { VIEWER_FAILURE_TEXT } from '@/app/explore/views'
 import { ViewerBoundary, hasWebgl } from '@/app/explore/webgl'
+import { Button } from '@/components/ui/button'
 import type { Mechanism, MechanismState } from '@/mechanisms'
 import { Beaker } from './Beaker'
 import { PAGE_TEXT, speciesLabel } from './text'
@@ -35,6 +36,9 @@ export function useScene(): { failed: 'webgl' | 'other' | null; onFail(why: 'web
  */
 export function SceneFrame({ mechanism, state, description, describedBy, looked, onLook, dark, failed, onFail }: SceneFrameProps & ReturnType<typeof useScene>) {
   const [contextLost, setContextLost] = useState(false)
+  // The learner's own turn or zoom of the scene, and their asking for the chapter's view back.
+  const [ownView, setOwnView] = useState(false)
+  const [viewReset, setViewReset] = useState(0)
   const { chapter } = state
   const bookend = chapter.kind === 'bookend'
   const lookedAt = looked === null ? undefined : state.species[looked]
@@ -65,10 +69,17 @@ export function SceneFrame({ mechanism, state, description, describedBy, looked,
                   label={PAGE_TEXT.scene}
                   describedBy={describedBy}
                   onContextLost={setContextLost}
+                  viewReset={viewReset}
+                  onOwnView={setOwnView}
                 />
               </Suspense>
             </ViewerBoundary>
           </div>
+        )}
+        {ownView && !bookend && !failed && (
+          <Button type="button" variant="outline" className="absolute right-2 bottom-2 h-11" onClick={() => setViewReset(viewReset + 1)}>
+            {PAGE_TEXT.resetView}
+          </Button>
         )}
         {bookend && (
           <div className="absolute inset-0">
