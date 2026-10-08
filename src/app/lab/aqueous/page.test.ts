@@ -363,9 +363,14 @@ describe('a station once its tube is mixed', () => {
     expect(check.tag).toContain('min-h-11')
   })
 
-  it('in Guided shows what to expect over the questions and the hints over the builders; in Challenge neither, and says when they come', () => {
+  it('in Guided offers what a correct observation holds under the questions, in a list that is closed and named for what opening it shows, and the hints over the builders; in Challenge neither, and says when they come', () => {
     const guided = bench(mixed('aq-02'), 'aq-02').station
-    expect(read(card(guided, PAGE_TEXT.observations))).toContain(`|${BENCH_TEXT.expected}|${expectedLines(data, 'aq-02').join('|')}|`)
+    const observations = card(guided, PAGE_TEXT.observations)
+    expect(observations).not.toContain('<details open')
+    const [, closed] = new RegExp(`</form><details><summary[^>]*>${BENCH_TEXT.expected}</summary>(.*?)</details>`, 's').exec(observations)!
+    expect(read(closed!)).toBe(`|${expectedLines(data, 'aq-02').join('|')}|`)
+    // Nowhere else on the station: what it expects is said once, and behind the one summary.
+    for (const line of expectedLines(data, 'aq-02')) expect(count(guided, new RegExp(line, 'g'))).toBe(1)
     expect(read(card(guided, PAGE_TEXT.equations))).toContain(`|${BENCH_TEXT.hints}|${data.stations[1]!.hints.map(escaped).join('|')}|`)
     expect(guided).not.toContain(PAGE_TEXT.challengeHidden)
     const challenge = bench(mixed('aq-02', 'challenge'), 'aq-02').station
@@ -373,11 +378,11 @@ describe('a station once its tube is mixed', () => {
     expect(challenge).not.toContain(BENCH_TEXT.hints)
     for (const line of expectedLines(data, 'aq-02')) expect(challenge).not.toContain(line)
     for (const hint of data.stations[1]!.hints) expect(challenge).not.toContain(escaped(hint))
-    expect(card(challenge, PAGE_TEXT.observations)).toContain(PAGE_TEXT.challengeHidden)
-    // Once the learner has recorded their own, right or not, Challenge shows both.
+    expect(card(challenge, PAGE_TEXT.observations)).toContain(`</form><p class="max-w-prose text-muted-foreground">${PAGE_TEXT.challengeHidden}</p>`)
+    // Once the learner has recorded their own, right or not, Challenge shows both: the hints, and the same closed list.
     const recorded = run(data, mixed('aq-02', 'challenge'), [{ type: 'recordObservation', stationId: 'aq-02', observation: { solid: 'white', liquid: 'blue', bubbles: 'none' } }])
     const after = bench(recorded, 'aq-02').station
-    expect(after).toContain(BENCH_TEXT.expected)
+    expect(card(after, PAGE_TEXT.observations)).toMatch(new RegExp(`</form><details><summary[^>]*>${BENCH_TEXT.expected}</summary>`))
     expect(after).toContain(BENCH_TEXT.hints)
     expect(after).not.toContain(PAGE_TEXT.challengeHidden)
   })

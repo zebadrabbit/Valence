@@ -29,7 +29,8 @@ export const BENCH_TEXT = {
   mixed: 'Mixed',
   notMixed: 'The two reagents are side by side, not yet mixed.',
   hints: 'Hints',
-  expected: 'What to expect',
+  /** The name of the closed list of what a correct observation holds: it says what opening it shows. */
+  expected: 'What a correct observation holds',
   notes: 'Notes on this station',
   check: 'Check',
   noReaction: 'No reaction',
@@ -197,8 +198,8 @@ export function observationRefusal(data: AqueousData, stationId: string, used: r
 
 /** What each mode does in this lab (spec 8.3), beside its radio button: the shell's own two sentences are the titration lab's. */
 export const MODE_TEXT: Record<Mode, string> = {
-  guided: 'Guided: each station shows its hints, and what a correct observation holds, from the start.',
-  challenge: 'Challenge: a station shows no hints, and nothing of what to expect, until you have recorded your own observation there.',
+  guided: 'Guided: each station shows its hints from the start, and has what a correct observation holds ready to open.',
+  challenge: 'Challenge: a station shows no hints, and nothing of what a correct observation holds, until you have recorded your own observation there.',
 }
 
 /** The list of stations, where the one shown stands in it, and the two ways on. */
@@ -233,7 +234,7 @@ export const PAGE_TEXT = {
   notCorrect: 'Not correct yet',
   notEntered: 'Not entered yet',
   /** In Challenge, where the hints and the expected observation will be. */
-  challengeHidden: 'In Challenge, the hints and what to expect are shown once you have recorded your own observation.',
+  challengeHidden: 'In Challenge, the hints and what a correct observation holds come once you have recorded your own observation.',
   yourEquation: 'Your equation',
   nothingBuilt: 'Nothing chosen yet.',
   palette: 'Substances to choose from',

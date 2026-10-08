@@ -206,7 +206,7 @@ describe("the page's own wording", () => {
   const strings = (texts: Record<string, unknown>) => Object.values(texts).filter((text): text is string => typeof text === 'string')
 
   it('says what each mode does in this lab as spec 8.3 has it, and not in the words of the titration lab', () => {
-    expect(MODE_TEXT.guided).toMatch(/^Guided: .*hints.*correct observation.*from the start\.$/)
+    expect(MODE_TEXT.guided).toMatch(/^Guided: .*hints from the start.*correct observation.*to open\.$/)
     expect(MODE_TEXT.challenge).toMatch(/^Challenge: .*no hints.*until you have recorded your own observation/)
     for (const text of Object.values(MODE_TEXT)) expect(text).not.toMatch(/checklist|warning|trial/)
   })
@@ -229,6 +229,11 @@ describe("the page's own wording", () => {
   it('says which tool a question waits for, and that either will do where two show the same thing', () => {
     expect(toolFirstText(['waft'])).toBe('Not yet. First use: Waft the vapour towards your nose.')
     expect(toolFirstText(['touch', 'thermometer'])).toBe('Not yet. First use: Touch the outside of the tube, or Read the thermometer.')
+  })
+
+  it('names the closed list for what it holds, and says in Challenge when it comes', () => {
+    expect(BENCH_TEXT.expected).toBe('What a correct observation holds')
+    expect(PAGE_TEXT.challengeHidden).toBe('In Challenge, the hints and what a correct observation holds come once you have recorded your own observation.')
   })
 
   it('names the four state symbols in full, and says why a species is not added to a side twice', () => {

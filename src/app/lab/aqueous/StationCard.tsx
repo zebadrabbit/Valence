@@ -1,5 +1,5 @@
 import { useId, useMemo, type ReactNode, type Ref } from 'react'
-import { Sources } from '@/app/explore/InspectorCard'
+import { Disclosure, Sources } from '@/app/explore/InspectorCard'
 import { Control } from '@/app/lab/Control'
 import { Hazards } from '@/app/lab/Hazards'
 import { ROLE } from '@/app/lab/roles'
@@ -70,17 +70,14 @@ function Step({ heading, children }: { heading: string; children: ReactNode }) {
   )
 }
 
-/** A short list under a small heading: the hints, what to expect, the notes. */
-function Listed({ heading, items }: { heading: string; items: readonly string[] }) {
+/** A short list: the hints, and what a correct observation holds. */
+function Listed({ items }: { items: readonly string[] }) {
   return (
-    <div className="grid max-w-[75ch] gap-1">
-      <h4 className="font-medium">{heading}</h4>
-      <ul className="grid list-disc gap-1 pl-5">
-        {items.map((item) => (
-          <li key={item}>{item}</li>
-        ))}
-      </ul>
-    </div>
+    <ul className="grid max-w-[75ch] list-disc gap-1 pl-5">
+      {items.map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+    </ul>
   )
 }
 
@@ -226,7 +223,6 @@ export function StationCard({ data, sources, stationId, view, reducedMotion, can
 
       {view.mixed && (
         <Step heading={PAGE_TEXT.observations}>
-          {view.guidanceShown ? <Listed heading={BENCH_TEXT.expected} items={expectedLines(data, stationId)} /> : <p className="max-w-prose text-muted-foreground">{PAGE_TEXT.challengeHidden}</p>}
           <ObservationForm
             data={data}
             view={view}
@@ -241,11 +237,24 @@ export function StationCard({ data, sources, stationId, view, reducedMotion, can
               return wrongFields(station, observation)
             }}
           />
+          {/* Under the questions and closed, so that the answers are not read before the tube is: in Guided from the start, in Challenge once the learner has recorded their own. */}
+          {view.guidanceShown ? (
+            <Disclosure summary={BENCH_TEXT.expected}>
+              <Listed items={expectedLines(data, stationId)} />
+            </Disclosure>
+          ) : (
+            <p className="max-w-prose text-muted-foreground">{PAGE_TEXT.challengeHidden}</p>
+          )}
         </Step>
       )}
 
       <Step heading={PAGE_TEXT.equations}>
-        {view.guidanceShown && <Listed heading={BENCH_TEXT.hints} items={station.hints} />}
+        {view.guidanceShown && (
+          <div className="grid gap-1">
+            <h4 className="font-medium">{BENCH_TEXT.hints}</h4>
+            <Listed items={station.hints} />
+          </div>
+        )}
         <p className="text-muted-foreground">{STATE_KEY}</p>
         <div className="grid w-full gap-3">
           {FORMS.map((form) => (
