@@ -7,7 +7,7 @@ import { PREDICTION, chapterAnnouncement, chapterAt, chapterHeading, pendingPred
 /** What each mode does on a timeline. The lab shell's own two sentences speak of a checklist and of trials. */
 export const MODE_TEXT: Record<Mode, string> = {
   guided: 'Guided: play the timeline or step through it, with nothing asked.',
-  challenge: 'Challenge: before each step you are asked what happens next. Your first answer is the one kept.',
+  challenge: 'Challenge: before each step you are asked what happens next. Your first answer is the one kept, until you start again.',
 }
 
 export const PAGE_TEXT = {
@@ -39,6 +39,10 @@ export const PAGE_TEXT = {
   toStart: 'To the start',
   toEnd: 'To the end',
   noPlay: 'Reduced motion is on, so nothing plays by itself. Use Next, or move the timeline.',
+  /** Beside the mode: back to the start of the timeline, with every question to answer afresh. It asks first, as a lab's Restart does. */
+  startAgain: 'Start again',
+  startAgainConfirm: 'Start this timeline again? Your place on it and your answers to its questions will be erased, and there is no way to bring them back.',
+  startedAgain: 'The timeline is at its start again, with nothing answered.',
   prediction: 'Your prediction',
 } as const
 

@@ -111,6 +111,24 @@ describe('the mechanism page: its head', () => {
     expect(html).not.toContain(ENERGY_TEXT.chart)
   })
 
+  it('has Start again beside the mode once there is a run to start again, a button a finger can press, which asks first; and none on a page where nothing has been done', () => {
+    expect(button(page(), PAGE_TEXT.startAgain)).toBeUndefined()
+    expect(button(page('/learn/hcl-nahco3?step=decomposition'), PAGE_TEXT.startAgain)).toBeUndefined()
+    at(0.4)
+    const html = page()
+    expect(button(html, PAGE_TEXT.startAgain)).toMatchObject({ words: PAGE_TEXT.startAgain, unavailable: false })
+    expect(button(html, PAGE_TEXT.startAgain)!.tag).toContain('min-h-11')
+    // Next to the mode, before the energy panel's button.
+    expect(html).toMatch(new RegExp(`</details><button[^>]*>${PAGE_TEXT.startAgain}</button>`))
+    expect(html.indexOf(`>${PAGE_TEXT.startAgain}<`)).toBeLessThan(html.indexOf(`${ENERGY_PANEL.title}</button>`))
+    // What it asks before it does anything, and what it says when it has.
+    expect(PAGE_TEXT.startAgainConfirm).toMatch(/^Start this timeline again\? .*place.*answers.*erased.*no way to bring them back\.$/)
+    expect(PAGE_TEXT.startedAgain).toMatch(/start.*nothing answered/)
+    // It stays once a run is stored, at the start too: a press does not take the button from under the finger or the focus.
+    store(createProgress('challenge'))
+    expect(button(page(), PAGE_TEXT.startAgain)).toBeDefined()
+  })
+
   it('shows no notice while progress is being kept, and says so when it is not', () => {
     expect(page()).not.toContain('role="status" class="mb-4')
     app.persistent = false

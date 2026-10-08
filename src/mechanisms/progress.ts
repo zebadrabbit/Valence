@@ -54,6 +54,8 @@ export type Action =
   /** The timeline plays on to `t`. In Challenge mode it stops at the start of a step whose question is not answered (spec 9.1). */
   | { type: 'advance'; t: number }
   | { type: 'answer'; questionId: string; optionId: string }
+  /** The learner starts again: back to the start of the track, with nothing answered, in the mode the run is in. */
+  | { type: 'restart' }
 
 /** Why an action cannot be done now. */
 export type Blocked = 'out-of-range' | 'not-forward' | 'prediction-pending' | 'unknown-question' | 'unknown-option' | 'not-asked' | 'already-answered'
@@ -72,6 +74,7 @@ export function pendingPrediction(mechanism: Mechanism, progress: MechanismProgr
 export function can(mechanism: Mechanism, progress: MechanismProgress, action: Action): Blocked | null {
   switch (action.type) {
     case 'setMode':
+    case 'restart':
       return null
     case 'seek':
       return action.t >= 0 && action.t <= 1 ? null : 'out-of-range'
@@ -96,6 +99,8 @@ export function reduce(mechanism: Mechanism, progress: MechanismProgress, action
   switch (action.type) {
     case 'setMode':
       return { ...progress, mode: action.mode }
+    case 'restart':
+      return createProgress(progress.mode)
     case 'seek':
       return at(action.t)
     case 'advance': {

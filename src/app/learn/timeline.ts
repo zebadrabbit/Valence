@@ -20,6 +20,13 @@ const LONGEST_FRAME_MS = 100
 /** Where playing has got to from `t` after `elapsedMs`: forward at the one pace, and never past the end. */
 export const playedTo = (t: number, elapsedMs: number) => Math.min(1, t + Math.min(elapsedMs, LONGEST_FRAME_MS) / PLAY_MS)
 
+/**
+ * Whether a frame of playing is written to the browser's storage: one that has entered another chapter. The frames
+ * between are shown and not written; the page writes the run again when playing stops, so a reload comes back to
+ * where it stopped, or, if the page was closed while it played, to the start of the chapter it was in.
+ */
+export const entersChapter = (mechanism: Mechanism, from: number, to: number) => chapterAt(mechanism, from) !== chapterAt(mechanism, to)
+
 /** Where a press of Previous or Next goes: a place on the track, and the chapter that starts there, or null where it is an end of the track. */
 export type Way = { to: number; chapter: Chapter | null }
 

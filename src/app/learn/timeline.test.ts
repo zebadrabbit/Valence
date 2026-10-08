@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { ENERGY_PANEL, energyAt, energyCurves, hclNahco3 as mechanism, overallEnergy } from '@/mechanisms'
 import { CHART, chartScale, curveLabels, curvePath } from './energyChart'
-import { PLAY_MS, SLIDER_STEP, TRACK, fromSlider, playedTo, sliderValue, ways } from './timeline'
+import { PLAY_MS, SLIDER_STEP, TRACK, entersChapter, fromSlider, playedTo, sliderValue, ways } from './timeline'
 
 describe('the slider', () => {
   it('holds the track in whole numbers, and gives back the very position a chapter starts at', () => {
@@ -58,6 +58,25 @@ describe('playing', () => {
 
   it('does not leap after a frame that came late: a tab that was hidden, a page that was busy', () => {
     expect(playedTo(0.2, 30_000)).toBe(playedTo(0.2, 100))
+  })
+})
+
+describe('saving while playing', () => {
+  it('writes a frame that has entered another chapter, and no other: playing is saved by the chapter, and when it stops', () => {
+    expect(entersChapter(mechanism, 0.1, 0.1003)).toBe(false)
+    expect(entersChapter(mechanism, 0.1598, 0.16)).toBe(true)
+    expect(entersChapter(mechanism, 0.16, 0.1603)).toBe(false)
+    expect(entersChapter(mechanism, 0.9399, 0.9401)).toBe(true)
+    // Over the whole track at the pace of playing, sixty frames a second: six frames are written, of 3,600.
+    let [t, written, frames] = [0, 0, 0]
+    while (t < 1) {
+      const next = playedTo(t, 1000 / 60)
+      if (entersChapter(mechanism, t, next)) written++
+      frames++
+      t = next
+    }
+    expect(written).toBe(mechanism.chapters.length - 1)
+    expect(frames).toBeGreaterThan(3000)
   })
 })
 

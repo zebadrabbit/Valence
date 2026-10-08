@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router'
 import { ACTIVITIES } from '@/app/activities'
 import { useAppState } from '@/app/AppState'
@@ -30,7 +30,7 @@ import { EnergyPanel } from './EnergyPanel'
 import { SceneFrame, SceneList, useScene } from './SceneFrame'
 import { MODE_TEXT, PAGE_TEXT, REFUSAL, announcement, chapterName, completedText, sceneWords, withheld } from './text'
 import { Timeline } from './Timeline'
-import { playedTo, ways } from './timeline'
+import { entersChapter, playedTo, ways } from './timeline'
 import '@/app/lab/lab.css'
 
 const [, , MECHANISM] = ACTIVITIES
@@ -42,7 +42,8 @@ const FRESH = createProgress('guided')
 /**
  * #/learn/hcl-nahco3: the mechanism timeline (spec 9). The scrub position is the stored run's, read once when the
  * page mounts; every action of the learner's that the engine takes is saved as it is taken, and nothing is saved
- * by opening the page, so Home goes on saying "Not started" until the learner does something. A deep link
+ * by opening the page, so Home goes on saying "Not started" until the learner does something. Playing is shown
+ * frame by frame and written when it enters a chapter and when it stops, not at every frame. A deep link
  * (`?step=proton-transfer`) opens at its chapter's start without saving either: the place is shown, and is the
  * run's from the first action on, when the address drops the link so that a reload comes back to where the learner
  * was and not to where the link pointed.
@@ -53,7 +54,7 @@ const FRESH = createProgress('guided')
  */
 export function MechanismPage() {
   const { persistent, reducedMotion } = useAppState()
-  const [stored, save, { setAside }] = useLabProgress(MECHANISM, SCHEMA)
+  const [stored, save, { setAside, taken }] = useLabProgress(MECHANISM, SCHEMA)
   const [params, setParams] = useSearchParams()
   const step = params.get('step')
   // The run a deep link shows, until the learner acts: `step` is the link it was made for.
@@ -62,11 +63,19 @@ export function MechanismPage() {
     const start = step === null ? null : chapterStart(mechanism, step)
     setLink({ step, run: start === null ? null : reduce(mechanism, stored ?? FRESH, { type: 'seek', t: start }) })
   }
-  const run = link.run ?? stored ?? FRESH
-
+  // The run as playing has shown it since it was last written. Null when what is stored is what is shown.
+  const [played, setPlayed] = useState<MechanismProgress | null>(null)
   const [playing, setPlaying] = useState(false)
   // Under the reduced-motion setting nothing moves by itself, also when the setting is turned on while playing.
   if (playing && reducedMotion) setPlaying(false)
+  // Another tab has saved a run of the timeline: this tab takes it, stops, and drops what it had played on from the old one.
+  const [seen, setSeen] = useState(taken)
+  if (taken !== seen) {
+    setSeen(taken)
+    setPlayed(null)
+    setPlaying(false)
+  }
+  const run = link.run ?? played ?? stored ?? FRESH
   const [looked, setLooked] = useState<number | null>(null)
   const [said, say] = useSaid()
   const scene = useScene()
@@ -74,39 +83,74 @@ export function MechanismPage() {
   const heading = useRef<HTMLHeadingElement>(null)
   const answered = useRef(false)
 
+  /** Writes the run as it now is. The place a deep link showed is the run's own from here, and the address no longer points anywhere else. */
+  const write = (next: MechanismProgress) => {
+    save(next)
+    setPlayed(null)
+    if (link.run) setLink({ step, run: null })
+    if (step !== null) setParams({}, { replace: true, state: { keepFocus: true } })
+  }
+  const reached = (next: MechanismProgress) => {
+    if (next.status === 'completed' && run.status !== 'completed') say(completedText(mechanism, next))
+  }
   /** Does an action if the engine takes it, saves the run, and hands back the run as it then is. */
   const act = (action: Action): MechanismProgress => {
     const next = reduce(mechanism, run, action)
     if (next === run) return run
-    save(next)
-    // The place a deep link showed is the run's own now, and the address no longer points anywhere else.
-    if (link.run) setLink({ step, run: null })
-    if (step !== null) setParams({}, { replace: true, state: { keepFocus: true } })
-    if (next.status === 'completed' && run.status !== 'completed') say(completedText(mechanism, next))
+    write(next)
+    reached(next)
+    return next
+  }
+  /**
+   * One frame of playing, on to `t`. It is shown, and it is written only where it enters a chapter, where playing
+   * stops at it (the end of the track, a question), or where it is the first after a deep link.
+   */
+  const frame = (t: number): MechanismProgress => {
+    const next = reduce(mechanism, run, { type: 'advance', t })
+    if (next === run) return run
+    const stops = next.position >= 1 || pendingPrediction(mechanism, next) !== null
+    if (stops || link.run || entersChapter(mechanism, run.position, next.position)) write(next)
+    else setPlayed(next)
+    reached(next)
     return next
   }
 
-  // ponytail: the run is saved at every frame of playing, some sixty small writes a second, so that a reload in
-  // the middle of a step comes back to the frame it left. Save at a slower beat if a slow device shows it.
-  const live = useRef(act)
-  useEffect(() => {
-    live.current = act
+  // What the clock of playing calls, as the latest render has it. A layout effect, so that the clock's own clean-up, which runs after it, writes what this render shows.
+  const live = useRef({ frame, position: run.position, flush: () => {} })
+  useLayoutEffect(() => {
+    live.current = {
+      frame,
+      position: run.position,
+      /** Writes what playing has shown and not yet written. */
+      flush: () => {
+        if (!played) return
+        save(played)
+        setPlayed(null)
+      },
+    }
   })
   useEffect(() => {
     if (!playing) return
     let last: number | null = null
-    let position: number | null = null
-    let frame = requestAnimationFrame(function tick(now) {
+    let position = live.current.position
+    let handle = requestAnimationFrame(function tick(now) {
       const elapsed = last === null ? 0 : now - last
       last = now
-      const next = live.current({ type: 'advance', t: playedTo(position ?? 0, elapsed) })
-      // The first frame only reads where the run is; from then on the loop counts on from its own last place.
-      const stopped = position !== null && (next.position === position || next.position >= 1 || pendingPrediction(mechanism, next) !== null)
+      const next = live.current.frame(playedTo(position, elapsed))
+      // The first frame has no time behind it and moves nothing; from then on a frame that moves nothing is a stop.
+      const stopped = elapsed > 0 && (next.position === position || next.position >= 1 || pendingPrediction(mechanism, next) !== null)
       position = next.position
       if (stopped) setPlaying(false)
-      else frame = requestAnimationFrame(tick)
+      else handle = requestAnimationFrame(tick)
     })
-    return () => cancelAnimationFrame(frame)
+    // Playing is written when it stops, however it stops: Pause, a move by hand, the page left or closed.
+    const leave = () => live.current.flush()
+    window.addEventListener('pagehide', leave)
+    return () => {
+      cancelAnimationFrame(handle)
+      window.removeEventListener('pagehide', leave)
+      live.current.flush()
+    }
   }, [playing])
 
   // A tap anywhere but on the scene or on the list puts the callout away: a finger does not leave as a mouse pointer does.
@@ -150,7 +194,25 @@ export function MechanismPage() {
       {!persistent && <Notice>{NOT_SAVING_TEXT}</Notice>}
       {setAside && <Notice>{PAGE_TEXT.setAside}</Notice>}
       <div className="mb-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-        <ModeSwitch mode={run.mode} onChange={(mode) => act({ type: 'setMode', mode })} text={MODE_TEXT} />
+        <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+          <ModeSwitch mode={run.mode} onChange={(mode) => act({ type: 'setMode', mode })} text={MODE_TEXT} />
+          {/* Once a run is stored there is one to start again. It asks first, as a lab's Restart does. */}
+          {stored && (
+            <Button
+              variant="outline"
+              className="min-h-11"
+              onClick={() => {
+                if (!window.confirm(PAGE_TEXT.startAgainConfirm)) return
+                setPlaying(false)
+                setLooked(null)
+                act({ type: 'restart' })
+                say(PAGE_TEXT.startedAgain)
+              }}
+            >
+              {PAGE_TEXT.startAgain}
+            </Button>
+          )}
+        </div>
         <div className="flex flex-wrap items-center gap-x-2">
           <EnergyPanel mechanism={mechanism} t={t} name={name} />
           <PeriodicTableLink />

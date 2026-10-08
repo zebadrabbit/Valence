@@ -26,6 +26,31 @@ describe('the predictions', () => {
   })
 })
 
+describe('restart: the learner starts again', () => {
+  it('goes back to the start with nothing answered, in the mode the run was in, from anywhere', () => {
+    const far = run(challenge, { type: 'advance', t: 0.5 }, { type: 'answer', questionId: 'dissolving', optionId: 'atoms' }, { type: 'seek', t: 0.7 })
+    expect(far.answers).toHaveLength(1)
+    expect(can(mechanism, far, { type: 'restart' })).toBeNull()
+    expect(run(far, { type: 'restart' })).toEqual(createProgress('challenge'))
+    const done = run(guided, { type: 'seek', t: 1 })
+    expect(done.status).toBe('completed')
+    expect(run(done, { type: 'restart' })).toEqual(createProgress('guided'))
+    // While a question waits, too: it is asked again when the timeline next comes to it.
+    const asked = run(challenge, { type: 'advance', t: 0.5 })
+    expect(pendingPrediction(mechanism, asked)).not.toBeNull()
+    const again = run(asked, { type: 'restart' })
+    expect(again).toEqual(createProgress('challenge'))
+    expect(schema.safeParse(again).success).toBe(true)
+  })
+
+  it('lets a question be answered afresh: the first answer of the new run is the one kept', () => {
+    const first = run(challenge, { type: 'advance', t: 0.5 }, { type: 'answer', questionId: 'dissolving', optionId: 'atoms' })
+    const second = run(first, { type: 'restart' }, { type: 'advance', t: 0.5 }, { type: 'answer', questionId: 'dissolving', optionId: 'ions' })
+    expect(second.answers).toEqual([{ questionId: 'dissolving', optionId: 'ions' }])
+    expect(predictionResults(mechanism, second)).toEqual([{ questionId: 'dissolving', optionId: 'ions', correct: true }])
+  })
+})
+
 describe('seek: the learner scrubs, or a deep link opens', () => {
   it('goes anywhere on the track, in either mode, past any question', () => {
     expect(run(guided, { type: 'seek', t: 0.4 }).position).toBe(0.4)
