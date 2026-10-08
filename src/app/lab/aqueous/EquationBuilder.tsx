@@ -1,5 +1,5 @@
 import { X } from 'lucide-react'
-import { useEffect, useId, useRef, useState, type KeyboardEvent, type MouseEvent, type PointerEvent } from 'react'
+import { useEffect, useId, useRef, useState, type KeyboardEvent, type MouseEvent, type PointerEvent, type TouchEvent } from 'react'
 import { createPortal } from 'react-dom'
 import { Control, noRepeat } from '@/app/lab/Control'
 import { ROLE } from '@/app/lab/roles'
@@ -120,8 +120,7 @@ export function EquationBuilder({ data, form, palette, judged, counts, held, ref
   const formRef = useRef<HTMLFormElement>(null)
   const button = useRef<HTMLButtonElement>(null)
   const controls = useRef<HTMLDivElement>(null)
-  const pressed = useRef<{ speciesId: string; from: At | null; x: number; y: number } | null>(null)
-  // The click that ends a drag is not a tap.
+  const pressed = useRef<{ held: { speciesId: string; from: At | null } | null; x: number; y: number } | null>(null)
   const dropped = useRef(false)
   // A slot opened by keyboard hands focus to its term's controls once they are drawn.
   const toControls = useRef(false)
@@ -203,25 +202,31 @@ export function EquationBuilder({ data, form, palette, judged, counts, held, ref
     const [side, index] = slot.dataset.place!.split(':')
     return { side: side as Side, index: Number(index) }
   }
-  // A tile is dragged by pointer events, which a finger, a pen and a mouse all give; the tile is `touch-none`, so a
-  // finger on it moves the tile and not the page.
+  // What a pointer does on a slot or on a tile of the bank. A tile (`held`, null for an empty slot) that is pressed
+  // and moved is dragged, by pointer events, which a finger, a pen and a mouse all give; it is `touch-none`, so a
+  // finger on it moves the tile and not the page. A press that is not a drag is a tap. A mouse's and a key's come
+  // as a click. A finger's is taken when the finger lifts, and the click the browser would make of it is stopped:
+  // the browser makes none of a tap that follows a drag closely, and that tap would be lost.
   // ponytail: the page does not scroll while a tile is held near the window's edge; a builder is under a screen long.
-  const draggable = (speciesId: string, from: At | null) => ({
+  const pointer = (held: { speciesId: string; from: At | null } | null, tap: (byKey: boolean) => void) => ({
     onPointerDown: (event: PointerEvent<HTMLButtonElement>) => {
       if (event.button !== 0) return
-      pressed.current = { speciesId, from, x: event.clientX, y: event.clientY }
-      event.currentTarget.setPointerCapture(event.pointerId)
+      pressed.current = { held, x: event.clientX, y: event.clientY }
+      if (held !== null) event.currentTarget.setPointerCapture(event.pointerId)
     },
     onPointerMove: (event: PointerEvent<HTMLButtonElement>) => {
       const start = pressed.current
-      if (start === null || (drag === null && Math.hypot(event.clientX - start.x, event.clientY - start.y) < DRAG_START)) return
+      if (!start?.held || (drag === null && Math.hypot(event.clientX - start.x, event.clientY - start.y) < DRAG_START)) return
       const over = under(event.clientX, event.clientY)
-      setDrag({ speciesId: start.speciesId, from: start.from, x: event.clientX, y: event.clientY, over: over === 'row' ? null : over, lifted: event.pointerType !== 'mouse' })
+      setDrag({ ...start.held, x: event.clientX, y: event.clientY, over: over === 'row' ? null : over, lifted: event.pointerType !== 'mouse' })
     },
     onPointerUp: (event: PointerEvent<HTMLButtonElement>) => {
+      const start = pressed.current
       pressed.current = null
-      if (drag === null) return
+      if (start === null) return
+      if (drag === null) return event.pointerType === 'touch' ? tap(false) : undefined
       setDrag(null)
+      // The click a mouse makes as it lets a dragged tile go is not a tap.
       dropped.current = true
       setTimeout(() => (dropped.current = false))
       drop(drag, under(event.clientX, event.clientY))
@@ -230,11 +235,14 @@ export function EquationBuilder({ data, form, palette, judged, counts, held, ref
       pressed.current = null
       setDrag(null)
     },
+    onTouchEnd: (event: TouchEvent) => {
+      if (event.cancelable) event.preventDefault()
+    },
+    // `detail` counts a pointer's clicks: a press by key has none.
+    onClick: (event: MouseEvent) => {
+      if (!dropped.current) tap(event.detail === 0)
+    },
   })
-  /** A press that is a tap or a key, and not the end of a drag. `byKey`: it has no pointer, whose clicks `detail` counts. */
-  const tapped = (act: (byKey: boolean) => void) => (event: MouseEvent) => {
-    if (!dropped.current) act(event.detail === 0)
-  }
   const slotKey = (event: KeyboardEvent<HTMLButtonElement>, at: At) => {
     noRepeat(event)
     if (event.key === 'Backspace' || event.key === 'Delete') {
@@ -310,14 +318,13 @@ export function EquationBuilder({ data, form, palette, judged, counts, held, ref
                         same(at, drag?.over ?? null) ? 'bg-muted ring-3 ring-ring' : '',
                         same(at, drag?.from ?? null) ? 'opacity-40' : '',
                       ].join(' ')}
-                      onClick={tapped((byKey) => {
+                      onKeyDown={(event) => slotKey(event, at)}
+                      {...pointer(term && { speciesId: term.speciesId, from: at }, (byKey) => {
                         go(at)
                         if (term === null) return
                         setEdited({ side, speciesId: term.speciesId })
                         toControls.current = byKey
                       })}
-                      onKeyDown={(event) => slotKey(event, at)}
-                      {...(term === null ? {} : draggable(term.speciesId, at))}
                     >
                       {term !== null && (
                         // Underlined while its coefficient and state are the ones under the row.
@@ -362,8 +369,7 @@ export function EquationBuilder({ data, form, palette, judged, counts, held, ref
                 key={speciesId}
                 unavailable={active === null || where(row, active.side, speciesId) !== null}
                 className={`cursor-grab touch-none px-3 text-base ${TAP}`}
-                onClick={tapped(() => (active === null ? say(PAGE_TEXT.full, true) : put(active, speciesId)))}
-                {...draggable(speciesId, null)}
+                {...pointer({ speciesId, from: null }, () => (active === null ? say(PAGE_TEXT.full, true) : put(active, speciesId)))}
               >
                 <span>
                   <Formula text={formula(speciesId)} />
