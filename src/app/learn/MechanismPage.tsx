@@ -233,7 +233,7 @@ export function MechanismPage() {
       {/* lab-panel is lab.css's class for a part of a page whose disclosures each have a finger's hit area. */}
       <div className="lab-panel @container">
         <div className="grid items-start gap-4 @2xl:grid-cols-[minmax(0,1fr)_17rem] @4xl:grid-cols-[minmax(0,3fr)_minmax(17rem,2fr)]">
-          <div className="grid min-w-0 gap-2">
+          <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-2">
             <div>
               <SceneFrame mechanism={mechanism} state={now} description={description} describedBy={descriptionId} looked={looked} onLook={setLooked} dark={dark} {...scene} />
               {chapter.kind !== 'bookend' && !scene.failed && <p className="mt-1 text-sm text-muted-foreground">{PAGE_TEXT.sceneHint}</p>}
