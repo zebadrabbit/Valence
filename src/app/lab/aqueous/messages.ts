@@ -1,6 +1,6 @@
 import type { AqueousData } from '@/chem-data/aqueous/data'
 import { choicesFor, expectedObservation, fieldsOf, isLook, stationResult, usesShowing, type Action, type Blocked, type Entry, type Field, type Form, type Look, type Mode, type Observation, type Problem, type State, type ToolUse } from '@/engine/aqueous'
-import type { Side } from './builder'
+import type { At, Side } from './builder'
 import { tubeLook, type Progress } from './stationLook'
 
 // Every sentence the aqueous reactions lab says that is chemistry, keyed by the engine's identifiers, so that an
@@ -267,15 +267,11 @@ export const PAGE_TEXT = {
   /** In Challenge, where the hints and the expected observation will be. */
   challengeHidden: 'In Challenge, the hints and what a correct observation holds come once you have recorded your own observation.',
   yourEquation: 'Your equation',
-  nothingBuilt: 'Nothing chosen yet.',
   palette: 'Substances to choose from',
-  paletteHelp: 'Choose a substance, then the side it goes on.',
-  reactant: 'Reactant',
-  product: 'Product',
-  add: 'Add',
-  asA: 'as a',
-  /** The name of the two buttons that ask which side: "Add Fe³⁺ as a", then Reactant or Product. */
-  whichSide: (formula: string) => `Add ${formula} as a`,
+  /** Under the row of slots, until a slot holds something: how the row is filled. */
+  slotHelp: 'A substance you tap goes into the active slot, the one with the thick outline. Tap a slot to make it active. You can also drag.',
+  /** A substance pressed while no slot is active: every slot of a template is full. */
+  full: 'Every slot is full. To change one, tap it and then a substance.',
   coefficient: 'Coefficient',
   fewer: 'One fewer',
   more: 'One more',
@@ -295,6 +291,35 @@ export const STATE_KEY = `States: ${(Object.keys(STATE_NAME) as State[]).map((st
 
 /** Why a species is not added to a side again. */
 export const alreadyOnSide = (formula: string, side: Side) => `${formula} is already among the ${side === 'reactants' ? 'reactants' : 'products'}.`
+
+const upper = (text: string) => `${text[0]!.toUpperCase()}${text.slice(1)}`
+/** A slot of an equation's row as a sentence speaks of it: "reactant 2". */
+export const slotName = ({ side, index }: At) => `${side === 'reactants' ? 'reactant' : 'product'} ${index + 1}`
+
+/**
+ * The name of a slot's button: "Reactant 2 of 4, empty, active", "Product 1 of 1: 3 OH⁻, dissolved in water".
+ * `of` is how many slots its side has where the row is a template, and null where it is not: a count that grows
+ * as the row is filled says nothing, and is not said.
+ */
+export function slotLabel(at: At, of: number | null, term: { formula: string; coefficient: number; state: State } | null, active: boolean): string {
+  const place = `${upper(slotName(at))}${of === null ? '' : ` of ${of}`}`
+  const holds = term === null ? ', empty' : `: ${term.coefficient === 1 ? '' : `${term.coefficient} `}${term.formula}, ${STATE_NAME[term.state]}`
+  return `${place}${holds}${active ? ', active' : ''}`
+}
+
+/** What an equation builder's message line says of each change to its row; the last two are for a screen reader, which the outline does not reach. */
+export const SLOT_TEXT = {
+  placed: (formula: string, at: At) => `${formula} is now ${slotName(at)}.`,
+  replaced: (formula: string, at: At, was: string) => `${formula} is now ${slotName(at)}, in place of ${was}.`,
+  exchanged: (formula: string, at: At, other: string, otherAt: At) => `${formula} is now ${slotName(at)}, and ${other} is now ${slotName(otherAt)}.`,
+  takenOut: (formula: string, side: Side) => `${formula} is taken out of the ${side === 'reactants' ? 'reactants' : 'products'}.`,
+  coefficient: (formula: string, coefficient: number) => `${formula}: coefficient ${coefficient}.`,
+  state: (formula: string, state: State) => `${formula}: state (${state}), ${STATE_NAME[state]}.`,
+  /** The name of the group of a term's coefficient, state and way out, under the row: "Reactant 2: OH⁻". */
+  term: (formula: string, at: At) => `${upper(slotName(at))}: ${formula}`,
+  active: (at: At) => `${upper(slotName(at))} is the active slot.`,
+  noneActive: 'No slot is active: every slot is full.',
+}
 
 /** Under a question that waits: the part of the drawn tube to look at first, or the tool to use first. Any one of the tools named shows it. */
 export const toolFirstText = (uses: readonly ToolUse[]) =>

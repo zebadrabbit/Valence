@@ -16,6 +16,7 @@ import { correctEntry, run, stationScript } from '@/engine/aqueous/testkit'
 import { AqueousBench } from './AqueousBench'
 import { AqueousPage } from './AqueousPage'
 import { AqueousRecord } from './AqueousRecord'
+import { TermControls } from './EquationBuilder'
 import { EquationLine } from './Formula'
 import { IonsTables } from './IonsPanel'
 import { chargeText, ionRows, wholeRows } from './ions'
@@ -30,6 +31,7 @@ import {
   PROBLEM_TEXT,
   PROGRESS_TEXT,
   RECORD_TEXT,
+  SLOT_TEXT,
   SOLUBILITY_TEXT,
   STATE_KEY,
   STATE_NAME,
@@ -39,6 +41,7 @@ import {
   equationText,
   expectedLines,
   observationFeedback,
+  slotLabel,
   stationTitle,
   toolFirstText,
   toolOutcome,
@@ -48,7 +51,7 @@ import aqueousCss from './aqueous.css?raw'
 
 // The aqueous reactions lab's page as markup, on a store the test holds. AppStateProvider builds its store from the
 // browser and the media hook has no value on a server, so both are given directly. What a press does (Mix, a tool,
-// a check, the palette and its two sides, Change, Previous and Next, the three panels) is state, and is checked in a
+// a check, a tile put in a slot or dragged to one, Change, Previous and Next, the three panels) is state, and is checked in a
 // browser: a markup render mounts the page and no more.
 const app = vi.hoisted(() => ({ store: undefined as unknown as KeyValueStore, persistent: true, wide: true }))
 vi.mock('@/app/AppState', () => ({ useAppState: () => ({ store: app.store, persistent: app.persistent, reducedMotion: false }) }))
@@ -288,7 +291,7 @@ describe('a station before its tube is mixed', () => {
     expect(tube).not.toContain(PAGE_TEXT.explore)
   })
 
-  it('takes equations already, as the engine does: three builders, each with "No reaction", the palette and Check', () => {
+  it('takes equations already, as the engine does: three builders, each with "No reaction", its row of slots, its bank and Check', () => {
     expect([...card(station, PAGE_TEXT.equations).matchAll(/<h4[^>]*>(.*?)<\/h4>/g)].map((match) => match[1])).toEqual([BENCH_TEXT.hints, ...FORMS.map((form) => FORM_LABEL[form])])
     for (const form of FORMS) expect(builder(station, form)).toContain(`${BENCH_TEXT.noReaction}</label>`)
   })
@@ -594,64 +597,165 @@ describe('a recorded observation', () => {
 })
 
 describe('an equation builder', () => {
-  const entered = (form: (typeof FORMS)[number], entry: Parameters<typeof equationText>[1], stationId = 'aq-01') => bench(reduce(data, fresh(), { type: 'enterEquation', stationId, form, entry }), stationId).station
+  const entered = (form: (typeof FORMS)[number], entry: Parameters<typeof equationText>[1], stationId = 'aq-01', mode: AqueousState['mode'] = 'guided') =>
+    bench(reduce(data, fresh(mode), { type: 'enterEquation', stationId, form, entry }), stationId).station
   const empty = builder(bench(fresh()).station, 'molecular')
+  const BANK = /<div role="group" aria-label="Substances to choose from"[^>]*>(.*?)<\/div>/s
+  /** The row of slots: the group named by "Your equation:", and each slot by where it is and its name. */
+  const row = (drawn: string) => /<div role="group" aria-labelledby="[^"]+" data-row=""[^>]*>(.*?)<\/div>/s.exec(drawn)?.[1] ?? ''
+  const slots = (drawn: string) => [...row(drawn).matchAll(/<button type="button" data-place="([^"]+)" aria-label="([^"]+)"([^>]*)>(.*?)<\/button>/gs)].map(([, place, name, tag, body]) => ({ place: place!, name: name!, tag: tag!, body: body! }))
 
-  it('is a form named by its heading, with the choice "No reaction", the equation so far, the palette as buttons, a hint where the side is asked, and Check', () => {
+  it('is a form named by its heading, with the choice "No reaction", the equation as a row of slots, how to fill it, the bank of substances as buttons, and Check', () => {
     const [, labelledBy] = /^<form [^>]*aria-labelledby="([^"]+)"/.exec(empty)!
     expect(empty).toContain(`<h4 id="${labelledBy}" class="font-medium">${FORM_LABEL.molecular}</h4>`)
     expect(empty).toMatch(new RegExp(`<input type="checkbox"/>${BENCH_TEXT.noReaction}</label>`))
-    expect(read(empty)).toContain(`|${PAGE_TEXT.yourEquation}:|${PAGE_TEXT.nothingBuilt}|`)
-    const palette = /<div role="group" aria-label="Substances to choose from"[^>]*>(.*?)<\/div>/s.exec(empty)![1]!
-    expect(buttons(palette).map(({ name }) => name)).toEqual(['FeCl3', 'NaOH', 'Fe(OH)3', 'NaCl', 'Fe3+', 'Cl−', 'Na+', 'OH−', 'Fe(OH)2', 'H2O'])
-    expect(empty).toContain(`>${PAGE_TEXT.paletteHelp}</p>`)
+    const [, rowLabel] = /<div role="group" aria-labelledby="([^"]+)" data-row=""/.exec(empty)!
+    expect(empty).toContain(`<span id="${rowLabel}" class="font-medium ${ROLE.entry}">${PAGE_TEXT.yourEquation}:</span>`)
+    expect(buttons(BANK.exec(empty)![1]!).map(({ name }) => name)).toEqual(['FeCl3', 'NaOH', 'Fe(OH)3', 'NaCl', 'Fe3+', 'Cl−', 'Na+', 'OH−', 'Fe(OH)2', 'H2O'])
+    expect(empty).toContain(`>${PAGE_TEXT.slotHelp}</p>`)
+    // The order a reader and the Tab key meet them in: the slots, then the bank, then Check.
+    expect(empty.indexOf('data-row')).toBeLessThan(empty.indexOf(PAGE_TEXT.slotHelp))
+    expect(empty.indexOf(PAGE_TEXT.slotHelp)).toBeLessThan(empty.indexOf('Substances to choose from'))
     const check = buttons(empty).at(-1)!
     expect(check.name).toBe(BENCH_TEXT.check)
     // Nothing is built yet, so a press of Check is told why: the button is unavailable and still focusable.
     expect(check.tag).toContain('aria-disabled="true"')
     expect(check.tag).toContain(`aria-describedby="${labelledBy}"`)
     expect(empty).not.toContain('type="text"')
+    // The message line, and after it one for a screen reader that says which slot is active.
+    expect(count(`${empty}</form>`, /<p role="status"/g)).toBe(2)
   })
 
-  it('draws a formula of the palette with real subscripts and its charge raised', () => {
+  it('draws, in Guided, the equation as a slot for each term of the correct one, the plus signs and the arrow between them, all empty and the first active', () => {
+    expect(slots(empty).map(({ place, name }) => [place, name])).toEqual([
+      ['reactants:0', 'Reactant 1 of 2, empty, active'],
+      ['reactants:1', 'Reactant 2 of 2, empty'],
+      ['products:0', 'Product 1 of 2, empty'],
+      ['products:1', 'Product 2 of 2, empty'],
+    ])
+    expect(text(row(empty))).toBe(`${PAGE_TEXT.yourEquation}:+→+`)
+    expect(slots(builder(bench(fresh()).station, 'completeIonic')).map(({ place }) => place)).toEqual(['reactants:0', 'reactants:1', 'reactants:2', 'reactants:3', 'products:0', 'products:1', 'products:2'])
+    for (const station of data.stations) {
+      const drawn = bench(fresh(), station.id).station
+      for (const form of FORMS) {
+        const curated = station.equations[form]
+        // Where nothing reacts the row is not a template: one slot a side, as in Challenge, with no count in its name.
+        const wanted = curated === null ? ['Reactant 1, empty, active', 'Product 1, empty'] : [...curated.reactants.map((_, i) => `Reactant ${i + 1} of ${curated.reactants.length}, empty`), ...curated.products.map((_, i) => `Product ${i + 1} of ${curated.products.length}, empty`)]
+        expect(slots(builder(drawn, form)).map(({ name }) => name.replace(/^(Reactant 1 of \d+, empty), active$/, '$1')), `${station.id} ${form}`).toEqual(wanted)
+      }
+    }
+  })
+
+  it('marks the active slot by the weight of its outline and by its name, and an empty slot by a dashed outline', () => {
+    const [first, second] = slots(empty)
+    expect(first!.tag).toMatch(/class="[^"]*border-solid border-foreground inset-ring-2/)
+    expect(second!.tag).not.toMatch(/inset-ring-2/)
+    expect(second!.tag).toMatch(/class="[^"]*border-dashed/)
+    expect(count(row(empty), /, active"/g)).toBe(1)
+  })
+
+  it('in Challenge gives away neither how many terms an equation has nor that there is none: one empty slot a side at every station and in every form, and the same markup but for the bank', () => {
+    const drawn = data.stations.flatMap((station) => {
+      const shown = bench(fresh('challenge'), station.id).station
+      return FORMS.map((form) => builder(shown, form))
+    })
+    for (const one of drawn) {
+      expect(slots(one).map(({ place, name }) => [place, name])).toEqual([['reactants:0', 'Reactant 1, empty, active'], ['products:0', 'Product 1, empty']])
+    }
+    // But for the ids React numbers them with, the heading and the bank, the thirty builders are one and the same.
+    const bare = (one: string) => one.replace(/="_R_[^"]*"/g, '').replace(/<h4[^>]*>.*?<\/h4>/, '').replace(BANK, '')
+    expect(new Set(drawn.map(bare)).size).toBe(1)
+    // Not after an observation is recorded, when the hints come, and not while a wrong equation stands: only what the learner put there.
+    const wrong = builder(entered('completeIonic', { noReaction: false, reactants: [{ speciesId: 'iron-iii-ion', coefficient: 1, state: 'aq' }], products: [{ speciesId: 'water', coefficient: 2, state: 'l' }] }, 'aq-01', 'challenge'), 'completeIonic')
+    expect(slots(wrong).map(({ name }) => name)).toEqual(['Reactant 1: Fe³⁺, dissolved in water', 'Reactant 2, empty, active', 'Product 1: 2 H₂O, liquid', 'Product 2, empty'])
+    const observed = run(data, fresh('challenge'), [{ type: 'mix', stationId: 'aq-01' }, ...looks('aq-01'), { type: 'recordObservation', stationId: 'aq-01', observation: { solid: 'white', liquid: 'colourless', bubbles: 'none' } }])
+    for (const form of FORMS) expect(slots(builder(bench(observed).station, form))).toHaveLength(2)
+  })
+
+  it('draws a formula of the bank with real subscripts and its charge raised', () => {
     expect(empty).toContain('<span>Fe<sup>3+</sup></span>')
     expect(empty).toContain('<span>Fe(OH)<sub>3</sub></span>')
     expect(empty).toContain('<span>Cl<sup>−</sup></span>')
     expect(empty).not.toMatch(/[₀-₉⁰-⁹⁺⁻]/)
   })
 
-  it('offers each station its own palette, the same in the three builders', () => {
+  it('offers each station its own bank, the same in the three builders, every tile available while an empty slot is active', () => {
     for (const station of data.stations) {
       const drawn = bench(fresh(), station.id).station
-      for (const form of FORMS) expect(count(/<div role="group" aria-label="Substances to choose from"[^>]*>(.*?)<\/div>/s.exec(builder(drawn, form))![1]!, /<button/g), `${station.id} ${form}`).toBe(station.paletteSpecies.length)
+      for (const form of FORMS) {
+        const bank = BANK.exec(builder(drawn, form))![1]!
+        expect(count(bank, /<button/g), `${station.id} ${form}`).toBe(station.paletteSpecies.length)
+        expect(bank).not.toContain('aria-disabled')
+      }
     }
   })
 
-  it('makes every control a target a finger finds', () => {
+  it('makes every control a target a finger finds, and a tile one that a finger drags and does not scroll the page by', () => {
     const wrong = builder(entered('netIonic', { noReaction: false, reactants: [{ speciesId: 'iron-iii-ion', coefficient: 2, state: 'aq' }], products: [{ speciesId: 'iron-iii-hydroxide', coefficient: 1, state: 's' }] }), 'netIonic')
     for (const { tag, name } of buttons(wrong)) expect(tag, name).toMatch(/min-h-11 min-w-11|min-w-11 min-h-11/)
-    expect(count(wrong, /<label class="flex min-h-11 min-w-11 /g)).toBe(8)
     expect(wrong).toMatch(/<label class="flex [^"]*min-h-11 min-w-11"><input type="checkbox"/)
+    for (const { tag } of buttons(BANK.exec(wrong)![1]!)) expect(tag).toContain('touch-none')
+    expect(slots(wrong).map(({ tag }) => tag.includes('touch-none'))).toEqual([true, false, true])
+    const controls = draw(createElement(TermControls, { name: 'Reactant 1: Fe³⁺', formula: 'Fe³⁺', term: { speciesId: 'iron-iii-ion', coefficient: 2, state: 'aq' }, onStep: () => {}, onState: () => {}, onRemove: () => {} }))
+    for (const { tag, name } of buttons(controls)) expect(tag, name).toMatch(/min-h-11 min-w-11|min-w-11 min-h-11/)
+    expect(count(controls, /<label class="flex min-h-11 min-w-11 /g)).toBe(4)
   })
 
-  it('shows an equation that was entered and is not correct as it was built, each term with its coefficient, its state and a way out, and says what kind of thing is wrong beside a cross', () => {
+  it('shows an equation that was entered and is not correct as it was built, each term in its slot with its coefficient and its state, an empty slot where the template has one more, and says what kind of thing is wrong beside a cross', () => {
     const entry = { noReaction: false, reactants: [{ speciesId: 'iron-iii-ion', coefficient: 2, state: 'aq' as const }, { speciesId: 'hydroxide-ion', coefficient: 3, state: 'aq' as const }], products: [{ speciesId: 'iron-iii-hydroxide', coefficient: 1, state: 's' as const }] }
     const drawn = builder(entered('netIonic', entry), 'netIonic')
-    expect(text(drawn)).toContain(`${PAGE_TEXT.yourEquation}: 2Fe3+(aq) + 3OH−(aq) → Fe(OH)3(s)`)
-    expect([...drawn.matchAll(/<div role="group" aria-label="(Reactants|Products)"/g)].map((match) => match[1])).toEqual(['Reactants', 'Products'])
-    const terms = [...drawn.matchAll(/<li><div role="group" aria-label="([^"]+)"[^>]*>(.*?)<\/div><\/li>/gs)].map(([, name, body]) => ({ name, body: body! }))
-    expect(terms.map(({ name }) => name)).toEqual(['Fe³⁺', 'OH⁻', 'Fe(OH)₃'])
-    const [iron, , solid] = terms
-    expect(buttons(iron!.body).map(({ tag }) => /aria-label="([^"]+)"/.exec(tag)![1])).toEqual([PAGE_TEXT.fewer, PAGE_TEXT.more, PAGE_TEXT.remove('Fe³⁺')])
-    expect(read(`<i>${iron!.body}</i>`)).toContain(`|${PAGE_TEXT.coefficient}:|2|`)
-    expect([...iron!.body.matchAll(/<input type="radio"[^>]*aria-label="([^"]+)"([^>]*)>/g)].map(([, label, rest]) => [label, rest!.includes('checked=""')])).toEqual([['aq: dissolved in water', true], ['s: solid', false], ['l: liquid', false], ['g: gas', false]])
-    expect([...solid!.body.matchAll(/<input type="radio"[^>]*aria-label="([^"]+)"([^>]*)>/g)].filter(([, , rest]) => rest!.includes('checked=""')).map(([, label]) => label)).toEqual(['s: solid'])
-    // A coefficient of 1 cannot be made fewer: that button is unavailable and still focusable.
-    expect(buttons(solid!.body)[0]!.tag).toContain('aria-disabled="true"')
-    expect(buttons(iron!.body)[0]!.tag).not.toContain('aria-disabled="true"')
+    expect(text(row(drawn))).toBe(`${PAGE_TEXT.yourEquation}:2Fe3+(aq)+3OH−(aq)→Fe(OH)3(s)`)
+    // Every slot is full, so none is active.
+    expect(slots(drawn).map(({ name }) => name)).toEqual(['Reactant 1 of 2: 2 Fe³⁺, dissolved in water', 'Reactant 2 of 2: 3 OH⁻, dissolved in water', 'Product 1 of 1: Fe(OH)₃, solid'])
+    expect(slots(drawn)[2]!.body).toBe('<span>Fe(OH)<sub>3</sub>(s)</span>')
     expect(read(`${drawn}</form>`)).toContain(`|✕|${PAGE_TEXT.notCorrect}. ${PROBLEM_TEXT.coefficients}|`)
     expect(buttons(drawn).at(-1)).toMatchObject({ name: BENCH_TEXT.check })
     expect(buttons(drawn).at(-1)!.tag).not.toContain('aria-disabled="true"')
+    // No slot is active, so no tile of the bank can be used by a press: each stays focusable and says why.
+    for (const { tag } of buttons(BANK.exec(drawn)![1]!)) expect(tag).toContain('aria-disabled="true"')
+    // One term short of the template: the slot that is left is the active one, and the tile of what its side holds is unavailable.
+    const short = builder(entered('netIonic', { ...entry, reactants: entry.reactants.slice(0, 1) }), 'netIonic')
+    expect(slots(short).map(({ name }) => name)).toEqual(['Reactant 1 of 2: 2 Fe³⁺, dissolved in water', 'Reactant 2 of 2, empty, active', 'Product 1 of 1: Fe(OH)₃, solid'])
+    expect(buttons(BANK.exec(short)![1]!).filter(({ tag }) => tag.includes('aria-disabled="true"')).map(({ name }) => name)).toEqual(['Fe3+'])
+    // More terms than the template has slots (entered in Challenge, shown in Guided): none is dropped.
+    const over = builder(entered('netIonic', correctEntry(data, 'aq-01', 'completeIonic')), 'netIonic')
+    expect(slots(over)).toHaveLength(7)
+  })
+
+  it('gives a term its coefficient as a stepper from 1 to 9, its state as a choice of four and a way out, in one group named for its slot', () => {
+    const controls = (coefficient: number, state: 'aq' | 's') => draw(createElement(TermControls, { name: 'Product 1: Fe(OH)₃', formula: 'Fe(OH)₃', term: { speciesId: 'iron-iii-hydroxide', coefficient, state }, onStep: () => {}, onState: () => {}, onRemove: () => {} }))
+    const two = controls(2, 'aq')
+    expect(two).toMatch(/^<div role="group" aria-label="Product 1: Fe\(OH\)₃"/)
+    expect(two).toContain('<strong class="text-base font-semibold">Fe(OH)<sub>3</sub></strong>')
+    expect(buttons(two).map(({ tag }) => /aria-label="([^"]+)"/.exec(tag)![1])).toEqual([PAGE_TEXT.fewer, PAGE_TEXT.more, PAGE_TEXT.remove('Fe(OH)₃')])
+    expect(read(`<i>${two}</i>`)).toContain(`|${PAGE_TEXT.coefficient}:|2|`)
+    expect(two).toContain(`<span role="radiogroup" aria-label="${PAGE_TEXT.state}"`)
+    const states = (html: string) => [...html.matchAll(/<input type="radio"[^>]*aria-label="([^"]+)"([^>]*)>/g)].map(([, label, rest]) => [label, rest!.includes('checked=""')])
+    expect(states(two)).toEqual([['aq: dissolved in water', true], ['s: solid', false], ['l: liquid', false], ['g: gas', false]])
+    expect(states(controls(1, 's')).filter(([, checked]) => checked).map(([label]) => label)).toEqual(['s: solid'])
+    // A step that cannot be taken: the button is unavailable and still focusable.
+    expect(buttons(controls(1, 'aq')).map(({ tag }) => tag.includes('aria-disabled="true"'))).toEqual([true, false, false])
+    expect(buttons(controls(9, 'aq')).map(({ tag }) => tag.includes('aria-disabled="true"'))).toEqual([false, true, false])
+    expect(buttons(two).map(({ tag }) => tag.includes('aria-disabled="true"'))).toEqual([false, false, false])
+  })
+
+  it('names a slot by its side and number, of how many where the row is a template, what it holds and whether it is active', () => {
+    expect(slotLabel({ side: 'reactants', index: 1 }, 4, null, true)).toBe('Reactant 2 of 4, empty, active')
+    expect(slotLabel({ side: 'reactants', index: 1 }, null, null, false)).toBe('Reactant 2, empty')
+    expect(slotLabel({ side: 'products', index: 0 }, null, { formula: 'Fe(OH)₃', coefficient: 1, state: 's' }, false)).toBe('Product 1: Fe(OH)₃, solid')
+    expect(slotLabel({ side: 'products', index: 2 }, 3, { formula: 'Cl⁻', coefficient: 3, state: 'aq' }, true)).toBe('Product 3 of 3: 3 Cl⁻, dissolved in water, active')
+  })
+
+  it('says each change to the row in a short sentence that names no slot but the learner\'s own', () => {
+    const at = { side: 'reactants' as const, index: 1 }
+    expect(SLOT_TEXT.placed('OH⁻', at)).toBe('OH⁻ is now reactant 2.')
+    expect(SLOT_TEXT.replaced('OH⁻', at, 'Cl⁻')).toBe('OH⁻ is now reactant 2, in place of Cl⁻.')
+    expect(SLOT_TEXT.exchanged('OH⁻', at, 'Cl⁻', { side: 'products', index: 0 })).toBe('OH⁻ is now reactant 2, and Cl⁻ is now product 1.')
+    expect(SLOT_TEXT.takenOut('OH⁻', 'products')).toBe('OH⁻ is taken out of the products.')
+    expect(SLOT_TEXT.coefficient('OH⁻', 3)).toBe('OH⁻: coefficient 3.')
+    expect(SLOT_TEXT.state('Fe(OH)₃', 's')).toBe('Fe(OH)₃: state (s), solid.')
+    expect(SLOT_TEXT.term('OH⁻', at)).toBe('Reactant 2: OH⁻')
+    expect(SLOT_TEXT.active(at)).toBe('Reactant 2 is the active slot.')
   })
 
   it('says of every kind of wrong entry what kind it is, and never shows the curated equation', () => {
@@ -660,13 +764,14 @@ describe('an equation builder', () => {
     expect(read(`${drawn}</form>`)).toContain(`|${PAGE_TEXT.notCorrect}. ${PROBLEM_TEXT['reaction-expected']}|`)
     expect(text(drawn)).toContain(`${PAGE_TEXT.yourEquation}: ${BENCH_TEXT.noReaction}`)
     expect(drawn).toContain('<input type="checkbox" checked=""/>')
-    // "No reaction" chosen: there is no palette and no term to set.
+    // "No reaction" chosen: there is no row of slots and no bank.
     expect(drawn).not.toContain('Substances to choose from')
+    expect(drawn).not.toContain('data-place')
     expect(text(bench(fresh()).html)).not.toContain(text(draw(createElement(EquationLine, { data, entry: correctEntry(data, 'aq-01', 'molecular') }))))
     expect(wanted).toBe('FeCl₃(aq) + 3NaOH(aq) → Fe(OH)₃(s) + 3NaCl(aq)')
   })
 
-  it('shows a correct equation as its one line, says Correct beside a tick, and offers Change in place of the palette and the terms', () => {
+  it('shows a correct equation as its one line, says Correct beside a tick, and offers Change in place of the slots and the bank', () => {
     for (const form of FORMS) {
       const entry = correctEntry(data, 'aq-01', form)
       const drawn = builder(entered(form, entry), form)
@@ -674,6 +779,7 @@ describe('an equation builder', () => {
       expect(read(`${drawn}</form>`)).toContain('|✓|Correct.|')
       expect(buttons(drawn).map(({ name }) => name)).toEqual([PAGE_TEXT.change])
       expect(drawn).not.toContain('Substances to choose from')
+      expect(drawn).not.toContain('data-place')
       expect(drawn).not.toContain('type="checkbox"')
       expect(drawn).not.toContain('type="radio"')
       expect(drawn).not.toContain(ROLE.entry)

@@ -300,6 +300,7 @@ export function StationCard({ data, sources, stationId, view, reducedMotion, can
               form={form}
               palette={station.paletteSpecies}
               judged={view.equations[form]}
+              counts={view.template[form]}
               held={held}
               refusal={(entry) => {
                 const action: Action = { type: 'enterEquation', stationId, form, entry }

@@ -1,44 +1,114 @@
 import type { Entry, State, Term } from '@/engine/aqueous'
 
-// An equation while it is built from the palette (spec 8.3): each tap is one of these, and what is built is the
-// engine's own entry, so nothing is translated when it is checked. No rule of chemistry is here: whether a
+// An equation while it is built (spec 8.3): a row of places on each side of the arrow, each holding one term or
+// nothing yet, filled from the station's bank of species. What is checked is the engine's own entry, the terms in
+// their order with the empty places left out, so nothing is translated. No rule of chemistry is here: whether a
 // species belongs, on which side and in what state is the engine's check.
 
 export type Side = 'reactants' | 'products'
+export const SIDES: readonly Side[] = ['reactants', 'products']
+/** One place of the row: a term, or nothing yet. */
+export type Slot = Term | null
+export interface Row {
+  noReaction: boolean
+  reactants: Slot[]
+  products: Slot[]
+}
+/**
+ * How many places each side has, where the row is a template to fill (Guided, from the engine's view of the
+ * station); null where it is not, and each side is then its terms and one empty place after them.
+ */
+export type Counts = Record<Side, number> | null
+/** Where a place is: its side, and its number on that side from 0. */
+export interface At {
+  side: Side
+  index: number
+}
+/** Why a species is not put on a side: it is there already, and the engine takes none twice on a side. */
+export interface Refused {
+  speciesId: string
+  side: Side
+}
 
 /** The largest coefficient the stepper gives. The curated equations need 3 at most; the engine itself takes up to 99. */
 export const MAX_COEFFICIENT = 9
 
-export const EMPTY: Entry = { noReaction: false, reactants: [], products: [] }
+export const EMPTY: Row = { noReaction: false, reactants: [], products: [] }
 
 /**
- * The entry with the species added to a side, after the terms already there: one of it, written as dissolved,
- * which is how nearly everything in these tubes starts and is the learner's to change. A species already on that
- * side is not added again (the engine takes none twice on a side), and the very same entry comes back.
+ * The row with as many places as it is to have. With counts, each side is brought to its count: empty places are
+ * added at its end, or spare ones taken away from its end backwards, and a term is never dropped, so a side that
+ * holds more terms than its count keeps them all. With none, each side is its terms, closed up, and one empty
+ * place after them: it gains a place when its last is filled and never shows two empty ones.
  */
-export function addTerm(entry: Entry, side: Side, speciesId: string): Entry {
-  if (entry[side].some((term) => term.speciesId === speciesId)) return entry
-  return { ...entry, [side]: [...entry[side], { speciesId, coefficient: 1, state: 'aq' }] }
+export function fit(row: Row, counts: Counts): Row {
+  const side = (slots: Slot[], count: number | undefined) => {
+    if (count === undefined) return [...slots.filter((slot) => slot !== null), null]
+    const out = [...slots]
+    for (let i = out.length - 1; i >= 0 && out.length > count; i--) if (out[i] === null) out.splice(i, 1)
+    while (out.length < count) out.push(null)
+    return out
+  }
+  return { ...row, reactants: side(row.reactants, counts?.reactants), products: side(row.products, counts?.products) }
 }
 
-/** The entry with a term's coefficient or state changed. A coefficient outside 1 to 9 changes nothing, and the very same entry comes back. */
-export function changeTerm(entry: Entry, side: Side, speciesId: string, patch: { coefficient?: number; state?: State }): Entry {
+/** The first empty place at or after one, as the row is read, going round to its start; from the start with none given. Null where every place is full. */
+export function nextEmpty(row: Row, from?: At): At | null {
+  const all = SIDES.flatMap((side) => row[side].map((slot, index) => ({ side, index, empty: slot === null })))
+  const start = Math.max(0, all.findIndex((at) => at.side === from?.side && at.index === from.index))
+  const found = [...all.slice(start), ...all.slice(0, start)].find((at) => at.empty)
+  return found ? { side: found.side, index: found.index } : null
+}
+
+const elsewhere = (row: Row, at: At, speciesId: string) => row[at.side].some((slot, index) => index !== at.index && slot?.speciesId === speciesId)
+const withSlot = (row: Row, at: At, slot: Slot): Row => ({ ...row, [at.side]: row[at.side].map((was, index) => (index === at.index ? slot : was)) })
+
+/**
+ * The row with a species put in a place, in place of whatever was there: one of it, written as dissolved, which is
+ * how nearly everything in these tubes starts and is the learner's to change. A species that is on that side
+ * already, in another place, is refused; one put where it already is changes nothing, and the very same row comes
+ * back.
+ */
+export function place(row: Row, at: At, speciesId: string, counts: Counts): Row | Refused {
+  if (elsewhere(row, at, speciesId)) return { speciesId, side: at.side }
+  if (row[at.side][at.index]?.speciesId === speciesId) return row
+  return fit(withSlot(row, at, { speciesId, coefficient: 1, state: 'aq' }), counts)
+}
+
+/** The row with a place emptied. */
+export const remove = (row: Row, at: At, counts: Counts): Row => fit(withSlot(row, at, null), counts)
+
+/**
+ * The row with the term of one place moved to another, and what was in that other, if anything, put where the
+ * term came from. Refused where either would then be twice on one side. An empty place moves nothing.
+ */
+export function move(row: Row, from: At, to: At, counts: Counts): Row | Refused {
+  const term = row[from.side][from.index] ?? null
+  const other = row[to.side][to.index] ?? null
+  if (term === null || (from.side === to.side && from.index === to.index)) return row
+  if (from.side !== to.side) {
+    if (elsewhere(row, to, term.speciesId)) return { speciesId: term.speciesId, side: to.side }
+    if (other !== null && elsewhere(row, from, other.speciesId)) return { speciesId: other.speciesId, side: from.side }
+  }
+  return fit(withSlot(withSlot(row, from, other), to, term), counts)
+}
+
+/** The row with a term's coefficient or state changed. A coefficient outside 1 to 9, or an empty place, changes nothing, and the very same row comes back. */
+export function changeTerm(row: Row, at: At, patch: { coefficient?: number; state?: State }): Row {
+  const term = row[at.side][at.index] ?? null
   const { coefficient } = patch
-  if (coefficient !== undefined && (coefficient < 1 || coefficient > MAX_COEFFICIENT)) return entry
-  return { ...entry, [side]: entry[side].map((term): Term => (term.speciesId === speciesId ? { ...term, ...patch } : term)) }
-}
-
-export function removeTerm(entry: Entry, side: Side, speciesId: string): Entry {
-  return { ...entry, [side]: entry[side].filter((term) => term.speciesId !== speciesId) }
+  if (term === null || (coefficient !== undefined && (coefficient < 1 || coefficient > MAX_COEFFICIENT))) return row
+  return withSlot(row, at, { ...term, ...patch })
 }
 
 /** "No reaction" chosen or not. What was built stays, out of sight, so that taking the choice back loses nothing. */
-export const setNoReaction = (entry: Entry, noReaction: boolean): Entry => ({ ...entry, noReaction })
+export const setNoReaction = (row: Row, noReaction: boolean): Row => ({ ...row, noReaction })
 
-/** What is handed to the engine: "No reaction" alone, or the two sides as built. */
-export const entered = (entry: Entry): Entry => (entry.noReaction ? { noReaction: true, reactants: [], products: [] } : entry)
+/** What is handed to the engine: "No reaction" alone, or the terms of each side in their order. */
+export const entered = (row: Row): Entry =>
+  row.noReaction ? { noReaction: true, reactants: [], products: [] } : { noReaction: false, reactants: row.reactants.filter((slot) => slot !== null), products: row.products.filter((slot) => slot !== null) }
 
-export const sameEntry = (a: Entry | null, b: Entry | null): boolean => JSON.stringify(a) === JSON.stringify(b)
+export const sameEntry = (a: Row | null, b: Row | null): boolean => JSON.stringify(a) === JSON.stringify(b)
 
 const BELOW = '₀₁₂₃₄₅₆₇₈₉'
 const ABOVE = '⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻'
