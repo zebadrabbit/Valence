@@ -5,6 +5,7 @@ import { ROLE } from '@/app/lab/roles'
 import type { AqueousData } from '@/chem-data/aqueous/data'
 import type { Source } from '@/chem-data/schema'
 import { stationView, type Action, type AqueousState, type Blocked } from '@/engine/aqueous'
+import { IonsPanel } from './IonsPanel'
 import { PAGE_TEXT, STATION_TEXT, stationTitle } from './messages'
 import { SolubilityTable } from './SolubilityTable'
 import { ProgressLabel, StationCard } from './StationCard'
@@ -22,7 +23,7 @@ export interface AqueousBenchProps {
 }
 
 /**
- * The Lab tab of the aqueous reactions lab: the two reference panels' buttons, the line that says the lab is
+ * The Lab tab of the aqueous reactions lab: the three reference panels' buttons, the line that says the lab is
  * complete, and the ten stations one at a time (Paged), with the list that says how far each has come.
  *
  * A station is drawn from the first time it is shown, and stays drawn after it: the others that have been shown
@@ -47,6 +48,7 @@ export function AqueousBench({ data, sources, state, reducedMotion, can, act, op
     <div className="grid gap-3">
       <div className="flex flex-wrap items-center gap-2">
         <SolubilityTable data={data} />
+        <IonsPanel data={data} />
         <Calculator />
         {/* Always there, and empty until the lab is complete, so that a screen reader says it when it comes. */}
         <p role="status" className="text-sm font-medium">

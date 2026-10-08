@@ -7,6 +7,7 @@ import {
   BENCH_TEXT,
   FIELD_LABEL,
   FORM_LABEL,
+  IONS_TEXT,
   LOOK_PART,
   MODE_TEXT,
   PAGE_TEXT,
@@ -336,6 +337,26 @@ describe("the page's own wording", () => {
     expect(SOLUBILITY_TEXT.marked).toBe('see the note under the table')
     // It gives no formula and no state, so nothing of an equation as it is entered.
     expect(note).not.toMatch(/[₀-₉⁺⁻→]|\((aq|s|l|g)\)/)
+  })
+})
+
+describe('the words of the panel of ions', () => {
+  it('say what the two tables hold, and write no formula, no charge and no name of a substance: those are the record\'s', () => {
+    const all = [IONS_TEXT.name, IONS_TEXT.caption, ...IONS_TEXT.columns, IONS_TEXT.oneAtom, IONS_TEXT.group(5), IONS_TEXT.colourless, ...Object.values(IONS_TEXT.form), IONS_TEXT.formNote, IONS_TEXT.wholeCaption, ...IONS_TEXT.wholeColumns, IONS_TEXT.or, IONS_TEXT.solidNote('A card')]
+    for (const text of all) {
+      expect(text).not.toMatch(/[₀-₉⁺⁻→]|wrong|fail|must|cannot|error|invalid/i)
+      for (const s of data.species) expect(text, text).not.toContain(s.formula)
+      for (const r of data.reagents) expect(text.toLowerCase(), text).not.toContain(r.name.split(',')[0]!.toLowerCase())
+      expect(findInstitutionText(text, []), text).toBeNull()
+    }
+    expect(IONS_TEXT.name).toBe('Ions on this bench')
+    expect(IONS_TEXT.caption).toBe('The ions that the bottles of this bench give or that a station forms, each with its name, its formula and its charge.')
+    expect(IONS_TEXT.group(5)).toBe('a group of 5 atoms')
+    // The one colour among them is the word for an ion that the record gives no colour, which is the word a liquid of such ions is recorded with.
+    expect(data.choices.liquid).toContain(IONS_TEXT.colourless)
+    for (const colour of data.choices.liquid.filter((c) => c !== IONS_TEXT.colourless)) for (const text of all) expect(text, colour).not.toContain(colour)
+    // Its two words for a bottle that is not a solution are the record's two forms.
+    expect(Object.keys(IONS_TEXT.form).sort()).toEqual([...new Set(data.reagents.map((r) => r.form))].filter((form) => form !== 'solution').sort())
   })
 })
 

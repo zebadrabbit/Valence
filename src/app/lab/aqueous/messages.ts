@@ -319,6 +319,29 @@ export const SOLUBILITY_TEXT = {
   reactingNote: (topic: string) => `* Ammonium ions and hydroxide ions make no solid together, but they do react: they give ammonia. See "${topic}" in the primer.`,
 } as const
 
+/**
+ * The ions of the bench, as a panel that floats over the page beside the solubility table's. Every name, formula,
+ * charge, colour and bottle in it is the record's (ions.ts); these are the words around them.
+ */
+export const IONS_TEXT = {
+  name: 'Ions on this bench',
+  caption: 'The ions that the bottles of this bench give or that a station forms, each with its name, its formula and its charge.',
+  columns: ['Name', 'Formula', 'Charge', 'One atom or a group', 'Colour in solution', 'Bottles that hold it'],
+  oneAtom: 'one atom',
+  group: (atoms: number) => `a group of ${atoms} atoms`,
+  /** An ion for which the record stores no colour: the model draws a liquid that holds only such ions as colourless. */
+  colourless: 'colourless',
+  /** After the name of a bottle that is not a solution, in brackets. */
+  form: { solid: 'solid', metal: 'metal' },
+  formNote: 'A bottle marked solid or metal holds no loose ions. What is in it is written whole, with (s), and gives an ion only as it reacts.',
+  wholeCaption: 'What is not an ion, and is written as one whole formula in every equation.',
+  wholeColumns: ['Name', 'Formula', 'What it is', 'State symbol'],
+  /** Between two state symbols that a substance may be given. */
+  or: 'or',
+  /** The note under the second table. `topic` is the heading of the primer's card of worked steps. */
+  solidNote: (topic: string) => `A solid that forms in a tube is written whole too, with (s). Its formula is yours to work out: step four of "${topic}" in the primer shows how.`,
+} as const
+
 /** The Record tab. */
 export const RECORD_TEXT = {
   region: 'Record of the ten stations',

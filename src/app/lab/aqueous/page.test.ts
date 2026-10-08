@@ -17,10 +17,13 @@ import { AqueousBench } from './AqueousBench'
 import { AqueousPage } from './AqueousPage'
 import { AqueousRecord } from './AqueousRecord'
 import { EquationLine } from './Formula'
+import { IonsTables } from './IonsPanel'
+import { chargeText, ionRows, wholeRows } from './ions'
 import {
   BENCH_TEXT,
   FIELD_LABEL,
   FORM_LABEL,
+  IONS_TEXT,
   LOOK_PART,
   MODE_TEXT,
   PAGE_TEXT,
@@ -29,6 +32,7 @@ import {
   RECORD_TEXT,
   SOLUBILITY_TEXT,
   STATE_KEY,
+  STATE_NAME,
   STATION_TEXT,
   TOOL_LABEL,
   blockedText,
@@ -44,7 +48,7 @@ import aqueousCss from './aqueous.css?raw'
 
 // The aqueous reactions lab's page as markup, on a store the test holds. AppStateProvider builds its store from the
 // browser and the media hook has no value on a server, so both are given directly. What a press does (Mix, a tool,
-// a check, the palette and its two sides, Change, Previous and Next, the two panels) is state, and is checked in a
+// a check, the palette and its two sides, Change, Previous and Next, the three panels) is state, and is checked in a
 // browser: a markup render mounts the page and no more.
 const app = vi.hoisted(() => ({ store: undefined as unknown as KeyValueStore, persistent: true, wide: true }))
 vi.mock('@/app/AppState', () => ({ useAppState: () => ({ store: app.store, persistent: app.persistent, reducedMotion: false }) }))
@@ -221,9 +225,10 @@ describe('the list of stations', () => {
     expect(ways('aq-10')).toEqual(['Previous: Station 9: Cobalt(II) chloride and silver nitrate'])
   })
 
-  it('has the two reference panels\' buttons at its head, each closed, and no line that the lab is complete until it is', () => {
+  // Two buttons until 2026-10-07: the panel of the bench's ions opens from a third, beside the solubility table's.
+  it('has the three reference panels\' buttons at its head, each closed, and no line that the lab is complete until it is', () => {
     const head = html.split('<div class="primer">')[0]!
-    expect(buttons(head).map(({ name }) => name)).toEqual([SOLUBILITY_TEXT.name, 'Calculator'])
+    expect(buttons(head).map(({ name }) => name)).toEqual([SOLUBILITY_TEXT.name, IONS_TEXT.name, 'Calculator'])
     for (const { tag } of buttons(head)) expect(tag).toContain('aria-expanded="false"')
     // Drawn small, with a finger's hit area laid over each (lab.css).
     for (const { tag } of buttons(head)) expect(tag).toMatch(/class="[^"]*\blab-tap\b/)
@@ -808,3 +813,76 @@ describe('the solubility table', () => {
     for (const row of data.solubility) if (row.precipitateId) expect(text(html)).not.toContain(text(draw(createElement(EquationLine, { data, entry: { noReaction: false, reactants: [{ speciesId: row.precipitateId, coefficient: 1, state: 's' }], products: [] } }))).split('(s)')[0]!)
   })
 })
+
+describe('the ions of the bench, as its panel draws them', () => {
+  const html = draw(createElement(IonsTables, { data }))
+  const tables = html.split(/(?=<table)/).filter((part) => part.startsWith('<table'))
+  const head = (table: string) => [...table.matchAll(/<th scope="col"[^>]*>(.*?)<\/th>/g)].map((match) => text(match[1]!))
+  const body = (table: string) => [...table.matchAll(/<tr><th scope="row"[^>]*>(.*?)<\/th>(.*?)<\/tr>/gs)].map((match) => [text(match[1]!), ...[...match[2]!.matchAll(/<td[^>]*>(.*?)<\/td>/gs)].map((cell) => text(cell[1]!))])
+  const plain = (formula: string) => text(draw(createElement(EquationLine, { data: { ...data, species: [{ ...data.species[0]!, id: 'x', formula }] }, entry: { noReaction: false, reactants: [{ speciesId: 'x', coefficient: 1, state: 'aq' }], products: [{ speciesId: 'x', coefficient: 1, state: 'aq' }] } }))).split('(aq)')[0]!
+
+  it('is two real tables, each with a caption, a headed column for each thing told and a row headed by a name', () => {
+    expect(tables).toHaveLength(2)
+    expect(tables[0]).toMatch(new RegExp(`^<table[^>]*><caption[^>]*>${IONS_TEXT.caption}</caption>`))
+    expect(tables[1]).toMatch(new RegExp(`^<table[^>]*><caption[^>]*>${IONS_TEXT.wholeCaption}</caption>`))
+    expect(head(tables[0]!)).toEqual(['Name', 'Formula', 'Charge', 'One atom or a group', 'Colour in solution', 'Bottles that hold it'])
+    expect(head(tables[1]!)).toEqual(['Name', 'Formula', 'What it is', 'State symbol'])
+    expect(count(html, /<th scope="row"/g)).toBe(16 + 6)
+  })
+
+  it('has a row for each ion of the bench, from the record: its name, its formula, its charge in a number and a sign, whether it is one atom or a group, its colour in a word, and its bottles', () => {
+    const rows = ionRows(data)
+    expect(body(tables[0]!)).toEqual(
+      rows.map((row) => [
+        row.name,
+        plain(row.formula),
+        chargeText(row.charge),
+        row.atoms === 1 ? 'one atom' : `a group of ${row.atoms} atoms`,
+        row.colour ?? 'colourless',
+        row.bottles.map((bottle) => (bottle.form === 'solution' ? bottle.name : `${bottle.name} (${bottle.form})`)).join('; '),
+      ]),
+    )
+    // Some of them, as a reader meets them.
+    expect(body(tables[0]!)[0]).toEqual(['iron(III)', 'Fe3+', '3+', 'one atom', 'yellow-orange', 'Iron(III) chloride solution'])
+    expect(body(tables[0]!).find(([name]) => name === 'ammonium')).toEqual(['ammonium', 'NH4+', '1+', 'a group of 5 atoms', 'colourless', 'Ammonium nitrate solution'])
+    expect(body(tables[0]!).find(([name]) => name === 'carbonate')).toEqual(['carbonate', 'CO32−', '2−', 'a group of 4 atoms', 'colourless', 'Sodium carbonate solution; Calcium carbonate (solid)'])
+    expect(body(tables[0]!).find(([name]) => name === 'magnesium')).toEqual(['magnesium', 'Mg2+', '2+', 'one atom', 'colourless', 'Magnesium ribbon (metal)'])
+    // A formula is drawn with a real subscript and its charge raised, as on the palette.
+    expect(tables[0]).toContain('NH<sub>4</sub><sup>+</sup>')
+    expect(tables[0]).toContain('SO<sub>4</sub><sup>2−</sup>')
+    // Every bottle of the bench is named in it, by its name without its strength.
+    for (const reagent of data.reagents) expect(text(tables[0]!), reagent.id).toContain(reagent.name.split(',')[0]!)
+    expect(data.reagents).toHaveLength(15)
+  })
+
+  it('says under the first table what a bottle marked solid or metal means, in words', () => {
+    expect(html).toContain(`</table><p class="text-xs">${IONS_TEXT.formNote}</p><table`)
+    expect(IONS_TEXT.formNote).toBe('A bottle marked solid or metal holds no loose ions. What is in it is written whole, with (s), and gives an ion only as it reacts.')
+  })
+
+  it('has a row for water, each gas and each bottle that is a solid, with what it is and the state symbols it takes; and names no solid that forms in a tube', () => {
+    expect(body(tables[1]!)).toEqual(wholeRows(data).map((row) => [row.name, plain(row.formula), STATE_NAME[row.state], row.states.map((state) => `(${state})`).join(' or ')]))
+    expect(body(tables[1]!)).toEqual([
+      ['water', 'H2O', 'liquid', '(l)'],
+      ['carbon dioxide', 'CO2', 'gas', '(g)'],
+      ['ammonia', 'NH3', 'gas', '(g) or (aq)'],
+      ['hydrogen', 'H2', 'gas', '(g)'],
+      ['Calcium carbonate', 'CaCO3', 'solid', '(s)'],
+      ['Magnesium ribbon', 'Mg', 'solid', '(s)'],
+    ])
+    // The note under it sends a reader to the primer's card of worked steps, by that card's own heading.
+    const topic = AQUEOUS_PRIMER.find((section) => section.id === 'working')!.heading
+    expect(html.endsWith(`</table><p class="text-xs">${escaped(IONS_TEXT.solidNote(topic))}</p>`)).toBe(true)
+    expect(IONS_TEXT.solidNote(topic)).toBe('A solid that forms in a tube is written whole too, with (s). Its formula is yours to work out: step four of "Working a station, step by step" in the primer shows how.')
+    expect(AQUEOUS_PRIMER.find((section) => section.id === 'working')!.paragraphs[4]!.label).toBe('Step four, product formulas')
+    for (const station of data.stations) if (station.expected.precipitate) expect(text(html), station.id).not.toContain(plain(data.species.find((s) => s.id === station.expected.precipitate)!.formula))
+  })
+
+  it('is named, with the other things a learner looks up, where the primer says each of them is', () => {
+    const steps = AQUEOUS_PRIMER.find((section) => section.id === 'working')!.paragraphs
+    expect(steps[1]!.text).toContain(`on the "${IONS_TEXT.name}" panel`)
+    for (const name of [`"${IONS_TEXT.name}" panel`, `"${SOLUBILITY_TEXT.name}" panel`, 'In Guided', BENCH_TEXT.hints.toLowerCase(), SHELL_TEXT.periodicTable.toLowerCase(), 'in the bar of tabs']) expect(steps.at(-1)!.text, name).toContain(name)
+    expect(MODE_TEXT.guided).toContain('Guided')
+  })
+})
+

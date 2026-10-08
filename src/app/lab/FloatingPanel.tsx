@@ -17,8 +17,9 @@ const leftAt = new Map<string, { x: number; y: number }>()
  * grip or with the arrow keys on it, stays inside the window, also when the window is made smaller, and is closed by its own button, by the button that
  * opened it, or by Escape, which puts focus back on that button.
  *
- * `width` and `height` are the panel's size in pixels, the height an estimate until it is drawn; `fromRight` is how
- * far from the right of the window it first opens, under the tabs, so that two panels do not open on one spot.
+ * `width` and `height` are the panel's size in pixels, the height an estimate until it is drawn, when the panel is
+ * placed again by the height it has; `fromRight` is how far from the right of the window it first opens, under the
+ * tabs, so that two panels do not open on one spot.
  */
 export function FloatingPanel({
   name,
@@ -70,6 +71,9 @@ export function FloatingPanel({
     leftAt.set(name, next)
     setAt(next)
     setOpen(true)
+    // The height handed in is an estimate, and a long panel is no taller than the window lets it be: once it is
+    // drawn, it is brought inside the window by the size it has.
+    requestAnimationFrame(() => moveTo(next.x, next.y))
   }
   const close = () => {
     setOpen(false)
