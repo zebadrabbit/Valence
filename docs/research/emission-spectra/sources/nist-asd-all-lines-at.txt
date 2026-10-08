@@ -1,0 +1,6 @@
+element	sp_num	obs_wl_vac(nm)	unc_obs_wl	intens	Aki(s^-1)	Acc	Type	
+At	83	"0.399751"	"0.000030"	"j"	""			
+At	83	"5.0434"	"0.0046"	"j"	""			
+element	sp_num	obs_wl_air(nm)	unc_obs_wl	intens	Aki(s^-1)	Acc	Type	
+At	1	"216.225"	""	"8"	""			
+At	1	"224.401"	""	"10"	""			

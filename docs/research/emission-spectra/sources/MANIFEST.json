@@ -1,0 +1,1264 @@
+{
+  "retrieved": "2026-10-08",
+  "about": "Every response of the NIST Atomic Spectra Database that the emission spectra of the periodic table are built from, as it was returned on the retrieval date, one request at a time. For each of the 118 elements there is the response to the query named neutral-visible; for each element that query returned no table for, there is also the response to the query named all. README.md in this folder says how the two queries were made and what a response that is not a table looks like.",
+  "queries": {
+    "neutral-visible": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=<symbol>+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+    "all": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=<symbol>&limits_type=0&low_w=&upp_w=&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1"
+  },
+  "files": [
+    {
+      "file": "nist-asd-lines-h.txt",
+      "symbol": "H",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of H I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=H+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-he.txt",
+      "symbol": "He",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of He I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=He+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-li.txt",
+      "symbol": "Li",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Li I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Li+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-be.txt",
+      "symbol": "Be",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Be I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Be+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-b.txt",
+      "symbol": "B",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of B I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=B+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-c.txt",
+      "symbol": "C",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of C I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=C+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-n.txt",
+      "symbol": "N",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of N I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=N+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-o.txt",
+      "symbol": "O",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of O I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=O+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-f.txt",
+      "symbol": "F",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of F I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=F+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-ne.txt",
+      "symbol": "Ne",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Ne I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ne+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-na.txt",
+      "symbol": "Na",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Na I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Na+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-mg.txt",
+      "symbol": "Mg",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Mg I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Mg+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-al.txt",
+      "symbol": "Al",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Al I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Al+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-si.txt",
+      "symbol": "Si",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Si I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Si+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-p.txt",
+      "symbol": "P",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of P I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=P+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-s.txt",
+      "symbol": "S",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of S I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=S+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-cl.txt",
+      "symbol": "Cl",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Cl I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Cl+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-ar.txt",
+      "symbol": "Ar",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Ar I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ar+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-k.txt",
+      "symbol": "K",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of K I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=K+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-ca.txt",
+      "symbol": "Ca",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Ca I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ca+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-sc.txt",
+      "symbol": "Sc",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Sc I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Sc+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-ti.txt",
+      "symbol": "Ti",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Ti I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ti+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-v.txt",
+      "symbol": "V",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of V I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=V+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-cr.txt",
+      "symbol": "Cr",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Cr I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Cr+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-mn.txt",
+      "symbol": "Mn",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Mn I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Mn+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-fe.txt",
+      "symbol": "Fe",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Fe I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Fe+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-co.txt",
+      "symbol": "Co",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Co I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Co+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-ni.txt",
+      "symbol": "Ni",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Ni I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ni+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-cu.txt",
+      "symbol": "Cu",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Cu I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Cu+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-zn.txt",
+      "symbol": "Zn",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Zn I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Zn+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-ga.txt",
+      "symbol": "Ga",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Ga I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ga+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-ge.txt",
+      "symbol": "Ge",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Ge I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ge+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-as.txt",
+      "symbol": "As",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of As I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=As+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-se.txt",
+      "symbol": "Se",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Se I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Se+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-br.txt",
+      "symbol": "Br",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Br I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Br+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-kr.txt",
+      "symbol": "Kr",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Kr I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Kr+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-rb.txt",
+      "symbol": "Rb",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Rb I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Rb+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-sr.txt",
+      "symbol": "Sr",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Sr I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Sr+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-y.txt",
+      "symbol": "Y",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Y I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Y+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-zr.txt",
+      "symbol": "Zr",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Zr I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Zr+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-nb.txt",
+      "symbol": "Nb",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Nb I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Nb+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-mo.txt",
+      "symbol": "Mo",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Mo I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Mo+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-tc.txt",
+      "symbol": "Tc",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Tc I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Tc+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-ru.txt",
+      "symbol": "Ru",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Ru I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ru+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-rh.txt",
+      "symbol": "Rh",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Rh I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Rh+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-pd.txt",
+      "symbol": "Pd",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Pd I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Pd+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-ag.txt",
+      "symbol": "Ag",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Ag I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ag+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-cd.txt",
+      "symbol": "Cd",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Cd I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Cd+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-in.txt",
+      "symbol": "In",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of In I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=In+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-sn.txt",
+      "symbol": "Sn",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Sn I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Sn+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-sb.txt",
+      "symbol": "Sb",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Sb I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Sb+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-te.txt",
+      "symbol": "Te",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Te I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Te+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-i.txt",
+      "symbol": "I",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of I I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=I+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-xe.txt",
+      "symbol": "Xe",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Xe I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Xe+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-cs.txt",
+      "symbol": "Cs",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Cs I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Cs+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-ba.txt",
+      "symbol": "Ba",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Ba I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ba+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-la.txt",
+      "symbol": "La",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of La I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=La+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-ce.txt",
+      "symbol": "Ce",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Ce I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ce+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-pr.txt",
+      "symbol": "Pr",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Pr I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Pr+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-nd.txt",
+      "symbol": "Nd",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Nd I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Nd+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-pm.txt",
+      "symbol": "Pm",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Pm I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Pm+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-sm.txt",
+      "symbol": "Sm",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Sm I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Sm+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-eu.txt",
+      "symbol": "Eu",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Eu I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Eu+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-gd.txt",
+      "symbol": "Gd",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Gd I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Gd+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-tb.txt",
+      "symbol": "Tb",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Tb I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Tb+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-dy.txt",
+      "symbol": "Dy",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Dy I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Dy+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-ho.txt",
+      "symbol": "Ho",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Ho I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ho+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-er.txt",
+      "symbol": "Er",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Er I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Er+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-tm.txt",
+      "symbol": "Tm",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Tm I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Tm+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-yb.txt",
+      "symbol": "Yb",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Yb I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Yb+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-lu.txt",
+      "symbol": "Lu",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Lu I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Lu+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-hf.txt",
+      "symbol": "Hf",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Hf I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Hf+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-ta.txt",
+      "symbol": "Ta",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Ta I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ta+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-w.txt",
+      "symbol": "W",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of W I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=W+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-re.txt",
+      "symbol": "Re",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Re I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Re+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-os.txt",
+      "symbol": "Os",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Os I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Os+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-ir.txt",
+      "symbol": "Ir",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Ir I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ir+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-pt.txt",
+      "symbol": "Pt",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Pt I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Pt+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-au.txt",
+      "symbol": "Au",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Au I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Au+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-hg.txt",
+      "symbol": "Hg",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Hg I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Hg+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-tl.txt",
+      "symbol": "Tl",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Tl I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Tl+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-pb.txt",
+      "symbol": "Pb",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Pb I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Pb+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-bi.txt",
+      "symbol": "Bi",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Bi I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Bi+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-po.txt",
+      "symbol": "Po",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Po I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Po+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-at.html",
+      "symbol": "At",
+      "query": "neutral-visible",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, lines of At I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=At+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-all-lines-at.txt",
+      "symbol": "At",
+      "query": "all",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, every line listed for astatine (all stages of ionization, no wavelength limits), tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=At&limits_type=0&low_w=&upp_w=&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-rn.txt",
+      "symbol": "Rn",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Rn I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Rn+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-fr.txt",
+      "symbol": "Fr",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Fr I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Fr+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-ra.txt",
+      "symbol": "Ra",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Ra I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ra+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-ac.txt",
+      "symbol": "Ac",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Ac I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ac+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-th.txt",
+      "symbol": "Th",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Th I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Th+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-pa.txt",
+      "symbol": "Pa",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Pa I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Pa+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-u.txt",
+      "symbol": "U",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of U I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=U+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-np.txt",
+      "symbol": "Np",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Np I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Np+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-pu.txt",
+      "symbol": "Pu",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Pu I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Pu+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-am.txt",
+      "symbol": "Am",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Am I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Am+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-cm.txt",
+      "symbol": "Cm",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Cm I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Cm+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-bk.txt",
+      "symbol": "Bk",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Bk I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Bk+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-cf.txt",
+      "symbol": "Cf",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Cf I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Cf+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-es.txt",
+      "symbol": "Es",
+      "query": "neutral-visible",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, lines of Es I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Es+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-fm.html",
+      "symbol": "Fm",
+      "query": "neutral-visible",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, lines of Fm I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Fm+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-all-lines-fm.txt",
+      "symbol": "Fm",
+      "query": "all",
+      "returned": "table",
+      "what": "NIST Atomic Spectra Database, every line listed for fermium (all stages of ionization, no wavelength limits), tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Fm&limits_type=0&low_w=&upp_w=&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-md.html",
+      "symbol": "Md",
+      "query": "neutral-visible",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, lines of Md I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Md+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-all-lines-md.html",
+      "symbol": "Md",
+      "query": "all",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, every line listed for mendelevium (all stages of ionization, no wavelength limits), tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Md&limits_type=0&low_w=&upp_w=&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-no.html",
+      "symbol": "No",
+      "query": "neutral-visible",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, lines of No I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=No+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-all-lines-no.html",
+      "symbol": "No",
+      "query": "all",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, every line listed for nobelium (all stages of ionization, no wavelength limits), tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=No&limits_type=0&low_w=&upp_w=&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-lr.html",
+      "symbol": "Lr",
+      "query": "neutral-visible",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, lines of Lr I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Lr+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-all-lines-lr.html",
+      "symbol": "Lr",
+      "query": "all",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, every line listed for lawrencium (all stages of ionization, no wavelength limits), tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Lr&limits_type=0&low_w=&upp_w=&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-rf.html",
+      "symbol": "Rf",
+      "query": "neutral-visible",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, lines of Rf I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Rf+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-all-lines-rf.html",
+      "symbol": "Rf",
+      "query": "all",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, every line listed for rutherfordium (all stages of ionization, no wavelength limits), tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Rf&limits_type=0&low_w=&upp_w=&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-db.html",
+      "symbol": "Db",
+      "query": "neutral-visible",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, lines of Db I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Db+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-all-lines-db.html",
+      "symbol": "Db",
+      "query": "all",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, every line listed for dubnium (all stages of ionization, no wavelength limits), tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Db&limits_type=0&low_w=&upp_w=&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-sg.html",
+      "symbol": "Sg",
+      "query": "neutral-visible",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, lines of Sg I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Sg+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-all-lines-sg.html",
+      "symbol": "Sg",
+      "query": "all",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, every line listed for seaborgium (all stages of ionization, no wavelength limits), tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Sg&limits_type=0&low_w=&upp_w=&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-bh.html",
+      "symbol": "Bh",
+      "query": "neutral-visible",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, lines of Bh I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Bh+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-all-lines-bh.html",
+      "symbol": "Bh",
+      "query": "all",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, every line listed for bohrium (all stages of ionization, no wavelength limits), tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Bh&limits_type=0&low_w=&upp_w=&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-hs.html",
+      "symbol": "Hs",
+      "query": "neutral-visible",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, lines of Hs I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Hs+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-all-lines-hs.html",
+      "symbol": "Hs",
+      "query": "all",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, every line listed for hassium (all stages of ionization, no wavelength limits), tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Hs&limits_type=0&low_w=&upp_w=&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-mt.html",
+      "symbol": "Mt",
+      "query": "neutral-visible",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, lines of Mt I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Mt+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-all-lines-mt.html",
+      "symbol": "Mt",
+      "query": "all",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, every line listed for meitnerium (all stages of ionization, no wavelength limits), tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Mt&limits_type=0&low_w=&upp_w=&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-ds.html",
+      "symbol": "Ds",
+      "query": "neutral-visible",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, lines of Ds I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ds+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-all-lines-ds.html",
+      "symbol": "Ds",
+      "query": "all",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, every line listed for darmstadtium (all stages of ionization, no wavelength limits), tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ds&limits_type=0&low_w=&upp_w=&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-rg.html",
+      "symbol": "Rg",
+      "query": "neutral-visible",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, lines of Rg I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Rg+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-all-lines-rg.html",
+      "symbol": "Rg",
+      "query": "all",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, every line listed for roentgenium (all stages of ionization, no wavelength limits), tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Rg&limits_type=0&low_w=&upp_w=&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-cn.html",
+      "symbol": "Cn",
+      "query": "neutral-visible",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, lines of Cn I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Cn+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-all-lines-cn.html",
+      "symbol": "Cn",
+      "query": "all",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, every line listed for copernicium (all stages of ionization, no wavelength limits), tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Cn&limits_type=0&low_w=&upp_w=&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-nh.html",
+      "symbol": "Nh",
+      "query": "neutral-visible",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, lines of Nh I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Nh+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-all-lines-nh.html",
+      "symbol": "Nh",
+      "query": "all",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, every line listed for nihonium (all stages of ionization, no wavelength limits), tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Nh&limits_type=0&low_w=&upp_w=&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-fl.html",
+      "symbol": "Fl",
+      "query": "neutral-visible",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, lines of Fl I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Fl+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-all-lines-fl.html",
+      "symbol": "Fl",
+      "query": "all",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, every line listed for flerovium (all stages of ionization, no wavelength limits), tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Fl&limits_type=0&low_w=&upp_w=&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-mc.html",
+      "symbol": "Mc",
+      "query": "neutral-visible",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, lines of Mc I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Mc+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-all-lines-mc.html",
+      "symbol": "Mc",
+      "query": "all",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, every line listed for moscovium (all stages of ionization, no wavelength limits), tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Mc&limits_type=0&low_w=&upp_w=&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-lv.html",
+      "symbol": "Lv",
+      "query": "neutral-visible",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, lines of Lv I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Lv+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-all-lines-lv.html",
+      "symbol": "Lv",
+      "query": "all",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, every line listed for livermorium (all stages of ionization, no wavelength limits), tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Lv&limits_type=0&low_w=&upp_w=&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-ts.html",
+      "symbol": "Ts",
+      "query": "neutral-visible",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, lines of Ts I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ts+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-all-lines-ts.html",
+      "symbol": "Ts",
+      "query": "all",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, every line listed for tennessine (all stages of ionization, no wavelength limits), tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Ts&limits_type=0&low_w=&upp_w=&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-lines-og.html",
+      "symbol": "Og",
+      "query": "neutral-visible",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, lines of Og I (the neutral atom), observed wavelengths in air, 400 to 700 nm, tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Og+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    },
+    {
+      "file": "nist-asd-all-lines-og.html",
+      "symbol": "Og",
+      "query": "all",
+      "returned": "no-lines page",
+      "what": "NIST Atomic Spectra Database, every line listed for oganesson (all stages of ionization, no wavelength limits), tab-delimited",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Og&limits_type=0&low_w=&upp_w=&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "role": "primary"
+    }
+  ],
+  "readNotKept": [
+    {
+      "what": "NIST Atomic Spectra Database, help page of the lines form: how a spectrum is named, and what the relative intensities are",
+      "url": "https://physics.nist.gov/PhysRefData/ASD/Html/lineshelp.html",
+      "role": "primary"
+    },
+    {
+      "what": "Bulewicz, E. M. Flame Spectrum of Barium: Red and Infra-Red Bands. Nature 1956, 177, 670-671: the abstract on the publisher’s page, which is all of the paper that was read",
+      "url": "https://doi.org/10.1038/177670a0",
+      "role": "primary"
+    }
+  ]
+}
