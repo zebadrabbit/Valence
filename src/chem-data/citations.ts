@@ -1,5 +1,6 @@
 import type { Measurement } from './measure'
-import type { Element, MoDiagram, Molecule, Source } from './schema'
+import { EMISSION_SCOPE_NOTE } from './element'
+import type { Element, ElementSpectrum, Emission, MoDiagram, Molecule, Source } from './schema'
 import type { AqueousData } from './aqueous/data'
 import type { TitrationData } from './titration/data'
 
@@ -22,6 +23,12 @@ export function citations(entries: readonly Entry[], sources: readonly Source[])
   return result
 }
 
+/** What a drawn emission spectrum cites: its lines, and the note shown with every spectrum. */
+function emissionEntries(emission: Emission | undefined): Entry[] {
+  if (!emission) return []
+  return [...emission.lines.map((line): Entry => ['Emission lines', line.sourceId]), ...EMISSION_SCOPE_NOTE.sourceIds.map((id): Entry => ['What the emission spectrum leaves out', id])]
+}
+
 /** The sources of every stored value the atom card shows for an element, and of the colour its atoms are drawn in. */
 export function elementCitations(element: Element, sources: readonly Source[]): Citation[] {
   return citations(
@@ -36,7 +43,7 @@ export function elementCitations(element: Element, sources: readonly Source[]): 
       ['Van der Waals radius', element.vdwRadius.sourceId],
       ...element.ionicRadii.map((r): Entry => ['Ionic radius', r.sourceId]),
       ['Display colour in the models', element.color.sourceId],
-      ...(element.emission?.lines.map((line): Entry => ['Emission lines', line.sourceId]) ?? []),
+      ...emissionEntries(element.emission),
     ],
     sources,
   )
@@ -48,18 +55,18 @@ export function shellCitations(element: Element, sources: readonly Source[]): Ci
 }
 
 /**
- * The sources of the periodic table's element card: every row's sources under that row's label, then the
- * emission lines where the curated record of the element has them. A row the app works out cites nothing.
+ * The sources of the periodic table's element card: every row's sources under that row's label, then those of the
+ * emission spectrum, or of the sentence that says why none is drawn. A row the app works out cites nothing.
  */
 export function periodicCitations(
   rows: readonly { label: string; sourceIds: readonly string[] }[],
-  curated: Element | undefined,
+  spectrum: ElementSpectrum,
   sources: readonly Source[],
 ): Citation[] {
   return citations(
     [
       ...rows.flatMap((row) => row.sourceIds.map((id): Entry => [row.label, id])),
-      ...(curated?.emission?.lines.map((line): Entry => ['Emission lines', line.sourceId]) ?? []),
+      ...('emission' in spectrum ? emissionEntries(spectrum.emission) : [['Emission lines', spectrum.none.sourceId] as const]),
     ],
     sources,
   )

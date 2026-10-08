@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router'
 import { describe, expect, it } from 'vitest'
 import { deriveAtoms, deriveBonds } from '@/chem-data/derive'
 import { atomNames } from '@/chem-data/describe'
-import { EMISSION_NOTE } from '@/chem-data/element'
+import { EMISSION_NOTE, EMISSION_SCOPE_NOTE } from '@/chem-data/element'
 import { VALENCE_BOND_NOTE } from '@/chem-data/hybrid'
 import { periodicTable } from '@/chem-data/periodic'
 import { registry } from '@/chem-data/registry'
@@ -65,7 +65,9 @@ describe('emission spectrum', () => {
     expect(html).toContain('656.279 nm')
     expect(html).toContain('n = 3 → 2')
     expect(html).toContain(EMISSION_NOTE)
+    expect(html).toContain(EMISSION_SCOPE_NOTE.text.replaceAll("'", '&#x27;'))
     expect(html).toContain('Emission lines')
+    for (const id of EMISSION_SCOPE_NOTE.sourceIds) expect(html).toContain(registry.sources.find((s) => s.id === id)!.citation.replaceAll("'", '&#x27;'))
   })
 
   it('shows xenon its lines without transitions', () => {

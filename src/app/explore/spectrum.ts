@@ -1,4 +1,4 @@
-import type { Element } from '@/chem-data/schema'
+import type { Emission } from '@/chem-data/schema'
 
 // Drawing an emission spectrum: where a line sits on the strip, what colour to draw it, and what to call that colour.
 
@@ -49,15 +49,14 @@ export function wavelengthColor(nm: number): string {
   return `rgb(${channel(r!)}, ${channel(g!)}, ${channel(b!)})`
 }
 
-type Line = NonNullable<Element['emission']>['lines'][number]
+type Line = Emission['lines'][number]
 
 /** One line as text: its wavelength in the source's digits, its colour, and its transition where the data names one. */
 export function lineText(line: Line): string {
   return `${line.published ?? String(line.value)} nm, ${colourName(line.value)}${line.transition ? `, ${line.transition}` : ''}`
 }
 
-/** The text alternative of the strip. */
-export function spectrumText(element: Element): string {
-  const lines = element.emission?.lines ?? []
-  return `Emission lines of ${element.name.toLowerCase()}, longest wavelength first: ${lines.map(lineText).join('; ')}.`
+/** The text alternative of the strip, for the element of this name. */
+export function spectrumText(name: string, emission: Emission): string {
+  return `Emission lines of ${name.toLowerCase()}, longest wavelength first: ${emission.lines.map(lineText).join('; ')}.`
 }
