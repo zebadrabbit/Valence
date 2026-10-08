@@ -19,7 +19,8 @@ const leftAt = new Map<string, { x: number; y: number }>()
  *
  * `width` and `height` are the panel's size in pixels, the height an estimate until it is drawn, when the panel is
  * placed again by the height it has; `fromRight` is how far from the right of the window it first opens, under the
- * tabs, so that two panels do not open on one spot.
+ * tabs, so that two panels do not open on one spot, and `fromTop` how far from its top, asked when it opens, for a
+ * page with something at the top right that the panel should not cover.
  */
 export function FloatingPanel({
   name,
@@ -27,6 +28,7 @@ export function FloatingPanel({
   width,
   height = 400,
   fromRight = 16,
+  fromTop = () => 96,
   children,
 }: {
   name: string
@@ -34,6 +36,7 @@ export function FloatingPanel({
   width: number
   height?: number
   fromRight?: number
+  fromTop?: () => number
   children: ReactNode
 }) {
   const [open, setOpen] = useState(false)
@@ -66,7 +69,7 @@ export function FloatingPanel({
 
   const show = () => {
     // First opened at the right of the window, under the tabs; afterwards where it was left.
-    const start = leftAt.get(name) ?? { x: window.innerWidth - width - fromRight, y: 96 }
+    const start = leftAt.get(name) ?? { x: window.innerWidth - width - fromRight, y: fromTop() }
     const next = clampToWindow(start.x, start.y, { width, height }, { width: window.innerWidth, height: window.innerHeight })
     leftAt.set(name, next)
     setAt(next)

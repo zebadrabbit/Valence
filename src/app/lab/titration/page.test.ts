@@ -107,22 +107,16 @@ describe('the list of labs', () => {
     expect(items().join('')).not.toContain(SHELL_TEXT.planned)
   })
 
-  it('Home gives an activity that has no page yet text and the planned sentence, not a link and a status; the two labs, which are built, have both', () => {
-    for (const planned of [mechanism]) saveEntry(app.store, planned.entry, planned.version, { status: 'completed' })
+  it('Home links every activity, the mechanism too, each with its own status, and shows none as planned', () => {
+    saveEntry(app.store, mechanism.entry, mechanism.version, { status: 'completed' })
     const home = [...draw(createElement(Home)).matchAll(/<li[^>]*>(.*?)<\/li>/gs)].map((match) => match[1]!)
     const item = (title: string) => home.find((html) => html.includes(title))!
-    expect(item(aqueous.title)).toMatch(/<a [^>]*href="\/lab\/aqueous"/)
-    expect(text(item(aqueous.title))).toContain('|Not started|')
-    expect(text(item(aqueous.title))).not.toContain(SHELL_TEXT.planned)
-    for (const planned of [mechanism]) {
-      expect([planned.title, item(planned.title).includes('<a ')]).toEqual([planned.title, false])
-      expect(text(item(planned.title))).toContain(`|${planned.title}|`)
-      expect(text(item(planned.title))).toContain(`|${SHELL_TEXT.planned}|`)
-      expect(text(item(planned.title))).not.toMatch(/Not started|In progress|Completed/)
+    for (const [activity, status] of [[titration, 'Not started'], [aqueous, 'Not started'], [mechanism, 'Completed']] as const) {
+      expect(item(activity.title)).toMatch(new RegExp(`<a [^>]*href="${activity.to}"`))
+      expect(text(item(activity.title))).toContain(`|${status}|`)
+      expect(text(item(activity.title))).not.toContain(SHELL_TEXT.planned)
     }
-    expect(item(titration.title)).toMatch(/<a [^>]*href="\/lab\/titration"/)
-    expect(text(item(titration.title))).toContain('|Not started|')
-    expect(text(item(titration.title))).not.toContain(SHELL_TEXT.planned)
+    expect(mechanism.to).toBe('/learn/hcl-nahco3')
   })
 
   it('lists the labs only, under the heading Lab, and saves nothing', () => {

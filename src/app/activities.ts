@@ -9,7 +9,7 @@ import { ENTRY, peekStatus, type ActivityStatus, type KeyValueStore } from './pr
 export const ACTIVITIES = [
   { entry: ENTRY.titration, version: 1, kind: 'Lab', title: 'Standardization of a base by titration', to: '/lab/titration' },
   { entry: ENTRY.aqueous, version: 1, kind: 'Lab', title: 'Reactions in aqueous solution', to: '/lab/aqueous' },
-  { entry: ENTRY.mechanism, version: 1, kind: 'Mechanism', title: 'HCl + NaHCO₃, step by step', to: '/learn' },
+  { entry: ENTRY.mechanism, version: 1, kind: 'Mechanism', title: 'HCl + NaHCO₃, step by step', to: '/learn/hcl-nahco3' },
 ] as const
 
 export type Activity = (typeof ACTIVITIES)[number]

@@ -1,14 +1,15 @@
 import { describe, expect, it } from 'vitest'
-import { ACTIVITIES, activityStatus } from './activities'
+import { ACTIVITIES, activityStatus, hasPage } from './activities'
 import { createMemoryStore, saveEntry } from './progress/storage'
 
 describe('the activities', () => {
-  it('open each lab at its own address, and the mechanism, which is not built yet, at the page that lists its kind', () => {
+  it('open each lab and the mechanism at its own address, so none is shown as planned', () => {
     expect(ACTIVITIES.map((activity) => [activity.entry, activity.to])).toEqual([
       ['lab:titration', '/lab/titration'],
       ['lab:aqueous', '/lab/aqueous'],
-      ['mechanism:hcl-nahco3', '/learn'],
+      ['mechanism:hcl-nahco3', '/learn/hcl-nahco3'],
     ])
+    expect(ACTIVITIES.every(hasPage)).toBe(true)
   })
 })
 

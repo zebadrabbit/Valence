@@ -35,9 +35,9 @@ describe('PALETTE_ITEMS', () => {
     ])
   })
 
-  it('sends each lab to its page, and the mechanism, which is not built yet, to the Learn page', () => {
+  it('sends each lab and the mechanism to its own page', () => {
     expect(PALETTE_ITEMS.filter((item) => item.kind === 'Lab').map((item) => item.to)).toEqual(['/lab/titration', '/lab/aqueous'])
-    expect(PALETTE_ITEMS.filter((item) => item.kind === 'Mechanism').map((item) => item.to)).toEqual(['/learn'])
+    expect(PALETTE_ITEMS.filter((item) => item.kind === 'Mechanism').map((item) => item.to)).toEqual(['/learn/hcl-nahco3'])
   })
 
   it('links a molecule to its page and names its topic', () => {
