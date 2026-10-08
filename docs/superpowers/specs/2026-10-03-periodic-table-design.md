@@ -18,7 +18,7 @@ Success: a learner can open the table, pick "colour by electronegativity" and se
 
 ## 3. Out of scope
 
-Isotopes beyond naming the one whose mass is shown; discovery history beyond the year and its notes; photographs; emission spectra beyond hydrogen, sodium and xenon; a 32-column layout; comparing elements side by side.
+Isotopes beyond naming the one whose mass is shown; discovery history beyond the year and its notes; photographs; emission lines outside 400 to 700 nm or of an ion; a 32-column layout; comparing elements side by side.
 
 ## 4. Pages and navigation
 
@@ -75,7 +75,7 @@ A record may carry notes: short authored sentences, each tied to the row it qual
 
 ### 5.3 The 11 elements already in the app
 
-Hydrogen, boron, carbon, nitrogen, oxygen, fluorine, sodium, phosphorus, sulfur, chlorine, and xenon also have values in `src/chem-data/elements.json`. With the sourcing above, their atomic weight, first ionization energy, and covalent radius come from the same sources in both places. Where a card value still differs from the curated one (the van der Waals radii of hydrogen and fluorine), the card shows the table's value and one sentence gives the curated value and its source. The emission spectrum, where the curated record has one, is shown from it.
+Hydrogen, boron, carbon, nitrogen, oxygen, fluorine, sodium, phosphorus, sulfur, chlorine, and xenon also have values in `src/chem-data/elements.json`. With the sourcing above, their atomic weight, first ionization energy, and covalent radius come from the same sources in both places. Where a card value still differs from the curated one (the van der Waals radii of hydrogen and fluorine), the card shows the table's value and one sentence gives the curated value and its source. The emission spectra of hydrogen, sodium and xenon are the ones written by hand for the curated records, unchanged; section 5.8 says where every other element's comes from.
 
 ### 5.4 Position: group, period, block
 
@@ -109,6 +109,17 @@ No value is changed because of the report without an entry in `decisions.json`.
 
 **Group, period, and block descriptions:** short authored sentences on what the members share, each with the sources that support it and the supporting passage stored beside it for review. A passage is quoted only where the source's licence allows it (OpenStax, CC BY 4.0, whose citations carry the licence); for any other source the stored support is where the passage is and one sentence, in this project's words, on what it establishes. Group 1's description says hydrogen is in the group but is a nonmetal, not an alkali metal.
 
+### 5.8 Emission spectra
+
+Added on 2026-10-08. The card of every element shows an emission spectrum or one sentence that says why it shows none. The research record is `docs/research/emission-spectra/`.
+
+- **Source.** The NIST Atomic Spectra Database's lines query, asked once for each element for the neutral atom's observed wavelengths in air from 400 to 700 nm with relative intensities, and saved as returned. For the 20 elements with no lines there, every line the database lists was asked for too.
+- **Rule.** Of the lines NIST gives a numeric relative intensity, the six with the largest, and every line that ties with the sixth; all of them where there are six or fewer. The build applies it from the saved responses (`scripts/emission-lib.mjs`). Ties are never cut, so some elements show more than six lines, up to 49.
+- **Outcome.** 97 elements have a spectrum: 94 by the rule, and hydrogen, sodium and xenon as written by hand before (section 5.3). 21 have a sentence: francium (NIST lists 87 lines in the range and no intensity for any), astatine and fermium (lines, but none of the neutral atom in the range), and mendelevium to oganesson (no lines).
+- **Xenon.** Its hand-written six are not what the rule gives. The saved response shows they are the six lines of largest transition probability, not of largest relative intensity, though the sentence stored with them says relative intensity. Neither was changed; the owner decides (see the research record).
+- **Storage.** `src/chem-data/emission-spectra.json`, a generated file of its own with one entry for each element in the shape the curated records use for a spectrum. Only the element card reads it, so it loads with the periodic table and with no other page.
+- **What the card says.** The sentence after "Lines shown:" states the rule as it came out for the element: how many lines are shown, of how many NIST rates, and how many more it lists with no intensity. One note, the same on every card, says that the lines are those of the single neutral atom as a database lists them; that a real lamp or flame can look different because ions and molecules give light too; that the strip does not show how strong a line is; and that NIST's relative intensities are rough, depend on the lamp, and compare the lines of one element only. It cites NIST's help page and one paper, of which the abstract was read.
+
 ## 6. The table
 
 - **Cells** show atomic number and symbol always, and the element's name when the table is wide enough for names to fit. At narrower widths a readout shows the name and details of the focused or hovered element. A cell is a link to the element's page.
@@ -129,7 +140,7 @@ Shown below the table at every width, across the page, with its sections side by
 - Standard state, melting point, boiling point, density, year discovered (headed "as PubChem lists it").
 - The element's notes, each beside the row it qualifies.
 - "In the molecule library": links to every library molecule containing the element, or a line saying none does.
-- The emission spectrum, for hydrogen, sodium and xenon. Sodium's two D lines are too close to draw apart, and a sentence stored with the data says so under the strip.
+- The emission spectrum, for the 97 elements that have one (section 5.8), with the sentence that says which lines are shown and a note, the same on every card, on what the strip leaves out. Where lines are too close to draw apart, as sodium's two D lines are, a sentence stored with the data says so under the strip. Each of the other 21 elements has one sentence in its place that says what NIST lists for it, and no strip.
 - A Sources control listing the citation for every value shown.
 
 ## 8. Accessibility
