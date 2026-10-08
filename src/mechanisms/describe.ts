@@ -1,0 +1,91 @@
+import { add, distance, scale, type Vec3 } from '@/chem-data/geometry'
+import type { Element } from '@/chem-data/schema'
+import type { Mechanism } from './schema'
+import { moveAt, state, type MechanismState, type SceneBond, type SceneSpecies } from './state'
+import { chapterHeading, kJ } from './wording'
+
+// The scene of a mechanism timeline in words, for a reader who cannot see it (spec 11). Like the picture, it is a
+// pure function of the scrub position.
+
+const NUMBERS = ['no', 'one', 'two', 'three', 'four', 'five', 'six']
+const ORDERS = ['no bond', 'a single bond', 'a double bond', 'a triple bond']
+const article = (noun: string) => (/^[aeiou]/i.test(noun) ? 'an' : 'a')
+const and = (items: readonly string[]) => (items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} and ${items.at(-1)}`)
+const speciesId = (s: SceneSpecies) => ('ion' in s ? s.ion : s.speciesId)
+
+/**
+ * What the scene shows at scrub position `t`: the chapter and how far through it, what is in the scene, which
+ * species take part and how far apart they are, each bond that is breaking, forming or changing order, and, from
+ * step 1 on, where the two energies stand.
+ */
+export function describeMechanismState(mechanism: Mechanism, t: number, elements: readonly Element[]): string {
+  const s = state(mechanism, t)
+  const name = (one: SceneSpecies) => mechanism.species.find((x) => x.id === speciesId(one))?.name ?? speciesId(one)
+  const elementName = (symbol: string) => elements.find((e) => e.symbol === symbol)?.name.toLowerCase() ?? symbol
+
+  const [start, end] = s.chapter.range
+  const through = Math.round((100 * (s.t - start)) / (end - start))
+  const lead = `${chapterHeading(mechanism, s.chapter.id)}. ${through === 0 ? 'At its start' : through === 100 ? 'At its end' : `${through}% of the way through`}.`
+
+  const counts = new Map<string, number>()
+  for (const one of s.species) counts.set(name(one), (counts.get(name(one)) ?? 0) + 1)
+  const scene = `In the scene: ${and([...counts].map(([noun, n]) => (n === 1 ? `${article(noun)} ${noun}` : `${NUMBERS[n] ?? n} ${noun}s`)))}.`
+
+  return [lead, scene, taking(s, name), ...changing(mechanism, s, name, elementName), energies(mechanism, s)].filter((sentence) => sentence !== '').join(' ')
+}
+
+const centre = (s: MechanismState, one: SceneSpecies): Vec3 => scale(one.atoms.map((id) => s.atoms.find((a) => a.id === id)!.position).reduce(add), 1 / one.atoms.length)
+const apart = (s: MechanismState, a: SceneSpecies, b: SceneSpecies) => `${distance(centre(s, a), centre(s, b)).toFixed(1)} Å`
+
+/** Which species the chapter is about, and how near they are: two that react are told by the distance between them, one that leaves by its distance from its nearest neighbour. */
+function taking(s: MechanismState, name: (one: SceneSpecies) => string): string {
+  const active = s.species.filter((one) => one.active)
+  const [first, second] = active
+  if (!first) return ''
+  /** "the hydronium ion", or "one of the two water molecules" where the scene has others like it that look on. */
+  const the = (one: SceneSpecies) => {
+    const alike = s.species.filter((other) => name(other) === name(one))
+    return alike.length > 1 && alike.some((other) => !other.active) ? `one of the ${NUMBERS[alike.length] ?? alike.length} ${name(one)}s` : `the ${name(one)}`
+  }
+  const names = and(active.map(the))
+  if (active.length === 2 && second) return `Taking part: ${names}, ${apart(s, first, second)} apart, centre to centre.`
+  if (active.length > 1) return `Taking part: ${names}.`
+  const others = s.species.filter((one) => one !== first)
+  const nearest = others.reduce((best, one) => (distance(centre(s, one), centre(s, first)) < distance(centre(s, best), centre(s, first)) ? one : best), others[0]!)
+  return `Taking part: ${names}, ${apart(s, first, nearest)} from its nearest neighbour, ${article(name(nearest))} ${name(nearest)}.`
+}
+
+/** One sentence for each bond that is partial: which atoms it joins, of which species, and what is happening to it. */
+function changing(mechanism: Mechanism, s: MechanismState, name: (one: SceneSpecies) => string, elementName: (symbol: string) => string): string[] {
+  const { from, to } = moveAt(mechanism, s.t)
+  const orderIn = (keyframe: typeof from, bond: SceneBond) => keyframe.bonds.find((b) => (b.a === bond.a && b.b === bond.b) || (b.a === bond.b && b.b === bond.a))?.order ?? 0
+  const owner = (atomId: string) => s.species.find((one) => one.atoms.includes(atomId))!
+  const element = (atomId: string) => elementName(s.atoms.find((a) => a.id === atomId)!.element)
+  /** "the carbon", or "an oxygen" where its species has more than one. */
+  const atomIn = (atomId: string) => {
+    const alike = owner(atomId).atoms.filter((id) => element(id) === element(atomId)).length
+    return alike === 1 ? `the ${element(atomId)}` : `${article(element(atomId))} ${element(atomId)}`
+  }
+  const told = new Set<string>()
+  return s.bonds
+    .filter((bond) => bond.partial)
+    .map((bond) => {
+      const [before, after] = [orderIn(from, bond), orderIn(to, bond)]
+      const percent = Math.round((100 * (bond.order - before)) / (after - before))
+      const [a, b] = [owner(bond.a), owner(bond.b)]
+      const where = a === b ? `${atomIn(bond.a)} and ${atomIn(bond.b)} of the ${name(a)}` : `${atomIn(bond.a)} of the ${name(a)} and ${atomIn(bond.b)} of the ${name(b)}`
+      // Two bonds of one species can read alike (carbon to one oxygen, carbon to another): the second is told as another.
+      const bondBetween = `${told.has(where) ? 'Another' : before === 0 ? 'A' : 'The'} bond between ${where}`
+      told.add(where)
+      if (before === 0) return `${bondBetween} is forming: ${percent}% formed.`
+      if (after === 0) return `${bondBetween} is breaking: ${100 - percent}% of it is left.`
+      return `${bondBetween} is turning from ${ORDERS[before]} into ${ORDERS[after]}: ${percent}% of the way.`
+    })
+}
+
+/** Where the two curves of the energy panel stand, once step 1 has begun. */
+function energies(mechanism: Mechanism, s: MechanismState): string {
+  const first = mechanism.chapters.find((c) => c.kind === 'step')
+  if (!first || s.t < first.range[0]) return ''
+  return `Free energy is at ${kJ(s.energy.g)} and enthalpy at ${kJ(s.energy.h)}, counted from the start of step 1.`
+}

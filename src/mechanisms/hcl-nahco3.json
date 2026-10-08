@@ -138,7 +138,7 @@
       },
       "explanation": {
         "intro": "This is the acid before anything is added. Hydrochloric acid is hydrogen chloride, HCl, dissolved in water, and in water it has come apart completely.",
-        "expanded": "A proton is a hydrogen atom without its electron, so it carries a positive charge. Each hydrogen chloride has given a proton to a water molecule. That makes a hydronium ion, H₃O⁺: a water molecule with one extra proton. What is left of the hydrogen chloride is a chloride ion, Cl⁻, with a negative charge. An ion is an atom, or a group of atoms, that carries a charge. Water molecules crowd round every ion. They are not drawn here. One water molecule is drawn because it has a part to play in step 3."
+        "expanded": "An ion is an atom, or a group of atoms, that carries a charge. A proton is a hydrogen atom without its electron, so it carries a positive charge. Each hydrogen chloride has given a proton to a water molecule. That makes a hydronium ion, H₃O⁺: a water molecule with one extra proton. What is left of the hydrogen chloride is a chloride ion, Cl⁻, with a negative charge. Water molecules crowd round every ion. They are not drawn here. One water molecule is drawn because it has a part to play in step 3."
       },
       "active": [
         "o-hydronium",
@@ -161,7 +161,7 @@
         "rationale": "No source was read for how long the solid takes to dissolve. The label is an everyday observation, and no number rests on it."
       },
       "explanation": {
-        "intro": "The solid goes into the acid and comes apart into ions. Sodium ions go one way and hydrogen carbonate ions another, and water closes round each.",
+        "intro": "The solid goes into the acid and comes apart into ions: atoms, or groups of atoms, that carry a charge. Sodium ions go one way and hydrogen carbonate ions another, and water closes round each.",
         "expanded": "Solid sodium hydrogen carbonate is made of ions already: sodium ions, Na⁺, and hydrogen carbonate ions, HCO₃⁻ (also called bicarbonate), held side by side by the pull between opposite charges. Water separates them. No bond inside the hydrogen carbonate ion breaks: its hydrogen, its carbon and its three oxygens stay joined. One ion of each kind stands here for the whole solid. Pulling the ions out of the solid takes in heat."
       },
       "active": [
@@ -248,8 +248,8 @@
         "sourceId": "pines-2016"
       },
       "explanation": {
-        "intro": "A hydronium ion meets the hydrogen carbonate ion and gives it a proton. That makes carbonic acid, H₂CO₃, and leaves an ordinary water molecule.",
-        "expanded": "The proton moves from the oxygen of the hydronium ion to an oxygen of the hydrogen carbonate ion. A lone pair is a pair of electrons on one atom that is not shared in a bond. A lone pair on that oxygen becomes the new bond to the proton, and the pair that held the proton to the hydronium ion stays behind on its oxygen as a lone pair. The curved arrows show where each pair goes. One positive and one negative charge cancel, so carbonic acid and water carry no charge. Once an acid and the ion are touching, a move like this takes picoseconds: millionths of a millionth of a second. Finding each other in the water takes longer."
+        "intro": "A hydronium ion is a water molecule carrying one extra hydrogen. It meets the hydrogen carbonate ion and hands that hydrogen over. That makes carbonic acid, H₂CO₃, and leaves an ordinary water molecule.",
+        "expanded": "What moves is a proton: a hydrogen atom without its electron. It goes from the oxygen of the hydronium ion to an oxygen of the hydrogen carbonate ion. A lone pair is a pair of electrons on one atom that is not shared in a bond. A lone pair on that oxygen becomes the new bond to the proton. The pair that held the proton to the hydronium ion stays behind on its oxygen, as a lone pair. The curved arrows show where each pair goes. The two charges cancel: carbonic acid and water carry none. Once an acid and the ion are touching, a move like this takes picoseconds: millionths of a millionth of a second. Finding each other in the water takes longer."
       },
       "active": [
         "o-hydronium",
@@ -319,7 +319,7 @@
           },
           {
             "id": "pair",
-            "text": "The two stay stuck together as a pair, because opposite charges attract.",
+            "text": "The hydronium ion and the hydrogen carbonate ion stay together as a pair, because opposite charges attract.",
             "correct": false,
             "feedback": "The opposite charges do bring them together, but they do not stay as a pair. A proton moves across, and that leaves two molecules with no charge: carbonic acid and water."
           },
@@ -357,7 +357,7 @@
       },
       "explanation": {
         "intro": "Carbonic acid does not last. It splits into water and carbon dioxide, CO₂. Of the two steps that break and make bonds, this is by far the slower.",
-        "expanded": "Carbonic acid has two O–H groups on its carbon. For the split, the hydrogen of one has to reach the oxygen of the other, and a water molecule passes it along. First that O–H group turns to face the water. Then, in one move, the water takes its hydrogen and gives one of its own hydrogens to the other oxygen. That oxygen now holds two hydrogens. It breaks away from the carbon as a water molecule, and the carbon is left with two double bonds, one to each oxygen that stays: carbon dioxide. The carbon dioxide is still dissolved. A molecule of carbonic acid lasts about 60 thousandths of a second at room temperature, far longer than the proton took to arrive."
+        "expanded": "Carbonic acid has two O–H groups on its carbon. For the split, the hydrogen of one has to reach the oxygen of the other, and a water molecule passes it along. First that O–H group turns to face the water. Then, in one move, the water takes its hydrogen and gives one of its own hydrogens to the other oxygen. That oxygen now holds two hydrogens. It breaks away from the carbon as a water molecule. The carbon is left with a double bond, two shared pairs of electrons, to each oxygen that stays: carbon dioxide. The carbon dioxide is still dissolved. A molecule of carbonic acid lasts about 60 thousandths of a second at room temperature, far longer than the step before took."
       },
       "active": [
         "c",
