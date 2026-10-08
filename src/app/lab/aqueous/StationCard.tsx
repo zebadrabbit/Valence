@@ -166,8 +166,8 @@ export function StationCard({ data, sources, stationId, view, reducedMotion, can
             // What it looks like before the mix: said in words, and for a coloured solution drawn in the bottle too.
             const bottle = bottleLook(data, id)
             return (
-              <div key={id} role="group" aria-label={reagent.name} className="grid grid-cols-[3.5rem_minmax(0,1fr)] gap-2 rounded-md border p-2">
-                <div className="h-20">
+              <div key={id} role="group" aria-label={reagent.name} className="grid grid-cols-[6rem_minmax(0,1fr)] gap-3 rounded-md border p-2">
+                <div className="h-32">
                   <Bottle lines={reagent.molarity === undefined ? [reagent.formula] : [reagent.formula, `${reagent.molarity} M`]} liquid={bottle.hex ?? undefined} />
                 </div>
                 <div className="grid content-start justify-items-start gap-1.5">
