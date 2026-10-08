@@ -70,7 +70,7 @@ export const ENERGY_TEXT = {
 /** The two drawn beakers: what each picture is, and the labels written on it. */
 export const BEAKER_TEXT = {
   before: 'A beaker of hydrochloric acid, and a spatula of white powder about to be tipped into it.',
-  after: 'The beaker afterwards: a clear liquid with no bubbles.',
+  after: 'The beaker afterwards: a clear liquid, with the last few bubbles thinning out until there are none.',
   acid: 'hydrochloric acid',
   powder: 'sodium hydrogen carbonate',
   saltWater: 'salt water',
