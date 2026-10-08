@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { aqueousData as data } from '@/chem-data/aqueous/data'
 import { FORMS, can, checkEquation, createLab, stationView, type Form, type Term } from '@/engine/aqueous'
 import { correctEntry } from '@/engine/aqueous/testkit'
-import { EMPTY, MAX_COEFFICIENT, SIDES, changeTerm, entered, fit, formulaParts, move, nextEmpty, place, remove, sameEntry, setNoReaction, type At, type Counts, type Refused, type Row, type Side } from './builder'
+import { EMPTY, MAX_COEFFICIENT, SIDES, changeTerm, entered, fit, formulaParts, move, nextEmpty, place, remove, setNoReaction, type At, type Counts, type Refused, type Row, type Side } from './builder'
 
 const lab = createLab(data, 'guided')
 const takes = (stationId: string, row: Row) => can(data, lab, { type: 'enterEquation', stationId, form: 'netIonic', entry: entered(row) })
@@ -196,14 +196,6 @@ describe('the row of places an equation is built in', () => {
     expect(guided.slice(0, 3)).toEqual([10, 19, 7])
     expect(guided.reduce((a, b) => a + b)).toBe(246)
     expect(taps(() => null).reduce((a, b) => a + b)).toBe(273)
-  })
-
-  it('tells two rows apart by what they hold', () => {
-    const one = done(place(fit(EMPTY, null), at('reactants', 0), 'water', null))
-    expect(sameEntry(one, done(place(fit(EMPTY, null), at('reactants', 0), 'water', null)))).toBe(true)
-    expect(sameEntry(one, changeTerm(one, at('reactants', 0), { state: 'l' }))).toBe(false)
-    expect(sameEntry(null, null)).toBe(true)
-    expect(sameEntry(one, null)).toBe(false)
   })
 })
 

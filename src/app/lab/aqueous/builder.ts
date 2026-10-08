@@ -108,8 +108,6 @@ export const setNoReaction = (row: Row, noReaction: boolean): Row => ({ ...row, 
 export const entered = (row: Row): Entry =>
   row.noReaction ? { noReaction: true, reactants: [], products: [] } : { noReaction: false, reactants: row.reactants.filter((slot) => slot !== null), products: row.products.filter((slot) => slot !== null) }
 
-export const sameEntry = (a: Row | null, b: Row | null): boolean => JSON.stringify(a) === JSON.stringify(b)
-
 const BELOW = '₀₁₂₃₄₅₆₇₈₉'
 const ABOVE = '⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻'
 const PLAIN_ABOVE = '0123456789+−'

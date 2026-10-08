@@ -206,7 +206,8 @@ export function EquationBuilder({ data, form, palette, judged, counts, held, ref
   // and moved is dragged, by pointer events, which a finger, a pen and a mouse all give; it is `touch-none`, so a
   // finger on it moves the tile and not the page. A press that is not a drag is a tap. A mouse's and a key's come
   // as a click. A finger's is taken when the finger lifts, and the click the browser would make of it is stopped:
-  // the browser makes none of a tap that follows a drag closely, and that tap would be lost.
+  // for about half a second after a drag that ends with the finger still moving, the browser makes no click of a
+  // tap, and that tap would be lost.
   // ponytail: the page does not scroll while a tile is held near the window's edge; a builder is under a screen long.
   const pointer = (held: { speciesId: string; from: At | null } | null, tap: (byKey: boolean) => void) => ({
     onPointerDown: (event: PointerEvent<HTMLButtonElement>) => {
@@ -224,7 +225,8 @@ export function EquationBuilder({ data, form, palette, judged, counts, held, ref
       const start = pressed.current
       pressed.current = null
       if (start === null) return
-      if (drag === null) return event.pointerType === 'touch' ? tap(false) : undefined
+      // Lifted where it came down, or near: a finger that slid off the slot it touched has not tapped it.
+      if (drag === null) return event.pointerType === 'touch' && event.currentTarget.contains(document.elementFromPoint(event.clientX, event.clientY)) ? tap(false) : undefined
       setDrag(null)
       // The click a mouse makes as it lets a dragged tile go is not a tap.
       dropped.current = true
@@ -247,7 +249,8 @@ export function EquationBuilder({ data, form, palette, judged, counts, held, ref
     noRepeat(event)
     if (event.key === 'Backspace' || event.key === 'Delete') {
       event.preventDefault()
-      take(at)
+      // One press, one slot: where a side closes up, a held key would empty it term by term.
+      if (!event.repeat) take(at)
     }
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
       const slots = [...formRef.current!.querySelectorAll<HTMLElement>('[data-place]')]
