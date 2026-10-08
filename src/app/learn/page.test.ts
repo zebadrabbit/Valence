@@ -582,7 +582,7 @@ describe('the energy panel', () => {
     expect(html).toContain('Step 3 of 4')
   })
 
-  it('gives nothing of a step away while Challenge keeps its name back: its figures are there, and not its note, how they were worked out, or the sources', () => {
+  it('gives figures and no words while Challenge keeps any step back: no note, nothing of how a value was worked out, and no sources, each of which answers a question', () => {
     const all = new Set(steps.map((step) => step.id))
     // Where step 1's question is asked: the figures of the step, and of every step in the table.
     const asked = panel(0.16, all)
@@ -590,29 +590,35 @@ describe('the energy panel', () => {
     expect(figures(asked).length).toBeGreaterThan(8)
     // No step's name, no species a step makes, and no word of what a step does.
     expect(asked).not.toMatch(/Dissolving|Proton transfer|Decomposition|Gas escapes/)
-    expect(asked).not.toMatch(/HCO₃|Na⁺|CO₂|H₂CO₃|carbonic acid|proton|hydrogen carbonate|sodium ion|decomposition|uphill|pKa|lasts/i)
-    // The note on step 1 names the ion the solid gives: it waits.
+    expect(asked).not.toMatch(/HCO₃|Na⁺|CO₂|H₂CO₃|carbonic acid|proton|hydrogen carbonate|sodium ion|decomposition|uphill|pKa|lasts|dissolving the solid|escaping|releasing/i)
+    // The note on step 1 names the ion the solid gives, and the panel's own note says the solid dissolves and the gas escapes.
     expect(asked).not.toContain(escaped(steps[0]!.notes[0]!))
-    // How each value was worked out names the change it was worked out over: each step's waits, with a line that says so.
+    expect(asked).not.toContain(escaped(mechanism.energyNote))
+    // How each value was worked out names the change it was worked out over, and a source's title can be an answer.
     for (const step of steps) for (const line of energyLines(mechanism, step.id)) expect([step.id, asked.includes(escaped(line.method))]).toEqual([step.id, false])
-    expect(count(asked, new RegExp(escaped(ENERGY_TEXT.workedLater), 'g'))).toBe(4)
-    // The sources' own titles would answer: the control waits until no step is kept back, with a line that says so.
+    expect(asked).not.toContain(`>${ENERGY_TEXT.worked}</summary>`)
     expect(asked).not.toContain('>Sources</summary>')
     expect(asked).not.toContain('href="http')
-    expect(asked).toContain(`<p class="text-xs text-muted-foreground">${escaped(ENERGY_TEXT.sourcesLater)}</p>`)
+    // One line says what waits, and why.
+    expect(count(asked, new RegExp(`<p class="text-xs text-muted-foreground">${escaped(ENERGY_TEXT.later)}</p>`, 'g'))).toBe(1)
+    // What the curves show keeps what answers nothing: the totals, what standard conditions are, and what is only drawn.
+    const [, totals, standard] = energyPanelNotes(mechanism)
+    const about = asked.match(new RegExp(`<details><summary[^>]*>${ENERGY_TEXT.about}</summary><div[^>]*>(.*?)</div></details>`, 's'))![1]!
+    expect(about).toBe([totals!, standard!, ENERGY_TEXT.drawn].map((note) => `<p>${escaped(note)}</p>`).join(''))
 
-    // With steps 1 and 2 behind, theirs are shown and those of the steps ahead still wait.
-    const half = panel(0.52, new Set(['decomposition', 'gas-escapes']))
-    for (const id of ['dissolving', 'proton-transfer']) for (const line of energyLines(mechanism, id)) expect(half).toContain(escaped(`${line.text}. ${line.method}`))
-    for (const id of ['decomposition', 'gas-escapes']) for (const line of energyLines(mechanism, id)) expect(half).not.toContain(escaped(line.method))
-    expect(count(half, new RegExp(escaped(ENERGY_TEXT.workedLater), 'g'))).toBe(2)
-    expect(half).not.toMatch(/splits|CO₂\(g\)|lasts|Eyring/)
-    expect(half).not.toContain('>Sources</summary>')
-    // In step 1 with its question answered, its note is back.
-    expect(panel(0.2, new Set(['proton-transfer', 'decomposition', 'gas-escapes']))).toContain(escaped(steps[0]!.notes[0]!))
+    // It is the same while one step is still kept back: a step that is behind can answer one that is ahead.
+    const last = panel(0.6, new Set(['gas-escapes']))
+    expect(last).not.toContain('>Sources</summary>')
+    expect(last).not.toContain(`>${ENERGY_TEXT.worked}</summary>`)
+    expect(last).not.toContain(escaped(mechanism.energyNote))
+    expect(panel(0.2, new Set(['proton-transfer', 'decomposition', 'gas-escapes']))).not.toContain(escaped(steps[0]!.notes[0]!))
     // With nothing kept back, everything is there.
-    expect(panel(0.16)).toContain('>Sources</summary>')
-    expect(panel(0.16)).not.toContain(escaped(ENERGY_TEXT.workedLater))
+    const open = panel(0.2)
+    expect(open).toContain('>Sources</summary>')
+    expect(open).toContain(`>${ENERGY_TEXT.worked}</summary>`)
+    expect(open).toContain(escaped(mechanism.energyNote))
+    expect(open).toContain(escaped(steps[0]!.notes[0]!))
+    expect(open).not.toContain(escaped(ENERGY_TEXT.later))
   })
 
   it('is handed, by the page, the steps Challenge keeps back: on a page where step 1\'s question waits, the panel\'s button is there and the page names no step', () => {

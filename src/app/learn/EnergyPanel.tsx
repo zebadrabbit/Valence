@@ -49,12 +49,15 @@ const minus = (value: number) => (value > 0 ? `+${value}` : String(value).replac
  * and the sources. The curves and the cursor are drawn. Every figure that is printed is a step's own or the sum of
  * the four: where the cursor stands part-way through a step is a point on a drawing and is printed nowhere.
  *
- * Of a step that Challenge keeps back the panel gives the figures and no words: not its name, not its note, and
- * not how its values were worked out, which names the change they were worked out over. The sources wait until no
- * step is kept back, since a source's title can be an answer.
+ * While Challenge keeps any step back the panel gives figures and no words about them: a step's note names what
+ * the step makes, how a value was worked out names the change it was worked out over, the panel's own note says
+ * what the first and the last step do, and a source's title can be an answer. One line says that they wait.
  */
 export function Energy({ mechanism, t, kept }: EnergyProps) {
   const name = (chapterId: string) => chapterName(mechanism, chapterId, kept)
+  const open = kept.size === 0
+  // ponytail: the panel's own note is the first of its notes, taken by its place, as the totals are below.
+  const notes = energyPanelNotes(mechanism).slice(open ? 0 : 1)
   const scale = chartScale(mechanism)
   const steps = stepsOf(mechanism)
   const current = chapterAt(mechanism, t)
@@ -134,7 +137,7 @@ export function Energy({ mechanism, t, kept }: EnergyProps) {
             ))}
           </ul>
           {/* The record's own note on the step (spec 9.2). What follows from how a value was obtained is with how it was worked out. */}
-          {!kept.has(current.id) && current.notes.map((note) => <Note key={note}>{note}</Note>)}
+          {open && current.notes.map((note) => <Note key={note}>{note}</Note>)}
         </section>
       )}
       {/* After the last step: the whole change. */}
@@ -144,8 +147,9 @@ export function Energy({ mechanism, t, kept }: EnergyProps) {
           <caption className="sr-only">{ENERGY_TEXT.caption}</caption>
           <thead>
             <tr className="border-b align-bottom">
-              {[ENERGY_TEXT.steps, ENERGY_PANEL.freeEnergy, ENERGY_PANEL.enthalpy, ENERGY_TEXT.barrier].map((heading) => (
-                <th key={heading} scope="col" className="py-1 pr-2 font-medium">
+              {[ENERGY_TEXT.steps, ENERGY_PANEL.freeEnergy, ENERGY_PANEL.enthalpy, ENERGY_TEXT.barrier].map((heading, i) => (
+                // The first column holds a step's name, whose longest word needs more than a quarter of the panel.
+                <th key={heading} scope="col" className={`py-1 pr-2 font-medium ${i === 0 ? 'w-[31%]' : ''}`}>
                   {heading}
                 </th>
               ))}
@@ -157,7 +161,7 @@ export function Energy({ mechanism, t, kept }: EnergyProps) {
               const here = step === current
               return (
                 <tr key={step.id} aria-current={here ? 'step' : undefined} className={`border-b align-top ${here ? 'bg-muted' : ''}`}>
-                  <th scope="row" className="py-1.5 pr-2 font-medium">
+                  <th scope="row" className="py-1.5 pr-2 font-medium wrap-break-word">
                     {name(step.id)}
                     {here && <span className="block font-normal text-muted-foreground">({ENERGY_TEXT.now})</span>}
                   </th>
@@ -177,37 +181,39 @@ export function Energy({ mechanism, t, kept }: EnergyProps) {
         </table>
       </Disclosure>
       <Disclosure summary={ENERGY_TEXT.about}>
-        {energyPanelNotes(mechanism).map((note) => (
+        {notes.map((note) => (
           <p key={note}>{note}</p>
         ))}
         <p>{ENERGY_TEXT.drawn}</p>
       </Disclosure>
-      <Disclosure summary={ENERGY_TEXT.worked}>
-        <ul className="grid gap-2 text-xs">
-          {steps.map((step) => (
-            <li key={step.id}>
-              <span className="font-medium">{name(step.id)}</span>
-              {kept.has(step.id) ? (
-                <p className="mt-1">{ENERGY_TEXT.workedLater}</p>
-              ) : (
-                <ul className="mt-1 grid list-disc gap-1 pl-5">
-                  {energyLines(mechanism, step.id).map((line) => (
-                    <li key={line.quantity}>
-                      {line.text}. {line.method}
-                    </li>
-                  ))}
-                  {stepNotes(mechanism, step.id)
-                    .slice(step.notes.length)
-                    .map((note) => (
-                      <li key={note}>{note}</li>
+      {open ? (
+        <>
+          <Disclosure summary={ENERGY_TEXT.worked}>
+            <ul className="grid gap-2 text-xs">
+              {steps.map((step) => (
+                <li key={step.id}>
+                  <span className="font-medium">{name(step.id)}</span>
+                  <ul className="mt-1 grid list-disc gap-1 pl-5">
+                    {energyLines(mechanism, step.id).map((line) => (
+                      <li key={line.quantity}>
+                        {line.text}. {line.method}
+                      </li>
                     ))}
-                </ul>
-              )}
-            </li>
-          ))}
-        </ul>
-      </Disclosure>
-      {kept.size > 0 ? <Note>{ENERGY_TEXT.sourcesLater}</Note> : <Sources citations={mechanismCitations(mechanism, registry.molecules, sources)} derived={ENERGY_TEXT.unsourced} />}
+                    {stepNotes(mechanism, step.id)
+                      .slice(step.notes.length)
+                      .map((note) => (
+                        <li key={note}>{note}</li>
+                      ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          </Disclosure>
+          <Sources citations={mechanismCitations(mechanism, registry.molecules, sources)} derived={ENERGY_TEXT.unsourced} />
+        </>
+      ) : (
+        <Note>{ENERGY_TEXT.later}</Note>
+      )}
     </>
   )
 }

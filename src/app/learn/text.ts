@@ -70,9 +70,8 @@ export const ENERGY_TEXT = {
   /** Under the curves: what of them is worked out and what is only drawn. */
   drawn: 'Between two levels each curve is a drawing. Only the levels, and the height of a barrier that has a value, are worked out.',
   worked: 'How each value was worked out',
-  /** In Challenge, in place of a step's working and of the sources, while they would answer a question that has not been asked. */
-  workedLater: 'Shown once the question of this step is answered.',
-  sourcesLater: 'The sources are listed here once every question is answered: some of their titles give an answer away.',
+  /** In Challenge, in place of the panel's notes, working and sources, while a question is still to be answered. */
+  later: 'The notes on these figures, how each was worked out and the sources are here once every question is answered: they give some of the answers away.',
   unsourced: "Where the atoms are between and around the reacting molecules is Valence's own choreography, not a measured or computed path. The timescales of steps 1 and 4 are everyday observations with no source.",
 } as const
 
