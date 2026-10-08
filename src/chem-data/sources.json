@@ -758,5 +758,20 @@
     "id": "nist-codata-2022",
     "url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
     "citation": "Mohr, P. J.; Newell, D. B.; Taylor, B. N.; Tiesinga, E. Fundamental Physical Constants: Complete Listing, 2022 CODATA adjustment. National Institute of Standards and Technology. Read as the text file linked here; read and not kept (retrieved 2026-10-07)."
+  },
+  {
+    "id": "nist-asd-lines-neutral",
+    "url": "https://physics.nist.gov/PhysRefData/ASD/lines_form.html",
+    "citation": "Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, Lines Data for the neutral atom of each element (the spectrum <symbol> I): observed wavelengths in air, 400 to 700 nm, with relative intensities; and, for an element with no such lines, every line the database lists for it (retrieved 2026-10-08). National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F"
+  },
+  {
+    "id": "nist-asd-lines-help",
+    "url": "https://physics.nist.gov/PhysRefData/ASD/Html/lineshelp.html#OUTRELINT",
+    "citation": "Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, help page of the lines form: how a spectrum is named, and the section Relative Intensity, linked here (read 2026-10-08). National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F"
+  },
+  {
+    "id": "bulewicz-1956",
+    "url": "https://doi.org/10.1038/177670a0",
+    "citation": "Bulewicz, E. M. Flame Spectrum of Barium: Red and Infra-Red Bands. Nature 1956, 177, 670-671. The paper is paywalled: only its abstract was read, on the publisher's page, linked here (2026-10-08)."
   }
 ]

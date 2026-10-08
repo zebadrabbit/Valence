@@ -141,6 +141,27 @@ export const stationSchema = z.strictObject({
 })
 
 // The record sourceId covers symbol, name and atomic number. Radii are in Å.
+/**
+ * Emission lines of the isolated atom in a discharge lamp: wavelengths in nm, in air, longest first.
+ * `selection` says which of the source's lines were chosen. `note` is shown under the strip, where the strip
+ * cannot show what the table does.
+ */
+export const emissionSchema = z.strictObject({
+  selection: text,
+  note: text.optional(),
+  lines: z.array(citedNumber(z.number().positive()).extend({ transition: text.optional() })).min(1),
+})
+
+/**
+ * One element's entry in emission-spectra.json, which the periodic table's card reads: its spectrum, or `none`,
+ * the sentence that says why none is drawn, with the source that shows it.
+ */
+export const elementSpectrumSchema = z.union([
+  z.strictObject({ symbol: text, emission: emissionSchema }),
+  z.strictObject({ symbol: text, none: cited(text) }),
+])
+export const emissionSpectraSchema = z.array(elementSpectrumSchema)
+
 export const elementSchema = z.strictObject({
   symbol: text,
   name: text,
@@ -164,18 +185,8 @@ export const elementSchema = z.strictObject({
     }),
   ),
   color: cited(hex),
-  /**
-   * Emission lines of the isolated atom in a discharge lamp: wavelengths in nm, in air, longest first.
-   * `selection` says which of the source's lines were chosen. `note` is shown under the strip, where the strip
-   * cannot show what the table does. Present only for the elements whose card shows a spectrum.
-   */
-  emission: z
-    .strictObject({
-      selection: text,
-      note: text.optional(),
-      lines: z.array(citedNumber(z.number().positive()).extend({ transition: text.optional() })).min(1),
-    })
-    .optional(),
+  /** Present only for the elements whose atom card in the molecule explorer shows a spectrum. */
+  emission: emissionSchema.optional(),
   notes: z.array(text).optional(),
   sourceId: id,
 })
@@ -378,6 +389,8 @@ export type Reagent = z.infer<typeof reagentSchema>
 export type Observation = z.infer<typeof observationSchema>
 export type Station = z.infer<typeof stationSchema>
 export type Element = z.infer<typeof elementSchema>
+export type Emission = z.infer<typeof emissionSchema>
+export type ElementSpectrum = z.infer<typeof elementSpectrumSchema>
 export type Molecule = z.infer<typeof moleculeSchema>
 export type MoDiagram = z.infer<typeof moDiagramSchema>
 export type Registry = z.infer<typeof registrySchema>
