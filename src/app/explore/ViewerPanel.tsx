@@ -1,4 +1,4 @@
-import { Component, lazy, Suspense, useRef, useState, type Dispatch, type ReactNode } from 'react'
+import { lazy, Suspense, useRef, useState, type Dispatch, type ReactNode } from 'react'
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Check, RotateCcw, ZoomIn, ZoomOut, type LucideIcon } from 'lucide-react'
 import { useAppState } from '@/app/AppState'
 import { Button } from '@/components/ui/button'
@@ -6,7 +6,8 @@ import type { Molecule } from '@/chem-data/schema'
 import { LewisView } from './LewisView'
 import type { ViewHandle } from './scene/MoleculeViewer'
 import type { Selection, SelectionAction } from './selection'
-import { VIEWER_FAILURE_TEXT, VIEWS, viewerFailure, type SceneViewId, type ViewId } from './views'
+import { VIEWER_FAILURE_TEXT, VIEWS, type SceneViewId, type ViewId } from './views'
+import { ViewerBoundary, hasWebgl } from './webgl'
 
 // The dynamic import is the chunk boundary: three and @react-three/fiber are fetched the first
 // time a molecule page renders. (The type-only import above is erased and loads nothing.)
@@ -21,21 +22,6 @@ const CAMERA_BUTTONS: readonly { label: string; icon: LucideIcon; act(view: View
   { label: 'Zoom out', icon: ZoomOut, act: (v) => v.zoom(-1) },
   { label: 'Reset view', icon: RotateCcw, act: (v) => v.reset() },
 ]
-
-/**
- * Whether the browser can give the WebGL 2 context three needs. Asked once, before the first
- * Canvas, so a browser without it gets the message below and no renderer errors in its console.
- */
-let webgl: boolean | undefined
-function hasWebgl(): boolean {
-  if (webgl === undefined) {
-    const context = document.createElement('canvas').getContext('webgl2')
-    webgl = context !== null
-    // Browsers allow only a few contexts at a time; hand this one back.
-    context?.getExtension('WEBGL_lose_context')?.loseContext()
-  }
-  return webgl
-}
 
 /** The model with its view switch and camera buttons. Without WebGL the 3D views show a plain message; the 2D Lewis view still works. */
 export function ViewerPanel(props: { molecule: Molecule; selection: Selection; dispatch: Dispatch<SelectionAction>; describedBy: string }) {
@@ -132,18 +118,4 @@ function ViewerFrame({ children }: { children: ReactNode }) {
 
 function ViewerMessage({ children }: { children: ReactNode }) {
   return <p className="flex h-full items-center justify-center p-4 text-center text-sm">{children}</p>
-}
-
-/** Catches a failed chunk load, a data error in the scene, and the renderer failing to start. */
-class ViewerBoundary extends Component<{ onFail(why: 'webgl' | 'other'): void; children: ReactNode }, { failed: boolean }> {
-  state = { failed: false }
-  static getDerivedStateFromError() {
-    return { failed: true }
-  }
-  componentDidCatch(error: unknown) {
-    this.props.onFail(viewerFailure(error))
-  }
-  render() {
-    return this.state.failed ? null : this.props.children
-  }
 }

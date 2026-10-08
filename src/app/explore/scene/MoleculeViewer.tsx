@@ -1,37 +1,24 @@
 // The 3D scene. Three.js lives only under a scene/ folder (ESLint enforces it), and this file is
 // loaded with React.lazy, so three and @react-three/fiber stay in their own chunk.
 
-import { useEffect, useImperativeHandle, useMemo, useRef, type Dispatch, type ReactNode, type Ref } from 'react'
-import { Canvas, useFrame, useThree, type ThreeEvent } from '@react-three/fiber'
-import { BackSide, Vector2, setConsoleFunction, type DirectionalLight, type Mesh } from 'three'
+import { useEffect, useImperativeHandle, useMemo, useRef, type Dispatch, type Ref } from 'react'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { Vector2, type Mesh } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import type { Vec3 } from '@/chem-data/geometry'
 import { registry } from '@/chem-data/registry'
 import type { Molecule } from '@/chem-data/schema'
 import type { Selection, SelectionAction } from '../selection'
 import { VIEWS, type SceneViewId } from '../views'
-import { framingDistance, lobeProfile, type Quat, type Stick } from './sceneMath'
+import { framingDistance, lobeProfile, type Stick } from './sceneMath'
 import { LOBE_LENGTH, LOBE_WIDTH, sceneModel, type SceneAtom, type SceneBond, type SceneLobe, type SceneLonePair } from './sceneModel'
-
-// @react-three/fiber 9.8 still constructs a THREE.Clock, which three r183 and later report as
-// deprecated with a console warning on every Canvas mount. Nothing here can act on it, so drop
-// that one message and pass everything else through. Remove this filter when an R3F release
-// stops using THREE.Clock (check by deleting it and watching the console on a molecule page).
-setConsoleFunction((type, message, ...params) => {
-  if (type === 'warn' && message.startsWith('THREE.Clock:')) return
-  console[type](message, ...params)
-})
+import { Ball, ContextLossWatcher, Headlight, PickTarget, StickShape, noRaycast } from './shapes'
 
 const FOV = 45
 /** The direction the camera starts in: a little to the right and above, so depth shows at once. */
 const HOME: Vec3 = [0.35, 0.3, 1]
 const ROTATE_STEP = Math.PI / 12 // 15 degrees per button press
 const ZOOM_STEP = 1.2
-/** A click that moved further than this many pixels was a drag to rotate, not a pick. */
-const CLICK_SLOP = 4
-
-// The dark edge round every shape keeps white hydrogens visible on the light theme.
-const OUTLINE_COLOR = '#1f2937'
 // The selection ring is blue with a white inner edge, so it shows against any atom and both themes.
 const RING_COLOR = '#2563eb'
 const RING_EDGE_COLOR = '#ffffff'
@@ -114,20 +101,12 @@ export function MoleculeViewer(props: MoleculeViewerProps) {
 
 function AtomShape({ atom, outline, onPick }: { atom: SceneAtom; outline: number; onPick(): void }) {
   return (
-    <group position={atom.position}>
-      <mesh scale={atom.radius} raycast={noRaycast}>
-        <sphereGeometry args={[1, 32, 16]} />
-        <meshStandardMaterial color={atom.color} roughness={0.5} />
-      </mesh>
-      {/* The outline: a slightly larger shell drawn from its inside faces. */}
-      <mesh scale={atom.radius + outline} raycast={noRaycast}>
-        <sphereGeometry args={[1, 32, 16]} />
-        <meshBasicMaterial color={OUTLINE_COLOR} side={BackSide} />
-      </mesh>
-      <PickTarget scale={atom.pickRadius} onPick={onPick}>
+    <>
+      <Ball position={atom.position} radius={atom.radius} color={atom.color} outline={outline} />
+      <PickTarget position={atom.position} scale={atom.pickRadius} onPick={onPick}>
         <sphereGeometry args={[1, 12, 8]} />
       </PickTarget>
-    </group>
+    </>
   )
 }
 
@@ -135,17 +114,7 @@ function BondShape({ bond, outline, onPick }: { bond: SceneBond; outline: number
   return (
     <>
       {bond.sticks.map((stick, i) => (
-        <group key={i} position={stick.position} quaternion={stick.quaternion}>
-          <mesh scale={[stick.radius, stick.length, stick.radius]} raycast={noRaycast}>
-            {/* Unit cylinder along +Y. */}
-            <cylinderGeometry args={[1, 1, 1, 16]} />
-            <meshStandardMaterial color={stick.color} roughness={0.6} />
-          </mesh>
-          <mesh scale={[stick.radius + outline, stick.length + 2 * outline, stick.radius + outline]} raycast={noRaycast}>
-            <cylinderGeometry args={[1, 1, 1, 16]} />
-            <meshBasicMaterial color={OUTLINE_COLOR} side={BackSide} />
-          </mesh>
-        </group>
+        <StickShape key={i} stick={stick} color={stick.color} outline={outline} />
       ))}
       {bond.pick && (
         <PickTarget position={bond.pick.position} quaternion={bond.pick.quaternion} scale={stickScale(bond.pick)} onPick={onPick}>
@@ -158,18 +127,7 @@ function BondShape({ bond, outline, onPick }: { bond: SceneBond; outline: number
 
 /** A lone pair: two small dots side by side. They are not click targets. */
 function LonePairDots({ pair, outline }: { pair: SceneLonePair; outline: number }) {
-  return pair.dots.map((position, i) => (
-    <group key={i} position={position}>
-      <mesh scale={pair.radius} raycast={noRaycast}>
-        <sphereGeometry args={[1, 16, 8]} />
-        <meshStandardMaterial color={LONE_PAIR_COLOR} roughness={0.5} />
-      </mesh>
-      <mesh scale={pair.radius + outline} raycast={noRaycast}>
-        <sphereGeometry args={[1, 16, 8]} />
-        <meshBasicMaterial color={OUTLINE_COLOR} side={BackSide} />
-      </mesh>
-    </group>
-  ))
+  return pair.dots.map((position, i) => <Ball key={i} position={position} radius={pair.radius} color={LONE_PAIR_COLOR} outline={outline} segments={16} />)
 }
 
 /**
@@ -185,38 +143,7 @@ function Lobe({ lobe }: { lobe: SceneLobe }) {
   )
 }
 
-const noRaycast = () => null
 const stickScale = (stick: Stick): Vec3 => [stick.radius, stick.length, stick.radius]
-
-/** An invisible shape that takes the clicks, so what is drawn can be thinner than what can be hit. */
-function PickTarget(props: { position?: Vec3; quaternion?: Quat; scale: number | Vec3; onPick(): void; children: ReactNode }) {
-  const canvas = useThree((s) => s.gl.domElement)
-  const onClick = (e: ThreeEvent<MouseEvent>) => {
-    // The ray hits every shape along it; only the nearest one should react.
-    e.stopPropagation()
-    // R3F also fires onClick after an orbit drag that starts and ends on the same shape.
-    if (e.delta > CLICK_SLOP) return
-    props.onPick()
-  }
-  return (
-    <mesh
-      visible={false}
-      position={props.position}
-      quaternion={props.quaternion}
-      scale={props.scale}
-      onClick={onClick}
-      onPointerOver={(e) => {
-        e.stopPropagation()
-        canvas.style.cursor = 'pointer'
-      }}
-      onPointerOut={() => {
-        canvas.style.cursor = ''
-      }}
-    >
-      {props.children}
-    </mesh>
-  )
-}
 
 /**
  * The mark on a selected atom or bond: a flat double ring that always faces the camera and is drawn
@@ -268,15 +195,6 @@ function BondRing({ bond, unit }: { bond: SceneBond; unit: number }) {
       </group>
     </group>
   )
-}
-
-/** A light that stays behind the camera, so the lit side always faces the viewer and edges shade darker. */
-function Headlight() {
-  const light = useRef<DirectionalLight>(null)
-  useFrame(({ camera }) => {
-    light.current?.position.copy(camera.position)
-  })
-  return <directionalLight ref={light} intensity={1.9} />
 }
 
 function Controls({ radius, reducedMotion, viewRef }: { radius: number; reducedMotion: boolean; viewRef?: Ref<ViewHandle> }) {
@@ -358,28 +276,5 @@ function Controls({ radius, reducedMotion, viewRef }: { radius: number; reducedM
     [controls],
   )
 
-  return null
-}
-
-/** Tells the page when the browser takes the WebGL context away (GPU reset, too many contexts). */
-function ContextLossWatcher({ onChange }: { onChange?: (lost: boolean) => void }) {
-  const canvas = useThree((s) => s.gl.domElement)
-  const invalidate = useThree((s) => s.invalidate)
-  useEffect(() => {
-    const lost = (e: Event) => {
-      e.preventDefault() // allows the browser to restore the context
-      onChange?.(true)
-    }
-    const restored = () => {
-      onChange?.(false)
-      invalidate()
-    }
-    canvas.addEventListener('webglcontextlost', lost)
-    canvas.addEventListener('webglcontextrestored', restored)
-    return () => {
-      canvas.removeEventListener('webglcontextlost', lost)
-      canvas.removeEventListener('webglcontextrestored', restored)
-    }
-  }, [canvas, invalidate, onChange])
   return null
 }

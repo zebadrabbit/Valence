@@ -10,6 +10,7 @@ import {
   inFrame,
   lobeProfile,
   lonePairDots,
+  partialBondSticks,
   perpendicular,
   principalFrame,
   quaternionFromYAxis,
@@ -138,6 +139,73 @@ describe('bondSticks', () => {
 
   it('throws when both atoms are at the same point', () => {
     expect(() => bondSticks([1, 1, 1], [1, 1, 1], 1, STYLE)).toThrow()
+  })
+})
+
+describe('partialBondSticks', () => {
+  const [a, b]: [Vec3, Vec3] = [[0, 0, 0], [0, 2, 0]]
+  const hint: Vec3 = [1, 0, 0]
+  /** How much of the bond's length the pieces at one offset cover, as a fraction. */
+  const covered = (sticks: readonly { position: Vec3; length: number }[], x: number) => sticks.filter((s) => Math.abs(s.position[0] - x) < 1e-9).reduce((sum, s) => sum + s.length, 0) / 2
+
+  it('draws a bond that is forming or breaking as a dashed line on the axis, thinner and more broken the less of it there is', () => {
+    const [weak, half, strong] = [0.1, 0.5, 0.9].map((order) => partialBondSticks(a, b, order, STYLE, hint))
+    for (const sticks of [weak!, half!, strong!]) {
+      // Ten dashes for a bond of 2 Å, none of them a whole half of the bond, all on the axis.
+      expect(sticks).toHaveLength(10)
+      for (const stick of sticks) {
+        expectVec([stick.position[0], stick.position[2]], [0, 0])
+        expect(stick.length).toBeLessThan(0.2)
+        expectVec(rotateY(stick.quaternion), [0, 1, 0])
+      }
+    }
+    expect(covered(weak!, 0)).toBeLessThan(covered(half!, 0))
+    expect(covered(half!, 0)).toBeLessThan(covered(strong!, 0))
+    expect(weak![0]!.radius).toBeLessThan(half![0]!.radius)
+    expect(strong![0]!.radius).toBeLessThan(STYLE.radius)
+    // Each dash is in the half of the atom it is nearer, as the pieces of a whole bond are.
+    expect(half!.map((s) => s.end)).toEqual([0, 0, 0, 0, 0, 1, 1, 1, 1, 1])
+  })
+
+  it('arrives at the whole bond without a jump: at an order just short of 1 the dashes all but fill the single line', () => {
+    const almost = partialBondSticks(a, b, 0.999, STYLE, hint)
+    expect(covered(almost, 0)).toBeCloseTo(1, 2)
+    expect(almost[0]!.radius).toBeCloseTo(STYLE.radius, 3)
+    // And a bond that has all but gone is a faint row of dashes, not nothing.
+    const going = partialBondSticks(a, b, 0.001, STYLE, hint)
+    expect(covered(going, 0)).toBeGreaterThan(0.2)
+    expect(going[0]!.radius).toBeGreaterThan(0)
+  })
+
+  it('draws a single bond on its way to a double as a solid line and a dashed one that move apart', () => {
+    const sticks = partialBondSticks(a, b, 1.5, STYLE, hint)
+    const solid = sticks.filter((s) => s.length === 1)
+    const dashes = sticks.filter((s) => s.length < 1)
+    expect(solid).toHaveLength(2)
+    expect(dashes).toHaveLength(10)
+    // Half way: each line is half way from the axis to its place in a double bond, the dashed one on the hint's side.
+    for (const s of solid) expect(s.position[0]).toBeCloseTo(-0.05, 10)
+    for (const s of dashes) expect(s.position[0]).toBeCloseTo(0.05, 10)
+    expect(solid[0]!.radius).toBeCloseTo((STYLE.radius + STYLE.multiRadius) / 2, 10)
+    expect(dashes[0]!.radius).toBeLessThan(solid[0]!.radius)
+  })
+
+  it('meets the single bond at one end of that change and the double bond at the other', () => {
+    const begun = partialBondSticks(a, b, 1.001, STYLE, hint)
+    const single = bondSticks(a, b, 1, STYLE, hint)
+    begun.filter((s) => s.length === 1).forEach((s, i) => {
+      s.position.forEach((v, k) => expect(v).toBeCloseTo(single[i]!.position[k]!, 3))
+      expect(s.radius).toBeCloseTo(STYLE.radius, 3)
+    })
+    const almost = partialBondSticks(a, b, 1.999, STYLE, hint)
+    expect(almost.filter((s) => s.length === 1).every((s) => Math.abs(s.position[0] + 0.1) < 1e-3 && Math.abs(s.radius - STYLE.multiRadius) < 1e-3)).toBe(true)
+    expect(covered(almost.filter((s) => s.length < 1), almost.find((s) => s.length < 1)!.position[0])).toBeCloseTo(1, 2)
+    expect(almost.find((s) => s.length < 1)!.position[0]).toBeCloseTo(0.1, 3)
+  })
+
+  it('is the whole bond at a whole order', () => {
+    expect(partialBondSticks(a, b, 1, STYLE, hint)).toEqual(bondSticks(a, b, 1, STYLE, hint))
+    expect(partialBondSticks(a, b, 2, STYLE, hint)).toEqual(bondSticks(a, b, 2, STYLE, hint))
   })
 })
 
