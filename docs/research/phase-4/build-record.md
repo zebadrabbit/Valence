@@ -125,3 +125,21 @@ Each with how much it matters: **must** (a learner is stopped, loses work, is to
 - Primer, "The three forms of an equation": "Mixed, they give a bright yellow solid, lead(II) iodide. A solid that forms like this, out of two solutions, is called a precipitate."
 - Primer, "When nothing happens": "If there is no acid to meet a carbonate, a base or a metal, and no base to meet an ammonium ion, there is no gas and no heat."
 - No new sentence, but in a new place: "The lab is complete. Restart the lab to work the stations again." once at a station's head; and a station's notes under its equations, once the station is done.
+
+## The tube made something to explore (2026-10-07, after the owner used the page)
+
+Made by an AI coding assistant, after the review above. The sections above stand as they were written; where this one says a thing was changed, the lab is now as this one says.
+
+**What the owner said.** At a station whose tube was mixed, the page said what is seen three times: in a sentence beside a small drawing, in the list "What to expect", and in the choices of the questions. That tires a reader. The owner asked for the expected observation to be closed, and for a larger picture of the tube in place of the sentence, to be explored with the pointer: the sections of what is in the tube, each showing what it is when the pointer is over it. The choices stay, to confirm what was seen.
+
+**What changed.**
+
+- The sentence beside the tube is gone. The tube is drawn 300 px tall, and a button lies over each of three sections of it: the surface of the liquid, the liquid, the bottom. A pointer over a section, focus on it or a tap outlines it and shows a callout beside it with what is seen there and nothing else. Beside the picture are the line "Hover over or tap each part of the tube to look at it." and a list of the three parts, each "looked at" or "not looked at yet" beside a mark.
+- Each of the eye's three questions is closed until its part has been looked at, with a sentence under it such as "Not yet. First look at the liquid in the picture." In the engine a look is a use of the eye and is stored with the station, as a tool's use is. The stored shape takes three more values and the entry's version stays 1: the lab has not been released.
+- In Guided, what a correct observation holds is no longer shown from the start. It is under the questions, in a list that is closed until it is opened, named "What a correct observation holds". Challenge shows nothing of it until an observation is recorded, as before, and then the same closed list.
+- The callouts: "A rust-brown, gelatinous solid has settled here." (and the like for the other three solids), "No solid has settled.", "The white powder has dissolved. No solid is left here." and the same of the silvery metal ribbon, "The liquid is yellow-orange." (and each other colour), "Bubbles rise through the liquid and break at the surface." and "No bubbles rise."
+- The engine's description of the whole tube (`describeStationResult`) is not on the page any more. It is kept as what the three sentences are held to in the tests.
+
+**How it was checked.** Automated tests, 2,824 in all. The production build in headless Chromium by script: stations 1, 5, 7 and 10 in Guided and station 1 in Challenge, with a mouse and by keyboard at 1024×768 and by tap at 820×1180 in a context that emulates a touch screen, in both themes; that a question is closed until its part is looked at, that a reload keeps what was looked at, that nothing of what is seen or expected is in the page before a look, and that the console is empty.
+
+**What nobody checked.** No person has used it, by mouse, by keyboard or by finger; no screen reader has spoken it; no browser but Chromium has drawn it. How the picture, its dashed edges and its callouts look is the owner's to judge. A pointer swept down the tube looks at all three parts at once and opens all three questions; no time is asked of it.
