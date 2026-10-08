@@ -77,6 +77,17 @@ export function About() {
             also rests on Prudent Practices in the Laboratory and on a laboratory manual, and quotes none of its
             sources. None of these publishers is connected with Valence or has reviewed it.
           </p>
+          <p className="mb-2">
+            The mechanism timeline takes its enthalpies and free energies of formation from the NBS tables of chemical
+            thermodynamic properties of 1982, as NIST serves them; the acid constant of the carbonic acid molecule,
+            how long that molecule lasts and the timescales of its two middle steps from a paper in the Journal of
+            Physical Chemistry B, read as the authors' manuscript in PubMed Central; three constants from NIST's
+            listing of the 2022 CODATA values; the radii of its two ions from Shannon's table of ionic radii, checked
+            through a transcription; and the shapes of its molecules from the explorer's library. Two of its energies
+            are worked out here from those values and are marked as derived, and one barrier has no value and is drawn
+            not to scale. Where the atoms are between and around the reacting molecules is Valence's own choreography,
+            not a measured or computed path. None of these publishers is connected with Valence or has reviewed it.
+          </p>
           <ul className="list-disc pl-5">
             {sources.map((source) => (
               <li key={source.id}>

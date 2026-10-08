@@ -56,7 +56,8 @@ export function Energy({ mechanism, t, name }: EnergyProps) {
   const cursor = energyAt(mechanism, t)
   const x = scale.x(t)
   const [top, bottom] = [CHART.top, CHART.height - CHART.bottom]
-  // The second of the panel's notes is the sum of the four steps.
+  // ponytail: the sum of the four steps is the second of the panel's notes, taken by its place. A test holds it to
+  // being that sentence; the wording module naming its notes would end the reliance.
   const totals = energyPanelNotes(mechanism)[1]
   return (
     <>

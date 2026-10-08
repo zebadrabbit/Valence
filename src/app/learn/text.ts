@@ -122,6 +122,8 @@ export function positionText(mechanism: Mechanism, t: number, kept: ReadonlySet<
  */
 export function sceneWords(mechanism: Mechanism, progress: MechanismProgress, description: string): string {
   if (!pendingPrediction(mechanism, progress)) return description
+  // ponytail: the sentence is found by the words it begins with, which are the model's (src/mechanisms/describe.ts).
+  // If those change, the test of this function fails; the model handing over its sentences one by one would end that.
   const chapter = chapterAt(mechanism, progress.position)
   return description.replace(chapterHeading(mechanism, chapter.id), chapterName(mechanism, chapter.id, new Set([chapter.id]))).replace(/ Taking part: .*?\.(?= [A-Z]|$)/, '')
 }

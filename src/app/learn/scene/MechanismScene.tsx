@@ -170,6 +170,8 @@ function Anchor({ at, lift, target }: { at: Vec3; lift: number; target: RefObjec
   return null
 }
 
+// ponytail: a turn or a zoom lasts until the timeline next moves, so a learner cannot watch a whole step play from
+// their own angle. Keeping the learner's direction across frames would need a control that gives the framing back.
 /**
  * The camera. It frames what the chapter is about: it looks at the state's camera target from the home direction,
  * from as far as holds the radius the drawing gives it. A learner can turn and zoom it with a pointer, and their view holds
