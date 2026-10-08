@@ -210,6 +210,8 @@ export function checkContacts(actors, keyframes) {
           if (d < limit) throw new Error(`keyframe "${keyframe.id}": ${names}, of different species, are ${d.toFixed(2)} Å apart (the limit is ${limit})`)
         }
         if (!next || bonded.has(pair) || bondedNext.has(pair)) continue
+        // ponytail: each move is looked at in 19 places. The longest move here is 12.7 Å, so two places are at most
+        // 0.7 Å apart and an atom cannot cross another's 0.9 Å between them; a much longer move would need more.
         for (let step = 1; step < 20; step++) {
           const u = step / 20
           const d = distance(lerp(keyframe.positions[i], next.positions[i], u), lerp(keyframe.positions[j], next.positions[j], u))

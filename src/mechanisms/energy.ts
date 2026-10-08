@@ -59,6 +59,9 @@ export function energyCurves(mechanism: Mechanism): { g: EnergyStretch[]; h: Ene
   return { g, h }
 }
 
+// ponytail: the shape between two levels is a drawing choice (the easing of `state`, and for a barrier a rise and
+// a fall of the same kind). Only the levels and a barrier's height are chemistry. A reaction coordinate that
+// means something would need a path with energies along it, which no source here gives.
 /** A curve's value at `t`: flat before its first stretch and after its last, a smooth change within a stretch, and over a barrier a rise to its top and a fall from it. */
 function valueAt(stretches: readonly EnergyStretch[], t: number): number {
   const last = stretches.at(-1)

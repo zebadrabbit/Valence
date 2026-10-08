@@ -216,10 +216,45 @@ describe('architecture lint rules', () => {
     }
   })
 
-  it('accepts Math.random and the clock in chem-data and mechanisms', async () => {
+  it('accepts Math.random and the clock in chem-data', async () => {
     const code = 'export const a = [Math.random(), Date.now(), new Date()]\n'
     expect(await ruleIds(code, 'src/chem-data/x.ts')).toEqual([])
-    expect(await ruleIds(code, 'src/mechanisms/x.ts')).toEqual([])
+  })
+
+  // The scene of a mechanism is a function of the scrub position and of nothing else (spec 9.1).
+  it('rejects Math.random and the clock in src/mechanisms, in a test file too', async () => {
+    for (const filePath of ['src/mechanisms/x.ts', 'src/mechanisms/x.test.ts']) {
+      expect(await ruleIds('export const r = () => Math.random()\n', filePath)).toEqual(['no-restricted-properties'])
+      expect(await ruleIds('export const t = () => Date.now()\n', filePath)).toEqual(['no-restricted-properties'])
+      expect(await ruleIds('export const t = () => performance.now()\n', filePath)).toEqual(['no-restricted-properties'])
+      expect(await ruleIds('export const d = () => new Date()\n', filePath)).toEqual(['no-restricted-syntax'])
+    }
+    expect(await ruleIds('export const a = (u: number) => Math.sqrt(u) + Math.log(u)\n', 'src/mechanisms/x.ts')).toEqual([])
+  })
+
+  // The app draws the mechanism from its index: state(mechanism, t) and what stands beside it.
+  it.each([
+    ['@/mechanisms/state', 'src/app/learn/MechanismPage.tsx'],
+    ['@/mechanisms/hcl-nahco3.json', 'src/app/learn/MechanismPage.tsx'],
+    ['../../mechanisms/progress', 'src/app/learn/x.tsx'],
+    ['@/mechanisms/schema', 'src/app/learn/scene/MechanismScene.tsx'],
+    ['@/mechanisms/data', 'src/app/learn/x.test.ts'],
+    ['@/mechanisms/wording', 'src/main.tsx'],
+  ])('rejects importing %s in %s', async (source, filePath) => {
+    expect(await ruleIds(`import * as m from "${source}"\nexport const v = m\n`, filePath)).toEqual(['no-restricted-imports'])
+    expect(await ruleIds(`import type * as M from "${source}"\nexport type V = typeof M\n`, filePath)).toEqual(['no-restricted-imports'])
+  })
+
+  it.each([
+    ['@/mechanisms', 'src/app/learn/MechanismPage.tsx'],
+    ['../../mechanisms', 'src/app/learn/x.tsx'],
+    ['@/mechanisms', 'src/app/learn/scene/MechanismScene.tsx'],
+    ['@/mechanisms', 'src/app/learn/x.test.ts'],
+    // Inside the folder, its own files import each other.
+    ['./state', 'src/mechanisms/describe.ts'],
+    ['@/chem-data/geometry', 'src/mechanisms/state.ts'],
+  ])('accepts importing %s in %s', async (source, filePath) => {
+    expect(await ruleIds(`import * as m from "${source}"\nexport const v = m\n`, filePath)).toEqual([])
   })
 
   it('reports nothing for a clean pure function in src/engine', async () => {
