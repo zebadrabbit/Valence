@@ -1,7 +1,7 @@
 import { add, distance, scale, type Vec3 } from '@/chem-data/geometry'
 import type { Element } from '@/chem-data/schema'
 import type { Mechanism } from './schema'
-import { moveAt, state, type MechanismState, type SceneBond, type SceneSpecies } from './state'
+import { moveAt, state, stepsOf, type MechanismState, type SceneBond, type SceneSpecies } from './state'
 import { chapterHeading, kJ } from './wording'
 
 // The scene of a mechanism timeline in words, for a reader who cannot see it (spec 11). Like the picture, it is a
@@ -16,7 +16,7 @@ const speciesId = (s: SceneSpecies) => ('ion' in s ? s.ion : s.speciesId)
 /**
  * What the scene shows at scrub position `t`: the chapter and how far through it, what is in the scene, which
  * species take part and how far apart they are, each bond that is breaking, forming or changing order, and, from
- * step 1 on, where the two energies stand.
+ * step 1 on, the energies: each step's whole change and the totals of whole steps, never a point on a drawn curve.
  */
 export function describeMechanismState(mechanism: Mechanism, t: number, elements: readonly Element[]): string {
   const s = state(mechanism, t)
@@ -83,9 +83,30 @@ function changing(mechanism: Mechanism, s: MechanismState, name: (one: SceneSpec
     })
 }
 
-/** Where the two curves of the energy panel stand, once step 1 has begun. */
+/**
+ * The energies, from step 1 on: a step's own whole change, at the start of a chapter the total of the steps before
+ * it, and after the last step the total of them all. Never where the drawn curves stand part-way through a step:
+ * between two levels a curve is a drawing, and only the levels are chemistry.
+ */
 function energies(mechanism: Mechanism, s: MechanismState): string {
-  const first = mechanism.chapters.find((c) => c.kind === 'step')
+  const steps = stepsOf(mechanism)
+  const first = steps[0]
   if (!first || s.t < first.range[0]) return ''
-  return `Free energy is at ${kJ(s.energy.g)} and enthalpy at ${kJ(s.energy.h)}, counted from the start of step 1.`
+  const done = steps.filter((step) => step.range[1] <= s.t)
+  const sum = (values: readonly number[]) => values.reduce((total, value) => total + value, 0)
+  const freeEnergy = kJ(sum(done.map((step) => step.deltaG.value)))
+  const numberOf = (stepId: string) => steps.findIndex((step) => step.id === stepId) + 1
+  // An enthalpy that covers two steps is one change: between the two there is no total of it to give.
+  const enthalpy = done.every((step) => step.deltaH || done.some((other) => other.deltaH?.covers?.includes(step.id))) ? ` and enthalpy by ${kJ(sum(done.map((step) => step.deltaH?.value ?? 0)))}` : ''
+  if (s.chapter.kind !== 'step') return `Over the ${NUMBERS[steps.length] ?? steps.length} steps together, free energy changes by ${freeEnergy}${enthalpy}.`
+
+  const { deltaG, deltaH, id } = s.chapter
+  const own = `Over the whole of this step, free energy changes by ${kJ(deltaG.value)}`
+  const ownEnthalpy = !deltaH
+    ? `. Its enthalpy is counted with step ${numberOf(steps.find((step) => step.deltaH?.covers?.includes(id))?.id ?? id)}.`
+    : deltaH.covers
+      ? `, and enthalpy by ${kJ(deltaH.value)} over steps ${and(deltaH.covers.map((covered) => String(numberOf(covered))))} together.`
+      : ` and enthalpy by ${kJ(deltaH.value)}.`
+  const soFar = done.length > 0 && s.t === s.chapter.range[0] ? `Up to here, from the start of step 1, free energy has changed by ${freeEnergy}${enthalpy}. ` : ''
+  return `${soFar}${own}${ownEnthalpy}`
 }

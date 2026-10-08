@@ -30,7 +30,10 @@ export type MechanismState = {
   species: SceneSpecies[]
   /** Empty except during the move of a step in which its bonds change. */
   electronPaths: ScenePath[]
-  /** Where the cursor of the energy panel is: free energy and enthalpy so far, in kJ/mol from the start of step 1. */
+  /**
+   * Where the cursor of the energy panel is drawn: both curves' values, in kJ/mol from the start of step 1. For
+   * drawing only. Part-way through a step it is a point on a drawn curve and not chemistry, so nothing prints it.
+   */
   energy: { g: number; h: number }
   camera: { target: Vec3; radius: number }
   explanation: Chapter['explanation']
