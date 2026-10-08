@@ -242,6 +242,9 @@ export const PAGE_TEXT = {
   equations: 'Equations',
   amount: 'Amount',
   tubePicture: 'The test tube after mixing',
+  // Beside the picture's two brackets: which layer is liquid and which is solid that has settled.
+  liquidLayer: 'liquid',
+  solidLayer: 'solid',
   /** Beside the picture once the tube is mixed: what to do with it. It is the picture's description too. */
   explore: 'Hover over or tap each part of the tube to look at it.',
   /** After the name of a part of the tube, in the list beside the picture and in the name of the part's button. */

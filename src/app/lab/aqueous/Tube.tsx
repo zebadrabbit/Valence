@@ -37,6 +37,27 @@ const BUBBLES = [
   [92, 116, 4],
 ] as const
 
+/** Where the solid's layer begins, and where the tube's contents end. */
+const SOLID_TOP = SECTIONS[2]![1]
+const CONTENTS_END = 274
+const BRACE_X = 136
+
+/**
+ * A curly bracket beside the tube over one layer of what is in it, with the layer's kind in a word: which part is
+ * liquid and which is settled solid is not always plain from two blocks of colour.
+ */
+function Brace({ from, to, word }: { from: number; to: number; word: string }) {
+  const middle = (from + to) / 2
+  return (
+    <g>
+      <path d={`M ${BRACE_X} ${from + 2} q 6 0 6 6 V ${middle - 6} q 0 6 6 6 q -6 0 -6 6 V ${to - 8} q 0 6 -6 6`} fill="none" stroke={INK} strokeWidth={1.5} strokeLinecap="round" />
+      <text x={BRACE_X + 17} y={middle} dominantBaseline="central" fontSize={13} fill={INK}>
+        {word}
+      </text>
+    </g>
+  )
+}
+
 const percent = (part: number, whole: number) => `${(part / whole) * 100}%`
 /** The looks of a tube in the order they are drawn in, from the top. */
 export const STACK: readonly Look[] = SECTIONS.map(([look]) => look)
@@ -93,6 +114,11 @@ export function Tube({ look, reducedMotion, describedBy, uses, used, seen, onLoo
           <clipPath id={clipId}>
             <path d={`${GLASS} Z`} />
           </clipPath>
+          {/* Grains over the settled solid, so that it does not read as a second liquid, and a white one shows on the white card. */}
+          <pattern id={`${clipId}grain`} width={7} height={7} patternUnits="userSpaceOnUse">
+            {/* Two dots, as round-capped strokes of no length. */}
+            <path d="M 1.6 1.8 h 0 M 5.2 5 h 0" stroke={INK} strokeOpacity={0.5} strokeWidth={1.8} strokeLinecap="round" />
+          </pattern>
           {/* The liquid alone: a bubble that rises is not drawn above the surface it breaks at. */}
           <clipPath id={`${clipId}liquid`}>
             <path d={`M 48 ${SURFACE} H 128 V ${HEIGHT} H 48 Z`} />
@@ -101,7 +127,12 @@ export function Tube({ look, reducedMotion, describedBy, uses, used, seen, onLoo
         <rect x={1} y={1} width={WIDTH - 2} height={HEIGHT - 2} rx={8} fill="#ffffff" stroke={INK} strokeOpacity={0.35} />
         <g clipPath={`url(#${clipId})`}>
           <rect x={48} y={SURFACE} width={80} height={HEIGHT - SURFACE} fill={look.liquid.hex} />
-          {look.solid && <rect x={48} y={SECTIONS[2]![1]} width={80} height={HEIGHT} fill={look.solid.hex} stroke={INK} strokeWidth={1.2} />}
+          {look.solid && (
+            <>
+              <rect x={48} y={SOLID_TOP} width={80} height={HEIGHT} fill={look.solid.hex} stroke={INK} strokeWidth={1.2} />
+              <rect x={48} y={SOLID_TOP} width={80} height={HEIGHT} fill={`url(#${clipId}grain)`} />
+            </>
+          )}
           {look.bubbles && (
             <g clipPath={`url(#${clipId}liquid)`}>
               {BUBBLES.map(([cx, cy, r]) => (
@@ -113,6 +144,8 @@ export function Tube({ look, reducedMotion, describedBy, uses, used, seen, onLoo
         <line x1={48} x2={128} y1={SURFACE} y2={SURFACE} stroke={INK} strokeOpacity={0.5} strokeWidth={1.5} />
         <path d={GLASS} fill="none" stroke={INK} strokeWidth={2.5} strokeLinecap="round" />
         <path d="M 42 20 L 134 20" stroke={INK} strokeWidth={2.5} strokeLinecap="round" />
+        <Brace from={SURFACE} to={look.solid ? SOLID_TOP : CONTENTS_END} word={PAGE_TEXT.liquidLayer} />
+        {look.solid && <Brace from={SOLID_TOP} to={CONTENTS_END} word={PAGE_TEXT.solidLayer} />}
       </svg>
       {SECTIONS.filter(([part]) => uses.includes(part)).map(([part, top, bottom]) => {
         const looked = used.includes(part)

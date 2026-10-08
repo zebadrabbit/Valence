@@ -371,7 +371,12 @@ describe('a station once its tube is mixed', () => {
     const drawn = (stationId: string, reducedMotion = false) => new RegExp(`${TUBE}.*?</svg>`, 's').exec(bench(mixed(stationId), stationId, reducedMotion).station)![0]
     expect(drawn('aq-04')).toContain('fill="#ffffff" stroke="#3f3f46" stroke-opacity="0.35"')
     expect(drawn('aq-04')).toContain(`fill="${data.species.find((s) => s.id === 'copper-ii-ion')!.solutionColor!.value.hex}"`)
-    expect(count(drawn('aq-04'), /<rect/g)).toBe(3)
+    // The card, the liquid, the solid and its grain over it; with no solid, the card and the liquid alone.
+    expect(count(drawn('aq-04'), /<rect/g)).toBe(4)
+    // A bracket beside each layer says which is liquid and which is settled solid (the owner's request, 2026-10-07).
+    expect(count(drawn('aq-04'), /<text[^>]*>(liquid|solid)<\/text>/g)).toBe(2)
+    expect(count(drawn('aq-05'), /<text[^>]*>liquid<\/text>/g)).toBe(1)
+    expect(count(drawn('aq-05'), /<text[^>]*>solid<\/text>/g)).toBe(0)
     expect(count(drawn('aq-05'), /<rect/g)).toBe(2)
     expect(count(drawn('aq-04'), /<circle/g)).toBe(0)
     expect(count(drawn('aq-07'), /<circle/g)).toBe(6)
