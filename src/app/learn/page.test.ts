@@ -42,7 +42,7 @@ import { BEAKER_TEXT, ENERGY_TEXT, MODE_TEXT, PAGE_TEXT, speciesLabel, withheld 
 // directly. What a press does (Play, Previous and Next, the slider, an answer, a look at a species, the energy
 // panel opened) is state, and is checked in a browser: a markup render mounts the page and no more.
 const app = vi.hoisted(() => ({ store: undefined as unknown as KeyValueStore, persistent: true, reducedMotion: false, webgl: true }))
-vi.mock('@/app/AppState', () => ({ useAppState: () => ({ store: app.store, persistent: app.persistent, reducedMotion: app.reducedMotion }) }))
+vi.mock('@/app/AppState', () => ({ useAppState: () => ({ store: app.store, persistent: app.persistent, reducedMotion: app.reducedMotion, dark: false }) }))
 vi.mock('@/app/explore/webgl', () => ({ hasWebgl: () => app.webgl, ViewerBoundary: ({ children }: { children: unknown }) => children }))
 // In place of the 3D scene, a mark that carries what the scene was handed.
 vi.mock('./scene/MechanismScene', async () => {

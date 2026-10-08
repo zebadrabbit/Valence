@@ -19,9 +19,9 @@ import { FOV, PAIR_DOT_RADIUS, VIEW_FROM, drawing, type DrawnArrow } from './dra
 
 // An electron pair and its arrow, in the colour the explorer draws a lone pair in. The arrow's shape says what it is.
 const ELECTRON_COLOR = '#fde047'
-// An ion's charge is written in dark letters with a white edge, so it reads over anything behind it, in either theme.
-const LABEL_INK = '#18181b'
-const LABEL_EDGE = '#ffffff'
+// An ion's charge is written beside its ball, over the page's own background: dark letters with a light edge in
+// the light theme and light letters with a dark edge in the dark one, so that it reads over a ball behind it too.
+const LABEL = { light: { ink: '#18181b', edge: '#ffffff' }, dark: { ink: '#fafafa', edge: '#18181b' } }
 
 export interface MechanismSceneProps {
   /** `state(mechanism, t)`, and nothing else of the timeline. */
@@ -31,13 +31,15 @@ export interface MechanismSceneProps {
   onLook(index: number | null): void
   /** What the callout says of the species looked at. */
   callout: string
+  /** The dark theme is in effect: the writing beside an ion is light. */
+  dark: boolean
   /** The picture's name, and the id of the element that describes it. */
   label: string
   describedBy: string
   onContextLost?(lost: boolean): void
 }
 
-export function MechanismScene({ state, looked, onLook, callout, label, describedBy, onContextLost }: MechanismSceneProps) {
+export function MechanismScene({ state, looked, onLook, callout, dark, label, describedBy, onContextLost }: MechanismSceneProps) {
   const drawn = drawing(state, registry.elements)
   const calloutRef = useRef<HTMLDivElement>(null)
   const lookedAt = looked === null ? undefined : drawn.species[looked]
@@ -72,7 +74,7 @@ export function MechanismScene({ state, looked, onLook, callout, label, describe
           <Arrow key={i} arrow={arrow} outline={drawn.outline} />
         ))}
         {drawn.labels.map((ion) => (
-          <IonLabel key={ion.text} {...ion} />
+          <IonLabel key={ion.text} {...ion} dark={dark} />
         ))}
         {drawn.species.map((sphere, i) => (
           <PickTarget key={i} position={sphere.center} scale={sphere.radius} onPick={() => onLook(looked === i ? null : i)} onOver={() => onLook(i)} onOut={() => onLook(null)}>
@@ -108,28 +110,30 @@ function Arrow({ arrow, outline }: { arrow: DrawnArrow; outline: number }) {
 }
 
 /** An ion's symbol and charge, written beside its ball and always facing the viewer. */
-function IonLabel({ position, text, height, offset }: { position: Vec3; text: string; height: number; offset: number }) {
+function IonLabel({ position, text, height, offset, dark }: { position: Vec3; text: string; height: number; offset: number; dark: boolean }) {
   const texture = useMemo(() => {
+    const { ink, edge } = dark ? LABEL.dark : LABEL.light
     const canvas = document.createElement('canvas')
-    canvas.width = 256
-    canvas.height = 128
+    // About the size the writing has on the screen, so that it is not blurred by being drawn much smaller than it was written.
+    canvas.width = 128
+    canvas.height = 64
     const pen = canvas.getContext('2d')
     if (pen) {
-      pen.font = '600 80px "Inter Variable", system-ui, sans-serif'
+      pen.font = '700 42px "Inter Variable", system-ui, sans-serif'
       // From the left edge: the sprite's left edge is put beside the ball.
       pen.textAlign = 'left'
       pen.textBaseline = 'middle'
       pen.lineJoin = 'round'
-      pen.lineWidth = 12
-      pen.strokeStyle = LABEL_EDGE
-      pen.strokeText(text, 8, 68)
-      pen.fillStyle = LABEL_INK
-      pen.fillText(text, 8, 68)
+      pen.lineWidth = 4
+      pen.strokeStyle = edge
+      pen.strokeText(text, 4, 34)
+      pen.fillStyle = ink
+      pen.fillText(text, 4, 34)
     }
     const made = new CanvasTexture(canvas)
     made.colorSpace = SRGBColorSpace
     return made
-  }, [text])
+  }, [text, dark])
   useEffect(() => () => texture.dispose(), [texture])
   const width = height * 2
   return (

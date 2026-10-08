@@ -52,7 +52,7 @@ const FRESH = createProgress('guided')
  * in Challenge stops at the start of a step whose question is not answered.
  */
 export function MechanismPage() {
-  const { persistent, reducedMotion } = useAppState()
+  const { persistent, reducedMotion, dark } = useAppState()
   const [stored, save, { setAside, taken }] = useLabProgress(MECHANISM, SCHEMA)
   const [params, setParams] = useSearchParams()
   const step = params.get('step')
@@ -227,7 +227,7 @@ export function MechanismPage() {
         <div className="grid items-start gap-4 @2xl:grid-cols-[minmax(0,1fr)_17rem] @4xl:grid-cols-[minmax(0,3fr)_minmax(17rem,2fr)]">
           <div className="grid min-w-0 gap-2">
             <div>
-              <SceneFrame mechanism={mechanism} state={now} description={description} describedBy={descriptionId} looked={looked} onLook={setLooked} {...scene} />
+              <SceneFrame mechanism={mechanism} state={now} description={description} describedBy={descriptionId} looked={looked} onLook={setLooked} dark={dark} {...scene} />
               {chapter.kind !== 'bookend' && !scene.failed && <p className="mt-1 text-sm text-muted-foreground">{PAGE_TEXT.sceneHint}</p>}
             </div>
             <Timeline

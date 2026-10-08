@@ -12,7 +12,7 @@ import { BALL_SCALE, STICK_STYLE } from '@/app/explore/scene/sceneModel'
 /** The dark edge round every shape, as a fraction of the radius the camera frames (about 2 px on the screen). */
 const OUTLINE_FRACTION = 0.012
 /** An ion's symbol and charge beside it: the height of the writing as a fraction of the radius the camera frames, so that it is the same size on the screen in a wide scene and a close one; and the gap between the ball and the writing, as a fraction of that height. */
-const LABEL_FRACTION = 0.2
+const LABEL_FRACTION = 0.24
 const LABEL_GAP = 0.15
 /** The smallest sphere a species is pointed at by: a lone ion or a small molecule is still easy to hit. */
 const MIN_PICK_RADIUS = 0.9

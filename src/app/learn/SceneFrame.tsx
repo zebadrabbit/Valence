@@ -18,6 +18,8 @@ export interface SceneFrameProps {
   /** The species looked at, by its place in `state.species`, or null; and a look at one, or at none. */
   looked: number | null
   onLook(index: number | null): void
+  /** The dark theme is in effect. */
+  dark: boolean
 }
 
 /** Whether the frame draws the scene in 3D: false where the browser has no WebGL, where the description stands in the scene's place. */
@@ -31,7 +33,7 @@ export function useScene(): { failed: 'webgl' | 'other' | null; onFail(why: 'web
  * under the beaker, so that the scene is there at once when the timeline leaves the bookend. Where the 3D scene
  * cannot start or be drawn, the frame holds the scene in words, and the page works as it does with it.
  */
-export function SceneFrame({ mechanism, state, description, describedBy, looked, onLook, failed, onFail }: SceneFrameProps & ReturnType<typeof useScene>) {
+export function SceneFrame({ mechanism, state, description, describedBy, looked, onLook, dark, failed, onFail }: SceneFrameProps & ReturnType<typeof useScene>) {
   const [contextLost, setContextLost] = useState(false)
   const { chapter } = state
   const bookend = chapter.kind === 'bookend'
@@ -59,6 +61,7 @@ export function SceneFrame({ mechanism, state, description, describedBy, looked,
                   looked={lookedAt ? looked : null}
                   onLook={onLook}
                   callout={lookedAt ? speciesLabel(mechanism, lookedAt) : ''}
+                  dark={dark}
                   label={PAGE_TEXT.scene}
                   describedBy={describedBy}
                   onContextLost={setContextLost}
