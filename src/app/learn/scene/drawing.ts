@@ -21,6 +21,8 @@ const MIN_PICK_RADIUS = 0.9
  * explorer's does at first. The curved arrows are drawn flat to it.
  */
 export const VIEW_FROM: Vec3 = [0.35, 0.3, 1]
+/** The camera's field of view, top to bottom, in degrees. */
+export const FOV = 45
 /**
  * A curved arrow: the radius of its shaft, its head's radius and length, how many pieces the shaft is cut into, how
  * far it bows out (as a share of its length, and at the least), and how far it keeps from the ball it bows round.

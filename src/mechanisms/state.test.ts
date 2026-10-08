@@ -165,9 +165,13 @@ describe('what the choreography looks like (spec 9.1, and the brief: chemically 
     const apart = (t: number) => distance(atom(state(mechanism, t), 'na').position, atom(state(mechanism, t), 'c').position)
     expect(apart(at('solid-ready'))).toBeCloseTo(apart(at('solid-in')), 3)
     expect(apart(at('solid-in'))).toBeLessThan(4)
-    expect(apart(at('dissolved'))).toBeGreaterThan(8)
-    const [atEnd, afterStep1] = [state(mechanism, 1), state(mechanism, at('dissolved'))]
-    for (const ion of ['na', 'cl']) expect(atom(atEnd, ion).position).toEqual(atom(afterStep1, ion).position)
+    // Far enough to be seen apart, and no further than keeps both in the picture when the step ends (the test of the drawing holds that).
+    expect(apart(at('dissolved'))).toBeGreaterThan(apart(at('solid-in')) + 1.5)
+    // In step 2 it drifts on, out of the way, and from then on it stays where it is.
+    expect(apart(at('encounter'))).toBeGreaterThan(8)
+    const [atEnd, afterDrift] = [state(mechanism, 1), state(mechanism, at('encounter'))]
+    expect(atom(atEnd, 'na').position).toEqual(atom(afterDrift, 'na').position)
+    expect(atom(atEnd, 'cl').position).toEqual(atom(state(mechanism, 0), 'cl').position)
     expect(atom(atEnd, 'na').ion).toEqual({ charge: 1, radius: 1.02 })
     expect(atom(atEnd, 'cl').ion).toEqual({ charge: -1, radius: 1.81 })
     expect(atom(atEnd, 'c').ion).toBeUndefined()
@@ -340,12 +344,4 @@ describe('the camera target', () => {
     for (const t of grid.filter((x) => state(mechanism, x).electronPaths.length > 0)) expect([t, state(mechanism, t).camera.radius < 3.5]).toEqual([t, true])
   })
 
-  it('does not show the solid before the question of step 1 is asked: when step 1 begins the unit is above the top of the picture, whatever shape the picture has', () => {
-    const s = state(mechanism, at('solid-ready'))
-    // The scene frames a sphere with a margin of 1.15 in a field of view of 45 degrees, so what shows above its
-    // target is 1.15 / cos(22.5°) of the radius it frames, whatever the picture's width; and it frames the
-    // camera's radius with room for a ball, none of which is as much as half an ångström.
-    const top = s.camera.target[1] + (1.15 / Math.cos(Math.PI / 8)) * (s.camera.radius + 0.5)
-    for (const id of s.species.find((one) => 'unit' in one)!.atoms) expect(atom(s, id).position[1] - 0.5).toBeGreaterThan(top)
-  })
 })

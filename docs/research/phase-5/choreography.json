@@ -48,7 +48,7 @@
       "easing": "easeInOut",
       "frame": ["c", "o-hydronium"],
       "place": [
-        { "ion": "Na", "charge": 1, "atom": "na", "at": [7.2, -4.4, 1.5] },
+        { "ion": "Na", "charge": 1, "atom": "na", "at": [4.6, -2.8, -0.3] },
         { "species": "hydronium", "atoms": ["o-hydronium", "h-transfer", "h-hydronium-1", "h-hydronium-2"], "origin": { "atom": "o-hydronium", "at": [-1.6, 5, 0.6] }, "aim": { "atom": "h-transfer", "toward": "o-acceptor" }, "roll": { "atom": "h-hydronium-1", "toward": [0.2, 6, 0.6] } },
         { "species": "water", "atoms": ["o-relay", "h-relay-give", "h-relay-keep"], "origin": { "atom": "o-relay", "at": [-3.5, 0.3, 0.5] }, "aim": { "atom": "h-relay-give", "toward": "o-acceptor" }, "roll": { "atom": "h-relay-keep", "toward": [-4.5, 0.3, 1.5] } }
       ]
@@ -59,6 +59,7 @@
       "easing": "easeInOut",
       "frame": ["c", "o-hydronium"],
       "place": [
+        { "ion": "Na", "charge": 1, "atom": "na", "at": [7.2, -4.4, 1.5] },
         { "species": "hydronium", "atoms": ["o-hydronium", "h-transfer", "h-hydronium-1", "h-hydronium-2"], "origin": { "atom": "o-hydronium", "at": [0.913, 3.458, 0] }, "aim": { "atom": "h-transfer", "toward": "o-acceptor" }, "roll": { "atom": "h-hydronium-1", "toward": [2.7, 4.5, 0] } }
       ]
     },

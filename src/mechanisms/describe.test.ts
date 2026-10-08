@@ -23,7 +23,7 @@ describe('describeMechanismState: the scene in words, for a reader who cannot se
     )
     // Until the solid has come apart, nothing names its two ions.
     for (const t of [0.16, 0.2, 0.24, 0.279]) expect(said(t)).not.toMatch(/sodium ion|hydrogen carbonate ion/)
-    expect(said(0.281)).toContain('In the scene: a sodium ion, a hydrogen carbonate ion, a hydronium ion, a water molecule and a chloride ion. Taking part: the sodium ion and the hydrogen carbonate ion, 5.9 Å apart, centre to centre.')
+    expect(said(0.281)).toContain('In the scene: a sodium ion, a hydrogen carbonate ion, a hydronium ion, a water molecule and a chloride ion. Taking part: the sodium ion and the hydrogen carbonate ion, 4.4 Å apart, centre to centre.')
     // At the start of step 1 nothing has been counted yet, so there is no total to give.
     expect(said(0.16)).toMatch(/7\.9 Å from its nearest neighbour, a hydronium ion\. Over the whole of this step, free energy changes by \+2\.3 kJ\/mol and enthalpy by \+18\.7 kJ\/mol\.$/)
   })

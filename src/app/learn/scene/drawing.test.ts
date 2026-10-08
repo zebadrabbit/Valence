@@ -1,9 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { add, distance, dot, normalize, scale, sub, type Vec3 } from '@/chem-data/geometry'
+import { add, cross, distance, dot, normalize, scale, sub, type Vec3 } from '@/chem-data/geometry'
 import { registry } from '@/chem-data/registry'
 import { hclNahco3 as mechanism, state } from '@/mechanisms'
 import { BALL_SCALE } from '@/app/explore/scene/sceneModel'
-import { VIEW_FROM, drawing } from './drawing'
+import { framingDistance } from '@/app/explore/scene/sceneMath'
+import { FOV, VIEW_FROM, drawing } from './drawing'
 
 const drawn = (t: number) => drawing(state(mechanism, t), registry.elements)
 const middleOf = ([a, b]: [Vec3, Vec3]) => scale(add(a, b), 0.5)
@@ -207,6 +208,64 @@ describe('drawing: what the 3D scene of a mechanism draws at one scrub position'
     for (const t of [0.1, 0.2, 0.4, 0.9]) expect(drawn(t).camera.radius).toBeCloseTo(state(mechanism, t).camera.radius + Math.max(...drawn(t).atoms.map((a) => a.radius)), 10)
     // The chloride ion's ball is the largest there is, and it is under half an ångström.
     expect(Math.max(...drawn(0.4).atoms.map((a) => a.radius))).toBeCloseTo(1.81 * BALL_SCALE, 10)
+  })
+
+  describe('what the camera shows, in the picture as it is at 1024 by 768 (465 by 384) and on a tablet held upright (549 by 320)', () => {
+    const SHAPES = [465 / 384, 549 / 320]
+    const view = normalize(VIEW_FROM)
+    const right = normalize(cross([0, 1, 0], view))
+    const up = cross(view, right)
+    /** Whether a ball is whole inside the picture, part in it, or outside it, for a picture `aspect` times as wide as tall. */
+    const shown = (t: number, id: string, aspect: number): 'whole' | 'part' | 'out' => {
+      const d = drawn(t)
+      const ball = d.atoms.find((a) => a.id === id)!
+      const eye = add(d.camera.target, scale(view, framingDistance(d.camera.radius, FOV, aspect)))
+      const from = sub(ball.position, eye)
+      const depth = -dot(from, view)
+      const half = depth * Math.tan((FOV * Math.PI) / 360)
+      const [x, y] = [Math.abs(dot(from, right)) / (half * aspect), Math.abs(dot(from, up)) / half]
+      const [rx, ry] = [ball.radius / (half * aspect), ball.radius / half]
+      return x + rx <= 1 && y + ry <= 1 ? 'whole' : x - rx >= 1 || y - ry >= 1 ? 'out' : 'part'
+    }
+    const about = (t: number) => state(mechanism, t).atoms.filter((a) => a.active).map((a) => a.id)
+
+    it('holds every species a chapter is about, whole, when the chapter begins', () => {
+      for (const chapter of mechanism.chapters.filter((c) => c.kind !== 'bookend' && c.id !== 'dissolving')) {
+        for (const aspect of SHAPES) for (const id of about(chapter.range[0])) expect([chapter.id, id, shown(chapter.range[0], id, aspect)]).toEqual([chapter.id, id, 'whole'])
+      }
+    })
+
+    it('keeps the solid out of the picture when step 1 begins, which is when its question is asked, in a picture of any shape from square to very wide', () => {
+      const t = mechanism.chapters.find((c) => c.id === 'dissolving')!.range[0]
+      expect(about(t)).toHaveLength(6)
+      for (const aspect of [1, ...SHAPES, 2.4]) for (const id of about(t)) expect([aspect, id, shown(t, id, aspect)]).toEqual([aspect, id, 'out'])
+      // Everything of the acid is whole in it.
+      for (const aspect of SHAPES) for (const atom of state(mechanism, t).atoms.filter((a) => !a.active)) expect(shown(t, atom.id, aspect)).toBe('whole')
+    })
+
+    it('holds the whole unit of the solid once it has come in, and both its ions, whole, when step 1 ends', () => {
+      const [arrived, end] = [mechanism.keyframes.find((k) => k.id === 'solid-in')!.t, mechanism.chapters.find((c) => c.id === 'dissolving')!.range[1]]
+      const solid = about(arrived)
+      for (const aspect of SHAPES) {
+        for (const id of solid) expect([aspect, id, shown(arrived, id, aspect)]).toEqual([aspect, id, 'whole'])
+        for (const id of solid) expect([aspect, id, shown(end, id, aspect)]).toEqual([aspect, id, 'whole'])
+        for (const id of solid) expect([aspect, id, shown(end - 0.0001, id, aspect)]).toEqual([aspect, id, 'whole'])
+      }
+    })
+
+    it('holds the two that react, whole, all through the move in which a proton crosses, and the ring of step 3 all through the relay', () => {
+      for (const t of Array.from({ length: 201 }, (_, i) => i / 200).filter((x) => drawn(x).arrows.length > 0)) {
+        for (const aspect of SHAPES) for (const id of about(t)) expect([t, id, shown(t, id, aspect)]).toEqual([t, id, 'whole'])
+      }
+    })
+
+    it('holds the carbon dioxide, whole, for the first half of step 4, and lets it leave the picture before the step ends', () => {
+      const [start, lifted, end] = [mechanism.chapters.find((c) => c.id === 'gas-escapes')!.range[0], mechanism.keyframes.find((k) => k.id === 'lifting')!.t, mechanism.chapters.find((c) => c.id === 'gas-escapes')!.range[1]]
+      for (const aspect of SHAPES) {
+        for (const t of [start, (start + lifted) / 2, lifted]) for (const id of about(t)) expect([aspect, t, id, shown(t, id, aspect)]).toEqual([aspect, t, id, 'whole'])
+        for (const id of about(end - 0.0001)) expect([aspect, id, shown(end - 0.0001, id, aspect)]).toEqual([aspect, id, 'out'])
+      }
+    })
   })
 
   it('has an outline that keeps its width on the screen: a fraction of what the camera frames', () => {

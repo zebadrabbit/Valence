@@ -15,9 +15,8 @@ import type { MechanismState } from '@/mechanisms'
 import { framingDistance } from '@/app/explore/scene/sceneMath'
 import { STICK_COLOR } from '@/app/explore/scene/sceneModel'
 import { Ball, ConeShape, ContextLossWatcher, Headlight, PickTarget, StickShape, noRaycast } from '@/app/explore/scene/shapes'
-import { PAIR_DOT_RADIUS, VIEW_FROM, drawing, type DrawnArrow } from './drawing'
+import { FOV, PAIR_DOT_RADIUS, VIEW_FROM, drawing, type DrawnArrow } from './drawing'
 
-const FOV = 45
 // An electron pair and its arrow, in the colour the explorer draws a lone pair in. The arrow's shape says what it is.
 const ELECTRON_COLOR = '#fde047'
 // An ion's charge is written in dark letters with a white edge, so it reads over anything behind it, in either theme.
@@ -61,7 +60,7 @@ export function MechanismScene({ state, looked, onLook, callout, label, describe
       >
         <ambientLight intensity={1.4} />
         <Headlight />
-        <Framing target={drawn.camera.target} radius={drawn.camera.radius} />
+        <Framing target={drawn.camera.target} radius={drawn.camera.radius} at={state.t} />
         <ContextLossWatcher onChange={onContextLost} />
         {drawn.atoms.map((atom) => (
           <Ball key={atom.id} position={atom.position} radius={atom.radius} color={atom.color} outline={drawn.outline} />
@@ -167,9 +166,11 @@ function Anchor({ at, lift, target }: { at: Vec3; lift: number; target: RefObjec
  * The camera. It frames what the chapter is about: it looks at the state's camera target from the home direction,
  * from as far as holds the radius the drawing gives it. A learner can turn and zoom it with a pointer, and their view holds
  * while the timeline is still. When the timeline moves, the camera is the chapter's again, at once and with no
- * glide; if it moves while the learner is holding the scene, that waits until they let go (spec 9.1).
+ * glide; if it moves while the learner is holding the scene, that waits until they let go (spec 9.1). `at` is the
+ * scrub position: the framing is the chapter's again at every move of it, also through a stretch of the track in
+ * which the chapter's camera stands still.
  */
-function Framing({ target, radius }: { target: Vec3; radius: number }) {
+function Framing({ target, radius, at }: { target: Vec3; radius: number; at: number }) {
   const camera = useThree((s) => s.camera)
   const canvas = useThree((s) => s.gl.domElement)
   const invalidate = useThree((s) => s.invalidate)
@@ -219,7 +220,7 @@ function Framing({ target, radius }: { target: Vec3; radius: number }) {
     }
     if (held.current) waiting.current = frame
     else frame()
-  }, [camera, controls, invalidate, x, y, z, radius, aspect])
+  }, [camera, controls, invalidate, x, y, z, radius, aspect, at])
 
   return null
 }
