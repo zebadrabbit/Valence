@@ -177,7 +177,7 @@ describe('the mechanism page: the timeline', () => {
       'Before mixing',
       '1 Step 1 of 4: Dissolving. Real time: seconds, depending on particle size and stirring',
       '2 Step 2 of 4: Proton transfer. Real time: picoseconds to nanoseconds',
-      '3 Step 3 of 4: Decomposition. Real time: tens of milliseconds; the slow step',
+      '3 Step 3 of 4: Decomposition. Real time: tens of milliseconds; the slower of the two steps that change bonds',
       '4 Step 4 of 4: Gas escapes. Real time: seconds',
       'Back in the beaker',
     ])
@@ -518,7 +518,7 @@ describe('the energy panel', () => {
   })
 
   it('carries the note of spec 9.2 on step 1 where step 1 is shown, and on no other step', () => {
-    expect(panel(0.2)).toContain('<p class="text-xs text-muted-foreground">Slightly uphill at 1 M; it dissolves because the acid removes HCO₃⁻ as it forms.</p>')
+    expect(panel(0.2)).toContain('<p class="text-xs text-muted-foreground">Slightly uphill when both ions are at 1 M. It dissolves all the same: the ions start far more dilute than that, and the acid removes HCO₃⁻ as it forms.</p>')
     for (const t of [0.1, 0.4, 0.6, 0.8]) expect(panel(t)).not.toContain('<p class="text-xs text-muted-foreground">Slightly uphill')
   })
 

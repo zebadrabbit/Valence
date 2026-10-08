@@ -65,7 +65,7 @@ describe('the mechanism record', () => {
       'before mixing',
       'seconds, depending on particle size and stirring',
       'picoseconds to nanoseconds',
-      'tens of milliseconds; the slow step',
+      'tens of milliseconds; the slower of the two steps that change bonds',
       'seconds',
       null,
     ])

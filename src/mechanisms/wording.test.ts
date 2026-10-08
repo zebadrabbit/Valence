@@ -37,14 +37,14 @@ describe('chapter titles, headings and what is announced on a change of chapter'
       'Before mixing.',
       'Step 1 of 4: Dissolving. Real time: seconds, depending on particle size and stirring.',
       'Step 2 of 4: Proton transfer. Real time: picoseconds to nanoseconds.',
-      'Step 3 of 4: Decomposition. Real time: tens of milliseconds; the slow step.',
+      'Step 3 of 4: Decomposition. Real time: tens of milliseconds; the slower of the two steps that change bonds.',
       'Step 4 of 4: Gas escapes. Real time: seconds.',
       'Back in the beaker.',
     ])
   })
 
   it('labels the track with the timescales of spec 9.2, "before mixing" on the prologue and nothing on a bookend', () => {
-    expect(mechanism.chapters.map(timescaleLabel)).toEqual([null, 'before mixing', 'seconds, depending on particle size and stirring', 'picoseconds to nanoseconds', 'tens of milliseconds; the slow step', 'seconds', null])
+    expect(mechanism.chapters.map(timescaleLabel)).toEqual([null, 'before mixing', 'seconds, depending on particle size and stirring', 'picoseconds to nanoseconds', 'tens of milliseconds; the slower of the two steps that change bonds', 'seconds', null])
   })
 
   it('refuses a chapter it has not', () => {
@@ -98,8 +98,22 @@ describe('the explanations: plain and short, for a reader with no chemistry back
     expect(decomposition).toMatch(/splits into water and carbon dioxide/)
     expect(decomposition).toMatch(/a water molecule passes it along/)
     expect(escape).toMatch(/gather into bubbles, rise and leave/)
-    expect(escape).toMatch(/sodium ion and the chloride ion took no part in any step and stay dissolved/)
+    // The sodium ion took part in step 1, where the list beside the scene says so: the words do not say it took part in nothing.
+    expect(escape).toMatch(/sodium ion has done nothing since it dissolved, and the chloride ion nothing at all: both stay in the water/)
+    expect(JSON.stringify(mechanism.chapters)).not.toMatch(/took no part in any step|no part in this step or in any other/)
+    // "Its molecules" after a sentence about the water read as the water's: the bubbles are carbon dioxide.
+    expect(escape).toMatch(/The carbon dioxide molecules gather into bubbles/)
     expect(mechanism.chapters[1]!.explanation.intro).toMatch(/in water it has come apart completely/)
+  })
+
+  it('says what of the picture is its own drawing: how the molecules move, in the first chapter, and how the hydrogen crosses, in step 3', () => {
+    expect(mechanism.chapters[0]!.explanation.expanded).toMatch(/How the molecules move and turn along the way is this timeline's own drawing, not a path that has been measured\./)
+    expect(steps[2]!.explanation.expanded).toMatch(/How the hydrogen crosses is this timeline's own drawing, not a measured path\./)
+  })
+
+  it('says that dissolving takes in heat, which is what its enthalpy says, and not that it is the pulling apart alone', () => {
+    expect(steps[0]!.explanation.expanded).toMatch(/Dissolving this solid takes in heat\.$/)
+    expect(steps[0]!.deltaH!.value).toBeGreaterThan(0)
   })
 
   it('the figures the words give are the record\'s', () => {
@@ -152,7 +166,7 @@ describe('the energy panel', () => {
   })
 
   it('carries the notes spec 9.2 asks for: slightly uphill on step 1, not to scale on a schematic barrier, derived where a value is', () => {
-    expect(stepNotes(mechanism, 'dissolving')).toEqual(['Slightly uphill at 1 M; it dissolves because the acid removes HCO₃⁻ as it forms.'])
+    expect(stepNotes(mechanism, 'dissolving')).toEqual(['Slightly uphill when both ions are at 1 M. It dissolves all the same: the ions start far more dilute than that, and the acid removes HCO₃⁻ as it forms.'])
     expect(stepNotes(mechanism, 'proton-transfer')).toEqual([
       'The acid constant of the carbonic acid molecule itself, with an uncertainty of 0.05. It was measured at 20.5 °C and is used here at 25 °C with no correction. The 6.35 of textbooks is a different constant: it counts dissolved carbon dioxide as if it were the acid.',
       'No separate heat of forming the carbonic acid molecule is cited, so the enthalpy curve shows steps 2 and 3 as one change.',
@@ -172,7 +186,7 @@ describe('the energy panel', () => {
   it('its note says what spec 9.2 gives it to say, with the totals and what standard conditions are', () => {
     const [note, totals, standard] = energyPanelNotes(mechanism)
     expect(note).toBe(
-      'Heat is absorbed in dissolving the solid and in releasing the gas. The reaction goes forward all the same, because the escaping gas increases entropy: a measure of how spread out matter and energy are. Free energy (Gibbs free energy, G) counts both the heat and the entropy. A change runs by itself when G falls.',
+      'Heat is absorbed in dissolving the solid and in releasing the gas. Enthalpy, H, keeps count of that heat: where ΔH is above zero, heat is taken in. The reaction goes forward all the same, because the escaping gas increases entropy: a measure of how spread out matter and energy are. Free energy (Gibbs free energy, G) counts both the heat and the entropy. A change runs by itself when G falls.',
     )
     expect(totals).toBe('Over the whole change, ΔH = +31.4 kJ/mol and ΔG = −42.4 kJ/mol.')
     expect(standard).toBe('Standard conditions: 25 °C; a pure solid or liquid; a gas at 1 bar; a dissolved species at one mole per kilogram of water, which is close to 1 M.')
@@ -229,6 +243,14 @@ describe('the prediction questions of Challenge mode', () => {
       }
       expect(new Set(q.options.map((o) => o.text)).size).toBe(4)
     }
+  })
+
+  it('the feedback to a question gives away no answer that is still to be asked', () => {
+    // What the right answer to each later question turns on, and no earlier one's words may say.
+    const later: RegExp[] = [/./, /proton|carbonic acid/i, /splits?\b|water molecule and a carbon dioxide/i, /bubbles|stay dissolved/i]
+    questions.forEach((q, i) => {
+      for (const option of q.options) for (const ahead of later.slice(i + 1)) expect([q.id, option.id, ahead.test(option.feedback) || ahead.test(option.text) || ahead.test(q.prompt)]).toEqual([q.id, option.id, false])
+    })
   })
 
   it('the feedback explains: a right answer is confirmed with the reason, and a wrong one is told why it is not so and what is', () => {

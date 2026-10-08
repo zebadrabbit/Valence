@@ -131,7 +131,7 @@
       "timescale": null,
       "explanation": {
         "intro": "A white powder, sodium hydrogen carbonate (baking soda), is about to go into a beaker of hydrochloric acid. The mixture will fizz.",
-        "expanded": "The fizz is a gas, carbon dioxide, leaving the liquid. The chapters that follow zoom in until single atoms can be seen, and follow one unit of the solid and one unit of the acid through four steps. Each ball is an atom. Each stick is a bond: a pair of electrons that two atoms share. The water that fills the beaker is not drawn, except for the few water molecules that take part."
+        "expanded": "The fizz is a gas, carbon dioxide, leaving the liquid. The chapters that follow zoom in until single atoms can be seen, and follow one unit of the solid and one unit of the acid through four steps. Each ball is an atom. Each stick is a bond: a pair of electrons that two atoms share. The water that fills the beaker is not drawn, except for the few water molecules that take part. How the molecules move and turn along the way is this timeline's own drawing, not a path that has been measured."
       },
       "active": [],
       "range": [
@@ -173,7 +173,7 @@
       },
       "explanation": {
         "intro": "The solid goes into the acid and comes apart into ions: atoms, or groups of atoms, that carry a charge. Sodium ions go one way and hydrogen carbonate ions another, and water closes round each.",
-        "expanded": "Solid sodium hydrogen carbonate is made of ions already: sodium ions, Na⁺, and hydrogen carbonate ions, HCO₃⁻ (also called bicarbonate), held side by side by the pull between opposite charges. Water separates them. No bond inside the hydrogen carbonate ion breaks: its hydrogen, its carbon and its three oxygens stay joined. One ion of each kind stands here for the whole solid. Pulling the ions out of the solid takes in heat."
+        "expanded": "Solid sodium hydrogen carbonate is made of ions already: sodium ions, Na⁺, and hydrogen carbonate ions, HCO₃⁻ (also called bicarbonate), held side by side by the pull between opposite charges. Water separates them. No bond inside the hydrogen carbonate ion breaks: its hydrogen, its carbon and its three oxygens stay joined. One ion of each kind stands here for the whole solid. Dissolving this solid takes in heat."
       },
       "active": [
         "na",
@@ -197,7 +197,7 @@
         ]
       },
       "notes": [
-        "Slightly uphill at 1 M; it dissolves because the acid removes HCO₃⁻ as it forms."
+        "Slightly uphill when both ions are at 1 M. It dissolves all the same: the ions start far more dilute than that, and the acid removes HCO₃⁻ as it forms."
       ],
       "question": {
         "id": "dissolving",
@@ -225,7 +225,7 @@
             "id": "gas-first",
             "text": "It gives off carbon dioxide at once, before it dissolves.",
             "correct": false,
-            "feedback": "The carbon dioxide comes later. First the ions separate. Then a hydrogen carbonate ion has to take a proton from the acid."
+            "feedback": "The carbon dioxide comes later, and more has to happen before it can. First of all, the ions of the solid separate."
           }
         ]
       },
@@ -338,7 +338,7 @@
             "id": "sodium-back",
             "text": "The hydrogen carbonate ion goes back to the sodium ion, and the solid forms again.",
             "correct": false,
-            "feedback": "The sodium ion stays on its own, with water round it. It takes no part in this step or in any other."
+            "feedback": "The sodium ion stays on its own, with water round it. It takes no part in this step or in any that follow."
           }
         ]
       },
@@ -363,12 +363,12 @@
       "kind": "step",
       "title": "Decomposition",
       "timescale": {
-        "value": "tens of milliseconds; the slow step",
+        "value": "tens of milliseconds; the slower of the two steps that change bonds",
         "sourceId": "pines-2016"
       },
       "explanation": {
         "intro": "Carbonic acid does not last. It splits into water and carbon dioxide, CO₂. Of the two steps that break and make bonds, this is by far the slower.",
-        "expanded": "Carbonic acid has two O–H groups on its carbon. For the split, the hydrogen of one has to reach the oxygen of the other, and a water molecule passes it along. First that O–H group turns to face the water. Then, in one move, the water takes its hydrogen and gives one of its own hydrogens to the other oxygen. That oxygen now holds two hydrogens. It breaks away from the carbon as a water molecule. The carbon is left with a double bond, two shared pairs of electrons, to each oxygen that stays: carbon dioxide. The carbon dioxide is still dissolved. A molecule of carbonic acid lasts about 60 thousandths of a second at room temperature, far longer than the step before took."
+        "expanded": "Carbonic acid has two O–H groups on its carbon. For the split, the hydrogen of one has to reach the oxygen of the other, and a water molecule passes it along. First that O–H group turns to face the water. Then, in one move, the water takes its hydrogen and gives one of its own to the other oxygen. That oxygen, now with two hydrogens, breaks away from the carbon as a water molecule. The carbon is left with a double bond, two shared pairs of electrons, to each oxygen that stays: carbon dioxide, still dissolved. A carbonic acid molecule lasts about 60 thousandths of a second at room temperature, far longer than the step before. How the hydrogen crosses is this timeline's own drawing, not a measured path."
       },
       "active": [
         "c",
@@ -561,8 +561,8 @@
         "rationale": "No source was read for how long the bubbles take to form and leave. The label is an everyday observation, and no number rests on it."
       },
       "explanation": {
-        "intro": "The water cannot hold this much carbon dioxide. Its molecules gather into bubbles, rise and leave. That is the fizz.",
-        "expanded": "No bond changes in this step. The carbon dioxide molecule joins others in a bubble of gas and leaves the liquid. The bubble itself is not drawn atom by atom. The sodium ion and the chloride ion took no part in any step and stay dissolved. Ions like these are called spectator ions. Leaving the liquid takes in heat, and it happens all the same, because molecules in a gas are far more spread out than the same molecules held in a liquid."
+        "intro": "The water cannot hold this much carbon dioxide. The carbon dioxide molecules gather into bubbles, rise and leave. That is the fizz.",
+        "expanded": "No bond changes in this step. The carbon dioxide molecule joins others in a bubble of gas and leaves the liquid. The bubble itself is not drawn atom by atom. The sodium ion has done nothing since it dissolved, and the chloride ion nothing at all: both stay in the water. Ions like these are called spectator ions. Leaving the liquid takes in heat, and it happens all the same, because molecules in a gas are far more spread out than the same molecules held in a liquid."
       },
       "active": [
         "c",
@@ -608,7 +608,7 @@
             "id": "bubbles",
             "text": "The carbon dioxide gathers into bubbles and leaves, and the two kinds of ion stay dissolved.",
             "correct": true,
-            "feedback": "Yes. The carbon dioxide leaves as gas, which is the fizz. The sodium ions and the chloride ions took no part and stay in the water."
+            "feedback": "Yes. The carbon dioxide leaves as gas, which is the fizz. The sodium ions and the chloride ions are not changed by any of this, and stay in the water."
           }
         ]
       },
@@ -3501,5 +3501,5 @@
       }
     }
   },
-  "energyNote": "Heat is absorbed in dissolving the solid and in releasing the gas. The reaction goes forward all the same, because the escaping gas increases entropy: a measure of how spread out matter and energy are. Free energy (Gibbs free energy, G) counts both the heat and the entropy. A change runs by itself when G falls."
+  "energyNote": "Heat is absorbed in dissolving the solid and in releasing the gas. Enthalpy, H, keeps count of that heat: where ΔH is above zero, heat is taken in. The reaction goes forward all the same, because the escaping gas increases entropy: a measure of how spread out matter and energy are. Free energy (Gibbs free energy, G) counts both the heat and the entropy. A change runs by itself when G falls."
 }
