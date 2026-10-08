@@ -241,6 +241,8 @@ export const PAGE_TEXT = {
   observations: 'Observations',
   equations: 'Equations',
   amount: 'Amount',
+  /** On a reagent's tile, before what the reagent looks like in its bottle: "Looks: pink solution". */
+  looks: 'Looks',
   tubePicture: 'The test tube after mixing',
   // Beside the picture's two brackets: which layer is liquid and which is solid that has settled.
   liquidLayer: 'liquid',

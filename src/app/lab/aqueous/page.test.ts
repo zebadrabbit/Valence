@@ -258,6 +258,26 @@ describe('a station before its tube is mixed', () => {
     expect(tube).toContain(`>${HAZARDS_TEXT.strength}</h4>`)
   })
 
+  // Added 2026-10-07, at the owner's request: what each bottle looks like before the two are mixed.
+  it('says on each tile, in words, what the reagent looks like, and draws the liquid of a coloured solution in its colour', () => {
+    const tiles = (stationId: string) => card(bench(fresh(), stationId).station, PAGE_TEXT.tube).split(/(?=<div role="group" aria-label=)/).slice(1, 3)
+    const looks = (stationId: string) => tiles(stationId).map((tile) => /<p>Looks: <span[^>]*>([^<]+)<\/span><\/p>/.exec(tile)?.[1])
+    expect(looks('aq-07')).toEqual(['white powder', 'colourless solution'])
+    expect(looks('aq-05')).toEqual(['pink solution', 'yellow-orange solution'])
+    expect(looks('aq-10')).toEqual(['silvery metal ribbon', 'colourless solution'])
+    // The words stand between the name and the amount.
+    for (const tile of tiles('aq-05')) expect(tile).toMatch(/<\/h4><p>Looks: .*?<\/p><p>Amount:/)
+    // The drawn liquid: the stored value of the ion's colour, and no colour at all where the solution has none.
+    const filled = (tile: string) => /<path d="M 11\.5 50[^"]*" fill="([^"]+)"/.exec(tile)![1]
+    expect(tiles('aq-05').map(filled)).toEqual(['#E2749A', '#D99A2B'])
+    expect(tiles('aq-07').map(filled)).toEqual(['currentColor', 'currentColor'])
+    // Every tile of every station says it, before the mix and after.
+    for (const s of data.stations) {
+      expect(looks(s.id).every((words) => typeof words === 'string' && words.length > 0), s.id).toBe(true)
+      expect(count(card(bench(run(data, fresh(), [{ type: 'mix', stationId: s.id }]), s.id).station, PAGE_TEXT.tube), /<p>Looks: /g), s.id).toBe(2)
+    }
+  })
+
   it('offers Mix, says in a status line that the two are not yet mixed, and draws no tube', () => {
     const tube = card(station, PAGE_TEXT.tube)
     const mix = buttons(tube).find(({ name }) => name === BENCH_TEXT.mix)!
@@ -309,7 +329,14 @@ describe('a station once its tube is mixed', () => {
         expect(shown, id).not.toContain(escaped(describeStationResult(data, id)))
         for (const look of LOOKS) expect(station, `${id} ${look}`).not.toContain(escaped(toolOutcome(data, id, look)))
         // Nor the colours, on the two cards of the tube and of the observations, in text or in an attribute: but among the choices of the questions, in the drawing's own fills and, in Guided, in the list that is closed.
-        const beside = [PAGE_TEXT.tube, PAGE_TEXT.observations].map((heading) => card(shown, heading)).join('').replace(/<fieldset.*?<\/fieldset>/gs, '').replace(/<svg.*?<\/svg>/gs, '')
+        // From 2026-10-07 one more place is left out, on purpose: the line on each reagent's tile that says what the reagent
+        // looks like in its bottle. That is what went in, not what is seen in the tube, and at some stations the two are
+        // one word: the bottle of station 4's copper sulfate is blue and so is the liquid over its solid. Until then this
+        // held that no colour of the tube stood anywhere on the two cards. The question about the liquid is closed until
+        // the liquid is looked at all the same (the test on the three questions holds that).
+        const withTiles = [PAGE_TEXT.tube, PAGE_TEXT.observations].map((heading) => card(shown, heading)).join('').replace(/<fieldset.*?<\/fieldset>/gs, '').replace(/<svg.*?<\/svg>/gs, '')
+        expect(count(withTiles, /<p>Looks: <span[^>]*>[^<]+<\/span><\/p>/g), id).toBe(2)
+        const beside = withTiles.replace(/<p>Looks: <span[^>]*>[^<]+<\/span><\/p>/g, '')
         const { liquidColor, precipitateColor } = data.stations[number(id)]!.expected
         for (const colour of [liquidColor, precipitateColor]) if (colour) expect(beside.replace(/ (?:class|style|id|type|name)="[^"]*"/g, ''), `${id} ${colour}`).not.toContain(colour)
       }

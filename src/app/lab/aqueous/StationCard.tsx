@@ -26,7 +26,7 @@ import {
   toolOutcome,
 } from './messages'
 import { ObservationForm } from './ObservationForm'
-import { progressOf, tubeLook, type Progress } from './stationLook'
+import { bottleLook, progressOf, tubeLook, type Progress } from './stationLook'
 import { STACK, Tube } from './Tube'
 
 /** Beside a station's progress in words, and hidden from a screen reader, which is given the words. */
@@ -163,13 +163,18 @@ export function StationCard({ data, sources, stationId, view, reducedMotion, can
         <div className="grid w-full gap-2 sm:grid-cols-2">
           {station.reagentIds.map((id, i) => {
             const reagent = data.reagents.find((r) => r.id === id)!
+            // What it looks like before the mix: said in words, and for a coloured solution drawn in the bottle too.
+            const bottle = bottleLook(data, id)
             return (
               <div key={id} role="group" aria-label={reagent.name} className="grid grid-cols-[3.5rem_minmax(0,1fr)] gap-2 rounded-md border p-2">
                 <div className="h-20">
-                  <Bottle lines={reagent.molarity === undefined ? [reagent.formula] : [reagent.formula, `${reagent.molarity} M`]} />
+                  <Bottle lines={reagent.molarity === undefined ? [reagent.formula] : [reagent.formula, `${reagent.molarity} M`]} liquid={bottle.hex ?? undefined} />
                 </div>
                 <div className="grid content-start justify-items-start gap-1.5">
                   <h4 className="font-medium">{reagent.name}</h4>
+                  <p>
+                    {PAGE_TEXT.looks}: <span className={ROLE.value}>{bottle.words}</span>
+                  </p>
                   <p>
                     {PAGE_TEXT.amount}: <span className={ROLE.value}>{amountText(station.amounts[i]!)}</span>
                   </p>

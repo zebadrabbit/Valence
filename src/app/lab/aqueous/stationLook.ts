@@ -45,6 +45,28 @@ export function tubeLook(data: AqueousData, stationId: string): TubeLook {
   return { liquid, solid, bubbles: station.expected.bubbles && result.gas !== null }
 }
 
+export interface BottleLook {
+  /** What the reagent looks like, in words: "pink solution", "colourless solution", "white powder". */
+  words: string
+  /** The colour its liquid is drawn in; null where it has none to draw, which the words say. */
+  hex: string | null
+}
+
+/**
+ * What a reagent looks like in its bottle, before anything is mixed. A solution has the colour of its coloured
+ * ion, by the name and the value the record stores for that ion, which is the colour the same ion gives a mixed
+ * tube; a solution with no coloured ion is colourless, as the model has every such liquid. A solid or a metal is
+ * described by the appearance the record stores for it, and nothing of it is drawn in colour.
+ * ponytail: the first coloured ion is taken. No bottle holds two (a test holds that); one that does is the time to
+ * blend them and to store a name for the blend.
+ */
+export function bottleLook(data: AqueousData, reagentId: string): BottleLook {
+  const reagent = data.reagents.find((r) => r.id === reagentId)!
+  if (reagent.form !== 'solution') return { words: reagent.appearance?.value ?? reagent.form, hex: null }
+  const colour = reagent.ions.map((ion) => data.species.find((s) => s.id === ion.speciesId)?.solutionColor?.value).find((value) => value !== undefined)
+  return { words: `${colour?.name ?? 'colourless'} solution`, hex: colour?.hex ?? null }
+}
+
 /** How far a station has come, as the list of stations says it. */
 export type Progress = 'not-started' | 'started' | 'observed' | 'done'
 

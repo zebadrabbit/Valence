@@ -13,13 +13,17 @@ const LIQUID = { fill: 'currentColor', fillOpacity: 0.16 } as const
 const PAPER = { fill: '#ffffff', stroke: '#3f3f46', strokeWidth: 1 } as const
 const LETTERING = { textAnchor: 'middle', dominantBaseline: 'central', fontWeight: 700, fill: '#18181b' } as const
 
-/** A reagent bottle with a paper label of one or two lines. */
-export function Bottle({ lines }: { lines: readonly string[] }) {
+/**
+ * A reagent bottle with a paper label of one or two lines. `liquid` is the colour its contents are drawn in, where
+ * they have one; without it they are drawn faint, as the glass is. The colour is an added cue: whatever shows the
+ * bottle says in words what is in it.
+ */
+export function Bottle({ lines, liquid }: { lines: readonly string[]; liquid?: string | undefined }) {
   return frame(
     <>
       <rect x={29} y={3} width={22} height={11} rx={2} fill="currentColor" fillOpacity={0.6} />
       <path d="M 31 14 L 31 26 Q 10 30 10 44 L 10 100 Q 10 106 16 106 L 64 106 Q 70 106 70 100 L 70 44 Q 70 30 49 26 L 49 14 Z" {...GLASS} />
-      <path d="M 11.5 50 L 68.5 50 L 68.5 100 Q 68.5 104.5 64 104.5 L 16 104.5 Q 11.5 104.5 11.5 100 Z" {...LIQUID} />
+      <path d="M 11.5 50 L 68.5 50 L 68.5 100 Q 68.5 104.5 64 104.5 L 16 104.5 Q 11.5 104.5 11.5 100 Z" {...(liquid === undefined ? LIQUID : { fill: liquid, fillOpacity: 1 })} />
       <rect x={13} y={58} width={54} height={34} rx={2} {...PAPER} />
       {lines.map((line, i) => (
         <text key={line} x={40} y={lines.length === 1 ? 75 : 68 + i * 14} fontSize={i === 0 ? 12 : 10.5} className="tabular-nums" {...LETTERING}>

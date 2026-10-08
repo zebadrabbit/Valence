@@ -2,7 +2,47 @@ import { describe, expect, it } from 'vitest'
 import { aqueousData as data } from '@/chem-data/aqueous/data'
 import { createLab, describeStationResult, stationView } from '@/engine/aqueous'
 import { run, stationScript } from '@/engine/aqueous/testkit'
-import { blend, openingStation, progressOf, tubeLook } from './stationLook'
+import { blend, bottleLook, openingStation, progressOf, tubeLook } from './stationLook'
+
+describe('what a bottle looks like before it is mixed', () => {
+  const looks = Object.fromEntries(data.reagents.map((r) => [r.id, bottleLook(data, r.id)]))
+
+  it('is, for a solution, the colour its one coloured ion gives it, by the name and the value the record stores; and colourless, with no colour to draw, where it has none', () => {
+    expect(Object.fromEntries(data.reagents.filter((r) => r.form === 'solution').map((r) => [r.id, [looks[r.id]!.words, looks[r.id]!.hex]]))).toEqual({
+      'fecl3-0.5m': ['yellow-orange solution', '#D99A2B'],
+      'naoh-1m': ['colourless solution', null],
+      'naoh-6m': ['colourless solution', null],
+      'na2co3-0.5m': ['colourless solution', null],
+      'cuso4-0.5m': ['blue solution', '#3B82C4'],
+      'nicl2-0.5m': ['green solution', '#4CAF6E'],
+      'bacl2-0.5m': ['colourless solution', null],
+      'cocl2-0.5m': ['pink solution', '#E2749A'],
+      'nh4no3-0.5m': ['colourless solution', null],
+      'hcl-1m': ['colourless solution', null],
+      'hcl-3m': ['colourless solution', null],
+      'hcl-6m': ['colourless solution', null],
+      'agno3-0.1m': ['colourless solution', null],
+    })
+    for (const reagent of data.reagents.filter((r) => r.form === 'solution')) {
+      const coloured = reagent.ions.map((ion) => data.species.find((s) => s.id === ion.speciesId)!).filter((s) => s.solutionColor)
+      // No bottle holds two coloured ions, so no bottle's colour is a blend that the record has no name for.
+      expect(coloured.length, reagent.id).toBeLessThanOrEqual(1)
+      expect(looks[reagent.id], reagent.id).toEqual(coloured[0] ? { words: `${coloured[0].solutionColor!.value.name} solution`, hex: coloured[0].solutionColor!.value.hex } : { words: 'colourless solution', hex: null })
+    }
+  })
+
+  it('is, for a solid or a metal, the appearance the record stores for it, in words alone', () => {
+    expect(looks.caco3).toEqual({ words: 'white powder', hex: null })
+    expect(looks.mg).toEqual({ words: 'silvery metal ribbon', hex: null })
+    for (const reagent of data.reagents.filter((r) => r.form !== 'solution')) expect(looks[reagent.id], reagent.id).toEqual({ words: reagent.appearance!.value, hex: null })
+  })
+
+  it('is the colour the same ion gives the mixed tube where it is the one coloured ion left: a bottle and a tube do not differ', () => {
+    // Station 4 leaves the copper(II) ion of its copper sulfate, and station 9 the cobalt(II) ion of its cobalt chloride.
+    expect(tubeLook(data, 'aq-04').liquid).toEqual({ name: 'blue', hex: looks['cuso4-0.5m']!.hex })
+    expect(tubeLook(data, 'aq-09').liquid).toEqual({ name: 'pink', hex: looks['cocl2-0.5m']!.hex })
+  })
+})
 
 describe('what the drawn tube shows', () => {
   const looks = Object.fromEntries(data.stations.map((s) => [s.id, tubeLook(data, s.id)]))

@@ -419,6 +419,12 @@ describe('the shelf drawings', () => {
   it('a bottle carries the lines of its label', () => {
     expect(svgTexts(renderToStaticMarkup(createElement(Bottle, { lines: ['HCl', '0.0976 M'] })))).toEqual(['HCl', '0.0976 M'])
   })
+
+  it('a bottle is drawn with its liquid faint, as glass is, unless it is handed a colour for the liquid', () => {
+    const liquid = (html: string) => /<path d="M 11\.5 50[^"]*" fill="([^"]+)" fill-opacity="([^"]+)"/.exec(html)!.slice(1)
+    expect(liquid(renderToStaticMarkup(createElement(Bottle, { lines: ['NaOH'] })))).toEqual(['currentColor', '0.16'])
+    expect(liquid(renderToStaticMarkup(createElement(Bottle, { lines: ['CuSO₄'], liquid: '#3B82C4' })))).toEqual(['#3B82C4', '1'])
+  })
 })
 
 describe('the stopcock controls', () => {
