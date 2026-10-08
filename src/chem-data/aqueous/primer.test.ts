@@ -20,12 +20,15 @@ const shown = (id: string) => section(id).paragraphs.map((p) => [p.text, p.equat
 const sheets = hazardManifest.sources
 
 describe('the aqueous primer: its cards', () => {
-  it('has the ten cards, in order', () => {
+  // Ten until 2026-10-07: the card of worked steps was added after the owner, at a station's three equations, did not
+  // know how to get from two bottles to them. It stands straight after the card on the three forms.
+  it('has the eleven cards, in order', () => {
     expect(AQUEOUS_PRIMER.map((s) => [s.id, s.heading])).toEqual([
       ['ions', 'Ions in solution'],
       ['solubility', 'Solubility and the solubility table'],
       ['precipitates', 'Precipitates'],
       ['equations', 'The three forms of an equation'],
+      ['working', 'Working a station, step by step'],
       ['spectators', 'Spectator ions'],
       ['signs', 'Gases and heat as signs of a reaction'],
       ['no-reaction', 'When nothing happens'],
@@ -43,24 +46,34 @@ describe('the aqueous primer: its cards', () => {
     }
   })
 
-  it('opens by saying how many cards there are and naming the four to read before the bench, by their headings, and no other', () => {
+  // It said ten cards and named four to read first; the card of worked steps is the fifth, read after the card it works out.
+  it('opens by saying how many cards there are and naming the five to read before the bench, by their headings, and no other', () => {
     const first = section('ions').paragraphs[0]!.text
-    expect(first).toContain('ten cards')
-    expect(first).toContain('Read four of them')
+    expect(first).toContain('eleven cards')
+    expect(first).toContain('Read five of them')
     expect(first).toContain('The other six')
-    expect(AQUEOUS_PRIMER.filter((s) => first.includes(s.heading)).map((s) => s.id)).toEqual(['ions', 'solubility', 'equations', 'observing'])
-    expect(READ_FIRST).toEqual(['ions', 'solubility', 'equations', 'observing'])
+    expect(AQUEOUS_PRIMER.filter((s) => first.includes(s.heading)).map((s) => s.id)).toEqual(['ions', 'solubility', 'equations', 'working', 'observing'])
+    expect(READ_FIRST).toEqual(['ions', 'solubility', 'equations', 'working', 'observing'])
+    expect(AQUEOUS_PRIMER.length - READ_FIRST.length).toBe(6)
   })
 
   it('explains in the cards read first, as they are read, each word the equations and the tools lean on', () => {
     const read = READ_FIRST.map(shown)
     const upTo = (n: number) => read.slice(0, n + 1).join(' ')
-    for (const [word, card] of [['ion', 0], ['(aq)', 0], ['strong electrolyte', 0], ['H⁺', 0], ['insoluble', 1], ['spectator', 2], ['coefficient', 2], ['wafting', 3], ['litmus', 3], ['splint', 3]] as const) {
+    // The tools' words were held to the fourth card read first; the card on observing is now the fifth. The words of the
+    // first card that are new here are the ones it did not say before 2026-10-07: what an acid and a base are, and that an
+    // ion can be a group of atoms.
+    for (const [word, card] of [['ion', 0], ['polyatomic ion', 0], ['(aq)', 0], ['strong electrolyte', 0], ['H⁺', 0], ['An acid gives', 0], ['A base gives', 0], ['insoluble', 1], ['spectator', 2], ['coefficient', 2], ['subscript', 3], ['wafting', 4], ['litmus', 4], ['splint', 4]] as const) {
       expect(upTo(card), word).toContain(word)
     }
+    // "acid" and "base" are said to be what they are in the card where the cards read first first use either word, and "basic" with them.
+    const all = read.join(' ')
+    expect(all.search(/\bacid\b/)).toBe(all.indexOf('Hydrochloric acid is hydrogen chloride') + 'Hydrochloric '.length)
+    expect(all.indexOf('An acid gives')).toBeLessThan(all.indexOf(shown('solubility')))
+    expect(all.search(/\bbase\b/)).toBe(all.indexOf('A base gives') + 'A '.length)
+    expect(all.search(/\bbasic\b/)).toBe(all.indexOf('is called basic') + 'is called '.length)
     // The equations card uses "precipitate", which the card before it in the primer defines but which is not read first:
     // it says what one is where the word first stands in the cards read first, and not only in passing further down.
-    const all = read.join(' ')
     expect(all.indexOf('precipitate')).toBe(all.indexOf('is called a precipitate') + 'is called a '.length)
     expect(shown('equations')).toMatch(/a bright yellow solid, lead\(II\) iodide\. A solid that forms like this, out of two solutions, is called a precipitate\./)
     expect(shown('equations')).toMatch(/precipitate stays whole, because its ions are locked together in the solid/)
@@ -100,7 +113,8 @@ describe('the aqueous primer: how its text is drawn', () => {
 
   it("sets off only whole sentences of the paragraph that name the lab themselves, each a rule of the simulation's and not of a bench", () => {
     const rules = paragraphs.flatMap(([where, p]) => (p.labRules ?? []).map((rule) => [where, rule, p.text] as const))
-    expect(rules.map(([where]) => where)).toEqual(['equations[4]', 'equations[5]', 'signs[5]', 'no-reaction[1]', 'observing[1]', 'observing[3]'])
+    // 'working[4]' is new with the card of worked steps: that a station offers its formulas is the simulation's doing.
+    expect(rules.map(([where]) => where)).toEqual(['equations[4]', 'equations[5]', 'working[4]', 'signs[5]', 'no-reaction[1]', 'observing[1]', 'observing[3]'])
     for (const [where, rule, text] of rules) {
       expect(rule, where).toMatch(/^(In this lab|The temperature rise this lab) .*\.$/)
       // A whole sentence: it starts the text or follows a full stop, and ends the text or is followed by a space and a capital.
@@ -140,16 +154,22 @@ describe('the aqueous primer: what each paragraph rests on', () => {
 
   it('has exactly these paragraphs with no source, each resting on "This lab:" lines alone', () => {
     const unsourced = paragraphs.filter(([, p]) => p.sourceIds.length === 0)
-    expect(unsourced.map(([where]) => where)).toEqual(['ions[0]', 'spectators[1]', 'signs[0]', 'no-reaction[1]', 'observing[0]', 'safety[0]'])
+    // 'working[9]' is new: the last paragraph of the card of worked steps says where things are on the page, which no source says.
+    expect(unsourced.map(([where]) => where)).toEqual(['ions[0]', 'working[9]', 'spectators[1]', 'signs[0]', 'no-reaction[1]', 'observing[0]', 'safety[0]'])
     for (const [where, p] of unsourced) for (const line of p.support.split('\n')) expect(line, where).toMatch(/^This lab: /)
   })
 
-  it('lists in the manifest, with a primer row, exactly the sources of its own that the primer cites; the rest are safety data sheets that a reagent\'s hazards cite', () => {
+  // Until 2026-10-07 the rest were the eighteen sheets alone. The one more is the titration lab's source for what an acid
+  // and a base are, which this primer now says from the same passage.
+  it('lists in the manifest, with a primer row, exactly the sources of its own that the primer cites; the rest are safety data sheets that a reagent\'s hazards cite, and the one source of the titration primer that says what an acid and a base are', () => {
     const withRow = manifest.sources.filter((s) => s.supports.some((row) => row.fields.includes('primer'))).map((s) => s.id)
     const own = [...cited].filter((id) => manifest.sources.some((s) => s.id === id))
     expect([...own].sort()).toEqual([...withRow].sort())
     const ofReagents = new Set(aqueousData.reagents.flatMap((r) => [r.hazards.sourceId, r.hazards.note.sourceId, ...(r.hazards.note.alsoSourceId ? [r.hazards.note.alsoSourceId] : [])]))
-    const rest = [...cited].filter((id) => !own.includes(id))
+    const borrowed = 'flowers-chem2e-4.2'
+    expect(TITRATION_PRIMER[0]!.paragraphs[1]!.sourceIds).toEqual([borrowed])
+    const rest = [...cited].filter((id) => !own.includes(id) && id !== borrowed)
+    expect(cited.has(borrowed)).toBe(true)
     expect(rest.length).toBe(18)
     for (const id of rest) {
       expect(sheets.some((s) => s.id === id), id).toBe(true)
@@ -177,8 +197,20 @@ describe('the aqueous primer: what it has to say', () => {
     return { atoms, charge }
   }
 
+  const equationsOf = (id: string) => section(id).paragraphs.flatMap((p) => (p.equation ? [p.equation] : []))
+  /** The terms that stand on both sides of a complete ionic equation, and the equation that is left without them. */
+  function withoutSpectators(complete: string) {
+    const [left, right] = complete.split(' → ').map((s) => s.split(' + '))
+    const spectators = left!.filter((term) => right!.includes(term))
+    return { spectators, net: `${left!.filter((t) => !spectators.includes(t)).join(' + ')} → ${right!.filter((t) => !spectators.includes(t)).join(' + ')}` }
+  }
+
+  it('shows an equation on two cards only, the card on the three forms and the card that works one out, three on each', () => {
+    expect(AQUEOUS_PRIMER.filter((s) => equationsOf(s.id).length > 0).map((s) => [s.id, equationsOf(s.id).length])).toEqual([['equations', 3], ['working', 3]])
+  })
+
   it('works its example in three equations that each balance in atoms and in charge, the net one being the complete one less its spectators', () => {
-    const equations = section('equations').paragraphs.flatMap((p) => (p.equation ? [p.equation] : []))
+    const equations = equationsOf('equations')
     expect(equations).toEqual([
       'Pb(NO₃)₂(aq) + 2KI(aq) → PbI₂(s) + 2KNO₃(aq)',
       'Pb²⁺(aq) + 2NO₃⁻(aq) + 2K⁺(aq) + 2I⁻(aq) → PbI₂(s) + 2K⁺(aq) + 2NO₃⁻(aq)',
@@ -189,11 +221,138 @@ describe('the aqueous primer: what it has to say', () => {
       expect(side(left!), equation).toEqual(side(right!))
     }
     expect(side('Pb²⁺(aq) + 2NO₃⁻(aq)')).toEqual({ atoms: { Pb: 1, N: 2, O: 6 }, charge: 0 })
-    const [left, right] = equations[1]!.split(' → ').map((s) => s.split(' + '))
-    const spectators = left!.filter((term) => right!.includes(term))
-    expect(spectators).toEqual(['2NO₃⁻(aq)', '2K⁺(aq)'])
-    expect(`${left!.filter((t) => !spectators.includes(t)).join(' + ')} → ${right!.filter((t) => !spectators.includes(t)).join(' + ')}`).toBe(equations[2])
+    expect(withoutSpectators(equations[1]!)).toEqual({ spectators: ['2NO₃⁻(aq)', '2K⁺(aq)'], net: equations[2] })
     expect(shown('spectators')).toContain('K⁺ and NO₃⁻ are the spectators')
+  })
+
+  describe('the card that works one reaction out, step by step', () => {
+    const card = section('working')
+    const step = (n: number) => card.paragraphs[n]!
+    const equations = equationsOf('working')
+    const SKELETON = 'CaCl₂ + K₃PO₄ → Ca₃(PO₄)₂ + KCl'
+    /** The atoms on the two sides of an equation written without state symbols, as the card writes the one that is not yet balanced. */
+    const counts = (equation: string) => equation.split(' → ').map((s) => side(s.split(' + ').map((term) => `${term}(aq)`).join(' + ')).atoms)
+    /** "calcium 1 and 3, phosphate 1 and 2, potassium 3 and 1, chlorine 2 and 1": what the card says it counts, left and right. A phosphate group is counted by its one phosphorus atom. */
+    const said = ([left, right]: Record<string, number>[]) => [['calcium', 'Ca'], ['phosphate', 'P'], ['potassium', 'K'], ['chlorine', 'Cl']].map(([name, element]) => `${name} ${left![element!]} and ${right![element!]}`).join(', ')
+
+    it('is ten paragraphs: the example, eight numbered steps each with a label of its own, and where things are', () => {
+      expect(card.paragraphs.map((p) => p.label)).toEqual([
+        'The example',
+        'Step one, the ions',
+        'Step two, swap partners',
+        'Step three, the table',
+        'Step four, product formulas',
+        'Step five, molecular equation',
+        'Step six, complete ionic',
+        'Step seven, net ionic',
+        'Step eight, state symbols',
+        'Where things are',
+      ])
+      expect(shown('working')).toContain('Follow the same eight steps at a station')
+    })
+
+    it('shows three equations, each balanced in atoms and in charge: the molecular, the complete ionic, and the net ionic that is the complete one less its spectators', () => {
+      expect([step(5).equation, step(6).equation, step(7).equation]).toEqual(equations)
+      expect(equations).toEqual([
+        '3CaCl₂(aq) + 2K₃PO₄(aq) → Ca₃(PO₄)₂(s) + 6KCl(aq)',
+        '3Ca²⁺(aq) + 6Cl⁻(aq) + 6K⁺(aq) + 2PO₄³⁻(aq) → Ca₃(PO₄)₂(s) + 6K⁺(aq) + 6Cl⁻(aq)',
+        '3Ca²⁺(aq) + 2PO₄³⁻(aq) → Ca₃(PO₄)₂(s)',
+      ])
+      for (const equation of equations) {
+        const [left, right] = equation.split(' → ')
+        expect(side(left!), equation).toEqual(side(right!))
+      }
+      // The same atoms in the three: the molecular and the complete ionic hold all of them, the net ionic the solid's.
+      expect(side(equations[0]!.split(' → ')[0]!)).toEqual({ atoms: { Ca: 3, Cl: 6, K: 6, P: 2, O: 8 }, charge: 0 })
+      expect(side(equations[1]!.split(' → ')[0]!)).toEqual({ atoms: { Ca: 3, Cl: 6, K: 6, P: 2, O: 8 }, charge: 0 })
+      expect(side(equations[2]!.split(' → ')[0]!)).toEqual({ atoms: { Ca: 3, P: 2, O: 8 }, charge: 0 })
+      expect(withoutSpectators(equations[1]!)).toEqual({ spectators: ['6Cl⁻(aq)', '6K⁺(aq)'], net: equations[2] })
+      expect(step(7).text).toContain('6K⁺ and 6Cl⁻ are on the left and on the right')
+    })
+
+    it('says of each ion the charge its formula in the equations carries, and of each product a formula whose charges cancel', () => {
+      const ion = (formula: string) => side(`${formula}(aq)`)
+      expect([ion('Ca²⁺').charge, ion('Cl⁻').charge, ion('K⁺').charge, ion('PO₄³⁻').charge]).toEqual([2, -1, 1, -3])
+      expect(ion('PO₄³⁻').atoms).toEqual({ P: 1, O: 4 }) // the five atoms of the group
+      expect(step(1).text).toMatch(/one calcium ion, Ca²⁺, for every two chloride ions, Cl⁻/)
+      expect(step(1).text).toMatch(/three potassium ions, K⁺, for every one phosphate ion, PO₄³⁻/)
+      expect(step(1).text).toMatch(/a group of five atoms, one of phosphorus and four of oxygen.*one charge, 3−, for the whole group/)
+      // Step one's two bottles and step four's two products are each their ions in the ratio said, with no charge over.
+      expect(ion('CaCl₂')).toEqual(side('Ca²⁺(aq) + 2Cl⁻(aq)'))
+      expect(ion('K₃PO₄')).toEqual(side('3K⁺(aq) + PO₄³⁻(aq)'))
+      expect(ion('Ca₃(PO₄)₂')).toEqual(side('3Ca²⁺(aq) + 2PO₄³⁻(aq)'))
+      expect(ion('KCl')).toEqual(side('K⁺(aq) + Cl⁻(aq)'))
+      expect(step(4).text).toMatch(/Three calcium ions make 6\+ and two phosphate ions make 6−, so the solid is Ca₃\(PO₄\)₂/)
+      expect(step(4).text).toMatch(/in brackets.*with the number after the bracket/)
+      expect(step(7).text).toMatch(/3 × 2\+ is 6\+ and 2 × 3− is 6−/)
+    })
+
+    it('counts the atoms as they are, before the numbers in front are chosen and after', () => {
+      expect(step(5).text).toContain(SKELETON)
+      expect(said(counts(SKELETON))).toBe('calcium 1 and 3, phosphate 1 and 2, potassium 3 and 1, chlorine 2 and 1')
+      expect(step(5).text).toContain(`${said(counts(SKELETON))}.`)
+      const balanced = equations[0]!.replaceAll(/\((aq|s)\)/g, '')
+      expect(said(counts(balanced))).toBe('calcium 3 and 3, phosphate 2 and 2, potassium 6 and 6, chlorine 6 and 6')
+      expect(step(5).text).toContain(`${said(counts(balanced))}.`)
+      expect(step(5).text).toMatch(/Change only the numbers in front of the formulas, never the small numbers/)
+      // What step six multiplies: the number in front by the small number.
+      for (const product of ['3 × 2 = 6 chloride ions', '2 × 3 = 6 potassium ions']) expect(step(6).text).toContain(product)
+      // Its numbers in front share no factor, and the card says so; it also says what is done when they do.
+      expect(step(7).text).toMatch(/If one whole number bigger than 1 divides all of them, divide them all by it.*Here no such number divides 3, 2 and 1/)
+      const inFront = equations[2]!.split(/ \+ | → /).map((term) => Number(/^\d*/.exec(term)![0] || 1))
+      expect(inFront).toEqual([3, 2, 1])
+      expect([2, 3].filter((n) => inFront.every((k) => k % n === 0))).toEqual([])
+    })
+
+    it('takes its example from no station, and reads its two new pairs from the book\'s table: the lab\'s own does not hold them', () => {
+      expect(shown('working')).toContain('It is at none of the stations.')
+      // No species of the record holds potassium or phosphorus, so no bottle is potassium phosphate and no pair of the table is this example's.
+      for (const s of aqueousData.species) for (const element of ['K', 'P']) expect(s.composition[element], s.id).toBeUndefined()
+      // Calcium chloride is in the record, as what station 7 leaves dissolved. No bottle holds it, so no station mixes it with anything.
+      expect(aqueousData.species.filter((s) => ['CaCl₂', 'K₃PO₄', 'Ca₃(PO₄)₂', 'KCl'].includes(s.formula)).map((s) => s.id)).toEqual(['calcium-chloride'])
+      expect(aqueousData.reagents.some((r) => r.speciesId === 'calcium-chloride')).toBe(false)
+      expect(step(3).text).toContain('The table of this lab holds only the pairs of its ten stations, so it does not list the two pairs of this example')
+      expect(step(3).text).toContain('Every pair that a station needs is in the lab\'s table.')
+      // What it says the book's table gives is what that table's rows are recorded as giving for the lab's own pairs.
+      expect(step(3).text).toMatch(/Calcium with phosphate is insoluble.*Potassium with chloride is soluble/)
+      expect(step(3).support).toMatch(/phosphates are insoluble but for those of the group 1 cations and of ammonium/)
+      expect(manifest.sources.find((s) => s.id === 'flowers-chem2e-4.2-solubility')!.supports.some((row) => /PO43-/.test((row as { where?: string }).where ?? ''))).toBe(true)
+    })
+
+    it('says where to look when no solid forms, naming that card by its heading, and when nothing reacts', () => {
+      expect(step(3).text).toContain(`Not every station forms a solid. Where a gas or water forms instead, the card "${section('signs').heading}" says so, and steps five to eight are then the same.`)
+      // That card does say what forms in each of the model's four other rules.
+      expect(shown('signs')).toMatch(/gives carbon dioxide gas, water and a salt.*give hydrogen gas with an acid.*give ammonia, NH₃, and water.*hydrogen ions and hydroxide ions make water/s)
+      expect(step(3).text).toContain('If both new pairs are soluble, and nothing on that card applies, nothing reacts, and the answer to all three equations is "No reaction".')
+    })
+
+    it('gives the four state symbols as the first card does, and says which the example\'s formulas take', () => {
+      expect(step(8).text).toMatch(/\(aq\) after each dissolved ion and each dissolved compound, \(s\) after a solid, \(l\) after water and \(g\) after a gas/)
+      expect(shown('ions')).toMatch(/\(aq\) for dissolved in water, \(s\) for a solid, \(l\) for a liquid and \(g\) for a gas/)
+      for (const equation of equations) expect(equation.match(/\((aq|s|l|g)\)/g)!.length).toBe(equation.split(/ \+ | → /).length)
+    })
+
+    it('ends by saying where each thing is on the page, and that the periodic table is not needed', () => {
+      const last = step(9).text
+      for (const name of ['"Ions on this bench"', '"Solubility table"', 'buttons at the top of the Lab tab', 'In Guided', 'hints', 'The periodic table is not needed for these equations']) expect(last, name).toContain(name)
+      expect(step(4).labRules).toEqual(['In this lab each station offers its formulas to choose from, and a few of them do not belong.'])
+    })
+  })
+
+  it('says in its first card which ions are groups of atoms, as the record has them, and what an acid and a base are, from the passage the titration primer has them from', () => {
+    const [, , groups, , , acids] = section('ions').paragraphs
+    expect([groups!.label, acids!.label]).toEqual(['Groups of atoms', 'Acids and bases'])
+    // The ions of more than one atom that a bottle gives, each by the name and the formula the record stores.
+    const given = new Set(aqueousData.reagents.flatMap((r) => r.ions.map((ion) => ion.speciesId)))
+    const polyatomic = aqueousData.species.filter((s) => given.has(s.id) && Object.values(s.composition).reduce((a, b) => a + b, 0) > 1)
+    expect(polyatomic.map((s) => s.id).sort()).toEqual(['ammonium-ion', 'carbonate-ion', 'hydroxide-ion', 'nitrate-ion', 'sulfate-ion'])
+    for (const s of polyatomic) expect(groups!.text, s.id).toContain(`${s.name!.value}, ${s.formula}`)
+    expect(groups!.text).toContain('The bottles on this bench give five')
+    expect(groups!.text).toMatch(/a group of atoms that stays together and carries one charge for the whole group/)
+    expect(acids!.text).toBe('An acid gives hydrogen ions when it dissolves in water. A base gives hydroxide ions, OH⁻, when it dissolves in water. Hydrochloric acid is an acid. Sodium hydroxide is a base. A solution of a base is called basic.')
+    expect(acids!.sourceIds).toEqual(TITRATION_PRIMER[0]!.paragraphs[1]!.sourceIds)
+    expect(TITRATION_PRIMER[0]!.paragraphs[1]!.text).toBe('A substance is an acid if it gives hydronium ions, H₃O⁺, when it dissolves in water. It is a base if it gives hydroxide ions, OH⁻, when it dissolves in water.')
+    expect(acids!.support).toMatch(/This lab: the card says hydrogen ion where the passage says hydronium ion/)
   })
 
   it('takes its example from no station: no species of the record holds lead, potassium or iodine', () => {

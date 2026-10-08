@@ -165,7 +165,7 @@
             "primer"
           ],
           "prints": "Ionic and Molecular Compounds",
-          "where": "The section's title. Read at its opening paragraphs and under its headings Common Polyatomic Ions and Ionic Compounds."
+          "where": "The section's title. Read at its opening paragraphs, at the paragraph and table on polyatomic ions (Table 2.5, Common Polyatomic Ions), and under its heading Ionic Compounds as far as the worked example on a compound with a polyatomic ion."
         }
       ]
     },
@@ -198,6 +198,13 @@
           ],
           "prints": "Compounds Composed of Two Elements",
           "where": "The heading. Under it the section names CO2 carbon dioxide and says that H2O is called water."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Chemical Nomenclature",
+          "where": "The section's title. Read under its headings Compounds Containing Only Monatomic Ions and Compounds Containing Polyatomic Ions, with the three tables there."
         }
       ]
     },
@@ -211,7 +218,7 @@
             "primer"
           ],
           "prints": "Writing and Balancing Chemical Equations",
-          "where": "The section's title. Read under its headings Additional Information in Chemical Equations and Equations for Ionic Reactions."
+          "where": "The section's title. Read under its headings Balancing Equations and Equations for Ionic Reactions, and under Additional Information in Chemical Equations."
         }
       ]
     },

@@ -8,7 +8,7 @@ import { HAZARDS_TEXT, NARROW_NOTICE, SHELL_TEXT } from '@/app/lab/shellText'
 import { labProgress } from '@/app/lab/useLabProgress'
 import { createMemoryStore, saveEntry, type KeyValueStore } from '@/app/progress/storage'
 import { aqueousData as data } from '@/chem-data/aqueous/data'
-import { AQUEOUS_PRIMER } from '@/chem-data/aqueous/primer'
+import { AQUEOUS_PRIMER, READ_FIRST } from '@/chem-data/aqueous/primer'
 import { stationCitations } from '@/chem-data/citations'
 import sources from '@/chem-data/sources.json'
 import { FORMS, LOOKS, aqueousStateSchema, can, createLab, describeStationResult, expectedObservation, reduce, stationView, type Action, type AqueousState } from '@/engine/aqueous'
@@ -105,7 +105,8 @@ describe('the aqueous reactions page', () => {
   const page = () => draw(createElement(AqueousPage))
   const save = (state: AqueousState) => saveEntry(app.store, aqueous.entry, aqueous.version, state)
 
-  it('with nothing stored opens on the Primer tab with its ten cards one at a time, the mode choice in this lab\'s own words, and Start; and stores nothing', () => {
+  // Ten cards until 2026-10-07, when the card that works a station out step by step was added and marked to be read first.
+  it('with nothing stored opens on the Primer tab with its eleven cards one at a time, five of them marked to read first, the mode choice in this lab\'s own words, and Start; and stores nothing', () => {
     const html = page()
     expect(html).toMatch(new RegExp(`<h1[^>]*>${aqueous.title}</h1>`))
     expect(selectedTab(html)).toEqual(['Primer'])
@@ -113,7 +114,10 @@ describe('the aqueous reactions page', () => {
     expect([primer!.shown, lab!.shown, record!.shown]).toEqual([true, false, false])
     expect(count(primer!.body, /<h2/g)).toBe(1)
     expect(primer!.body).toContain(`>${AQUEOUS_PRIMER[0]!.heading}</h2>`)
-    expect(primer!.body).toContain('>Topic 1 of 10')
+    expect(primer!.body).toContain('>Topic 1 of 11')
+    // In the list of topics, each of the five; and once more on the card shown, which is the first of them.
+    expect(count(primer!.body, />Read first</g)).toBe(READ_FIRST.length + 1)
+    expect(READ_FIRST.length).toBe(5)
     expect(lab!.body).toContain(SHELL_TEXT.notStarted)
     expect(record!.body).toContain(SHELL_TEXT.noRecord)
     expect(html).toContain(MODE_TEXT.guided)

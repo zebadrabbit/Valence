@@ -1,6 +1,6 @@
 import { paragraph, readFirstOf, type PrimerSection } from '../primer'
 
-// The aqueous reactions lab's concept primer (spec 8): ten cards for a reader with no chemistry background, shown
+// The aqueous reactions lab's concept primer (spec 8): eleven cards for a reader with no chemistry background, shown
 // one at a time. Nothing here quotes a source, and quotation.test.ts holds the cards and their support lines to
 // that: none repeats six words running of a page it rests on. Each paragraph says what it rests on in `support`,
 // one line for each passage: either a passage of a source, given where it is and, in this project's words, what
@@ -9,9 +9,13 @@ import { paragraph, readFirstOf, type PrimerSection } from '../primer'
 // data sheets of the last card in sources/hazard-manifest.json; both reach sources.json through `npm run build:data`.
 //
 // The worked example of the equations card is a reaction that is at no station, so that it gives away no answer.
+// The card after it works a second such reaction out a step at a time, from two bottles to three equations: it is
+// what a learner copies at a station, and a test holds each of its equations and counts to the arithmetic.
 
 const chem2e = (section: string) => `flowers-chem2e-${section}`
 const TABLE = chem2e('4.2-solubility')
+// The same page, as the titration lab's primer cites it for what an acid and a base are.
+const ACIDS_AND_BASES = chem2e('4.2')
 const SNIFFING = 'nrc-prudent-practices-2011'
 const MANUAL = 'pa-adopt-lab-manual-wafting'
 
@@ -19,6 +23,9 @@ const MANUAL = 'pa-adopt-lab-manual-wafting'
 const PRECIPITATION = 'section 4.2, under the heading Precipitation Reactions and Solubility Rules'
 const TABLE_4_1 = `${PRECIPITATION}, Table 4.1`
 const IONIC_EQUATIONS = 'section 4.1, under the heading Equations for Ionic Reactions'
+const BALANCING = 'section 4.1, under the heading Balancing Equations'
+const POLYATOMIC = 'section 2.6, the paragraph before Table 2.5 and the table itself, Common Polyatomic Ions'
+const IONIC_COMPOUNDS = 'section 2.6, under the heading Ionic Compounds'
 const NITROGEN_HYDRIDES = 'section 18.5, under the heading Nitrogen Hydrogen Compounds'
 const HEAT_EXAMPLE = 'section 5.2, the example headed Heat Produced by an Exothermic Reaction'
 const SHEET = "the sheet's title and its section 2 (hazards identification)"
@@ -31,9 +38,9 @@ export const AQUEOUS_PRIMER: readonly PrimerSection[] = [
     paragraphs: [
       paragraph(
         { label: 'Where to start' },
-        'This primer has ten cards. Read four of them before you go to the bench, in this order: Ions in solution; Solubility and the solubility table; The three forms of an equation; Observing safely. The other six can wait until a station sends you to them.',
+        'This primer has eleven cards. Read five of them before you go to the bench, in this order: Ions in solution; Solubility and the solubility table; The three forms of an equation; Working a station, step by step; Observing safely. The other six can wait until a station sends you to them.',
         [],
-        "which cards to read first, and in what order, is this lab's advice. Between them the four say what is in each bottle, how to tell whether a solid will form, how each of the three equations is written, and how each tool is used.",
+        "which cards to read first, and in what order, is this lab's advice. Between them the five say what is in each bottle, how to tell whether a solid will form, how each of the three equations is written, how to get from two bottles to those equations, and how each tool is used.",
       ),
       paragraph(
         { label: 'Ions', terms: ['ion', 'ionic compound'] },
@@ -46,6 +53,18 @@ export const AQUEOUS_PRIMER: readonly PrimerSection[] = [
           ],
         ],
         "the example is the lab's own: three charges of one sign are balanced by three ions of one opposite charge each.",
+      ),
+      paragraph(
+        { label: 'Groups of atoms', terms: ['polyatomic ion'] },
+        'Some ions are a group of atoms that stays together and carries one charge for the whole group. Such a group is called a polyatomic ion. The bottles on this bench give five: hydroxide, OH⁻; nitrate, NO₃⁻; sulfate, SO₄²⁻; carbonate, CO₃²⁻; and ammonium, NH₄⁺.',
+        [
+          [
+            chem2e('2.6'),
+            POLYATOMIC,
+            'an ion made of several atoms bonded together behaves as a single unit with one overall charge and is called polyatomic, and that the table gives hydroxide, nitrate, sulfate, carbonate and ammonium each with the formula and the charge written here.',
+          ],
+        ],
+        "which of them the bottles give is this lab's record: these five are the ions of more than one atom among the ions stored for the fifteen reagents, and a test holds the sentence to the record.",
       ),
       paragraph(
         { label: 'Dissolving', terms: ['dissociates', 'strong electrolyte'] },
@@ -70,6 +89,18 @@ export const AQUEOUS_PRIMER: readonly PrimerSection[] = [
           ],
         ],
         "writing H⁺ for the ion that water carries is this lab's choice (spec 8.1); the book's table of half-reactions in section 17.3 writes H+(aq) in the same way.",
+      ),
+      paragraph(
+        { label: 'Acids and bases', terms: ['acid', 'base'] },
+        'An acid gives hydrogen ions when it dissolves in water. A base gives hydroxide ions, OH⁻, when it dissolves in water. Hydrochloric acid is an acid. Sodium hydroxide is a base. A solution of a base is called basic.',
+        [
+          [
+            ACIDS_AND_BASES,
+            'section 4.2, under the heading Acid-Base Reactions',
+            'for reactions in water, acids are the substances that dissolve to give hydronium ions and bases those that dissolve to give hydroxide ions, and that hydrogen chloride is of the first kind and sodium hydroxide of the second.',
+          ],
+        ],
+        "the card says hydrogen ion where the passage says hydronium ion, as the paragraph before this one says this lab does. The passage is the one the titration lab's primer has its two definitions from. That a solution of a base is called basic is the plain use of the word; no source was read for it.",
       ),
       paragraph(
         { label: 'State symbols', terms: ['state symbol'] },
@@ -192,6 +223,133 @@ export const AQUEOUS_PRIMER: readonly PrimerSection[] = [
         'Every equation must balance: the same number of each kind of atom on both sides and, in an ionic equation, the same total charge. The number written in front of a formula is its coefficient, and says how many of that unit take part. In this lab an equation is also accepted with all of its coefficients multiplied by the same whole number.',
         [[chem2e('4.1'), 'section 4.1, under the headings Balancing Equations and Equations for Ionic Reactions', 'a balanced equation has, for each element, as many atoms on one side as on the other, that the numbers placed in front of formulas are coefficients, and that the ionic equations of its examples carry equal charge on the two sides.']],
         'accepting coefficients in the same proportion is the rule of spec 8.3.',
+      ),
+    ],
+  },
+  {
+    id: 'working',
+    heading: 'Working a station, step by step',
+    paragraphs: [
+      paragraph(
+        { label: 'The example' },
+        'Here is one reaction worked out from two bottles to three equations, one step at a time. It is at none of the stations. The two bottles are calcium chloride solution, CaCl₂, and potassium phosphate solution, K₃PO₄. Follow the same eight steps at a station.',
+        [
+          [chem2e('2.6'), IONIC_COMPOUNDS, 'calcium and chlorine form the ionic compound CaCl2.'],
+          [chem2e('2.7'), 'section 2.7, Table 2.8, Everyday Ionic Compounds', 'K3PO4 is potassium phosphate.'],
+        ],
+        "that the reaction is at no station is a statement about this lab's record, which a test holds: no species of the record holds potassium or phosphorus, and calcium chloride is on no bottle.",
+      ),
+      paragraph(
+        { label: 'Step one, the ions', terms: ['subscript'] },
+        'Write down the ions that each bottle gives, with their charges. Read them from the formula on the label. The small number written low after a symbol is called a subscript. It says how many of that atom there are, and no number means one. CaCl₂ gives one calcium ion, Ca²⁺, for every two chloride ions, Cl⁻. K₃PO₄ gives three potassium ions, K⁺, for every one phosphate ion, PO₄³⁻. Phosphate is a group of five atoms, one of phosphorus and four of oxygen, that stays together and has one charge, 3−, for the whole group. Its small 4 counts the oxygen atoms inside the group; it does not mean four ions. Nitrate and sulfate, on this bench, are groups of the same kind. Neither potassium nor phosphate is on this bench, so their charges are given here. At a station, look up the charge of each ion on the "Ions on this bench" panel.',
+        [
+          [
+            chem2e('2.6'),
+            'section 2.6, its opening paragraphs and under the heading Ionic Compounds',
+            'a metal of group 1 forms an ion of charge 1+ and one of group 2 an ion of charge 2+, calcium being its example of the second, and an atom of group 17 an ion of charge 1−; that potassium is a metal of group 1; and that CaCl2 holds two Cl− ions for each Ca2+ ion.',
+          ],
+          [
+            chem2e('2.6'),
+            `${POLYATOMIC}, and the paragraph on calcium phosphate under the heading Ionic Compounds`,
+            'phosphate is PO4 with a charge of 3−, and that each phosphate group is five atoms, one of phosphorus and four of oxygen, acting as a single unit with that one charge.',
+          ],
+          [chem2e('4.1'), BALANCING, 'the number of atoms of an element that a formula stands for is read from the subscript after its symbol.'],
+          [chem2e('4.1'), IONIC_EQUATIONS, 'dissolved CaCl2 is written as one Ca2+ ion and two Cl− ions.'],
+        ],
+        "that K₃PO₄ gives three potassium ions for each phosphate ion is worked out here from the two charges: three of 1+ balance one of 3−. Where the charges are looked up is how the page is built (spec 8.5).",
+      ),
+      paragraph(
+        { label: 'Step two, swap partners' },
+        'Once the two are mixed, all four kinds of ion share one tube. Pair each positive ion with the negative ion from the other bottle. Calcium came with chloride, so pair it with phosphate. Potassium came with phosphate, so pair it with chloride. Two positive ions do not pair with each other, and neither do two negative ions.',
+        [
+          [
+            TABLE,
+            PRECIPITATION,
+            'many precipitation reactions are an exchange of ions between two dissolved ionic compounds, and that what mixing two such solutions gives is predicted by listing the ions present and looking at each pairing of a positive ion with a negative one that the two solutions did not already hold.',
+          ],
+        ],
+        'that ions of one sign do not pair follows from what an ionic compound is, as the first card has it: positive ions and negative ions together.',
+      ),
+      paragraph(
+        { label: 'Step three, the table' },
+        'Look up each new pair in a solubility table. Calcium with phosphate is insoluble, so that pair is the solid that forms. Potassium with chloride is soluble, so those ions stay dissolved. The table of this lab holds only the pairs of its ten stations, so it does not list the two pairs of this example. They are read here from the fuller table of a chemistry book. Every pair that a station needs is in the lab\'s table. Not every station forms a solid. Where a gas or water forms instead, the card "Gases and heat as signs of a reaction" says so, and steps five to eight are then the same. If both new pairs are soluble, and nothing on that card applies, nothing reacts, and the answer to all three equations is "No reaction".',
+        [
+          [
+            TABLE,
+            TABLE_4_1,
+            'phosphates are insoluble but for those of the group 1 cations and of ammonium, so that calcium phosphate is insoluble; and that compounds of the group 1 cations, K+ among them, are soluble with no exception listed, as chlorides are but for those of three ions, none of them potassium.',
+          ],
+          [TABLE, PRECIPITATION, 'a precipitate is expected where a pairing of the ions present is an insoluble compound, and not otherwise.'],
+        ],
+        "that the lab's table holds the stations' pairs and no other is how the record is built (spec 8.1); what forms where no solid does is the remaining rules of the model, on the card named, and what is done with it from step five on is this card's own advice; and that No reaction is then the answer to all three is the rule of spec 8.3.",
+      ),
+      paragraph(
+        { label: 'Step four, product formulas', labRules: ['In this lab each station offers its formulas to choose from, and a few of them do not belong.'] },
+        'Write the formula of each new pair so that its charges cancel, because a compound has no charge overall. Calcium is 2+ and phosphate is 3−. Three calcium ions make 6+ and two phosphate ions make 6−, so the solid is Ca₃(PO₄)₂. The positive ion is written first. A group of atoms that is needed more than once goes in brackets, with the number after the bracket. Potassium is 1+ and chloride is 1−, so one of each is enough: KCl. In this lab each station offers its formulas to choose from, and a few of them do not belong. This step is how to tell which one is right.',
+        [
+          [
+            chem2e('2.6'),
+            `${IONIC_COMPOUNDS}, from the paragraph before the worked example on the formula of an ionic compound to the paragraph on compounds that hold polyatomic ions`,
+            'an ionic compound holds as many positive charges as negative ones, so that its formula is the ratio of ions that makes the two equal; that a group of atoms that acts as a unit is put in brackets in a formula; and that calcium phosphate is Ca3(PO4)2, three Ca2+ ions to every two phosphate groups.',
+          ],
+          [
+            chem2e('2.7'),
+            'section 2.7, under the headings Compounds Containing Only Monatomic Ions and Compounds Containing Polyatomic Ions',
+            'a compound of ions is named with its positive ion first and its negative ion second, and that the formulas of its two tables are written in that order, KBr for potassium bromide among them.',
+          ],
+        ],
+        "KCl is worked out here by the same rule, from one charge of 1+ and one of 1−; neither section prints it. That the positive ion is written first is how both sections write every formula, and neither states it as a rule. That a station offers formulas, some of which do not belong, is how the page is built (spec 8.3).",
+      ),
+      paragraph(
+        { label: 'Step five, molecular equation' },
+        'Write each substance as one whole formula, the two bottles on the left of the arrow and the two new pairs on the right: CaCl₂ + K₃PO₄ → Ca₃(PO₄)₂ + KCl. This does not balance yet. Count each kind of atom on the left and on the right. A group that stays together can be counted as one thing. Before any number is put in front, left and right: calcium 1 and 3, phosphate 1 and 2, potassium 3 and 1, chlorine 2 and 1. Change only the numbers in front of the formulas, never the small numbers: a different small number would be a different substance. Put 3 in front of CaCl₂ for the 3 calcium. Put 2 in front of K₃PO₄ for the 2 phosphate. That makes 6 potassium and 6 chlorine on the left, so put 6 in front of KCl. Count again: calcium 3 and 3, phosphate 2 and 2, potassium 6 and 6, chlorine 6 and 6. It balances. The letters in brackets are the state symbols, which step eight gives.',
+        [
+          [
+            chem2e('4.1'),
+            BALANCING,
+            'an equation is balanced when each element has as many atoms on one side as on the other; that the atoms a formula stands for are its coefficient times the subscript; and that an equation is brought into balance by changing coefficients and never subscripts, because a changed subscript makes the formula that of another substance.',
+          ],
+        ],
+        'the equation and its two counts are worked out here by that method, and a test makes both counts. Counting a group that is the same on both sides as one thing is a shortcut of this card: it gives what counting its atoms gives.',
+        '3CaCl₂(aq) + 2K₃PO₄(aq) → Ca₃(PO₄)₂(s) + 6KCl(aq)',
+      ),
+      paragraph(
+        { label: 'Step six, complete ionic' },
+        'Split every dissolved ionic compound into its ions, and leave the solid whole. For each ion, multiply the number in front by the small number. 3CaCl₂ is 3 calcium ions and 3 × 2 = 6 chloride ions. 2K₃PO₄ is 2 × 3 = 6 potassium ions and 2 phosphate ions. 6KCl is 6 potassium ions and 6 chloride ions. The calcium phosphate stays as it is: its ions are locked together in the solid.',
+        [
+          [
+            chem2e('4.1'),
+            IONIC_EQUATIONS,
+            'in a complete ionic equation each dissolved ionic compound is written as its separate ions, as many of each as its coefficient and its formula give between them, while a solid product keeps its one formula.',
+          ],
+        ],
+        'the equation is worked out here from the molecular one, by that method; a test checks that it balances in atoms and in charge.',
+        '3Ca²⁺(aq) + 6Cl⁻(aq) + 6K⁺(aq) + 2PO₄³⁻(aq) → Ca₃(PO₄)₂(s) + 6K⁺(aq) + 6Cl⁻(aq)',
+      ),
+      paragraph(
+        { label: 'Step seven, net ionic' },
+        'Cross out every ion that is the same on both sides. Here 6K⁺ and 6Cl⁻ are on the left and on the right, so they go: they are the spectator ions. Check what is left. Atoms: 3 calcium and 2 phosphate on each side. Charge: 3 × 2+ is 6+ and 2 × 3− is 6−, which together is 0, and the solid on the right has no charge either. Last, look at the numbers in front. If one whole number bigger than 1 divides all of them, divide them all by it: 2, 2 and 2 would become 1, 1 and 1. Here no such number divides 3, 2 and 1, so they stay.',
+        [
+          [
+            chem2e('4.1'),
+            IONIC_EQUATIONS,
+            'taking away the ions that stand unchanged on both sides of a complete ionic equation gives the net ionic equation, and that its coefficients are then brought to the smallest whole numbers, as the section does with an equation whose three coefficients are all 2.',
+          ],
+        ],
+        'the equation and the check of its atoms and its charge are worked out here, and a test makes the same check. In this lab an equation with every coefficient multiplied by one whole number is accepted as well (spec 8.3), as the card before this one says.',
+        '3Ca²⁺(aq) + 2PO₄³⁻(aq) → Ca₃(PO₄)₂(s)',
+      ),
+      paragraph(
+        { label: 'Step eight, state symbols' },
+        'Give every formula its state symbol: (aq) after each dissolved ion and each dissolved compound, (s) after a solid, (l) after water and (g) after a gas. In this example the solutions from the two bottles, the potassium chloride and every separate ion are (aq), and the calcium phosphate is (s).',
+        [[chem2e('4.1'), 'section 4.1, under the heading Additional Information in Chemical Equations', 'the state of each substance in an equation is shown by s, l, g or aq in brackets after its formula, aq standing for dissolved in water.']],
+        'which state each formula of the example takes follows from steps three and six: what is soluble is dissolved, and the insoluble pair is the solid.',
+      ),
+      paragraph(
+        { label: 'Where things are' },
+        'Everything these steps need is in the lab. The ions on this bench, each with its name and its charge, are on the "Ions on this bench" panel. Whether a pair is soluble is on the "Solubility table" panel. Both open from buttons at the top of the Lab tab. Each station offers the formulas that its equations are built from. In Guided, each station has hints as well. The periodic table is not needed for these equations. It is one tap away, in the bar of tabs, if you want to look up the name or the symbol of an element.',
+        [],
+        'where each thing is, and that the periodic table opens from the bar of tabs, is how the page is built (spec 8.5). That the table is not needed is so because every ion of the bench is on the panel with its charge, and no step asks for anything else of an element.',
       ),
     ],
   },
