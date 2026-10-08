@@ -39,6 +39,8 @@ type Authored = {
 const choreography = authoredChoreography as Choreography
 const authored = authoredRecord as unknown as Authored
 const copy = <T>(value: T): T => JSON.parse(JSON.stringify(value))
+/** A keyframe of a choreography, by its id. */
+const at = (c: Choreography, id: string) => c.keyframes.find((k) => k.id === id)!
 const build = (record: unknown = authored, moves: unknown = choreography) => buildMechanism(record, moves, moleculeFiles, elements)
 const shape = (id: string) => moleculeFiles.find((m) => m.id === id)!.atoms.map((a) => a.position as unknown as Vec3)
 const water = shape('water')
@@ -134,29 +136,29 @@ describe('buildKeyframes', () => {
   }
 
   it('refuses an actor with no place, an actor placed twice, and a species whose atoms are only partly placed again', () => {
-    expect(broken((c) => c.keyframes[0]!.place.pop())).toThrow(/keyframe "beaker": no place for cl/)
-    expect(broken((c) => c.keyframes[0]!.place.push({ ion: 'Cl', charge: -1, atom: 'cl', at: [0, 0, 0] }))).toThrow(/"cl" is placed twice/)
+    expect(broken((c) => at(c, 'beaker').place.pop())).toThrow(/keyframe "beaker": no place for cl/)
+    expect(broken((c) => at(c, 'beaker').place.push({ ion: 'Cl', charge: -1, atom: 'cl', at: [0, 0, 0] }))).toThrow(/"cl" is placed twice/)
     // The sodium ion alone is placed again where the hydrogen carbonate ion is too: taking the ion's placement out leaves the solid's other half where it was, which is allowed...
-    expect(broken((c) => c.keyframes[3]!.place.pop())).not.toThrow()
+    expect(broken((c) => at(c, 'solid-in').place.pop())).not.toThrow()
     // ...but a carbon dioxide made of three of carbonic acid's six atoms leaves the other three with no place.
-    expect(broken((c) => (c.keyframes[10]!.place = [c.keyframes[10]!.place[0]!]))).toThrow(/keyframe "split": no place for/)
+    expect(broken((c) => (at(c, 'split').place = [at(c, 'split').place[0]!]))).toThrow(/keyframe "split": no place for/)
   })
 
   it('refuses an actor placed as the wrong element, a species the library has not, and the wrong number of actors', () => {
-    expect(broken((c) => (c.keyframes[0]!.place[0]!.atoms = ['c', 'o-acceptor', 'o-carbonyl', 'o-hydroxyl', 'h-hydroxyl']))).toThrow(/"c" is C, but is placed as O/)
-    expect(broken((c) => (c.keyframes[0]!.place[0]!.species = 'carbonate'))).toThrow(/the library has no species "carbonate"/)
-    expect(broken((c) => c.keyframes[0]!.place[0]!.atoms!.pop())).toThrow(/has 5 atoms, and 4 actors are given/)
+    expect(broken((c) => (at(c, 'beaker').place[0]!.atoms = ['c', 'o-acceptor', 'o-carbonyl', 'o-hydroxyl', 'h-hydroxyl']))).toThrow(/"c" is C, but is placed as O/)
+    expect(broken((c) => (at(c, 'beaker').place[0]!.species = 'carbonate'))).toThrow(/the library has no species "carbonate"/)
+    expect(broken((c) => at(c, 'beaker').place[0]!.atoms!.pop())).toThrow(/has 5 atoms, and 4 actors are given/)
   })
 
   it('refuses an ion with no cited radius for its charge', () => {
-    expect(broken((c) => (c.keyframes[0]!.place[1]!.charge = 2))).toThrow(/no cited ionic radius for Na of charge 2/)
+    expect(broken((c) => (at(c, 'beaker').place[1]!.charge = 2))).toThrow(/no cited ionic radius for Na of charge 2/)
   })
 
   it('refuses keyframes out of order, a track that does not run from 0 to 1, an unknown easing and a target that is not in place', () => {
-    expect(broken((c) => (c.keyframes[2]!.t = 0.05))).toThrow(/in track order/)
+    expect(broken((c) => (at(c, 'solid-ready').t = 0.05))).toThrow(/in track order/)
     expect(broken((c) => (c.keyframes.at(-1)!.t = 0.99))).toThrow(/the first keyframe is at 0 and the last at 1/)
-    expect(broken((c) => (c.keyframes[1]!.easing = 'bounce'))).toThrow(/unknown easing "bounce"/)
-    expect(broken((c) => (c.keyframes[0]!.place[2]!.aim!.toward = 'o-relay'))).toThrow(/neither coordinates nor an actor that is in place/)
+    expect(broken((c) => (at(c, 'acid').easing = 'bounce'))).toThrow(/unknown easing "bounce"/)
+    expect(broken((c) => (at(c, 'beaker').place[2]!.aim!.toward = 'o-relay'))).toThrow(/neither coordinates nor an actor that is in place/)
   })
 })
 
@@ -169,14 +171,14 @@ describe('checkContacts', () => {
 
   it('refuses two atoms of different species on top of each other at a keyframe', () => {
     const crowded = copy(choreography)
-    crowded.keyframes[0]!.place[4]!.at = [3.4, 6.2, 2.2]
+    at(crowded, 'beaker').place[4]!.at = [3.4, 6.2, 2.2]
     expect(() => checkContacts(crowded.actors, buildKeyframes(crowded, moleculeFiles, elements))).toThrow(/keyframe "beaker": o-hydronium and cl, of different species, are 1\.20 Å apart/)
   })
 
   it('refuses an atom that passes through another on its way between two keyframes', () => {
     const through = copy(choreography)
     // The sodium ion is sent to the far side of the chloride ion, straight through it.
-    through.keyframes[4]!.place[0]!.at = [11.465, 5.6, -4]
+    at(through, 'dissolved').place[0]!.at = [11.465, 5.6, -4]
     expect(() => checkContacts(through.actors, buildKeyframes(through, moleculeFiles, elements))).toThrow(/between "solid-in" and "dissolved": na and cl pass within/)
   })
 })
