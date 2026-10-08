@@ -80,6 +80,17 @@ describe('the lab shell', () => {
     expect(order).toEqual([...order].sort((a, b) => a - b))
   })
 
+  it('has in the tab bar, at every width and before and after Start, one link to the periodic table that opens in a new browser tab and says so', () => {
+    for (const html of [shell(), shell({ started: false }), shell({ narrow: true })]) {
+      const links = [...html.matchAll(/<a [^>]*href="#\/explore\/elements"[^>]*>(.*?)<\/a>/gs)]
+      expect(links).toHaveLength(1)
+      expect(links[0]![0]).toMatch(/target="_blank"/)
+      expect(links[0]![0]).toMatch(/rel="noopener"/)
+      expect(links[0]![1]).toContain('Periodic table')
+      expect(links[0]![1]).toContain('(opens in a new tab)')
+    }
+  })
+
   it('opens on the Primer tab while there is no run, and on the Lab tab when there is one', () => {
     expect([openingTab(false), openingTab(true)]).toEqual(['primer', 'lab'])
     expect(selectedTab(shell({ started: false }))).toEqual(['Primer'])

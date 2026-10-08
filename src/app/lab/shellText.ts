@@ -8,6 +8,9 @@ export const SHELL_TEXT = {
   restartConfirm: 'Restart this lab? Everything recorded in this run will be erased. This cannot be undone.',
   /** The three tabs of a lab page, at every width. */
   tabs: { primer: 'Primer', lab: 'Lab', record: 'Record' },
+  /** A link in the tab bar, which opens the periodic table in a new browser tab. */
+  periodicTable: 'Periodic table',
+  newTab: '(opens in a new tab)',
   /** On the Lab tab and on the Record tab, before a run is started. */
   notStarted: 'No run of this lab has been started. Choose a mode above, then start the lab.',
   noRecord: 'No run of this lab has been started, so there is no record yet.',

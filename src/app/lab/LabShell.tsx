@@ -1,3 +1,4 @@
+import { ExternalLink } from 'lucide-react'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { PageHeader } from '@/app/PageHeader'
 import { NOT_SAVING_TEXT } from '@/app/progress/storage'
@@ -140,7 +141,7 @@ export function LabShell(props: LabShellProps) {
         </div>
       )}
       <Tabs ref={tabs} value={tab} onValueChange={(next: LabTab) => show(next)} className="gap-0">
-        <div className="sticky top-0 z-10 border-b bg-background py-2">
+        <div className="sticky top-0 z-10 flex flex-wrap items-center justify-between gap-x-4 border-b bg-background py-2">
           <TabsList variant="line" aria-label={title} className="group-data-horizontal/tabs:h-12">
             {(Object.keys(SHELL_TEXT.tabs) as LabTab[]).map((value) => (
               <TabsTrigger key={value} value={value} className="min-h-11 px-4 text-base data-active:font-semibold">
@@ -148,6 +149,17 @@ export function LabShell(props: LabShellProps) {
               </TabsTrigger>
             ))}
           </TabsList>
+          {/* In the bar that stays in view, on every tab: the periodic table in a tab of its own, so that the lab is not left. */}
+          <a
+            href="#/explore/elements"
+            target="_blank"
+            rel="noopener"
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-md px-2 text-sm font-medium underline-offset-4 outline-none hover:underline focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            {SHELL_TEXT.periodicTable}
+            <ExternalLink aria-hidden="true" className="size-4" />
+            <span className="sr-only">{SHELL_TEXT.newTab}</span>
+          </a>
         </div>
         <TabsContent value="primer" keepMounted className={PANEL}>
           {primer}
