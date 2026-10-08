@@ -75,7 +75,17 @@ export function MechanismPage() {
     setPlaying(false)
   }
   const run = link.run ?? played ?? stored ?? FRESH
+  const t = run.position
+  const now = stateAt(mechanism, t)
   const [looked, setLooked] = useState<number | null>(null)
+  // A species is looked at by its place among those of the scene. When the scene's species change (the solid comes
+  // apart, a proton has crossed) that place is another's, so the look is dropped and no callout names the wrong thing.
+  const made = now.species.map((one) => one.atoms.join()).join(';')
+  const [lookedAmong, setLookedAmong] = useState(made)
+  if (made !== lookedAmong) {
+    setLookedAmong(made)
+    setLooked(null)
+  }
   const [said, say] = useSaid()
   const scene = useScene()
   const descriptionId = useId()
@@ -169,8 +179,6 @@ export function MechanismPage() {
     heading.current?.focus()
   })
 
-  const t = run.position
-  const now = stateAt(mechanism, t)
   const { chapter } = now
   const question = pendingPrediction(mechanism, run)
   const kept = withheld(mechanism, run)

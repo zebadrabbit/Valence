@@ -106,6 +106,11 @@ export function PickTarget(props: { position?: Vec3; quaternion?: Quat; scale: n
         canvas.style.cursor = 'pointer'
         if (e.pointerType === 'mouse') props.onOver?.()
       }}
+      // A pointer that rests on the shape while what it stands for changes is over it still: a move says so again.
+      onPointerMove={(e) => {
+        e.stopPropagation()
+        if (e.pointerType === 'mouse') props.onOver?.()
+      }}
       onPointerOut={(e) => {
         canvas.style.cursor = ''
         if (e.pointerType === 'mouse') props.onOut?.()
