@@ -138,9 +138,14 @@
           "where": "The heading of section 4. Under it, for the eyes: contact lenses are looked for and taken out, the eyes are flushed with water for 15 minutes or more, the upper and lower lids lifted from time to time, and medical attention is got at once. The first supplier's sheet gives several minutes and no line on medical advice for the eyes; the note gives the 15 minutes and the doctor at once as what this lab goes by. The form of this supplier prints the same first aid on every sheet of its that was read; it is carried all the same, as first aid on a sheet for a solution of this strength."
         },
         {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "INGESTION",
+          "where": "Section 4, the label of the first of its four lines. Under it, for swallowing: a doctor or a poison centre is called at once, and vomiting is brought on only if medical staff say so. The first supplier's sheet asks for the call if the person feels unwell, and so does this sheet's own precautionary statement P301+P330+P312 in section 2; the note gives the call at once as what this lab goes by, and says nothing of vomiting. The form of this supplier prints the same line on every sheet of its that was read; it is carried all the same, as the eyes' line is, because swallowing is the hazard the statements on this bottle name first. Until the note was corrected on 2026-10-08 it left this line out to keep to a length, and a row of this manifest said so."
+        },
+        {
           "field": "bacl2-0.1m.notCarried",
           "prints": "SKIN ABSORPTION",
-          "where": "Read and not carried. Section 4, the label of the last of its four lines, and the line for swallowing above it. For the skin: contaminated clothing is taken off and the skin flushed with mild soap and water, with medical attention if it becomes irritated. For swallowing: a doctor or a poison centre is called at once, and vomiting is brought on only if medical staff say so. Why: the note is held to a length, and of this sheet's first aid it gives the eyes alone; these two lines ask more than the first supplier's sheet does and are kept here for whoever wants them in the note."
+          "where": "Read and not carried. Section 4, the label of the last of its four lines. For the skin: contaminated clothing is taken off and the skin flushed with mild soap and water, with medical attention if it becomes irritated. The line between, for breathing it in, asks for fresh air and medical attention. Why: the note is held to a length, and of this sheet's first aid it gives the lines for swallowing and for the eyes; the line for the skin asks more than the first supplier's sheet does and is kept here for whoever wants it in the note."
         },
         {
           "field": "bacl2-0.1m.hazards.note",

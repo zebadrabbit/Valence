@@ -149,6 +149,21 @@ describe('mergeHazards, on the flame record', () => {
     expect(merge((entries) => void (entries['bacl2-0.1m']!.hazards.note.value = 'One.\n\nTwo.\n\nThree.'))[0]!.hazards.note.value).toBe('One.\n\nTwo.\n\nThree.')
   })
 
+  // Swallowing is the hazard the bottle's statements name first. The note once left the second supplier's first aid for it out, to keep to a length.
+  it("carries in barium's note, in its second paragraph, the second supplier's first aid for swallowing, with a row of that sheet for it and none that says it was left out; and the note keeps to a length", () => {
+    const { note } = (hazards as Record<string, Entry>)['bacl2-0.1m']!.hazards
+    const second = note.value.split('\n\n')[1]!
+    expect(second).toMatch(/If any is swallowed, .*a doctor or a poison centre .*at once/)
+    const rows = sheets.find((sheet) => sheet.id === note.alsoSourceId)!.supports
+    expect(rows.filter((row) => row.prints === 'INGESTION').map((row) => row.field)).toEqual(['bacl2-0.1m.hazards.note'])
+    for (const row of rows.filter((row) => row.field.endsWith('.notCarried'))) expect(row.where, row.prints).not.toMatch(/For swallowing/)
+    // Six notes, each of three short paragraphs; the longest is barium's.
+    for (const entry of Object.values(hazards as Record<string, Entry>)) {
+      expect(entry.hazards.note.value.split('\n\n')).toHaveLength(3)
+      expect(entry.hazards.note.value.split(/\s+/).length).toBeLessThanOrEqual(195)
+    }
+  })
+
   it('works on a small fixture of its own: one salt, a note that rests on three documents', () => {
     const sheet = (id: string, rows: string[]): Sheet => ({ id, url: `https://example.org/${id}`, citation: `Document ${id}`, supports: rows.map((field) => ({ field, prints: field.endsWith('signalWord') ? 'WARNING' : field.endsWith('statements[0]') ? 'Causes serious eye irritation (H319)' : 'Salt', where: 'Somewhere.' })) })
     const list = [sheet('solid', ['salt.classifiedAs', 'salt.hazards.signalWord', 'salt.hazards.statements[0]']), sheet('solution', ['salt.hazards.note']), sheet('second', ['salt.hazards.note']), sheet('record', ['salt.hazards.note'])]
