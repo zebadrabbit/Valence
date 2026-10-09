@@ -1,0 +1,1025 @@
+{
+  "sources": [
+    {
+      "id": "flinn-sds-94",
+      "url": "https://www.flinnsci.com/sds_94-barium-chloride/sds_94",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Barium Chloride, SDS number sds_94; revision date July 14, 2015 (read on 2026-10-06; no copy is kept).",
+      "fetchedSha256": "f3581529d0ee225e239a9e7c18a9c438cd394ebe897132746f57126a0b9faa1d",
+      "supports": [
+        {
+          "field": "bacl2-0.1m.classifiedAs",
+          "prints": "Barium Chloride",
+          "where": "The sheet's title, before the words Safety Data Sheet: the substance the sheet is for, with no strength. Section 3 lists one component and no water, with nothing in its concentration column, so the sheet is for the substance itself and not for a solution of it. The heading over the bottle's statements calls that the pure substance; the sheet does not use the word."
+        },
+        {
+          "field": "bacl2-0.1m.classifiedAs",
+          "prints": "Barium chloride dihydrate",
+          "where": "Section 3, the component's name, with the formula of the dihydrate and the formula weight 244.28 beside it. Section 9 describes a white powder. The heading over the bottle's statements says solid barium chloride dihydrate."
+        },
+        {
+          "field": "bacl2-0.1m.hazards",
+          "prints": "July 14, 2015",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.signalWord",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Danger, the form its schema has for the word."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.statements[0]",
+          "prints": "Toxic if swallowed (H301)",
+          "where": "Section 2, the first of the two hazard classes it lists: category 3, for acute toxicity by mouth. The record stores the sheet's own line, with its code or codes in front as printed, then a colon and the statement."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.statements[1]",
+          "prints": "Harmful if inhaled (H332)",
+          "where": "Section 2, the last of the two hazard classes it lists: category 4, for acute toxicity by breathing in. The section prints no other hazard code, and none for the eyes. Beside each class it prints one precautionary statement, with a code that begins with P: those are not hazard statements and are not carried into the record."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-94.01",
+      "url": "https://www.flinnsci.com/sds_94.01-barium-chloride-solution-less-than-1-m/sds_94.01",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Barium Chloride Solution Less than 1 M, SDS number sds_94.01; revision date March 24, 2014 (read on 2026-10-06; no copy is kept).",
+      "fetchedSha256": "43e689a9451244394d364088a22159411d73d7557e754b287683de470f8ea4f1",
+      "supports": [
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "Less than 1 M",
+          "where": "The sheet's title, after the words Barium Chloride Solution: the strengths the sheet is for. The solution on the bench is 0.1 M, inside this range, so the sheet covers it. The supplier lists no other sheet for a solution of barium chloride. The text of the sheet read for the aqueous reactions lab on 2026-10-06 was read again for this lab on 2026-10-08, and the page, fetched again that day, was the same byte for byte."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "March 24, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "WARNING",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the note gives it as Warning."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "May be harmful if swallowed or inhaled (H303+H333)",
+          "where": "Section 2, the one hazard class it lists: category 5, for acute toxicity by mouth and by breathing in, one statement under a pair of codes. The note gives the codes and says the statement in the project's words. The section prints no other hazard code, no precautionary statement and no other sentence."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "2.5-24.0%",
+          "where": "Section 3, the concentration column, in the row for barium chloride, which the formula column gives as the dihydrate, formula weight 244.28; the rest is water. The sheet does not say on what basis the percentage is. Counted as the dihydrate, 0.1 mol/L is about 24 g in a litre, about 2.4 g in each 100 mL (worked out, not read here), a shade under the foot of this range. The title's range takes the solution in, and a solution a little under the table's range is not one the sheet would rate higher. The note's 2% counts the salt without its water: about 21 g in a litre."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "Highly toxic",
+          "where": "Section 11, the first words after the label for acute effects; the line for target organs in the same section starts with the heart, the nerves and the kidneys and goes on to four more. Section 2 of the sheet rates its solution in category 5 all the same. The note gives both, so that the one statement is not read as the whole of what the sheet says."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "SECTION 8 — EXPOSURE CONTROLS, PERSONAL PROTECTION",
+          "where": "The heading of section 8. Under it the sheet calls for eye protection, gloves and protective clothing, and for washing the hands after handling; it prints no code beside either."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that; the sheet prints no code beside this and gives no number of minutes. For the skin: it is washed with plenty of water. For swallowing: the mouth is rinsed and a poison centre or a doctor is called if the person feels unwell; the section's first line says the same of any exposure, with the code P312."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet has two lines: that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods (#27h) is one option. The note gives no method of disposal, this one or another. Section 12, on ecology, has one line, that there is no data yet. Section 6 says that a spill is held with sand or an absorbent and put into a closed bag or container. None of the three says anything of drains, of waterways or of the environment. Section 15 prints RCRA D005 among its listings; the note does not give the code."
+        }
+      ]
+    },
+    {
+      "id": "wards-sds-bb0041",
+      "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition/id_81f5f0062a518f58aba7cc5425e6e592e345956b/vid_81f5f0062a518f58aba7cc5425e6e592e345956b/prid_original/clid_SAPDAM",
+      "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Barium Chloride, 0.1 Molar Solution, SDS No. BB0041; revision date January 31, 2018 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "1b52651eb2b51a0b9b6f6d39d00d57e950fdf98c48286fca2a1c72e7d7d1da02",
+      "supports": [
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "BARIUM CHLORIDE, 0.1 MOLAR SOLUTION",
+          "where": "The product named at the head of the sheet, whose number is SDS No. BB0041. The sheet carries the names of two suppliers of one company, Ward's Science and Boreal Science, and has English pages and then French ones; the English pages were read. It was read as the PDF served at the address above. It is a sheet for a solution of the strength on the bench."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "January 31, 2018",
+          "where": "At the foot of the last English page, after the words Revision Date; the sheet says that it takes the place of one of August 18, 2016. This is the revision the address served on the day it was read; a later one may exist and was not found. The same supplier's sheet for a 0.2 M solution (SDS No. BB0037, revised June 14, 2024), read the same day at https://digitalassets.avantorsciences.com/adaptivemedia/rendition/id_812a8bebfed5fa00a3355f52c7279e6f00fba879/vid_812a8bebfed5fa00a3355f52c7279e6f00fba879/prid_original/clid_SAPDAM, prints the same signal word, the same two classes and statements, the same precautionary statements, the same first aid and the same lines on spills and disposal as this one; it is not a source of the record."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "WARNING",
+          "where": "Section 2, after the words Signal word. The sheet prints it in capitals; the note gives it as Warning."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "H302: Harmful if swallowed.",
+          "where": "Section 2, the first of the two hazard statements; the class beside it is acute toxicity by mouth, category 4. The first supplier's sheet for its solution has category 5 for the same route, with H303. The note gives the code and says that this is the graver."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "H333: May be harmful if inhaled.",
+          "where": "Section 2, the second of the two hazard statements; the class beside it is acute toxicity by breathing in, category 5, as in the first supplier's sheet. The section prints no other hazard statement, and none for the eyes or the skin."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "2.44%",
+          "where": "Section 3, in the row for barium chloride dihydrate; water is the rest, at 97.56%. It is the figure 0.1 mol/L comes to when the salt is counted as the dihydrate."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "P260: Do not breathe mist/vapours/spray.",
+          "where": "Section 2, the first of the precautionary statements. The others are P264, on washing the hands; P270, that nobody eats, drinks or smokes while using the product; P301+P330+P312 and P304+P312, on calling a poison centre or a doctor after swallowing or breathing it in; and P501, on disposal. Section 8 says that safety glasses, goggles or a face shield, a laboratory coat or apron and gloves are to be worn, and that an eyewash and a safety shower are to be at hand."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "First Aid Measures",
+          "where": "The heading of section 4. Under it, for the eyes: contact lenses are looked for and taken out, the eyes are flushed with water for 15 minutes or more, the upper and lower lids lifted from time to time, and medical attention is got at once. For the skin: contaminated clothing is taken off and the skin flushed with mild soap and water, with medical attention if it becomes irritated. For swallowing: a doctor or a poison centre is called at once, and vomiting is brought on only if medical staff say so."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "Accidental Release Measures",
+          "where": "The heading of section 6. Under it, as an environmental precaution: runoff is to be kept from storm sewers and from ditches that lead to waterways. A spill is taken up with a dry inert material and put into a container for disposal, and the place washed. Section 13 says that its guidance is for small amounts, and that disposal is to follow the local, state and federal rules or go through a licensed agency for chemical disposal. Section 12 ends with a line that harm to the environment cannot be ruled out if the product is handled or disposed of carelessly. The note says the first of these in its own words and gives no method of disposal. Section 15 lists the code D005 for barium chloride in its column for RCRA; the note does not give the code."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-bacl2-dihydrate",
+      "url": "https://www.fishersci.com/store/msds?partNumber=B34500&productDescription=BARIUM+CHLORIDE+DIHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Barium chloride dihydrate, catalogue numbers B33 and B34; revision 7 of 18 December 2025 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "9b56ffc4b988a5955a161f7133bdfab1c4185f696baeb044d5761e5926dbd00b",
+      "supports": [
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "Barium chloride dihydrate",
+          "where": "Section 1, after the words Product Name, with the CAS number 10326-27-9; the catalogue numbers are B33 and B34 in several sizes. Section 3 gives the dihydrate at 100%, and section 9 calls it a white solid: the sheet is for the solid, the same substance as the first supplier's sheet for the solid."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "18-Dec-2025",
+          "where": "At the head of the sheet, after the words Revision Date, with Revision Number 7 beside it, and again on every page. The sheet says under its title that it is made to the hazard communication standard of the United States, in its form of 2024."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "Danger",
+          "where": "Section 2, under the words Signal Word: the same as the first supplier's sheet for the solid."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "Causes serious eye irritation",
+          "where": "Section 2, the second of the three hazard statements, which the sheet prints without codes; the class is serious eye damage or eye irritation, category 2. The other two, Toxic if swallowed and Harmful if inhaled, are the statements of the first supplier's sheet for the solid, in the same categories: 3 by mouth, 4 by breathing in. The first supplier's sheet has no statement for the eyes. The note says that this sheet adds one."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "6. Accidental release measures",
+          "where": "The heading of section 6. Under it, beside the label Environmental Precautions, the sheet says that the substance should not be let out into the environment. Section 13 says that whoever makes chemical waste must work out whether a discarded chemical counts as hazardous waste, and must look to the local, regional and national rules on it. The note gives no method of disposal. The label elements of section 2 say that contents and container go to an approved plant for waste disposal."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "4. First-aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: they are rinsed at once with plenty of water and medical advice is sought; the sheet gives no number of minutes. For the skin: it is washed at once with a great deal of water, for 15 minutes or more, with medical attention at once. Section 7 says that the solid is handled nowhere but in a fume hood. The note takes its first aid from the sheet for the solution and from NOAA's record, and nothing from this section."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-19847",
+      "url": "https://cameochemicals.noaa.gov/chemical/19847",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Barium Chloride Dihydrate (chemical 19847); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "34e15d92eb7a8ffe31a37f7a1e0d8277c03c069855043581358f8a13d2774943",
+      "supports": [
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "BARIUM CHLORIDE DIHYDRATE",
+          "where": "The page's title, under the words Chemical Datasheet. Its table of identifiers gives the CAS number 10326-27-9. The foot of the page prints the version named in the citation and no date of its own; most fields name where their text is from. The page for the anhydrous salt (BARIUM CHLORIDE, chemical 19846, at https://cameochemicals.noaa.gov/chemical/19846) was read the same day: it prints the same first aid and the same row of the list below, and under Health Hazard it has the symptoms of a pocket guide it names, skin burns among them; it is not a source of the record."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "20 to 30 minutes",
+          "where": "The field First Aid, under EYES, a text the page credits to the National Toxicology Program, 1992: contact lenses are looked for and taken out, the eyes are flushed with water or with saline for this long while a hospital or a poison centre is called, and the person is taken to hospital afterwards even if nothing shows. Under SKIN: the skin is flooded with water at once while contaminated clothing is taken off and set apart, then washed with soap and water, and a doctor is called if redness or irritation comes on. The page is about the solid chemical, not a solution of it; the note says so. Under Health Hazard the page says that the chemical may irritate the skin, the eyes and the airways."
+        },
+        {
+          "field": "bacl2-0.1m.hazards.note",
+          "prints": "Barium Compounds",
+          "where": "The field Regulatory Information, in the table headed EPA Consolidated List of Lists: the one row, with the category code N040 and the figure 313 in the column for EPCRA 313 (TRI); the page credits the table to the EPA List of Lists, 2024. The note says that the record shows barium compounds on that list, and calls it a list of regulated chemicals, which is the project's description of it. The page has no line on drains or waterways: its field Non-Fire Response gives the handling of a small spill of the solid."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-196",
+      "url": "https://www.flinnsci.com/sds_196-calcium-chloride/sds_196",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Calcium Chloride, SDS number sds_196; revision date July 8, 2015 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "0aa5ee77bb460a002f51e06d1ea8890c15a48665344b1ab40039967d4617d2c1",
+      "supports": [
+        {
+          "field": "cacl2-0.1m.classifiedAs",
+          "prints": "Calcium Chloride",
+          "where": "The sheet's title, before the words Safety Data Sheet: the substance the sheet is for, with no strength. Section 3 lists one component and no water, with nothing in its concentration column, so the sheet is for the substance itself and not for a solution of it. The heading over the bottle's statements calls that the pure substance; the sheet does not use the word."
+        },
+        {
+          "field": "cacl2-0.1m.classifiedAs",
+          "prints": "Calcium chloride, anhydrous",
+          "where": "Section 3, the component's name, with the formula CaCl2 and the formula weight 110.98 beside it. Section 9 describes a white solid, as powder, crystals or flakes. The heading over the bottle's statements says solid calcium chloride (anhydrous). The supplier has a sheet for the dihydrate as well (sds_196.1, revised April 22, 2016, read the same day), which prints the same signal word and one statement, the H319 below, without the H302. The anhydrous salt's sheet is used, the stricter of the two; the supplier's sheet for the solution counts its calcium chloride as the dihydrate."
+        },
+        {
+          "field": "cacl2-0.1m.hazards",
+          "prints": "July 8, 2015",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "cacl2-0.1m.hazards.signalWord",
+          "prints": "WARNING",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Warning, the form its schema has for the word."
+        },
+        {
+          "field": "cacl2-0.1m.hazards.statements[0]",
+          "prints": "Harmful if swallowed (H302)",
+          "where": "Section 2, the first of the two hazard classes it lists: category 4, for acute toxicity by mouth. The record stores the sheet's own line, with its code or codes in front as printed, then a colon and the statement."
+        },
+        {
+          "field": "cacl2-0.1m.hazards.statements[1]",
+          "prints": "Causes serious eye irritation (H319)",
+          "where": "Section 2, the last of the two hazard classes it lists: category 2A, for irritation of the eyes. The section prints no other hazard code. Beside the first class it prints one precautionary statement, with a code that begins with P: that is not a hazard statement and is not carried into the record."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-197",
+      "url": "https://www.flinnsci.com/sds_197-calcium-chloride-solution/sds_197",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Calcium Chloride Solution, SDS number sds_197; revision date February 6, 2014 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "f6be9c5521affe449ed30c5b30c7ef2ef64060b80786197cf55b53fa889ea78d",
+      "supports": [
+        {
+          "field": "cacl2-0.1m.hazards.note",
+          "prints": "Calcium Chloride Solution",
+          "where": "The sheet's title, before the words Safety Data Sheet: it names no strength, and the supplier lists no other sheet for a solution of calcium chloride. Whether it covers the solution on the bench is read from its table of composition, in a row below. The sheet prints no signal word: it has no line that begins Signal Word. Under the heading of section 2 it lists no hazard class, no hazard statement and no code, and has two sentences in their place: that the chemical is taken to be non-hazardous under the GHS classifications of a standard it names, with every laboratory chemical still to be treated with caution, and that reactions nobody foresaw can always happen, so careful practice is to be kept. The note says that the sheet prints neither a signal word nor a statement, and gives the first of those sentences in its own words without naming the standard."
+        },
+        {
+          "field": "cacl2-0.1m.hazards.note",
+          "prints": "February 6, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read."
+        },
+        {
+          "field": "cacl2-0.1m.hazards.note",
+          "prints": "<15%>",
+          "where": "Section 3, the concentration column, printed so, in the row for calcium chloride dihydrate, formula weight 147.02; the row for water prints 85-99%, so the table takes in 1% to 15% of the dihydrate. The sheet does not say on what basis the percentage is. Counted as the dihydrate, 0.1 mol/L is about 14.7 g in a litre, about 1.5 g in each 100 mL (worked out, not read here), inside that range. The note's 1.1% counts the salt without its water: about 11 g in a litre."
+        },
+        {
+          "field": "cacl2-0.1m.hazards.note",
+          "prints": "SECTION 8 — EXPOSURE CONTROLS, PERSONAL PROTECTION",
+          "where": "The heading of section 8. Under it the sheet calls for eye protection, gloves and protective clothing, and for washing the hands after handling; it prints no code beside either."
+        },
+        {
+          "field": "cacl2-0.1m.hazards.note",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that; the sheet prints no code beside this and gives no number of minutes. For the skin: it is washed with plenty of water. Neither is followed by a line on medical advice. The section's first line says that a poison centre or a doctor is called by anyone who feels unwell."
+        },
+        {
+          "field": "cacl2-0.1m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet has two lines: that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods (#26b) is one option. The note gives no method of disposal, this one or another. Section 12, on ecology, has one line, that there is no data yet. Section 6 says that a spill is held with sand or an absorbent and put into a closed bag or container. None of the three says anything of drains, of waterways or of the environment."
+        }
+      ]
+    },
+    {
+      "id": "wards-sds-cc0070",
+      "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=9a503211f7eafc7542253eded28b277ff02ee79a&vid=9a503211f7eafc7542253eded28b277ff02ee79a&prid=original&clid=SAPDAM",
+      "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Calcium Chloride, 0.1 Molar Solution, SDS No. CC0070; revision date June 26, 2024 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "8c357fe393e8017de16223abf33e5b7126e65188de6aa4d42ee60ae1a0daecda",
+      "supports": [
+        {
+          "field": "cacl2-0.1m.hazards.note",
+          "prints": "CALCIUM CHLORIDE, 0.1 MOLAR SOLUTION",
+          "where": "The product named at the head of the sheet, whose number is SDS No. CC0070. The sheet carries the names of two suppliers of one company, Ward's Science and Boreal Science, and has English pages and then French ones; the English pages were read. It was read as the PDF served at the address above. The address is the one the supplier's own product page for calcium chloride gives for the sheet of its 500 mL bottle of 0.1 M solution. It is a sheet for a solution of the strength on the bench."
+        },
+        {
+          "field": "cacl2-0.1m.hazards.note",
+          "prints": "June 26, 2024",
+          "where": "At the foot of the last English page, after the words Revision Date; the sheet says that it takes the place of one of August 16, 2022."
+        },
+        {
+          "field": "cacl2-0.1m.hazards.note",
+          "prints": "WARNING",
+          "where": "Section 2, after the words Signal word. The sheet prints it in capitals; the note gives it as Warning."
+        },
+        {
+          "field": "cacl2-0.1m.hazards.note",
+          "prints": "H320: Causes eye irritation.",
+          "where": "Section 2, the one hazard statement; the class beside it is eye irritation, category 2B, and the sheet says that no pictogram is needed. The first supplier's sheet for its solution prints no class and no statement. The note gives the code and says the statement in the project's words."
+        },
+        {
+          "field": "cacl2-0.1m.hazards.note",
+          "prints": "1.10%",
+          "where": "Section 3, in the row for calcium chloride, with the CAS number of the anhydrous salt; water is the rest, at 98.9%. It is the figure 0.1 mol/L comes to when the salt is counted without water."
+        },
+        {
+          "field": "cacl2-0.1m.hazards.note",
+          "prints": "First aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: contact lenses are looked for and taken out, the eyes are flushed with water for 15 minutes or more, the upper and lower lids lifted from time to time, and medical attention is got at once. For the skin: contaminated clothing is taken off and the skin flushed with mild soap and water, with medical attention if it becomes irritated. For swallowing: a doctor or a poison centre is called at once, and vomiting is brought on only if medical staff say so. The precautionary statements of section 2 give the rinsing of the eyes as 15 minutes, with P305+P351+P338, and medical attention if the irritation lasts, with P337+P313. Section 8 says that safety glasses, goggles or a face shield, a laboratory coat or apron and gloves are to be worn, and that an eyewash and a safety shower are to be at hand."
+        },
+        {
+          "field": "cacl2-0.1m.hazards.note",
+          "prints": "Accidental release measures",
+          "where": "The heading of section 6. Under it, as an environmental precaution: runoff is to be kept from storm sewers and from ditches that lead to waterways. A spill is taken up with a dry inert material and put into a container for disposal, and the place washed. Section 13 says that its guidance is for small amounts, and that disposal is to follow the local, state and federal rules or go through a licensed agency for chemical disposal. Section 12 ends with a line that harm to the environment cannot be ruled out if the product is handled or disposed of carelessly. The note says the first of these in its own words and gives no method of disposal."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-cacl2",
+      "url": "https://www.fishersci.com/store/msds?partNumber=C614500&productDescription=CALCIUM+CHLORIDE+ANHYDROUS&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Calcium chloride, catalogue numbers C77 and C614; revision 6 of 18 December 2025 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "d02c0e19e52278d479124590faffeac1d4da44be64b0c71fe11ab2d66e5d10e8",
+      "supports": [
+        {
+          "field": "cacl2-0.1m.hazards.note",
+          "prints": "Calcium chloride",
+          "where": "Section 1, after the words Product Name, with the CAS number 10043-52-4, that of the anhydrous salt; the line of synonyms names it as anhydrous, in pellets and as a desiccant, and the catalogue numbers are C77 and C614 in several sizes. Section 9 calls it a solid: the sheet is for the solid, the same substance as the first supplier's sheet for the solid."
+        },
+        {
+          "field": "cacl2-0.1m.hazards.note",
+          "prints": "18-Dec-2025",
+          "where": "At the head of the sheet, after the words Revision Date, with Revision Number 6 beside it, and again on every page. The sheet says under its title that it is made to the hazard communication standard of the United States, in its form of 2024."
+        },
+        {
+          "field": "cacl2-0.1m.hazards.note",
+          "prints": "Warning",
+          "where": "Section 2, under the words Signal Word: the same as the first supplier's sheet for the solid."
+        },
+        {
+          "field": "cacl2-0.1m.hazards.note",
+          "prints": "May form combustible dust concentrations in air",
+          "where": "Section 2, the first of the two hazard statements, which the sheet prints without codes; the classification above it has a line Combustible dust, answered Yes. Section 5 of the same sheet says that the substance is non-combustible and does not itself burn. The note gives both, and says that the statement is of the dry solid. The second statement, Causes serious eye irritation, is the H319 of the first supplier's sheet for the solid. This sheet has no class for acute toxicity, where the first supplier's has H302: on swallowing the first supplier's is the stricter, and the bottle carries it."
+        },
+        {
+          "field": "cacl2-0.1m.hazards.note",
+          "prints": "6. Accidental release measures",
+          "where": "The heading of section 6. Under it, beside the label Environmental Precautions, the sheet says that the substance should not be let out into the environment. Section 13 says that whoever makes chemical waste must work out whether a discarded chemical counts as hazardous waste, and must look to the local, regional and national rules on it. The note gives no method of disposal. The label elements of section 2 say that contents and container go to an approved plant for waste disposal."
+        },
+        {
+          "field": "cacl2-0.1m.hazards.note",
+          "prints": "4. First-aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: they are rinsed at once with a great deal of water, under the eyelids as well, for 15 minutes or more, and medical attention is got. For the skin: it is washed at once with a great deal of water, for 15 minutes or more, with medical attention if symptoms come on. The note takes its first aid from the sheet for the solution and from NOAA's record, which ask as much."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-8382",
+      "url": "https://cameochemicals.noaa.gov/chemical/8382",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Calcium Chloride (chemical 8382); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "b8d218ed078c5bda67fc5dfa40b1d99de83576ecb590422cd6973a87183283b4",
+      "supports": [
+        {
+          "field": "cacl2-0.1m.hazards.note",
+          "prints": "CALCIUM CHLORIDE",
+          "where": "The page's title, under the words Chemical Datasheet. Its table of identifiers gives the CAS number 10043-52-4, that of the anhydrous salt. The foot of the page prints the version named in the citation and no date of its own; most fields name where their text is from. The page describes a white to off-white solid."
+        },
+        {
+          "field": "cacl2-0.1m.hazards.note",
+          "prints": "at least 15 min.",
+          "where": "The field First Aid, under EYES, a text the page credits to the United States Coast Guard, 1999: the eyes are flooded with water promptly and washed for this long, and an ophthalmologist is consulted. Under SKIN: it is flushed with water. Under Health Hazard the page says that the eyes are irritated, by the dust above all, with injury to the cornea that may pass; that the solid on dry skin irritates it mildly; and that strong solutions can irritate the skin markedly, to the point of a burn at the surface. The page has nothing under Non-Fire Response and no row in its table of the EPA's lists."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-281.05",
+      "url": "https://www.flinnsci.com/sds_281.05-copperii-chloride-dihydrate/sds_281.05",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Copper(II) Chloride Dihydrate, SDS number sds_281.05; revision date April 14, 2016 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "26ac1a79331c4aad11ada503d8d3ed9f44e6bbc847b25ee5366d29e3e11567c1",
+      "supports": [
+        {
+          "field": "cucl2-0.1m.classifiedAs",
+          "prints": "Copper(II) Chloride Dihydrate",
+          "where": "The sheet's title, before the words Safety Data Sheet: the substance the sheet is for, with no strength. Section 3 lists one component and no water, with nothing in its concentration column, so the sheet is for the substance itself and not for a solution of it. The heading over the bottle's statements calls that the pure substance; the sheet does not use the word."
+        },
+        {
+          "field": "cucl2-0.1m.classifiedAs",
+          "prints": "Copper (II) chloride dihydrate",
+          "where": "Section 3, the component's name, printed with that space, with the formula of the dihydrate and the formula weight 170.483 beside it. Section 9 describes a light blue-green solid, as powder or crystals. The heading over the bottle's statements says solid copper(II) chloride dihydrate. The supplier has a sheet for the anhydrous salt as well (sds_281, revised April 3, 2014, read the same day), which prints the signal word Warning and three statements: the H302 below, H315+H319 for irritation of the skin and the eyes, and H335 for irritation of the airways. The dihydrate's sheet is used: its signal word and its statement for the skin are the graver, and the supplier's sheet for the solution counts its copper(II) chloride as the dihydrate."
+        },
+        {
+          "field": "cucl2-0.1m.hazards",
+          "prints": "April 14, 2016",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.signalWord",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Danger, the form its schema has for the word."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.statements[0]",
+          "prints": "Harmful if swallowed (H302)",
+          "where": "Section 2, the first of the two hazard classes it lists: category 4, for acute toxicity by mouth. The record stores the sheet's own line, with its code or codes in front as printed, then a colon and the statement."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.statements[1]",
+          "prints": "Causes severe skin burns and eye damage (H314)",
+          "where": "Section 2, the last of the two hazard classes it lists: category 1, for corrosion or irritation of the skin. The section prints no other hazard code, and none for life in water. Beside the first class it prints one precautionary statement, with a code that begins with P: that is not a hazard statement and is not carried into the record."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-281.1",
+      "url": "https://www.flinnsci.com/sds_281.1-copperii-chloride-solution-0.99-m/sds_281.1",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Copper(II) Chloride Solution <0.99 M, SDS number sds_281.1; revision date April 14, 2016 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "4010449078c226443aa3bf7b0964527cc30448c7c23e85119cc59ec6db914958",
+      "supports": [
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "<0.99 M",
+          "where": "The sheet's title, after the words Copper(II) Chloride Solution: the strengths the sheet is for. The solution on the bench is 0.1 M, inside this range and far from its top, so the note rests on this sheet alone among the supplier's. The supplier's next sheet is for a 1 M solution (sds_281.11, revised April 14, 2016, read the same day): it prints Warning with H302 and H315+H319, and is not a source of the record."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "April 14, 2016",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "WARNING",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the note gives it as Warning."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "May be harmful if swallowed (H303)",
+          "where": "Section 2, the first of the two hazard classes it lists: category 5, for acute toxicity by mouth. The note gives the code and says the statement in the project's words."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "Causes skin and serious eye irritation (H315+H319)",
+          "where": "Section 2, the last of the two hazard classes it lists: categories 2 and 2A, for irritation of the skin and of the eyes, one statement under a pair of codes. The section prints no other hazard code, no precautionary statement and no other sentence."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "<16.8%>",
+          "where": "Section 3, the concentration column, printed so, in the row for copper(II) chloride dihydrate, formula weight 170.483; the row for water prints 98%, which does not add up with this figure. The sheet does not say on what basis the percentage is. Counted as the dihydrate, 0.1 mol/L is about 17 g in a litre, about 1.7 g in each 100 mL (worked out, not read here), inside the range on any reading. The note's 1.3% counts the salt without its water: about 13 g in a litre."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "SECTION 8 — EXPOSURE CONTROLS, PERSONAL PROTECTION",
+          "where": "The heading of section 8. Under it the sheet calls for eye protection, gloves and protective clothing, with the code P280, and for washing the hands after handling, with P264."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that; the sheet prints no code beside this, gives no number of minutes and has no line on medical advice for the eyes. For the skin it prints P302+P352, washing with plenty of water, and P332+P313, medical advice if irritation sets in. For swallowing: the mouth is rinsed and a poison centre or a doctor is called if the person feels unwell; the section's first line says the same of any exposure."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "SECTION 12 — ECOLOGICAL INFORMATION",
+          "where": "The heading of section 12. Under it the sheet has one line, that there is no data yet; the note says so. Section 13 has two lines: that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods (#26b) is one option. The note gives no method of disposal, this one or another. Section 6 says that a spill is held with sand or an absorbent and put into a closed bag or container. None of the three says anything of drains, of waterways or of the environment. Section 14 says that the solution is not regulated for transport, and section 15 that it is not listed."
+        }
+      ]
+    },
+    {
+      "id": "wards-sds-cc0506",
+      "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition/id_9d0258ae2bcb9efdaa9dc48c600e6be31f0d87eb/vid_9d0258ae2bcb9efdaa9dc48c600e6be31f0d87eb/prid_original/clid_SAPDAM",
+      "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Copper(II) Chloride, 0.1 Molar Solution, SDS No. CC0506; revision date July 29, 2024 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "27b7204b725ad73cabac59a36d7928f15be1b71663ebcb000d10cec9c7b6a0f4",
+      "supports": [
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "COPPER(II) CHLORIDE, 0.1 MOLAR SOLUTION",
+          "where": "The product named at the head of the sheet, whose number is SDS No. CC0506. The sheet carries the names of two suppliers of one company, Ward's Science and Boreal Science, and has English pages and then French ones; the English pages were read. It was read as the PDF served at the address above. It is a sheet for a solution of the strength on the bench."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "July 29, 2024",
+          "where": "At the foot of the last English page, after the words Revision Date; the sheet says that it takes the place of one of September 12, 2022."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "WARNING",
+          "where": "Section 2, after the words Signal word. The sheet prints it in capitals; the note gives it as Warning."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "H302: Harmful if swallowed.",
+          "where": "Section 2, the first of the four hazard statements; the class beside it is acute toxicity by mouth, category 4. The first supplier's sheet for its solution has category 5 for the same route, with H303. The note gives the code and says that this is the graver."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "H315: Causes skin irritation.",
+          "where": "Section 2, the second of the four hazard statements; the class is skin irritation, category 2, as in the first supplier's sheet."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "H319: Causes serious eye irritation.",
+          "where": "Section 2, the third of the four hazard statements; the class is eye irritation, category 2A, as in the first supplier's sheet."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "H410: Very toxic to aquatic life with long lasting effects.",
+          "where": "Section 2, the last of the four hazard statements; the classes beside it are acute and chronic toxicity to aquatic life, both category 1, and the sheet shows the pictogram GHS09 beside GHS07. The first supplier's sheet has no such class and says of ecology that it has no data. Section 12 of this sheet gives figures for copper chloride with a fish, a water flea and an alga, each under 1 mg/L. The note gives the code and says the statement in the project's words."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "1.7%",
+          "where": "Section 3, in the row for cupric chloride dihydrate; water is the rest, at 98.3%. It is the figure 0.1 mol/L comes to when the salt is counted as the dihydrate."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "P273: Avoid release to the environment.",
+          "where": "Section 2, among the precautionary statements. Among the others are P270, that nobody eats, drinks or smokes while using the product; P280, on gloves, clothing and protection of the eyes and face; P391, that spillage is collected; P362+P364, that contaminated clothing is taken off and washed; and P501, on disposal. Section 8 says that safety glasses, goggles or a face shield, a laboratory coat or apron and gloves are to be worn, and that an eyewash and a safety shower are to be at hand."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "First aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: contact lenses are looked for and taken out, the eyes are flushed with water for 15 minutes or more, the upper and lower lids lifted from time to time, and medical attention is got at once. For the skin: contaminated clothing is taken off and the skin flushed with mild soap and water, with medical attention if it becomes irritated. For swallowing: a doctor or a poison centre is called at once, and vomiting is brought on only if medical staff say so."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "Accidental release measures",
+          "where": "The heading of section 6. Under it, as an environmental precaution: runoff is to be kept from storm sewers and from ditches that lead to waterways. A spill is taken up with a dry inert material and put into a container for disposal, and the place washed. Section 13 says that its guidance is for small amounts, and that disposal is to follow the local, state and federal rules or go through a licensed agency for chemical disposal. Section 12 ends with a line that harm to the environment cannot be ruled out if the product is handled or disposed of carelessly. The note says the first of these in its own words and gives no method of disposal. Section 14 ships the solution as a substance hazardous to the environment and marks it a marine pollutant."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-cucl2-dihydrate",
+      "url": "https://www.fishersci.com/store/msds?partNumber=C455500&productDescription=CUPRIC+CHLORIDE+DIHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Copper(II) chloride dihydrate, catalogue number C455; revision 8 of 18 December 2025 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "cb4fec6183fc8e96790209e6d1aeb06b0dc8a317ea194630be2b98ee33e20504",
+      "supports": [
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "Copper(II) chloride dihydrate",
+          "where": "Section 1, after the words Product Name, with the CAS number 10125-13-0 and the catalogue number C455-500. Section 3 gives the dihydrate at over 95%, and section 9 calls it a blue-green solid: the sheet is for the solid, the same substance as the first supplier's sheet for the solid."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "18-Dec-2025",
+          "where": "At the head of the sheet, after the words Revision Date, with Revision Number 8 beside it, and again on every page. The sheet says under its title that it is made to the hazard communication standard of the United States, in its form of 2024."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "Danger",
+          "where": "Section 2, under the words Signal Word: the same as the first supplier's sheet for the solid."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "Very toxic to aquatic life with long lasting effects",
+          "where": "Section 2, under the heading for hazards not otherwise classified: the one line there. Section 12 says the same at more length and gives figures for cupric chloride with fish, a water flea and algae, all under 1 mg/L. The first supplier's sheet for the solid has no statement on life in water and says of ecology that it has no data. The note says that this sheet says the same of life in water as the second supplier's."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "Harmful if swallowed or in contact with skin",
+          "where": "Section 2, the last of the three hazard statements, which the sheet prints without codes; the classes are acute toxicity by mouth and through the skin, both category 4. The first supplier's sheet for the solid has the first half, as H302, and nothing for toxicity through the skin; the note says that this sheet adds it. The other two statements here are Causes skin irritation, in category 2, and Causes serious eye damage, in category 1: for the skin the first supplier's H314, severe burns, is the graver, and the bottle carries it."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "6. Accidental release measures",
+          "where": "The heading of section 6. Under it, beside the label Environmental Precautions, the sheet says that the substance is not to be flushed into surface water or the sanitary sewer, is not to reach ground water, is to be kept from drains, and should not be let out into the environment. Section 13 says that whoever makes chemical waste must work out whether a discarded chemical counts as hazardous waste, and must look to the local, regional and national rules on it. The note gives no method of disposal. The label elements of section 2 say that contents and container go to an approved plant for waste disposal."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "4. First-aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: they are rinsed at once with a great deal of water, under the eyelids as well, for 15 minutes or more, and medical attention is got. For the skin: it is washed at once with a great deal of water, for 15 minutes or more, and a doctor is called if irritation lasts. The note takes its first aid from the sheet for the solution and from NOAA's record, which ask as much."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-2988",
+      "url": "https://cameochemicals.noaa.gov/chemical/2988",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Copper Chloride (chemical 2988); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "141605e75385b3e8db08bc2af922fdfb8bc0f8d3ba9df293a2de09518daea729",
+      "supports": [
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "COPPER CHLORIDE",
+          "where": "The page's title, under the words Chemical Datasheet. Its table of identifiers gives the CAS number 7447-39-4, that of the anhydrous salt. The foot of the page prints the version named in the citation and no date of its own; most fields name where their text is from. Its description takes in the dihydrate, a green crystalline solid, and its list of other names has cupric chloride dihydrate."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "15 min.",
+          "where": "The field First Aid, under EYES, a text the page credits to the United States Coast Guard, 1999: the eyes are flushed with water for this long, and a doctor is consulted if the injury is from the solid. Under SKIN: it is flushed with water. Under Health Hazard the page says that contact with solutions irritates the eyes, and that the solid injures the surface of the eye severely and irritates the skin. For swallowing the same field tells the reader to bring on vomiting, which the first supplier's sheet for the solid forbids; the note says nothing of it."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "ERG Guide 154",
+          "where": "The field Non-Fire Response, a passage the page takes from this guide of the Emergency Response Guidebook, 2024. It says, among other things, that what is spilt is to be kept from getting into waterways, sewers, basements or closed spaces. The note gives the waterways and the sewers."
+        },
+        {
+          "field": "cucl2-0.1m.hazards.note",
+          "prints": "Copper Compounds",
+          "where": "The field Regulatory Information, in the table headed EPA Consolidated List of Lists: the first of two rows, with the category code N100 and the figure 313 in the column for EPCRA 313 (TRI). The second row is Cupric chloride, by its CAS number, with 10 pounds in the column CERCLA RQ. The page credits the table to the EPA List of Lists, 2024. The note says that the record shows copper compounds, and this chloride by name, on that list, and calls it a list of regulated chemicals, which is the project's description of it."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-621",
+      "url": "https://www.flinnsci.com/sds_621-potassium-chloride/sds_621",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Potassium Chloride, SDS number sds_621; revision date January 16, 2014 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "e9db68790947631fd9e0e9e5752c2531118d118a4c97f2222d09fc80891033cc",
+      "supports": [
+        {
+          "field": "kcl-0.1m.classifiedAs",
+          "prints": "Potassium Chloride",
+          "where": "The sheet's title, before the words Safety Data Sheet: the substance the sheet is for, with no strength. Section 3 lists one component and no water, with nothing in its concentration column, so the sheet is for the substance itself and not for a solution of it. The heading over the bottle's statements calls that the pure substance; the sheet does not use the word."
+        },
+        {
+          "field": "kcl-0.1m.classifiedAs",
+          "prints": "Colorless or white crystals",
+          "where": "Section 9, the first words of the description: the form the sheet is for. Section 3 gives the component as potassium chloride, KCl, formula weight 74.56, and section 5 calls the substance a solid. The heading over the bottle's statements says solid potassium chloride."
+        },
+        {
+          "field": "kcl-0.1m.hazards",
+          "prints": "January 16, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "kcl-0.1m.hazards.signalWord",
+          "prints": "WARNING",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Warning, the form its schema has for the word."
+        },
+        {
+          "field": "kcl-0.1m.hazards.statements[0]",
+          "prints": "May be harmful if swallowed (H303)",
+          "where": "Section 2, the one hazard class it lists: category 5, for acute toxicity by mouth. The record stores the sheet's own line, with its code or codes in front as printed, then a colon and the statement. The section prints no other hazard code, no precautionary statement and no other sentence."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-622",
+      "url": "https://www.flinnsci.com/sds_622-potassium-chloride-solution/sds_622",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Potassium Chloride Solution, SDS number sds_622; revision date January 16, 2014 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "8005961308b5f6f8db8fa6bb17736d07c93bac48065a2b79614bab07552a0aaa",
+      "supports": [
+        {
+          "field": "kcl-0.1m.hazards.note",
+          "prints": "Potassium Chloride Solution",
+          "where": "The sheet's title, before the words Safety Data Sheet: it names no strength, and the supplier lists no other sheet for a solution of potassium chloride. Whether it covers the solution on the bench is read from its table of composition, in a row below. The sheet prints no signal word: it has no line that begins Signal Word. Under the heading of section 2 it lists no hazard class, no hazard statement and no code, and has two sentences in their place: that the chemical is taken to be non-hazardous under the GHS classifications of a standard it names, with every laboratory chemical still to be treated with caution, and that reactions nobody foresaw can always happen, so careful practice is to be kept. The note says that the sheet prints neither a signal word nor a statement, and gives the first of those sentences in its own words without naming the standard."
+        },
+        {
+          "field": "kcl-0.1m.hazards.note",
+          "prints": "January 16, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read."
+        },
+        {
+          "field": "kcl-0.1m.hazards.note",
+          "prints": "1-4%",
+          "where": "Section 3, the concentration column, in the row for potassium chloride, formula weight 74.56; the row for water prints 96-99%. The sheet does not say on what basis the percentage is. 0.1 mol/L is about 7.5 g in a litre, about 0.75 g in each 100 mL and a little over 0.7% by mass (worked out, not read here): under the foot of this range. The note says that the supplier has no sheet for a solution this dilute and rests on this one, the nearest for a stronger solution; a solution weaker than the table's is not one the sheet would rate higher."
+        },
+        {
+          "field": "kcl-0.1m.hazards.note",
+          "prints": "SECTION 8 — EXPOSURE CONTROLS, PERSONAL PROTECTION",
+          "where": "The heading of section 8. Under it the sheet calls for eye protection, gloves and protective clothing, and for washing the hands after handling; it prints no code beside either."
+        },
+        {
+          "field": "kcl-0.1m.hazards.note",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that; the sheet prints no code beside this and gives no number of minutes. For the skin: it is washed with plenty of water. Neither is followed by a line on medical advice. The section's first line says that a poison centre or a doctor is called by anyone who feels unwell."
+        },
+        {
+          "field": "kcl-0.1m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet has two lines: that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods (#26b) is one option. The note gives no method of disposal, this one or another. Section 12, on ecology, has one line, that there is no data yet. Section 6 says that a spill is held with sand or an absorbent and put into a closed bag or container. None of the three says anything of drains, of waterways or of the environment."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-kcl",
+      "url": "https://www.fishersci.com/store/msds?partNumber=P217500&productDescription=POTASSIUM+CHLORIDE&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Potassium chloride, catalogue numbers P217, P330, P333, P335 and BP366; revision 9 of 18 December 2025 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "ab802cbd2e58d48ff7da428fe68088de28b84148f6d1401b41a08567000f47ce",
+      "supports": [
+        {
+          "field": "kcl-0.1m.hazards.note",
+          "prints": "Potassium chloride",
+          "where": "Section 1, after the words Product Name, with the CAS number 7447-40-7; the catalogue numbers are P217 and others, in several grades and sizes. Section 3 gives potassium chloride at over 95%: the sheet is for the solid, the same substance as the first supplier's sheet for the solid."
+        },
+        {
+          "field": "kcl-0.1m.hazards.note",
+          "prints": "18-Dec-2025",
+          "where": "At the head of the sheet, after the words Revision Date, with Revision Number 9 beside it, and again on every page. The sheet says under its title that it is made to the hazard communication standard of the United States, in its form of 2024."
+        },
+        {
+          "field": "kcl-0.1m.hazards.note",
+          "prints": "None required",
+          "where": "Section 2, under the words Label Elements: the sheet prints no signal word and no hazard statement, and says above this that the product is not taken to be hazardous under the standard it is made to. The first supplier's sheet for the solid has Warning and H303: on the classification the first supplier's is the stricter, and the bottle carries it. Section 11 of this sheet says all the same that the substance may be harmful if swallowed and may irritate."
+        },
+        {
+          "field": "kcl-0.1m.hazards.note",
+          "prints": "4. First-aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: they are rinsed at once with a great deal of water, under the eyelids as well, for 15 minutes or more, and medical attention is got. For the skin: it is washed at once with a great deal of water, for 15 minutes or more, with medical attention at once if symptoms come on. The first supplier's sheets give several minutes for the eyes and no number for the skin; the note gives these figures as the stricter."
+        },
+        {
+          "field": "kcl-0.1m.hazards.note",
+          "prints": "6. Accidental release measures",
+          "where": "The heading of section 6. Under it, beside the label Environmental Precautions, the sheet says that the substance should not be let out into the environment. Section 13 says that whoever makes chemical waste must work out whether a discarded chemical counts as hazardous waste, and must look to the local, regional and national rules on it. The note gives no method of disposal."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-20948",
+      "url": "https://cameochemicals.noaa.gov/chemical/20948",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Potassium Chloride (chemical 20948); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "b5d43b1e4d3d1a69cdd95b026e9605138977b3b8d7039c75248c737b8bddae61",
+      "supports": [
+        {
+          "field": "kcl-0.1m.hazards.note",
+          "prints": "POTASSIUM CHLORIDE",
+          "where": "The page's title, under the words Chemical Datasheet. Its table of identifiers gives the CAS number 7447-40-7. The foot of the page prints the version named in the citation and no date of its own; most fields name where their text is from. The page describes white or colourless crystals: it is about the solid chemical, not a solution of it."
+        },
+        {
+          "field": "kcl-0.1m.hazards.note",
+          "prints": "20 to 30 minutes",
+          "where": "The field First Aid, under EYES, a text the page credits to the National Toxicology Program, 1992: contact lenses are looked for and taken out, the eyes are flushed with water or with saline for this long while a hospital or a poison centre is called, and the person is taken to hospital afterwards even if nothing shows. Under SKIN: the skin is flooded with water at once while contaminated clothing is taken off and set apart, then washed with soap and water, and a doctor is called if redness or irritation comes on."
+        },
+        {
+          "field": "kcl-0.1m.hazards.note",
+          "prints": "Health Hazard",
+          "where": "The name of the field, a text the page credits to the National Toxicology Program, 1992. It says that large doses by mouth usually bring on vomiting, so that poisoning that way is rare; that large doses can irritate the gut and weaken the circulation; and that poisoning upsets the rhythm of the heart. The note gives the gut and the heartbeat. The page has no row in its table of the EPA's lists, and its field Non-Fire Response gives the handling of a small spill, with nothing on drains or waterways."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-721",
+      "url": "https://www.flinnsci.com/sds_721-sodium-chloride/sds_721",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Chloride, SDS number sds_721; revision date February 6, 2014 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "9176b22f424fb35a6a2256ed09ae72415ea779af9f7d5e0a9530bf3c155cf1eb",
+      "supports": [
+        {
+          "field": "nacl-0.1m.classifiedAs",
+          "prints": "Sodium Chloride",
+          "where": "The sheet's title, before the words Safety Data Sheet: the substance the sheet is for, with no strength. Section 3 lists one component and no water, with nothing in its concentration column, so the sheet is for the substance itself and not for a solution of it. The heading over the bottle's statements calls that the pure substance; the sheet does not use the word."
+        },
+        {
+          "field": "nacl-0.1m.classifiedAs",
+          "prints": "White crystalline powder",
+          "where": "Section 9, the first words of the description: the form the sheet is for. Section 3 gives the component as sodium chloride, NaCl, formula weight 58.45, and section 5 calls the substance a solid. The heading over the bottle's statements says solid sodium chloride."
+        },
+        {
+          "field": "nacl-0.1m.hazards",
+          "prints": "February 6, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "nacl-0.1m.hazards.signalWord",
+          "prints": "WARNING",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Warning, the form its schema has for the word."
+        },
+        {
+          "field": "nacl-0.1m.hazards.statements[0]",
+          "prints": "May be harmful if swallowed (H303)",
+          "where": "Section 2, the one hazard class it lists: category 5, for acute toxicity by mouth. The record stores the sheet's own line, with its code or codes in front as printed, then a colon and the statement. The section prints no other hazard code and no precautionary statement. It has one more sentence, that the product counts as a chemical and not as food, having been kept with chemicals that are not of food grade; that is not a hazard statement and is not carried into the record."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-722",
+      "url": "https://www.flinnsci.com/sds_722-sodium-chloride-solution/sds_722",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Chloride Solution, SDS number sds_722; revision date March 16, 2016 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "5ef92e0cda91868fc68d142ced63ae1ff1577c2bb5eb17e16f9a4ca54ea630bf",
+      "supports": [
+        {
+          "field": "nacl-0.1m.hazards.note",
+          "prints": "Sodium Chloride Solution",
+          "where": "The sheet's title, before the words Safety Data Sheet: it names no strength. The supplier's list has one other sheet with sodium chloride solution in its title, for a solution with an indicator in it (sds_839.05), which is not the solution on this bench and was not read. Whether this sheet covers the solution on the bench is read from its table of composition, in a row below. The sheet prints no signal word: it has no line that begins Signal Word. Under the heading of section 2 it lists no hazard class, no hazard statement and no code, and has two sentences in their place: that the chemical is taken to be non-hazardous under the GHS classifications of a standard it names, with every laboratory chemical still to be treated with caution, and that reactions nobody foresaw can always happen, so careful practice is to be kept. The note says that the sheet prints neither a signal word nor a statement, and gives the first of those sentences in its own words without naming the standard. The section has a third sentence, that the product counts as a chemical and not as food, having been kept with chemicals that are not of food grade; the note says that in its own words."
+        },
+        {
+          "field": "nacl-0.1m.hazards.note",
+          "prints": "March 16, 2016",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read."
+        },
+        {
+          "field": "nacl-0.1m.hazards.note",
+          "prints": "0.6-20%",
+          "where": "Section 3, the concentration column, in the row for sodium chloride, formula weight 58.45; the row for water prints 80-99%. The sheet does not say on what basis the percentage is. 0.1 mol/L is about 5.8 g in a litre, 0.58 g in each 100 mL (worked out, not read here), which is 0.6% to the one figure the table prints. The note takes the solution on the bench to be at the foot of this range and the sheet to cover it; a solution a shade under the range is not one the sheet would rate higher."
+        },
+        {
+          "field": "nacl-0.1m.hazards.note",
+          "prints": "SECTION 8 — EXPOSURE CONTROLS, PERSONAL PROTECTION",
+          "where": "The heading of section 8. Under it the sheet calls for eye protection, gloves and protective clothing, and for washing the hands after handling; it prints no code beside either."
+        },
+        {
+          "field": "nacl-0.1m.hazards.note",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that; the sheet prints no code beside this and gives no number of minutes. For the skin: it is washed with plenty of water. Neither is followed by a line on medical advice. The section's first line says that a poison centre or a doctor is called by anyone who feels unwell."
+        },
+        {
+          "field": "nacl-0.1m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet has two lines: that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods (#26b) is one option. The note gives no method of disposal, this one or another. Section 12, on ecology, has one line, that there is no data yet. Section 6 says that a spill is held with sand or an absorbent and put into a closed bag or container. None of the three says anything of drains, of waterways or of the environment."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-nacl",
+      "url": "https://www.fishersci.com/store/msds?partNumber=S271500&productDescription=SODIUM+CHLORIDE&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Sodium chloride, catalogue number S271; revision 8 of 18 December 2025 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "f8d017aadb77ee9a18c9e0cb3e2a76ccc924404a6b8be51673e478ef8dc5da93",
+      "supports": [
+        {
+          "field": "nacl-0.1m.hazards.note",
+          "prints": "Sodium chloride",
+          "where": "Section 1, after the words Product Name, with the CAS number 7647-14-5; the catalogue number is S271, in several sizes. Section 3 gives sodium chloride at over 95%: the sheet is for the solid, the same substance as the first supplier's sheet for the solid."
+        },
+        {
+          "field": "nacl-0.1m.hazards.note",
+          "prints": "18-Dec-2025",
+          "where": "At the head of the sheet, after the words Revision Date, with Revision Number 8 beside it, and again on every page. The sheet says under its title that it is made to the hazard communication standard of the United States, in its form of 2024."
+        },
+        {
+          "field": "nacl-0.1m.hazards.note",
+          "prints": "None required",
+          "where": "Section 2, under the words Label Elements: the sheet prints no signal word and no hazard statement, and says above this that the product is not taken to be hazardous under the standard it is made to. The first supplier's sheet for the solid has Warning and H303: on the classification the first supplier's is the stricter, and the bottle carries it."
+        },
+        {
+          "field": "nacl-0.1m.hazards.note",
+          "prints": "4. First-aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: they are rinsed at once with a great deal of water, under the eyelids as well, for 15 minutes or more, and medical attention is got. For the skin: it is washed at once with a great deal of water, for 15 minutes or more, with medical attention at once if symptoms come on. The first supplier's sheets give several minutes for the eyes and no number for the skin; the note gives these figures as the stricter. This is the sheet the note means by the one that asks 15 minutes for the skin as well."
+        },
+        {
+          "field": "nacl-0.1m.hazards.note",
+          "prints": "12. Ecological information",
+          "where": "The heading of section 12. Under it, beside the label Ecotoxicity, the sheet says that the substance is not to be emptied into drains; a table of figures for a fish and a water flea follows, the lower of them 1000 mg/L. In section 6, beside the label Environmental Precautions, the sheet says that the substance should not be let out into the environment. Section 13 says that whoever makes chemical waste must work out whether a discarded chemical counts as hazardous waste, and must look to the local, regional and national rules on it. The note gives no method of disposal. This is the sheet the note means by the one of the two that speaks of drains and the environment."
+        }
+      ]
+    },
+    {
+      "id": "wards-sds-ss0450",
+      "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=bfe6a4ee099940279a81ed7610dc8a9c104cb5ff&vid=bfe6a4ee099940279a81ed7610dc8a9c104cb5ff&prid=original&clid=SAPDAM",
+      "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Sodium Chloride, SDS No. SS0450; revision date October 29, 2024 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "a653e9058600b1c57145e390c59309cca999a080ddcecdc07a1a8f3b23bc16f5",
+      "supports": [
+        {
+          "field": "nacl-0.1m.hazards.note",
+          "prints": "SODIUM CHLORIDE",
+          "where": "The product named at the head of the sheet, whose number is SDS No. SS0450. The sheet carries the names of two suppliers of one company, Ward's Science and Boreal Science, and has English pages and then French ones; the English pages were read. It was read as the PDF served at the address above. The address is the one a product page of the supplier gives for a sodium chloride solution in its catalogue, but the sheet is for sodium chloride itself: section 3 gives it at 100%, and section 9 describes white crystals. The same supplier's sheet for a 0.1 M solution of sodium chloride could not be read: the address a search gave for it now returns an empty page, and no other was found."
+        },
+        {
+          "field": "nacl-0.1m.hazards.note",
+          "prints": "October 29, 2024",
+          "where": "At the foot of the last English page, after the words Revision Date; the sheet says that it takes the place of one of November 11, 2022."
+        },
+        {
+          "field": "nacl-0.1m.hazards.note",
+          "prints": "Not classified",
+          "where": "Section 2, after the words Signal word, and again after the labels for the pictograms, the classification and the hazard statements: the sheet says that the substance has not been classed as hazardous under the Globally Harmonized System. The first supplier's sheet for the solid has Warning and H303: on the classification the first supplier's is the stricter, and the bottle carries it."
+        },
+        {
+          "field": "nacl-0.1m.hazards.note",
+          "prints": "First aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: contact lenses are looked for and taken out, the eyes are flushed with water for 15 minutes or more, the upper and lower lids lifted from time to time, and medical attention is got at once. For the skin: contaminated clothing is taken off and the skin flushed with mild soap and water, with medical attention if it becomes irritated. For swallowing: a doctor or a poison centre is called at once, and vomiting is brought on only if medical staff say so. The first supplier's sheets give several minutes for the eyes; the note gives the 15 minutes as the stricter."
+        },
+        {
+          "field": "nacl-0.1m.hazards.note",
+          "prints": "Accidental release measures",
+          "where": "The heading of section 6. Under it, as an environmental precaution: runoff is to be kept from storm sewers and from ditches that lead to waterways. A spill of the solid is swept or vacuumed up and put into a container for disposal, and the place washed. Section 13 says that its guidance is for small amounts, and that disposal is to follow the local, state and federal rules or go through a licensed agency for chemical disposal. The note says the first of these in its own words and gives no method of disposal. This is the sheet the note means by the other of the two."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-784",
+      "url": "https://www.flinnsci.com/sds_784-strontium-chloride/sds_784",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Strontium Chloride, SDS number sds_784; revision date October 19, 2015 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "60ac70fbb0f2384664d1a3cf9f77c14d1ddf0e04792df1083aabc090e0994522",
+      "supports": [
+        {
+          "field": "srcl2-0.1m.classifiedAs",
+          "prints": "Strontium Chloride",
+          "where": "The sheet's title, before the words Safety Data Sheet: the substance the sheet is for, with no strength. Section 3 lists one component and no water, with nothing in its concentration column, so the sheet is for the substance itself and not for a solution of it. The heading over the bottle's statements calls that the pure substance; the sheet does not use the word."
+        },
+        {
+          "field": "srcl2-0.1m.classifiedAs",
+          "prints": "SrCl2•6H2O",
+          "where": "Section 3, the formula column, in the row of the one component, which the sheet names strontium chloride, with the formula weight 266.64 and the CAS number 10025-70-4: the sheet is for the hexahydrate. Section 9 describes white crystalline needles. The heading over the bottle's statements says solid strontium chloride hexahydrate. The supplier lists no separate sheet for the anhydrous salt."
+        },
+        {
+          "field": "srcl2-0.1m.hazards",
+          "prints": "October 19, 2015",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "srcl2-0.1m.hazards.signalWord",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Danger, the form its schema has for the word."
+        },
+        {
+          "field": "srcl2-0.1m.hazards.statements[0]",
+          "prints": "Causes serious eye damage (H318)",
+          "where": "Section 2, the one hazard class it lists: category 1, for serious damage to the eyes. The record stores the sheet's own line, with its code or codes in front as printed, then a colon and the statement. The section prints no other hazard code, no precautionary statement and no other sentence."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-785",
+      "url": "https://www.flinnsci.com/sds_785-strontium-chloride-solution/sds_785",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Strontium Chloride Solution, SDS number sds_785; revision date January 16, 2014 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "3a19b5ece4989d81f15078de789ca4a0bf49f9d729ba53db58f8f998d9eccab4",
+      "supports": [
+        {
+          "field": "srcl2-0.1m.hazards.note",
+          "prints": "Strontium Chloride Solution",
+          "where": "The sheet's title, before the words Safety Data Sheet: it names no strength, and the supplier lists no other sheet for a solution of strontium chloride. Whether it covers the solution on the bench is read from its table of composition, in a row below. The sheet prints no signal word: it has no line that begins Signal Word. Under the heading of section 2 it lists no hazard class, no hazard statement and no code, and has two sentences in their place: that the chemical is taken to be non-hazardous under the GHS classifications of a standard it names, with every laboratory chemical still to be treated with caution, and that reactions nobody foresaw can always happen, so careful practice is to be kept. The note says that the sheet prints neither a signal word nor a statement, and gives the first of those sentences in its own words without naming the standard."
+        },
+        {
+          "field": "srcl2-0.1m.hazards.note",
+          "prints": "January 16, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read."
+        },
+        {
+          "field": "srcl2-0.1m.hazards.note",
+          "prints": "3-27%",
+          "where": "Section 3, the concentration column, in the row for strontium chloride, which the formula column gives as the hexahydrate, formula weight 266.64; the row for water prints 73-97%. The CAS number in the row, 10025-74-0, is not the one the supplier's sheet for the solid prints for the same formula, 10025-70-4. The sheet does not say on what basis the percentage is. Counted as the hexahydrate, 0.1 mol/L is about 26.7 g in a litre, about 2.7 g in each 100 mL (worked out, not read here): under the foot of this range. The note says that the supplier has no sheet for a solution this dilute and rests on this one, the nearest for a stronger solution; a solution weaker than the table's is not one the sheet would rate higher. The note's 1.6% counts the salt without its water: about 16 g in a litre."
+        },
+        {
+          "field": "srcl2-0.1m.hazards.note",
+          "prints": "SECTION 8 — EXPOSURE CONTROLS, PERSONAL PROTECTION",
+          "where": "The heading of section 8. Under it the sheet calls for eye protection, gloves and protective clothing, and for washing the hands after handling; it prints no code beside either."
+        },
+        {
+          "field": "srcl2-0.1m.hazards.note",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that; the sheet prints no code beside this and gives no number of minutes. For the skin: it is washed with plenty of water. Neither is followed by a line on medical advice. The section's first line says that a poison centre or a doctor is called by anyone who feels unwell."
+        },
+        {
+          "field": "srcl2-0.1m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet has two lines: that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods (#26b) is one option. The note gives no method of disposal, this one or another. Section 12, on ecology, has one line, that there is no data yet. Section 6 says that a spill is held with sand or an absorbent and put into a closed bag or container. None of the three says anything of drains, of waterways or of the environment."
+        }
+      ]
+    },
+    {
+      "id": "wards-sds-ss0991",
+      "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition/id_be7ae479961958567cd2c06e0510be553926a970/vid_be7ae479961958567cd2c06e0510be553926a970/prid_original/clid_SAPDAM",
+      "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Strontium Chloride, 0.1 Molar Solution, SDS No. SS0991; revision date November 7, 2024 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "c7c35027703415ddb2efe9c63f5929d0ea268af5d00ac61dc1c1696fb6e23159",
+      "supports": [
+        {
+          "field": "srcl2-0.1m.hazards.note",
+          "prints": "STRONTIUM CHLORIDE, 0.1 MOLAR SOLUTION",
+          "where": "The product named at the head of the sheet, whose number is SDS No. SS0991. The sheet carries the names of two suppliers of one company, Ward's Science and Boreal Science, and has English pages and then French ones; the English pages were read. It was read as the PDF served at the address above. It is a sheet for a solution of the strength on the bench."
+        },
+        {
+          "field": "srcl2-0.1m.hazards.note",
+          "prints": "November 7, 2024",
+          "where": "At the foot of the last English page, after the words Revision Date; the sheet says that it takes the place of one of November 15, 2022."
+        },
+        {
+          "field": "srcl2-0.1m.hazards.note",
+          "prints": "WARNING",
+          "where": "Section 2, after the words Signal word. The sheet prints it in capitals; the note gives it as Warning."
+        },
+        {
+          "field": "srcl2-0.1m.hazards.note",
+          "prints": "H320: Causes eye irritation.",
+          "where": "Section 2, the one hazard statement; the class beside it is eye irritation, category 2B, and the sheet says that no pictogram is needed. The first supplier's sheet for its solution prints no class and no statement. Section 11 gives a result for strontium chloride in the eyes of rabbits, a severe irritant. The note gives the code and says the statement in the project's words."
+        },
+        {
+          "field": "srcl2-0.1m.hazards.note",
+          "prints": "2.67%",
+          "where": "Section 3, in the row for strontium chloride, with the CAS number of the hexahydrate; water is the rest, at 97.33%. It is the figure 0.1 mol/L comes to when the salt is counted as the hexahydrate."
+        },
+        {
+          "field": "srcl2-0.1m.hazards.note",
+          "prints": "First aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: contact lenses are looked for and taken out, the eyes are flushed with water for 15 minutes or more, the upper and lower lids lifted from time to time, and medical attention is got at once. For the skin: contaminated clothing is taken off and the skin flushed with mild soap and water, with medical attention if it becomes irritated. For swallowing: a doctor or a poison centre is called at once, and vomiting is brought on only if medical staff say so. The precautionary statements of section 2 give the rinsing of the eyes as 15 minutes, with P305+P351+P338, and medical attention if the irritation lasts, with P337+P313. Section 8 says that safety glasses, goggles or a face shield, a laboratory coat or apron and gloves are to be worn, and that an eyewash and a safety shower are to be at hand."
+        },
+        {
+          "field": "srcl2-0.1m.hazards.note",
+          "prints": "Accidental release measures",
+          "where": "The heading of section 6. Under it, as an environmental precaution: runoff is to be kept from storm sewers and from ditches that lead to waterways. A spill is taken up with a dry inert material and put into a container for disposal, and the place washed. Section 13 says that its guidance is for small amounts, and that disposal is to follow the local, state and federal rules or go through a licensed agency for chemical disposal. Section 12 ends with a line that harm to the environment cannot be ruled out if the product is handled or disposed of carelessly. The note says the first of these in its own words and gives no method of disposal."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-srcl2-hexahydrate",
+      "url": "https://www.fishersci.com/store/msds?partNumber=S541500&productDescription=STRONTIUM+CHLORIDE+HEXAHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Strontium chloride hexahydrate, catalogue number S541; revision 6 of 18 December 2025 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "a45003780f7a1b7fc2384a37095b4322fa23129be51ea77bf7344dab2a6e944d",
+      "supports": [
+        {
+          "field": "srcl2-0.1m.hazards.note",
+          "prints": "Strontium chloride hexahydrate",
+          "where": "Section 1, after the words Product Name, with the CAS number 10025-70-4 and the catalogue number S541-500. Section 3 gives the hexahydrate at over 95%, and section 9 calls it a white solid: the sheet is for the solid, the same substance as the first supplier's sheet for the solid."
+        },
+        {
+          "field": "srcl2-0.1m.hazards.note",
+          "prints": "18-Dec-2025",
+          "where": "At the head of the sheet, after the words Revision Date, with Revision Number 6 beside it, and again on every page. The sheet says under its title that it is made to the hazard communication standard of the United States, in its form of 2024."
+        },
+        {
+          "field": "srcl2-0.1m.hazards.note",
+          "prints": "Danger",
+          "where": "Section 2, under the words Signal Word: the same as the first supplier's sheet for the solid."
+        },
+        {
+          "field": "srcl2-0.1m.hazards.note",
+          "prints": "May cause respiratory irritation",
+          "where": "Section 2, the second of the two hazard statements, which the sheet prints without codes; the class is specific target organ toxicity after one exposure, category 3, with the respiratory system as the target. The first statement, Causes serious eye damage, in category 1, is the H318 of the first supplier's sheet for the solid. The first supplier's sheet has no statement for the airways. The note says that this sheet adds one."
+        },
+        {
+          "field": "srcl2-0.1m.hazards.note",
+          "prints": "12. Ecological information",
+          "where": "The heading of section 12. Under it, beside the label Ecotoxicity, the sheet says that the substance is not to be emptied into drains, and gives no figures. In section 6, beside the label Environmental Precautions, the sheet says that the substance should not be let out into the environment. Section 13 says that whoever makes chemical waste must work out whether a discarded chemical counts as hazardous waste, and must look to the local, regional and national rules on it. The note gives no method of disposal. The label elements of section 2 say that contents and container go to an approved plant for waste disposal."
+        },
+        {
+          "field": "srcl2-0.1m.hazards.note",
+          "prints": "4. First-aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: they are rinsed at once with a great deal of water, under the eyelids as well, for 15 minutes or more, and medical attention is got. For the skin: it is washed at once with a great deal of water, for 15 minutes or more, and a doctor is called if irritation lasts. The note takes its first aid from the sheet for the solution, which asks as much."
+        }
+      ]
+    }
+  ]
+}
