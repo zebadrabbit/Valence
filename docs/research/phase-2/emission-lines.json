@@ -73,37 +73,41 @@
     {
       "symbol": "Xe",
       "sourceId": "nist-asd-lines-xe",
+      "superseded": {
+        "on": "2026-10-08",
+        "correction": "These six lines are no longer shown. They were picked by hand on 2026-10-03 as the six strongest by NIST's relative intensity, and the sentence below said so. They are in fact the six with the largest transition probability, the column Aki (s^-1) that stands next to the relative intensity in NIST's table: the six numbers recorded here, 1.91e+06 to 5.83e+06, are transition probabilities, and until 2026-10-08 this file named them relativeIntensityAsPublished. Two of the six, at 467.12258 and 462.42756 nm, have no relative intensity in NIST's table at all. This was found on 2026-10-08, when one rule was applied to every element from saved copies of NIST's responses (docs/research/emission-spectra/). Since that day xenon's lines are the ones that rule picks, by relative intensity, on the periodic table and in the molecule explorer alike. The entry is kept as the record of what was shown before; the build reads nothing from it but this mark."
+      },
       "selection": "The six strongest lines of the neutral atom between 400 and 700 nm, by the relative intensity NIST lists. NIST lists several hundred xenon lines, and a real lamp also shows lines of the xenon ion.",
       "lines": [
         {
           "wavelengthNm": 697.6182,
           "valueAsPublished": "697.6182",
-          "relativeIntensityAsPublished": "1.91e+06"
+          "transitionProbabilityAsPublished": "1.91e+06"
         },
         {
           "wavelengthNm": 688.2155,
           "valueAsPublished": "688.2155",
-          "relativeIntensityAsPublished": "5.83e+06"
+          "transitionProbabilityAsPublished": "5.83e+06"
         },
         {
           "wavelengthNm": 491.6507,
           "valueAsPublished": "491.6507",
-          "relativeIntensityAsPublished": "1.6e+06"
+          "transitionProbabilityAsPublished": "1.6e+06"
         },
         {
           "wavelengthNm": 480.7019,
           "valueAsPublished": "480.70190",
-          "relativeIntensityAsPublished": "4.29e+06"
+          "transitionProbabilityAsPublished": "4.29e+06"
         },
         {
           "wavelengthNm": 467.12258,
           "valueAsPublished": "467.12258",
-          "relativeIntensityAsPublished": "2.49e+06"
+          "transitionProbabilityAsPublished": "2.49e+06"
         },
         {
           "wavelengthNm": 462.42756,
           "valueAsPublished": "462.42756",
-          "relativeIntensityAsPublished": "2.42e+06"
+          "transitionProbabilityAsPublished": "2.42e+06"
         }
       ]
     }

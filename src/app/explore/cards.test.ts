@@ -70,9 +70,14 @@ describe('emission spectrum', () => {
     for (const id of EMISSION_SCOPE_NOTE.sourceIds) expect(html).toContain(registry.sources.find((s) => s.id === id)!.citation.replaceAll("'", '&#x27;'))
   })
 
-  it('shows xenon its lines without transitions', () => {
+  it('shows xenon the lines the rule picks, without transitions, and says which they are', () => {
     const html = card('xenon-tetrafluoride', 'Xe')
-    expect(html).toContain('480.70190 nm')
+    for (const published of ['631.8062', '492.3152', '491.6507', '482.9708', '480.70190', '473.41518']) expect(html).toContain(`${published} nm`)
+    // The six that were chosen by transition probability, and the sentence that called them the strongest by relative intensity, are gone.
+    for (const published of ['697.6182', '688.2155', '467.12258', '462.42756']) expect(html).not.toContain(published)
+    expect(html).not.toContain('by the relative intensity NIST lists')
+    expect(html).toContain('Lines shown: The six strongest of the 291 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.')
+    expect(html).toContain('Lines Data for the neutral atom of each element')
     expect(html).not.toContain('Electron falls')
   })
 

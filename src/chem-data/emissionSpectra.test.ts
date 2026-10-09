@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import manifest from '../../docs/research/emission-spectra/sources/MANIFEST.json'
+import record from '../../docs/research/phase-2/emission-lines.json'
 import { emissionSpectra, spectrumOf } from './emissionSpectra'
 import { periodicTable } from './periodic'
 import { registry } from './registry'
@@ -40,7 +41,7 @@ const institutionNames = Object.values(local).flat()
 
 const LINES_ID = 'nist-asd-lines-neutral'
 // Written by hand in docs/research/phase-2/emission-lines.json, and kept as they were.
-const BY_HAND = ['H', 'Na', 'Xe']
+const BY_HAND = ['H', 'Na']
 const drawn = emissionSpectra.flatMap((entry) => ('emission' in entry ? [entry] : []))
 const undrawn = emissionSpectra.flatMap((entry) => ('none' in entry ? [entry] : []))
 const byRule = drawn.filter((entry) => !BY_HAND.includes(entry.symbol))
@@ -112,8 +113,8 @@ describe('emission-spectra.json', () => {
     }
   })
 
-  it('holds, for every element but the three written by hand, the lines the rule picks from its saved response', () => {
-    expect(byRule.length).toBe(94)
+  it('holds, for every element but the two written by hand, the lines the rule picks from its saved response', () => {
+    expect(byRule.length).toBe(95)
     for (const { symbol, emission } of byRule) {
       // The rule, worked out here without the library: the largest number each wavelength's intensity starts with,
       // the six largest of those, and every line that is no weaker than the sixth.
@@ -150,12 +151,12 @@ describe('emission-spectra.json', () => {
   })
 })
 
-describe('the three spectra written by hand', () => {
+describe('the spectra of the three elements the molecule explorer also shows', () => {
   it('are in the file as they are in the curated record of the element, to the letter', () => {
-    for (const symbol of BY_HAND) expect(emissionOf(symbol)).toEqual(registry.elements.find((e) => e.symbol === symbol)!.emission)
+    for (const symbol of ['H', 'Na', 'Xe']) expect(emissionOf(symbol)).toEqual(registry.elements.find((e) => e.symbol === symbol)!.emission)
   })
 
-  it('keeps hydrogen and sodium as they were', () => {
+  it('keeps hydrogen and sodium as they were written by hand', () => {
     expect(emissionOf('H')).toEqual({
       selection: 'All four Balmer lines between 400 and 700 nm.',
       lines: [
@@ -175,42 +176,68 @@ describe('the three spectra written by hand', () => {
     })
   })
 
-  it("keeps xenon's six as they were", () => {
-    expect(emissionOf('Xe').lines).toEqual(
-      [
-        [697.6182, '697.6182'],
-        [688.2155, '688.2155'],
-        [491.6507, '491.6507'],
-        [480.7019, '480.70190'],
-        [467.12258, '467.12258'],
-        [462.42756, '462.42756'],
-      ].map(([value, published]) => ({ value, sourceId: 'nist-asd-lines-xe', published })),
-    )
-  })
-
   it("would give hydrogen the same four lines by the rule: they are the only ones NIST gives an intensity", () => {
     const { shown } = strongestLines(observedLines(parseNistLines(saved('H', 'neutral-visible')!)!))
     expect(shown.map((line) => line.published)).toEqual(emissionOf('H').lines.map((line) => line.published))
   })
 
-  // Found when the responses were saved (docs/research/emission-spectra/README.md). The sentence stored with
-  // xenon says its six are the strongest by relative intensity. In the saved response they are not: they are the
-  // six with the largest transition probabilities, the next column of NIST's table, and two of them have no
-  // relative intensity at all. Neither the six nor the rule was changed to fit the other; the owner decides.
-  it("does not get xenon's six from the rule: they are the six of largest transition probability, not of largest relative intensity", () => {
-    const stored = emissionOf('Xe').lines.map((line) => line.published)
-    const byIntensity = strongestLines(observedLines(parseNistLines(saved('Xe', 'neutral-visible')!)!)).shown.map((line) => line.published)
-    expect(byIntensity).toEqual(['631.8062', '492.3152', '491.6507', '482.9708', '480.70190', '473.41518'])
-    expect(stored.filter((published) => byIntensity.includes(published!))).toEqual(['491.6507', '480.70190'])
+  // Xenon's first six were chosen by hand and were not what their sentence said (docs/research/emission-spectra/
+  // README.md). Since 2026-10-08 its lines are the rule's, like every other element's, in both places.
+  it("holds xenon to the rule: the six of largest relative intensity in NIST's saved response", () => {
+    expect(emissionOf('Xe')).toEqual({
+      selection: 'The six strongest of the 291 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST lists 44 more lines there with no intensity, and they are not shown.',
+      note: OVERLAP_NOTE,
+      lines: [
+        [631.8062, '631.8062'],
+        [492.3152, '492.3152'],
+        [491.6507, '491.6507'],
+        [482.9708, '482.9708'],
+        [480.7019, '480.70190'],
+        [473.41518, '473.41518'],
+      ].map(([value, published]) => ({ value, sourceId: LINES_ID, published })),
+    })
+    // What NIST prints for each of them: one line at 600, four at 500 and one at 400, and nothing ties with the sixth.
+    const intensity = new Map(cells(saved('Xe', 'neutral-visible')!).map((cell) => [cell.published, cell.intensity]))
+    expect(emissionOf('Xe').lines.map((line) => intensity.get(line.published!))).toEqual(['500', '500', '500', '400', '500', '600'])
+    expect([...intensity.values()].filter((text) => Number.parseFloat(text) >= 400).length).toBe(6)
+  })
 
-    const rows = parseNistLines(saved('Xe', 'neutral-visible')!)!
-    const byProbability = rows
-      .filter((row) => row['Aki(s^-1)'] !== '')
+  it('no longer shows the two xenon lines that NIST gives no relative intensity, or cites the page the first six were read from', () => {
+    const published = emissionOf('Xe').lines.map((line) => line.published)
+    for (const gone of ['697.6182', '688.2155', '467.12258', '462.42756']) expect(published).not.toContain(gone)
+    expect(emissionOf('Xe').selection).not.toContain('by the relative intensity NIST lists')
+    expect(registry.sources.map((s) => s.id)).not.toContain('nist-asd-lines-xe')
+  })
+})
+
+describe('the record of the lines chosen by hand', () => {
+  type Recorded = { wavelengthNm: number; valueAsPublished: string; relativeIntensityAsPublished?: string; transitionProbabilityAsPublished?: string }
+  const element = (symbol: string) => record.elements.find((e) => e.symbol === symbol)! as { lines: Recorded[]; superseded?: { on: string; correction: string } }
+  const row = (symbol: string, published: string) => parseNistLines(saved(symbol, 'neutral-visible')!)!.find((r) => r['obs_wl_air(nm)'] === published)!
+
+  it("gives, as the relative intensity of each hydrogen and sodium line, what NIST's saved response prints as its relative intensity", () => {
+    for (const symbol of ['H', 'Na']) {
+      expect(element(symbol).superseded).toBeUndefined()
+      for (const line of element(symbol).lines) expect([symbol, line.valueAsPublished, line.relativeIntensityAsPublished]).toEqual([symbol, line.valueAsPublished, row(symbol, line.valueAsPublished).intens])
+    }
+  })
+
+  it("names xenon's six numbers for what they are, transition probabilities, and marks the entry as replaced on the day it was found", () => {
+    const xenon = element('Xe')
+    expect(xenon.lines.map((line) => line.valueAsPublished)).toEqual(['697.6182', '688.2155', '491.6507', '480.70190', '467.12258', '462.42756'])
+    for (const line of xenon.lines) {
+      expect(line.relativeIntensityAsPublished).toBeUndefined()
+      expect([line.valueAsPublished, line.transitionProbabilityAsPublished]).toEqual([line.valueAsPublished, row('Xe', line.valueAsPublished)['Aki(s^-1)']])
+    }
+    expect(xenon.superseded!.on).toBe('2026-10-08')
+    expect(xenon.superseded!.correction).toMatch(/transition probabilit/)
+    // They were the six of largest transition probability, which is how they came to be chosen.
+    const byProbability = parseNistLines(saved('Xe', 'neutral-visible')!)!
+      .filter((r) => r['Aki(s^-1)'] !== '')
       .sort((a, b) => Number(b['Aki(s^-1)']) - Number(a['Aki(s^-1)']))
       .slice(0, 6)
-      .map((row) => row['obs_wl_air(nm)']!)
-    expect(byProbability.sort((a, b) => Number(b) - Number(a))).toEqual(stored)
-    expect(rows.filter((row) => stored.includes(row['obs_wl_air(nm)']!) && row.intens === '').map((row) => row['obs_wl_air(nm)'])).toEqual(['462.42756', '467.12258'])
+      .map((r) => r['obs_wl_air(nm)']!)
+    expect(byProbability.sort((a, b) => Number(b) - Number(a))).toEqual(xenon.lines.map((line) => line.valueAsPublished))
   })
 })
 
@@ -278,7 +305,7 @@ describe('the note under a strip that cannot show every line apart', () => {
       const overlap = emission.lines.some((line, i) => i > 0 && emission.lines[i - 1]!.value - line.value < DRAWN_AS_ONE_NM)
       expect([symbol, emission.note]).toEqual([symbol, overlap ? OVERLAP_NOTE : undefined])
     }
-    expect(byRule.filter(({ emission }) => emission.note).length).toBe(67)
+    expect(byRule.filter(({ emission }) => emission.note).length).toBe(68)
     expect(OVERLAP_NOTE).toBe('Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.')
   })
 })
@@ -348,7 +375,7 @@ describe('the sources of the spectra', () => {
     expect(source('bulewicz-1956').url).toBe('https://doi.org/10.1038/177670a0')
   })
 
-  it('leave the sources of hydrogen, sodium and xenon as they were', () => {
-    expect(['h', 'na', 'xe'].map((symbol) => source(`nist-asd-lines-${symbol}`).citation.match(/retrieved [\d-]+/)![0])).toEqual(['retrieved 2026-10-03', 'retrieved 2026-10-04', 'retrieved 2026-10-03'])
+  it('leave the sources of hydrogen and sodium as they were', () => {
+    expect(['h', 'na'].map((symbol) => source(`nist-asd-lines-${symbol}`).citation.match(/retrieved [\d-]+/)![0])).toEqual(['retrieved 2026-10-03', 'retrieved 2026-10-04'])
   })
 })

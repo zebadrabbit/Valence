@@ -67,7 +67,7 @@ describe('lines too close to draw apart', () => {
 describe('text', () => {
   it('gives a line in the digits its source prints, with its colour and transition', () => {
     expect(lineText(element('H').emission!.lines[0]!)).toBe('656.279 nm, red, n = 3 → 2')
-    expect(lineText(element('Xe').emission!.lines[3]!)).toBe('480.70190 nm, blue')
+    expect(lineText(element('Xe').emission!.lines[4]!)).toBe('480.70190 nm, blue')
   })
 
   it('describes the whole spectrum for a screen reader', () => {

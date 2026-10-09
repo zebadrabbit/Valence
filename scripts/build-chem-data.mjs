@@ -222,13 +222,20 @@ function buildElements() {
     if (!readVia) return { id, url: source.dataUrl ?? source.url, citation: source.citation }
     return { id, url: lookup(readVia).url, citation: `${source.citation} (${source.url}) ${said}` }
   })
-  // Emission lines are their own research file, with one source per element's NIST query.
+  // Emission lines are their own research file, with one source per element's NIST query. An entry marked
+  // superseded is kept there as history (xenon's first six lines): that element's lines are picked, as for the
+  // periodic table's cards, by the rule from NIST's saved response, and the entry's source is no longer cited.
   const spectra = readJson('emission-lines.json')
-  sources.push(...spectra.sources.map(({ id, url, citation }) => ({ id, url, citation })))
+  const byHand = spectra.elements.filter((x) => !x.superseded)
+  sources.push(...spectra.sources.filter((source) => byHand.some((x) => x.sourceId === source.id)).map(({ id, url, citation }) => ({ id, url, citation })))
   const allowed = new Set(sources.map((s) => s.id))
-  const emission = (symbol) => {
+  const emission = (symbol, name) => {
     const entry = spectra.elements.find((x) => x.symbol === symbol)
     if (!entry) return {}
+    if (entry.superseded) {
+      const { emission } = ruleSpectrum(symbol, name, savedEmissionResponses().saved)
+      return { emission: emission ?? fail(`element ${symbol}: the rule finds no emission lines to replace the ones written by hand`) }
+    }
     const lines = entry.lines.map((line) => {
       if (line.wavelengthNm !== Number(line.valueAsPublished)) fail(`element ${symbol}: emission line ${line.valueAsPublished} differs from the published text`)
       if (!allowed.has(entry.sourceId)) fail(`element ${symbol}: unexpected source "${entry.sourceId}"`)
@@ -304,7 +311,7 @@ function buildElements() {
         ...cite(r.valueA, r.sourceId),
       })),
       color: cite(e.colorHex, e.colorSourceId),
-      ...emission(e.symbol),
+      ...emission(e.symbol, e.name),
       ...(notes.length > 0 ? { notes } : {}),
       sourceId: cite(e.atomicNumber, e.atomicNumberSourceId).sourceId,
     }
@@ -1155,15 +1162,17 @@ function buildMechanismRecord(earlierSources, molecules, elements) {
 //
 // One for each element NIST's Atomic Spectra Database gives lines with a relative intensity for, picked by the one
 // rule of scripts/emission-lib.mjs from the saved responses in docs/research/emission-spectra/sources/; for every
-// other element, a sentence that says what the saved responses show instead. Hydrogen, sodium and xenon keep the
-// lines and the sentences written for them by hand in docs/research/phase-2/emission-lines.json, and here each of
-// those lines is held to the saved response: its digits must be the ones NIST prints.
+// other element, a sentence that says what the saved responses show instead. Hydrogen and sodium keep the lines
+// and the sentences written for them by hand in docs/research/phase-2/emission-lines.json. An element of the
+// molecule explorer that has a spectrum has here the one its curated record holds, so the two cannot differ:
+// hydrogen's and sodium's by hand, xenon's by the rule (buildElements). Each of those lines is held to the saved
+// response: its digits must be the ones NIST prints.
 
 const EMISSION_LINES_ID = 'nist-asd-lines-neutral'
 const NIST_ASD = 'Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database'
 const NIST_ASD_DOI = 'National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F'
 
-// ponytail: one source for the 94 spectra the rule makes, linked to NIST's lines form and not to each element's own
+// ponytail: one source for the 95 spectra the rule makes, linked to NIST's lines form and not to each element's own
 // query, so that the list of sources on the About page does not grow by one near-identical entry for each element.
 // The exact address for each element is in the manifest beside the saved responses.
 // The second and third are cited by the note shown with every spectrum (EMISSION_SCOPE_NOTE in
@@ -1188,7 +1197,8 @@ function emissionSources(retrieved) {
   ]
 }
 
-function buildEmissionSpectra(periodicTable, curated) {
+/** The saved responses, by element and query, and the day they were retrieved. */
+function savedEmissionResponses() {
   const read = (name) => readFileSync(join(emissionResearch, 'sources', name), 'utf8')
   const manifest = JSON.parse(read('MANIFEST.json'))
   if (!/^\d{4}-\d{2}-\d{2}$/.test(manifest.retrieved)) fail('emission-spectra MANIFEST.json has no retrieval date')
@@ -1197,20 +1207,30 @@ function buildEmissionSpectra(periodicTable, curated) {
     if (copies.length > 1) fail(`emission-spectra MANIFEST.json lists ${symbol} twice for the query "${query}"`)
     return copies[0] && read(copies[0].file)
   }
+  return { retrieved: manifest.retrieved, saved }
+}
+
+/** What the rule gives an element from its saved responses: `{ emission }` or `{ none }`. */
+function ruleSpectrum(symbol, name, saved) {
+  const where = `emission spectrum of ${symbol}`
+  const neutral = saved(symbol, 'neutral-visible') ?? fail(`${where}: MANIFEST.json lists no saved response`)
+  try {
+    return spectrumFromSaved({ name: name.toLowerCase(), neutral, all: saved(symbol, 'all'), sourceId: EMISSION_LINES_ID })
+  } catch (error) {
+    fail(`${where}: ${error.message}`)
+  }
+}
+
+function buildEmissionSpectra(periodicTable, curated) {
+  const { retrieved, saved } = savedEmissionResponses()
   const spectra = periodicTable.map(({ symbol, name }) => {
-    const where = `emission spectrum of ${symbol}`
-    const neutral = saved(symbol, 'neutral-visible') ?? fail(`${where}: MANIFEST.json lists no saved response`)
-    try {
-      const kept = curated.find((e) => e.symbol === symbol)?.emission
-      if (!kept) return { symbol, ...spectrumFromSaved({ name: name.toLowerCase(), neutral, all: saved(symbol, 'all'), sourceId: EMISSION_LINES_ID }) }
-      const printed = new Set(observedLines(parseNistLines(neutral) ?? []).map((line) => line.published))
-      for (const line of kept.lines) if (!printed.has(line.published)) fail(`NIST's saved response prints no line at ${line.published} nm`)
-      return { symbol, emission: kept }
-    } catch (error) {
-      fail(`${where}: ${error.message}`)
-    }
+    const kept = curated.find((e) => e.symbol === symbol)?.emission
+    if (!kept) return { symbol, ...ruleSpectrum(symbol, name, saved) }
+    const printed = new Set(observedLines(parseNistLines(saved(symbol, 'neutral-visible') ?? '') ?? []).map((line) => line.published))
+    for (const line of kept.lines) if (!printed.has(line.published)) fail(`emission spectrum of ${symbol}: NIST's saved response prints no line at ${line.published} nm`)
+    return { symbol, emission: kept }
   })
-  return { spectra, sources: emissionSources(manifest.retrieved) }
+  return { spectra, sources: emissionSources(retrieved) }
 }
 
 // A static import list keeps the registry free of bundler-only APIs.
