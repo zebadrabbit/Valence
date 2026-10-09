@@ -9,7 +9,7 @@ The inputs the flame test lab is built from (spec section 15), where each came f
 | `flame.json` | The lab's record: the six solutions, the colour each gives a flame, the lines and bands of each flame in a spectroscope, what the strip leaves out, the notes shown when a station is done, what a handled loop carries, whose colour hides the others, the answer to the closing question, and the model's parameters |
 | `sources/MANIFEST.json` | Every source of that record and of the primer (`src/chem-data/flame/primer.ts`): its address, its citation, and rows that say what it prints and where, each naming the stored values it supports |
 | `sources/nist-asd-lines-k-700-780.txt` | The one kept copy: what the NIST Atomic Spectra Database returned for the neutral potassium atom between 700 and 780 nm |
-| `hazards.json`, `sources/hazard-manifest.json` | The six bottles' hazards and the documents behind them. They were written apart from the rest, in the form of the aqueous lab's, and the build merges them into the record |
+| `hazards.json`, `sources/hazard-manifest.json` | The six bottles' hazards and the documents behind them. They were written apart from the rest, in the form of the aqueous lab's, and the build merges them into the record. A note under a bottle's statements names its first two documents in `sourceId` and `alsoSourceId` and any further ones in `moreSourceIds`. The manifest also lists documents that were read and that no note carries anything from: they stay in that record, and the build lists in the app's sources only the documents a bottle's hazards cite |
 
 ## The kept table
 

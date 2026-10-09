@@ -890,11 +890,6 @@
     "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Calcium Chloride, 0.1 Molar Solution, SDS No. CC0070; revision date June 26, 2024 (read on 2026-10-08; no copy is kept)."
   },
   {
-    "id": "fisher-sds-cacl2",
-    "url": "https://www.fishersci.com/store/msds?partNumber=C614500&productDescription=CALCIUM+CHLORIDE+ANHYDROUS&vendorId=VN00033897&countryCode=US&language=en",
-    "citation": "Fisher Scientific Company. Safety Data Sheet: Calcium chloride, catalogue numbers C77 and C614; revision 6 of 18 December 2025 (read on 2026-10-08; no copy is kept)."
-  },
-  {
     "id": "noaa-cameo-8382",
     "url": "https://cameochemicals.noaa.gov/chemical/8382",
     "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Calcium Chloride (chemical 8382); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-08; no copy is kept)."
@@ -928,11 +923,6 @@
     "id": "fisher-sds-kcl",
     "url": "https://www.fishersci.com/store/msds?partNumber=P217500&productDescription=POTASSIUM+CHLORIDE&vendorId=VN00033897&countryCode=US&language=en",
     "citation": "Fisher Scientific Company. Safety Data Sheet: Potassium chloride, catalogue numbers P217, P330, P333, P335 and BP366; revision 9 of 18 December 2025 (read on 2026-10-08; no copy is kept)."
-  },
-  {
-    "id": "noaa-cameo-20948",
-    "url": "https://cameochemicals.noaa.gov/chemical/20948",
-    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Potassium Chloride (chemical 20948); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-08; no copy is kept)."
   },
   {
     "id": "flinn-sds-721",

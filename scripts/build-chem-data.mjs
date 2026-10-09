@@ -1283,7 +1283,10 @@ function buildFlame(earlierSources) {
   checkSupported(flame, manifest.sources, hazardManifest.sources)
   for (const [key, parameter] of Object.entries(input.parameters)) onlyKeys(parameter, ['value', 'rationale'], `flame.json: parameters.${key}`)
 
-  return { flame, sources: [...labSources, ...sheetSources] }
+  // The hazard manifest also lists documents that were read and that no note carries anything from. They stay in
+  // that record; the app lists only the documents a bottle's hazards cite.
+  const underHazards = new Set(flame.salts.flatMap(({ hazards: { sourceId, note } }) => [sourceId, note.sourceId, ...(note.alsoSourceId === undefined ? [] : [note.alsoSourceId]), ...(note.moreSourceIds ?? [])]))
+  return { flame, sources: [...labSources, ...sheetSources.filter((source) => underHazards.has(source.id))] }
 }
 
 // A static import list keeps the registry free of bundler-only APIs.

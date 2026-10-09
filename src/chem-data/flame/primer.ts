@@ -25,6 +25,9 @@ const CALCIUM = 'daidoji-1979-calcium'
 const STRONTIUM_BARIUM = 'daidoji-1979-strontium-barium'
 const VILNIUS = 'juknelevicius-2020'
 const BURNER = 'wpi-bunsen-burner-safety'
+const sheet = (number: string) => `flinn-sds-${number}`
+/** The first supplier's sheet for each of the six solutions, in the salts' order. */
+const SOLUTION_SHEETS = ['94.01', '197', '281.1', '622', '722', '785'].map(sheet)
 
 // Places that more than one paragraph reads.
 const MALIK_ORIGIN = "section 2.6, the account of where a flame's colour comes from, before the heading Flame test procedure"
@@ -37,6 +40,9 @@ const VISIBLE_WAVELENGTHS = 'the page Visible Light, under its first heading and
 const PRELAB_NOTES = 'the pre-lab page Flame Test, under Procedural Notes'
 const SODIUM_1860 = 'the paper of 1860, in translation, under Sodium and under Lithium'
 const UTRECHT_SPECTRA = 'the paper of 1975, section 3.1, Spectra obtained, with its Figures 1 to 3'
+const HAZARDS = "the sheet's title and its section 2 (hazards identification)"
+const PROTECTION = "the sheet's section 8 (exposure controls, personal protection)"
+const RELEASE = "the sheet's section 6 (accidental release measures)"
 
 export const FLAME_PRIMER: readonly PrimerSection[] = [
   {
@@ -285,6 +291,44 @@ export const FLAME_PRIMER: readonly PrimerSection[] = [
         'A burner is an open flame, and so a fire hazard. Long hair, loose clothing and anything that dangles are tied back. Paper and whatever else can burn is cleared away from it. A lit burner is never left alone. The gas is shut off when the work is done, and the burner is left to cool before it is handled. A loop that has been in the flame is hot too.',
         [[BURNER, 'the guidelines on burner safety, under Overview and Procedure', 'a burner gives an open flame at a high temperature and is a fire hazard, and that hair, jewellery and clothing are tied back, things that burn are cleared away, a flame is not left unattended, the gas is shut off after use and the burner is left to cool before it is handled.']],
         'that the loop is hot after the flame is plain from what it is used for; no source was read for it.',
+      ),
+      paragraph(
+        { label: 'On each bottle' },
+        "Each bottle's tile shows two things. First come the hazard statements of the solid salt, as a supplier's safety data sheet prints them. They are the solid's, and the solution on the bench is far weaker. Under them is a note on the 0.1 M solution itself. Where the documents read for a solution differ, the note goes by the stricter one, as long as what that one says is about the substance and is not a line printed on every sheet alike.",
+        [],
+        "what a tile shows, and the rule its note is written to, are this project's (spec 5.2, as the project's owner refined the rule on 2026-10-08). The statements and the notes are in the lab's record, with the documents each rests on.",
+      ),
+      paragraph(
+        { label: 'The ones to respect' },
+        'Barium chloride asks for the most care: as a solid it is toxic if swallowed. Solid copper(II) chloride is harmful if swallowed and burns skin and eyes, and a sheet for its 0.1 M solution says that the solution is very toxic to life in water. Solid strontium chloride can do serious damage to the eyes. Calcium chloride, potassium chloride and sodium chloride carry lesser warnings. None of the six solutions is something to taste.',
+        [
+          [sheet('94'), HAZARDS, 'solid barium chloride is classed as toxic if swallowed.'],
+          [sheet('281.05'), HAZARDS, 'solid copper(II) chloride dihydrate is classed as harmful if swallowed and as a cause of severe burns to the skin and of damage to the eyes.'],
+          ['wards-sds-cc0506', HAZARDS, 'a 0.1 M solution of copper(II) chloride is classed as very toxic to life in water, with effects that last.'],
+          [sheet('784'), HAZARDS, 'solid strontium chloride hexahydrate is classed as a cause of serious damage to the eyes.'],
+          [sheet('196'), HAZARDS, 'solid calcium chloride is classed as harmful if swallowed and as a serious irritant of the eyes.'],
+          [sheet('621'), HAZARDS, 'the one statement for solid potassium chloride is that it may be harmful if swallowed.'],
+          [sheet('721'), HAZARDS, 'the one statement for solid sodium chloride is that it may be harmful if swallowed.'],
+        ],
+        "which of the statements count as lesser is this card's own ordering of them. That no solution is to be tasted is this lab's own rule for all six; one of the sheets says as much of its own solution.",
+      ),
+      paragraph(
+        { label: 'What to wear' },
+        "The supplier's sheet for each of the six solutions calls for the same three things: eye protection, gloves and protective clothing.",
+        SOLUTION_SHEETS.map((id) => [id, PROTECTION, 'the sheet calls for eye protection, gloves and protective clothing.'] as const),
+      ),
+      paragraph(
+        { label: 'Afterwards' },
+        "The solutions of barium chloride and of copper(II) chloride are kept out of drains and waterways. How anything from the bench is disposed of is decided by the laboratory's own rules and by local regulations: ask the laboratory's supervisor.",
+        [
+          ['wards-sds-bb0041', RELEASE, 'run-off of a 0.1 M solution of barium chloride is to be kept from storm sewers and from ditches that lead to a waterway.'],
+          ['fisher-sds-bacl2-dihydrate', RELEASE, 'barium chloride should not be let out into the environment.'],
+          ['noaa-cameo-19847', "the record's field Regulatory Information", 'barium compounds are on the consolidated list of regulated chemicals of the United States Environmental Protection Agency.'],
+          ['wards-sds-cc0506', "the sheet's section 2, among its hazard and precautionary statements", 'a 0.1 M solution of copper(II) chloride is very toxic to life in water, and its release to the environment is to be avoided.'],
+          ['fisher-sds-cucl2-dihydrate', RELEASE, 'copper(II) chloride is not to be flushed into surface water or the sewer and is to be kept from drains.'],
+          ['noaa-cameo-2988', "the record's field Non-Fire Response", 'spilt copper chloride is to be kept from getting into waterways and sewers.'],
+        ],
+        "that the two solutions are kept out of drains and waterways is how the notes under those two bottles carry these documents, by the owner's rule: the stricter document where it is about the substance. The card gives no method of disposal: that it is the laboratory's to decide is the owner's rule for every lab (spec 5.2).",
       ),
     ],
   },

@@ -86,7 +86,7 @@ describe('checkSupported, on the flame record', () => {
     expect(keys.filter((c) => c.key === 'salts[kcl-0.1m].features[k-766].wavelengthNm')).toEqual([{ key: 'salts[kcl-0.1m].features[k-766].wavelengthNm', sourceId: 'nist-asd-lines-k-700-780', published: '766.489913' }])
     expect(keys.filter((c) => c.key === 'closing.answer').map((c) => c.sourceId)).toEqual(['kirchhoff-bunsen-1860'])
     const { note } = stored.salts[0]!.hazards
-    expect(keys.filter((c) => c.key === 'salts[bacl2-0.1m].hazards.note').map((c) => c.sourceId)).toEqual([note.sourceId, note.alsoSourceId, ...note.moreSourceIds])
+    expect(keys.filter((c) => c.key === 'salts[bacl2-0.1m].hazards.note').map((c) => c.sourceId)).toEqual([note.sourceId, note.alsoSourceId, ...(note.moreSourceIds ?? [])])
   })
 
   it('refuses a feature that cites a source with no row for it, a stored wavelength no row prints, and a row left behind', () => {
@@ -103,7 +103,7 @@ describe('checkSupported, on the flame record', () => {
 
   it("holds a bottle's hazards to the hazard manifest and not to the lab's own: a document under a note needs no row here", () => {
     const record = copy(stored)
-    record.salts[0]!.appearance.sourceId = record.salts[0]!.hazards.note.moreSourceIds[0]!
+    record.salts[0]!.appearance.sourceId = record.salts[0]!.hazards.note.alsoSourceId!
     // Outside the hazards, a document of the hazard manifest may be cited where a bottle's hazards cite it.
     expect(() => checkSupported(record, sources.map((s) => (s.id === 'flinn-sds-94.01' ? { ...s, supports: s.supports.slice(0, 1) } : s)), sheets)).not.toThrow()
     record.salts[0]!.appearance.sourceId = 'a-sheet'
@@ -129,8 +129,10 @@ describe('mergeHazards, on the flame record', () => {
   })
 
   it('takes a note that rests on more than two documents: the third and any after it in moreSourceIds, each with a row of its own for the note', () => {
-    // Every note of this lab rests on more than two.
-    for (const [id, entry] of Object.entries(hazards as Record<string, Entry>)) expect(entry.hazards.note.moreSourceIds?.length ?? 0, id).toBeGreaterThan(0)
+    // Most notes of this lab rest on more than two, and none names a third source without a second.
+    const notes = Object.values(hazards as Record<string, Entry>).map((entry) => entry.hazards.note)
+    expect(notes.filter((note) => note.moreSourceIds !== undefined).length).toBeGreaterThan(3)
+    for (const note of notes) if (note.moreSourceIds !== undefined) expect(note.alsoSourceId).toBeDefined()
     expect(() => merge((entries) => void entries['bacl2-0.1m']!.hazards.note.moreSourceIds!.push('flinn-sds-722'))).toThrow(/the source "flinn-sds-722" has no row for bacl2-0.1m\.hazards\.note/)
     expect(() => merge((entries) => void entries['bacl2-0.1m']!.hazards.note.moreSourceIds!.push('a-sheet'))).toThrow(/hazards\.json: bacl2-0.1m\.hazards\.note: unknown source "a-sheet"/)
   })
@@ -170,7 +172,14 @@ describe('the sources the lab adds', () => {
     const shared = sheets.filter((sheet) => sources.some((s) => s.id === sheet.id) || aqueousSheets.some((s) => s.id === sheet.id)).map((sheet) => sheet.id)
     expect(shared).toEqual(expect.arrayContaining(['flinn-sds-94.01', 'flinn-sds-197', 'flinn-sds-281.1', 'flinn-sds-622', 'flinn-sds-722', 'flinn-sds-785']))
     expect(sheets.length - added.length).toBe(shared.length)
-    const ids = [...own, ...added].map((s) => s.id)
+    // Of the documents of the hazard manifest, the app lists those a bottle's hazards cite, and not the ones that were read and that no note carries anything from.
+    const cited = new Set(stored.salts.flatMap(({ hazards: { sourceId, note } }) => [sourceId, note.sourceId, note.alsoSourceId, ...(note.moreSourceIds ?? [])]))
+    const unused = sheets.filter((sheet) => !cited.has(sheet.id))
+    for (const sheet of unused) {
+      expect(sheet.supports.every((row) => row.field.endsWith('.notCarried')), sheet.id).toBe(true)
+      expect(allSources.some((s) => s.id === sheet.id), sheet.id).toBe(false)
+    }
+    const ids = [...own, ...added.filter((sheet) => cited.has(sheet.id))].map((s) => s.id)
     expect(new Set(ids).size).toBe(ids.length)
     expect(allSources.slice(-ids.length).map((s) => s.id)).toEqual(ids)
   })

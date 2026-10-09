@@ -129,7 +129,7 @@ describe('the flame primer: what each paragraph rests on', () => {
 
   it('has exactly these paragraphs with no source, each resting on "This lab:" lines alone', () => {
     const unsourced = paragraphs.filter(([, p]) => p.sourceIds.length === 0)
-    expect(unsourced.map(([where]) => where)).toEqual(['flame-test[0]', 'flame-test[3]', 'flame-test[4]', 'molecules[3]', 'molecules[4]', 'loop[3]', 'loop[6]', 'spectroscope[3]', 'spectroscope[4]', 'spectroscope[5]', 'safety[0]'])
+    expect(unsourced.map(([where]) => where)).toEqual(['flame-test[0]', 'flame-test[3]', 'flame-test[4]', 'molecules[3]', 'molecules[4]', 'loop[3]', 'loop[6]', 'spectroscope[3]', 'spectroscope[4]', 'spectroscope[5]', 'safety[0]', 'safety[2]'])
     for (const [where, p] of unsourced) for (const line of p.support.split('\n')) expect(line, where).toMatch(/^This lab: /)
   })
 
@@ -247,5 +247,63 @@ describe('the flame primer: what it has to say', () => {
     expect(card).toContain('Look at every line and band before you answer: those two questions open only when you have')
     expect(card).toContain('which is not always what an eye would find the brightest')
     expect(card).toContain('says that its limits are not given')
+  })
+
+  describe('the safety card', () => {
+    const card = () => section('safety')
+    const sheets: { id: string; supports: { field: string; prints: string; where: string }[] }[] = hazardManifest.sources
+    const statements = (saltId: string) => flameData.salts.find((s) => s.id === saltId)!.hazards.statements
+
+    it('says first that the lab is a simulation and does not take the place of safety training, then the burner', () => {
+      expect(card().paragraphs.map((p) => p.label)).toEqual(['On a screen', 'The burner', 'On each bottle', 'The ones to respect', 'What to wear', 'Afterwards'])
+      expect(card().paragraphs[0]!.text).toContain('It does not take the place of the safety training of a laboratory.')
+      expect(card().paragraphs[1]!.text).toContain('A lit burner is never left alone.')
+      expect(card().paragraphs[1]!.sourceIds).toEqual(['wpi-bunsen-burner-safety'])
+    })
+
+    it('says of the salts only what the statements on their bottles say, each from the sheet the bottle cites for them', () => {
+      const [, , , salts] = card().paragraphs
+      expect(statements('bacl2-0.1m')).toContain('H301: Toxic if swallowed')
+      expect(salts!.text).toContain('Barium chloride asks for the most care: as a solid it is toxic if swallowed.')
+      expect(statements('cucl2-0.1m')).toEqual(['H302: Harmful if swallowed', 'H314: Causes severe skin burns and eye damage'])
+      expect(salts!.text).toContain('Solid copper(II) chloride is harmful if swallowed and burns skin and eyes')
+      expect(statements('srcl2-0.1m')).toEqual(['H318: Causes serious eye damage'])
+      expect(salts!.text).toContain('Solid strontium chloride can do serious damage to the eyes.')
+      // The three with lesser warnings: no statement of theirs is of a kind the card gives the other three.
+      for (const id of ['cacl2-0.1m', 'kcl-0.1m', 'nacl-0.1m']) for (const statement of statements(id)) expect(statement, id).not.toMatch(/^H(301|314|318)/)
+      expect(salts!.text).toContain('Calcium chloride, potassium chloride and sodium chloride carry lesser warnings.')
+      // Each solid's sheet is the one its bottle's statements cite.
+      const solids = flameData.salts.map((s) => s.hazards.sourceId)
+      expect(salts!.sourceIds.filter((id) => id !== 'wards-sds-cc0506').sort()).toEqual([...solids].sort())
+      // What is said of life in water is a statement that the second supplier's sheet for the solution prints, by the hazard manifest's row.
+      const second = sheets.find((s) => s.id === 'wards-sds-cc0506')!
+      expect(flameData.salts[2]!.hazards.note.alsoSourceId).toBe('wards-sds-cc0506')
+      expect(second.supports.some((row) => row.field === 'cucl2-0.1m.hazards.note' && row.prints.startsWith('H410: Very toxic to aquatic life'))).toBe(true)
+    })
+
+    it("says what every solution's sheet calls for, as the hazard manifest's rows have it for each of the six", () => {
+      const wear = card().paragraphs[4]!
+      const solutions = flameData.salts.map((s) => s.hazards.note.sourceId)
+      expect(wear.sourceIds).toEqual(solutions)
+      for (const [i, id] of solutions.entries()) {
+        const rows = sheets.find((s) => s.id === id)!.supports.filter((row) => row.field === `${flameData.salts[i]!.id}.hazards.note` && row.prints.startsWith('SECTION 8'))
+        expect(rows.length, id).toBe(1)
+        expect(rows[0]!.where, id).toContain('eye protection, gloves and protective clothing')
+      }
+      expect(wear.text).toContain('eye protection, gloves and protective clothing')
+    })
+
+    it("keeps the solutions of barium and of copper out of drains and waterways, names no other for that, and leaves disposal to the laboratory's own rules and local regulations", () => {
+      const after = card().paragraphs[5]!
+      expect(after.text).toBe("The solutions of barium chloride and of copper(II) chloride are kept out of drains and waterways. How anything from the bench is disposed of is decided by the laboratory's own rules and by local regulations: ask the laboratory's supervisor.")
+      // Every document under it is one that the note of the barium bottle or of the copper bottle rests on.
+      const under = (saltId: string) => {
+        const { note } = flameData.salts.find((s) => s.id === saltId)!.hazards
+        return [note.sourceId, note.alsoSourceId, ...(note.moreSourceIds ?? [])]
+      }
+      for (const id of after.sourceIds) expect([...under('bacl2-0.1m'), ...under('cucl2-0.1m')], id).toContain(id)
+      // No card gives a method of disposal.
+      expect(all).not.toMatch(/pour|sink|neutrali[sz]e|waste (container|bottle|jar)|flush (it|them) (down|away)/i)
+    })
   })
 })
