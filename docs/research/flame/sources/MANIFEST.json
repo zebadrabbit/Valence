@@ -597,17 +597,17 @@
       ]
     },
     {
-      "id": "wpi-bunsen-burner-safety",
-      "url": "https://www.wpi.edu/offices/environmental-health-safety/laboratory/bunsen",
-      "citation": "Worcester Polytechnic Institute, Environmental Health and Safety. Bunsen Burner Safety Guidelines; read and not kept (retrieved 2026-10-08).",
-      "fetchedSha256": "0ffa715926233bce4a768654b2f3d3b51cafbd198f2b710432dc64ca50d7c0b1",
+      "id": "udel-bunsen-burner-sop",
+      "url": "https://www1.udel.edu/ehs/research/downloads/Bunsen_Burners_SOP.pdf",
+      "citation": "University of Delaware, Department of Environmental Health and Safety. Standard Operating Procedure: Bunsen Burner Safety; revision date September 10, 2015; read and not kept (retrieved 2026-10-08).",
+      "fetchedSha256": "0da6343f5c959cf49a43856046026a2bf242e118c5da00e5f32e9e114188e979",
       "supports": [
         {
           "fields": [
             "primer"
           ],
-          "prints": "Bunsen Burner Safety Guidelines",
-          "where": "The page's title. Read under Overview and Procedure."
+          "prints": "BUNSEN BURNER SAFETY",
+          "where": "The last line of the procedure's title, in capitals. Read under Potential Hazards and under Work Practice Controls, in the text of the PDF the address served. It took the place, on 2026-10-08, of another university's page on burner safety that the primer's safety card first rested on: that site's robots file has rules for automated readers, and this one's has none. Everything the card says of the burner is in both."
         }
       ]
     },

@@ -10,7 +10,7 @@ import { FLAME_PRIMER, READ_FIRST } from './primer'
 const local = import.meta.glob<string[]>('../denylist.local.json', { eager: true, import: 'default' })
 const institutionNames = Object.values(local).flat()
 
-const manifest: { sources: { id: string; supports: { fields: string[] }[] }[] } = manifestFile
+const manifest: { sources: { id: string; url: string; supports: { fields: string[] }[] }[] } = manifestFile
 const section = (id: string) => FLAME_PRIMER.find((s) => s.id === id)!
 const paragraphs = FLAME_PRIMER.flatMap((s) => s.paragraphs.map((paragraph, i): [string, PrimerParagraph] => [`${s.id}[${i}]`, paragraph]))
 const cited = new Set(paragraphs.flatMap(([, paragraph]) => paragraph.sourceIds))
@@ -258,7 +258,12 @@ describe('the flame primer: what it has to say', () => {
       expect(card().paragraphs.map((p) => p.label)).toEqual(['On a screen', 'The burner', 'On each bottle', 'The ones to respect', 'What to wear', 'Afterwards'])
       expect(card().paragraphs[0]!.text).toContain('It does not take the place of the safety training of a laboratory.')
       expect(card().paragraphs[1]!.text).toContain('A lit burner is never left alone.')
-      expect(card().paragraphs[1]!.sourceIds).toEqual(['wpi-bunsen-burner-safety'])
+      // A university's procedure for burners, whose site's robots file has no rule for automated readers. The page first read for this card had such rules and is a source no longer.
+      expect(card().paragraphs[1]!.sourceIds).toEqual(['udel-bunsen-burner-sop'])
+      const burner = manifest.sources.find((s) => s.id === 'udel-bunsen-burner-sop')!
+      expect(burner.supports.map((row) => row.fields)).toEqual([['primer']])
+      expect(card().paragraphs[1]!.support).toContain(`${burner.url}. It establishes that `)
+      for (const record of [manifest.sources, hazardManifest.sources, sources]) expect(JSON.stringify(record)).not.toMatch(/wpi/i)
     })
 
     it('says of the salts only what the statements on their bottles say, each from the sheet the bottle cites for them', () => {

@@ -24,7 +24,7 @@ const UTRECHT = 'human-zeegers-1975'
 const CALCIUM = 'daidoji-1979-calcium'
 const STRONTIUM_BARIUM = 'daidoji-1979-strontium-barium'
 const VILNIUS = 'juknelevicius-2020'
-const BURNER = 'wpi-bunsen-burner-safety'
+const BURNER = 'udel-bunsen-burner-sop'
 const sheet = (number: string) => `flinn-sds-${number}`
 /** The first supplier's sheet for each of the six solutions, in the salts' order. */
 const SOLUTION_SHEETS = ['94.01', '197', '281.1', '622', '722', '785'].map(sheet)
@@ -289,7 +289,7 @@ export const FLAME_PRIMER: readonly PrimerSection[] = [
       paragraph(
         { label: 'The burner' },
         'A burner is an open flame, and so a fire hazard. Long hair, loose clothing and anything that dangles are tied back. Paper and whatever else can burn is cleared away from it. A lit burner is never left alone. The gas is shut off when the work is done, and the burner is left to cool before it is handled. A loop that has been in the flame is hot too.',
-        [[BURNER, 'the guidelines on burner safety, under Overview and Procedure', 'a burner gives an open flame at a high temperature and is a fire hazard, and that hair, jewellery and clothing are tied back, things that burn are cleared away, a flame is not left unattended, the gas is shut off after use and the burner is left to cool before it is handled.']],
+        [[BURNER, 'the procedure for burner safety, under Potential Hazards and Work Practice Controls', 'a burner gives an open flame at a high temperature and is a hazard of burns and of fire, and that hair, jewellery and clothing are tied back, paper and other things that burn are cleared away, a flame is not left unattended, the gas is shut off after use and the burner is left to cool before it is handled.']],
         'that the loop is hot after the flame is plain from what it is used for; no source was read for it.',
       ),
       paragraph(
