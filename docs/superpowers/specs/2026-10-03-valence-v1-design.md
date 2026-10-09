@@ -616,3 +616,52 @@ Short topics in the shell's paged primer, those to read first marked: what a fla
 - Every stored feature has a source; every atomic line's wavelength is the saved table's digits.
 - No state a learner can reach leaves them unable to go on; the stored record round-trips; Challenge shows nothing of what is expected before the learner records.
 - The descriptions in words of the flame and of the spectroscope's view are tested for every salt.
+
+## 16. Calorimetry lab (added after v1)
+
+Suggested by the owner on 2026-10-09. It is built without the owner's department notes for it: its three parts are the usual ones of a first-year coffee-cup calorimetry lab, and each is the owner's to change. It uses the lab shell (Primer, Lab, Record; Guided and Challenge), the notebook and typed entries of section 7, the pictures that are explored of section 8, and the rule for hazards of 5.2.
+
+### 16.1 Set-up
+
+A coffee-cup calorimeter: two foam cups, one inside the other, a lid with a hole, a stirrer, and a temperature probe whose readings a logger plots against time, one reading every 15 seconds. Three parts, each with an idea of its own:
+
+1. **Neutralisation.** 50.0 mL of 1.0 M hydrochloric acid and 50.0 mL of 1.0 M sodium hydroxide solution. The heat given out for each mole of water formed.
+2. **Dissolving.** A weighed portion of solid ammonium nitrate, about 4 g, in 50.0 mL of water. The heat taken in for each mole dissolved.
+3. **A metal's specific heat.** A weighed piece, about 50 g, of an unknown grey metal (aluminium, iron, zinc or tin, by the seed), heated in boiling water whose temperature is read, then put into 50.0 mL of water in the cup. The metal's specific heat, and from it which metal it is.
+
+A run's starting temperatures, masses and the bath's temperature are seeded, so that no two runs share their numbers; the same seed and the same actions give the same run. The seed is drawn in the app.
+
+### 16.2 A run
+
+A part is a short column of cards:
+
+1. **The bench**: what is used, with its hazards, and the balance's reading where something is weighed.
+2. **The cup**: drawn, with its state in words. "Put the lid on", "Stir", "Start the logger", then the one action that starts the change (pour in the second solution; add the solid; add the hot metal), and "Run on" to let time pass, 30 seconds at a press. No clock runs: time is a count the engine is handed. In Guided a warning is raised before the change is started with the lid off or the stirrer still, with a way to go on anyway.
+3. **The graph**: temperature against time as the logger draws it, a point for each reading. The graph is the picture that is explored: pointing at a point, focusing it or tapping it says its time and its temperature, and a look at the readings before the change and at the highest or lowest after it opens the notebook's first entries. It is also said in words.
+4. **The notebook**: a worksheet of entries in the order they are worked out. For parts 1 and 2: the starting temperature; the highest or the lowest temperature reached; the change in temperature; the heat the cup's contents took in or gave out, in joules; whether the reaction gave heat out or took it in (a choice); the moles; and the heat for each mole, in kJ/mol, with its sign. For part 3: the heat the water took in; the specific heat of the metal, in J/(g·°C); and which metal it is (a choice).
+
+A temperature typed must be one the logger shows, within 0.1 °C. Every other entry must follow from the learner's own earlier entries, correctly rounded, as the typed molarity of 7.3 must. Guided checks each entry as it is made and has the relation it uses ready in a closed hint; Challenge checks them together at the end. Feedback says which entry does not follow and never the value.
+
+**A run counts** when its temperatures are the logger's, each entry follows, the lid was on and the cup was stirred throughout, and its result is within the tolerance of what the model gives for that run. A run that does not count says why. One run that counts completes a part; a part can be run again, with new numbers. The lab is complete when all three parts are.
+
+### 16.3 Model
+
+The engine is pure and deterministic. The heat of a run is the moles reacted or dissolved times a stored enthalpy, or for the metal its mass times its stored specific heat times its fall in temperature. The cup's contents warm or cool as their mass times the specific heat of water, with solutions taken as 1.00 g/mL: the same idealisation the learner's own arithmetic uses, said as one in the primer. The temperature approaches its end value over a mixing time, short when stirred and long when not; and it exchanges heat with the room, slowly with the lid on and several times faster with it off, so that the curve reaches a peak and drifts back. The learner takes the peak. The calorimeter itself takes up no heat, and the hot metal reaches the cup at once and dry: both idealised, and the primer says what a careful bench does about each.
+
+Magnitudes are model parameters with rationales, chosen so that a careful run is within tolerance at every seed and each technique error alone (the lid off; not stirred) puts a run outside it at every seed, as 7.3's are. No cited constant is adjusted to make that so.
+
+### 16.4 Data
+
+Enthalpies of formation from the NBS tables, as elsewhere; the specific heats of the four metals from a source that can be cited, given for a gram as worked out from the value for a mole; molar masses; the specific heat of water. Hazards by 5.2: the 1 M acid and base carry the records of section 8's lab; solid ammonium nitrate and the four metals get their own; boiling water and a hot piece of metal are in the primer's safety topic.
+
+### 16.5 Primer
+
+Short topics, those to read first marked: temperature and heat; giving out heat and taking it in, and the sign of the change; specific heat, and heat as mass times specific heat times the change in temperature; the calorimeter and what it assumes; reading the graph; from heat to heat for each mole; a metal's specific heat; safety.
+
+### 16.6 Acceptance
+
+- For seeds 1 to 100, a careful run of each part counts, and its result is within tolerance of the stored value: the neutralisation's heat for each mole, the ammonium nitrate's, and the metal's specific heat, which also picks the right metal out of the four.
+- Each technique error alone makes a run not count at every one of those seeds, and its cause is named.
+- An entry that does not follow from the learner's own numbers is refused or marked, among them a result with the wrong sign and one cut off where it should be rounded.
+- The same seed and actions give the same run; the stored record round-trips; no state a learner can reach leaves them unable to go on; Challenge shows nothing of what is expected before the entries are made.
+- The descriptions in words of the cup and of the graph are tested.
