@@ -1,0 +1,94 @@
+{
+  "nh4no3-solid": {
+    "classifiedAs": "Hazards of solid ammonium nitrate, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Warning",
+      "statements": [
+        "H272: May intensify fire; oxidizer",
+        "H303: May be harmful if swallowed",
+        "H315: Causes skin irritation",
+        "H319: Causes serious eye irritation",
+        "H335: May cause respiratory irritation"
+      ],
+      "note": {
+        "value": "The ammonium nitrate on this bench is about 4 g of the solid, dissolved in 50.0 mL of water to a solution of about 1 mol/L. The supplier's sheet for the solid keeps it from heat, anything that burns, strong acids and powdered metals; it is not ground, and its dust is not breathed. Its sheet for the solution, which takes in this strength, prints no signal word and no hazard statement. Both call for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: NOAA's record marks it as explosive as well as a strong oxidising agent, and says that clothing it gets on can be a fire risk once dry; a second supplier's sheet has such clothing taken off and washed, and asks, for the eyes, flushing with water for 15 minutes or more and a doctor at once. A third's, which lists the salt under a federal reporting rule, says not to empty it into drains.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-61",
+        "alsoSourceId": "flinn-sds-61.5",
+        "moreSourceIds": [
+          "wards-sds-aa0295",
+          "fisher-sds-nh4no3",
+          "noaa-cameo-98"
+        ]
+      },
+      "sourceId": "flinn-sds-61"
+    }
+  },
+  "aluminium-piece": {
+    "classifiedAs": "Hazards of aluminium metal, the solid and not its powder or dust, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "None",
+      "statements": [],
+      "note": {
+        "value": "The aluminium on this bench is a solid piece of about 50 g, heated in boiling water; it is not a powder. The supplier's sheet for aluminium prints no signal word and no hazard statement. It says that the dust burns, that fine powder and dust give off heat with water, and that acids set hydrogen free. It calls for eye and face protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: a second supplier's sheet for aluminium shot adds strong alkalis to the acids, so the piece is kept from this lab's acid and alkali. It lists water too, and too much heat, and says of water that it is the molten metal that reacts; here the piece goes into boiling water on purpose, as the experiment. For the eyes it asks flushing with water for 15 minutes or more and a doctor at once. NOAA's record marks the powder as reacting with water and apt to catch fire in air: the powder is another matter.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-34",
+        "alsoSourceId": "wards-sds-aa0145",
+        "moreSourceIds": [
+          "noaa-cameo-14008"
+        ]
+      },
+      "sourceId": "flinn-sds-34"
+    }
+  },
+  "iron-piece": {
+    "classifiedAs": "Hazards of iron metal, in bulk pieces, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "None",
+      "statements": [],
+      "note": {
+        "value": "The iron on this bench is a solid piece of about 50 g, heated in boiling water; it is not filings or powder. The supplier's sheet for iron in bulk pieces prints no signal word and no hazard statement. It lists acids and moisture among what the metal is kept from; here the piece goes into boiling water on purpose, as the experiment. It names nothing to be worn: it says to keep the metal from the eyes and to wash the hands.\n\nStricter, and what this lab goes by: a metal maker's sheet for iron as rod, shot and pieces asks for safety glasses and, for the eyes, flushing with water for 15 minutes or more; two suppliers' sheets for filings add gloves, protective clothing and a doctor, one of them at once. One classes fine filings as a flammable solid, and NOAA's record marks the powder as apt to catch fire in air: filings and powder are another matter.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-416",
+        "alsoSourceId": "espi-sds-iron",
+        "moreSourceIds": [
+          "fisher-sds-iron-filings",
+          "wards-sds-ix0209",
+          "noaa-cameo-11656"
+        ]
+      },
+      "sourceId": "flinn-sds-416"
+    }
+  },
+  "zinc-piece": {
+    "classifiedAs": "Hazards of zinc metal, as shot, sheet, foil or granules, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "None",
+      "statements": [],
+      "note": {
+        "value": "The zinc on this bench is a solid piece of about 50 g, heated in boiling water; it is not dust. The supplier's sheet for zinc as shot, sheet and foil prints no signal word and no hazard statement, puts the fire hazards with the dust and the powder, and keeps the metal from strong acids and strong bases. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: a second supplier's sheet for zinc shot adds water and too much heat, and says that hydrogen may come off where zinc meets water or damp air; here the piece goes into boiling water on purpose, as the experiment. It says that zinc may cause dermatitis and may rub the eyes sore; for the eyes it asks flushing with water for 15 minutes or more and a doctor at once. A third's calls zinc very toxic to water life: it is kept out of drains and waterways. By NOAA's record of the dust, another matter, zinc reacts violently with wetted ammonium nitrate: the two are kept apart.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-859",
+        "alsoSourceId": "wards-sds-zz0022",
+        "moreSourceIds": [
+          "fisher-sds-zinc-granular-mossy",
+          "noaa-cameo-4814"
+        ]
+      },
+      "sourceId": "flinn-sds-859"
+    }
+  },
+  "tin-piece": {
+    "classifiedAs": "Hazards of tin metal, as shot, granules, mossy pieces or foil, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "None",
+      "statements": [],
+      "note": {
+        "value": "The tin on this bench is a solid piece of about 50 g, heated in boiling water; it is not a powder. The supplier's sheet for tin as shot, granules, mossy pieces and foil prints no signal word and no hazard statement, and says that the finely divided metal may burn. It keeps the metal from halogens, sulfur, strong bases and strong oxidisers. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: a second supplier's sheet for tin shot adds acids, with which it says the metal gives off hydrogen, and a third's keeps tin from acids too: the piece is kept from this lab's acid. The second says that tin irritates the eyes, and NOAA's record adds the skin and the airways; for the eyes the second asks flushing with water for 15 minutes or more and a doctor at once. NOAA's record says that the powder, unlike the massive metal, corrodes in air: the powder is another matter.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-822",
+        "alsoSourceId": "wards-sds-tt0180",
+        "moreSourceIds": [
+          "fisher-sds-tin",
+          "noaa-cameo-25075"
+        ]
+      },
+      "sourceId": "flinn-sds-822"
+    }
+  }
+}
