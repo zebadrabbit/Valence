@@ -1,17 +1,19 @@
-import { useId, useMemo, type ReactNode, type Ref } from 'react'
+import { useId, useMemo, type Ref } from 'react'
 import { Disclosure, Sources } from '@/app/explore/InspectorCard'
+import { ChoiceForm } from '@/app/lab/ChoiceForm'
 import { Control } from '@/app/lab/Control'
 import { Hazards } from '@/app/lab/Hazards'
 import { ROLE } from '@/app/lab/roles'
-import { Bottle } from '@/app/lab/titration/apparatus'
+import { BottleTile, Listed, Marked, Step } from '@/app/lab/stationPieces'
 import type { AqueousData } from '@/chem-data/aqueous/data'
 import { stationCitations } from '@/chem-data/citations'
 import type { Source } from '@/chem-data/schema'
-import { FORMS, checkEquation, isLook, usesShowing, wrongFields, type Action, type Blocked, type Look, type StationView, type ToolUse } from '@/engine/aqueous'
+import { FORMS, checkEquation, isLook, usesShowing, wrongFields, type Action, type Blocked, type Look, type Observation, type StationView, type ToolUse } from '@/engine/aqueous'
 import { EquationBuilder } from './EquationBuilder'
-import { Line, useSaid } from './Line'
+import { Line, useSaid } from '@/app/lab/Line'
 import {
   BENCH_TEXT,
+  FIELD_LABEL,
   LOOK_PART,
   PAGE_TEXT,
   PROGRESS_TEXT,
@@ -20,12 +22,14 @@ import {
   TOOL_LABEL,
   amountText,
   blockedText,
+  choiceList,
   expectedLines,
+  observationFeedback,
   observationRefusal,
   stationTitle,
+  toolFirstText,
   toolOutcome,
 } from './messages'
-import { ObservationForm } from './ObservationForm'
 import { bottleLook, progressOf, tubeLook, type Progress } from './stationLook'
 import { STACK, Tube } from './Tube'
 
@@ -35,12 +39,9 @@ export const PROGRESS_MARK: Record<Progress, string> = { 'not-started': '○', s
 /** A station's progress as a mark and its word; the tick of a station done is in the role of a done mark. */
 export function ProgressLabel({ progress }: { progress: Progress }) {
   return (
-    <>
-      <span aria-hidden="true" className={progress === 'done' ? ROLE.done : undefined}>
-        {PROGRESS_MARK[progress]}{' '}
-      </span>
+    <Marked mark={PROGRESS_MARK[progress]} done={progress === 'done'}>
       {PROGRESS_TEXT[progress]}
-    </>
+    </Marked>
   )
 }
 
@@ -55,30 +56,6 @@ export interface StationCardProps {
   act(action: Action): void
   /** The station's heading, which takes focus when the station comes to be shown. */
   headingRef?: Ref<HTMLHeadingElement>
-}
-
-/** One step of a station: a card named by its heading. */
-function Step({ heading, children }: { heading: string; children: ReactNode }) {
-  const headingId = useId()
-  return (
-    <section aria-labelledby={headingId} className="grid min-w-0 justify-items-start gap-3 rounded-lg border bg-card p-4 text-sm">
-      <h3 id={headingId} className="text-base font-semibold">
-        {heading}
-      </h3>
-      {children}
-    </section>
-  )
-}
-
-/** A short list: the hints, and what a correct observation holds. */
-function Listed({ items }: { items: readonly string[] }) {
-  return (
-    <ul className="grid max-w-[75ch] list-disc gap-1 pl-5">
-      {items.map((item) => (
-        <li key={item}>{item}</li>
-      ))}
-    </ul>
-  )
 }
 
 /**
@@ -166,21 +143,18 @@ export function StationCard({ data, sources, stationId, view, reducedMotion, can
             // What it looks like before the mix: said in words, and for a coloured solution drawn in the bottle too.
             const bottle = bottleLook(data, id)
             return (
-              <div key={id} role="group" aria-label={reagent.name} className="grid grid-cols-[6rem_minmax(0,1fr)] gap-3 rounded-md border p-2">
-                <div className="h-32">
-                  <Bottle lines={reagent.molarity === undefined ? [reagent.formula] : [reagent.formula, `${reagent.molarity} M`]} liquid={bottle.hex ?? undefined} />
-                </div>
-                <div className="grid content-start justify-items-start gap-1.5">
-                  <h4 className="font-medium">{reagent.name}</h4>
-                  <p>
-                    {PAGE_TEXT.looks}: <span className={ROLE.value}>{bottle.words}</span>
-                  </p>
-                  <p>
-                    {PAGE_TEXT.amount}: <span className={ROLE.value}>{amountText(station.amounts[i]!)}</span>
-                  </p>
-                  <Hazards classifiedAs={reagent.classifiedAs ?? reagent.name} hazards={reagent.hazards} sources={sources} solid={reagent.form !== 'solution'} />
-                </div>
-              </div>
+              <BottleTile
+                key={id}
+                name={reagent.name}
+                lines={reagent.molarity === undefined ? [reagent.formula] : [reagent.formula, `${reagent.molarity} M`]}
+                liquid={bottle.hex ?? undefined}
+                rows={[
+                  [PAGE_TEXT.looks, bottle.words],
+                  [PAGE_TEXT.amount, amountText(station.amounts[i]!)],
+                ]}
+              >
+                <Hazards classifiedAs={reagent.classifiedAs ?? reagent.name} hazards={reagent.hazards} sources={sources} solid={reagent.form !== 'solution'} />
+              </BottleTile>
             )
           })}
         </div>
@@ -259,19 +233,25 @@ export function StationCard({ data, sources, stationId, view, reducedMotion, can
 
       {view.mixed && (
         <Step heading={PAGE_TEXT.observations}>
-          <ObservationForm
-            data={data}
-            view={view}
-            shownBy={(field) => usesShowing(station, field)}
+          <ChoiceForm
+            // One question for each field the station's tools can show. One whose part of the tube has not been looked at, or whose tool has not been used yet, waits.
+            questions={view.fields.map((field) => {
+              const tools = usesShowing(station, field)
+              return { id: field, label: FIELD_LABEL[field], choices: choiceList(data, field), waits: tools.length > 0 && !tools.some((use) => view.used.includes(use)) ? toolFirstText(tools) : null }
+            })}
+            recorded={view.observation}
+            judged={view.wrongFields === null ? null : { wrong: view.wrongFields, text: observationFeedback(view.wrongFields) }}
             held={held}
-            refusal={(observation) => {
+            refusal={(observation: Observation) => {
               const blocked = can({ type: 'recordObservation', stationId, observation })
               return blocked === null ? null : observationRefusal(data, stationId, view.used, blocked)
             }}
-            onRecord={(observation) => {
+            onRecord={(observation: Observation) => {
               act({ type: 'recordObservation', stationId, observation })
-              return wrongFields(station, observation)
+              const wrong = wrongFields(station, observation)
+              return { wrong, text: observationFeedback(wrong) }
             }}
+            text={{ check: PAGE_TEXT.checkObservations, change: PAGE_TEXT.change, cancel: PAGE_TEXT.cancel, again: PAGE_TEXT.lookAgain }}
           />
           {/* Under the questions and closed, so that the answers are not read before the tube is: in Guided from the start, in Challenge once the learner has recorded their own. */}
           {view.guidanceShown ? (

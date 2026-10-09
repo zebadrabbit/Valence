@@ -82,7 +82,8 @@ export function progressOf(view: StationView): Progress {
  * ponytail: the station shown is state of the page and is not stored or in the address, so a reload in the middle
  * of the second of two stations begun opens on the first. Store it, or put it in the address, if that is asked for.
  */
-export function openingStation(progress: readonly Progress[]): number {
-  const begun = progress.findIndex((p) => p === 'started' || p === 'observed')
+export function openingStation(progress: readonly string[]): number {
+  // Any word a lab has for a station that is begun and not done: this lab's two, the flame test lab's three.
+  const begun = progress.findIndex((p) => p !== 'not-started' && p !== 'done')
   return Math.max(0, begun >= 0 ? begun : progress.findIndex((p) => p !== 'done'))
 }

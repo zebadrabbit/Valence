@@ -1,12 +1,12 @@
-import { useEffect, useId, useRef, useState, type Ref } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ACTIVITIES } from '@/app/activities'
 import { useAppState } from '@/app/AppState'
 import { LabShell } from '@/app/lab/LabShell'
 import { Primer } from '@/app/lab/Primer'
 import { SHELL_TEXT } from '@/app/lab/shellText'
 import { useLabProgress } from '@/app/lab/useLabProgress'
+import { WarningGroup } from '@/app/lab/WarningGroup'
 import { useMediaQuery } from '@/app/useMediaQuery'
-import { Button } from '@/components/ui/button'
 import { titrationCitations } from '@/chem-data/citations'
 import sources from '@/chem-data/sources.json'
 import { titrationData } from '@/chem-data/titration/data'
@@ -46,45 +46,6 @@ interface Asked {
   action: AskedAction
   warnings: Warning[]
   from: HTMLElement | null
-}
-
-/**
- * Guided's warning before a technique step is skipped, drawn in the bench's notice slot: a group named by the
- * warnings it lists, which takes focus, with one way back and one way on however many it lists. It is not modal:
- * any other action that reaches the page drops it, and after a reload the action has simply not happened. The one
- * press the bench answers by itself (benchAnswer: a conditioned burette pressed again) does not reach the page and
- * leaves it showing, still true and still to be answered.
- */
-function WarningGroup({ asked, onBack, onGoOn, ref }: { asked: Asked; onBack(): void; onGoOn(): void; ref: Ref<HTMLDivElement> }) {
-  const id = useId()
-  const buttons = WARNING_BUTTONS[asked.action.type]
-  return (
-    <div
-      ref={ref}
-      role="group"
-      tabIndex={-1}
-      aria-labelledby={asked.warnings.map((warning) => `${id}${warning}-title`).join(' ')}
-      aria-describedby={asked.warnings.map((warning) => `${id}${warning}-body`).join(' ')}
-      className="grid gap-2 rounded-md border-2 p-2 outline-none focus-visible:ring-2 focus-visible:ring-ring"
-    >
-      {asked.warnings.map((warning) => (
-        <div key={warning} className="grid gap-1">
-          <p id={`${id}${warning}-title`} className="font-medium">
-            {WARNING_TEXT[warning].title}
-          </p>
-          <p id={`${id}${warning}-body`}>{WARNING_TEXT[warning].body}</p>
-        </div>
-      ))}
-      <div className="flex flex-wrap gap-1.5">
-        <Button variant="outline" onClick={onBack}>
-          {buttons.back}
-        </Button>
-        <Button variant="outline" onClick={onGoOn}>
-          {buttons.on}
-        </Button>
-      </div>
-    </div>
-  )
 }
 
 /**
@@ -218,7 +179,18 @@ export function TitrationPage() {
           onAction={(action) => ANSWER[attempt(action).kind]}
           onReading={onReading}
           confirmed={confirmed}
-          notice={asked && <WarningGroup ref={warningRef} asked={asked} onBack={() => answer(false)} onGoOn={() => answer(true)} />}
+          // A warning in the bench's notice slot. The one press the bench answers by itself (benchAnswer: a conditioned burette pressed again) does not reach the page and leaves it showing, still true and still to be answered.
+          notice={
+            asked && (
+              <WarningGroup
+                ref={warningRef}
+                warnings={asked.warnings.map((warning) => ({ id: warning, ...WARNING_TEXT[warning] }))}
+                buttons={WARNING_BUTTONS[asked.action.type]}
+                onBack={() => answer(false)}
+                onGoOn={() => answer(true)}
+              />
+            )
+          }
           notebookDone={notebookDone}
         />
       )}

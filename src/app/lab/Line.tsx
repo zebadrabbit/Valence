@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react'
-import { ROLE } from '@/app/lab/roles'
-import { saidAgain } from '@/app/lab/shellText'
+import { ROLE } from './roles'
+import { saidAgain } from './shellText'
 
 export interface Said {
   text: string
@@ -11,10 +11,10 @@ export interface Said {
 /**
  * What a card's message line says, and the way to say the next thing in it. A sentence said twice running says
  * that it is said again, so that the line, a live region, changes and is spoken. `initial` is what the line holds
- * when the card is first drawn, which is not spoken.
+ * when the card is first drawn, which is not spoken, and `initialHeld` whether that is a reason.
  */
-export function useSaid(initial = ''): [said: Said, say: (text: string, held?: boolean) => void] {
-  const [said, setSaid] = useState<Said>({ text: initial, held: false })
+export function useSaid(initial = '', initialHeld = false): [said: Said, say: (text: string, held?: boolean) => void] {
+  const [said, setSaid] = useState<Said>({ text: initial, held: initialHeld })
   return [said, (text, held = false) => setSaid((was) => ({ text: saidAgain(text, was.text), held }))]
 }
 

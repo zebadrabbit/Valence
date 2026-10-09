@@ -18,7 +18,7 @@ import {
   type TitrationState,
   type Trial,
 } from '@/engine/titration'
-import { ENTRY_INPUT, entryKey, fieldState, useEntryFocus } from './entry'
+import { ENTRY_INPUT, entryKey, fieldState, useEntryFocus } from '@/app/lab/entry'
 import { deviationE2Text, deviationText, molarityText, readingText } from './format'
 import {
   blockedText,

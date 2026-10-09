@@ -3,13 +3,13 @@ import { useEffect, useId, useRef, useState, type KeyboardEvent, type MouseEvent
 import { createPortal } from 'react-dom'
 import { Control, noRepeat } from '@/app/lab/Control'
 import { ROLE } from '@/app/lab/roles'
-import { entryKey, fieldState } from '@/app/lab/titration/entry'
+import { entryKey, fieldState } from '@/app/lab/entry'
 import { Button } from '@/components/ui/button'
 import type { AqueousData } from '@/chem-data/aqueous/data'
 import type { Entry, Form, Problem, State, StationView, Term } from '@/engine/aqueous'
 import { EMPTY, MAX_COEFFICIENT, SIDES, changeTerm, entered, fit, move, nextEmpty, place, remove, setNoReaction, type At, type Counts, type Refused, type Row, type Side } from './builder'
 import { EquationLine, Formula, formulaOf } from './Formula'
-import { Line, Mark, useSaid } from './Line'
+import { Line, Mark, useSaid } from '@/app/lab/Line'
 import { BENCH_TEXT, FORM_LABEL, PAGE_TEXT, SLOT_TEXT, STATE_NAME, alreadyOnSide, equationFeedback, slotLabel } from './messages'
 
 export interface EquationBuilderProps {
