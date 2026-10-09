@@ -6,7 +6,7 @@ The inputs the emission spectra of the periodic table are built from, the rule t
 
 ## The rule
 
-One rule, in `scripts/emission-lib.mjs`, applied by the build to every element but three:
+One rule, in `scripts/emission-lib.mjs`, applied by the build to every element but two:
 
 1. Take the lines of the neutral atom with an observed wavelength in air from 400 to 700 nm, as NIST's response lists them. Rows that share a wavelength are one line.
 2. Keep the lines whose relative intensity starts with a number. The number is read and the letters NIST puts after it are not ("500bl" is 500). A line with no intensity, or with letters only, is left out. Where two rows share a wavelength and differ, the larger number is taken (cerium at 657.910 nm is the one case).
@@ -14,21 +14,25 @@ One rule, in `scripts/emission-lib.mjs`, applied by the build to every element b
 
 Ties are never cut, because any way of choosing among lines NIST rates the same would be this project's choice and not NIST's. So 34 elements show more than six lines. For plutonium, curium, berkelium and californium NIST gives every line the same intensity, and all of them are shown: 49, 27, 25 and 13.
 
-Hydrogen, sodium and xenon keep the lines and sentences written for them by hand in `docs/research/phase-2/emission-lines.json`. The build checks that each of their wavelengths is printed, digit for digit, in the saved response.
+Hydrogen and sodium keep the lines and sentences written for them by hand in `docs/research/phase-2/emission-lines.json`. The build checks that each of their wavelengths is printed, digit for digit, in the saved response.
+
+Hydrogen, sodium and xenon are also shown on the atom cards of the molecule explorer, from `src/chem-data/elements.json`. The build writes the same spectrum to both files, and a test holds them equal: hydrogen's and sodium's by hand, xenon's by the rule.
 
 ## What came out
 
 | Outcome | Elements |
 | --- | --- |
-| A spectrum by the rule | 94 |
-| A spectrum written by hand | 3: hydrogen, sodium, xenon |
+| A spectrum by the rule | 95 |
+| A spectrum written by hand | 2: hydrogen, sodium |
 | No spectrum: NIST lists lines of the neutral atom in the range, none with a relative intensity | 1: francium (87 lines) |
 | No spectrum: NIST lists lines of the element, none of the neutral atom in the range | 2: astatine, fermium |
 | No spectrum: NIST lists no lines of the element | 18: mendelevium to oganesson |
 
 ## What was found
 
-**Xenon's six are not the rule's.** The sentence stored with xenon says its lines are the six strongest by the relative intensity NIST lists. The saved response shows otherwise. They are the six lines with the largest transition probability, `Aki(s^-1)`, which is the column next to the relative intensity in NIST's table: `emission-lines.json` records those six numbers (1.91e+06, 5.83e+06 and so on) under the name `relativeIntensityAsPublished`. Two of the six, at 462.42756 and 467.12258 nm, have no relative intensity at all. By relative intensity the six would be 473.41518, 480.70190, 491.6507, 492.3152, 631.8062 and 482.9708 nm, of which two are among the six stored. Neither the rule nor xenon's lines were changed to fit the other, and the sentence on xenon's card still says what it said. It is for the project owner to decide which to keep. `src/chem-data/emissionSpectra.test.ts` holds a test that states the finding.
+**Xenon's first six were not what their sentence said. Resolved on 2026-10-08.** Until that day xenon showed six lines chosen by hand on 2026-10-03 (697.6182, 688.2155, 491.6507, 480.70190, 467.12258 and 462.42756 nm), with a sentence that called them the six strongest by the relative intensity NIST lists. The saved response showed otherwise. They were the six lines with the largest transition probability, `Aki(s^-1)`, the column next to the relative intensity in NIST's table: `emission-lines.json` recorded those six numbers (1.91e+06, 5.83e+06 and so on) under the name `relativeIntensityAsPublished`. Two of the six, at 462.42756 and 467.12258 nm, have no relative intensity at all.
+
+The first build of this phase changed neither the rule nor xenon's lines, and put the finding to the project owner, who decided the same day: the rule applies to xenon as to every other element, wherever xenon is shown. Its lines are now 631.8062, 492.3152, 491.6507, 482.9708, 480.70190 and 473.41518 nm (NIST's intensities 500, 500, 500, 400, 500 and 600; nothing ties with the sixth), on the periodic table's card and on the molecule explorer's atom card, with the rule's sentence in place of the old one. Two of the first six are among them. Xenon's entry in `emission-lines.json` is kept as history, marked superseded with a dated correction, and its six numbers are named there for what they are; the build reads nothing from it but the mark. The source entry for the page the first six were read from is no longer cited and is not written to the app's sources. `src/chem-data/emissionSpectra.test.ts` holds xenon to the rule and the record to NIST's columns.
 
 **The rule would give hydrogen the same four lines.** They are the only lines of the neutral atom in the range that NIST gives an intensity. Sodium's hand-written choice is narrower than the rule's: the rule would add four weaker lines to the two D lines.
 
@@ -53,4 +57,4 @@ Two pages were read on 2026-10-08 for the note shown with every spectrum (`EMISS
 
 ## What nobody checked
 
-No chemist has read the spectra or the sentences. Only the 400 to 700 nm range and only the neutral atom were asked for. The descriptors after an intensity (blended, wide, hazy, observed in absorption) are not used by the rule and are not shown. The three hand-written spectra cite the pages they were read from on 2026-10-03 and 2026-10-04; the responses saved here are a later request in another format.
+No chemist has read the spectra or the sentences. Only the 400 to 700 nm range and only the neutral atom were asked for. The descriptors after an intensity (blended, wide, hazy, observed in absorption) are not used by the rule and are not shown. The two hand-written spectra cite the pages they were read from on 2026-10-03 and 2026-10-04; the responses saved here are a later request in another format.
