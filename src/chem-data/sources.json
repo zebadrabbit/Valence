@@ -100,9 +100,9 @@
     "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 14917; URL: https://pubchem.ncbi.nlm.nih.gov/compound/14917#section=3D-Conformer (retrieved 2026-10-09)"
   },
   {
-    "id": "pubchem-cid-281",
-    "url": "https://pubchem.ncbi.nlm.nih.gov/compound/281",
-    "citation": "PubChem, National Library of Medicine (NCBI). PubChem Identifier: CID 281; URL: https://pubchem.ncbi.nlm.nih.gov/compound/281#section=3D-Conformer (retrieved 2026-10-09)"
+    "id": "cccbdb-carbon-monoxide",
+    "url": "https://cccbdb.nist.gov/expgeom2x.asp?casno=630080",
+    "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-09), citing: NIST Diatomic Spectral Database (doi:10.18434/T4T59X); comment 're'"
   },
   {
     "id": "cccbdb-ozone",

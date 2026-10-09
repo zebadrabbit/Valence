@@ -39,6 +39,7 @@ const HUBER = ", citing: Huber, K.P.; Herzberg, G., Molecular Spectra and Molecu
 const MULLER = ', citing: Müller, H. S. P., Phys. Chem. Chem. Phys. 3, 1570-1575 (2001) (doi:10.1039/b100527h)'
 const BURGER = ", citing: Bürger, H.; Ma, S., J. Mol. Spectrosc. 157, 536-539 (1993) (doi:10.1006/jmsp.1993.1043); comment 're'"
 const TOLLES = ', citing: Tolles, W. M.; Gwinn, W. D., J. Chem. Phys. 36, 1119 (1962) (doi:10.1063/1.1732702)'
+const DIATOMIC = ", citing: NIST Diatomic Spectral Database (doi:10.18434/T4T59X); comment 're'"
 const HERZBERG = ', citing: Herzberg, G., Electronic spectra and electronic structure of polyatomic molecules, Van Nostrand, New York, 1966'
 
 // Chlorine trifluoride, T-shaped: the equatorial fluorine on -z, the two axial ones leaning towards it.
@@ -63,6 +64,20 @@ const added = [
     atoms: [at('H', 0, 0, -0.741 / 2), at('H', 0, 0, 0.741 / 2)],
     bondList: single([[0, 1]]),
     notes: "Equilibrium (re) length. CCCBDB prints rHH = 0.741 in its internal-coordinate table; its own Cartesians give 0.7414.",
+  }),
+  entry({
+    id: 'co',
+    name: 'Carbon monoxide',
+    formula: 'CO',
+    pubchemCid: 281,
+    cas: '630-08-0',
+    pointGroup: 'C∞v',
+    origin: 'carbon at origin; molecule along z',
+    lengths: [{ label: 'r(C-O)', atoms: [[0, 1]], value: '1.128', type: 're', cites: DIATOMIC }],
+    angles: [],
+    atoms: [at('C', 0, 0, 0, -1), at('O', 0, 0, 1.128, 1)],
+    bondList: [{ a: 0, b: 1, order: 3 }],
+    notes: "Equilibrium (re) length. The bond order and formal charges are the usual Lewis structure (C(-) triple bond O(+)), authored structure. PubChem has a computed conformer for this record; it is not used, because its bond is 1.057 angstrom, 0.07 shorter than the page's, and the length is all the geometry a diatomic molecule has (README.md).",
   }),
   entry({
     id: 'o3',

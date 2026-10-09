@@ -170,10 +170,11 @@ const LIBRARY = [
 // Where a molecule's coordinates come from (spec 5.2). The first 13 of the Basics and VSEPR groups use cited
 // experimental geometry and every other molecule of the first 33 its PubChem 3D conformer. A molecule added
 // later (its pubchem.json entry has its own retrieval date) uses its PubChem conformer, and cited experimental
-// geometry only where PubChem has none, or where the conformer does not have the molecule's shape: those are
-// named here with the reason, which docs/research/phase-2/README.md gives in full.
+// geometry only where PubChem has none, or where the conformer does not have the molecule's shape or its one
+// length: those are named here with the reason, which docs/research/phase-2/README.md gives in full.
 const EXPERIMENTAL_TOPICS = new Set(['basics', 'vsepr'])
 const CONFORMER_NOT_USED = {
+  'carbon-monoxide': 'the bond of the computed conformer is 0.07 Å shorter than the measured one, and a diatomic molecule has no other geometry',
   ozone: 'the two O–O bonds of the computed conformer differ by 0.2 Å, and the real ones are equal',
   'sulfur-tetrafluoride': 'the computed conformer is tetrahedral, not a seesaw',
 }

@@ -225,6 +225,7 @@ describe('the real chem-data registry', () => {
     expect(published('chlorine-trifluoride')).toEqual(['1.597', '1.697', '87.45', '174.9'])
     expect(published('sulfur-tetrafluoride')).toEqual(['1.646', '1.545', '173.07', '101.55', '87.81'])
     expect(published('hydrogen')).toEqual(['0.741'])
+    expect(published('carbon-monoxide')).toEqual(['1.128'])
     expect(published('water')).toEqual(['0.958', '104.4776'])
     expect(published('hydrogen-peroxide')).toEqual(['1.475', '0.950', '94.8', '119.8'])
     expect(published('phosphorus-pentachloride')).toEqual(['2.124', '2.020', undefined])
@@ -245,9 +246,9 @@ describe('the real chem-data registry', () => {
     ])
   })
 
-  it('cites experimental geometry for the first 13 of the Basics and VSEPR groups and for five added later, and PubChem for the rest', () => {
-    // Spec 5.2. The five: PubChem has no conformer for H₂, ClF₃ and XeF₂; its conformer of SF₄ is tetrahedral, and
-    // that of ozone has two different O–O lengths.
+  it('cites experimental geometry for the first 13 of the Basics and VSEPR groups and for six added later, and PubChem for the rest', () => {
+    // Spec 5.2. The six: PubChem has no conformer for H₂, ClF₃ and XeF₂; its conformer of SF₄ is tetrahedral, that
+    // of ozone has two different O–O lengths, and that of carbon monoxide a bond 0.07 Å too short.
     const experimental = registry.molecules.filter((m) => m.geometrySource === 'cited-experimental').map((m) => m.id)
     expect(experimental).toEqual([
       'water',
@@ -259,6 +260,7 @@ describe('the real chem-data registry', () => {
       'hydrogen-chloride',
       'hydrogen-peroxide',
       'hydrogen',
+      'carbon-monoxide',
       'ozone',
       'boron-trifluoride',
       'sulfur-dioxide',

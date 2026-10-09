@@ -4066,18 +4066,18 @@
     "charge": 0,
     "atoms": [
       {
-        "element": "O",
-        "formalCharge": 1,
-        "lonePairs": 1,
-        "oxidationState": -2,
-        "geometry": "terminal atom",
-        "hybridization": "sp"
-      },
-      {
         "element": "C",
         "formalCharge": -1,
         "lonePairs": 1,
         "oxidationState": 2,
+        "geometry": "terminal atom",
+        "hybridization": "sp"
+      },
+      {
+        "element": "O",
+        "formalCharge": 1,
+        "lonePairs": 1,
+        "oxidationState": -2,
         "geometry": "terminal atom",
         "hybridization": "sp"
       }

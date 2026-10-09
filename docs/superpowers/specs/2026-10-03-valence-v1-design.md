@@ -78,7 +78,7 @@ The validator runs in tests and in the build, over both folders, and fails when:
 
 1. a field that requires a source has none, or names a `sourceId` that does not exist;
 2. an ID referenced by a station or mechanism does not exist;
-3. a molecule file's coordinates look like a 2D drawing: any bond to hydrogen shorter than 0.80 Å, or any bond between two non-hydrogen atoms shorter than 1.05 Å;
+3. a molecule file's coordinates look like a 2D drawing: any bond to hydrogen shorter than 0.80 Å, or any bond between two non-hydrogen atoms shorter than 1.05 Å. A bond between two hydrogens has a floor of its own, 0.70 Å, since 2026-10-09: the bond of H₂ is 0.741 Å, the one real bond the first rule would refuse;
 4. any authored prose string (chem-data text, mechanism text, lab primers) matches an institution-specific pattern: a location word (`room`, `building`, `cabinet`, `shelf`, `stockroom`) followed by a number or letter-number code; a course-number shape (two to four letters followed by three or four digits, excluding text that follows `CID`, `CAS`, or a citation year; letters that do not start with a capital count only when they spell a listed subject such as `chem`, because ordinary prose puts lower-case words before numbers); or a name from a configurable list. The validator's tests pin this: "room temperature", "building block", "CID 962", and "NIST 2022" must pass; "Room 214", "CHEM 1411", "chem 1411", and "cabinet B3" must fail;
 5. a `published` string is not a plain decimal number equal to the number stored beside it, or a cited length, angle or dihedral has neither a `published` string nor the point group it follows from.
 
@@ -90,9 +90,11 @@ In the UI, each inspector card, station result, and energy panel has a "Sources"
 
 | Data | Source |
 | --- | --- |
-| 3D coordinates for the Basics and VSEPR showcase groups (section 6.1) | Built by a script from cited experimental gas-phase bond lengths and angles (NIST CCCBDB experimental geometry pages, which hold all 13), so the model, the measure tool, and the card agree. Labelled "experimental (gas phase)". Includes BF₃, SF₆, XeF₄, and PCl₅, which have no PubChem 3D record |
-| 3D coordinates for all other molecules and polyatomic ions | PubChem 3D SDF, fetched once and committed. Only a `record_type=3d` record is accepted; a 2D record is never used for 3D. Labelled "computed conformer (PubChem3D, MMFF94s force field); not an experimental structure" |
-| 2D layout positions for the Lewis view | PubChem 2D SDF (drawing units), except for four authored drawings: sulfur dioxide, whose octet resonance form is drawn bent; ammonia and hydronium, drawn with the hydrogens to the sides and below so the lone pair sits on top; and carbon dioxide, drawn horizontal |
+| 3D coordinates for the 13 molecules of the Basics and VSEPR showcase groups in the first library (section 6.1) | Built by a script from cited experimental gas-phase bond lengths and angles (NIST CCCBDB experimental geometry pages, which hold all 13), so the model, the measure tool, and the card agree. Labelled "experimental (gas phase)". Includes BF₃, SF₆, XeF₄, and PCl₅, which have no PubChem 3D record |
+| 3D coordinates for all other molecules and polyatomic ions of the first library | PubChem 3D SDF, fetched once and committed. Only a `record_type=3d` record is accepted; a 2D record is never used for 3D. Labelled "computed conformer (PubChem3D, MMFF94s force field); not an experimental structure" |
+| 3D coordinates for a molecule added after the first library (2026-10-09), whatever its group | Its PubChem 3D conformer, as above. Cited experimental geometry from NIST CCCBDB, built and labelled as for the 13, only where PubChem has no conformer (H₂, ClF₃, XeF₂) or where its conformer does not have the molecule's shape, each such case named in the build with its reason: SF₄, which PubChem's conformer makes tetrahedral; ozone, whose two O–O bonds it makes 0.2 Å apart; and carbon monoxide, whose one bond it makes 0.07 Å short. So the added Basics and VSEPR molecules are mostly computed conformers, unlike the first 13; the page of each says which it is |
+| 2D layout positions for the Lewis view | PubChem 2D SDF (drawing units), except for six authored drawings: sulfur dioxide, whose octet resonance form is drawn bent; ammonia, hydronium and phosphorus trichloride, drawn with the other atoms to the sides and below so the lone pair sits on top; and carbon dioxide and xenon difluoride, drawn straight and horizontal. The layout of a molecule added after the first library is turned as a whole by a multiple of 30° (which keeps PubChem's bond directions) where that lets the Lewis view draw it at least a tenth larger in its frame, which is wider than tall: PubChem draws some long molecules on end or on a slant (aspartame, capsaicin) |
+| The sentence that says what a molecule of the Everyday group is | The molecule's PubChem record: its description, or the section of the record named in `docs/research/phase-2/notes.json`, which records for each sentence where it was read and what was found there. Written in Valence's words, with no advice on health or amounts. Read and not kept |
 | Atomic weights | CIAAW abridged standard atomic weights |
 | Electron configurations and ionization energies | NIST Atomic Spectra Database. Ionization energies are stored in eV as published and converted to kJ/mol in code |
 | Pauling electronegativity | PubChem periodic table |
@@ -144,13 +146,26 @@ Molecule files hold curated inputs only. Oxidation state, steric number, hybridi
 
 ### 6.1 Library
 
-The library is the 31 entries below. Glycine and alanine each have a neutral and a zwitterion structure file (33 files in total), shown as one library entry with a form toggle.
+The first library was the 31 entries below. Glycine and alanine each have a neutral and a zwitterion structure file (33 files in total), shown as one library entry with a form toggle.
 
 - **Basics (8):** H₂O, CO₂, NH₃, CH₄, O₂, N₂, HCl, H₂O₂.
 - **VSEPR showcase (5):** BF₃, SO₂, SF₆, XeF₄, PCl₅.
 - **Organic functional groups (11):** ethane, ethene, ethyne, ethanol, acetic acid, acetone, formaldehyde, methylamine, ethyl acetate, acetamide, benzene.
 - **Biomolecules (4):** β-D-glucopyranose (CID 64689), glycine (CID 750; zwitterion CID 5257127), L-alanine (CID 5950; zwitterion CID 7311724), urea.
 - **Mechanism species (3):** H₃O⁺, HCO₃⁻, H₂CO₃.
+
+**Since 2026-10-09 the library is 101 entries (105 structure files) in six groups.** Seventy were added, chosen to show an idea (a shape, polarity, resonance, an expanded octet, isomers, a functional group) or because a person knows them from daily life:
+
+- **Basics (17 more, 25):** H₂, Cl₂, HF, CO, O₃, H₂S, HCN, HNO₃, H₂SO₄, H₃PO₄, and the ions OH⁻, NH₄⁺, NO₃⁻, CO₃²⁻, SO₄²⁻, PO₄³⁻ and CH₃COO⁻.
+- **VSEPR showcase (8 more, 13):** SO₃, PCl₃, CCl₄, CH₂Cl₂, CHCl₃, SF₄ (seesaw), ClF₃ (T-shaped), XeF₂ (linear, five domains).
+- **Organic functional groups (13 more, 24):** methanol, dimethyl ether (an isomer of ethanol), propane, butane and 2-methylpropane (isomers), cyclohexane, propene, acetaldehyde, formic acid, toluene, phenol, acetonitrile, diethyl ether.
+- **Biomolecules (10 more, 14):** glycerol, L-lactic acid, citric acid, L-serine (CID 5951; zwitterion CID 6857581), L-cysteine (CID 5862; zwitterion CID 6419722), adenine, thymine, fructose (β-D-fructofuranose, CID 439709), sucrose, palmitic acid.
+- **Everyday molecules (22), a new group:** caffeine, aspirin, acetaminophen, ibuprofen, vanillin, menthol, limonene, capsaicin, cinnamaldehyde, ascorbic acid, theobromine, nicotine, isoamyl acetate, methyl salicylate, benzaldehyde, geosmin, dopamine, serotonin, adrenaline, indigo (CID 5318432), 2,2,4-trimethylpentane, aspartame. Each carries one sentence that says what it is (section 5.2).
+- **Mechanism species (3):** as before.
+
+Left out, of those asked for: beryllium chloride and bromine pentafluoride, whose elements are not in the explorer's element table (11 elements; adding one takes radii from sources not read for it), so the library has no square pyramidal molecule; and the triiodide ion, for which NIST CCCBDB has no experimental geometry. No molecule has more than 50 atoms (palmitic acid).
+
+The library page lists the entries under their group headings from the small index (`library-index.json`), not from the structure files, and has a field that narrows the list by name or formula as it is typed: a label, the count of molecules shown in a status line, a Clear button, and Escape to clear. A match is what the command palette calls one.
 
 No salts in the library: ionic compounds are not molecules. Notes carried by individual molecules:
 
@@ -159,6 +174,10 @@ No salts in the library: ionic compounds are not molecules. Notes carried by ind
 - **SO₂:** drawn in the octet-obeying resonance form (one S=O, one S–O, formal charges +1 on S and −1 on one O), as in OpenStax Chemistry 2e.
 - **HCO₃⁻:** the two unprotonated C–O bonds are equivalent in the real ion; the computed conformer shows them at different lengths.
 - **Zwitterions:** the form found in water and in the solid; the model is a computed conformer.
+- **SO₄²⁻, PO₄³⁻, H₂SO₄, H₃PO₄, SO₃ (2026-10-09):** drawn in the octet-obeying form, as SO₂ is: every bond from S or P to oxygen single (one S=O in SO₃), +2 on S or +1 on P, −1 on each oxygen that carries no hydrogen. The note says that both drawings are in use and that PubChem's record draws the S=O or P=O double bonds, which lowers the formal charges and gives the central atom more than eight electrons. The oxidation state, geometry and hybridization of the central atom are the same in both.
+- **HNO₃:** the two N–O bonds to the oxygens that carry no hydrogen are close to equal in the real molecule, not equal: NIST lists 1.199 Å and 1.211 Å.
+- **SF₄, ClF₃:** "gas-phase structure", with the axial bonds longer than the equatorial.
+- **A molecule added on 2026-10-09 for which PubChem lists more than one conformer:** "one conformer of many".
 
 ### 6.2 Views
 
@@ -170,15 +189,15 @@ Inspectors open when an atom or bond is selected. Beside the canvas, a DOM list 
 
 **Atom card**, base layer: symbol, atomic number, mass, electronegativity, valence electrons, formal charge, oxidation state, hybridization, VSEPR geometry. Expanded layer: electron configuration, ionization energies, atomic and ionic radii. For hydrogen and xenon the expanded layer also shows the emission spectrum of the isolated atom: a strip, a table of wavelengths with colour names (and, for hydrogen, the electron transition), and a note that an atom bonded in a molecule does not emit these lines. Since 2026-10-08 it also carries the note shown with every spectrum of the periodic table, on what the strip leaves out (periodic table spec, section 5.8). Strip colours are approximate; the wavelengths are the data.
 
-**Bond card:** length, order, polarity as Pauling electronegativity difference (labelled "a rough guide"), σ/π composition. Aromatic bonds show "aromatic (delocalised), order 1.5". A bond with a `resonanceNote` is one of a resonance pair: the carboxylate C–O bonds of the zwitterions, the two unprotonated C–O bonds of HCO₃⁻, and both S–O bonds of SO₂. Both bonds of the pair show "resonance pair, order 1.5" and "1 σ + delocalised π (resonance pair, effective order 1.5)", with a note beneath that says how the Lewis structure draws that bond: "The Lewis structure draws this bond as a double bond, in one of two equivalent resonance structures; the two real bonds are equal." Under Sources, the card says where the order comes from for the bond it shows: the Lewis structure as drawn for an ordinary bond, the shared π bond for a resonance pair, and the ring's shared π bonds for an aromatic bond. The stored order, the Lewis view and the 3D model keep the drawn double and single bond.
+**Bond card:** length, order, polarity as Pauling electronegativity difference (labelled "a rough guide"), σ/π composition. Aromatic bonds show "aromatic (delocalised), order 1.5". A bond with a `resonanceNote` is one of a resonance pair: the carboxylate C–O bonds of the zwitterions and of acetate, the two unprotonated C–O bonds of HCO₃⁻, both S–O bonds of SO₂, both O–O bonds of ozone and the two N–O bonds of HNO₃ to the oxygens that carry no hydrogen. Or it is one of a resonance set of three (2026-10-09): the three bonds of NO₃⁻, of CO₃²⁻ and of SO₃, which read "resonance set of three, order 1.33" and "1 σ + delocalised π (resonance set of three, effective order 1.33)", with the note worded for three structures and three equal bonds. Aromatic bonds are those of a benzene ring, six carbons drawn with alternating double and single bonds, wherever one occurs; a ring that holds nitrogen (nicotine, adenine, caffeine) is stored as drawn and not marked. Both bonds of the pair show "resonance pair, order 1.5" and "1 σ + delocalised π (resonance pair, effective order 1.5)", with a note beneath that says how the Lewis structure draws that bond: "The Lewis structure draws this bond as a double bond, in one of two equivalent resonance structures; the two real bonds are equal." Under Sources, the card says where the order comes from for the bond it shows: the Lewis structure as drawn for an ordinary bond, the shared π bond for a resonance pair, and the ring's shared π bonds for an aromatic bond. The stored order, the Lewis view and the 3D model keep the drawn double and single bond.
 
 Derived values:
 
-- **Oxidation state:** valence electrons minus (lone-pair electrons + bonding electrons assigned to the atom). Each bond's electrons go to the more electronegative atom (Pauling) and are split equally between atoms of the same element.
+- **Oxidation state:** valence electrons minus (lone-pair electrons + bonding electrons assigned to the atom). Each bond's electrons go to the more electronegative atom (Pauling) and are split equally between atoms of the same element. Before that rule, since 2026-10-09: every atom of an uncharged species made of one element is 0. The two agree for H₂, O₂, N₂ and Cl₂ and not for ozone, where splitting the bonds leaves each oxygen its formal charge (+1, 0, −1) and gives its two equivalent outer atoms different values.
 - **VSEPR geometry:** shown only for atoms bonded to two or more atoms; other atoms show "terminal atom". Computed from the steric number (bonded atoms + lone pairs) by lookup. A nitrogen covered by the resonance override below does not count its delocalised lone pair as a domain, so amide and urea nitrogens are trigonal planar.
 - **Hybridization:** from the steric number, following general chemistry textbooks.
-  - Resonance override, nitrogen only: a nitrogen with a lone pair that is bonded to an atom carrying a double bond (amide N, urea N) is sp². The planar shape is visible in the 3D model.
-  - Oxygens are not overridden. The O–H and ester oxygens of acids and esters are sp³ and bent, as in OpenStax Chemistry 2e. Their card adds: "organic chemistry describes this oxygen as sp², because one lone pair is delocalised into the neighbouring C=O".
+  - Resonance override, nitrogen only: a nitrogen with a lone pair that is bonded to an atom carrying a double bond (amide N, urea N; and, in the molecules added later, the N–H of a ring next to a C=C or a benzene ring, as in serotonin and indigo, and the ring and amino nitrogens of adenine) is sp². The planar shape is visible in the 3D model.
+  - Oxygens are not overridden. The O–H and ester oxygens of acids and esters are sp³ and bent, as in OpenStax Chemistry 2e. Their card adds: "organic chemistry describes this oxygen as sp², because one lone pair is delocalised into the neighbouring C=O". The note names what the oxygen is next to: the aromatic ring for a phenol or an aryl ether, a C=C for an enol. It is given beside a double bond of carbon only: the O–H of nitric acid, next to N=O, has none.
   - Terminal atoms: a terminal atom with a double or triple bond shows its value (carbonyl O is sp², the N of N₂ is sp). Hydrogen shows "none (1s)". Any other terminal atom (halogens, singly bonded O⁻) shows "not assigned (terminal atom)".
   - Steric numbers 5 and 6 read "sp³d (textbook label)" and "sp³d² (textbook label)", with the expanded note "real d-orbital involvement is negligible".
 - **Lengths and angles:** measured from the stored coordinates and labelled with `geometrySource`. Flexible molecules (ethanol, glucose, ethyl acetate) carry the note "one conformer of many".
@@ -191,7 +210,7 @@ Derived values:
 2. Lewis dots and lone pairs.
 3. Hybrid orbital lobes for sp, sp², sp³ only; molecular orbital diagrams for O₂ and N₂ only. The O₂ diagram carries a callout that the Lewis structure shows all electrons paired while the MO diagram shows two unpaired.
 
-Lone-pair directions for levels 2 and 3 come from one pure function of the atom's bond vectors and its ideal electron geometry, with an optional per-atom override (deferred until a molecule needs one; not built in 2A).
+Lone-pair directions for levels 2 and 3 come from one pure function of the atom's bond vectors and its ideal electron geometry, with an optional per-atom override (deferred until a molecule needs one; not built in 2A). Since 2026-10-09 it covers the three shapes of five electron domains: the lone pairs of SF₄, ClF₃ and XeF₂ take the equatorial places, at right angles to the line through the two axial bonds. A square pyramid (five bonds and a lone pair) is not covered; no molecule of the library is one.
 
 Hybrid lobes are the last item of the Explorer phase and the first to cut if the phase runs long.
 
@@ -200,10 +219,11 @@ Hybrid lobes are the last item of the Explorer phase and the first to cut if the
 - A test asserts the bundled registry contains every library ID and that every file passes the validator.
 - The validator checks every atom's stored formal charge against valence electrons minus lone-pair electrons minus the sum of bond orders.
 - Oxidation states sum to each species' charge.
-- An expected-values table in the test suite, generated from the research table by `npm run build:expected` with hand-written named cases, covers every atom of the Basics, VSEPR, and Mechanism groups and every non-hydrogen atom of the rest (oxidation state, hybridization, VSEPR geometry; order per bond). It includes: H₂O₂ (O is −1); acetamide and urea N (sp², trigonal planar); the O–H oxygen of acetic acid (sp³, bent); a terminal halogen (hybridization not assigned, no geometry shown); SO₂ in the octet resonance form (S is +4, bent); SF₆ (octahedral); XeF₄ (square planar); PCl₅ (trigonal bipyramidal; angles 90°, 120°, 180°); benzene (all bonds aromatic). Atoms are matched to the table per molecule as a set, so the test does not depend on atom order.
+- An expected-values table in the test suite, generated from the research table by `npm run build:expected` with hand-written named cases, covers every atom of the Basics, VSEPR, and Mechanism groups and every non-hydrogen atom of the rest (oxidation state, hybridization, VSEPR geometry; order per bond). The entries of the 72 structures added on 2026-10-09 were written into the research table by a script kept beside it (`docs/research/phase-2/build-expected-additions.mjs`), which shares no code with `derive.ts`, in one pass with no second, independent one; their named cases are in `derive.test.ts` under their own heading. It includes: H₂O₂ (O is −1); acetamide and urea N (sp², trigonal planar); the O–H oxygen of acetic acid (sp³, bent); a terminal halogen (hybridization not assigned, no geometry shown); SO₂ in the octet resonance form (S is +4, bent); SF₆ (octahedral); XeF₄ (square planar); PCl₅ (trigonal bipyramidal; angles 90°, 120°, 180°); benzene (all bonds aromatic). Atoms are matched to the table per molecule as a set, so the test does not depend on atom order.
 - For molecules whose `geometrySource` is cited experimental, lengths measured from the stored coordinates match the cited values within 0.01 Å and angles within 1°.
 - Lone-pair directions for H₂O and NH₃ match the tetrahedral positions within 5°. The O₂ diagram has two unpaired electrons and bond order 2; N₂ has bond order 3.
-- `describeMolecule` (the text description for screen readers) is tested for three molecules.
+- `describeMolecule` (the text description for screen readers) is tested for three molecules. A description is seven sentences at most: where a sentence for each kind of atom would run past that (the larger molecules added on 2026-10-09), the atoms are counted by element and geometry instead.
+- Every molecule's Lewis layout fits the frame of a tablet held upright (about 548 by 288 px) at no less than 30 px to a bond.
 
 ## 7. Titration lab
 

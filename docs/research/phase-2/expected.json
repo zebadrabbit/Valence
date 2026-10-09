@@ -6682,26 +6682,10 @@
    "name": "carbon monoxide (CO)",
    "charge": 0,
    "composition": {
-    "O": 1,
-    "C": 1
+    "C": 1,
+    "O": 1
    },
    "atoms": [
-    {
-     "label": "O1",
-     "element": "O",
-     "formalCharge": 1,
-     "lonePairs": 1,
-     "oxidationState": -2,
-     "bondedAtoms": 1,
-     "stericNumber": 2,
-     "resonanceOverride": false,
-     "effectiveStericNumber": 2,
-     "electronGeometry": null,
-     "geometry": "terminal atom",
-     "hybridization": "sp",
-     "hybridizationByStericNumberOnly": "sp",
-     "valenceShellElectrons": 8
-    },
     {
      "label": "C1",
      "element": "C",
@@ -6717,12 +6701,28 @@
      "hybridization": "sp",
      "hybridizationByStericNumberOnly": "sp",
      "valenceShellElectrons": 8
+    },
+    {
+     "label": "O1",
+     "element": "O",
+     "formalCharge": 1,
+     "lonePairs": 1,
+     "oxidationState": -2,
+     "bondedAtoms": 1,
+     "stericNumber": 2,
+     "resonanceOverride": false,
+     "effectiveStericNumber": 2,
+     "electronGeometry": null,
+     "geometry": "terminal atom",
+     "hybridization": "sp",
+     "hybridizationByStericNumberOnly": "sp",
+     "valenceShellElectrons": 8
     }
    ],
    "bonds": [
     {
-     "a": "O1",
-     "b": "C1",
+     "a": "C1",
+     "b": "O1",
      "order": 3,
      "aromatic": false,
      "sigmaPi": "1 sigma + 2 pi",

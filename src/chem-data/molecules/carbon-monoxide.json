@@ -7,23 +7,9 @@
   "charge": 0,
   "atoms": [
     {
-      "element": "O",
-      "position": [
-        0.5285,
-        0,
-        0
-      ],
-      "position2d": [
-        2,
-        0
-      ],
-      "formalCharge": 1,
-      "lonePairs": 1
-    },
-    {
       "element": "C",
       "position": [
-        -0.5285,
+        0,
         0,
         0
       ],
@@ -32,6 +18,20 @@
         0
       ],
       "formalCharge": -1,
+      "lonePairs": 1
+    },
+    {
+      "element": "O",
+      "position": [
+        0,
+        0,
+        1.128
+      ],
+      "position2d": [
+        2,
+        0
+      ],
+      "formalCharge": 1,
       "lonePairs": 1
     }
   ],
@@ -43,6 +43,21 @@
       "aromatic": false
     }
   ],
-  "geometrySource": "pubchem-computed",
-  "sourceId": "pubchem-cid-281"
+  "geometrySource": "cited-experimental",
+  "measurements": {
+    "lengths": [
+      {
+        "atoms": [
+          0,
+          1
+        ],
+        "value": 1.128,
+        "sourceId": "cccbdb-carbon-monoxide",
+        "published": "1.128"
+      }
+    ],
+    "angles": [],
+    "dihedrals": []
+  },
+  "sourceId": "cccbdb-carbon-monoxide"
 }
