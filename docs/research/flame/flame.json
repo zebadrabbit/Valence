@@ -81,7 +81,7 @@
           "alsoSourceId": "human-zeegers-1975"
         },
         {
-          "value": "That is why the flame is not the colour of the lines on barium's card of the periodic table. The card shows lines of the barium atom alone, and the flame's green is mostly the molecule's.",
+          "value": "Barium's card on the periodic table shows lines of the barium atom alone, the green line of this strip among them. What colours this flame is mostly the molecule's light, which the card does not show.",
           "sourceId": "nist-asd-lines-neutral",
           "alsoSourceId": "daidoji-1979-strontium-barium"
         }
@@ -176,7 +176,7 @@
           "alsoSourceId": "daidoji-1979-calcium"
         },
         {
-          "value": "That is why the flame is not the colour of the lines on calcium's card of the periodic table. The card shows lines of the calcium atom alone, and the flame's orange-red is mostly the molecule's.",
+          "value": "Calcium's card on the periodic table shows lines of the calcium atom alone, the violet line of this strip among them. What colours this flame is mostly the molecule's light, which the card does not show.",
           "sourceId": "nist-asd-lines-neutral",
           "alsoSourceId": "human-zeegers-1975"
         }
@@ -253,7 +253,7 @@
           "sourceId": "juknelevicius-2020"
         },
         {
-          "value": "That is why the flame is not the colour of the lines on copper's card of the periodic table. The card shows lines of the copper atom alone, and the flame's blue-green is the molecules'.",
+          "value": "Copper's card on the periodic table shows lines of the copper atom alone. What colours this flame is the molecules' light, which the card does not show.",
           "sourceId": "nist-asd-lines-neutral",
           "alsoSourceId": "juknelevicius-2020"
         }
@@ -505,7 +505,7 @@
           "alsoSourceId": "kirchhoff-bunsen-1860"
         },
         {
-          "value": "That is why the flame is not the colour of the lines on strontium's card of the periodic table. The card shows lines of the strontium atom alone, and the flame's red is mostly the molecule's.",
+          "value": "Strontium's card on the periodic table shows lines of the strontium atom alone, the blue line of this strip among them. What colours this flame is mostly the molecule's light, which the card does not show.",
           "sourceId": "nist-asd-lines-neutral",
           "alsoSourceId": "human-zeegers-1975"
         }

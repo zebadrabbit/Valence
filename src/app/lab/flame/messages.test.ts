@@ -275,7 +275,9 @@ describe('the closing question', () => {
     expect(closingFeedback(answer.value)).toMatch(/^Yes\. /)
     expect(closingFeedback(answer.value)).toContain('Only the metal changed, and the colour changed with it.')
     expect(closingFeedback(answer.value)).toContain('For calcium, strontium, barium and copper most of it is the light of a molecule that the metal forms in the flame')
-    expect(closingFeedback(answer.value)).toContain("the element's card of the periodic table")
+    expect(closingFeedback(answer.value)).toContain("That is why the colours of those four flames cannot be told from the element's card of the periodic table, which shows lines of the atom alone.")
+    // Not that those flames are another colour than the card's lines: some of the cards hold lines of the flame's own colour.
+    expect(closingFeedback(answer.value)).not.toMatch(/not the colour of/)
     for (const choice of data.closing.choices.filter((one) => one !== answer.value)) {
       expect(closingFeedback(choice), choice).toMatch(/^Not this\. /)
       expect(closingFeedback(choice), choice).not.toMatch(/\bmetal\b/)

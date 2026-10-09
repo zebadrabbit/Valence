@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { flameData as data } from '@/chem-data/flame/data'
+import { FLAME_PRIMER } from '@/chem-data/flame/primer'
 import { HANDLING, createLab, stationView, type Action, type Seen } from '@/engine/flame'
 import { run } from '@/engine/flame/testkit'
 import { HIT_MIN, MIN_WIDTH_PX, STRIP, brightness, hitAreas, ticks, xOf } from './stripGeometry'
@@ -24,6 +25,8 @@ describe('the scale of the strip', () => {
     const marks = ticks(data.scale)
     expect(marks.map((mark) => mark.nm)).toEqual(Array.from({ length: 20 }, (_, i) => 400 + 20 * i))
     expect(marks.filter((mark) => mark.numbered).map((mark) => mark.nm)).toEqual([400, 500, 600, 700, 780])
+    // The primer's card on the scale says the same of it.
+    expect(FLAME_PRIMER.find((section) => section.id === 'spectroscope')!.paragraphs.map((p) => p.text).join(' ')).toContain('It has a mark every 20 nm and a number at every 100 nm and at its end.')
     // Two marks are far enough apart to be told from each other where the picture is at its narrowest.
     expect(px(marks[1]!.x - marks[0]!.x)).toBeGreaterThan(20)
   })

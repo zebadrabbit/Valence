@@ -261,7 +261,7 @@ export const CLOSING = {
     gas: 'Not this. The burner burnt the same gas at every station, and the flame took its colour only when a loop that carried a salt was held in it.',
     loop: 'Not this. It was the same loop at every station, and a loop is clean when it gives the flame no colour at all.',
     metal:
-      "Yes. The chloride, the water, the loop and the gas were the same at all six stations. Only the metal changed, and the colour changed with it. For sodium and potassium the light is the light of the metal's own atoms: sharp lines. For calcium, strontium, barium and copper most of it is the light of a molecule that the metal forms in the flame: broad bands. That is why the flames of those four are not the colour of the lines on the element's card of the periodic table, which shows lines of the atom alone.",
+      "Yes. The chloride, the water, the loop and the gas were the same at all six stations. Only the metal changed, and the colour changed with it. For sodium and potassium the light is the light of the metal's own atoms: sharp lines. For calcium, strontium, barium and copper most of it is the light of a molecule that the metal forms in the flame: broad bands. That is why the colours of those four flames cannot be told from the element's card of the periodic table, which shows lines of the atom alone.",
     water: 'Not this. Every bottle holds water, and the loop was rinsed in water each time it was cleaned: a cleaned loop gives the flame no colour.',
   } as Record<string, string>,
 } as const

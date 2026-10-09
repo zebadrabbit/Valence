@@ -76,7 +76,7 @@
             "salts[nacl-0.1m].notes[1]"
           ],
           "prints": "intens",
-          "where": "The column the periodic table's card for this element takes its lines from, in the saved table of the neutral atom between 400 and 700 nm. The note says what that card shows; which lines the card picks is the rule of docs/research/emission-spectra/README.md. For potassium the saved table holds 404.4136 and 404.7208 and nothing beyond 700 nm; for sodium it holds 588.995095 and 589.592424. That the flame is not the colour of those lines is this lab's own conclusion from its other sources."
+          "where": "The column the periodic table's card for this element takes its lines from, in the saved table of the neutral atom between 400 and 700 nm. The note says what that card shows; which lines the card picks is the rule of docs/research/emission-spectra/README.md. For potassium the saved table holds 404.4136 and 404.7208 and nothing beyond 700 nm; for sodium it holds 588.995095 and 589.592424; for barium, calcium and strontium it holds the line the strip shows, 553.5481, 422.673 and 460.7331, which the card shows too. That the light which colours the flame is not on the card is this lab's own conclusion from its other sources. The notes do not say that the flame is another colour than the card's lines: as first written they did, and the cards of calcium and of strontium hold red lines."
         }
       ]
     },
@@ -137,7 +137,7 @@
             "salts[cacl2-0.1m].notes[2]"
           ],
           "prints": "CaOH",
-          "where": "The paper's title and its section 3.1: the bands that make up the calcium spectrum of the flame are the molecule's. That the flame is therefore not the colour of the atom's lines is this lab's own conclusion."
+          "where": "The paper's title and its section 3.1: the bands that make up the calcium spectrum of the flame are the molecule's. That what colours the flame is therefore not on a card of the atom's lines is this lab's own conclusion."
         },
         {
           "fields": [
@@ -159,7 +159,7 @@
             "salts[srcl2-0.1m].notes[2]"
           ],
           "prints": "SrOH",
-          "where": "The paper's title and Figure 2: the bands that make up the strontium spectrum of the flame are the molecule's. That the flame is therefore not the colour of the atom's lines is this lab's own conclusion."
+          "where": "The paper's title and Figure 2: the bands that make up the strontium spectrum of the flame are the molecule's. That what colours the flame is therefore not on a card of the atom's lines is this lab's own conclusion."
         },
         {
           "fields": [
