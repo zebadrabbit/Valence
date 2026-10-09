@@ -233,7 +233,7 @@ export const BLOCKED_TEXT: Record<Blocked, string> = {
 /** What each mode does in this lab (spec 15.2), beside its radio button. */
 export const MODE_TEXT: Record<Mode, string> = {
   guided: 'Guided: each station shows its hints from the start, has what a correct observation holds ready to open, and warns you before you dip a loop that is not clean.',
-  challenge: 'Challenge: a station shows no hints, nothing of what a correct observation holds and no warning about the loop, until you have recorded your own observation there.',
+  challenge: 'Challenge: no warning about the loop. A station shows no hints and nothing of what a correct observation holds until you have recorded an observation there that counts: one made with a clean loop.',
 }
 
 /**

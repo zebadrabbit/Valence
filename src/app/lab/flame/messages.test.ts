@@ -303,9 +303,12 @@ describe('every sentence of the module', () => {
 
   it('says of the two modes what the engine does in each', () => {
     expect(MODE_TEXT.guided).toContain('warns you before you dip a loop that is not clean')
-    expect(MODE_TEXT.challenge).toContain('until you have recorded your own observation there')
+    expect(MODE_TEXT.challenge).toContain('until you have recorded an observation there that counts: one made with a clean loop')
+    expect(MODE_TEXT.challenge).toContain('no warning about the loop')
     expect(stationView(data, createLab(data, 'challenge'), CA).guidanceShown).toBe(false)
     expect(warnings(data, createLab(data, 'challenge'), { type: 'dipLoop', stationId: CA })).toEqual([])
+    // An observation made with the handled loop does not count, and shows nothing; one made with a clean loop does.
+    expect(stationView(data, run(data, createLab(data, 'challenge'), stationScript(data, CA, [HANDLING])), CA).guidanceShown).toBe(false)
     expect(stationView(data, run(data, createLab(data, 'challenge'), stationScript(data, CA)), CA).guidanceShown).toBe(true)
   })
 })

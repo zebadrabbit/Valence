@@ -23,7 +23,7 @@ export interface StationView {
   cause: { handled: boolean; carried: string[] } | null
   /** The questions answered wrongly; null while nothing is recorded or what is recorded does not count, empty when the observation is correct. */
   wrong: Question[] | null
-  /** Whether the hints and what a correct observation holds are shown (spec 15.2): from the start in Guided, and in Challenge once the learner has recorded an observation of their own. */
+  /** Whether the hints and what a correct observation holds are shown (spec 15.2): from the start in Guided, and in Challenge once the learner has recorded an observation of their own that counts. One made with a loop that was not clean hands nothing over, or the answers could be had for a careless dip. */
   guidanceShown: boolean
   /** What a correct observation holds, where that is shown; null where it is not, so that a page cannot show it by mistake. */
   expected: Observation | null
@@ -37,7 +37,7 @@ export function stationView(data: FlameData, state: FlameState, stationId: strin
   const recorded = station.observation
   const { loop = [], ...observation } = recorded ?? {}
   const counts = recorded === null ? null : isClean(loop, stationId)
-  const guidanceShown = state.mode === 'guided' || recorded !== null
+  const guidanceShown = state.mode === 'guided' || counts === true
   return {
     flame: station.held === null ? null : flameOf(data, station.held),
     spectrum: station.held === null ? [] : spectrumOf(data, station.held),

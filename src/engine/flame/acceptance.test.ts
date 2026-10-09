@@ -137,7 +137,7 @@ describe('what is expected of an observation', () => {
     }
   })
 
-  it('is not shown in Challenge until the learner has recorded an observation of their own, and is there in Guided from the start', () => {
+  it('is not shown in Challenge until the learner has recorded an observation of their own that counts, and is there in Guided from the start', () => {
     const challenge = run(data, createLab(data, 'challenge'), stationScript(data, NA).slice(0, -1))
     const before = stationView(data, challenge, NA)
     expect(before).toMatchObject({ guidanceShown: false, expected: null, observation: null, wrong: null, counts: null })
@@ -149,6 +149,21 @@ describe('what is expected of an observation', () => {
     expect(stationView(data, createLab(data, 'guided'), NA)).toMatchObject({ guidanceShown: true, expected: expectedObservation(data, NA) })
     // The closing question's answer is in no view at all.
     expect(JSON.stringify(closingView(data, challenge))).not.toContain(data.closing.answer.value)
+  })
+
+  it('is not handed over in Challenge by an observation that did not count: one made with a loop that was not clean, whatever it holds', () => {
+    // The careless learner: the handled loop is never cleaned, everything it shows is looked at, and anything at all is recorded.
+    const careless = run(data, createLab(data, 'challenge'), stationScript(data, CA, [HANDLING]))
+    const view = stationView(data, careless, CA)
+    expect(view).toMatchObject({ counts: false, guidanceShown: false, expected: null, wrong: null, done: false })
+    // Nothing the view holds but what the loop showed, and what the learner recorded, says what the answers are.
+    const told = JSON.stringify({ ...view, flame: null, spectrum: null, observation: null })
+    for (const answer of Object.values(expectedObservation(data, CA))) expect(told).not.toContain(`"${answer}"`)
+    // Done again with a clean loop, and wrong: that one counts, and the guidance comes.
+    const again = run(data, careless, [...stationScript(data, CA).slice(0, -1), { type: 'recordObservation', stationId: CA, observation: { colour: 'red', range: '400-475', kind: 'line' } }])
+    expect(stationView(data, again, CA)).toMatchObject({ counts: true, guidanceShown: true, expected: expectedObservation(data, CA) })
+    // Guided has it whatever was on the loop.
+    expect(stationView(data, reduce(data, careless, { type: 'setMode', mode: 'guided' }), CA)).toMatchObject({ counts: false, guidanceShown: true, expected: expectedObservation(data, CA) })
   })
 })
 
