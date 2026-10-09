@@ -81,7 +81,8 @@ export function Spectroscope({ scale, spectrum, looked, describedBy, name, seen,
               const left = (from + to) / 2 - width / 2
               const { colour, strength } = stripPaint((fromNm + toNm) / 2, feature.prominence)
               return (
-                <g key={at}>
+                // Drawn on the screen's own pixels: smoothed into the black beside it, a stroke two pixels wide would have one column of its whole colour and be dimmer than the floor allows.
+                <g key={at} shapeRendering="crispEdges">
                   {/* The dark gap the line stands in, then the line. */}
                   <rect x={left - LINE_GAP} y={STRIP.top + 1} width={width + 2 * LINE_GAP} height={STRIP.tall - 2} fill="#000000" />
                   <rect x={left} y={STRIP.top + 1} width={width} height={STRIP.tall - 2} fill={colour} opacity={strength} />
@@ -121,8 +122,10 @@ export function Spectroscope({ scale, spectrum, looked, describedBy, name, seen,
               >
                 {open === key && (
                   <>
-                    {/* From the callout down to the thing it speaks of. */}
-                    <span className="absolute bottom-full h-2.5 border-l-2 border-white" style={{ left: percent(middle - area.from, wide) }} />
+                    {/* From the callout down to the thing it speaks of, in a bridge as wide as the button: a pointer moved up from the strip to the callout does not leave the button on the way, and the callout stays to be read. */}
+                    <span className="absolute bottom-full left-0 h-2.5 w-full">
+                      <span className="absolute h-full border-l-2 border-white" style={{ left: percent(middle - area.from, wide) }} />
+                    </span>
                     {/* A rail as wide as the picture, in which the callout stands over its line or band where there is room and inside the picture always. Inside its button, so that a pointer moved onto the callout is still over the button and the callout stays. */}
                     <span className="pointer-events-none absolute bottom-full z-10 mb-2.5 flex text-left" style={{ left: percent(-area.from, wide), width: percent(STRIP.width, wide) }}>
                       <span

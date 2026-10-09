@@ -488,7 +488,7 @@ describe('the spectroscope, once a line or a band has been looked at', () => {
     const left = (xOf(data.scale, seen.fromNm) + xOf(data.scale, seen.toNm)) / 2 - width / 2
     const { colour, strength } = stripPaint((seen.fromNm + seen.toNm) / 2, seen.feature.prominence)
     const tall = `y="${STRIP.top + 1}"`
-    return `<g><rect x="${left - LINE_GAP}" ${tall} width="${width + 2 * LINE_GAP}" height="${STRIP.tall - 2}" fill="#000000"></rect><rect x="${left}" ${tall} width="${width}" height="${STRIP.tall - 2}" fill="${colour}" opacity="${strength}"></rect></g>`
+    return `<g shape-rendering="crispEdges"><rect x="${left - LINE_GAP}" ${tall} width="${width + 2 * LINE_GAP}" height="${STRIP.tall - 2}" fill="#000000"></rect><rect x="${left}" ${tall} width="${width}" height="${STRIP.tall - 2}" fill="${colour}" opacity="${strength}"></rect></g>`
   }
 
   it('is out when the page opens, its button saying so, as a picture described by the line beside the flame', () => {
@@ -565,7 +565,8 @@ describe('the spectroscope, once a line or a band has been looked at', () => {
     const [band, line] = [barium.find((seen) => seen.feature.kind === 'band')!, barium.find((seen) => seen.feature.kind === 'line')!]
     expect(line.fromNm - band.toNm).toBeCloseTo(3.5481, 4)
     expect(xOf(data.scale, line.fromNm) - LINE_WIDTH / 2 - LINE_GAP).toBeGreaterThan(xOf(data.scale, band.toNm))
-    expect(lineMarkup(line)).toMatch(/^<g><rect [^>]*fill="#000000"><\/rect><rect [^>]*fill="rgb\(\d+, \d+, \d+\)" opacity="0.75"><\/rect><\/g>$/)
+    // Its edges are drawn on the screen's own pixels and not smoothed into the black beside them: where the picture is at its narrowest a line is two pixels wide, and both are its whole colour.
+    expect(lineMarkup(line)).toMatch(/^<g shape-rendering="crispEdges"><rect [^>]*fill="#000000"><\/rect><rect [^>]*fill="rgb\(\d+, \d+, \d+\)" opacity="0.75"><\/rect><\/g>$/)
     expect(scope(opened(BA), BA)).not.toContain('opacity="0.3"')
   })
 
@@ -577,7 +578,7 @@ describe('the spectroscope, once a line or a band has been looked at', () => {
     expect(band.fromNm < line.fromNm && line.toNm < band.toNm).toBe(true)
     const html = scope(state, K)
     const picture = html.slice(html.indexOf(STRIP_PICTURE), html.indexOf('</svg>'))
-    expect(picture.lastIndexOf('fill="url(#')).toBeLessThan(picture.indexOf('<g><rect'))
+    expect(picture.lastIndexOf('fill="url(#')).toBeLessThan(picture.indexOf('<g shape-rendering'))
     for (const seen of spectrum.filter((one) => one.feature.kind === 'line')) expect(picture.indexOf(lineMarkup(seen)), seen.feature.id).toBeGreaterThan(picture.lastIndexOf('fill="url(#'))
   })
 
