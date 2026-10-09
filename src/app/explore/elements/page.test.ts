@@ -539,7 +539,7 @@ describe('the element card', () => {
     expect(cites(iron, 'Emission lines', source('nist-asd-lines-neutral'))).toBe(true)
     expect(count(iron, /Lines Data for the neutral atom of each element/g)).toBe(1)
     expect(cites(card('Og'), 'Emission lines', source('nist-asd-lines-neutral'))).toBe(true)
-    // The note shown with every spectrum cites its two sources, on a card that has a spectrum and on no other.
+    // The note shown with every spectrum cites its sources, on a card that has a spectrum and on no other.
     for (const id of EMISSION_SCOPE_NOTE.sourceIds) {
       for (const html of [iron, sodium]) expect(cites(html, 'What the emission spectrum leaves out', source(id))).toBe(true)
       expect(card('Og')).not.toContain(source(id))

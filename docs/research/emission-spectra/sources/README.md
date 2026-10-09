@@ -40,4 +40,4 @@ Where the database has no lines for a query it returns a web page (`.html`, 38 f
 
 ## Read and not kept
 
-`MANIFEST.json` lists two pages under `readNotKept`: the help page of NIST's lines form, and the abstract of a paper in Nature. `../README.md` says what each was read for.
+`MANIFEST.json` lists one page under `readNotKept`: the help page of NIST's lines form. `../README.md` says what it was read for, and which sources of the flame test lab the note shown with every spectrum also rests on.

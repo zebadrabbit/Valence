@@ -1180,8 +1180,9 @@ const NIST_ASD_DOI = 'National Institute of Standards and Technology. https://do
 // ponytail: one source for the 95 spectra the rule makes, linked to NIST's lines form and not to each element's own
 // query, so that the list of sources on the About page does not grow by one near-identical entry for each element.
 // The exact address for each element is in the manifest beside the saved responses.
-// The second and third are cited by the note shown with every spectrum (EMISSION_SCOPE_NOTE in
-// src/chem-data/element.ts), where what each was read for is stored beside the sentence. Neither page is kept.
+// The second is cited by the note shown with every spectrum (EMISSION_SCOPE_NOTE in src/chem-data/element.ts),
+// where what it was read for is stored beside the sentence; the page is not kept. What that note says of flames
+// rests on three sources of the flame test lab, which that lab's manifest lists (buildFlame).
 function emissionSources(retrieved) {
   return [
     {
@@ -1193,11 +1194,6 @@ function emissionSources(retrieved) {
       id: 'nist-asd-lines-help',
       url: 'https://physics.nist.gov/PhysRefData/ASD/Html/lineshelp.html#OUTRELINT',
       citation: `${NIST_ASD}, help page of the lines form: how a spectrum is named, and the section Relative Intensity, linked here (read ${retrieved}). ${NIST_ASD_DOI}`,
-    },
-    {
-      id: 'bulewicz-1956',
-      url: 'https://doi.org/10.1038/177670a0',
-      citation: `Bulewicz, E. M. Flame Spectrum of Barium: Red and Infra-Red Bands. Nature 1956, 177, 670-671. The paper is paywalled: only its abstract was read, on the publisher's page, linked here (${retrieved}).`,
     },
   ]
 }

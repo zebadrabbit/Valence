@@ -765,11 +765,6 @@
     "citation": "Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, help page of the lines form: how a spectrum is named, and the section Relative Intensity, linked here (read 2026-10-08). National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F"
   },
   {
-    "id": "bulewicz-1956",
-    "url": "https://doi.org/10.1038/177670a0",
-    "citation": "Bulewicz, E. M. Flame Spectrum of Barium: Red and Infra-Red Bands. Nature 1956, 177, 670-671. The paper is paywalled: only its abstract was read, on the publisher's page, linked here (2026-10-08)."
-  },
-  {
     "id": "nist-asd-lines-k-700-780",
     "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=K+I&limits_type=0&low_w=700&upp_w=780&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
     "citation": "Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, Lines Data for the neutral potassium atom (the spectrum K I): observed wavelengths in air, 700 to 780 nm, with relative intensities (retrieved 2026-10-09 at 02:44 UTC; the response is kept). National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F"

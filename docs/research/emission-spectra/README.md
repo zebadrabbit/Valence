@@ -50,10 +50,12 @@ The rule was not changed for any of these. The note shown with every spectrum sa
 
 ## Read and not kept
 
-Two pages were read on 2026-10-08 for the note shown with every spectrum (`EMISSION_SCOPE_NOTE` in `src/chem-data/element.ts`). Neither is copied here or quoted in the app. What each establishes is stored beside the note, in this project's words.
+Pages read on 2026-10-08 for the note shown with every spectrum (`EMISSION_SCOPE_NOTE` in `src/chem-data/element.ts`). None is copied here or quoted in the app. What each establishes is stored beside the note, in this project's words.
 
 - **The help page of NIST's lines form**, <https://physics.nist.gov/PhysRefData/ASD/Html/lineshelp.html>. On selecting spectra, it establishes that a Roman numeral after the symbol names a stage of ionization, I being the neutral atom, and that the symbol alone asks for every stage. Under the heading Relative Intensity it establishes that the intensities are taken from the publications the database cites and are usually not normalised; that they depend on the light source; that they are to be read as qualitative; that there is no common scale, so that they have meaning only within the spectrum of one element in one stage of ionization; and that they compare best between lines that are close in wavelength. It also gives the meaning of the letters that follow an intensity.
-- **Bulewicz, E. M. Flame Spectrum of Barium: Red and Infra-Red Bands. Nature 1956, 177, 670-671**, <https://doi.org/10.1038/177670a0>. The paper is paywalled and only its abstract was read. The abstract establishes that the diffuse bands that are very strong in the flame spectra of the alkaline-earth metals have been identified as those of the hydroxide radicals CaOH, SrOH and BaOH. The note says no more of flames than that.
+- **Three sources of the flame test lab**, for the one thing the note says of flames: that calcium, strontium and barium give strong bands of light there as the molecules CaOH, SrOH and BaOH. They are the abstracts in English of two papers by H. Daidoji in Bunko Kenkyu 1979, 28 (3), on the spectra of calcium salts and of strontium and barium salts in a flame, and the paper of Human and Zeegers in Spectrochimica Acta Part B 1975, 30, 203-209, read as a scanned copy in a university's repository. Their addresses, their citations and what each prints are in `../flame/sources/MANIFEST.json`, and `../flame/README.md` says how each was read. The note says no more of flames than that.
+
+Until the flame test lab was built, the note's sentence on flames rested on the abstract of a paper in Nature (1956, 177, 670-671), read on the publisher's page. That site's robots file sets rules for automated readers, so the page is no longer a source of this project: the build lists it no longer, and nothing the note says depended on it alone.
 
 ## What nobody checked
 
