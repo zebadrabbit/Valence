@@ -59,9 +59,13 @@ export function flameOf(data: FlameData, loop: Loop): Flame {
 /**
  * The spectroscope for what is on the loop: every line and band of every salt on it, as that salt alone gives
  * them, along the scale from the short end. The model does not rank one salt's light against another's.
+ *
+ * Each is placed by its middle. With one salt on the loop nothing overlaps, and that is the order of where each
+ * begins. On a loop that carries several, a line can stand inside another salt's band: counted by its middle, it
+ * comes before or after the band as its own place on the strip does, which is the order a page lays them out in.
  */
 export function spectrumOf(data: FlameData, loop: Loop): Seen[] {
   return saltsOn(data, loop)
     .flatMap((salt) => salt.features.map((feature): Seen => ({ saltId: salt.id, feature, ...extentOf(data, feature) })))
-    .sort((a, b) => a.fromNm - b.fromNm || a.toNm - b.toNm)
+    .sort((a, b) => a.fromNm + a.toNm - (b.fromNm + b.toNm) || a.fromNm - b.fromNm)
 }

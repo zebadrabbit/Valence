@@ -68,6 +68,18 @@ describe('the hit areas of the lines and bands', () => {
     }
   })
 
+  it('lie along the strip in the order the engine counts the lines and bands in, whatever the loop carries: the count from the violet end, the order of the Tab key and the order of the buttons are one', () => {
+    // Calcium on a loop that still carries barium chloride: barium's line near 554 nm stands inside calcium's green band.
+    const mixed = seen('cacl2-0.1m', ['bacl2-0.1m'])
+    const [band, line] = [mixed.findIndex((one) => one.feature.id === 'caoh-green'), mixed.findIndex((one) => one.feature.id === 'ba-553')]
+    expect(mixed[band]!.fromNm < mixed[line]!.fromNm && mixed[line]!.toNm < mixed[band]!.toNm).toBe(true)
+    const loops: [string, string[]][] = ids.flatMap((id) => [[id, []], [id, [HANDLING]], ...ids.filter((other) => other !== id).map((other): [string, string[]] => [id, [other]]), [id, [HANDLING, ...ids.filter((other) => other !== id)]]] as [string, string[]][])
+    for (const [id, before] of loops) {
+      const areas = hitAreas(extents(seen(id, before)))
+      areas.forEach((area, at) => at > 0 && expect(area.from, `${id} after ${before.join()}, ${at}`).toBeGreaterThanOrEqual(areas[at - 1]!.to))
+    }
+  })
+
   it("moves an area off-centre where a neighbour or the picture's edge is in the way: barium's line beside its band, and potassium's two at the ends of the scale", () => {
     const barium = extents(seen('bacl2-0.1m'))
     const [band, line] = hitAreas(barium)

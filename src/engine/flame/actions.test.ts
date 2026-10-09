@@ -85,7 +85,7 @@ describe('looking', () => {
 
   it("has more to look at on a loop that was not cleaned: the other salts' lines and bands, and sodium's", () => {
     const held = after(dip(BA), dip(CA), hold(CA))
-    expect(looksOf(data, held.stations[1]!.held!)).toEqual([FLAME, 'ca-422', 'baoh-green', 'caoh-green', 'ba-553', 'na-589', 'caoh-orange-red'])
+    expect(looksOf(data, held.stations[1]!.held!)).toEqual([FLAME, 'ca-422', 'baoh-green', 'ba-553', 'caoh-green', 'na-589', 'caoh-orange-red'])
     expect(looksOpening(data, [CA], 'colour')).toEqual([FLAME])
     expect(looksOpening(data, [CA], 'range')).toEqual(looksOpening(data, [CA], 'kind'))
   })
