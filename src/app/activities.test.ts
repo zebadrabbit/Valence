@@ -7,6 +7,7 @@ describe('the activities', () => {
     expect(ACTIVITIES.map((activity) => [activity.entry, activity.to])).toEqual([
       ['lab:titration', '/lab/titration'],
       ['lab:aqueous', '/lab/aqueous'],
+      ['lab:flame', '/lab/flame'],
       ['mechanism:hcl-nahco3', '/learn/hcl-nahco3'],
     ])
     expect(ACTIVITIES.every(hasPage)).toBe(true)

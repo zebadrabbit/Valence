@@ -26,7 +26,7 @@ const app = vi.hoisted(() => ({ store: undefined as unknown as KeyValueStore, pe
 vi.mock('@/app/AppState', () => ({ useAppState: () => ({ store: app.store, persistent: app.persistent, reducedMotion: false }) }))
 vi.mock('@/app/useMediaQuery', () => ({ useMediaQuery: () => app.wide }))
 
-const [titration, aqueous, mechanism] = ACTIVITIES
+const [titration, aqueous, flame, mechanism] = ACTIVITIES
 const draw = (element: ReactElement) => renderToStaticMarkup(createElement(MemoryRouter, null, element))
 const save = (state: TitrationState) => saveEntry(app.store, titration.entry, titration.version, state)
 const count = (html: string, pattern: RegExp) => [...html.matchAll(pattern)].length
@@ -88,7 +88,7 @@ describe('the list of labs', () => {
 
   it('links the titration lab, with its status as Home gives it', () => {
     const [first, ...rest] = items()
-    expect(rest).toHaveLength(1)
+    expect(rest).toHaveLength(2)
     expect([...first!.matchAll(/<a [^>]*href="([^"]*)"[^>]*>(.*?)<\/a>/g)].map((match) => [match[1], match[2]])).toEqual([['/lab/titration', titration.title]])
     expect(text(first!)).toContain('|Not started|')
     save(createLab(1, 'guided'))
@@ -107,11 +107,21 @@ describe('the list of labs', () => {
     expect(items().join('')).not.toContain(SHELL_TEXT.planned)
   })
 
+  it('links the flame test lab the same way, third, with its own status', () => {
+    const third = () => items()[2]!
+    expect([...third().matchAll(/<a [^>]*href="([^"]*)"[^>]*>(.*?)<\/a>/g)].map((match) => [match[1], match[2]])).toEqual([['/lab/flame', flame.title]])
+    expect(flame.title).toBe('Flame tests')
+    expect(text(third())).toContain('|Not started|')
+    saveEntry(app.store, flame.entry, flame.version, { status: 'in-progress' })
+    expect(text(third())).toContain('|In progress|')
+    expect(text(items()[1]!)).toContain('|Not started|')
+  })
+
   it('Home links every activity, the mechanism too, each with its own status, and shows none as planned', () => {
     saveEntry(app.store, mechanism.entry, mechanism.version, { status: 'completed' })
     const home = [...draw(createElement(Home)).matchAll(/<li[^>]*>(.*?)<\/li>/gs)].map((match) => match[1]!)
     const item = (title: string) => home.find((html) => html.includes(title))!
-    for (const [activity, status] of [[titration, 'Not started'], [aqueous, 'Not started'], [mechanism, 'Completed']] as const) {
+    for (const [activity, status] of [[titration, 'Not started'], [aqueous, 'Not started'], [flame, 'Not started'], [mechanism, 'Completed']] as const) {
       expect(item(activity.title)).toMatch(new RegExp(`<a [^>]*href="${activity.to}"`))
       expect(text(item(activity.title))).toContain(`|${status}|`)
       expect(text(item(activity.title))).not.toContain(SHELL_TEXT.planned)

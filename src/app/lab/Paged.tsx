@@ -17,6 +17,7 @@ export interface PagedItem {
  *
  * `onGo` is called with the place chosen, the one already shown included: the caller moves focus to what it shows.
  * `text` is the list's name and the two ways on; `listKey` is drawn under the list, and `after` under the ways on.
+ * `roomy` is for a card that needs more room than a primer's: the list then stays behind its button for longer.
  */
 export function Paged({
   items,
@@ -25,6 +26,7 @@ export function Paged({
   text,
   listKey,
   after,
+  roomy = false,
   children,
 }: {
   items: readonly PagedItem[]
@@ -33,6 +35,7 @@ export function Paged({
   text: { list: string; previous(heading: string): string; next(heading: string): string }
   listKey?: ReactNode
   after?: ReactNode
+  roomy?: boolean
   children: ReactNode
 }) {
   // The list, where it is behind its button.
@@ -46,7 +49,7 @@ export function Paged({
   }
   return (
     <div className="primer">
-      <div className="primer-layout">
+      <div className={roomy ? 'primer-layout primer-layout-roomy' : 'primer-layout'}>
         <nav
           aria-label={text.list}
           className="primer-menu text-sm"

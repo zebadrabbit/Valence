@@ -7,10 +7,15 @@ import {
   BENCH_TEXT,
   BLOCKED_TEXT,
   CLOSING,
+  CLOSING_PROGRESS_TEXT,
   HINTS,
   LOOK_FIRST,
   MODE_TEXT,
+  PAGE_TEXT,
+  PROGRESS_TEXT,
   QUESTION_LABEL,
+  RECORD_TEXT,
+  STATION_TEXT,
   WARNING_BUTTONS,
   WARNING_TEXT,
   appearanceText,
@@ -24,6 +29,7 @@ import {
   featureName,
   featureText,
   flameText,
+  lookLabel,
   lookName,
   lookText,
   loopText,
@@ -31,6 +37,7 @@ import {
   observationLines,
   stationTitle,
   uncleanText,
+  unseenName,
 } from './messages'
 
 const ids = data.salts.map((s) => s.id)
@@ -279,9 +286,61 @@ describe('the closing question', () => {
   })
 })
 
+describe("the page's own words", () => {
+  it('name a line or a band that has not been looked at by its place in the count and nothing else, and after that by what the look said', () => {
+    expect(unseenName(2, 3)).toBe('Line or band 2 of 3, counting from the violet end')
+    // Neither which of the two it is, nor where it is, nor its colour: the same words for every one of them, whatever it is. The violet is the scale's end.
+    for (const id of ids) {
+      const { spectrum } = view(id)
+      spectrum.forEach((_, at) => {
+        const name = unseenName(at + 1, spectrum.length)
+        expect(name).toMatch(/^Line or band \d of \d, counting from the violet end$/)
+        expect(name).not.toMatch(/nm|sharp|broad|bright/)
+      })
+    }
+    expect(lookLabel(unseenName(1, 2), false)).toBe('Look at line or band 1 of 2, counting from the violet end')
+    expect(lookLabel(lookName(view(NA), 'na-589'), true)).toBe('Look at the line near 589 nm, looked at')
+    expect(lookLabel(lookName(view(NA), FLAME), false)).toBe('Look at the flame')
+    expect(lookLabel(lookName(view(NA), FLAME), true)).toBe('Look at the flame, looked at')
+  })
+
+  it('say how far a station and the closing question have come, a different word for each', () => {
+    expect(PROGRESS_TEXT).toEqual({
+      'not-started': 'Not started',
+      started: 'Started',
+      'not-counted': 'Recorded with a loop that was not clean',
+      'not-correct': 'Recorded, not correct yet',
+      done: 'Done',
+    })
+    expect(CLOSING_PROGRESS_TEXT).toEqual({ waits: 'Opens when the six stations are done', open: 'Not answered yet', 'not-correct': 'Answered, not correct yet', done: 'Done' })
+    expect(new Set(Object.values(PROGRESS_TEXT)).size).toBe(5)
+    expect(STATION_TEXT.place(3, 6)).toBe('Station 3 of 6')
+    expect(STATION_TEXT.previous('One')).toBe('Previous: One')
+    expect(STATION_TEXT.next(CLOSING.heading)).toBe('Next: One last question')
+  })
+
+  it('say what Challenge keeps back and until when, as the engine has it, and give nothing of any flame away', () => {
+    expect(PAGE_TEXT.challengeHidden).toBe('In Challenge, the hints and what a correct observation holds come once you have recorded an observation here that counts.')
+    expect(PAGE_TEXT.heldBefore).toBe('This is what the loop gave when it was last held in the flame here. The loop has changed since: hold it in the flame again to see what it gives now.')
+    const words = [...Object.values(PAGE_TEXT).flatMap((value) => (typeof value === 'string' ? [value] : [])), ...Object.values(RECORD_TEXT), ...Object.values(PROGRESS_TEXT), ...Object.values(CLOSING_PROGRESS_TEXT), PAGE_TEXT.elementCard('strontium')].join(' ')
+    for (const salt of data.salts) expect(words, salt.id).not.toMatch(new RegExp(`\\b(${salt.flame.value.name}|${salt.metal.name === 'strontium' ? 'lilac' : salt.metal.name})\\b`))
+    expect(words).not.toMatch(/\d\d\d/)
+    expect(PAGE_TEXT.elementCard('copper')).toBe('Copper on the periodic table')
+    expect(RECORD_TEXT.notCounted).toBe('Does not count: the loop was not clean')
+  })
+})
+
 describe('every sentence of the module', () => {
   it('holds no institution text', () => {
     const sentences = [
+      ...Object.values(PAGE_TEXT).flatMap((value) => (typeof value === 'string' ? [value] : [])),
+      ...Object.values(RECORD_TEXT),
+      ...Object.values(PROGRESS_TEXT),
+      ...Object.values(CLOSING_PROGRESS_TEXT),
+      STATION_TEXT.list,
+      STATION_TEXT.closingPlace,
+      unseenName(1, 2),
+      PAGE_TEXT.elementCard('barium'),
       ...Object.values(BENCH_TEXT),
       ...Object.values(BLOCKED_TEXT),
       ...Object.values(MODE_TEXT),

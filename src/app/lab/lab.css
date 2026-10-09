@@ -184,3 +184,24 @@ details[open] > summary.lab-tap::after {
     margin-top: 0;
   }
 }
+
+/*
+ * A list beside a card that needs more room than a primer's: the flame test lab's stations, whose spectroscope
+ * strip is wide. Such a list stays behind its button until 58rem, from where the card beside it has the strip's
+ * full width.
+ */
+@container primer (min-width: 46rem) and (max-width: 57.99rem) {
+  .primer-layout-roomy {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .primer-layout-roomy .primer-topics-button {
+    display: inline-flex;
+  }
+  .primer-layout-roomy .primer-topics {
+    display: none;
+    margin-top: 0.5rem;
+  }
+  .primer-layout-roomy .primer-topics-listed {
+    display: grid;
+  }
+}

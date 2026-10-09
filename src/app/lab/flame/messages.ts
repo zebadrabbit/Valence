@@ -1,5 +1,6 @@
 import type { Feature, FlameData } from '@/chem-data/flame/data'
 import { FLAME, HANDLING, choicesFor, type Blocked, type Flame, type Loop, type Mode, type Observation, type Question, type Seen, type StationView, type Warning } from '@/engine/flame'
+import type { ClosingProgress, Progress } from './stationLook'
 
 // Every sentence the flame test lab says that is chemistry, keyed by the engine's identifiers, so that an
 // identifier with no sentence does not compile. A sentence can say only what it is handed: the lab's record and
@@ -7,7 +8,9 @@ import { FLAME, HANDLING, choicesFor, type Blocked, type Flame, type Loop, type 
 // the record itself, with their sources (src/chem-data/flame/flame.json); this module words everything else.
 //
 // What a callout says of a line or a band is where it is, its colour, which of the two it is and how bright it is
-// beside the others, and never what gives it: that is the station's notes', once the station is done.
+// beside the others, and never what gives it: that is the station's notes', once the station is done. From
+// STATION_TEXT down is what the page says that is not chemistry: its headings, its buttons and the names of its
+// controls.
 
 const saltOf = (data: FlameData, saltId: string) => {
   const index = data.salts.findIndex((salt) => salt.id === saltId)
@@ -265,3 +268,85 @@ export const CLOSING = {
 
 /** What is said when the closing question is answered: the feedback of the choice given. */
 export const closingFeedback = (answer: string | null): string => (answer === null ? '' : (CLOSING.feedback[answer] ?? ''))
+
+/** The list of stations, where the one shown stands in it, and the two ways on. The closing question is the list's last entry. */
+export const STATION_TEXT = {
+  list: 'Stations',
+  place: (number: number, total: number) => `Station ${number} of ${total}`,
+  /** Over the closing question's heading, where a station has its place. */
+  closingPlace: 'After the six stations',
+  previous: (title: string) => `Previous: ${title}`,
+  next: (title: string) => `Next: ${title}`,
+}
+
+/** How far a station has come, in the list and on its card, beside a mark that says the same. */
+export const PROGRESS_TEXT: Record<Progress, string> = {
+  'not-started': 'Not started',
+  started: 'Started',
+  'not-counted': 'Recorded with a loop that was not clean',
+  'not-correct': 'Recorded, not correct yet',
+  done: 'Done',
+}
+/** The same for the closing question. */
+export const CLOSING_PROGRESS_TEXT: Record<ClosingProgress, string> = {
+  waits: 'Opens when the six stations are done',
+  open: 'Not answered yet',
+  'not-correct': 'Answered, not correct yet',
+  done: 'Done',
+}
+
+const lower = (text: string) => `${text[0]!.toLowerCase()}${text.slice(1)}`
+
+/**
+ * A line or a band that has not been looked at yet, as the list under the strip and its button name it: by its
+ * place in the count along the strip and nothing else. Which of the two it is, where it is and its colour are what
+ * a look at it says, and its name is those words from then on (lookName).
+ */
+export const unseenName = (number: number, total: number) => `Line or band ${number} of ${total}, counting from the violet end`
+
+/** The name of the button laid over a part of a picture: what a press does, and whether it has been done. */
+export const lookLabel = (name: string, looked: boolean) => `Look at ${lower(name)}${looked ? `, ${PAGE_TEXT.lookedAt}` : ''}`
+
+/** The page's own headings, buttons and names of controls. */
+export const PAGE_TEXT = {
+  /** On the bottle's tile, before what the solution looks like in its bottle: "Looks: colourless solution". */
+  looks: 'Looks',
+  flamePicture: "The burner's flame with the loop held in it",
+  stripPicture: 'What the spectroscope shows: a dark strip over a scale in nanometres',
+  /** Under the scale's numbers. */
+  axis: 'Wavelength in nanometres (nm)',
+  /** After the name of a part of a picture, in the list beside it and in the name of the part's button. */
+  lookedAt: 'looked at',
+  notLookedAt: 'not looked at yet',
+  /** Beside the flame once the loop has been cleaned or dipped again since it was held there: the picture is of the hold, not of the loop as it is. */
+  heldBefore: 'This is what the loop gave when it was last held in the flame here. The loop has changed since: hold it in the flame again to see what it gives now.',
+  /** Beside a question whose recorded answer is not what the flame shows, until it is answered again. */
+  lookAgain: 'Look again',
+  change: 'Change',
+  cancel: 'Cancel',
+  /** The button of the closing question, and what it says when no answer is chosen. */
+  checkAnswer: 'Check answer',
+  chooseAnswer: 'Choose one answer.',
+  /** In Challenge, where the hints and the expected observation will be. */
+  challengeHidden: 'In Challenge, the hints and what a correct observation holds come once you have recorded an observation here that counts.',
+  /** The link under a station's notes, to the card of its metal: "Barium on the periodic table". */
+  elementCard: (metal: string) => `${metal[0]!.toUpperCase()}${metal.slice(1)} on the periodic table`,
+  sources: 'The colours the flame and the strip are drawn in, what a loop that was not clean shows, and whether an observation is correct are worked out by Valence from these values. The hints are written by Valence.',
+} as const
+
+/** The Record tab. */
+export const RECORD_TEXT = {
+  region: 'Record of the six stations',
+  caption: 'What was recorded at each of the six stations, as it was last checked',
+  station: 'Station',
+  result: 'Result',
+  notRecorded: 'Not recorded yet',
+  correct: 'Correct',
+  notCorrect: 'Not correct yet',
+  /** An observation made with a loop that was not clean: nothing of it is judged. */
+  notCounted: 'Does not count: the loop was not clean',
+  /** Before the closing question's answer, as it was last given. */
+  answer: 'Answer given',
+  notAnswered: 'Not answered yet',
+} as const
+

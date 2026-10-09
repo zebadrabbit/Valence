@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { FLAME_PROGRESS } from './app/activities'
+import { ACTIVITIES } from './app/activities'
 import { extentOf, flameData } from './chem-data/flame/data'
 import { FLAME, choicesFor, expectedObservation, looksOf } from './engine/flame/check'
 import { HANDLING, flameOf } from './engine/flame/loop'
@@ -14,7 +14,8 @@ describe('the flame test lab', () => {
   it("pins the stored shape, what each station shows and expects, the closing question and the stored entry's version together: changing any of them means raising the flame entry's version in src/app/activities.ts", () => {
     const state = createLab(flameData, 'guided')
     expect({
-      ...FLAME_PROGRESS,
+      entry: ACTIVITIES[2].entry,
+      version: ACTIVITIES[2].version,
       state: { ...state, stations: state.stations.slice(0, 1) },
       // What a station's `looked` can hold: the flame, then the ids of the lines and bands its loop shows.
       look: FLAME,

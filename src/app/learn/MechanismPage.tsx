@@ -32,7 +32,7 @@ import { Timeline } from './Timeline'
 import { entersChapter, playedTo, ways } from './timeline'
 import '@/app/lab/lab.css'
 
-const [, , MECHANISM] = ACTIVITIES
+const [, , , MECHANISM] = ACTIVITIES
 // One schema for the page's life: a stored run is held to the mechanism's record as it is read.
 const SCHEMA = mechanismProgressSchema(mechanism)
 /** What the page shows before anything is stored: a run at the start of the track, in Guided. */
