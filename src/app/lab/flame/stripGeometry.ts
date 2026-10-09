@@ -13,7 +13,15 @@ export const MIN_WIDTH_PX = 440
 /** The narrowest a line's or a band's hit area is, in units: 44 px where the picture is at its narrowest, and a unit over, so that no rounding leaves it a hair short. */
 export const HIT_MIN = Math.ceil((44 * STRIP.width) / MIN_WIDTH_PX) + 1
 /** How wide a line is drawn at the least: a pair of lines too close to tell apart is drawn as wide as the pair. */
-export const LINE_WIDTH = 2.5
+export const LINE_WIDTH = 3
+/**
+ * What sets a sharp line apart from a broad band, so that a line beside a band, or inside one, is not taken for the
+ * band's bright edge (barium's line stands 3.5 nm from the end of its band). A line is drawn the strip's whole
+ * height with a dark gap of LINE_GAP either side of it, cut out of whatever is under it; a band is drawn short of
+ * the strip's top and foot by BAND_INSET, so a line stands taller than any band.
+ */
+export const LINE_GAP = 2.5
+export const BAND_INSET = 9
 /** How far the edge of a hit area keeps from a thin thing beside a wide one. */
 const CLEAR = 8
 export interface Scale {

@@ -13,7 +13,7 @@ import { flameCitations } from '@/chem-data/citations'
 import { flameData as data } from '@/chem-data/flame/data'
 import { FLAME_PRIMER, READ_FIRST } from '@/chem-data/flame/primer'
 import sources from '@/chem-data/sources.json'
-import { FLAME, HANDLING, QUESTIONS, can, createLab, flameStateSchema, looksOf, reduce, stationView, warnings, type Action, type FlameState, type Observation } from '@/engine/flame'
+import { FLAME, HANDLING, QUESTIONS, can, createLab, flameStateSchema, looksOf, reduce, stationView, warnings, type Action, type FlameState, type Observation, type Seen } from '@/engine/flame'
 import { run, stationScript } from '@/engine/flame/testkit'
 import labCss from '../lab.css?raw'
 import { FlameBench } from './FlameBench'
@@ -48,7 +48,8 @@ import {
   stationTitle,
   unseenName,
 } from './messages'
-import { MIN_WIDTH_PX, STRIP, hitAreas, xOf } from './stripGeometry'
+import { BAND_STOPS, stripPaint } from './stripColour'
+import { BAND_INSET, LINE_GAP, LINE_WIDTH, MIN_WIDTH_PX, STRIP, hitAreas, xOf } from './stripGeometry'
 
 // The flame test lab's page as markup, on a store the test holds. AppStateProvider builds its store from the
 // browser and the media hook has no value on a server, so both are given directly. What a press does (Clean, Dip,
@@ -481,6 +482,14 @@ describe('the spectroscope, once a line or a band has been looked at', () => {
     return run(data, state, looksOf(data, state.stations[number(stationId)]!.held!).slice(0, 2).map((at): Action => ({ type: 'look', stationId, at })))
   }
   const scope = (state: FlameState, stationId: string) => card(bench(state, stationId).station, BENCH_TEXT.spectroscope)
+  /** A sharp line as the strip draws it: the dark gap it stands in, then its stroke, both the strip's whole height. */
+  const lineMarkup = (seen: Seen) => {
+    const width = Math.max(LINE_WIDTH, xOf(data.scale, seen.toNm) - xOf(data.scale, seen.fromNm))
+    const left = (xOf(data.scale, seen.fromNm) + xOf(data.scale, seen.toNm)) / 2 - width / 2
+    const { colour, strength } = stripPaint((seen.fromNm + seen.toNm) / 2, seen.feature.prominence)
+    const tall = `y="${STRIP.top + 1}"`
+    return `<g><rect x="${left - LINE_GAP}" ${tall} width="${width + 2 * LINE_GAP}" height="${STRIP.tall - 2}" fill="#000000"></rect><rect x="${left}" ${tall} width="${width}" height="${STRIP.tall - 2}" fill="${colour}" opacity="${strength}"></rect></g>`
+  }
 
   it('is out when the page opens, its button saying so, as a picture described by the line beside the flame', () => {
     const station = bench(opened(CA), CA).station
@@ -511,7 +520,7 @@ describe('the spectroscope, once a line or a band has been looked at', () => {
     expect(MIN_WIDTH_PX).toBeLessThanOrEqual(447)
   })
 
-  it('draws every line and band of every salt where the record puts it, in the colour of its wavelength: a line as a thin stroke with a glow, a band as a stretch that fades at its two ends, the brightest whole and the others fainter', () => {
+  it('draws every line and band of every salt where the record puts it, in the colour of its wavelength: a band as a stretch that fades at its two ends, the brightest whole and the others fainter', () => {
     for (const salt of data.salts) {
       const html = scope(opened(salt.id), salt.id)
       const picture = html.slice(html.indexOf(STRIP_PICTURE), html.indexOf('</svg>'))
@@ -521,26 +530,62 @@ describe('the spectroscope, once a line or a band has been looked at', () => {
         const [from, to] = [xOf(data.scale, seen.fromNm), xOf(data.scale, seen.toNm)]
         const strength = seen.feature.prominence === 1 ? '1' : seen.feature.prominence === 2 ? '0.75' : '0.55'
         if (seen.feature.kind === 'band') {
-          expect(picture, seen.feature.id).toMatch(new RegExp(`<rect x="${from}" y="5" width="${to - from}" height="74" fill="url\\(#[^)]+\\)" opacity="${strength}"`))
+          expect(picture, seen.feature.id).toMatch(new RegExp(`<rect x="${from}" y="${STRIP.top + 1 + BAND_INSET}" width="${to - from}" height="${STRIP.tall - 2 - 2 * BAND_INSET}" fill="url\\(#[^)]+\\)" opacity="${strength}"`))
         } else {
-          const width = Math.max(2.5, to - from)
-          const colour = wavelengthColor(Math.min((seen.fromNm + seen.toNm) / 2, 740))
-          expect(picture, seen.feature.id).toContain(`<g opacity="${strength}"><rect x="${(from + to) / 2 - width / 2 - 3}" y="5" width="${width + 6}" height="74" fill="${colour}" opacity="0.3"></rect><rect x="${(from + to) / 2 - width / 2}" y="5" width="${width}" height="74" fill="${colour}"></rect></g>`)
+          expect(picture, seen.feature.id).toContain(lineMarkup(seen))
+          expect(lineMarkup(seen)).toContain(`opacity="${strength}"`)
         }
       }
-      // A band's two ends are soft, and along it the colour is that of each wavelength in it.
+      // A band's two ends are soft, and along it the colour is that of each wavelength in it, at its rank.
       const bands = spectrum.filter((seen) => seen.feature.kind === 'band')
       expect(count(picture, /<linearGradient /g)).toBe(bands.length)
-      for (const band of bands) expect(picture, band.feature.id).toContain(`<stop offset="0" stop-color="${wavelengthColor(Math.min(band.fromNm, 740))}" stop-opacity="0"></stop><stop offset="0.14" stop-color="${wavelengthColor(Math.min(band.fromNm + 0.14 * (band.toNm - band.fromNm), 740))}" stop-opacity="1"></stop>`)
+      for (const band of bands) {
+        const stops = BAND_STOPS.map((offset) => `<stop offset="${offset}" stop-color="${stripPaint(band.fromNm + offset * (band.toNm - band.fromNm), band.feature.prominence).colour}" stop-opacity="${offset === 0 || offset === 1 ? 0 : 1}"></stop>`)
+        expect(picture, band.feature.id).toContain(stops.join(''))
+      }
     }
+  })
+
+  it('draws a sharp line as a thing of its own, at its wavelength: a thin stroke the whole height of the strip, taller than any band, with a dark gap either side of it and no glow', () => {
+    // The stroke is where the record puts the line: its middle is the wavelength's place on the scale.
+    for (const salt of data.salts) {
+      const html = scope(opened(salt.id), salt.id)
+      for (const seen of view(opened(salt.id), salt.id).spectrum.filter((one) => one.feature.kind === 'line')) {
+        const [, x, width] = new RegExp(`<rect x="([\\d.]+)" y="${STRIP.top + 1}" width="([\\d.]+)" height="${STRIP.tall - 2}" fill="rgb`).exec(html.slice(html.indexOf(lineMarkup(seen))))!.map(Number)
+        expect(x! + width! / 2, seen.feature.id).toBeCloseTo(xOf(data.scale, (seen.fromNm + seen.toNm) / 2), 9)
+        expect(width, seen.feature.id).toBe(Math.max(LINE_WIDTH, xOf(data.scale, seen.toNm) - xOf(data.scale, seen.fromNm)))
+      }
+    }
+    // Taller than a band, top and foot, and by enough to see where the picture is at its narrowest.
+    expect((BAND_INSET * MIN_WIDTH_PX) / STRIP.width).toBeGreaterThanOrEqual(5)
+    expect((LINE_GAP * MIN_WIDTH_PX) / STRIP.width).toBeGreaterThanOrEqual(1.5)
+    expect((LINE_WIDTH * MIN_WIDTH_PX) / STRIP.width).toBeGreaterThanOrEqual(2)
+    // Barium: the atom's line is 3.5 nm from the end of the broad band. The band has faded out before the line's dark gap begins, and the gap is black.
+    const barium = view(opened(BA), BA).spectrum
+    const [band, line] = [barium.find((seen) => seen.feature.kind === 'band')!, barium.find((seen) => seen.feature.kind === 'line')!]
+    expect(line.fromNm - band.toNm).toBeCloseTo(3.5481, 4)
+    expect(xOf(data.scale, line.fromNm) - LINE_WIDTH / 2 - LINE_GAP).toBeGreaterThan(xOf(data.scale, band.toNm))
+    expect(lineMarkup(line)).toMatch(/^<g><rect [^>]*fill="#000000"><\/rect><rect [^>]*fill="rgb\(\d+, \d+, \d+\)" opacity="0.75"><\/rect><\/g>$/)
+    expect(scope(opened(BA), BA)).not.toContain('opacity="0.3"')
+  })
+
+  it('draws every line over every band, so that a line that stands inside a band on a loop that was not clean is cut out of it by its dark gap', () => {
+    // Potassium on a loop that still carries copper(II) chloride: potassium's violet pair near 404 nm is inside copper's blue band.
+    const state = opened(K, 'challenge', [clean, dip(CU)])
+    const { spectrum } = view(state, K)
+    const [band, line] = [spectrum.find((seen) => seen.feature.id === 'cucl-blue')!, spectrum.find((seen) => seen.feature.id === 'k-404')!]
+    expect(band.fromNm < line.fromNm && line.toNm < band.toNm).toBe(true)
+    const html = scope(state, K)
+    const picture = html.slice(html.indexOf(STRIP_PICTURE), html.indexOf('</svg>'))
+    expect(picture.lastIndexOf('fill="url(#')).toBeLessThan(picture.indexOf('<g><rect'))
+    for (const seen of spectrum.filter((one) => one.feature.kind === 'line')) expect(picture.indexOf(lineMarkup(seen)), seen.feature.id).toBeGreaterThan(picture.lastIndexOf('fill="url(#'))
   })
 
   it("draws potassium's deep red pair in a red that shows, not in the near-black the colour of 766 nm fades to", () => {
     const html = scope(opened(K), K)
     expect(wavelengthColor(768)).toBe('rgb(124, 0, 0)')
     expect(html).not.toContain('rgb(124, 0, 0)')
-    expect(html).toContain(`fill="${wavelengthColor(740)}"`)
-    expect(wavelengthColor(740)).toBe('rgb(181, 0, 0)')
+    expect(html).toContain(`fill="${stripPaint(740, 1).colour}"`)
   })
 
   it('lays a real button over each line and band, as tall as the strip and 44 px wide or more where the picture is at its narrowest, a thin line too, no two overlapping, each over or beside its own', () => {
