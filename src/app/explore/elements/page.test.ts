@@ -3,6 +3,8 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { MemoryRouter, Route, Routes, type LinkProps } from 'react-router'
 import { describe, expect, it, vi } from 'vitest'
 import { Explore } from '@/app/pages/Explore'
+import { EMISSION_SCOPE_NOTE } from '@/chem-data/element'
+import { spectrumOf } from '@/chem-data/emissionSpectra'
 import { CATEGORIES, CATEGORY_HEADING, CATEGORY_NOTES, describeBlock, describeGroup, describePeriod, GROUP_3_NOTE, NO_VALUE, periodicTable } from '@/chem-data/periodic'
 import { registry } from '@/chem-data/registry'
 import { ANCIENT, CARD_DERIVED, ELECTRON_AFFINITY_NOTE, shellCaption, VDW_RADIUS_NOTE } from '@/chem-data/periodicCard'
@@ -489,10 +491,27 @@ describe('the element card', () => {
     expect(gold).not.toMatch(/<a [^>]*href="\/explore\//)
   })
 
-  it('shows the emission spectrum for hydrogen, sodium and xenon, and for no other element', { timeout: EVERY_ELEMENT_TIMEOUT }, () => {
-    const shown = periodicTable.filter((e) => card(e.symbol).includes('Emission spectrum of the isolated atom')).map((e) => e.symbol)
-    expect(shown).toEqual(['H', 'Na', 'Xe'])
+  it('draws the emission spectrum of the 97 elements that have one, and gives each of the other 21 its sentence and no strip', { timeout: EVERY_ELEMENT_TIMEOUT }, () => {
+    let strips = 0
+    for (const e of periodicTable) {
+      const html = card(e.symbol)
+      const spectrum = spectrumOf(e.symbol)
+      expect([e.symbol, count(html, /<h3 class="font-medium">Emission spectrum of the isolated atom<\/h3>/g)]).toEqual([e.symbol, 1])
+      const strip = html.includes(`<svg viewBox="0 0 300 44" role="img" aria-label="Emission lines of ${e.name.toLowerCase()}, longest wavelength first: `)
+      expect([e.symbol, strip]).toEqual([e.symbol, 'emission' in spectrum])
+      if ('emission' in spectrum) {
+        strips += 1
+        expect([e.symbol, html.includes(`Lines shown: ${escaped(spectrum.emission.selection)}</p>`)]).toEqual([e.symbol, true])
+        expect([e.symbol, html.includes(escaped(EMISSION_SCOPE_NOTE.text))]).toEqual([e.symbol, true])
+        for (const line of spectrum.emission.lines) expect([e.symbol, line.published, html.includes(`>${line.published} nm</td>`)]).toEqual([e.symbol, line.published, true])
+      } else {
+        expect([e.symbol, html.includes(`<p class="text-muted-foreground">${escaped(spectrum.none.value)}</p>`)]).toEqual([e.symbol, true])
+        expect([e.symbol, /Lines shown:|Emission lines of/.test(html), html.includes(escaped(EMISSION_SCOPE_NOTE.text))]).toEqual([e.symbol, false, false])
+      }
+    }
+    expect(strips).toBe(97)
     expect(card('H')).toContain('656.279 nm')
+    expect(card('Og')).toContain('NIST&#x27;s Atomic Spectra Database lists no lines of oganesson, so no spectrum is drawn.')
   })
 
   it('lists both sodium D lines in the table and in the text of the strip, and says under the strip that they are drawn as one', () => {
@@ -515,6 +534,16 @@ describe('the element card', () => {
     expect(sodium).toContain(escaped(CARD_DERIVED))
     expect(cites(card('H'), 'Emission lines', source('nist-asd-lines-h'))).toBe(true)
     expect(cites(sodium, 'Emission lines', source('nist-asd-lines-na'))).toBe(true)
+    // An element whose lines the rule picked cites the database once for all of them; one with no spectrum cites it for the sentence that says so.
+    const iron = card('Fe')
+    expect(cites(iron, 'Emission lines', source('nist-asd-lines-neutral'))).toBe(true)
+    expect(count(iron, /Lines Data for the neutral atom of each element/g)).toBe(1)
+    expect(cites(card('Og'), 'Emission lines', source('nist-asd-lines-neutral'))).toBe(true)
+    // The note shown with every spectrum cites its two sources, on a card that has a spectrum and on no other.
+    for (const id of EMISSION_SCOPE_NOTE.sourceIds) {
+      for (const html of [iron, sodium]) expect(cites(html, 'What the emission spectrum leaves out', source(id))).toBe(true)
+      expect(card('Og')).not.toContain(source(id))
+    }
     expect(card('F')).toContain(source('mantina-2009'))
     for (const symbol of ['H', 'Xe', 'Og']) {
       const html = card(symbol)

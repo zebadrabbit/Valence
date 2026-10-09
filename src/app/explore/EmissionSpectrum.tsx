@@ -1,5 +1,5 @@
-import { EMISSION_NOTE, EMISSION_READING_NOTE } from '@/chem-data/element'
-import type { Element } from '@/chem-data/schema'
+import { EMISSION_NOTE, EMISSION_READING_NOTE, EMISSION_SCOPE_NOTE } from '@/chem-data/element'
+import type { Emission } from '@/chem-data/schema'
 import { Note } from './InspectorCard'
 import { colourName, spectrumText, STRIP, stripPosition, wavelengthColor } from './spectrum'
 
@@ -7,15 +7,15 @@ const WIDTH = 300
 const HEIGHT = 30
 const TICKS = [400, 500, 600, 700]
 
-/** The emission lines of an isolated atom: a strip to look at and a table that says the same in text. */
-export function EmissionSpectrum({ element }: { element: Element }) {
-  const { emission } = element
-  if (!emission) return null
+export const EMISSION_HEADING = 'Emission spectrum of the isolated atom'
+
+/** The emission lines of an isolated atom of the element of this name: a strip to look at and a table that says the same in text. */
+export function EmissionSpectrum({ name, emission }: { name: string; emission: Emission }) {
   const x = (nm: number) => stripPosition(nm) * WIDTH
   return (
     <div className="grid max-w-md gap-2">
-      <h3 className="font-medium">Emission spectrum of the isolated atom</h3>
-      <svg viewBox={`0 0 ${WIDTH} ${HEIGHT + 14}`} role="img" aria-label={spectrumText(element)} className="w-full">
+      <h3 className="font-medium">{EMISSION_HEADING}</h3>
+      <svg viewBox={`0 0 ${WIDTH} ${HEIGHT + 14}`} role="img" aria-label={spectrumText(name, emission)} className="w-full">
         {/* Dark in both themes: the lines are light on darkness, as in a spectroscope. */}
         <rect width={WIDTH} height={HEIGHT} fill="#000" stroke="currentColor" strokeOpacity={0.4} />
         {emission.lines.map((line) => (
@@ -30,7 +30,7 @@ export function EmissionSpectrum({ element }: { element: Element }) {
       {emission.note && <Note>{emission.note}</Note>}
       <table className="w-full text-left tabular-nums">
         <caption className="sr-only">
-          Emission lines of {element.name.toLowerCase()} from {STRIP.min} to {STRIP.max} nm
+          Emission lines of {name.toLowerCase()} from {STRIP.min} to {STRIP.max} nm
         </caption>
         <thead className="text-muted-foreground">
           <tr>
@@ -59,6 +59,7 @@ export function EmissionSpectrum({ element }: { element: Element }) {
       </table>
       <Note>{EMISSION_NOTE}</Note>
       <Note>Lines shown: {emission.selection}</Note>
+      <Note>{EMISSION_SCOPE_NOTE.text}</Note>
       <Note>{EMISSION_READING_NOTE}</Note>
     </div>
   )

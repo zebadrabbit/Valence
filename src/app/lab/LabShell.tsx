@@ -1,10 +1,10 @@
-import { ExternalLink } from 'lucide-react'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { PageHeader } from '@/app/PageHeader'
 import { NOT_SAVING_TEXT } from '@/app/progress/storage'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ModeSwitch } from './ModeSwitch'
+import { Notice, PeriodicTableLink } from './pagePieces'
 import { NARROW_NOTICE, SHELL_TEXT } from './shellText'
 import './lab.css'
 
@@ -109,16 +109,8 @@ export function LabShell(props: LabShellProps) {
   return (
     <>
       <PageHeader title={title} parent={{ to: '/lab', label: 'Lab' }} />
-      {!persistent && (
-        <p role="status" className="mb-4 max-w-prose rounded-md border p-3 text-sm">
-          {NOT_SAVING_TEXT}
-        </p>
-      )}
-      {setAside && (
-        <p role="status" className="mb-4 max-w-prose rounded-md border p-3 text-sm">
-          {SHELL_TEXT.setAside}
-        </p>
-      )}
+      {!persistent && <Notice>{NOT_SAVING_TEXT}</Notice>}
+      {setAside && <Notice>{SHELL_TEXT.setAside}</Notice>}
       {!narrow && (
         <div className="mb-2 flex flex-wrap items-end justify-between gap-4">
           <ModeSwitch mode={mode} onChange={onMode} disabled={modeLocked} text={modeText} />
@@ -150,16 +142,7 @@ export function LabShell(props: LabShellProps) {
             ))}
           </TabsList>
           {/* In the bar that stays in view, on every tab: the periodic table in a tab of its own, so that the lab is not left. */}
-          <a
-            href="#/explore/elements"
-            target="_blank"
-            rel="noopener"
-            className="inline-flex min-h-11 items-center gap-1.5 rounded-md px-2 text-sm font-medium underline-offset-4 outline-none hover:underline focus-visible:ring-2 focus-visible:ring-ring"
-          >
-            {SHELL_TEXT.periodicTable}
-            <ExternalLink aria-hidden="true" className="size-4" />
-            <span className="sr-only">{SHELL_TEXT.newTab}</span>
-          </a>
+          <PeriodicTableLink />
         </div>
         <TabsContent value="primer" keepMounted className={PANEL}>
           {primer}

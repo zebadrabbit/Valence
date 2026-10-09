@@ -1,0 +1,193 @@
+{
+  "retrieved": "2026-10-07",
+  "about": "Every source of the mechanism timeline's record (docs/research/phase-5/mechanism.json), each fetched and read on the retrieval date. No source has a copy here: each was read and is not kept, and `fetchedSha256` is the sha256 of the file as it was fetched that day, a record of which file was read that nothing checks. Each `supports` row names in `fields` the stored values it supports, each by its place in the record with the item's id in brackets (thermo.formation[water].enthalpy, chapters[decomposition].timescale), and gives what the source prints for them and where. The tables of Wagman and others are the scan the aqueous reactions lab cites, under the same id and citation; that citation names the two pages that lab read, and the pages read for this record are named in the rows here. The library records and the ionic radii the timeline draws from are cited where they are stored, in src/chem-data. README.md says what was read as a check and is not cited, and what could not be sourced.",
+  "sources": [
+    {
+      "id": "nbs-tables-1982",
+      "url": "https://srd.nist.gov/JPCRD/jpcrdS2Vol11.pdf",
+      "citation": "Wagman, D. D.; Evans, W. H.; Parker, V. B.; Schumm, R. H.; Halow, I.; Bailey, S. M.; Churney, K. L.; Nuttall, R. L. The NBS Tables of Chemical Thermodynamic Properties: Selected Values for Inorganic and C1 and C2 Organic Substances in SI Units. J. Phys. Chem. Ref. Data 1982, 11, Supplement No. 2. Read as the scanned PDF that the National Institute of Standards and Technology serves, linked here; pages 2-38 and 2-260 were read as images of the page, which has no text layer; no copy is kept (retrieved 2026-10-06).",
+      "fetchedSha256": "65249690c25a3c98275279863264b870e9a955f51651ff3845ac3bc47f32de59",
+      "supports": [
+        {
+          "fields": [
+            "thermo.formation[sodium-hydrogen-carbonate].enthalpy"
+          ],
+          "prints": "-950.81",
+          "where": "Page 2-314, Table 99:Na (sodium), the row for NaHCO3 in the state cr, the crystal: the column of the standard enthalpy of formation at 298.15 K, in kJ/mol. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "thermo.formation[sodium-hydrogen-carbonate].gibbs"
+          ],
+          "prints": "-851.0",
+          "where": "Page 2-314, Table 99:Na (sodium), the row for NaHCO3 in the state cr, the crystal: the column of the standard Gibbs energy of formation at 298.15 K, in kJ/mol. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "thermo.formation[sodium-hydrogen-carbonate].note"
+          ],
+          "prints": "G-H-S constraint",
+          "where": "Page 2-314, Table 99:Na: the remark under the row for NaHCO3 in the state cr, which begins with these words and says that the constraint was relaxed. Page 2-16 says what it means: for some salts of the alkali metals, the hydrogen carbonates among them, the crystal's enthalpy and Gibbs energy of formation were chosen so that the tables give the best values of both for dissolving the salt to the standard solution, and the crystal's entropy is a separate measurement that need not agree with them. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "thermo.formation[sodium-ion].enthalpy"
+          ],
+          "prints": "-240.12",
+          "where": "Page 2-299, Table 99:Na, the row for Na+ in the state ao, the standard state in water: the column of the standard enthalpy of formation at 298.15 K, in kJ/mol. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "thermo.formation[sodium-ion].gibbs"
+          ],
+          "prints": "-261.905",
+          "where": "Page 2-299, Table 99:Na, the row for Na+ in the state ao, the standard state in water: the column of the standard Gibbs energy of formation at 298.15 K, in kJ/mol. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "thermo.formation[hydrogen-carbonate-ion].enthalpy"
+          ],
+          "prints": "-691.99",
+          "where": "Page 2-83, Table 23:C (carbon), the row for HCO3-, described there as bicarbonate, in the state ao: the column of the standard enthalpy of formation at 298.15 K, in kJ/mol. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "thermo.formation[hydrogen-carbonate-ion].gibbs"
+          ],
+          "prints": "-586.77",
+          "where": "Page 2-83, Table 23:C (carbon), the row for HCO3-, described there as bicarbonate, in the state ao: the column of the standard Gibbs energy of formation at 298.15 K, in kJ/mol. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "thermo.formation[hydrogen-ion].enthalpy"
+          ],
+          "prints": "0",
+          "where": "Page 2-38, Table 2:H (hydrogen), the row for H+ in the state ao: the column of the standard enthalpy of formation at 298.15 K, in kJ/mol. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "thermo.formation[hydrogen-ion].gibbs"
+          ],
+          "prints": "0",
+          "where": "Page 2-38, Table 2:H (hydrogen), the row for H+ in the state ao: the column of the standard Gibbs energy of formation at 298.15 K, in kJ/mol. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "thermo.formation[water].enthalpy"
+          ],
+          "prints": "-285.830",
+          "where": "Page 2-38, Table 2:H, the row for H2O in the state l, the liquid: the column of the standard enthalpy of formation at 298.15 K, in kJ/mol. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "thermo.formation[water].gibbs"
+          ],
+          "prints": "-237.129",
+          "where": "Page 2-38, Table 2:H, the row for H2O in the state l, the liquid: the column of the standard Gibbs energy of formation at 298.15 K, in kJ/mol. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "thermo.formation[carbon-dioxide-aqueous].enthalpy"
+          ],
+          "prints": "-413.80",
+          "where": "Page 2-83, Table 23:C, the row for CO2 in the state ao: the column of the standard enthalpy of formation at 298.15 K, in kJ/mol. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "thermo.formation[carbon-dioxide-aqueous].gibbs"
+          ],
+          "prints": "-385.98",
+          "where": "Page 2-83, Table 23:C, the row for CO2 in the state ao: the column of the standard Gibbs energy of formation at 298.15 K, in kJ/mol. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "thermo.formation[carbon-dioxide-aqueous].note"
+          ],
+          "prints": "-699.65 and -623.08",
+          "where": "Page 2-84, Table 23:C, the row for H2CO3 in the state ao, which the table describes as equivalent to CO2(ao) + H2O(l): its enthalpy and Gibbs energy of formation. The sum of the rows for CO2(ao) and H2O(l) is -699.63 and -623.109, so the entry is dissolved carbon dioxide with a water molecule counted in, as its description says. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "thermo.formation[carbon-dioxide-gas].enthalpy"
+          ],
+          "prints": "-393.509",
+          "where": "Page 2-83, Table 23:C, the row for CO2 in the state g, the gas: the column of the standard enthalpy of formation at 298.15 K, in kJ/mol. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "thermo.formation[carbon-dioxide-gas].gibbs"
+          ],
+          "prints": "-394.359",
+          "where": "Page 2-83, Table 23:C, the row for CO2 in the state g, the gas: the column of the standard Gibbs energy of formation at 298.15 K, in kJ/mol. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "thermo.standardState"
+          ],
+          "prints": "298.15 K (25 °C) and 0.1 MPa (1 bar)",
+          "where": "The heading over the columns of every table read, and section 5.5 on page 2-20 with section 5.8 on page 2-21: a solid or a liquid is the pure substance at 0.1 MPa, a gas is at 0.1 MPa and behaves ideally, and a dissolved substance is at a molality of one in a solution that behaves ideally. Read by eye from an image of the scanned page, which has no text layer."
+        }
+      ]
+    },
+    {
+      "id": "pines-2016",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5747581/",
+      "citation": "Pines, D.; Ditkovich, J.; Mukra, T.; Miller, Y.; Kiefer, P. M.; Daschakraborty, S.; Hynes, J. T.; Pines, E. How Acidic Is Carbonic Acid? J. Phys. Chem. B 2016, 120, 2440-2451. (https://doi.org/10.1021/acs.jpcb.5b12428) Read as the authors' manuscript in PubMed Central (PMC5747581), linked here, fetched as XML through the National Center for Biotechnology Information's E-utilities, which carries the text, the tables and the captions of the figures but not the figures; the text read in full and not kept (retrieved 2026-10-07).",
+      "fetchedSha256": "0425ed7a83761a73ab8efb3623a1bc967c5d2cf9988b31d02494466c40b2d7b8",
+      "supports": [
+        {
+          "fields": [
+            "thermo.carbonicAcid.pKa"
+          ],
+          "prints": "3.49",
+          "where": "The abstract, the end of section 5.2 and section 6: the acid constant of the carbonic acid molecule itself, given as a pKa with an uncertainty of 0.05. Section 5.2 gets it as the pKa of lactic acid, 3.86, less 0.37. It was not measured by titration: the rate at which an acid made by a flash of light hands a proton to hydrogen carbonate, lactate and pyruvate was timed by the fading of its fluorescence, and the pKa read from how that rate goes with acid strength. Section 3.1 gives the temperature of every experiment as 20.5 °C, give or take one degree, in ordinary water."
+        },
+        {
+          "fields": [
+            "thermo.carbonicAcid.lifetime",
+            "chapters[decomposition].timescale"
+          ],
+          "prints": "60",
+          "where": "Section 1, second paragraph: carbonic acid in water breaks up into carbon dioxide and water with a lifetime the paper gives as about this many milliseconds at room temperature. The paper did not measure it: the sentence cites three earlier studies (of 1940, 1941 and 1963), which were not read."
+        },
+        {
+          "fields": [
+            "thermo.protonTransfer.onContactRate",
+            "chapters[proton-transfer].timescale"
+          ],
+          "prints": "5.7 × 10^10 s^-1",
+          "where": "Section 5.1, last paragraph: the rate constant, within a pair already in contact, of the proton's move to hydrogen carbonate. The proton comes from the light-made acid of the experiment, not from a hydronium ion. Its reciprocal is 18 picoseconds. Sections 3.2 and 4.1 time the whole process, which includes the two finding each other, on a scale of nanoseconds: a counting card of 5 ns or 50 ns full scale, and decays of about a nanosecond."
+        }
+      ]
+    },
+    {
+      "id": "nist-codata-2022",
+      "url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+      "citation": "Mohr, P. J.; Newell, D. B.; Taylor, B. N.; Tiesinga, E. Fundamental Physical Constants: Complete Listing, 2022 CODATA adjustment. National Institute of Standards and Technology. Read as the text file linked here; read and not kept (retrieved 2026-10-07).",
+      "fetchedSha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+      "supports": [
+        {
+          "fields": [
+            "thermo.constants.gasConstant"
+          ],
+          "prints": "8.314 462 618...",
+          "where": "The line for the molar gas constant, in J mol^-1 K^-1, marked exact. The stored value is the printed digits."
+        },
+        {
+          "fields": [
+            "thermo.constants.boltzmannConstant"
+          ],
+          "prints": "1.380 649 e-23",
+          "where": "The line for the Boltzmann constant, in J K^-1, marked exact."
+        },
+        {
+          "fields": [
+            "thermo.constants.planckConstant"
+          ],
+          "prints": "6.626 070 15 e-34",
+          "where": "The line for the Planck constant, in J Hz^-1, marked exact."
+        }
+      ]
+    }
+  ]
+}

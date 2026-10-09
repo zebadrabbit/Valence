@@ -100,21 +100,31 @@ describe('periodicCitations', () => {
     { label: 'Density', sourceIds: ['pubchem-periodic-table', 'pubchem-element-pages'] },
   ]
 
+  // An element with no spectrum: the sentence that says so cites the database it was looked for in.
+  const none = { symbol: 'Og', none: { value: 'No lines.', sourceId: 'nist-asd-lines-neutral' } }
+
   it('lists each source of the card rows once, with the rows it covers; a row worked out by the app cites nothing', () => {
-    expect(summary(periodicCitations(rows, undefined, sources))).toEqual([
+    expect(summary(periodicCitations(rows, none, sources)).slice(0, 3)).toEqual([
       ['pubchem-periodic-table', ['Symbol', 'Density']],
       ['ciaaw-abridged-2024', ['Atomic mass']],
       ['pubchem-element-pages', ['Density']],
     ])
   })
 
-  it('adds the source of the emission lines when the curated record has them', () => {
-    expect(summary(periodicCitations(rows, element('H'), sources)).at(-1)).toEqual(['nist-asd-lines-h', ['Emission lines']])
-    expect(periodicCitations(rows, element('C'), sources).length).toBe(3)
+  it('adds the source of the emission lines and the sources of the note shown with every spectrum', () => {
+    expect(summary(periodicCitations(rows, { symbol: 'H', emission: element('H').emission! }, sources)).slice(3)).toEqual([
+      ['nist-asd-lines-h', ['Emission lines']],
+      ['nist-asd-lines-help', ['What the emission spectrum leaves out']],
+      ['bulewicz-1956', ['What the emission spectrum leaves out']],
+    ])
+  })
+
+  it('cites, for an element with no spectrum, the source of the sentence that says so, and not those of the note', () => {
+    expect(summary(periodicCitations(rows, none, sources)).slice(3)).toEqual([['nist-asd-lines-neutral', ['Emission lines']]])
   })
 
   it('throws on a source id that does not resolve', () => {
-    expect(() => periodicCitations([{ label: 'Density', sourceIds: ['missing'] }], undefined, sources)).toThrow(/unknown source "missing"/)
+    expect(() => periodicCitations([{ label: 'Density', sourceIds: ['missing'] }], none, sources)).toThrow(/unknown source "missing"/)
   })
 })
 

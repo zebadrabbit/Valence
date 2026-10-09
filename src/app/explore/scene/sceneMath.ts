@@ -57,17 +57,12 @@ export type StickStyle = {
 // The dashed line of an aromatic bond: about one dash per this length, the dash filling this fraction.
 const DASH_PERIOD = 0.2
 const DASH_FILL = 0.6
+// The dashed line of a bond that has only just begun to form: this fraction of its full radius, its dashes filling this fraction.
+const PART_THIN = 0.25
+const PART_FILL = 0.3
 
-/**
- * The cylinders that draw one bond from `a` to `b`. Every line is split at the
- * middle so each half can take its atom's colour.
- * - order 2 and 3: parallel lines `spacing` apart, centred on the bond axis;
- * - aromatic: a solid line on the axis and a dashed line beside it (delocalised,
- *   not an alternating single or double bond).
- * The lines are spread towards `hint` (a third atom, or the ring centre), so they
- * lie in the plane of the molecule and the aromatic dashes fall inside the ring.
- */
-export function bondSticks(a: Vec3, b: Vec3, kind: BondKind, style: StickStyle, hint?: Vec3): BondStick[] {
+/** The lines of one bond from `a` to `b`: whole ones and dashed ones, each `offset` to the side of the axis, towards `hint`. */
+function bondLines(a: Vec3, b: Vec3, hint?: Vec3) {
   const length = distance(a, b)
   const axis = direction(a, b)
   const quaternion = quaternionFromYAxis(axis)
@@ -84,21 +79,59 @@ export function bondSticks(a: Vec3, b: Vec3, kind: BondKind, style: StickStyle, 
       end: middle < 0.5 ? 0 : 1,
     }
   }
-  const line = (offset: number, radius: number) => [piece(offset, 0, 0.5, radius), piece(offset, 0.5, 1, radius)]
-
-  if (kind === 1) return line(0, style.radius)
-  if (kind === 'aromatic') {
-    const dashes = Math.max(3, Math.round(length / DASH_PERIOD))
-    const half = DASH_FILL / 2 / dashes
-    return [
-      ...line(0, style.radius),
-      ...Array.from({ length: dashes }, (_, i) => {
+  return {
+    /** Split at the middle, so each half can take its atom's colour. */
+    line: (offset: number, radius: number) => [piece(offset, 0, 0.5, radius), piece(offset, 0.5, 1, radius)],
+    /** About one dash per DASH_PERIOD of length, each filling the fraction `fill` of its share. */
+    dashed: (offset: number, radius: number, fill: number) => {
+      const dashes = Math.max(3, Math.round(length / DASH_PERIOD))
+      const half = fill / 2 / dashes
+      return Array.from({ length: dashes }, (_, i) => {
         const middle = (i + 0.5) / dashes
-        return piece(style.spacing, middle - half, middle + half, style.multiRadius)
-      }),
-    ]
+        return piece(offset, middle - half, middle + half, radius)
+      })
+    },
   }
-  return Array.from({ length: kind }, (_, i) => line((i - (kind - 1) / 2) * style.spacing, style.multiRadius)).flat()
+}
+
+/** Where the lines of a bond of whole order `order` lie: `spacing` apart, centred on the axis. */
+const lineOffset = (order: number, i: number, spacing: number) => (i - (order - 1) / 2) * spacing
+const lineRadius = (order: number, style: StickStyle) => (order === 1 ? style.radius : style.multiRadius)
+
+/**
+ * The cylinders that draw one bond from `a` to `b`. Every line is split at the
+ * middle so each half can take its atom's colour.
+ * - order 2 and 3: parallel lines `spacing` apart, centred on the bond axis;
+ * - aromatic: a solid line on the axis and a dashed line beside it (delocalised,
+ *   not an alternating single or double bond).
+ * The lines are spread towards `hint` (a third atom, or the ring centre), so they
+ * lie in the plane of the molecule and the aromatic dashes fall inside the ring.
+ */
+export function bondSticks(a: Vec3, b: Vec3, kind: BondKind, style: StickStyle, hint?: Vec3): BondStick[] {
+  const { line, dashed } = bondLines(a, b, hint)
+  if (kind === 'aromatic') return [...line(0, style.radius), ...dashed(style.spacing, style.multiRadius, DASH_FILL)]
+  return Array.from({ length: kind }, (_, i) => line(lineOffset(kind, i, style.spacing), lineRadius(kind, style))).flat()
+}
+
+/**
+ * The cylinders of a bond whose order is on its way between two whole numbers (a mechanism's bond that is
+ * forming, breaking or changing order): the whole lines it has, and one dashed line for the part that is not
+ * whole. The dashed line is thinner and more broken the less of it there is, and every line moves from where the
+ * lower order has it to where the higher has it, so the drawing meets the whole bond at each end without a jump.
+ * A whole order is drawn as `bondSticks` draws it.
+ */
+export function partialBondSticks(a: Vec3, b: Vec3, order: number, style: StickStyle, hint?: Vec3): BondStick[] {
+  const whole = Math.floor(order)
+  const part = order - whole
+  if (part === 0) return bondSticks(a, b, whole as 1 | 2 | 3, style, hint)
+  const { line, dashed } = bondLines(a, b, hint)
+  const between = (from: number, to: number) => from + (to - from) * part
+  const radius = between(whole === 0 ? style.radius : lineRadius(whole, style), lineRadius(whole + 1, style))
+  return [
+    ...Array.from({ length: whole }, (_, i) => line(between(lineOffset(whole, i, style.spacing), lineOffset(whole + 1, i, style.spacing)), radius)).flat(),
+    // The new line leaves from the last whole one, or from the axis where there is none.
+    ...dashed(between(whole === 0 ? 0 : lineOffset(whole, whole - 1, style.spacing), lineOffset(whole + 1, whole, style.spacing)), lineRadius(whole + 1, style) * (PART_THIN + (1 - PART_THIN) * part), PART_FILL + (1 - PART_FILL) * part),
+  ]
 }
 
 /** How far from the bond axis the drawn lines of a bond reach. */

@@ -1,0 +1,4685 @@
+[
+  {
+    "symbol": "H",
+    "emission": {
+      "selection": "All four Balmer lines between 400 and 700 nm.",
+      "lines": [
+        {
+          "value": 656.279,
+          "sourceId": "nist-asd-lines-h",
+          "published": "656.279",
+          "transition": "n = 3 → 2"
+        },
+        {
+          "value": 486.135,
+          "sourceId": "nist-asd-lines-h",
+          "published": "486.135",
+          "transition": "n = 4 → 2"
+        },
+        {
+          "value": 434.0472,
+          "sourceId": "nist-asd-lines-h",
+          "published": "434.0472",
+          "transition": "n = 5 → 2"
+        },
+        {
+          "value": 410.1734,
+          "sourceId": "nist-asd-lines-h",
+          "published": "410.1734",
+          "transition": "n = 6 → 2"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "He",
+    "emission": {
+      "selection": "The six strongest of the 14 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "lines": [
+        {
+          "value": 667.8151,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "667.8151"
+        },
+        {
+          "value": 587.5621,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "587.5621"
+        },
+        {
+          "value": 501.56783,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "501.56783"
+        },
+        {
+          "value": 471.31457,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "471.31457"
+        },
+        {
+          "value": 447.14802,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "447.14802"
+        },
+        {
+          "value": 402.61914,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "402.61914"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Li",
+    "emission": {
+      "selection": "The six strongest of the 12 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST lists 6 more lines there with no intensity, and they are not shown.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 670.791,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "670.791"
+        },
+        {
+          "value": 670.776,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "670.776"
+        },
+        {
+          "value": 610.365,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "610.365"
+        },
+        {
+          "value": 610.354,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "610.354"
+        },
+        {
+          "value": 413.262,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "413.262"
+        },
+        {
+          "value": 413.256,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "413.256"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Be",
+    "emission": {
+      "selection": "The 7 strongest of the 19 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 2 of these have the same intensity, so none of them is left out. NIST lists 2 more lines there with no intensity, and they are not shown.",
+      "lines": [
+        {
+          "value": 698.2749,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "698.2749"
+        },
+        {
+          "value": 678.6559,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "678.6559"
+        },
+        {
+          "value": 656.4521,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "656.4521"
+        },
+        {
+          "value": 647.3539,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "647.3539"
+        },
+        {
+          "value": 457.266605,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "457.266605"
+        },
+        {
+          "value": 452.6409,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "452.6409"
+        },
+        {
+          "value": 440.7935,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "440.7935"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "B",
+    "emission": {
+      "selection": "The six strongest of the 7 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST lists 5 more lines there with no intensity, and they are not shown.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 624.466,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "624.466"
+        },
+        {
+          "value": 624.457,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "624.457"
+        },
+        {
+          "value": 594.263,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "594.263"
+        },
+        {
+          "value": 582.233,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "582.233"
+        },
+        {
+          "value": 582.107,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "582.107"
+        },
+        {
+          "value": 581.84,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "581.840"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "C",
+    "emission": {
+      "selection": "The six strongest of the 286 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST lists 1 more line there with no intensity, and it is not shown.",
+      "lines": [
+        {
+          "value": 658.7608,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "658.7608"
+        },
+        {
+          "value": 601.322,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "601.322"
+        },
+        {
+          "value": 538.03308,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "538.03308"
+        },
+        {
+          "value": 505.214919,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "505.214919"
+        },
+        {
+          "value": 493.202553,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "493.202553"
+        },
+        {
+          "value": 477.173346,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "477.173346"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "N",
+    "emission": {
+      "selection": "The six strongest of the 37 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 648.48,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "648.480"
+        },
+        {
+          "value": 648.375,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "648.375"
+        },
+        {
+          "value": 648.27,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "648.270"
+        },
+        {
+          "value": 646.844,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "646.844"
+        },
+        {
+          "value": 575.25,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "575.250"
+        },
+        {
+          "value": 496.398,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "496.398"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "O",
+    "emission": {
+      "selection": "The six strongest of the 28 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 645.598,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "645.598"
+        },
+        {
+          "value": 645.444,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "645.444"
+        },
+        {
+          "value": 645.36,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "645.360"
+        },
+        {
+          "value": 615.818,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "615.818"
+        },
+        {
+          "value": 615.677,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "615.677"
+        },
+        {
+          "value": 615.598,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "615.598"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "F",
+    "emission": {
+      "selection": "The 7 strongest of the 41 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 2 of these have the same intensity, so none of them is left out.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 690.2475,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "690.2475"
+        },
+        {
+          "value": 687.0215,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "687.0215"
+        },
+        {
+          "value": 685.603,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "685.6030"
+        },
+        {
+          "value": 683.4264,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "683.4264"
+        },
+        {
+          "value": 641.3651,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "641.3651"
+        },
+        {
+          "value": 634.8508,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "634.8508"
+        },
+        {
+          "value": 623.9651,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "623.9651"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Ne",
+    "emission": {
+      "selection": "The 8 strongest of the 557 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 4 of these have the same intensity, so none of them is left out.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 692.94672,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "692.94672"
+        },
+        {
+          "value": 650.65277,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "650.65277"
+        },
+        {
+          "value": 640.2248,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "640.2248"
+        },
+        {
+          "value": 585.24878,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "585.24878"
+        },
+        {
+          "value": 540.05616,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "540.05616"
+        },
+        {
+          "value": 471.5344,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "471.5344"
+        },
+        {
+          "value": 471.20633,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "471.20633"
+        },
+        {
+          "value": 470.43949,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "470.43949"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Na",
+    "emission": {
+      "selection": "The two D lines, which give a sodium lamp, and a flame that holds sodium, their yellow colour. NIST lists other, weaker lines of the neutral atom between 400 and 700 nm.",
+      "note": "Both lines come from an electron falling from the 3p subshell to the 3s subshell. The 3p level is split into two levels very close in energy, so there are two lines. They are 0.6 nm apart, too close to draw separately on this strip, which shows them as one.",
+      "lines": [
+        {
+          "value": 589.592424,
+          "sourceId": "nist-asd-lines-na",
+          "published": "589.592424",
+          "transition": "3p → 3s"
+        },
+        {
+          "value": 588.995095,
+          "sourceId": "nist-asd-lines-na",
+          "published": "588.995095",
+          "transition": "3p → 3s"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Mg",
+    "emission": {
+      "selection": "The six strongest of the 28 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 571.1088,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "571.10880"
+        },
+        {
+          "value": 552.84047,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "552.84047"
+        },
+        {
+          "value": 518.36042,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "518.36042"
+        },
+        {
+          "value": 517.26843,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "517.26843"
+        },
+        {
+          "value": 516.73216,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "516.73216"
+        },
+        {
+          "value": 470.29909,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "470.29909"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Al",
+    "emission": {
+      "selection": "The six strongest of the 9 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 669.8673,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "669.8673"
+        },
+        {
+          "value": 669.6015,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "669.6015"
+        },
+        {
+          "value": 555.7948,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "555.7948"
+        },
+        {
+          "value": 555.7063,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "555.7063"
+        },
+        {
+          "value": 510.7943,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "510.7943"
+        },
+        {
+          "value": 510.752,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "510.7520"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Si",
+    "emission": {
+      "selection": "The 7 strongest of the 44 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 2 of these have the same intensity, so none of them is left out.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 625.4188,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "625.4188"
+        },
+        {
+          "value": 624.4468,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "624.4468"
+        },
+        {
+          "value": 624.3813,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "624.3813"
+        },
+        {
+          "value": 623.732,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "623.7320"
+        },
+        {
+          "value": 615.5134,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "615.5134"
+        },
+        {
+          "value": 594.8545,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "594.8545"
+        },
+        {
+          "value": 570.8397,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "570.8397"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "P",
+    "emission": {
+      "selection": "The six strongest of the 22 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 621.0499,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "621.0499"
+        },
+        {
+          "value": 619.9024,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "619.9024"
+        },
+        {
+          "value": 609.769,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "609.7690"
+        },
+        {
+          "value": 547.7672,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "547.7672"
+        },
+        {
+          "value": 534.5851,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "534.5851"
+        },
+        {
+          "value": 516.229,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "516.2290"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "S",
+    "emission": {
+      "selection": "The six strongest of the 54 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST lists 6 more lines there with no intensity, and they are not shown.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 675.716,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "675.716"
+        },
+        {
+          "value": 674.879,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "674.879"
+        },
+        {
+          "value": 605.266,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "605.266"
+        },
+        {
+          "value": 570.611,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "570.611"
+        },
+        {
+          "value": 469.545,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "469.545"
+        },
+        {
+          "value": 469.413,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "469.413"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Cl",
+    "emission": {
+      "selection": "The six strongest of the 38 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "lines": [
+        {
+          "value": 698.1886,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "698.1886"
+        },
+        {
+          "value": 693.2903,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "693.2903"
+        },
+        {
+          "value": 639.866,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "639.866"
+        },
+        {
+          "value": 619.4757,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "619.4757"
+        },
+        {
+          "value": 614.0245,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "614.0245"
+        },
+        {
+          "value": 611.443,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "611.443"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Ar",
+    "emission": {
+      "selection": "The 8 strongest of the 75 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 3 of these have the same intensity, so none of them is left out.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 696.5431,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "696.5431"
+        },
+        {
+          "value": 687.1289,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "687.1289"
+        },
+        {
+          "value": 675.2834,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "675.2834"
+        },
+        {
+          "value": 427.2169,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "427.2169"
+        },
+        {
+          "value": 425.9362,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "425.9362"
+        },
+        {
+          "value": 420.0674,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "420.0674"
+        },
+        {
+          "value": 419.8317,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "419.8317"
+        },
+        {
+          "value": 415.859,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "415.8590"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "K",
+    "emission": {
+      "selection": "The six strongest of the 37 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 693.8767,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "693.8767"
+        },
+        {
+          "value": 691.1084,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "691.1084"
+        },
+        {
+          "value": 583.1887,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "583.1887"
+        },
+        {
+          "value": 580.1752,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "580.1752"
+        },
+        {
+          "value": 404.7208,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "404.7208"
+        },
+        {
+          "value": 404.4136,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "404.4136"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Ca",
+    "emission": {
+      "selection": "The 9 strongest of the 59 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 5 of these have the same intensity, so none of them is left out.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 671.769,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "671.769"
+        },
+        {
+          "value": 649.378,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "649.378"
+        },
+        {
+          "value": 646.257,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "646.257"
+        },
+        {
+          "value": 644.981,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "644.981"
+        },
+        {
+          "value": 643.907,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "643.907"
+        },
+        {
+          "value": 616.217,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "616.217"
+        },
+        {
+          "value": 585.745,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "585.745"
+        },
+        {
+          "value": 445.478,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "445.478"
+        },
+        {
+          "value": 422.673,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "422.673"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Sc",
+    "emission": {
+      "selection": "The six strongest of the 614 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 683.502,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "683.502"
+        },
+        {
+          "value": 682.951,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "682.951"
+        },
+        {
+          "value": 681.949,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "681.949"
+        },
+        {
+          "value": 681.711,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "681.711"
+        },
+        {
+          "value": 673.945,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "673.945"
+        },
+        {
+          "value": 673.788,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "673.788"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Ti",
+    "emission": {
+      "selection": "The six strongest of the 1,015 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST lists 9 more lines there with no intensity, and they are not shown.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 521.0384,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "521.0384"
+        },
+        {
+          "value": 519.2969,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "519.2969"
+        },
+        {
+          "value": 517.374,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "517.3740"
+        },
+        {
+          "value": 506.4652,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "506.4652"
+        },
+        {
+          "value": 503.9955,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "503.9955"
+        },
+        {
+          "value": 498.1731,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "498.1731"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "V",
+    "emission": {
+      "selection": "The six strongest of the 1,272 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST lists 40 more lines there with no intensity, and they are not shown.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 440.85139,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "440.85139"
+        },
+        {
+          "value": 438.99791,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "438.99791"
+        },
+        {
+          "value": 438.47122,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "438.47122"
+        },
+        {
+          "value": 437.92298,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "437.92298"
+        },
+        {
+          "value": 411.51778,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "411.51778"
+        },
+        {
+          "value": 411.17787,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "411.17787"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Cr",
+    "emission": {
+      "selection": "The six strongest of the 1,653 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST lists 1 more line there with no intensity, and it is not shown.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 540.97834,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "540.97834"
+        },
+        {
+          "value": 534.57959,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "534.57959"
+        },
+        {
+          "value": 529.82715,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "529.82715"
+        },
+        {
+          "value": 520.84094,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "520.84094"
+        },
+        {
+          "value": 520.60229,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "520.60229"
+        },
+        {
+          "value": 520.44981,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "520.44981"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Mn",
+    "emission": {
+      "selection": "The 7 strongest of the 123 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 2 of these have the same intensity, so none of them is left out. NIST lists 1 more line there with no intensity, and it is not shown.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 405.554,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "405.554"
+        },
+        {
+          "value": 404.136,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "404.136"
+        },
+        {
+          "value": 403.573,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "403.573"
+        },
+        {
+          "value": 403.449,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "403.449"
+        },
+        {
+          "value": 403.307,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "403.307"
+        },
+        {
+          "value": 403.076,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "403.076"
+        },
+        {
+          "value": 401.81,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "401.810"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Fe",
+    "emission": {
+      "selection": "The six strongest of the 2,098 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 649.498,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "649.49800"
+        },
+        {
+          "value": 526.9537,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "526.95370"
+        },
+        {
+          "value": 440.47501,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "440.47501"
+        },
+        {
+          "value": 432.57616,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "432.57616"
+        },
+        {
+          "value": 406.35939,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "406.35939"
+        },
+        {
+          "value": 404.58122,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "404.58122"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Co",
+    "emission": {
+      "selection": "The six strongest of the 45 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 453.096,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "453.096"
+        },
+        {
+          "value": 412.132,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "412.132"
+        },
+        {
+          "value": 411.877,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "411.877"
+        },
+        {
+          "value": 411.054,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "411.054"
+        },
+        {
+          "value": 409.239,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "409.239"
+        },
+        {
+          "value": 404.539,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "404.539"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Ni",
+    "emission": {
+      "selection": "The six strongest of the 72 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "lines": [
+        {
+          "value": 547.691,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "547.691"
+        },
+        {
+          "value": 508.052,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "508.052"
+        },
+        {
+          "value": 503.537,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "503.537"
+        },
+        {
+          "value": 471.442,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "471.442"
+        },
+        {
+          "value": 445.904,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "445.904"
+        },
+        {
+          "value": 440.155,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "440.155"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Cu",
+    "emission": {
+      "selection": "The 8 strongest of the 147 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 3 of these have the same intensity, so none of them is left out.",
+      "lines": [
+        {
+          "value": 578.2132,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "578.2132"
+        },
+        {
+          "value": 570.024,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "570.0240"
+        },
+        {
+          "value": 529.2517,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "529.2517"
+        },
+        {
+          "value": 521.8202,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "521.8202"
+        },
+        {
+          "value": 515.3235,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "515.3235"
+        },
+        {
+          "value": 510.5541,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "510.5541"
+        },
+        {
+          "value": 465.1124,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "465.1124"
+        },
+        {
+          "value": 406.2641,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "406.2641"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Zn",
+    "emission": {
+      "selection": "The six strongest of the 24 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST lists 19 more lines there with no intensity, and they are not shown.",
+      "lines": [
+        {
+          "value": 577.21,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "577.210"
+        },
+        {
+          "value": 530.864,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "530.864"
+        },
+        {
+          "value": 481.05321,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "481.053210"
+        },
+        {
+          "value": 472.21569,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "472.215690"
+        },
+        {
+          "value": 468.01359,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "468.013590"
+        },
+        {
+          "value": 462.98081,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "462.980810"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Ga",
+    "emission": {
+      "selection": "All 6 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST lists 15 more lines there with no intensity, and they are not shown.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 641.3447,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "641.3447"
+        },
+        {
+          "value": 639.6561,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "639.6561"
+        },
+        {
+          "value": 535.9205,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "535.9205"
+        },
+        {
+          "value": 535.349,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "535.3490"
+        },
+        {
+          "value": 417.2042,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "417.2042"
+        },
+        {
+          "value": 403.2984,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "403.2984"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Ge",
+    "emission": {
+      "selection": "The 7 strongest of the 18 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 3 of these have the same intensity, so none of them is left out.",
+      "lines": [
+        {
+          "value": 580.2093,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "580.2093"
+        },
+        {
+          "value": 569.1958,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "569.1958"
+        },
+        {
+          "value": 565.5962,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "565.5962"
+        },
+        {
+          "value": 560.7012,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "560.7012"
+        },
+        {
+          "value": 556.4742,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "556.4742"
+        },
+        {
+          "value": 468.58286,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "468.58286"
+        },
+        {
+          "value": 422.65625,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "422.65625"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "As",
+    "emission": {
+      "selection": "All 5 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 545.132,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "545.132"
+        },
+        {
+          "value": 540.813,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "540.813"
+        },
+        {
+          "value": 514.163,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "514.163"
+        },
+        {
+          "value": 512.134,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "512.134"
+        },
+        {
+          "value": 506.898,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "506.898"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Se",
+    "emission": {
+      "selection": "The 8 strongest of the 12 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 3 of these have the same intensity, so none of them is left out.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 699.069,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "699.0690"
+        },
+        {
+          "value": 683.13,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "683.13"
+        },
+        {
+          "value": 632.56,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "632.56"
+        },
+        {
+          "value": 536.99,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "536.99"
+        },
+        {
+          "value": 474.22,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "474.22"
+        },
+        {
+          "value": 473.9,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "473.90"
+        },
+        {
+          "value": 473.08,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "473.08"
+        },
+        {
+          "value": 432.87,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "432.87"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Br",
+    "emission": {
+      "selection": "The 8 strongest of the 47 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 4 of these have the same intensity, so none of them is left out.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 668.2281,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "668.2281"
+        },
+        {
+          "value": 663.1619,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "663.1619"
+        },
+        {
+          "value": 658.2171,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "658.2171"
+        },
+        {
+          "value": 655.9799,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "655.9799"
+        },
+        {
+          "value": 654.4571,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "654.4571"
+        },
+        {
+          "value": 635.073,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "635.0730"
+        },
+        {
+          "value": 614.8598,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "614.8598"
+        },
+        {
+          "value": 447.772,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "447.7720"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Kr",
+    "emission": {
+      "selection": "The six strongest of the 237 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST lists 8 more lines there with no intensity, and they are not shown.",
+      "lines": [
+        {
+          "value": 587.091599,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "587.091599"
+        },
+        {
+          "value": 557.028944,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "557.028944"
+        },
+        {
+          "value": 446.369,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "446.369000"
+        },
+        {
+          "value": 437.612159,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "437.612159"
+        },
+        {
+          "value": 431.95795,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "431.95795"
+        },
+        {
+          "value": 427.396943,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "427.396943"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Rb",
+    "emission": {
+      "selection": "The six strongest of the 27 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST lists 6 more lines there with no intensity, and they are not shown.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 629.83252,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "629.83252"
+        },
+        {
+          "value": 620.63092,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "620.63092"
+        },
+        {
+          "value": 607.07547,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "607.07547"
+        },
+        {
+          "value": 543.15321,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "543.15321"
+        },
+        {
+          "value": 421.5524,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "421.5524"
+        },
+        {
+          "value": 420.1792,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "420.1792"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Sr",
+    "emission": {
+      "selection": "The six strongest of the 136 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST lists 7 more lines there with no intensity, and they are not shown.",
+      "lines": [
+        {
+          "value": 687.8313,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "687.8313"
+        },
+        {
+          "value": 679.1022,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "679.1022"
+        },
+        {
+          "value": 640.8463,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "640.8463"
+        },
+        {
+          "value": 525.6899,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "525.6899"
+        },
+        {
+          "value": 483.2043,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "483.2043"
+        },
+        {
+          "value": 460.7331,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "460.7331"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Y",
+    "emission": {
+      "selection": "The six strongest of the 239 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 416.75131,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "416.75131"
+        },
+        {
+          "value": 414.2841,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "414.2841"
+        },
+        {
+          "value": 412.8304,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "412.8304"
+        },
+        {
+          "value": 410.2364,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "410.2364"
+        },
+        {
+          "value": 407.7359,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "407.7359"
+        },
+        {
+          "value": 404.76284,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "404.76284"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Zr",
+    "emission": {
+      "selection": "The six strongest of the 257 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 471.008,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "471.008"
+        },
+        {
+          "value": 468.78,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "468.780"
+        },
+        {
+          "value": 423.931,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "423.931"
+        },
+        {
+          "value": 422.776,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "422.776"
+        },
+        {
+          "value": 408.122,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "408.122"
+        },
+        {
+          "value": 407.27,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "407.270"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Nb",
+    "emission": {
+      "selection": "The six strongest of the 288 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST lists 2 more lines there with no intensity, and they are not shown.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 416.366,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "416.366"
+        },
+        {
+          "value": 415.258,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "415.258"
+        },
+        {
+          "value": 412.381,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "412.381"
+        },
+        {
+          "value": 410.092,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "410.092"
+        },
+        {
+          "value": 407.973,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "407.973"
+        },
+        {
+          "value": 405.894,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "405.894"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Mo",
+    "emission": {
+      "selection": "The 7 strongest of the 334 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 4 of these have the same intensity, so none of them is left out.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 557.0444,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "557.0444"
+        },
+        {
+          "value": 553.3031,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "553.3031"
+        },
+        {
+          "value": 550.6493,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "550.6493"
+        },
+        {
+          "value": 441.1695,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "441.1695"
+        },
+        {
+          "value": 441.1565,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "441.1565"
+        },
+        {
+          "value": 418.8323,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "418.8323"
+        },
+        {
+          "value": 414.355,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "414.355"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Tc",
+    "emission": {
+      "selection": "The 13 strongest of the 215 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 10 of these have the same intensity, so none of them is left out.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 486.6733,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "486.6733"
+        },
+        {
+          "value": 485.3588,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "485.3588"
+        },
+        {
+          "value": 482.0739,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "482.0739"
+        },
+        {
+          "value": 474.0608,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "474.0608"
+        },
+        {
+          "value": 452.2841,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "452.2841"
+        },
+        {
+          "value": 429.7058,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "429.7058"
+        },
+        {
+          "value": 426.227,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "426.2270"
+        },
+        {
+          "value": 416.5609,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "416.5609"
+        },
+        {
+          "value": 411.5077,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "411.5077"
+        },
+        {
+          "value": 409.5668,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "409.5668"
+        },
+        {
+          "value": 408.8707,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "408.8707"
+        },
+        {
+          "value": 404.9108,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "404.9108"
+        },
+        {
+          "value": 403.1626,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "403.1626"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Ru",
+    "emission": {
+      "selection": "The six strongest of the 227 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 455.451,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "455.451"
+        },
+        {
+          "value": 437.221,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "437.221"
+        },
+        {
+          "value": 429.771,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "429.771"
+        },
+        {
+          "value": 421.206,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "421.206"
+        },
+        {
+          "value": 419.99,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "419.990"
+        },
+        {
+          "value": 408.06,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "408.060"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Rh",
+    "emission": {
+      "selection": "The six strongest of the 144 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 437.48,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "437.480"
+        },
+        {
+          "value": 428.871,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "428.871"
+        },
+        {
+          "value": 421.114,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "421.114"
+        },
+        {
+          "value": 413.527,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "413.527"
+        },
+        {
+          "value": 412.887,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "412.887"
+        },
+        {
+          "value": 412.168,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "412.168"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Pd",
+    "emission": {
+      "selection": "The six strongest of the 27 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "lines": [
+        {
+          "value": 529.56266,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "529.56266"
+        },
+        {
+          "value": 516.38404,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "516.38404"
+        },
+        {
+          "value": 447.35857,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "447.35857"
+        },
+        {
+          "value": 421.29537,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "421.29537"
+        },
+        {
+          "value": 416.98388,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "416.98388"
+        },
+        {
+          "value": 408.73434,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "408.73434"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Ag",
+    "emission": {
+      "selection": "The 7 strongest of the 30 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 2 of these have the same intensity, so none of them is left out.",
+      "lines": [
+        {
+          "value": 566.734,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "566.734"
+        },
+        {
+          "value": 546.5497,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "546.5497"
+        },
+        {
+          "value": 520.9078,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "520.9078"
+        },
+        {
+          "value": 487.41,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "487.4100"
+        },
+        {
+          "value": 466.8477,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "466.8477"
+        },
+        {
+          "value": 421.096,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "421.0960"
+        },
+        {
+          "value": 405.5476,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "405.5476"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Cd",
+    "emission": {
+      "selection": "The 7 strongest of the 13 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 2 of these have the same intensity, so none of them is left out. NIST lists 1 more line there with no intensity, and it is not shown.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 643.84695,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "643.84695"
+        },
+        {
+          "value": 632.51661,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "632.51661"
+        },
+        {
+          "value": 611.1495,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "611.1495"
+        },
+        {
+          "value": 609.91421,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "609.91421"
+        },
+        {
+          "value": 508.58217,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "508.58217"
+        },
+        {
+          "value": 479.99123,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "479.99123"
+        },
+        {
+          "value": 467.81493,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "467.81493"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "In",
+    "emission": {
+      "selection": "The six strongest of the 9 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 572.768,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "572.768"
+        },
+        {
+          "value": 570.991,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "570.991"
+        },
+        {
+          "value": 526.274,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "526.274"
+        },
+        {
+          "value": 525.432,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "525.432"
+        },
+        {
+          "value": 451.1299,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "451.1299"
+        },
+        {
+          "value": 410.1745,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "410.1745"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Sn",
+    "emission": {
+      "selection": "The six strongest of the 22 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 615.44455,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "615.44455"
+        },
+        {
+          "value": 614.96035,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "614.96035"
+        },
+        {
+          "value": 606.9117,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "606.9117"
+        },
+        {
+          "value": 605.46738,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "605.46738"
+        },
+        {
+          "value": 563.16758,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "563.16758"
+        },
+        {
+          "value": 452.47344,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "452.47344"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Sb",
+    "emission": {
+      "selection": "The six strongest of the 8 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "lines": [
+        {
+          "value": 573.034,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "573.034"
+        },
+        {
+          "value": 563.19365,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "563.19365"
+        },
+        {
+          "value": 560.20656,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "560.20656"
+        },
+        {
+          "value": 555.60111,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "555.60111"
+        },
+        {
+          "value": 549.02252,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "549.02252"
+        },
+        {
+          "value": 403.35367,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "403.35367"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Te",
+    "emission": {
+      "selection": "The six strongest of the 13 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 685.388,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "685.388"
+        },
+        {
+          "value": 683.765,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "683.765"
+        },
+        {
+          "value": 679,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "679.00"
+        },
+        {
+          "value": 669.014,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "669.014"
+        },
+        {
+          "value": 661.34,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "661.34"
+        },
+        {
+          "value": 634.952,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "634.952"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "I",
+    "emission": {
+      "selection": "The six strongest of the 315 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "lines": [
+        {
+          "value": 661.96395,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "661.96395"
+        },
+        {
+          "value": 658.37265,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "658.37265"
+        },
+        {
+          "value": 633.7846,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "633.7846"
+        },
+        {
+          "value": 619.1875,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "619.1875"
+        },
+        {
+          "value": 602.40689,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "602.40689"
+        },
+        {
+          "value": 511.92782,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "511.92782"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Xe",
+    "emission": {
+      "selection": "The six strongest of the 291 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST lists 44 more lines there with no intensity, and they are not shown.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 631.8062,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "631.8062"
+        },
+        {
+          "value": 492.3152,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "492.3152"
+        },
+        {
+          "value": 491.6507,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "491.6507"
+        },
+        {
+          "value": 482.9708,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "482.9708"
+        },
+        {
+          "value": 480.7019,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "480.70190"
+        },
+        {
+          "value": 473.41518,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "473.41518"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Cs",
+    "emission": {
+      "selection": "All 3 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST lists 53 more lines there with no intensity, and they are not shown.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 674.3969,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "674.3969"
+        },
+        {
+          "value": 672.32838,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "672.32838"
+        },
+        {
+          "value": 670.76859,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "670.76859"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Ba",
+    "emission": {
+      "selection": "The six strongest of the 87 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 652.7311,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "652.7311"
+        },
+        {
+          "value": 649.876,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "649.8760"
+        },
+        {
+          "value": 648.2908,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "648.2908"
+        },
+        {
+          "value": 634.168,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "634.1680"
+        },
+        {
+          "value": 611.0783,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "611.0783"
+        },
+        {
+          "value": 553.5481,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "553.5481"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "La",
+    "emission": {
+      "selection": "The six strongest of the 221 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 624.993,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "624.993"
+        },
+        {
+          "value": 550.134,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "550.134"
+        },
+        {
+          "value": 545.515,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "545.515"
+        },
+        {
+          "value": 523.427,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "523.427"
+        },
+        {
+          "value": 521.186,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "521.186"
+        },
+        {
+          "value": 517.731,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "517.731"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Ce",
+    "emission": {
+      "selection": "The six strongest of the 146 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 569.923,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "569.923"
+        },
+        {
+          "value": 569.699,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "569.699"
+        },
+        {
+          "value": 524.592,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "524.592"
+        },
+        {
+          "value": 522.346,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "522.346"
+        },
+        {
+          "value": 516.148,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "516.148"
+        },
+        {
+          "value": 515.969,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "515.969"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Pr",
+    "emission": {
+      "selection": "The six strongest of the 144 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST lists 1 more line there with no intensity, and it is not shown.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 513.344,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "513.344"
+        },
+        {
+          "value": 504.552,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "504.552"
+        },
+        {
+          "value": 495.137,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "495.137"
+        },
+        {
+          "value": 493.974,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "493.974"
+        },
+        {
+          "value": 473.669,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "473.669"
+        },
+        {
+          "value": 469.577,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "469.577"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Nd",
+    "emission": {
+      "selection": "The 7 strongest of the 96 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 2 of these have the same intensity, so none of them is left out. NIST lists 1 more line there with no intensity, and it is not shown.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 492.453,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "492.453"
+        },
+        {
+          "value": 488.381,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "488.381"
+        },
+        {
+          "value": 468.345,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "468.345"
+        },
+        {
+          "value": 464.967,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "464.967"
+        },
+        {
+          "value": 464.11,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "464.110"
+        },
+        {
+          "value": 463.424,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "463.424"
+        },
+        {
+          "value": 462.194,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "462.194"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Pm",
+    "emission": {
+      "selection": "The 10 strongest of the 197 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 9 of these have the same intensity, so none of them is left out.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 675.048,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "675.048"
+        },
+        {
+          "value": 674.991,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "674.991"
+        },
+        {
+          "value": 659.815,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "659.815"
+        },
+        {
+          "value": 652.045,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "652.045"
+        },
+        {
+          "value": 610.021,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "610.021"
+        },
+        {
+          "value": 481.196,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "481.196"
+        },
+        {
+          "value": 480.136,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "480.136"
+        },
+        {
+          "value": 478.129,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "478.129"
+        },
+        {
+          "value": 472.836,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "472.836"
+        },
+        {
+          "value": 462.441,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "462.441"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Sm",
+    "emission": {
+      "selection": "The 8 strongest of the 110 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 3 of these have the same intensity, so none of them is left out. NIST lists 4 more lines there with no intensity, and they are not shown.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 488.397,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "488.397"
+        },
+        {
+          "value": 484.17,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "484.170"
+        },
+        {
+          "value": 476.027,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "476.027"
+        },
+        {
+          "value": 472.842,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "472.842"
+        },
+        {
+          "value": 471.61,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "471.610"
+        },
+        {
+          "value": 447.089,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "447.089"
+        },
+        {
+          "value": 433.614,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "433.614"
+        },
+        {
+          "value": 429.674,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "429.674"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Eu",
+    "emission": {
+      "selection": "The six strongest of the 210 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "lines": [
+        {
+          "value": 583.098,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "583.098"
+        },
+        {
+          "value": 535.761,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "535.761"
+        },
+        {
+          "value": 521.51,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "521.510"
+        },
+        {
+          "value": 466.188,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "466.188"
+        },
+        {
+          "value": 462.722,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "462.722"
+        },
+        {
+          "value": 459.403,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "459.403"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Gd",
+    "emission": {
+      "selection": "The 7 strongest of the 244 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 2 of these have the same intensity, so none of them is left out. NIST lists 5 more lines there with no intensity, and they are not shown.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 434.646,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "434.646"
+        },
+        {
+          "value": 422.585,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "422.585"
+        },
+        {
+          "value": 419.078,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "419.078"
+        },
+        {
+          "value": 417.554,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "417.554"
+        },
+        {
+          "value": 407.87,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "407.870"
+        },
+        {
+          "value": 405.822,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "405.822"
+        },
+        {
+          "value": 405.364,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "405.364"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Tb",
+    "emission": {
+      "selection": "The 7 strongest of the 192 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 3 of these have the same intensity, so none of them is left out.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 435.681,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "435.681"
+        },
+        {
+          "value": 433.841,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "433.841"
+        },
+        {
+          "value": 433.643,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "433.643"
+        },
+        {
+          "value": 432.643,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "432.643"
+        },
+        {
+          "value": 431.883,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "431.883"
+        },
+        {
+          "value": 406.158,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "406.158"
+        },
+        {
+          "value": 403.228,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "403.228"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Dy",
+    "emission": {
+      "selection": "The 7 strongest of the 167 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 2 of these have the same intensity, so none of them is left out. NIST lists 1 more line there with no intensity, and it is not shown.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 422.111,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "422.111"
+        },
+        {
+          "value": 421.809,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "421.809"
+        },
+        {
+          "value": 421.172,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "421.172"
+        },
+        {
+          "value": 419.484,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "419.484"
+        },
+        {
+          "value": 418.682,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "418.682"
+        },
+        {
+          "value": 416.797,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "416.797"
+        },
+        {
+          "value": 404.597,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "404.597"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Ho",
+    "emission": {
+      "selection": "The six strongest of the 206 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 416.303,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "416.303"
+        },
+        {
+          "value": 412.716,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "412.716"
+        },
+        {
+          "value": 410.862,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "410.862"
+        },
+        {
+          "value": 410.384,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "410.384"
+        },
+        {
+          "value": 405.393,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "405.393"
+        },
+        {
+          "value": 404.081,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "404.081"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Er",
+    "emission": {
+      "selection": "The 7 strongest of the 130 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 2 of these have the same intensity, so none of them is left out. NIST lists 1 more line there with no intensity, and it is not shown.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 421.843,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "421.843"
+        },
+        {
+          "value": 415.111,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "415.111"
+        },
+        {
+          "value": 409.81,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "409.810"
+        },
+        {
+          "value": 408.763,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "408.763"
+        },
+        {
+          "value": 402.051,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "402.051"
+        },
+        {
+          "value": 401.258,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "401.258"
+        },
+        {
+          "value": 400.796,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "400.796"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Tm",
+    "emission": {
+      "selection": "The six strongest of the 355 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 438.6434,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "438.6434"
+        },
+        {
+          "value": 435.9928,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "435.9928"
+        },
+        {
+          "value": 420.3727,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "420.3727"
+        },
+        {
+          "value": 418.7615,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "418.7615"
+        },
+        {
+          "value": 410.5841,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "410.5841"
+        },
+        {
+          "value": 409.4187,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "409.4187"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Yb",
+    "emission": {
+      "selection": "The 7 strongest of the 57 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 2 of these have the same intensity, so none of them is left out. NIST lists 1 more line there with no intensity, and it is not shown.",
+      "lines": [
+        {
+          "value": 679.96,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "679.960"
+        },
+        {
+          "value": 555.647,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "555.647"
+        },
+        {
+          "value": 493.55,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "493.550"
+        },
+        {
+          "value": 457.621,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "457.621"
+        },
+        {
+          "value": 443.919,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "443.919"
+        },
+        {
+          "value": 414.907,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "414.907"
+        },
+        {
+          "value": 408.968,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "408.968"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Lu",
+    "emission": {
+      "selection": "The six strongest of the 69 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "lines": [
+        {
+          "value": 600.452,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "600.452"
+        },
+        {
+          "value": 513.509,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "513.509"
+        },
+        {
+          "value": 500.114,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "500.114"
+        },
+        {
+          "value": 465.802,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "465.802"
+        },
+        {
+          "value": 451.857,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "451.857"
+        },
+        {
+          "value": 412.473,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "412.473"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Hf",
+    "emission": {
+      "selection": "The 10 strongest of the 1,844 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 5 of these have the same intensity, so none of them is left out.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 555.2128,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "555.2128"
+        },
+        {
+          "value": 555.061,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "555.0610"
+        },
+        {
+          "value": 480.05,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "480.0500"
+        },
+        {
+          "value": 465.5198,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "465.5198"
+        },
+        {
+          "value": 462.0862,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "462.0862"
+        },
+        {
+          "value": 459.8801,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "459.8801"
+        },
+        {
+          "value": 456.595,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "456.5950"
+        },
+        {
+          "value": 445.7347,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "445.7347"
+        },
+        {
+          "value": 435.6306,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "435.6306"
+        },
+        {
+          "value": 417.4348,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "417.4348"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Ta",
+    "emission": {
+      "selection": "The six strongest of the 256 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST lists 1 more line there with no intensity, and it is not shown.",
+      "lines": [
+        {
+          "value": 648.537,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "648.537"
+        },
+        {
+          "value": 515.6562,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "515.6562"
+        },
+        {
+          "value": 468.1875,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "468.1875"
+        },
+        {
+          "value": 457.4306,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "457.4306"
+        },
+        {
+          "value": 451.0982,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "451.0982"
+        },
+        {
+          "value": 406.1399,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "406.1399"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "W",
+    "emission": {
+      "selection": "The 7 strongest of the 2,037 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 2 of these have the same intensity, so none of them is left out. NIST lists 4 more lines there with no intensity, and they are not shown.",
+      "lines": [
+        {
+          "value": 551.4676,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "551.4676"
+        },
+        {
+          "value": 525.9342,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "525.9342"
+        },
+        {
+          "value": 505.3276,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "505.3276"
+        },
+        {
+          "value": 484.381,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "484.3810"
+        },
+        {
+          "value": 429.4606,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "429.4606"
+        },
+        {
+          "value": 407.4358,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "407.4358"
+        },
+        {
+          "value": 400.87506,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "400.87506"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Re",
+    "emission": {
+      "selection": "The six strongest of the 126 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST lists 1 more line there with no intensity, and it is not shown.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 527.556,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "527.556"
+        },
+        {
+          "value": 527.095,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "527.095"
+        },
+        {
+          "value": 488.914,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "488.914"
+        },
+        {
+          "value": 451.331,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "451.331"
+        },
+        {
+          "value": 422.746,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "422.746"
+        },
+        {
+          "value": 413.645,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "413.645"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Os",
+    "emission": {
+      "selection": "The six strongest of the 162 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 442.047,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "442.047"
+        },
+        {
+          "value": 426.085,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "426.085"
+        },
+        {
+          "value": 421.186,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "421.186"
+        },
+        {
+          "value": 417.323,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "417.323"
+        },
+        {
+          "value": 413.578,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "413.578"
+        },
+        {
+          "value": 411.202,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "411.202"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Ir",
+    "emission": {
+      "selection": "The six strongest of the 86 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 439.947,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "439.947"
+        },
+        {
+          "value": 431.15,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "431.150"
+        },
+        {
+          "value": 426.81,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "426.810"
+        },
+        {
+          "value": 406.992,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "406.992"
+        },
+        {
+          "value": 403.376,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "403.376"
+        },
+        {
+          "value": 402.003,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "402.003"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Pt",
+    "emission": {
+      "selection": "The six strongest of the 166 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "lines": [
+        {
+          "value": 676.0003,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "676.0003"
+        },
+        {
+          "value": 652.3433,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "652.3433"
+        },
+        {
+          "value": 530.1013,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "530.1013"
+        },
+        {
+          "value": 443.0188,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "443.0188"
+        },
+        {
+          "value": 416.45491,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "416.45491"
+        },
+        {
+          "value": 411.86745,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "411.86745"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Au",
+    "emission": {
+      "selection": "The 8 strongest of the 35 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 3 of these have the same intensity, so none of them is left out.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 627.817,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "627.817"
+        },
+        {
+          "value": 595.696,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "595.696"
+        },
+        {
+          "value": 583.737,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "583.737"
+        },
+        {
+          "value": 523.026,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "523.026"
+        },
+        {
+          "value": 479.258,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "479.258"
+        },
+        {
+          "value": 460.751,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "460.751"
+        },
+        {
+          "value": 406.507,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "406.507"
+        },
+        {
+          "value": 404.093,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "404.093"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Hg",
+    "emission": {
+      "selection": "The six strongest of the 62 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST lists 36 more lines there with no intensity, and they are not shown.",
+      "lines": [
+        {
+          "value": 690.746,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "690.746"
+        },
+        {
+          "value": 576.961,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "576.9610"
+        },
+        {
+          "value": 546.075,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "546.0750"
+        },
+        {
+          "value": 435.8335,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "435.8335"
+        },
+        {
+          "value": 407.7837,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "407.7837"
+        },
+        {
+          "value": 404.6565,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "404.6565"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Tl",
+    "emission": {
+      "selection": "All 4 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "lines": [
+        {
+          "value": 671.38,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "671.380"
+        },
+        {
+          "value": 654.984,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "654.984"
+        },
+        {
+          "value": 535.046,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "535.046"
+        },
+        {
+          "value": 435.99,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "435.99"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Pb",
+    "emission": {
+      "selection": "The six strongest of the 21 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 600.18624,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "600.18624"
+        },
+        {
+          "value": 520.143711,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "520.143711"
+        },
+        {
+          "value": 416.80328,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "416.80328"
+        },
+        {
+          "value": 406.2136,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "406.21360"
+        },
+        {
+          "value": 405.78067,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "405.78067"
+        },
+        {
+          "value": 401.96321,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "401.96321"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Bi",
+    "emission": {
+      "selection": "The six strongest of the 10 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "lines": [
+        {
+          "value": 574.2361,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "574.2361"
+        },
+        {
+          "value": 555.205,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "555.2050"
+        },
+        {
+          "value": 472.2528,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "472.2528"
+        },
+        {
+          "value": 449.301,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "449.301"
+        },
+        {
+          "value": 430.836,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "430.8360"
+        },
+        {
+          "value": 412.1704,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "412.1704"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Po",
+    "emission": {
+      "selection": "All 6 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "lines": [
+        {
+          "value": 574.485,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "574.485"
+        },
+        {
+          "value": 532.323,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "532.323"
+        },
+        {
+          "value": 487.624,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "487.624"
+        },
+        {
+          "value": 461.144,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "461.144"
+        },
+        {
+          "value": 449.321,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "449.321"
+        },
+        {
+          "value": 417.052,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "417.052"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "At",
+    "none": {
+      "value": "NIST's Atomic Spectra Database lists lines of astatine, but none of the neutral atom between 400 and 700 nm, so no spectrum is drawn.",
+      "sourceId": "nist-asd-lines-neutral"
+    }
+  },
+  {
+    "symbol": "Rn",
+    "emission": {
+      "selection": "The six strongest of the 25 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "lines": [
+        {
+          "value": 460.938,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "460.938"
+        },
+        {
+          "value": 457.772,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "457.772"
+        },
+        {
+          "value": 450.848,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "450.848"
+        },
+        {
+          "value": 445.925,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "445.925"
+        },
+        {
+          "value": 434.96,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "434.960"
+        },
+        {
+          "value": 430.776,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "430.776"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Fr",
+    "none": {
+      "value": "NIST's Atomic Spectra Database lists 87 lines of the neutral francium atom between 400 and 700 nm, but gives none of them a relative intensity, so the strongest cannot be picked out and no spectrum is drawn.",
+      "sourceId": "nist-asd-lines-neutral"
+    }
+  },
+  {
+    "symbol": "Ra",
+    "emission": {
+      "selection": "The 9 strongest of the 73 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 6 of these have the same intensity, so none of them is left out.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 698.022,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "698.0220"
+        },
+        {
+          "value": 648.732,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "648.7320"
+        },
+        {
+          "value": 644.62,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "644.6200"
+        },
+        {
+          "value": 620.03,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "620.0300"
+        },
+        {
+          "value": 566.081,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "566.0810"
+        },
+        {
+          "value": 555.585,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "555.5850"
+        },
+        {
+          "value": 540.681,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "540.6810"
+        },
+        {
+          "value": 540.023,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "540.0230"
+        },
+        {
+          "value": 482.592806,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "482.592806"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Ac",
+    "emission": {
+      "selection": "The six strongest of the 97 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 525.824,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "525.8240"
+        },
+        {
+          "value": 471.6581,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "471.6581"
+        },
+        {
+          "value": 446.273,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "446.2730"
+        },
+        {
+          "value": 439.671,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "439.6710"
+        },
+        {
+          "value": 418.3119,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "418.3119"
+        },
+        {
+          "value": 417.998,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "417.9980"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Th",
+    "emission": {
+      "selection": "The six strongest of the 5,945 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "lines": [
+        {
+          "value": 698.96552,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "698.965520"
+        },
+        {
+          "value": 658.390576,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "658.390576"
+        },
+        {
+          "value": 645.728237,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "645.728237"
+        },
+        {
+          "value": 618.262159,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "618.262159"
+        },
+        {
+          "value": 576.055058,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "576.055058"
+        },
+        {
+          "value": 572.018265,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "572.018265"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Pa",
+    "emission": {
+      "selection": "All 10 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 9 of these have the same intensity, so none of them is left out.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 699.273,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "699.273"
+        },
+        {
+          "value": 696.178,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "696.178"
+        },
+        {
+          "value": 696.009,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "696.009"
+        },
+        {
+          "value": 694.572,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "694.572"
+        },
+        {
+          "value": 679.275,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "679.275"
+        },
+        {
+          "value": 643.897,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "643.897"
+        },
+        {
+          "value": 637.925,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "637.925"
+        },
+        {
+          "value": 635.861,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "635.861"
+        },
+        {
+          "value": 616.256,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "616.256"
+        },
+        {
+          "value": 603.578,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "603.578"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "U",
+    "emission": {
+      "selection": "The six strongest of the 33 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 436.205,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "436.205"
+        },
+        {
+          "value": 435.574,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "435.574"
+        },
+        {
+          "value": 415.397,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "415.397"
+        },
+        {
+          "value": 404.761,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "404.761"
+        },
+        {
+          "value": 404.275,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "404.275"
+        },
+        {
+          "value": 400.521,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "400.521"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Np",
+    "emission": {
+      "selection": "All 28 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 26 of these have the same intensity, so none of them is left out.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 697.209,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "697.209"
+        },
+        {
+          "value": 696.363,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "696.363"
+        },
+        {
+          "value": 693.031,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "693.031"
+        },
+        {
+          "value": 691.291,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "691.291"
+        },
+        {
+          "value": 690.713,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "690.713"
+        },
+        {
+          "value": 686.545,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "686.545"
+        },
+        {
+          "value": 681.644,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "681.644"
+        },
+        {
+          "value": 680.581,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "680.581"
+        },
+        {
+          "value": 680.262,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "680.262"
+        },
+        {
+          "value": 679.521,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "679.521"
+        },
+        {
+          "value": 675.132,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "675.132"
+        },
+        {
+          "value": 672.068,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "672.068"
+        },
+        {
+          "value": 656.611,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "656.611"
+        },
+        {
+          "value": 634.138,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "634.138"
+        },
+        {
+          "value": 631.784,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "631.784"
+        },
+        {
+          "value": 621.59,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "621.590"
+        },
+        {
+          "value": 620,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "620.000"
+        },
+        {
+          "value": 618.859,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "618.859"
+        },
+        {
+          "value": 612.049,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "612.049"
+        },
+        {
+          "value": 608.005,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "608.005"
+        },
+        {
+          "value": 607.39,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "607.390"
+        },
+        {
+          "value": 605.609,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "605.609"
+        },
+        {
+          "value": 601.122,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "601.122"
+        },
+        {
+          "value": 587.804,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "587.804"
+        },
+        {
+          "value": 578.439,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "578.439"
+        },
+        {
+          "value": 565.275,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "565.275"
+        },
+        {
+          "value": 560.17,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "560.170"
+        },
+        {
+          "value": 504.466,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "504.466"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Pu",
+    "emission": {
+      "selection": "All 49 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST gives every one of them the same intensity, so no six of them are the strongest.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 689.138,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "689.138"
+        },
+        {
+          "value": 688.016,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "688.016"
+        },
+        {
+          "value": 678.466,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "678.466"
+        },
+        {
+          "value": 667.272,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "667.272"
+        },
+        {
+          "value": 660.895,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "660.895"
+        },
+        {
+          "value": 654.421,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "654.421"
+        },
+        {
+          "value": 653.527,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "653.527"
+        },
+        {
+          "value": 648.886,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "648.886"
+        },
+        {
+          "value": 648.671,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "648.671"
+        },
+        {
+          "value": 644.975,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "644.975"
+        },
+        {
+          "value": 630.466,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "630.466"
+        },
+        {
+          "value": 619.28,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "619.280"
+        },
+        {
+          "value": 601.278,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "601.278"
+        },
+        {
+          "value": 598.335,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "598.335"
+        },
+        {
+          "value": 583.905,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "583.905"
+        },
+        {
+          "value": 577.026,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "577.026"
+        },
+        {
+          "value": 571.239,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "571.239"
+        },
+        {
+          "value": 559.233,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "559.233"
+        },
+        {
+          "value": 559.054,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "559.054"
+        },
+        {
+          "value": 554.962,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "554.962"
+        },
+        {
+          "value": 553.759,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "553.759"
+        },
+        {
+          "value": 551.072,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "551.072"
+        },
+        {
+          "value": 549.85,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "549.850"
+        },
+        {
+          "value": 538.102,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "538.102"
+        },
+        {
+          "value": 526.986,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "526.986"
+        },
+        {
+          "value": 498.934,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "498.934"
+        },
+        {
+          "value": 473.54,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "473.540"
+        },
+        {
+          "value": 440.49,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "440.490"
+        },
+        {
+          "value": 436.741,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "436.741"
+        },
+        {
+          "value": 428.117,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "428.117"
+        },
+        {
+          "value": 426.977,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "426.977"
+        },
+        {
+          "value": 426.188,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "426.188"
+        },
+        {
+          "value": 422.42,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "422.420"
+        },
+        {
+          "value": 422.187,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "422.187"
+        },
+        {
+          "value": 420.823,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "420.823"
+        },
+        {
+          "value": 420.648,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "420.648"
+        },
+        {
+          "value": 417.095,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "417.095"
+        },
+        {
+          "value": 416.777,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "416.777"
+        },
+        {
+          "value": 415.546,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "415.546"
+        },
+        {
+          "value": 415.145,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "415.145"
+        },
+        {
+          "value": 415.109,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "415.109"
+        },
+        {
+          "value": 414.004,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "414.004"
+        },
+        {
+          "value": 413.597,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "413.597"
+        },
+        {
+          "value": 413.301,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "413.301"
+        },
+        {
+          "value": 412.812,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "412.812"
+        },
+        {
+          "value": 411.491,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "411.491"
+        },
+        {
+          "value": 411.107,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "411.107"
+        },
+        {
+          "value": 410.196,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "410.196"
+        },
+        {
+          "value": 409.712,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "409.712"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Am",
+    "emission": {
+      "selection": "The 10 strongest of the 19 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. Six would be shown, but the last 6 of these have the same intensity, so none of them is left out.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 640.511,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "640.511"
+        },
+        {
+          "value": 605.464,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "605.464"
+        },
+        {
+          "value": 559.813,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "559.813"
+        },
+        {
+          "value": 542.47,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "542.470"
+        },
+        {
+          "value": 540.262,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "540.262"
+        },
+        {
+          "value": 470.68,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "470.680"
+        },
+        {
+          "value": 468.165,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "468.165"
+        },
+        {
+          "value": 466.279,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "466.279"
+        },
+        {
+          "value": 428.926,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "428.926"
+        },
+        {
+          "value": 426.555,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "426.555"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Cm",
+    "emission": {
+      "selection": "All 27 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST gives every one of them the same intensity, so no six of them are the strongest.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 679.315,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "679.315"
+        },
+        {
+          "value": 672.668,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "672.668"
+        },
+        {
+          "value": 670.685,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "670.685"
+        },
+        {
+          "value": 668.687,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "668.687"
+        },
+        {
+          "value": 666.325,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "666.325"
+        },
+        {
+          "value": 664.017,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "664.017"
+        },
+        {
+          "value": 655.441,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "655.441"
+        },
+        {
+          "value": 651.016,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "651.016"
+        },
+        {
+          "value": 637.671,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "637.671"
+        },
+        {
+          "value": 624.335,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "624.335"
+        },
+        {
+          "value": 605.89,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "605.890"
+        },
+        {
+          "value": 595.241,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "595.241"
+        },
+        {
+          "value": 584.607,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "584.607"
+        },
+        {
+          "value": 460.84,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "460.840"
+        },
+        {
+          "value": 445.916,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "445.916"
+        },
+        {
+          "value": 444.777,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "444.777"
+        },
+        {
+          "value": 434.569,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "434.569"
+        },
+        {
+          "value": 433.082,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "433.082"
+        },
+        {
+          "value": 429.3,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "429.300"
+        },
+        {
+          "value": 426.645,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "426.645"
+        },
+        {
+          "value": 421.162,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "421.162"
+        },
+        {
+          "value": 412.971,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "412.971"
+        },
+        {
+          "value": 411.329,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "411.329"
+        },
+        {
+          "value": 404.965,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "404.965"
+        },
+        {
+          "value": 404.829,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "404.829"
+        },
+        {
+          "value": 403.176,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "403.176"
+        },
+        {
+          "value": 401.617,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "401.617"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Bk",
+    "emission": {
+      "selection": "All 25 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST gives every one of them the same intensity, so no six of them are the strongest.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 591.071,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "591.071"
+        },
+        {
+          "value": 570.224,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "570.224"
+        },
+        {
+          "value": 565.903,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "565.903"
+        },
+        {
+          "value": 565.654,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "565.654"
+        },
+        {
+          "value": 558.121,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "558.121"
+        },
+        {
+          "value": 555.709,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "555.709"
+        },
+        {
+          "value": 555.68,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "555.680"
+        },
+        {
+          "value": 553.793,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "553.793"
+        },
+        {
+          "value": 548.458,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "548.458"
+        },
+        {
+          "value": 546.747,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "546.747"
+        },
+        {
+          "value": 544.963,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "544.963"
+        },
+        {
+          "value": 540.462,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "540.462"
+        },
+        {
+          "value": 539.424,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "539.424"
+        },
+        {
+          "value": 539.203,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "539.203"
+        },
+        {
+          "value": 527.195,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "527.195"
+        },
+        {
+          "value": 521.253,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "521.253"
+        },
+        {
+          "value": 519.755,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "519.755"
+        },
+        {
+          "value": 517.061,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "517.061"
+        },
+        {
+          "value": 511.824,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "511.824"
+        },
+        {
+          "value": 505.673,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "505.673"
+        },
+        {
+          "value": 446.646,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "446.646"
+        },
+        {
+          "value": 442.301,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "442.301"
+        },
+        {
+          "value": 436.364,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "436.364"
+        },
+        {
+          "value": 435.15,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "435.150"
+        },
+        {
+          "value": 432.958,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "432.958"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Cf",
+    "emission": {
+      "selection": "All 13 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST gives every one of them the same intensity, so no six of them are the strongest.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
+      "lines": [
+        {
+          "value": 689.459,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "689.459"
+        },
+        {
+          "value": 667.79,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "667.790"
+        },
+        {
+          "value": 663.126,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "663.126"
+        },
+        {
+          "value": 662.283,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "662.283"
+        },
+        {
+          "value": 572.605,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "572.605"
+        },
+        {
+          "value": 540.888,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "540.888"
+        },
+        {
+          "value": 521.924,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "521.924"
+        },
+        {
+          "value": 517.908,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "517.908"
+        },
+        {
+          "value": 517.396,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "517.396"
+        },
+        {
+          "value": 433.522,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "433.522"
+        },
+        {
+          "value": 432.903,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "432.903"
+        },
+        {
+          "value": 424.238,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "424.238"
+        },
+        {
+          "value": 409.912,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "409.912"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Es",
+    "emission": {
+      "selection": "All 3 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity.",
+      "lines": [
+        {
+          "value": 561.551,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "561.551"
+        },
+        {
+          "value": 520.44,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "520.440"
+        },
+        {
+          "value": 516.174,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "516.174"
+        }
+      ]
+    }
+  },
+  {
+    "symbol": "Fm",
+    "none": {
+      "value": "NIST's Atomic Spectra Database lists lines of fermium, but none of the neutral atom between 400 and 700 nm, so no spectrum is drawn.",
+      "sourceId": "nist-asd-lines-neutral"
+    }
+  },
+  {
+    "symbol": "Md",
+    "none": {
+      "value": "NIST's Atomic Spectra Database lists no lines of mendelevium, so no spectrum is drawn.",
+      "sourceId": "nist-asd-lines-neutral"
+    }
+  },
+  {
+    "symbol": "No",
+    "none": {
+      "value": "NIST's Atomic Spectra Database lists no lines of nobelium, so no spectrum is drawn.",
+      "sourceId": "nist-asd-lines-neutral"
+    }
+  },
+  {
+    "symbol": "Lr",
+    "none": {
+      "value": "NIST's Atomic Spectra Database lists no lines of lawrencium, so no spectrum is drawn.",
+      "sourceId": "nist-asd-lines-neutral"
+    }
+  },
+  {
+    "symbol": "Rf",
+    "none": {
+      "value": "NIST's Atomic Spectra Database lists no lines of rutherfordium, so no spectrum is drawn.",
+      "sourceId": "nist-asd-lines-neutral"
+    }
+  },
+  {
+    "symbol": "Db",
+    "none": {
+      "value": "NIST's Atomic Spectra Database lists no lines of dubnium, so no spectrum is drawn.",
+      "sourceId": "nist-asd-lines-neutral"
+    }
+  },
+  {
+    "symbol": "Sg",
+    "none": {
+      "value": "NIST's Atomic Spectra Database lists no lines of seaborgium, so no spectrum is drawn.",
+      "sourceId": "nist-asd-lines-neutral"
+    }
+  },
+  {
+    "symbol": "Bh",
+    "none": {
+      "value": "NIST's Atomic Spectra Database lists no lines of bohrium, so no spectrum is drawn.",
+      "sourceId": "nist-asd-lines-neutral"
+    }
+  },
+  {
+    "symbol": "Hs",
+    "none": {
+      "value": "NIST's Atomic Spectra Database lists no lines of hassium, so no spectrum is drawn.",
+      "sourceId": "nist-asd-lines-neutral"
+    }
+  },
+  {
+    "symbol": "Mt",
+    "none": {
+      "value": "NIST's Atomic Spectra Database lists no lines of meitnerium, so no spectrum is drawn.",
+      "sourceId": "nist-asd-lines-neutral"
+    }
+  },
+  {
+    "symbol": "Ds",
+    "none": {
+      "value": "NIST's Atomic Spectra Database lists no lines of darmstadtium, so no spectrum is drawn.",
+      "sourceId": "nist-asd-lines-neutral"
+    }
+  },
+  {
+    "symbol": "Rg",
+    "none": {
+      "value": "NIST's Atomic Spectra Database lists no lines of roentgenium, so no spectrum is drawn.",
+      "sourceId": "nist-asd-lines-neutral"
+    }
+  },
+  {
+    "symbol": "Cn",
+    "none": {
+      "value": "NIST's Atomic Spectra Database lists no lines of copernicium, so no spectrum is drawn.",
+      "sourceId": "nist-asd-lines-neutral"
+    }
+  },
+  {
+    "symbol": "Nh",
+    "none": {
+      "value": "NIST's Atomic Spectra Database lists no lines of nihonium, so no spectrum is drawn.",
+      "sourceId": "nist-asd-lines-neutral"
+    }
+  },
+  {
+    "symbol": "Fl",
+    "none": {
+      "value": "NIST's Atomic Spectra Database lists no lines of flerovium, so no spectrum is drawn.",
+      "sourceId": "nist-asd-lines-neutral"
+    }
+  },
+  {
+    "symbol": "Mc",
+    "none": {
+      "value": "NIST's Atomic Spectra Database lists no lines of moscovium, so no spectrum is drawn.",
+      "sourceId": "nist-asd-lines-neutral"
+    }
+  },
+  {
+    "symbol": "Lv",
+    "none": {
+      "value": "NIST's Atomic Spectra Database lists no lines of livermorium, so no spectrum is drawn.",
+      "sourceId": "nist-asd-lines-neutral"
+    }
+  },
+  {
+    "symbol": "Ts",
+    "none": {
+      "value": "NIST's Atomic Spectra Database lists no lines of tennessine, so no spectrum is drawn.",
+      "sourceId": "nist-asd-lines-neutral"
+    }
+  },
+  {
+    "symbol": "Og",
+    "none": {
+      "value": "NIST's Atomic Spectra Database lists no lines of oganesson, so no spectrum is drawn.",
+      "sourceId": "nist-asd-lines-neutral"
+    }
+  }
+]

@@ -1,11 +1,12 @@
 import { Link } from 'react-router'
 import { BohrDiagram } from '@/app/explore/BohrDiagram'
-import { EmissionSpectrum } from '@/app/explore/EmissionSpectrum'
+import { EMISSION_HEADING, EmissionSpectrum } from '@/app/explore/EmissionSpectrum'
 import { Card, Row, Rows, Sources } from '@/app/explore/InspectorCard'
 import { periodicCitations } from '@/chem-data/citations'
 import { coreAndSubshells } from '@/chem-data/element'
 // The curated records alone: importing the registry here would load every molecule with the table.
 import elements from '@/chem-data/elements.json'
+import { spectrumOf } from '@/chem-data/emissionSpectra'
 import { LIBRARY_INDEX } from '@/chem-data/libraryIndex'
 import { shellsFromConfiguration } from '@/chem-data/periodic'
 import { CARD_DERIVED, shellCaption, type CardRowId } from '@/chem-data/periodicCard'
@@ -73,6 +74,7 @@ function CardRows({ element, rows }: { element: PeriodicElement; rows: readonly 
 export function ElementCard({ element }: { element: PeriodicElement }) {
   const curated = CURATED.find((e) => e.symbol === element.symbol)
   const rows = elementCardRows(element, curated)
+  const spectrum = spectrumOf(element.symbol)
   const molecules = moleculesContaining(element.symbol, LIBRARY_INDEX)
   return (
     <Card heading={`${element.name} (${element.symbol})`} wide>
@@ -89,9 +91,16 @@ export function ElementCard({ element }: { element: PeriodicElement }) {
         ))}
       </div>
 
-      {/* Below the sections: the spectrum, for the elements that have one, with the molecules beside it. */}
-      <div className={curated?.emission ? 'grid items-start gap-x-8 gap-y-4 lg:grid-cols-[minmax(0,28rem)_minmax(0,1fr)]' : undefined}>
-        {curated?.emission && <EmissionSpectrum element={curated} />}
+      {/* Below the sections: the spectrum, or the sentence that says why there is none, with the molecules beside it. */}
+      <div className="grid items-start gap-x-8 gap-y-4 lg:grid-cols-[minmax(0,28rem)_minmax(0,1fr)]">
+        {'emission' in spectrum ? (
+          <EmissionSpectrum name={element.name} emission={spectrum.emission} />
+        ) : (
+          <div className="grid max-w-md gap-2">
+            <h3 className="font-medium">{EMISSION_HEADING}</h3>
+            <p className="text-muted-foreground">{spectrum.none.value}</p>
+          </div>
+        )}
         <div className="grid gap-2">
           <h3 className="font-medium">In the molecule library</h3>
           {molecules.length === 0 ? (
@@ -110,7 +119,7 @@ export function ElementCard({ element }: { element: PeriodicElement }) {
         </div>
       </div>
 
-      <Sources citations={periodicCitations(rows, curated, sources)} derived={CARD_DERIVED} />
+      <Sources citations={periodicCitations(rows, spectrum, sources)} derived={CARD_DERIVED} />
     </Card>
   )
 }

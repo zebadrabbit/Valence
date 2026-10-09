@@ -9,11 +9,17 @@ Verified inputs for the molecule explorer (spec section 6). Gathered on 2026-10-
 | `expected.json` | The expected-values table (written from the research and checked by script and by a second reviewer): Lewis structure, formal charge, oxidation state, steric number, geometry, and hybridization for every atom of all 33 structures, plus molecular orbital data for O₂ and N₂. |
 | `pubchem.json` | PubChem CIDs, record availability, and checks for all 33 structures. |
 | `sdf/` | PubChem 3D and 2D structure files as downloaded. 3D exists for 29 of 33; BF₃, SF₆, XeF₄, and PCl₅ have 2D only. |
-| `emission-lines.json` | Visible emission lines of hydrogen, sodium and xenon from the NIST Atomic Spectra Database (wavelengths in air, as NIST prints them), generated from the downloaded tables and re-checked against the cited pages. Sodium's two D lines were added on 2026-10-04, read from the same query for Na I. |
+| `emission-lines.json` | Visible emission lines of hydrogen, sodium and xenon from the NIST Atomic Spectra Database (wavelengths in air, as NIST prints them), generated from the downloaded tables and re-checked against the cited pages. Sodium's two D lines were added on 2026-10-04, read from the same query for Na I. Xenon's entry is history since 2026-10-08: see the correction below. |
 | `parse-sdf.mjs` | The V2000 molfile parser used to check the downloads. |
 | `r3f-spike.md` | Findings from a throwaway React Three Fiber prototype of the 3D viewer. |
 
 `geometry.json` and `elements.json` keep `valueAsPublished` beside each cited length, angle, dihedral, atomic weight and electronegativity: the text the source prints, re-read from the CCCBDB pages, the PubChem periodic table and the CIAAW table on 2026-10-03. The build copies it into the app's data as `published`, and the app shows it, so a printed trailing zero (PCl₅ 2.020 Å, H₂O₂ 0.950 Å, hydrogen 1.0080) is kept. PubChem prints the electronegativity of hydrogen as 2.2 and of xenon as 2.6. CCCBDB prints no angle rows for PCl₅, so its three angles have no published text: they follow from the point group the page states (D3h), the build stores them with it, and the card labels them as following from the molecule's symmetry and not as a cited figure. The angles marked `fixedBySymmetry` that the page does print (CO₂, CH₄, BF₃, SF₆, XeF₄) are stored with their point group too, and the card labels each as a cited value that the molecule's symmetry fixes.
+
+## Correction, 2026-10-08: xenon's emission lines
+
+`emission-lines.json` held six xenon lines picked on 2026-10-03 as the six strongest by NIST's relative intensity. They were picked by transition probability, the column `Aki` that stands next to the relative intensity in NIST's table, and the file recorded those six numbers under the name `relativeIntensityAsPublished`. Two of the six have no relative intensity in NIST's table. This was found on 2026-10-08, when one rule was applied to every element from saved copies of NIST's responses (`docs/research/emission-spectra/README.md`).
+
+The six were replaced the same day by the six that rule picks, by relative intensity, on the periodic table and in the molecule explorer. The entry stays in the file as the record of what was shown before, with two changes: it is marked `superseded`, with the date and the correction, and the field is renamed `transitionProbabilityAsPublished`. The build reads nothing from a superseded entry but the mark, and no longer writes its source to the app. Hydrogen's and sodium's entries were checked against the saved responses at the same time: their `relativeIntensityAsPublished` values are what NIST prints as relative intensities.
 
 ## Conventions decided after this research
 

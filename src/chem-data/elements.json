@@ -640,37 +640,38 @@
       "sourceId": "jmol-pal-source"
     },
     "emission": {
-      "selection": "The six strongest lines of the neutral atom between 400 and 700 nm, by the relative intensity NIST lists. NIST lists several hundred xenon lines, and a real lamp also shows lines of the xenon ion.",
+      "selection": "The six strongest of the 291 lines of the neutral atom between 400 and 700 nm that NIST lists with a relative intensity. NIST lists 44 more lines there with no intensity, and they are not shown.",
+      "note": "Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.",
       "lines": [
         {
-          "value": 697.6182,
-          "sourceId": "nist-asd-lines-xe",
-          "published": "697.6182"
+          "value": 631.8062,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "631.8062"
         },
         {
-          "value": 688.2155,
-          "sourceId": "nist-asd-lines-xe",
-          "published": "688.2155"
+          "value": 492.3152,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "492.3152"
         },
         {
           "value": 491.6507,
-          "sourceId": "nist-asd-lines-xe",
+          "sourceId": "nist-asd-lines-neutral",
           "published": "491.6507"
         },
         {
+          "value": 482.9708,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "482.9708"
+        },
+        {
           "value": 480.7019,
-          "sourceId": "nist-asd-lines-xe",
+          "sourceId": "nist-asd-lines-neutral",
           "published": "480.70190"
         },
         {
-          "value": 467.12258,
-          "sourceId": "nist-asd-lines-xe",
-          "published": "467.12258"
-        },
-        {
-          "value": 462.42756,
-          "sourceId": "nist-asd-lines-xe",
-          "published": "462.42756"
+          "value": 473.41518,
+          "sourceId": "nist-asd-lines-neutral",
+          "published": "473.41518"
         }
       ]
     },

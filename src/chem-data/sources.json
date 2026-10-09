@@ -45,11 +45,6 @@
     "citation": "Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, Lines Data for Na I: observed wavelengths in air, 400 to 700 nm (retrieved 2026-10-04). National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F"
   },
   {
-    "id": "nist-asd-lines-xe",
-    "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=Xe+I&limits_type=0&low_w=400&upp_w=700&unit=1&submit=Retrieve+Data&de=0&format=0&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&show_calc_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1&conf_out=on&term_out=on&enrg_out=on&J_out=on",
-    "citation": "Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, Lines Data for Xe I: observed wavelengths in air, 400 to 700 nm (retrieved 2026-10-03). National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F"
-  },
-  {
     "id": "cccbdb-water",
     "url": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7732185",
     "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Hoy, A.R.; Bunker, P.R., J. Mol. Spectrosc. 74, 1-8 (1979) (doi:10.1016/0022-2852(79)90019-5)"
@@ -748,5 +743,30 @@
     "id": "flinn-sds-735",
     "url": "https://www.flinnsci.com/sds_735-sodium-hydroxide-solution-0.3-m---6.0-m/sds_735",
     "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Hydroxide Solution 0.3 M - 6.0 M, SDS number sds_735; revision date December 3, 2018 (read on 2026-10-06; no copy is kept)."
+  },
+  {
+    "id": "pines-2016",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5747581/",
+    "citation": "Pines, D.; Ditkovich, J.; Mukra, T.; Miller, Y.; Kiefer, P. M.; Daschakraborty, S.; Hynes, J. T.; Pines, E. How Acidic Is Carbonic Acid? J. Phys. Chem. B 2016, 120, 2440-2451. (https://doi.org/10.1021/acs.jpcb.5b12428) Read as the authors' manuscript in PubMed Central (PMC5747581), linked here, fetched as XML through the National Center for Biotechnology Information's E-utilities, which carries the text, the tables and the captions of the figures but not the figures; the text read in full and not kept (retrieved 2026-10-07)."
+  },
+  {
+    "id": "nist-codata-2022",
+    "url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+    "citation": "Mohr, P. J.; Newell, D. B.; Taylor, B. N.; Tiesinga, E. Fundamental Physical Constants: Complete Listing, 2022 CODATA adjustment. National Institute of Standards and Technology. Read as the text file linked here; read and not kept (retrieved 2026-10-07)."
+  },
+  {
+    "id": "nist-asd-lines-neutral",
+    "url": "https://physics.nist.gov/PhysRefData/ASD/lines_form.html",
+    "citation": "Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, Lines Data for the neutral atom of each element (the spectrum <symbol> I): observed wavelengths in air, 400 to 700 nm, with relative intensities; and, for an element with no such lines, every line the database lists for it (retrieved 2026-10-08). National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F"
+  },
+  {
+    "id": "nist-asd-lines-help",
+    "url": "https://physics.nist.gov/PhysRefData/ASD/Html/lineshelp.html#OUTRELINT",
+    "citation": "Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, help page of the lines form: how a spectrum is named, and the section Relative Intensity, linked here (read 2026-10-08). National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F"
+  },
+  {
+    "id": "bulewicz-1956",
+    "url": "https://doi.org/10.1038/177670a0",
+    "citation": "Bulewicz, E. M. Flame Spectrum of Barium: Red and Infra-Red Bands. Nature 1956, 177, 670-671. The paper is paywalled: only its abstract was read, on the publisher's page, linked here (2026-10-08)."
   }
 ]

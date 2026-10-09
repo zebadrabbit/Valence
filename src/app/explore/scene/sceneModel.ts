@@ -27,12 +27,12 @@ import {
 // Display parameters, in ångström. These are drawing choices, not chemistry.
 /** A ball-and-stick ball is this fraction of the element's van der Waals radius. */
 export const BALL_SCALE = 0.25
-const STICK_STYLE: Record<Exclude<SceneViewId, 'space-filling'>, StickStyle> = {
+export const STICK_STYLE: Record<Exclude<SceneViewId, 'space-filling'>, StickStyle> = {
   'ball-and-stick': { radius: 0.09, multiRadius: 0.06, spacing: 0.2 },
   wireframe: { radius: 0.04, multiRadius: 0.04, spacing: 0.14 },
 }
 /** Sticks are neutral in ball-and-stick, where the balls carry the element colours. */
-const STICK_COLOR = '#9a9a9a'
+export const STICK_COLOR = '#9a9a9a'
 /** The smallest click targets, so thin wires and small balls can still be picked. */
 const MIN_ATOM_PICK_RADIUS = 0.3
 const MIN_BOND_PICK_RADIUS = 0.15

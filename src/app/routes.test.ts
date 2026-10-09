@@ -3,7 +3,9 @@ import { describe, expect, it } from 'vitest'
 import { PeriodicTablePage } from '@/app/explore/elements/PeriodicTablePage'
 import { AqueousPage } from '@/app/lab/aqueous/AqueousPage'
 import { TitrationPage } from '@/app/lab/titration/TitrationPage'
+import { MechanismPage } from '@/app/learn/MechanismPage'
 import { Lab } from '@/app/pages/Lab'
+import { Learn } from '@/app/pages/Learn'
 import { periodicTable } from '@/chem-data/periodic'
 import { registry } from '@/chem-data/registry'
 import { routes } from './routes'
@@ -74,6 +76,26 @@ describe('the routes', () => {
     expect((route.element as { type: unknown }).type).toBe(Lab)
     expect(page('/lab/titration/more')).toMatchObject({ path: '*' })
     expect(page('/lab/nowhere')).toMatchObject({ path: '*' })
+  })
+
+  it('load the mechanism timeline at #/learn/hcl-nahco3, lazily, whatever chapter its address links to', async () => {
+    for (const address of ['/learn/hcl-nahco3', '/learn/hcl-nahco3?step=proton-transfer']) {
+      const { path, route } = page(address)
+      expect(path).toBe('learn/hcl-nahco3')
+      expect(typeof route.lazy).toBe('function')
+      expect(route.element).toBeUndefined()
+      const loaded = await (route.lazy as () => Promise<{ Component: unknown }>)()
+      expect(loaded.Component).toBe(MechanismPage)
+    }
+    expect(page('/learn/hcl-nahco3/more')).toMatchObject({ path: '*' })
+    expect(page('/learn/nowhere')).toMatchObject({ path: '*' })
+  })
+
+  it('still open the list of mechanisms at #/learn, with no chunk to load', () => {
+    const { path, route } = page('/learn')
+    expect(path).toBe('learn')
+    expect(route.lazy).toBeUndefined()
+    expect((route.element as { type: unknown }).type).toBe(Learn)
   })
 
   it('open Home at the root', () => {

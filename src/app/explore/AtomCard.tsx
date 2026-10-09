@@ -78,7 +78,7 @@ export function AtomCard(props: { name: string; atom: Molecule['atoms'][number];
               </Rows>
               {element.notes?.map((note) => <Note key={note}>Note: {note}</Note>)}
             </div>
-            <EmissionSpectrum element={element} />
+            {element.emission && <EmissionSpectrum name={element.name} emission={element.emission} />}
           </div>
         </Disclosure>
       </div>

@@ -7,8 +7,8 @@ import { Learn } from '@/app/pages/Learn'
 import { NotFound } from '@/app/pages/NotFound'
 import { Settings } from '@/app/pages/Settings'
 
-// Every address of the app. The Explore routes and each lab load lazily so the molecule data, the periodic table
-// and a lab's engine and primer stay out of the main chunk. The router finishes a navigation only once the chunk
+// Every address of the app. The Explore routes, each lab and the mechanism timeline load lazily so the molecule
+// data, the periodic table, a lab's engine and primer and the mechanism's record stay out of the main chunk. The router finishes a navigation only once the chunk
 // has loaded.
 export const routes: RouteObject[] = [
   {
@@ -32,6 +32,7 @@ export const routes: RouteObject[] = [
       { path: 'lab/titration', lazy: async () => ({ Component: (await import('@/app/lab/titration/TitrationPage')).TitrationPage }) },
       { path: 'lab/aqueous', lazy: async () => ({ Component: (await import('@/app/lab/aqueous/AqueousPage')).AqueousPage }) },
       { path: 'learn', element: <Learn /> },
+      { path: 'learn/hcl-nahco3', lazy: async () => ({ Component: (await import('@/app/learn/MechanismPage')).MechanismPage }) },
       { path: 'settings', element: <Settings /> },
       { path: 'about', element: <About /> },
       { path: '*', element: <NotFound /> },

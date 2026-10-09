@@ -56,6 +56,8 @@ describe('the real chem-data registry', () => {
   })
 
   it('stores emission lines for hydrogen, sodium and xenon only, between 400 and 700 nm, longest first, in the digits NIST prints', () => {
+    // Hydrogen's and sodium's are written by hand. Xenon's are the ones the rule of the periodic table's spectra
+    // picks from NIST's saved response, by relative intensity (emissionSpectra.test.ts holds them to it).
     const withLines = registry.elements.filter((e) => e.emission)
     expect(withLines.map((e) => e.symbol)).toEqual(['H', 'Na', 'Xe'])
     for (const e of withLines) {
@@ -70,7 +72,7 @@ describe('the real chem-data registry', () => {
     const published = (symbol: string) => registry.elements.find((e) => e.symbol === symbol)!.emission!.lines.map((line) => line.published)
     expect(published('H')).toEqual(['656.279', '486.135', '434.0472', '410.1734'])
     expect(published('Na')).toEqual(['589.592424', '588.995095'])
-    expect(published('Xe')).toEqual(['697.6182', '688.2155', '491.6507', '480.70190', '467.12258', '462.42756'])
+    expect(published('Xe')).toEqual(['631.8062', '492.3152', '491.6507', '482.9708', '480.70190', '473.41518'])
   })
 
   it('says with the data that the two sodium D lines are too close to draw apart', () => {
@@ -80,8 +82,9 @@ describe('the real chem-data registry', () => {
     // Sodium is a silvery metal. What is yellow is its light: a sodium lamp, or a flame with sodium in it.
     expect(sodium.selection).toBe('The two D lines, which give a sodium lamp, and a flame that holds sodium, their yellow colour. NIST lists other, weaker lines of the neutral atom between 400 and 700 nm.')
     expect(sodium.note).toContain('too close to draw separately')
-    // Only an element whose lines overlap on the strip carries the note.
-    for (const symbol of ['H', 'Xe']) expect(registry.elements.find((e) => e.symbol === symbol)!.emission!.note).toBeUndefined()
+    // Only an element whose lines overlap on the strip carries a note. Two of xenon's are 0.7 nm apart, and its note is the build's.
+    expect(registry.elements.find((e) => e.symbol === 'H')!.emission!.note).toBeUndefined()
+    expect(registry.elements.find((e) => e.symbol === 'Xe')!.emission!.note).toBe('Some of these lines are too close together to draw separately on this strip, which shows them as one. The table lists each of them.')
   })
 
   it('contains exactly the 11 elements', () => {

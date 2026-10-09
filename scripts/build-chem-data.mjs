@@ -12,6 +12,13 @@
 // Reads docs/research/phase-4/ (aqueous.json, hazards.json, the two manifests under sources/ and the one kept copy)
 // and writes:
 //   aqueous/aqueous.json, and into sources.json the aqueous reactions lab's sources
+// Reads docs/research/phase-5/ (mechanism.json, choreography.json and sources/MANIFEST.json) and writes, under
+// src/mechanisms/:
+//   hcl-nahco3.json, the mechanism timeline's record with its keyframes, and into sources.json its sources
+// Reads docs/research/emission-spectra/sources/ (the saved responses of NIST's lines query and their MANIFEST.json)
+// and writes:
+//   emission-spectra.json, the emission spectrum on each element's card or the sentence that says why there is
+//   none, and into sources.json its sources
 //
 // Deterministic: the same inputs give byte-identical outputs. Anything
 // unexpected in the inputs stops the build with a message and writes nothing.
@@ -25,6 +32,8 @@ import process from 'node:process'
 import { parseSdf } from './parse-sdf.mjs'
 import { checkConfiguration, noteProblem, parseCiaawAbridged, parseNistIe, parsePubChem } from './periodic-table-lib.mjs'
 import { checkReagents, checkSupported, mergeHazards, newSources } from './aqueous-lib.mjs'
+import { buildMechanism } from './mechanism-lib.mjs'
+import { observedLines, parseNistLines, spectrumFromSaved } from './emission-lib.mjs'
 import { checkAnnualMean, checkMolecularWeight, checkPublished, checkSha256, checkSheetHazards, checkWikipediaCopy } from './titration-lib.mjs'
 
 const root = join(import.meta.dirname, '..')
@@ -32,6 +41,8 @@ const research = join(root, 'docs/research/phase-2')
 const periodicResearch = join(root, 'docs/research/periodic-table')
 const titrationResearch = join(root, 'docs/research/phase-3')
 const aqueousResearch = join(root, 'docs/research/phase-4')
+const mechanismResearch = join(root, 'docs/research/phase-5')
+const emissionResearch = join(root, 'docs/research/emission-spectra')
 const out = join(root, 'src/chem-data')
 
 function fail(message) {
@@ -211,13 +222,20 @@ function buildElements() {
     if (!readVia) return { id, url: source.dataUrl ?? source.url, citation: source.citation }
     return { id, url: lookup(readVia).url, citation: `${source.citation} (${source.url}) ${said}` }
   })
-  // Emission lines are their own research file, with one source per element's NIST query.
+  // Emission lines are their own research file, with one source per element's NIST query. An entry marked
+  // superseded is kept there as history (xenon's first six lines): that element's lines are picked, as for the
+  // periodic table's cards, by the rule from NIST's saved response, and the entry's source is no longer cited.
   const spectra = readJson('emission-lines.json')
-  sources.push(...spectra.sources.map(({ id, url, citation }) => ({ id, url, citation })))
+  const byHand = spectra.elements.filter((x) => !x.superseded)
+  sources.push(...spectra.sources.filter((source) => byHand.some((x) => x.sourceId === source.id)).map(({ id, url, citation }) => ({ id, url, citation })))
   const allowed = new Set(sources.map((s) => s.id))
-  const emission = (symbol) => {
+  const emission = (symbol, name) => {
     const entry = spectra.elements.find((x) => x.symbol === symbol)
     if (!entry) return {}
+    if (entry.superseded) {
+      const { emission } = ruleSpectrum(symbol, name, savedEmissionResponses().saved)
+      return { emission: emission ?? fail(`element ${symbol}: the rule finds no emission lines to replace the ones written by hand`) }
+    }
     const lines = entry.lines.map((line) => {
       if (line.wavelengthNm !== Number(line.valueAsPublished)) fail(`element ${symbol}: emission line ${line.valueAsPublished} differs from the published text`)
       if (!allowed.has(entry.sourceId)) fail(`element ${symbol}: unexpected source "${entry.sourceId}"`)
@@ -293,7 +311,7 @@ function buildElements() {
         ...cite(r.valueA, r.sourceId),
       })),
       color: cite(e.colorHex, e.colorSourceId),
-      ...emission(e.symbol),
+      ...emission(e.symbol, e.name),
       ...(notes.length > 0 ? { notes } : {}),
       sourceId: cite(e.atomicNumber, e.atomicNumberSourceId).sourceId,
     }
@@ -1119,6 +1137,102 @@ function buildAqueous(earlierSources) {
   return { aqueous, sources: [...labSources, ...sheetSources] }
 }
 
+// ---------------------------------------------------------------------------
+// Mechanism timeline
+
+// The record is authored in docs/research/phase-5/: mechanism.json holds the cited values the energies are worked
+// out from, the chapters with their words, bonds and questions; choreography.json places library species at each
+// keyframe and maps their atoms to actors. Every source is in sources/MANIFEST.json, each row of which names the
+// stored values it supports, and the build holds the record to those rows as it does the aqueous lab's. None of
+// the sources is kept, so the build cannot check a value against its source: it holds the record and the manifest
+// to one account. The keyframes, the step energies and the checks between the two files are scripts/mechanism-lib.mjs.
+function buildMechanismRecord(earlierSources, molecules, elements) {
+  const json = (name) => JSON.parse(readFileSync(join(mechanismResearch, name), 'utf8'))
+  const record = json('mechanism.json')
+  const manifest = json('sources/MANIFEST.json')
+  if (manifest.sources.some((source) => source.file !== undefined)) fail('phase-5 MANIFEST.json: no source of the mechanism has a kept copy')
+  const sources = newSources(manifest.sources, earlierSources, 'phase-5 MANIFEST.json')
+  checkSupported(record, manifest.sources)
+  for (const [key, parameter] of Object.entries(record.thermo.parameters)) onlyKeys(parameter, ['value', 'rationale'], `mechanism.json: parameters.${key}`)
+  return { mechanism: buildMechanism(record, json('choreography.json'), molecules, elements), sources }
+}
+
+// ---------------------------------------------------------------------------
+// Emission spectra of the periodic table
+//
+// One for each element NIST's Atomic Spectra Database gives lines with a relative intensity for, picked by the one
+// rule of scripts/emission-lib.mjs from the saved responses in docs/research/emission-spectra/sources/; for every
+// other element, a sentence that says what the saved responses show instead. Hydrogen and sodium keep the lines
+// and the sentences written for them by hand in docs/research/phase-2/emission-lines.json. An element of the
+// molecule explorer that has a spectrum has here the one its curated record holds, so the two cannot differ:
+// hydrogen's and sodium's by hand, xenon's by the rule (buildElements). Each of those lines is held to the saved
+// response: its digits must be the ones NIST prints.
+
+const EMISSION_LINES_ID = 'nist-asd-lines-neutral'
+const NIST_ASD = 'Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database'
+const NIST_ASD_DOI = 'National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F'
+
+// ponytail: one source for the 95 spectra the rule makes, linked to NIST's lines form and not to each element's own
+// query, so that the list of sources on the About page does not grow by one near-identical entry for each element.
+// The exact address for each element is in the manifest beside the saved responses.
+// The second and third are cited by the note shown with every spectrum (EMISSION_SCOPE_NOTE in
+// src/chem-data/element.ts), where what each was read for is stored beside the sentence. Neither page is kept.
+function emissionSources(retrieved) {
+  return [
+    {
+      id: EMISSION_LINES_ID,
+      url: 'https://physics.nist.gov/PhysRefData/ASD/lines_form.html',
+      citation: `${NIST_ASD}, Lines Data for the neutral atom of each element (the spectrum <symbol> I): observed wavelengths in air, 400 to 700 nm, with relative intensities; and, for an element with no such lines, every line the database lists for it (retrieved ${retrieved}). ${NIST_ASD_DOI}`,
+    },
+    {
+      id: 'nist-asd-lines-help',
+      url: 'https://physics.nist.gov/PhysRefData/ASD/Html/lineshelp.html#OUTRELINT',
+      citation: `${NIST_ASD}, help page of the lines form: how a spectrum is named, and the section Relative Intensity, linked here (read ${retrieved}). ${NIST_ASD_DOI}`,
+    },
+    {
+      id: 'bulewicz-1956',
+      url: 'https://doi.org/10.1038/177670a0',
+      citation: `Bulewicz, E. M. Flame Spectrum of Barium: Red and Infra-Red Bands. Nature 1956, 177, 670-671. The paper is paywalled: only its abstract was read, on the publisher's page, linked here (${retrieved}).`,
+    },
+  ]
+}
+
+/** The saved responses, by element and query, and the day they were retrieved. */
+function savedEmissionResponses() {
+  const read = (name) => readFileSync(join(emissionResearch, 'sources', name), 'utf8')
+  const manifest = JSON.parse(read('MANIFEST.json'))
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(manifest.retrieved)) fail('emission-spectra MANIFEST.json has no retrieval date')
+  const saved = (symbol, query) => {
+    const copies = manifest.files.filter((f) => f.symbol === symbol && f.query === query)
+    if (copies.length > 1) fail(`emission-spectra MANIFEST.json lists ${symbol} twice for the query "${query}"`)
+    return copies[0] && read(copies[0].file)
+  }
+  return { retrieved: manifest.retrieved, saved }
+}
+
+/** What the rule gives an element from its saved responses: `{ emission }` or `{ none }`. */
+function ruleSpectrum(symbol, name, saved) {
+  const where = `emission spectrum of ${symbol}`
+  const neutral = saved(symbol, 'neutral-visible') ?? fail(`${where}: MANIFEST.json lists no saved response`)
+  try {
+    return spectrumFromSaved({ name: name.toLowerCase(), neutral, all: saved(symbol, 'all'), sourceId: EMISSION_LINES_ID })
+  } catch (error) {
+    fail(`${where}: ${error.message}`)
+  }
+}
+
+function buildEmissionSpectra(periodicTable, curated) {
+  const { retrieved, saved } = savedEmissionResponses()
+  const spectra = periodicTable.map(({ symbol, name }) => {
+    const kept = curated.find((e) => e.symbol === symbol)?.emission
+    if (!kept) return { symbol, ...ruleSpectrum(symbol, name, saved) }
+    const printed = new Set(observedLines(parseNistLines(saved(symbol, 'neutral-visible') ?? '') ?? []).map((line) => line.published))
+    for (const line of kept.lines) if (!printed.has(line.published)) fail(`emission spectrum of ${symbol}: NIST's saved response prints no line at ${line.published} nm`)
+    return { symbol, emission: kept }
+  })
+  return { spectra, sources: emissionSources(retrieved) }
+}
+
 // A static import list keeps the registry free of bundler-only APIs.
 function moleculeIndex(molecules) {
   const name = (id) => id.replace(/-(.)/g, (_, c) => c.toUpperCase())
@@ -1155,7 +1269,10 @@ function main() {
   const earlierSources = [...otherSources, ...periodicTableSources]
   const { titration, sources: titrationSources } = buildTitration(earlierSources.map((s) => s.id))
   const { aqueous, sources: aqueousSources } = buildAqueous([...earlierSources, ...titrationSources])
-  const sources = [...earlierSources, ...titrationSources, ...aqueousSources]
+  const labSources = [...earlierSources, ...titrationSources, ...aqueousSources]
+  const { mechanism, sources: mechanismSources } = buildMechanismRecord(labSources, molecules, elements)
+  const { spectra, sources: emissionSpectraSources } = buildEmissionSpectra(periodicTable, elements)
+  const sources = [...labSources, ...mechanismSources, ...emissionSpectraSources]
   if (new Set(sources.map((s) => s.id)).size !== sources.length) fail('duplicate source ids')
 
   // Everything is built before anything is written.
@@ -1169,12 +1286,15 @@ function main() {
   writeFileSync(join(out, 'library-index.json'), toJson(libraryIndex(molecules)))
   writeFileSync(join(out, 'periodic-table.json'), toJson(periodicTable))
   writeFileSync(join(out, 'element-index.json'), toJson(elementIndex(periodicTable)))
+  writeFileSync(join(out, 'emission-spectra.json'), toJson(spectra))
   writeFileSync(join(out, 'titration/titration.json'), toJson(titration))
   mkdirSync(join(out, 'aqueous'), { recursive: true })
   writeFileSync(join(out, 'aqueous/aqueous.json'), toJson(aqueous))
+  mkdirSync(join(root, 'src/mechanisms'), { recursive: true })
+  writeFileSync(join(root, 'src/mechanisms', `${mechanism.id}.json`), toJson(mechanism))
   writeFileSync(join(out, 'sources.json'), toJson(sources))
   process.stdout.write(
-    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, ${sources.length} sources.\n`,
+    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
   )
 }
 

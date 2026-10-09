@@ -1,4 +1,5 @@
 import type { Element } from './schema'
+import { located } from './support'
 
 // e x N_A / 1000. Both constants are exact by the 2019 SI definitions, so this is not a measured value.
 const KJ_PER_MOL_PER_EV = 96.48533212331
@@ -35,6 +36,36 @@ export function coreAndSubshells(configuration: string): { core: string | undefi
 /** Shown with every emission spectrum: what the lines are, and what they are not. */
 export const EMISSION_NOTE =
   'These lines come from isolated atoms in a glowing gas or vapour, as in a discharge lamp. An atom bonded in a molecule does not emit them.'
+
+const NIST_LINES_HELP = 'https://physics.nist.gov/PhysRefData/ASD/Html/lineshelp.html'
+
+/**
+ * Shown with every emission spectrum: what the strip leaves out, and how far "strongest" can be trusted. NIST
+ * reserves its rights in the database and the paper is a publisher's, so each passage is located and put in this
+ * project's words. Both pages were read on 2026-10-08 and neither is kept. It has the shape of a description of the
+ * periodic table (periodic.ts), which this file, loaded with the molecule pages, must not import.
+ */
+export const EMISSION_SCOPE_NOTE: { text: string; sourceIds: string[]; support: string } = {
+  text: "The strip shows lines of the single neutral atom, as a database lists them. A real lamp or flame can look different, because ions and molecules give light too: in a flame, calcium, strontium and barium give strong bands of light as molecules with oxygen and hydrogen (CaOH, SrOH and BaOH). The strip does not show how strong each line is. Where the lines shown are an element's strongest, that is by NIST's relative intensities, which are rough, depend on the lamp they were measured with, and compare the lines of one element with each other, not with those of another element.",
+  sourceIds: ['nist-asd-lines-help', 'bulewicz-1956'],
+  support: [
+    `nist-asd-lines-help: ${located(
+      NIST_LINES_HELP,
+      'the help page of the lines form, on selecting spectra',
+      'the database holds a spectrum for each stage of ionization of an element, the neutral atom being the first, so an ion has lines of its own.',
+    )}`,
+    `nist-asd-lines-help: ${located(
+      `${NIST_LINES_HELP}#OUTRELINT`,
+      'the help page of the lines form, the section headed Relative Intensity',
+      'the relative intensities are taken from the publications the database cites and are usually not put on one scale; that they depend on the light source and are to be read as qualitative; and that, different authors using different scales, they have meaning only within the spectrum of one element in one stage of ionization.',
+    )}`,
+    `bulewicz-1956: ${located(
+      'https://doi.org/10.1038/177670a0',
+      'the abstract, which is all of the paper that was read',
+      'the diffuse bands that are very strong in the flame spectra of the alkaline-earth metals have been identified as those of the hydroxide radicals CaOH, SrOH and BaOH.',
+    )}`,
+  ].join('\n'),
+}
 
 /** How to read the strip and its numbers. */
 export const EMISSION_READING_NOTE =
