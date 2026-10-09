@@ -625,7 +625,7 @@ Suggested by the owner on 2026-10-09. It is built without the owner's department
 
 A coffee-cup calorimeter: two foam cups, one inside the other, a lid with a hole, a stirrer, and a temperature probe whose readings a logger plots against time, one reading every 15 seconds. Three parts, each with an idea of its own:
 
-1. **Neutralisation.** 50.0 mL of 1.0 M hydrochloric acid and 50.0 mL of 1.0 M sodium hydroxide solution. The heat given out for each mole of water formed.
+1. **Neutralisation.** 50.0 mL of 1.00 M hydrochloric acid and 50.0 mL of 1.00 M sodium hydroxide solution. The heat given out for each mole of water formed.
 2. **Dissolving.** A weighed portion of solid ammonium nitrate, about 4 g, in 50.0 mL of water. The heat taken in for each mole dissolved.
 3. **A metal's specific heat.** A weighed piece, about 50 g, of an unknown grey metal (aluminium, iron, zinc or tin, by the seed), heated in boiling water whose temperature is read, then put into 50.0 mL of water in the cup. The metal's specific heat, and from it which metal it is.
 
