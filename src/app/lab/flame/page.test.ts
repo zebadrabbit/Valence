@@ -633,26 +633,34 @@ describe('what a station says before anything is looked at, and what it never sa
     }
   })
 
-  it('in Challenge shows the hints and, closed, what a correct observation holds, once an observation that counts is recorded, right or wrong', () => {
+  /** The closed list named Hints, with the five hints in it, as the questions' card draws it. */
+  const HINTS_CLOSED = new RegExp(`<details><summary[^>]*>${BENCH_TEXT.hints}</summary><div[^>]*><ul[^>]*>${HINTS.map((hint) => `<li>${escaped(hint)}</li>`).join('')}</ul></div></details>`)
+
+  it('in Challenge shows the hints and what a correct observation holds, each in a list that is closed, once an observation that counts is recorded, right or wrong', () => {
     const wrong = run(data, looked(CA, 'challenge'), [record(CA, WRONG)])
     for (const state of [wrong, done(fresh('challenge'), CA)]) {
       const observations = card(bench(state, CA).station, BENCH_TEXT.observations)
-      expect(observations).toContain(`<h4 class="font-medium">${BENCH_TEXT.hints}</h4>`)
+      expect(observations).toMatch(HINTS_CLOSED)
       expect(observations).toMatch(new RegExp(`<details><summary[^>]*>${BENCH_TEXT.expected}</summary>`))
+      expect(observations).not.toContain('<details open')
       for (const line of observationLines(expected(CA))) expect(observations).toContain(`<li>${line}</li>`)
       expect(observations).not.toContain(PAGE_TEXT.challengeHidden)
     }
   })
 
-  it('in Guided shows the hints over the questions and has what a correct observation holds ready under them, in a list that is closed and named for what opening it shows', () => {
-    const observations = card(bench(held(CA, 'guided'), CA).station, BENCH_TEXT.observations)
-    expect([...observations.matchAll(/<li>(.*?)<\/li>/g)].map((match) => match[1]).slice(0, HINTS.length)).toEqual(HINTS.map(escaped))
-    expect(observations.indexOf(BENCH_TEXT.hints)).toBeLessThan(observations.indexOf('<form'))
-    expect(observations.indexOf('</form>')).toBeLessThan(observations.indexOf(BENCH_TEXT.expected))
-    expect(observations).toMatch(new RegExp(`<details><summary[^>]*>${BENCH_TEXT.expected}</summary>`))
-    expect(observations).not.toContain('<details open')
-    // Nothing of it stands open: the three lines are inside the closed list and nowhere else in the station.
-    for (const line of observationLines(expected(CA))) expect(count(bench(held(CA, 'guided'), CA).station, new RegExp(line, 'g'))).toBe(1)
+  it('in Guided has the hints ready over the questions and what a correct observation holds ready under them, each in a list that is closed and named for what opening it shows: no hint stands open at any station', () => {
+    for (const salt of data.salts) {
+      const station = bench(held(salt.id, 'guided'), salt.id).station
+      const observations = card(station, BENCH_TEXT.observations)
+      expect(observations, salt.id).toMatch(HINTS_CLOSED)
+      expect(observations.indexOf(BENCH_TEXT.hints)).toBeLessThan(observations.indexOf('<form'))
+      expect(observations.indexOf('</form>')).toBeLessThan(observations.indexOf(BENCH_TEXT.expected))
+      expect(observations).toMatch(new RegExp(`<details><summary[^>]*>${BENCH_TEXT.expected}</summary>`))
+      // Nothing of either stands open: each hint and each of the three lines is inside its closed list and nowhere else in the station.
+      expect(station, salt.id).not.toContain('<details open')
+      for (const hint of HINTS) expect(station.split(escaped(hint)), salt.id).toHaveLength(2)
+      for (const line of observationLines(expected(salt.id))) expect(station.split(line), salt.id).toHaveLength(2)
+    }
   })
 })
 

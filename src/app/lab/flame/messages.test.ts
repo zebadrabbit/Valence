@@ -362,6 +362,9 @@ describe('every sentence of the module', () => {
 
   it('says of the two modes what the engine does in each', () => {
     expect(MODE_TEXT.guided).toContain('warns you before you dip a loop that is not clean')
+    // The hints are behind a closed list in Guided: the mode's sentence does not say that they are shown.
+    expect(MODE_TEXT.guided).toContain('has its hints, and what a correct observation holds, ready to open')
+    expect(MODE_TEXT.guided).not.toMatch(/shows/)
     expect(MODE_TEXT.challenge).toContain('until you have recorded an observation there that counts: one made with a clean loop')
     expect(MODE_TEXT.challenge).toContain('no warning about the loop')
     expect(stationView(data, createLab(data, 'challenge'), CA).guidanceShown).toBe(false)

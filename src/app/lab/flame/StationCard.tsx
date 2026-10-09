@@ -288,11 +288,11 @@ export function StationCard({ data, sources, stationId, state, view, reducedMoti
 
       {held !== null && (
         <Step heading={BENCH_TEXT.observations}>
+          {/* Over the questions and closed: the five are the same at every station, and are there to be opened by a learner who wants them. */}
           {view.guidanceShown && (
-            <div className="grid gap-1">
-              <h4 className="font-medium">{BENCH_TEXT.hints}</h4>
+            <Disclosure summary={BENCH_TEXT.hints}>
               <Listed items={HINTS} />
-            </div>
+            </Disclosure>
           )}
           <ChoiceForm
             // A form of its own for each hold: what was chosen of one flame is not carried to the next.
