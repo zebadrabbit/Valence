@@ -203,7 +203,7 @@ export const FLAME_PRIMER: readonly PrimerSection[] = [
       ),
       paragraph(
         { label: 'An unclean loop', labRules: ['In this lab an observation made with a loop that was not clean does not count, whatever was recorded: the station is done again with a clean loop.'] },
-        'A loop that was not cleaned carries the last salt into the next flame along with the new one. The spectroscope then shows the lines and bands of both, and the flame is not the colour of either alone. In this lab an observation made with a loop that was not clean does not count, whatever was recorded: the station is done again with a clean loop.',
+        'A loop that was not cleaned carries the last salt into the next flame along with the new one. The spectroscope then shows the lines and bands of both, and the colour of the flame can no longer be put down to one salt. In this lab an observation made with a loop that was not clean does not count, whatever was recorded: the station is done again with a clean loop.',
         [],
         "what an unclean loop shows and that its observation does not count are this lab's model and rule (spec 15.2). That a flame of two salts and no sodium is called by both colours is a model parameter, with its rationale in the record.",
       ),
