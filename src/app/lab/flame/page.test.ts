@@ -556,7 +556,8 @@ describe('the spectroscope, once a line or a band has been looked at', () => {
         expect(width, seen.feature.id).toBe(Math.max(LINE_WIDTH, xOf(data.scale, seen.toNm) - xOf(data.scale, seen.fromNm)))
       }
     }
-    // Taller than a band, top and foot, and by enough to see where the picture is at its narrowest.
+    // Taller than a band, top and foot, and by enough to see where the picture is at its narrowest. The primer's card on the strip says that this is how the two are drawn.
+    expect(FLAME_PRIMER.find((section) => section.id === 'spectroscope')!.paragraphs.map((p) => p.text).join(' ')).toContain('In this lab a line is drawn as a thin stroke the whole height of the strip, and a band as a wider stretch a little shorter')
     expect((BAND_INSET * MIN_WIDTH_PX) / STRIP.width).toBeGreaterThanOrEqual(5)
     expect((LINE_GAP * MIN_WIDTH_PX) / STRIP.width).toBeGreaterThanOrEqual(1.5)
     expect((LINE_WIDTH * MIN_WIDTH_PX) / STRIP.width).toBeGreaterThanOrEqual(2)

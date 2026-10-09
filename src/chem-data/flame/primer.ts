@@ -263,10 +263,10 @@ export const FLAME_PRIMER: readonly PrimerSection[] = [
         "that light beyond 700 nm looks faint on a bench is this lab's own joining of the eye's range with where that light is; the record's README lists it among what a chemist should look at.",
       ),
       paragraph(
-        { label: 'Lines and bands' },
-        'Two kinds of thing show on the strip. A sharp line is at one place on the scale: read its place from the marks under it. A broad band covers a stretch of the scale: read where it starts and where it ends. Point at a line or a band, tap it, or move to it with the keyboard, and the lab says where it is, what colour it is and which of the two it is.',
+        { label: 'Lines and bands', labRules: ['In this lab a line is drawn as a thin stroke the whole height of the strip, and a band as a wider stretch a little shorter, so that a line beside a band can be told from it.'] },
+        'Two kinds of thing show on the strip. A sharp line is at one place on the scale: read its place from the marks under it. A broad band covers a stretch of the scale: read where it starts and where it ends. In this lab a line is drawn as a thin stroke the whole height of the strip, and a band as a wider stretch a little shorter, so that a line beside a band can be told from it. Point at a line or a band, tap it, or move to it with the keyboard, and the lab says where it is, what colour it is and which of the two it is.',
         [],
-        "how the strip is read and looked at is this lab's own (spec 15.2). What a line and a band are is the cards Light from atoms and Molecules in a flame.",
+        "how the strip is read, drawn and looked at is this lab's own (spec 15.2 and 15.6). What a line and a band are is the cards Light from atoms and Molecules in a flame.",
       ),
       paragraph(
         { label: 'The brightest', labRules: ['In this lab how bright a line or a band is follows what the instruments of its sources recorded, which is not always what an eye would find the brightest.'] },

@@ -89,7 +89,7 @@ describe('the flame primer: how its text is drawn', () => {
 
   it("sets off only whole sentences of the paragraph that name the lab themselves, each a rule of the simulation's and not of a bench", () => {
     const rules = paragraphs.flatMap(([where, p]) => (p.labRules ?? []).map((rule) => [where, rule, p.text] as const))
-    expect(rules.map(([where]) => where)).toEqual(['flame-test[3]', 'molecules[4]', 'loop[1]', 'loop[2]', 'loop[3]', 'loop[3]', 'loop[4]', 'spectroscope[4]', 'spectroscope[5]'])
+    expect(rules.map(([where]) => where)).toEqual(['flame-test[3]', 'molecules[4]', 'loop[1]', 'loop[2]', 'loop[3]', 'loop[3]', 'loop[4]', 'spectroscope[3]', 'spectroscope[4]', 'spectroscope[5]'])
     for (const [where, rule, text] of rules) {
       expect(rule, where).toMatch(/^(In this lab|This lab) .*\.$/)
       // A whole sentence: it starts the text or follows a full stop, and ends the text or is followed by a space and a capital.
@@ -259,6 +259,10 @@ describe('the flame primer: what it has to say', () => {
     expect(card).toContain('It has a mark every 20 nm and a number at every 100 nm and at its end.')
     expect(card).toContain('A sharp line is at one place on the scale: read its place from the marks under it.')
     expect(card).not.toContain('read the number under it')
+    // How the picture tells a line from a band is the picture's own, and the card says so as a rule of the simulation.
+    const drawn = 'In this lab a line is drawn as a thin stroke the whole height of the strip, and a band as a wider stretch a little shorter, so that a line beside a band can be told from it.'
+    expect(card).toContain(drawn)
+    expect(section('spectroscope').paragraphs.find((p) => p.label === 'Lines and bands')!.labRules).toEqual([drawn])
     expect(card).toContain('Look at every line and band before you answer: those two questions open only when you have')
     expect(card).toContain('which is not always what an eye would find the brightest')
     expect(card).toContain('says that its limits are not given')

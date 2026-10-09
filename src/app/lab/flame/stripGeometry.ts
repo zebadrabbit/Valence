@@ -12,7 +12,7 @@ export const STRIP = { width: 640, height: 112, pad: 24, top: 4, tall: 76 } as c
 export const MIN_WIDTH_PX = 440
 /** The narrowest a line's or a band's hit area is, in units: 44 px where the picture is at its narrowest, and a unit over, so that no rounding leaves it a hair short. */
 export const HIT_MIN = Math.ceil((44 * STRIP.width) / MIN_WIDTH_PX) + 1
-/** How wide a line is drawn at the least: a pair of lines too close to tell apart is drawn as wide as the pair. */
+/** How wide a line is drawn at the least: two pixels where the picture is at its narrowest, both of them its whole colour, since its edges are not smoothed. A pair of lines too close to tell apart is drawn as wide as the pair. */
 export const LINE_WIDTH = 3
 /**
  * What sets a sharp line apart from a broad band, so that a line beside a band, or inside one, is not taken for the
