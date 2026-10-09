@@ -228,7 +228,7 @@
             "salts[cacl2-0.1m].notes[1]"
           ],
           "prints": "Ca atomic line",
-          "where": "The abstract: the atom's line was measured in the same flame beside the bands of the molecules. The abstract does not give its wavelength, which is NIST's, and it measures the line by the light the atoms take up; that the line is on the strip, and ranked last, rests on this and on nothing more."
+          "where": "The abstract: the atom's line was measured in a flame beside the bands of the molecules, as the flow of hydrogen to the flame was changed. The abstract does not give its wavelength, which is NIST's, and it measures the line by the light the atoms take up; that the line is on the strip, and ranked last, rests on this and on nothing more."
         },
         {
           "fields": [
@@ -261,7 +261,7 @@
             "salts[bacl2-0.1m].notes[2]"
           ],
           "prints": "from 480 to 550 nm",
-          "where": "The abstract: the range of wavelength in which BaOH gave light the more strongly, for solutions of barium chloride and of barium nitrate in the same flame. It is stored as the limits of the band, which is ranked first of barium's on this and on what the other source says of it."
+          "where": "The abstract: the range of wavelength in which it calls the emission spectrum of BaOH the stronger, for solutions of barium chloride and of barium nitrate in the same flame; it goes on to say that the band took up light only very weakly. The range is stored as the limits of the band, which is ranked first of barium's on this and on what the other source says of it."
         },
         {
           "fields": [
