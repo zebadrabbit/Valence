@@ -46,6 +46,8 @@ export interface Extent {
  * beside it), and each keeps to its own side of the cut, moved off-centre where that is what leaves it its width. Where a loop that was not clean puts one thing inside
  * another, or crowds several together, a cut is moved so that each has half of `min` at the least, which the
  * picture always has room for; such an area lies beside its line more than over it.
+ * ponytail: half of `min` is 22 px at the picture's narrowest, under the 44 px a finger is given elsewhere. It is
+ * met only with a loop that was not clean; stack such areas in two rows if they are found hard to tap.
  */
 export function hitAreas(extents: readonly Extent[], min = HIT_MIN, width: number = STRIP.width): Extent[] {
   const centre = (at: number) => (extents[at]!.from + extents[at]!.to) / 2

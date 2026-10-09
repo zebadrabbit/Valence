@@ -85,3 +85,5 @@ The quotation fingerprint that `src/chem-data/flame/quotation.test.ts` compares 
 ## What nobody checked
 
 No chemist has read the record, the notes or the primer. The scanned paper was read by one reader, by eye.
+
+How the lab's screens were built on this record, what was corrected in it on the way, and what the chemistry looked like once it was on a screen, is in `build-record.md`.

@@ -58,7 +58,7 @@ export function Spectroscope({ scale, spectrum, looked, describedBy, name, seen,
   return (
     <div className="w-full overflow-x-auto rounded-lg p-2" style={{ background: CARD }}>
       <div className="relative mx-auto max-w-[45rem]" style={{ minWidth: MIN_WIDTH_PX }}>
-        {/* The room a callout stands in, over the strip. */}
+        {/* The room a callout stands in, over the strip. ponytail: a fixed height, which holds the longest callout in four lines at the picture's narrowest; text enlarged well beyond the page's own would be cut at the card's top. */}
         <div className="h-[6.5rem]" />
         <div className="relative">
           <svg viewBox={`0 0 ${STRIP.width} ${STRIP.height}`} role="img" aria-label={PAGE_TEXT.stripPicture} aria-describedby={describedBy} className="block h-auto w-full">

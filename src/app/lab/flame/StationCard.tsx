@@ -108,6 +108,8 @@ export function StationCard({ data, sources, stationId, state, view, reducedMoti
   const [lookSaid, sayOfLook] = useSaid()
   const [warned, setWarned] = useState(false)
   // Whether the spectroscope is looked through, as chosen for one hold of the loop: a new hold is a new thing to look at.
+  // ponytail: the page's own and not stored, as the engine has no action for it. After a reload the strip is out
+  // if a line or a band had been looked at, and behind its button again if none had.
   const [scope, setScope] = useState<{ hold: string; open: boolean } | null>(null)
   const cleanRef = useRef<HTMLButtonElement>(null)
   const dipRef = useRef<HTMLButtonElement>(null)
