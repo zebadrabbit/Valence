@@ -124,6 +124,8 @@ export function StationCard({ data, sources, stationId, state, view, reducedMoti
   const clean: Action = { type: 'cleanLoop' }
   const dip: Action = { type: 'dipLoop', stationId }
   const hold: Action = { type: 'holdInFlame', stationId }
+  // A warning that is showing is of a dip Guided would warn of now. Once it would not (the loop was cleaned at another station, or the mode was changed to Challenge), the warning is dropped, and does not come back by itself when the loop or the mode changes again.
+  if (warned && warn(dip).length === 0) setWarned(false)
   // Whatever holds the whole lab holds every entry here. It is said once, at the station's head, and that sentence is the description of the form's button.
   const completed = can(clean) === 'lab-completed' ? BLOCKED_TEXT['lab-completed'] : null
   const held = station.held?.join() ?? null
