@@ -12,6 +12,7 @@ export const ENTRY = {
   prefs: 'prefs',
   titration: 'lab:titration',
   aqueous: 'lab:aqueous',
+  flame: 'lab:flame',
   mechanism: 'mechanism:hcl-nahco3',
 } as const
 

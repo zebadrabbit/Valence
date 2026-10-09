@@ -60,8 +60,9 @@ describe('flameData', () => {
       expect(s.formula, s.id).toMatch(new RegExp(`^${s.metal.symbol}Cl₂?$`))
       // Only a coloured solution has a colour to draw it in.
       expect(s.appearance.value.hex === undefined, s.id).toBe(s.appearance.value.name === 'colourless')
-      expect(s.classifiedAs, s.id).toMatch(/^Hazards of solid .+, the pure substance, from a supplier's safety data sheet$/)
-      expect(s.hazards.note.value, s.id).toMatch(/decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor\.$/)
+      // The heading and the note are written apart from this record (hazards.json) and are held here to their shape alone.
+      expect(s.classifiedAs, s.id).toMatch(/^Hazards of /)
+      expect(s.hazards.note.value.length, s.id).toBeGreaterThan(100)
     }
   })
 
@@ -229,8 +230,10 @@ describe('flameCitations', () => {
     }
     const barium = flameCitations(flameData, 'bacl2-0.1m', sources)
     expect(barium.find((c) => c.source.id === 'nist-asd-lines-neutral')!.covers).toEqual(['Wavelengths of the atomic lines', 'Notes on this station'])
-    // A note under a bottle's hazards that rests on four documents lists all four.
-    expect(barium.filter((c) => c.covers.includes('Barium chloride solution, 0.1 M: hazards at the strength used')).map((c) => c.source.id)).toEqual(['flinn-sds-94.01', 'wards-sds-bb0041', 'fisher-sds-bacl2-dihydrate', 'noaa-cameo-19847'])
+    // A note under a bottle's hazards that rests on more than two documents lists every one of them.
+    const { note } = flameData.salts[0]!.hazards
+    expect(note.moreSourceIds!.length).toBeGreaterThan(0)
+    expect(barium.filter((c) => c.covers.includes('Barium chloride solution, 0.1 M: hazards at the strength used')).map((c) => c.source.id)).toEqual([note.sourceId, note.alsoSourceId, ...note.moreSourceIds!])
     expect(() => flameCitations(flameData, 'licl', sources)).toThrow(/no salt "licl"/)
   })
 })

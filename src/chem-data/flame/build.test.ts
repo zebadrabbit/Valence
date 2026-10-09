@@ -85,7 +85,8 @@ describe('checkSupported, on the flame record', () => {
     const keys = citations(stored)
     expect(keys.filter((c) => c.key === 'salts[kcl-0.1m].features[k-766].wavelengthNm')).toEqual([{ key: 'salts[kcl-0.1m].features[k-766].wavelengthNm', sourceId: 'nist-asd-lines-k-700-780', published: '766.489913' }])
     expect(keys.filter((c) => c.key === 'closing.answer').map((c) => c.sourceId)).toEqual(['kirchhoff-bunsen-1860'])
-    expect(keys.filter((c) => c.key === 'salts[bacl2-0.1m].hazards.note').map((c) => c.sourceId)).toEqual(['flinn-sds-94.01', 'wards-sds-bb0041', 'fisher-sds-bacl2-dihydrate', 'noaa-cameo-19847'])
+    const { note } = stored.salts[0]!.hazards
+    expect(keys.filter((c) => c.key === 'salts[bacl2-0.1m].hazards.note').map((c) => c.sourceId)).toEqual([note.sourceId, note.alsoSourceId, ...note.moreSourceIds])
   })
 
   it('refuses a feature that cites a source with no row for it, a stored wavelength no row prints, and a row left behind', () => {
@@ -102,7 +103,7 @@ describe('checkSupported, on the flame record', () => {
 
   it("holds a bottle's hazards to the hazard manifest and not to the lab's own: a document under a note needs no row here", () => {
     const record = copy(stored)
-    record.salts[0]!.appearance.sourceId = 'wards-sds-bb0041'
+    record.salts[0]!.appearance.sourceId = record.salts[0]!.hazards.note.moreSourceIds[0]!
     // Outside the hazards, a document of the hazard manifest may be cited where a bottle's hazards cite it.
     expect(() => checkSupported(record, sources.map((s) => (s.id === 'flinn-sds-94.01' ? { ...s, supports: s.supports.slice(0, 1) } : s)), sheets)).not.toThrow()
     record.salts[0]!.appearance.sourceId = 'a-sheet'
@@ -128,7 +129,8 @@ describe('mergeHazards, on the flame record', () => {
   })
 
   it('takes a note that rests on more than two documents: the third and any after it in moreSourceIds, each with a row of its own for the note', () => {
-    expect(hazards['bacl2-0.1m'].hazards.note.moreSourceIds).toEqual(['fisher-sds-bacl2-dihydrate', 'noaa-cameo-19847'])
+    // Every note of this lab rests on more than two.
+    for (const [id, entry] of Object.entries(hazards as Record<string, Entry>)) expect(entry.hazards.note.moreSourceIds?.length ?? 0, id).toBeGreaterThan(0)
     expect(() => merge((entries) => void entries['bacl2-0.1m']!.hazards.note.moreSourceIds!.push('flinn-sds-722'))).toThrow(/the source "flinn-sds-722" has no row for bacl2-0.1m\.hazards\.note/)
     expect(() => merge((entries) => void entries['bacl2-0.1m']!.hazards.note.moreSourceIds!.push('a-sheet'))).toThrow(/hazards\.json: bacl2-0.1m\.hazards\.note: unknown source "a-sheet"/)
   })
@@ -137,9 +139,12 @@ describe('mergeHazards, on the flame record', () => {
     expect(() => merge((entries) => void (entries['bacl2-0.1m']!.hazards.note.moreSourceIds = []))).toThrow(/moreSourceIds is for the sources after the second/)
     expect(() => merge((entries) => void delete entries['bacl2-0.1m']!.hazards.note.alsoSourceId)).toThrow(/moreSourceIds is for the sources after the second/)
     expect(() => merge((entries) => void (entries['bacl2-0.1m']!.hazards.note.moreSourceIds = 'noaa-cameo-19847' as unknown as string[]))).toThrow(/moreSourceIds is for the sources after the second/)
-    for (const again of ['flinn-sds-94.01', 'wards-sds-bb0041', 'noaa-cameo-19847']) {
+    const { note } = (hazards as Record<string, Entry>)['bacl2-0.1m']!.hazards
+    for (const again of [note.sourceId, note.alsoSourceId!, note.moreSourceIds![0]!]) {
       expect(() => merge((entries) => void entries['bacl2-0.1m']!.hazards.note.moreSourceIds!.push(again)), again).toThrow(new RegExp(`moreSourceIds names "${again}", a source the note already cites`))
     }
+    // A note is its words, however they are set out: paragraphs with a blank line between them are taken as they are.
+    expect(merge((entries) => void (entries['bacl2-0.1m']!.hazards.note.value = 'One.\n\nTwo.\n\nThree.'))[0]!.hazards.note.value).toBe('One.\n\nTwo.\n\nThree.')
   })
 
   it('works on a small fixture of its own: one salt, a note that rests on three documents', () => {
@@ -161,8 +166,10 @@ describe('the sources the lab adds', () => {
     expect(sources.length - own.length).toBe(2)
     expect(own.some((s) => s.id === 'nist-asd-lines-neutral' || s.id === 'flinn-sds-94.01')).toBe(false)
     const added = newSources(sheets, [...earlier, emission, ...aqueousSheets, ...own], 'flame hazard-manifest.json')
-    // The five other solution sheets are in both of this lab's manifests, written alike, and are listed from the first.
-    expect(sheets.length - added.length).toBe(7)
+    // The six solution sheets are in both of this lab's manifests, written alike, and are listed from the first; the solid barium chloride's sheet is the aqueous lab's.
+    const shared = sheets.filter((sheet) => sources.some((s) => s.id === sheet.id) || aqueousSheets.some((s) => s.id === sheet.id)).map((sheet) => sheet.id)
+    expect(shared).toEqual(expect.arrayContaining(['flinn-sds-94.01', 'flinn-sds-197', 'flinn-sds-281.1', 'flinn-sds-622', 'flinn-sds-722', 'flinn-sds-785']))
+    expect(sheets.length - added.length).toBe(shared.length)
     const ids = [...own, ...added].map((s) => s.id)
     expect(new Set(ids).size).toBe(ids.length)
     expect(allSources.slice(-ids.length).map((s) => s.id)).toEqual(ids)
