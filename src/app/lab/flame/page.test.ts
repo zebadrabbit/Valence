@@ -365,6 +365,8 @@ describe("Guided's warning, as the loop's card draws it", () => {
     expect(html).toContain(`<p id="${labelledBy}" class="font-medium">${WARNING_TEXT['loop-not-clean'].title}</p>`)
     expect(html).toContain(`<p id="${describedBy}">${WARNING_TEXT['loop-not-clean'].body}</p>`)
     expect(buttons(html).map((one) => one.name)).toEqual([WARNING_BUTTONS.back, WARNING_BUTTONS.on])
+    // Each is drawn small and has the 44 px hit area the shell's stylesheet lays over a small control.
+    expect(buttons(html).every((one) => /class="[^"]*\blab-tap\b/.test(one.tag))).toBe(true)
   })
 })
 

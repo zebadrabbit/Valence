@@ -38,10 +38,11 @@ export function WarningGroup({
         </div>
       ))}
       <div className="flex flex-wrap gap-1.5">
-        <Button variant="outline" onClick={onBack}>
+        {/* Drawn as they were, each with the hit area lab.css lays over a small control. */}
+        <Button variant="outline" className="lab-tap" onClick={onBack}>
           {buttons.back}
         </Button>
-        <Button variant="outline" onClick={onGoOn}>
+        <Button variant="outline" className="lab-tap" onClick={onGoOn}>
           {buttons.on}
         </Button>
       </div>
