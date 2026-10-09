@@ -505,8 +505,8 @@ describe('the spectroscope, once a line or a band has been looked at', () => {
     const scrolled = html.slice(html.indexOf('overflow-x-auto'), html.indexOf('<ul'))
     expect(scrolled).toContain(STRIP_PICTURE)
     expect(scrolled).toContain(PAGE_TEXT.axis)
-    // An upright tablet with the menu open leaves the strip 498 px, and it is not scrolled there.
-    expect(MIN_WIDTH_PX).toBeLessThanOrEqual(498)
+    // The narrowest window that shows a bench, 768 px with the menu open, leaves the strip 447 px, and an upright tablet 499: it is scrolled at neither.
+    expect(MIN_WIDTH_PX).toBeLessThanOrEqual(447)
   })
 
   it('draws every line and band of every salt where the record puts it, in the colour of its wavelength: a line as a thin stroke with a glow, a band as a stretch that fades at its two ends, the brightest whole and the others fainter', () => {

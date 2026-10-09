@@ -59,7 +59,7 @@ export function Spectroscope({ scale, spectrum, looked, describedBy, name, seen,
     <div className="w-full overflow-x-auto rounded-lg p-2" style={{ background: CARD }}>
       <div className="relative mx-auto max-w-[45rem]" style={{ minWidth: MIN_WIDTH_PX }}>
         {/* The room a callout stands in, over the strip. */}
-        <div className="h-[5.75rem]" />
+        <div className="h-[6.5rem]" />
         <div className="relative">
           <svg viewBox={`0 0 ${STRIP.width} ${STRIP.height}`} role="img" aria-label={PAGE_TEXT.stripPicture} aria-describedby={describedBy} className="block h-auto w-full">
             <defs>
@@ -93,7 +93,7 @@ export function Spectroscope({ scale, spectrum, looked, describedBy, name, seen,
               <g key={nm}>
                 <line x1={x} x2={x} y1={FOOT} y2={FOOT + (numbered ? 11 : 6)} stroke={INK} strokeWidth={numbered ? 1.6 : 1} />
                 {numbered && (
-                  <text x={x} y={FOOT + 27} textAnchor="middle" fontSize={15} fill={INK} className="tabular-nums">
+                  <text x={x} y={FOOT + 28} textAnchor="middle" fontSize={16} fill={INK} className="tabular-nums">
                     {nm}
                   </text>
                 )}
@@ -105,10 +105,16 @@ export function Spectroscope({ scale, spectrum, looked, describedBy, name, seen,
             const wide = area.to - area.from
             const middle = (drawn[at]!.from + drawn[at]!.to) / 2
             const key = String(at)
+            const looking = part(key)
             return (
               <button
                 key={key}
-                {...part(key)}
+                {...looking}
+                // Where the card is narrower than the picture and scrolls, focus brings the whole of the button into view.
+                onFocus={(event) => {
+                  event.currentTarget.scrollIntoView({ block: 'nearest', inline: 'nearest' })
+                  looking.onFocus()
+                }}
                 aria-label={lookLabel(name(at), looked[at]!)}
                 style={{ left: percent(area.from, STRIP.width), top: percent(STRIP.top, STRIP.height), width: percent(wide, STRIP.width), height: percent(STRIP.tall, STRIP.height) }}
                 // The edge is dashed until the line or band has been looked at, and whole while it is being looked at; the list under the picture says the same in words.

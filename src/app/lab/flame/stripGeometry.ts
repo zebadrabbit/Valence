@@ -5,10 +5,13 @@
 
 /** The picture: its size, the room left of 400 nm and right of 780 nm, and where the strip and its scale lie. */
 export const STRIP = { width: 640, height: 112, pad: 24, top: 4, tall: 76 } as const
-/** The narrowest the picture is drawn, in px. */
-export const MIN_WIDTH_PX = 480
-/** The narrowest a line's or a band's hit area is, in units: 44 px where the picture is at its narrowest. */
-export const HIT_MIN = Math.ceil((44 * STRIP.width) / MIN_WIDTH_PX)
+/**
+ * The narrowest the picture is drawn, in px: what the narrowest window that shows a bench (768 px, with the menu
+ * open) leaves it, so that at no such width does the strip have to be scrolled to see its far end.
+ */
+export const MIN_WIDTH_PX = 440
+/** The narrowest a line's or a band's hit area is, in units: 44 px where the picture is at its narrowest, and a unit over, so that no rounding leaves it a hair short. */
+export const HIT_MIN = Math.ceil((44 * STRIP.width) / MIN_WIDTH_PX) + 1
 /** How wide a line is drawn at the least: a pair of lines too close to tell apart is drawn as wide as the pair. */
 export const LINE_WIDTH = 2.5
 /** How far the edge of a hit area keeps from a thin thing beside a wide one. */
