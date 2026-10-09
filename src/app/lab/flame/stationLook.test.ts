@@ -52,3 +52,12 @@ describe('the entry the Lab tab opens on', () => {
     expect(openingEntry(progress(run(data, done(fresh(), BA), stationScript(data, CA).slice(0, 3))))).toBe(1)
   })
 })
+
+describe("the lab's own files", () => {
+  it('take nothing from another lab: what the labs share is beside the shell, so that this page loads no engine but its own', () => {
+    const files = import.meta.glob<string>('./*.{ts,tsx}', { query: '?raw', import: 'default', eager: true })
+    const own = Object.entries(files).filter(([path]) => !path.endsWith('.test.ts'))
+    expect(own.length).toBeGreaterThanOrEqual(10)
+    for (const [path, source] of own) expect(source, path).not.toMatch(/from '@\/(app\/lab|engine|chem-data)\/(aqueous|titration)\b/)
+  })
+})

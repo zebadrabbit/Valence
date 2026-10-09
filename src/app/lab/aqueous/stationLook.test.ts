@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { aqueousData as data } from '@/chem-data/aqueous/data'
 import { createLab, describeStationResult, stationView } from '@/engine/aqueous'
 import { run, stationScript } from '@/engine/aqueous/testkit'
-import { blend, bottleLook, openingStation, progressOf, tubeLook } from './stationLook'
+import { blend, bottleLook, progressOf, tubeLook } from './stationLook'
 
 describe('what a bottle looks like before it is mixed', () => {
   const looks = Object.fromEntries(data.reagents.map((r) => [r.id, bottleLook(data, r.id)]))
@@ -117,15 +117,5 @@ describe('how far a station has come', () => {
     expect(progressOf(stationView(data, early, 'aq-01'))).toBe('started')
     const wrong = run(data, lab, [...stationScript(data, 'aq-01').slice(0, 4), { type: 'recordObservation', stationId: 'aq-01', observation: { solid: 'white', liquid: 'colourless', bubbles: 'none' } }])
     expect(progressOf(stationView(data, wrong, 'aq-01'))).toBe('started')
-  })
-})
-
-describe('the station a page opens on', () => {
-  it('is the first one begun and not done; where none is, the first not done; and the first of all once every one is done', () => {
-    expect(openingStation(['not-started', 'not-started', 'not-started'])).toBe(0)
-    expect(openingStation(['done', 'done', 'not-started'])).toBe(2)
-    expect(openingStation(['done', 'not-started', 'started', 'observed'])).toBe(2)
-    expect(openingStation(['done', 'not-started', 'done', 'observed'])).toBe(3)
-    expect(openingStation(['done', 'done', 'done'])).toBe(0)
   })
 })

@@ -1,4 +1,4 @@
-import { openingStation } from '@/app/lab/aqueous/stationLook'
+import { openingStation } from '@/app/lab/openingStation'
 import type { StationView, closingView } from '@/engine/flame'
 
 // What the page works out for its list of stations. Nothing here is chemistry: a station's progress is read off
@@ -28,7 +28,7 @@ export function closingProgressOf(closing: ReturnType<typeof closingView>): Clos
 
 /**
  * The entry of the list that the Lab tab shows when the page opens, the closing question being the one after the
- * stations: the station the learner was in the middle of, as the aqueous lab finds it; once every station is done,
+ * stations: the station the learner was in the middle of, as every lab with stations finds it; once every station is done,
  * the closing question, which is then what is left to do, or where the lab was completed.
  */
 export const openingEntry = (progress: readonly Progress[]): number => (progress.every((p) => p === 'done') ? progress.length : openingStation(progress))

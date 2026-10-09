@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Calculator } from '@/app/lab/Calculator'
+import { openingStation } from '@/app/lab/openingStation'
 import { Paged } from '@/app/lab/Paged'
 import { ROLE } from '@/app/lab/roles'
 import type { AqueousData } from '@/chem-data/aqueous/data'
@@ -9,7 +10,7 @@ import { IonsPanel } from './IonsPanel'
 import { PAGE_TEXT, STATION_TEXT, stationTitle } from './messages'
 import { SolubilityTable } from './SolubilityTable'
 import { ProgressLabel, StationCard } from './StationCard'
-import { openingStation, progressOf } from './stationLook'
+import { progressOf } from './stationLook'
 
 export interface AqueousBenchProps {
   data: AqueousData
