@@ -680,6 +680,34 @@ function benzeneRings({ atoms, bonds }) {
   return [...rings.values()]
 }
 
+// The Lewis view fits a drawing to a frame about 1.9 times as wide as it is tall, and never draws a bond longer
+// than it would in a drawing of 4.4 by 3.1 bond lengths (MIN_WIDTH and MIN_HEIGHT of src/app/explore/lewisLayout.ts).
+const LEWIS_FRAME = { width: 1.9, height: 1, minWidth: 4.4, minHeight: 3.1, margin: 1 }
+// A turn by a multiple of 30° keeps the bonds of a PubChem layout on the directions they were drawn in. The smaller turn comes first.
+const LEWIS_TURNS = [0, 30, -30, 60, -60, 90]
+
+/**
+ * 2D positions turned as a whole, by the one of LEWIS_TURNS that lets the Lewis view draw them largest; not
+ * turned unless that gains a tenth, so a small molecule, and one that already lies along the frame, stays as PubChem drew it.
+ */
+function turnedToFit(positions) {
+  const turn = (degrees) => {
+    const [cos, sin] = [Math.cos((degrees * Math.PI) / 180), Math.sin((degrees * Math.PI) / 180)]
+    return positions.map(([x, y]) => [x * cos - y * sin, x * sin + y * cos])
+  }
+  const size = (values) => Math.max(...values) - Math.min(...values)
+  const scale = (points) => {
+    const width = Math.max(size(points.map((p) => p[0])) + LEWIS_FRAME.margin, LEWIS_FRAME.minWidth)
+    const height = Math.max(size(points.map((p) => p[1])) + LEWIS_FRAME.margin, LEWIS_FRAME.minHeight)
+    return Math.min(LEWIS_FRAME.width / width, LEWIS_FRAME.height / height)
+  }
+  const asDrawn = scale(positions)
+  const best = LEWIS_TURNS.map(turn).reduce((a, b) => (scale(b) > scale(a) * 1.0001 ? b : a))
+  if (scale(best) < asDrawn * 1.1) return positions
+  // PubChem writes its 2D positions to four decimals.
+  return best.map(([x, y]) => [Number(x.toFixed(4)) + 0, Number(y.toFixed(4)) + 0])
+}
+
 function pubchemSource(cid, entry, pattern, retrieved) {
   if (!pattern.includes('<cid>')) fail('pubchem.json: perRecordCitationPattern has no <cid>')
   const wording = pattern.replace(/ \(or [^)]*\)$/, '').replaceAll('<cid>', String(cid))
@@ -768,6 +796,12 @@ function buildMolecules(elements) {
       const position2d = authored ? authored.positions[i] : [flat.x, flat.y]
       return { element: atom.element, position: atom.position, position2d, formalCharge: atom.formalCharge, lonePairs }
     })
+    // PubChem's layout of a long molecule can stand on end or on a slant (aspartame, capsaicin), and the Lewis
+    // view's frame is wider than it is tall. The layout of a molecule added after the first 33 is turned to lie along it.
+    if (!authored && entry.retrieved !== undefined) {
+      const turned = turnedToFit(atoms.map((a) => a.position2d))
+      atoms.forEach((atom, i) => (atom.position2d = turned[i]))
+    }
 
     const isTerminalO = (i) => elementOf(i) === 'O' && degree[i] === 1
     const rings = benzeneRings(structure)

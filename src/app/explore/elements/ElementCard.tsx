@@ -128,7 +128,9 @@ export function ElementCard({ element }: { element: PeriodicElement }) {
               <summary className="w-fit cursor-pointer rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring">
                 {molecules.length} molecules of the library contain {element.name.toLowerCase()}
               </summary>
-              <MoleculeLinks molecules={molecules} />
+              <div className="mt-1">
+                <MoleculeLinks molecules={molecules} />
+              </div>
             </details>
           ) : (
             <MoleculeLinks molecules={molecules} />

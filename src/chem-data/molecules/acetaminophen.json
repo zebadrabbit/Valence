@@ -14,8 +14,8 @@
         0.0012
       ],
       "position2d": [
-        2.866,
-        -2.595
+        2.595,
+        2.866
       ],
       "formalCharge": 0,
       "lonePairs": 2
@@ -28,8 +28,8 @@
         -0.0018
       ],
       "position2d": [
-        4.5981,
-        1.405
+        -1.405,
+        4.5981
       ],
       "formalCharge": 0,
       "lonePairs": 2
@@ -42,8 +42,8 @@
         0.0001
       ],
       "position2d": [
-        2.866,
-        1.405
+        -1.405,
+        2.866
       ],
       "formalCharge": 0,
       "lonePairs": 1
@@ -56,8 +56,8 @@
         -0.0002
       ],
       "position2d": [
-        2.866,
-        0.405
+        -0.405,
+        2.866
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -70,8 +70,8 @@
         0.0004
       ],
       "position2d": [
-        3.7321,
-        -0.095
+        0.095,
+        3.7321
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -84,8 +84,8 @@
         -0.0007
       ],
       "position2d": [
-        2,
-        -0.095
+        0.095,
+        2
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -98,8 +98,8 @@
         0.0002
       ],
       "position2d": [
-        3.7321,
-        -1.095
+        1.095,
+        3.7321
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -112,8 +112,8 @@
         -0.0007
       ],
       "position2d": [
-        2,
-        -1.095
+        1.095,
+        2
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -126,8 +126,8 @@
         -0.0003
       ],
       "position2d": [
-        2.866,
-        -1.595
+        1.595,
+        2.866
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -140,8 +140,8 @@
         0.0009
       ],
       "position2d": [
-        3.7321,
-        1.905
+        -1.905,
+        3.7321
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -154,8 +154,8 @@
         0.001
       ],
       "position2d": [
-        3.7321,
-        2.905
+        -2.905,
+        3.7321
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -168,8 +168,8 @@
         0.0012
       ],
       "position2d": [
-        4.269,
-        0.215
+        -0.215,
+        4.269
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -182,8 +182,8 @@
         -0.001
       ],
       "position2d": [
-        1.4631,
-        0.215
+        -0.215,
+        1.4631
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -196,8 +196,8 @@
         0.0001
       ],
       "position2d": [
-        2.3291,
-        1.715
+        -1.715,
+        2.3291
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -210,8 +210,8 @@
         0.0009
       ],
       "position2d": [
-        4.269,
-        -1.405
+        1.405,
+        4.269
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -224,8 +224,8 @@
         -0.0008
       ],
       "position2d": [
-        1.4631,
-        -1.405
+        1.405,
+        1.4631
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -238,8 +238,8 @@
         -0.9058
       ],
       "position2d": [
-        4.3521,
-        2.905
+        -2.905,
+        4.3521
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -252,8 +252,8 @@
         0.0288
       ],
       "position2d": [
-        3.7321,
-        3.525
+        -3.525,
+        3.7321
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -266,8 +266,8 @@
         0.8802
       ],
       "position2d": [
-        3.1121,
-        2.905
+        -2.905,
+        3.1121
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -280,8 +280,8 @@
         0.0017
       ],
       "position2d": [
-        2.3291,
-        -2.905
+        2.905,
+        2.3291
       ],
       "formalCharge": 0,
       "lonePairs": 0

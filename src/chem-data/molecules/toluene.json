@@ -14,8 +14,8 @@
         0.0001
       ],
       "position2d": [
-        2.866,
-        0.5
+        -0.5,
+        2.866
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -28,8 +28,8 @@
         0.0001
       ],
       "position2d": [
-        3.7321,
-        0
+        0,
+        3.7321
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -42,8 +42,8 @@
         0
       ],
       "position2d": [
-        2,
-        0
+        0,
+        2
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -56,8 +56,8 @@
         -0.0002
       ],
       "position2d": [
-        2.866,
-        1.5
+        -1.5,
+        2.866
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -70,8 +70,8 @@
         -0.0001
       ],
       "position2d": [
-        3.7321,
-        -1
+        1,
+        3.7321
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -84,8 +84,8 @@
         0
       ],
       "position2d": [
-        2,
-        -1
+        1,
+        2
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -98,8 +98,8 @@
         -0.0001
       ],
       "position2d": [
-        2.866,
-        -1.5
+        1.5,
+        2.866
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -112,8 +112,8 @@
         -0.0017
       ],
       "position2d": [
-        4.269,
-        0.31
+        -0.31,
+        4.269
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -126,8 +126,8 @@
         -0.0018
       ],
       "position2d": [
-        1.4631,
-        0.31
+        -0.31,
+        1.4631
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -140,8 +140,8 @@
         0.5183
       ],
       "position2d": [
-        3.486,
-        1.5
+        -1.5,
+        3.486
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -154,8 +154,8 @@
         0.5175
       ],
       "position2d": [
-        2.866,
-        2.12
+        -2.12,
+        2.866
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -168,8 +168,8 @@
         -1.0283
       ],
       "position2d": [
-        2.246,
-        1.5
+        -1.5,
+        2.246
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -182,8 +182,8 @@
         -0.0007
       ],
       "position2d": [
-        4.269,
-        -1.31
+        1.31,
+        4.269
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -196,8 +196,8 @@
         -0.0005
       ],
       "position2d": [
-        1.4631,
-        -1.31
+        1.31,
+        1.4631
       ],
       "formalCharge": 0,
       "lonePairs": 0
@@ -210,8 +210,8 @@
         -0.0004
       ],
       "position2d": [
-        2.866,
-        -2.12
+        2.12,
+        2.866
       ],
       "formalCharge": 0,
       "lonePairs": 0
