@@ -768,5 +768,200 @@
     "id": "bulewicz-1956",
     "url": "https://doi.org/10.1038/177670a0",
     "citation": "Bulewicz, E. M. Flame Spectrum of Barium: Red and Infra-Red Bands. Nature 1956, 177, 670-671. The paper is paywalled: only its abstract was read, on the publisher's page, linked here (2026-10-08)."
+  },
+  {
+    "id": "nist-asd-lines-k-700-780",
+    "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=K+I&limits_type=0&low_w=700&upp_w=780&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+    "citation": "Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, Lines Data for the neutral potassium atom (the spectrum K I): observed wavelengths in air, 700 to 780 nm, with relative intensities (retrieved 2026-10-09 at 02:44 UTC; the response is kept). National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F"
+  },
+  {
+    "id": "human-zeegers-1975",
+    "url": "https://dspace.library.uu.nl/handle/1874/16421",
+    "citation": "Human, H. G. C.; Zeegers, P. J. Th. Molecular fluorescence of CaOH, SrOH and BaCl in flames. Spectrochimica Acta Part B 1975, 30, 203-209. Read as the scanned copy in the Utrecht University Repository, linked here, whose pages were turned into images and read by eye; read and not kept (retrieved 2026-10-08)."
+  },
+  {
+    "id": "daidoji-1979-calcium",
+    "url": "https://www.jstage.jst.go.jp/browse/bunkou/28/3/_contents/-char/en",
+    "citation": "Daidoji, H. Spectral Interferences in Atomic Absorption Spectrometry (IV): Molecular Absorption Spectra of Calcium Salts. Bunko Kenkyu 1979, 28 (3), 145-151. https://doi.org/10.5111/bunkou.28.145. The paper is in Japanese: only its abstract in English was read, on the page of the issue at J-STAGE, linked here; read and not kept (retrieved 2026-10-08)."
+  },
+  {
+    "id": "daidoji-1979-strontium-barium",
+    "url": "https://www.jstage.jst.go.jp/browse/bunkou/28/3/_contents/-char/en",
+    "citation": "Daidoji, H. Spectral Interferences in Atomic Absorption Spectrometry (V): Molecular Absorption Spectra of Strontium and Barium Salts. Bunko Kenkyu 1979, 28 (3), 152-158. https://doi.org/10.5111/bunkou.28.152. The paper is in Japanese: only its abstract in English was read, on the page of the issue at J-STAGE, linked here; read and not kept (retrieved 2026-10-08)."
+  },
+  {
+    "id": "kirchhoff-bunsen-1860",
+    "url": "https://www.chemteam.info/Chem-History/Kirchhoff-Bunsen-1860.html",
+    "citation": "Kirchhoff, G.; Bunsen, R. Chemical Analysis by Observation of Spectra. Annalen der Physik und der Chemie (Poggendorff) 1860, 110, 161-189. Read in an abridged English translation, with no translator named, on the ChemTeam's page of classic papers, linked here; read and not kept (retrieved 2026-10-08)."
+  },
+  {
+    "id": "juknelevicius-2020",
+    "url": "https://epublications.vu.lt/object/elaba:78538139/78538139.pdf",
+    "citation": "Juknelevičius, D. Illuminating pyrotechnic compositions and their specific features. Doctoral dissertation, Vilnius University, 2020. https://doi.org/10.15388/vu.thesis.122. Read in the repository of the university, linked here, with a paper it reprints: Juknelevicius, D.; Dufter, A.; Rusan, M.; Klapötke, T. M.; Ramanavicius, A. Study of Pyrotechnic Blue Strobe Compositions Based on Ammonium Perchlorate and Tetramethylammonium Nitrate. Eur. J. Inorg. Chem. 2017, 1113-1119; read and not kept (retrieved 2026-10-08)."
+  },
+  {
+    "id": "chemguide-flame-tests",
+    "url": "https://www.chemguide.co.uk/inorganic/group1/flametests.html",
+    "citation": "Clark, J. Chemguide: Flame Tests; read and not kept (retrieved 2026-10-08)."
+  },
+  {
+    "id": "malik-flame-test",
+    "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Qualitative_Analysis_of_Common_Cations_in_Water_(Malik)/2:_Experimental_techniques/2.6:_Flame_test",
+    "citation": "Malik, M. A. Qualitative Analysis of Common Cations in Water; LibreTexts; Section 2.6 Flame test; read and not kept (retrieved 2026-10-08)."
+  },
+  {
+    "id": "gallitto-2017-bunsen-burner",
+    "url": "https://arxiv.org/abs/1712.08737",
+    "citation": "Agliolo Gallitto, A.; Pace, V.; Zingales, R. Multidisciplinary learning at the University scientific museums: the Bunsen burner. Museologia Scientifica 2017, 11, 103-107. Read as the authors' copy at arXiv, 1712.08737, linked here; read and not kept (retrieved 2026-10-08)."
+  },
+  {
+    "id": "hyperphysics-flame-colors",
+    "url": "http://hyperphysics.phy-astr.gsu.edu/hbase/Chemical/flame.html",
+    "citation": "Nave, C. R. HyperPhysics: Flame Colors as Chemical Indicators. Georgia State University; read and not kept (retrieved 2026-10-08)."
+  },
+  {
+    "id": "hope-flame-test-prelab",
+    "url": "https://chem.libretexts.org/Courses/Hope_College/General_Chemistry_Labs/Pre-Lab_Materials/Flame_Test",
+    "citation": "Hope College. General Chemistry Labs, Pre-Lab Materials: Flame Test; LibreTexts; read and not kept (retrieved 2026-10-08)."
+  },
+  {
+    "id": "nasa-visible-light",
+    "url": "https://science.nasa.gov/ems/09_visiblelight/",
+    "citation": "National Aeronautics and Space Administration, Science Mission Directorate. Tour of the Electromagnetic Spectrum: Visible Light; read and not kept (retrieved 2026-10-08)."
+  },
+  {
+    "id": "nasa-flame-test-worksheet",
+    "url": "https://imagine.gsfc.nasa.gov/educators/lessons/xray_spectra/student-worksheet-flame.html",
+    "citation": "National Aeronautics and Space Administration, Goddard Space Flight Center. Imagine the Universe! Educators' Corner, Student Worksheet: The Flame Test; read and not kept (retrieved 2026-10-08)."
+  },
+  {
+    "id": "wpi-bunsen-burner-safety",
+    "url": "https://www.wpi.edu/offices/environmental-health-safety/laboratory/bunsen",
+    "citation": "Worcester Polytechnic Institute, Environmental Health and Safety. Bunsen Burner Safety Guidelines; read and not kept (retrieved 2026-10-08)."
+  },
+  {
+    "id": "flinn-sds-197",
+    "url": "https://www.flinnsci.com/sds_197-calcium-chloride-solution/sds_197",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Calcium Chloride Solution, SDS number sds_197; revision date February 6, 2014 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-281.1",
+    "url": "https://www.flinnsci.com/sds_281.1-copperii-chloride-solution-0.99-m/sds_281.1",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Copper(II) Chloride Solution <0.99 M, SDS number sds_281.1; revision date April 14, 2016 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-622",
+    "url": "https://www.flinnsci.com/sds_622-potassium-chloride-solution/sds_622",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Potassium Chloride Solution, SDS number sds_622; revision date January 16, 2014 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-722",
+    "url": "https://www.flinnsci.com/sds_722-sodium-chloride-solution/sds_722",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Chloride Solution, SDS number sds_722; revision date March 16, 2016 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-785",
+    "url": "https://www.flinnsci.com/sds_785-strontium-chloride-solution/sds_785",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Strontium Chloride Solution, SDS number sds_785; revision date January 16, 2014 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-bb0041",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition/id_81f5f0062a518f58aba7cc5425e6e592e345956b/vid_81f5f0062a518f58aba7cc5425e6e592e345956b/prid_original/clid_SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Barium Chloride, 0.1 Molar Solution, SDS No. BB0041; revision date January 31, 2018 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-bacl2-dihydrate",
+    "url": "https://www.fishersci.com/store/msds?partNumber=B34500&productDescription=BARIUM+CHLORIDE+DIHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Barium chloride dihydrate, catalogue numbers B33 and B34; revision 7 of 18 December 2025 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-19847",
+    "url": "https://cameochemicals.noaa.gov/chemical/19847",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Barium Chloride Dihydrate (chemical 19847); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-196",
+    "url": "https://www.flinnsci.com/sds_196-calcium-chloride/sds_196",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Calcium Chloride, SDS number sds_196; revision date July 8, 2015 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-cc0070",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=9a503211f7eafc7542253eded28b277ff02ee79a&vid=9a503211f7eafc7542253eded28b277ff02ee79a&prid=original&clid=SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Calcium Chloride, 0.1 Molar Solution, SDS No. CC0070; revision date June 26, 2024 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-cacl2",
+    "url": "https://www.fishersci.com/store/msds?partNumber=C614500&productDescription=CALCIUM+CHLORIDE+ANHYDROUS&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Calcium chloride, catalogue numbers C77 and C614; revision 6 of 18 December 2025 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-8382",
+    "url": "https://cameochemicals.noaa.gov/chemical/8382",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Calcium Chloride (chemical 8382); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-281.05",
+    "url": "https://www.flinnsci.com/sds_281.05-copperii-chloride-dihydrate/sds_281.05",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Copper(II) Chloride Dihydrate, SDS number sds_281.05; revision date April 14, 2016 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-cc0506",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition/id_9d0258ae2bcb9efdaa9dc48c600e6be31f0d87eb/vid_9d0258ae2bcb9efdaa9dc48c600e6be31f0d87eb/prid_original/clid_SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Copper(II) Chloride, 0.1 Molar Solution, SDS No. CC0506; revision date July 29, 2024 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-cucl2-dihydrate",
+    "url": "https://www.fishersci.com/store/msds?partNumber=C455500&productDescription=CUPRIC+CHLORIDE+DIHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Copper(II) chloride dihydrate, catalogue number C455; revision 8 of 18 December 2025 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-2988",
+    "url": "https://cameochemicals.noaa.gov/chemical/2988",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Copper Chloride (chemical 2988); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-621",
+    "url": "https://www.flinnsci.com/sds_621-potassium-chloride/sds_621",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Potassium Chloride, SDS number sds_621; revision date January 16, 2014 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-kcl",
+    "url": "https://www.fishersci.com/store/msds?partNumber=P217500&productDescription=POTASSIUM+CHLORIDE&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Potassium chloride, catalogue numbers P217, P330, P333, P335 and BP366; revision 9 of 18 December 2025 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-20948",
+    "url": "https://cameochemicals.noaa.gov/chemical/20948",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Potassium Chloride (chemical 20948); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-721",
+    "url": "https://www.flinnsci.com/sds_721-sodium-chloride/sds_721",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Chloride, SDS number sds_721; revision date February 6, 2014 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-nacl",
+    "url": "https://www.fishersci.com/store/msds?partNumber=S271500&productDescription=SODIUM+CHLORIDE&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Sodium chloride, catalogue number S271; revision 8 of 18 December 2025 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-ss0450",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=bfe6a4ee099940279a81ed7610dc8a9c104cb5ff&vid=bfe6a4ee099940279a81ed7610dc8a9c104cb5ff&prid=original&clid=SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Sodium Chloride, SDS No. SS0450; revision date October 29, 2024 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-784",
+    "url": "https://www.flinnsci.com/sds_784-strontium-chloride/sds_784",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Strontium Chloride, SDS number sds_784; revision date October 19, 2015 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-ss0991",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition/id_be7ae479961958567cd2c06e0510be553926a970/vid_be7ae479961958567cd2c06e0510be553926a970/prid_original/clid_SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Strontium Chloride, 0.1 Molar Solution, SDS No. SS0991; revision date November 7, 2024 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-srcl2-hexahydrate",
+    "url": "https://www.fishersci.com/store/msds?partNumber=S541500&productDescription=STRONTIUM+CHLORIDE+HEXAHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Strontium chloride hexahydrate, catalogue number S541; revision 6 of 18 December 2025 (read on 2026-10-08; no copy is kept)."
   }
 ]

@@ -2,6 +2,7 @@ import type { Measurement } from './measure'
 import { EMISSION_SCOPE_NOTE } from './element'
 import type { Element, ElementSpectrum, Emission, MoDiagram, Molecule, Source } from './schema'
 import type { AqueousData } from './aqueous/data'
+import type { FlameData } from './flame/data'
 import type { TitrationData } from './titration/data'
 
 // What an inspector card's "Sources" control lists (spec 5.1): each source once, with the values it covers.
@@ -175,6 +176,36 @@ export function stationCitations(data: AqueousData, stationId: string, sources: 
           ]
         : []),
       ...station.notes.flatMap((note) => also('Notes on this station', note)),
+    ],
+    sources,
+  )
+}
+
+/**
+ * The sources behind one station of the flame test lab (spec 5.1): the solution and its hazards, the colour of its
+ * flame, each line and band of its spectrum, what the strip leaves out and its notes; and, as every station rests
+ * on them, what a handled loop carries and whose colour hides the others.
+ */
+export function flameCitations(data: FlameData, saltId: string, sources: readonly Source[]): Citation[] {
+  const salt = data.salts.find((s) => s.id === saltId)
+  if (!salt) throw new Error(`no salt "${saltId}"`)
+  const all = (label: string, cited: { sourceId: string; alsoSourceId?: string; moreSourceIds?: string[] }): Entry[] =>
+    [cited.sourceId, ...(cited.alsoSourceId === undefined ? [] : [cited.alsoSourceId]), ...(cited.moreSourceIds ?? [])].map((id): Entry => [label, id])
+  return citations(
+    [
+      [`${salt.name}: the solution`, salt.sourceId],
+      [`${salt.name}: appearance`, salt.appearance.sourceId],
+      [`${salt.name}: hazard classification`, salt.hazards.sourceId],
+      ...all(`${salt.name}: hazards at the strength used`, salt.hazards.note),
+      ...all('Colour of the flame', salt.flame),
+      ...salt.features.flatMap((feature): Entry[] => [
+        ...all('Lines and bands in the spectroscope, and what gives them', feature),
+        ...(feature.kind === 'line' ? [feature.wavelengthNm, ...(feature.pairedWithNm ? [feature.pairedWithNm] : [])].map((line): Entry => ['Wavelengths of the atomic lines', line.sourceId]) : []),
+      ]),
+      ...salt.leftOut.map((left): Entry => ['What the strip leaves out', left.sourceId]),
+      ...salt.notes.flatMap((note) => all('Notes on this station', note)),
+      ...all('Sodium on a loop that has been handled', data.handling),
+      ["Sodium's yellow hiding other colours", data.masking.sourceId],
     ],
     sources,
   )

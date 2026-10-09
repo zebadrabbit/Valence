@@ -55,9 +55,11 @@ export const hazardsSchema = z.strictObject({
   statements: z.array(text),
   /**
    * What holds at the strength used, which the classification need not describe. Cited on its own. A note that
-   * rests on two sources (two data sheets that between them cover the strength) names the second in `alsoSourceId`.
+   * rests on two sources (two data sheets that between them cover the strength) names the second in `alsoSourceId`,
+   * and one that rests on more names the third and any after it in `moreSourceIds` (the flame test lab's notes,
+   * which set a supplier's sheet beside stricter documents).
    */
-  note: cited(text).extend({ alsoSourceId: id.optional() }),
+  note: cited(text).extend({ alsoSourceId: id.optional(), moreSourceIds: z.array(id).min(1).optional() }),
   sourceId: id,
 })
 

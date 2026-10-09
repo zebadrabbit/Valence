@@ -3,6 +3,7 @@ import { valenceElectrons } from './element'
 import { angleDeg, dihedralDeg, distance } from './geometry'
 import { periodicTableSchema, registrySchema, type PeriodicElement, type Registry, type Source } from './schema'
 import { aqueousSchema, type AqueousData } from './aqueous/data'
+import { brightestOf, extentOf, flameSchema, rangeOf, type FlameData } from './flame/data'
 import { titrationSchema } from './titration/data'
 
 export interface ValidateOptions {
@@ -39,7 +40,7 @@ export function checkSourceIds(data: unknown, root: string, sources: readonly So
   const errors: string[] = []
   const known = new Set(sources.map((s) => s.id))
   walkStrings(data, '', root, (key, text, path) => {
-    if ((key === 'sourceId' || key === 'alsoSourceId') && !known.has(text)) errors.push(`${path}: unknown source "${text}"`)
+    if ((key === 'sourceId' || key === 'alsoSourceId' || key === 'moreSourceIds') && !known.has(text)) errors.push(`${path}: unknown source "${text}"`)
   })
   return errors
 }
@@ -397,5 +398,73 @@ export function validateAqueous(input: unknown, sources: readonly Source[], opti
     ...checkSourceIds(data, 'aqueous', Array.isArray(sources) ? sources : []),
     ...checkPublished(data, 'aqueous'),
     ...checkProse(data, 'aqueous', Array.isArray(names) ? names : []),
+  ]
+}
+
+/** A boundary between two answer ranges is kept at least this far, in nm, from every salt's brightest feature as drawn. */
+const RANGE_MARGIN_NM = 5
+
+/** What the flame test lab's record must hold together beyond its shape: its ids, its ranks, its scale and its answer ranges. */
+function checkFlame(data: FlameData): string[] {
+  const errors = [...duplicates(data.salts.map((s) => s.id), 'salts'), ...duplicates(data.salts.flatMap((s) => s.features.map((f) => f.id)), 'features'), ...duplicates(data.closing.choices, 'closing choices')]
+  // Each flame is a choice of the question about its colour, so two salts cannot share a name.
+  errors.push(...duplicates(data.salts.map((s) => s.flame.value.name), 'flame colours'))
+  const salts = new Set(data.salts.map((s) => s.id))
+  for (const [name, saltId] of [['handling', data.handling.value], ['masking', data.masking.value]] as const) {
+    if (!salts.has(saltId)) errors.push(`${name}: unknown salt "${saltId}"`)
+  }
+  if (!data.closing.choices.includes(data.closing.answer.value)) errors.push(`closing: the answer "${data.closing.answer.value}" is not one of the choices`)
+
+  const { scale } = data
+  const ranges = data.parameters.ranges.value
+  const joined = ranges.every(([from, to], i) => from < to && from === (i === 0 ? scale.fromNm : ranges[i - 1]![1]))
+  if (!joined || ranges[ranges.length - 1]![1] !== scale.toNm) errors.push('ranges: the answer ranges must cover the scale from end to end, each starting where the one before stops')
+  const within = data.parameters.unresolvedWithinNm.value
+
+  for (const salt of data.salts) {
+    const where = `salt "${salt.id}"`
+    const ranks = salt.features.map((f) => f.prominence).sort((a, b) => a - b)
+    if (ranks.some((rank, i) => rank !== i + 1)) errors.push(`${where}: the ranks of its features must be 1, 2, 3 and so on, each once`)
+    const lines = salt.features.flatMap((f) => (f.kind === 'line' ? [f] : []))
+    for (const feature of salt.features) {
+      const at = `${where}: feature "${feature.id}"`
+      const { fromNm, toNm } = extentOf(data, feature)
+      if (fromNm < scale.fromNm || toNm > scale.toNm) errors.push(`${at} is not on the scale`)
+      if (feature.kind === 'band' && (feature.fromNm > feature.toNm || (!feature.approximate && feature.fromNm === feature.toNm))) errors.push(`${at}: a band runs from a shorter wavelength to a longer one`)
+      if (feature.kind === 'line' && toNm - fromNm >= within) errors.push(`${at}: its pair is ${within} nm or more apart, which is two lines`)
+    }
+    lines.forEach((line, i) => {
+      for (const other of lines.slice(i + 1)) {
+        const [a, b] = [extentOf(data, line), extentOf(data, other)]
+        if (Math.max(a.fromNm, b.fromNm) - Math.min(a.toNm, b.toNm) < within) errors.push(`${where}: the lines "${line.id}" and "${other.id}" are closer than ${within} nm, which is one feature`)
+      }
+    })
+    if (ranks[0] !== 1) continue
+    const brightest = brightestOf(salt)
+    const range = rangeOf(data, brightest)
+    const extent = extentOf(data, brightest)
+    const clear = range !== undefined && (range[0] === scale.fromNm || extent.fromNm - range[0] >= RANGE_MARGIN_NM) && (range[1] === scale.toNm || range[1] - extent.toNm >= RANGE_MARGIN_NM)
+    if (!clear) errors.push(`${where}: its brightest feature, "${brightest.id}", does not lie plainly inside one answer range`)
+  }
+  return errors
+}
+
+/**
+ * Checks the flame test lab's record against the sources it cites: the schema; that its ids, ranks, scale and
+ * answer ranges hold together, with each salt's brightest feature plainly inside one range; that every source
+ * named exists; that each `published` reads as the number stored beside it; and that no name, note or rationale
+ * holds institution text. Returns a list of problems; an empty list means the record is valid. Never throws,
+ * whatever it is given. That each value is what its source prints is the build script's to hold to the manifest
+ * and to the saved NIST tables.
+ */
+export function validateFlame(input: unknown, sources: readonly Source[], options: ValidateOptions = {}): string[] {
+  const parsed = flameSchema.safeParse(input)
+  if (!parsed.success) return schemaErrors(parsed.error.issues)
+  const names = options?.institutionNames
+  return [
+    ...checkFlame(parsed.data),
+    ...checkSourceIds(parsed.data, 'flame', Array.isArray(sources) ? sources : []),
+    ...checkPublished(parsed.data, 'flame'),
+    ...checkProse(parsed.data, 'flame', Array.isArray(names) ? names : []),
   ]
 }

@@ -1,0 +1,567 @@
+{
+  "scale": {
+    "fromNm": 400,
+    "toNm": 780
+  },
+  "salts": [
+    {
+      "id": "bacl2-0.1m",
+      "name": "Barium chloride solution, 0.1 M",
+      "formula": "BaCl₂",
+      "metal": {
+        "symbol": "Ba",
+        "name": "barium"
+      },
+      "molarity": 0.1,
+      "appearance": {
+        "value": {
+          "name": "colourless"
+        },
+        "sourceId": "flinn-sds-94.01"
+      },
+      "flame": {
+        "value": {
+          "name": "pale green",
+          "hex": "#A9D86E"
+        },
+        "sourceId": "chemguide-flame-tests"
+      },
+      "features": [
+        {
+          "id": "baoh-green",
+          "kind": "band",
+          "fromNm": 480,
+          "toNm": 550,
+          "approximate": false,
+          "colour": "green",
+          "prominence": 1,
+          "emitter": {
+            "kind": "molecule",
+            "formula": "BaOH"
+          },
+          "sourceId": "daidoji-1979-strontium-barium",
+          "alsoSourceId": "human-zeegers-1975"
+        },
+        {
+          "id": "ba-553",
+          "kind": "line",
+          "wavelengthNm": {
+            "value": 553.5481,
+            "published": "553.5481",
+            "sourceId": "nist-asd-lines-neutral"
+          },
+          "colour": "green",
+          "prominence": 2,
+          "emitter": {
+            "kind": "atom",
+            "symbol": "Ba"
+          },
+          "sourceId": "human-zeegers-1975"
+        }
+      ],
+      "leftOut": [
+        {
+          "value": "BaO, a molecule of one barium atom and one oxygen atom, gives bands between 450 nm and 790 nm that are strong in the flame too. They are spread over most of the scale, and the strip leaves them out.",
+          "sourceId": "human-zeegers-1975"
+        },
+        {
+          "value": "BaCl, a molecule of one barium atom and one chlorine atom, gives narrow bands near 514 nm and 524 nm, inside the broad green band. The strip leaves them out.",
+          "sourceId": "human-zeegers-1975"
+        }
+      ],
+      "notes": [
+        {
+          "value": "Most of the light of this flame comes from a molecule and not from barium atoms. The molecule is BaOH: one barium atom, one oxygen atom and one hydrogen atom, joined in the flame. It gives the broad green band from about 480 nm to 550 nm.",
+          "sourceId": "daidoji-1979-strontium-barium",
+          "alsoSourceId": "human-zeegers-1975"
+        },
+        {
+          "value": "The barium atom gives the sharp green line near 553.5 nm, beside the band.",
+          "sourceId": "nist-asd-lines-neutral",
+          "alsoSourceId": "human-zeegers-1975"
+        },
+        {
+          "value": "That is why the flame is not the colour of the lines on barium's card of the periodic table. The card shows lines of the barium atom alone, and the flame's green is mostly the molecule's.",
+          "sourceId": "nist-asd-lines-neutral",
+          "alsoSourceId": "daidoji-1979-strontium-barium"
+        }
+      ],
+      "sourceId": "flinn-sds-94.01"
+    },
+    {
+      "id": "cacl2-0.1m",
+      "name": "Calcium chloride solution, 0.1 M",
+      "formula": "CaCl₂",
+      "metal": {
+        "symbol": "Ca",
+        "name": "calcium"
+      },
+      "molarity": 0.1,
+      "appearance": {
+        "value": {
+          "name": "colourless"
+        },
+        "sourceId": "flinn-sds-197"
+      },
+      "flame": {
+        "value": {
+          "name": "orange-red",
+          "hex": "#E8602C"
+        },
+        "sourceId": "chemguide-flame-tests"
+      },
+      "features": [
+        {
+          "id": "caoh-orange-red",
+          "kind": "band",
+          "fromNm": 614,
+          "toNm": 640,
+          "approximate": false,
+          "colour": "orange-red",
+          "prominence": 1,
+          "emitter": {
+            "kind": "molecule",
+            "formula": "CaOH"
+          },
+          "sourceId": "daidoji-1979-calcium",
+          "alsoSourceId": "human-zeegers-1975"
+        },
+        {
+          "id": "caoh-green",
+          "kind": "band",
+          "fromNm": 540,
+          "toNm": 568,
+          "approximate": false,
+          "colour": "green",
+          "prominence": 2,
+          "emitter": {
+            "kind": "molecule",
+            "formula": "CaOH"
+          },
+          "sourceId": "daidoji-1979-calcium",
+          "alsoSourceId": "human-zeegers-1975"
+        },
+        {
+          "id": "ca-422",
+          "kind": "line",
+          "wavelengthNm": {
+            "value": 422.673,
+            "published": "422.673",
+            "sourceId": "nist-asd-lines-neutral"
+          },
+          "colour": "violet",
+          "prominence": 3,
+          "emitter": {
+            "kind": "atom",
+            "symbol": "Ca"
+          },
+          "sourceId": "daidoji-1979-calcium"
+        }
+      ],
+      "leftOut": [
+        {
+          "value": "CaOH also gives weaker bands on either side of the orange-red one, brightest near 603 nm and 643 nm. The strip leaves them out.",
+          "sourceId": "human-zeegers-1975"
+        }
+      ],
+      "notes": [
+        {
+          "value": "Most of the light of this flame comes from a molecule and not from calcium atoms. The molecule is CaOH: one calcium atom, one oxygen atom and one hydrogen atom, joined in the flame. It gives both broad bands: the orange-red one from about 614 nm to 640 nm, which is the brighter, and the green one from about 540 nm to 568 nm.",
+          "sourceId": "daidoji-1979-calcium",
+          "alsoSourceId": "human-zeegers-1975"
+        },
+        {
+          "value": "The calcium atom gives the sharp violet line near 422.7 nm.",
+          "sourceId": "nist-asd-lines-neutral",
+          "alsoSourceId": "daidoji-1979-calcium"
+        },
+        {
+          "value": "That is why the flame is not the colour of the lines on calcium's card of the periodic table. The card shows lines of the calcium atom alone, and the flame's orange-red is mostly the molecule's.",
+          "sourceId": "nist-asd-lines-neutral",
+          "alsoSourceId": "human-zeegers-1975"
+        }
+      ],
+      "sourceId": "flinn-sds-197"
+    },
+    {
+      "id": "cucl2-0.1m",
+      "name": "Copper(II) chloride solution, 0.1 M",
+      "formula": "CuCl₂",
+      "metal": {
+        "symbol": "Cu",
+        "name": "copper"
+      },
+      "molarity": 0.1,
+      "appearance": {
+        "value": {
+          "name": "light blue-green",
+          "hex": "#9AD6CF"
+        },
+        "sourceId": "flinn-sds-281.1"
+      },
+      "flame": {
+        "value": {
+          "name": "blue-green",
+          "hex": "#27B5A5"
+        },
+        "sourceId": "chemguide-flame-tests",
+        "alsoSourceId": "gallitto-2017-bunsen-burner"
+      },
+      "features": [
+        {
+          "id": "cucl-blue",
+          "kind": "band",
+          "fromNm": 400,
+          "toNm": 470,
+          "approximate": false,
+          "colour": "blue",
+          "prominence": 1,
+          "emitter": {
+            "kind": "molecule",
+            "formula": "CuCl"
+          },
+          "sourceId": "juknelevicius-2020"
+        },
+        {
+          "id": "cuoh-green",
+          "kind": "band",
+          "fromNm": 550,
+          "toNm": 550,
+          "approximate": true,
+          "colour": "green",
+          "prominence": 2,
+          "emitter": {
+            "kind": "molecule",
+            "formula": "CuOH"
+          },
+          "sourceId": "juknelevicius-2020"
+        }
+      ],
+      "leftOut": [
+        {
+          "value": "Copper oxide gives two bands in the red. The source read for this lab does not say where they are, so the strip does not show them.",
+          "sourceId": "juknelevicius-2020"
+        }
+      ],
+      "notes": [
+        {
+          "value": "Most of the light of this flame comes from molecules and not from copper atoms. CuCl, one copper atom joined to one chlorine atom, gives the blue band from about 400 nm to 470 nm. CuOH, one copper atom joined to one oxygen atom and one hydrogen atom, gives the green band near 550 nm. The flame's blue-green is the two together.",
+          "sourceId": "juknelevicius-2020"
+        },
+        {
+          "value": "No line of the copper atom is on the strip: the sources read for this lab give none between 400 nm and 780 nm for a flame.",
+          "sourceId": "juknelevicius-2020"
+        },
+        {
+          "value": "That is why the flame is not the colour of the lines on copper's card of the periodic table. The card shows lines of the copper atom alone, and the flame's blue-green is the molecules'.",
+          "sourceId": "nist-asd-lines-neutral",
+          "alsoSourceId": "juknelevicius-2020"
+        }
+      ],
+      "sourceId": "flinn-sds-281.1"
+    },
+    {
+      "id": "kcl-0.1m",
+      "name": "Potassium chloride solution, 0.1 M",
+      "formula": "KCl",
+      "metal": {
+        "symbol": "K",
+        "name": "potassium"
+      },
+      "molarity": 0.1,
+      "appearance": {
+        "value": {
+          "name": "colourless"
+        },
+        "sourceId": "flinn-sds-622"
+      },
+      "flame": {
+        "value": {
+          "name": "lilac",
+          "hex": "#C9A0DC"
+        },
+        "sourceId": "chemguide-flame-tests",
+        "alsoSourceId": "gallitto-2017-bunsen-burner"
+      },
+      "features": [
+        {
+          "id": "k-766",
+          "kind": "line",
+          "wavelengthNm": {
+            "value": 766.489913,
+            "published": "766.489913",
+            "sourceId": "nist-asd-lines-k-700-780"
+          },
+          "pairedWithNm": {
+            "value": 769.896456,
+            "published": "769.896456",
+            "sourceId": "nist-asd-lines-k-700-780"
+          },
+          "colour": "deep red",
+          "prominence": 1,
+          "emitter": {
+            "kind": "atom",
+            "symbol": "K"
+          },
+          "sourceId": "kirchhoff-bunsen-1860",
+          "alsoSourceId": "juknelevicius-2020"
+        },
+        {
+          "id": "k-404",
+          "kind": "line",
+          "wavelengthNm": {
+            "value": 404.4136,
+            "published": "404.4136",
+            "sourceId": "nist-asd-lines-neutral"
+          },
+          "pairedWithNm": {
+            "value": 404.7208,
+            "published": "404.7208",
+            "sourceId": "nist-asd-lines-neutral"
+          },
+          "colour": "violet",
+          "prominence": 2,
+          "emitter": {
+            "kind": "atom",
+            "symbol": "K"
+          },
+          "sourceId": "kirchhoff-bunsen-1860"
+        }
+      ],
+      "leftOut": [
+        {
+          "value": "A potassium flame also gives a faint glow spread along the scale, with no lines in it. The strip leaves it out.",
+          "sourceId": "kirchhoff-bunsen-1860"
+        }
+      ],
+      "notes": [
+        {
+          "value": "The light of this flame comes from potassium atoms. They give a pair of lines in the deep red, near 766.5 nm and 769.9 nm, and a fainter pair in the violet, near 404.4 nm and 404.7 nm. Each pair is too close together for a hand spectroscope to separate, so each is seen as one line.",
+          "sourceId": "nist-asd-lines-k-700-780",
+          "alsoSourceId": "kirchhoff-bunsen-1860"
+        },
+        {
+          "value": "The deep red pair lies beyond 700 nm, about where the eye stops seeing. On a real bench it looks faint however strong it is, and a potassium flame can be hard to see.",
+          "sourceId": "nasa-visible-light",
+          "alsoSourceId": "hope-flame-test-prelab"
+        },
+        {
+          "value": "Here the flame's colour is the atom's own. Potassium's card on the periodic table shows the violet pair and not the deep red one, because the card stops at 700 nm.",
+          "sourceId": "nist-asd-lines-neutral"
+        }
+      ],
+      "sourceId": "flinn-sds-622"
+    },
+    {
+      "id": "nacl-0.1m",
+      "name": "Sodium chloride solution, 0.1 M",
+      "formula": "NaCl",
+      "metal": {
+        "symbol": "Na",
+        "name": "sodium"
+      },
+      "molarity": 0.1,
+      "appearance": {
+        "value": {
+          "name": "colourless"
+        },
+        "sourceId": "flinn-sds-722"
+      },
+      "flame": {
+        "value": {
+          "name": "yellow",
+          "hex": "#F6C52A"
+        },
+        "sourceId": "malik-flame-test"
+      },
+      "features": [
+        {
+          "id": "na-589",
+          "kind": "line",
+          "wavelengthNm": {
+            "value": 588.995095,
+            "published": "588.995095",
+            "sourceId": "nist-asd-lines-neutral"
+          },
+          "pairedWithNm": {
+            "value": 589.592424,
+            "published": "589.592424",
+            "sourceId": "nist-asd-lines-neutral"
+          },
+          "colour": "yellow",
+          "prominence": 1,
+          "emitter": {
+            "kind": "atom",
+            "symbol": "Na"
+          },
+          "sourceId": "hyperphysics-flame-colors",
+          "alsoSourceId": "kirchhoff-bunsen-1860"
+        }
+      ],
+      "leftOut": [],
+      "notes": [
+        {
+          "value": "The light of this flame comes from sodium atoms. They give two yellow lines, near 589.0 nm and 589.6 nm, too close together for a hand spectroscope to separate: it shows one sharp yellow line.",
+          "sourceId": "nist-asd-lines-neutral",
+          "alsoSourceId": "hyperphysics-flame-colors"
+        },
+        {
+          "value": "Here the flame's colour is the atom's own. Sodium's card on the periodic table shows the same two lines.",
+          "sourceId": "nist-asd-lines-neutral"
+        },
+        {
+          "value": "This yellow is strong enough that a little sodium hides the colour of another salt in the same flame, though a spectroscope still shows the other salt's light beside sodium's line.",
+          "sourceId": "kirchhoff-bunsen-1860"
+        }
+      ],
+      "sourceId": "flinn-sds-722"
+    },
+    {
+      "id": "srcl2-0.1m",
+      "name": "Strontium chloride solution, 0.1 M",
+      "formula": "SrCl₂",
+      "metal": {
+        "symbol": "Sr",
+        "name": "strontium"
+      },
+      "molarity": 0.1,
+      "appearance": {
+        "value": {
+          "name": "colourless"
+        },
+        "sourceId": "flinn-sds-785"
+      },
+      "flame": {
+        "value": {
+          "name": "red",
+          "hex": "#D6283B"
+        },
+        "sourceId": "chemguide-flame-tests",
+        "alsoSourceId": "malik-flame-test"
+      },
+      "features": [
+        {
+          "id": "sroh-red",
+          "kind": "band",
+          "fromNm": 671,
+          "toNm": 686,
+          "approximate": true,
+          "colour": "red",
+          "prominence": 1,
+          "emitter": {
+            "kind": "molecule",
+            "formula": "SrOH"
+          },
+          "sourceId": "daidoji-1979-strontium-barium",
+          "alsoSourceId": "human-zeegers-1975"
+        },
+        {
+          "id": "sroh-orange",
+          "kind": "band",
+          "fromNm": 606,
+          "toNm": 606,
+          "approximate": true,
+          "colour": "orange",
+          "prominence": 2,
+          "emitter": {
+            "kind": "molecule",
+            "formula": "SrOH"
+          },
+          "sourceId": "daidoji-1979-strontium-barium",
+          "alsoSourceId": "human-zeegers-1975"
+        },
+        {
+          "id": "sr-460",
+          "kind": "line",
+          "wavelengthNm": {
+            "value": 460.7331,
+            "published": "460.7331",
+            "sourceId": "nist-asd-lines-neutral"
+          },
+          "colour": "blue",
+          "prominence": 3,
+          "emitter": {
+            "kind": "atom",
+            "symbol": "Sr"
+          },
+          "sourceId": "kirchhoff-bunsen-1860"
+        }
+      ],
+      "leftOut": [
+        {
+          "value": "Where there is chlorine a second molecule, SrCl, adds red light of its own. No source read for this lab says where its bands are, so the strip does not show them.",
+          "sourceId": "juknelevicius-2020"
+        }
+      ],
+      "notes": [
+        {
+          "value": "Most of the light of this flame comes from a molecule and not from strontium atoms. The molecule is SrOH: one strontium atom, one oxygen atom and one hydrogen atom, joined in the flame. It gives the red band, brightest near 671 nm to 686 nm, and the fainter orange band near 606 nm.",
+          "sourceId": "daidoji-1979-strontium-barium",
+          "alsoSourceId": "human-zeegers-1975"
+        },
+        {
+          "value": "The strontium atom gives the sharp blue line near 460.7 nm.",
+          "sourceId": "nist-asd-lines-neutral",
+          "alsoSourceId": "kirchhoff-bunsen-1860"
+        },
+        {
+          "value": "That is why the flame is not the colour of the lines on strontium's card of the periodic table. The card shows lines of the strontium atom alone, and the flame's red is mostly the molecule's.",
+          "sourceId": "nist-asd-lines-neutral",
+          "alsoSourceId": "human-zeegers-1975"
+        }
+      ],
+      "sourceId": "flinn-sds-785"
+    }
+  ],
+  "handling": {
+    "value": "nacl-0.1m",
+    "sourceId": "hyperphysics-flame-colors",
+    "alsoSourceId": "hope-flame-test-prelab"
+  },
+  "masking": {
+    "value": "nacl-0.1m",
+    "sourceId": "kirchhoff-bunsen-1860"
+  },
+  "closing": {
+    "choices": [
+      "chloride",
+      "gas",
+      "loop",
+      "metal",
+      "water"
+    ],
+    "answer": {
+      "value": "metal",
+      "sourceId": "kirchhoff-bunsen-1860"
+    }
+  },
+  "parameters": {
+    "handlingTraceShows": {
+      "value": true,
+      "rationale": "A loop that has been handled and not cleaned shows sodium in the flame and in the spectroscope as fully as a loop dipped in the sodium chloride solution does. A real trace from the fingers is far smaller: it gives a brief, fainter yellow, and some loops give none that can be seen. The model makes it this large so that a learner who skips the cleaning always sees what the skipped step costs. Whether a trace is there is from a source; how large it is here is the model's choice."
+    },
+    "unresolvedWithinNm": {
+      "value": 5,
+      "rationale": "Two lines of one salt closer together than this many nanometres are stored as one feature, the stronger line with its partner, and are seen as one sharp line. Sodium's two yellow lines are 0.6 nm apart, potassium's violet pair 0.3 nm and its deep red pair 3.4 nm. A hand spectroscope's scale is read to a few nanometres at best, and 5 nm is this lab's figure for it, not a measurement of any instrument. No two lines stored as separate features of one salt are closer than this."
+    },
+    "approximateBandMarginNm": {
+      "value": 5,
+      "rationale": "A band whose sources give only where it is brightest, and not where it ends, is drawn this many nanometres wider on each side than those positions, so that it reads as a band and not as a line. The width drawn is the picture's; it is not a measurement, and the band's callout says that its limits are not given."
+    },
+    "ranges": {
+      "value": [
+        [400, 475],
+        [475, 570],
+        [570, 600],
+        [600, 650],
+        [650, 700],
+        [700, 780]
+      ],
+      "rationale": "The choices for where on the scale the brightest thing is. They cover the scale from 400 nm to 780 nm with no gap, and each boundary is placed at least 5 nm from the brightest feature of every salt as it is drawn, so that the brightest feature of each of the six lies plainly inside one range and a learner who reads the scale to a few nanometres chooses the same range. The boundaries are this lab's and mark nothing in the chemistry."
+    },
+    "mixedFlame": {
+      "value": "every-colour-named",
+      "rationale": "What a flame is called when the loop carries more than one salt and none of them is sodium: by the colour of each salt on the loop, in the order they were dipped, with no one colour chosen over another. What such a flame really looks like depends on how much of each salt is on the loop, which the model does not hold. With sodium on the loop the flame is sodium's yellow alone, and that part is from a source. In the spectroscope every salt's lines and bands are shown as that salt alone gives them, and the model does not rank the light of one salt against the light of another."
+    }
+  }
+}

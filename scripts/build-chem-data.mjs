@@ -19,6 +19,9 @@
 // and writes:
 //   emission-spectra.json, the emission spectrum on each element's card or the sentence that says why there is
 //   none, and into sources.json its sources
+// Reads docs/research/flame/ (flame.json, hazards.json, the two manifests under sources/ and the one kept table)
+// and writes:
+//   flame/flame.json, and into sources.json the flame test lab's sources
 //
 // Deterministic: the same inputs give byte-identical outputs. Anything
 // unexpected in the inputs stops the build with a message and writes nothing.
@@ -34,6 +37,7 @@ import { checkConfiguration, noteProblem, parseCiaawAbridged, parseNistIe, parse
 import { checkReagents, checkSupported, mergeHazards, newSources } from './aqueous-lib.mjs'
 import { buildMechanism } from './mechanism-lib.mjs'
 import { observedLines, parseNistLines, spectrumFromSaved } from './emission-lib.mjs'
+import { checkFlameLines } from './flame-lib.mjs'
 import { checkAnnualMean, checkMolecularWeight, checkPublished, checkSha256, checkSheetHazards, checkWikipediaCopy } from './titration-lib.mjs'
 
 const root = join(import.meta.dirname, '..')
@@ -43,6 +47,7 @@ const titrationResearch = join(root, 'docs/research/phase-3')
 const aqueousResearch = join(root, 'docs/research/phase-4')
 const mechanismResearch = join(root, 'docs/research/phase-5')
 const emissionResearch = join(root, 'docs/research/emission-spectra')
+const flameResearch = join(root, 'docs/research/flame')
 const out = join(root, 'src/chem-data')
 
 function fail(message) {
@@ -1233,6 +1238,54 @@ function buildEmissionSpectra(periodicTable, curated) {
   return { spectra, sources: emissionSources(retrieved) }
 }
 
+// ---------------------------------------------------------------------------
+// Flame test lab
+//
+// The record is authored in docs/research/flame/flame.json: the six solutions, each with the colour of its flame,
+// the lines and bands its flame shows in a spectroscope, what the strip leaves out and the notes shown when its
+// station is done; what a handled loop carries and whose colour hides the others; the closing question's answer;
+// and the model's parameters. Every source is in sources/MANIFEST.json, each row of which names the stored values
+// it supports, and the build holds the record to those rows as it does the aqueous lab's. Every atomic line is held
+// to a saved table of the NIST Atomic Spectra Database: the emission spectra's tables for 400 to 700 nm, and the
+// one table kept here, potassium from 700 to 780 nm. The bottles' hazards are authored apart, in hazards.json with
+// sources/hazard-manifest.json, and merged in as the aqueous lab's are: every document under them was read and is
+// not kept, so the build holds them to that manifest's rows and cannot check them against the documents.
+
+const FLAME_KEYS = ['scale', 'salts', 'handling', 'masking', 'closing', 'parameters']
+const FLAME_SALTS = ['bacl2-0.1m', 'cacl2-0.1m', 'cucl2-0.1m', 'kcl-0.1m', 'nacl-0.1m', 'srcl2-0.1m']
+const FLAME_LINES_ID = 'nist-asd-lines-k-700-780'
+
+function buildFlame(earlierSources) {
+  const read = (name) => readFileSync(join(flameResearch, name))
+  const json = (name) => JSON.parse(read(name))
+  const input = json('flame.json')
+  const manifest = json('sources/MANIFEST.json')
+  const hazardManifest = json('sources/hazard-manifest.json')
+
+  onlyKeys(input, FLAME_KEYS, 'flame.json')
+  if (input.salts.map((s) => s.id).join() !== FLAME_SALTS.join()) fail('flame.json: the salts are not the six of spec 15.1, in their order')
+
+  // A source another lab lists too (the emission spectra's tables, a sheet the aqueous lab read) is listed once.
+  const labSources = newSources(manifest.sources, earlierSources, 'flame MANIFEST.json')
+  const sheetSources = newSources(hazardManifest.sources, [...earlierSources, ...labSources], 'flame hazard-manifest.json')
+
+  const copy = manifest.sources.find((s) => s.id === FLAME_LINES_ID) ?? fail(`flame MANIFEST.json: no source "${FLAME_LINES_ID}"`)
+  for (const source of manifest.sources) {
+    if ((source.file !== undefined) !== (source.id === FLAME_LINES_ID)) fail(`flame MANIFEST.json: "${FLAME_LINES_ID}" is the one source with a kept copy`)
+  }
+  const bytes = read(join('sources', copy.file))
+  checkSha256(bytes, copy.sha256, copy.file)
+  const { saved } = savedEmissionResponses()
+  const tableOf = (sourceId, symbol) => (sourceId === EMISSION_LINES_ID ? saved(symbol, 'neutral-visible') : sourceId === FLAME_LINES_ID && symbol === 'K' ? bytes.toString('utf8') : undefined)
+  checkFlameLines(input, tableOf, { min: input.scale.fromNm, max: input.scale.toNm })
+
+  const flame = { ...input, salts: mergeHazards(input.salts, json('hazards.json'), hazardManifest.sources) }
+  checkSupported(flame, manifest.sources, hazardManifest.sources)
+  for (const [key, parameter] of Object.entries(input.parameters)) onlyKeys(parameter, ['value', 'rationale'], `flame.json: parameters.${key}`)
+
+  return { flame, sources: [...labSources, ...sheetSources] }
+}
+
 // A static import list keeps the registry free of bundler-only APIs.
 function moleculeIndex(molecules) {
   const name = (id) => id.replace(/-(.)/g, (_, c) => c.toUpperCase())
@@ -1272,7 +1325,9 @@ function main() {
   const labSources = [...earlierSources, ...titrationSources, ...aqueousSources]
   const { mechanism, sources: mechanismSources } = buildMechanismRecord(labSources, molecules, elements)
   const { spectra, sources: emissionSpectraSources } = buildEmissionSpectra(periodicTable, elements)
-  const sources = [...labSources, ...mechanismSources, ...emissionSpectraSources]
+  const beforeFlame = [...labSources, ...mechanismSources, ...emissionSpectraSources]
+  const { flame, sources: flameSources } = buildFlame(beforeFlame)
+  const sources = [...beforeFlame, ...flameSources]
   if (new Set(sources.map((s) => s.id)).size !== sources.length) fail('duplicate source ids')
 
   // Everything is built before anything is written.
@@ -1290,11 +1345,13 @@ function main() {
   writeFileSync(join(out, 'titration/titration.json'), toJson(titration))
   mkdirSync(join(out, 'aqueous'), { recursive: true })
   writeFileSync(join(out, 'aqueous/aqueous.json'), toJson(aqueous))
+  mkdirSync(join(out, 'flame'), { recursive: true })
+  writeFileSync(join(out, 'flame/flame.json'), toJson(flame))
   mkdirSync(join(root, 'src/mechanisms'), { recursive: true })
   writeFileSync(join(root, 'src/mechanisms', `${mechanism.id}.json`), toJson(mechanism))
   writeFileSync(join(out, 'sources.json'), toJson(sources))
   process.stdout.write(
-    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
+    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the flame test lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
   )
 }
 
