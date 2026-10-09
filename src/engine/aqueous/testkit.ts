@@ -1,5 +1,6 @@
 // Scripted learners, for tests only: nothing in the app imports this file.
 import type { AqueousData } from '@/chem-data/aqueous/data'
+import { scripted } from '../scripted'
 import { can, reduce, type Action } from './actions'
 import { FORMS, expectedObservation, usesOf, type Entry, type Form } from './check'
 import { stationOf } from './react'
@@ -24,15 +25,5 @@ export function stationScript(data: AqueousData, stationId: string): Action[] {
   ]
 }
 
-/**
- * Applies the actions in order; throws on one that cannot be done, so a script cannot skip a step unseen.
- * `through` is applied to the state after every action: the resume test passes a round trip through JSON.
- */
-export function run(data: AqueousData, state: AqueousState, actions: readonly Action[], through: (state: AqueousState) => AqueousState = (s) => s): AqueousState {
-  for (const action of actions) {
-    const blocked = can(data, state, action)
-    if (blocked) throw new Error(`${action.type}: ${blocked}`)
-    state = through(reduce(data, state, action))
-  }
-  return state
-}
+/** Applies the actions in order; throws on one that cannot be done (see `scripted`). */
+export const run = scripted<AqueousData, AqueousState, Action>(can, reduce)
