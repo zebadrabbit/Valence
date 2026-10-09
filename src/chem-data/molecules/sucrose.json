@@ -1,0 +1,923 @@
+{
+  "id": "sucrose",
+  "name": "Sucrose",
+  "formula": "C12H22O11",
+  "pubchemCid": 5988,
+  "topic": "biomolecules",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        -1.468,
+        0.4385,
+        -0.9184
+      ],
+      "position2d": [
+        5.8671,
+        0.7306
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -0.6033,
+        -0.8919,
+        0.8122
+      ],
+      "position2d": [
+        6.8671,
+        -0.2694
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        0.9285,
+        0.4834,
+        -0.3053
+      ],
+      "position2d": [
+        5.135,
+        -0.2694
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -3.0702,
+        -2.0054,
+        1.1933
+      ],
+      "position2d": [
+        8.1271,
+        1.9907
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -4.62,
+        0.6319,
+        0.7326
+      ],
+      "position2d": [
+        6.3671,
+        3.2694
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        1.2231,
+        0.2156,
+        2.5658
+      ],
+      "position2d": [
+        6.8671,
+        -2.2694
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        3.6108,
+        -1.7286,
+        0.6379
+      ],
+      "position2d": [
+        5.135,
+        -3.2694
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        3.15,
+        1.8347,
+        1.1537
+      ],
+      "position2d": [
+        3.403,
+        -2.2694
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -1.9582,
+        -1.848,
+        -2.43
+      ],
+      "position2d": [
+        8.5613,
+        1.0907
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -1.3845,
+        3.245,
+        -0.8933
+      ],
+      "position2d": [
+        4.3991,
+        2.9688
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        3.8369,
+        0.2057,
+        -2.5044
+      ],
+      "position2d": [
+        2.5369,
+        -0.7694
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.4947,
+        -0.8632,
+        -0.3037
+      ],
+      "position2d": [
+        6.8671,
+        0.7306
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.9301,
+        -1.0229,
+        0.1866
+      ],
+      "position2d": [
+        7.1761,
+        1.6816
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -3.229,
+        0.3737,
+        0.6887
+      ],
+      "position2d": [
+        6.3671,
+        2.2694
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.5505,
+        1.2243,
+        -0.3791
+      ],
+      "position2d": [
+        5.5581,
+        1.6816
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.7534,
+        -0.7453,
+        0.3971
+      ],
+      "position2d": [
+        6.001,
+        -0.7694
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.6462,
+        -0.7853,
+        1.639
+      ],
+      "position2d": [
+        6.001,
+        -1.7694
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        3.1147,
+        -0.5553,
+        1.2746
+      ],
+      "position2d": [
+        5.135,
+        -2.2694
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        3.2915,
+        0.6577,
+        0.3521
+      ],
+      "position2d": [
+        4.269,
+        -1.7694
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.2579,
+        0.7203,
+        -0.7858
+      ],
+      "position2d": [
+        4.269,
+        -0.7694
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.0903,
+        -1.9271,
+        -1.3122
+      ],
+      "position2d": [
+        7.8181,
+        0.4216
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.0027,
+        2.5323,
+        0.1653
+      ],
+      "position2d": [
+        4.607,
+        1.9907
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.5886,
+        -0.1903,
+        -1.9666
+      ],
+      "position2d": [
+        3.403,
+        -0.2694
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.6217,
+        -1.2732,
+        -0.6273
+      ],
+      "position2d": [
+        7.6145,
+        1.2432
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.8148,
+        0.5301,
+        1.6917
+      ],
+      "position2d": [
+        6.9195,
+        2.5509
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.2289,
+        1.4361,
+        -1.215
+      ],
+      "position2d": [
+        5.1196,
+        1.2432
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.0588,
+        -1.5992,
+        -0.2109
+      ],
+      "position2d": [
+        6.001,
+        -0.1494
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.5257,
+        -1.753,
+        2.1409
+      ],
+      "position2d": [
+        6.001,
+        -2.3894
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.6908,
+        -0.4029,
+        2.1956
+      ],
+      "position2d": [
+        4.5981,
+        -2.5794
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        4.31,
+        0.675,
+        -0.0511
+      ],
+      "position2d": [
+        3.7321,
+        -1.4594
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.2441,
+        1.7505,
+        -1.1644
+      ],
+      "position2d": [
+        4.269,
+        -0.1494
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.1311,
+        -2.9324,
+        -0.8803
+      ],
+      "position2d": [
+        7.5271,
+        -0.1259
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.0995,
+        -1.7686,
+        -1.74
+      ],
+      "position2d": [
+        8.3067,
+        0.0399
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.2448,
+        2.3605,
+        0.9369
+      ],
+      "position2d": [
+        3.9874,
+        1.969
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.799,
+        3.1543,
+        0.5841
+      ],
+      "position2d": [
+        4.5207,
+        1.3767
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.821,
+        -0.1132,
+        -2.7443
+      ],
+      "position2d": [
+        3.8015,
+        0.2055
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.6532,
+        -1.2446,
+        -1.6891
+      ],
+      "position2d": [
+        3.0044,
+        0.2055
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.98,
+        -1.9485,
+        1.5318
+      ],
+      "position2d": [
+        8.256,
+        2.5971
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -4.7364,
+        1.5664,
+        0.9746
+      ],
+      "position2d": [
+        6.904,
+        3.5794
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.2787,
+        0.0666,
+        2.7433
+      ],
+      "position2d": [
+        6.8671,
+        -2.8894
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        4.549,
+        -1.5769,
+        0.4327
+      ],
+      "position2d": [
+        4.5981,
+        -3.5794
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.3427,
+        2.6011,
+        0.5871
+      ],
+      "position2d": [
+        3.403,
+        -2.8894
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.6962,
+        -2.5508,
+        -3.0488
+      ],
+      "position2d": [
+        9.1509,
+        0.8991
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.679,
+        2.6806,
+        -1.2535
+      ],
+      "position2d": [
+        3.8094,
+        3.1604
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.7489,
+        1.1234,
+        -2.8135
+      ],
+      "position2d": [
+        2,
+        -0.4594
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 14,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 15,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 15,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 19,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 37,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 38,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 16,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 39,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 17,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 40,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 18,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 41,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 20,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 42,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 21,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 43,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 10,
+      "b": 22,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 10,
+      "b": 44,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 11,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 11,
+      "b": 20,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 23,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 13,
+      "b": 14,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 13,
+      "b": 24,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 14,
+      "b": 21,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 14,
+      "b": 25,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 15,
+      "b": 16,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 15,
+      "b": 26,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 16,
+      "b": 17,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 16,
+      "b": 27,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 17,
+      "b": 18,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 17,
+      "b": 28,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 18,
+      "b": 19,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 18,
+      "b": 29,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 19,
+      "b": 22,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 19,
+      "b": 30,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 20,
+      "b": 31,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 20,
+      "b": 32,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 21,
+      "b": 33,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 21,
+      "b": 34,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 22,
+      "b": 35,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 22,
+      "b": 36,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "One conformer of many."
+  ],
+  "sourceId": "pubchem-cid-5988"
+}

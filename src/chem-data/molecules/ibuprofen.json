@@ -1,0 +1,678 @@
+{
+  "id": "ibuprofen",
+  "name": "Ibuprofen",
+  "formula": "C13H18O2",
+  "pubchemCid": 3672,
+  "topic": "everyday",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        -4.4457,
+        -1.0032,
+        0.4113
+      ],
+      "position2d": [
+        4.5981,
+        3.345
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -2.4005,
+        -1.9114,
+        0.0531
+      ],
+      "position2d": [
+        5.4641,
+        1.845
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "C",
+      "position": [
+        3.9024,
+        -0.4411,
+        0.0362
+      ],
+      "position2d": [
+        2.866,
+        -2.655
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        3.1486,
+        0.8194,
+        -0.4313
+      ],
+      "position2d": [
+        3.7321,
+        -2.155
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.6528,
+        0.7393,
+        -0.2472
+      ],
+      "position2d": [
+        3.7321,
+        -1.155
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.0946,
+        0.5935,
+        0.0901
+      ],
+      "position2d": [
+        3.7321,
+        0.845
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.5728,
+        0.5152,
+        0.2719
+      ],
+      "position2d": [
+        3.7321,
+        1.845
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        3.6076,
+        -0.776,
+        1.5005
+      ],
+      "position2d": [
+        2.866,
+        -3.655
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        3.5239,
+        -1.6299,
+        -0.8505
+      ],
+      "position2d": [
+        2,
+        -2.155
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.869,
+        0.2281,
+        -1.2695
+      ],
+      "position2d": [
+        4.5981,
+        -0.655
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.0897,
+        1.1791,
+        0.9405
+      ],
+      "position2d": [
+        2.866,
+        -0.655
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.5135,
+        0.1549,
+        -1.0998
+      ],
+      "position2d": [
+        4.5981,
+        0.345
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.2929,
+        1.1057,
+        1.1102
+      ],
+      "position2d": [
+        2.866,
+        0.345
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -3.3736,
+        1.3495,
+        -0.7486
+      ],
+      "position2d": [
+        2.866,
+        2.345
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -3.1004,
+        -0.9233,
+        0.2332
+      ],
+      "position2d": [
+        4.5981,
+        2.345
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        4.9775,
+        -0.2527,
+        -0.0735
+      ],
+      "position2d": [
+        2.866,
+        -2.035
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.3789,
+        1.0242,
+        -1.4854
+      ],
+      "position2d": [
+        3.9441,
+        -2.7376
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.5298,
+        1.6907,
+        0.1182
+      ],
+      "position2d": [
+        4.3426,
+        -2.0473
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.8243,
+        0.8896,
+        1.2739
+      ],
+      "position2d": [
+        3.7321,
+        2.465
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.5794,
+        -1.1167,
+        1.6574
+      ],
+      "position2d": [
+        2.246,
+        -3.655
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.7958,
+        0.0879,
+        2.1462
+      ],
+      "position2d": [
+        2.866,
+        -4.275
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        4.2658,
+        -1.5849,
+        1.8375
+      ],
+      "position2d": [
+        3.486,
+        -3.655
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        4.1778,
+        -2.4814,
+        -0.6301
+      ],
+      "position2d": [
+        2.31,
+        -1.6181
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.4964,
+        -1.9688,
+        -0.6863
+      ],
+      "position2d": [
+        1.4631,
+        -1.845
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.6494,
+        -1.3895,
+        -1.9115
+      ],
+      "position2d": [
+        1.69,
+        -2.6919
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.3084,
+        -0.1099,
+        -2.2035
+      ],
+      "position2d": [
+        5.135,
+        -0.965
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.7024,
+        1.5855,
+        1.7398
+      ],
+      "position2d": [
+        2.3291,
+        -0.965
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.1208,
+        -0.2449,
+        -1.9075
+      ],
+      "position2d": [
+        5.135,
+        0.655
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.729,
+        1.4534,
+        2.043
+      ],
+      "position2d": [
+        2.3291,
+        0.655
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.0012,
+        2.3792,
+        -0.784
+      ],
+      "position2d": [
+        3.176,
+        2.8819
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.3032,
+        0.9294,
+        -1.7582
+      ],
+      "position2d": [
+        2.3291,
+        2.655
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -4.4357,
+        1.3895,
+        -0.4835
+      ],
+      "position2d": [
+        2.556,
+        1.8081
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -4.7639,
+        -1.9305,
+        0.3782
+      ],
+      "position2d": [
+        5.135,
+        3.655
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 14,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 32,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 14,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 15,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 16,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 17,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 9,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 4,
+      "b": 10,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 5,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 11,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 5,
+      "b": 12,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 6,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 14,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 18,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 19,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 20,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 21,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 22,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 23,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 24,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 11,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 9,
+      "b": 25,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 10,
+      "b": 12,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 10,
+      "b": 26,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 11,
+      "b": 27,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 28,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 13,
+      "b": 29,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 13,
+      "b": 30,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 13,
+      "b": 31,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "An anti-inflammatory medicine, also used against pain and fever.",
+    "One conformer of many."
+  ],
+  "sourceId": "pubchem-cid-3672"
+}

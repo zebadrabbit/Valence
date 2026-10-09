@@ -1,0 +1,723 @@
+{
+  "id": "geosmin",
+  "name": "Geosmin",
+  "formula": "C12H22O",
+  "pubchemCid": 29746,
+  "topic": "everyday",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        0.1598,
+        -0.7644,
+        -1.4874
+      ],
+      "position2d": [
+        3.7321,
+        -1.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.3828,
+        0.9252,
+        0.1579
+      ],
+      "position2d": [
+        3.7321,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.0566,
+        -0.5602,
+        -0.065
+      ],
+      "position2d": [
+        3.7321,
+        -0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.4485,
+        -0.8358,
+        0.5857
+      ],
+      "position2d": [
+        2.866,
+        -0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.6347,
+        1.8919,
+        -0.5178
+      ],
+      "position2d": [
+        2.866,
+        1.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.7815,
+        1.1582,
+        -0.4809
+      ],
+      "position2d": [
+        4.626,
+        1.2847
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.0197,
+        -1.5452,
+        0.4497
+      ],
+      "position2d": [
+        4.626,
+        -0.7847
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.441,
+        0.3399,
+        0.4164
+      ],
+      "position2d": [
+        2,
+        -0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.0516,
+        1.3299,
+        -0.6717
+      ],
+      "position2d": [
+        2,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.8408,
+        0.1733,
+        0.0136
+      ],
+      "position2d": [
+        5.5321,
+        0.7708
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.3983,
+        -1.2744,
+        -0.158
+      ],
+      "position2d": [
+        5.5321,
+        -0.2708
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.4781,
+        1.2944,
+        1.6626
+      ],
+      "position2d": [
+        3.7321,
+        1.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.1088,
+        -2.1329,
+        0.0949
+      ],
+      "position2d": [
+        2.866,
+        -1.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.2994,
+        -0.9631,
+        1.6671
+      ],
+      "position2d": [
+        2.3291,
+        -1.06
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.6853,
+        2.8313,
+        0.0482
+      ],
+      "position2d": [
+        3.2646,
+        1.725
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.2893,
+        2.1809,
+        -1.5189
+      ],
+      "position2d": [
+        2.4675,
+        1.725
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.7136,
+        1.0675,
+        -1.5731
+      ],
+      "position2d": [
+        5.0196,
+        1.7637
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.1228,
+        2.1823,
+        -0.2829
+      ],
+      "position2d": [
+        4.2214,
+        1.7545
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.0882,
+        -1.5064,
+        1.5427
+      ],
+      "position2d": [
+        4.2214,
+        -1.2545
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.7507,
+        -2.5759,
+        0.1908
+      ],
+      "position2d": [
+        5.0196,
+        -1.2637
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.4558,
+        -0.0278,
+        0.22
+      ],
+      "position2d": [
+        1.3894,
+        -0.1423
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.5151,
+        0.8821,
+        1.3672
+      ],
+      "position2d": [
+        1.788,
+        -0.8326
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.768,
+        2.1601,
+        -0.6903
+      ],
+      "position2d": [
+        1.788,
+        1.3326
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.1438,
+        0.8389,
+        -1.6485
+      ],
+      "position2d": [
+        1.3894,
+        0.6423
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.7732,
+        0.3359,
+        -0.5397
+      ],
+      "position2d": [
+        6.1429,
+        0.6647
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.0726,
+        0.3652,
+        1.0672
+      ],
+      "position2d": [
+        5.7411,
+        1.3545
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.1373,
+        -1.9403,
+        0.3026
+      ],
+      "position2d": [
+        5.7411,
+        -0.8545
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.3813,
+        -1.5217,
+        -1.2267
+      ],
+      "position2d": [
+        6.1429,
+        -0.1647
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.4946,
+        1.2816,
+        2.1599
+      ],
+      "position2d": [
+        4.3521,
+        1.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.8811,
+        2.3068,
+        1.7872
+      ],
+      "position2d": [
+        3.7321,
+        2.37
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.1318,
+        0.6196,
+        2.2215
+      ],
+      "position2d": [
+        3.1121,
+        1.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.0238,
+        -2.3337,
+        0.6637
+      ],
+      "position2d": [
+        2.246,
+        -1.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.4518,
+        -2.9966,
+        0.2292
+      ],
+      "position2d": [
+        2.866,
+        -2.37
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.3859,
+        -2.0703,
+        -0.9625
+      ],
+      "position2d": [
+        3.486,
+        -1.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.2456,
+        -1.7174,
+        -1.657
+      ],
+      "position2d": [
+        4.269,
+        -1.56
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 34,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 14,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 15,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 16,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 17,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 18,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 19,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 20,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 21,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 22,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 23,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 24,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 25,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 10,
+      "b": 26,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 10,
+      "b": 27,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 11,
+      "b": 28,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 11,
+      "b": 29,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 11,
+      "b": 30,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 31,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 32,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 33,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "A compound with an earthy smell."
+  ],
+  "sourceId": "pubchem-cid-29746"
+}

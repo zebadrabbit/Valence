@@ -1,0 +1,293 @@
+{
+  "id": "serine",
+  "name": "L-Serine",
+  "formula": "HOCH2CH(NH2)COOH",
+  "pubchemCid": 5951,
+  "topic": "biomolecules",
+  "variantGroup": "serine",
+  "variantLabel": "Neutral",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        1.9164,
+        1.0306,
+        -0.2064
+      ],
+      "position2d": [
+        2.5369,
+        -1.19
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -0.9147,
+        1.473,
+        0.6928
+      ],
+      "position2d": [
+        5.135,
+        0.31
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -1.6876,
+        0.0439,
+        -0.8956
+      ],
+      "position2d": [
+        4.269,
+        1.81
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "N",
+      "position": [
+        -0.1783,
+        -1.9614,
+        0.3145
+      ],
+      "position2d": [
+        2.5369,
+        0.81
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "C",
+      "position": [
+        0.2499,
+        -0.5719,
+        0.4674
+      ],
+      "position2d": [
+        3.403,
+        0.31
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.5043,
+        -0.3229,
+        -0.3653
+      ],
+      "position2d": [
+        3.403,
+        -0.69
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.89,
+        0.3087,
+        -0.0075
+      ],
+      "position2d": [
+        4.269,
+        0.81
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.4351,
+        -0.3707,
+        1.5285
+      ],
+      "position2d": [
+        3.403,
+        0.93
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.3293,
+        -0.9735,
+        -0.0556
+      ],
+      "position2d": [
+        3.615,
+        -1.2726
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.3198,
+        -0.4858,
+        -1.4328
+      ],
+      "position2d": [
+        4.0135,
+        -0.5823
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.3831,
+        -2.1614,
+        -0.6638
+      ],
+      "position2d": [
+        2,
+        0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.0421,
+        -2.1182,
+        0.8321
+      ],
+      "position2d": [
+        2.5369,
+        1.43
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.1022,
+        1.1706,
+        0.7378
+      ],
+      "position2d": [
+        2.5369,
+        -1.81
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.6432,
+        2.0607,
+        0.3991
+      ],
+      "position2d": [
+        5.672,
+        0.62
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 6,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "One conformer of many."
+  ],
+  "sourceId": "pubchem-cid-5951"
+}

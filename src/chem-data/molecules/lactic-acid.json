@@ -1,0 +1,251 @@
+{
+  "id": "lactic-acid",
+  "name": "L-Lactic acid",
+  "formula": "CH3CH(OH)COOH",
+  "pubchemCid": 107689,
+  "topic": "biomolecules",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        -1.3875,
+        1.1182,
+        0.1968
+      ],
+      "position2d": [
+        2.5369,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        1.4877,
+        -1.0368,
+        0.2617
+      ],
+      "position2d": [
+        5.135,
+        -0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        1.2263,
+        1.1148,
+        -0.4123
+      ],
+      "position2d": [
+        4.269,
+        1.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.7078,
+        -0.1118,
+        0.4002
+      ],
+      "position2d": [
+        3.403,
+        -0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.3669,
+        -1.1626,
+        -0.4759
+      ],
+      "position2d": [
+        3.403,
+        -1.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.7481,
+        0.0781,
+        0.0295
+      ],
+      "position2d": [
+        4.269,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.7822,
+        -0.3748,
+        1.4601
+      ],
+      "position2d": [
+        3.403,
+        0.37
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.2848,
+        -0.8968,
+        -1.536
+      ],
+      "position2d": [
+        2.783,
+        -1.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.4357,
+        -1.2376,
+        -0.2485
+      ],
+      "position2d": [
+        3.403,
+        -1.87
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.91,
+        -2.1472,
+        -0.3365
+      ],
+      "position2d": [
+        4.023,
+        -1.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.0263,
+        1.7604,
+        0.8318
+      ],
+      "position2d": [
+        2,
+        -0.06
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.4313,
+        -0.9049,
+        0.0279
+      ],
+      "position2d": [
+        5.672,
+        0.06
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 5,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "One conformer of many."
+  ],
+  "sourceId": "pubchem-cid-107689"
+}

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   AROMATIC_ORDER_LABEL,
+  AROMATIC_RING,
   BOND_KINDS,
   D_ORBITAL_NOTE,
   HYBRIDIZATION_HYDROGEN,
@@ -9,6 +10,9 @@ import {
   RESONANCE_ATOM_NOTE,
   RESONANCE_ORDER_LABEL,
   RESONANCE_SIGMA_PI,
+  RESONANCE_TRIPLE_ATOM_NOTE,
+  RESONANCE_TRIPLE_ORDER_LABEL,
+  RESONANCE_TRIPLE_SIGMA_PI,
   SIGMA_PI,
   TERMINAL_ATOM,
   deriveAtoms,
@@ -321,5 +325,170 @@ describe('deriveAtoms on structures outside the library', () => {
 
   it('throws on a steric number and lone-pair combination it does not know', () => {
     expect(() => deriveAtoms(star(atom('Xe', 0), 7), elements)).toThrow(/test: atom 0 \(Xe\) has no entry for 7/)
+  })
+})
+
+describe('named cases, the molecules added on 2026-10-09', () => {
+  it('ozone: every oxygen is 0, as in any element; the central one is +1 in formal charge, bent and sp²', () => {
+    const atoms = atomsOf('ozone')
+    expect(atoms.map((a) => a.oxidationState)).toEqual([0, 0, 0])
+    expect(only(atoms.filter((a) => a.bondedAtoms === 2))).toMatchObject({ formalCharge: 1, lonePairs: 1, geometry: 'bent', hybridization: 'sp²' })
+    expect(atoms.filter((a) => a.bondedAtoms === 1).map((a) => a.formalCharge).sort()).toEqual([-1, 0])
+  })
+
+  it('hydrogen and chlorine: each atom is 0', () => {
+    for (const id of ['hydrogen', 'chlorine']) expect(atomsOf(id).map((a) => a.oxidationState), id).toEqual([0, 0])
+  })
+
+  it('an ion of one element is not an elemental substance: the rule for like atoms still holds', () => {
+    const oxygen = molecule('oxygen')
+    const peroxide: Molecule = {
+      ...oxygen,
+      id: 'test',
+      charge: -2,
+      atoms: oxygen.atoms.map((a) => ({ ...a, formalCharge: -1, lonePairs: 3 })),
+      bonds: oxygen.bonds.map((b) => ({ ...b, order: 1 as const })),
+    }
+    expect(deriveAtoms(peroxide, elements).map((a) => a.oxidationState)).toEqual([-1, -1])
+  })
+
+  it('carbon monoxide: C is -1 and O +1 in formal charge, +2 and -2 in oxidation state, and both are sp', () => {
+    const atoms = atomsOf('carbon-monoxide')
+    expect(only(atoms.filter((a) => a.element === 'C'))).toMatchObject({ formalCharge: -1, lonePairs: 1, oxidationState: 2, hybridization: 'sp' })
+    expect(only(atoms.filter((a) => a.element === 'O'))).toMatchObject({ formalCharge: 1, lonePairs: 1, oxidationState: -2, hybridization: 'sp' })
+  })
+
+  it('hydrogen cyanide: C is +2, linear and sp; N is -3 and sp', () => {
+    const atoms = atomsOf('hydrogen-cyanide')
+    expect(only(atoms.filter((a) => a.element === 'C'))).toMatchObject({ oxidationState: 2, geometry: 'linear', hybridization: 'sp' })
+    expect(only(atoms.filter((a) => a.element === 'N'))).toMatchObject({ oxidationState: -3, geometry: TERMINAL_ATOM, hybridization: 'sp' })
+  })
+
+  it.each([
+    ['nitrate', 'N', 5, 1],
+    ['carbonate', 'C', 4, 0],
+    ['sulfur-trioxide', 'S', 6, 2],
+  ])('%s: %s is trigonal planar and sp², and its three bonds are a resonance set of three with order 4/3', (id, element, oxidationState, formalCharge) => {
+    const centre = only(atomsOf(id).filter((a) => a.element === element))
+    expect(centre).toMatchObject({ oxidationState, formalCharge, lonePairs: 0, geometry: 'trigonal planar', hybridization: 'sp²' })
+    const m = molecule(id)
+    const derived = deriveBonds(m, elements)
+    expect(m.bonds.map((b) => b.order).sort()).toEqual([1, 1, 2])
+    m.bonds.forEach((bond, i) => {
+      expect(derived[i]).toMatchObject({ orderLabel: RESONANCE_TRIPLE_ORDER_LABEL, sigmaPi: RESONANCE_TRIPLE_SIGMA_PI })
+      expect(derived[i]!.displayOrder).toBeCloseTo(4 / 3, 10)
+      expect(derived[i]!.orderNote).toBe(
+        `The Lewis structure draws this bond as a ${bond.order === 2 ? 'double' : 'single'} bond, in one of three equivalent resonance structures; the three real bonds are equal.`,
+      )
+    })
+    // The three oxygens read differently as drawn (one sp², two "not assigned") and each says they are the same atom.
+    for (const oxygen of atomsOf(id).filter((a) => a.element === 'O')) expect(oxygen.hybridizationNote).toBe(RESONANCE_TRIPLE_ATOM_NOTE)
+  })
+
+  it.each([
+    ['sulfate', 'S', 6, 2, 4],
+    ['phosphate', 'P', 5, 1, 4],
+    ['sulfuric-acid', 'S', 6, 2, 2],
+    ['phosphoric-acid', 'P', 5, 1, 1],
+  ])('%s in the octet form: %s is tetrahedral and sp³ with only single bonds, and no bond is a resonance bond', (id, element, oxidationState, formalCharge, negativeOxygens) => {
+    const atoms = atomsOf(id)
+    const centre = only(atoms.filter((a) => a.element === element))
+    expect(centre).toMatchObject({ oxidationState, formalCharge, lonePairs: 0, geometry: 'tetrahedral', hybridization: 'sp³' })
+    expect(centre.bonds.map((b) => b.order)).toEqual([1, 1, 1, 1])
+    const charged = atoms.filter((a) => a.element === 'O' && a.formalCharge === -1)
+    expect(charged).toHaveLength(negativeOxygens)
+    for (const oxygen of charged) expect(oxygen).toMatchObject({ lonePairs: 3, oxidationState: -2, hybridization: HYBRIDIZATION_NOT_ASSIGNED })
+    expect(molecule(id).bonds.some((b) => b.resonanceNote)).toBe(false)
+  })
+
+  it.each([
+    ['sulfur-tetrafluoride', 'S', 4, 1, 'seesaw'],
+    ['chlorine-trifluoride', 'Cl', 3, 2, 'T-shaped'],
+    ['xenon-difluoride', 'Xe', 2, 3, 'linear'],
+  ])('%s: %s has oxidation state +%i, %i lone pairs and is %s, with the d-orbital note', (id, element, oxidationState, lonePairs, geometry) => {
+    const centre = only(atomsOf(id).filter((a) => a.element === element && a.bondedAtoms > 1))
+    expect(centre).toMatchObject({
+      oxidationState,
+      lonePairs,
+      geometry,
+      electronGeometry: 'trigonal bipyramidal',
+      hybridization: 'sp³d (textbook label)',
+      hybridizationNote: D_ORBITAL_NOTE,
+    })
+  })
+
+  it('phosphorus trichloride is trigonal pyramidal; the three chlorinated methanes are tetrahedral with C at +4, +2 and 0', () => {
+    expect(only(atomsOf('phosphorus-trichloride').filter((a) => a.element === 'P'))).toMatchObject({
+      oxidationState: 3,
+      lonePairs: 1,
+      geometry: 'trigonal pyramidal',
+      hybridization: 'sp³',
+    })
+    const carbon = (id: string) => only(atomsOf(id).filter((a) => a.element === 'C'))
+    expect(['carbon-tetrachloride', 'chloroform', 'dichloromethane'].map((id) => [carbon(id).oxidationState, carbon(id).geometry])).toEqual([
+      [4, 'tetrahedral'],
+      [2, 'tetrahedral'],
+      [0, 'tetrahedral'],
+    ])
+  })
+
+  it('phenol: the O-H oxygen is sp³ and bent, and its note names the aromatic ring, not a C=O', () => {
+    const oxygen = only(atomsOf('phenol').filter((a) => a.element === 'O'))
+    expect(oxygen).toMatchObject({ geometry: 'bent', hybridization: 'sp³', resonanceOverride: false, delocalisedInto: AROMATIC_RING })
+    expect(oxygen.hybridizationNote).toBe('organic chemistry describes this oxygen as sp², because one lone pair is delocalised into the neighbouring aromatic ring')
+  })
+
+  it('aspirin: the ester oxygen between the ring and a C=O names the C=O', () => {
+    const ester = only(atomsOf('aspirin').filter((a) => a.element === 'O' && a.bondedAtoms === 2 && a.bonds.every((b) => b.to === 'C')))
+    expect(ester.hybridizationNote).toBe(ORGANIC_OXYGEN_NOTE)
+  })
+
+  it('nitric acid: the O-H oxygen is sp³ and bent and carries no organic-chemistry note; N is +5', () => {
+    const atoms = atomsOf('nitric-acid')
+    const hydroxyl = only(atoms.filter((a) => a.element === 'O' && a.bondedAtoms === 2))
+    expect(hydroxyl).toMatchObject({ geometry: 'bent', hybridization: 'sp³' })
+    expect(hydroxyl.hybridizationNote).toBeUndefined()
+    expect(only(atoms.filter((a) => a.element === 'N'))).toMatchObject({ oxidationState: 5, formalCharge: 1, geometry: 'trigonal planar' })
+  })
+
+  it('serotonin: the ring N-H is sp² and trigonal planar, its lone pair shared with the ring; the amine N is sp³', () => {
+    const nitrogens = atomsOf('serotonin').filter((a) => a.element === 'N')
+    const ring = only(nitrogens.filter((a) => a.bonds.filter((b) => b.to === 'C').length === 2))
+    expect(ring).toMatchObject({ resonanceOverride: true, geometry: 'trigonal planar', hybridization: 'sp²' })
+    expect(['C=C', AROMATIC_RING]).toContain(ring.delocalisedInto)
+    expect(only(nitrogens.filter((a) => a !== ring))).toMatchObject({ resonanceOverride: false, geometry: 'trigonal pyramidal', hybridization: 'sp³' })
+  })
+
+  it('nicotine: the ring nitrogen with a double bond is sp² and bent, the other sp³ and trigonal pyramidal', () => {
+    const nitrogens = atomsOf('nicotine').filter((a) => a.element === 'N')
+    expect(only(nitrogens.filter((a) => a.bondedAtoms === 2))).toMatchObject({ geometry: 'bent', hybridization: 'sp²', lonePairs: 1 })
+    expect(only(nitrogens.filter((a) => a.bondedAtoms === 3))).toMatchObject({ geometry: 'trigonal pyramidal', hybridization: 'sp³' })
+  })
+
+  it('toluene: the six ring bonds are aromatic and the bond to the methyl carbon is an ordinary single bond', () => {
+    const m = molecule('toluene')
+    const derived = deriveBonds(m, elements)
+    const carbonCarbon = m.bonds.flatMap((b, i) => (m.atoms[b.a]!.element === 'C' && m.atoms[b.b]!.element === 'C' ? [{ ...b, ...derived[i]! }] : []))
+    expect(carbonCarbon.filter((b) => b.aromatic)).toHaveLength(6)
+    expect(only(carbonCarbon.filter((b) => !b.aromatic))).toMatchObject({ order: 1, displayOrder: 1, sigmaPi: '1 σ' })
+  })
+
+  it('indigo has two benzene rings; no bond to an atom other than carbon is flagged aromatic anywhere in the library', () => {
+    expect(molecule('indigo').bonds.filter((b) => b.aromatic)).toHaveLength(12)
+    for (const m of molecules) {
+      for (const b of m.bonds) if (b.aromatic) expect([m.id, m.atoms[b.a]!.element, m.atoms[b.b]!.element]).toEqual([m.id, 'C', 'C'])
+    }
+  })
+
+  it('cysteine: S is -2, bent and sp³', () => {
+    expect(only(atomsOf('cysteine').filter((a) => a.element === 'S'))).toMatchObject({ oxidationState: -2, geometry: 'bent', hybridization: 'sp³' })
+  })
+
+  it.each(['ozone', 'nitric-acid', 'acetate', 'serine-zwitterion', 'cysteine-zwitterion'])('%s: two bonds are a resonance pair, one drawn double', (id) => {
+    const m = molecule(id)
+    const derived = deriveBonds(m, elements)
+    const pair = m.bonds.flatMap((b, i) => (b.resonanceNote ? [{ ...b, ...derived[i]! }] : []))
+    expect(pair.map((b) => b.order).sort()).toEqual([1, 2])
+    for (const bond of pair) expect(bond).toMatchObject({ displayOrder: 1.5, orderLabel: RESONANCE_ORDER_LABEL, sigmaPi: RESONANCE_SIGMA_PI })
   })
 })

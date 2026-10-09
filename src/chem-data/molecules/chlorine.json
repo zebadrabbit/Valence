@@ -1,0 +1,48 @@
+{
+  "id": "chlorine",
+  "name": "Chlorine (Cl₂)",
+  "formula": "Cl2",
+  "pubchemCid": 24526,
+  "topic": "basics",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "Cl",
+      "position": [
+        -1.0061,
+        0,
+        0
+      ],
+      "position2d": [
+        2,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "Cl",
+      "position": [
+        1.0061,
+        0,
+        0
+      ],
+      "position2d": [
+        3,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-24526"
+}

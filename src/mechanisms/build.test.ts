@@ -166,7 +166,7 @@ describe('buildKeyframes', () => {
 
   it('refuses an actor placed as the wrong element, a species the library has not, and the wrong number of actors', () => {
     expect(broken((c) => (at(c, 'beaker').place[0]!.atoms = ['c', 'o-acceptor', 'o-carbonyl', 'o-hydroxyl', 'h-hydroxyl']))).toThrow(/"c" is C, but is placed as O/)
-    expect(broken((c) => (at(c, 'beaker').place[0]!.species = 'carbonate'))).toThrow(/the library has no species "carbonate"/)
+    expect(broken((c) => (at(c, 'beaker').place[0]!.species = 'percarbonate'))).toThrow(/the library has no species "percarbonate"/)
     expect(broken((c) => at(c, 'beaker').place[0]!.atoms!.pop())).toThrow(/has 5 atoms, and 4 actors are given/)
   })
 

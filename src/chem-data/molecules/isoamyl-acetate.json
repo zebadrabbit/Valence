@@ -1,0 +1,472 @@
+{
+  "id": "isoamyl-acetate",
+  "name": "Isoamyl acetate",
+  "formula": "C7H14O2",
+  "pubchemCid": 31276,
+  "topic": "everyday",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        -1.206,
+        -0.6124,
+        -0.0538
+      ],
+      "position2d": [
+        5.4641,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -2.3197,
+        1.4034,
+        0.1284
+      ],
+      "position2d": [
+        6.3301,
+        -0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "C",
+      "position": [
+        2.5726,
+        -0.3644,
+        -0.0505
+      ],
+      "position2d": [
+        2.866,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.1612,
+        -0.9706,
+        -0.1083
+      ],
+      "position2d": [
+        3.7321,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.0451,
+        0.0624,
+        -0.0094
+      ],
+      "position2d": [
+        4.5981,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.7519,
+        0.6446,
+        -1.1874
+      ],
+      "position2d": [
+        2,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.8619,
+        0.3116,
+        1.2903
+      ],
+      "position2d": [
+        2.866,
+        -0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.3145,
+        0.1841,
+        0.025
+      ],
+      "position2d": [
+        6.3301,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -3.5525,
+        -0.6585,
+        -0.0343
+      ],
+      "position2d": [
+        7.1962,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.2942,
+        -1.1791,
+        -0.1892
+      ],
+      "position2d": [
+        2.866,
+        0.87
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.043,
+        -1.7084,
+        0.696
+      ],
+      "position2d": [
+        4.1306,
+        1.225
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.0403,
+        -1.5382,
+        -1.0403
+      ],
+      "position2d": [
+        3.3335,
+        1.225
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.1117,
+        0.6167,
+        0.9325
+      ],
+      "position2d": [
+        4.1996,
+        -0.2249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.0869,
+        0.7651,
+        -0.8476
+      ],
+      "position2d": [
+        4.9966,
+        -0.2249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.8032,
+        0.9458,
+        -1.2584
+      ],
+      "position2d": [
+        2.31,
+        1.2869
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.1673,
+        1.5572,
+        -1.0339
+      ],
+      "position2d": [
+        1.4631,
+        1.06
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.4697,
+        0.208,
+        -2.1512
+      ],
+      "position2d": [
+        1.69,
+        0.2131
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.2453,
+        1.2019,
+        1.4479
+      ],
+      "position2d": [
+        2.246,
+        -0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.9101,
+        0.6265,
+        1.3387
+      ],
+      "position2d": [
+        2.866,
+        -1.37
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.6839,
+        -0.3802,
+        2.1201
+      ],
+      "position2d": [
+        3.486,
+        -0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.5677,
+        -1.3542,
+        0.8084
+      ],
+      "position2d": [
+        7.5062,
+        0.2131
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.5864,
+        -1.2009,
+        -0.9825
+      ],
+      "position2d": [
+        7.7331,
+        1.06
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -4.4337,
+        -0.0137,
+        0.0301
+      ],
+      "position2d": [
+        6.8862,
+        1.2869
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 7,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 14,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 15,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 16,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 17,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 18,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 19,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 20,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 21,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 22,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "An ester with the smell of bananas.",
+    "One conformer of many."
+  ],
+  "sourceId": "pubchem-cid-31276"
+}

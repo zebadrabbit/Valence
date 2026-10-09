@@ -1,0 +1,91 @@
+{
+  "id": "carbonate",
+  "name": "Carbonate ion",
+  "formula": "CO3",
+  "pubchemCid": 19660,
+  "topic": "basics",
+  "charge": -2,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        1.0582,
+        0.7341,
+        0
+      ],
+      "position2d": [
+        2,
+        0.75
+      ],
+      "formalCharge": -1,
+      "lonePairs": 3
+    },
+    {
+      "element": "O",
+      "position": [
+        0.1068,
+        -1.2832,
+        0
+      ],
+      "position2d": [
+        2.866,
+        -0.75
+      ],
+      "formalCharge": -1,
+      "lonePairs": 3
+    },
+    {
+      "element": "O",
+      "position": [
+        -1.1649,
+        0.5491,
+        0
+      ],
+      "position2d": [
+        3.7321,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "C",
+      "position": [
+        0,
+        0,
+        0.0001
+      ],
+      "position2d": [
+        2.866,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 3,
+      "order": 1,
+      "aromatic": false,
+      "resonanceNote": "one of three equivalent resonance structures; effective order 1.33"
+    },
+    {
+      "a": 1,
+      "b": 3,
+      "order": 1,
+      "aromatic": false,
+      "resonanceNote": "one of three equivalent resonance structures; effective order 1.33"
+    },
+    {
+      "a": 2,
+      "b": 3,
+      "order": 2,
+      "aromatic": false,
+      "resonanceNote": "one of three equivalent resonance structures; effective order 1.33"
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-19660"
+}

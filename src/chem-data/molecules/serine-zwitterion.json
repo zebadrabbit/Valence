@@ -1,0 +1,296 @@
+{
+  "id": "serine-zwitterion",
+  "name": "L-Serine",
+  "formula": "HOCH2CH(NH3)COO",
+  "displayFormula": "HOCH2CH(NH3+)COO-",
+  "pubchemCid": 6857581,
+  "topic": "biomolecules",
+  "variantGroup": "serine",
+  "variantLabel": "Zwitterion",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        -1.7361,
+        1.3597,
+        -0.0666
+      ],
+      "position2d": [
+        4.269,
+        -1.19
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        1.2094,
+        0.2829,
+        1.2689
+      ],
+      "position2d": [
+        5.135,
+        0.31
+      ],
+      "formalCharge": -1,
+      "lonePairs": 3
+    },
+    {
+      "element": "O",
+      "position": [
+        1.6301,
+        0.7307,
+        -0.9284
+      ],
+      "position2d": [
+        4.269,
+        1.81
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "N",
+      "position": [
+        -0.1982,
+        -2.0146,
+        -0.0963
+      ],
+      "position2d": [
+        2.5369,
+        0.81
+      ],
+      "formalCharge": 1,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.2842,
+        -0.5491,
+        -0.3928
+      ],
+      "position2d": [
+        3.403,
+        0.31
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.5984,
+        -0.0334,
+        0.1855
+      ],
+      "position2d": [
+        3.403,
+        -0.69
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.9774,
+        0.2238,
+        0.0296
+      ],
+      "position2d": [
+        4.269,
+        0.81
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.3513,
+        -0.4899,
+        -1.487
+      ],
+      "position2d": [
+        3.403,
+        0.93
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.6334,
+        -0.1828,
+        1.2703
+      ],
+      "position2d": [
+        2.7924,
+        -0.5823
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.4531,
+        -0.5504,
+        -0.2643
+      ],
+      "position2d": [
+        3.1909,
+        -1.2726
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.1381,
+        -2.1915,
+        0.9154
+      ],
+      "position2d": [
+        2,
+        1.12
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.6343,
+        -2.433,
+        -0.5324
+      ],
+      "position2d": [
+        2.2269,
+        0.2731
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.0183,
+        -2.5229,
+        -0.4535
+      ],
+      "position2d": [
+        2.8469,
+        1.3469
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.5842,
+        1.6371,
+        0.3199
+      ],
+      "position2d": [
+        4.269,
+        -1.81
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 6,
+      "order": 1,
+      "aromatic": false,
+      "resonanceNote": "one of two equivalent resonance structures; effective order 1.5"
+    },
+    {
+      "a": 2,
+      "b": 6,
+      "order": 2,
+      "aromatic": false,
+      "resonanceNote": "one of two equivalent resonance structures; effective order 1.5"
+    },
+    {
+      "a": 3,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "The form found in water and in the solid; the model is a computed conformer."
+  ],
+  "sourceId": "pubchem-cid-6857581"
+}

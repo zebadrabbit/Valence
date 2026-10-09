@@ -1,0 +1,68 @@
+{
+  "id": "hydrogen-cyanide",
+  "name": "Hydrogen cyanide",
+  "formula": "HCN",
+  "pubchemCid": 768,
+  "topic": "basics",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "N",
+      "position": [
+        -0.58,
+        0,
+        0
+      ],
+      "position2d": [
+        2,
+        -0.405
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "C",
+      "position": [
+        0.58,
+        0,
+        0
+      ],
+      "position2d": [
+        2.866,
+        0.095
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.645,
+        0,
+        0
+      ],
+      "position2d": [
+        3.403,
+        0.405
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 3,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-768"
+}

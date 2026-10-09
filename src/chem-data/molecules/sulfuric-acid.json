@@ -1,0 +1,151 @@
+{
+  "id": "sulfuric-acid",
+  "name": "Sulfuric acid",
+  "formula": "H2SO4",
+  "pubchemCid": 1118,
+  "topic": "basics",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "S",
+      "position": [
+        0.0002,
+        -0.0002,
+        -0.1181
+      ],
+      "position2d": [
+        3.403,
+        0
+      ],
+      "formalCharge": 2,
+      "lonePairs": 0
+    },
+    {
+      "element": "O",
+      "position": [
+        1.2744,
+        0.0355,
+        0.8975
+      ],
+      "position2d": [
+        4.269,
+        0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -1.2765,
+        -0.0326,
+        0.8949
+      ],
+      "position2d": [
+        2.5369,
+        -0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -0.0336,
+        1.2577,
+        -0.8391
+      ],
+      "position2d": [
+        2.903,
+        0.866
+      ],
+      "formalCharge": -1,
+      "lonePairs": 3
+    },
+    {
+      "element": "O",
+      "position": [
+        0.0354,
+        -1.2604,
+        -0.8351
+      ],
+      "position2d": [
+        3.903,
+        -0.866
+      ],
+      "formalCharge": -1,
+      "lonePairs": 3
+    },
+    {
+      "element": "H",
+      "position": [
+        1.2111,
+        0.6912,
+        1.6312
+      ],
+      "position2d": [
+        4.8059,
+        0.19
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.2148,
+        -0.6859,
+        1.6307
+      ],
+      "position2d": [
+        2,
+        -0.19
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "Drawn in the octet-obeying form (four S–O single bonds, formal charges +2 on S and −1 on the two oxygens that carry no hydrogen), as sulfur dioxide is. Both drawings are in use: PubChem's record draws two S=O double bonds instead, which lowers the formal charges and gives sulfur more than eight electrons."
+  ],
+  "sourceId": "pubchem-cid-1118"
+}

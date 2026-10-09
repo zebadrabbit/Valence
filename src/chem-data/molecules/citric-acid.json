@@ -1,0 +1,431 @@
+{
+  "id": "citric-acid",
+  "name": "Citric acid",
+  "formula": "C6H8O7",
+  "pubchemCid": 311,
+  "topic": "biomolecules",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        0.0296,
+        0.2095,
+        1.6069
+      ],
+      "position2d": [
+        4.769,
+        -1.0005
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -0.8558,
+        1.7979,
+        -1.4962
+      ],
+      "position2d": [
+        6.001,
+        -0.1345
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -1.3554,
+        2.2689,
+        0.6622
+      ],
+      "position2d": [
+        5.135,
+        1.3655
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -2.3908,
+        -2.3046,
+        -0.7871
+      ],
+      "position2d": [
+        2.5369,
+        -2.1345
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        3.5351,
+        -0.4033,
+        -0.9273
+      ],
+      "position2d": [
+        2.269,
+        1.5976
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -2.5559,
+        -0.6265,
+        0.7317
+      ],
+      "position2d": [
+        4.269,
+        -2.1345
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        2.5438,
+        -1.1245,
+        0.9835
+      ],
+      "position2d": [
+        2.269,
+        -0.1345
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "C",
+      "position": [
+        0.1007,
+        0.362,
+        0.1941
+      ],
+      "position2d": [
+        4.269,
+        -0.1345
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.4905,
+        -0.8791,
+        -0.4971
+      ],
+      "position2d": [
+        3.403,
+        -0.6345
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.5374,
+        0.7096,
+        -0.2266
+      ],
+      "position2d": [
+        3.769,
+        0.7315
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.765,
+        1.5773,
+        -0.1587
+      ],
+      "position2d": [
+        5.135,
+        0.3655
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.9098,
+        -1.2305,
+        -0.1154
+      ],
+      "position2d": [
+        3.403,
+        -1.6345
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.5767,
+        -0.3568,
+        0.03
+      ],
+      "position2d": [
+        2.769,
+        0.7315
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.112,
+        -1.7555,
+        -0.2286
+      ],
+      "position2d": [
+        3.1909,
+        -0.0519
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.4574,
+        -0.7614,
+        -1.5866
+      ],
+      "position2d": [
+        2.7924,
+        -0.7422
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.8842,
+        1.608,
+        0.3
+      ],
+      "position2d": [
+        4.3516,
+        0.9436
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.5589,
+        0.9361,
+        -1.3004
+      ],
+      "position2d": [
+        3.6613,
+        1.3421
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.462,
+        0.9771,
+        2.0186
+      ],
+      "position2d": [
+        4.459,
+        -1.5375
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.4293,
+        2.5669,
+        -1.7015
+      ],
+      "position2d": [
+        6.538,
+        0.1755
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.3078,
+        -2.5252,
+        -0.5172
+      ],
+      "position2d": [
+        2,
+        -1.8245
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        4.1914,
+        -1.1116,
+        -0.7546
+      ],
+      "position2d": [
+        2.579,
+        2.1345
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 17,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 18,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 10,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 19,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 20,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 11,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 12,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 14,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 15,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 16,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "One conformer of many."
+  ],
+  "sourceId": "pubchem-cid-311"
+}

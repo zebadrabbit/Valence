@@ -1,0 +1,458 @@
+{
+  "id": "dopamine",
+  "name": "Dopamine",
+  "formula": "C8H11NO2",
+  "pubchemCid": 681,
+  "topic": "everyday",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        -2.2392,
+        1.9626,
+        0.0548
+      ],
+      "position2d": [
+        4.269,
+        2.405
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -3.3557,
+        -0.5612,
+        0.3868
+      ],
+      "position2d": [
+        2.5369,
+        1.405
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "N",
+      "position": [
+        4.4081,
+        0.2624,
+        0.3445
+      ],
+      "position2d": [
+        6.8671,
+        -2.095
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "C",
+      "position": [
+        2.1628,
+        -0.0212,
+        -0.6613
+      ],
+      "position2d": [
+        6.001,
+        -0.595
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.704,
+        -0.1603,
+        -0.385
+      ],
+      "position2d": [
+        5.135,
+        -0.095
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.9862,
+        0.1008,
+        0.6289
+      ],
+      "position2d": [
+        6.001,
+        -1.595
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.0999,
+        0.9759,
+        -0.2919
+      ],
+      "position2d": [
+        5.135,
+        0.905
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.1434,
+        -1.4267,
+        -0.2187
+      ],
+      "position2d": [
+        4.269,
+        -0.595
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.4642,
+        0.8456,
+        -0.0326
+      ],
+      "position2d": [
+        4.269,
+        1.405
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.2209,
+        -1.557,
+        0.0407
+      ],
+      "position2d": [
+        3.403,
+        -0.095
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.0247,
+        -0.4208,
+        0.1336
+      ],
+      "position2d": [
+        3.403,
+        0.905
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.5111,
+        -0.8817,
+        -1.2481
+      ],
+      "position2d": [
+        6.6116,
+        -0.7027
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.3332,
+        0.8564,
+        -1.2993
+      ],
+      "position2d": [
+        6.2131,
+        -0.0124
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.849,
+        -0.7888,
+        1.2541
+      ],
+      "position2d": [
+        5.3905,
+        -1.4873
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.6457,
+        0.9593,
+        1.2192
+      ],
+      "position2d": [
+        5.789,
+        -2.1776
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.3315,
+        1.9659,
+        -0.4187
+      ],
+      "position2d": [
+        5.672,
+        1.215
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.7594,
+        -2.3195,
+        -0.2869
+      ],
+      "position2d": [
+        4.269,
+        -1.215
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.6445,
+        -2.5496,
+        0.1686
+      ],
+      "position2d": [
+        2.866,
+        -0.405
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        4.5468,
+        1.0868,
+        -0.2388
+      ],
+      "position2d": [
+        6.8671,
+        -2.715
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        4.7362,
+        -0.5285,
+        -0.2089
+      ],
+      "position2d": [
+        7.404,
+        -1.785
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.1541,
+        1.6866,
+        0.2377
+      ],
+      "position2d": [
+        4.8059,
+        2.715
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.5639,
+        -1.5074,
+        0.4721
+      ],
+      "position2d": [
+        2,
+        1.095
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 20,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 21,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 18,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 19,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 6,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 4,
+      "b": 7,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 5,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 14,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 8,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 6,
+      "b": 15,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 9,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 7,
+      "b": 16,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 10,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 9,
+      "b": 10,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 9,
+      "b": 17,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "A neurotransmitter of the brain.",
+    "One conformer of many."
+  ],
+  "sourceId": "pubchem-cid-681"
+}

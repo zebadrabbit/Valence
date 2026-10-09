@@ -213,6 +213,11 @@ describe('lewisLayout', () => {
     expect(atoms.filter((a) => a.charge).map((a) => `${a.symbol}${a.charge!.text}`).sort()).toEqual(['N+', 'O−'])
   })
 
+  it('writes the charges of sulfate in the octet form: 2+ on the sulfur and − on each oxygen', () => {
+    const { atoms } = layoutOf('sulfate').layout
+    expect(atoms.map((a) => `${a.symbol}${a.charge?.text ?? ''}`).sort()).toEqual(['O−', 'O−', 'O−', 'O−', 'S2+'])
+  })
+
   it('keeps lone-pair dots and charges clear of the symbol and inside the view box, for every molecule', () => {
     for (const molecule of registry.molecules) {
       const { viewBox, atoms, bonds } = lewisLayout(molecule)
@@ -227,7 +232,8 @@ describe('lewisLayout', () => {
         expect(inside(atom.position)).toBe(true)
         // The circle round a charge touches neither the symbol nor the atom's own lone-pair dots.
         if (atom.charge) {
-          expect(['+', '−'], `${molecule.id} atom ${i}`).toContain(atom.charge.text)
+          // "2+" is the sulfur of sulfate, sulfuric acid and sulfur trioxide in the octet form; the view writes it smaller, in the same circle.
+          expect(['+', '−', '2+'], `${molecule.id} atom ${i}`).toContain(atom.charge.text)
           expect(distance(atom.charge.position, atom.position) - CHARGE_RADIUS, `${molecule.id} atom ${i}`).toBeGreaterThanOrEqual(atom.clear)
           for (const dot of atom.lonePairs.flat()) {
             expect(distance(dot, atom.charge.position), `${molecule.id} atom ${i}`).toBeGreaterThan(CHARGE_RADIUS + DOT_RADIUS)

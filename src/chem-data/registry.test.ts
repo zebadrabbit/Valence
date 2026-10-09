@@ -9,7 +9,8 @@ import { validateRegistry } from './validate'
 const local = import.meta.glob<string[]>('./denylist.local.json', { eager: true, import: 'default' })
 const institutionNames = Object.values(local).flat()
 
-// Spec 6.1: 31 library entries; glycine and alanine each have a neutral and a zwitterion file.
+// Spec 6.1: 101 library entries; glycine, alanine, serine and cysteine each have a neutral and a zwitterion file.
+// The first 33 structures, then the 72 added on 2026-10-09.
 const LIBRARY_IDS = [
   'acetamide',
   'acetic-acid',
@@ -44,15 +45,93 @@ const LIBRARY_IDS = [
   'urea',
   'water',
   'xenon-tetrafluoride',
-]
+  'acetaldehyde',
+  'acetaminophen',
+  'acetate',
+  'acetonitrile',
+  'adenine',
+  'adrenaline',
+  'ammonium',
+  'ascorbic-acid',
+  'aspartame',
+  'aspirin',
+  'benzaldehyde',
+  'beta-d-fructofuranose',
+  'butane',
+  'caffeine',
+  'capsaicin',
+  'carbon-monoxide',
+  'carbon-tetrachloride',
+  'carbonate',
+  'chlorine',
+  'chlorine-trifluoride',
+  'chloroform',
+  'cinnamaldehyde',
+  'citric-acid',
+  'cyclohexane',
+  'cysteine',
+  'cysteine-zwitterion',
+  'dichloromethane',
+  'diethyl-ether',
+  'dimethyl-ether',
+  'dopamine',
+  'formic-acid',
+  'geosmin',
+  'glycerol',
+  'hydrogen',
+  'hydrogen-cyanide',
+  'hydrogen-fluoride',
+  'hydrogen-sulfide',
+  'hydroxide',
+  'ibuprofen',
+  'indigo',
+  'isoamyl-acetate',
+  'isobutane',
+  'isooctane',
+  'lactic-acid',
+  'limonene',
+  'menthol',
+  'methanol',
+  'methyl-salicylate',
+  'nicotine',
+  'nitrate',
+  'nitric-acid',
+  'ozone',
+  'palmitic-acid',
+  'phenol',
+  'phosphate',
+  'phosphoric-acid',
+  'phosphorus-trichloride',
+  'propane',
+  'propene',
+  'serine',
+  'serine-zwitterion',
+  'serotonin',
+  'sucrose',
+  'sulfate',
+  'sulfur-tetrafluoride',
+  'sulfur-trioxide',
+  'sulfuric-acid',
+  'theobromine',
+  'thymine',
+  'toluene',
+  'vanillin',
+  'xenon-difluoride',
+].sort()
 
 describe('the real chem-data registry', () => {
   it('passes validation', () => {
     expect(validateRegistry(registry, { institutionNames })).toEqual([])
   })
 
-  it('contains exactly the 33 library structures', () => {
+  it('contains exactly the 105 library structures', () => {
+    expect(LIBRARY_IDS).toHaveLength(105)
     expect(registry.molecules.map((m) => m.id).sort()).toEqual(LIBRARY_IDS)
+  })
+
+  it('holds no molecule of more than about 60 atoms', () => {
+    const largest = registry.molecules.reduce((big, m) => (m.atoms.length > big.atoms.length ? m : big))
+    expect([largest.id, largest.atoms.length]).toEqual(['palmitic-acid', 50])
   })
 
   it('stores emission lines for hydrogen, sodium and xenon only, between 400 and 700 nm, longest first, in the digits NIST prints', () => {
@@ -134,10 +213,18 @@ describe('the real chem-data registry', () => {
       ['sulfur-hexafluoride Oh 180', 3],
       ['xenon-tetrafluoride D4h 90', 4],
       ['xenon-tetrafluoride D4h 180', 2],
+      ['xenon-difluoride D∞h 180', 1],
     ])
     // An angle that had to be measured carries no point group: that of water, ammonia, sulfur dioxide or hydrogen peroxide.
-    for (const id of ['water', 'ammonia', 'sulfur-dioxide', 'hydrogen-peroxide']) expect([id, cited.filter((entry) => entry.id === id && entry.symmetry !== undefined)]).toEqual([id, []])
+    // Nor do the 174.9° between the axial fluorines of ClF₃ and the 87.81° of SF₄, which follow from the other rows of
+    // their pages and not from the point group alone.
+    for (const id of ['water', 'ammonia', 'sulfur-dioxide', 'hydrogen-peroxide', 'chlorine-trifluoride', 'sulfur-tetrafluoride']) {
+      expect([id, cited.filter((entry) => entry.id === id && entry.symmetry !== undefined)]).toEqual([id, []])
+    }
     const published = (id: string) => [...new Set(cited.filter((entry) => entry.id === id).map((entry) => entry.published))]
+    expect(published('chlorine-trifluoride')).toEqual(['1.597', '1.697', '87.45', '174.9'])
+    expect(published('sulfur-tetrafluoride')).toEqual(['1.646', '1.545', '173.07', '101.55', '87.81'])
+    expect(published('hydrogen')).toEqual(['0.741'])
     expect(published('water')).toEqual(['0.958', '104.4776'])
     expect(published('hydrogen-peroxide')).toEqual(['1.475', '0.950', '94.8', '119.8'])
     expect(published('phosphorus-pentachloride')).toEqual(['2.124', '2.020', undefined])
@@ -151,14 +238,47 @@ describe('the real chem-data registry', () => {
       ['glycine-zwitterion', 'glycine', 'Zwitterion'],
       ['alanine', 'alanine', 'Neutral'],
       ['alanine-zwitterion', 'alanine', 'Zwitterion'],
+      ['serine', 'serine', 'Neutral'],
+      ['serine-zwitterion', 'serine', 'Zwitterion'],
+      ['cysteine', 'cysteine', 'Neutral'],
+      ['cysteine-zwitterion', 'cysteine', 'Zwitterion'],
     ])
   })
 
-  it('cites experimental geometry for the Basics and VSEPR groups and PubChem for the rest', () => {
+  it('cites experimental geometry for the first 13 of the Basics and VSEPR groups and for five added later, and PubChem for the rest', () => {
+    // Spec 5.2. The five: PubChem has no conformer for H₂, ClF₃ and XeF₂; its conformer of SF₄ is tetrahedral, and
+    // that of ozone has two different O–O lengths.
+    const experimental = registry.molecules.filter((m) => m.geometrySource === 'cited-experimental').map((m) => m.id)
+    expect(experimental).toEqual([
+      'water',
+      'carbon-dioxide',
+      'ammonia',
+      'methane',
+      'oxygen',
+      'nitrogen',
+      'hydrogen-chloride',
+      'hydrogen-peroxide',
+      'hydrogen',
+      'ozone',
+      'boron-trifluoride',
+      'sulfur-dioxide',
+      'sulfur-hexafluoride',
+      'xenon-tetrafluoride',
+      'phosphorus-pentachloride',
+      'sulfur-tetrafluoride',
+      'chlorine-trifluoride',
+      'xenon-difluoride',
+    ])
     for (const m of registry.molecules) {
-      const experimental = m.topic === 'basics' || m.topic === 'vsepr'
-      expect([m.id, m.geometrySource]).toEqual([m.id, experimental ? 'cited-experimental' : 'pubchem-computed'])
-      expect([m.id, m.measurements !== undefined]).toEqual([m.id, experimental])
+      expect([m.id, m.measurements !== undefined]).toEqual([m.id, experimental.includes(m.id)])
+      expect([m.id, m.sourceId.startsWith('cccbdb-')]).toEqual([m.id, experimental.includes(m.id)])
+    }
+  })
+
+  it('gives every molecule of the Everyday topic one note that says what it is', () => {
+    for (const m of registry.molecules.filter((m) => m.topic === 'everyday')) {
+      expect([m.id, m.notes?.length ?? 0]).toEqual([m.id, expect.any(Number)])
+      expect(m.notes?.[0], m.id).toMatch(/^[A-Z].*\.$/)
     }
   })
 

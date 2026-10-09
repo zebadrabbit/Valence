@@ -1,0 +1,108 @@
+{
+  "id": "carbon-tetrachloride",
+  "name": "Carbon tetrachloride",
+  "formula": "CCl4",
+  "pubchemCid": 5943,
+  "topic": "vsepr",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "Cl",
+      "position": [
+        0.7071,
+        1.2237,
+        -1.0849
+      ],
+      "position2d": [
+        3.7321,
+        0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "Cl",
+      "position": [
+        1.3068,
+        -0.9165,
+        0.7922
+      ],
+      "position2d": [
+        2,
+        -0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "Cl",
+      "position": [
+        -1.019,
+        -1.1147,
+        -0.9456
+      ],
+      "position2d": [
+        2.366,
+        0.866
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "Cl",
+      "position": [
+        -0.9949,
+        0.8076,
+        1.2378
+      ],
+      "position2d": [
+        3.366,
+        -0.866
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "C",
+      "position": [
+        0,
+        -0.0002,
+        0.0004
+      ],
+      "position2d": [
+        2.866,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-5943"
+}

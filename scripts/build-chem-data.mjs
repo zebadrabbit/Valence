@@ -68,11 +68,36 @@ const LIBRARY = [
   ['nitrogen', 947, 'Nitrogen (N₂)', 'N2', 'basics'],
   ['hydrogen-chloride', 313, 'Hydrogen chloride', 'HCl', 'basics'],
   ['hydrogen-peroxide', 784, 'Hydrogen peroxide', 'H2O2', 'basics'],
+  ['hydrogen', 783, 'Hydrogen (H₂)', 'H2', 'basics'],
+  ['chlorine', 24526, 'Chlorine (Cl₂)', 'Cl2', 'basics'],
+  ['hydrogen-fluoride', 14917, 'Hydrogen fluoride', 'HF', 'basics'],
+  ['carbon-monoxide', 281, 'Carbon monoxide', 'CO', 'basics'],
+  ['ozone', 24823, 'Ozone', 'O3', 'basics'],
+  ['hydrogen-sulfide', 402, 'Hydrogen sulfide', 'H2S', 'basics'],
+  ['hydrogen-cyanide', 768, 'Hydrogen cyanide', 'HCN', 'basics'],
+  ['nitric-acid', 944, 'Nitric acid', 'HNO3', 'basics'],
+  ['sulfuric-acid', 1118, 'Sulfuric acid', 'H2SO4', 'basics'],
+  ['phosphoric-acid', 1004, 'Phosphoric acid', 'H3PO4', 'basics'],
+  ['hydroxide', 961, 'Hydroxide ion', 'OH', 'basics'],
+  ['ammonium', 223, 'Ammonium ion', 'NH4', 'basics'],
+  ['nitrate', 943, 'Nitrate ion', 'NO3', 'basics'],
+  ['carbonate', 19660, 'Carbonate ion', 'CO3', 'basics'],
+  ['sulfate', 1117, 'Sulfate ion', 'SO4', 'basics'],
+  ['phosphate', 1061, 'Phosphate ion', 'PO4', 'basics'],
+  ['acetate', 175, 'Acetate ion', 'CH3COO', 'basics'],
   ['boron-trifluoride', 6356, 'Boron trifluoride', 'BF3', 'vsepr'],
   ['sulfur-dioxide', 1119, 'Sulfur dioxide', 'SO2', 'vsepr'],
   ['sulfur-hexafluoride', 17358, 'Sulfur hexafluoride', 'SF6', 'vsepr'],
   ['xenon-tetrafluoride', 123324, 'Xenon tetrafluoride', 'XeF4', 'vsepr'],
   ['phosphorus-pentachloride', 24819, 'Phosphorus pentachloride', 'PCl5', 'vsepr'],
+  ['sulfur-trioxide', 24682, 'Sulfur trioxide', 'SO3', 'vsepr'],
+  ['phosphorus-trichloride', 24387, 'Phosphorus trichloride', 'PCl3', 'vsepr'],
+  ['carbon-tetrachloride', 5943, 'Carbon tetrachloride', 'CCl4', 'vsepr'],
+  ['dichloromethane', 6344, 'Dichloromethane', 'CH2Cl2', 'vsepr'],
+  ['chloroform', 6212, 'Chloroform', 'CHCl3', 'vsepr'],
+  ['sulfur-tetrafluoride', 24555, 'Sulfur tetrafluoride', 'SF4', 'vsepr'],
+  ['chlorine-trifluoride', 24637, 'Chlorine trifluoride', 'ClF3', 'vsepr'],
+  ['xenon-difluoride', 83674, 'Xenon difluoride', 'XeF2', 'vsepr'],
   ['ethane', 6324, 'Ethane', 'C2H6', 'organic'],
   ['ethene', 6325, 'Ethene', 'C2H4', 'organic'],
   ['ethyne', 6326, 'Ethyne', 'C2H2', 'organic'],
@@ -84,19 +109,74 @@ const LIBRARY = [
   ['ethyl-acetate', 8857, 'Ethyl acetate', 'CH3COOC2H5', 'organic'],
   ['acetamide', 178, 'Acetamide', 'CH3CONH2', 'organic'],
   ['benzene', 241, 'Benzene', 'C6H6', 'organic'],
+  ['methanol', 887, 'Methanol', 'CH3OH', 'organic'],
+  ['dimethyl-ether', 8254, 'Dimethyl ether', 'CH3OCH3', 'organic'],
+  ['propane', 6334, 'Propane', 'C3H8', 'organic'],
+  ['butane', 7843, 'Butane', 'CH3CH2CH2CH3', 'organic'],
+  ['isobutane', 6360, '2-Methylpropane (isobutane)', 'CH(CH3)3', 'organic'],
+  ['cyclohexane', 8078, 'Cyclohexane', 'C6H12', 'organic'],
+  ['propene', 8252, 'Propene', 'C3H6', 'organic'],
+  ['acetaldehyde', 177, 'Acetaldehyde', 'CH3CHO', 'organic'],
+  ['formic-acid', 284, 'Formic acid', 'HCOOH', 'organic'],
+  ['toluene', 1140, 'Toluene', 'C6H5CH3', 'organic'],
+  ['phenol', 996, 'Phenol', 'C6H5OH', 'organic'],
+  ['acetonitrile', 6342, 'Acetonitrile', 'CH3CN', 'organic'],
+  ['diethyl-ether', 3283, 'Diethyl ether', 'C2H5OC2H5', 'organic'],
   ['beta-d-glucopyranose', 64689, 'β-D-Glucopyranose', 'C6H12O6', 'biomolecules'],
   ['glycine', 750, 'Glycine', 'NH2CH2COOH', 'biomolecules'],
   ['glycine-zwitterion', 5257127, 'Glycine', 'NH3CH2COO', 'biomolecules'],
   ['alanine', 5950, 'L-Alanine', 'CH3CH(NH2)COOH', 'biomolecules'],
   ['alanine-zwitterion', 7311724, 'L-Alanine', 'CH3CH(NH3)COO', 'biomolecules'],
   ['urea', 1176, 'Urea', 'CO(NH2)2', 'biomolecules'],
+  ['glycerol', 753, 'Glycerol', 'C3H5(OH)3', 'biomolecules'],
+  ['lactic-acid', 107689, 'L-Lactic acid', 'CH3CH(OH)COOH', 'biomolecules'],
+  ['citric-acid', 311, 'Citric acid', 'C6H8O7', 'biomolecules'],
+  ['serine', 5951, 'L-Serine', 'HOCH2CH(NH2)COOH', 'biomolecules'],
+  ['serine-zwitterion', 6857581, 'L-Serine', 'HOCH2CH(NH3)COO', 'biomolecules'],
+  ['cysteine', 5862, 'L-Cysteine', 'HSCH2CH(NH2)COOH', 'biomolecules'],
+  ['cysteine-zwitterion', 6419722, 'L-Cysteine', 'HSCH2CH(NH3)COO', 'biomolecules'],
+  ['adenine', 190, 'Adenine', 'C5H5N5', 'biomolecules'],
+  ['thymine', 1135, 'Thymine', 'C5H6N2O2', 'biomolecules'],
+  ['beta-d-fructofuranose', 439709, 'Fructose (β-D-fructofuranose)', 'C6H12O6', 'biomolecules'],
+  ['sucrose', 5988, 'Sucrose', 'C12H22O11', 'biomolecules'],
+  ['palmitic-acid', 985, 'Palmitic acid', 'CH3(CH2)14COOH', 'biomolecules'],
+  ['caffeine', 2519, 'Caffeine', 'C8H10N4O2', 'everyday'],
+  ['aspirin', 2244, 'Aspirin (acetylsalicylic acid)', 'C9H8O4', 'everyday'],
+  ['acetaminophen', 1983, 'Acetaminophen (paracetamol)', 'C8H9NO2', 'everyday'],
+  ['ibuprofen', 3672, 'Ibuprofen', 'C13H18O2', 'everyday'],
+  ['vanillin', 1183, 'Vanillin', 'C8H8O3', 'everyday'],
+  ['menthol', 16666, 'Menthol', 'C10H20O', 'everyday'],
+  ['limonene', 440917, 'Limonene', 'C10H16', 'everyday'],
+  ['capsaicin', 1548943, 'Capsaicin', 'C18H27NO3', 'everyday'],
+  ['cinnamaldehyde', 637511, 'Cinnamaldehyde', 'C9H8O', 'everyday'],
+  ['ascorbic-acid', 54670067, 'Ascorbic acid (vitamin C)', 'C6H8O6', 'everyday'],
+  ['theobromine', 5429, 'Theobromine', 'C7H8N4O2', 'everyday'],
+  ['nicotine', 89594, 'Nicotine', 'C10H14N2', 'everyday'],
+  ['isoamyl-acetate', 31276, 'Isoamyl acetate', 'C7H14O2', 'everyday'],
+  ['methyl-salicylate', 4133, 'Methyl salicylate', 'C8H8O3', 'everyday'],
+  ['benzaldehyde', 240, 'Benzaldehyde', 'C6H5CHO', 'everyday'],
+  ['geosmin', 29746, 'Geosmin', 'C12H22O', 'everyday'],
+  ['dopamine', 681, 'Dopamine', 'C8H11NO2', 'everyday'],
+  ['serotonin', 5202, 'Serotonin', 'C10H12N2O', 'everyday'],
+  ['adrenaline', 5816, 'Adrenaline (epinephrine)', 'C9H13NO3', 'everyday'],
+  ['indigo', 5318432, 'Indigo', 'C16H10N2O2', 'everyday'],
+  ['isooctane', 10907, '2,2,4-Trimethylpentane (isooctane)', '(CH3)3CCH2CH(CH3)2', 'everyday'],
+  ['aspartame', 134601, 'Aspartame', 'C14H18N2O5', 'everyday'],
   ['hydronium', 123332, 'Hydronium ion', 'H3O', 'mechanism'],
   ['bicarbonate', 769, 'Bicarbonate ion', 'HCO3', 'mechanism'],
   ['carbonic-acid', 767, 'Carbonic acid', 'H2CO3', 'mechanism'],
 ]
 
-// The Basics and VSEPR groups use cited experimental geometry; the rest use PubChem 3D.
+// Where a molecule's coordinates come from (spec 5.2). The first 13 of the Basics and VSEPR groups use cited
+// experimental geometry and every other molecule of the first 33 its PubChem 3D conformer. A molecule added
+// later (its pubchem.json entry has its own retrieval date) uses its PubChem conformer, and cited experimental
+// geometry only where PubChem has none, or where the conformer does not have the molecule's shape: those are
+// named here with the reason, which docs/research/phase-2/README.md gives in full.
 const EXPERIMENTAL_TOPICS = new Set(['basics', 'vsepr'])
+const CONFORMER_NOT_USED = {
+  ozone: 'the two O–O bonds of the computed conformer differ by 0.2 Å, and the real ones are equal',
+  'sulfur-tetrafluoride': 'the computed conformer is tetrahedral, not a seesaw',
+}
 
 // id -> [variantGroup, variantLabel]
 const VARIANTS = {
@@ -104,6 +184,10 @@ const VARIANTS = {
   'glycine-zwitterion': ['glycine', 'Zwitterion'],
   alanine: ['alanine', 'Neutral'],
   'alanine-zwitterion': ['alanine', 'Zwitterion'],
+  serine: ['serine', 'Neutral'],
+  'serine-zwitterion': ['serine', 'Zwitterion'],
+  cysteine: ['cysteine', 'Neutral'],
+  'cysteine-zwitterion': ['cysteine', 'Zwitterion'],
 }
 
 // A zwitterion's net charge is zero, so its formula alone would hide the two charges.
@@ -111,10 +195,18 @@ const VARIANTS = {
 const DISPLAY_FORMULAS = {
   'glycine-zwitterion': '+NH3CH2COO-',
   'alanine-zwitterion': 'CH3CH(NH3+)COO-',
+  'serine-zwitterion': 'HOCH2CH(NH3+)COO-',
+  'cysteine-zwitterion': 'HSCH2CH(NH3+)COO-',
 }
+
+// 33 in the first library (spec 6.1) and the 72 added on 2026-10-09.
+const STRUCTURES = 105
 
 const CONFORMER = 'One conformer of many.'
 const ZWITTERION = 'The form found in water and in the solid; the model is a computed conformer.'
+/** The note of a molecule stored in the octet-obeying form where PubChem's record draws an expanded valence shell. */
+const octetNote = (drawn, pubchemDraws, centre, kind = '') =>
+  `Drawn in the octet-obeying ${kind}form (${drawn}), as sulfur dioxide is. Both drawings are in use: PubChem's record draws ${pubchemDraws} instead, which lowers the formal charges and gives ${centre} more than eight electrons.`
 const NOTES = {
   'phosphorus-pentachloride': ['Gas-phase structure. The axial and equatorial P–Cl bond lengths differ.'],
   'hydrogen-peroxide': [
@@ -128,18 +220,104 @@ const NOTES = {
   ],
   'glycine-zwitterion': [ZWITTERION],
   'alanine-zwitterion': [ZWITTERION],
+  'serine-zwitterion': [ZWITTERION],
+  'cysteine-zwitterion': [ZWITTERION],
+  // What NIST's page for each prints, read on 2026-10-09 (docs/research/phase-2/README.md).
+  'nitric-acid': [
+    'The two N–O bonds to the oxygens that carry no hydrogen are close to equal in the real molecule, not equal: NIST lists 1.199 Å and 1.211 Å.',
+  ],
+  'sulfur-tetrafluoride': ['Gas-phase structure. The axial S–F bonds are longer than the equatorial ones.'],
+  'chlorine-trifluoride': ['Gas-phase structure. The two axial Cl–F bonds are longer than the equatorial one.'],
+  // Drawn as sulfur dioxide is (spec 6.1). PubChem's record of each was read for how it draws it.
+  'sulfur-trioxide': [octetNote('one S=O and two S–O, formal charges +2 on S and −1 on two O', 'three S=O double bonds', 'sulfur', 'resonance ')],
+  sulfate: [octetNote('four S–O single bonds, formal charges +2 on S and −1 on each O', 'two S=O double bonds', 'sulfur')],
+  phosphate: [octetNote('four P–O single bonds, formal charges +1 on P and −1 on each O', 'one P=O double bond', 'phosphorus')],
+  'sulfuric-acid': [
+    octetNote('four S–O single bonds, formal charges +2 on S and −1 on the two oxygens that carry no hydrogen', 'two S=O double bonds', 'sulfur'),
+  ],
+  'phosphoric-acid': [
+    octetNote('four P–O single bonds, formal charges +1 on P and −1 on the oxygen that carries no hydrogen', 'one P=O double bond', 'phosphorus'),
+  ],
+  // One sentence that says what each molecule of the Everyday topic is, written from what its PubChem record
+  // says: docs/research/phase-2/notes.json holds, for each, where in the record it was read and what was found there.
+  caffeine: ['The stimulant in coffee and tea.'],
+  aspirin: ['A medicine for pain, fever and inflammation.'],
+  acetaminophen: ['A medicine for pain and fever.'],
+  ibuprofen: ['An anti-inflammatory medicine, also used against pain and fever.'],
+  vanillin: ['A flavouring with the smell of vanilla.'],
+  menthol: ['The form of menthol most common in nature; it smells of peppermint.'],
+  limonene: ['A plant compound with the smell of citrus.'],
+  capsaicin: ['The compound that gives chili peppers their heat.'],
+  cinnamaldehyde: ['A flavouring with the smell of cinnamon.'],
+  'ascorbic-acid': ['Vitamin C, also added to food as an antioxidant.'],
+  theobromine: ['An alkaloid of the cacao plant, found in chocolate.'],
+  nicotine: ['The form of nicotine found in nature, in the tobacco plant.'],
+  'isoamyl-acetate': ['An ester with the smell of bananas.'],
+  'methyl-salicylate': ['An ester with the smell of wintergreen, used as a flavouring.'],
+  benzaldehyde: ['A flavouring and fragrance with the smell of bitter almonds.'],
+  geosmin: ['A compound with an earthy smell.'],
+  dopamine: ['A neurotransmitter of the brain.'],
+  serotonin: ['A neurotransmitter found in the human body.'],
+  adrenaline: ['The "fight or flight" hormone, made by the adrenal glands.'],
+  indigo: ['A dye. PubChem keeps that name on another record, CID 10215, which draws another form of the same molecule.'],
+  isooctane: ['Used in finding the octane number of a fuel.'],
+  aspartame: ['An artificial sweetener.'],
   ethanol: [CONFORMER],
   'beta-d-glucopyranose': [CONFORMER],
   'ethyl-acetate': [CONFORMER],
 }
 
-// In these structures the two bonds to a terminal oxygen (an oxygen with one
-// bond) are the resonance pair: one drawn double, one drawn single.
-const RESONANCE_NOTE = 'one of two equivalent resonance structures; effective order 1.5'
-const RESONANCE_PAIR = new Set(['sulfur-dioxide', 'glycine-zwitterion', 'alanine-zwitterion', 'bicarbonate'])
+// In these structures the bonds to the terminal oxygens (the oxygens with one bond) are a resonance set, of
+// two or of three: one of them drawn double, the rest drawn single.
+const RESONANCE_NOTES = {
+  2: 'one of two equivalent resonance structures; effective order 1.5',
+  3: 'one of three equivalent resonance structures; effective order 1.33',
+}
+const RESONANCE_SET = {
+  'sulfur-dioxide': 2,
+  'glycine-zwitterion': 2,
+  'alanine-zwitterion': 2,
+  'serine-zwitterion': 2,
+  'cysteine-zwitterion': 2,
+  bicarbonate: 2,
+  ozone: 2,
+  'nitric-acid': 2,
+  acetate: 2,
+  nitrate: 3,
+  carbonate: 3,
+  'sulfur-trioxide': 3,
+}
 
-// In these structures every carbon-carbon bond is aromatic.
-const AROMATIC_RING = { benzene: 6 }
+// How many benzene rings each of these structures has: a ring of six carbons drawn with alternating double and
+// single bonds. Every bond of such a ring is aromatic, and no other bond is.
+// ponytail: a benzene ring only. A ring that holds nitrogen (the pyridine ring of nicotine, the rings of adenine,
+// caffeine and theobromine, the five-membered ring of serotonin) is aromatic too and is stored as drawn, because
+// "order 1.5" is the textbook statement for benzene and not for those. Flag them when the bond card can say
+// something truer of them than 1.5.
+const BENZENE_RINGS = {
+  benzene: 1,
+  toluene: 1,
+  phenol: 1,
+  aspirin: 1,
+  acetaminophen: 1,
+  ibuprofen: 1,
+  vanillin: 1,
+  capsaicin: 1,
+  cinnamaldehyde: 1,
+  'methyl-salicylate': 1,
+  benzaldehyde: 1,
+  dopamine: 1,
+  serotonin: 1,
+  adrenaline: 1,
+  indigo: 2,
+  aspartame: 1,
+}
+
+// PubChem draws these with S=O or P=O double bonds and more than eight electrons on the central atom. They are
+// stored in the octet-obeying form, as sulfur dioxide is (spec 6.1): every double bond from the sulfur or
+// phosphorus atom to a terminal oxygen beyond the number kept here is drawn single, its oxygen takes a formal
+// charge of -1 and the central atom +1 for each.
+const OCTET_FORM = { 'sulfur-trioxide': 1, sulfate: 0, phosphate: 0, 'sulfuric-acid': 0, 'phosphoric-acid': 0 }
 
 // Sulfur dioxide is stored in the octet resonance form (spec 6.1), not the
 // two-double-bond form of the research file. Atom order is S, O, O.
@@ -175,6 +353,25 @@ const DRAWINGS = {
       [0, 0],
       [1, 0],
       [-1, 0],
+    ],
+  },
+  // Xenon difluoride: PubChem draws it bent. Here it is straight, as carbon dioxide is.
+  'xenon-difluoride': {
+    atoms: 'Xe,F,F',
+    positions: [
+      [0, 0],
+      [1, 0],
+      [-1, 0],
+    ],
+  },
+  // Phosphorus trichloride: PubChem draws a flat Y. Here it is drawn as ammonia is, with the top left for the lone pair.
+  'phosphorus-trichloride': {
+    atoms: 'Cl,Cl,Cl,P',
+    positions: [
+      [-1, 0],
+      [1, 0],
+      [0, -1],
+      [0, 0],
     ],
   },
 }
@@ -370,7 +567,8 @@ const elementList = (m) => m.atoms.map((a) => a.element).join(',')
 
 /** Atoms as { element, position, formalCharge }, bonds as { a, b, order }, and each atom's index in the 2D record. */
 function experimentalStructure(id, geo, drawing) {
-  const atoms = geo.atoms.map((a) => ({ element: a.element, position: [a.x, a.y, a.z], formalCharge: 0 }))
+  // A formal charge in the research file is authored structure, given only where it is not zero (ozone).
+  const atoms = geo.atoms.map((a) => ({ element: a.element, position: [a.x, a.y, a.z], formalCharge: a.formalCharge ?? 0 }))
   const bonds = geo.bondList.map(({ a, b, order }) => ({ a, b, order }))
   if (id === 'sulfur-dioxide') {
     if (elementList({ atoms }) !== SO2.atoms || bondTable({ bonds }) !== SO2.bonds) {
@@ -445,6 +643,43 @@ function cccbdbSource(id, geo) {
   return { id: `cccbdb-${id}`, url: [...urls][0], citation }
 }
 
+/** Rewrites a structure named in OCTET_FORM to its octet-obeying form, in place. */
+function toOctetForm(id, { atoms, bonds }) {
+  const centres = atoms.flatMap((a, i) => (a.element === 'S' || a.element === 'P' ? [i] : []))
+  if (centres.length !== 1) fail(`${id}: expected one sulfur or phosphorus atom`)
+  const [centre] = centres
+  const far = (bond) => (bond.a === centre ? bond.b : bond.a)
+  const degree = (i) => bonds.filter((b) => b.a === i || b.b === i).length
+  const doubles = bonds.filter((b) => b.order === 2 && (b.a === centre || b.b === centre) && atoms[far(b)].element === 'O' && degree(far(b)) === 1)
+  if (doubles.length <= OCTET_FORM[id]) fail(`${id}: no double bond from the central atom to rewrite`)
+  for (const bond of doubles.slice(OCTET_FORM[id])) {
+    bond.order = 1
+    atoms[far(bond)].formalCharge -= 1
+    atoms[centre].formalCharge += 1
+  }
+}
+
+/** The bonds of every benzene ring of a structure, one list per ring: six carbons joined in a ring by alternating double and single bonds. */
+function benzeneRings({ atoms, bonds }) {
+  const isCarbon = (i) => atoms[i].element === 'C'
+  const carbonBonds = (i) => bonds.filter((b) => (b.a === i || b.b === i) && isCarbon(b.a) && isCarbon(b.b))
+  // A ring is found from each of its atoms in both directions, so rings are kept by their sorted atoms.
+  const rings = new Map()
+  const extend = (path, used) => {
+    const last = path.at(-1)
+    for (const bond of carbonBonds(last)) {
+      if (used.includes(bond)) continue
+      const next = bond.a === last ? bond.b : bond.a
+      if (used.length === 5 && next === path[0]) {
+        const ring = [...used, bond]
+        if (ring.every((b, k) => b.order === (k % 2 === 0 ? ring[0].order : 3 - ring[0].order))) rings.set([...path].sort((p, q) => p - q).join(), ring)
+      } else if (used.length < 5 && !path.includes(next)) extend([...path, next], [...used, bond])
+    }
+  }
+  atoms.forEach((_, i) => isCarbon(i) && extend([i], []))
+  return [...rings.values()]
+}
+
 function pubchemSource(cid, entry, pattern, retrieved) {
   if (!pattern.includes('<cid>')) fail('pubchem.json: perRecordCitationPattern has no <cid>')
   const wording = pattern.replace(/ \(or [^)]*\)$/, '').replaceAll('<cid>', String(cid))
@@ -493,17 +728,21 @@ function buildMolecules(elements) {
   const sources = []
   const molecules = LIBRARY.map(([id, cid, name, formula, topic]) => {
     const entry = pubchem.entries.find((e) => e.cid === cid) ?? fail(`${id}: no pubchem.json entry for CID ${cid}`)
+    if (entry.id !== id && entry.retrieved !== undefined) fail(`${id}: its pubchem.json entry is named "${entry.id}"`)
     const drawing = readSdf(entry.id, '2d')
-    const isExperimental = EXPERIMENTAL_TOPICS.has(topic)
     const geo = geometry.find((g) => g.pubchemCid === cid)
-    if (isExperimental !== (geo !== undefined)) fail(`${id}: topic "${topic}" and geometry.json disagree`)
+    const isExperimental = geo !== undefined
+    // See EXPERIMENTAL_TOPICS for the rule; an entry of the first 33 has no retrieval date of its own.
+    const wantExperimental = entry.retrieved === undefined ? EXPERIMENTAL_TOPICS.has(topic) : !entry.has3d || id in CONFORMER_NOT_USED
+    if (isExperimental !== wantExperimental) fail(`${id}: geometry.json ${geo ? 'holds' : 'does not hold'} it, against the rule for where its coordinates come from`)
+    if (id in CONFORMER_NOT_USED && !entry.has3d) fail(`${id}: named as a conformer that is not used, but PubChem has none`)
 
-    const source = isExperimental ? cccbdbSource(id, geo) : pubchemSource(cid, entry, pubchem.perRecordCitationPattern, pubchem.retrieved)
+    const source = isExperimental ? cccbdbSource(id, geo) : pubchemSource(cid, entry, pubchem.perRecordCitationPattern, entry.retrieved ?? pubchem.retrieved)
     sources.push(source)
-    if (!isExperimental && !entry.has3d) fail(`${id}: PubChem has no 3D record`)
     const structure = isExperimental
       ? experimentalStructure(id, geo, drawing)
       : pubchemStructure(id, readSdf(entry.id, '3d'), drawing)
+    if (id in OCTET_FORM) toOctetForm(id, structure)
 
     const degree = structure.atoms.map(() => 0)
     const orderSum = structure.atoms.map(() => 0)
@@ -531,19 +770,22 @@ function buildMolecules(elements) {
     })
 
     const isTerminalO = (i) => elementOf(i) === 'O' && degree[i] === 1
+    const rings = benzeneRings(structure)
+    if (rings.length !== (BENZENE_RINGS[id] ?? 0)) fail(`${id}: found ${rings.length} benzene rings, expected ${BENZENE_RINGS[id] ?? 0}`)
+    const ringBonds = new Set(rings.flat())
     const bonds = structure.bonds.map((bond) => ({
       a: bond.a,
       b: bond.b,
       order: bond.order,
-      aromatic: id in AROMATIC_RING && elementOf(bond.a) === 'C' && elementOf(bond.b) === 'C',
-      ...(RESONANCE_PAIR.has(id) && (isTerminalO(bond.a) || isTerminalO(bond.b)) ? { resonanceNote: RESONANCE_NOTE } : {}),
+      aromatic: ringBonds.has(bond),
+      ...(id in RESONANCE_SET && (isTerminalO(bond.a) || isTerminalO(bond.b)) ? { resonanceNote: RESONANCE_NOTES[RESONANCE_SET[id]] } : {}),
     }))
     const noted = bonds.filter((b) => b.resonanceNote)
-    if (RESONANCE_PAIR.has(id) && noted.map((b) => b.order).sort().join() !== '1,2') {
-      fail(`${id}: expected one single and one double bond in the resonance pair`)
-    }
-    if (id in AROMATIC_RING && bonds.filter((b) => b.aromatic).length !== AROMATIC_RING[id]) {
-      fail(`${id}: expected ${AROMATIC_RING[id]} aromatic bonds`)
+    if (id in RESONANCE_SET) {
+      const centres = noted.flatMap((b) => [b.a, b.b]).filter((i) => !isTerminalO(i))
+      if (noted.map((b) => b.order).sort().join() !== (RESONANCE_SET[id] === 2 ? '1,2' : '1,1,2') || new Set(centres).size !== 1) {
+        fail(`${id}: expected a resonance set of ${RESONANCE_SET[id]} bonds from one atom, one of them double`)
+      }
     }
 
     const written = formulaElements(formula)
@@ -569,6 +811,11 @@ function buildMolecules(elements) {
     }
 
     const variant = VARIANTS[id]
+    // A molecule added after the first 33 says that its model is one conformer of many where PubChem lists more
+    // than one conformer for its record. (Of the first 33, the three that say so are named in NOTES.)
+    const oneOfMany = entry.retrieved !== undefined && !isExperimental && entry.conformerCount3D > 1 && !NOTES[id]?.includes(ZWITTERION)
+    const notes = [...(NOTES[id] ?? []), ...(oneOfMany ? [CONFORMER] : [])]
+    if (topic === 'everyday' && !NOTES[id]) fail(`${id}: a molecule of the Everyday topic needs the sentence that says what it is`)
     return {
       id,
       name,
@@ -582,15 +829,15 @@ function buildMolecules(elements) {
       bonds,
       geometrySource: isExperimental ? 'cited-experimental' : 'pubchem-computed',
       ...(isExperimental ? { measurements: measurements(id, geo, source.id) } : {}),
-      ...(NOTES[id] ? { notes: NOTES[id] } : {}),
+      ...(notes.length > 0 ? { notes } : {}),
       sourceId: source.id,
     }
   })
 
-  for (const id of [...Object.keys(VARIANTS), ...Object.keys(DISPLAY_FORMULAS), ...Object.keys(NOTES), ...Object.keys(DRAWINGS), ...RESONANCE_PAIR, ...Object.keys(AROMATIC_RING)]) {
+  for (const id of [VARIANTS, DISPLAY_FORMULAS, NOTES, DRAWINGS, RESONANCE_SET, BENZENE_RINGS, OCTET_FORM, CONFORMER_NOT_USED].flatMap(Object.keys)) {
     if (!molecules.some((m) => m.id === id)) fail(`an authored table names "${id}", which is not in the library`)
   }
-  if (molecules.length !== 33) fail(`expected 33 structures, built ${molecules.length}`)
+  if (molecules.length !== STRUCTURES) fail(`expected ${STRUCTURES} structures, built ${molecules.length}`)
   return { molecules, sources }
 }
 

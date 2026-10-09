@@ -1,0 +1,291 @@
+{
+  "id": "butane",
+  "name": "Butane",
+  "formula": "CH3CH2CH2CH3",
+  "pubchemCid": 7843,
+  "topic": "organic",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "C",
+      "position": [
+        -0.563,
+        0.516,
+        0.0071
+      ],
+      "position2d": [
+        2.866,
+        -0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.563,
+        -0.5159,
+        0.0071
+      ],
+      "position2d": [
+        3.7321,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.9293,
+        -0.1506,
+        -0.0071
+      ],
+      "position2d": [
+        2,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.9294,
+        0.1505,
+        -0.0071
+      ],
+      "position2d": [
+        4.5981,
+        -0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.4724,
+        1.1666,
+        -0.8706
+      ],
+      "position2d": [
+        2.4675,
+        -0.7249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.4825,
+        1.1551,
+        0.894
+      ],
+      "position2d": [
+        3.2646,
+        -0.7249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.4825,
+        -1.1551,
+        0.894
+      ],
+      "position2d": [
+        4.1306,
+        0.7249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.4723,
+        -1.1665,
+        -0.8706
+      ],
+      "position2d": [
+        3.3335,
+        0.7249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.0542,
+        -0.771,
+        -0.9003
+      ],
+      "position2d": [
+        2.31,
+        0.7869
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.0651,
+        -0.7856,
+        0.8742
+      ],
+      "position2d": [
+        1.4631,
+        0.56
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.7203,
+        0.606,
+        -0.0058
+      ],
+      "position2d": [
+        1.69,
+        -0.2869
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.0542,
+        0.7709,
+        -0.9003
+      ],
+      "position2d": [
+        4.2881,
+        -0.7869
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.7202,
+        -0.6062,
+        -0.0059
+      ],
+      "position2d": [
+        5.135,
+        -0.56
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.0652,
+        0.7854,
+        0.8743
+      ],
+      "position2d": [
+        4.9081,
+        0.2869
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "One conformer of many."
+  ],
+  "sourceId": "pubchem-cid-7843"
+}

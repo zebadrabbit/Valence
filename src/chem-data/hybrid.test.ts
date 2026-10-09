@@ -57,6 +57,21 @@ describe('hybridLobes', () => {
     expect(lobesOf('ammonia', 'N')!.note).toBeUndefined()
   })
 
+  it('names what the lone pair is shared with where that is not a C=O', () => {
+    // The ring N–H of indigo is next to a benzene ring and to the C=C that joins the two halves, and to no C=O.
+    expect(lobesOf('indigo', 'N')!.note).toBe(
+      'The lone pair of this nitrogen is in a p orbital at right angles to the plane of its bonds, delocalised into the neighbouring aromatic ring. It is not a hybrid orbital, so it has no lobe.',
+    )
+    // Every overridden nitrogen of the library names something, and an amide names its C=O.
+    for (const molecule of registry.molecules) {
+      deriveAtoms(molecule, elements).forEach((derived, i) => {
+        if (!derived.resonanceOverride) return
+        expect(hybridLobes(molecule, i, elements)!.note, `${molecule.id} atom ${i}`).toMatch(/delocalised into the neighbouring (C=O|C=C|C=N|aromatic ring)\. /)
+      })
+    }
+    expect(lobesOf('acetaminophen', 'N')!.note).toBe(DELOCALISED_PAIR_NOTE)
+  })
+
   it('draws lobes for every sp, sp² and sp³ atom in the library and for no other, one per electron domain', () => {
     const drawn = [HYBRIDIZATION[2], HYBRIDIZATION[3], HYBRIDIZATION[4]]
     for (const molecule of registry.molecules) {

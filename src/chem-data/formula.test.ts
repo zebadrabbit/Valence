@@ -44,10 +44,12 @@ describe('formulaParts', () => {
 })
 
 describe('display formulas', () => {
-  it('are authored for the two zwitterions only', () => {
+  it('are authored for the four zwitterions only', () => {
     expect(registry.molecules.filter((m) => m.displayFormula).map((m) => [m.id, m.displayFormula])).toEqual([
       ['glycine-zwitterion', '+NH3CH2COO-'],
       ['alanine-zwitterion', 'CH3CH(NH3+)COO-'],
+      ['serine-zwitterion', 'HOCH2CH(NH3+)COO-'],
+      ['cysteine-zwitterion', 'HSCH2CH(NH3+)COO-'],
     ])
   })
 })

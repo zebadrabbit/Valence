@@ -1,0 +1,148 @@
+{
+  "id": "acetaldehyde",
+  "name": "Acetaldehyde",
+  "formula": "CH3CHO",
+  "pubchemCid": 177,
+  "topic": "organic",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        1.1443,
+        0.2412,
+        0
+      ],
+      "position2d": [
+        3.7321,
+        0.56
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.2574,
+        0.1815,
+        0
+      ],
+      "position2d": [
+        2,
+        0.56
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.113,
+        -0.4226,
+        0
+      ],
+      "position2d": [
+        2.866,
+        0.06
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.7938,
+        -0.1493,
+        0.8924
+      ],
+      "position2d": [
+        2.31,
+        1.0969
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.1865,
+        1.2719,
+        0.0016
+      ],
+      "position2d": [
+        1.4631,
+        0.87
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.7928,
+        -0.1468,
+        -0.8938
+      ],
+      "position2d": [
+        1.69,
+        0.0231
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.1478,
+        -1.5252,
+        -0.0007
+      ],
+      "position2d": [
+        2.866,
+        -0.56
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 2,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-177"
+}

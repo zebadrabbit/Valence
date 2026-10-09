@@ -1,0 +1,443 @@
+{
+  "id": "theobromine",
+  "name": "Theobromine",
+  "formula": "C7H8N4O2",
+  "pubchemCid": 5429,
+  "topic": "everyday",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        1.0169,
+        2.5593,
+        0.0007
+      ],
+      "position2d": [
+        3.7321,
+        2
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -3.2233,
+        0.7239,
+        0.0003
+      ],
+      "position2d": [
+        2,
+        -1
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "N",
+      "position": [
+        2.0485,
+        -0.2897,
+        -0.0002
+      ],
+      "position2d": [
+        5.5443,
+        0.8047
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "N",
+      "position": [
+        -1.4263,
+        -0.7738,
+        -0.0001
+      ],
+      "position2d": [
+        3.7321,
+        -1
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "N",
+      "position": [
+        -1.0941,
+        1.6022,
+        -0.0002
+      ],
+      "position2d": [
+        2.866,
+        0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "N",
+      "position": [
+        0.6813,
+        -2.0534,
+        0.0002
+      ],
+      "position2d": [
+        5.5443,
+        -0.8047
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "C",
+      "position": [
+        0.7793,
+        0.211,
+        0
+      ],
+      "position2d": [
+        4.5981,
+        0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.0389,
+        -0.8897,
+        0.0003
+      ],
+      "position2d": [
+        4.5981,
+        -0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.3079,
+        1.5577,
+        -0.0005
+      ],
+      "position2d": [
+        3.7321,
+        1
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.0066,
+        0.5172,
+        -0.0004
+      ],
+      "position2d": [
+        2.866,
+        -0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.9378,
+        -1.657,
+        0
+      ],
+      "position2d": [
+        6.1279,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.2674,
+        -1.9623,
+        0
+      ],
+      "position2d": [
+        3.7321,
+        -2
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        3.2847,
+        0.4546,
+        -0.0001
+      ],
+      "position2d": [
+        5.855,
+        1.7553
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.8008,
+        -2.3089,
+        0.0001
+      ],
+      "position2d": [
+        6.7479,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.51,
+        2.5297,
+        0.0001
+      ],
+      "position2d": [
+        2.3291,
+        0.81
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.0485,
+        -2.5526,
+        0.895
+      ],
+      "position2d": [
+        3.1121,
+        -2
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.0476,
+        -2.5534,
+        -0.8943
+      ],
+      "position2d": [
+        3.7321,
+        -2.62
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.3287,
+        -1.7011,
+        -0.0007
+      ],
+      "position2d": [
+        4.3521,
+        -2
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.3153,
+        1.0747,
+        -0.8993
+      ],
+      "position2d": [
+        6.4443,
+        1.5626
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.3154,
+        1.0741,
+        0.8995
+      ],
+      "position2d": [
+        6.0476,
+        2.3446
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        4.1291,
+        -0.2394,
+        -0.0004
+      ],
+      "position2d": [
+        5.2656,
+        1.9479
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 8,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 9,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 14,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 10,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 7,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 10,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 11,
+      "b": 15,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 11,
+      "b": 16,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 11,
+      "b": 17,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 18,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 19,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 20,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "An alkaloid of the cacao plant, found in chocolate."
+  ],
+  "sourceId": "pubchem-cid-5429"
+}

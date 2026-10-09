@@ -7,22 +7,39 @@ const byId = (id: string) => registry.molecules.find((m) => m.id === id)!
 describe('libraryGroups', () => {
   const groups = libraryGroups(registry.molecules)
 
-  it('has the five topic headings of spec 6.1 with 8, 5, 11, 4 and 3 entries', () => {
+  it('has the six topic headings of spec 6.1 with 25, 13, 24, 14, 22 and 3 entries', () => {
     expect(groups.map((g) => [g.label, g.entries.length])).toEqual([
-      ['Basics', 8],
-      ['VSEPR showcase', 5],
-      ['Organic functional groups', 11],
-      ['Biomolecules', 4],
+      ['Basics', 25],
+      ['VSEPR showcase', 13],
+      ['Organic functional groups', 24],
+      ['Biomolecules', 14],
+      ['Everyday molecules', 22],
       ['Mechanism species', 3],
     ])
   })
 
-  it('lists glycine and alanine once each, by their neutral file', () => {
-    expect(groups[3]!.entries.map((m) => m.id)).toEqual(['beta-d-glucopyranose', 'glycine', 'alanine', 'urea'])
+  it('lists each amino acid once, by its neutral file', () => {
+    expect(groups[3]!.entries.map((m) => m.id)).toEqual([
+      'beta-d-glucopyranose',
+      'glycine',
+      'alanine',
+      'urea',
+      'glycerol',
+      'lactic-acid',
+      'citric-acid',
+      'serine',
+      'cysteine',
+      'adenine',
+      'thymine',
+      'beta-d-fructofuranose',
+      'sucrose',
+      'palmitic-acid',
+    ])
   })
 
   it('keeps file order within a topic', () => {
-    expect(groups[4]!.entries.map((m) => m.id)).toEqual(['hydronium', 'bicarbonate', 'carbonic-acid'])
+    expect(groups[5]!.entries.map((m) => m.id)).toEqual(['hydronium', 'bicarbonate', 'carbonic-acid'])
+    expect(groups[0]!.entries.slice(0, 10).map((m) => m.id)).toEqual(['water', 'carbon-dioxide', 'ammonia', 'methane', 'oxygen', 'nitrogen', 'hydrogen-chloride', 'hydrogen-peroxide', 'hydrogen', 'chlorine'])
   })
 })
 
@@ -48,6 +65,7 @@ describe('labels and links', () => {
   it('labels every topic', () => {
     expect(TOPICS.map((t) => t.id).sort()).toEqual([...new Set(registry.molecules.map((m) => m.topic))].sort())
     expect(topicLabel('vsepr')).toBe('VSEPR showcase')
+    expect(topicLabel('everyday')).toBe('Everyday molecules')
   })
 
   it('links a molecule to its PubChem compound page', () => {
