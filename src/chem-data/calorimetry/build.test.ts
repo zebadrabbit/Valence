@@ -165,7 +165,7 @@ describe('checkSupported, on this record', () => {
 
   it("lets a reagent's look and name rest on a sheet its hazards cite, and on no other sheet", () => {
     const record = merged()
-    ;(record.reagents[3] as { appearance: { sourceId: string } }).appearance.sourceId = 'flinn-sds-416.5'
+    ;(record.reagents[3] as unknown as { appearance: { sourceId: string } }).appearance.sourceId = 'flinn-sds-416.5'
     expect(() => checkSupported(record, sources, sheets)).toThrow(/reagents\[aluminium-piece\]\.appearance: unknown source "flinn-sds-416.5"/)
   })
 })
@@ -182,7 +182,7 @@ describe('the sources the lab adds', () => {
     const added = newSources(sheets, [...before, ...own], 'calorimetry hazard-manifest.json')
     expect(added.some((s) => s.id === 'flinn-sds-61' || s.id === 'flinn-sds-395')).toBe(false)
     // Of the documents of the hazard manifests, the app lists those a reagent's hazards cite.
-    const cited = new Set(stored.reagents.flatMap(({ hazards: { sourceId, note } }) => [sourceId, note.sourceId, ...('alsoSourceId' in note ? [note.alsoSourceId] : []), ...('moreSourceIds' in note ? note.moreSourceIds : [])]))
+    const cited = new Set(stored.reagents.flatMap(({ hazards: { sourceId, note } }: { hazards: Entry['hazards'] }) => [sourceId, note.sourceId, ...(note.alsoSourceId === undefined ? [] : [note.alsoSourceId]), ...(note.moreSourceIds ?? [])]))
     const ids = [...own, ...added.filter((sheet) => cited.has(sheet.id))].map((s) => s.id)
     expect(new Set(ids).size).toBe(ids.length)
     const from = allSources.findIndex((s) => s.id === ids[0])

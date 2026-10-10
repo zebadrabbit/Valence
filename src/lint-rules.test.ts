@@ -194,6 +194,11 @@ describe('architecture lint rules', () => {
     ['../../../engine/flame/state', 'src/app/lab/flame/x.tsx'],
     ['@/engine/flame/loop', 'src/app/lab/flame/messages.test.ts'],
     ['@/engine/flame/testkit', 'src/app/lab/flame/x.tsx'],
+    // The calorimetry engine below its index holds which metal the piece is, the readings still to come and the value a result is held to.
+    ['@/engine/calorimetry/setup', 'src/app/lab/calorimetry/messages.ts'],
+    ['../../../engine/calorimetry/cup', 'src/app/lab/calorimetry/x.tsx'],
+    ['@/engine/calorimetry/state', 'src/app/lab/calorimetry/messages.test.ts'],
+    ['@/engine/calorimetry/testkit', 'src/app/lab/calorimetry/x.tsx'],
   ])('rejects importing %s in %s', async (source, filePath) => {
     expect(await ruleIds(`import * as m from "${source}"\nexport const v = m\n`, filePath)).toEqual(['no-restricted-imports'])
     // A type import is refused too: the types below the index describe the hidden values.
@@ -210,6 +215,8 @@ describe('architecture lint rules', () => {
     ['@/engine/aqueous/testkit', 'src/app/lab/aqueous/messages.test.ts'],
     ['@/engine/flame', 'src/app/lab/flame/messages.ts'],
     ['@/engine/flame/testkit', 'src/app/lab/flame/messages.test.ts'],
+    ['@/engine/calorimetry', 'src/app/lab/calorimetry/messages.ts'],
+    ['@/engine/calorimetry/testkit', 'src/app/lab/calorimetry/messages.test.ts'],
     // Another folder whose name ends the same way is not the engine's.
     ['@/app/lab/titration/benchView', 'src/app/pages/x.tsx'],
     ['./titration/benchView', 'src/app/lab/x.tsx'],

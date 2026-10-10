@@ -13,6 +13,7 @@ export const ENTRY = {
   titration: 'lab:titration',
   aqueous: 'lab:aqueous',
   flame: 'lab:flame',
+  calorimetry: 'lab:calorimetry',
   mechanism: 'mechanism:hcl-nahco3',
 } as const
 

@@ -565,7 +565,7 @@
     },
     "lossLidOnPpm": {
       "value": 5000,
-      "rationale": "Of the difference between the cup's temperature and the room's, the share lost in one 15-second step with the lid on, in parts per million: 0.5%, which is 2% a minute. A cup 7 °C above the room then cools by about a tenth of a degree a minute, so the drift back shows on the logger within a few presses, and a careful run reads 0.5% to 3% low."
+      "rationale": "Of the difference between the cup's temperature and the room's, the share lost in one 15-second step with the lid on, in parts per million: 0.5%, which is 2% a minute. A cup 7 °C above the room then cools by about a tenth of a degree a minute, so the drift back shows on the logger within a few presses, and a careful run reads between 0.4% and 3.1% low."
     },
     "lossLidOffPpm": {
       "value": 40000,
@@ -605,7 +605,7 @@
     },
     "tolerancePercent": {
       "value": 5,
-      "rationale": "A run counts when its result is within 5% of the stored figure, the edge included. A careful run is 0.5% to 3% low, from the heat the cup loses before the peak and from reading the temperature to 0.1 °C, which on the smallest rise, tin's 4 °C, is over 1% by itself. Each technique error alone puts a run 8% or more low. The tolerance sits between the two, and it is under half the gap between iron and zinc, the closest pair of the four metals, so a result within it is never nearer to the wrong metal."
+      "rationale": "A run counts when its result is within 5% of the stored figure, the edge included. A careful run is between 0.4% and 3.1% low, from the heat the cup loses before the peak and from reading the temperature to 0.1 °C, which on the smallest rise, tin's 4 °C, is over 1% by itself. Each technique error alone puts a run 8% or more low. The tolerance sits between the two, and it is under half the gap between iron and zinc, the closest pair of the four metals, so a result within it is never nearer to the wrong metal."
     }
   }
 }
