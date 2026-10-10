@@ -46,8 +46,10 @@ export function axesOf(readings: readonly number[], stepSeconds: number): Axes {
   return { steps, low, high, degreeMark, timeMark: markFor(steps / perMinute, 6, [1, 2, 5, 10, 20]) * perMinute }
 }
 
+/** How far in from the temperature axis the first reading is drawn, so that its point does not lie on the axis's line and numbers. */
+const INSET = 10
 /** Where a step of the logger is across the picture. */
-export const xOf = (axes: Axes, step: number): number => GRAPH.left + (step / axes.steps) * PLOT.wide
+export const xOf = (axes: Axes, step: number): number => GRAPH.left + INSET + (step / axes.steps) * (PLOT.wide - INSET)
 /** Where a temperature, in tenths of a degree, is down the picture. */
 export const yOf = (axes: Axes, tenths: number): number => GRAPH.top + PLOT.tall - ((tenths - axes.low) / (axes.high - axes.low)) * PLOT.tall
 

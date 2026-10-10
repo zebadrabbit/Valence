@@ -213,10 +213,12 @@ function Run({ data, m, sources, part, mode, view, shown, reducedMotion, can, wa
     if (!graph.looked.includes(step) && can(action) === null) act(action)
     sayOfLook(pointCallout(m, step, graph.readings[step]!))
   }
-  /** A button of the cup: one that names a step already taken carries a tick and is not drawn faint. */
-  const step = (action: Action, label: string, ref?: Ref<HTMLButtonElement>, onClick = () => press(action)) => {
+  /**
+   * A button of the cup. One that names a step already taken carries a tick and is not drawn faint, for as long as
+   * the run is shown: whatever else holds the cup by then, the ticks say how this run's cup was worked.
+   */
+  const step = (action: Action, label: string, taken: boolean, ref?: Ref<HTMLButtonElement>, onClick = () => press(action)) => {
     const blocked = can(action)
-    const taken = blocked === 'already-done'
     return (
       <Control ref={ref} unavailable={blocked !== null} dimmed={blocked !== null && !taken} variant={taken ? 'secondary' : 'outline'} className="min-h-11 px-4" onClick={onClick}>
         <span>
@@ -285,10 +287,10 @@ function Run({ data, m, sources, part, mode, view, shown, reducedMotion, can, wa
           </p>
         </div>
         <div className="flex flex-wrap gap-1.5">
-          {step({ type: 'putLidOn', part }, BENCH_TEXT.lid, lidRef)}
-          {step({ type: 'stir', part }, BENCH_TEXT.stir, stirRef)}
-          {step({ type: 'startLogger', part }, BENCH_TEXT.logger)}
-          {step(change, CHANGE_LABEL[part], changeRef, changePressed)}
+          {step({ type: 'putLidOn', part }, BENCH_TEXT.lid, cup.lidOn, lidRef)}
+          {step({ type: 'stir', part }, BENCH_TEXT.stir, cup.stirring, stirRef)}
+          {step({ type: 'startLogger', part }, BENCH_TEXT.logger, cup.loggerStarted)}
+          {step(change, CHANGE_LABEL[part], cup.changeStarted, changeRef, changePressed)}
         </div>
         {warned && warn(change).length > 0 && (
           <WarningGroup
@@ -314,7 +316,7 @@ function Run({ data, m, sources, part, mode, view, shown, reducedMotion, can, wa
         <Step heading={BENCH_TEXT.graph}>
           {/* Time passes here, beside the picture it adds to, and not in the cup's card: a press shows in the graph and nowhere else. */}
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
-            {step({ type: 'runOn', part }, BENCH_TEXT.runOn, undefined, () => pressRunOn())}
+            {step({ type: 'runOn', part }, BENCH_TEXT.runOn, false, undefined, pressRunOn)}
             <p className="max-w-prose flex-1 basis-48 text-muted-foreground">{BENCH_TEXT.runOnHelp(m)}</p>
           </div>
           <Line said={graphSaid} />
@@ -365,18 +367,20 @@ function Run({ data, m, sources, part, mode, view, shown, reducedMotion, can, wa
               </p>
             )}
           </div>
-          <Control
-            unavailable={can(again) !== null}
-            className="min-h-11 px-4"
-            onClick={() => {
-              const blocked = can(again)
-              if (blocked !== null) return sayOfOutcome(blockedText(part, blocked), true)
-              onRunAgain()
-            }}
-          >
-            {BENCH_TEXT.runAgain}
-          </Control>
-          <p className="max-w-prose text-muted-foreground">{BENCH_TEXT.runAgainHelp}</p>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+            <Control
+              unavailable={can(again) !== null}
+              className="min-h-11 px-4"
+              onClick={() => {
+                const blocked = can(again)
+                if (blocked !== null) return sayOfOutcome(blockedText(part, blocked), true)
+                onRunAgain()
+              }}
+            >
+              {BENCH_TEXT.runAgain}
+            </Control>
+            <p className="max-w-prose flex-1 basis-48 text-muted-foreground">{BENCH_TEXT.runAgainHelp}</p>
+          </div>
           <Line said={outcomeSaid} />
           {/* Once a run of the part counts and not before, and closed: the figure the result was held to, and what the record says of it. */}
           {expected !== null && (

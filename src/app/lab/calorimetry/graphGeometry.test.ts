@@ -44,8 +44,8 @@ describe('the axes', () => {
 describe('where a reading is drawn', () => {
   const axes = axesOf(CURVE, SECONDS)
 
-  it('puts time along the plot from its left edge and temperature up it from its foot, every reading inside the plot', () => {
-    expect(xOf(axes, 0)).toBe(PLOT_EDGE.left)
+  it('puts time along the plot from just inside its left edge, so that the first point is off the axis, and temperature up it from its foot, every reading inside the plot', () => {
+    expect(xOf(axes, 0)).toBe(PLOT_EDGE.left + 10)
     expect(xOf(axes, axes.steps)).toBe(PLOT_EDGE.right)
     expect(yOf(axes, axes.low)).toBe(PLOT_EDGE.bottom)
     expect(yOf(axes, axes.high)).toBe(PLOT_EDGE.top)
@@ -83,13 +83,11 @@ describe("the readings' buttons", () => {
   })
 
   it('are a finger wide where the picture is at its narrowest for as long as the run is two minutes or less, and narrower after: the two buttons under the graph are for those', () => {
-    const wide = (count: number) => {
-      const axes = axesOf(level(count), SECONDS)
-      const [, second] = columns(count, axes)
-      return second!.to - second!.from
-    }
+    /** The narrowest column of a run of so many readings. */
+    const wide = (count: number) => Math.min(...columns(count, axesOf(level(count), SECONDS)).map((area) => area.to - area.from))
     // 447 px is what the narrowest window that shows a bench leaves the picture.
     expect((wide(8) * 447) / GRAPH.width).toBeGreaterThanOrEqual(44)
+    expect((wide(1) * 447) / GRAPH.width).toBeGreaterThanOrEqual(44)
     expect((wide(9) * 447) / GRAPH.width).toBeLessThan(44)
   })
 })

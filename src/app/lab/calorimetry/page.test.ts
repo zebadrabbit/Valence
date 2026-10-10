@@ -821,7 +821,7 @@ describe('a run whose worksheet is checked', () => {
     const again = button(outcome, BENCH_TEXT.runAgain)!
     expect(again.tag).toContain('min-h-11')
     expect(again.tag).not.toContain('aria-disabled')
-    expect(outcome).toContain(`<p class="max-w-prose text-muted-foreground">${BENCH_TEXT.runAgainHelp}</p>`)
+    expect(outcome).toContain(`<p class="max-w-prose flex-1 basis-48 text-muted-foreground">${BENCH_TEXT.runAgainHelp}</p>`)
     expect(can(m, state, { type: 'runAgain', part: ONE })).toBeNull()
   })
 
@@ -890,10 +890,14 @@ describe('a lab that is complete', () => {
 
   it('leaves every button of the cup, Run on and "Run this part again" focusable and unavailable, the graph to be looked at, and the worksheet to be read', () => {
     const { part } = bench(state, TWO)
-    for (const name of [BENCH_TEXT.lid, BENCH_TEXT.stir, BENCH_TEXT.logger, CHANGE_LABEL[TWO], BENCH_TEXT.runOn, BENCH_TEXT.runAgain]) {
+    // The steps of the cup that were taken keep their ticks, which say how the run's cup was worked.
+    for (const name of [`✓ ${BENCH_TEXT.lid}`, `✓ ${BENCH_TEXT.stir}`, `✓ ${BENCH_TEXT.logger}`, `✓ ${CHANGE_LABEL[TWO]}`, BENCH_TEXT.runOn, BENCH_TEXT.runAgain]) {
       expect(button(part, name)!.tag, name).toContain('aria-disabled="true"')
       expect(button(part, name)!.tag, name).not.toContain(' disabled=""')
     }
+    // A run made without the lid shows it: no tick on that step, whatever else holds the cup by then.
+    const careless = card(bench(wholeRun(m, fresh('challenge'), ONE, { lid: false }), ONE).part, BENCH_TEXT.cup)
+    expect(buttons(careless).map((one) => one.name)).toEqual([BENCH_TEXT.lid, `✓ ${BENCH_TEXT.stir}`, `✓ ${BENCH_TEXT.logger}`, `✓ ${CHANGE_LABEL[ONE]}`])
     expect(points(card(part, BENCH_TEXT.graph)).length).toBe(view(state, TWO).graph.readings.length)
     expect(card(part, BENCH_TEXT.notebook)).not.toContain('<input')
   })
