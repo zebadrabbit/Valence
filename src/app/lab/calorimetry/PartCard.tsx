@@ -29,6 +29,7 @@ import {
   describeGraph,
   expectedText,
   metalHazardsHeading,
+  notebookLines,
   outcomeText,
   partNotes,
   partTitle,
@@ -94,12 +95,12 @@ function MetalTile({ metal, sources }: { metal: Reagent; sources: readonly Sourc
 
 /**
  * One part of the lab: its head, then one run of it as a column of cards (Run), and its Sources. The head
- * says which run this is and how far the part has come, what the part finds (in Challenge once the part is done,
- * and not before), and that the part is done once a run of it counts. A new run of the part is a new column: nothing typed or said in the one before is carried over,
- * and its heading takes focus.
+ * says which run this is and how far the part has come, what the part finds, in both modes, and that the part is
+ * done once a run of it counts. A new run of the part is a new column: nothing typed or said in the one before is
+ * carried over, and its heading takes focus.
  */
 export function PartCard(props: PartCardProps) {
-  const { data, sources, part, mode, view, can, act, headingRef } = props
+  const { data, sources, part, view, can, act, headingRef } = props
   const headingId = useId()
   const placeId = useId()
   const heading = useRef<HTMLHeadingElement | null>(null)
@@ -128,8 +129,8 @@ export function PartCard(props: PartCardProps) {
         >
           {partTitle(data, part)}
         </h2>
-        {/* What the part finds says which way the heat goes, which is an entry of the worksheets of parts 1 and 2: Challenge is shown it once the part is done. */}
-        {(mode === 'guided' || view.done) && <p className="max-w-prose text-sm">{PART_AIM[part]}</p>}
+        {/* What the part finds, in both modes: the sentence does not say which way the heat goes, which is an entry of the worksheets of parts 1 and 2. */}
+        <p className="max-w-prose text-sm">{PART_AIM[part]}</p>
         {/* Always there, and empty until the part is done, so that a screen reader says it when it comes. */}
         <p role="status" className="text-sm font-medium">
           {view.done && <Marked mark="✓" done>{BENCH_TEXT.done}</Marked>}
@@ -144,7 +145,10 @@ export function PartCard(props: PartCardProps) {
           heading.current?.focus()
         }}
       />
-      <Sources citations={cited} derived={SOURCES_TEXT} />
+      {/* A little room under it: the closed disclosure's hit area reaches 12 px under its line, and that of Previous, in the row below, 4 px over its own. */}
+      <div className="pb-1">
+        <Sources citations={cited} derived={SOURCES_TEXT} />
+      </div>
     </section>
   )
 }
@@ -200,7 +204,11 @@ function Run({ data, m, sources, part, mode, view, shown, reducedMotion, can, wa
     say('')
     act(action)
   }
-  const pressRunOn = () => press({ type: 'runOn', part }, sayOfGraph)
+  const pressRunOn = () => {
+    // A logger that is full with no curve to read has no worksheet to send the learner to.
+    if (can({ type: 'runOn', part }) === 'logger-full' && !graph.turned) return sayOfGraph(BENCH_TEXT.spent, true)
+    press({ type: 'runOn', part }, sayOfGraph)
+  }
   const changePressed = () => {
     if (can(change) !== null || warn(change).length === 0) return press(change)
     sayOfCup('')
@@ -338,6 +346,11 @@ function Run({ data, m, sources, part, mode, view, shown, reducedMotion, can, wa
         <Step heading={BENCH_TEXT.notebook}>
           {/* One calculator on the page: a part that is not the one shown has none, so that no panel floats over the page with no button of its own in view. */}
           {shown && <Calculator />}
+          {/* What the entries are worked from, said again here: the bench's own card is more than a screen up the page by now. */}
+          <div className="grid w-full max-w-[75ch] gap-1 rounded-md border px-3 py-2">
+            <p className="text-xs font-medium text-muted-foreground">{BENCH_TEXT.fromBench}</p>
+            <Listed items={notebookLines(data, part, bench)} />
+          </div>
           <Worksheet
             data={data}
             part={part}
@@ -358,13 +371,14 @@ function Run({ data, m, sources, part, mode, view, shown, reducedMotion, can, wa
 
       {(over || view.done || (can(again) === null && (cup.changeStarted || graph.full))) && (
         <Step heading={PAGE_TEXT.outcome}>
-          <div ref={outcomeRef} tabIndex={-1} className="grid max-w-prose gap-2 rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring">
+          {/* Room about the words, taken back from the card's own, so that the ring that shows where focus went does not hug them. */}
+          <div ref={outcomeRef} tabIndex={-1} className="-mx-2 -my-1 grid max-w-prose gap-2 rounded-md px-2 py-1 outline-none focus-visible:ring-2 focus-visible:ring-ring">
             {view.outcome.state === 'open' ? (
               <p className="text-muted-foreground">{RECORD_TEXT.open}</p>
             ) : (
               <p>
                 <Mark ok={view.outcome.state === 'counts'} />
-                {outcomeText(m, view.outcome)}
+                {outcomeText(m, view.outcome, can(again) !== 'lab-completed')}
               </p>
             )}
           </div>

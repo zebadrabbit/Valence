@@ -133,12 +133,16 @@ function TypedEntry({ data, part, entry, label, guided, enter }: EntryProps) {
  */
 function ChoiceEntry({ data, part, entry, label, guided, enter }: EntryProps) {
   const { field, value, verdict } = entry
+  // An entry that a change to one above it has emptied is asked afresh: a form of its own, with nothing chosen and nothing said of the choice that went.
+  const [asked, setAsked] = useState({ made: value !== null, times: 0 })
+  if (asked.made !== (value !== null)) setAsked({ made: value !== null, times: asked.times + (value === null ? 1 : 0) })
   const choices = field === 'direction' ? (['out', 'in'] as const).map((direction) => ({ value: direction, label: DIRECTION_LABEL[direction] })) : metalChoices(data)
   // A choice that is made and not judged is drawn as one that needs no change: disabled, and with nothing said of it.
   const found = verdict === null ? { wrong: [], text: '' } : { wrong: verdict.follows ? [] : [field], text: verdict.follows ? VERDICT_TEXT.follows : entryFeedback(part, field, verdict) }
   return (
     <div className="grid justify-items-start gap-1.5">
       <ChoiceForm
+        key={asked.times}
         questions={[{ id: field, label, choices, waits: null }]}
         recorded={typeof value === 'string' ? { [field]: value } : null}
         judged={value === null ? null : found}
@@ -204,7 +208,8 @@ export interface WorksheetProps {
 export function Worksheet({ data, part, mode, entries, graph, enter, checkBlocked, onCheck }: WorksheetProps) {
   const [said, say] = useSaid()
   const closedBy = entries[0]!.blocked
-  if (closedBy === 'change-not-started' || closedBy === 'not-turned') return <p className={`max-w-prose ${ROLE.held}`}>{blockedText(part, closedBy)}</p>
+  // Where the logger is full and the curve has not turned, there is no running on to wait for.
+  if (closedBy === 'change-not-started' || closedBy === 'not-turned') return <p className={`max-w-prose ${ROLE.held}`}>{graph.full ? BENCH_TEXT.spent : blockedText(part, closedBy)}</p>
   const over = closedBy === 'run-over' || closedBy === 'lab-completed'
   const waiting = entries.findIndex((entry) => entry.value === null)
   const guided = mode === 'guided'
