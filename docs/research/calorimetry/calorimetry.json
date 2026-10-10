@@ -269,7 +269,7 @@
       },
       "notes": [
         {
-          "value": "The stored figure for this part is −57.7 kJ for each mole of water formed: the heat given out when the acid and the base of this part are mixed at about this strength, worked out from a table of enthalpies of formation. The minus sign says that the reaction gives heat out. For solutions so dilute that more water would change nothing, the same table gives −55.8 kJ/mol, which is the figure many books print. Any strong acid with any strong base gives close to the same figure, because the reaction is the same one each time: a hydrogen ion and a hydroxide ion make a molecule of water.",
+          "value": "The stored figure for this part is −57.7 kJ for each mole of water formed: the heat given out when the acid and the base of this part are mixed at about this strength, worked out from a table of enthalpies of formation. The minus sign says that the reaction gives heat out. For solutions so dilute that more water would change nothing, the same table gives −55.8 kJ/mol. Any strong acid with any strong base gives close to the same figure, because the reaction is the same one each time: a hydrogen ion and a hydroxide ion make a molecule of water.",
           "sourceId": "nbs-tables-1982",
           "alsoSourceId": "chemguide-enthalpy-neutralisation"
         },
@@ -364,7 +364,7 @@
       },
       "notes": [
         {
-          "value": "The stored figure for this part is +24.4 kJ for each mole of ammonium nitrate: the heat taken in when a mole of the solid dissolves in about fifty moles of water, which is close to the strength made here, worked out from a table of enthalpies of formation. The plus sign says that dissolving takes heat in. The heat comes out of the water, which is why the cup gets cold. For a solution so dilute that more water would change nothing, the same table gives +25.7 kJ/mol, which is the figure handbooks usually print.",
+          "value": "The stored figure for this part is +24.4 kJ for each mole of ammonium nitrate: the heat taken in when a mole of the solid dissolves in about fifty moles of water, which is close to the strength made here, worked out from a table of enthalpies of formation. The plus sign says that dissolving takes heat in. The heat comes out of the water, which is why the cup gets cold. For a solution so dilute that more water would change nothing, the same table gives +25.7 kJ/mol, and an enthalpy of solution is usually quoted for that case.",
           "sourceId": "nbs-tables-1982",
           "alsoSourceId": "chemguide-enthalpy-solution",
           "moreSourceIds": [
@@ -448,7 +448,7 @@
     },
     "mixStirredPpm": {
       "value": 850000,
-      "rationale": "Of the heat a change has still to give or take, the share given or taken in one 15-second step while the cup is stirred, in parts per million: 85%. A stirred cup is then within one part in a thousand of its end after a minute, which is about how long a strong acid and base, a few grams of a very soluble salt or a small piece of metal take to settle in a stirred cup. Chosen with the next three so that a careful run lands within the tolerance at every seed."
+      "rationale": "Of the heat a change has still to give or take, the share given or taken in one 15-second step while the cup is stirred, in parts per million: 85%. A stirred cup is then within one part in a thousand of its end after a minute. The laboratory manual page read for the primer has its mixtures steady from about half a minute to a minute or two after mixing. Chosen with the next three so that a careful run lands within the tolerance at every seed."
     },
     "mixStillPpm": {
       "value": 150000,
@@ -488,7 +488,7 @@
         990,
         1000
       ],
-      "rationale": "The temperature of the boiling water the piece is heated in, in tenths of a degree Celsius: 99.0 to 100.0 °C. Water boils a little under 100 °C when the air pressure is a little under one atmosphere, so the bath is read each time and not taken to be 100."
+      "rationale": "The temperature of the boiling water the piece is heated in, in tenths of a degree Celsius: 99.0 to 100.0 °C. The page read for water gives 99.97 °C for its boiling point at one atmosphere; a bath is seldom exactly there, so the bath is read each time and not taken to be 100."
     },
     "readingToleranceTenths": {
       "value": 1,

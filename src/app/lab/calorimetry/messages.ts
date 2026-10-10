@@ -183,6 +183,7 @@ export function valueText(data: CalorimetryData, field: Field, value: Value): st
 
 /** How each kind of entry is typed, under its field. No example is a figure any run can have. */
 export function formatHelp(field: Field): string {
+  if (field === 'direction' || field === 'metal') return 'Choose one.'
   if (field === 'start' || field === 'extreme') return 'One decimal place, as the logger shows it: 18.6'
   if (field === 'change') return 'One decimal place: 3.5'
   if (field === 'perMole') return 'Three significant figures, with a minus sign where heat was given out: −12.3 or 45.6'
@@ -291,7 +292,7 @@ export function blockedText(part: PartId, blocked: Blocked, field?: Field): stri
     case 'entry-above-missing':
       return 'Make the entries above this one first: each is worked from the ones before it.'
     case 'invalid-entry':
-      return field === 'direction' || field === 'metal' ? 'Choose one.' : `That is not written as this entry is. ${field ? formatHelp(field) : ''}`.trim()
+      return field === 'direction' || field === 'metal' ? formatHelp(field) : `That is not written as this entry is. ${field ? formatHelp(field) : ''}`.trim()
     case 'worksheet-not-full':
       return 'Make every entry of the worksheet first.'
     case 'nothing-to-repeat':
