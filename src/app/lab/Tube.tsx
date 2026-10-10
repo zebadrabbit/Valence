@@ -1,7 +1,7 @@
 import { useId, type CSSProperties, type ReactNode } from 'react'
 import { useExplore } from './useExplore'
 
-// A test tube that is explored: the aqueous reactions lab's, and the Group I cations lab's. The tube stands on a
+// A test tube that is explored: the aqueous reactions lab's, the Group I cations lab's and the Le Chatelier's principle lab's. The tube stands on a
 // white card, as the titration lab's flask does, so that the colours are judged against white in the dark theme
 // too. Everything in the drawing has a fixed colour, the buttons and callouts laid over it too. The picture is 320
 // of its own units wide, and a unit is a pixel wherever its card has 320 px for it: the tube in the left of it, and
@@ -51,12 +51,12 @@ export interface LayerWords {
  * A curly bracket beside the tube over one layer of what is in it, with the layer's kind in a word: which part is
  * liquid and which is settled solid is not always plain from two blocks of colour.
  */
-function Brace({ from, to, word }: { from: number; to: number; word: string }) {
+function Brace({ at, from, to, word }: { at: number; from: number; to: number; word: string }) {
   const middle = (from + to) / 2
   return (
     <g>
-      <path d={`M ${BRACE_X} ${from + 2} q 6 0 6 6 V ${middle - 6} q 0 6 6 6 q -6 0 -6 6 V ${to - 8} q 0 6 -6 6`} fill="none" stroke={INK} strokeWidth={1.5} strokeLinecap="round" />
-      <text x={BRACE_X + 17} y={middle} dominantBaseline="central" fontSize={13} fill={INK}>
+      <path d={`M ${at} ${from + 2} q 6 0 6 6 V ${middle - 6} q 0 6 6 6 q -6 0 -6 6 V ${to - 8} q 0 6 -6 6`} fill="none" stroke={INK} strokeWidth={1.5} strokeLinecap="round" />
+      <text x={at + 17} y={middle} dominantBaseline="central" fontSize={13} fill={INK}>
         {word}
       </text>
     </g>
@@ -95,9 +95,10 @@ export function TubeDefs({ id, height, layers }: { id: string; height: number; l
 /**
  * A tube as it is drawn: the liquid in its colour up to its surface, a solid at the bottom in its colour under a
  * grain and with an edge, or spread through the liquid as specks, bubbles where there are any, and the glass over
- * them. With `words`, a bracket beside each layer says which it is. Nothing here is a control.
+ * them. With `words`, a bracket beside each layer says which it is: beside the glass, or at `bracesAt` where
+ * something that stands about the tube needs that room. Nothing here is a control.
  */
-export function TubeBody({ id, height, layers, words }: { id: string; height: number; layers: TubeLayers; words?: LayerWords | undefined }) {
+export function TubeBody({ id, height, layers, words, bracesAt = BRACE_X }: { id: string; height: number; layers: TubeLayers; words?: LayerWords | undefined; bracesAt?: number | undefined }) {
   const { liquid, solid, spread, bubbles } = layers
   const end = contentsEnd(height)
   return (
@@ -122,8 +123,8 @@ export function TubeBody({ id, height, layers, words }: { id: string; height: nu
       {liquid && <line x1={48} x2={128} y1={liquid.surface} y2={liquid.surface} stroke={INK} strokeOpacity={0.5} strokeWidth={1.5} />}
       <path d={glass(height)} fill="none" stroke={INK} strokeWidth={2.5} strokeLinecap="round" />
       <path d="M 42 20 L 134 20" stroke={INK} strokeWidth={2.5} strokeLinecap="round" />
-      {words && liquid && <Brace from={liquid.surface} to={solid ? solid.top : end} word={spread ? (words.spread ?? words.liquid) : words.liquid} />}
-      {words && solid && <Brace from={solid.top} to={end} word={words.solid} />}
+      {words && liquid && <Brace at={bracesAt} from={liquid.surface} to={solid ? solid.top : end} word={spread ? (words.spread ?? words.liquid) : words.liquid} />}
+      {words && solid && <Brace at={bracesAt} from={solid.top} to={end} word={words.solid} />}
     </>
   )
 }
@@ -156,6 +157,12 @@ export interface TubeProps<Part extends string> {
   seen(part: Part): string
   /** A section has come to be looked at: by a pointer over it, by focus on it, or by a tap or a press. */
   onLook(part: Part): void
+  /**
+   * What the tube stands in, drawn behind it: a bath. The inside of the glass is drawn white over it, so that what
+   * is in the tube is judged against white all the same, and the brackets stand at `bracesAt`, clear of it.
+   */
+  behind?: ReactNode
+  bracesAt?: number | undefined
   /** More to draw on the card, in the room beside the tube. */
   children?: ReactNode
 }
@@ -167,7 +174,7 @@ export interface TubeProps<Part extends string> {
  * when another section or anywhere else is tapped. Nothing of what is seen is in the page until then, and the
  * colour is always in the callout's words.
  */
-export function Tube<Part extends string>({ name, describedBy, height, layers, words, sections, seen, onLook, children }: TubeProps<Part>) {
+export function Tube<Part extends string>({ name, describedBy, height, layers, words, sections, seen, onLook, behind, bracesAt, children }: TubeProps<Part>) {
   const clipId = useId()
   const { open, part: looking } = useExplore<Part>(onLook)
 
@@ -176,7 +183,9 @@ export function Tube<Part extends string>({ name, describedBy, height, layers, w
       <svg viewBox={`0 0 ${WIDTH} ${height}`} role="img" aria-label={name} aria-describedby={describedBy} className="block h-auto w-full">
         <TubeDefs id={clipId} height={height} layers={layers} />
         <rect x={1} y={1} width={WIDTH - 2} height={height - 2} rx={8} fill="#ffffff" stroke={INK} strokeOpacity={0.35} />
-        <TubeBody id={clipId} height={height} layers={layers} words={words} />
+        {behind}
+        {behind && <path d={`${glass(height)} Z`} fill="#ffffff" />}
+        <TubeBody id={clipId} height={height} layers={layers} words={words} bracesAt={bracesAt} />
         {children}
       </svg>
       {sections.map(({ part, top, bottom, name: label, looked, foot }) => {

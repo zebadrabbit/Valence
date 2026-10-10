@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { LECHATELIER_PROGRESS } from './app/activities'
+import { ACTIVITIES } from './app/activities'
 import { CAUSES, SYSTEM_IDS, WAYS, lechatelierData } from './chem-data/lechatelier/data'
 import { modelFrom, type StageModel } from './engine/lechatelier/model'
 import { PINNED_MODEL } from './engine/lechatelier/pinnedModel'
@@ -27,7 +27,8 @@ describe("the Le Chatelier's principle lab", () => {
         ]),
       )
     expect({
-      ...LECHATELIER_PROGRESS,
+      entry: ACTIVITIES[5].entry,
+      version: ACTIVITIES[5].version,
       choices: [model.solidChoices, model.liquidChoices],
       answers: [WAYS, CAUSES],
       fields: FIELDS,

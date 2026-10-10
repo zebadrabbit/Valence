@@ -1,48 +1,17 @@
-import { contentsEnd, type TubeLayers } from '@/app/lab/Tube'
+import type { TubeLayers } from '@/app/lab/Tube'
+import { TUBE_HEIGHT, liquidHex, sectionsOf, solidHex, surfaceOf as surfaceIn, tubeLayers as layersIn } from '@/app/lab/tubeDrawing'
 import { PART_IDS, type PartId, type StepId, type TubeId } from '@/chem-data/cations/data'
-import type { CationsModel, Look, PartView, PlaceView, TubeShows } from '@/engine/cations'
+import type { CationsModel, PartView, PlaceView, TubeShows } from '@/engine/cations'
 import { progressOf } from './messages'
 
 // What the page works out for its drawings and for where it opens. Nothing here is chemistry of its own: a tube is
 // drawn from what the engine says is seen of it, the words for each part of it are the messages', and where the
 // page opens is read off the engine's views.
 
-/** How tall the picture of the step's tube is, of its own units (src/app/lab/Tube.tsx). */
-export const TUBE_HEIGHT = 260
-const END = contentsEnd(TUBE_HEIGHT)
-/** Where the surface of a tube filled as far as this bench fills one is drawn. */
-const FULL = 98
-/** Where a solid that has settled begins. Every solid is drawn at this one height: the engine gives no amounts of solid. */
-const SOLID_TOP = 192
-
-/** Where the bottom of the tube, which is looked at for a solid, begins: 58 units over the foot. */
-const BOTTOM = END - 58
-
-/**
- * The two sections of the tube that are looked at, from the top, each by where it begins and ends: the liquid, and
- * the bottom, where a solid settles. Both are there whatever the tube holds, so a look at the liquid of a tube with
- * none in it finds that out. The liquid's begins a little over its surface, and is 58 units tall at the least,
- * as the bottom's is.
- */
-export function sectionsOf(layers: Pick<TubeLayers, 'liquid'>): readonly (readonly [look: Look, top: number, bottom: number])[] {
-  return [
-    ['liquid', Math.min((layers.liquid?.surface ?? BOTTOM) - 12, BOTTOM - 58), BOTTOM],
-    ['bottom', BOTTOM, END],
-  ]
-}
-
-// The colour each thing is drawn in, by the word the record stores for what is seen. The word, which a look says,
-// is what has a source; a value here is the drawing's rendering of that word, and nothing is read from it. A
-// liquid with no colour is drawn as water is on the other labs' white cards.
-const LIQUID_HEX: Record<string, string> = { colourless: '#e8edf2', 'yellow to orange': '#f2a93b' }
-const SOLID_HEX: Record<string, string> = { white: '#ffffff', yellow: '#f7e65a', 'grey to black': '#5b6068' }
-/** A colour the drawing has no value for: drawn grey, and named in words all the same. */
-const UNKNOWN_HEX = '#9ca3af'
-/** The grain over a solid too dark for the ink to show on: drawn light. */
-const LIGHT_GRAIN: Record<string, string> = { 'grey to black': '#ffffff' }
-
-export const liquidHex = (colour: string) => LIQUID_HEX[colour] ?? UNKNOWN_HEX
-export const solidHex = (colour: string) => SOLID_HEX[colour] ?? UNKNOWN_HEX
+// The drawing itself is the lab shell's (src/app/lab/tubeDrawing.ts), which the Le Chatelier's principle lab draws
+// its tubes with too: how tall the picture is, the two sections that are looked at, and the colour each word of the
+// record is drawn in. What is this lab's own is how full a tube of its bench gets.
+export { TUBE_HEIGHT, liquidHex, sectionsOf, solidHex }
 
 /** The most liquid a tube of this bench comes to hold: the first with the sample and its acid, the second with the water and its two reagents, or the third with the ammonia and every addition of acid it takes. */
 export const fullMicrolitres = (m: CationsModel) =>
@@ -53,20 +22,10 @@ export const fullMicrolitres = (m: CationsModel) =>
  * least a step works with is drawn at a little over half the height of the most, so that a liquid over a solid is
  * tall enough to be seen and looked at.
  */
-export function surfaceOf(m: CationsModel, microlitres: number): number {
-  const share = Math.min(1, microlitres / fullMicrolitres(m))
-  return Math.round(END - (0.45 + 0.55 * share) * (END - FULL))
-}
+export const surfaceOf = (m: CationsModel, microlitres: number): number => surfaceIn(microlitres, fullMicrolitres(m))
 
 /** What is drawn in a tube, from what the engine says is seen of it: null is a tube not yet used, which is empty. */
-export function tubeLayers(m: CationsModel, shows: TubeShows | null): TubeLayers {
-  const { liquid = null, solid = null } = shows ?? {}
-  return {
-    liquid: liquid && { hex: liquidHex(liquid.colour), surface: surfaceOf(m, liquid.microlitres) },
-    solid: solid?.settled ? { hex: solidHex(solid.colour), top: SOLID_TOP, ...(solid.colour in LIGHT_GRAIN ? { grain: LIGHT_GRAIN[solid.colour]! } : {}) } : null,
-    spread: solid && !solid.settled ? { hex: solidHex(solid.colour) } : null,
-  }
-}
+export const tubeLayers = (m: CationsModel, shows: TubeShows | null): TubeLayers => layersIn(shows, fullMicrolitres(m))
 
 /** The three tubes as they stand in the rack. */
 export const TUBE_IDS: readonly TubeId[] = ['a', 'b', 'c']

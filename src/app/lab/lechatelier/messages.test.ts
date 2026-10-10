@@ -5,6 +5,7 @@ import { createLab, modelFrom, systemView, type Blocked, type LechatelierState, 
 import { run, wholeSystem, workDisturbance } from '@/engine/lechatelier/testkit'
 import {
   ANSWER_TEXT,
+  BATH_LABEL,
   CAUSE_LABEL,
   DISTURBANCE_STATUS_TEXT,
   EQUILIBRIUM_TEXT,
@@ -23,6 +24,7 @@ import {
   SYSTEM_AIM,
   TEMPERATURE_TEXT,
   TUBE_NAME,
+  WAY_CHOICES,
   WAY_LABEL,
   actionLabel,
   answerLabel,
@@ -47,11 +49,11 @@ import {
   reasonText,
   systemName,
   systemNumber,
+  systemShortName,
   taskText,
   tubeSoFarText,
   tubeStartText,
   tubeText,
-  wayChoices,
 } from './messages'
 
 const data = lechatelierData
@@ -130,6 +132,12 @@ describe('the description in words of every tube (spec 18.7, last item)', () => 
     expect(tubeText(null)).toBe('The tube is not in use yet.')
   })
 
+  it("names the bath in the picture by the words of the sentence that says where the tube stands, and has no word for a tube in the rack", () => {
+    expect(Object.keys(BATH_LABEL)).toEqual(['hot', 'cold'])
+    for (const temperature of ['hot', 'cold'] as const) expect(TEMPERATURE_TEXT[temperature]).toBe(`The tube stands in the bath of ${BATH_LABEL[temperature]}.`)
+    expect(BATH_LABEL.hot).not.toBe(BATH_LABEL.cold)
+  })
+
   it('names the colour of the liquid and of the solid wherever there is one, and never says what anything is', () => {
     for (const { id, press, shows, temperature } of tubes) {
       const text = tubeText(shows, temperature)
@@ -164,6 +172,12 @@ describe('the description in words of every tube (spec 18.7, last item)', () => 
 })
 
 describe('the lab, its systems and their benches', () => {
+  it("has a short name for each system, for the button that chooses it: what stands after the colon of the record's name", () => {
+    expect(SYSTEM_IDS.map((id) => systemShortName(data, id))).toEqual(['Lead chloride', 'Methyl violet', 'Cobalt', 'Zinc and magnesium'])
+    // Every name of the record has the one colon the short name is cut at.
+    for (const id of SYSTEM_IDS) expect(systemName(data, id).split(': ')).toHaveLength(2)
+  })
+
   it('names the lab and its four systems, and says what each is without a word of what a tube shows', () => {
     expect(LAB_TEXT.title).toBe("Le Chatelier's principle")
     expect(SYSTEM_IDS.map((id) => `${systemNumber(id)}. ${systemName(data, id)}`)).toEqual(['System 1. A solid and its ions: lead chloride', 'System 2. An indicator: methyl violet', 'System 3. A complex ion: cobalt', 'System 4. Two hydroxides: zinc and magnesium'])
@@ -282,13 +296,14 @@ describe('a disturbance', () => {
 })
 
 describe('the prediction', () => {
-  it('is asked before the change, with the three ways and what stands on each side, and says that it is not marked', () => {
-    expect(wayChoices(data, 'lead-acid')).toEqual([
-      { value: 'left', label: 'Toward the left side: lead ions and chloride ions, dissolved' },
-      { value: 'right', label: 'Toward the right side: solid lead chloride, which is white' },
+  it('is asked before the change, with the three ways, each named by the way alone, and says that it is not marked', () => {
+    // What stands on each side is said once, in the card of the equilibrium, which stands over the form: a choice does not say it again.
+    expect(WAY_CHOICES).toEqual([
+      { value: 'left', label: 'Toward the left side' },
+      { value: 'right', label: 'Toward the right side' },
       { value: 'none', label: 'Not at all' },
     ])
-    for (const id of DISTURBANCE_IDS) expect(wayChoices(data, id).map((c) => c.value)).toEqual([...WAYS])
+    for (const id of DISTURBANCE_IDS) for (const side of [equilibriumLines(data, id).left, equilibriumLines(data, id).right]) expect(side).toMatch(/^(Left|Right) side: .+\.$/)
     expect(PREDICTION_TEXT.help).toMatch(/not marked/)
     expect(WAYS.map((way) => PREDICTION_TEXT.said(way))).toEqual(['You predicted: toward the left side.', 'You predicted: toward the right side.', 'You predicted: not at all.'])
     expect(PREDICTION_TEXT.fixed).toBe('Your prediction is fixed: the change has begun.')
@@ -324,7 +339,7 @@ describe('the question of a disturbance', () => {
   it('asks which way the equilibrium went, with the same three choices as the prediction', () => {
     const asked = askText(data, 'cobalt-heat')
     expect([asked.heading, asked.question]).toEqual(['Which way it went', 'Which way did the equilibrium shift?'])
-    expect(asked.choices).toEqual(wayChoices(data, 'cobalt-heat'))
+    expect(asked.choices).toEqual(WAY_CHOICES)
   })
 
   it('asks, at the four tubes that turn on a second equilibrium or on there being none, what took the metal ion away', () => {
@@ -458,10 +473,10 @@ describe('the notes of the record, which a page shows once a disturbance is done
 describe('every sentence of the page', () => {
   /** Every fixed string and every sentence a function gives for the cases above, as one list. */
   function sentences(): string[] {
-    const fixed = [LAB_TEXT, SYSTEM_AIM, TUBE_NAME, TEMPERATURE_TEXT, WAY_LABEL, LOOK_PART, FIELD_LABEL, OBSERVATION_TEXT, CAUSE_LABEL, ANSWER_TEXT, HINT, MODE_TEXT, PROGRESS_TEXT, DISTURBANCE_STATUS_TEXT, NOTES_TEXT, RECORD_TEXT, EQUILIBRIUM_TEXT].flatMap((group) => Object.values(group))
+    const fixed = [LAB_TEXT, SYSTEM_AIM, TUBE_NAME, TEMPERATURE_TEXT, BATH_LABEL, WAY_LABEL, LOOK_PART, FIELD_LABEL, OBSERVATION_TEXT, CAUSE_LABEL, ANSWER_TEXT, HINT, MODE_TEXT, PROGRESS_TEXT, DISTURBANCE_STATUS_TEXT, NOTES_TEXT, RECORD_TEXT, EQUILIBRIUM_TEXT].flatMap((group) => Object.values(group))
     const nested = [...Object.values(PAGE_TEXT).flatMap((v) => (typeof v === 'string' ? [v] : [])), ...Object.values(PREDICTION_TEXT).flatMap((v) => (typeof v === 'string' ? [v] : [])), PAGE_TEXT.previous('x'), PAGE_TEXT.next('x'), PAGE_TEXT.run(2), PAGE_TEXT.tubePicture('The tube')]
     const made = [
-      ...SYSTEM_IDS.flatMap((id) => [...benchLines(data, id), systemNumber(id), systemName(data, id)]),
+      ...SYSTEM_IDS.flatMap((id) => [...benchLines(data, id), systemNumber(id), systemName(data, id), systemShortName(data, id)]),
       ...data.systems.flatMap((system) => system.tubes.map((tube) => tubeStartText(data, system.id, tube.id))),
       ...DISTURBANCE_IDS.map((id) => tubeSoFarText(data, id)),
       // The equation itself is the record's, and is a source's as written: it is left out, as every equation is.

@@ -38,6 +38,12 @@ export interface ChoiceFormProps {
   onRecord(answers: Answers): Judged
   /** The button that checks, the two of a change under way, and the words beside a question whose recorded answer is not right, where the form marks one. */
   text: { check: string; change: string; cancel: string; again?: string }
+  /**
+   * The answers as lines to be read. Where it is given, answers that are recorded and not being changed are shown
+   * as these lines beside "Change", and not in their boxes: for a page with little room, where a form that has
+   * been answered makes way for the next.
+   */
+  brief?(answers: Answers): readonly string[]
 }
 
 const CHOICE =
@@ -48,8 +54,10 @@ const CHOICE =
  * them all. A question that cannot be answered yet is disabled, with what to do first under it. Once the answers
  * are right the questions are disabled and show them, and the button reads "Change", as an entry made in the
  * titration lab does. The aqueous reactions lab's observations, the flame test lab's, and its closing question.
+ * With `brief` (the Le Chatelier's principle lab), answers that are recorded are lines beside "Change" in place of
+ * the disabled questions.
  */
-export function ChoiceForm({ questions, recorded, judged: found, held, refusal, onRecord, text }: ChoiceFormProps) {
+export function ChoiceForm({ questions, recorded, judged: found, held, refusal, onRecord, text, brief }: ChoiceFormProps) {
   const [draft, setDraft] = useState<Answers>(recorded ?? {})
   const [changing, setChanging] = useState(false)
   const [said, say] = useSaid(found?.text ?? '', found?.wrong === null)
@@ -61,6 +69,7 @@ export function ChoiceForm({ questions, recorded, judged: found, held, refusal, 
   const focus = useEntryFocus(editable)
   const shown = editable ? draft : (recorded ?? {})
   const reason = held !== null || !editable ? null : refusal(draft)
+  const lines = brief !== undefined && !editable && recorded !== null ? brief(recorded) : null
 
   const cancel = () => {
     focus.button.current?.focus()
@@ -72,7 +81,8 @@ export function ChoiceForm({ questions, recorded, judged: found, held, refusal, 
   return (
     <form
       noValidate
-      className="grid justify-items-start gap-3"
+      // The lines of answers that are recorded stand in a row with "Change", and what is said of them under the row: a line of its own, which takes no room while it is empty.
+      className={lines === null ? 'grid justify-items-start gap-3' : 'flex w-full flex-wrap items-center gap-x-3 gap-y-2 [&>p]:basis-full [&>p:empty]:-mt-2'}
       onKeyDown={(event) => entryKey(event, cancellable ? cancel : null)}
       onSubmit={(event) => {
         event.preventDefault()
@@ -92,7 +102,15 @@ export function ChoiceForm({ questions, recorded, judged: found, held, refusal, 
         say(next.text, next.wrong === null)
       }}
     >
+      {lines !== null && (
+        <ul className="grid min-w-0 flex-1 basis-48 gap-0.5">
+          {lines.map((line) => (
+            <li key={line}>{line}</li>
+          ))}
+        </ul>
+      )}
       {questions.map(({ id, label, choices, waits }, at) => {
+        if (lines !== null) return null
         const waiting = waits !== null
         const again = text.again !== undefined && editable && judged === false && found?.wrong?.includes(id) && draft[id] === recorded?.[id]
         return (
