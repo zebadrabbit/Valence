@@ -61,6 +61,9 @@ Nothing was bent to pass them. The amounts are model parameters, chosen so that 
 6. **The centrifuge is offered at steps 3 and 5 too.** Nothing is poured off there, but a solid packed at the bottom is easier to tell from a coloured liquid, which is the point of step 3.
 7. **What is seen is recorded before the liquid is poured off,** and the pouring off ends the step. Once the liquid is gone the tube no longer shows it.
 8. **No PubChem CID is stored.** PubChem's robots file excludes its data service from automated readers, so it was not asked.
+9. **A naming with no box ticked is not sent** (the page's rule, of 2026-10-10). The engine would take it and judge it wrong, since every sample holds one or more of the three. The naming is said once for each run, so the page asks again instead and sends nothing.
+
+Where the page is other than section 17.3 has it (what ends a step is under the step's cards and not beside the tube; the flow chart is a tree of nested lists; the map of part 2 is in a closed disclosure under the step) is section 17.8 of the design spec.
 
 ## What could not be sourced, or only in part
 
@@ -71,6 +74,7 @@ Nothing was bent to pass them. The amounts are model parameters, chosen so that 
 - **What a solid does in a tube where the scheme has none.** After a pouring off without the centrifuge, the solid that goes over stays as it is, whatever is added. No source was read.
 - **The look of each bottle's liquid.** The model draws every liquid as colourless but one with chromate in it. The silver-ammonia ion's lack of colour has a source; the others' is the model's.
 - **Why the 15 minutes at the eyewash.** The primer gives what the sheets read ask.
+- **The colours on the screen.** The record stores a word for what is seen ("white", "yellow", "grey to black", "yellow to orange"), each with its source. The colour the page draws for a word is the drawing's own value, and nothing is read from it. How high a liquid stands is the drawing's too: higher for each thing added, and not to scale. Every solid is drawn at one height, since the model hands the page no amount of solid.
 
 ## What a chemist should look at
 
@@ -104,4 +108,4 @@ The quotation fingerprint that `src/chem-data/cations/quotation.test.ts` and `sr
 
 ## What nobody checked
 
-No chemist has read the record, the notes, the primer or the page's sentences. The scanned tables were read by one reader, by eye. No screen has been built: the engine, the record and the wording were tested by scripts alone.
+No chemist has read the record, the notes, the primer or the page's sentences. The scanned tables were read by one reader, by eye. The screens were built on 2026-10-10 (section 17.8 of the design spec) and checked by script, in headless Chromium, by the AI coding assistant that built them; `docs/for-institutions.md` says what was run and what was not. No person has run the lab, no screen reader was used, and the one review of the lab by an assistant that did not build it has not been held as this is written.
