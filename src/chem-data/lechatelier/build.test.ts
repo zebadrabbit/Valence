@@ -254,6 +254,18 @@ describe('the manifest', () => {
     expect(() => checkSupported(uncited, sources, sheets)).toThrow(/cobalt-heat\]\.notes\[0\]: the source "lower-le-chatelier" has no row that names it/)
   })
 
+  it('lists three sheets of the hazard manifest for what their solutions look like, each written as that manifest writes it', () => {
+    const tubes = built().systems.flatMap((system) => system.tubes.flatMap((tube) => ('shows' in tube ? [[tube.id, (tube.shows as { sourceId?: string }).sourceId]] : [])))
+    expect(tubes).toEqual([['lead', 'flinn-sds-438'], ['indicator', undefined], ['cobalt', 'nuffield-cobalt-equilibrium'], ['zinc', 'flinn-sds-863.2'], ['magnesium', 'flinn-sds-477']])
+    for (const id of ['flinn-sds-438', 'flinn-sds-863.2', 'flinn-sds-477']) {
+      const [mine, theirs] = [manifest.sources.find((s) => s.id === id)!, hazardManifest.sources.find((s) => s.id === id)!]
+      expect([mine.url, mine.citation, mine.fetchedSha256], id).toEqual([theirs.url, theirs.citation, theirs.fetchedSha256])
+      expect(mine.supports.map((row) => row.prints), id).toEqual(['Clear, colorless liquid.'])
+      // Each is a sheet under its bottle's tile, so the app lists it whether or not the tube cites it.
+      expect(stored.reagents.some((r) => r.hazards.note.sourceId === id), id).toBe(true)
+    }
+  })
+
   it('lets a note cite a document of the hazard manifest only where a bottle\'s hazards cite it too', () => {
     const note = built().systems[2]!.disturbances[0]!.notes[1] as Note
     expect([note.sourceId, note.alsoSourceId, note.moreSourceIds]).toEqual(['flinn-sds-395', 'noaa-cameo-3598', ['nuffield-cobalt-equilibrium']])
@@ -262,15 +274,16 @@ describe('the manifest', () => {
     expect(() => checkSupported(record, sources, sheets)).toThrow(/cites the safety data sheet "flinn-sds-435", which no reagent's hazards cite/)
   })
 
-  it('keeps no copy of a source, and writes the six sources it shares with other labs as they write them', () => {
+  it('keeps no copy of a source, and writes the sources it shares with other labs as they write them', () => {
     expect([...manifest.sources, ...hazardManifest.sources].filter((s) => 'file' in s)).toEqual([])
-    const shared = ['nbs-tables-1982', 'nist-codata-2022', 'ciaaw-abridged-2024', 'birk-lead', 'malik-varying-solubility', 'birk-magnesium']
+    // Six that earlier labs' manifests list, and one sheet that the Group I cations lab's hazards rest on too.
+    const shared = ['nbs-tables-1982', 'nist-codata-2022', 'ciaaw-abridged-2024', 'birk-lead', 'malik-varying-solubility', 'birk-magnesium', 'flinn-sds-438']
     for (const id of shared) {
       const mine = manifest.sources.find((s) => s.id === id)!
       const listed = allSources.find((s) => s.id === id)!
       expect([mine.url, mine.citation], id).toEqual([listed.url, listed.citation])
     }
-    expect(manifest.sources.map((s) => s.id).filter((id) => !shared.includes(id))).toEqual(['birk-zinc', 'bellevue-le-chatelier', 'nuffield-cobalt-equilibrium', 'chemguide-ligand-exchange', 'chemguide-indicators', 'libretexts-acid-base-indicators', 'lower-le-chatelier', 'chemguide-le-chatelier', 'chemguide-equilibria-introduction'])
+    expect(manifest.sources.map((s) => s.id).filter((id) => !shared.includes(id))).toEqual(['birk-zinc', 'bellevue-le-chatelier', 'nuffield-cobalt-equilibrium', 'chemguide-ligand-exchange', 'chemguide-indicators', 'libretexts-acid-base-indicators', 'lower-le-chatelier', 'chemguide-le-chatelier', 'chemguide-equilibria-introduction', 'flinn-sds-863.2', 'flinn-sds-477'])
     // Every source of the lab is listed for the app.
     for (const source of manifest.sources) expect(allSources.some((s) => s.id === source.id), source.id).toBe(true)
   })

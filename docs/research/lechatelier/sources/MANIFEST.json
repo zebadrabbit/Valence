@@ -1,6 +1,6 @@
 {
   "retrieved": "2026-10-10",
-  "about": "Every source of the Le Chatelier's principle lab's record (docs/research/lechatelier/lechatelier.json) and of its primer (src/chem-data/lechatelier/primer.ts). Each was read for this lab on the retrieval date: fetched that day, or, for the six that an earlier lab also lists and that were not fetched again, read in the copy that lab keeps or in the file it read. No source has a copy in this folder. `fetchedSha256` is the sha256 of the file as it was fetched or read: a record of which file was read, not the hash of anything here, and nothing checks it. Each `supports` row names in `fields` the stored values it supports, each by its place in the record with the item's id in brackets (gibbs[zinc-ion], equilibria[cobalt].heat, systems[cobalt].disturbances[cobalt-heat].stages[0]); gives in `prints` a figure, a label or a heading exactly as the source prints it; and says in `where`, in this project's words, where that is, what the source says there, and how far the stored value goes beyond it. A row whose field is `primer` marks a source the primer rests on. The build holds the record to these rows: every source a value cites must have a row that names the value, and where the record stores the figure a source prints, a row for it must print that figure. No source is quoted beyond such figures, labels and headings. Six sources are also listed by other manifests and are written here exactly as they are there, so that the build lists each once: the NBS tables, NIST's listing of the fundamental constants, the table of standard atomic weights, and three pages read for earlier labs, on the reactions of the lead ion and of the magnesium ion and on how the solubility of a salt is changed. The NBS tables were read from the scan the aqueous reactions lab read, whose sha256 is the one given; each page was turned into an image and read by eye. The hazard statements and the notes under them are not in this file: they are in hazards.json and sources/hazard-manifest.json, which were written apart. Two documents of that manifest, on concentrated hydrochloric acid, are also cited by one note of the record. README.md, one folder up, says what could not be sourced.",
+  "about": "Every source of the Le Chatelier's principle lab's record (docs/research/lechatelier/lechatelier.json) and of its primer (src/chem-data/lechatelier/primer.ts). Each was read for this lab on the retrieval date: fetched that day, or, for the six that an earlier lab also lists and that were not fetched again, read in the copy that lab keeps or in the file it read. No source has a copy in this folder. `fetchedSha256` is the sha256 of the file as it was fetched or read: a record of which file was read, not the hash of anything here, and nothing checks it. Each `supports` row names in `fields` the stored values it supports, each by its place in the record with the item's id in brackets (gibbs[zinc-ion], equilibria[cobalt].heat, systems[cobalt].disturbances[cobalt-heat].stages[0]); gives in `prints` a figure, a label or a heading exactly as the source prints it; and says in `where`, in this project's words, where that is, what the source says there, and how far the stored value goes beyond it. A row whose field is `primer` marks a source the primer rests on. The build holds the record to these rows: every source a value cites must have a row that names the value, and where the record stores the figure a source prints, a row for it must print that figure. No source is quoted beyond such figures, labels and headings. Six sources are also listed by other manifests and are written here exactly as they are there, so that the build lists each once: the NBS tables, NIST's listing of the fundamental constants, the table of standard atomic weights, and three pages read for earlier labs, on the reactions of the lead ion and of the magnesium ion and on how the solubility of a salt is changed. The NBS tables were read from the scan the aqueous reactions lab read, whose sha256 is the one given; each page was turned into an image and read by eye. The hazard statements and the notes under them are not in this file: they are in hazards.json and sources/hazard-manifest.json, which were written apart. Two documents of that manifest, on concentrated hydrochloric acid, are also cited by one note of the record; and three more, the supplier's sheets for the solutions of lead nitrate, zinc nitrate and magnesium nitrate, are listed here as well as there, written as they are there, each for one row: what the solution looks like. README.md, one folder up, says what could not be sourced.",
   "sources": [
     {
       "id": "nbs-tables-1982",
@@ -597,6 +597,51 @@
           ],
           "prints": "Dynamic equilibria",
           "where": "A heading of the page. Under it and in the summary at the page's end: at equilibrium the amount of each thing in the mixture stays the same although both changes go on, because the forward change and the back change run at one rate; and the position of equilibrium is said to lie toward one side or the other, and to move left or right when the conditions change."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-438",
+      "url": "https://www.flinnsci.com/sds_438-lead-nitrate-solution/sds_438",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Lead Nitrate Solution, SDS number sds_438; revision date March 25, 2014 (read on 2026-10-09; no copy is kept).",
+      "fetchedSha256": "e8061def2cbedbc0aa45375e14081053f274d03a7d1921fbf55f90ac40a3ae79",
+      "supports": [
+        {
+          "fields": [
+            "systems[lead-chloride].tubes[lead].shows"
+          ],
+          "prints": "Clear, colorless liquid.",
+          "where": "Section 9 of the sheet, on physical and chemical properties, its first words: what the solution looks like. The lab stores the tube this solution is put into as holding a colourless liquid and no solid. Read for this lab in the text the lab's hazards were written from, which the manifest of the hazards lists with what else the sheet prints."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-863.2",
+      "url": "https://www.flinnsci.com/sds_863.2-zinc-nitrate-solution-10/sds_863.2",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Zinc Nitrate Solution <10%, SDS number sds_863.2; revision date April 12, 2016 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "2fff06889fa3d5146b442d682eb64f09f7e2f3a964d47764f15e79dc73aaca67",
+      "supports": [
+        {
+          "fields": [
+            "systems[hydroxides].tubes[zinc].shows"
+          ],
+          "prints": "Clear, colorless liquid.",
+          "where": "Section 9 of the sheet, on physical and chemical properties, its first words: what the solution looks like. The lab stores the tube this solution is put into as holding a colourless liquid and no solid. Read for this lab in the text the lab's hazards were written from, which the manifest of the hazards lists with what else the sheet prints."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-477",
+      "url": "https://www.flinnsci.com/sds_477-magnesium-nitrate-solution/sds_477",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Magnesium Nitrate Solution, SDS number sds_477; revision date March 21, 2014 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "2e58e1db3533ef18978d7f0453a4e9a3e03df7693a92b40376d05868485586dd",
+      "supports": [
+        {
+          "fields": [
+            "systems[hydroxides].tubes[magnesium].shows"
+          ],
+          "prints": "Clear, colorless liquid.",
+          "where": "Section 9 of the sheet, on physical and chemical properties, its first words: what the solution looks like. The lab stores the tube this solution is put into as holding a colourless liquid and no solid. Read for this lab in the text the lab's hazards were written from, which the manifest of the hazards lists with what else the sheet prints."
         }
       ]
     }

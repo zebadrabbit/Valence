@@ -1820,6 +1820,16 @@
     "citation": "Clark, J. Chemguide: An Introduction to Chemical Equilibria; 2002, modified April 2013; read and not kept (retrieved 2026-10-10)."
   },
   {
+    "id": "flinn-sds-863.2",
+    "url": "https://www.flinnsci.com/sds_863.2-zinc-nitrate-solution-10/sds_863.2",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Zinc Nitrate Solution <10%, SDS number sds_863.2; revision date April 12, 2016 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-477",
+    "url": "https://www.flinnsci.com/sds_477-magnesium-nitrate-solution/sds_477",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Magnesium Nitrate Solution, SDS number sds_477; revision date March 21, 2014 (read on 2026-10-10; no copy is kept)."
+  },
+  {
     "id": "wards-sds-ll0131",
     "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=6bc35ad423e1e16131139a12758bceb932957e03&vid=6bc35ad423e1e16131139a12758bceb932957e03&prid=original&clid=SAPDAM",
     "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Lead Nitrate, 0.5 Molar Solution, SDS No. LL0131; revision date September 5, 2024 (read on 2026-10-10; no copy is kept)."
@@ -1880,11 +1890,6 @@
     "citation": "Flinn Scientific, Inc. Safety Data Sheet: Zinc Nitrate, SDS number sds_862; revision date July 14, 2015 (read on 2026-10-10; no copy is kept)."
   },
   {
-    "id": "flinn-sds-863.2",
-    "url": "https://www.flinnsci.com/sds_863.2-zinc-nitrate-solution-10/sds_863.2",
-    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Zinc Nitrate Solution <10%, SDS number sds_863.2; revision date April 12, 2016 (read on 2026-10-10; no copy is kept)."
-  },
-  {
     "id": "wards-sds-zz0091",
     "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=3603eab0bc8d36edb544924a8f82e26aefb989d2&vid=3603eab0bc8d36edb544924a8f82e26aefb989d2&prid=original&clid=SAPDAM",
     "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Zinc Nitrate, 0.1 Molar Solution, SDS No. ZZ0091; revision date November 15, 2024 (read on 2026-10-10; no copy is kept)."
@@ -1898,11 +1903,6 @@
     "id": "flinn-sds-476",
     "url": "https://www.flinnsci.com/sds_476-magnesium-nitrate/sds_476",
     "citation": "Flinn Scientific, Inc. Safety Data Sheet: Magnesium Nitrate, SDS number sds_476; revision date June 9, 2017 (read on 2026-10-10; no copy is kept)."
-  },
-  {
-    "id": "flinn-sds-477",
-    "url": "https://www.flinnsci.com/sds_477-magnesium-nitrate-solution/sds_477",
-    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Magnesium Nitrate Solution, SDS number sds_477; revision date March 21, 2014 (read on 2026-10-10; no copy is kept)."
   },
   {
     "id": "wards-sds-mm0096",
