@@ -193,7 +193,7 @@ describe("the Le Chatelier primer: its figures are the record's", () => {
 
   it('gives the colours of the two cobalt ions, and of a liquid that holds both, as the record has them', () => {
     const cobalt = lechatelierData.equilibria.find((e) => e.id === 'cobalt')!.seenBy
-    expect(cobalt).toEqual({ kind: 'colour', left: 'pink', right: 'blue' })
+    expect(cobalt).toEqual({ kind: 'colour', left: 'pink', right: 'blue', between: 'violet' })
     expect(labelled('complex', 'Cobalt').text).toBe('Cobalt with six water molecules around it is pink. Cobalt with four chloride ions around it is blue. The two are at equilibrium in a liquid that holds chloride, and a liquid that holds both is violet.')
   })
 })

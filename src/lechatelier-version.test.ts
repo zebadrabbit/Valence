@@ -65,9 +65,9 @@ describe("the Le Chatelier's principle lab", () => {
         ],
         [
           'cobalt',
-          'cobalt-water in cobalt: add x2, blue/none 2000 -> violet/none 4000 -> pink/none 6000; direction: left',
-          'cobalt-heat in cobalt: heat x1, pink/none 6000 -> blue/none 6000 hot; direction: right',
-          'cobalt-cool in cobalt: cool x1, blue/none 6000 hot -> pink/none 6000 cold; direction: left',
+          'cobalt-water in cobalt: add x1, blue/none 1500 -> violet/none 2500; direction: left',
+          'cobalt-heat in cobalt: heat x1, violet/none 2500 -> blue/none 2500 hot; direction: right',
+          'cobalt-cool in cobalt: cool x1, blue/none 2500 hot -> pink/none 2500 cold; direction: left',
         ],
         [
           'hydroxides',
@@ -85,7 +85,7 @@ describe("the Le Chatelier's principle lab", () => {
         'lead-chloride':
           'predict none, act, look liquid, look bottom, act, look liquid, look bottom, act, look liquid, look bottom, observe white/colourless, answer right, predict none, act, look liquid, look bottom, observe none/colourless, answer left, predict none, act, look liquid, look bottom, observe white/colourless, answer right, predict none, act, look liquid, look bottom, observe none/colourless, answer left, check',
         'methyl-violet': 'predict none, act, look liquid, look bottom, act, look liquid, look bottom, observe none/yellow, answer left, predict none, act, look liquid, look bottom, act, look liquid, look bottom, observe none/violet, answer right, check',
-        cobalt: 'predict none, act, look liquid, look bottom, act, look liquid, look bottom, observe none/pink, answer left, predict none, act, look liquid, look bottom, observe none/blue, answer right, predict none, act, look liquid, look bottom, observe none/pink, answer left, check',
+        cobalt: 'predict none, act, look liquid, look bottom, observe none/violet, answer left, predict none, act, look liquid, look bottom, observe none/blue, answer right, predict none, act, look liquid, look bottom, observe none/pink, answer left, check',
         hydroxides:
           'predict none, act, look liquid, look bottom, observe white/colourless, answer right, predict none, act, look liquid, look bottom, observe none/colourless, answer left, predict none, act, look liquid, look bottom, observe none/colourless, answer hydroxide, predict none, act, look liquid, look bottom, observe none/colourless, answer ammonia, predict none, act, look liquid, look bottom, observe white/colourless, answer right, predict none, act, look liquid, look bottom, observe none/colourless, answer left, predict none, act, look liquid, look bottom, observe white/colourless, answer nothing, predict none, act, look liquid, look bottom, observe white/colourless, answer nothing, check',
       },

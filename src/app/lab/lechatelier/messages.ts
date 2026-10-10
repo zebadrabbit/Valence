@@ -121,9 +121,11 @@ export const EQUILIBRIUM_TEXT = {
   left: 'Left side',
   right: 'Right side',
 } as const
-export function equilibriumLines(data: LechatelierData, disturbanceId: DisturbanceId): { equation: string; left: string; right: string } {
-  const { equation, left, right } = equilibriumOf(data, disturbanceId)
-  return { equation, left: `${EQUILIBRIUM_TEXT.left}: ${left}.`, right: `${EQUILIBRIUM_TEXT.right}: ${right}.` }
+/** `between` is the colour of a liquid that holds what stands on both sides, where the record has one; null where it has none. */
+export function equilibriumLines(data: LechatelierData, disturbanceId: DisturbanceId): { equation: string; left: string; right: string; between: string | null } {
+  const { equation, left, right, seenBy } = equilibriumOf(data, disturbanceId)
+  const between = seenBy.kind === 'colour' && seenBy.between !== undefined ? `A liquid that holds both is ${seenBy.between}.` : null
+  return { equation, left: `${EQUILIBRIUM_TEXT.left}: ${left}.`, right: `${EQUILIBRIUM_TEXT.right}: ${right}.`, between }
 }
 
 /** "Disturbance 2 of 4: Heat the tube". */
@@ -310,7 +312,7 @@ export const HINT: Record<DisturbanceId, string> = {
   'lead-water': 'Water makes everything that is dissolved more dilute, and a solid is not diluted. A diluted system moves toward the side with more dissolved particles.',
   'indicator-acid': `Hydrochloric acid brings hydrogen ions. Find the hydrogen ion in the equilibrium as written. ${ADDED} The colour tells you which form there is more of.`,
   'indicator-base': `Sodium hydroxide brings hydroxide ions, and each one joins a hydrogen ion and makes water. So hydrogen ions are taken away. ${TAKEN}`,
-  'cobalt-water': `Find water in the equilibrium as written. ${ADDED} The colour tells you which ion there is more of.`,
+  'cobalt-water': `Find water in the equilibrium as written. ${ADDED} The colour tells you how the two ions now stand: the card of the equilibrium says what a liquid that holds both looks like.`,
   'cobalt-heat': HEATED,
   'cobalt-cool': COOLED,
   'zinc-drop': DROP,

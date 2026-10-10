@@ -840,10 +840,12 @@ Nothing in this lab is drawn by chance: the same actions give the same tubes.
 
 Each system is headed by its equilibrium, written one way and kept that way, so that "left" and "right" mean something. Each has a short list of disturbances, done in order, each from the state the one before left.
 
-1. **A solid and its ions: lead chloride.** Lead ions and chloride ions against solid lead chloride. Hydrochloric acid, 0.3 M, is added to the lead nitrate solution a portion at a time until a white solid forms; the tube is heated, and the solid dissolves; cooled, and it comes back; water is added, and it dissolves.
-2. **An indicator: methyl violet.** The indicator's yellow acid form against its violet form and a hydrogen ion. Hydrochloric acid, 6 M, is added by drops, and the violet goes through blue and green to yellow; sodium hydroxide, 6 M, by drops, takes it back.
-3. **A complex ion: cobalt.** The pink ion of cobalt with water against the blue ion of cobalt with chloride. Cobalt(II) chloride in hydrochloric acid, 12 M, is blue; water is added, and it turns pink; heated, it turns toward blue; cooled, pink again.
+1. **A solid and its ions: lead chloride.** Lead ions and chloride ions against solid lead chloride. Hydrochloric acid, 0.3 M, is added to the lead nitrate solution a portion at a time, three portions in all, and the tube is looked at after each: nothing after the first, a white solid after the second. The tube is heated, and the solid dissolves; cooled, and it comes back; water is added, and it dissolves. The number of portions is fixed and said beforehand: an addition that stopped when the solid came would say what the tube shows before it is looked at.
+2. **An indicator: methyl violet.** The indicator's yellow acid form against its violet form and a hydrogen ion. Hydrochloric acid, 6 M, is added three drops at a time, twice, and the violet goes through a colour between to yellow; sodium hydroxide, 6 M, three drops at a time, twice, takes it back. The colour in the middle of the indicator's range is stored as "between blue and yellow" and has no name: the table read gives the change as yellow to blue, and no source read names what lies between. Three drops at a time keeps every tube clear of the two ends of the range, where a number could not decide the colour.
+3. **A complex ion: cobalt.** The pink ion of cobalt with water against the blue ion of cobalt with chloride. Cobalt(II) chloride in hydrochloric acid, 12 M, is blue; water is added, one portion, and it turns violet, with both ions in the liquid; the violet tube is heated, and it turns blue; cooled in ice water, it turns pink. These are the changes the demonstration read shows, in the liquid it shows them in: the tube is not diluted on to pink before it is heated.
 4. **Two hydroxides: zinc and magnesium.** Each metal ion with hydroxide ions against its solid hydroxide. A drop of sodium hydroxide gives a white solid with each. The solid is then shared among three tubes: acid dissolves both; more sodium hydroxide dissolves zinc's and not magnesium's; ammonia dissolves zinc's and not magnesium's. Zinc's hydroxide dissolves in more base and in ammonia because a second equilibrium, that of a complex ion, takes the zinc ion away; magnesium has none.
+
+Systems 1 to 3 above, and the last card and the last rule of 18.3, are as the lab was built on 2026-10-10. `docs/research/lechatelier/README.md` says where that is other than this section first had it, and why.
 
 ### 18.3 A disturbance
 
@@ -853,11 +855,11 @@ A system is its disturbances, one at a time. A disturbance is a short column of 
 2. **Before**: which way will it shift (toward the left side as written, toward the right, or not at all)? One choice, recorded and never judged: it is there to be compared with what happens.
 3. **The tube**, drawn and explored as in section 8, with the one action (add, heat or cool; for an addition by drops, one press for each portion, and the tube is looked at as often as the learner likes on the way).
 4. **What is seen**: choice boxes, opened by looking: the liquid's colour, whether there is a solid.
-5. **Which way it went**: one choice, checked. For the three tubes of system 4 that turn on the second equilibrium, the question is instead what took the metal ion away.
+5. **Which way it went**: one choice, checked. For the four tubes of system 4 that get more sodium hydroxide or ammonia, two of each metal, the question is instead what took the metal ion away: hydroxide, ammonia, or nothing. At zinc's two tubes the second equilibrium did; at magnesium's two the answer is that nothing did, and the solid is still there.
 
 Once a disturbance is done, a note says what happened and why, with the learner's own prediction beside it.
 
-Guided checks each answer as it is given and has a hint ready in a closed disclosure. Challenge takes whatever is recorded and checks a system's answers together when asked; a system that is not right is worked again.
+Guided checks each answer as it is given and has a hint ready in a closed disclosure. Challenge takes whatever is recorded and checks a system's answers together when asked; a system that is not right is worked again. In Challenge the answer to the last card is given once: giving it ends the disturbance and opens its note, and what was recorded of the tube can be changed until then.
 
 **A system counts** when each observation matches what its tube showed and each direction is right. There is no error of technique that spoils a run here: every change in this lab can be taken back, which is the point of it. The lab is complete when all four systems count.
 

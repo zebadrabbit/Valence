@@ -455,11 +455,10 @@
             "rules[cobalt-with-chloride]",
             "systems[cobalt].tubes[cobalt].shows",
             "systems[cobalt].disturbances[cobalt-water].stages[0]",
-            "systems[cobalt].disturbances[cobalt-water].stages[1]",
             "systems[cobalt].disturbances[cobalt-water].notes[0]"
           ],
           "prints": "The equilibrium between two coloured cobalt species",
-          "where": "The page's title. Under it: the equation the lab heads its third system with, pink printed after the ion with water and blue after the ion with chloride; a pink solution of cobalt chloride made up with concentrated hydrochloric acid, six tenths of the whole being the acid, is violet and holds both ions; more acid turns it blue and water turns it pink. The lab's tube starts from the solid in 12 M acid, which the page does not make: the lab takes it to be blue, as the page's liquid is with more acid. The lab's two portions of water leave half and then a third of the liquid acid; its violet and its pink at those two points go beyond the page, which gives no amounts for the change."
+          "where": "The page's title. Under it: the equation the lab heads its third system with, pink printed after the ion with water and blue after the ion with chloride; 4 g of the salt, made up to 100 mL with 60 mL of concentrated hydrochloric acid, is violet and holds both ions; more acid turns it blue, which is mainly the ion with chloride, and water turns it pink. The lab's tube after its one portion of water has that make-up: 0.1 g of the salt in 2.5 mL, six tenths of it concentrated acid. The lab's tube starts from the solid in the concentrated acid alone, which the page does not make: the lab takes it to be blue, as the page's liquid is with more acid, and the second source has concentrated acid turn the pink ion blue."
         },
         {
           "fields": [
@@ -472,7 +471,7 @@
             "systems[cobalt].disturbances[cobalt-water].notes[1]"
           ],
           "prints": "over 90 °C",
-          "where": "In brackets in the procedure, of the hot water a tube of the violet liquid is stood in: the liquid turns blue, and a tube stood in ice and water turns pink; swapping the two tubes undoes both; and the teaching notes call the change toward the blue ion endothermic, so that a rise in temperature moves the equilibrium to the right. The page heats and cools the violet liquid. The lab heats a tube that has had more water and is pink when cold, and stores blue for it hot, which goes beyond the page: README.md says so."
+          "where": "In brackets in the procedure, of the hot water a tube of the violet liquid is stood in: the liquid turns blue, and a tube stood in ice and water turns pink, a third tube being kept as it is to compare; swapping the hot tube and the cold one undoes both; and the teaching notes call the change toward the blue ion endothermic, so that a rise in temperature moves the equilibrium to the right. The lab heats its violet tube and then stands the same tube in ice water, which is the page's swap."
         }
       ]
     },
@@ -488,11 +487,10 @@
             "substances[cobalt-chloro-ion].look",
             "rules[cobalt-with-chloride]",
             "systems[cobalt].tubes[cobalt].shows",
-            "systems[cobalt].disturbances[cobalt-water].stages[1]",
             "systems[cobalt].disturbances[cobalt-water].notes[0]"
           ],
           "prints": "Replacing the water in the hexaaquacobalt(II) ion",
-          "where": "The first heading of that name, in the part on chloride ions taking the place of water. Under it: concentrated hydrochloric acid turns a pink solution of the ion with six water molecules a dark blue, four chloride ions taking the place of the six; the change can go both ways; and water added to the blue liquid, water standing on the right of the equation, moves the equilibrium to the left, so that the pink comes back, paler for being more dilute."
+          "where": "The first heading of that name, in the part on chloride ions taking the place of water. Under it: concentrated hydrochloric acid turns a pink solution of the ion with six water molecules a dark blue, four chloride ions taking the place of the six; the change can go both ways; and water added to the blue liquid, water standing on the right of the equation, moves the equilibrium to the left, toward the pink ion."
         }
       ]
     },

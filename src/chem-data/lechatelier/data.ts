@@ -79,7 +79,8 @@ const side = z.enum(SIDES)
 /**
  * An equilibrium as the lab writes it, one way and kept that way (spec 18.2). `left` and `right` say what stands
  * on each side, with the colour that tells it. `seenBy` is how a shift is read off the tube: by a solid that
- * stands on one side, or by the colour of the liquid, one colour for each side. `heat` is the side toward which
+ * stands on one side, or by the colour of the liquid, one colour for each side and, where a source gives it, the
+ * colour of a liquid that holds both, which lies between the two. `heat` is the side toward which
  * the change takes heat in, where a source gives it. `numbers` names the constants the build checks its tubes with.
  */
 const equilibriumSchema = z.strictObject({
@@ -87,7 +88,7 @@ const equilibriumSchema = z.strictObject({
   equation: text,
   left: text,
   right: text,
-  seenBy: z.union([z.strictObject({ kind: z.literal('solid'), side }), z.strictObject({ kind: z.literal('colour'), left: text, right: text })]),
+  seenBy: z.union([z.strictObject({ kind: z.literal('solid'), side }), z.strictObject({ kind: z.literal('colour'), left: text, right: text, between: text.optional() })]),
   heat: z.strictObject({ takenInToward: side, heatId: id.optional(), sourceId: id }).optional(),
   numbers: z.strictObject({ solubilityProduct: id, withHydroxide: id.optional(), withAmmonia: id.optional() }).optional(),
   substanceIds: z.array(id).min(1),
@@ -234,7 +235,6 @@ export const lechatelierSchema = z.strictObject({
     cobaltChlorideGrams: param(positive),
     cobaltAcidDrops: param(whole),
     cobaltWaterDrops: param(whole),
-    cobaltWaterPortions: param(whole),
     metalNitrateDrops: param(whole),
     firstBaseDrops: param(whole),
     shareDrops: param(whole),
