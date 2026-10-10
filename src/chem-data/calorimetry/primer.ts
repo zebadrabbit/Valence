@@ -244,10 +244,10 @@ export const CALORIMETRY_PRIMER: readonly PrimerSection[] = [
         "that the worksheet waits for the turn is this lab's rule (spec 16.2).",
       ),
       paragraph(
-        { label: 'What to type', labRules: ['In this lab the two temperatures you type must be ones the logger shows, to within 0.1 °C: the level one before the change, and the highest or the lowest after it.'] },
-        'In this lab the two temperatures you type must be ones the logger shows, to within 0.1 °C: the level one before the change, and the highest or the lowest after it. The first two entries of the worksheet open when the curve has turned back and you have looked at such a point.',
+        { label: 'What to type', labRules: ['In this lab the two temperatures you type must be ones the logger shows, to the tenth of a degree: the level one before the change, and the highest or the lowest after it.'] },
+        'In this lab the two temperatures you type must be ones the logger shows, to the tenth of a degree: the level one before the change, and the highest or the lowest after it. The first two entries of the worksheet open when the curve has turned back and you have looked at such a point.',
         [],
-        "which temperatures are typed, how near the logger's they must be and what opens an entry are this lab's own (spec 16.2).",
+        "which temperatures are typed, that they must be the logger's own and what opens an entry are this lab's own (spec 16.2), and a test holds the sentence to the engine.",
       ),
       paragraph(
         { label: 'Why it reads low' },

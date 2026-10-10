@@ -14,6 +14,7 @@ import {
   WARNING_BUTTONS,
   WARNING_TEXT,
   benchLines,
+  notebookLines,
   blockedText,
   candidateLines,
   cupText,
@@ -98,11 +99,29 @@ describe('the parts and the bench', () => {
     expect(PART_AIM.metal).toBe('The specific heat of an unknown metal, and from it which metal it is.')
   })
 
+  it('says of no part which way the heat goes: the sentence is shown in Challenge too, and that is an entry of two worksheets', () => {
+    expect(PART_AIM.neutralisation).toBe('The heat for each mole of water formed when an acid and a base are mixed.')
+    expect(PART_AIM.dissolving).toBe('The heat for each mole of ammonium nitrate that dissolves in water.')
+    for (const aim of Object.values(PART_AIM)) expect(aim).not.toMatch(/given out|gives out|gave|taken in|takes in|took|warm|cool|cold|hot\b|rise|fall|exotherm|endotherm/i)
+  })
+
   it("says what is used, and what the balance and the bath's thermometer read", () => {
     const lab = createLab(1, 'guided')
-    expect(benchLines(data, 'neutralisation', view(lab, 'neutralisation').bench)).toEqual(['50.0 mL of hydrochloric acid, 1.00 M, in the cup.', '50.0 mL of sodium hydroxide solution, 1.00 M, ready to pour in.'])
+    expect(benchLines(data, 'neutralisation', view(lab, 'neutralisation').bench)).toEqual(['50.0 mL of hydrochloric acid, 1.00 M, in the cup.', '50.0 mL of sodium hydroxide solution, 1.00 M, which is poured in.'])
     expect(benchLines(data, 'dissolving', view(lab, 'dissolving').bench)).toEqual(['50.0 mL of distilled water, in the cup.', 'Ammonium nitrate, white crystals, weighed out: the balance reads 4.20 g.'])
-    expect(benchLines(data, 'metal', view(lab, 'metal').bench)).toEqual(['50.0 mL of distilled water, in the cup.', 'Unknown metal, a grey piece of metal: the balance reads 49.12 g.', 'The piece is in boiling water, and the thermometer in that water reads 99.6 °C.'])
+    expect(benchLines(data, 'metal', view(lab, 'metal').bench)).toEqual(['50.0 mL of distilled water, in the cup.', 'Unknown metal, a grey piece of metal: the balance reads 49.12 g.', 'The piece is heated in boiling water, and the thermometer in that water reads 99.6 °C.'])
+  })
+
+  it('says each line of the bench so that it is as true once the change is started as before it', () => {
+    for (const part of PART_IDS) for (const line of benchLines(data, part, view(createLab(1, 'guided'), part).bench)) expect(line, line).not.toMatch(/ready to|not yet|has not|is in boiling|waiting/)
+  })
+
+  it("gives the notebook the bench's own lines to work from, and for part 3 the four metals' figures in one line more", () => {
+    const lab = createLab(1, 'guided')
+    for (const part of ['neutralisation', 'dissolving'] as const) expect(notebookLines(data, part, view(lab, part).bench)).toEqual(benchLines(data, part, view(lab, part).bench))
+    expect(notebookLines(data, 'metal', view(lab, 'metal').bench)).toEqual([...benchLines(data, 'metal', view(lab, 'metal').bench), 'The four metals, in J/(g·°C): aluminium 0.902, iron 0.449, zinc 0.388 and tin 0.227.'])
+    // The line is the table's, whatever the piece is: the same at every seed.
+    for (let seed = 1; seed <= 30; seed++) expect(notebookLines(data, 'metal', view(createLab(seed, 'guided'), 'metal').bench).at(-1)).toBe(notebookLines(data, 'metal', view(lab, 'metal').bench).at(-1))
   })
 
   it('lists the four metals the piece may be with the specific heat of each, as the record has them, and never says which it is before part 3 is done', () => {
@@ -243,6 +262,16 @@ describe('refusals and feedback', () => {
     expect(entryFeedback('neutralisation', 'perMole', { follows: false, slip: null })).toBe('That does not follow from the heat and the moles you entered.')
     expect(entryFeedback('metal', 'metal', { follows: false, slip: null })).toBe('That is not the metal whose figure in the table is nearest to the specific heat you entered.')
     expect(entryFeedback('metal', 'metal', { follows: true, slip: null })).toBe('')
+    // Part 1's moles come from a volume and part 2's from a mass: the second is not told that millilitres are not litres.
+    expect(entryFeedback('neutralisation', 'moles', { follows: false, slip: null })).toBe('That does not follow from what the bench gives. Check the units: millilitres are not litres.')
+    expect(entryFeedback('dissolving', 'moles', { follows: false, slip: null })).toBe('That does not follow from what the bench gives. Check the mass of the salt and the molar mass you used.')
+    // A worksheet that has been checked has no relation to open, and Challenge's never has: no feedback sends the learner to one.
+    for (const part of PART_IDS) {
+      for (const field of FIELDS[part]) {
+        for (const slip of [null, ...SLIPS]) expect(entryFeedback(part, field, { follows: false, slip }), `${part} ${field} ${slip}`).not.toMatch(/relation/i)
+        for (const blocked of BLOCKED) expect(blockedText(part, blocked, field), `${part} ${field} ${blocked}`).not.toMatch(/Open the relation/)
+      }
+    }
   })
 
   it("words Guided's refusal of each scripted slip as that slip, and never gives the value", () => {
@@ -299,11 +328,15 @@ describe('a run that is checked', () => {
   it('says of a run that does not count why, each cause in a sentence, and that the part is run again', () => {
     for (const reason of REASONS) expect(reasonText(m, reason), reason).toMatch(/^[A-Z].*\.$/)
     const lidOff = wholeRun(m, createLab(1, 'challenge'), 'metal', { lid: false })
-    expect(outcomeText(m, view(lidOff, 'metal').outcome)).toBe('This run does not count. The lid was not on from the moment the change was started, so heat left through the open top while the temperature was still changing. The result is more than 5% from the figure the lab holds for this part. Run this part again: the lab sets it up with new numbers.')
+    expect(outcomeText(m, view(lidOff, 'metal').outcome)).toBe('This run does not count. The lid was not on from the moment the change was started, so the cup traded heat with the room through its open top while the temperature was still changing. The result is more than 5% from the figure the lab holds for this part. Run this part again: the lab sets it up with new numbers.')
     const unstirred = wholeRun(m, createLab(1, 'challenge'), 'dissolving', { stir: false })
     expect(outcomeText(m, view(unstirred, 'dissolving').outcome)).toContain('The cup was not stirred from the moment the change was started, so the change was slow, and the cup traded heat with the room all the while.')
     const unsigned = wholeRun(m, createLab(1, 'challenge'), 'neutralisation', { slip: 'no-sign' })
-    expect(outcomeText(m, view(unsigned, 'neutralisation').outcome)).toBe('This run does not count. An entry of the worksheet does not follow from the ones above it: the worksheet marks which. Run this part again: the lab sets it up with new numbers.')
+    expect(outcomeText(m, view(unsigned, 'neutralisation').outcome)).toBe('This run does not count. An entry of the worksheet does not follow from the ones above it. The worksheet marks which. Run this part again: the lab sets it up with new numbers.')
+    // The record lists a run's reasons with no worksheet beside them, and so does not send the reader to one.
+    expect(reasonText(m, 'entries-do-not-follow')).toBe('An entry of the worksheet does not follow from the ones above it.')
+    // Neither cause of a careless cup says which way the heat went: the cup of part 2 is colder than the room.
+    for (const reason of ['lid-off', 'not-stirred'] as const) expect(reasonText(m, reason)).toMatch(/traded heat with the room/)
     expect(outcomeText(m, { state: 'does-not-count', reasons: ['start-not-shown', 'extreme-not-shown'], percentOff: null })).toBe('This run does not count. The starting temperature entered is not the one the logger shows before the change. The highest or lowest temperature entered is not the one the logger shows. Run this part again: the lab sets it up with new numbers.')
   })
 
@@ -313,6 +346,26 @@ describe('a run that is checked', () => {
     state = wholeRun(m, run(m, state, [{ type: 'runAgain', part: 'neutralisation' }]), 'neutralisation')
     const [first] = runOutcomes(m, state, 'neutralisation')
     expect(outcomeText(m, first!)).toContain(' Its result was 8.8% under the figure the lab holds. Run this part again')
+  })
+
+  it('refuses in Guided a temperature a tenth of a degree off the logger, with the sentence that says which reading is wanted', () => {
+    const P = 'metal'
+    const state = ready(P)
+    const careful = worksheetValues(m, state, P)
+    for (const by of [-1, 1]) {
+      expect(blockedText(P, can(m, state, { type: 'enter', part: P, field: 'start', value: (careful.start as number) + by })!, 'start')).toBe('That is not the temperature the logger shows before the change. Look at a point on the level part of the graph, and type its temperature.')
+      const started = run(m, state, entryActions(P, careful).slice(0, 1))
+      expect(blockedText(P, can(m, started, { type: 'enter', part: P, field: 'extreme', value: (careful.extreme as number) + by })!, 'extreme')).toMatch(/^That is not the highest temperature the logger shows after the change/)
+    }
+    // A result too far off is said in one plain sentence. With the temperatures the logger's own, a careful cup does not come to it alone (the engine's acceptance tests).
+    expect(outcomeText(m, { state: 'does-not-count', reasons: ['outside-tolerance'], percentOff: null })).toBe('This run does not count. The result is more than 5% from the figure the lab holds for this part. Run this part again: the lab sets it up with new numbers.')
+  })
+
+  it('does not say to run the part again where it cannot be: once the lab is complete', () => {
+    const outcome = view(wholeRun(m, createLab(1, 'challenge'), 'metal', { lid: false }), 'metal').outcome
+    expect(outcomeText(m, outcome)).toMatch(/ Run this part again: the lab sets it up with new numbers\.$/)
+    expect(outcomeText(m, outcome, false)).not.toContain('Run this part again')
+    expect(outcomeText(m, outcome, false)).toMatch(/^This run does not count\. .*for this part\.$/)
   })
 
   it("says what the result was held to once the engine hands it over, and shows the part's notes then", () => {

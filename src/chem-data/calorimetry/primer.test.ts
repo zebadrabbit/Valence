@@ -286,7 +286,9 @@ describe('the calorimetry primer: what it has to say', () => {
     expect(card).toContain(`takes a reading every ${parameters.loggerStepSeconds.value} seconds`)
     expect(card).toContain('Start the logger before you start the change.')
     expect(card).toContain('Run on until you see them turn back.')
-    expect(card).toContain(`must be ones the logger shows, to within ${(parameters.readingToleranceTenths.value / 10).toFixed(1)} °C`)
+    // Nothing either side of the logger's reading is taken: the sentence says so, and the record's parameter is what makes it so.
+    expect(card).toContain('must be ones the logger shows, to the tenth of a degree')
+    expect(parameters.readingToleranceTenths.value).toBe(0)
     expect(card).toContain('So the change in temperature you read is a little too small')
   })
 

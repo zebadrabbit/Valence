@@ -57,7 +57,8 @@ describe('the calorimetry lab', () => {
         saltRangeCg: [380, 420],
         metalRangeCg: [4800, 5200],
         bathRangeTenths: [990, 1000],
-        readingToleranceTenths: 1,
+        // 1 until 2026-10-10. The version was left at 1 with it: the lab had not been released, so no stored run could be judged differently.
+        readingToleranceTenths: 0,
         tolerancePercent: 5,
       },
       lab: { metalIndex: 2 },

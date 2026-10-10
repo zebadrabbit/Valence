@@ -9,7 +9,7 @@ import { doneParts, partView, runOutcome, runOutcomes } from './select'
 import { labSetup, runSetup } from './setup'
 import { calorimetryStateSchema, createLab, currentRun, judge, readingsOf, storedResult, type CalorimetryState, type Mode, type Reason } from './state'
 import { entryActions, looks, run, wholeRun, workCup, worksheetValues, type Arithmetic, type Technique } from './testkit'
-import { FIELDS, percentOff, type Field } from './worksheet'
+import { FIELDS, percentOff, type Field, type Value } from './worksheet'
 
 // Spec 16.6, the calorimetry lab's acceptance list, on the engine and the stored record. Its last item, the
 // descriptions in words of the cup and of the graph, is the wording module's (src/app/lab/calorimetry/messages.test.ts).
@@ -204,7 +204,8 @@ describe('an entry that does not follow (spec 16.6, third item)', () => {
     }
   }, 60_000)
 
-  it('is marked and refused when the wrong point is read for the highest or lowest, wherever that point is more than 0.1 °C from it', () => {
+  it('is marked and refused when the wrong point is read for the highest or lowest, wherever that point does not show the same temperature', () => {
+    expect(m.readingToleranceTenths).toBe(0)
     let wrong = 0
     for (const part of PART_IDS) {
       for (const seed of SEEDS) {
@@ -213,6 +214,7 @@ describe('an entry that does not follow (spec 16.6, third item)', () => {
         state = run(m, state, Array.from({ length: 6 }, (): Action => ({ type: 'runOn', part })))
         state = run(m, state, looks(m, state, part))
         const { graph } = partView(m, state, part)
+        // A later reading that shows the very same temperature is as good as the first that did.
         if (Math.abs(graph.readings.at(-1)! - graph.extreme!.tenths) <= m.readingToleranceTenths) continue
         wrong++
         const values = worksheetValues(m, state, part, { slip: 'wrong-point' })
@@ -236,25 +238,62 @@ describe('an entry that does not follow (spec 16.6, third item)', () => {
     expect(runOutcome(m, state, 'neutralisation', currentRun(state, 'neutralisation'))).toEqual({ state: 'does-not-count', reasons: ['entries-do-not-follow'], percentOff: null })
   })
 
-  it('does not count a run whose entries all follow but whose result is not within the tolerance, and says so', () => {
-    // Both temperatures typed 0.1 °C off, towards each other: each is one the logger shows, and on tin's small rise that is 5% of the change.
-    let found = 0
-    for (const seed of SEEDS.filter((s) => trueMetal(s) === 'tin-piece')) {
-      let state = workCup(m, createLab(seed, 'challenge'), 'metal')
-      state = run(m, state, looks(m, state, 'metal'))
-      const { graph, bench } = partView(m, state, 'metal')
-      const [start, extreme] = [graph.readings[graph.changedAt!]! + 1, graph.extreme!.tenths - 1]
-      const heat = sig((50 * 4.18 * ((extreme - start) / 10)).toPrecision(3))
-      const specificHeat = sig(((heat.mantissa * 10 ** heat.exponent) / ((bench.balanceCg! / 100) * ((bench.bathTenths! - extreme) / 10))).toPrecision(3))
-      state = run(m, state, [...entryActions('metal', { ...worksheetValues(m, state, 'metal'), start, extreme, change: extreme - start, heat, specificHeat, metal: 'tin-piece' }), { type: 'check', part: 'metal' }])
-      expect(partView(m, state, 'metal').worksheet.every((entry) => entry.verdict?.follows === true), String(seed)).toBe(true)
-      if (reasonsOf(state, 'metal').length === 0) continue
-      found++
-      expect(reasonsOf(state, 'metal'), String(seed)).toEqual(['outside-tolerance'])
-      expect(partView(m, state, 'metal')).toMatchObject({ done: false, expected: null })
-    }
-    expect(found).toBeGreaterThan(0)
+  it('names the tolerance alone where a result is too far off and nothing else is amiss, which takes a tolerance tighter than the lab\'s own', () => {
+    // With the lab's own 5% no careful cup gets here (the next tests): the reason is shown on a model that asks for 1%.
+    const tight: CalorimetryModel = { ...m, tolerancePercent: 1 }
+    const state = wholeRun(tight, createLab(1, 'challenge'), 'neutralisation')
+    expect(partView(tight, state, 'neutralisation').worksheet.every((entry) => entry.verdict?.follows === true)).toBe(true)
+    expect(runOutcome(tight, state, 'neutralisation', currentRun(state, 'neutralisation'))).toEqual({ state: 'does-not-count', reasons: ['outside-tolerance'], percentOff: null })
+    expect(partView(tight, state, 'neutralisation')).toMatchObject({ done: false, expected: null })
   })
+})
+
+describe('a careful cup whose every entry is taken (added on 2026-10-10, when a typed temperature came to be held to the logger\'s exactly)', () => {
+  /** Every size to three figures near a value: what an entry could be typed as. Five either side of the nearest, at the value's own power of ten and at the two beside it. */
+  const near = (x: number): Sig3[] => {
+    const e = Math.floor(Math.log10(x)) - 2
+    return [e - 1, e, e + 1].flatMap((exponent) => {
+      const centre = Math.round(x / 10 ** exponent)
+      return Array.from({ length: 11 }, (_, i) => centre - 5 + i)
+        .filter((mantissa) => mantissa >= 100 && mantissa <= 999)
+        .map((mantissa) => ({ mantissa, exponent }))
+    })
+  }
+  const sizeOf = (value: Value) => Math.abs((value as Sig3).mantissa) * 10 ** (value as Sig3).exponent
+  // How far the least and the most favourable chain of entries leaves a result from the stored figure, in percent, over the hundred seeds.
+  const WORST: Record<PartId, [number, number]> = { neutralisation: [-1.57, -1.57], dissolving: [-2.89, -0.43], metal: [-3.08, -0.44] }
+
+  it.each(PART_IDS)('of %s counts at every seed from 1 to 100, whichever way the rounding rule lets each entry be worked: no such run fails on the tolerance alone', (part) => {
+    const offs: number[] = []
+    for (const seed of SEEDS) {
+      let ready = workCup(m, createLab(seed, 'guided'), part)
+      ready = run(m, ready, looks(m, ready, part))
+      const careful = worksheetValues(m, ready, part)
+      // The two temperatures are the logger's own, and their difference is exact: Guided takes nothing else for the three.
+      for (const field of ['start', 'extreme'] as const) for (const by of [-1, 1]) expect(can(m, field === 'start' ? ready : run(m, ready, entryActions(part, careful).slice(0, 1)), { type: 'enter', part, field, value: (careful[field] as number) + by }), `${seed} ${field}`).toBe('not-the-logger')
+      ready = run(m, ready, entryActions(part, careful).slice(0, 3))
+      // Every value Guided takes for each entry after them, tried in turn: the rule takes a value worked from the entries above as typed or as they stood unrounded, and either neighbour at a tie.
+      const walk = (state: CalorimetryState, fields: readonly Field[]): void => {
+        const [field, ...rest] = fields
+        if (field === undefined) {
+          expect(runOutcome(m, state, part, currentRun(state, part)).state, `${part} ${seed} ${JSON.stringify(currentRun(state, part).entries)}`).toBe('counts')
+          return void offs.push(off(state, part))
+        }
+        const sizes = field === 'direction' || field === 'metal' ? [] : near(sizeOf(careful[field]))
+        const candidates: Value[] = field === 'direction' ? ['out', 'in'] : field === 'metal' ? m.candidates.map((c) => c.id) : field === 'perMole' ? sizes.flatMap((size) => [size, { ...size, mantissa: -size.mantissa }]) : sizes
+        for (const value of candidates) {
+          const action: Action = { type: 'enter', part, field, value }
+          if (can(m, state, action) === null) walk(reduce(m, state, action), rest)
+        }
+      }
+      walk(ready, FIELDS[part].slice(3))
+    }
+    // At least one chain for each seed, and more than one where an entry can be rounded two ways.
+    expect(offs.length).toBeGreaterThanOrEqual(SEEDS.length)
+    if (part !== 'neutralisation') expect(offs.length).toBeGreaterThan(SEEDS.length)
+    for (const by of offs) expect(Math.abs(by)).toBeLessThanOrEqual(m.tolerancePercent)
+    expect(range(offs)).toEqual(WORST[part])
+  }, 120_000)
 })
 
 describe('the same seed and the same actions (spec 16.6, fourth item)', () => {

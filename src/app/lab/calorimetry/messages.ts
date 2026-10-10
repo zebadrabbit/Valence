@@ -31,10 +31,10 @@ export function partTitle(data: CalorimetryData, part: PartId): string {
   return `Part ${PART_IDS.indexOf(part) + 1}: ${data.parts[PART_IDS.indexOf(part)]!.name}`
 }
 
-/** What each part finds, under its title. */
+/** What each part finds, under its title, in both modes. None says which way the heat goes: that is an entry of the worksheets of parts 1 and 2. */
 export const PART_AIM: Record<PartId, string> = {
-  neutralisation: 'The heat given out for each mole of water formed when an acid and a base are mixed.',
-  dissolving: 'The heat taken in for each mole of ammonium nitrate that dissolves in water.',
+  neutralisation: 'The heat for each mole of water formed when an acid and a base are mixed.',
+  dissolving: 'The heat for each mole of ammonium nitrate that dissolves in water.',
   metal: 'The specific heat of an unknown metal, and from it which metal it is.',
 }
 
@@ -48,18 +48,31 @@ const measured = (data: CalorimetryData, part: PartId, reagentId: string) => {
 
 /**
  * The bench in words: what is used, and what the balance and the bath's thermometer read. The piece of part 3 is
- * named for what it looks like and never for what it is.
+ * named for what it looks like and never for what it is. Each line is as true once the change is started as before
+ * it: the lines stand on the bench for the whole run, and again at the head of the notebook.
  */
 export function benchLines(data: CalorimetryData, part: PartId, bench: BenchView): string[] {
   const water = `${measured(data, part, 'water')} of ${lower(data.water.name)}, in the cup.`
-  if (part === 'neutralisation') return [`${measured(data, part, 'hcl-1m')} of ${named(data, 'hcl-1m')}, in the cup.`, `${measured(data, part, 'naoh-1m')} of ${named(data, 'naoh-1m')}, ready to pour in.`]
+  if (part === 'neutralisation') return [`${measured(data, part, 'hcl-1m')} of ${named(data, 'hcl-1m')}, in the cup.`, `${measured(data, part, 'naoh-1m')} of ${named(data, 'naoh-1m')}, which is poured in.`]
   const salt = reagentOf(data, 'nh4no3-solid')
   if (part === 'dissolving') return [water, `${salt.name}${salt.form === 'solid' ? `, ${salt.appearance.value}` : ''}, weighed out: the balance reads ${massText(bench.balanceCg ?? 0)}.`]
-  return [water, `${data.parts[2].unknown.name}, ${data.parts[2].unknown.appearance}: the balance reads ${massText(bench.balanceCg ?? 0)}.`, `The piece is in boiling water, and the thermometer in that water reads ${temperatureText(bench.bathTenths ?? 0)}.`]
+  return [water, `${data.parts[2].unknown.name}, ${data.parts[2].unknown.appearance}: the balance reads ${massText(bench.balanceCg ?? 0)}.`, `The piece is heated in boiling water, and the thermometer in that water reads ${temperatureText(bench.bathTenths ?? 0)}.`]
 }
 
 /** The four metals the piece may be, each with its specific heat: "Aluminium: 0.902 J/(g·°C)". The bench shows them from the start; which one the piece is, it does not. */
 export const candidateLines = (data: CalorimetryData): string[] => candidatesOf(data).map((c) => `${c.name}: ${c.specificHeat.value.toFixed(3)} ${c.specificHeat.unit}`)
+
+/**
+ * What the worksheet is worked from, said again at the head of the notebook, so that an entry can be worked without
+ * going back up to the bench: the bench's own lines, and for part 3 the table of the four metals in one line. It
+ * holds nothing that the bench does not show from the start.
+ */
+export function notebookLines(data: CalorimetryData, part: PartId, bench: BenchView): string[] {
+  const lines = benchLines(data, part, bench)
+  if (part !== 'metal') return lines
+  const metals = candidatesOf(data)
+  return [...lines, `The four metals, in ${metals[0]!.specificHeat.unit}: ${listed(metals.map((c) => `${lower(c.name)} ${c.specificHeat.value.toFixed(3)}`))}.`]
+}
 
 /** Over the four metals' tiles while the piece is unknown, and over the one tile once it is known. */
 export function metalHazardsHeading(data: CalorimetryData, metalId: string | null): string {
@@ -74,6 +87,8 @@ export const BENCH_TEXT = {
   graph: 'The graph',
   notebook: 'The notebook',
   candidates: 'The four metals the piece may be',
+  /** Over the bench's lines at the head of the notebook. */
+  fromBench: 'From the bench',
   lid: 'Put the lid on',
   stir: 'Stir',
   logger: 'Start the logger',
@@ -89,6 +104,8 @@ export const BENCH_TEXT = {
   hint: 'The relation this entry uses',
   notes: 'Notes on this part',
   working: 'How the figure in the table was worked out',
+  /** In the notebook and under Run on, where the logger is full and no worksheet can open: neither sends the learner to the other. */
+  spent: 'The logger has taken all the readings it can hold, and the curve has not turned back, so the worksheet cannot open. Run this part again.',
   done: 'Part done: one run of it counts.',
   complete: 'The lab is complete: a run of each of the three parts counts.',
 } as const
@@ -239,16 +256,18 @@ const SLIP_TEXT: Record<Slip, (part: PartId, field: Field) => string> = {
   'joules-for-kilojoules': () => 'That is in joules for each mole. Divide by 1000 to give kilojoules for each mole.',
 }
 
-const NOT_FOLLOWING: Record<Field, string> = {
-  start: 'That is not the temperature the logger shows before the change. Look at a point on the level part of the graph, and type its temperature.',
-  extreme: 'That is not the highest temperature the logger shows after the change, or the lowest if the cup cooled. Look at the points again, and type the temperature of the one furthest from the start.',
-  change: 'That is not the difference between the two temperatures you entered.',
-  heat: 'That does not follow from the change in temperature you entered. Open the relation, and check the mass and the specific heat you used.',
-  direction: 'That does not fit the two temperatures you entered. Think which way the temperature of the cup went, and where that heat came from or went to.',
-  moles: 'That does not follow from what the bench gives. Open the relation, and check the units: millilitres are not litres.',
-  perMole: 'That does not follow from the heat and the moles you entered.',
-  specificHeat: 'That does not follow from the heat you entered, the mass of the piece and its fall in temperature.',
-  metal: 'That is not the metal whose figure in the table is nearest to the specific heat you entered.',
+// None of these sends the learner to the relation: Guided has it under the field, and a worksheet that has been checked, or Challenge's, has none to open.
+const NOT_FOLLOWING: Record<Field, (part: PartId) => string> = {
+  start: () => 'That is not the temperature the logger shows before the change. Look at a point on the level part of the graph, and type its temperature.',
+  extreme: () => 'That is not the highest temperature the logger shows after the change, or the lowest if the cup cooled. Look at the points again, and type the temperature of the one furthest from the start.',
+  change: () => 'That is not the difference between the two temperatures you entered.',
+  heat: () => 'That does not follow from the change in temperature you entered. Check the mass and the specific heat you used.',
+  direction: () => 'That does not fit the two temperatures you entered. Think which way the temperature of the cup went, and where that heat came from or went to.',
+  // Part 1's moles come from a volume, and part 2's from a mass: millilitres are no part of the second.
+  moles: (part) => (part === 'neutralisation' ? 'That does not follow from what the bench gives. Check the units: millilitres are not litres.' : 'That does not follow from what the bench gives. Check the mass of the salt and the molar mass you used.'),
+  perMole: () => 'That does not follow from the heat and the moles you entered.',
+  specificHeat: () => 'That does not follow from the heat you entered, the mass of the piece and its fall in temperature.',
+  metal: () => 'That is not the metal whose figure in the table is nearest to the specific heat you entered.',
 }
 
 /**
@@ -257,7 +276,7 @@ const NOT_FOLLOWING: Record<Field, string> = {
  */
 export function entryFeedback(part: PartId, field: Field, verdict: Verdict): string {
   if (verdict.follows) return ''
-  return verdict.slip ? SLIP_TEXT[verdict.slip](part, field) : NOT_FOLLOWING[field]
+  return verdict.slip ? SLIP_TEXT[verdict.slip](part, field) : NOT_FOLLOWING[field](part)
 }
 
 /** Beside an entry once it is checked. */
@@ -304,9 +323,9 @@ export function blockedText(part: PartId, blocked: Blocked, field?: Field): stri
     case 'nothing-to-repeat':
       return 'This run has not been begun: there is nothing to run again.'
     case 'not-the-logger':
-      return NOT_FOLLOWING[field === 'extreme' ? 'extreme' : 'start']
+      return NOT_FOLLOWING[field === 'extreme' ? 'extreme' : 'start'](part)
     case 'does-not-follow':
-      return field ? NOT_FOLLOWING[field] : 'That does not follow from the entries above it.'
+      return field ? NOT_FOLLOWING[field](part) : 'That does not follow from the entries above it.'
     default:
       return SLIP_TEXT[blocked](part, field ?? 'heat')
   }
@@ -316,7 +335,8 @@ export function blockedText(part: PartId, blocked: Blocked, field?: Field): stri
 export const WARNING_TEXT: Record<Warning, { title: string; body: string }> = {
   'lid-off': {
     title: 'The lid is off',
-    body: 'A cup with no lid loses heat from its open top. With the lid off, the highest or the lowest temperature will be further from the true one, and a run started this way does not count. Put the lid on first.',
+    // Said of all three parts: the cup of part 2 is colder than the room and takes heat in, so "trades" and not "loses".
+    body: 'A cup with no lid trades heat with the room through its open top. With the lid off, the highest or the lowest temperature will be further from the true one, and a run started this way does not count. Put the lid on first.',
   },
   'not-stirring': {
     title: 'The stirrer is still',
@@ -327,16 +347,18 @@ export const WARNING_TEXT: Record<Warning, { title: string; body: string }> = {
 export const WARNING_BUTTONS = { back: 'Go back', on: 'Start the change anyway' } as const
 
 const REASON_TEXT: Record<Reason, (m: CalorimetryModel) => string> = {
-  'lid-off': () => 'The lid was not on from the moment the change was started, so heat left through the open top while the temperature was still changing.',
+  'lid-off': () => 'The lid was not on from the moment the change was started, so the cup traded heat with the room through its open top while the temperature was still changing.',
   'not-stirred': () => 'The cup was not stirred from the moment the change was started, so the change was slow, and the cup traded heat with the room all the while.',
   'start-not-shown': () => 'The starting temperature entered is not the one the logger shows before the change.',
   'extreme-not-shown': () => 'The highest or lowest temperature entered is not the one the logger shows.',
-  'entries-do-not-follow': () => 'An entry of the worksheet does not follow from the ones above it: the worksheet marks which.',
+  'entries-do-not-follow': () => 'An entry of the worksheet does not follow from the ones above it.',
   'outside-tolerance': (m) => `The result is more than ${m.tolerancePercent}% from the figure the lab holds for this part.`,
 }
 
-/** One reason a run does not count, as a sentence. */
+/** One reason a run does not count, as a sentence: as the record gives it, where no worksheet stands beside it. */
 export const reasonText = (m: CalorimetryModel, reason: Reason) => REASON_TEXT[reason](m)
+/** The same under the run's own worksheet, which marks the entries that do not follow. */
+const reasonBesideWorksheet = (m: CalorimetryModel, reason: Reason) => `${reasonText(m, reason)}${reason === 'entries-do-not-follow' ? ' The worksheet marks which.' : ''}`
 
 /** How far a result is from the figure the lab holds: "1.6% under", "0.4% over", "equal to". */
 const offText = (percent: number) => (Math.abs(percent) < 0.05 ? 'equal to' : `${Math.abs(percent).toFixed(1)}% ${percent < 0 ? 'under' : 'over'}`)
@@ -344,15 +366,16 @@ const offText = (percent: number) => (Math.abs(percent) < 0.05 ? 'equal to' : `$
 /**
  * The sentence for a run once its worksheet is checked: that it counts, or that it does not and why (spec 16.2).
  * It gives how far the result was from the stored figure only where the engine hands that over, which is once a
- * run of the part counts. Empty for a run that is still open.
+ * run of the part counts. Empty for a run that is still open. `again` is whether the part can be run again: it
+ * cannot once the lab is complete, and the sentence then does not say to.
  */
-export function outcomeText(m: CalorimetryModel, outcome: RunOutcome): string {
+export function outcomeText(m: CalorimetryModel, outcome: RunOutcome, again = true): string {
   if (outcome.state === 'open') return ''
   if (outcome.state === 'counts') {
     return `This run counts: its temperatures are the logger's, every entry follows, the lid was on and the cup stirred from the start of the change, and the result is within ${m.tolerancePercent}% of the figure the lab holds. Your result is ${offText(outcome.percentOff)} that figure.`
   }
   const off = outcome.percentOff === null ? '' : ` Its result was ${offText(outcome.percentOff)} the figure the lab holds.`
-  return `This run does not count. ${outcome.reasons.map((reason) => reasonText(m, reason)).join(' ')}${off} Run this part again: the lab sets it up with new numbers.`
+  return `This run does not count. ${outcome.reasons.map((reason) => reasonBesideWorksheet(m, reason)).join(' ')}${off}${again ? ' Run this part again: the lab sets it up with new numbers.' : ''}`
 }
 
 /** What a part's result is held to, said once the engine hands it over: the stored enthalpy, or which metal the piece was. */

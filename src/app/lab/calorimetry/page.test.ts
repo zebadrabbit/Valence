@@ -47,6 +47,7 @@ import {
   formatHelp,
   metalChoices,
   metalHazardsHeading,
+  notebookLines,
   outcomeText,
   partNotes,
   partTitle,
@@ -287,14 +288,15 @@ describe('a part before anything is done', () => {
     expect(buttons(part).some((one) => one.name === BENCH_TEXT.runAgain || one.name === BENCH_TEXT.runOn)).toBe(false)
   })
 
-  it('says under its title what the part finds, in Guided; in Challenge that waits until the part is done, since it says which way the heat goes', () => {
+  it('says under its title what the part finds, in both modes and from the start: the sentence does not say which way the heat goes', () => {
     for (const id of PART_IDS) {
-      expect(head(bench(fresh(), id).part)).toContain(`<p class="max-w-prose text-sm">${PART_AIM[id]}</p>`)
-      expect(head(bench(fresh('challenge'), id).part)).not.toContain(PART_AIM[id])
-      expect(head(bench(wholeRun(m, fresh('challenge'), id), id).part)).toContain(PART_AIM[id])
+      for (const mode of ['guided', 'challenge'] as const) {
+        expect(head(bench(fresh(mode), id).part)).toContain(`<p class="max-w-prose text-sm">${PART_AIM[id]}</p>`)
+        expect(head(bench(wholeRun(m, fresh(mode), id), id).part)).toContain(`<p class="max-w-prose text-sm">${PART_AIM[id]}</p>`)
+      }
+      // Which way the heat went is an entry of the worksheets of parts 1 and 2, and Challenge is told nothing of it before the check.
+      expect(head(bench(fresh('challenge'), id).part)).not.toMatch(/given out|taken in|gave heat|took heat/)
     }
-    expect(PART_AIM[ONE]).toContain('given out')
-    expect(PART_AIM[TWO]).toContain('taken in')
   })
 
   it('lists on the bench what is used, with what the balance reads where something is weighed, and a tile for each reagent with its hazards closed', () => {
@@ -396,7 +398,7 @@ describe("part 3's bench", () => {
   const benchCard = (of: CalorimetryState) => card(bench(of, THREE).part, BENCH_TEXT.bench)
 
   it('names the piece for what it looks like, with what the balance and the thermometer in the boiling water read', () => {
-    expect(benchLines(data, THREE, view(state, THREE).bench)).toEqual(['50.0 mL of distilled water, in the cup.', 'Unknown metal, a grey piece of metal: the balance reads 49.12 g.', 'The piece is in boiling water, and the thermometer in that water reads 99.6 °C.'])
+    expect(benchLines(data, THREE, view(state, THREE).bench)).toEqual(['50.0 mL of distilled water, in the cup.', 'Unknown metal, a grey piece of metal: the balance reads 49.12 g.', 'The piece is heated in boiling water, and the thermometer in that water reads 99.6 °C.'])
     for (const line of benchLines(data, THREE, view(state, THREE).bench)) expect(benchCard(state)).toContain(`<li>${line}</li>`)
   })
 
@@ -622,6 +624,34 @@ describe('the notebook', () => {
     expect(button(closed, 'Calculator')!.tag).toContain('lab-tap')
   })
 
+  it("has at its head what the entries are worked from: the bench's own lines, and for part 3 the four metals' figures, in both modes and nothing the bench does not show", () => {
+    for (const id of PART_IDS) {
+      for (const mode of ['guided', 'challenge'] as const) {
+        const state = looked(id, mode)
+        const html = notebook(state, id)
+        const lines = notebookLines(data, id, view(state, id).bench)
+        expect(html).toContain(`<p class="text-xs font-medium text-muted-foreground">${BENCH_TEXT.fromBench}</p><ul class="grid max-w-[75ch] list-disc gap-1 pl-5">${lines.map((line) => `<li>${escaped(line)}</li>`).join('')}</ul>`)
+        // Over the worksheet, so that it is in sight with the entry that is being worked.
+        expect(html.indexOf(BENCH_TEXT.fromBench)).toBeLessThan(html.indexOf('<ol'))
+        // Every figure of it is on the bench's own card.
+        const benchCard = card(bench(state, id).part, BENCH_TEXT.bench)
+        for (const figure of lines.join(' ').match(/\d+\.\d+/g)!) expect(benchCard, figure).toContain(figure)
+      }
+    }
+    expect(notebookLines(data, THREE, view(looked(THREE), THREE).bench)).toHaveLength(4)
+  })
+
+  it('says, where the logger is full and the curve has not turned back, that the part is to be run again, and not to run on', () => {
+    const full = run(m, fresh(), [{ type: 'startLogger', part: ONE }, ...Array.from({ length: m.maxSteps / m.runOnSteps }, (): Action => ({ type: 'runOn', part: ONE })), { type: 'startChange', part: ONE }])
+    expect(can(m, full, { type: 'runOn', part: ONE })).toBe('logger-full')
+    expect(view(full, ONE).graph).toMatchObject({ full: true, turned: false })
+    const closed = notebook(full)
+    expect(closed).toContain(`<p class="max-w-prose ${ROLE.held}">${BENCH_TEXT.spent}</p>`)
+    expect(closed).not.toContain(blockedText(ONE, 'not-turned'))
+    expect(BENCH_TEXT.spent).toContain(BENCH_TEXT.runAgain)
+    expect(can(m, full, { type: 'runAgain', part: ONE })).toBeNull()
+  })
+
   it('once the curve has turned back is a numbered list of the entries in the order they are worked out: the first to be made, and the others as their names alone', () => {
     const open = notebook(looked(ONE))
     const list = entries(open)
@@ -773,7 +803,8 @@ describe('what Challenge is shown before a run of the part counts', () => {
         expect(html).not.toContain(BENCH_TEXT.hint)
         expect(html).not.toContain(VERDICT_TEXT.follows)
         expect(html).not.toContain(VERDICT_TEXT.not)
-        expect(html).not.toContain(PART_AIM[part])
+        // Which way the heat goes is said nowhere but in the two choices of the entry that asks it, and in how a signed entry is written.
+        expect(read(html).replaceAll(DIRECTION_LABEL.out, '').replaceAll(DIRECTION_LABEL.in, '').replaceAll(formatHelp('perMole'), '')).not.toMatch(/given out|gave heat|gives heat|taken in|took heat|takes heat/)
         expect(view(state, part).expected).toBeNull()
       }
     }
@@ -806,7 +837,8 @@ describe('a run whose worksheet is checked', () => {
 
   it('says in a card of its own, which can take focus, that the run counts and how far its result is from the figure the lab holds, beside a tick', () => {
     expect(cards(part)).toEqual([BENCH_TEXT.bench, BENCH_TEXT.cup, BENCH_TEXT.graph, BENCH_TEXT.notebook, PAGE_TEXT.outcome])
-    expect(outcome).toContain(`<div tabindex="-1" class="grid max-w-prose gap-2 rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"><p><span aria-hidden="true" class="${ROLE.done}">✓ </span>${escaped(outcomeText(m, view(state, ONE).outcome))}</p></div>`)
+    // Room about the words, taken back from the card's own padding, so that the focus ring does not hug them.
+    expect(outcome).toContain(`<div tabindex="-1" class="-mx-2 -my-1 grid max-w-prose gap-2 rounded-md px-2 py-1 outline-none focus-visible:ring-2 focus-visible:ring-ring"><p><span aria-hidden="true" class="${ROLE.done}">✓ </span>${escaped(outcomeText(m, view(state, ONE).outcome))}</p></div>`)
     expect(outcomeText(m, view(state, ONE).outcome)).toMatch(/^This run counts: .* Your result is 1\.6% under that figure\.$/)
     expect(head(part)).toContain(`<p role="status" class="text-sm font-medium"><span aria-hidden="true" class="${ROLE.done}">✓ </span>${BENCH_TEXT.done}</p>`)
   })
@@ -900,6 +932,22 @@ describe('a lab that is complete', () => {
     expect(buttons(careless).map((one) => one.name)).toEqual([BENCH_TEXT.lid, `✓ ${BENCH_TEXT.stir}`, `✓ ${BENCH_TEXT.logger}`, `✓ ${CHANGE_LABEL[ONE]}`])
     expect(points(card(part, BENCH_TEXT.graph)).length).toBe(view(state, TWO).graph.readings.length)
     expect(card(part, BENCH_TEXT.notebook)).not.toContain('<input')
+  })
+
+  it('does not say of a later run that did not count that the part is to be run again: nothing more is taken', () => {
+    // Part 2 done, run again without the lid and checked, and then the other two parts done.
+    let lab = wholeRun(m, fresh('challenge'), TWO)
+    lab = wholeRun(m, run(m, lab, [{ type: 'runAgain', part: TWO }]), TWO, { lid: false })
+    const before = card(bench(lab, TWO).part, PAGE_TEXT.outcome)
+    expect(before).toContain('Run this part again: the lab sets it up with new numbers.')
+    lab = wholeRun(m, wholeRun(m, lab, ONE), THREE)
+    expect(lab.status).toBe('completed')
+    const outcome = view(lab, TWO).outcome
+    expect(outcome.state).toBe('does-not-count')
+    const after = card(bench(lab, TWO).part, PAGE_TEXT.outcome)
+    expect(after).toContain(escaped(outcomeText(m, outcome, false)))
+    expect(after).not.toContain('Run this part again: the lab sets it up')
+    expect(button(after, BENCH_TEXT.runAgain)!.tag).toContain('aria-disabled="true"')
   })
 })
 
