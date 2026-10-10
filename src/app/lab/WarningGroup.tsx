@@ -37,8 +37,8 @@ export function WarningGroup({
           <p id={`${id}${warning.id}-body`}>{warning.body}</p>
         </div>
       ))}
-      <div className="flex flex-wrap gap-1.5">
-        {/* Drawn as they were, each with the hit area lab.css lays over a small control. */}
+      <div className="flex flex-wrap gap-x-1.5 gap-y-3">
+        {/* Drawn as they were, each with the hit area lab.css lays over a small control. Where the two wrap onto two rows, the rows are 0.75rem apart, so that neither area lies over the other button's. */}
         <Button variant="outline" className="lab-tap" onClick={onBack}>
           {buttons.back}
         </Button>

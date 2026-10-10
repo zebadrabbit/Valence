@@ -368,6 +368,8 @@ describe("Guided's warning, as the loop's card draws it", () => {
     expect(buttons(html).map((one) => one.name)).toEqual([WARNING_BUTTONS.back, WARNING_BUTTONS.on])
     // Each is drawn small and has the 44 px hit area the shell's stylesheet lays over a small control.
     expect(buttons(html).every((one) => /class="[^"]*\blab-tap\b/.test(one.tag))).toBe(true)
+    // Where the two wrap onto two rows (the titration lab's longer pair does, in its narrow slot), the rows are far enough apart that the hit area of one does not lie over the other's: 2rem of button and 0.75rem between them is the 2.75rem of an area.
+    expect(html).toContain('<div class="flex flex-wrap gap-x-1.5 gap-y-3"><button')
   })
 })
 
