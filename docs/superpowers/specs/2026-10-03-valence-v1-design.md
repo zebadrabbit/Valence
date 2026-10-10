@@ -883,3 +883,68 @@ Short topics, those to read first marked: what equilibrium is (two changes at on
 - The stored record round-trips; no state a learner can reach leaves them unable to go on.
 - Challenge shows nothing of what is expected before the learner's answers are recorded; a disturbance's note is shown only once it is done.
 - The description in words of every tube is tested.
+
+## 19. Clock reaction lab (added after v1)
+
+The third of the labs taken from the owner's department's lab directions (section 17 says how those are used). It is the first of two labs on how fast a reaction goes; the second, the iodination of acetone, is built next on the same engine. The directions list the bottles; the procedure is the usual one for them, and each choice in it is the owner's to change. It uses the lab shell, the notebook and typed entries of sections 7 and 16, the graph that is explored of section 16, and the rule for hazards of 5.2.
+
+### 19.1 Set-up
+
+Bromate ions, iodide ions and acid make iodine, slowly. A small, known amount of thiosulfate in the flask takes up the iodine as fast as it forms, and starch is there to show iodine. Nothing is seen until the thiosulfate is used up; then the next iodine meets the starch and the liquid turns blue at once. The time that takes says how fast the reaction was going.
+
+On the bench: potassium iodide solution, 0.010 M; sodium thiosulfate solution, 0.0010 M; potassium bromate solution, 0.040 M; hydrochloric acid, 0.10 M; starch solution; distilled water; two flasks, one for each half of a mixture; a stopwatch; a thermometer; baths of ice water, cool water and warm water.
+
+Three parts:
+
+1. **Five mixtures at room temperature.** Each differs from the first in the amount of one thing, or of all, and is timed.
+2. **The rate law.** From the five times: the rate of each run, the order in each of the three reactants, and the rate constant.
+3. **Temperature.** The first mixture again at three other temperatures; from the four rate constants, the activation energy.
+
+### 19.2 A run
+
+The bench sets out the mixture: so many millilitres of each solution in each flask, 50 mL in all. A run is a short column of cards:
+
+1. **The mixture**, as a table.
+2. **The flasks**, drawn, with what has been done in words. Starch is added to one flask. In part 3 both flasks stand in a bath, and the thermometer is read, before they are mixed. Then one flask is poured into the other and the watch started, as one action.
+3. **The watch and the liquid.** The watch runs and the liquid is clear and colourless until, all at once, it is blue. The learner stops the watch. The page plays the time faster than a clock would; the engine reads no clock and is handed the time. The time recorded is the time the model gives with the learner's own delay added, in true seconds, as a hand on a real watch adds it. A learner may instead have the watch stopped at the change: that run counts as any other, and the record says which way it was timed.
+
+Two errors of technique, each real: **no starch**, so that nothing ever shows; and, in part 3, **mixing before the flasks have come to the bath's temperature**, so that the time belongs to no one temperature. Guided warns before the pour; a run made so does not count and says why.
+
+A run can be made again; the times of the runs that count fill a table that the other two parts work from.
+
+### 19.3 The notebook
+
+The arithmetic is done once by hand and then by the notebook, which says that it is doing so: a learner who has worked one row is not made to work nine.
+
+- **Part 2.** For the first run the learner works out the concentration of each reactant once the two flasks are mixed, and the rate, which is the bromate used up by the time of the change, a sixth of the thiosulfate, over the time. The notebook then fills the same four figures for the other runs. The learner gives the order in each reactant, a choice of 0, 1 or 2, from the two runs the question names; then the rate constant of the first run, with its unit chosen, and the notebook fills the rest and their mean.
+- **Part 3.** The notebook fills each temperature's rate constant, its natural logarithm and one over the temperature in kelvin. A graph of the logarithm against one over the temperature, with the straight line through the points, is explored as section 16's is; the learner reads two places on the line, works out its slope, and from it the activation energy.
+
+Entries are typed and checked as section 16's are: each must follow from the learner's own earlier entries, rounded as the primer says; Guided checks each as it is made and has its relation in a closed hint; Challenge checks them together.
+
+A part counts when its runs count, its entries follow, and its results (the three orders, the rate constant, the activation energy) are within tolerance of what the model gives for those runs. The lab is complete when all three parts count.
+
+### 19.4 Model
+
+The engine is pure and deterministic and holds whole numbers. It is not this lab's alone: it takes a reaction's record (the rate law's orders, its rate constant at one temperature, its activation energy, and what ends a run) and the iodination of acetone will be a second record for it.
+
+The rate is the rate constant times each concentration raised to its order; the rate constant follows the Arrhenius equation; the time to the change is the bromate that must be used up over the rate, with the concentrations taken as they start, which is the same idealisation the learner's arithmetic makes and is said as one. Room temperature, the baths' temperatures and a small scatter in each time are seeded, the scatter no larger than a bench's, and such that at every seed the orders come out unmistakably and a careful learner's rate constant and activation energy are within tolerance.
+
+The orders, the rate constant and the activation energy are cited where a source that can be read gives them. A figure that cannot be sourced is a model parameter with its rationale, chosen to give the times this experiment is known for, and the lab says of it that it is the lab's own.
+
+### 19.5 Data
+
+The overall reaction and the reaction of iodine with thiosulfate, with the six-to-one count between them; the rate law; molar masses where a note needs them; what the liquid looks like before and after. Hazards by 5.2 for every bottle: potassium bromate above all.
+
+### 19.6 Primer
+
+Short topics, those to read first marked: how fast (a rate, and its unit); what a rate depends on, and what a rate law and an order are; the clock (thiosulfate, starch, and why the change is sudden); finding an order by comparing two runs; the rate constant and its unit; temperature and the activation energy; reading the graph of part 3; safety.
+
+### 19.7 Acceptance
+
+- For seeds 1 to 100, careful runs of the five mixtures and the three temperatures all count; the orders that follow from them are the stored ones; the rate constant and the activation energy worked from them are within tolerance of the stored values.
+- Each error of technique alone makes a run not count, and its cause is named; Guided warns first.
+- An entry that does not follow from the learner's own numbers is refused or marked.
+- The same seed, actions and times handed in give the same lab; the stored record round-trips; no state a learner can reach leaves them unable to go on.
+- Challenge shows nothing of what is expected before the entries are made; the notebook fills a row only after the learner has worked the row it copies.
+- The engine holds nothing of this reaction that is not in its record: a test runs it on a second, made-up record with other orders.
+- The descriptions in words of the flasks and of the graph are tested.
