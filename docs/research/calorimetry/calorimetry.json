@@ -491,12 +491,12 @@
       "rationale": "The temperature of the boiling water the piece is heated in, in tenths of a degree Celsius: 99.0 to 100.0 °C. The page read for water gives 99.97 °C for its boiling point at one atmosphere; a bath is seldom exactly there, so the bath is read each time and not taken to be 100."
     },
     "readingToleranceTenths": {
-      "value": 1,
-      "rationale": "A temperature typed counts as the one the logger shows when it is within 0.1 °C of it, the edge included: the specification's rule. It lets a reading one step along a level stretch of the curve stand."
+      "value": 0,
+      "rationale": "A temperature typed must be the reading the logger shows, to the tenth of a degree: nothing either side of it is taken. A look at a reading says it to 0.1 °C, so nothing is estimated. Until 2026-10-10 a tenth either side was taken, and a run could then have every entry taken and still not count: a tenth of a degree at each end is 3% to 5% of a change of 4 to 6 °C, which is as much as the tolerance on the result."
     },
     "tolerancePercent": {
       "value": 5,
-      "rationale": "A run counts when its result is within 5% of the stored figure, the edge included. A careful run is between 0.4% and 3.1% low, from the heat the cup loses before the peak and from reading the temperature to 0.1 °C, which on the smallest rise, tin's 4 °C, is over 1% by itself. Each technique error alone puts a run 8% or more low. The tolerance sits between the two, and it is under half the gap between iron and zinc, the closest pair of the four metals, so a result within it is never nearer to the wrong metal."
+      "rationale": "A run counts when its result is within 5% of the stored figure, the edge included. A careful run is between 0.4% and 3.1% low, from the heat the cup loses before the peak and from the logger showing a temperature to 0.1 °C, which on the smallest rise, tin's 4 °C, is over 1% by itself. With the two temperatures the logger's own, as they must be, it stays within that whichever way the worksheet's rounding rule lets its entries be worked: at seeds 1 to 100 the least favourable chain of entries is 3.1% low, which a test holds. Each technique error alone puts a run 8% or more low. The tolerance sits between the two, and it is under half the gap between iron and zinc, the closest pair of the four metals, so a result within it is never nearer to the wrong metal."
     }
   }
 }

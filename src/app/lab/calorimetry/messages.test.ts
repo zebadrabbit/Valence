@@ -348,25 +348,17 @@ describe('a run that is checked', () => {
     expect(outcomeText(m, first!)).toContain(' Its result was 8.8% under the figure the lab holds. Run this part again')
   })
 
-  it('says where to look when a result is too far off and nothing else is amiss: a temperature typed a tenth off the logger is taken, and can be enough', () => {
-    // Seed 67's piece is tin, whose rise is the smallest: the highest temperature typed a tenth short follows, and the run does not count.
+  it('refuses in Guided a temperature a tenth of a degree off the logger, with the sentence that says which reading is wanted', () => {
     const P = 'metal'
-    let state = workCup(m, createLab(67, 'guided'), P)
-    state = run(m, state, looks(m, state, P))
+    const state = ready(P)
     const careful = worksheetValues(m, state, P)
-    const { bench } = view(state, P)
-    const extreme = (careful.extreme as number) - 1
-    const change = extreme - (careful.start as number)
-    // Under a thousand joules and under one, so each is written to three figures as it stands.
-    const heat = sig((50 * 4.18 * (change / 10)).toPrecision(3))
-    const specificHeat = sig(((heat.mantissa * 10 ** heat.exponent) / ((bench.balanceCg! / 100) * ((bench.bathTenths! - extreme) / 10))).toPrecision(3))
-    state = run(m, state, entryActions(P, { ...careful, extreme, change, heat, specificHeat }))
-    const { outcome, worksheet } = view(state, P)
-    expect(worksheet.every((entry) => entry.verdict?.follows)).toBe(true)
-    expect(outcome).toMatchObject({ state: 'does-not-count', reasons: ['outside-tolerance'] })
-    expect(outcomeText(m, outcome)).toBe("This run does not count. The result is more than 5% from the figure the lab holds for this part. The cup was worked rightly and every entry follows, so look at the two temperatures: one typed 0.1 °C off the logger's can be enough. Run this part again: the lab sets it up with new numbers.")
-    // Not where something else is amiss: the reasons then say what.
-    expect(outcomeText(m, { state: 'does-not-count', reasons: ['lid-off', 'outside-tolerance'], percentOff: null })).not.toContain('look at the two temperatures')
+    for (const by of [-1, 1]) {
+      expect(blockedText(P, can(m, state, { type: 'enter', part: P, field: 'start', value: (careful.start as number) + by })!, 'start')).toBe('That is not the temperature the logger shows before the change. Look at a point on the level part of the graph, and type its temperature.')
+      const started = run(m, state, entryActions(P, careful).slice(0, 1))
+      expect(blockedText(P, can(m, started, { type: 'enter', part: P, field: 'extreme', value: (careful.extreme as number) + by })!, 'extreme')).toMatch(/^That is not the highest temperature the logger shows after the change/)
+    }
+    // A result too far off is said in one plain sentence. With the temperatures the logger's own, a careful cup does not come to it alone (the engine's acceptance tests).
+    expect(outcomeText(m, { state: 'does-not-count', reasons: ['outside-tolerance'], percentOff: null })).toBe('This run does not count. The result is more than 5% from the figure the lab holds for this part. Run this part again: the lab sets it up with new numbers.')
   })
 
   it('does not say to run the part again where it cannot be: once the lab is complete', () => {

@@ -37,9 +37,16 @@ describe('the order of the entries', () => {
 describe('the two temperatures', () => {
   const shown = { start: 221, extreme: 164 }
 
-  it('must be ones the logger shows, to within 0.1 °C, the edge included', () => {
-    for (const [typed, follows] of [[221, true], [220, true], [222, true], [219, false], [223, false], [164, false]] as const) expect(verdict('dissolving', shown, { start: typed }, 'start'), String(typed)).toEqual(follows ? FOLLOWS : not())
-    for (const [typed, follows] of [[164, true], [163, true], [165, true], [162, false], [166, false], [221, false]] as const) expect(verdict('dissolving', shown, { extreme: typed }, 'extreme'), String(typed)).toEqual(follows ? FOLLOWS : not())
+  it('must be the ones the logger shows, to the tenth of a degree: a tenth either side is not taken', () => {
+    expect(m.readingToleranceTenths).toBe(0)
+    for (const [typed, follows] of [[221, true], [220, false], [222, false], [219, false], [223, false], [164, false]] as const) expect(verdict('dissolving', shown, { start: typed }, 'start'), String(typed)).toEqual(follows ? FOLLOWS : not())
+    for (const [typed, follows] of [[164, true], [163, false], [165, false], [162, false], [166, false], [221, false]] as const) expect(verdict('dissolving', shown, { extreme: typed }, 'extreme'), String(typed)).toEqual(follows ? FOLLOWS : not())
+  })
+
+  it('are held to the logger by the model\'s own tolerance, which a test may vary', () => {
+    const loose = { ...m, readingToleranceTenths: 1 }
+    expect(verdictOf(loose, 'dissolving', bench, shown, { ...NO_ENTRIES, start: 220 }, 'start')).toEqual(FOLLOWS)
+    expect(verdictOf(loose, 'dissolving', bench, shown, { ...NO_ENTRIES, start: 219 }, 'start')).toEqual(not())
   })
 })
 

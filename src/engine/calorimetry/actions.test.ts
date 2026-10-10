@@ -187,10 +187,13 @@ describe('Guided checks each entry as it is made', () => {
   it('refuses a temperature that is not the one the logger shows, and stores nothing', () => {
     expect(can(m, state, { type: 'enter', part: P, field: 'start', value: 204 })).toBe('not-the-logger')
     expect(reduce(m, state, { type: 'enter', part: P, field: 'start', value: 204 })).toBe(state)
-    expect(can(m, state, { type: 'enter', part: P, field: 'start', value: 201 })).toBeNull()
+    // A tenth of a degree off is not the logger's either: only the reading itself is taken.
+    expect(can(m, state, { type: 'enter', part: P, field: 'start', value: 201 })).toBe('not-the-logger')
+    expect(can(m, state, { type: 'enter', part: P, field: 'start', value: 200 })).toBeNull()
     // The last reading, taken for the highest: the wrong point.
     expect(can(m, upTo(1), { type: 'enter', part: P, field: 'extreme', value: 265 })).toBe('not-the-logger')
-    expect(can(m, upTo(1), { type: 'enter', part: P, field: 'extreme', value: 267 })).toBeNull()
+    expect(can(m, upTo(1), { type: 'enter', part: P, field: 'extreme', value: 267 })).toBe('not-the-logger')
+    expect(can(m, upTo(1), { type: 'enter', part: P, field: 'extreme', value: 268 })).toBeNull()
   })
 
   it('refuses an entry that does not follow, and names the slip where it knows it', () => {

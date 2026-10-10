@@ -375,9 +375,7 @@ export function outcomeText(m: CalorimetryModel, outcome: RunOutcome, again = tr
     return `This run counts: its temperatures are the logger's, every entry follows, the lid was on and the cup stirred from the start of the change, and the result is within ${m.tolerancePercent}% of the figure the lab holds. Your result is ${offText(outcome.percentOff)} that figure.`
   }
   const off = outcome.percentOff === null ? '' : ` Its result was ${offText(outcome.percentOff)} the figure the lab holds.`
-  // A result too far off with nothing else amiss: the cup was worked rightly and every entry follows, which leaves the two temperatures. Each is taken within the reading's tolerance of the logger's, and at its edge that can be enough.
-  const temperatures = outcome.reasons.length === 1 && outcome.reasons[0] === 'outside-tolerance' ? ` The cup was worked rightly and every entry follows, so look at the two temperatures: one typed ${(m.readingToleranceTenths / 10).toFixed(1)} °C off the logger's can be enough.` : ''
-  return `This run does not count. ${outcome.reasons.map((reason) => reasonBesideWorksheet(m, reason)).join(' ')}${temperatures}${off}${again ? ' Run this part again: the lab sets it up with new numbers.' : ''}`
+  return `This run does not count. ${outcome.reasons.map((reason) => reasonBesideWorksheet(m, reason)).join(' ')}${off}${again ? ' Run this part again: the lab sets it up with new numbers.' : ''}`
 }
 
 /** What a part's result is held to, said once the engine hands it over: the stored enthalpy, or which metal the piece was. */

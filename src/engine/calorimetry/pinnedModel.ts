@@ -31,6 +31,6 @@ export const PINNED_MODEL: CalorimetryModel = {
   saltRangeCg: [380, 420],
   metalRangeCg: [4800, 5200],
   bathRangeTenths: [990, 1000],
-  readingToleranceTenths: 1,
+  readingToleranceTenths: 0,
   tolerancePercent: 5,
 }
