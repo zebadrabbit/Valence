@@ -27,7 +27,7 @@ const app = vi.hoisted(() => ({ store: undefined as unknown as KeyValueStore, pe
 vi.mock('@/app/AppState', () => ({ useAppState: () => ({ store: app.store, persistent: app.persistent, reducedMotion: false }) }))
 vi.mock('@/app/useMediaQuery', () => ({ useMediaQuery: () => app.wide }))
 
-const [titration, aqueous, flame, calorimetry, mechanism] = ACTIVITIES
+const [titration, aqueous, flame, calorimetry, cations, mechanism] = ACTIVITIES
 const draw = (element: ReactElement) => renderToStaticMarkup(createElement(MemoryRouter, null, element))
 const save = (state: TitrationState) => saveEntry(app.store, titration.entry, titration.version, state)
 const count = (html: string, pattern: RegExp) => [...html.matchAll(pattern)].length
@@ -89,7 +89,7 @@ describe('the list of labs', () => {
 
   it('links the titration lab, with its status as Home gives it', () => {
     const [first, ...rest] = items()
-    expect(rest).toHaveLength(3)
+    expect(rest).toHaveLength(4)
     expect([...first!.matchAll(/<a [^>]*href="([^"]*)"[^>]*>(.*?)<\/a>/g)].map((match) => [match[1], match[2]])).toEqual([['/lab/titration', titration.title]])
     expect(text(first!)).toContain('|Not started|')
     save(createLab(1, 'guided'))
@@ -126,14 +126,24 @@ describe('the list of labs', () => {
     saveEntry(app.store, calorimetry.entry, calorimetry.version, { status: 'completed' })
     expect(text(fourth())).toContain('|Completed|')
     expect(text(items()[2]!)).toContain('|Not started|')
-    expect(items()).toHaveLength(4)
+  })
+
+  it('links the Group I cations lab the same way, fifth, with its own status', () => {
+    const fifth = () => items()[4]!
+    expect([...fifth().matchAll(/<a [^>]*href="([^"]*)"[^>]*>(.*?)<\/a>/g)].map((match) => [match[1], match[2]])).toEqual([['/lab/cations', cations.title]])
+    expect(cations.title).toBe('Group I cations')
+    expect(text(fifth())).toContain('|Not started|')
+    saveEntry(app.store, cations.entry, cations.version, { status: 'completed' })
+    expect(text(fifth())).toContain('|Completed|')
+    expect(text(items()[3]!)).toContain('|Not started|')
+    expect(items()).toHaveLength(5)
   })
 
   it('Home links every activity, the mechanism too, each with its own status, and shows none as planned', () => {
     saveEntry(app.store, mechanism.entry, mechanism.version, { status: 'completed' })
     const home = [...draw(createElement(Home)).matchAll(/<li[^>]*>(.*?)<\/li>/gs)].map((match) => match[1]!)
     const item = (title: string) => home.find((html) => html.includes(title))!
-    for (const [activity, status] of [[titration, 'Not started'], [aqueous, 'Not started'], [flame, 'Not started'], [calorimetry, 'Not started'], [mechanism, 'Completed']] as const) {
+    for (const [activity, status] of [[titration, 'Not started'], [aqueous, 'Not started'], [flame, 'Not started'], [calorimetry, 'Not started'], [cations, 'Not started'], [mechanism, 'Completed']] as const) {
       expect(item(activity.title)).toMatch(new RegExp(`<a [^>]*href="${activity.to}"`))
       expect(text(item(activity.title))).toContain(`|${status}|`)
       expect(text(item(activity.title))).not.toContain(SHELL_TEXT.planned)

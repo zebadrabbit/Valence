@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { PeriodicTablePage } from '@/app/explore/elements/PeriodicTablePage'
 import { AqueousPage } from '@/app/lab/aqueous/AqueousPage'
 import { CalorimetryPage } from '@/app/lab/calorimetry/CalorimetryPage'
+import { CationsPage } from '@/app/lab/cations/CationsPage'
 import { FlamePage } from '@/app/lab/flame/FlamePage'
 import { TitrationPage } from '@/app/lab/titration/TitrationPage'
 import { MechanismPage } from '@/app/learn/MechanismPage'
@@ -89,6 +90,16 @@ describe('the routes', () => {
     const loaded = await (route.lazy as () => Promise<{ Component: unknown }>)()
     expect(loaded.Component).toBe(CalorimetryPage)
     expect(page('/lab/calorimetry/2')).toMatchObject({ path: '*' })
+  })
+
+  it('load the Group I cations lab at #/lab/cations, lazily', async () => {
+    const { path, route } = page('/lab/cations')
+    expect(path).toBe('lab/cations')
+    expect(typeof route.lazy).toBe('function')
+    expect(route.element).toBeUndefined()
+    const loaded = await (route.lazy as () => Promise<{ Component: unknown }>)()
+    expect(loaded.Component).toBe(CationsPage)
+    expect(page('/lab/cations/2')).toMatchObject({ path: '*' })
   })
 
   it('still open the list of labs at #/lab, with no chunk to load, and send an address below a lab to the not-found page', () => {

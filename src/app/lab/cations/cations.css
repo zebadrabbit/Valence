@@ -1,0 +1,35 @@
+/*
+ * Where the pieces of the Group I cations lab's tube card sit. Loaded with the lab page, so none of it is in the
+ * app shell's stylesheet. Nothing here animates, and nothing on this lab's page moves.
+ *
+ * The card holds three things: the picture of the tube, the buttons that work on it, and the words (what to do
+ * with the picture, which parts have been looked at, what has been done so far). In a card too narrow for the
+ * words beside the picture, the buttons are a column beside the picture and the words run under both, so that the
+ * card is little taller than the picture. In a wider card the buttons and the words are both beside the picture.
+ * The rule follows the card's own width, never the window's.
+ */
+.cations-tube {
+  container: cations-tube / inline-size;
+}
+.cations-tube-grid {
+  display: grid;
+  gap: 0.75rem 1rem;
+  align-items: start;
+  grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+  grid-template-areas: 'picture actions' 'words words';
+}
+.cations-tube-picture {
+  grid-area: picture;
+}
+.cations-tube-actions {
+  grid-area: actions;
+}
+.cations-tube-words {
+  grid-area: words;
+}
+@container cations-tube (min-width: 38rem) {
+  .cations-tube-grid {
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 'picture actions' 'picture words';
+  }
+}

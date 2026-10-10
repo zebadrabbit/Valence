@@ -370,9 +370,19 @@ describe('the flow chart, the naming and the notes', () => {
     expect(CHART_TEXT.remove('Lead ion')).toBe('Take out Lead ion')
   })
 
+  it('says how a tile is put in a place, either one first, and nothing of which tile goes where', () => {
+    expect(CHART_TEXT.how).toBe('Tap a tile, then the place it belongs in; or tap the place first, then each tile.')
+    expect(CHART_TEXT.how).not.toMatch(/chlor|chromat|silver|lead|mercury|ammon|solid|liquid/i)
+    expect(CHART_TEXT.how).not.toMatch(COLOURS)
+  })
+
   it('names the three ions for the tick boxes, and says that the naming is said once', () => {
     expect(ION_IDS.map((ion) => ionLabel(data, ion))).toEqual(['Silver, Ag⁺', 'Lead, Pb²⁺', 'Mercury(I), Hg₂²⁺'])
     expect(NAMING_TEXT.help).toContain('Any of the three may be ticked. This is said once for each run.')
+    // A press with no box ticked is asked again: what it says is true of every sample, and of none in particular.
+    expect(NAMING_TEXT.none).toBe('Tick at least one ion: every sample holds one or more of the three.')
+    expect(PART_AIM.unknown).toContain('one, two or all three')
+    expect(NAMING_TEXT.none).not.toMatch(/silver|lead|mercury/i)
   })
 
   it("hands over a step's notes and equations as the record has them", () => {
@@ -382,6 +392,12 @@ describe('the flow chart, the naming and the notes', () => {
       expect(stepEquations(data, id)).toEqual(step.equations.map((equation) => equation.value))
     }
     expect(NOTES_TEXT.whichever).toContain('may or may not hold')
+  })
+
+  it('has a word for each layer the picture marks, a liquid that a solid is spread through among them, and says of a step that is done which tube its picture is of', () => {
+    expect([PAGE_TEXT.liquidLayer, PAGE_TEXT.solidLayer, PAGE_TEXT.spreadLayer]).toEqual(['liquid', 'solid', 'solid in the liquid'])
+    expect(PAGE_TEXT.asChecked).toBe('The tube is drawn as it was when this step was checked.')
+    for (const said of [PAGE_TEXT.spreadLayer, PAGE_TEXT.asChecked, PAGE_TEXT.explore]) expect(said).not.toMatch(COLOURS)
   })
 
   it('names the way to run a part again for each part, and says where the notes will be', () => {
