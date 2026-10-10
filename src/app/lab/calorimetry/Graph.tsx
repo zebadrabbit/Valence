@@ -35,12 +35,12 @@ export interface GraphProps {
  *
  * A button lies over each reading: a column the plot's whole height, so that a pointer or a finger anywhere on the
  * plot is on the reading nearest to it. A mouse pointer over one, keyboard focus on it or a tap looks at it: the
- * point is ringed, and a callout at the head of the picture says its time and its temperature, and stays until another reading
- * is looked at or Escape is pressed, so that it can still be read while the worksheet is typed in. The graph is
- * one stop of the Tab key, on the reading last looked at; the arrow keys move from reading to reading, and Home
- * and End to the first and the last. With many readings a column is narrower than a finger, so two buttons of a
- * finger's size under the graph step one reading back and one on. Nothing here says a temperature that has not
- * been looked at, and nothing moves.
+ * point is ringed, and a callout at the head of the picture says its time and its temperature, and stays until
+ * another reading is looked at or Escape is pressed, so that it can still be read while the worksheet is typed
+ * in. The graph is one stop of the Tab key, on the reading last looked at; the arrow keys move from reading to
+ * reading, and Home and End to the first and the last. From the ninth reading a column is narrower than a finger
+ * in a narrow window, so two buttons of a finger's size under the graph step one reading back and one on. Nothing
+ * here says a temperature that has not been looked at, and nothing moves.
  */
 export function Graph({ m, graph, describedBy, onLook }: GraphProps) {
   const { readings, changedAt, looked } = graph
@@ -60,7 +60,8 @@ export function Graph({ m, graph, describedBy, onLook }: GraphProps) {
     if (to !== null) look(to)
   }
   return (
-    <div className="grid w-full max-w-[40rem] gap-2">
+    // No wider than 32rem: wider, the picture is taller than a short window has room for with the worksheet under it.
+    <div className="grid w-full max-w-[32rem] gap-2">
       <div className="relative">
         <svg viewBox={`0 0 ${GRAPH.width} ${GRAPH.height}`} role="img" aria-label={PAGE_TEXT.graphPicture} aria-describedby={describedBy} className="block h-auto w-full text-foreground">
           {degreeMarks(axes).map(({ tenths, y }) => (

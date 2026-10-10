@@ -82,7 +82,7 @@ describe("the readings' buttons", () => {
     }
   })
 
-  it('are a finger wide where the picture is at its narrowest for as long as the run is two minutes or less, and narrower after: the two buttons under the graph are for those', () => {
+  it('are a finger wide where the picture is at its narrowest while there are eight readings or fewer, and narrower from the ninth: the two buttons under the graph are for those', () => {
     /** The narrowest column of a run of so many readings. */
     const wide = (count: number) => Math.min(...columns(count, axesOf(level(count), SECONDS)).map((area) => area.to - area.from))
     // 447 px is what the narrowest window that shows a bench leaves the picture.

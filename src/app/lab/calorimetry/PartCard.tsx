@@ -93,7 +93,7 @@ function MetalTile({ metal, sources }: { metal: Reagent; sources: readonly Sourc
 }
 
 /**
- * One part of the lab: its head, then one run of it as a short column of cards (Run), and its Sources. The head
+ * One part of the lab: its head, then one run of it as a column of cards (Run), and its Sources. The head
  * says which run this is and how far the part has come, what the part finds (in Challenge once the part is done,
  * and not before), and that the part is done once a run of it counts. A new run of the part is a new column: nothing typed or said in the one before is carried over,
  * and its heading takes focus.
@@ -150,13 +150,14 @@ export function PartCard(props: PartCardProps) {
 }
 
 /**
- * One run of a part, as a short column of cards, each there when the engine has a use for it: the bench; the cup,
+ * One run of a part, as a column of cards, each there when the engine has a use for it: the bench; the cup,
  * drawn, with its state in words and the four buttons that set it up and start the change; once the logger is
  * started, the graph, to be explored, with "Run on" over it; once the change is started, the notebook; and once
- * there is a run to leave behind, how this run came out, with "Run this part again". A button that cannot be used now stays focusable and says why when pressed. In Guided,
- * starting the change with the lid off or the stirrer still raises the warning in the cup's card, which takes
- * focus: the way back puts focus on the step that was skipped, and the way on starts the change. When the
- * worksheet is checked, focus goes to how the run came out.
+ * there is a run to leave behind, how this run came out, with "Run this part again". A button that cannot be
+ * used now stays focusable and says why when pressed. In Guided, starting the change with the lid off or the
+ * stirrer still raises the warning in the cup's card, which takes focus: the way back puts focus on the step that
+ * was skipped, and the way on starts the change. When the worksheet is checked, focus goes to how the run came
+ * out.
  *
  * The run keeps what is typed and not yet entered, the reading last looked at, a warning that is showing and what
  * its message lines last said; everything the lab stores comes to it as `view` and leaves it through `act`.
