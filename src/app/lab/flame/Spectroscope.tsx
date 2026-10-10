@@ -1,9 +1,9 @@
 import { useId } from 'react'
-import { wavelengthColor } from '@/app/explore/spectrum'
 import { useExplore } from '@/app/lab/useExplore'
 import type { Seen } from '@/engine/flame'
 import { PAGE_TEXT, lookLabel } from './messages'
-import { LINE_WIDTH, MIN_WIDTH_PX, STRIP, brightness, hitAreas, ticks, xOf, type Scale } from './stripGeometry'
+import { BAND_STOPS, stripPaint } from './stripColour'
+import { BAND_INSET, LINE_GAP, LINE_WIDTH, MIN_WIDTH_PX, STRIP, brightness, hitAreas, ticks, xOf, type Scale } from './stripGeometry'
 
 // The strip is black on a dark card in both themes, as a spectroscope's view is; everything in the drawing has a
 // fixed colour, the buttons and the callout laid over it too.
@@ -12,15 +12,6 @@ const INK = '#e4e4e7'
 const FOOT = STRIP.top + STRIP.tall
 
 const percent = (part: number, whole: number) => `${(part / whole) * 100}%`
-
-/**
- * The colour a wavelength is drawn in on the strip.
- * ponytail: beyond 740 nm it is the colour of 740 nm. The shared function fades toward 780 nm as the eye does, and
- * potassium's pair near 766 nm, the brightest thing on its strip by what instruments recorded, would be drawn too
- * dark to find. The primer and the record say that a real eye sees that light faintly; a truer picture is the time
- * to draw it so.
- */
-const stripColour = (nm: number) => wavelengthColor(Math.min(nm, 740))
 
 export interface SpectroscopeProps {
   scale: Scale
@@ -41,13 +32,16 @@ export interface SpectroscopeProps {
 /**
  * What the hand spectroscope shows, to be explored: a dark strip over its scale, with a mark every 20 nm, and on
  * the strip every line and band the flame gives, each where the record puts it and in the colour of its
- * wavelength: a sharp line as a thin bright stroke, a broad band as a stretch with soft edges, the brightest of a
- * salt's drawn whole and the others fainter. A button lies over each, as tall as the strip and wide enough for a
- * finger (hitAreas). A mouse pointer over one, keyboard focus on it or a tap looks at it: its edge is drawn whole
- * and a callout over it says where it is, its colour, which of the two it is and how bright it is beside the
- * others, and nothing of what gives it. Nothing in the page names a line or a band by what it is before it is
- * looked at: the buttons are told apart by their place in the count along the strip. The picture is never drawn
- * narrower than MIN_WIDTH_PX: in a card narrower than that it scrolls sideways, its scale with it. Nothing moves.
+ * wavelength, the brightest of a salt's drawn whole and the others fainter, and none so faint that it cannot be
+ * found (stripPaint). A broad band is a stretch with soft ends, drawn short of the strip's top and foot. A sharp
+ * line is a thin stroke at its wavelength, the strip's whole height and so taller than any band, with a dark gap
+ * either side of it: beside a band or inside one it is plainly a thing of its own. A button lies over each, as
+ * tall as the strip and wide enough for a finger (hitAreas). A mouse pointer over one, keyboard focus on it or a
+ * tap looks at it: its edge is drawn whole and a callout over it says where it is, its colour, which of the two it
+ * is and how bright it is beside the others, and nothing of what gives it. Nothing in the page names a line or a
+ * band by what it is before it is looked at: the buttons are told apart by their place in the count along the
+ * strip. The picture is never drawn narrower than MIN_WIDTH_PX: in a card narrower than that it scrolls sideways,
+ * its scale with it. Nothing moves.
  */
 export function Spectroscope({ scale, spectrum, looked, describedBy, name, seen, onLook }: SpectroscopeProps) {
   const fadeId = useId()
@@ -58,7 +52,7 @@ export function Spectroscope({ scale, spectrum, looked, describedBy, name, seen,
   return (
     <div className="w-full overflow-x-auto rounded-lg p-2" style={{ background: CARD }}>
       <div className="relative mx-auto max-w-[45rem]" style={{ minWidth: MIN_WIDTH_PX }}>
-        {/* The room a callout stands in, over the strip. */}
+        {/* The room a callout stands in, over the strip. ponytail: a fixed height, which holds the longest callout in four lines at the picture's narrowest; text enlarged well beyond the page's own would be cut at the card's top. */}
         <div className="h-[6.5rem]" />
         <div className="relative">
           <svg viewBox={`0 0 ${STRIP.width} ${STRIP.height}`} role="img" aria-label={PAGE_TEXT.stripPicture} aria-describedby={describedBy} className="block h-auto w-full">
@@ -67,25 +61,31 @@ export function Spectroscope({ scale, spectrum, looked, describedBy, name, seen,
                 feature.kind === 'band' ? (
                   // Along the band the colour of each wavelength in it, and at its two ends a soft edge.
                   <linearGradient key={at} id={`${fadeId}${at}`}>
-                    {[0, 0.14, 0.5, 0.86, 1].map((offset) => (
-                      <stop key={offset} offset={offset} stopColor={stripColour(fromNm + offset * (toNm - fromNm))} stopOpacity={offset === 0 || offset === 1 ? 0 : 1} />
+                    {BAND_STOPS.map((offset) => (
+                      <stop key={offset} offset={offset} stopColor={stripPaint(fromNm + offset * (toNm - fromNm), feature.prominence).colour} stopOpacity={offset === 0 || offset === 1 ? 0 : 1} />
                     ))}
                   </linearGradient>
                 ) : null,
               )}
             </defs>
             <rect x={0.5} y={STRIP.top} width={STRIP.width - 1} height={STRIP.tall} rx={4} fill="#000000" stroke={INK} strokeOpacity={0.35} />
-            {spectrum.map(({ feature, fromNm, toNm }, at) => {
+            {/* The bands first and every line over them, so that a line inside a band (a loop that was not clean) is cut out of it and not drawn under it. */}
+            {spectrum.map(({ feature }, at) => {
               const { from, to } = drawn[at]!
-              const strength = brightness(feature.prominence)
-              if (feature.kind === 'band') return <rect key={at} x={from} y={STRIP.top + 1} width={to - from} height={STRIP.tall - 2} fill={`url(#${fadeId}${at})`} opacity={strength} />
+              return feature.kind === 'band' ? <rect key={at} x={from} y={STRIP.top + 1 + BAND_INSET} width={to - from} height={STRIP.tall - 2 - 2 * BAND_INSET} fill={`url(#${fadeId}${at})`} opacity={brightness(feature.prominence)} /> : null
+            })}
+            {spectrum.map(({ feature, fromNm, toNm }, at) => {
+              if (feature.kind === 'band') return null
+              const { from, to } = drawn[at]!
               const width = Math.max(LINE_WIDTH, to - from)
-              const colour = stripColour((fromNm + toNm) / 2)
+              const left = (from + to) / 2 - width / 2
+              const { colour, strength } = stripPaint((fromNm + toNm) / 2, feature.prominence)
               return (
-                <g key={at} opacity={strength}>
-                  {/* A glow about the line, so that a thin stroke of a dark colour is found. */}
-                  <rect x={(from + to) / 2 - width / 2 - 3} y={STRIP.top + 1} width={width + 6} height={STRIP.tall - 2} fill={colour} opacity={0.3} />
-                  <rect x={(from + to) / 2 - width / 2} y={STRIP.top + 1} width={width} height={STRIP.tall - 2} fill={colour} />
+                // Drawn on the screen's own pixels: smoothed into the black beside it, a stroke two pixels wide would have one column of its whole colour and be dimmer than the floor allows.
+                <g key={at} shapeRendering="crispEdges">
+                  {/* The dark gap the line stands in, then the line. */}
+                  <rect x={left - LINE_GAP} y={STRIP.top + 1} width={width + 2 * LINE_GAP} height={STRIP.tall - 2} fill="#000000" />
+                  <rect x={left} y={STRIP.top + 1} width={width} height={STRIP.tall - 2} fill={colour} opacity={strength} />
                 </g>
               )
             })}
@@ -122,8 +122,10 @@ export function Spectroscope({ scale, spectrum, looked, describedBy, name, seen,
               >
                 {open === key && (
                   <>
-                    {/* From the callout down to the thing it speaks of. */}
-                    <span className="absolute bottom-full h-2.5 border-l-2 border-white" style={{ left: percent(middle - area.from, wide) }} />
+                    {/* From the callout down to the thing it speaks of, in a bridge as wide as the button: a pointer moved up from the strip to the callout does not leave the button on the way, and the callout stays to be read. */}
+                    <span className="absolute bottom-full left-0 h-2.5 w-full">
+                      <span className="absolute h-full border-l-2 border-white" style={{ left: percent(middle - area.from, wide) }} />
+                    </span>
                     {/* A rail as wide as the picture, in which the callout stands over its line or band where there is room and inside the picture always. Inside its button, so that a pointer moved onto the callout is still over the button and the callout stays. */}
                     <span className="pointer-events-none absolute bottom-full z-10 mb-2.5 flex text-left" style={{ left: percent(-area.from, wide), width: percent(STRIP.width, wide) }}>
                       <span

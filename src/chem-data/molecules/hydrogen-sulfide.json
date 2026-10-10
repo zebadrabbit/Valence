@@ -1,0 +1,68 @@
+{
+  "id": "hydrogen-sulfide",
+  "name": "Hydrogen sulfide",
+  "formula": "H2S",
+  "pubchemCid": 402,
+  "topic": "basics",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "S",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "position2d": [
+        2.5369,
+        -0.155
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "H",
+      "position": [
+        0.4855,
+        1.2232,
+        0.2576
+      ],
+      "position2d": [
+        3.0739,
+        0.155
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.8868,
+        -0.2325,
+        -0.9787
+      ],
+      "position2d": [
+        2,
+        0.155
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-402"
+}

@@ -245,6 +245,12 @@ describe('bondOrder', () => {
     expect(orders('bicarbonate').filter((order) => order === '1 (single)').length).toBeGreaterThan(0)
   })
 
+  it('reads the three bonds of nitrate, carbonate and sulfur trioxide as a resonance set of three, order 1.33', () => {
+    for (const id of ['nitrate', 'carbonate', 'sulfur-trioxide']) {
+      expect(orders(id), id).toEqual(Array(3).fill('resonance set of three, order 1.33'))
+    }
+  })
+
   it('names single, double and triple bonds', () => {
     expect(orders('water')[0]).toBe('1 (single)')
     expect(orders('carbon-dioxide')[0]).toBe('2 (double)')
@@ -267,6 +273,12 @@ describe('bondDerivedNote', () => {
     expect(notes('bicarbonate').sort()).toEqual([
       `pair: The Lewis structure draws one double and one single bond; the pair shares one π bond, so each bond has an effective order of 1.5.${POLARITY}`,
       `plain: Bond order and the σ and π count come from the Lewis structure as drawn.${POLARITY}`,
+    ])
+  })
+
+  it('explains the order 1.33 of a resonance set of three', () => {
+    expect(notes('nitrate')).toEqual([
+      `pair: The Lewis structure draws one double and two single bonds; the three share one π bond, so each bond has an effective order of 4/3, about 1.33.${POLARITY}`,
     ])
   })
 

@@ -1,0 +1,297 @@
+{
+  "id": "benzaldehyde",
+  "name": "Benzaldehyde",
+  "formula": "C6H5CHO",
+  "pubchemCid": 240,
+  "topic": "everyday",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        2.8466,
+        -0.387,
+        0.0002
+      ],
+      "position2d": [
+        -1.75,
+        3.7321
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "C",
+      "position": [
+        0.5644,
+        0.2371,
+        0
+      ],
+      "position2d": [
+        -0.25,
+        2.866
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.3437,
+        1.296,
+        0
+      ],
+      "position2d": [
+        0.25,
+        3.7321
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.1013,
+        -1.0787,
+        0
+      ],
+      "position2d": [
+        0.25,
+        2
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.7147,
+        1.0393,
+        0.0001
+      ],
+      "position2d": [
+        1.25,
+        3.7321
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.2698,
+        -1.3354,
+        -0.0001
+      ],
+      "position2d": [
+        1.25,
+        2
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.1777,
+        -0.2764,
+        0
+      ],
+      "position2d": [
+        1.75,
+        2.866
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.9937,
+        0.505,
+        -0.0003
+      ],
+      "position2d": [
+        -1.25,
+        2.866
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.0016,
+        2.3267,
+        0
+      ],
+      "position2d": [
+        -0.06,
+        4.269
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.7902,
+        -1.9194,
+        -0.0001
+      ],
+      "position2d": [
+        -0.06,
+        1.4631
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.4218,
+        1.8637,
+        0.0001
+      ],
+      "position2d": [
+        1.56,
+        4.269
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.6308,
+        -2.3599,
+        -0.0001
+      ],
+      "position2d": [
+        1.56,
+        1.4631
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.2452,
+        -0.4764,
+        0
+      ],
+      "position2d": [
+        2.37,
+        2.866
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.2986,
+        1.5653,
+        -0.0006
+      ],
+      "position2d": [
+        -1.56,
+        2.3291
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 7,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 2,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 1,
+      "b": 3,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 1,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 4,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 2,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 5,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 3,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 6,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 4,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 6,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 5,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "A flavouring and fragrance with the smell of bitter almonds."
+  ],
+  "sourceId": "pubchem-cid-240"
+}

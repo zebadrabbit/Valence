@@ -42,6 +42,12 @@ describe('a loop that was not cleaned', () => {
     const seen = spectrumOf(data, [CA, SR])
     expect(seen.map((s) => s.feature.id).sort()).toEqual(['ca-422', 'caoh-green', 'caoh-orange-red', 'sr-460', 'sroh-orange', 'sroh-red'])
     expect(seen.map((s) => [s.feature.id, s.saltId]).filter(([, saltId]) => saltId === SR).length).toBe(3)
+    // Along the scale by where each stands: barium's line near 554 nm is inside calcium's green band, a little short of its middle, and is counted before it.
+    expect(spectrumOf(data, [BA, CA]).map((s) => s.feature.id)).toEqual(['ca-422', 'baoh-green', 'ba-553', 'caoh-green', 'caoh-orange-red'])
+    for (const loop of [[BA, CA], [HANDLING, ...ids]]) {
+      const middles = spectrumOf(data, loop).map((s) => (s.fromNm + s.toNm) / 2)
+      expect(middles).toEqual([...middles].sort((a, b) => a - b))
+    }
     // Each salt's flame colour is named, in the order the salts came onto the loop: the model's rule for a flame with no sodium in it.
     expect(flameOf(data, [CA, SR]).colours.map((c) => c.name)).toEqual(['orange-red', 'red'])
     expect(flameOf(data, [SR, CA])).toEqual({ colours: [{ name: 'red', hex: '#D6283B' }, { name: 'orange-red', hex: '#E8602C' }], hidden: false })

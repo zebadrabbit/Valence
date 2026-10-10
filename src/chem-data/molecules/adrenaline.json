@@ -1,0 +1,538 @@
+{
+  "id": "adrenaline",
+  "name": "Adrenaline (epinephrine)",
+  "formula": "C9H13NO3",
+  "pubchemCid": 5816,
+  "topic": "everyday",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        1.7394,
+        -2.1169,
+        -1.0894
+      ],
+      "position2d": [
+        3.1348,
+        -2.1196
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -2.2941,
+        1.0781,
+        -1.7979
+      ],
+      "position2d": [
+        -0.3294,
+        -3.1195
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -3.6584,
+        0.5842,
+        0.5722
+      ],
+      "position2d": [
+        -0.3293,
+        -5.1196
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "N",
+      "position": [
+        2.6359,
+        1.0243,
+        0.703
+      ],
+      "position2d": [
+        4.8668,
+        -3.1195
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "C",
+      "position": [
+        1.6787,
+        -1.1447,
+        -0.0373
+      ],
+      "position2d": [
+        3.1348,
+        -3.1196
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.2684,
+        -0.6866,
+        0.1208
+      ],
+      "position2d": [
+        2.2687,
+        -3.6196
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.6376,
+        0.0193,
+        -0.3576
+      ],
+      "position2d": [
+        4.0008,
+        -3.6195
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.3658,
+        -0.0099,
+        -0.9212
+      ],
+      "position2d": [
+        1.4027,
+        -3.1196
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.4164,
+        -0.9343,
+        1.3105
+      ],
+      "position2d": [
+        2.2687,
+        -4.6195
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.6849,
+        0.4191,
+        -0.7732
+      ],
+      "position2d": [
+        0.5367,
+        -3.6196
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.7353,
+        -0.5053,
+        1.4585
+      ],
+      "position2d": [
+        1.4027,
+        -5.1195
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.3696,
+        0.1713,
+        0.4166
+      ],
+      "position2d": [
+        0.5367,
+        -4.6196
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        3.5645,
+        2.1013,
+        0.395
+      ],
+      "position2d": [
+        5.7328,
+        -3.6195
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.021,
+        -1.6511,
+        0.8741
+      ],
+      "position2d": [
+        3.6717,
+        -2.8096
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.3808,
+        0.4742,
+        -1.3225
+      ],
+      "position2d": [
+        3.6023,
+        -4.0945
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.6478,
+        -0.3931,
+        -0.4831
+      ],
+      "position2d": [
+        4.3993,
+        -4.0945
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.1501,
+        0.1801,
+        -1.8589
+      ],
+      "position2d": [
+        1.4027,
+        -2.4995
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.064,
+        -1.4598,
+        2.1315
+      ],
+      "position2d": [
+        2.8057,
+        -4.9296
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.9013,
+        0.5888,
+        1.5858
+      ],
+      "position2d": [
+        4.8668,
+        -2.4996
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.2571,
+        -0.705,
+        2.3907
+      ],
+      "position2d": [
+        1.4027,
+        -5.7396
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.6646,
+        -2.4067,
+        -1.1652
+      ],
+      "position2d": [
+        3.6717,
+        -1.8096
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.2862,
+        2.6124,
+        -0.5325
+      ],
+      "position2d": [
+        5.4228,
+        -4.1564
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        4.5925,
+        1.7346,
+        0.3078
+      ],
+      "position2d": [
+        6.2698,
+        -3.9296
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.5401,
+        2.8441,
+        1.1985
+      ],
+      "position2d": [
+        6.0428,
+        -3.0826
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.2008,
+        1.2997,
+        -1.5231
+      ],
+      "position2d": [
+        -0.3293,
+        -2.4996
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.969,
+        0.3259,
+        1.457
+      ],
+      "position2d": [
+        -0.3294,
+        -5.7395
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 20,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 24,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 25,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 18,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 7,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 5,
+      "b": 8,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 6,
+      "b": 14,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 15,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 9,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 7,
+      "b": 16,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 10,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 8,
+      "b": 17,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 11,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 10,
+      "b": 11,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 10,
+      "b": 19,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 21,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 22,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 23,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "The \"fight or flight\" hormone, made by the adrenal glands.",
+    "One conformer of many."
+  ],
+  "sourceId": "pubchem-cid-5816"
+}

@@ -1,0 +1,288 @@
+{
+  "id": "isobutane",
+  "name": "2-Methylpropane (isobutane)",
+  "formula": "CH(CH3)3",
+  "pubchemCid": 6360,
+  "topic": "organic",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "C",
+      "position": [
+        0,
+        0,
+        -0.3603
+      ],
+      "position2d": [
+        2.866,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.5345,
+        1.3473,
+        0.1201
+      ],
+      "position2d": [
+        3.7321,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.4342,
+        -0.2109,
+        0.1201
+      ],
+      "position2d": [
+        2,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.8997,
+        -1.1365,
+        0.1201
+      ],
+      "position2d": [
+        2.866,
+        -0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0,
+        0,
+        -1.4571
+      ],
+      "position2d": [
+        2.866,
+        0.87
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.5557,
+        1.4007,
+        1.2139
+      ],
+      "position2d": [
+        4.0421,
+        0.2131
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.0922,
+        2.1671,
+        -0.2469
+      ],
+      "position2d": [
+        4.269,
+        1.06
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.5526,
+        1.5147,
+        -0.2469
+      ],
+      "position2d": [
+        3.4221,
+        1.2869
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.491,
+        -0.2192,
+        1.214
+      ],
+      "position2d": [
+        2.31,
+        1.2869
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.0882,
+        0.5872,
+        -0.2468
+      ],
+      "position2d": [
+        1.4631,
+        1.06
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.8308,
+        -1.1634,
+        -0.2469
+      ],
+      "position2d": [
+        1.69,
+        0.2131
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.9354,
+        -1.1816,
+        1.2139
+      ],
+      "position2d": [
+        2.246,
+        -0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.5355,
+        -2.102,
+        -0.2469
+      ],
+      "position2d": [
+        2.866,
+        -1.37
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.923,
+        -1.0036,
+        -0.2469
+      ],
+      "position2d": [
+        3.486,
+        -0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-6360"
+}

@@ -353,19 +353,19 @@ describe('elementCardRows', () => {
 describe('moleculesContaining', () => {
   const ids = (symbol: string) => moleculesContaining(symbol, LIBRARY_INDEX).map((entry) => entry.id)
 
-  it('lists the three fluorides for fluorine, in library order', () => {
-    expect(ids('F')).toEqual(['boron-trifluoride', 'sulfur-hexafluoride', 'xenon-tetrafluoride'])
+  it('lists the seven fluorides for fluorine, in library order', () => {
+    expect(ids('F')).toEqual(['hydrogen-fluoride', 'boron-trifluoride', 'sulfur-hexafluoride', 'xenon-tetrafluoride', 'sulfur-tetrafluoride', 'chlorine-trifluoride', 'xenon-difluoride'])
   })
 
-  it('lists xenon tetrafluoride for xenon, and nothing for gold', () => {
-    expect(ids('Xe')).toEqual(['xenon-tetrafluoride'])
+  it('lists the two xenon fluorides for xenon, and nothing for gold', () => {
+    expect(ids('Xe')).toEqual(['xenon-tetrafluoride', 'xenon-difluoride'])
     expect(ids('Au')).toEqual([])
   })
 
   it('matches whole symbols: carbon is not found in a chloride, nor cobalt in carbon monoxide', () => {
     expect(ids('C')).not.toContain('hydrogen-chloride')
     expect(ids('C')).not.toContain('phosphorus-pentachloride')
-    expect(ids('Cl')).toEqual(['hydrogen-chloride', 'phosphorus-pentachloride'])
+    expect(ids('Cl')).toEqual(['hydrogen-chloride', 'chlorine', 'phosphorus-pentachloride', 'phosphorus-trichloride', 'carbon-tetrachloride', 'dichloromethane', 'chloroform', 'chlorine-trifluoride'])
     expect(moleculesContaining('Co', [{ id: 'carbon-monoxide', name: 'Carbon monoxide', formula: 'CO', charge: 0, topic: 'basics' }])).toEqual([])
   })
 

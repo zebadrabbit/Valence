@@ -108,6 +108,8 @@ export function StationCard({ data, sources, stationId, state, view, reducedMoti
   const [lookSaid, sayOfLook] = useSaid()
   const [warned, setWarned] = useState(false)
   // Whether the spectroscope is looked through, as chosen for one hold of the loop: a new hold is a new thing to look at.
+  // ponytail: the page's own and not stored, as the engine has no action for it. After a reload the strip is out
+  // if a line or a band had been looked at, and behind its button again if none had.
   const [scope, setScope] = useState<{ hold: string; open: boolean } | null>(null)
   const cleanRef = useRef<HTMLButtonElement>(null)
   const dipRef = useRef<HTMLButtonElement>(null)
@@ -122,6 +124,8 @@ export function StationCard({ data, sources, stationId, state, view, reducedMoti
   const clean: Action = { type: 'cleanLoop' }
   const dip: Action = { type: 'dipLoop', stationId }
   const hold: Action = { type: 'holdInFlame', stationId }
+  // A warning that is showing is of a dip Guided would warn of now. Once it would not (the loop was cleaned at another station, or the mode was changed to Challenge), the warning is dropped, and does not come back by itself when the loop or the mode changes again.
+  if (warned && warn(dip).length === 0) setWarned(false)
   // Whatever holds the whole lab holds every entry here. It is said once, at the station's head, and that sentence is the description of the form's button.
   const completed = can(clean) === 'lab-completed' ? BLOCKED_TEXT['lab-completed'] : null
   const held = station.held?.join() ?? null
@@ -286,11 +290,11 @@ export function StationCard({ data, sources, stationId, state, view, reducedMoti
 
       {held !== null && (
         <Step heading={BENCH_TEXT.observations}>
+          {/* Over the questions and closed: the five are the same at every station, and are there to be opened by a learner who wants them. */}
           {view.guidanceShown && (
-            <div className="grid gap-1">
-              <h4 className="font-medium">{BENCH_TEXT.hints}</h4>
+            <Disclosure summary={BENCH_TEXT.hints}>
               <Listed items={HINTS} />
-            </div>
+            </Disclosure>
           )}
           <ChoiceForm
             // A form of its own for each hold: what was chosen of one flame is not carried to the next.

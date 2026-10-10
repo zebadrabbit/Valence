@@ -1,0 +1,105 @@
+{
+  "id": "ozone",
+  "name": "Ozone",
+  "formula": "O3",
+  "pubchemCid": 24823,
+  "topic": "basics",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "position2d": [
+        2.866,
+        -0.25
+      ],
+      "formalCharge": 1,
+      "lonePairs": 1
+    },
+    {
+      "element": "O",
+      "position": [
+        0,
+        1.088507,
+        0.669654
+      ],
+      "position2d": [
+        3.7321,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        0,
+        -1.088507,
+        0.669654
+      ],
+      "position2d": [
+        2,
+        0.25
+      ],
+      "formalCharge": -1,
+      "lonePairs": 3
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 2,
+      "aromatic": false,
+      "resonanceNote": "one of two equivalent resonance structures; effective order 1.5"
+    },
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false,
+      "resonanceNote": "one of two equivalent resonance structures; effective order 1.5"
+    }
+  ],
+  "geometrySource": "cited-experimental",
+  "measurements": {
+    "lengths": [
+      {
+        "atoms": [
+          0,
+          1
+        ],
+        "value": 1.278,
+        "sourceId": "cccbdb-ozone",
+        "published": "1.278"
+      },
+      {
+        "atoms": [
+          0,
+          2
+        ],
+        "value": 1.278,
+        "sourceId": "cccbdb-ozone",
+        "published": "1.278"
+      }
+    ],
+    "angles": [
+      {
+        "atoms": [
+          1,
+          0,
+          2
+        ],
+        "value": 116.8,
+        "sourceId": "cccbdb-ozone",
+        "published": "116.8"
+      }
+    ],
+    "dihedrals": []
+  },
+  "sourceId": "cccbdb-ozone"
+}

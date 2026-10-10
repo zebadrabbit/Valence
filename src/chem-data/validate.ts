@@ -92,7 +92,9 @@ function checkBench({ species: allSpecies, reagents: allReagents, observations, 
 }
 
 // A PubChem 2D drawing has unit-length heavy-atom bonds and shorter bonds to H.
+// The bond of H₂ is the one real bond shorter than 0.80 Å (0.741 Å), so a bond between two hydrogens has its own floor.
 const MIN_BOND_TO_H = 0.8
+const MIN_H_H_BOND = 0.7
 const MIN_HEAVY_BOND = 1.05
 
 function checkStructure(registry: Registry): string[] {
@@ -117,7 +119,8 @@ function checkStructure(registry: Registry): string[] {
         continue
       }
       const length = distance(a.position, b.position)
-      const minimum = a.element === 'H' || b.element === 'H' ? MIN_BOND_TO_H : MIN_HEAVY_BOND
+      const hydrogens = [a, b].filter((atom) => atom.element === 'H').length
+      const minimum = [MIN_HEAVY_BOND, MIN_BOND_TO_H, MIN_H_H_BOND][hydrogens]!
       if (length < minimum) {
         errors.push(`${label} is ${length.toFixed(3)} Å, shorter than ${minimum} Å (looks like a 2D drawing)`)
       }

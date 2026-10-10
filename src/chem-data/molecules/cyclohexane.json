@@ -1,0 +1,374 @@
+{
+  "id": "cyclohexane",
+  "name": "Cyclohexane",
+  "formula": "C6H12",
+  "pubchemCid": 8078,
+  "topic": "organic",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "C",
+      "position": [
+        -0.0435,
+        -1.4573,
+        -0.2258
+      ],
+      "position2d": [
+        2,
+        -0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.2404,
+        -0.7663,
+        0.2258
+      ],
+      "position2d": [
+        2.866,
+        -1
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.2838,
+        -0.691,
+        0.2258
+      ],
+      "position2d": [
+        2,
+        0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.2838,
+        0.6911,
+        -0.2257
+      ],
+      "position2d": [
+        3.7321,
+        -0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.2404,
+        0.7662,
+        -0.2258
+      ],
+      "position2d": [
+        2.866,
+        1
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.0435,
+        1.4573,
+        0.2258
+      ],
+      "position2d": [
+        3.7321,
+        0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.046,
+        -1.5425,
+        -1.3194
+      ],
+      "position2d": [
+        1.3894,
+        -0.3923
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.0739,
+        -2.4771,
+        0.1741
+      ],
+      "position2d": [
+        1.788,
+        -1.0826
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.3129,
+        -0.8111,
+        1.3194
+      ],
+      "position2d": [
+        2.4675,
+        -1.475
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.1083,
+        -1.3026,
+        -0.1742
+      ],
+      "position2d": [
+        3.2646,
+        -1.475
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.1821,
+        -1.1746,
+        -0.1741
+      ],
+      "position2d": [
+        1.788,
+        1.0826
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.3588,
+        -0.7314,
+        1.3195
+      ],
+      "position2d": [
+        1.3894,
+        0.3923
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.1821,
+        1.1746,
+        0.1742
+      ],
+      "position2d": [
+        3.9441,
+        -1.0826
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.359,
+        0.7315,
+        -1.3194
+      ],
+      "position2d": [
+        4.3426,
+        -0.3923
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.3129,
+        0.811,
+        -1.3195
+      ],
+      "position2d": [
+        3.2646,
+        1.475
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.1083,
+        1.3025,
+        0.1741
+      ],
+      "position2d": [
+        2.4675,
+        1.475
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.0459,
+        1.5425,
+        1.3195
+      ],
+      "position2d": [
+        4.3426,
+        0.3923
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.0738,
+        2.4771,
+        -0.1742
+      ],
+      "position2d": [
+        3.9441,
+        1.0826
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 14,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 15,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 16,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 17,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-8078"
+}

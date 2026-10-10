@@ -1,0 +1,108 @@
+{
+  "id": "ammonium",
+  "name": "Ammonium ion",
+  "formula": "NH4",
+  "pubchemCid": 223,
+  "topic": "basics",
+  "charge": 1,
+  "atoms": [
+    {
+      "element": "N",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "position2d": [
+        2.5369,
+        0
+      ],
+      "formalCharge": 1,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.9645,
+        0.2796,
+        0.2138
+      ],
+      "position2d": [
+        3.0739,
+        0.31
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.0075,
+        -0.886,
+        -0.5188
+      ],
+      "position2d": [
+        2,
+        -0.31
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.5235,
+        -0.1202,
+        0.8751
+      ],
+      "position2d": [
+        2.2269,
+        0.5369
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.4486,
+        0.7266,
+        -0.5701
+      ],
+      "position2d": [
+        2.8469,
+        -0.5369
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-223"
+}

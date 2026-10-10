@@ -40,6 +40,12 @@ function planeNormal(bonds: readonly Vec3[]): Vec3 {
   return unit(normals.find((n) => Math.hypot(...n) > 0.5) ?? normals[0]!)
 }
 
+/** A unit vector at right angles to the axis, where any is as good as another: the axis crossed with the coordinate axis it is least along. */
+function perpendicularTo(axis: Vec3): Vec3 {
+  const size = axis.map(Math.abs)
+  return unit(cross(axis, AXES[size.indexOf(Math.min(...size))]!))
+}
+
 /**
  * A unit vector at right angles to the bond of a terminal atom, fixing how its
  * lone pairs are turned about that bond. It points the way the neighbour's first
@@ -58,8 +64,7 @@ function sideOf(molecule: Molecule, index: number, axis: Vec3): Vec3 {
     .map((b) => across(b, axis))
     .find((v) => Math.hypot(...v) > 0.1)
   if (leaning) return unit(leaning)
-  const size = axis.map(Math.abs)
-  const fallback = unit(cross(axis, AXES[size.indexOf(Math.min(...size))]!))
+  const fallback = perpendicularTo(axis)
   const other = molecule.bonds.filter((b) => b !== bond && (b.a === neighbour || b.b === neighbour))
   const partner = other.length === 1 ? (other[0]!.a === neighbour ? other[0]!.b : other[0]!.a) : -1
   const terminalDouble = (atom: number) =>
@@ -77,6 +82,10 @@ function sideOf(molecule: Molecule, index: number, axis: Vec3): Vec3 {
  * - Two on a tetrahedral atom (H₂O, alcohols): 109.47° apart, in the plane that
  *   bisects the bond angle, tilted away from the bonds.
  * - Two on an octahedral atom (XeF₄): above and below the plane of the bonds.
+ * - One, two or three on a trigonal bipyramidal atom (SF₄, ClF₃, XeF₂): in the
+ *   equatorial places, at right angles to the line through the two axial bonds.
+ *   One points directly away from the bonds; two sit 120° from the equatorial
+ *   bond; three sit 120° apart, turned about the axis by a fixed, arbitrary choice.
  * - The lone pair of an amide or urea nitrogen, which is delocalised: at right
  *   angles to the plane of its three bonds. Which face is a fixed but arbitrary
  *   choice (it follows the atom order).
@@ -114,6 +123,16 @@ export function lonePairDirections(molecule: Molecule, atomIndex: number, elemen
   } else if (pairs === 2 && bonds.length === 4 && electronGeometry === ELECTRON_GEOMETRY[6]) {
     const normal = planeNormal(bonds)
     return [normal, scale(normal, -1)]
+  } else if (electronGeometry === ELECTRON_GEOMETRY[5] && bonds.length + pairs === 5) {
+    // The axial bonds are the two furthest apart; the lone pairs are at right angles to the line through them.
+    if (pairs === 1) return [away()]
+    const [first, second] = bonds
+      .flatMap((a, i) => bonds.slice(i + 1).map((b) => [a, b] as const))
+      .reduce((widest, pair) => (dot(...pair) < dot(...widest) ? pair : widest))
+    const axis = unit(sub(first, second))
+    const equatorial = bonds.find((bond) => bond !== first && bond !== second)
+    if (pairs === 2 && equatorial) return [120, 240].map((turn) => around(axis, unit(across(equatorial, axis)), 90 * RAD, turn * RAD))
+    if (pairs === 3) return [0, 120, 240].map((turn) => around(axis, perpendicularTo(axis), 90 * RAD, turn * RAD))
   }
   throw new Error(
     `${molecule.id}: atom ${atomIndex} (${atom.element}) with ${bonds.length} bonded atoms and ${pairs} lone pairs is not supported`,

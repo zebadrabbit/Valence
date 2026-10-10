@@ -157,9 +157,9 @@ export const FLAME_PRIMER: readonly PrimerSection[] = [
       ),
       paragraph(
         { label: 'Why it matters' },
-        "This is why the colour of a flame is not simply the colour of the strongest lines of the metal's atom. The periodic table in this app shows, on the card of each element, lines of that element's atoms. For calcium, strontium, barium and copper the flame is not the colour of those lines, because most of its light is a molecule's. For sodium and potassium the light of the flame is the atom's own.",
+        "This is why the colour of a flame is not simply the colour of the strongest lines of the metal's atom. The periodic table in this app shows, on the card of each element, lines of that element's atoms. For calcium, strontium, barium and copper those lines do not tell the colour of the flame, because most of its light is a molecule's, which the card does not show. For sodium and potassium the light of the flame is the atom's own.",
         [],
-        "the comparison with the periodic table's cards is this lab's own: the cards show lines of the neutral atom as a database lists them (docs/research/emission-spectra/README.md), and the lab's record gives each flame's light to an atom or to a molecule from its own sources.",
+        "the comparison with the periodic table's cards is this lab's own: the cards show lines of the neutral atom as a database lists them (docs/research/emission-spectra/README.md), and the lab's record gives each flame's light to an atom or to a molecule from its own sources. The card does not say that those flames are another colour than the lines: calcium's card and strontium's hold red lines.",
       ),
       paragraph(
         { label: 'What is left out', labRules: ['In this lab the spectroscope shows the lines and bands that the sources read for it place on the scale, and no others.'] },
@@ -192,7 +192,7 @@ export const FLAME_PRIMER: readonly PrimerSection[] = [
       ),
       paragraph(
         { label: 'At other benches', labRules: ['This lab has no acid bottle, and nothing in it asks for one.'] },
-        'Many laboratories dip the loop in hydrochloric acid before they heat it clean. Some dip the salt in the same acid too: the acid turns a salt into its chloride, and chlorides are the salts a flame carries off most readily. All six solutions here are chlorides already, so rinsing the loop in distilled water and burning it clean is enough for them. That is how other benches work. This lab has no acid bottle, and nothing in it asks for one.',
+        'Many laboratories dip the loop in hydrochloric acid before they heat it clean. Some dip the salt in the same acid too: the acid turns a salt into its chloride, and chlorides are the salts a flame carries off most readily. That is how other benches work. All six solutions here are chlorides already, so rinsing the loop in distilled water and burning it clean is enough for them. This lab has no acid bottle, and nothing in it asks for one.',
         [
           [WORKSHEET, WORKSHEET_PROCEDURE, 'the wire is dipped in dilute hydrochloric acid and then heated, to clean it.'],
           [CHEMGUIDE, CHEMGUIDE_PRACTICE, 'a wire is cleaned by dipping it in hydrochloric acid and holding it in a hot flame.'],
@@ -202,8 +202,14 @@ export const FLAME_PRIMER: readonly PrimerSection[] = [
         "none of the four says why the acid is used to clean the wire: each gives the reason only for the salt, and the card says no more than that. That rinsing and burning is enough for six chlorides is this lab's own judgement, made with the project's owner, at whose bench no acid is used.",
       ),
       paragraph(
-        { label: 'An unclean loop', labRules: ['In this lab an observation made with a loop that was not clean does not count, whatever was recorded: the station is done again with a clean loop.'] },
-        'A loop that was not cleaned carries the last salt into the next flame along with the new one. The spectroscope then shows the lines and bands of both, and the colour of the flame can no longer be put down to one salt. In this lab an observation made with a loop that was not clean does not count, whatever was recorded: the station is done again with a clean loop.',
+        {
+          label: 'An unclean loop',
+          labRules: [
+            "In this lab a flame of two salts with no sodium among them is drawn in the colours of both and called by both, and the strip shows each salt's lines and bands as that salt alone gives them: what such a flame really looks like depends on how much of each salt is on the loop.",
+            'In this lab an observation made with a loop that was not clean does not count, whatever was recorded: the station is done again with a clean loop.',
+          ],
+        },
+        "A loop that was not cleaned carries the last salt into the next flame along with the new one. The spectroscope then shows the lines and bands of both, and the colour of the flame can no longer be put down to one salt. In this lab a flame of two salts with no sodium among them is drawn in the colours of both and called by both, and the strip shows each salt's lines and bands as that salt alone gives them: what such a flame really looks like depends on how much of each salt is on the loop. In this lab an observation made with a loop that was not clean does not count, whatever was recorded: the station is done again with a clean loop.",
         [],
         "what an unclean loop shows and that its observation does not count are this lab's model and rule (spec 15.2). That a flame of two salts and no sodium is called by both colours is a model parameter, with its rationale in the record.",
       ),
@@ -246,9 +252,9 @@ export const FLAME_PRIMER: readonly PrimerSection[] = [
       ),
       paragraph(
         { label: 'The scale', terms: ['nanometre'] },
-        'Wavelength is measured in nanometres, written nm. A nanometre is a millionth of a millimetre. The scale of this spectroscope runs from 400 nm, at the violet end, to 780 nm, in the deep red. Between the two come blue, green, yellow and orange, in that order, as in a rainbow.',
+        'Wavelength is measured in nanometres, written nm. A nanometre is a millionth of a millimetre. The scale of this spectroscope runs from 400 nm, at the violet end, to 780 nm, in the deep red. Between the two come blue, green, yellow and orange, in that order, as in a rainbow. It has a mark every 20 nm and a number at every 100 nm and at its end.',
         [[VISIBLE, VISIBLE_WAVELENGTHS, 'violet light has the shortest wavelength that is seen and red the longest, with the colours of the rainbow between them, and that these wavelengths are counted in nanometres.']],
-        "the ends of the scale are this lab's set-up (spec 15.1). That a nanometre is a millionth of a millimetre is what the name means; no source was read for it.",
+        "the ends of the scale, and how it is marked, are this lab's set-up and its picture (spec 15.1 and 15.6). That a nanometre is a millionth of a millimetre is what the name means; no source was read for it.",
       ),
       paragraph(
         { label: 'Beyond red' },
@@ -257,10 +263,10 @@ export const FLAME_PRIMER: readonly PrimerSection[] = [
         "that light beyond 700 nm looks faint on a bench is this lab's own joining of the eye's range with where that light is; the record's README lists it among what a chemist should look at.",
       ),
       paragraph(
-        { label: 'Lines and bands' },
-        'Two kinds of thing show on the strip. A sharp line is at one place on the scale: read the number under it. A broad band covers a stretch of the scale: read where it starts and where it ends. Point at a line or a band, tap it, or move to it with the keyboard, and the lab says where it is, what colour it is and which of the two it is.',
+        { label: 'Lines and bands', labRules: ['In this lab a line is drawn as a thin stroke the whole height of the strip, and a band as a wider stretch a little shorter, so that a line beside a band can be told from it.'] },
+        'Two kinds of thing show on the strip. A sharp line is at one place on the scale: read its place from the marks under it. A broad band covers a stretch of the scale: read where it starts and where it ends. In this lab a line is drawn as a thin stroke the whole height of the strip, and a band as a wider stretch a little shorter, so that a line beside a band can be told from it. Point at a line or a band, tap it, or move to it with the keyboard, and the lab says where it is, what colour it is and which of the two it is.',
         [],
-        "how the strip is read and looked at is this lab's own (spec 15.2). What a line and a band are is the cards Light from atoms and Molecules in a flame.",
+        "how the strip is read, drawn and looked at is this lab's own (spec 15.2 and 15.6). What a line and a band are is the cards Light from atoms and Molecules in a flame.",
       ),
       paragraph(
         { label: 'The brightest', labRules: ['In this lab how bright a line or a band is follows what the instruments of its sources recorded, which is not always what an eye would find the brightest.'] },
@@ -300,9 +306,9 @@ export const FLAME_PRIMER: readonly PrimerSection[] = [
       ),
       paragraph(
         { label: 'The ones to respect' },
-        'Barium chloride asks for the most care: as a solid it is toxic if swallowed. Solid copper(II) chloride is harmful if swallowed and burns skin and eyes, and a sheet for its 0.1 M solution says that the solution is very toxic to life in water. Solid strontium chloride can do serious damage to the eyes. Calcium chloride, potassium chloride and sodium chloride carry lesser warnings. None of the six solutions is something to taste.',
+        'Barium chloride asks for the most care: as a solid it is toxic if swallowed and harmful if breathed in. Solid copper(II) chloride is harmful if swallowed and burns skin and eyes, and a sheet for its 0.1 M solution says that the solution is very toxic to life in water. Solid strontium chloride can do serious damage to the eyes. Calcium chloride, potassium chloride and sodium chloride carry lesser warnings. None of the six solutions is something to taste.',
         [
-          [sheet('94'), HAZARDS, 'solid barium chloride is classed as toxic if swallowed.'],
+          [sheet('94'), HAZARDS, 'solid barium chloride is classed as toxic if swallowed and as harmful if inhaled.'],
           [sheet('281.05'), HAZARDS, 'solid copper(II) chloride dihydrate is classed as harmful if swallowed and as a cause of severe burns to the skin and of damage to the eyes.'],
           ['wards-sds-cc0506', HAZARDS, 'a 0.1 M solution of copper(II) chloride is classed as very toxic to life in water, with effects that last.'],
           [sheet('784'), HAZARDS, 'solid strontium chloride hexahydrate is classed as a cause of serious damage to the eyes.'],

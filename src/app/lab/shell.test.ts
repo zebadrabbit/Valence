@@ -15,6 +15,7 @@ import { Hazards } from './Hazards'
 import labCss from './lab.css?raw'
 import { LabShell, openingTab, tabShift, type LabShellProps } from './LabShell'
 import { ModeSwitch } from './ModeSwitch'
+import { openingStation } from './openingStation'
 import { pieces, Primer, subscriptParts } from './Primer'
 import { HAZARDS_TEXT, NARROW_NOTICE, PRIMER_TEXT, SHELL_TEXT } from './shellText'
 import { labProgress, writtenElsewhere } from './useLabProgress'
@@ -780,5 +781,18 @@ describe('labProgress', () => {
     const { store } = counting()
     labProgress(store, activity, z.strictObject({ other: z.number() })).save({ other: 1 })
     expect(labProgress(store, activity, schema).load()).toBeNull()
+  })
+})
+
+describe('the station a lab with stations opens on', () => {
+  it('is the first one begun and not done, whatever word a lab has for begun; where none is, the first not done; and the first of all once every one is done', () => {
+    expect(openingStation(['not-started', 'not-started', 'not-started'])).toBe(0)
+    expect(openingStation(['done', 'done', 'not-started'])).toBe(2)
+    // The aqueous reactions lab's two words for a station begun, and the flame test lab's three.
+    expect(openingStation(['done', 'not-started', 'started', 'observed'])).toBe(2)
+    expect(openingStation(['done', 'not-started', 'done', 'observed'])).toBe(3)
+    expect(openingStation(['done', 'not-counted', 'started'])).toBe(1)
+    expect(openingStation(['done', 'not-started', 'not-correct'])).toBe(2)
+    expect(openingStation(['done', 'done', 'done'])).toBe(0)
   })
 })

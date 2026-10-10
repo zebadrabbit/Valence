@@ -1,0 +1,171 @@
+{
+  "id": "phosphoric-acid",
+  "name": "Phosphoric acid",
+  "formula": "H3PO4",
+  "pubchemCid": 1004,
+  "topic": "basics",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "P",
+      "position": [
+        0.0936,
+        -0.0002,
+        -0.0071
+      ],
+      "position2d": [
+        3.403,
+        -0.2685
+      ],
+      "formalCharge": 1,
+      "lonePairs": 0
+    },
+    {
+      "element": "O",
+      "position": [
+        -0.6464,
+        -0.865,
+        -1.1531
+      ],
+      "position2d": [
+        4.269,
+        0.2315
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -0.5406,
+        -0.5569,
+        1.3712
+      ],
+      "position2d": [
+        2.5369,
+        -0.7685
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -0.4998,
+        1.4936,
+        -0.159
+      ],
+      "position2d": [
+        2.903,
+        0.5976
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        1.5932,
+        -0.0714,
+        -0.052
+      ],
+      "position2d": [
+        3.903,
+        -1.1345
+      ],
+      "formalCharge": -1,
+      "lonePairs": 3
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.6269,
+        -0.8815,
+        -1.1776
+      ],
+      "position2d": [
+        4.8059,
+        -0.0785
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.5153,
+        -0.5509,
+        1.482
+      ],
+      "position2d": [
+        2,
+        -0.4585
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.1382,
+        2.0806,
+        -0.8567
+      ],
+      "position2d": [
+        3.213,
+        1.1345
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "Drawn in the octet-obeying form (four P–O single bonds, formal charges +1 on P and −1 on the oxygen that carries no hydrogen), as sulfur dioxide is. Both drawings are in use: PubChem's record draws one P=O double bond instead, which lowers the formal charges and gives phosphorus more than eight electrons."
+  ],
+  "sourceId": "pubchem-cid-1004"
+}

@@ -1,0 +1,418 @@
+{
+  "id": "ascorbic-acid",
+  "name": "Ascorbic acid (vitamin C)",
+  "formula": "C6H8O6",
+  "pubchemCid": 54670067,
+  "topic": "everyday",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        0.0932,
+        -1.1066,
+        0.6445
+      ],
+      "position2d": [
+        0.5357,
+        5.0298
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -1.3436,
+        0.0892,
+        -1.3863
+      ],
+      "position2d": [
+        -1.5521,
+        3.3548
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        0.8392,
+        2.3901,
+        0.2844
+      ],
+      "position2d": [
+        0.2266,
+        2.4608
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -3.8929,
+        -0.204,
+        -0.3326
+      ],
+      "position2d": [
+        -2.5521,
+        5.0869
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        3.022,
+        0.5695,
+        -0.6056
+      ],
+      "position2d": [
+        2.2957,
+        3.133
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        1.9915,
+        -2.156,
+        -0.1376
+      ],
+      "position2d": [
+        2.2957,
+        5.3086
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.3397,
+        0.2618,
+        0.7853
+      ],
+      "position2d": [
+        -0.0521,
+        4.2208
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.6059,
+        0.4585,
+        -0.033
+      ],
+      "position2d": [
+        -1.0521,
+        4.2208
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.8212,
+        1.0265,
+        0.2887
+      ],
+      "position2d": [
+        0.5357,
+        3.4118
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.7464,
+        -0.4082,
+        0.4863
+      ],
+      "position2d": [
+        -1.5521,
+        5.0869
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.8077,
+        0.2273,
+        -0.1049
+      ],
+      "position2d": [
+        1.4867,
+        3.7208
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.3536,
+        -1.1481,
+        0.1108
+      ],
+      "position2d": [
+        1.4867,
+        4.7208
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.5154,
+        0.4609,
+        1.8484
+      ],
+      "position2d": [
+        -0.438,
+        4.9782
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.9162,
+        1.5092,
+        -0.0432
+      ],
+      "position2d": [
+        -1.6721,
+        4.2208
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.4989,
+        -1.4735,
+        0.4351
+      ],
+      "position2d": [
+        -0.9695,
+        5.2989
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.0013,
+        -0.1462,
+        1.5179
+      ],
+      "position2d": [
+        -1.6598,
+        5.6974
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.0999,
+        -0.8522,
+        -1.3986
+      ],
+      "position2d": [
+        -2.1721,
+        3.3548
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.0039,
+        2.6957,
+        0.678
+      ],
+      "position2d": [
+        0.6415,
+        2
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -4.6023,
+        -0.7644,
+        0.0257
+      ],
+      "position2d": [
+        -2.8621,
+        5.6238
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.5024,
+        -0.2572,
+        -0.7856
+      ],
+      "position2d": [
+        2.8621,
+        3.3852
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 16,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 17,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 18,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 19,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 11,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 10,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 14,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 15,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 10,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "Vitamin C, also added to food as an antioxidant.",
+    "One conformer of many."
+  ],
+  "sourceId": "pubchem-cid-54670067"
+}

@@ -67,6 +67,8 @@ Rank 1 is the brightest of a salt's features. A band marked approximate has no l
 4. **Ranges stored as limits.** The two ranges of CaOH and the one of BaOH are the ranges in which an abstract says the spectra were measured or were stronger. They may be the windows of a measurement and not the edges of the bands.
 5. **The atom's lines at calcium, strontium and barium** are on the strip on thin grounds, and ranked last: sources that measure the atom in a flame by the light it takes up.
 6. **Flames differ.** The sources used flames of hydrogen and oxygen in argon, of air and acetylene, of a gas burner in 1860, and of burning firework mixtures. The lab's burner is none of these in particular.
+7. **What the notes say of the periodic table's cards.** As first written, the notes of the calcium, strontium, barium and copper stations, the primer and the closing question's feedback said that those flames are not the colour of the lines on the element's card. The cards show the lines NIST rates strongest, with no word of how strong each is in a flame, and several are of the flame's own colour: six of the nine on calcium's card are orange or red, three of the six on strontium's are red, and four of the eight on copper's are green. The sentences were rewritten on 2026-10-09 to say only what the sources carry: the card shows lines of the atom alone, and what colours the flame is mostly the molecule's light, which the card does not show. No source read says how much of a burner flame's red or orange is those lines of the atom: that they give little of it is what the sources' account of the bands implies, and the lab does not say it.
+8. **The closing question at copper.** The answer is the metal, and a learner who chooses the chloride is told that what is the same in all six bottles cannot be what makes the flames differ. That holds. Yet at the copper station the record gives the brightest band to CuCl, which holds chlorine, and the strontium and barium stations name SrCl and BaCl among what the strip leaves out: the chlorine of the bottle takes part in the light of those flames, though it is not what makes the six differ. The lab does not say so, and a chemist may want it said.
 
 ## Tried and not read
 
@@ -85,3 +87,5 @@ The quotation fingerprint that `src/chem-data/flame/quotation.test.ts` compares 
 ## What nobody checked
 
 No chemist has read the record, the notes or the primer. The scanned paper was read by one reader, by eye.
+
+How the lab's screens were built on this record, what was corrected in it on the way, and what the chemistry looked like once it was on a screen, is in `build-record.md`.

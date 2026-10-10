@@ -6,16 +6,16 @@ import { searchPalette, stepActive, type PaletteItem } from './search'
 const labels = (query: string) => searchPalette(PALETTE_ITEMS, query).map((item) => item.label)
 
 describe('PALETTE_ITEMS', () => {
-  it('holds the 31 molecules, the three labs, the mechanism, the six pages, the periodic table and its 118 elements, with unique ids', () => {
-    expect(PALETTE_ITEMS).toHaveLength(31 + 3 + 1 + 6 + 1 + 118)
+  it('holds the 101 molecules, the three labs, the mechanism, the six pages, the periodic table and its 118 elements, with unique ids', () => {
+    expect(PALETTE_ITEMS).toHaveLength(101 + 3 + 1 + 6 + 1 + 118)
     expect(new Set(PALETTE_ITEMS.map((item) => item.id)).size).toBe(PALETTE_ITEMS.length)
   })
 
   it('lists the periodic table and then the elements, by atomic number, after the molecules, labs and pages', () => {
     const kinds = PALETTE_ITEMS.map((item) => item.kind.replace(/ .*/, ''))
-    expect(kinds.slice(0, 41)).toEqual([...Array<string>(31).fill('Molecule'), 'Lab', 'Lab', 'Lab', 'Mechanism', ...Array<string>(6).fill('Page')])
-    expect(PALETTE_ITEMS[41]).toEqual({ id: 'page:/explore/elements', label: 'Periodic table', kind: 'Page', to: '/explore/elements' })
-    expect(PALETTE_ITEMS.slice(42).map((item) => item.label)).toEqual(ELEMENT_INDEX.map((e) => e.name))
+    expect(kinds.slice(0, 111)).toEqual([...Array<string>(101).fill('Molecule'), 'Lab', 'Lab', 'Lab', 'Mechanism', ...Array<string>(6).fill('Page')])
+    expect(PALETTE_ITEMS[111]).toEqual({ id: 'page:/explore/elements', label: 'Periodic table', kind: 'Page', to: '/explore/elements' })
+    expect(PALETTE_ITEMS.slice(112).map((item) => item.label)).toEqual(ELEMENT_INDEX.map((e) => e.name))
   })
 
   it('links an element to its page, with its symbol where a molecule has its formula', () => {
@@ -67,8 +67,17 @@ describe('searchPalette', () => {
     expect(labels('co2')).toEqual(['Carbon dioxide'])
   })
 
-  it('finds Glycine for "glyc"', () => {
-    expect(labels('glyc')).toEqual(['Glycine'])
+  it('finds Glycine and Glycerol for "glyc", and Glycine alone for "glyci"', () => {
+    expect(labels('glyc')).toEqual(['Glycine', 'Glycerol'])
+    expect(labels('glyci')).toEqual(['Glycine'])
+  })
+
+  it('finds a molecule of the Everyday topic by either of its names, and says which topic it is in', () => {
+    expect(labels('paracetamol')).toEqual(['Acetaminophen (paracetamol)'])
+    expect(labels('vitamin c')).toEqual(['Ascorbic acid (vitamin C)'])
+    expect(labels('isooctane')).toEqual(['2,2,4-Trimethylpentane (isooctane)'])
+    expect(labels('fructose')).toEqual(['Fructose (β-D-fructofuranose)'])
+    expect(searchPalette(PALETTE_ITEMS, 'caffeine')[0]).toMatchObject({ kind: 'Molecule · Everyday molecules', to: '/explore/caffeine' })
   })
 
   it('ignores case and surrounding spaces', () => {
@@ -89,11 +98,18 @@ describe('searchPalette', () => {
   })
 
   it('finds an element by its symbol or its name, ahead of the molecules that contain it', () => {
-    expect(labels('Xe').slice(0, 2)).toEqual(['Xenon', 'Xenon tetrafluoride'])
-    expect(labels('xenon')).toEqual(['Xenon', 'Xenon tetrafluoride'])
+    expect(labels('Xe').slice(0, 3)).toEqual(['Xenon', 'Xenon tetrafluoride', 'Xenon difluoride'])
+    expect(labels('xenon')).toEqual(['Xenon', 'Xenon tetrafluoride', 'Xenon difluoride'])
     expect(labels('gold')).toEqual(['Gold'])
     expect(labels('c')[0]).toBe('Carbon')
-    expect(labels('co')[0]).toBe('Cobalt')
+  })
+
+  it('tells a formula from a symbol by its capitals where the two spell alike, and puts the molecule first when the query has none', () => {
+    expect(labels('Co')[0]).toBe('Cobalt')
+    expect(labels('CO')[0]).toBe('Carbon monoxide')
+    expect(labels('Hf')[0]).toBe('Hafnium')
+    expect(labels('HF')[0]).toBe('Hydrogen fluoride')
+    expect(labels('co').slice(0, 2)).toEqual(['Carbon monoxide', 'Cobalt'])
   })
 
   it('finds aluminum and cesium by the spellings PubChem does not use', () => {
@@ -124,7 +140,7 @@ describe('searchPalette', () => {
   })
 
   it('treats the query as plain text, not a pattern', () => {
-    expect(labels('(o')).toEqual(['Oxygen (O₂)'])
+    expect(labels('(o2')).toEqual(['Oxygen (O₂)'])
     expect(labels('.*')).toEqual([])
   })
 

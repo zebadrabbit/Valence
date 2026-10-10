@@ -149,24 +149,63 @@ describe('lonePairDirections', () => {
     expect(chlorine()).toEqual(chlorine())
   })
 
+  // The three shapes of five electron domains: the lone pairs take the equatorial places, in the plane at right
+  // angles to the axis of the two axial bonds.
+  it('puts the lone pair of the sulfur of SF₄ in the equatorial plane, away from the two equatorial fluorines', () => {
+    const { bonds, pairs } = domains('sulfur-tetrafluoride', 'S', 4)
+    expect(pairs).toHaveLength(1)
+    const [pair] = pairs
+    const angles = bonds.map((bond) => between(pair!, bond)).sort((a, b) => a - b)
+    // Two axial bonds a little over 90° away, two equatorial ones equally far and well past 120°.
+    expect(angles[0]).toBeCloseTo(angles[1]!, 3)
+    expect(angles[2]).toBeCloseTo(angles[3]!, 3)
+    expect(angles[0]).toBeGreaterThan(90)
+    expect(angles[0]).toBeLessThan(100)
+    expect(angles[2]).toBeGreaterThan(120)
+    expect(angles[2]).toBeLessThan(135)
+  })
+
+  it('puts the two lone pairs of the chlorine of ClF₃ in the equatorial plane, 120° apart and 120° from the equatorial fluorine', () => {
+    const { bonds, pairs } = domains('chlorine-trifluoride', 'Cl', 3)
+    expect(pairs).toHaveLength(2)
+    const length = (v: Vec3) => Math.hypot(...v)
+    const equatorial = bonds.reduce((shortest, bond) => (length(bond) < length(shortest) ? bond : shortest))
+    const axial = bonds.filter((bond) => bond !== equatorial)
+    expect(between(pairs[0]!, pairs[1]!)).toBeCloseTo(120, 6)
+    for (const pair of pairs) {
+      // The axial fluorines lean 2.5° towards the equatorial one; the pairs are at right angles to the line through them.
+      expect(dot(pair, sub(axial[0]!, axial[1]!))).toBeCloseTo(0, 9)
+      expect(between(pair, equatorial)).toBeCloseTo(120, 6)
+    }
+  })
+
+  it('puts the three lone pairs of the xenon of XeF₂ round the middle, at right angles to the bonds and 120° apart', () => {
+    const { bonds, pairs } = domains('xenon-difluoride', 'Xe', 2)
+    expect(pairs).toHaveLength(3)
+    for (const pair of pairs) for (const bond of bonds) expect(between(pair, bond)).toBeCloseTo(90, 6)
+    for (const [i, j] of [[0, 1], [1, 2], [0, 2]] as const) expect(between(pairs[i]!, pairs[j]!)).toBeCloseTo(120, 6)
+  })
+
   it('throws a clear error for a case it does not cover', () => {
-    // ClF₃: three bonds and two lone pairs on a trigonal bipyramid.
+    // ClF₅: five bonds and one lone pair on an octahedron. No molecule of the library is a square pyramid.
     const fluorine = { element: 'F', position2d: [0, 0] as [number, number], formalCharge: 0, lonePairs: 3 }
     const molecule: Molecule = {
       ...moleculeOf('hydrogen-chloride'),
-      id: 'chlorine-trifluoride',
+      id: 'chlorine-pentafluoride',
       atoms: [
-        { element: 'Cl', position: [0, 0, 0], position2d: [0, 0], formalCharge: 0, lonePairs: 2 },
-        { ...fluorine, position: [1.6, 0, 0] },
+        { element: 'Cl', position: [0, 0, 0], position2d: [0, 0], formalCharge: 0, lonePairs: 1 },
+        { ...fluorine, position: [0, 0, 1.6] },
+        { ...fluorine, position: [1.7, 0, 0] },
+        { ...fluorine, position: [-1.7, 0, 0] },
         { ...fluorine, position: [0, 1.7, 0] },
         { ...fluorine, position: [0, -1.7, 0] },
       ],
-      bonds: [1, 2, 3].map((b) => ({ a: 0, b, order: 1 as const, aromatic: false })),
+      bonds: [1, 2, 3, 4, 5].map((b) => ({ a: 0, b, order: 1 as const, aromatic: false })),
     }
     expect(() => lonePairDirections(molecule, 0, elements)).toThrow(
-      'chlorine-trifluoride: atom 0 (Cl) with 3 bonded atoms and 2 lone pairs is not supported',
+      'chlorine-pentafluoride: atom 0 (Cl) with 5 bonded atoms and 1 lone pairs is not supported',
     )
-    expect(() => lonePairDirections(molecule, 9, elements)).toThrow('chlorine-trifluoride: no atom 9')
+    expect(() => lonePairDirections(molecule, 9, elements)).toThrow('chlorine-pentafluoride: no atom 9')
     expect(lonePairDirections(molecule, 1, elements)).toHaveLength(3)
   })
 })

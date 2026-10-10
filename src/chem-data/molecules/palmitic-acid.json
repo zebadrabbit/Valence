@@ -1,0 +1,1011 @@
+{
+  "id": "palmitic-acid",
+  "name": "Palmitic acid",
+  "formula": "CH3(CH2)14COOH",
+  "pubchemCid": 985,
+  "topic": "biomolecules",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        -9.5605,
+        0.6695,
+        -0.0838
+      ],
+      "position2d": [
+        2.5369,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -8.5332,
+        -1.3534,
+        0.0164
+      ],
+      "position2d": [
+        3.403,
+        -0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "C",
+      "position": [
+        1.77,
+        -0.4356,
+        0.0582
+      ],
+      "position2d": [
+        10.3312,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.5235,
+        0.4509,
+        0.083
+      ],
+      "position2d": [
+        9.4651,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        3.0463,
+        0.4092,
+        0.0877
+      ],
+      "position2d": [
+        11.1972,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.7911,
+        -0.3346,
+        0.0414
+      ],
+      "position2d": [
+        8.5991,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        4.2949,
+        -0.4722,
+        0.0265
+      ],
+      "position2d": [
+        12.0632,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.0721,
+        0.505,
+        -0.0209
+      ],
+      "position2d": [
+        7.7331,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        5.605,
+        0.3187,
+        0.0913
+      ],
+      "position2d": [
+        12.9292,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -3.3539,
+        -0.3321,
+        -0.0108
+      ],
+      "position2d": [
+        6.8671,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        6.893,
+        -0.5009,
+        -0.0508
+      ],
+      "position2d": [
+        13.7953,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -4.5986,
+        0.5561,
+        0.0054
+      ],
+      "position2d": [
+        6.001,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        8.1645,
+        0.3517,
+        -0.0404
+      ],
+      "position2d": [
+        14.6613,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -5.9165,
+        -0.2275,
+        -0.0233
+      ],
+      "position2d": [
+        5.135,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        9.4506,
+        -0.4776,
+        -0.093
+      ],
+      "position2d": [
+        15.5273,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -7.173,
+        0.6435,
+        -0.0191
+      ],
+      "position2d": [
+        4.269,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        10.7192,
+        0.3603,
+        -0.0527
+      ],
+      "position2d": [
+        16.3933,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -8.4681,
+        -0.131,
+        -0.0149
+      ],
+      "position2d": [
+        3.403,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.7548,
+        -1.1149,
+        0.9189
+      ],
+      "position2d": [
+        9.9326,
+        -0.2249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.7587,
+        -1.0564,
+        -0.8456
+      ],
+      "position2d": [
+        10.7297,
+        -0.2249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.536,
+        1.0745,
+        0.9855
+      ],
+      "position2d": [
+        9.8637,
+        1.225
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.5519,
+        1.1356,
+        -0.7738
+      ],
+      "position2d": [
+        9.0666,
+        1.225
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.0499,
+        1.1058,
+        -0.7593
+      ],
+      "position2d": [
+        11.5957,
+        1.225
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.0675,
+        1.0123,
+        1.0033
+      ],
+      "position2d": [
+        10.7987,
+        1.225
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.8365,
+        -0.9824,
+        0.9261
+      ],
+      "position2d": [
+        8.2006,
+        -0.2249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.7737,
+        -1.003,
+        -0.829
+      ],
+      "position2d": [
+        8.9976,
+        -0.2249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        4.2759,
+        -1.1927,
+        0.8534
+      ],
+      "position2d": [
+        11.6647,
+        -0.2249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        4.2778,
+        -1.0564,
+        -0.9018
+      ],
+      "position2d": [
+        12.4617,
+        -0.2249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.0493,
+        1.1259,
+        -0.9248
+      ],
+      "position2d": [
+        8.1316,
+        1.225
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.0825,
+        1.1921,
+        0.8344
+      ],
+      "position2d": [
+        7.3346,
+        1.225
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        5.5908,
+        1.0785,
+        -0.7008
+      ],
+      "position2d": [
+        13.3278,
+        1.225
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        5.6387,
+        0.8661,
+        1.0419
+      ],
+      "position2d": [
+        12.5307,
+        1.225
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.3611,
+        -0.9849,
+        0.8701
+      ],
+      "position2d": [
+        6.4685,
+        -0.2249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.3734,
+        -0.9811,
+        -0.8944
+      ],
+      "position2d": [
+        7.2656,
+        -0.2249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        6.9379,
+        -1.2311,
+        0.7664
+      ],
+      "position2d": [
+        13.3967,
+        -0.2249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        6.8533,
+        -1.0741,
+        -0.9851
+      ],
+      "position2d": [
+        14.1938,
+        -0.2249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -4.5713,
+        1.2318,
+        -0.8586
+      ],
+      "position2d": [
+        6.3996,
+        1.225
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -4.5806,
+        1.1888,
+        0.9014
+      ],
+      "position2d": [
+        5.6025,
+        1.225
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        8.1435,
+        1.0427,
+        -0.8919
+      ],
+      "position2d": [
+        15.0598,
+        1.225
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        8.1753,
+        0.9681,
+        0.867
+      ],
+      "position2d": [
+        14.2628,
+        1.225
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -5.946,
+        -0.9033,
+        0.8411
+      ],
+      "position2d": [
+        4.7365,
+        -0.2249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -5.9313,
+        -0.8708,
+        -0.9125
+      ],
+      "position2d": [
+        5.5335,
+        -0.2249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        9.4539,
+        -1.0823,
+        -1.0077
+      ],
+      "position2d": [
+        15.1288,
+        -0.2249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        9.465,
+        -1.1782,
+        0.7506
+      ],
+      "position2d": [
+        15.9258,
+        -0.2249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -7.1671,
+        1.2837,
+        0.8703
+      ],
+      "position2d": [
+        4.6675,
+        1.225
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -7.1683,
+        1.2834,
+        -0.9089
+      ],
+      "position2d": [
+        3.8705,
+        1.225
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        10.7586,
+        1.0487,
+        -0.9027
+      ],
+      "position2d": [
+        16.7033,
+        0.2131
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        11.6026,
+        -0.2843,
+        -0.094
+      ],
+      "position2d": [
+        16.9303,
+        1.06
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        10.7686,
+        0.9489,
+        0.8687
+      ],
+      "position2d": [
+        16.0833,
+        1.2869
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -10.3937,
+        0.1519,
+        -0.0956
+      ],
+      "position2d": [
+        2,
+        0.44
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 17,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 49,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 17,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 18,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 19,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 20,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 21,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 22,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 23,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 24,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 25,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 26,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 27,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 28,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 29,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 30,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 31,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 32,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 33,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 10,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 10,
+      "b": 34,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 10,
+      "b": 35,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 11,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 11,
+      "b": 36,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 11,
+      "b": 37,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 14,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 38,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 39,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 13,
+      "b": 15,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 13,
+      "b": 40,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 13,
+      "b": 41,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 14,
+      "b": 16,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 14,
+      "b": 42,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 14,
+      "b": 43,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 15,
+      "b": 17,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 15,
+      "b": 44,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 15,
+      "b": 45,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 16,
+      "b": 46,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 16,
+      "b": 47,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 16,
+      "b": 48,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "One conformer of many."
+  ],
+  "sourceId": "pubchem-cid-985"
+}

@@ -6,6 +6,8 @@ import type { Element, Molecule } from './schema'
 // parenthesised formula in a name such as "Oxygen (O₂)" is dropped. The formula
 // is the authored one, written as textbooks write it (NH3, not Hill's H3N).
 
+/** A description is this many sentences at most, the one that gives the name and formula included. */
+const MAX_SENTENCES = 7
 const listFormat = new Intl.ListFormat('en', { type: 'conjunction' })
 const counted = (n: number, noun: string) => `${n} ${noun}${n === 1 ? '' : 's'}`
 const signed = (charge: number) => `${charge > 0 ? 'plus' : 'minus'} ${Math.abs(charge)}`
@@ -49,17 +51,20 @@ export function describeMoleculeParts(molecule: Molecule, elements: readonly Ele
     return count > 0 ? [counted(count, `${kind} bond`)] : []
   })
   const joined = kinds.length > 0 ? `, joined by ${listFormat.format(kinds)}` : ''
-  // The drawn single and double bond of a resonance pair must not be heard as fact (spec 6.1, 6.3).
-  // ponytail: assumes one pair per molecule, one bond drawn double and one single, sharing an
-  // atom, which is all the v1 library has. Nitrate or carbonate would need the count worded.
+  // The drawn single and double bonds of a resonance set must not be heard as fact (spec 6.1, 6.3).
+  // ponytail: assumes one set per molecule, of two or three bonds that share an atom, one of them drawn
+  // double, which is all the library has. Two sets in one molecule would need each worded.
   const noted = bonds.filter((b) => b.resonanceNote)
   const ends = noted.flatMap((b) => [b.a, b.b])
   const outer = ends.find((i) => ends.indexOf(i) === ends.lastIndexOf(i))
+  const only = bonds.filter((b) => b.order === 1).length === noted.length - 1
+  const singles = noted.length === 2 ? `${only ? 'the' : 'one'} single bond` : `${only ? 'the ' : ''}two single bonds`
+  const structures = noted.length === 2 ? 'two' : 'three'
   const resonance =
     outer === undefined
       ? ''
-      : `; the double bond and ${bonds.filter((b) => b.order === 1).length === 1 ? 'the' : 'one'} single bond to ` +
-        `${nameOf(atoms[outer]!.element)} are drawn as one of two equivalent resonance structures, and the two real bonds are equal`
+      : `; the double bond and ${singles} to ${nameOf(atoms[outer]!.element)} are drawn as one of ${structures} equivalent resonance structures, ` +
+        `and the ${structures} real bonds are equal`
   sentences.push(`It has ${counted(atoms.length, 'atom')}${joined}${resonance}.`)
 
   const charged = atoms.filter((a) => a.formalCharge !== 0)
@@ -75,27 +80,44 @@ export function describeMoleculeParts(molecule: Molecule, elements: readonly Ele
     sentences.push(`Formal charges: ${parts.join(', ')}.`)
   }
 
-  // What is said of each atom bonded to two or more atoms, keyed by element so equal atoms share a sentence.
-  const groups = new Map<string, { element: string; saying: string; count: number }>()
-  deriveAtoms(molecule, elements).forEach((derived, i) => {
-    if (derived.bondedAtoms < 2) return
-    const element = atoms[i]!.element
+  // What is said of each atom bonded to two or more atoms, keyed by element so equal atoms share a sentence:
+  // its geometry and its neighbours, or, where that would take the description past MAX_SENTENCES, its geometry alone.
+  const central = deriveAtoms(molecule, elements).flatMap((derived, i) => {
+    if (derived.bondedAtoms < 2) return []
     const neighbours = bonds.flatMap((b) => (b.a === i ? [b.b] : b.b === i ? [b.a] : []))
-    const saying = `has ${derived.geometry} geometry and is bonded to ${atomsOf(neighbours.map((j) => atoms[j]!.element))}.`
-    const group = groups.get(`${element} ${saying}`) ?? { element, saying, count: 0 }
-    group.count += 1
-    groups.set(`${element} ${saying}`, group)
+    return [{ element: atoms[i]!.element, geometry: derived.geometry, bondedTo: atomsOf(neighbours.map((j) => atoms[j]!.element)) }]
   })
-  for (const { element, saying, count } of groups.values()) {
+  const total = (element: string) => atoms.filter((a) => a.element === element).length
+  const grouped = (saying: (atom: (typeof central)[number]) => string) => {
+    const groups = new Map<string, { element: string; saying: string; count: number }>()
+    for (const atom of central) {
+      const key = `${atom.element} ${saying(atom)}`
+      const group = groups.get(key) ?? { element: atom.element, saying: saying(atom), count: 0 }
+      group.count += 1
+      groups.set(key, group)
+    }
+    return [...groups.values()]
+  }
+  const subject = (element: string, count: number) => {
     const name = nameOf(element)
-    const all = count === atoms.filter((a) => a.element === element).length
-    const subject =
-      count === 1
-        ? all
-          ? `The ${name} atom`
-          : `One ${name} atom`
-        : `Each of ${all ? 'the ' : ''}${count} ${name} atoms`
-    sentences.push(`${subject} ${saying}`)
+    const all = count === total(element)
+    return count === 1 ? (all ? `The ${name} atom` : `One ${name} atom`) : `Each of ${all ? 'the ' : ''}${count} ${name} atoms`
+  }
+  const detailed = grouped((atom) => `has ${atom.geometry} geometry and is bonded to ${atom.bondedTo}.`)
+  // `sentences` starts with the end of the sentence that gives the name and formula, so its length is the count so far.
+  if (sentences.length + detailed.length <= MAX_SENTENCES) {
+    for (const { element, saying, count } of detailed) sentences.push(`${subject(element, count)} ${saying}`)
+  } else {
+    const byGeometry = grouped((atom) => `${atom.geometry} geometry`)
+    for (const element of new Set(central.map((atom) => atom.element))) {
+      const mine = byGeometry.filter((group) => group.element === element)
+      const parts = mine.map(({ saying, count }) => `${count} ${count === 1 ? 'has' : 'have'} ${saying}`)
+      sentences.push(
+        mine.length === 1
+          ? `${subject(element, mine[0]!.count)} has ${mine[0]!.saying}.`
+          : `Of the ${total(element)} ${nameOf(element)} atoms, ${listFormat.format(parts)}.`,
+      )
+    }
   }
   return { lead, formula: molecule.formula, rest: sentences.join(' ') }
 }

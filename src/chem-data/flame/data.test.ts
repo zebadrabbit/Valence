@@ -131,6 +131,35 @@ describe('the atomic lines', () => {
       expect(card(symbol).filter((published) => !stored.includes(published)).length, symbol).toBeGreaterThan(4)
     }
   })
+
+  it("say of the four whose flame is mostly a molecule's what their cards show and do not show, and never that the flame is not the colour of the card's lines", () => {
+    const card = (symbol: string) => {
+      const spectrum = emissionSpectra.find((e) => e.symbol === symbol)!
+      return 'emission' in spectrum ? spectrum.emission.lines.map((line) => line.published) : []
+    }
+    // It would not be so: most of the lines on calcium's card are red or orange and its flame is orange-red; half of those on strontium's are red, and its flame is red.
+    // (Orange begins near 590 nm and red near 625.)
+    expect(card('Ca').filter((published) => Number(published) >= 590).length).toBe(6)
+    expect(card('Ca').length).toBe(9)
+    expect(card('Sr').filter((published) => Number(published) >= 625).length).toBe(3)
+    expect(card('Sr').length).toBe(6)
+    for (const salt of flameData.salts) for (const note of salt.notes) expect(note.value, salt.id).not.toMatch(/not the colour of/)
+    for (const symbol of ['Ba', 'Ca', 'Cu', 'Sr']) {
+      const salt = flameData.salts.find((s) => s.metal.symbol === symbol)!
+      const about = salt.notes.at(-1)!.value
+      const { name } = salt.metal
+      expect(about, symbol).toContain(`${name[0]!.toUpperCase()}${name.slice(1)}'s card on the periodic table shows lines of the ${name} atom alone`)
+      expect(about, symbol).toMatch(/What colours this flame is (mostly the molecule's|the molecules') light, which the card does not show\.$/)
+      // Where the strip has a line of the atom, the note says that the card has it too, and the card does.
+      const lines = salt.features.flatMap((f) => (f.kind === 'line' ? [f] : []))
+      expect(lines.length, symbol).toBe(symbol === 'Cu' ? 0 : 1)
+      for (const line of lines) {
+        expect(about, symbol).toContain(`the ${line.colour} line of this strip among them`)
+        expect(card(symbol), symbol).toContain(line.wavelengthNm.published)
+      }
+      if (lines.length === 0) expect(about).not.toContain('among them')
+    }
+  })
 })
 
 describe('the brightest feature of each salt', () => {

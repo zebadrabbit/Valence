@@ -6,6 +6,7 @@ export const TOPICS: readonly { id: Molecule['topic']; label: string }[] = [
   { id: 'vsepr', label: 'VSEPR showcase' },
   { id: 'organic', label: 'Organic functional groups' },
   { id: 'biomolecules', label: 'Biomolecules' },
+  { id: 'everyday', label: 'Everyday molecules' },
   { id: 'mechanism', label: 'Mechanism species' },
 ]
 

@@ -1,0 +1,63 @@
+{
+  "id": "carbon-monoxide",
+  "name": "Carbon monoxide",
+  "formula": "CO",
+  "pubchemCid": 281,
+  "topic": "basics",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "C",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "position2d": [
+        3,
+        0
+      ],
+      "formalCharge": -1,
+      "lonePairs": 1
+    },
+    {
+      "element": "O",
+      "position": [
+        0,
+        0,
+        1.128
+      ],
+      "position2d": [
+        2,
+        0
+      ],
+      "formalCharge": 1,
+      "lonePairs": 1
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 3,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "cited-experimental",
+  "measurements": {
+    "lengths": [
+      {
+        "atoms": [
+          0,
+          1
+        ],
+        "value": 1.128,
+        "sourceId": "cccbdb-carbon-monoxide",
+        "published": "1.128"
+      }
+    ],
+    "angles": [],
+    "dihedrals": []
+  },
+  "sourceId": "cccbdb-carbon-monoxide"
+}

@@ -1,0 +1,48 @@
+{
+  "id": "hydrogen-fluoride",
+  "name": "Hydrogen fluoride",
+  "formula": "HF",
+  "pubchemCid": 14917,
+  "topic": "basics",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "F",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "position2d": [
+        2,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "H",
+      "position": [
+        0.4358,
+        -0.1477,
+        -0.8188
+      ],
+      "position2d": [
+        3,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-14917"
+}

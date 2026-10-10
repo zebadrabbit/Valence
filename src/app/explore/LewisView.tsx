@@ -93,13 +93,14 @@ export function LewisView(props: { molecule: Molecule; selection: Selection; dis
             <circle key={k} cx={dot[0]} cy={dot[1]} r={DOT_RADIUS} fill="currentColor" />
           ))}
           {atom.charge && (
-            // ponytail: the circle fits "+" and "−", the only formal charges in the library. A "2−" needs a wider shape.
+            // ponytail: one circle for every charge. "+" and "−" fill it; a charge of two characters ("2+", on the
+            // sulfur of sulfate) is written smaller to fit. Three characters would need a wider shape.
             <>
               <circle cx={atom.charge.position[0]} cy={atom.charge.position[1]} r={CHARGE_RADIUS} fill="none" stroke="currentColor" strokeWidth={2} />
               <text
                 x={atom.charge.position[0]}
                 y={atom.charge.position[1]}
-                fontSize={FONT_SIZE * 0.7}
+                fontSize={FONT_SIZE * (atom.charge.text.length > 1 ? 0.45 : 0.7)}
                 fontWeight={600}
                 textAnchor="middle"
                 dominantBaseline="central"

@@ -1,0 +1,150 @@
+{
+  "id": "acetate",
+  "name": "Acetate ion",
+  "formula": "CH3COO",
+  "pubchemCid": 175,
+  "topic": "basics",
+  "charge": -1,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        -0.6906,
+        -1.1195,
+        0
+      ],
+      "position2d": [
+        2,
+        0.75
+      ],
+      "formalCharge": -1,
+      "lonePairs": 3
+    },
+    {
+      "element": "O",
+      "position": [
+        -0.6023,
+        1.1668,
+        0
+      ],
+      "position2d": [
+        3.7321,
+        0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "C",
+      "position": [
+        1.4054,
+        -0.0498,
+        0
+      ],
+      "position2d": [
+        2.866,
+        -0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.1125,
+        0.0025,
+        0.0001
+      ],
+      "position2d": [
+        2.866,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.7934,
+        0.4532,
+        -0.8908
+      ],
+      "position2d": [
+        2.246,
+        -0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.7688,
+        -1.082,
+        0.0004
+      ],
+      "position2d": [
+        2.866,
+        -1.37
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.7937,
+        0.4539,
+        0.8902
+      ],
+      "position2d": [
+        3.486,
+        -0.75
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 3,
+      "order": 1,
+      "aromatic": false,
+      "resonanceNote": "one of two equivalent resonance structures; effective order 1.5"
+    },
+    {
+      "a": 1,
+      "b": 3,
+      "order": 2,
+      "aromatic": false,
+      "resonanceNote": "one of two equivalent resonance structures; effective order 1.5"
+    },
+    {
+      "a": 2,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-175"
+}

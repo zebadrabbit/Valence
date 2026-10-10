@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { flameData as data } from '@/chem-data/flame/data'
+import { FLAME_PRIMER } from '@/chem-data/flame/primer'
 import { HANDLING, createLab, stationView, type Action, type Seen } from '@/engine/flame'
 import { run } from '@/engine/flame/testkit'
 import { HIT_MIN, MIN_WIDTH_PX, STRIP, brightness, hitAreas, ticks, xOf } from './stripGeometry'
@@ -24,6 +25,8 @@ describe('the scale of the strip', () => {
     const marks = ticks(data.scale)
     expect(marks.map((mark) => mark.nm)).toEqual(Array.from({ length: 20 }, (_, i) => 400 + 20 * i))
     expect(marks.filter((mark) => mark.numbered).map((mark) => mark.nm)).toEqual([400, 500, 600, 700, 780])
+    // The primer's card on the scale says the same of it.
+    expect(FLAME_PRIMER.find((section) => section.id === 'spectroscope')!.paragraphs.map((p) => p.text).join(' ')).toContain('It has a mark every 20 nm and a number at every 100 nm and at its end.')
     // Two marks are far enough apart to be told from each other where the picture is at its narrowest.
     expect(px(marks[1]!.x - marks[0]!.x)).toBeGreaterThan(20)
   })
@@ -65,6 +68,18 @@ describe('the hit areas of the lines and bands', () => {
       })
       // However crowded, as with all six salts and the trace of handling on one loop, the narrowest area is half of the least width: 22 px where the picture is at its narrowest.
       for (const area of areas) expect(px(area.to - area.from), `${id} after ${before.join()}`).toBeGreaterThanOrEqual(22)
+    }
+  })
+
+  it('lie along the strip in the order the engine counts the lines and bands in, whatever the loop carries: the count from the violet end, the order of the Tab key and the order of the buttons are one', () => {
+    // Calcium on a loop that still carries barium chloride: barium's line near 554 nm stands inside calcium's green band.
+    const mixed = seen('cacl2-0.1m', ['bacl2-0.1m'])
+    const [band, line] = [mixed.findIndex((one) => one.feature.id === 'caoh-green'), mixed.findIndex((one) => one.feature.id === 'ba-553')]
+    expect(mixed[band]!.fromNm < mixed[line]!.fromNm && mixed[line]!.toNm < mixed[band]!.toNm).toBe(true)
+    const loops: [string, string[]][] = ids.flatMap((id) => [[id, []], [id, [HANDLING]], ...ids.filter((other) => other !== id).map((other): [string, string[]] => [id, [other]]), [id, [HANDLING, ...ids.filter((other) => other !== id)]]] as [string, string[]][])
+    for (const [id, before] of loops) {
+      const areas = hitAreas(extents(seen(id, before)))
+      areas.forEach((area, at) => at > 0 && expect(area.from, `${id} after ${before.join()}, ${at}`).toBeGreaterThanOrEqual(areas[at - 1]!.to))
     }
   })
 

@@ -241,7 +241,7 @@ export const moleculeSchema = z.strictObject({
     .regex(/[+-]/)
     .optional(),
   pubchemCid: z.number().int().positive(),
-  topic: z.enum(['basics', 'vsepr', 'organic', 'biomolecules', 'mechanism']),
+  topic: z.enum(['basics', 'vsepr', 'organic', 'biomolecules', 'everyday', 'mechanism']),
   variantGroup: id.optional(),
   variantLabel: text.optional(),
   /** Net charge of the species. */

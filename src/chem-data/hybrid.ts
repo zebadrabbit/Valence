@@ -9,8 +9,10 @@ import type { Element, MoDiagram, Molecule } from './schema'
 /** Steric numbers whose hybrid orbitals are drawn. 5 and 6 are textbook labels only and are never drawn. */
 const DRAWN = [2, 3, 4].map((domains) => HYBRIDIZATION[domains]!)
 
-export const DELOCALISED_PAIR_NOTE =
-  'The lone pair of this nitrogen is in a p orbital at right angles to the plane of its bonds, delocalised into the neighbouring C=O. It is not a hybrid orbital, so it has no lobe.'
+/** `into` is what the lone pair is shared with, as deriveAtoms names it: "C=O", "C=C", "C=N" or the aromatic ring. */
+const delocalisedPairNote = (into: string) =>
+  `The lone pair of this nitrogen is in a p orbital at right angles to the plane of its bonds, delocalised into the neighbouring ${into}. It is not a hybrid orbital, so it has no lobe.`
+export const DELOCALISED_PAIR_NOTE = delocalisedPairNote('C=O')
 
 /**
  * Shown with the lobes of a molecule that also has a molecular orbital diagram, so the two models
@@ -46,8 +48,10 @@ export function hybridLobes(molecule: Molecule, atomIndex: number, elements: rea
   if (!derived) throw new Error(`${molecule.id}: no atom ${atomIndex}`)
   if (!DRAWN.includes(derived.hybridization)) return null
   const bonds = bondDirections(molecule, atomIndex)
-  // An amide or urea nitrogen is sp² with its lone pair in the unhybridized p orbital.
-  if (derived.resonanceOverride) return { hybridization: derived.hybridization, bonds, lonePairs: [], note: DELOCALISED_PAIR_NOTE }
+  // An amide or urea nitrogen, or one next to a ring's double bond, is sp² with its lone pair in the unhybridized p orbital.
+  if (derived.resonanceOverride) {
+    return { hybridization: derived.hybridization, bonds, lonePairs: [], note: delocalisedPairNote(derived.delocalisedInto ?? 'double bond') }
+  }
   return { hybridization: derived.hybridization, bonds, lonePairs: lonePairDirections(molecule, atomIndex, elements) }
 }
 

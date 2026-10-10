@@ -89,7 +89,7 @@ describe('the flame primer: how its text is drawn', () => {
 
   it("sets off only whole sentences of the paragraph that name the lab themselves, each a rule of the simulation's and not of a bench", () => {
     const rules = paragraphs.flatMap(([where, p]) => (p.labRules ?? []).map((rule) => [where, rule, p.text] as const))
-    expect(rules.map(([where]) => where)).toEqual(['flame-test[3]', 'molecules[4]', 'loop[1]', 'loop[2]', 'loop[3]', 'loop[4]', 'spectroscope[4]', 'spectroscope[5]'])
+    expect(rules.map(([where]) => where)).toEqual(['flame-test[3]', 'molecules[4]', 'loop[1]', 'loop[2]', 'loop[3]', 'loop[3]', 'loop[4]', 'spectroscope[3]', 'spectroscope[4]', 'spectroscope[5]'])
     for (const [where, rule, text] of rules) {
       expect(rule, where).toMatch(/^(In this lab|This lab) .*\.$/)
       // A whole sentence: it starts the text or follows a full stop, and ends the text or is followed by a space and a capital.
@@ -186,12 +186,15 @@ describe('the flame primer: what it has to say', () => {
     for (const formula of formulas) expect(shown('molecules'), formula).toContain(formula)
     expect(shown('molecules')).toContain('This is why the colour of a flame is not simply the colour of the strongest lines of the metal\'s atom.')
     expect(shown('molecules')).toContain('The periodic table in this app shows, on the card of each element, lines of that element\'s atoms.')
+    // Not that the flame is another colour than those lines: calcium's card and strontium's hold red lines, and their flames are orange-red and red.
+    expect(shown('molecules')).toContain("For calcium, strontium, barium and copper those lines do not tell the colour of the flame, because most of its light is a molecule's, which the card does not show.")
+    expect(all).not.toMatch(/not the colour of th/)
   })
 
   it('gives away no station: no wavelength of a stored feature, no answer range, and no flame colour but sodium\'s yellow', () => {
     const numbers = (all.match(/\d+(\.\d+)?(?= nm)/g) ?? []).map(Number)
-    // The ends of the scale and of what an eye sees, and nothing else.
-    expect([...new Set(numbers)].sort((a, b) => a - b)).toEqual([380, 400, 700, 780])
+    // How far apart the scale's marks and its numbers are, the ends of the scale and of what an eye sees, and nothing else.
+    expect([...new Set(numbers)].sort((a, b) => a - b)).toEqual([20, 100, 380, 400, 700, 780])
     for (const s of flameData.salts) {
       if (s.metal.name === 'sodium') continue
       // Lithium's red is the example, and lithium is on no station: so red may be said, of lithium alone.
@@ -207,6 +210,13 @@ describe('the flame primer: what it has to say', () => {
     expect(loop).toContain('rinsed in distilled water, then held in the flame until the flame shows no colour at all')
     expect(loop).toContain('an observation made with a loop that was not clean does not count, whatever was recorded')
     expect(loop).toContain('The spectroscope then shows the lines and bands of both')
+    // What a flame of two salts with no sodium looks like is the model's own rule, and the card says so where it says what such a loop shows.
+    expect(flameData.parameters.mixedFlame.value).toBe('every-colour-named')
+    expect(flameData.parameters.mixedFlame.rationale).toContain('depends on how much of each salt is on the loop')
+    const unclean = section('loop').paragraphs.find((p) => p.label === 'An unclean loop')!
+    const rule = "In this lab a flame of two salts with no sodium among them is drawn in the colours of both and called by both, and the strip shows each salt's lines and bands as that salt alone gives them: what such a flame really looks like depends on how much of each salt is on the loop."
+    expect(unclean.text).toContain(rule)
+    expect(unclean.labRules).toContain(rule)
     expect(loop).toContain('In Guided mode the lab warns you before you dip a loop that is not clean, and lets you go on if you choose.')
   })
 
@@ -215,8 +225,9 @@ describe('the flame primer: what it has to say', () => {
     expect(other!.label).toBe('At other benches')
     expect(other!.text).toContain('Many laboratories dip the loop in hydrochloric acid before they heat it clean.')
     expect(other!.text).toContain('the acid turns a salt into its chloride, and chlorides are the salts a flame carries off most readily')
-    expect(other!.text).toContain('All six solutions here are chlorides already, so rinsing the loop in distilled water and burning it clean is enough for them.')
-    expect(other!.text).toMatch(/That is how other benches work\. This lab has no acid bottle, and nothing in it asks for one\.$/)
+    // "That is how other benches work" stands straight after what those benches do, and before what this one does: after the sentence on water and flame it read as if that were the other benches' way.
+    expect(other!.text).toContain('chlorides are the salts a flame carries off most readily. That is how other benches work. All six solutions here are chlorides already, so rinsing the loop in distilled water and burning it clean is enough for them.')
+    expect(other!.text).toMatch(/is enough for them\. This lab has no acid bottle, and nothing in it asks for one\.$/)
     // The reason is given for the salt, which is what the sources give it for, and the support line says so.
     expect(other!.text).not.toMatch(/because/)
     expect(other!.support).toContain('none of the four says why the acid is used to clean the wire')
@@ -244,6 +255,14 @@ describe('the flame primer: what it has to say', () => {
     const card = shown('spectroscope')
     expect(card).toContain(`runs from ${flameData.scale.fromNm} nm, at the violet end, to ${flameData.scale.toNm} nm, in the deep red`)
     expect(card).toContain('A nanometre is a millionth of a millimetre.')
+    // How the scale is marked, and that a line is read from its marks: there is a number under few of them.
+    expect(card).toContain('It has a mark every 20 nm and a number at every 100 nm and at its end.')
+    expect(card).toContain('A sharp line is at one place on the scale: read its place from the marks under it.')
+    expect(card).not.toContain('read the number under it')
+    // How the picture tells a line from a band is the picture's own, and the card says so as a rule of the simulation.
+    const drawn = 'In this lab a line is drawn as a thin stroke the whole height of the strip, and a band as a wider stretch a little shorter, so that a line beside a band can be told from it.'
+    expect(card).toContain(drawn)
+    expect(section('spectroscope').paragraphs.find((p) => p.label === 'Lines and bands')!.labRules).toEqual([drawn])
     expect(card).toContain('Look at every line and band before you answer: those two questions open only when you have')
     expect(card).toContain('which is not always what an eye would find the brightest')
     expect(card).toContain('says that its limits are not given')
@@ -268,8 +287,8 @@ describe('the flame primer: what it has to say', () => {
 
     it('says of the salts only what the statements on their bottles say, each from the sheet the bottle cites for them', () => {
       const [, , , salts] = card().paragraphs
-      expect(statements('bacl2-0.1m')).toContain('H301: Toxic if swallowed')
-      expect(salts!.text).toContain('Barium chloride asks for the most care: as a solid it is toxic if swallowed.')
+      expect(statements('bacl2-0.1m')).toEqual(['H301: Toxic if swallowed', 'H332: Harmful if inhaled'])
+      expect(salts!.text).toContain('Barium chloride asks for the most care: as a solid it is toxic if swallowed and harmful if breathed in.')
       expect(statements('cucl2-0.1m')).toEqual(['H302: Harmful if swallowed', 'H314: Causes severe skin burns and eye damage'])
       expect(salts!.text).toContain('Solid copper(II) chloride is harmful if swallowed and burns skin and eyes')
       expect(statements('srcl2-0.1m')).toEqual(['H318: Causes serious eye damage'])

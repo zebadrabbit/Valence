@@ -12,8 +12,16 @@ export const STRIP = { width: 640, height: 112, pad: 24, top: 4, tall: 76 } as c
 export const MIN_WIDTH_PX = 440
 /** The narrowest a line's or a band's hit area is, in units: 44 px where the picture is at its narrowest, and a unit over, so that no rounding leaves it a hair short. */
 export const HIT_MIN = Math.ceil((44 * STRIP.width) / MIN_WIDTH_PX) + 1
-/** How wide a line is drawn at the least: a pair of lines too close to tell apart is drawn as wide as the pair. */
-export const LINE_WIDTH = 2.5
+/** How wide a line is drawn at the least: two pixels where the picture is at its narrowest, both of them its whole colour, since its edges are not smoothed. A pair of lines too close to tell apart is drawn as wide as the pair. */
+export const LINE_WIDTH = 3
+/**
+ * What sets a sharp line apart from a broad band, so that a line beside a band, or inside one, is not taken for the
+ * band's bright edge (barium's line stands 3.5 nm from the end of its band). A line is drawn the strip's whole
+ * height with a dark gap of LINE_GAP either side of it, cut out of whatever is under it; a band is drawn short of
+ * the strip's top and foot by BAND_INSET, so a line stands taller than any band.
+ */
+export const LINE_GAP = 2.5
+export const BAND_INSET = 9
 /** How far the edge of a hit area keeps from a thin thing beside a wide one. */
 const CLEAR = 8
 export interface Scale {
@@ -46,6 +54,8 @@ export interface Extent {
  * beside it), and each keeps to its own side of the cut, moved off-centre where that is what leaves it its width. Where a loop that was not clean puts one thing inside
  * another, or crowds several together, a cut is moved so that each has half of `min` at the least, which the
  * picture always has room for; such an area lies beside its line more than over it.
+ * ponytail: half of `min` is 22 px at the picture's narrowest, under the 44 px a finger is given elsewhere. It is
+ * met only with a loop that was not clean; stack such areas in two rows if they are found hard to tap.
  */
 export function hitAreas(extents: readonly Extent[], min = HIT_MIN, width: number = STRIP.width): Extent[] {
   const centre = (at: number) => (extents[at]!.from + extents[at]!.to) / 2
