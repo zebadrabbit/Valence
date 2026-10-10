@@ -1,0 +1,683 @@
+{
+  "scale": {
+    "fromNm": 400,
+    "toNm": 780
+  },
+  "salts": [
+    {
+      "id": "bacl2-0.1m",
+      "name": "Barium chloride solution, 0.1 M",
+      "formula": "BaCl₂",
+      "metal": {
+        "symbol": "Ba",
+        "name": "barium"
+      },
+      "molarity": 0.1,
+      "appearance": {
+        "value": {
+          "name": "colourless"
+        },
+        "sourceId": "flinn-sds-94.01"
+      },
+      "flame": {
+        "value": {
+          "name": "pale green",
+          "hex": "#A9D86E"
+        },
+        "sourceId": "chemguide-flame-tests"
+      },
+      "features": [
+        {
+          "id": "baoh-green",
+          "kind": "band",
+          "fromNm": 480,
+          "toNm": 550,
+          "approximate": false,
+          "colour": "green",
+          "prominence": 1,
+          "emitter": {
+            "kind": "molecule",
+            "formula": "BaOH"
+          },
+          "sourceId": "daidoji-1979-strontium-barium",
+          "alsoSourceId": "human-zeegers-1975"
+        },
+        {
+          "id": "ba-553",
+          "kind": "line",
+          "wavelengthNm": {
+            "value": 553.5481,
+            "published": "553.5481",
+            "sourceId": "nist-asd-lines-neutral"
+          },
+          "colour": "green",
+          "prominence": 2,
+          "emitter": {
+            "kind": "atom",
+            "symbol": "Ba"
+          },
+          "sourceId": "human-zeegers-1975"
+        }
+      ],
+      "leftOut": [
+        {
+          "value": "BaO, a molecule of one barium atom and one oxygen atom, gives bands between 450 nm and 790 nm that are strong in the flame too. They are spread over most of the scale, and the strip leaves them out.",
+          "sourceId": "human-zeegers-1975"
+        },
+        {
+          "value": "BaCl, a molecule of one barium atom and one chlorine atom, gives narrow bands near 514 nm and 524 nm, inside the broad green band. The strip leaves them out.",
+          "sourceId": "human-zeegers-1975"
+        }
+      ],
+      "notes": [
+        {
+          "value": "Most of the light of this flame comes from a molecule and not from barium atoms. The molecule is BaOH: one barium atom, one oxygen atom and one hydrogen atom, joined in the flame. It gives the broad green band from about 480 nm to 550 nm.",
+          "sourceId": "daidoji-1979-strontium-barium",
+          "alsoSourceId": "human-zeegers-1975"
+        },
+        {
+          "value": "The barium atom gives the sharp green line near 553.5 nm, beside the band.",
+          "sourceId": "nist-asd-lines-neutral",
+          "alsoSourceId": "human-zeegers-1975"
+        },
+        {
+          "value": "Barium's card on the periodic table shows lines of the barium atom alone, the green line of this strip among them. What colours this flame is mostly the molecule's light, which the card does not show.",
+          "sourceId": "nist-asd-lines-neutral",
+          "alsoSourceId": "daidoji-1979-strontium-barium"
+        }
+      ],
+      "classifiedAs": "Hazards of solid barium chloride dihydrate, the pure substance, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Danger",
+        "statements": [
+          "H301: Toxic if swallowed",
+          "H332: Harmful if inhaled"
+        ],
+        "note": {
+          "value": "The solution on this bench is 0.1 mol/L barium chloride. The same supplier's sheet for solutions under 1 M gives the signal word Warning and one statement, under H303 and H333: it may be harmful if it is swallowed or breathed in. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 0.1 M solution has the graver H302, harmful if swallowed. If any is swallowed, it asks that a doctor or a poison centre be called at once. It also asks: no eating, drinking or smoking, and no breathing of its mist; eyes flushed with water for 15 minutes or more and a doctor at once. A third supplier's sheet for the solid adds that the substance seriously irritates the eyes. Barium chloride is toxic, and NOAA's record shows barium compounds on the Environmental Protection Agency's consolidated list: so the solution is kept out of drains and waterways, as the other two suppliers' sheets say between them.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-94.01",
+          "alsoSourceId": "wards-sds-bb0041",
+          "moreSourceIds": [
+            "fisher-sds-bacl2-dihydrate",
+            "noaa-cameo-19847"
+          ]
+        },
+        "sourceId": "flinn-sds-94"
+      },
+      "sourceId": "flinn-sds-94.01"
+    },
+    {
+      "id": "cacl2-0.1m",
+      "name": "Calcium chloride solution, 0.1 M",
+      "formula": "CaCl₂",
+      "metal": {
+        "symbol": "Ca",
+        "name": "calcium"
+      },
+      "molarity": 0.1,
+      "appearance": {
+        "value": {
+          "name": "colourless"
+        },
+        "sourceId": "flinn-sds-197"
+      },
+      "flame": {
+        "value": {
+          "name": "orange-red",
+          "hex": "#E8602C"
+        },
+        "sourceId": "chemguide-flame-tests"
+      },
+      "features": [
+        {
+          "id": "caoh-orange-red",
+          "kind": "band",
+          "fromNm": 614,
+          "toNm": 640,
+          "approximate": false,
+          "colour": "orange-red",
+          "prominence": 1,
+          "emitter": {
+            "kind": "molecule",
+            "formula": "CaOH"
+          },
+          "sourceId": "daidoji-1979-calcium",
+          "alsoSourceId": "human-zeegers-1975"
+        },
+        {
+          "id": "caoh-green",
+          "kind": "band",
+          "fromNm": 540,
+          "toNm": 568,
+          "approximate": false,
+          "colour": "green",
+          "prominence": 2,
+          "emitter": {
+            "kind": "molecule",
+            "formula": "CaOH"
+          },
+          "sourceId": "daidoji-1979-calcium",
+          "alsoSourceId": "human-zeegers-1975"
+        },
+        {
+          "id": "ca-422",
+          "kind": "line",
+          "wavelengthNm": {
+            "value": 422.673,
+            "published": "422.673",
+            "sourceId": "nist-asd-lines-neutral"
+          },
+          "colour": "violet",
+          "prominence": 3,
+          "emitter": {
+            "kind": "atom",
+            "symbol": "Ca"
+          },
+          "sourceId": "daidoji-1979-calcium"
+        }
+      ],
+      "leftOut": [
+        {
+          "value": "CaOH also gives weaker bands on either side of the orange-red one, brightest near 603 nm and 643 nm. The strip leaves them out.",
+          "sourceId": "human-zeegers-1975"
+        }
+      ],
+      "notes": [
+        {
+          "value": "Most of the light of this flame comes from a molecule and not from calcium atoms. The molecule is CaOH: one calcium atom, one oxygen atom and one hydrogen atom, joined in the flame. It gives both broad bands: the orange-red one from about 614 nm to 640 nm, which is the brighter, and the green one from about 540 nm to 568 nm.",
+          "sourceId": "daidoji-1979-calcium",
+          "alsoSourceId": "human-zeegers-1975"
+        },
+        {
+          "value": "The calcium atom gives the sharp violet line near 422.7 nm.",
+          "sourceId": "nist-asd-lines-neutral",
+          "alsoSourceId": "daidoji-1979-calcium"
+        },
+        {
+          "value": "Calcium's card on the periodic table shows lines of the calcium atom alone, the violet line of this strip among them. What colours this flame is mostly the molecule's light, which the card does not show.",
+          "sourceId": "nist-asd-lines-neutral",
+          "alsoSourceId": "human-zeegers-1975"
+        }
+      ],
+      "classifiedAs": "Hazards of solid calcium chloride (anhydrous), the pure substance, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Warning",
+        "statements": [
+          "H302: Harmful if swallowed",
+          "H319: Causes serious eye irritation"
+        ],
+        "note": {
+          "value": "The solution on this bench is 0.1 mol/L calcium chloride. The same supplier's sheet for the solution, whose table of composition takes in this strength, prints no signal word and no hazard statement: it classes its solution as not hazardous. It calls for eye protection, gloves and protective clothing and, after a splash, for washing the skin and rinsing the eyes for several minutes.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 0.1 M solution gives the signal word Warning and one statement, under H320: the solution irritates the eyes. It asks, for the eyes, flushing with water for 15 minutes or more and a doctor at once. NOAA's record of the solid asks the same 15 minutes, and an eye doctor.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-197",
+          "alsoSourceId": "wards-sds-cc0070",
+          "moreSourceIds": [
+            "noaa-cameo-8382"
+          ]
+        },
+        "sourceId": "flinn-sds-196"
+      },
+      "sourceId": "flinn-sds-197"
+    },
+    {
+      "id": "cucl2-0.1m",
+      "name": "Copper(II) chloride solution, 0.1 M",
+      "formula": "CuCl₂",
+      "metal": {
+        "symbol": "Cu",
+        "name": "copper"
+      },
+      "molarity": 0.1,
+      "appearance": {
+        "value": {
+          "name": "light blue-green",
+          "hex": "#9AD6CF"
+        },
+        "sourceId": "flinn-sds-281.1"
+      },
+      "flame": {
+        "value": {
+          "name": "blue-green",
+          "hex": "#27B5A5"
+        },
+        "sourceId": "chemguide-flame-tests",
+        "alsoSourceId": "gallitto-2017-bunsen-burner"
+      },
+      "features": [
+        {
+          "id": "cucl-blue",
+          "kind": "band",
+          "fromNm": 400,
+          "toNm": 470,
+          "approximate": false,
+          "colour": "blue",
+          "prominence": 1,
+          "emitter": {
+            "kind": "molecule",
+            "formula": "CuCl"
+          },
+          "sourceId": "juknelevicius-2020"
+        },
+        {
+          "id": "cuoh-green",
+          "kind": "band",
+          "fromNm": 550,
+          "toNm": 550,
+          "approximate": true,
+          "colour": "green",
+          "prominence": 2,
+          "emitter": {
+            "kind": "molecule",
+            "formula": "CuOH"
+          },
+          "sourceId": "juknelevicius-2020"
+        }
+      ],
+      "leftOut": [
+        {
+          "value": "Copper oxide gives two bands in the red. The source read for this lab does not say where they are, so the strip does not show them.",
+          "sourceId": "juknelevicius-2020"
+        }
+      ],
+      "notes": [
+        {
+          "value": "Most of the light of this flame comes from molecules and not from copper atoms. CuCl, one copper atom joined to one chlorine atom, gives the blue band from about 400 nm to 470 nm. CuOH, one copper atom joined to one oxygen atom and one hydrogen atom, gives the green band near 550 nm. The flame's blue-green is the two together.",
+          "sourceId": "juknelevicius-2020"
+        },
+        {
+          "value": "No line of the copper atom is on the strip: the sources read for this lab give none between 400 nm and 780 nm for a flame.",
+          "sourceId": "juknelevicius-2020"
+        },
+        {
+          "value": "Copper's card on the periodic table shows lines of the copper atom alone. What colours this flame is the molecules' light, which the card does not show.",
+          "sourceId": "nist-asd-lines-neutral",
+          "alsoSourceId": "juknelevicius-2020"
+        }
+      ],
+      "classifiedAs": "Hazards of solid copper(II) chloride dihydrate, the pure substance, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Danger",
+        "statements": [
+          "H302: Harmful if swallowed",
+          "H314: Causes severe skin burns and eye damage"
+        ],
+        "note": {
+          "value": "The solution on this bench is 0.1 mol/L copper(II) chloride. The same supplier's sheet for solutions under 0.99 M gives the signal word Warning and two statements: H303, it may be harmful if swallowed; H315 and H319, it irritates the skin and seriously irritates the eyes. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 0.1 M solution has the graver H302, harmful if swallowed, and adds H410: very toxic to water life, with lasting effects. It asks: no eating, drinking or smoking; eyes flushed with water for 15 minutes or more and a doctor at once. A third supplier's sheet for the solid agrees on water life and adds: harmful on the skin. So it is kept out of drains and waterways, as both sheets and NOAA's record of a spill say; that record has copper compounds on the Environmental Protection Agency's consolidated list.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-281.1",
+          "alsoSourceId": "wards-sds-cc0506",
+          "moreSourceIds": [
+            "fisher-sds-cucl2-dihydrate",
+            "noaa-cameo-2988"
+          ]
+        },
+        "sourceId": "flinn-sds-281.05"
+      },
+      "sourceId": "flinn-sds-281.1"
+    },
+    {
+      "id": "kcl-0.1m",
+      "name": "Potassium chloride solution, 0.1 M",
+      "formula": "KCl",
+      "metal": {
+        "symbol": "K",
+        "name": "potassium"
+      },
+      "molarity": 0.1,
+      "appearance": {
+        "value": {
+          "name": "colourless"
+        },
+        "sourceId": "flinn-sds-622"
+      },
+      "flame": {
+        "value": {
+          "name": "lilac",
+          "hex": "#C9A0DC"
+        },
+        "sourceId": "chemguide-flame-tests",
+        "alsoSourceId": "gallitto-2017-bunsen-burner"
+      },
+      "features": [
+        {
+          "id": "k-766",
+          "kind": "line",
+          "wavelengthNm": {
+            "value": 766.489913,
+            "published": "766.489913",
+            "sourceId": "nist-asd-lines-k-700-780"
+          },
+          "pairedWithNm": {
+            "value": 769.896456,
+            "published": "769.896456",
+            "sourceId": "nist-asd-lines-k-700-780"
+          },
+          "colour": "deep red",
+          "prominence": 1,
+          "emitter": {
+            "kind": "atom",
+            "symbol": "K"
+          },
+          "sourceId": "kirchhoff-bunsen-1860",
+          "alsoSourceId": "juknelevicius-2020"
+        },
+        {
+          "id": "k-404",
+          "kind": "line",
+          "wavelengthNm": {
+            "value": 404.4136,
+            "published": "404.4136",
+            "sourceId": "nist-asd-lines-neutral"
+          },
+          "pairedWithNm": {
+            "value": 404.7208,
+            "published": "404.7208",
+            "sourceId": "nist-asd-lines-neutral"
+          },
+          "colour": "violet",
+          "prominence": 2,
+          "emitter": {
+            "kind": "atom",
+            "symbol": "K"
+          },
+          "sourceId": "kirchhoff-bunsen-1860"
+        }
+      ],
+      "leftOut": [
+        {
+          "value": "A potassium flame also gives a faint glow spread along the scale, with no lines in it. The strip leaves it out.",
+          "sourceId": "kirchhoff-bunsen-1860"
+        }
+      ],
+      "notes": [
+        {
+          "value": "The light of this flame comes from potassium atoms. They give a pair of lines in the deep red, near 766.5 nm and 769.9 nm, and a fainter pair in the violet, near 404.4 nm and 404.7 nm. Each pair is too close together for a hand spectroscope to separate, so each is seen as one line.",
+          "sourceId": "nist-asd-lines-k-700-780",
+          "alsoSourceId": "kirchhoff-bunsen-1860"
+        },
+        {
+          "value": "The deep red pair lies beyond 700 nm, about where the eye stops seeing. On a real bench it looks faint however strong it is, and a potassium flame can be hard to see.",
+          "sourceId": "nasa-visible-light",
+          "alsoSourceId": "hope-flame-test-prelab"
+        },
+        {
+          "value": "Here the flame's colour is the atom's own. Potassium's card on the periodic table shows the violet pair and not the deep red one, because the card stops at 700 nm.",
+          "sourceId": "nist-asd-lines-neutral"
+        }
+      ],
+      "classifiedAs": "Hazards of solid potassium chloride, the pure substance, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Warning",
+        "statements": [
+          "H303: May be harmful if swallowed"
+        ],
+        "note": {
+          "value": "The solution on this bench is 0.1 mol/L potassium chloride. The same supplier's one sheet for the solution, which begins a little above this strength, prints no signal word and no hazard statement: it classes its solution as not hazardous, and says to treat every laboratory chemical with caution all the same. It calls for eye protection, gloves and protective clothing and, after a splash, for washing the skin and rinsing the eyes for several minutes.\n\nStricter, and what this lab goes by: the one other supplier's sheet read, for the solid, classes it as not hazardous and asks only for more after a splash: 15 minutes or more of rinsing for the eyes and for the skin, and a doctor seen for the eyes.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-622",
+          "alsoSourceId": "fisher-sds-kcl"
+        },
+        "sourceId": "flinn-sds-621"
+      },
+      "sourceId": "flinn-sds-622"
+    },
+    {
+      "id": "nacl-0.1m",
+      "name": "Sodium chloride solution, 0.1 M",
+      "formula": "NaCl",
+      "metal": {
+        "symbol": "Na",
+        "name": "sodium"
+      },
+      "molarity": 0.1,
+      "appearance": {
+        "value": {
+          "name": "colourless"
+        },
+        "sourceId": "flinn-sds-722"
+      },
+      "flame": {
+        "value": {
+          "name": "yellow",
+          "hex": "#F6C52A"
+        },
+        "sourceId": "malik-flame-test"
+      },
+      "features": [
+        {
+          "id": "na-589",
+          "kind": "line",
+          "wavelengthNm": {
+            "value": 588.995095,
+            "published": "588.995095",
+            "sourceId": "nist-asd-lines-neutral"
+          },
+          "pairedWithNm": {
+            "value": 589.592424,
+            "published": "589.592424",
+            "sourceId": "nist-asd-lines-neutral"
+          },
+          "colour": "yellow",
+          "prominence": 1,
+          "emitter": {
+            "kind": "atom",
+            "symbol": "Na"
+          },
+          "sourceId": "hyperphysics-flame-colors",
+          "alsoSourceId": "kirchhoff-bunsen-1860"
+        }
+      ],
+      "leftOut": [],
+      "notes": [
+        {
+          "value": "The light of this flame comes from sodium atoms. They give two yellow lines, near 589.0 nm and 589.6 nm, too close together for a hand spectroscope to separate: it shows one sharp yellow line.",
+          "sourceId": "nist-asd-lines-neutral",
+          "alsoSourceId": "hyperphysics-flame-colors"
+        },
+        {
+          "value": "Here the flame's colour is the atom's own. Sodium's card on the periodic table shows the same two lines.",
+          "sourceId": "nist-asd-lines-neutral"
+        },
+        {
+          "value": "This yellow is strong enough that a little sodium hides the colour of another salt in the same flame, though a spectroscope still shows the other salt's light beside sodium's line.",
+          "sourceId": "kirchhoff-bunsen-1860"
+        }
+      ],
+      "classifiedAs": "Hazards of solid sodium chloride, the pure substance, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Warning",
+        "statements": [
+          "H303: May be harmful if swallowed"
+        ],
+        "note": {
+          "value": "The solution on this bench is 0.1 mol/L sodium chloride. The same supplier's sheet for the solution, whose table of composition has this strength at its foot, prints no signal word and no hazard statement: it classes its solution as not hazardous, and says that it is a laboratory chemical all the same, not for eating or drinking. It calls for eye protection, gloves and protective clothing and, after a splash, for washing the skin and rinsing the eyes for several minutes.\n\nStricter, and what this lab goes by: the two other suppliers' sheets read, both for the solid, class it as not hazardous and ask only for more after a splash: 15 minutes or more of rinsing for the eyes, and a doctor seen at once.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-722",
+          "alsoSourceId": "fisher-sds-nacl",
+          "moreSourceIds": [
+            "wards-sds-ss0450"
+          ]
+        },
+        "sourceId": "flinn-sds-721"
+      },
+      "sourceId": "flinn-sds-722"
+    },
+    {
+      "id": "srcl2-0.1m",
+      "name": "Strontium chloride solution, 0.1 M",
+      "formula": "SrCl₂",
+      "metal": {
+        "symbol": "Sr",
+        "name": "strontium"
+      },
+      "molarity": 0.1,
+      "appearance": {
+        "value": {
+          "name": "colourless"
+        },
+        "sourceId": "flinn-sds-785"
+      },
+      "flame": {
+        "value": {
+          "name": "red",
+          "hex": "#D6283B"
+        },
+        "sourceId": "chemguide-flame-tests",
+        "alsoSourceId": "malik-flame-test"
+      },
+      "features": [
+        {
+          "id": "sroh-red",
+          "kind": "band",
+          "fromNm": 671,
+          "toNm": 686,
+          "approximate": true,
+          "colour": "red",
+          "prominence": 1,
+          "emitter": {
+            "kind": "molecule",
+            "formula": "SrOH"
+          },
+          "sourceId": "daidoji-1979-strontium-barium",
+          "alsoSourceId": "human-zeegers-1975"
+        },
+        {
+          "id": "sroh-orange",
+          "kind": "band",
+          "fromNm": 606,
+          "toNm": 606,
+          "approximate": true,
+          "colour": "orange",
+          "prominence": 2,
+          "emitter": {
+            "kind": "molecule",
+            "formula": "SrOH"
+          },
+          "sourceId": "daidoji-1979-strontium-barium",
+          "alsoSourceId": "human-zeegers-1975"
+        },
+        {
+          "id": "sr-460",
+          "kind": "line",
+          "wavelengthNm": {
+            "value": 460.7331,
+            "published": "460.7331",
+            "sourceId": "nist-asd-lines-neutral"
+          },
+          "colour": "blue",
+          "prominence": 3,
+          "emitter": {
+            "kind": "atom",
+            "symbol": "Sr"
+          },
+          "sourceId": "kirchhoff-bunsen-1860"
+        }
+      ],
+      "leftOut": [
+        {
+          "value": "Where there is chlorine a second molecule, SrCl, adds red light of its own. No source read for this lab says where its bands are, so the strip does not show them.",
+          "sourceId": "juknelevicius-2020"
+        }
+      ],
+      "notes": [
+        {
+          "value": "Most of the light of this flame comes from a molecule and not from strontium atoms. The molecule is SrOH: one strontium atom, one oxygen atom and one hydrogen atom, joined in the flame. It gives the red band, brightest near 671 nm to 686 nm, and the fainter orange band near 606 nm.",
+          "sourceId": "daidoji-1979-strontium-barium",
+          "alsoSourceId": "human-zeegers-1975"
+        },
+        {
+          "value": "The strontium atom gives the sharp blue line near 460.7 nm.",
+          "sourceId": "nist-asd-lines-neutral",
+          "alsoSourceId": "kirchhoff-bunsen-1860"
+        },
+        {
+          "value": "Strontium's card on the periodic table shows lines of the strontium atom alone, the blue line of this strip among them. What colours this flame is mostly the molecule's light, which the card does not show.",
+          "sourceId": "nist-asd-lines-neutral",
+          "alsoSourceId": "human-zeegers-1975"
+        }
+      ],
+      "classifiedAs": "Hazards of solid strontium chloride hexahydrate, the pure substance, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Danger",
+        "statements": [
+          "H318: Causes serious eye damage"
+        ],
+        "note": {
+          "value": "The solution on this bench is 0.1 mol/L strontium chloride. The same supplier's one sheet for the solution, which begins a little above this strength, prints no signal word and no hazard statement: it classes its solution as not hazardous. It calls for eye protection, gloves and protective clothing and, after a splash, for washing the skin and rinsing the eyes for several minutes.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 0.1 M solution gives the signal word Warning and one statement, under H320: the solution irritates the eyes. It asks, for the eyes, flushing with water for 15 minutes or more and a doctor at once. A third supplier's sheet adds, of the solid, that it may irritate the airways.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-785",
+          "alsoSourceId": "wards-sds-ss0991",
+          "moreSourceIds": [
+            "fisher-sds-srcl2-hexahydrate"
+          ]
+        },
+        "sourceId": "flinn-sds-784"
+      },
+      "sourceId": "flinn-sds-785"
+    }
+  ],
+  "handling": {
+    "value": "nacl-0.1m",
+    "sourceId": "hyperphysics-flame-colors",
+    "alsoSourceId": "hope-flame-test-prelab"
+  },
+  "masking": {
+    "value": "nacl-0.1m",
+    "sourceId": "kirchhoff-bunsen-1860"
+  },
+  "closing": {
+    "choices": [
+      "chloride",
+      "gas",
+      "loop",
+      "metal",
+      "water"
+    ],
+    "answer": {
+      "value": "metal",
+      "sourceId": "kirchhoff-bunsen-1860"
+    }
+  },
+  "parameters": {
+    "handlingTraceShows": {
+      "value": true,
+      "rationale": "A loop that has been handled and not cleaned shows sodium in the flame and in the spectroscope as fully as a loop dipped in the sodium chloride solution does. A real trace from the fingers is far smaller: it gives a brief, fainter yellow, and some loops give none that can be seen. The model makes it this large so that a learner who skips the cleaning always sees what the skipped step costs. Whether a trace is there is from a source; how large it is here is the model's choice."
+    },
+    "unresolvedWithinNm": {
+      "value": 5,
+      "rationale": "Two lines of one salt closer together than this many nanometres are stored as one feature, the stronger line with its partner, and are seen as one sharp line. Sodium's two yellow lines are 0.6 nm apart, potassium's violet pair 0.3 nm and its deep red pair 3.4 nm. A hand spectroscope's scale is read to a few nanometres at best, and 5 nm is this lab's figure for it, not a measurement of any instrument. No two lines stored as separate features of one salt are closer than this."
+    },
+    "approximateBandMarginNm": {
+      "value": 5,
+      "rationale": "A band whose sources give only where it is brightest, and not where it ends, is drawn this many nanometres wider on each side than those positions, so that it reads as a band and not as a line. The width drawn is the picture's; it is not a measurement, and the band's callout says that its limits are not given."
+    },
+    "ranges": {
+      "value": [
+        [
+          400,
+          475
+        ],
+        [
+          475,
+          570
+        ],
+        [
+          570,
+          600
+        ],
+        [
+          600,
+          650
+        ],
+        [
+          650,
+          700
+        ],
+        [
+          700,
+          780
+        ]
+      ],
+      "rationale": "The choices for where on the scale the brightest thing is. They cover the scale from 400 nm to 780 nm with no gap, and each boundary is placed at least 5 nm from the brightest feature of every salt as it is drawn, so that the brightest feature of each of the six lies plainly inside one range and a learner who reads the scale to a few nanometres chooses the same range. The boundaries are this lab's and mark nothing in the chemistry."
+    },
+    "mixedFlame": {
+      "value": "every-colour-named",
+      "rationale": "What a flame is called when the loop carries more than one salt and none of them is sodium: by the colour of each salt on the loop, in the order they were dipped, with no one colour chosen over another. What such a flame really looks like depends on how much of each salt is on the loop, which the model does not hold. With sodium on the loop the flame is sodium's yellow alone, and that part is from a source. In the spectroscope every salt's lines and bands are shown as that salt alone gives them, and the model does not rank the light of one salt against the light of another."
+    }
+  }
+}

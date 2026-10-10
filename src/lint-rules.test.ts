@@ -189,6 +189,11 @@ describe('architecture lint rules', () => {
     ['../../../engine/aqueous/state', 'src/app/lab/aqueous/x.tsx'],
     ['@/engine/aqueous/react', 'src/app/lab/aqueous/messages.test.ts'],
     ['@/engine/aqueous/testkit', 'src/app/lab/aqueous/x.tsx'],
+    // The flame engine below its index holds what a correct observation is: the app is given a station's view only.
+    ['@/engine/flame/check', 'src/app/lab/flame/messages.ts'],
+    ['../../../engine/flame/state', 'src/app/lab/flame/x.tsx'],
+    ['@/engine/flame/loop', 'src/app/lab/flame/messages.test.ts'],
+    ['@/engine/flame/testkit', 'src/app/lab/flame/x.tsx'],
   ])('rejects importing %s in %s', async (source, filePath) => {
     expect(await ruleIds(`import * as m from "${source}"\nexport const v = m\n`, filePath)).toEqual(['no-restricted-imports'])
     // A type import is refused too: the types below the index describe the hidden values.
@@ -203,6 +208,8 @@ describe('architecture lint rules', () => {
     ['../../../engine/titration/testkit', 'src/app/lab/titration/controller.test.tsx'],
     ['@/engine/aqueous', 'src/app/lab/aqueous/messages.ts'],
     ['@/engine/aqueous/testkit', 'src/app/lab/aqueous/messages.test.ts'],
+    ['@/engine/flame', 'src/app/lab/flame/messages.ts'],
+    ['@/engine/flame/testkit', 'src/app/lab/flame/messages.test.ts'],
     // Another folder whose name ends the same way is not the engine's.
     ['@/app/lab/titration/benchView', 'src/app/pages/x.tsx'],
     ['./titration/benchView', 'src/app/lab/x.tsx'],

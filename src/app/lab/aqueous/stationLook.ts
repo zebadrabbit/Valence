@@ -75,14 +75,3 @@ export function progressOf(view: StationView): Progress {
   if (view.wrongFields?.length === 0) return 'observed'
   return view.mixed || Object.values(view.equations).some((equation) => equation !== null) ? 'started' : 'not-started'
 }
-
-/**
- * The station the Lab tab shows when the page opens: the one the learner was in the middle of, as far as the
- * stored record can tell. The first that is begun and not done; where none is, the first not done; else the first.
- * ponytail: the station shown is state of the page and is not stored or in the address, so a reload in the middle
- * of the second of two stations begun opens on the first. Store it, or put it in the address, if that is asked for.
- */
-export function openingStation(progress: readonly Progress[]): number {
-  const begun = progress.findIndex((p) => p === 'started' || p === 'observed')
-  return Math.max(0, begun >= 0 ? begun : progress.findIndex((p) => p !== 'done'))
-}

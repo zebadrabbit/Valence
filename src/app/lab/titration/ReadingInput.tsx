@@ -2,7 +2,7 @@ import { useId, useState } from 'react'
 import { ROLE } from '@/app/lab/roles'
 import { Button } from '@/components/ui/button'
 import { parseReading } from '@/engine/titration'
-import { ENTRY_INPUT, entryKey, fieldState, useEntryFocus } from './entry'
+import { ENTRY_INPUT, entryKey, fieldState, useEntryFocus } from '@/app/lab/entry'
 import { readingText } from './format'
 import { invalidReadingText, NOTEBOOK_TEXT } from './messages'
 

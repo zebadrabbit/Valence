@@ -2,6 +2,7 @@ import { matchRoutes } from 'react-router'
 import { describe, expect, it } from 'vitest'
 import { PeriodicTablePage } from '@/app/explore/elements/PeriodicTablePage'
 import { AqueousPage } from '@/app/lab/aqueous/AqueousPage'
+import { FlamePage } from '@/app/lab/flame/FlamePage'
 import { TitrationPage } from '@/app/lab/titration/TitrationPage'
 import { MechanismPage } from '@/app/learn/MechanismPage'
 import { Lab } from '@/app/pages/Lab'
@@ -67,6 +68,16 @@ describe('the routes', () => {
     const loaded = await (route.lazy as () => Promise<{ Component: unknown }>)()
     expect(loaded.Component).toBe(AqueousPage)
     expect(page('/lab/aqueous/3')).toMatchObject({ path: '*' })
+  })
+
+  it('load the flame test lab at #/lab/flame, lazily', async () => {
+    const { path, route } = page('/lab/flame')
+    expect(path).toBe('lab/flame')
+    expect(typeof route.lazy).toBe('function')
+    expect(route.element).toBeUndefined()
+    const loaded = await (route.lazy as () => Promise<{ Component: unknown }>)()
+    expect(loaded.Component).toBe(FlamePage)
+    expect(page('/lab/flame/3')).toMatchObject({ path: '*' })
   })
 
   it('still open the list of labs at #/lab, with no chunk to load, and send an address below a lab to the not-found page', () => {

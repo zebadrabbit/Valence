@@ -7,11 +7,36 @@ import oxygen from './oxygen.json'
 import nitrogen from './nitrogen.json'
 import hydrogenChloride from './hydrogen-chloride.json'
 import hydrogenPeroxide from './hydrogen-peroxide.json'
+import hydrogen from './hydrogen.json'
+import chlorine from './chlorine.json'
+import hydrogenFluoride from './hydrogen-fluoride.json'
+import carbonMonoxide from './carbon-monoxide.json'
+import ozone from './ozone.json'
+import hydrogenSulfide from './hydrogen-sulfide.json'
+import hydrogenCyanide from './hydrogen-cyanide.json'
+import nitricAcid from './nitric-acid.json'
+import sulfuricAcid from './sulfuric-acid.json'
+import phosphoricAcid from './phosphoric-acid.json'
+import hydroxide from './hydroxide.json'
+import ammonium from './ammonium.json'
+import nitrate from './nitrate.json'
+import carbonate from './carbonate.json'
+import sulfate from './sulfate.json'
+import phosphate from './phosphate.json'
+import acetate from './acetate.json'
 import boronTrifluoride from './boron-trifluoride.json'
 import sulfurDioxide from './sulfur-dioxide.json'
 import sulfurHexafluoride from './sulfur-hexafluoride.json'
 import xenonTetrafluoride from './xenon-tetrafluoride.json'
 import phosphorusPentachloride from './phosphorus-pentachloride.json'
+import sulfurTrioxide from './sulfur-trioxide.json'
+import phosphorusTrichloride from './phosphorus-trichloride.json'
+import carbonTetrachloride from './carbon-tetrachloride.json'
+import dichloromethane from './dichloromethane.json'
+import chloroform from './chloroform.json'
+import sulfurTetrafluoride from './sulfur-tetrafluoride.json'
+import chlorineTrifluoride from './chlorine-trifluoride.json'
+import xenonDifluoride from './xenon-difluoride.json'
 import ethane from './ethane.json'
 import ethene from './ethene.json'
 import ethyne from './ethyne.json'
@@ -23,12 +48,59 @@ import methylamine from './methylamine.json'
 import ethylAcetate from './ethyl-acetate.json'
 import acetamide from './acetamide.json'
 import benzene from './benzene.json'
+import methanol from './methanol.json'
+import dimethylEther from './dimethyl-ether.json'
+import propane from './propane.json'
+import butane from './butane.json'
+import isobutane from './isobutane.json'
+import cyclohexane from './cyclohexane.json'
+import propene from './propene.json'
+import acetaldehyde from './acetaldehyde.json'
+import formicAcid from './formic-acid.json'
+import toluene from './toluene.json'
+import phenol from './phenol.json'
+import acetonitrile from './acetonitrile.json'
+import diethylEther from './diethyl-ether.json'
 import betaDGlucopyranose from './beta-d-glucopyranose.json'
 import glycine from './glycine.json'
 import glycineZwitterion from './glycine-zwitterion.json'
 import alanine from './alanine.json'
 import alanineZwitterion from './alanine-zwitterion.json'
 import urea from './urea.json'
+import glycerol from './glycerol.json'
+import lacticAcid from './lactic-acid.json'
+import citricAcid from './citric-acid.json'
+import serine from './serine.json'
+import serineZwitterion from './serine-zwitterion.json'
+import cysteine from './cysteine.json'
+import cysteineZwitterion from './cysteine-zwitterion.json'
+import adenine from './adenine.json'
+import thymine from './thymine.json'
+import betaDFructofuranose from './beta-d-fructofuranose.json'
+import sucrose from './sucrose.json'
+import palmiticAcid from './palmitic-acid.json'
+import caffeine from './caffeine.json'
+import aspirin from './aspirin.json'
+import acetaminophen from './acetaminophen.json'
+import ibuprofen from './ibuprofen.json'
+import vanillin from './vanillin.json'
+import menthol from './menthol.json'
+import limonene from './limonene.json'
+import capsaicin from './capsaicin.json'
+import cinnamaldehyde from './cinnamaldehyde.json'
+import ascorbicAcid from './ascorbic-acid.json'
+import theobromine from './theobromine.json'
+import nicotine from './nicotine.json'
+import isoamylAcetate from './isoamyl-acetate.json'
+import methylSalicylate from './methyl-salicylate.json'
+import benzaldehyde from './benzaldehyde.json'
+import geosmin from './geosmin.json'
+import dopamine from './dopamine.json'
+import serotonin from './serotonin.json'
+import adrenaline from './adrenaline.json'
+import indigo from './indigo.json'
+import isooctane from './isooctane.json'
+import aspartame from './aspartame.json'
 import hydronium from './hydronium.json'
 import bicarbonate from './bicarbonate.json'
 import carbonicAcid from './carbonic-acid.json'
@@ -42,11 +114,36 @@ export const moleculeFiles = [
   nitrogen,
   hydrogenChloride,
   hydrogenPeroxide,
+  hydrogen,
+  chlorine,
+  hydrogenFluoride,
+  carbonMonoxide,
+  ozone,
+  hydrogenSulfide,
+  hydrogenCyanide,
+  nitricAcid,
+  sulfuricAcid,
+  phosphoricAcid,
+  hydroxide,
+  ammonium,
+  nitrate,
+  carbonate,
+  sulfate,
+  phosphate,
+  acetate,
   boronTrifluoride,
   sulfurDioxide,
   sulfurHexafluoride,
   xenonTetrafluoride,
   phosphorusPentachloride,
+  sulfurTrioxide,
+  phosphorusTrichloride,
+  carbonTetrachloride,
+  dichloromethane,
+  chloroform,
+  sulfurTetrafluoride,
+  chlorineTrifluoride,
+  xenonDifluoride,
   ethane,
   ethene,
   ethyne,
@@ -58,12 +155,59 @@ export const moleculeFiles = [
   ethylAcetate,
   acetamide,
   benzene,
+  methanol,
+  dimethylEther,
+  propane,
+  butane,
+  isobutane,
+  cyclohexane,
+  propene,
+  acetaldehyde,
+  formicAcid,
+  toluene,
+  phenol,
+  acetonitrile,
+  diethylEther,
   betaDGlucopyranose,
   glycine,
   glycineZwitterion,
   alanine,
   alanineZwitterion,
   urea,
+  glycerol,
+  lacticAcid,
+  citricAcid,
+  serine,
+  serineZwitterion,
+  cysteine,
+  cysteineZwitterion,
+  adenine,
+  thymine,
+  betaDFructofuranose,
+  sucrose,
+  palmiticAcid,
+  caffeine,
+  aspirin,
+  acetaminophen,
+  ibuprofen,
+  vanillin,
+  menthol,
+  limonene,
+  capsaicin,
+  cinnamaldehyde,
+  ascorbicAcid,
+  theobromine,
+  nicotine,
+  isoamylAcetate,
+  methylSalicylate,
+  benzaldehyde,
+  geosmin,
+  dopamine,
+  serotonin,
+  adrenaline,
+  indigo,
+  isooctane,
+  aspartame,
   hydronium,
   bicarbonate,
   carbonicAcid,

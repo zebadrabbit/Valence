@@ -44,15 +44,16 @@ export function parseNistLines(text) {
  * The lines of a neutral atom's table, one for each observed wavelength: the wavelength in NIST's digits, and the
  * number its relative intensity starts with, or null where NIST gives none. NIST follows the number with letters
  * that describe the line ("500bl", "200h"); they are not read. Rows that share a wavelength are one line, and it
- * takes the larger of their intensities.
+ * takes the larger of their intensities. `range` is the range the table's query asked for: the periodic table's,
+ * unless another is given (the flame test lab keeps one table of 700 to 780 nm).
  */
-export function observedLines(rows) {
+export function observedLines(rows, range = RANGE_NM) {
   const lines = new Map()
   for (const row of rows) {
     const published = row[WAVELENGTH]
     if (typeof published !== 'string' || !/^\d+(\.\d+)?$/.test(published)) throw new Error(`unreadable wavelength ${JSON.stringify(published)}`)
     const value = Number(published)
-    if (value < RANGE_NM.min || value > RANGE_NM.max) throw new Error(`the wavelength ${published} nm is outside the range asked for`)
+    if (value < range.min || value > range.max) throw new Error(`the wavelength ${published} nm is outside the range asked for`)
     const number = /^\d+(\.\d+)?/.exec(row[INTENSITY])?.[0]
     const intensity = number === undefined ? null : Number(number)
     const seen = lines.get(value)

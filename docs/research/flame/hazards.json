@@ -1,0 +1,112 @@
+{
+  "bacl2-0.1m": {
+    "classifiedAs": "Hazards of solid barium chloride dihydrate, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H301: Toxic if swallowed",
+        "H332: Harmful if inhaled"
+      ],
+      "note": {
+        "value": "The solution on this bench is 0.1 mol/L barium chloride. The same supplier's sheet for solutions under 1 M gives the signal word Warning and one statement, under H303 and H333: it may be harmful if it is swallowed or breathed in. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 0.1 M solution has the graver H302, harmful if swallowed. If any is swallowed, it asks that a doctor or a poison centre be called at once. It also asks: no eating, drinking or smoking, and no breathing of its mist; eyes flushed with water for 15 minutes or more and a doctor at once. A third supplier's sheet for the solid adds that the substance seriously irritates the eyes. Barium chloride is toxic, and NOAA's record shows barium compounds on the Environmental Protection Agency's consolidated list: so the solution is kept out of drains and waterways, as the other two suppliers' sheets say between them.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-94.01",
+        "alsoSourceId": "wards-sds-bb0041",
+        "moreSourceIds": [
+          "fisher-sds-bacl2-dihydrate",
+          "noaa-cameo-19847"
+        ]
+      },
+      "sourceId": "flinn-sds-94"
+    }
+  },
+  "cacl2-0.1m": {
+    "classifiedAs": "Hazards of solid calcium chloride (anhydrous), the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Warning",
+      "statements": [
+        "H302: Harmful if swallowed",
+        "H319: Causes serious eye irritation"
+      ],
+      "note": {
+        "value": "The solution on this bench is 0.1 mol/L calcium chloride. The same supplier's sheet for the solution, whose table of composition takes in this strength, prints no signal word and no hazard statement: it classes its solution as not hazardous. It calls for eye protection, gloves and protective clothing and, after a splash, for washing the skin and rinsing the eyes for several minutes.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 0.1 M solution gives the signal word Warning and one statement, under H320: the solution irritates the eyes. It asks, for the eyes, flushing with water for 15 minutes or more and a doctor at once. NOAA's record of the solid asks the same 15 minutes, and an eye doctor.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-197",
+        "alsoSourceId": "wards-sds-cc0070",
+        "moreSourceIds": [
+          "noaa-cameo-8382"
+        ]
+      },
+      "sourceId": "flinn-sds-196"
+    }
+  },
+  "cucl2-0.1m": {
+    "classifiedAs": "Hazards of solid copper(II) chloride dihydrate, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H302: Harmful if swallowed",
+        "H314: Causes severe skin burns and eye damage"
+      ],
+      "note": {
+        "value": "The solution on this bench is 0.1 mol/L copper(II) chloride. The same supplier's sheet for solutions under 0.99 M gives the signal word Warning and two statements: H303, it may be harmful if swallowed; H315 and H319, it irritates the skin and seriously irritates the eyes. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 0.1 M solution has the graver H302, harmful if swallowed, and adds H410: very toxic to water life, with lasting effects. It asks: no eating, drinking or smoking; eyes flushed with water for 15 minutes or more and a doctor at once. A third supplier's sheet for the solid agrees on water life and adds: harmful on the skin. So it is kept out of drains and waterways, as both sheets and NOAA's record of a spill say; that record has copper compounds on the Environmental Protection Agency's consolidated list.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-281.1",
+        "alsoSourceId": "wards-sds-cc0506",
+        "moreSourceIds": [
+          "fisher-sds-cucl2-dihydrate",
+          "noaa-cameo-2988"
+        ]
+      },
+      "sourceId": "flinn-sds-281.05"
+    }
+  },
+  "kcl-0.1m": {
+    "classifiedAs": "Hazards of solid potassium chloride, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Warning",
+      "statements": [
+        "H303: May be harmful if swallowed"
+      ],
+      "note": {
+        "value": "The solution on this bench is 0.1 mol/L potassium chloride. The same supplier's one sheet for the solution, which begins a little above this strength, prints no signal word and no hazard statement: it classes its solution as not hazardous, and says to treat every laboratory chemical with caution all the same. It calls for eye protection, gloves and protective clothing and, after a splash, for washing the skin and rinsing the eyes for several minutes.\n\nStricter, and what this lab goes by: the one other supplier's sheet read, for the solid, classes it as not hazardous and asks only for more after a splash: 15 minutes or more of rinsing for the eyes and for the skin, and a doctor seen for the eyes.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-622",
+        "alsoSourceId": "fisher-sds-kcl"
+      },
+      "sourceId": "flinn-sds-621"
+    }
+  },
+  "nacl-0.1m": {
+    "classifiedAs": "Hazards of solid sodium chloride, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Warning",
+      "statements": [
+        "H303: May be harmful if swallowed"
+      ],
+      "note": {
+        "value": "The solution on this bench is 0.1 mol/L sodium chloride. The same supplier's sheet for the solution, whose table of composition has this strength at its foot, prints no signal word and no hazard statement: it classes its solution as not hazardous, and says that it is a laboratory chemical all the same, not for eating or drinking. It calls for eye protection, gloves and protective clothing and, after a splash, for washing the skin and rinsing the eyes for several minutes.\n\nStricter, and what this lab goes by: the two other suppliers' sheets read, both for the solid, class it as not hazardous and ask only for more after a splash: 15 minutes or more of rinsing for the eyes, and a doctor seen at once.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-722",
+        "alsoSourceId": "fisher-sds-nacl",
+        "moreSourceIds": [
+          "wards-sds-ss0450"
+        ]
+      },
+      "sourceId": "flinn-sds-721"
+    }
+  },
+  "srcl2-0.1m": {
+    "classifiedAs": "Hazards of solid strontium chloride hexahydrate, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H318: Causes serious eye damage"
+      ],
+      "note": {
+        "value": "The solution on this bench is 0.1 mol/L strontium chloride. The same supplier's one sheet for the solution, which begins a little above this strength, prints no signal word and no hazard statement: it classes its solution as not hazardous. It calls for eye protection, gloves and protective clothing and, after a splash, for washing the skin and rinsing the eyes for several minutes.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 0.1 M solution gives the signal word Warning and one statement, under H320: the solution irritates the eyes. It asks, for the eyes, flushing with water for 15 minutes or more and a doctor at once. A third supplier's sheet adds, of the solid, that it may irritate the airways.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-785",
+        "alsoSourceId": "wards-sds-ss0991",
+        "moreSourceIds": [
+          "fisher-sds-srcl2-hexahydrate"
+        ]
+      },
+      "sourceId": "flinn-sds-784"
+    }
+  }
+}

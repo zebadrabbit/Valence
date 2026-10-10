@@ -3,7 +3,7 @@ import { Link, useSearchParams } from 'react-router'
 import { ACTIVITIES } from '@/app/activities'
 import { useAppState } from '@/app/AppState'
 import { Disclosure } from '@/app/explore/InspectorCard'
-import { Line, Mark, useSaid } from '@/app/lab/aqueous/Line'
+import { Line, Mark, useSaid } from '@/app/lab/Line'
 import { ModeSwitch } from '@/app/lab/ModeSwitch'
 import { Notice, PeriodicTableLink } from '@/app/lab/pagePieces'
 import { useLabProgress } from '@/app/lab/useLabProgress'
@@ -32,7 +32,7 @@ import { Timeline } from './Timeline'
 import { entersChapter, playedTo, ways } from './timeline'
 import '@/app/lab/lab.css'
 
-const [, , MECHANISM] = ACTIVITIES
+const [, , , MECHANISM] = ACTIVITIES
 // One schema for the page's life: a stored run is held to the mechanism's record as it is read.
 const SCHEMA = mechanismProgressSchema(mechanism)
 /** What the page shows before anything is stored: a run at the start of the track, in Guided. */

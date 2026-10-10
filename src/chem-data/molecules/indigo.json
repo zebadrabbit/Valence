@@ -1,0 +1,635 @@
+{
+  "id": "indigo",
+  "name": "Indigo",
+  "formula": "C16H10N2O2",
+  "pubchemCid": 5318432,
+  "topic": "everyday",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        1.2241,
+        -2.3358,
+        -0.0006
+      ],
+      "position2d": [
+        6.5348,
+        -1.7552
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -1.2242,
+        2.3358,
+        -0.0006
+      ],
+      "position2d": [
+        4.9889,
+        1.7552
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "N",
+      "position": [
+        1.4834,
+        1.15,
+        0.0005
+      ],
+      "position2d": [
+        6.8455,
+        0.8047
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "N",
+      "position": [
+        -1.4834,
+        -1.1501,
+        0.0005
+      ],
+      "position2d": [
+        4.6783,
+        -0.8047
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "C",
+      "position": [
+        0.6651,
+        0.049,
+        0.0004
+      ],
+      "position2d": [
+        6.2619,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.665,
+        -0.0491,
+        0.0005
+      ],
+      "position2d": [
+        5.2619,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.9254,
+        -0.6379,
+        0.0005
+      ],
+      "position2d": [
+        7.7917,
+        -0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.9253,
+        0.6379,
+        0.0006
+      ],
+      "position2d": [
+        3.732,
+        0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.8164,
+        0.7594,
+        0.0006
+      ],
+      "position2d": [
+        7.7917,
+        0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.8164,
+        -0.7594,
+        0.0006
+      ],
+      "position2d": [
+        3.732,
+        -0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.5503,
+        -1.1685,
+        0.0005
+      ],
+      "position2d": [
+        6.8455,
+        -0.8047
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.5504,
+        1.1685,
+        0.0005
+      ],
+      "position2d": [
+        4.6783,
+        0.8047
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        4.1337,
+        -1.3017,
+        0
+      ],
+      "position2d": [
+        8.6577,
+        -1
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -4.1337,
+        1.3017,
+        0.0001
+      ],
+      "position2d": [
+        2.866,
+        1
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        3.9523,
+        1.5415,
+        -0.0004
+      ],
+      "position2d": [
+        8.6577,
+        1
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -3.9523,
+        -1.5415,
+        -0.0004
+      ],
+      "position2d": [
+        2.866,
+        -1
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        5.2837,
+        -0.5114,
+        -0.0006
+      ],
+      "position2d": [
+        9.5238,
+        -0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -5.2837,
+        0.5114,
+        -0.0006
+      ],
+      "position2d": [
+        2,
+        0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        5.1945,
+        0.8951,
+        -0.001
+      ],
+      "position2d": [
+        9.5238,
+        0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -5.1944,
+        -0.8952,
+        -0.001
+      ],
+      "position2d": [
+        2,
+        -0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.1484,
+        2.0988,
+        0.0016
+      ],
+      "position2d": [
+        6.6529,
+        1.394
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.1484,
+        -2.0989,
+        0.0016
+      ],
+      "position2d": [
+        4.8709,
+        -1.394
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        4.1963,
+        -2.3831,
+        0
+      ],
+      "position2d": [
+        8.6577,
+        -1.62
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -4.1963,
+        2.3831,
+        0
+      ],
+      "position2d": [
+        2.866,
+        1.62
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.8949,
+        2.6246,
+        -0.0008
+      ],
+      "position2d": [
+        8.6577,
+        1.62
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.8949,
+        -2.6245,
+        -0.0009
+      ],
+      "position2d": [
+        2.866,
+        -1.62
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        6.2624,
+        -0.9841,
+        -0.0011
+      ],
+      "position2d": [
+        10.0607,
+        -0.81
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -6.2624,
+        0.984,
+        -0.0011
+      ],
+      "position2d": [
+        1.4631,
+        0.81
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        6.1065,
+        1.4867,
+        -0.0017
+      ],
+      "position2d": [
+        10.0607,
+        0.81
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -6.1065,
+        -1.4867,
+        -0.0018
+      ],
+      "position2d": [
+        1.4631,
+        -0.81
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 10,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 11,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 20,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 21,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 5,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 8,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 6,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 12,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 7,
+      "b": 9,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 7,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 13,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 8,
+      "b": 14,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 9,
+      "b": 15,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 12,
+      "b": 16,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 12,
+      "b": 22,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 13,
+      "b": 17,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 13,
+      "b": 23,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 14,
+      "b": 18,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 14,
+      "b": 24,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 15,
+      "b": 19,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 15,
+      "b": 25,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 16,
+      "b": 18,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 16,
+      "b": 26,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 17,
+      "b": 19,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 17,
+      "b": 27,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 18,
+      "b": 28,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 19,
+      "b": 29,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "A dye. PubChem keeps that name on another record, CID 10215, which draws another form of the same molecule."
+  ],
+  "sourceId": "pubchem-cid-5318432"
+}

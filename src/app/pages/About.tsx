@@ -78,6 +78,22 @@ export function About() {
             sources. None of these publishers is connected with Valence or has reviewed it.
           </p>
           <p className="mb-2">
+            The flame test lab takes the wavelengths of its atomic lines from the NIST Atomic Spectra Database; the
+            bands of CaOH, SrOH and BaOH from a paper in Spectrochimica Acta Part B, read as a scanned copy in a
+            university's repository, and from the abstracts in English of two papers in Bunko Kenkyu; the bands of
+            CuCl and CuOH from a doctoral dissertation; and the colours of its flames from a page of Chemguide and an
+            open textbook on qualitative analysis. Which line or band of a flame it calls the brightest follows what
+            those sources' instruments recorded, which is not always what an eye would find. The hazard statements on
+            its six bottles are those of Flinn Scientific's safety data sheets for the solid salts. The note under
+            each rests on the same supplier's sheet for the solution and, where a sheet of Ward's Science or of Fisher
+            Scientific or a record of NOAA's database of chemicals says something stricter of the substance, on that
+            too. The documents were read on the dates their citations give, and no copy of them is kept. The lab's
+            primer also rests on pages of NASA, of two universities and of a college, on a paper on the Bunsen
+            burner, and on the paper of Kirchhoff and Bunsen of 1860, read in translation, and quotes none of its
+            sources. None of these publishers is connected with Valence or has reviewed it. At a real bench, follow
+            the safety data sheet of the product in hand and the laboratory's own rules.
+          </p>
+          <p className="mb-2">
             The mechanism timeline takes its enthalpies and free energies of formation from the NBS tables of chemical
             thermodynamic properties of 1982, as NIST serves them; the acid constant of the carbonic acid molecule,
             how long that molecule lasts and the timescales of its two middle steps from a paper in the Journal of

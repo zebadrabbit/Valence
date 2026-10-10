@@ -9,7 +9,7 @@ describe('LIBRARY_INDEX', () => {
     expect(LIBRARY_INDEX).toEqual(entries.map(({ id, name, formula, charge, topic }) => ({ id, name, formula, charge, topic })))
   })
 
-  it('has the 31 entries of spec 6.1', () => {
-    expect(LIBRARY_INDEX).toHaveLength(31)
+  it('has the 101 entries of spec 6.1', () => {
+    expect(LIBRARY_INDEX).toHaveLength(101)
   })
 })

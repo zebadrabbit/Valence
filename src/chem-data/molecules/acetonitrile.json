@@ -1,0 +1,128 @@
+{
+  "id": "acetonitrile",
+  "name": "Acetonitrile",
+  "formula": "CH3CN",
+  "pubchemCid": 6342,
+  "topic": "organic",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "N",
+      "position": [
+        1.2608,
+        0,
+        0
+      ],
+      "position2d": [
+        3.7321,
+        0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.3613,
+        0,
+        0
+      ],
+      "position2d": [
+        2,
+        -0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.1006,
+        0,
+        0
+      ],
+      "position2d": [
+        2.866,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.75,
+        -0.8301,
+        0.5974
+      ],
+      "position2d": [
+        1.69,
+        0.0369
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.7501,
+        -0.1022,
+        -1.0175
+      ],
+      "position2d": [
+        1.4631,
+        -0.81
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.75,
+        0.9324,
+        0.4202
+      ],
+      "position2d": [
+        2.31,
+        -1.0369
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 2,
+      "order": 3,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-6342"
+}

@@ -1,0 +1,741 @@
+{
+  "retrieved": "2026-10-08",
+  "about": "Every source of the flame test lab's record (docs/research/flame/flame.json) and of its primer (src/chem-data/flame/primer.ts), each fetched and read on the retrieval date for this lab, where the work was done; by the clock in UTC some of the requests fall in the first hours of 2026-10-09, and the citation of the one kept response gives its time so. A source with `file` has its copy in this folder, as returned, with the sha256 of that copy; a source with none was read and no copy is kept. `fetchedSha256`, on a source with no copy, is the sha256 of the file as it was fetched: a record of which file was read, not the hash of anything here, and nothing checks it. Each `supports` row names in `fields` the stored values it supports, each by its place in the record with the item's id in brackets (salts[cacl2-0.1m].features[caoh-green], salts[kcl-0.1m].notes[0], closing.answer); gives in `prints` a figure, a formula, a label or a heading exactly as the source prints it; and says in `where`, in this project's words, where that is, what the source says there, and how far the stored value goes beyond it. A row whose field is `primer` marks a source the primer rests on. The build holds the record to these rows: every source a value cites must have a row that names the value, and where the record stores the figure a source prints, a row for it must print that figure. No source is quoted beyond such figures, formulas, labels and headings. Two sources are also listed by other manifests and are written here exactly as they are there, so that the build lists each once: the saved tables of the emission spectra (docs/research/emission-spectra/sources/), and the six safety data sheets for the solutions, which are also in sources/hazard-manifest.json for the notes under the bottles' hazards. The hazard statements and those notes are not in this file: they are in hazards.json and sources/hazard-manifest.json, which the build merges in. README.md, one folder up, says what could not be sourced.",
+  "sources": [
+    {
+      "id": "nist-asd-lines-neutral",
+      "url": "https://physics.nist.gov/PhysRefData/ASD/lines_form.html",
+      "citation": "Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, Lines Data for the neutral atom of each element (the spectrum <symbol> I): observed wavelengths in air, 400 to 700 nm, with relative intensities; and, for an element with no such lines, every line the database lists for it (retrieved 2026-10-08). National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F",
+      "supports": [
+        {
+          "fields": [
+            "salts[bacl2-0.1m].features[ba-553].wavelengthNm"
+          ],
+          "prints": "553.5481",
+          "where": "The saved table docs/research/emission-spectra/sources/nist-asd-lines-ba.txt, column obs_wl_air(nm). The same row prints the relative intensity 1830."
+        },
+        {
+          "fields": [
+            "salts[cacl2-0.1m].features[ca-422].wavelengthNm"
+          ],
+          "prints": "422.673",
+          "where": "The saved table docs/research/emission-spectra/sources/nist-asd-lines-ca.txt, column obs_wl_air(nm). The same row prints the relative intensity 50."
+        },
+        {
+          "fields": [
+            "salts[kcl-0.1m].features[k-404].wavelengthNm"
+          ],
+          "prints": "404.4136",
+          "where": "The saved table docs/research/emission-spectra/sources/nist-asd-lines-k.txt, column obs_wl_air(nm). The same row prints the relative intensity 18, the larger of the pair, which is why this line stands for the pair. It is smaller than the 25 and 24 that the table of 700 to 780 nm prints for the deep red pair, and the violet pair is ranked after the red one on that ground; NIST calls its intensities qualitative."
+        },
+        {
+          "fields": [
+            "salts[kcl-0.1m].features[k-404].pairedWithNm"
+          ],
+          "prints": "404.7208",
+          "where": "The saved table docs/research/emission-spectra/sources/nist-asd-lines-k.txt, column obs_wl_air(nm). The next row of the table, 0.31 nm away, with the relative intensity 17."
+        },
+        {
+          "fields": [
+            "salts[nacl-0.1m].features[na-589].wavelengthNm"
+          ],
+          "prints": "588.995095",
+          "where": "The saved table docs/research/emission-spectra/sources/nist-asd-lines-na.txt, column obs_wl_air(nm). The same row prints the relative intensity 80000, the larger of the two, which is why this line stands for the pair."
+        },
+        {
+          "fields": [
+            "salts[nacl-0.1m].features[na-589].pairedWithNm"
+          ],
+          "prints": "589.592424",
+          "where": "The saved table docs/research/emission-spectra/sources/nist-asd-lines-na.txt, column obs_wl_air(nm). The next row of the table, 0.60 nm away, with the relative intensity 40000."
+        },
+        {
+          "fields": [
+            "salts[srcl2-0.1m].features[sr-460].wavelengthNm"
+          ],
+          "prints": "460.7331",
+          "where": "The saved table docs/research/emission-spectra/sources/nist-asd-lines-sr.txt, column obs_wl_air(nm). The same row prints the relative intensity 29000r."
+        },
+        {
+          "fields": [
+            "salts[bacl2-0.1m].notes[1]",
+            "salts[cacl2-0.1m].notes[1]",
+            "salts[srcl2-0.1m].notes[1]",
+            "salts[nacl-0.1m].notes[0]"
+          ],
+          "prints": "obs_wl_air(nm)",
+          "where": "The heading of the column each of these notes takes its wavelength from, rounded to a tenth of a nanometre: 553.5481, 422.673, 460.7331, and 588.995095 with 589.592424."
+        },
+        {
+          "fields": [
+            "salts[bacl2-0.1m].notes[2]",
+            "salts[cacl2-0.1m].notes[2]",
+            "salts[cucl2-0.1m].notes[2]",
+            "salts[srcl2-0.1m].notes[2]",
+            "salts[kcl-0.1m].notes[2]",
+            "salts[nacl-0.1m].notes[1]"
+          ],
+          "prints": "intens",
+          "where": "The column the periodic table's card for this element takes its lines from, in the saved table of the neutral atom between 400 and 700 nm. The note says what that card shows; which lines the card picks is the rule of docs/research/emission-spectra/README.md. For potassium the saved table holds 404.4136 and 404.7208 and nothing beyond 700 nm; for sodium it holds 588.995095 and 589.592424; for barium, calcium and strontium it holds the line the strip shows, 553.5481, 422.673 and 460.7331, which the card shows too. That the light which colours the flame is not on the card is this lab's own conclusion from its other sources. The notes do not say that the flame is another colour than the card's lines: as first written they did, and the cards of calcium and of strontium hold red lines."
+        }
+      ]
+    },
+    {
+      "id": "nist-asd-lines-k-700-780",
+      "url": "https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=K+I&limits_type=0&low_w=700&upp_w=780&unit=1&submit=Retrieve+Data&de=0&format=3&line_out=0&en_unit=0&output=0&page_size=15&show_obs_wl=1&unc_out=1&order_out=0&show_av=2&tsb_value=0&A_out=0&intens_out=on&allowed_out=1&forbid_out=1",
+      "citation": "Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, Lines Data for the neutral potassium atom (the spectrum K I): observed wavelengths in air, 700 to 780 nm, with relative intensities (retrieved 2026-10-09 at 02:44 UTC; the response is kept). National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F",
+      "file": "nist-asd-lines-k-700-780.txt",
+      "sha256": "d9caf7b38cc89475093584b42c1e0c03f1508d8284620eee32435a5e1a2cba11",
+      "supports": [
+        {
+          "fields": [
+            "salts[kcl-0.1m].features[k-766].wavelengthNm"
+          ],
+          "prints": "766.489913",
+          "where": "The first row of the kept table, column obs_wl_air(nm). The same row prints the relative intensity 25r, the largest in the table and larger than the 18 and 17 of the violet pair, which is why this feature is ranked first of potassium's. NIST calls its intensities qualitative."
+        },
+        {
+          "fields": [
+            "salts[kcl-0.1m].features[k-766].pairedWithNm"
+          ],
+          "prints": "769.896456",
+          "where": "The second row of the kept table, 3.41 nm away, with the relative intensity 24r. The table's other six rows carry letters and no number in the intensity column and are not stored."
+        },
+        {
+          "fields": [
+            "salts[kcl-0.1m].notes[0]"
+          ],
+          "prints": "obs_wl_air(nm)",
+          "where": "The heading of the column the note takes the deep red pair from, rounded to a tenth of a nanometre. The violet pair is in the saved table of 400 to 700 nm."
+        }
+      ]
+    },
+    {
+      "id": "human-zeegers-1975",
+      "url": "https://dspace.library.uu.nl/handle/1874/16421",
+      "citation": "Human, H. G. C.; Zeegers, P. J. Th. Molecular fluorescence of CaOH, SrOH and BaCl in flames. Spectrochimica Acta Part B 1975, 30, 203-209. Read as the scanned copy in the Utrecht University Repository, linked here, whose pages were turned into images and read by eye; read and not kept (retrieved 2026-10-08).",
+      "fetchedSha256": "4f59eb66ca5d2d604d589ccab15e11b5a0373ceec098da222c1860314bc3f155",
+      "supports": [
+        {
+          "fields": [
+            "salts[cacl2-0.1m].features[caoh-orange-red]",
+            "salts[cacl2-0.1m].features[caoh-green]",
+            "salts[cacl2-0.1m].notes[0]"
+          ],
+          "prints": "5540 Å and 6230 Å",
+          "where": "Section 3.1, Spectra obtained: the maxima of the two main bands of CaOH in the flame, a flame of hydrogen and oxygen in argon into which a solution of the salt was sprayed. Figure 1, the emission spectrum on a scale of 5500 to 6600 Å, draws the band at 6230 Å about twice as tall as the one at 5540 Å and much wider; the orange-red band is ranked first on that ground. The figure is not corrected for how the instrument or the eye responds to each colour. The limits of the two bands are the other source's."
+        },
+        {
+          "fields": [
+            "salts[cacl2-0.1m].leftOut[0]"
+          ],
+          "prints": "6033 Å and 6430 Å",
+          "where": "Section 3.1: two further maxima, which the paper takes to belong with the band at 6230 Å. Figure 1 draws them much lower than it."
+        },
+        {
+          "fields": [
+            "salts[cacl2-0.1m].notes[2]"
+          ],
+          "prints": "CaOH",
+          "where": "The paper's title and its section 3.1: the bands that make up the calcium spectrum of the flame are the molecule's. That what colours the flame is therefore not on a card of the atom's lines is this lab's own conclusion."
+        },
+        {
+          "fields": [
+            "salts[srcl2-0.1m].features[sroh-red]",
+            "salts[srcl2-0.1m].notes[0]"
+          ],
+          "prints": "6860 Å",
+          "where": "Section 3.2 and the heading of Table 2: the bandhead of SrOH at the long end. Figure 2, the emission spectrum on a scale of 6000 to 7000 Å, draws this the tallest thing in the strontium spectrum, with a second maximum near 6720 Å about three quarters as tall and the band at 6060 Å about half as tall; the red band is ranked first on that ground, with the same caution as for calcium. The paper gives no limits. The stored band runs from 671 nm, the other source's shortest position, to this bandhead, and is marked approximate."
+        },
+        {
+          "fields": [
+            "salts[srcl2-0.1m].features[sroh-orange]"
+          ],
+          "prints": "6060 Å",
+          "where": "Section 3.2 and the heading of Table 2: the other bandhead of SrOH. No limits are given, and the band is stored at this one position and marked approximate."
+        },
+        {
+          "fields": [
+            "salts[srcl2-0.1m].notes[2]"
+          ],
+          "prints": "SrOH",
+          "where": "The paper's title and Figure 2: the bands that make up the strontium spectrum of the flame are the molecule's. That what colours the flame is therefore not on a card of the atom's lines is this lab's own conclusion."
+        },
+        {
+          "fields": [
+            "salts[bacl2-0.1m].features[baoh-green]",
+            "salts[bacl2-0.1m].notes[0]"
+          ],
+          "prints": "4870 Å and 5120 Å",
+          "where": "Section 3.1, after Figure 3: the maxima of the green bands of BaOH, which the paper says emit strongly in the flame and could not be made to fluoresce. The limits of the band are the other source's."
+        },
+        {
+          "fields": [
+            "salts[bacl2-0.1m].features[ba-553]",
+            "salts[bacl2-0.1m].notes[1]"
+          ],
+          "prints": "5535 Å",
+          "where": "The paper's first sentence, as its scan reads: the line at which barium atoms are measured in flames, which the bands of CaOH near 5540 Å get in the way of. The paper measures the line by the light the atoms take up, not by the light they give; that the atom's line is on the strip beside the band, and ranked after it, rests on this and on nothing more. Its wavelength is NIST's."
+        },
+        {
+          "fields": [
+            "salts[bacl2-0.1m].leftOut[0]"
+          ],
+          "prints": "4500 Å and 7900 Å",
+          "where": "Section 3.1, across the foot of the page with Figure 2 and the head of the next: the limits between which the bands of BaO lie, named with the green bands of BaOH as emitting strongly in the flame."
+        },
+        {
+          "fields": [
+            "salts[bacl2-0.1m].leftOut[1]"
+          ],
+          "prints": "5136",
+          "where": "Figure 3, the spectrum of BaCl when a solution of barium chloride is sprayed into the flame, whose peaks are labelled in ångströms and called approximate: 5136 and 5241 are the two tall ones, with 5168, 5207 and 5320 between and beyond. A footnote calls the bands narrow beside those of CaOH and SrOH. The spectrum drawn is of fluorescence; the abstract says that fluorescence and emission spectra were the same."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Molecular fluorescence of CaOH, SrOH and BaCl in flames",
+          "where": "The paper's title. Read at its abstract, its introduction, section 3.1 with Figures 1 to 3, and section 3.2 as far as Table 2."
+        }
+      ]
+    },
+    {
+      "id": "daidoji-1979-calcium",
+      "url": "https://www.jstage.jst.go.jp/browse/bunkou/28/3/_contents/-char/en",
+      "citation": "Daidoji, H. Spectral Interferences in Atomic Absorption Spectrometry (IV): Molecular Absorption Spectra of Calcium Salts. Bunko Kenkyu 1979, 28 (3), 145-151. https://doi.org/10.5111/bunkou.28.145. The paper is in Japanese: only its abstract in English was read, on the page of the issue at J-STAGE, linked here; read and not kept (retrieved 2026-10-08).",
+      "fetchedSha256": "9b18e15aef6db11b60767000ef93ca1acda8d6bfbbf51a7bb5e60fbe84585ef7",
+      "supports": [
+        {
+          "fields": [
+            "salts[cacl2-0.1m].features[caoh-orange-red]",
+            "salts[cacl2-0.1m].notes[0]"
+          ],
+          "prints": "614 to 640 nm",
+          "where": "The abstract: the second of the two ranges of wavelength in which the spectra of CaOH were measured, for solutions of calcium chloride and of calcium nitrate in a flame of air and acetylene. It is stored as the limits of the orange-red band. The abstract does not say that the molecule gives no light outside the range, and it says which band took up light the more strongly, not which gave the more."
+        },
+        {
+          "fields": [
+            "salts[cacl2-0.1m].features[caoh-green]",
+            "salts[cacl2-0.1m].notes[0]"
+          ],
+          "prints": "540 to 568",
+          "where": "The abstract: the first of the two ranges, stored as the limits of the green band. The abstract says that the spectrum at 554 nm was taken up strongly."
+        },
+        {
+          "fields": [
+            "salts[cacl2-0.1m].features[ca-422]",
+            "salts[cacl2-0.1m].notes[1]"
+          ],
+          "prints": "Ca atomic line",
+          "where": "The abstract: the atom's line was measured in a flame beside the bands of the molecules, as the flow of hydrogen to the flame was changed. The abstract does not give its wavelength, which is NIST's, and it measures the line by the light the atoms take up; that the line is on the strip, and ranked last, rests on this and on nothing more."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Molecular Absorption Spectra of Calcium Salts",
+          "where": "The paper's subtitle. Read at its abstract and nowhere else."
+        }
+      ]
+    },
+    {
+      "id": "daidoji-1979-strontium-barium",
+      "url": "https://www.jstage.jst.go.jp/browse/bunkou/28/3/_contents/-char/en",
+      "citation": "Daidoji, H. Spectral Interferences in Atomic Absorption Spectrometry (V): Molecular Absorption Spectra of Strontium and Barium Salts. Bunko Kenkyu 1979, 28 (3), 152-158. https://doi.org/10.5111/bunkou.28.152. The paper is in Japanese: only its abstract in English was read, on the page of the issue at J-STAGE, linked here; read and not kept (retrieved 2026-10-08).",
+      "fetchedSha256": "9b18e15aef6db11b60767000ef93ca1acda8d6bfbbf51a7bb5e60fbe84585ef7",
+      "supports": [
+        {
+          "fields": [
+            "salts[srcl2-0.1m].features[sroh-red]",
+            "salts[srcl2-0.1m].features[sroh-orange]",
+            "salts[srcl2-0.1m].notes[0]"
+          ],
+          "prints": "606. 0, 671. 0 and 682.0 nm",
+          "where": "The abstract, with its spacing: the three positions around which SrOH took up light very strongly, for solutions of strontium chloride and of strontium nitrate in a flame of air and acetylene. The abstract gives no limits. The orange band is stored at 606 nm; the red band is stored from 671 nm to the bandhead the other source gives; both are marked approximate."
+        },
+        {
+          "fields": [
+            "salts[bacl2-0.1m].features[baoh-green]",
+            "salts[bacl2-0.1m].notes[0]",
+            "salts[bacl2-0.1m].notes[2]"
+          ],
+          "prints": "from 480 to 550 nm",
+          "where": "The abstract: the range of wavelength in which it calls the emission spectrum of BaOH the stronger, for solutions of barium chloride and of barium nitrate in the same flame; it goes on to say that the band took up light only very weakly. The range is stored as the limits of the band, which is ranked first of barium's on this and on what the other source says of it."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Molecular Absorption Spectra of Strontium and Barium Salts",
+          "where": "The paper's subtitle. Read at its abstract and nowhere else."
+        }
+      ]
+    },
+    {
+      "id": "kirchhoff-bunsen-1860",
+      "url": "https://www.chemteam.info/Chem-History/Kirchhoff-Bunsen-1860.html",
+      "citation": "Kirchhoff, G.; Bunsen, R. Chemical Analysis by Observation of Spectra. Annalen der Physik und der Chemie (Poggendorff) 1860, 110, 161-189. Read in an abridged English translation, with no translator named, on the ChemTeam's page of classic papers, linked here; read and not kept (retrieved 2026-10-08).",
+      "fetchedSha256": "0d5a87360422f3f6796c22f8ef981321b1c315db64037e1d9c3f3d95ac0cf530",
+      "supports": [
+        {
+          "fields": [
+            "salts[kcl-0.1m].features[k-766]",
+            "salts[kcl-0.1m].features[k-404]",
+            "salts[kcl-0.1m].notes[0]"
+          ],
+          "prints": "only two characteristic lines",
+          "where": "Under Potassium: what the flame of a potassium compound shows in a spectroscope, one line at the far red end, at the edge of the infrared, and one far in the violet. The authors held a bead of the chloride in the flame of a gas burner. The wavelengths are NIST's."
+        },
+        {
+          "fields": [
+            "salts[kcl-0.1m].leftOut[0]"
+          ],
+          "prints": "continuous spectrum",
+          "where": "Under Potassium: beside its two lines the flame gives a long spectrum with no lines in it."
+        },
+        {
+          "fields": [
+            "salts[srcl2-0.1m].features[sr-460]",
+            "salts[srcl2-0.1m].notes[1]"
+          ],
+          "prints": "one blue",
+          "where": "Under Strontium: the last of the eight lines the authors call very prominent, six of them red and one orange. The blue one is taken to be the atom's line that NIST lists at 460.7331 nm; the translation gives no wavelength. The lab stores one red band where the authors count six red lines."
+        },
+        {
+          "fields": [
+            "salts[nacl-0.1m].features[na-589]"
+          ],
+          "prints": "a strong sodium line",
+          "where": "Under Sodium: what the flame showed in the spectroscope when a little of a sodium salt was in the air of the room, with the flame turned yellow."
+        },
+        {
+          "fields": [
+            "masking",
+            "salts[nacl-0.1m].notes[2]"
+          ],
+          "prints": "only the yellow light",
+          "where": "Under Lithium: with a bead that holds a little lithium salt and much sodium salt in the flame, the eye alone sees sodium's colour and none of lithium's red, while the spectroscope shows the red line of lithium beside the line of sodium. The lab takes this to hold for each of its other five salts; the passage is about lithium."
+        },
+        {
+          "fields": [
+            "closing.answer"
+          ],
+          "prints": "no influence",
+          "where": "Before the section on sodium: the authors compared the chlorides with five other kinds of compound of the same metals (bromides and iodides, oxides, carbonates, sulphates), in flames of several kinds, and found the lines of each metal in the same places whatever the compound. So what a flame's spectrum shows belongs to the metal and not to what it was combined with."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Chemical Analysis by Observation of Spectra",
+          "where": "The paper's title. Read whole, as far as the translation goes: the description of the apparatus and the sections on sodium, lithium, potassium, strontium, calcium and barium."
+        }
+      ]
+    },
+    {
+      "id": "juknelevicius-2020",
+      "url": "https://epublications.vu.lt/object/elaba:78538139/78538139.pdf",
+      "citation": "Juknelevičius, D. Illuminating pyrotechnic compositions and their specific features. Doctoral dissertation, Vilnius University, 2020. https://doi.org/10.15388/vu.thesis.122. Read in the repository of the university, linked here, with a paper it reprints: Juknelevicius, D.; Dufter, A.; Rusan, M.; Klapötke, T. M.; Ramanavicius, A. Study of Pyrotechnic Blue Strobe Compositions Based on Ammonium Perchlorate and Tetramethylammonium Nitrate. Eur. J. Inorg. Chem. 2017, 1113-1119; read and not kept (retrieved 2026-10-08).",
+      "fetchedSha256": "224b375ade06527c37c5d7f882dbae9d49df2dacf4f96f1ac401c1929e398186",
+      "supports": [
+        {
+          "fields": [
+            "salts[cucl2-0.1m].features[cucl-blue]",
+            "salts[cucl2-0.1m].notes[0]"
+          ],
+          "prints": "400-470 nm",
+          "where": "Section 3.5, Blue illuminants: where the strong light of CuCl lies in the spectra of the blue mixtures. The reprinted paper, under Emission Spectra, puts the light of copper(I) chloride in the region of 400 to 500 nm and calls it the dominating one. Both are about firework mixtures that hold a source of chlorine, burnt as pellets, and not about a solution of copper(II) chloride on a loop in a burner's flame: that the blue band is the brightest thing at this station rests on taking the one for the other."
+        },
+        {
+          "fields": [
+            "salts[cucl2-0.1m].features[cuoh-green]"
+          ],
+          "prints": "550 nm",
+          "where": "The reprinted paper, under Emission Spectra: the region where copper hydroxide gives one wide band, overlapping the light of the chloride. Section 3.7 of the dissertation calls a green flame the light of CuOH. No limits are given, and the band is stored at this one position and marked approximate."
+        },
+        {
+          "fields": [
+            "salts[cucl2-0.1m].leftOut[0]"
+          ],
+          "prints": "two bands",
+          "where": "The reprinted paper, under Emission Spectra: what copper oxide gives, in the red, with no wavelength."
+        },
+        {
+          "fields": [
+            "salts[cucl2-0.1m].notes[1]",
+            "salts[cucl2-0.1m].notes[2]"
+          ],
+          "prints": "Emission Spectra",
+          "where": "The heading in the reprinted paper. Under it the spectra of the copper mixtures are said to hold the light of the chloride, the hydroxide and the oxide of copper and the lines of sodium and potassium that are there as impurities; no line of the copper atom is named. That is the ground for storing none. It is an absence in one source and not a measurement."
+        },
+        {
+          "fields": [
+            "salts[kcl-0.1m].features[k-766]"
+          ],
+          "prints": "767 nm",
+          "where": "The reprinted paper, under Emission Spectra: the sharp line that potassium gives in a flame, there as an impurity. Section 3.5 of the dissertation notes that this light is outside what the eye sees."
+        },
+        {
+          "fields": [
+            "salts[srcl2-0.1m].leftOut[0]"
+          ],
+          "prints": "SrCl",
+          "where": "Section 3.1 of the dissertation: a source of chlorine in a strontium mixture raises the light of this molecule, which adds to that of SrOH and moves the flame's colour from a reddish orange to red. Section 3.4 says that with no chlorine the spectrum is that of SrOH with lines of sodium and potassium. Neither gives a wavelength for SrCl."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Illuminating pyrotechnic compositions and their specific features",
+          "where": "The dissertation's title. Read at its sections 1.3, 3.1, 3.4, 3.5 and 3.7 and, in the reprinted paper, under Emission Spectra."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-flame-tests",
+      "url": "https://www.chemguide.co.uk/inorganic/group1/flametests.html",
+      "citation": "Clark, J. Chemguide: Flame Tests; read and not kept (retrieved 2026-10-08).",
+      "fetchedSha256": "995ac62a17feb71c1e58c8e72fc4b0cd280803e510c2a7dba86c53e90e85a31a",
+      "supports": [
+        {
+          "fields": [
+            "salts[bacl2-0.1m].flame"
+          ],
+          "prints": "pale green",
+          "where": "The page's table of flame colours, the row for Ba. The hex value is this project's choice for drawing the colour."
+        },
+        {
+          "fields": [
+            "salts[cacl2-0.1m].flame"
+          ],
+          "prints": "orange-red",
+          "where": "The page's table of flame colours, the row for Ca. The hex value is this project's choice for drawing the colour."
+        },
+        {
+          "fields": [
+            "salts[cucl2-0.1m].flame"
+          ],
+          "prints": "blue-green",
+          "where": "The page's table of flame colours, the row for Cu, which adds that there are often white flashes. The hex value is this project's choice for drawing the colour."
+        },
+        {
+          "fields": [
+            "salts[kcl-0.1m].flame"
+          ],
+          "prints": "lilac (pink)",
+          "where": "The page's table of flame colours, the row for K. The record stores lilac. The hex value is this project's choice for drawing the colour."
+        },
+        {
+          "fields": [
+            "salts[srcl2-0.1m].flame"
+          ],
+          "prints": "red",
+          "where": "The page's table of flame colours, the row for Sr. The hex value is this project's choice for drawing the colour. The page gives sodium as a strong yellow-orange that lasts; the record takes sodium's word from another source."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "FLAME TESTS",
+          "where": "The page's title. Read under its headings Carrying out a flame test, The colours and The origin of flame colours."
+        }
+      ]
+    },
+    {
+      "id": "malik-flame-test",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Qualitative_Analysis_of_Common_Cations_in_Water_(Malik)/2:_Experimental_techniques/2.6:_Flame_test",
+      "citation": "Malik, M. A. Qualitative Analysis of Common Cations in Water; LibreTexts; Section 2.6 Flame test; read and not kept (retrieved 2026-10-08).",
+      "fetchedSha256": "aad6f02068330fc65aee4c5cb670100130363b8bbe2dfe5e87293c07ac07e0e1",
+      "supports": [
+        {
+          "fields": [
+            "salts[nacl-0.1m].flame"
+          ],
+          "prints": "yellow",
+          "where": "The caption of the section's third figure, flame colours of solutions of metal chlorides: the word before the formula of sodium chloride. The text above calls sodium's flame intense and yellow. The hex value is this project's choice for drawing the colour."
+        },
+        {
+          "fields": [
+            "salts[srcl2-0.1m].flame"
+          ],
+          "prints": "red",
+          "where": "The same caption: the word before the formula of strontium chloride."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Flame test",
+          "where": "The section's title. Read whole: the account of where the light comes from, and the procedure."
+        }
+      ]
+    },
+    {
+      "id": "gallitto-2017-bunsen-burner",
+      "url": "https://arxiv.org/abs/1712.08737",
+      "citation": "Agliolo Gallitto, A.; Pace, V.; Zingales, R. Multidisciplinary learning at the University scientific museums: the Bunsen burner. Museologia Scientifica 2017, 11, 103-107. Read as the authors' copy at arXiv, 1712.08737, linked here; read and not kept (retrieved 2026-10-08).",
+      "fetchedSha256": "3a8e5d8d8fae1feee9dbed2e007596f732b6abe4db147113de8f255f752796a2",
+      "supports": [
+        {
+          "fields": [
+            "salts[cucl2-0.1m].flame"
+          ],
+          "prints": "Copper (blue green)",
+          "where": "The caption of the paper's seventh figure, the colours that the chlorides of seven elements give a burner's flame."
+        },
+        {
+          "fields": [
+            "salts[kcl-0.1m].flame"
+          ],
+          "prints": "Potassium (lilac)",
+          "where": "The same caption of the paper's seventh figure: the colour the chloride of potassium gives the flame."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "the Bunsen burner",
+          "where": "The end of the paper's title. Read at its section on the experiment done with students: how the wire was cleaned, the colours, and the sentence on why a salt is dipped in hydrochloric acid."
+        }
+      ]
+    },
+    {
+      "id": "hyperphysics-flame-colors",
+      "url": "http://hyperphysics.phy-astr.gsu.edu/hbase/Chemical/flame.html",
+      "citation": "Nave, C. R. HyperPhysics: Flame Colors as Chemical Indicators. Georgia State University; read and not kept (retrieved 2026-10-08).",
+      "fetchedSha256": "5e976f2ce248eeb1638b3f2150c4325ebbdfb00a9bbde644970423f004cd95f0",
+      "supports": [
+        {
+          "fields": [
+            "salts[nacl-0.1m].features[na-589]",
+            "salts[nacl-0.1m].notes[0]"
+          ],
+          "prints": "sodium d-lines",
+          "where": "Under the page's photographs of sodium chloride, strontium chloride and a barium mineral: where the light of the sodium flame mainly comes from. The page gives no wavelength; the two lines are NIST's."
+        },
+        {
+          "fields": [
+            "handling"
+          ],
+          "prints": "notably sodium",
+          "where": "The page's second paragraph: a platinum wire that had been touched with the fingers gave a coloured plume in the flame, which the author puts down to sodium from the hands, and which burnt off. The lab stores what a handled loop carries as the sodium chloride solution's own flame; how much of it there is, is a model parameter."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Flame Colors as Chemical Indicators",
+          "where": "The page's heading. Read whole."
+        }
+      ]
+    },
+    {
+      "id": "hope-flame-test-prelab",
+      "url": "https://chem.libretexts.org/Courses/Hope_College/General_Chemistry_Labs/Pre-Lab_Materials/Flame_Test",
+      "citation": "Hope College. General Chemistry Labs, Pre-Lab Materials: Flame Test; LibreTexts; read and not kept (retrieved 2026-10-08).",
+      "fetchedSha256": "328a31563608d42c000f675edd9a2cae341e442991b9020bcefc7ec5339de7ec",
+      "supports": [
+        {
+          "fields": [
+            "handling"
+          ],
+          "prints": "common contaminant",
+          "where": "Under Procedural Notes: sodium is in many solutions that are not meant to hold it, so that a little of its yellow is often seen where none was in the sample."
+        },
+        {
+          "fields": [
+            "salts[kcl-0.1m].notes[1]"
+          ],
+          "prints": "difficult to observe",
+          "where": "Step 4 of the procedure: what the page says of potassium in the flame, for which it offers cobalt glass."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Flame Test",
+          "where": "The page's title. Read under Procedural Notes and at step 4 of the procedure."
+        }
+      ]
+    },
+    {
+      "id": "nasa-visible-light",
+      "url": "https://science.nasa.gov/ems/09_visiblelight/",
+      "citation": "National Aeronautics and Space Administration, Science Mission Directorate. Tour of the Electromagnetic Spectrum: Visible Light; read and not kept (retrieved 2026-10-08).",
+      "fetchedSha256": "9292eb0da463d5db2a618a97e60c46149803a6127c74f356539412f7befb1216",
+      "supports": [
+        {
+          "fields": [
+            "salts[kcl-0.1m].notes[1]"
+          ],
+          "prints": "380 to 700 nanometers",
+          "where": "Under the page's first heading: the wavelengths a human eye can typically detect. Potassium's deep red pair, near 766 nm and 770 nm, is beyond the longer of the two."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Visible Light",
+          "where": "The page's title. Read under its first heading and under Wavelengths of Visible Light."
+        }
+      ]
+    },
+    {
+      "id": "nasa-flame-test-worksheet",
+      "url": "https://imagine.gsfc.nasa.gov/educators/lessons/xray_spectra/student-worksheet-flame.html",
+      "citation": "National Aeronautics and Space Administration, Goddard Space Flight Center. Imagine the Universe! Educators' Corner, Student Worksheet: The Flame Test; read and not kept (retrieved 2026-10-08).",
+      "fetchedSha256": "bc9d78e8089b5f90ac7cc41e3c921f52d103bf3cc53eb5aec704c45884e95389",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "The Flame Test Student Worksheet",
+          "where": "The page's heading. Read at Part I, the procedure: the step that cleans the wire, and the step that looks at the flame through a grating."
+        }
+      ]
+    },
+    {
+      "id": "udel-bunsen-burner-sop",
+      "url": "https://www1.udel.edu/ehs/research/downloads/Bunsen_Burners_SOP.pdf",
+      "citation": "University of Delaware, Department of Environmental Health and Safety. Standard Operating Procedure: Bunsen Burner Safety; revision date September 10, 2015; read and not kept (retrieved 2026-10-08).",
+      "fetchedSha256": "0da6343f5c959cf49a43856046026a2bf242e118c5da00e5f32e9e114188e979",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "BUNSEN BURNER SAFETY",
+          "where": "The last line of the procedure's title, in capitals. Read under Potential Hazards and under Work Practice Controls, in the text of the PDF the address served. It took the place, on 2026-10-08, of another university's page on burner safety that the primer's safety card first rested on: that site's robots file has rules for automated readers, and this one's has none. Everything the card says of the burner is in both."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-94.01",
+      "url": "https://www.flinnsci.com/sds_94.01-barium-chloride-solution-less-than-1-m/sds_94.01",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Barium Chloride Solution Less than 1 M, SDS number sds_94.01; revision date March 24, 2014 (read on 2026-10-06; no copy is kept).",
+      "supports": [
+        {
+          "fields": [
+            "salts[bacl2-0.1m]"
+          ],
+          "prints": "Barium Chloride Solution Less than 1 M",
+          "where": "The sheet's title, before the words Safety Data Sheet. Section 3 lists barium chloride, with the formula of its dihydrate, and water. The name, the formula BaCl₂ of the dissolved salt and the strength of 0.1 M are this lab's (spec 15.1); the sheet shows that such a solution is a thing a supplier sells. The sheet was read again on 2026-10-08 for this lab; its citation keeps the day the aqueous lab first read it, because the two labs list the one source."
+        },
+        {
+          "fields": [
+            "salts[bacl2-0.1m].appearance"
+          ],
+          "prints": "Clear, colorless liquid",
+          "where": "Section 9, the first words: what the solution looks like. The record stores colourless."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-197",
+      "url": "https://www.flinnsci.com/sds_197-calcium-chloride-solution/sds_197",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Calcium Chloride Solution, SDS number sds_197; revision date February 6, 2014 (read on 2026-10-08; no copy is kept).",
+      "supports": [
+        {
+          "fields": [
+            "salts[cacl2-0.1m]"
+          ],
+          "prints": "Calcium Chloride Solution",
+          "where": "The sheet's title, before the words Safety Data Sheet. Section 3 lists calcium chloride dihydrate and water. The name, the formula CaCl₂ of the dissolved salt and the strength of 0.1 M are this lab's (spec 15.1)."
+        },
+        {
+          "fields": [
+            "salts[cacl2-0.1m].appearance"
+          ],
+          "prints": "Clear, colorless liquid",
+          "where": "Section 9, the first words: what the solution looks like. The record stores colourless."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-281.1",
+      "url": "https://www.flinnsci.com/sds_281.1-copperii-chloride-solution-0.99-m/sds_281.1",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Copper(II) Chloride Solution <0.99 M, SDS number sds_281.1; revision date April 14, 2016 (read on 2026-10-08; no copy is kept).",
+      "supports": [
+        {
+          "fields": [
+            "salts[cucl2-0.1m]"
+          ],
+          "prints": "Copper(II) Chloride Solution <0.99 M",
+          "where": "The sheet's title, before the words Safety Data Sheet. Section 3 lists copper(II) chloride dihydrate and water. The name, the formula CuCl₂ of the dissolved salt and the strength of 0.1 M are this lab's (spec 15.1)."
+        },
+        {
+          "fields": [
+            "salts[cucl2-0.1m].appearance"
+          ],
+          "prints": "Light blue/green liquid",
+          "where": "Section 9, the first words: what the solution looks like. The record stores light blue-green. The hex value is this project's choice for drawing the colour."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-622",
+      "url": "https://www.flinnsci.com/sds_622-potassium-chloride-solution/sds_622",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Potassium Chloride Solution, SDS number sds_622; revision date January 16, 2014 (read on 2026-10-08; no copy is kept).",
+      "supports": [
+        {
+          "fields": [
+            "salts[kcl-0.1m]"
+          ],
+          "prints": "Potassium Chloride Solution",
+          "where": "The sheet's title, before the words Safety Data Sheet. Section 3 lists potassium chloride, KCl, and water. The name and the strength of 0.1 M are this lab's (spec 15.1)."
+        },
+        {
+          "fields": [
+            "salts[kcl-0.1m].appearance"
+          ],
+          "prints": "Colorless liquid",
+          "where": "Section 9, the first words: what the solution looks like. The sheet's table of composition runs from 1% to 4%; the solution on this bench, at about 0.7%, is a little weaker than any it lists and is no less colourless."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-722",
+      "url": "https://www.flinnsci.com/sds_722-sodium-chloride-solution/sds_722",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Chloride Solution, SDS number sds_722; revision date March 16, 2016 (read on 2026-10-08; no copy is kept).",
+      "supports": [
+        {
+          "fields": [
+            "salts[nacl-0.1m]"
+          ],
+          "prints": "Sodium Chloride Solution",
+          "where": "The sheet's title, before the words Safety Data Sheet. Section 3 lists sodium chloride, NaCl, and water. The name and the strength of 0.1 M are this lab's (spec 15.1)."
+        },
+        {
+          "fields": [
+            "salts[nacl-0.1m].appearance"
+          ],
+          "prints": "Colorless liquid",
+          "where": "Section 9, the first words: what the solution looks like."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-785",
+      "url": "https://www.flinnsci.com/sds_785-strontium-chloride-solution/sds_785",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Strontium Chloride Solution, SDS number sds_785; revision date January 16, 2014 (read on 2026-10-08; no copy is kept).",
+      "supports": [
+        {
+          "fields": [
+            "salts[srcl2-0.1m]"
+          ],
+          "prints": "Strontium Chloride Solution",
+          "where": "The sheet's title, before the words Safety Data Sheet. Section 3 lists strontium chloride, with the formula of its hexahydrate, and water. The name, the formula SrCl₂ of the dissolved salt and the strength of 0.1 M are this lab's (spec 15.1)."
+        },
+        {
+          "fields": [
+            "salts[srcl2-0.1m].appearance"
+          ],
+          "prints": "Colorless liquid",
+          "where": "Section 9, the first words: what the solution looks like. The sheet's table of composition starts a little above the strength on this bench, which is no less colourless."
+        }
+      ]
+    }
+  ]
+}

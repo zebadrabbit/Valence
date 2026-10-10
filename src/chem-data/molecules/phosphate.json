@@ -1,0 +1,111 @@
+{
+  "id": "phosphate",
+  "name": "Phosphate ion",
+  "formula": "PO4",
+  "pubchemCid": 1061,
+  "topic": "basics",
+  "charge": -3,
+  "atoms": [
+    {
+      "element": "P",
+      "position": [
+        0,
+        -0.0001,
+        0
+      ],
+      "position2d": [
+        2.866,
+        0
+      ],
+      "formalCharge": 1,
+      "lonePairs": 0
+    },
+    {
+      "element": "O",
+      "position": [
+        1.5234,
+        -0.0688,
+        -0.1977
+      ],
+      "position2d": [
+        2,
+        -0.5
+      ],
+      "formalCharge": -1,
+      "lonePairs": 3
+    },
+    {
+      "element": "O",
+      "position": [
+        -0.6406,
+        0.718,
+        -1.1991
+      ],
+      "position2d": [
+        2.366,
+        0.866
+      ],
+      "formalCharge": -1,
+      "lonePairs": 3
+    },
+    {
+      "element": "O",
+      "position": [
+        -0.5679,
+        -1.4248,
+        0.1073
+      ],
+      "position2d": [
+        3.366,
+        -0.866
+      ],
+      "formalCharge": -1,
+      "lonePairs": 3
+    },
+    {
+      "element": "O",
+      "position": [
+        -0.3149,
+        0.7757,
+        1.2895
+      ],
+      "position2d": [
+        3.7321,
+        0.5
+      ],
+      "formalCharge": -1,
+      "lonePairs": 3
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "Drawn in the octet-obeying form (four P–O single bonds, formal charges +1 on P and −1 on each O), as sulfur dioxide is. Both drawings are in use: PubChem's record draws one P=O double bond instead, which lowers the formal charges and gives phosphorus more than eight electrons."
+  ],
+  "sourceId": "pubchem-cid-1061"
+}

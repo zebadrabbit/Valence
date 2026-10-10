@@ -13,16 +13,16 @@ export function Notice({ children }: { children: ReactNode }) {
   )
 }
 
-/** The periodic table in a browser tab of its own, so that the page is not left. */
-export function PeriodicTableLink() {
+/** The periodic table in a browser tab of its own, so that the page is not left: the table, or with `symbol` that element's card on it, under `children` where the link has words of its own. */
+export function PeriodicTableLink({ symbol, children = SHELL_TEXT.periodicTable }: { symbol?: string; children?: ReactNode }) {
   return (
     <a
-      href="#/explore/elements"
+      href={symbol === undefined ? '#/explore/elements' : `#/explore/elements/${symbol}`}
       target="_blank"
       rel="noopener"
       className="inline-flex min-h-11 items-center gap-1.5 rounded-md px-2 text-sm font-medium underline-offset-4 outline-none hover:underline focus-visible:ring-2 focus-visible:ring-ring"
     >
-      {SHELL_TEXT.periodicTable}
+      {children}
       <ExternalLink aria-hidden="true" className="size-4" />
       <span className="sr-only">{SHELL_TEXT.newTab}</span>
     </a>

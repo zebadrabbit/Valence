@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { emissionSpectra } from '@/chem-data/emissionSpectra'
 import { registry } from '@/chem-data/registry'
-import { colourName, lineText, spectrumText, stripPosition, wavelengthColor } from './spectrum'
+import { colourName, lineText, spectrumText, stripPosition, wavelengthColor, wavelengthRgb } from './spectrum'
 
 const element = (symbol: string) => registry.elements.find((e) => e.symbol === symbol)!
 // The build decides which spectra carry the note that lines are drawn as one, by this distance.
@@ -35,6 +35,11 @@ describe('wavelengthColor', () => {
     expect(b).toBeGreaterThan(g!)
     expect(r).toBe(0)
     expect(rgb(540)[1]).toBe(255)
+  })
+
+  it('is the three channels of the same colour, as numbers, for a drawing that works on them', () => {
+    for (const nm of [380, 404.5, 470, 540, 589.3, 656.279, 740, 780]) expect(`rgb(${wavelengthRgb(nm).join(', ')})`).toBe(wavelengthColor(nm))
+    expect(wavelengthRgb(656.279)).toEqual([255, 0, 0])
   })
 
   it('dims towards the ends of the visible range but never to black', () => {

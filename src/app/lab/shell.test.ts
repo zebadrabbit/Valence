@@ -10,10 +10,12 @@ import sources from '@/chem-data/sources.json'
 import { titrationData } from '@/chem-data/titration/data'
 import { READ_FIRST, termIndex, TITRATION_PRIMER } from '@/chem-data/titration/primer'
 import { aqueousData } from '@/chem-data/aqueous/data'
+import { flameData } from '@/chem-data/flame/data'
 import { Hazards } from './Hazards'
 import labCss from './lab.css?raw'
 import { LabShell, openingTab, tabShift, type LabShellProps } from './LabShell'
 import { ModeSwitch } from './ModeSwitch'
+import { openingStation } from './openingStation'
 import { pieces, Primer, subscriptParts } from './Primer'
 import { HAZARDS_TEXT, NARROW_NOTICE, PRIMER_TEXT, SHELL_TEXT } from './shellText'
 import { labProgress, writtenElsewhere } from './useLabProgress'
@@ -653,6 +655,46 @@ describe('the hazards of a bottle', () => {
   })
 })
 
+describe("the note under a bottle's hazards", () => {
+  const heading = '<h4 class="font-medium">At the strength used here</h4>'
+  const noteOf = (html: string) => html.slice(html.indexOf(heading) + heading.length, html.indexOf('<details>', 1))
+
+  it('is one paragraph, as it was, where its text holds no blank line: every bottle of the titration lab and of the aqueous reactions lab', () => {
+    const older = [...Object.values(titrationData.bottles).map((bottle) => ({ ...bottle, solid: false })), ...aqueousData.reagents.map((r) => ({ classifiedAs: r.classifiedAs ?? r.name, hazards: r.hazards, solid: r.form !== 'solution' }))]
+    expect(older).toHaveLength(3 + aqueousData.reagents.length)
+    for (const { classifiedAs, hazards, solid } of older) {
+      expect(hazards.note.value).not.toContain('\n')
+      expect(hazards.note.moreSourceIds).toBeUndefined()
+      const html = renderToStaticMarkup(createElement(Hazards, { classifiedAs, hazards, sources, solid }))
+      expect(html).toContain(`</h4><p>${escaped(hazards.note.value)}</p><details>`)
+    }
+  })
+
+  it('is drawn as short paragraphs where its text holds blank lines: the three of each bottle of the flame test lab', () => {
+    for (const salt of flameData.salts) {
+      const paragraphs = salt.hazards.note.value.split('\n\n')
+      expect(paragraphs).toHaveLength(3)
+      const html = renderToStaticMarkup(createElement(Hazards, { classifiedAs: salt.classifiedAs, hazards: salt.hazards, sources }))
+      expect(noteOf(html)).toBe(paragraphs.map((paragraph) => `<p>${escaped(paragraph)}</p>`).join(''))
+      expect(html).not.toContain('\n')
+    }
+  })
+
+  it('lists every source of the note: the third and any after it too', () => {
+    const [barium, , , potassium] = flameData.salts
+    const { hazards } = barium!
+    expect(hazards.note.moreSourceIds).toEqual(['fisher-sds-bacl2-dihydrate', 'noaa-cameo-19847'])
+    const html = renderToStaticMarkup(createElement(Hazards, { classifiedAs: barium!.classifiedAs, hazards, sources }))
+    expect(hrefs(html)).toEqual([hazards.sourceId, hazards.note.sourceId, hazards.note.alsoSourceId!, ...hazards.note.moreSourceIds!].map((id) => escaped(sourceUrl(id))))
+    // Each of the note's sources is listed under the note's heading.
+    expect(count(html, /<span class="font-medium">At the strength used here: <\/span>/g)).toBe(4)
+    // A note that rests on two lists two, as the older labs' do.
+    const two = renderToStaticMarkup(createElement(Hazards, { classifiedAs: potassium!.classifiedAs, hazards: potassium!.hazards, sources }))
+    expect(potassium!.hazards.note.moreSourceIds).toBeUndefined()
+    expect(hrefs(two)).toEqual([potassium!.hazards.sourceId, potassium!.hazards.note.sourceId, potassium!.hazards.note.alsoSourceId!].map((id) => escaped(sourceUrl(id))))
+  })
+})
+
 describe('labProgress', () => {
   const [activity] = ACTIVITIES
   const schema = z.strictObject({ status: z.string(), n: z.number() })
@@ -739,5 +781,18 @@ describe('labProgress', () => {
     const { store } = counting()
     labProgress(store, activity, z.strictObject({ other: z.number() })).save({ other: 1 })
     expect(labProgress(store, activity, schema).load()).toBeNull()
+  })
+})
+
+describe('the station a lab with stations opens on', () => {
+  it('is the first one begun and not done, whatever word a lab has for begun; where none is, the first not done; and the first of all once every one is done', () => {
+    expect(openingStation(['not-started', 'not-started', 'not-started'])).toBe(0)
+    expect(openingStation(['done', 'done', 'not-started'])).toBe(2)
+    // The aqueous reactions lab's two words for a station begun, and the flame test lab's three.
+    expect(openingStation(['done', 'not-started', 'started', 'observed'])).toBe(2)
+    expect(openingStation(['done', 'not-started', 'done', 'observed'])).toBe(3)
+    expect(openingStation(['done', 'not-counted', 'started'])).toBe(1)
+    expect(openingStation(['done', 'not-started', 'not-correct'])).toBe(2)
+    expect(openingStation(['done', 'done', 'done'])).toBe(0)
   })
 })

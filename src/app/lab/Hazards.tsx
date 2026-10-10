@@ -10,7 +10,9 @@ import { HAZARDS_TEXT, UNSOURCED_TEXT } from './shellText'
  * own sheet can give another (the note says which). A statement is a line of a data sheet and can begin with two
  * or three codes, so each is drawn whole, as stored and in the stored order. A sheet that lists no statement has
  * a sentence saying so in place of the signal word and the list. `solid` is for a reagent that is not a solution:
- * its note is of the reagent as it is used, and no strength is spoken of.
+ * its note is of the reagent as it is used, and no strength is spoken of. A note whose text holds blank lines is
+ * drawn as the short paragraphs they set apart; one with none is one paragraph. Every source the note names is
+ * listed under the note's heading: its first, its second and any after it.
  */
 export function Hazards({ classifiedAs, hazards, sources, solid = false }: { classifiedAs: string; hazards: HazardsRecord; sources: readonly Source[]; solid?: boolean }) {
   const { note } = hazards
@@ -31,10 +33,12 @@ export function Hazards({ classifiedAs, hazards, sources, solid = false }: { cla
         </>
       )}
       <h4 className="font-medium">{noteHeading}</h4>
-      <p>{note.value}</p>
+      {note.value.split(/\n{2,}/).map((paragraph) => (
+        <p key={paragraph}>{paragraph}</p>
+      ))}
       <Sources
         citations={citations(
-          [['Signal word and hazard statements', hazards.sourceId], [noteHeading, note.sourceId], ...(note.alsoSourceId === undefined ? [] : [[noteHeading, note.alsoSourceId] as const])],
+          [['Signal word and hazard statements', hazards.sourceId], ...[note.sourceId, ...(note.alsoSourceId === undefined ? [] : [note.alsoSourceId]), ...(note.moreSourceIds ?? [])].map((id) => [noteHeading, id] as const)],
           sources,
         )}
         derived={solid ? UNSOURCED_TEXT.hazardsSolid : UNSOURCED_TEXT.hazards}

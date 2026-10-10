@@ -27,10 +27,10 @@ export function colourName(nm: number): string {
 }
 
 /**
- * An sRGB colour for a visible wavelength, after Bruton's piecewise approximation.
+ * The red, green and blue of an sRGB colour for a visible wavelength, each from 0 to 255, after Bruton's piecewise approximation.
  * ponytail: a drawing aid, not colorimetry; a screen cannot show a pure spectral colour. Use CIE matching functions if accuracy ever matters.
  */
-export function wavelengthColor(nm: number): string {
+export function wavelengthRgb(nm: number): [red: number, green: number, blue: number] {
   const [r, g, b] =
     nm < 440
       ? [(440 - nm) / 60, 0, 1]
@@ -46,8 +46,11 @@ export function wavelengthColor(nm: number): string {
   // The eye's response falls away towards both ends of the visible range.
   const fade = nm < 420 ? 0.3 + (0.7 * (nm - 380)) / 40 : nm > 700 ? 0.3 + (0.7 * (780 - nm)) / 80 : 1
   const channel = (c: number) => Math.round(255 * Math.max(0, Math.min(1, c * fade)) ** 0.8)
-  return `rgb(${channel(r!)}, ${channel(g!)}, ${channel(b!)})`
+  return [channel(r!), channel(g!), channel(b!)]
 }
+
+/** The same colour as CSS takes it: "rgb(255, 0, 0)". */
+export const wavelengthColor = (nm: number): string => `rgb(${wavelengthRgb(nm).join(', ')})`
 
 type Line = Emission['lines'][number]
 

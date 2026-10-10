@@ -1,0 +1,398 @@
+{
+  "id": "vanillin",
+  "name": "Vanillin",
+  "formula": "C8H8O3",
+  "pubchemCid": 1183,
+  "topic": "everyday",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        2.2627,
+        -0.987,
+        0
+      ],
+      "position2d": [
+        0.619,
+        4.5721
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        2.3372,
+        1.7917,
+        0.0004
+      ],
+      "position2d": [
+        0.6189,
+        2.572
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -3.6702,
+        -0.303,
+        0.0004
+      ],
+      "position2d": [
+        4.9491,
+        4.072
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "C",
+      "position": [
+        1.1085,
+        -0.2634,
+        -0.0001
+      ],
+      "position2d": [
+        1.485,
+        4.0721
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.3066,
+        -0.1985,
+        -0.0002
+      ],
+      "position2d": [
+        3.217,
+        4.072
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.1177,
+        -0.9281,
+        -0.0001
+      ],
+      "position2d": [
+        2.351,
+        4.572
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.146,
+        1.1309,
+        -0.0002
+      ],
+      "position2d": [
+        1.485,
+        3.0721
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.269,
+        1.1959,
+        -0.0002
+      ],
+      "position2d": [
+        3.217,
+        3.0721
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.0428,
+        1.8606,
+        -0.0001
+      ],
+      "position2d": [
+        2.351,
+        2.5721
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.5853,
+        -0.8912,
+        -0.0001
+      ],
+      "position2d": [
+        4.083,
+        4.572
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.1371,
+        -2.4077,
+        0.0001
+      ],
+      "position2d": [
+        0.6189,
+        5.572
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.2062,
+        -2.0095,
+        0
+      ],
+      "position2d": [
+        2.351,
+        5.1921
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.1826,
+        1.7848,
+        -0.0002
+      ],
+      "position2d": [
+        3.754,
+        2.7621
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.0279,
+        2.9473,
+        0
+      ],
+      "position2d": [
+        2.351,
+        1.952
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.553,
+        -1.994,
+        -0.0004
+      ],
+      "position2d": [
+        4.0831,
+        5.1921
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.6477,
+        -2.7702,
+        -0.9105
+      ],
+      "position2d": [
+        1.2389,
+        5.5721
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.6479,
+        -2.7701,
+        0.9106
+      ],
+      "position2d": [
+        0.619,
+        6.1921
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.1516,
+        -2.8203,
+        0
+      ],
+      "position2d": [
+        -0.001,
+        5.572
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.1681,
+        2.7496,
+        0.0005
+      ],
+      "position2d": [
+        0.6189,
+        1.9521
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 18,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 9,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 5,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 3,
+      "b": 6,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 4,
+      "b": 5,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 4,
+      "b": 7,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 4,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 8,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 7,
+      "b": 8,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 7,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 14,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 10,
+      "b": 15,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 10,
+      "b": 16,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 10,
+      "b": 17,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "A flavouring with the smell of vanilla.",
+    "One conformer of many."
+  ],
+  "sourceId": "pubchem-cid-1183"
+}

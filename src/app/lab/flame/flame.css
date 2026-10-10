@@ -1,0 +1,25 @@
+/*
+ * The flame test lab's one animation. Loaded with the lab page, so none of it is in the app shell's stylesheet.
+ *
+ * The drawn flame flickers five times and then rests as it is drawn, so that nothing on the page moves for longer
+ * than five seconds. The picture gives the flame this class only where the app's reduced-motion setting allows,
+ * and the app's own rule would stop it if it did not. The flame stands on the burner: it is scaled and leant from
+ * the middle of its foot.
+ */
+.fl-flame {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: fl-flicker 0.9s ease-in-out 5;
+}
+@keyframes fl-flicker {
+  from,
+  to {
+    transform: none;
+  }
+  30% {
+    transform: scale(0.97, 1.04) skewX(1.5deg);
+  }
+  65% {
+    transform: scale(1.02, 0.97) skewX(-1.2deg);
+  }
+}

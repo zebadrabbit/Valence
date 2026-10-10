@@ -363,16 +363,18 @@ describe('the rule', () => {
 describe('the sources of the spectra', () => {
   const source = (id: string) => registry.sources.find((s) => s.id === id)!
 
-  it('are the database, read on the day the manifest gives, its help page, and the paper on flame bands', () => {
+  it('are the database, read on the day the manifest gives, and its help page; the flame bands of the note rest on the flame test lab\'s sources', () => {
     expect(source(LINES_ID)).toEqual({
       id: LINES_ID,
       url: 'https://physics.nist.gov/PhysRefData/ASD/lines_form.html',
       citation:
         'Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, Lines Data for the neutral atom of each element (the spectrum <symbol> I): observed wavelengths in air, 400 to 700 nm, with relative intensities; and, for an element with no such lines, every line the database lists for it (retrieved 2026-10-08). National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F',
     })
-    for (const id of [LINES_ID, 'nist-asd-lines-help', 'bulewicz-1956']) expect(source(id).citation).toContain(manifest.retrieved)
+    for (const id of [LINES_ID, 'nist-asd-lines-help']) expect(source(id).citation).toContain(manifest.retrieved)
     expect(source('nist-asd-lines-help').url).toBe('https://physics.nist.gov/PhysRefData/ASD/Html/lineshelp.html#OUTRELINT')
-    expect(source('bulewicz-1956').url).toBe('https://doi.org/10.1038/177670a0')
+    // The abstract of a paper in Nature was a source of the note until 2026-10-08; the build lists it no longer, and the manifest's record of what was read and not kept does not either.
+    expect(source('bulewicz-1956')).toBeUndefined()
+    expect(manifest.readNotKept.map((page) => page.url)).toEqual(['https://physics.nist.gov/PhysRefData/ASD/Html/lineshelp.html'])
   })
 
   it('leave the sources of hydrogen and sodium as they were', () => {

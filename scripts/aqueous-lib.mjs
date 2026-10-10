@@ -16,7 +16,8 @@ const itemName = (item, index) => item?.id ?? item?.productId ?? item?.metalId ?
 /**
  * Every place the record cites a source: `key` is the place as a manifest row names it (species[water].enthalpyOfFormation,
  * solubility[silver-ion+chloride-ion], stations[aq-02].notes[0]), and `published` the figure stored beside the citation,
- * where there is one. A second source (`alsoSourceId`) is a citation of the same place.
+ * where there is one. A second source (`alsoSourceId`), and any beyond it (`moreSourceIds`), is a citation of the
+ * same place.
  */
 export function citations(record) {
   const found = []
@@ -26,6 +27,7 @@ export function citations(record) {
       for (const name of ['sourceId', 'alsoSourceId']) {
         if (typeof value[name] === 'string') found.push({ key, sourceId: value[name], ...(typeof value.published === 'string' ? { published: value.published } : {}) })
       }
+      for (const sourceId of Array.isArray(value.moreSourceIds) ? value.moreSourceIds : []) found.push({ key, sourceId })
       for (const [name, child] of Object.entries(value)) walk(child, key === '' ? name : `${key}.${name}`)
     }
   }
@@ -33,8 +35,11 @@ export function citations(record) {
   return found
 }
 
-/** A citation of a reagent's hazards: these are held to the hazard manifest by `mergeHazards`, not to the rows of the lab's own manifest. */
-const isHazard = ({ key }) => /^reagents\[[^\]]+\]\.hazards(\.|$)/.test(key)
+/**
+ * A citation of a bottle's hazards: these are held to the hazard manifest by `mergeHazards`, not to the rows of the
+ * lab's own manifest. A lab's bottles are its `reagents` (the aqueous lab) or its `salts` (the flame test lab).
+ */
+const isHazard = ({ key }) => /^(reagents|salts)\[[^\]]+\]\.hazards(\.|$)/.test(key)
 
 /**
  * Throws unless the record and the manifest give one account of the sources. Every value that cites a source of
@@ -110,7 +115,10 @@ const onlyKeys = (object, keys, where, optional = []) => {
  * is not kept. So, as for the titration lab's bottles, this cannot say that a sheet prints what is stored. It
  * holds each reagent to the manifest's rows for it (their field begins with the reagent's id): the signal word and
  * the statements by `checkSheetHazards`, and that the heading, the statements' sheet and each sheet under the note
- * have rows of their own. No statement may carry a code listed for the reagent in `never`.
+ * have rows of their own. A note names its sources in `sourceId`, a second in `alsoSourceId` and any further ones
+ * in `moreSourceIds`. No statement may carry a code listed for the reagent in `never`. The flame test lab's six
+ * solutions are merged by this too: there a "sheet" is any document read for a bottle's hazards and not kept, a
+ * government record among them.
  */
 export function mergeHazards(reagents, hazards, sheets, never = {}) {
   const ids = reagents.map((r) => r.id)
@@ -129,7 +137,7 @@ export function mergeHazards(reagents, hazards, sheets, never = {}) {
     const entry = hazards[reagent.id]
     onlyKeys(entry, ['classifiedAs', 'hazards'], where)
     onlyKeys(entry.hazards, ['signalWord', 'statements', 'note', 'sourceId'], `${where}.hazards`)
-    onlyKeys(entry.hazards.note, ['value', 'sourceId'], `${where}.hazards.note`, ['alsoSourceId'])
+    onlyKeys(entry.hazards.note, ['value', 'sourceId'], `${where}.hazards.note`, ['alsoSourceId', 'moreSourceIds'])
     if (typeof entry.classifiedAs !== 'string' || entry.classifiedAs.trim() === '') throw new Error(`${where}: classifiedAs is empty`)
     const statements = sheet(entry.hazards.sourceId, `${where}.hazards`)
     hasRow(statements, `${reagent.id}.classifiedAs`, where)
@@ -137,7 +145,15 @@ export function mergeHazards(reagents, hazards, sheets, never = {}) {
     const { note } = entry.hazards
     if (typeof note.value !== 'string' || note.value.trim() === '') throw new Error(`${where}.hazards.note: the note is empty`)
     if (note.alsoSourceId === note.sourceId) throw new Error(`${where}.hazards.note: alsoSourceId names "${note.alsoSourceId}", the source the note already cites`)
-    for (const sourceId of [note.sourceId, ...(note.alsoSourceId === undefined ? [] : [note.alsoSourceId])]) {
+    // A note that rests on more than two sources names the third and any after it in `moreSourceIds`: never without a second, and no source twice.
+    const more = note.moreSourceIds ?? []
+    if (note.moreSourceIds !== undefined && (!Array.isArray(more) || more.length === 0 || note.alsoSourceId === undefined)) {
+      throw new Error(`${where}.hazards.note: moreSourceIds is for the sources after the second: a list of at least one, beside an alsoSourceId`)
+    }
+    const under = [note.sourceId, ...(note.alsoSourceId === undefined ? [] : [note.alsoSourceId]), ...more]
+    const twice = under.find((sourceId, i) => under.indexOf(sourceId) !== i)
+    if (twice !== undefined) throw new Error(`${where}.hazards.note: moreSourceIds names "${twice}", a source the note already cites`)
+    for (const sourceId of under) {
       hasRow(sheet(sourceId, `${where}.hazards.note`), `${reagent.id}.hazards.note`, `${where}.hazards.note`)
     }
     if ('hazards' in reagent || 'classifiedAs' in reagent) throw new Error(`reagent "${reagent.id}": its hazards belong in hazards.json, not in the lab's record`)

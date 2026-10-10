@@ -9,6 +9,8 @@ import { ENTRY, peekStatus, type ActivityStatus, type KeyValueStore } from './pr
 export const ACTIVITIES = [
   { entry: ENTRY.titration, version: 1, kind: 'Lab', title: 'Standardization of a base by titration', to: '/lab/titration' },
   { entry: ENTRY.aqueous, version: 1, kind: 'Lab', title: 'Reactions in aqueous solution', to: '/lab/aqueous' },
+  // src/flame-version.test.ts pins what a stored run of this lab is judged against to this entry and this version.
+  { entry: ENTRY.flame, version: 1, kind: 'Lab', title: 'Flame tests', to: '/lab/flame' },
   { entry: ENTRY.mechanism, version: 1, kind: 'Mechanism', title: 'HCl + NaHCO₃, step by step', to: '/learn/hcl-nahco3' },
 ] as const
 

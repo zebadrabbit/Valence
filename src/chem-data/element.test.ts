@@ -112,16 +112,26 @@ describe('the note on what an emission spectrum leaves out', () => {
   })
 
   it('cites sources the registry holds, and stores beside each where the passage is and what it establishes, in words of its own', () => {
-    expect(sourceIds).toEqual(['nist-asd-lines-help', 'bulewicz-1956'])
+    // The flame bands rest on the flame test lab's own sources since 2026-10-08. Before, they rested on the abstract of a paper in Nature, whose site sets rules for automated readers.
+    const FLAME_BANDS = ['daidoji-1979-calcium', 'daidoji-1979-strontium-barium', 'human-zeegers-1975']
+    expect(sourceIds).toEqual(['nist-asd-lines-help', ...FLAME_BANDS])
     for (const id of sourceIds) expect(registry.sources.map((s) => s.id)).toContain(id)
+    expect(registry.sources.map((s) => s.id)).not.toContain('bulewicz-1956')
+    expect(JSON.stringify(registry.sources)).not.toMatch(/nature\.com|10\.1038/)
     const lines = support.split('\n')
-    expect(lines.map((line) => line.split(': ')[0])).toEqual(['nist-asd-lines-help', 'nist-asd-lines-help', 'bulewicz-1956'])
+    expect(lines.map((line) => line.split(': ')[0])).toEqual(['nist-asd-lines-help', 'nist-asd-lines-help', ...FLAME_BANDS])
     for (const line of lines) {
       expect(line).toMatch(/^[a-z0-9-]+: not quoted; see .+, https:\/\/\S+\. It establishes that .+\.$/)
       expect(line).not.toMatch(/["“”]/)
     }
-    // Only the abstract of the paper was read, and the citation and the support both say so.
-    expect(registry.sources.find((s) => s.id === 'bulewicz-1956')!.citation).toContain('only its abstract was read')
-    expect(lines[2]).toContain('the abstract, which is all of the paper that was read')
+    // Each passage is found at the address its source is listed with.
+    for (const [i, id] of FLAME_BANDS.entries()) expect(lines[i + 2]).toContain(`, ${registry.sources.find((s) => s.id === id)!.url}. It establishes that `)
+    // Only the abstracts of the two papers of 1979 were read, and the citations and the support both say so.
+    for (const [i, id] of FLAME_BANDS.slice(0, 2).entries()) {
+      expect(registry.sources.find((s) => s.id === id)!.citation).toContain('only its abstract in English was read')
+      expect(lines[i + 2]).toContain('the abstract in English, which is all of the paper that was read')
+    }
+    // Between them the three name each of the three molecules the note names.
+    for (const formula of ['CaOH', 'SrOH', 'BaOH']) expect(lines.slice(2).some((line) => line.includes(formula)), formula).toBe(true)
   })
 })

@@ -481,14 +481,25 @@ describe('the element card', () => {
       ['boron-trifluoride', 'Boron trifluoride'],
       ['sulfur-hexafluoride', 'Sulfur hexafluoride'],
       ['xenon-tetrafluoride', 'Xenon tetrafluoride'],
+      ['hydrogen-fluoride', 'Hydrogen fluoride'],
     ]) {
       expect(fluorine).toMatch(new RegExp(`<a [^>]*href="/explore/${id}"[^>]*>${name}</a>`))
     }
-    expect(count(fluorine, /<a [^>]*href="\/explore\/[a-z-]+"/g)).toBe(3)
+    expect(count(fluorine, /<a [^>]*href="\/explore\/[a-z-]+"/g)).toBe(7)
+    // A short list is shown as it is.
+    expect(fluorine).not.toContain('molecules of the library contain')
     expect(card('Xe')).toMatch(/<a [^>]*href="\/explore\/xenon-tetrafluoride"/)
     const gold = card('Au')
     expect(gold).toContain('No molecule in the library contains gold.')
     expect(gold).not.toMatch(/<a [^>]*href="\/explore\//)
+  })
+
+  it('folds a long list of molecules under its count, so that the card of carbon or hydrogen is not a wall of links', () => {
+    const carbon = card('C')
+    const links = count(carbon, /<a [^>]*href="\/explore\/[a-z-]+"/g)
+    expect(links).toBeGreaterThan(60)
+    expect(carbon).toMatch(new RegExp(`<details[^>]*><summary[^>]*>${links} molecules of the library contain carbon</summary>`))
+    expect(carbon).toMatch(/<a [^>]*href="\/explore\/caffeine"[^>]*>Caffeine<\/a>/)
   })
 
   it('draws the emission spectrum of the 97 elements that have one, and gives each of the other 21 its sentence and no strip', { timeout: EVERY_ELEMENT_TIMEOUT }, () => {
@@ -539,7 +550,7 @@ describe('the element card', () => {
     expect(cites(iron, 'Emission lines', source('nist-asd-lines-neutral'))).toBe(true)
     expect(count(iron, /Lines Data for the neutral atom of each element/g)).toBe(1)
     expect(cites(card('Og'), 'Emission lines', source('nist-asd-lines-neutral'))).toBe(true)
-    // The note shown with every spectrum cites its two sources, on a card that has a spectrum and on no other.
+    // The note shown with every spectrum cites its sources, on a card that has a spectrum and on no other.
     for (const id of EMISSION_SCOPE_NOTE.sourceIds) {
       for (const html of [iron, sodium]) expect(cites(html, 'What the emission spectrum leaves out', source(id))).toBe(true)
       expect(card('Og')).not.toContain(source(id))

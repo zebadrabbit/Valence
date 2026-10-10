@@ -56,6 +56,125 @@
     "topic": "basics"
   },
   {
+    "id": "hydrogen",
+    "name": "Hydrogen (H₂)",
+    "formula": "H2",
+    "charge": 0,
+    "topic": "basics"
+  },
+  {
+    "id": "chlorine",
+    "name": "Chlorine (Cl₂)",
+    "formula": "Cl2",
+    "charge": 0,
+    "topic": "basics"
+  },
+  {
+    "id": "hydrogen-fluoride",
+    "name": "Hydrogen fluoride",
+    "formula": "HF",
+    "charge": 0,
+    "topic": "basics"
+  },
+  {
+    "id": "carbon-monoxide",
+    "name": "Carbon monoxide",
+    "formula": "CO",
+    "charge": 0,
+    "topic": "basics"
+  },
+  {
+    "id": "ozone",
+    "name": "Ozone",
+    "formula": "O3",
+    "charge": 0,
+    "topic": "basics"
+  },
+  {
+    "id": "hydrogen-sulfide",
+    "name": "Hydrogen sulfide",
+    "formula": "H2S",
+    "charge": 0,
+    "topic": "basics"
+  },
+  {
+    "id": "hydrogen-cyanide",
+    "name": "Hydrogen cyanide",
+    "formula": "HCN",
+    "charge": 0,
+    "topic": "basics"
+  },
+  {
+    "id": "nitric-acid",
+    "name": "Nitric acid",
+    "formula": "HNO3",
+    "charge": 0,
+    "topic": "basics"
+  },
+  {
+    "id": "sulfuric-acid",
+    "name": "Sulfuric acid",
+    "formula": "H2SO4",
+    "charge": 0,
+    "topic": "basics"
+  },
+  {
+    "id": "phosphoric-acid",
+    "name": "Phosphoric acid",
+    "formula": "H3PO4",
+    "charge": 0,
+    "topic": "basics"
+  },
+  {
+    "id": "hydroxide",
+    "name": "Hydroxide ion",
+    "formula": "OH",
+    "charge": -1,
+    "topic": "basics"
+  },
+  {
+    "id": "ammonium",
+    "name": "Ammonium ion",
+    "formula": "NH4",
+    "charge": 1,
+    "topic": "basics"
+  },
+  {
+    "id": "nitrate",
+    "name": "Nitrate ion",
+    "formula": "NO3",
+    "charge": -1,
+    "topic": "basics"
+  },
+  {
+    "id": "carbonate",
+    "name": "Carbonate ion",
+    "formula": "CO3",
+    "charge": -2,
+    "topic": "basics"
+  },
+  {
+    "id": "sulfate",
+    "name": "Sulfate ion",
+    "formula": "SO4",
+    "charge": -2,
+    "topic": "basics"
+  },
+  {
+    "id": "phosphate",
+    "name": "Phosphate ion",
+    "formula": "PO4",
+    "charge": -3,
+    "topic": "basics"
+  },
+  {
+    "id": "acetate",
+    "name": "Acetate ion",
+    "formula": "CH3COO",
+    "charge": -1,
+    "topic": "basics"
+  },
+  {
     "id": "boron-trifluoride",
     "name": "Boron trifluoride",
     "formula": "BF3",
@@ -87,6 +206,62 @@
     "id": "phosphorus-pentachloride",
     "name": "Phosphorus pentachloride",
     "formula": "PCl5",
+    "charge": 0,
+    "topic": "vsepr"
+  },
+  {
+    "id": "sulfur-trioxide",
+    "name": "Sulfur trioxide",
+    "formula": "SO3",
+    "charge": 0,
+    "topic": "vsepr"
+  },
+  {
+    "id": "phosphorus-trichloride",
+    "name": "Phosphorus trichloride",
+    "formula": "PCl3",
+    "charge": 0,
+    "topic": "vsepr"
+  },
+  {
+    "id": "carbon-tetrachloride",
+    "name": "Carbon tetrachloride",
+    "formula": "CCl4",
+    "charge": 0,
+    "topic": "vsepr"
+  },
+  {
+    "id": "dichloromethane",
+    "name": "Dichloromethane",
+    "formula": "CH2Cl2",
+    "charge": 0,
+    "topic": "vsepr"
+  },
+  {
+    "id": "chloroform",
+    "name": "Chloroform",
+    "formula": "CHCl3",
+    "charge": 0,
+    "topic": "vsepr"
+  },
+  {
+    "id": "sulfur-tetrafluoride",
+    "name": "Sulfur tetrafluoride",
+    "formula": "SF4",
+    "charge": 0,
+    "topic": "vsepr"
+  },
+  {
+    "id": "chlorine-trifluoride",
+    "name": "Chlorine trifluoride",
+    "formula": "ClF3",
+    "charge": 0,
+    "topic": "vsepr"
+  },
+  {
+    "id": "xenon-difluoride",
+    "name": "Xenon difluoride",
+    "formula": "XeF2",
     "charge": 0,
     "topic": "vsepr"
   },
@@ -168,6 +343,97 @@
     "topic": "organic"
   },
   {
+    "id": "methanol",
+    "name": "Methanol",
+    "formula": "CH3OH",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "dimethyl-ether",
+    "name": "Dimethyl ether",
+    "formula": "CH3OCH3",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "propane",
+    "name": "Propane",
+    "formula": "C3H8",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "butane",
+    "name": "Butane",
+    "formula": "CH3CH2CH2CH3",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "isobutane",
+    "name": "2-Methylpropane (isobutane)",
+    "formula": "CH(CH3)3",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "cyclohexane",
+    "name": "Cyclohexane",
+    "formula": "C6H12",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "propene",
+    "name": "Propene",
+    "formula": "C3H6",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "acetaldehyde",
+    "name": "Acetaldehyde",
+    "formula": "CH3CHO",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "formic-acid",
+    "name": "Formic acid",
+    "formula": "HCOOH",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "toluene",
+    "name": "Toluene",
+    "formula": "C6H5CH3",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "phenol",
+    "name": "Phenol",
+    "formula": "C6H5OH",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "acetonitrile",
+    "name": "Acetonitrile",
+    "formula": "CH3CN",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
+    "id": "diethyl-ether",
+    "name": "Diethyl ether",
+    "formula": "C2H5OC2H5",
+    "charge": 0,
+    "topic": "organic"
+  },
+  {
     "id": "beta-d-glucopyranose",
     "name": "β-D-Glucopyranose",
     "formula": "C6H12O6",
@@ -194,6 +460,230 @@
     "formula": "CO(NH2)2",
     "charge": 0,
     "topic": "biomolecules"
+  },
+  {
+    "id": "glycerol",
+    "name": "Glycerol",
+    "formula": "C3H5(OH)3",
+    "charge": 0,
+    "topic": "biomolecules"
+  },
+  {
+    "id": "lactic-acid",
+    "name": "L-Lactic acid",
+    "formula": "CH3CH(OH)COOH",
+    "charge": 0,
+    "topic": "biomolecules"
+  },
+  {
+    "id": "citric-acid",
+    "name": "Citric acid",
+    "formula": "C6H8O7",
+    "charge": 0,
+    "topic": "biomolecules"
+  },
+  {
+    "id": "serine",
+    "name": "L-Serine",
+    "formula": "HOCH2CH(NH2)COOH",
+    "charge": 0,
+    "topic": "biomolecules"
+  },
+  {
+    "id": "cysteine",
+    "name": "L-Cysteine",
+    "formula": "HSCH2CH(NH2)COOH",
+    "charge": 0,
+    "topic": "biomolecules"
+  },
+  {
+    "id": "adenine",
+    "name": "Adenine",
+    "formula": "C5H5N5",
+    "charge": 0,
+    "topic": "biomolecules"
+  },
+  {
+    "id": "thymine",
+    "name": "Thymine",
+    "formula": "C5H6N2O2",
+    "charge": 0,
+    "topic": "biomolecules"
+  },
+  {
+    "id": "beta-d-fructofuranose",
+    "name": "Fructose (β-D-fructofuranose)",
+    "formula": "C6H12O6",
+    "charge": 0,
+    "topic": "biomolecules"
+  },
+  {
+    "id": "sucrose",
+    "name": "Sucrose",
+    "formula": "C12H22O11",
+    "charge": 0,
+    "topic": "biomolecules"
+  },
+  {
+    "id": "palmitic-acid",
+    "name": "Palmitic acid",
+    "formula": "CH3(CH2)14COOH",
+    "charge": 0,
+    "topic": "biomolecules"
+  },
+  {
+    "id": "caffeine",
+    "name": "Caffeine",
+    "formula": "C8H10N4O2",
+    "charge": 0,
+    "topic": "everyday"
+  },
+  {
+    "id": "aspirin",
+    "name": "Aspirin (acetylsalicylic acid)",
+    "formula": "C9H8O4",
+    "charge": 0,
+    "topic": "everyday"
+  },
+  {
+    "id": "acetaminophen",
+    "name": "Acetaminophen (paracetamol)",
+    "formula": "C8H9NO2",
+    "charge": 0,
+    "topic": "everyday"
+  },
+  {
+    "id": "ibuprofen",
+    "name": "Ibuprofen",
+    "formula": "C13H18O2",
+    "charge": 0,
+    "topic": "everyday"
+  },
+  {
+    "id": "vanillin",
+    "name": "Vanillin",
+    "formula": "C8H8O3",
+    "charge": 0,
+    "topic": "everyday"
+  },
+  {
+    "id": "menthol",
+    "name": "Menthol",
+    "formula": "C10H20O",
+    "charge": 0,
+    "topic": "everyday"
+  },
+  {
+    "id": "limonene",
+    "name": "Limonene",
+    "formula": "C10H16",
+    "charge": 0,
+    "topic": "everyday"
+  },
+  {
+    "id": "capsaicin",
+    "name": "Capsaicin",
+    "formula": "C18H27NO3",
+    "charge": 0,
+    "topic": "everyday"
+  },
+  {
+    "id": "cinnamaldehyde",
+    "name": "Cinnamaldehyde",
+    "formula": "C9H8O",
+    "charge": 0,
+    "topic": "everyday"
+  },
+  {
+    "id": "ascorbic-acid",
+    "name": "Ascorbic acid (vitamin C)",
+    "formula": "C6H8O6",
+    "charge": 0,
+    "topic": "everyday"
+  },
+  {
+    "id": "theobromine",
+    "name": "Theobromine",
+    "formula": "C7H8N4O2",
+    "charge": 0,
+    "topic": "everyday"
+  },
+  {
+    "id": "nicotine",
+    "name": "Nicotine",
+    "formula": "C10H14N2",
+    "charge": 0,
+    "topic": "everyday"
+  },
+  {
+    "id": "isoamyl-acetate",
+    "name": "Isoamyl acetate",
+    "formula": "C7H14O2",
+    "charge": 0,
+    "topic": "everyday"
+  },
+  {
+    "id": "methyl-salicylate",
+    "name": "Methyl salicylate",
+    "formula": "C8H8O3",
+    "charge": 0,
+    "topic": "everyday"
+  },
+  {
+    "id": "benzaldehyde",
+    "name": "Benzaldehyde",
+    "formula": "C6H5CHO",
+    "charge": 0,
+    "topic": "everyday"
+  },
+  {
+    "id": "geosmin",
+    "name": "Geosmin",
+    "formula": "C12H22O",
+    "charge": 0,
+    "topic": "everyday"
+  },
+  {
+    "id": "dopamine",
+    "name": "Dopamine",
+    "formula": "C8H11NO2",
+    "charge": 0,
+    "topic": "everyday"
+  },
+  {
+    "id": "serotonin",
+    "name": "Serotonin",
+    "formula": "C10H12N2O",
+    "charge": 0,
+    "topic": "everyday"
+  },
+  {
+    "id": "adrenaline",
+    "name": "Adrenaline (epinephrine)",
+    "formula": "C9H13NO3",
+    "charge": 0,
+    "topic": "everyday"
+  },
+  {
+    "id": "indigo",
+    "name": "Indigo",
+    "formula": "C16H10N2O2",
+    "charge": 0,
+    "topic": "everyday"
+  },
+  {
+    "id": "isooctane",
+    "name": "2,2,4-Trimethylpentane (isooctane)",
+    "formula": "(CH3)3CCH2CH(CH3)2",
+    "charge": 0,
+    "topic": "everyday"
+  },
+  {
+    "id": "aspartame",
+    "name": "Aspartame",
+    "formula": "C14H18N2O5",
+    "charge": 0,
+    "topic": "everyday"
   },
   {
     "id": "hydronium",

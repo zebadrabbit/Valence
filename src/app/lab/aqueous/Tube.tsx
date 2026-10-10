@@ -1,4 +1,5 @@
-import { useEffect, useId, useState, type CSSProperties } from 'react'
+import { useId, type CSSProperties } from 'react'
+import { useExplore } from '@/app/lab/useExplore'
 import type { Look, ToolUse } from '@/engine/aqueous'
 import { PAGE_TEXT, TOOL_LABEL } from './messages'
 import type { TubeLook } from './stationLook'
@@ -87,25 +88,7 @@ export interface TubeProps {
  */
 export function Tube({ look, reducedMotion, describedBy, uses, used, seen, onLook }: TubeProps) {
   const clipId = useId()
-  const [open, setOpen] = useState<Look | null>(null)
-  // A tap anywhere but on a section closes the callout: a finger does not leave a section as a mouse pointer does.
-  useEffect(() => {
-    if (open === null) return
-    const away = (event: PointerEvent) => {
-      if (!(event.target instanceof Element && event.target.closest('[data-part]'))) setOpen(null)
-    }
-    document.addEventListener('pointerdown', away)
-    return () => document.removeEventListener('pointerdown', away)
-  }, [open])
-  // ponytail: a mouse pointer that crosses a section has looked at it, with no time asked of it, so a pointer swept
-  // down the tube opens all three questions. Ask for a moment's rest on a section if that is found to be done unread.
-  const show = (part: Look) => {
-    // Focus and then the click of one tap, or a press on a section already open, is one look and is said once.
-    if (open === part) return
-    setOpen(part)
-    onLook(part)
-  }
-  const close = (part: Look) => setOpen((now) => (now === part ? null : now))
+  const { open, part: looking } = useExplore<Look>(onLook)
 
   return (
     <div className="relative w-80 max-w-full shrink-0">
@@ -155,18 +138,11 @@ export function Tube({ look, reducedMotion, describedBy, uses, used, seen, onLoo
         return (
           <button
             key={part}
-            type="button"
-            data-part={part}
+            {...looking(part)}
             aria-label={looked ? `${TOOL_LABEL[part]}, ${PAGE_TEXT.lookedAt}` : TOOL_LABEL[part]}
             style={place}
             // The edge is dashed until the section has been looked at, and whole while it is being looked at; the list beside the picture says the same in words.
             className={`absolute cursor-pointer rounded-xs border-2 outline-offset-2 outline-[#18181b] focus-visible:outline-3 ${open === part ? 'border-[#18181b]' : looked ? 'border-transparent' : 'border-dashed border-[#3f3f46]/60'}`}
-            onPointerEnter={(event) => event.pointerType === 'mouse' && show(part)}
-            onPointerLeave={(event) => event.pointerType === 'mouse' && close(part)}
-            onFocus={() => show(part)}
-            onBlur={() => close(part)}
-            onClick={() => show(part)}
-            onKeyDown={(event) => event.key === 'Escape' && close(part)}
           >
             {open === part && (
               // Inside its button, so that a pointer moved onto the callout is still over the section and the callout stays.

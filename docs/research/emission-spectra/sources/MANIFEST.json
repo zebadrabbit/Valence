@@ -1254,11 +1254,6 @@
       "what": "NIST Atomic Spectra Database, help page of the lines form: how a spectrum is named, and what the relative intensities are",
       "url": "https://physics.nist.gov/PhysRefData/ASD/Html/lineshelp.html",
       "role": "primary"
-    },
-    {
-      "what": "Bulewicz, E. M. Flame Spectrum of Barium: Red and Infra-Red Bands. Nature 1956, 177, 670-671: the abstract on the publisher’s page, which is all of the paper that was read",
-      "url": "https://doi.org/10.1038/177670a0",
-      "role": "primary"
     }
   ]
 }

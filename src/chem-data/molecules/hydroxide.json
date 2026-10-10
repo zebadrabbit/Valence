@@ -1,0 +1,48 @@
+{
+  "id": "hydroxide",
+  "name": "Hydroxide ion",
+  "formula": "OH",
+  "pubchemCid": 961,
+  "topic": "basics",
+  "charge": -1,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "position2d": [
+        3,
+        0
+      ],
+      "formalCharge": -1,
+      "lonePairs": 3
+    },
+    {
+      "element": "H",
+      "position": [
+        0.45,
+        -0.1525,
+        -0.8454
+      ],
+      "position2d": [
+        2,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-961"
+}

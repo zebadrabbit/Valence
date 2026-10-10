@@ -213,6 +213,26 @@ describe('lewisLayout', () => {
     expect(atoms.filter((a) => a.charge).map((a) => `${a.symbol}${a.charge!.text}`).sort()).toEqual(['N+', 'O−'])
   })
 
+  it('draws every molecule large enough to read in the frame of a tablet held upright', () => {
+    // The Lewis view is fitted to its frame: 288 px high, and about 548 px wide at 820 px across. A bond of fewer
+    // than 30 px leaves the symbols under 11 px, so the stored layout of a long molecule is turned to lie along the frame.
+    const FRAME = { width: 548, height: 288 }
+    const bondPx = (id: string) => {
+      const { viewBox } = layoutOf(id).layout
+      return Math.min(FRAME.width / viewBox.width, FRAME.height / viewBox.height) * UNIT
+    }
+    const small = registry.molecules.map((m) => [m.id, Math.round(bondPx(m.id))] as const).filter(([, px]) => px < 30)
+    expect(small).toEqual([])
+    // The two longest: a chain of sixteen carbons, which is the smallest drawn, and capsaicin, which PubChem draws on a slant.
+    expect(Math.round(bondPx('palmitic-acid'))).toBe(33)
+    expect(bondPx('capsaicin')).toBeGreaterThan(bondPx('palmitic-acid'))
+  })
+
+  it('writes the charges of sulfate in the octet form: 2+ on the sulfur and − on each oxygen', () => {
+    const { atoms } = layoutOf('sulfate').layout
+    expect(atoms.map((a) => `${a.symbol}${a.charge?.text ?? ''}`).sort()).toEqual(['O−', 'O−', 'O−', 'O−', 'S2+'])
+  })
+
   it('keeps lone-pair dots and charges clear of the symbol and inside the view box, for every molecule', () => {
     for (const molecule of registry.molecules) {
       const { viewBox, atoms, bonds } = lewisLayout(molecule)
@@ -227,7 +247,8 @@ describe('lewisLayout', () => {
         expect(inside(atom.position)).toBe(true)
         // The circle round a charge touches neither the symbol nor the atom's own lone-pair dots.
         if (atom.charge) {
-          expect(['+', '−'], `${molecule.id} atom ${i}`).toContain(atom.charge.text)
+          // "2+" is the sulfur of sulfate, sulfuric acid and sulfur trioxide in the octet form; the view writes it smaller, in the same circle.
+          expect(['+', '−', '2+'], `${molecule.id} atom ${i}`).toContain(atom.charge.text)
           expect(distance(atom.charge.position, atom.position) - CHARGE_RADIUS, `${molecule.id} atom ${i}`).toBeGreaterThanOrEqual(atom.clear)
           for (const dot of atom.lonePairs.flat()) {
             expect(distance(dot, atom.charge.position), `${molecule.id} atom ${i}`).toBeGreaterThan(CHARGE_RADIUS + DOT_RADIUS)

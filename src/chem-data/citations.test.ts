@@ -115,7 +115,9 @@ describe('periodicCitations', () => {
     expect(summary(periodicCitations(rows, { symbol: 'H', emission: element('H').emission! }, sources)).slice(3)).toEqual([
       ['nist-asd-lines-h', ['Emission lines']],
       ['nist-asd-lines-help', ['What the emission spectrum leaves out']],
-      ['bulewicz-1956', ['What the emission spectrum leaves out']],
+      ['daidoji-1979-calcium', ['What the emission spectrum leaves out']],
+      ['daidoji-1979-strontium-barium', ['What the emission spectrum leaves out']],
+      ['human-zeegers-1975', ['What the emission spectrum leaves out']],
     ])
   })
 
