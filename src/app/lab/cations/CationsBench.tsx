@@ -109,10 +109,11 @@ export function CationsBench({ data, m, sources, state, can, warn, wrong, act, o
               // The part already shown: its heading takes focus all the same.
               if (part === shown) headings.current[part]?.focus()
             }}
-            className="grid min-h-11 flex-1 basis-48 content-center rounded-md border border-l-4 px-3 py-1 text-left outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring aria-[current]:border-foreground aria-[current]:bg-muted aria-[current]:font-medium"
+            className="group grid min-h-11 flex-1 basis-48 content-center rounded-md border border-l-4 px-3 py-1 text-left outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring aria-[current]:border-foreground aria-[current]:bg-muted aria-[current]:font-medium"
           >
             <span>{partTitle(part)}</span>
-            <span className="text-xs font-normal text-muted-foreground">
+            {/* Grey on the page's ground; on the grey ground of the part shown, or under the pointer, the grey is too faint for words this small, and they are the text's own colour. */}
+            <span className="text-xs font-normal text-muted-foreground group-hover:text-foreground group-aria-[current]:text-foreground">
               <ProgressLabel progress={progressOf(views[part])} />
             </span>
           </button>
@@ -216,7 +217,8 @@ function PartColumn({ data, m, sources, part, mode, view, completed, can, warn, 
         }}
         text={{ list: PAGE_TEXT.steps, previous: () => PAGE_TEXT.previous(title(index - 1)), next: () => PAGE_TEXT.next(title(index + 1)) }}
         after={
-          <div className="grid gap-2 text-sm">
+          // Each is a line of words with a hit area a finger tall laid over it, which reaches 12 px over and under a closed one and 24 px over an open one. They stand far enough apart, and far enough under Previous, that no area lies over another control: closer, a tap on Sources with the bench open under it closed the bench.
+          <div className="mt-4 grid gap-9 text-sm">
             {cited !== null && <Sources citations={cited} derived={SOURCES_TEXT} />}
             <Disclosure summary={PAGE_TEXT.bench}>
               <Bench data={data} sources={sources} part={part} />
@@ -348,10 +350,9 @@ function Closing({ data, part, view, title, can, act, headingRef }: ClosingProps
           onSubmit={(event) => {
             event.preventDefault()
             const action: Action = { type: 'nameIons', part, ions: [...ticked] }
+            // The engine's reasons, among them a press with no box ticked: it is asked again and nothing is sent, since the naming is said once.
             const blocked = can(action)
             if (blocked !== null) return sayOfNaming(blockedText(data, part, blocked), true)
-            // Said once: a press with no box ticked is asked again and sends nothing, since no sample holds none of the three.
-            if (ticked.length === 0) return sayOfNaming(NAMING_TEXT.none, true)
             sayOfNaming('')
             act(action)
           }}

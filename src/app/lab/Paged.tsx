@@ -68,12 +68,13 @@ export function Paged({
                   type="button"
                   aria-current={i === index ? 'true' : undefined}
                   onClick={() => go(i)}
-                  className="grid w-full grid-cols-[1.5rem_minmax(0,1fr)] gap-1 rounded-md border-l-4 border-transparent px-2 py-1.5 text-left outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring aria-[current]:border-foreground aria-[current]:bg-muted aria-[current]:font-medium"
+                  className="group grid w-full grid-cols-[1.5rem_minmax(0,1fr)] gap-1 rounded-md border-l-4 border-transparent px-2 py-1.5 text-left outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring aria-[current]:border-foreground aria-[current]:bg-muted aria-[current]:font-medium"
                 >
-                  <span className="tabular-nums text-muted-foreground">{i + 1}.</span>
+                  {/* The number and the note are grey on the page's ground. On the grey ground of the entry shown, or under the pointer, that grey measured 4.35 to 1 in the light theme, too faint for words 12 px tall: there they are the text's own colour. */}
+                  <span className="tabular-nums text-muted-foreground group-hover:text-foreground group-aria-[current]:text-foreground">{i + 1}.</span>
                   <span>
                     {heading}
-                    {note !== undefined && <span className="block text-xs font-normal text-muted-foreground">{note}</span>}
+                    {note !== undefined && <span className="block text-xs font-normal text-muted-foreground group-hover:text-foreground group-aria-[current]:text-foreground">{note}</span>}
                   </span>
                 </button>
               </li>

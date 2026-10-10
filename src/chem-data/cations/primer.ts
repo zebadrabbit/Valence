@@ -307,9 +307,9 @@ export const CATIONS_PRIMER: readonly PrimerSection[] = [
       ),
       paragraph(
         { label: 'Using it' },
-        'In part 2 the finished chart is beside you as a map. Follow the unknown along it: each thing you see, or do not see, says which branch you are on.',
+        'Once part 1 is done, part 2 has the finished chart under each step, as a map to open. Follow the unknown along it: each thing you see, or do not see, says which branch you are on.',
         [],
-        "that part 2 shows the finished chart is this lab's own (spec 17.3).",
+        "that part 2 shows the finished chart, where it shows it and from when, is this lab's own (spec 17.3 and 17.8).",
       ),
     ],
   },
