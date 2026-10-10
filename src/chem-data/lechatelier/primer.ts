@@ -70,7 +70,7 @@ export const LECHATELIER_PRIMER: readonly PrimerSection[] = [
       ),
       paragraph(
         { label: 'A guide only' },
-        'The principle tells you which way a system will go. It does not say why it goes that way: it is a rule of thumb that turns out to be right.',
+        'The principle tells you which way a system will go. It does not say why it goes that way: it is a guide to what happens, and no explanation of it.',
         [[PRINCIPLE, 'the note at the head of the page, said again after each of its parts', 'the principle is a quick means of finding the outcome, and explains nothing.']],
       ),
       paragraph(
@@ -181,7 +181,7 @@ export const LECHATELIER_PRIMER: readonly PrimerSection[] = [
       ),
       paragraph(
         { label: 'Methyl violet' },
-        'Methyl violet is yellow in strong acid and violet in water. It changes between pH 0.0 and pH 1.6, which is very acid. Where both forms are in the liquid, the colour seen is a mixture of the two.',
+        'Methyl violet is yellow in strong acid and violet in water. It changes between pH 0.0 and pH 1.6. Where both forms are in the liquid, the colour seen is a mixture of the two.',
         [
           [RANGES, 'the first row of the table', 'methyl violet changes over the range from pH 0.0 to pH 1.6, from yellow at the lower end.'],
           [HANDOUT, 'its list of the equilibria studied, and its part A', 'the form of methyl violet that holds a hydrogen ion is yellow and the other is violet, and that the indicator is violet in distilled water.'],
