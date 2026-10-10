@@ -310,7 +310,7 @@ export function blockedText(part: PartId, blocked: Blocked, field?: Field): stri
 export const WARNING_TEXT: Record<Warning, { title: string; body: string }> = {
   'lid-off': {
     title: 'The lid is off',
-    body: 'Most of the heat a cup loses leaves from its open top. With the lid off, the highest or the lowest temperature will be further from the true one, and a run started this way does not count. Put the lid on first.',
+    body: 'A cup with no lid loses heat from its open top. With the lid off, the highest or the lowest temperature will be further from the true one, and a run started this way does not count. Put the lid on first.',
   },
   'not-stirring': {
     title: 'The stirrer is still',

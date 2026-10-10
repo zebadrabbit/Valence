@@ -183,7 +183,7 @@ export const CALORIMETRY_PRIMER: readonly PrimerSection[] = [
       ),
       paragraph(
         { label: 'Lid and stirrer' },
-        'The lid matters because most of the heat that still escapes leaves from the open top of the liquid. The stirrer matters because the probe reads only the liquid that touches it. The cup has to be kept mixed for that reading to be the temperature of all of it.',
+        'The lid matters because the top of the liquid has no foam round it: with no lid, heat escapes there. The stirrer matters because the probe reads only the liquid that touches it. The cup has to be kept mixed for that reading to be the temperature of all of it.',
         [
           [MEASURING, CUP, 'some heat still escapes where the liquid meets the air, and that a lid reduces that loss.'],
           [METAL_BALL, CALORIMETER, 'a stirrer keeps what is in the calorimeter well mixed, so that it is heated evenly.'],
