@@ -3,6 +3,7 @@ import { valenceElectrons } from './element'
 import { angleDeg, dihedralDeg, distance } from './geometry'
 import { periodicTableSchema, registrySchema, type PeriodicElement, type Registry, type Source } from './schema'
 import { aqueousSchema, type AqueousData } from './aqueous/data'
+import { calorimetrySchema, type CalorimetryData } from './calorimetry/data'
 import { brightestOf, extentOf, flameSchema, rangeOf, type FlameData } from './flame/data'
 import { titrationSchema } from './titration/data'
 
@@ -466,5 +467,42 @@ export function validateFlame(input: unknown, sources: readonly Source[], option
     ...checkSourceIds(parsed.data, 'flame', Array.isArray(sources) ? sources : []),
     ...checkPublished(parsed.data, 'flame'),
     ...checkProse(parsed.data, 'flame', Array.isArray(names) ? names : []),
+  ]
+}
+
+/** What the calorimetry lab's record must hold together beyond its shape: its ids, what goes into each cup, the four candidates, and ranges that run upward. */
+function checkCalorimetry(data: CalorimetryData): string[] {
+  const errors = [...duplicates(data.reagents.map((r) => r.id), 'reagents')]
+  const [, , metal] = data.parts
+  const known = new Set([...data.reagents.map((r) => r.id), 'water'])
+  for (const part of data.parts) {
+    if (part.id !== 'metal') errors.push(...duplicates(part.enthalpy.terms.map((t) => t.id), `part "${part.id}": terms`), ...duplicates(part.enthalpy.infiniteDilution.terms.map((t) => t.id), `part "${part.id}": terms at endless dilution`))
+    // The piece of part 3 is named by no reagent: which of the candidates it is, is the run's to find.
+    for (const amount of part.amounts) if (!known.has(amount.reagentId) && !(part.id === 'metal' && 'about' in amount)) errors.push(`part "${part.id}": unknown reagent "${amount.reagentId}"`)
+  }
+  errors.push(...duplicates(metal.candidateIds, 'candidates'))
+  for (const candidate of metal.candidateIds) if (!data.reagents.some((r) => r.id === candidate && r.form === 'metal')) errors.push(`candidates: "${candidate}" is not a metal of the record`)
+  for (const [name, parameter] of Object.entries(data.parameters)) {
+    if (Array.isArray(parameter.value) && parameter.value[0] > parameter.value[1]) errors.push(`parameters.${name}: a range runs from its lower end to its upper`)
+  }
+  return errors
+}
+
+/**
+ * Checks the calorimetry lab's record against the sources it cites: the schema; that its ids hold together; that
+ * every source named exists; that each `published` reads as the number stored beside it; and that no name, note,
+ * working or rationale holds institution text. Returns a list of problems; an empty list means the record is
+ * valid. Never throws, whatever it is given. That each value is what its source prints is the build script's to
+ * hold to the manifest, and the values worked out from cited ones are worked out again there.
+ */
+export function validateCalorimetry(input: unknown, sources: readonly Source[], options: ValidateOptions = {}): string[] {
+  const parsed = calorimetrySchema.safeParse(input)
+  if (!parsed.success) return schemaErrors(parsed.error.issues)
+  const names = options?.institutionNames
+  return [
+    ...checkCalorimetry(parsed.data),
+    ...checkSourceIds(parsed.data, 'calorimetry', Array.isArray(sources) ? sources : []),
+    ...checkPublished(parsed.data, 'calorimetry'),
+    ...checkProse(parsed.data, 'calorimetry', Array.isArray(names) ? names : []),
   ]
 }

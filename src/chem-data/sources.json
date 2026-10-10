@@ -948,5 +948,175 @@
     "id": "fisher-sds-srcl2-hexahydrate",
     "url": "https://www.fishersci.com/store/msds?partNumber=S541500&productDescription=STRONTIUM+CHLORIDE+HEXAHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
     "citation": "Fisher Scientific Company. Safety Data Sheet: Strontium chloride hexahydrate, catalogue number S541; revision 6 of 18 December 2025 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "nist-webbook-water-25c",
+    "url": "https://webbook.nist.gov/cgi/fluid.cgi?Action=Load&ID=C7732185&Type=IsoBar&Digits=5&P=0.1&THigh=25&TLow=25&TInc=1&RefState=DEF&TUnit=C&PUnit=MPa&DUnit=g%2Fml&HUnit=kJ%2Fkg&WUnit=m%2Fs&VisUnit=uPa*s&STUnit=N%2Fm",
+    "citation": "Lemmon, E. W.; Bell, I. H.; Huber, M. L.; McLinden, M. O. Thermophysical Properties of Fluid Systems. In NIST Chemistry WebBook, NIST Standard Reference Database Number 69; Linstrom, P. J., Mallard, W. G., Eds.; National Institute of Standards and Technology: Gaithersburg, MD. https://doi.org/10.18434/T4D303 Isobaric properties for water at 0.1 MPa and 25 °C, in units of mass; read and not kept (retrieved 2026-10-09)."
+  },
+  {
+    "id": "chemguide-energetics-introduction",
+    "url": "https://www.chemguide.co.uk/physical/energetics/basic.html",
+    "citation": "Clark, J. Chemguide: An Introduction to Chemical Energetics; 2010, modified May 2013; read and not kept (retrieved 2026-10-09)."
+  },
+  {
+    "id": "chemguide-enthalpy-neutralisation",
+    "url": "https://www.chemguide.co.uk/physical/energetics/neutralisation.html",
+    "citation": "Clark, J. Chemguide: Enthalpy Change of Neutralisation; 2010, modified July 2013; read and not kept (retrieved 2026-10-09)."
+  },
+  {
+    "id": "chemguide-enthalpy-solution",
+    "url": "https://www.chemguide.co.uk/physical/energetics/solution.html",
+    "citation": "Clark, J. Chemguide: Enthalpies of Solution and Hydration; 2010, modified October 2018; read and not kept (retrieved 2026-10-09)."
+  },
+  {
+    "id": "chemguide-measuring-enthalpy",
+    "url": "https://www.chemguide.co.uk/physical/energetics/practical.html",
+    "citation": "Clark, J. Chemguide: Simple Measurements of Enthalpy Changes; 2010, modified January 2015; read and not kept (retrieved 2026-10-09)."
+  },
+  {
+    "id": "purdue-temperature",
+    "url": "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch5/index.php",
+    "citation": "Bodner Research Web, Purdue University. General Chemistry Help, Thermochemistry: Temperature; read and not kept (retrieved 2026-10-09)."
+  },
+  {
+    "id": "purdue-heat",
+    "url": "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch5/heat.php",
+    "citation": "Bodner Research Web, Purdue University. General Chemistry Help, Thermochemistry: Heat; read and not kept (retrieved 2026-10-09)."
+  },
+  {
+    "id": "purdue-calorimetry",
+    "url": "https://www.chem.purdue.edu/gchelp/howtosolveit/Thermodynamics/Calorimetry.html",
+    "citation": "Purdue University, Department of Chemistry. General Chemistry Help, How to Solve It: Calorimetry; read and not kept (retrieved 2026-10-09)."
+  },
+  {
+    "id": "nasa-heat-transfer",
+    "url": "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/heat-transfer-3-2/",
+    "citation": "National Aeronautics and Space Administration, Glenn Research Center. Beginner's Guide to Aeronautics: Heat Transfer; read and not kept (retrieved 2026-10-09)."
+  },
+  {
+    "id": "hyperphysics-specific-heat",
+    "url": "http://hyperphysics.phy-astr.gsu.edu/hbase/thermo/spht.html",
+    "citation": "Nave, C. R. HyperPhysics: Specific Heat. Georgia State University; read and not kept (retrieved 2026-10-09)."
+  },
+  {
+    "id": "ncsu-calorimetry-lab",
+    "url": "https://www.webassign.net/question_assets/ncsugenchem202labv1/lab_4/manual.html",
+    "citation": "North Carolina State University, Department of Chemistry. General chemistry laboratory manual, Lab 4: Calorimetry. Advanced Instructional Systems, Inc. and North Carolina State University, 2010-2013. Read on the pages that WebAssign serves, linked here; read and not kept (retrieved 2026-10-09)."
+  },
+  {
+    "id": "davidson-specific-heat-copper",
+    "url": "https://www.chm.davidson.edu/vce/Calorimetry/SpecificHeatCapacityOfCopper.html",
+    "citation": "Blauch, D. N. Virtual Chemistry Experiments: Calorimetry, Specific Heat Capacity of Copper, version 3.0. Davidson College, 2000, 2014, 2023; read and not kept (retrieved 2026-10-09)."
+  },
+  {
+    "id": "davidson-heat-of-solution",
+    "url": "https://www.chm.davidson.edu/vce/Calorimetry/HeatOfSolutionOfAmmoniumNitrate.html",
+    "citation": "Blauch, D. N. Virtual Chemistry Experiments: Calorimetry, Heat of Solution of Ammonium Nitrate, version 3.0. Davidson College, 2000, 2014, 2023; read and not kept (retrieved 2026-10-09)."
+  },
+  {
+    "id": "davidson-heat-of-neutralization",
+    "url": "https://www.chm.davidson.edu/vce/Calorimetry/HeatOfNeutralization.html",
+    "citation": "Blauch, D. N. Virtual Chemistry Experiments: Calorimetry, Heat of Neutralization, version 3.0. Davidson College, 2000, 2014, 2023; read and not kept (retrieved 2026-10-09)."
+  },
+  {
+    "id": "docbrown-calorimeter-methods",
+    "url": "https://www.docbrown.info/page07/delta1Hc.htm",
+    "citation": "Brown, P. Doc Brown's Chemistry, advanced level revision notes: Experimental methods for determining enthalpy changes; read and not kept (retrieved 2026-10-09)."
+  },
+  {
+    "id": "wards-sds-aa0295",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=9c057dd07513669c1178f356251b1e62ec5e9b74&vid=9c057dd07513669c1178f356251b1e62ec5e9b74&prid=original&clid=SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Ammonium Nitrate, SDS No. AA0295; revision date June 11, 2024 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-nh4no3",
+    "url": "https://www.fishersci.com/store/msds?partNumber=A676500&productDescription=AMMONIUM+NITRATE&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Ammonium nitrate, catalogue number A676; revision 7 of 18 December 2025 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-98",
+    "url": "https://cameochemicals.noaa.gov/chemical/98",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Ammonium Nitrate (chemical 98); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-34",
+    "url": "https://www.flinnsci.com/sds_34-aluminum/sds_34",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Aluminum, SDS number sds_34; revision date June 29, 2015 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-aa0145",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=a080627ca3e61e991757a9aab5ae1e6ad631be12&vid=a080627ca3e61e991757a9aab5ae1e6ad631be12&prid=original&clid=SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Aluminum Metal, SDS No. AA0145; revision date June 4, 2024 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-14008",
+    "url": "https://cameochemicals.noaa.gov/chemical/14008",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Aluminum Powder, Uncoated (chemical 14008); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-416",
+    "url": "https://www.flinnsci.com/sds_416-iron/sds_416",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Iron, SDS number sds_416; revision date May 21, 2015 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "espi-sds-iron",
+    "url": "https://www.espimetals.com/index.php/msds/151-Iron",
+    "citation": "ESPI Metals. Safety Data Sheet: Iron - foil, sheet, rod, wire, target, shot, pieces, flake; revised or reviewed July 2015 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-iron-filings",
+    "url": "https://www.fishersci.com/store/msds?partNumber=I57500&productDescription=IRON+METAL&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Iron Metal Filings, Fine, catalogue number I57; revision 5 of 18 December 2025 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-ix0209",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=4b95173d3d2324324da8db69076b6f4b77e94ef8&vid=4b95173d3d2324324da8db69076b6f4b77e94ef8&prid=original&clid=SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Iron Metal Filings, Degreased, SDS No. IX0209; revision date August 26, 2024 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-11656",
+    "url": "https://cameochemicals.noaa.gov/chemical/11656",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Iron, [Powdered] (chemical 11656); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-859",
+    "url": "https://www.flinnsci.com/sds_859-zinc/sds_859",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Zinc, SDS number sds_859; revision date September 1, 2015 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-zz0022",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=ee21d2b9345332c41e90414576d729dc74563d70&vid=ee21d2b9345332c41e90414576d729dc74563d70&prid=original&clid=SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Zinc Shot, SDS No. ZZ0022; revision date November 15, 2024 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-zinc-granular-mossy",
+    "url": "https://www.fishersci.com/store/msds?partNumber=Z15500&productDescription=ZINC+METAL+MOSSY&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Zinc, Granular and Mossy, catalogue numbers Z2, Z11, Z15 and Z16; revision 6 of 18 December 2025 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-4814",
+    "url": "https://cameochemicals.noaa.gov/chemical/4814",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Zinc Dust (chemical 4814); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-822",
+    "url": "https://www.flinnsci.com/sds_822-tin/sds_822",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Tin, SDS number sds_822; revision date March 25, 2014 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-tt0180",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=b0622e37f1ac1c2f5f9454848b79b43569d85a1c&vid=b0622e37f1ac1c2f5f9454848b79b43569d85a1c&prid=original&clid=SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Tin Metal, Shot, SDS No. TT0180; revision date November 11, 2024 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-tin",
+    "url": "https://www.fishersci.com/store/msds?partNumber=T128500&productDescription=TIN+METAL+GRANULAR&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Tin, catalogue numbers T123, T127, T128 and T131; revision 6 of 18 December 2025 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-25075",
+    "url": "https://cameochemicals.noaa.gov/chemical/25075",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Tin (chemical 25075); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-09; no copy is kept)."
   }
 ]
