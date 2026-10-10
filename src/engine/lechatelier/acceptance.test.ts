@@ -280,8 +280,11 @@ describe('no state a learner can reach leaves them unable to go on (spec 18.7, f
           const systemId = SYSTEM_IDS[Math.floor(random() * SYSTEM_IDS.length)]!
           const possible = offered(systemId).filter((action) => can(m, state, action) === null)
           expect(possible.length, `${mode}, seed ${seed}, step ${step}`).toBeGreaterThan(0)
-          state = reloaded(reduce(m, state, possible[Math.floor(random() * possible.length)]!))
+          state = reduce(m, state, possible[Math.floor(random() * possible.length)]!)
+          // Through storage every twentieth step: a reload works every run of every system out again, which at every step would make this the slowest test of the lab many times over.
+          if (step % 20 === 19) state = reloaded(state)
         }
+        state = reloaded(state)
         // From wherever that left it: work each system again where it is begun or over, then carefully through.
         for (const systemId of SYSTEM_IDS) {
           if (can(m, state, { type: 'workAgain', system: systemId }) === null) state = run(m, state, [{ type: 'workAgain', system: systemId }])
