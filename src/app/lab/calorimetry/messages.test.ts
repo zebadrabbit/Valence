@@ -1,13 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import { calorimetryData as data, candidatesOf, PART_IDS, type PartId } from '@/chem-data/calorimetry/data'
 import { findInstitutionText } from '@/chem-data/denylist'
-import { FIELDS, can, createLab, modelFrom, parseSig3, partView, reduce, runOutcomes, type Blocked, type CalorimetryState, type Field, type Reason, type Slip } from '@/engine/calorimetry'
+import { FIELDS, can, createLab, modelFrom, parseChange, parseSig3, parseTemperature, partView, reduce, runOutcomes, type Blocked, type CalorimetryState, type Field, type Reason, type Slip } from '@/engine/calorimetry'
 import { entryActions, looks, run, wholeRun, workCup, worksheetValues } from '@/engine/calorimetry/testkit'
 import {
   BENCH_TEXT,
   CHANGE_LABEL,
   DIRECTION_LABEL,
   MODE_TEXT,
+  PAGE_TEXT,
   PART_AIM,
   PROGRESS_TEXT,
   WARNING_BUTTONS,
@@ -17,7 +18,9 @@ import {
   candidateLines,
   cupText,
   describeGraph,
+  enteredText,
   entryFeedback,
+  entryText,
   expectedText,
   fieldLabel,
   formatHelp,
@@ -68,6 +71,23 @@ describe('figures as they are written', () => {
     expect(valueText(data, 'metal', 'zinc-piece')).toBe('zinc')
     expect(DIRECTION_LABEL).toEqual({ out: 'gave heat out', in: 'took heat in' })
     expect(metalChoices(data)).toEqual([{ value: 'aluminium-piece', label: 'aluminium' }, { value: 'iron-piece', label: 'iron' }, { value: 'zinc-piece', label: 'zinc' }, { value: 'tin-piece', label: 'tin' }])
+  })
+
+  it('writes a typed entry in its field as the number alone, as it was typed, so that the parsers read it back as the same entry', () => {
+    expect([entryText(200), entryText(5), entryText(-57)]).toEqual(['20.0', '0.5', '−5.7'])
+    expect([entryText(sig('2840')), entryText(sig('0.0500')), entryText(sig('-56.8')), entryText(sig('.379'))]).toEqual(['2840', '0.0500', '−56.8', '0.379'])
+    for (const tenths of [200, 268, 5, 999]) expect(parseTemperature(entryText(tenths))).toBe(tenths)
+    for (const tenths of [68, -57, 0]) expect(parseChange(entryText(tenths))).toBe(tenths)
+    for (const typed of ['2840', '0.0500', '-56.8', '24.2', '0.379', '1230000']) expect(parseSig3(entryText(sig(typed)))).toEqual(sig(typed))
+  })
+
+  it('writes an entry beside its label as the number alone, since the label gives the unit, and a choice in words', () => {
+    expect(enteredText(data, 'start', 200)).toBe('20.0')
+    expect(enteredText(data, 'perMole', sig('-56.8'))).toBe('−56.8')
+    expect(enteredText(data, 'direction', 'in')).toBe('took heat in')
+    expect(enteredText(data, 'metal', 'tin-piece')).toBe('tin')
+    // Every typed entry's label does give its unit.
+    for (const part of PART_IDS) for (const field of FIELDS[part]) if (field !== 'direction' && field !== 'metal') expect(fieldLabel(part, field)).toMatch(/, in (°C|J|mol|kJ\/mol|J\/\(g·°C\))/)
   })
 })
 
@@ -312,6 +332,32 @@ describe('a run that is checked', () => {
   })
 })
 
+describe("the page's own words", () => {
+  it('names the list of parts and the two ways on by where they go', () => {
+    expect(PAGE_TEXT.list).toBe('Parts')
+    expect([PAGE_TEXT.previous('Part 1: Neutralisation'), PAGE_TEXT.next('Part 2: Dissolving')]).toEqual(['Previous: Part 1: Neutralisation', 'Next: Part 2: Dissolving'])
+  })
+
+  it('names the graph and its two axes with their units, its marks, the keys that move along it and the two buttons under it', () => {
+    expect(PAGE_TEXT.graphPicture).toBe("The logger's graph: temperature up the side against time along the bottom")
+    expect([PAGE_TEXT.temperatureAxis, PAGE_TEXT.timeAxis]).toEqual(['Temperature, in °C', 'Time since the first reading, in minutes'])
+    expect([PAGE_TEXT.lookedAt, PAGE_TEXT.notLookedAt, PAGE_TEXT.changeMark]).toEqual(['looked at', 'not looked at yet', 'the change was started here'])
+    expect(PAGE_TEXT.arrows).toBe('With the keyboard, the left and right arrow keys move from one reading to the next.')
+    expect([PAGE_TEXT.earlier, PAGE_TEXT.later, PAGE_TEXT.inWords]).toEqual(['Earlier reading', 'Later reading', 'The graph in words'])
+    // What the name of a point says of one that has been looked at is the key's own word.
+    expect(pointLabel(m, 3, true)).toBe(`Look at the reading at 45 s, ${PAGE_TEXT.lookedAt}`)
+  })
+
+  it("names an entry's buttons and the card of a run's outcome, and says what changing an entry does", () => {
+    expect([PAGE_TEXT.enter, PAGE_TEXT.change, PAGE_TEXT.cancel, PAGE_TEXT.outcome]).toEqual(['Enter', 'Change', 'Cancel', 'This run'])
+    expect(PAGE_TEXT.changeNote).toBe('Changing an entry empties the entries under it.')
+    // It is so: an entry made again empties every entry after it.
+    const state = run(m, ready('neutralisation'), entryActions('neutralisation', worksheetValues(m, ready('neutralisation'), 'neutralisation')).slice(0, 4))
+    const again = reduce(m, state, { type: 'enter', part: 'neutralisation', field: 'start', value: view(state, 'neutralisation').worksheet[0]!.value! })
+    expect(view(again, 'neutralisation').worksheet.map((entry) => entry.value !== null)).toEqual([true, false, false, false, false, false, false])
+  })
+})
+
 describe('progress and modes', () => {
   it('says how far a part has come, at every stage', () => {
     const P = 'dissolving'
@@ -355,6 +401,7 @@ describe('every sentence of the module', () => {
       ...Object.values(WARNING_TEXT).flatMap((warning) => [warning.title, warning.body]),
       ...Object.values(MODE_TEXT),
       ...Object.values(PROGRESS_TEXT),
+      ...Object.values(PAGE_TEXT).map((text) => (typeof text === 'string' ? text : text('Part 1'))),
       ...REASONS.map((reason) => reasonText(m, reason)),
       ...PART_IDS.flatMap((part) => FIELDS[part].flatMap((field: Field) => [fieldLabel(part, field), formatHelp(field), relationText(data, part, field), ...BLOCKED.map((blocked) => blockedText(part, blocked, field))])),
     ]

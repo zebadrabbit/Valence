@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { CALORIMETRY_PROGRESS } from './app/activities'
+import { ACTIVITIES } from './app/activities'
 import { calorimetryData, PART_IDS } from './chem-data/calorimetry/data'
 import { readings } from './engine/calorimetry/cup'
 import { modelFrom } from './engine/calorimetry/model'
@@ -17,7 +17,8 @@ describe('the calorimetry lab', () => {
   it("pins the model, the draw, the cup's curve, the worksheet, the stored shape and the stored entry's version together: changing any of them means raising the calorimetry entry's version in src/app/activities.ts", () => {
     const state = createLab(1, 'guided')
     expect({
-      ...CALORIMETRY_PROGRESS,
+      entry: ACTIVITIES[3].entry,
+      version: ACTIVITIES[3].version,
       model: modelFrom(calorimetryData),
       lab: labSetup(PINNED_MODEL, 1),
       runs: PART_IDS.map((part) => runSetup(PINNED_MODEL, 1, part, 0)),

@@ -6,16 +6,16 @@ import { searchPalette, stepActive, type PaletteItem } from './search'
 const labels = (query: string) => searchPalette(PALETTE_ITEMS, query).map((item) => item.label)
 
 describe('PALETTE_ITEMS', () => {
-  it('holds the 101 molecules, the three labs, the mechanism, the six pages, the periodic table and its 118 elements, with unique ids', () => {
-    expect(PALETTE_ITEMS).toHaveLength(101 + 3 + 1 + 6 + 1 + 118)
+  it('holds the 101 molecules, the four labs, the mechanism, the six pages, the periodic table and its 118 elements, with unique ids', () => {
+    expect(PALETTE_ITEMS).toHaveLength(101 + 4 + 1 + 6 + 1 + 118)
     expect(new Set(PALETTE_ITEMS.map((item) => item.id)).size).toBe(PALETTE_ITEMS.length)
   })
 
   it('lists the periodic table and then the elements, by atomic number, after the molecules, labs and pages', () => {
     const kinds = PALETTE_ITEMS.map((item) => item.kind.replace(/ .*/, ''))
-    expect(kinds.slice(0, 111)).toEqual([...Array<string>(101).fill('Molecule'), 'Lab', 'Lab', 'Lab', 'Mechanism', ...Array<string>(6).fill('Page')])
-    expect(PALETTE_ITEMS[111]).toEqual({ id: 'page:/explore/elements', label: 'Periodic table', kind: 'Page', to: '/explore/elements' })
-    expect(PALETTE_ITEMS.slice(112).map((item) => item.label)).toEqual(ELEMENT_INDEX.map((e) => e.name))
+    expect(kinds.slice(0, 112)).toEqual([...Array<string>(101).fill('Molecule'), 'Lab', 'Lab', 'Lab', 'Lab', 'Mechanism', ...Array<string>(6).fill('Page')])
+    expect(PALETTE_ITEMS[112]).toEqual({ id: 'page:/explore/elements', label: 'Periodic table', kind: 'Page', to: '/explore/elements' })
+    expect(PALETTE_ITEMS.slice(113).map((item) => item.label)).toEqual(ELEMENT_INDEX.map((e) => e.name))
   })
 
   it('links an element to its page, with its symbol where a molecule has its formula', () => {
@@ -36,8 +36,9 @@ describe('PALETTE_ITEMS', () => {
   })
 
   it('sends each lab and the mechanism to its own page', () => {
-    expect(PALETTE_ITEMS.filter((item) => item.kind === 'Lab').map((item) => item.to)).toEqual(['/lab/titration', '/lab/aqueous', '/lab/flame'])
+    expect(PALETTE_ITEMS.filter((item) => item.kind === 'Lab').map((item) => item.to)).toEqual(['/lab/titration', '/lab/aqueous', '/lab/flame', '/lab/calorimetry'])
     expect(PALETTE_ITEMS.find((item) => item.to === '/lab/flame')).toEqual({ id: 'lab:flame', label: 'Flame tests', kind: 'Lab', to: '/lab/flame' })
+    expect(PALETTE_ITEMS.find((item) => item.to === '/lab/calorimetry')).toEqual({ id: 'lab:calorimetry', label: 'Calorimetry', kind: 'Lab', to: '/lab/calorimetry' })
     expect(PALETTE_ITEMS.filter((item) => item.kind === 'Mechanism').map((item) => item.to)).toEqual(['/learn/hcl-nahco3'])
   })
 

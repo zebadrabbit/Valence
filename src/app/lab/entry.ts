@@ -3,9 +3,11 @@ import { useLayoutEffect, useRef } from 'react'
 // A field that takes one entry, at the bench or in the notebook: how it stands once the entry is made, and where
 // focus goes when it changes. It holds no rule of its own: `held` is the engine's word, asked through `can`.
 
+const ENTRY_INPUT_LOOK = 'rounded-md border bg-background px-2 tabular-nums outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:bg-muted aria-invalid:border-destructive'
 /** The field itself. Disabled, it shows what was entered and is not drawn faint, so that the entry can be read. */
-export const ENTRY_INPUT =
-  'h-8 w-24 rounded-md border bg-background px-2 tabular-nums outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:bg-muted aria-invalid:border-destructive'
+export const ENTRY_INPUT = `h-8 w-24 ${ENTRY_INPUT_LOOK}`
+/** The same field a finger's height tall, with text of the size at which a tablet's browser does not zoom the page in on a field that takes focus. */
+export const ENTRY_INPUT_TALL = `h-11 w-28 text-base ${ENTRY_INPUT_LOOK}`
 
 export interface FieldState {
   /** The field takes typing now, and its label is the one that waits for an entry. */

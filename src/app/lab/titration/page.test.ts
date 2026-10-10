@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { MemoryRouter } from 'react-router'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { ACTIVITIES } from '@/app/activities'
+import { Field } from '@/app/lab/Field'
 import { ROLE } from '@/app/lab/roles'
 import { NARROW_NOTICE, SHELL_TEXT } from '@/app/lab/shellText'
 import { labProgress } from '@/app/lab/useLabProgress'
@@ -15,7 +16,7 @@ import { can, checklist, countingTrials, createLab, currentTrial, modelFrom, tit
 import { honestReading, learner } from '@/engine/titration/testkit'
 import { Guide } from './Guide'
 import { BLOCKED_TEXT, CAUSE_TEXT, completedText, GUIDE_TRIAL_OVER, INVALID_ENTRY_TEXT, NOTEBOOK_TEXT, outcomeRole, OUTCOME_TEXT, SUMMARY, WARNING_TEXT, workedLines } from './messages'
-import { Field, NotebookPanel, TrialRecord } from './Notebook'
+import { NotebookPanel, TrialRecord } from './Notebook'
 import { TitrationPage } from './TitrationPage'
 import labCss from '../lab.css?raw'
 
@@ -26,7 +27,7 @@ const app = vi.hoisted(() => ({ store: undefined as unknown as KeyValueStore, pe
 vi.mock('@/app/AppState', () => ({ useAppState: () => ({ store: app.store, persistent: app.persistent, reducedMotion: false }) }))
 vi.mock('@/app/useMediaQuery', () => ({ useMediaQuery: () => app.wide }))
 
-const [titration, aqueous, flame, mechanism] = ACTIVITIES
+const [titration, aqueous, flame, calorimetry, mechanism] = ACTIVITIES
 const draw = (element: ReactElement) => renderToStaticMarkup(createElement(MemoryRouter, null, element))
 const save = (state: TitrationState) => saveEntry(app.store, titration.entry, titration.version, state)
 const count = (html: string, pattern: RegExp) => [...html.matchAll(pattern)].length
@@ -88,7 +89,7 @@ describe('the list of labs', () => {
 
   it('links the titration lab, with its status as Home gives it', () => {
     const [first, ...rest] = items()
-    expect(rest).toHaveLength(2)
+    expect(rest).toHaveLength(3)
     expect([...first!.matchAll(/<a [^>]*href="([^"]*)"[^>]*>(.*?)<\/a>/g)].map((match) => [match[1], match[2]])).toEqual([['/lab/titration', titration.title]])
     expect(text(first!)).toContain('|Not started|')
     save(createLab(1, 'guided'))
@@ -117,11 +118,22 @@ describe('the list of labs', () => {
     expect(text(items()[1]!)).toContain('|Not started|')
   })
 
+  it('links the calorimetry lab the same way, fourth, with its own status', () => {
+    const fourth = () => items()[3]!
+    expect([...fourth().matchAll(/<a [^>]*href="([^"]*)"[^>]*>(.*?)<\/a>/g)].map((match) => [match[1], match[2]])).toEqual([['/lab/calorimetry', calorimetry.title]])
+    expect(calorimetry.title).toBe('Calorimetry')
+    expect(text(fourth())).toContain('|Not started|')
+    saveEntry(app.store, calorimetry.entry, calorimetry.version, { status: 'completed' })
+    expect(text(fourth())).toContain('|Completed|')
+    expect(text(items()[2]!)).toContain('|Not started|')
+    expect(items()).toHaveLength(4)
+  })
+
   it('Home links every activity, the mechanism too, each with its own status, and shows none as planned', () => {
     saveEntry(app.store, mechanism.entry, mechanism.version, { status: 'completed' })
     const home = [...draw(createElement(Home)).matchAll(/<li[^>]*>(.*?)<\/li>/gs)].map((match) => match[1]!)
     const item = (title: string) => home.find((html) => html.includes(title))!
-    for (const [activity, status] of [[titration, 'Not started'], [aqueous, 'Not started'], [flame, 'Not started'], [mechanism, 'Completed']] as const) {
+    for (const [activity, status] of [[titration, 'Not started'], [aqueous, 'Not started'], [flame, 'Not started'], [calorimetry, 'Not started'], [mechanism, 'Completed']] as const) {
       expect(item(activity.title)).toMatch(new RegExp(`<a [^>]*href="${activity.to}"`))
       expect(text(item(activity.title))).toContain(`|${status}|`)
       expect(text(item(activity.title))).not.toContain(SHELL_TEXT.planned)

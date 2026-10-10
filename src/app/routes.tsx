@@ -32,6 +32,7 @@ export const routes: RouteObject[] = [
       { path: 'lab/titration', lazy: async () => ({ Component: (await import('@/app/lab/titration/TitrationPage')).TitrationPage }) },
       { path: 'lab/aqueous', lazy: async () => ({ Component: (await import('@/app/lab/aqueous/AqueousPage')).AqueousPage }) },
       { path: 'lab/flame', lazy: async () => ({ Component: (await import('@/app/lab/flame/FlamePage')).FlamePage }) },
+      { path: 'lab/calorimetry', lazy: async () => ({ Component: (await import('@/app/lab/calorimetry/CalorimetryPage')).CalorimetryPage }) },
       { path: 'learn', element: <Learn /> },
       { path: 'learn/hcl-nahco3', lazy: async () => ({ Component: (await import('@/app/learn/MechanismPage')).MechanismPage }) },
       { path: 'settings', element: <Settings /> },

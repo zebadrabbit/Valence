@@ -11,15 +11,10 @@ export const ACTIVITIES = [
   { entry: ENTRY.aqueous, version: 1, kind: 'Lab', title: 'Reactions in aqueous solution', to: '/lab/aqueous' },
   // src/flame-version.test.ts pins what a stored run of this lab is judged against to this entry and this version.
   { entry: ENTRY.flame, version: 1, kind: 'Lab', title: 'Flame tests', to: '/lab/flame' },
+  // src/calorimetry-version.test.ts pins what a stored run of this lab is judged against to this entry and this version.
+  { entry: ENTRY.calorimetry, version: 1, kind: 'Lab', title: 'Calorimetry', to: '/lab/calorimetry' },
   { entry: ENTRY.mechanism, version: 1, kind: 'Mechanism', title: 'HCl + NaHCO₃, step by step', to: '/learn/hcl-nahco3' },
 ] as const
-
-/**
- * The calorimetry lab's stored entry and its version. The lab has an engine and no page yet, so it is not among the
- * activities above, which Home lists: its page will put it there with this entry and this version
- * (src/calorimetry-version.test.ts pins what a stored run is judged against to it).
- */
-export const CALORIMETRY_PROGRESS = { entry: ENTRY.calorimetry, version: 1 } as const
 
 export type Activity = (typeof ACTIVITIES)[number]
 

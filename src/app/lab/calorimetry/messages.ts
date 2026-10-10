@@ -181,6 +181,12 @@ export function valueText(data: CalorimetryData, field: Field, value: Value): st
   return `${minus(formatSig3(value))} ${unit}`
 }
 
+/** A typed entry as it stands in its field: the number as it was typed, without its unit, which the field's label gives. */
+export const entryText = (value: Exclude<Value, string>) => minus(typeof value === 'number' ? (value / 10).toFixed(1) : formatSig3(value))
+
+/** An entry as it is read beside its label, in the worksheet once it takes no typing and in the record: the number alone, since the label gives its unit, or the choice in words. */
+export const enteredText = (data: CalorimetryData, field: Field, value: Value) => (typeof value === 'string' ? valueText(data, field, value) : entryText(value))
+
 /** How each kind of entry is typed, under its field. No example is a figure any run can have. */
 export function formatHelp(field: Field): string {
   if (field === 'direction' || field === 'metal') return 'Choose one.'
@@ -391,6 +397,39 @@ export const PROGRESS_TEXT: Record<Progress, string> = {
   'not-counted': 'Run did not count',
   done: 'Done',
 }
+
+/**
+ * What the page itself says and no part of the lab's chemistry: the names of its list, its pictures and their
+ * marks, and its buttons. None of it says anything of a run.
+ */
+export const PAGE_TEXT = {
+  list: 'Parts',
+  previous: (title: string) => `Previous: ${title}`,
+  next: (title: string) => `Next: ${title}`,
+  graphPicture: "The logger's graph: temperature up the side against time along the bottom",
+  /** The two axes of the graph, beside them. */
+  temperatureAxis: 'Temperature, in °C',
+  timeAxis: 'Time since the first reading, in minutes',
+  /** The key under the graph: what a filled point, an open one and the dashed line are. */
+  lookedAt: 'looked at',
+  notLookedAt: 'not looked at yet',
+  changeMark: 'the change was started here',
+  /** After the sentence that says how the graph is looked at: the keys that move along it. */
+  arrows: 'With the keyboard, the left and right arrow keys move from one reading to the next.',
+  /** The two buttons under the graph, a finger's size each: one reading back, and one on. */
+  earlier: 'Earlier reading',
+  later: 'Later reading',
+  /** The closed disclosure that holds the graph described in words. */
+  inWords: 'The graph in words',
+  /** The button of an entry of the worksheet, and the two of a change under way. */
+  enter: 'Enter',
+  change: 'Change',
+  cancel: 'Cancel',
+  /** Under the worksheet while an entry that has others under it can be changed. */
+  changeNote: 'Changing an entry empties the entries under it.',
+  /** The card that says how the run came out. */
+  outcome: 'This run',
+} as const
 
 /** The Record tab. */
 export const RECORD_TEXT = {
