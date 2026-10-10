@@ -4,6 +4,7 @@ import { angleDeg, dihedralDeg, distance } from './geometry'
 import { periodicTableSchema, registrySchema, type PeriodicElement, type Registry, type Source } from './schema'
 import { aqueousSchema, type AqueousData } from './aqueous/data'
 import { calorimetrySchema, type CalorimetryData } from './calorimetry/data'
+import { cationsSchema, type CationsData } from './cations/data'
 import { brightestOf, extentOf, flameSchema, rangeOf, type FlameData } from './flame/data'
 import { titrationSchema } from './titration/data'
 
@@ -507,5 +508,76 @@ export function validateCalorimetry(input: unknown, sources: readonly Source[], 
     ...checkSourceIds(parsed.data, 'calorimetry', Array.isArray(sources) ? sources : []),
     ...checkPublished(parsed.data, 'calorimetry'),
     ...checkProse(parsed.data, 'calorimetry', Array.isArray(names) ? names : []),
+  ]
+}
+
+/** What the Group I cations lab's record must hold together beyond its shape: its ids, and every id one part of it names in another. */
+function checkCations(data: CationsData): string[] {
+  const errors = [
+    ...duplicates(data.reagents.map((r) => r.id), 'reagents'),
+    ...duplicates(data.ions.map((i) => i.id), 'ions'),
+    ...duplicates(data.substances.map((s) => s.id), 'substances'),
+    ...duplicates(data.rules.map((r) => r.id), 'rules'),
+    ...duplicates(data.gibbs.map((g) => g.id), 'Gibbs energies'),
+    ...duplicates(data.equilibria.map((e) => e.id), 'equilibria'),
+    ...duplicates(data.chart.places.map((p) => p.id), 'places'),
+    ...duplicates(data.chart.tileIds, 'tiles'),
+    ...duplicates(data.choices.solid, 'choices of a solid'),
+    ...duplicates(data.choices.liquid, 'choices of a liquid'),
+  ]
+  const has = (ids: readonly string[]) => new Set(ids)
+  const reagents = has([...data.reagents.map((r) => r.id), 'water'])
+  const substances = has(data.substances.map((s) => s.id))
+  const rules = has(data.rules.map((r) => r.id))
+  const gibbs = has(data.gibbs.map((g) => g.id))
+  const equilibria = has(data.equilibria.map((e) => e.id))
+  const tiles = has(data.chart.tileIds)
+  const steps = has(data.steps.map((s) => s.id))
+  const unknown = (owner: string, kind: string, ids: readonly string[], known: Set<string>) => {
+    for (const id of ids) if (!known.has(id)) errors.push(`${owner}: unknown ${kind} "${id}"`)
+  }
+  for (const ion of data.ions) {
+    unknown(`ion "${ion.id}"`, 'reagent', [ion.reagentId], reagents)
+    unknown(`ion "${ion.id}"`, 'substance', [ion.chlorideId], substances)
+  }
+  for (const equilibrium of data.equilibria) unknown(`equilibrium "${equilibrium.id}"`, 'Gibbs energy', equilibrium.terms.map((term) => term.gibbsId), gibbs)
+  for (const step of data.steps) {
+    unknown(`step "${step.id}"`, 'reagent', step.reagentIds, reagents)
+    unknown(`step "${step.id}"`, 'rule', step.ruleIds, rules)
+    unknown(`step "${step.id}"`, 'substance', step.substanceIds, substances)
+    unknown(`step "${step.id}"`, 'equilibrium', step.equilibriumIds, equilibria)
+  }
+  unknown('chart', 'substance', data.chart.tileIds, substances)
+  for (const place of data.chart.places) {
+    unknown(`place "${place.id}"`, 'step', [place.stepId], steps)
+    unknown(`place "${place.id}"`, 'tile', place.holds, tiles)
+    errors.push(...duplicates(place.holds, `place "${place.id}"`))
+  }
+  // Every look a substance has is one an observation can record: a solid's among the choices of a solid, a dissolved thing's among those of the liquid.
+  for (const substance of data.substances) {
+    if (substance.state === 's' && substance.look === undefined) errors.push(`substance "${substance.id}": a solid needs a look`)
+    const choices = substance.state === 's' ? data.choices.solid : data.choices.liquid
+    if (substance.look !== undefined && !choices.includes(substance.look.value)) errors.push(`substance "${substance.id}": its look, "${substance.look.value}", is not a choice of the observation`)
+  }
+  return errors
+}
+
+/**
+ * Checks the Group I cations lab's record against the sources it cites: the schema; that its ids hold together;
+ * that every source named exists; that each `published` reads as the number stored beside it; and that no name,
+ * note, working or rationale holds institution text. Returns a list of problems; an empty list means the record
+ * is valid. Never throws, whatever it is given. That each value is what its source prints is the build script's to
+ * hold to the manifest; the values worked out from cited ones are worked out again there, and the rules are
+ * checked against the numbers there.
+ */
+export function validateCations(input: unknown, sources: readonly Source[], options: ValidateOptions = {}): string[] {
+  const parsed = cationsSchema.safeParse(input)
+  if (!parsed.success) return schemaErrors(parsed.error.issues)
+  const names = options?.institutionNames
+  return [
+    ...checkCations(parsed.data),
+    ...checkSourceIds(parsed.data, 'cations', Array.isArray(sources) ? sources : []),
+    ...checkPublished(parsed.data, 'cations'),
+    ...checkProse(parsed.data, 'cations', Array.isArray(names) ? names : []),
   ]
 }

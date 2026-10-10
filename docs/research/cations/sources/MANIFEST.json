@@ -1,0 +1,653 @@
+{
+  "retrieved": "2026-10-09",
+  "about": "Every source of the Group I cations lab's record (docs/research/cations/cations.json) and of its primer (src/chem-data/cations/primer.ts). Each was read for this lab on the retrieval date: fetched that day, or, for the three that an earlier lab also lists and that were not fetched again, read in the copy that lab keeps or in the file it read. No source has a copy in this folder. `fetchedSha256` is the sha256 of the file as it was fetched or read: a record of which file was read, not the hash of anything here, and nothing checks it. Each `supports` row names in `fields` the stored values it supports, each by its place in the record with the item's id in brackets (gibbs[silver-ion], substances[lead-chromate].look, steps[separate].notes[1]); gives in `prints` a figure, a formula, a label or a heading exactly as the source prints it; and says in `where`, in this project's words, where that is, what the source says there, and how far the stored value goes beyond it. A row whose field is `primer` marks a source the primer rests on. The build holds the record to these rows: every source a value cites must have a row that names the value, and where the record stores the figure a source prints, a row for it must print that figure. No source is quoted beyond such figures, formulas, labels and headings. Four sources are also listed by other manifests and are written here exactly as they are there, so that the build lists each once: the NBS tables, NIST's listing of the fundamental constants, the table of standard atomic weights, and one page on the reactions of the silver ion, which was fetched again for this lab and was read in that copy. The NBS tables were read from the scan the aqueous reactions lab read, whose sha256 is the one given; each page was turned into an image and read by eye. The hazard statements and the notes under them are not in this file: they are in hazards.json and sources/hazard-manifest.json, which were written apart. README.md, one folder up, says what could not be sourced.",
+  "sources": [
+    {
+      "id": "nbs-tables-1982",
+      "url": "https://srd.nist.gov/JPCRD/jpcrdS2Vol11.pdf",
+      "citation": "Wagman, D. D.; Evans, W. H.; Parker, V. B.; Schumm, R. H.; Halow, I.; Bailey, S. M.; Churney, K. L.; Nuttall, R. L. The NBS Tables of Chemical Thermodynamic Properties: Selected Values for Inorganic and C1 and C2 Organic Substances in SI Units. J. Phys. Chem. Ref. Data 1982, 11, Supplement No. 2. Read as the scanned PDF that the National Institute of Standards and Technology serves, linked here; pages 2-38 and 2-260 were read as images of the page, which has no text layer; no copy is kept (retrieved 2026-10-06).",
+      "fetchedSha256": "65249690c25a3c98275279863264b870e9a955f51651ff3845ac3bc47f32de59",
+      "supports": [
+        {
+          "fields": [
+            "gibbs[silver-ion]"
+          ],
+          "prints": "77.107",
+          "where": "Page 2-160, Table 37:Ag (silver), the row for Ag+ in the state ao, the standard state in water: the column of the standard Gibbs energy of formation at 298.15 K, in kJ/mol. The same row prints 105.579 for the enthalpy. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "gibbs[silver-chloride]"
+          ],
+          "prints": "-109.789",
+          "where": "Page 2-160, Table 37:Ag, the row for AgCl in the state cr, the crystal: the same column. Two rows down, the row for AgCl in the state ai, the dissolved salt fully ionised, prints -54.120, which is the sum of the rows for the two ions to the last figure but one: the check that the three rows are one account. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "gibbs[silver-ammonia-ion]"
+          ],
+          "prints": "-17.12",
+          "where": "Page 2-162, Table 37:Ag, the row for Ag(NH3)2+ in the state ao: the same column. The row above it, for the ion with one ammonia, prints 31.68; the lab stores the ion with two only. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "gibbs[lead-ion]"
+          ],
+          "prints": "-24.43",
+          "where": "Page 2-119, Table 27:Pb (lead), the row for Pb2+ in the state ao: the column of the standard Gibbs energy of formation at 298.15 K, in kJ/mol. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "gibbs[lead-chloride]"
+          ],
+          "prints": "-314.10",
+          "where": "Page 2-119, Table 27:Pb, the row for PbCl2 in the state cr: the same column. The rows under it are for the dissolved salt: -286.86 fully ionised, and -297.16 for the molecule that has not come apart; the table also has rows for PbCl+ (-164.81) and PbCl3- (-426.3). The lab's solubility product is worked from the crystal and the two free ions alone, and README.md says what that leaves out. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "gibbs[mercury-i-ion]"
+          ],
+          "prints": "153.52",
+          "where": "Page 2-150, Table 35:Hg (mercury), the row for Hg2 2+ in the state ao, the ion of mercury(I), which holds two atoms of mercury: the column of the standard Gibbs energy of formation at 298.15 K, in kJ/mol. The row for Hg2+, the ion of mercury(II), is another row of the page (164.40) and is not used. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "gibbs[mercury-i-chloride]"
+          ],
+          "prints": "-210.745",
+          "where": "Page 2-150, Table 35:Hg, the row for Hg2Cl2 in the state cr: the same column. The row for HgCl2, the chloride of mercury(II), is another row of the page (-178.6) and is not used. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "gibbs[chloride-ion]"
+          ],
+          "prints": "-131.228",
+          "where": "Page 2-47, Table 10:Cl (chlorine), the row for Cl- in the state ao: the column of the standard Gibbs energy of formation at 298.15 K, in kJ/mol. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "gibbs[ammonia]"
+          ],
+          "prints": "-26.50",
+          "where": "Page 2-64, Table 18:N (nitrogen), the row for NH3 in the state ao, dissolved ammonia: the same column. The page is scanned askew, so the row's figures stand a little above its formula; the row was told from its molar mass, 17.0307, and from the row for the gas over it, which prints -16.45. Read by eye from an image of the scanned page, which has no text layer."
+        }
+      ]
+    },
+    {
+      "id": "nist-codata-2022",
+      "url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+      "citation": "Mohr, P. J.; Newell, D. B.; Taylor, B. N.; Tiesinga, E. Fundamental Physical Constants: Complete Listing, 2022 CODATA adjustment. National Institute of Standards and Technology. Read as the text file linked here; read and not kept (retrieved 2026-10-07).",
+      "fetchedSha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+      "supports": [
+        {
+          "fields": [
+            "constants.gasConstant"
+          ],
+          "prints": "8.314 462 618...",
+          "where": "The line for the molar gas constant, in J mol^-1 K^-1, marked exact. The stored value is the printed digits. Read for this lab in the file the mechanism timeline's record was read from, which was not fetched again."
+        }
+      ]
+    },
+    {
+      "id": "ciaaw-abridged-2024",
+      "url": "https://www.ciaaw.org/abridged-atomic-weights.htm",
+      "citation": "IUPAC Commission on Isotopic Abundances and Atomic Weights (CIAAW), Abridged Standard Atomic Weights 2024.",
+      "supports": [
+        {
+          "fields": [
+            "leadChloride.atomicWeights[Pb]"
+          ],
+          "prints": "207.2",
+          "where": "The copy kept for the periodic table, docs/research/periodic-table/sources/ciaaw-abridged-atomic-weights.html, the row for lead (82, Pb): the abridged standard atomic weight. The build holds the stored figure to the periodic table's record, which it holds to this copy."
+        },
+        {
+          "fields": [
+            "leadChloride.atomicWeights[Cl]"
+          ],
+          "prints": "35.45",
+          "where": "The same kept copy, the row for chlorine (17, Cl)."
+        }
+      ]
+    },
+    {
+      "id": "birk-silver",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Silver_Ions_(Ag)",
+      "citation": "Birk, J. P. Characteristic Reactions of Silver Ions (Ag⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-06).",
+      "fetchedSha256": "c20b2ac1d94ff1b5ee064d2a97d5a1bd395687a323659fe3558245b8931dd761",
+      "supports": [
+        {
+          "fields": [
+            "substances[silver-chloride]",
+            "substances[silver-chloride].look",
+            "substances[silver-ion]",
+            "steps[precipitate].equations[0]"
+          ],
+          "prints": "Chloride Ion",
+          "where": "The heading of the page's first reaction. Under it: a soluble chloride, hydrochloric acid among them, brings the silver ion down as a white chloride, with the equation for one silver ion and one chloride ion giving the solid. The page calls the solid silver(I) chloride; the record's name leaves the numeral out, as the lab's other sources do. Fetched again for this lab on 2026-10-09: the hash is that copy's."
+        },
+        {
+          "fields": [
+            "rules[silver-chloride-in-ammonia]",
+            "substances[silver-ammonia-ion]",
+            "steps[separate].equations[0]",
+            "steps[separate].notes[0]"
+          ],
+          "prints": "[Ag(NH3)2]+",
+          "where": "Under the same heading, the second equation: solid silver chloride and two molecules of dissolved ammonia give this ion and a chloride ion, both dissolved. The page says of the solid that acids do not dissolve it and that aqueous ammonia does. The name silver-ammonia ion is the lab's."
+        },
+        {
+          "fields": [
+            "substances[silver-ammonia-ion].look"
+          ],
+          "prints": "Aqueous Ammonia",
+          "where": "A later heading of the page, on what ammonia does to a solution of the silver ion itself. Its second equation ends in the same ion, and the sentence over it calls that complex ion colourless."
+        },
+        {
+          "fields": [
+            "rules[silver-chloride-returns]",
+            "steps[confirm-silver].equations[0]",
+            "steps[confirm-silver].notes[0]"
+          ],
+          "prints": "HNO3",
+          "where": "Under the first heading, the third equation and the sentence over it: an acid added to the ammonia solution, nitric acid for one, breaks up the complex ion and brings silver chloride down again. The equation has the ion, a chloride ion and two hydrogen ions giving the solid and two ammonium ions, which is the equation the record stores."
+        }
+      ]
+    },
+    {
+      "id": "birk-lead",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Lead_Ions_(Pb)",
+      "citation": "Birk, J. P. Characteristic Reactions of Lead Ions (Pb²⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "820a12af9d76729380764b968259cf961a183d73b5a324c8d1ea9a2c501f5877",
+      "supports": [
+        {
+          "fields": [
+            "substances[lead-chloride]",
+            "substances[lead-chloride].look",
+            "substances[lead-ion]",
+            "steps[precipitate].equations[1]"
+          ],
+          "prints": "Chloride Ion",
+          "where": "The heading of the page's first reaction. Under it: a soluble chloride brings white lead chloride out of a solution of the lead ion that is not too dilute, with the equation for one lead ion and two chloride ions giving the solid."
+        },
+        {
+          "fields": [
+            "leadChloride.solubilityCold"
+          ],
+          "prints": "10",
+          "where": "Under the same heading: the solubility of lead chloride at 20 degrees, in grams for each litre. The page gives no unit of temperature beside its degree sign; the figures are those of the Celsius scale."
+        },
+        {
+          "fields": [
+            "leadChloride.solubilityHot"
+          ],
+          "prints": "33.5",
+          "where": "The next sentence but one: the solubility at 100 degrees, in grams for each litre."
+        },
+        {
+          "fields": [
+            "rules[lead-chloride-in-water]",
+            "leadChloride.note",
+            "steps[extract-lead].notes[0]"
+          ],
+          "prints": "33.5 g/L",
+          "where": "The same two figures taken together, with the sentence between them, which says that the solubility climbs steeply with temperature. That the other two chlorides stay solid in hot water is not on this page: the rule's second source and the procedures read say it."
+        },
+        {
+          "fields": [
+            "steps[precipitate].notes[1]"
+          ],
+          "prints": "[PbCl4]2-",
+          "where": "Under the same heading, after the two figures: lead chloride is slow to come down, the more so when no other ion that gives an insoluble chloride is there, and may take minutes; and it dissolves in an excess of chloride as this complex ion. The note's words on a real bench rest on these two statements and on the other two sources it names."
+        },
+        {
+          "fields": [
+            "rules[lead-chloride-with-ammonia]"
+          ],
+          "prints": "Aqueous Ammonia",
+          "where": "A later heading of the page, on what ammonia does to a solution of the lead ion: a white basic salt comes down, and more ammonia does not dissolve it. The page's solid is the one a nitrate solution gives, and it says nothing of ammonia on solid lead chloride. It is cited beside the rule's first source for one thing only: that lead, unlike silver, is not taken into solution by ammonia."
+        }
+      ]
+    },
+    {
+      "id": "birk-mercury",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Mercury_Ions_(Hg_and_Hg)",
+      "citation": "Birk, J. P. Characteristic Reactions of Mercury Ions (Hg²⁺ and Hg₂²⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "acc3d612ac0b0feb4171cef995dc886326b99861abfa5369c3fe7a42aebbd75a",
+      "supports": [
+        {
+          "fields": [
+            "substances[mercury-i-chloride]",
+            "substances[mercury-i-chloride].look",
+            "substances[mercury-i-ion]",
+            "steps[precipitate].equations[2]"
+          ],
+          "prints": "Mercury(I) Ion: Hg₂²⁺",
+          "where": "The heading of the page's first half; its second half is on the mercury(II) ion and is not used. Under the heading Chloride Ion in the first half: a soluble chloride brings down white mercury(I) chloride, with the equation for one ion of mercury(I) and two chloride ions giving the solid."
+        },
+        {
+          "fields": [
+            "rules[mercury-chloride-with-ammonia]",
+            "substances[mercury-and-amidochloride]",
+            "substances[mercury-and-amidochloride].look",
+            "steps[separate].equations[1]",
+            "steps[separate].notes[1]"
+          ],
+          "prints": "HgNH2Cl",
+          "where": "Under the same heading, the second equation and the sentence over it: aqueous ammonia with solid mercury(I) chloride gives mercury metal, which the page calls black, and mercury(II) amidochloride, which it calls white, with an ammonium ion and a chloride ion. The equation is the one the record stores. The stored words grey to black are for the two together, as the other sources of that value describe them; this page gives the colour of each."
+        }
+      ]
+    },
+    {
+      "id": "birk-confirmatory-tests",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Confirmatory_Tests",
+      "citation": "Birk, J. P. Confirmatory Tests. In Supplemental Modules (Analytical Chemistry): Qualitative Analysis; LibreTexts; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "b524aeb247e921e6cb603a38e1c78be7d8dac6e27552d76b38a9d7a79e7a56f5",
+      "supports": [
+        {
+          "fields": [
+            "substances[mercury-and-amidochloride].look"
+          ],
+          "prints": "Mercury(I) (Hg₂²⁺)",
+          "where": "The heading of the page's test for this ion: hydrochloric acid gives a white solid, the liquid is taken off, and ammonia turns the solid gray or black, which the page puts down to mercury metal."
+        },
+        {
+          "fields": [
+            "substances[chromate-ion]",
+            "substances[chromate-ion].look"
+          ],
+          "prints": "Chromium (Cr³⁺)",
+          "where": "The heading of the page's test for chromium, which ends in a solution of the chromate ion, CrO4 2-, that the page calls yellow. The stored words yellow to orange take in the second source of that value."
+        }
+      ]
+    },
+    {
+      "id": "malik-solubility",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Qualitative_Analysis_of_Common_Cations_in_Water_(Malik)/1%3A_Chemical_Principles/1.1%3A_Solubility",
+      "citation": "Malik, M. A. Qualitative Analysis of Common Cations in Water; LibreTexts; Section 1.1 Solubility; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "aa6e6407a044a0cb84af6e81e708ad92e0e7bb8428dea53b6aa467b5e917a001",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Precipitation reactions",
+          "where": "A heading of the section. Above it the section says what a solution and a saturated solution are, that an ionic compound comes apart into its ions as it dissolves, that every ionic compound dissolves to some extent, and gives guidelines for which salts dissolve: chlorides do, but for those of lead, mercury(I) and silver. Under it: mixing two solutions can give a solid, which is called the precipitate."
+        }
+      ]
+    },
+    {
+      "id": "malik-solubility-equilibria",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Qualitative_Analysis_of_Common_Cations_in_Water_(Malik)/1%3A_Chemical_Principles/1.2%3A_Solubility_equilibria",
+      "citation": "Malik, M. A. Qualitative Analysis of Common Cations in Water; LibreTexts; Section 1.2 Solubility equilibria; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "4d7adcdcc1803809ccf6178d54eeac031aa85af0d1beb76848f44479debc9006",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Solubility product constant",
+          "where": "The first heading of the section. Under it: undissolved solid stands in balance with its dissolved ions, and the constant of that balance is the product of the ions' concentrations, each raised to its number in the equation. The section gives 1.8 x 10^-10 for silver chloride, 1.6 x 10^-5 for lead chloride and 1.3 x 10^-18 for mercury(I) chloride, with no source for them. The lab's three figures are worked out from the NBS tables and are within about a tenth of these; README.md sets the two side by side. Under the next heading, Selective precipitation: a reagent that brings down some ions and leaves the others, with hydrochloric acid and these three ions as an example."
+        }
+      ]
+    },
+    {
+      "id": "malik-varying-solubility",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Qualitative_Analysis_of_Common_Cations_in_Water_(Malik)/1%3A_Chemical_Principles/1.3%3A_Varying_solubility_of_ionic_compounds",
+      "citation": "Malik, M. A. Qualitative Analysis of Common Cations in Water; LibreTexts; Section 1.3 Varying solubility of ionic compounds; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "d39a87fe9a8444c98d1337f6a31bc146ada663df32a61cf69d5bf349a0e9db1e",
+      "supports": [
+        {
+          "fields": [
+            "steps[separate].notes[0]",
+            "primer"
+          ],
+          "prints": "Complex ion equilibria",
+          "where": "A heading of the section. Under it: a metal ion such as silver takes pairs of electrons from molecules or ions around it, called ligands, and the ion that results is a complex ion; ammonia takes the place of water around the silver ion, two molecules to each ion; the constant of that change is the formation constant, given as 1.7 x 10^7; and ammonia in the water makes silver chloride far more soluble, which is used to part silver from mercury. The section gives 3.0 x 10^-3 for silver chloride dissolving in ammonia, the product of the two constants. The lab's formation constant, 1.67 x 10^7, is worked out from the NBS tables."
+        }
+      ]
+    },
+    {
+      "id": "malik-separation-in-groups",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Qualitative_Analysis_of_Common_Cations_in_Water_(Malik)/1%3A_Chemical_Principles/1.5%3A_Separation_of_cations_in_groups",
+      "citation": "Malik, M. A. Qualitative Analysis of Common Cations in Water; LibreTexts; Section 1.5 Separation of cations in groups; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "becf3c1db894049b4ea9d5391620704eb200a10cf424e8738af826ef3b63ae7a",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Steps in the qualitative analysis of cations in water",
+          "where": "The first heading of the section. Under it, the three stages: the ions are parted into groups by bringing some of them down as solids, the ions of a group are parted from one another, mostly by dissolving one solid and not the others, and a test of its own confirms each ion. Further down: the first group is lead(II), mercury(I) and silver, brought down as chlorides by 6 M hydrochloric acid, the reagent that brings down the fewest ions and so is used first."
+        }
+      ]
+    },
+    {
+      "id": "malik-precipitation",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Qualitative_Analysis_of_Common_Cations_in_Water_(Malik)/2%3A_Experimental_techniques/2.1%3A_Precipitation",
+      "citation": "Malik, M. A. Qualitative Analysis of Common Cations in Water; LibreTexts; Section 2.1 Precipitation; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "06e787eb20466cb0105bfe7a2e4aa99f0be493ec7e8cd02d133c8049c8657d10",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "2.1: Precipitation",
+          "where": "The section's title. The section says that a reagent goes into a test tube a drop at a time from a dropper while the mixture is stirred; that what is dissolved makes a solution that may be coloured and can still be seen through; that a solid coming out of it makes the liquid cloudy, which is called a suspension; and that a centrifuge sends the solid to the bottom and leaves a clear liquid over it."
+        }
+      ]
+    },
+    {
+      "id": "malik-water-bath",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Qualitative_Analysis_of_Common_Cations_in_Water_(Malik)/2%3A_Experimental_techniques/2.2%3A_Water_bath",
+      "citation": "Malik, M. A. Qualitative Analysis of Common Cations in Water; LibreTexts; Section 2.2 Water bath; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "8127c8ab98630a62730e4e0c720ee3be17f461e024802547f5f648d1f677e8e5",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Lab water bath setup",
+          "where": "A heading of the section: a beaker of water kept gently boiling on a hot plate, in which a test tube is heated evenly. The caution after it: a hot tube is held with a holder and never with a bare hand, its mouth is pointed away from everybody, and the tube and the liquid in it can burn."
+        }
+      ]
+    },
+    {
+      "id": "malik-centrifugation",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Qualitative_Analysis_of_Common_Cations_in_Water_(Malik)/2%3A_Experimental_techniques/2.3%3A_Centrifugation",
+      "citation": "Malik, M. A. Qualitative Analysis of Common Cations in Water; LibreTexts; Section 2.3 Centrifugation; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "a7bfe00ffeac66960c2e424845dab06f6114121d10cc25d05997742ccbb86a3b",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "2.3: Centrifugation",
+          "where": "The section's title. The section says that spinning packs the solid down at the foot of the tube; that a second tube with as much water in it goes opposite the first to balance the machine, which otherwise shakes; and, in its caution, that the lid stays shut until the rotor has stopped."
+        }
+      ]
+    },
+    {
+      "id": "malik-separating-precipitate",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Qualitative_Analysis_of_Common_Cations_in_Water_(Malik)/2%3A_Experimental_techniques/2.4%3A_Separation_of_the_precipitate",
+      "citation": "Malik, M. A. Qualitative Analysis of Common Cations in Water; LibreTexts; Section 2.4 Separation of the precipitate; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "b2ddc51f654c4ecc959f77b4472d8cefb1995a07f07505c9da1cad91ce106df9",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Decantation and aspiration",
+          "where": "The first heading of the section: after the centrifuge a clear liquid, the supernatant, stands over the solid, and it is poured out, which is called decanting, or drawn off with a pipette. Under the heading Washing the precipitate: the solid is stirred up in a liquid that does not dissolve it, spun down again, and the washings are thrown away. The section also says that a solid which is not well packed tends to go over with the liquid."
+        }
+      ]
+    },
+    {
+      "id": "malik-ph-measurement",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Qualitative_Analysis_of_Common_Cations_in_Water_(Malik)/2%3A_Experimental_techniques/2.5%3A_pH_measurement",
+      "citation": "Malik, M. A. Qualitative Analysis of Common Cations in Water; LibreTexts; Section 2.5 pH measurement; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "a000731cbb8b586fe586d31ce8beaf8a7a8ce35475064dfb0d434d51fb5b3de7",
+      "supports": [
+        {
+          "fields": [
+            "rules[litmus]",
+            "primer"
+          ],
+          "prints": "Using a pH paper",
+          "where": "A heading of the section. Under it: litmus paper is the paper to use for watching a liquid go from acid to basic or back; the red paper keeps its colour in acid and goes blue in base, and the blue paper goes red in acid and keeps its colour in base. The caution after it: the paper is not dipped into the tube; a drop is carried to it on the stirring rod. The caption of the section's one figure says that an alkaline solution turned its blue paper red, which the text under this heading contradicts; the lab follows the text."
+        }
+      ]
+    },
+    {
+      "id": "malik-group-1-separation",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Qualitative_Analysis_of_Common_Cations_in_Water_(Malik)/3%3A_Group_I_cations/3.1%3A_Separation_of_group_I_cations",
+      "citation": "Malik, M. A. Qualitative Analysis of Common Cations in Water; LibreTexts; Section 3.1 Separation of group I cations; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "44667a353c5460ad9b0762477525ab50003bc5811a2115afdd084670dc2eb173",
+      "supports": [
+        {
+          "fields": [
+            "rules[chlorides-form]",
+            "steps[precipitate].notes[0]",
+            "primer"
+          ],
+          "prints": "3.1: Separation of group I cations",
+          "where": "The section's title. The section says that the three ions are brought down together because their chlorides are the ones that do not dissolve, with hydrochloric acid as the source of chloride; works out from the solubility product of lead chloride how much chloride takes nearly all the lead out; says that twenty drops are about a millilitre, and that three or four drops of the 6 M acid go into about fifteen drops of sample; and shows the three chlorides as a milky white suspension that a centrifuge packs into a pellet under a clear liquid. That the model takes each chloride to come down whole is the lab's, and the build checks it against the lab's own solubility products."
+        },
+        {
+          "fields": [
+            "steps[precipitate].notes[1]"
+          ],
+          "prints": "[AgCl2]-",
+          "where": "The section's paragraph on why the 6 M acid is used and not the 12 M: at 5 M chloride or more, silver chloride can dissolve again as this complex ion."
+        }
+      ]
+    },
+    {
+      "id": "malik-group-1-ions",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Qualitative_Analysis_of_Common_Cations_in_Water_(Malik)/3%3A_Group_I_cations/3.2%3A_Separation_and_confirmation_of_Pb2__ion",
+      "citation": "Malik, M. A. Qualitative Analysis of Common Cations in Water; LibreTexts; Section 3.2 Separation and confirmation of individual ions in group I precipitates; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "b6cc524edbc42c79102f9a3e7f298e249d24cbae501591ae569c68522958213f",
+      "supports": [
+        {
+          "fields": [
+            "rules[lead-chloride-in-water]",
+            "leadChloride.note",
+            "steps[extract-lead].equations[0]",
+            "steps[extract-lead].notes[0]",
+            "primer"
+          ],
+          "prints": "Separation and confirmation of lead(II) ion",
+          "where": "The first heading of the section. Under it: lead chloride dissolves to about 1.1 g in 100 mL of water at 20 °C and to about 3.2 g in boiling water, three times as much, while the other two chlorides dissolve hardly at all at either temperature; so the solid is stirred up in water and the tube stood in a bath of boiling water, which takes the lead chloride into the liquid, with the equation for the solid giving one lead ion and two chloride ions. The section then confirms lead by letting the liquid cool until lead chloride comes back out; the lab confirms it with chromate, as its two procedures do."
+        },
+        {
+          "fields": [
+            "rules[mercury-chloride-with-ammonia]",
+            "substances[mercury-and-amidochloride].look",
+            "steps[separate].notes[1]"
+          ],
+          "prints": "Separating mercury(I) ion from silver(I) ion and confirming mercury(I) ion",
+          "where": "The second heading of the section. Under it: ammonia dissolves silver chloride as the complex ion, and turns mercury(I) chloride into black liquid mercury and white mercury(II) amidochloride, which together look gray; the figure's caption calls the solid grayish-black. The white solid going over to that colour is the sign of mercury(I)."
+        },
+        {
+          "fields": [
+            "rules[silver-chloride-returns]",
+            "steps[confirm-silver].notes[0]"
+          ],
+          "prints": "Confirming silver(I) ion",
+          "where": "The third heading of the section. Under it: nitric acid takes away the ammonia, the complex ion gives up its silver, and the chloride left from the dissolving of the solid is still there to bring silver chloride down as a white solid."
+        }
+      ]
+    },
+    {
+      "id": "malik-group-1-procedure",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Qualitative_Analysis_of_Common_Cations_in_Water_(Malik)/3%3A_Group_I_cations/3.3%3A_Procedure_flowchart_and_datasheets_for_separation_and_confirmation_of_group_I_cations",
+      "citation": "Malik, M. A. Qualitative Analysis of Common Cations in Water; LibreTexts; Section 3.3 Procedure, flowchart, and datasheets for separation and confirmation of group I cations; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "89e24c58438be9d51e777eb243b45da5f43faa8e0c9a8a4623914367390a3938",
+      "supports": [
+        {
+          "fields": [
+            "steps[confirm-silver].notes[1]",
+            "primer"
+          ],
+          "prints": "Procedure for the analyses of group I cations",
+          "where": "A heading of the section. The last step under it: nitric acid goes in a drop at a time, with stirring and a test on blue litmus paper each time, until the paper goes red; a white solid at that point is the sign of silver, and none is the sign of its absence. The table over the heading lists the three nitrate solutions with their hazards in a word or two each, and the caution after it sends every used solution and solid of these metals to a labelled waste container and none of it to a drain."
+        }
+      ]
+    },
+    {
+      "id": "smc-group-1-lab",
+      "url": "https://chem.libretexts.org/Ancillary_Materials/Laboratory_Experiments/Wet_Lab_Experiments/General_Chemistry_Labs/Online_Chemistry_Lab_Manual/Chem_12_Experiments/06%3A_Qualitative_Analysis_of_Group_I_Ions_(Experiment)",
+      "citation": "Santa Monica College. Qualitative Analysis of Group I Ions (Experiment); experiment 6 of the Chem 12 Experiments in Online Chemistry Lab Manual, LibreTexts; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "499e45dbc46da0dfe3a16d0052f31236fd4ebbfe145df1873f468d6f01cd3def",
+      "supports": [
+        {
+          "fields": [
+            "reagents[nh3-6m]",
+            "reagents[agno3-0.1m]",
+            "reagents[hg2no32-0.1m]"
+          ],
+          "prints": "Chemicals",
+          "where": "The heading over the list of what the experiment uses. The list has silver nitrate and mercury(I) nitrate at 0.1 M, each with its formula, and ammonia at 6 M as NH3 (aq); it also has the three acids at 6 M, lead nitrate at 0.2 M and potassium chromate at 1 M. The names of the three solutions and the strengths of the lab's bench are the lab's set-up (spec 17.1)."
+        },
+        {
+          "fields": [
+            "ions[silver]",
+            "ions[lead]",
+            "ions[mercury-i]",
+            "rules[chlorides-form]",
+            "steps[precipitate].equations[0]",
+            "steps[precipitate].equations[1]",
+            "steps[precipitate].equations[2]",
+            "steps[precipitate].notes[0]",
+            "primer"
+          ],
+          "prints": "Group I cations",
+          "where": "The name the page's background gives the three ions, with the formula of each, because they are the first group taken out of a larger mixture: their chlorides do not dissolve, so 6 M hydrochloric acid brings all three down, and the page gives an equation for each. The background also says what qualitative analysis is, and the general instructions that a known mixture of all three is worked first as a control and an unknown with one, two or all three after it."
+        },
+        {
+          "fields": [
+            "steps[extract-lead].equations[0]"
+          ],
+          "prints": "Separation and Confirmation of Group I Cations",
+          "where": "A heading of the background. The first equation under it is lead chloride going into solution as its ions, with the sentence over it: lead chloride dissolves in hot water and the other two chlorides stay solid."
+        },
+        {
+          "fields": [
+            "rules[lead-chromate-forms]",
+            "substances[lead-chromate]",
+            "substances[lead-chromate].look",
+            "steps[confirm-lead].equations[0]",
+            "steps[confirm-lead].notes[0]"
+          ],
+          "prints": "PbCrO4",
+          "where": "Under the same heading, the second equation and the sentence over it: potassium chromate added to the hot liquid gives a yellow solid of this formula, which confirms lead. Step 9 of the procedure adds a drop of 6 M acetic acid first, then three or four drops of the chromate, and calls the solid bright yellow. That the liquid's colour proves nothing is the lab's own point, made from the chromate being in excess."
+        },
+        {
+          "fields": [
+            "rules[silver-chloride-in-ammonia]",
+            "steps[separate].equations[0]"
+          ],
+          "prints": "Ag(NH3)2+",
+          "where": "Under the same heading, the third equation and the sentence over it: silver chloride dissolves in 6 M ammonia as this complex ion, with a chloride ion."
+        },
+        {
+          "fields": [
+            "rules[mercury-chloride-with-ammonia]",
+            "substances[mercury-and-amidochloride].look",
+            "steps[separate].equations[1]",
+            "steps[separate].notes[1]"
+          ],
+          "prints": "HgNH2Cl",
+          "where": "Under the same heading, the fourth equation and the sentences over it: with ammonia, mercury(I) chloride gives what looks like a gray solid and is a mixture of black liquid mercury and this white solid; the gray solid confirms mercury(I)."
+        },
+        {
+          "fields": [
+            "rules[silver-chloride-returns]",
+            "rules[litmus]",
+            "steps[confirm-silver].notes[0]",
+            "steps[confirm-silver].notes[1]"
+          ],
+          "prints": "Identification of Ag+",
+          "where": "The last heading of the procedure for the known mixture. Under it: 6 M nitric acid is added slowly until the liquid is acid to litmus, a drop being carried on the stirring rod to blue litmus paper, which an acid turns red; a white solid in the acid liquid confirms silver. The background says why: the acid uses up the ammonia, and the complex ion is destroyed with it. The page's first question before the lab asks why the liquid has to be acid before a solid can form."
+        },
+        {
+          "fields": [
+            "chart"
+          ],
+          "prints": "flow chart",
+          "where": "The words of the background for its picture of the scheme, which the report form asks a learner to draw again for the unknown. The picture is an image and was not read; what the lab's chart holds in each place follows from the page's equations and from the chart's first source, whose flow chart is text."
+        }
+      ]
+    },
+    {
+      "id": "ntu-group-1-lab",
+      "url": "https://teaching.ch.ntu.edu.tw/gclab/eng/wp-content/uploads/5_M03_Qualitative-analysis-of-group-1-cations.pdf",
+      "citation": "National Taiwan University, Department of Chemistry. Experiment 3: Qualitative Analysis of Group 1 Cations; a handout of the general chemistry laboratory, headed 2024 NTU-Chemistry; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "f1e46bd1a98f0f3e80c52c92c404e559deceacd03da0e9d2882d4d36b3d2aac6",
+      "supports": [
+        {
+          "fields": [
+            "reagents[hcl-6m]",
+            "reagents[acetic-acid-6m]",
+            "reagents[k2cro4-0.5m]",
+            "reagents[hno3-6m]",
+            "reagents[pbno32-0.1m]"
+          ],
+          "prints": "Test reagents",
+          "where": "The second list under the heading Chemicals: hydrochloric acid, acetic acid and nitric acid at 6 M and potassium chromate at 0.5 M, each with its formula. The first list gives lead(II) nitrate with its formula as the source of the lead ion. The handout's ammonia is the concentrated solution, 15 M, and its metal solutions are made up by mass; the 6 M ammonia and the 0.1 M of the lab's bench are the lab's set-up (spec 17.1)."
+        },
+        {
+          "fields": [
+            "leadChromate.solubilityProduct"
+          ],
+          "prints": "2.8×10−13",
+          "where": "Step 1-2, part 2, in brackets after the formula of lead chromate. The handout gives no source for the figure and no temperature."
+        },
+        {
+          "fields": [
+            "rules[lead-chromate-forms]",
+            "substances[lead-chromate].look",
+            "steps[confirm-lead].equations[0]",
+            "steps[confirm-lead].notes[0]",
+            "steps[confirm-lead].notes[1]"
+          ],
+          "prints": "PbCrO4(s)",
+          "where": "Equation 3-1 of the introduction, a lead ion and a chromate ion giving this solid, which the handout calls a yellow precipitate. Step 1-2 adds a drop of 6 M acetic acid and a drop of 0.5 M potassium chromate to the hot liquid, and its two notes say that the acetic acid keeps other chromates from coming down, with copper's as the example, and that lead chloride may come out again if the liquid cools before it is spun."
+        },
+        {
+          "fields": [
+            "steps[precipitate].notes[1]"
+          ],
+          "prints": "Note 1",
+          "where": "Step 1-1, the two notes after the adding of the acid: lead chloride comes down slowly, so the tube is stirred for a minute or two; and too much hydrochloric acid may dissolve the chlorides, two or three drops being enough for the handout's sample. The step adds the acid a drop at a time until no more solid forms."
+        },
+        {
+          "fields": [
+            "steps[extract-lead].notes[1]"
+          ],
+          "prints": "Repeat extraction",
+          "where": "Step 1-2, part 3: the solid is treated with hot water and spun two or three times more, until the liquid taken off hardly clouds with chromate; and the note after it says that lead which is not all removed spoils the tests that follow."
+        },
+        {
+          "fields": [
+            "rules[lead-chloride-with-ammonia]",
+            "substances[lead-hydroxide]",
+            "substances[lead-hydroxide].look",
+            "steps[separate].notes[2]"
+          ],
+          "prints": "Pb(OH)2(s)",
+          "where": "Step 1-3, the note after part 2: a solid that still has lead in it gives a white precipitate of this formula when the ammonia is added. The handout gives no equation for it. The lab's model takes the lead chloride left behind to be turned into it whole, two molecules of ammonia to each, which is the lab's own balancing and is used only to count ammonia."
+        },
+        {
+          "fields": [
+            "substances[mercury-and-amidochloride].look"
+          ],
+          "prints": "Black residue",
+          "where": "Step 1-3, part 2: the colour of the solid left by the ammonia, which the handout puts down to the mixture of mercury and mercury(II) amidochloride. Its flow chart marks the amidochloride white and the mercury black."
+        },
+        {
+          "fields": [
+            "chart"
+          ],
+          "prints": "Flow chart 3-2",
+          "where": "The handout's chart of the separation, which is text and was read: the three chlorides as the first solid; the lead ion in the hot liquid and the other two chlorides in the solid after it; lead chromate from that liquid; mercury with mercury(II) amidochloride as the solid after the ammonia and the silver-ammonia ion in its liquid; and silver chloride from that liquid with nitric acid. The lab's seven places hold the same things."
+        }
+      ]
+    },
+    {
+      "id": "hope-q1-analysis",
+      "url": "https://chem.libretexts.org/Courses/Hope_College/General_Chemistry_Labs/Pre-Lab_Materials/Q-1_Analysis",
+      "citation": "Hope College. General Chemistry Labs, Pre-Lab Materials: Q-1 Analysis; LibreTexts; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "0bace5df24e612b2d9dc8483c7aec49cf9068003e76eae6b996232c177202357",
+      "supports": [
+        {
+          "fields": [
+            "substances[chromate-ion].look",
+            "steps[confirm-lead].notes[0]"
+          ],
+          "prints": "2.1: Lead / Pb+",
+          "where": "The heading of the page's positive result for lead, as the page prints it. Under it: a yellow solid of lead chromate confirms lead, and spinning the tube may help in telling the solid, because the liquid over it is orange. The page's scheme is for silver, bismuth and lead, and its steps are in a manual that was not read; it is cited for the colour of the liquid in the lead test and for the use of the centrifuge there."
+        }
+      ]
+    }
+  ]
+}

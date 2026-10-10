@@ -25,6 +25,9 @@
 // Reads docs/research/calorimetry/ (calorimetry.json, hazards.json and the two manifests under sources/), with the
 // hazards of the two bottles it shares with the aqueous reactions lab from docs/research/phase-4/, and writes:
 //   calorimetry/calorimetry.json, and into sources.json the calorimetry lab's sources
+// Reads docs/research/cations/ (cations.json, hazards.json and the two manifests under sources/), with the hazards
+// of the one bottle it shares with the aqueous reactions lab from docs/research/phase-4/, and writes:
+//   cations/cations.json, and into sources.json the Group I cations lab's sources
 //
 // Deterministic: the same inputs give byte-identical outputs. Anything
 // unexpected in the inputs stops the build with a message and writes nothing.
@@ -42,6 +45,7 @@ import { buildMechanism } from './mechanism-lib.mjs'
 import { observedLines, parseNistLines, spectrumFromSaved } from './emission-lib.mjs'
 import { checkFlameLines } from './flame-lib.mjs'
 import { checkMolarMasses, checkWorkedOut, withSharedHazards, withSharedSheets } from './calorimetry-lib.mjs'
+import { checkAtomicWeights, checkBench, checkWorkedOut as checkCationsWorkedOut } from './cations-lib.mjs'
 import { checkAnnualMean, checkMolecularWeight, checkPublished, checkSha256, checkSheetHazards, checkWikipediaCopy } from './titration-lib.mjs'
 
 const root = join(import.meta.dirname, '..')
@@ -53,6 +57,7 @@ const mechanismResearch = join(root, 'docs/research/phase-5')
 const emissionResearch = join(root, 'docs/research/emission-spectra')
 const flameResearch = join(root, 'docs/research/flame')
 const calorimetryResearch = join(root, 'docs/research/calorimetry')
+const cationsResearch = join(root, 'docs/research/cations')
 const out = join(root, 'src/chem-data')
 
 function fail(message) {
@@ -1622,6 +1627,74 @@ function buildCalorimetry(earlierSources, periodicTable) {
   return { calorimetry, sources: [...labSources, ...sheetSources.filter((source) => underHazards.has(source.id))] }
 }
 
+// ---------------------------------------------------------------------------
+// Group I cations lab
+//
+// The record is authored in docs/research/cations/cations.json: the eight bottles (five reagents and the three
+// nitrate solutions the samples are made from), the three ions, what each solid and each dissolved thing is and
+// looks like, the rules the engine's actions follow, the Gibbs energies each solubility product and the formation
+// constant are worked out from, the solubility of lead chloride cold and hot, the five steps with their net ionic
+// equations and the notes shown when a step is done, the flow chart's places and tiles, and the model's
+// parameters. Every source is in sources/MANIFEST.json, each row of which names the stored values it supports, and
+// the build holds the record to those rows as it does the aqueous lab's. No source has a copy in this lab's folder.
+// What the record works out from cited values is worked out again here, the two atomic weights are held to the
+// periodic table's record, and the rules are checked against the numbers at the bench's amounts, as spec 17.4
+// asks: the build stops where a number says the scheme would not go as the rules have it (scripts/cations-lib.mjs).
+// The bottles' hazards are authored apart, in hazards.json with sources/hazard-manifest.json; the hydrochloric
+// acid carries the aqueous lab's record unchanged, with that lab's documents behind it. All are merged in as the
+// aqueous lab's are: every document was read and is not kept, so the build holds them to the manifests' rows and
+// cannot check them against the documents.
+
+const CATIONS_KEYS = ['reagents', 'water', 'ions', 'substances', 'rules', 'choices', 'constants', 'gibbs', 'equilibria', 'leadChromate', 'leadChloride', 'steps', 'chart', 'parameters']
+const CATIONS_REAGENTS = ['hcl-6m', 'acetic-acid-6m', 'k2cro4-0.5m', 'nh3-6m', 'hno3-6m', 'agno3-0.1m', 'pbno32-0.1m', 'hg2no32-0.1m']
+const CATIONS_STEPS = ['precipitate', 'extract-lead', 'confirm-lead', 'separate', 'confirm-silver']
+/** The bottle whose hazards are the aqueous reactions lab's record. */
+const CATIONS_SHARED = ['hcl-6m']
+/**
+ * The one line of a sheet that this lab's tiles do not store as printed (the owner's decision of 2026-10-09): the
+ * supplier's sheet for potassium chromate prints one statement for a pair of codes with a word dropped, and the
+ * tile stores the standard phrase of each code in its place. The manifest's two rows for it print the line and say so.
+ */
+const CATIONS_STANDARD_PHRASES = { 'k2cro4-0.5m': { 'Causes skin and serious irritation (H315+H319)': { H315: 'Causes skin irritation', H319: 'Causes serious eye irritation' } } }
+/** The field of a hazard manifest's row for a document read for the primer's safety topic. */
+const CATIONS_PRIMER_SAFETY = 'primer.safety'
+
+function buildCations(earlierSources, periodicTable) {
+  const json = (name) => JSON.parse(readFileSync(join(cationsResearch, name), 'utf8'))
+  const input = json('cations.json')
+  const manifest = json('sources/MANIFEST.json')
+
+  onlyKeys(input, CATIONS_KEYS, 'cations.json')
+  if (input.reagents.map((r) => r.id).join() !== CATIONS_REAGENTS.join()) fail('cations.json: the reagents are not the eight of spec 17.1, in their order')
+  if (input.steps.map((s) => s.id).join() !== CATIONS_STEPS.join()) fail('cations.json: the steps are not the five of spec 17.2, in their order')
+  if (manifest.sources.some((source) => source.file !== undefined)) fail('cations MANIFEST.json: no source of this lab has a copy in its folder')
+
+  // A source another lab lists too (the NBS tables, the constants, the atomic weights, a page of reactions) is listed once.
+  const labSources = newSources(manifest.sources, earlierSources, 'cations MANIFEST.json')
+
+  checkCationsWorkedOut(input)
+  checkAtomicWeights(input, periodicTable)
+  checkBench(input)
+  for (const [key, parameter] of Object.entries(input.parameters)) onlyKeys(parameter, ['value', 'rationale'], `cations.json: parameters.${key}`)
+
+  // The bottle of hydrochloric acid carries the aqueous reactions lab's record unchanged, with that lab's documents behind it.
+  const json2 = (name, folder) => JSON.parse(readFileSync(join(folder, name), 'utf8'))
+  const ownHazards = json('hazards.json')
+  const hazardManifest = json('sources/hazard-manifest.json')
+  if (hazardManifest.sources.some((source) => source.file !== undefined)) fail('cations hazard-manifest.json: no document of this lab has a copy in its folder')
+  const sheets = withSharedSheets(hazardManifest.sources, json2('sources/hazard-manifest.json', aqueousResearch).sources)
+  const sheetSources = newSources(sheets, [...earlierSources, ...labSources], 'cations hazard-manifest.json')
+  const hazards = withSharedHazards(ownHazards, json2('hazards.json', aqueousResearch), CATIONS_SHARED)
+  const cations = { ...input, reagents: mergeHazards(input.reagents, hazards, sheets, {}, CATIONS_STANDARD_PHRASES) }
+  checkSupported(cations, manifest.sources, sheets)
+
+  // As for the flame test lab, the app lists the documents a bottle's hazards cite; and with them those the hazard
+  // manifest marks as read for the primer's safety topic, which no tile cites (their rows' field is `primer.safety`).
+  const underHazards = new Set(cations.reagents.flatMap(({ hazards: { sourceId, note } }) => [sourceId, note.sourceId, ...(note.alsoSourceId === undefined ? [] : [note.alsoSourceId]), ...(note.moreSourceIds ?? [])]))
+  const forPrimer = new Set(hazardManifest.sources.filter((source) => source.supports.some((row) => row.field === CATIONS_PRIMER_SAFETY)).map((source) => source.id))
+  return { cations, sources: [...labSources, ...sheetSources.filter((source) => underHazards.has(source.id) || forPrimer.has(source.id))] }
+}
+
 // A static import list keeps the registry free of bundler-only APIs.
 function moleculeIndex(molecules) {
   const name = (id) => id.replace(/-(.)/g, (_, c) => c.toUpperCase())
@@ -1665,7 +1738,9 @@ function main() {
   const { flame, sources: flameSources } = buildFlame(beforeFlame)
   const beforeCalorimetry = [...beforeFlame, ...flameSources]
   const { calorimetry, sources: calorimetrySources } = buildCalorimetry(beforeCalorimetry, periodicTable)
-  const sources = [...beforeCalorimetry, ...calorimetrySources]
+  const beforeCations = [...beforeCalorimetry, ...calorimetrySources]
+  const { cations, sources: cationsSources } = buildCations(beforeCations, periodicTable)
+  const sources = [...beforeCations, ...cationsSources]
   if (new Set(sources.map((s) => s.id)).size !== sources.length) fail('duplicate source ids')
 
   // Everything is built before anything is written.
@@ -1687,11 +1762,13 @@ function main() {
   writeFileSync(join(out, 'flame/flame.json'), toJson(flame))
   mkdirSync(join(out, 'calorimetry'), { recursive: true })
   writeFileSync(join(out, 'calorimetry/calorimetry.json'), toJson(calorimetry))
+  mkdirSync(join(out, 'cations'), { recursive: true })
+  writeFileSync(join(out, 'cations/cations.json'), toJson(cations))
   mkdirSync(join(root, 'src/mechanisms'), { recursive: true })
   writeFileSync(join(root, 'src/mechanisms', `${mechanism.id}.json`), toJson(mechanism))
   writeFileSync(join(out, 'sources.json'), toJson(sources))
   process.stdout.write(
-    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the flame test lab's record, the calorimetry lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
+    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the flame test lab's record, the calorimetry lab's record, the Group I cations lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
   )
 }
 

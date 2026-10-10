@@ -40,6 +40,17 @@ export function checkMolecularWeight(properties, cid, published) {
 const SHEET_STATEMENT = /^(H\d{3}[A-Za-z]*(?:\+H\d{3}[A-Za-z]*)*): (\S.*)$/
 // The same statement as such a sheet prints it: the statement, then its code or codes in brackets.
 const SHEET_LINE = /^(\S.*) \((H\d{3}[A-Za-z]*(?:\+H\d{3}[A-Za-z]*)*)\)$/
+// A second layout, of sheets that print the code first: the code, or codes joined by "+" with or without a space
+// on each side of it, then a dash between two spaces, then the statement ("H300 + H310 + H330 - Fatal if ...").
+const SHEET_LINE_CODE_FIRST = /^(H\d{3}[A-Za-z]*(?: ?\+ ?H\d{3}[A-Za-z]*)*) - (\S.*)$/
+
+/** What a sheet's line holds, in either layout: the statement and its codes joined by "+" with no spaces. Undefined for a line in neither. */
+function sheetLine(prints) {
+  const [, said, codes] = SHEET_LINE.exec(prints) ?? []
+  if (codes) return { said, codes }
+  const [, codesFirst, saidAfter] = SHEET_LINE_CODE_FIRST.exec(prints) ?? []
+  return codesFirst ? { said: saidAfter, codes: codesFirst.replaceAll(' ', '') } : undefined
+}
 
 /**
  * Throws unless a bottle's hazards are those the manifest records of a safety data sheet that was read and is not
@@ -49,10 +60,17 @@ const SHEET_LINE = /^(\S.*) \((H\d{3}[A-Za-z]*(?:\+H\d{3}[A-Za-z]*)*)\)$/
  * its case (a sheet prints DANGER, the record stores Danger; a sheet that prints none has a row that prints nothing,
  * and the record stores None). The statements must be the rows', all of them and in
  * their order, each turned round: the sheet prints "May be corrosive to metals (H290)" and the record stores
- * "H290: May be corrosive to metals", with the codes of a pair in the sheet's order. No statement may carry a code
- * listed in `never`.
+ * "H290: May be corrosive to metals", with the codes of a pair in the sheet's order. A sheet that prints the code
+ * first, "H290 - May be corrosive to metals", is read the same way, and the spaces it prints about a "+" are not
+ * stored. No statement may carry a code listed in `never`.
+ *
+ * One exception, which a caller states line by line in `standard` and which holds for no other line: a printed line
+ * that is not stored as it stands, because the sheet's own wording of it is faulty, may be stood for by the standard
+ * phrase of each of its codes, one stored statement to a code, in the line's order. `standard` maps the line, as the
+ * sheet prints it, to the phrase of each of its codes; there must be one row for each code, each printing the whole
+ * line, and each row must say in its `where` that the record stores a standard phrase.
  */
-export function checkSheetHazards(sheet, field, { signalWord, statements }, never = []) {
+export function checkSheetHazards(sheet, field, { signalWord, statements }, never = [], standard = {}) {
   const rows = (name) => sheet.supports.filter((row) => row.field === `${field}.${name}`)
   const signalWords = rows('signalWord')
   if (signalWords.length !== 1) throw new Error(`the source "${sheet.id}" has ${signalWords.length} rows for ${field}.signalWord, expected 1`)
@@ -74,9 +92,20 @@ export function checkSheetHazards(sheet, field, { signalWord, statements }, neve
   statements.forEach((statement, i) => {
     const [row, ...more] = rows(`statements[${i}]`)
     if (!row || more.length > 0) throw new Error(`the source "${sheet.id}" has ${more.length + (row ? 1 : 0)} rows for ${field}.statements[${i}], expected 1`)
-    const [, said, codes] = SHEET_LINE.exec(row.prints) ?? []
-    if (!codes) throw new Error(`the source "${sheet.id}": the row for ${field}.statements[${i}] prints ${JSON.stringify(row.prints)}, which is not a statement and then its code or codes in brackets`)
-    if (`${codes}: ${said}` !== statement) throw new Error(`the source "${sheet.id}" prints ${JSON.stringify(row.prints)} for ${field}.statements[${i}], not the stored ${JSON.stringify(statement)}`)
+    const line = sheetLine(row.prints)
+    if (!line) throw new Error(`the source "${sheet.id}": the row for ${field}.statements[${i}] prints ${JSON.stringify(row.prints)}, which is not a statement and then its code or codes in brackets, nor a code or codes, a dash and then the statement`)
+    const phrases = Object.hasOwn(standard, row.prints) ? standard[row.prints] : undefined
+    if (phrases !== undefined) {
+      // The rows that print this line stand in the order of its codes: the first of them is for its first code.
+      const codes = line.codes.split('+')
+      const nth = statements.slice(0, i).filter((_, before) => rows(`statements[${before}]`)[0]?.prints === row.prints).length
+      const code = codes[nth]
+      if (code === undefined || Object.keys(phrases).join('+') !== line.codes) throw new Error(`the source "${sheet.id}": the line ${JSON.stringify(row.prints)} has ${codes.length} codes, and must have one row and one standard phrase for each, in their order`)
+      if (!/standard phrase/.test(row.where)) throw new Error(`the source "${sheet.id}": the row for ${field}.statements[${i}] does not say that the record stores a standard phrase in place of the line the sheet prints`)
+      if (`${code}: ${phrases[code]}` !== statement) throw new Error(`the source "${sheet.id}" prints ${JSON.stringify(row.prints)} for ${field}.statements[${i}], which the standard phrase "${code}: ${phrases[code]}" stands for, not the stored ${JSON.stringify(statement)}`)
+      return
+    }
+    if (`${line.codes}: ${line.said}` !== statement) throw new Error(`the source "${sheet.id}" prints ${JSON.stringify(row.prints)} for ${field}.statements[${i}], not the stored ${JSON.stringify(statement)}`)
   })
 }
 

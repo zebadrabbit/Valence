@@ -1,0 +1,156 @@
+{
+  "acetic-acid-6m": {
+    "classifiedAs": "Hazards of concentrated acetic acid (6.1 M to 17.4 M, glacial), from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H226: Flammable liquid and vapor",
+        "H303: May be harmful if swallowed",
+        "H312: Harmful in contact with skin",
+        "H314: Causes severe skin burns and eye damage",
+        "H317: May cause an allergic skin reaction",
+        "H331: Toxic if inhaled"
+      ],
+      "note": {
+        "value": "The acid on this bench is 6 mol/L acetic acid; the statements above are those of the concentrated acid it is made from. The same supplier's sheet for this strength gives Warning: it irritates skin and eyes and may set off a skin allergy. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 6 M solution gives Danger and H314: it burns skin severely and damages eyes. Its mist is not breathed. Splashed clothing comes off at once; eyes are flushed for 15 minutes or more, 30 by NOAA's record, and a doctor is seen at once. It is kept from nitric acid, with which NOAA's record says the undiluted acid can explode.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-5.2",
+        "alsoSourceId": "wards-sds-aa0003",
+        "moreSourceIds": [
+          "noaa-cameo-9215",
+          "noaa-cameo-2272"
+        ]
+      },
+      "sourceId": "flinn-sds-5"
+    }
+  },
+  "k2cro4-0.5m": {
+    "classifiedAs": "Hazards of solid potassium chromate, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H301: Toxic if swallowed",
+        "H315: Causes skin irritation",
+        "H319: Causes serious eye irritation",
+        "H317: May cause an allergic skin reaction",
+        "H335: May cause respiratory irritation",
+        "H340: May cause genetic defects",
+        "H350: May cause cancer"
+      ],
+      "note": {
+        "value": "The solution on this bench is 0.5 mol/L potassium chromate. The same supplier's one sheet for the solution, a stronger one, gives Danger and, among five statements, H302: harmful if swallowed. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 0.1 M solution keeps the statements above for skin, eyes and skin allergy, and adds H410, very toxic to water life with lasting effects: it is kept out of drains and waterways. Its mist is not breathed. Eyes are flushed for 15 minutes or more and a doctor is seen at once; if any is swallowed, a doctor or a poison centre at once. A third supplier's sheet for the solid adds harm to organs over long exposure.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-624",
+        "alsoSourceId": "wards-sds-pp0494",
+        "moreSourceIds": [
+          "fisher-sds-k2cro4"
+        ]
+      },
+      "sourceId": "flinn-sds-623"
+    }
+  },
+  "nh3-6m": {
+    "classifiedAs": "Hazards of ammonia solution (ammonium hydroxide) of 1.1 M to 14.8 M, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H302: Harmful if swallowed",
+        "H314: Causes severe skin burns and eye damage"
+      ],
+      "note": {
+        "value": "The ammonia solution on this bench is 6 mol/L; the statements above are of a sheet for 1.1 M to 14.8 M. It calls for eye protection, gloves and protective clothing, and a fume hood or a well-ventilated room; splashed clothing comes off at once, and the solution is kept from acids.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 6 M solution adds H335, irritation of the airways, and H400, very toxic to water life: it is kept out of drains and waterways. Eyes are flushed for 15 minutes or more, 30 by NOAA's record, and a doctor is seen at once. By NOAA's records ammonia can form explosive compounds with silver and with mercury: ask the supervisor before any tube from steps 4 and 5 is set aside or kept.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-58",
+        "alsoSourceId": "wards-sds-aa0273",
+        "moreSourceIds": [
+          "noaa-cameo-2434",
+          "noaa-cameo-1064"
+        ]
+      },
+      "sourceId": "flinn-sds-58"
+    }
+  },
+  "hno3-6m": {
+    "classifiedAs": "Hazards of concentrated nitric acid (9 M to 15.8 M), from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H272: May intensify fire; oxidizer",
+        "H290: May be corrosive to metals",
+        "H314: Causes severe skin burns and eye damage"
+      ],
+      "note": {
+        "value": "The acid on this bench is 6 mol/L nitric acid; the statements above are those of the concentrated acid it is made from. The same supplier's sheet for this strength adds H332: harmful if breathed in. It calls for eye protection, gloves and protective clothing, and a fume hood or a well-ventilated room; splashed clothing comes off at once.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 6 M solution asks eyes flushed for 15 minutes or more and a doctor at once. A third's classes the concentrated acid as toxic if breathed in. It is kept from acetic acid, bases, metals and anything that burns; by NOAA's record the undiluted acid ignites on contact with ammonia. Step 5 adds it to ammonia a little at a time, as the experiment.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-552.5",
+        "alsoSourceId": "wards-sds-nn0280",
+        "moreSourceIds": [
+          "fisher-sds-nitric-acid",
+          "noaa-cameo-19337"
+        ]
+      },
+      "sourceId": "flinn-sds-552"
+    }
+  },
+  "agno3-0.1m": {
+    "classifiedAs": "Hazards of solid silver nitrate, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H272: May intensify fire; oxidizer",
+        "H302: Harmful if swallowed",
+        "H314: Causes severe skin burns and eye damage"
+      ],
+      "note": {
+        "value": "The solution on this bench is 0.1 mol/L silver nitrate. The same supplier's sheet for this strength gives Warning: it irritates skin and seriously irritates eyes. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 0.1 M solution adds H400, very toxic to water life: it is kept out of drains and waterways. Eyes are flushed for 15 minutes or more and a doctor is seen at once; if any is swallowed, a doctor or a poison centre at once. A third's sheet for the solid adds harm to an unborn child. With ammonia it forms shock-sensitive compounds, by the first supplier's sheet for the solid: ask the supervisor before any tube from steps 4 and 5 is set aside or kept.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-692",
+        "alsoSourceId": "wards-sds-ss0180",
+        "moreSourceIds": [
+          "fisher-sds-agno3",
+          "flinn-sds-691"
+        ]
+      },
+      "sourceId": "flinn-sds-691"
+    }
+  },
+  "pbno32-0.1m": {
+    "classifiedAs": "Hazards of solid lead nitrate, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H272: May intensify fire; oxidizer",
+        "H302+H332: Harmful if swallowed or inhaled",
+        "H318: Causes serious eye damage",
+        "H350: May cause cancer",
+        "H360: May damage fertility or the unborn child",
+        "H373: May cause damage to organs through prolonged or repeated exposure",
+        "H410: Very toxic to aquatic life with long lasting effects"
+      ],
+      "note": {
+        "value": "The solution on this bench is 0.1 mol/L lead nitrate. The same supplier's sheet for the solution drops three of the statements above: the fire hazard, the damage to the eyes and the code for water life. It calls for eye protection, gloves and protective clothing, and a fume hood or a well-ventilated room.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 0.1 M solution adds H320, it irritates the eyes, and has H410: it is kept out of drains and waterways. Eyes are flushed for 15 minutes or more and a doctor is seen at once; if any is swallowed, a doctor or a poison centre at once. It says that lead builds up in the body. A third's sheet for the solid adds a skin allergy.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-438",
+        "alsoSourceId": "wards-sds-ll0133",
+        "moreSourceIds": [
+          "fisher-sds-pbno32"
+        ]
+      },
+      "sourceId": "flinn-sds-437"
+    }
+  },
+  "hg2no32-0.1m": {
+    "classifiedAs": "Hazards of solid mercury(I) nitrate dihydrate, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H410: Very toxic to aquatic life with long lasting effects",
+        "H373: May cause damage to organs through prolonged or repeated exposure",
+        "H300+H310+H330: Fatal if swallowed, in contact with skin or if inhaled"
+      ],
+      "note": {
+        "value": "The solution on this bench is 0.1 mol/L mercury(I) nitrate. No sheet for a solution of this salt could be read, and the supplier of the other bottles' statements has none for the salt: the statements above are another supplier's, for the solid, and the solution is handled as the solid is.\n\nStricter, and what this lab goes by: the sheets count every route as fatal, the skin among them. They call for eye protection, gloves, protective clothing and a fume hood. After any contact: a doctor or a poison centre at once; eyes flushed for 15 minutes or more; skin washed with soap and water while splashed clothing comes off. NOAA's record marks it a strong oxidising agent, kept from anything that burns; the sheets keep it out of drains and waterways.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "fisher-sds-hg2no32-dihydrate",
+        "alsoSourceId": "fisher-uk-sds-hg2no32-dihydrate",
+        "moreSourceIds": [
+          "noaa-cameo-3837"
+        ]
+      },
+      "sourceId": "fisher-uk-sds-hg2no32-dihydrate"
+    }
+  }
+}
