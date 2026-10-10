@@ -334,7 +334,7 @@ export const CATIONS_PRIMER: readonly PrimerSection[] = [
       ),
       paragraph(
         { label: 'The solids it makes' },
-        'The solids the steps make are no safer. By their sheets, lead chloride and lead chromate may cause cancer; mercury(I) chloride is toxic if swallowed; and mercury and mercury(II) amidochloride, the two parts of the grey to black solid, are each fatal if inhaled. Silver chloride is the mildest: its dust may irritate the airways.',
+        'The solids the steps make are no safer. By their sheets, lead chloride and lead chromate may cause cancer; mercury(I) chloride is toxic if swallowed; and mercury and mercury(II) amidochloride, the two parts of the grey to black solid, are each fatal if inhaled. For silver chloride the one hazard its sheet lists is that its dust may irritate the airways.',
         [
           ['flinn-sds-435', SECTION_2, 'solid lead chloride may cause cancer, may harm fertility or an unborn child, and is harmful if it is swallowed or breathed in.'],
           ['flinn-sds-435.5', SECTION_2, 'a saturated solution of lead chloride, as step 2 pours off, may cause cancer.'],

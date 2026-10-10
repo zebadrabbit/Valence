@@ -728,7 +728,7 @@
           "alsoSourceId": "smc-group-1-lab"
         },
         {
-          "value": "Lead chloride is the most soluble of the three and the slowest to form. On a real bench some lead stays in the liquid, and the acid goes in a drop at a time until no more solid comes. Far too much acid begins to dissolve the chlorides again. This lab adds a fixed amount and takes all three to come down whole.",
+          "value": "Lead chloride is the most soluble of the three, and it is slow to form. On a real bench some lead stays in the liquid, and the acid goes in a drop at a time until no more solid comes. Far too much acid begins to dissolve the chlorides again. This lab adds a fixed amount and takes all three to come down whole.",
           "sourceId": "birk-lead",
           "alsoSourceId": "ntu-group-1-lab",
           "moreSourceIds": [
@@ -862,7 +862,7 @@
           ]
         },
         {
-          "value": "Lead chloride left behind at step 2 does not dissolve in ammonia either. It stays as a white solid, which the page read gives as lead hydroxide. A white solid here does not come from silver or from mercury(I).",
+          "value": "Lead chloride left behind at step 2 does not dissolve in ammonia either. It stays as a white solid, which the page read gives as lead hydroxide. A white solid left at this step is that lead: it is not silver, and it is not mercury(I).",
           "sourceId": "ntu-group-1-lab"
         }
       ]
