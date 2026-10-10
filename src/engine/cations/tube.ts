@@ -1,5 +1,6 @@
 import type { IonId } from '@/chem-data/cations/data'
 import { SOLID_IDS, type CationsModel, type SolidId } from './model'
+import type { TubeShows } from '../tubeShows'
 
 // A test tube and what each action does to it (spec 17.4). A tube holds whole-number amounts: its liquid in
 // microlitres, and what is dissolved in it and each solid in nanomoles. Every function here takes a tube and
@@ -181,13 +182,8 @@ export function addNitricAcid(m: CationsModel, tube: Tube): Tube {
 export type Litmus = 'acid' | 'basic' | 'neutral'
 export const litmusOf = (tube: Tube): Litmus => (tube.acid > 0 ? 'acid' : tube.ammonia > 0 || tube.silverAmmonia > 0 ? 'basic' : 'neutral')
 
-/** What is seen of a tube, in the record's words for colours, and nothing of what it is. */
-export interface TubeShows {
-  /** Null for a tube with no liquid in it. `cloudy` where a solid is spread through it. */
-  liquid: { colour: string; cloudy: boolean; microlitres: number } | null
-  /** Null for a tube with no solid in it. `settled` once it is at the bottom; false while it is spread through the liquid. */
-  solid: { colour: string; settled: boolean } | null
-}
+// What is seen of a tube is one shape for every lab that draws a test tube: src/engine/tubeShows.ts.
+export type { TubeShows }
 
 /**
  * What a tube shows. A liquid is coloured by chromate and by nothing else in this lab. Of two solids in one tube,

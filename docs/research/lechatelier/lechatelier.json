@@ -1,0 +1,1682 @@
+{
+  "reagents": [
+    {
+      "id": "pbno32-0.3m",
+      "name": "Lead(II) nitrate solution, 0.3 M",
+      "formula": "Pb(NO₃)₂",
+      "form": "solution",
+      "molarity": 0.3,
+      "sourceId": "bellevue-le-chatelier"
+    },
+    {
+      "id": "hcl-0.3m",
+      "name": "Hydrochloric acid, 0.3 M",
+      "formula": "HCl",
+      "form": "solution",
+      "molarity": 0.3,
+      "sourceId": "bellevue-le-chatelier"
+    },
+    {
+      "id": "hcl-6m",
+      "name": "Hydrochloric acid, 6 M",
+      "formula": "HCl",
+      "form": "solution",
+      "molarity": 6,
+      "sourceId": "bellevue-le-chatelier"
+    },
+    {
+      "id": "hcl-12m",
+      "name": "Hydrochloric acid, 12 M",
+      "formula": "HCl",
+      "form": "solution",
+      "molarity": 12,
+      "sourceId": "bellevue-le-chatelier"
+    },
+    {
+      "id": "methyl-violet",
+      "name": "Methyl violet indicator solution",
+      "form": "indicator",
+      "sourceId": "bellevue-le-chatelier"
+    },
+    {
+      "id": "cocl2-solid",
+      "name": "Cobalt(II) chloride hexahydrate, solid",
+      "formula": "CoCl₂·6H₂O",
+      "form": "solid",
+      "sourceId": "bellevue-le-chatelier"
+    },
+    {
+      "id": "znno32-0.1m",
+      "name": "Zinc nitrate solution, 0.1 M",
+      "formula": "Zn(NO₃)₂",
+      "form": "solution",
+      "molarity": 0.1,
+      "sourceId": "bellevue-le-chatelier"
+    },
+    {
+      "id": "mgno32-0.1m",
+      "name": "Magnesium nitrate solution, 0.1 M",
+      "formula": "Mg(NO₃)₂",
+      "form": "solution",
+      "molarity": 0.1,
+      "sourceId": "bellevue-le-chatelier"
+    },
+    {
+      "id": "naoh-6m",
+      "name": "Sodium hydroxide solution, 6 M",
+      "formula": "NaOH",
+      "form": "solution",
+      "molarity": 6,
+      "sourceId": "bellevue-le-chatelier"
+    },
+    {
+      "id": "nh3-6m",
+      "name": "Ammonia solution, 6 M",
+      "formula": "NH₃",
+      "form": "solution",
+      "molarity": 6,
+      "sourceId": "bellevue-le-chatelier"
+    }
+  ],
+  "water": {
+    "name": "Distilled water",
+    "formula": "H₂O"
+  },
+  "substances": [
+    {
+      "id": "lead-chloride",
+      "name": "Lead chloride",
+      "formula": "PbCl₂",
+      "state": "s",
+      "look": {
+        "value": "white",
+        "sourceId": "birk-lead"
+      },
+      "sourceId": "birk-lead"
+    },
+    {
+      "id": "methyl-violet-acid",
+      "name": "Methyl violet, the form that holds a hydrogen ion",
+      "formula": "HMV",
+      "state": "aq",
+      "look": {
+        "value": "yellow",
+        "sourceId": "bellevue-le-chatelier",
+        "alsoSourceId": "libretexts-acid-base-indicators"
+      },
+      "sourceId": "bellevue-le-chatelier"
+    },
+    {
+      "id": "methyl-violet-base",
+      "name": "Methyl violet, the form that has given up a hydrogen ion",
+      "formula": "MV⁻",
+      "state": "aq",
+      "look": {
+        "value": "violet",
+        "sourceId": "bellevue-le-chatelier"
+      },
+      "sourceId": "bellevue-le-chatelier"
+    },
+    {
+      "id": "cobalt-aqua-ion",
+      "name": "Cobalt ion with six water molecules",
+      "formula": "[Co(H₂O)₆]²⁺",
+      "state": "aq",
+      "look": {
+        "value": "pink",
+        "sourceId": "nuffield-cobalt-equilibrium",
+        "alsoSourceId": "chemguide-ligand-exchange"
+      },
+      "sourceId": "nuffield-cobalt-equilibrium"
+    },
+    {
+      "id": "cobalt-chloro-ion",
+      "name": "Cobalt ion with four chloride ions",
+      "formula": "[CoCl₄]²⁻",
+      "state": "aq",
+      "look": {
+        "value": "blue",
+        "sourceId": "nuffield-cobalt-equilibrium",
+        "alsoSourceId": "chemguide-ligand-exchange"
+      },
+      "sourceId": "nuffield-cobalt-equilibrium"
+    },
+    {
+      "id": "zinc-hydroxide",
+      "name": "Zinc hydroxide",
+      "formula": "Zn(OH)₂",
+      "state": "s",
+      "look": {
+        "value": "white",
+        "sourceId": "birk-zinc"
+      },
+      "sourceId": "birk-zinc"
+    },
+    {
+      "id": "magnesium-hydroxide",
+      "name": "Magnesium hydroxide",
+      "formula": "Mg(OH)₂",
+      "state": "s",
+      "look": {
+        "value": "white",
+        "sourceId": "birk-magnesium"
+      },
+      "sourceId": "birk-magnesium"
+    },
+    {
+      "id": "zincate-ion",
+      "name": "Zinc ion with four hydroxide ions",
+      "formula": "[Zn(OH)₄]²⁻",
+      "state": "aq",
+      "sourceId": "birk-zinc"
+    },
+    {
+      "id": "zinc-ammonia-ion",
+      "name": "Zinc ion with four ammonia molecules",
+      "formula": "[Zn(NH₃)₄]²⁺",
+      "state": "aq",
+      "sourceId": "birk-zinc"
+    }
+  ],
+  "rules": [
+    {
+      "id": "lead-chloride-forms",
+      "says": "Chloride ions bring lead ions out of a solution as white solid lead chloride, once the liquid holds more of the two than it can keep dissolved. The model puts that point where the concentration of lead times the square of the concentration of chloride passes what it is in water saturated with lead chloride alone.",
+      "sourceId": "birk-lead",
+      "alsoSourceId": "malik-varying-solubility"
+    },
+    {
+      "id": "lead-chloride-with-heat",
+      "says": "Hot water holds over three times as much lead chloride as cold water, so the solid dissolves when the tube is heated and comes back when it is cooled. Dissolving lead chloride takes in heat.",
+      "sourceId": "birk-lead",
+      "alsoSourceId": "nbs-tables-1982"
+    },
+    {
+      "id": "lead-chloride-with-water",
+      "says": "Water added to the tube lowers the concentration of both ions, and the solid dissolves once the liquid holds no more of them than it can keep dissolved.",
+      "sourceId": "bellevue-le-chatelier",
+      "alsoSourceId": "lower-le-chatelier"
+    },
+    {
+      "id": "indicator-colour",
+      "says": "Methyl violet is yellow at pH 0.0 and below and changes colour between pH 0.0 and pH 1.6. In water with no acid in it, it is violet. Inside the range both forms are in the liquid, and the colour seen is a mixture.",
+      "sourceId": "libretexts-acid-base-indicators",
+      "alsoSourceId": "bellevue-le-chatelier",
+      "moreSourceIds": [
+        "chemguide-indicators"
+      ]
+    },
+    {
+      "id": "acid-meets-base",
+      "says": "A hydrogen ion and a hydroxide ion join into a molecule of water. So sodium hydroxide takes hydrogen ions out of a liquid, and an acid takes hydroxide ions out of one, one for one.",
+      "sourceId": "bellevue-le-chatelier",
+      "alsoSourceId": "malik-varying-solubility"
+    },
+    {
+      "id": "cobalt-with-chloride",
+      "says": "In concentrated hydrochloric acid, cobalt is held as a blue ion with four chloride ions. Water turns it back into the pink ion with six water molecules. Where both ions are in the liquid together, the liquid is violet.",
+      "sourceId": "nuffield-cobalt-equilibrium",
+      "alsoSourceId": "chemguide-ligand-exchange"
+    },
+    {
+      "id": "cobalt-with-heat",
+      "says": "A liquid that holds both cobalt ions turns blue in hot water and pink in ice water: the change toward the blue ion takes in heat.",
+      "sourceId": "nuffield-cobalt-equilibrium"
+    },
+    {
+      "id": "hydroxides-form",
+      "says": "Sodium hydroxide brings zinc ions and magnesium ions out of a solution as white solid hydroxides.",
+      "sourceId": "birk-zinc",
+      "alsoSourceId": "birk-magnesium"
+    },
+    {
+      "id": "hydroxides-in-acid",
+      "says": "An acid takes hydroxide ions away as water, and a solid hydroxide dissolves to replace them.",
+      "sourceId": "malik-varying-solubility",
+      "alsoSourceId": "bellevue-le-chatelier"
+    },
+    {
+      "id": "zinc-hydroxide-in-base",
+      "says": "Zinc hydroxide dissolves in an excess of sodium hydroxide: a zinc ion with four hydroxide ions is a complex ion, which stays dissolved.",
+      "sourceId": "birk-zinc",
+      "alsoSourceId": "bellevue-le-chatelier"
+    },
+    {
+      "id": "zinc-hydroxide-in-ammonia",
+      "says": "Zinc hydroxide dissolves in an excess of ammonia: a zinc ion with four ammonia molecules is a complex ion, which stays dissolved.",
+      "sourceId": "birk-zinc",
+      "alsoSourceId": "bellevue-le-chatelier"
+    },
+    {
+      "id": "magnesium-hydroxide-stays",
+      "says": "Magnesium hydroxide dissolves in neither an excess of sodium hydroxide nor an excess of ammonia. Magnesium rarely forms complex ions and forms none that would hold it dissolved in either, and each of them brings magnesium hydroxide down.",
+      "sourceId": "birk-magnesium",
+      "alsoSourceId": "bellevue-le-chatelier"
+    }
+  ],
+  "choices": {
+    "solid": [
+      "none",
+      "white"
+    ],
+    "liquid": [
+      "colourless",
+      "yellow",
+      "between blue and yellow",
+      "blue",
+      "violet",
+      "pink"
+    ]
+  },
+  "constants": {
+    "gasConstant": {
+      "value": 8.314462618,
+      "unit": "J/(mol·K)",
+      "sourceId": "nist-codata-2022"
+    }
+  },
+  "gibbs": [
+    {
+      "id": "zinc-ion",
+      "label": "Zn²⁺(aq)",
+      "value": -147.06,
+      "published": "-147.06",
+      "sourceId": "nbs-tables-1982"
+    },
+    {
+      "id": "zinc-hydroxide",
+      "label": "Zn(OH)₂(s)",
+      "value": -555.07,
+      "published": "-555.07",
+      "sourceId": "nbs-tables-1982"
+    },
+    {
+      "id": "zincate-ion",
+      "label": "[Zn(OH)₄]²⁻(aq)",
+      "value": -858.52,
+      "published": "-858.52",
+      "sourceId": "nbs-tables-1982"
+    },
+    {
+      "id": "zinc-ammonia-ion",
+      "label": "[Zn(NH₃)₄]²⁺(aq)",
+      "value": -301.9,
+      "published": "-301.9",
+      "sourceId": "nbs-tables-1982"
+    },
+    {
+      "id": "magnesium-ion",
+      "label": "Mg²⁺(aq)",
+      "value": -454.8,
+      "published": "-454.8",
+      "sourceId": "nbs-tables-1982"
+    },
+    {
+      "id": "magnesium-hydroxide",
+      "label": "Mg(OH)₂(s)",
+      "value": -833.51,
+      "published": "-833.51",
+      "sourceId": "nbs-tables-1982"
+    },
+    {
+      "id": "hydroxide-ion",
+      "label": "OH⁻(aq)",
+      "value": -157.244,
+      "published": "-157.244",
+      "sourceId": "nbs-tables-1982"
+    },
+    {
+      "id": "hydrogen-ion",
+      "label": "H⁺(aq)",
+      "value": 0,
+      "published": "0",
+      "sourceId": "nbs-tables-1982"
+    },
+    {
+      "id": "water",
+      "label": "H₂O(l)",
+      "value": -237.129,
+      "published": "-237.129",
+      "sourceId": "nbs-tables-1982"
+    },
+    {
+      "id": "ammonia",
+      "label": "NH₃(aq)",
+      "value": -26.5,
+      "published": "-26.50",
+      "sourceId": "nbs-tables-1982"
+    },
+    {
+      "id": "ammonium-ion",
+      "label": "NH₄⁺(aq)",
+      "value": -79.31,
+      "published": "-79.31",
+      "sourceId": "nbs-tables-1982"
+    }
+  ],
+  "equilibriumConstants": [
+    {
+      "id": "zinc-hydroxide",
+      "name": "Solubility product of zinc hydroxide",
+      "expression": "[Zn²⁺][OH⁻]²",
+      "terms": [
+        {
+          "gibbsId": "zinc-ion",
+          "coefficient": 1
+        },
+        {
+          "gibbsId": "hydroxide-ion",
+          "coefficient": 2
+        },
+        {
+          "gibbsId": "zinc-hydroxide",
+          "coefficient": -1
+        }
+      ],
+      "gibbs": {
+        "value": 93.522,
+        "unit": "kJ/mol",
+        "working": "(−147.06) + 2 × (−157.244) − (−555.07) = 93.522 kJ/mol"
+      },
+      "constant": {
+        "value": 4.13e-17,
+        "shown": "4.13 × 10⁻¹⁷",
+        "working": "e^(−93 522 ÷ (8.314462618 × 298.15)) = 4.127 × 10⁻¹⁷, stored to three significant figures"
+      }
+    },
+    {
+      "id": "magnesium-hydroxide",
+      "name": "Solubility product of magnesium hydroxide",
+      "expression": "[Mg²⁺][OH⁻]²",
+      "terms": [
+        {
+          "gibbsId": "magnesium-ion",
+          "coefficient": 1
+        },
+        {
+          "gibbsId": "hydroxide-ion",
+          "coefficient": 2
+        },
+        {
+          "gibbsId": "magnesium-hydroxide",
+          "coefficient": -1
+        }
+      ],
+      "gibbs": {
+        "value": 64.222,
+        "unit": "kJ/mol",
+        "working": "(−454.8) + 2 × (−157.244) − (−833.51) = 64.222 kJ/mol"
+      },
+      "constant": {
+        "value": 5.61e-12,
+        "shown": "5.61 × 10⁻¹²",
+        "working": "e^(−64 222 ÷ (8.314462618 × 298.15)) = 5.608 × 10⁻¹², stored to three significant figures"
+      }
+    },
+    {
+      "id": "zincate-ion",
+      "name": "Formation constant of the zinc ion with four hydroxide ions",
+      "expression": "[[Zn(OH)₄]²⁻] ÷ ([Zn²⁺][OH⁻]⁴)",
+      "terms": [
+        {
+          "gibbsId": "zincate-ion",
+          "coefficient": 1
+        },
+        {
+          "gibbsId": "zinc-ion",
+          "coefficient": -1
+        },
+        {
+          "gibbsId": "hydroxide-ion",
+          "coefficient": -4
+        }
+      ],
+      "gibbs": {
+        "value": -82.484,
+        "unit": "kJ/mol",
+        "working": "(−858.52) − (−147.06) − 4 × (−157.244) = −82.484 kJ/mol"
+      },
+      "constant": {
+        "value": 282000000000000,
+        "shown": "2.82 × 10¹⁴",
+        "working": "e^(82 484 ÷ (8.314462618 × 298.15)) = 2.822 × 10¹⁴, stored to three significant figures"
+      }
+    },
+    {
+      "id": "zinc-ammonia-ion",
+      "name": "Formation constant of the zinc ion with four ammonia molecules",
+      "expression": "[[Zn(NH₃)₄]²⁺] ÷ ([Zn²⁺][NH₃]⁴)",
+      "terms": [
+        {
+          "gibbsId": "zinc-ammonia-ion",
+          "coefficient": 1
+        },
+        {
+          "gibbsId": "zinc-ion",
+          "coefficient": -1
+        },
+        {
+          "gibbsId": "ammonia",
+          "coefficient": -4
+        }
+      ],
+      "gibbs": {
+        "value": -48.84,
+        "unit": "kJ/mol",
+        "working": "(−301.9) − (−147.06) − 4 × (−26.50) = −48.840 kJ/mol"
+      },
+      "constant": {
+        "value": 360000000,
+        "shown": "3.60 × 10⁸",
+        "working": "e^(48 840 ÷ (8.314462618 × 298.15)) = 3.601 × 10⁸, stored to three significant figures"
+      }
+    },
+    {
+      "id": "ammonia-as-base",
+      "name": "Constant of ammonia as a base in water",
+      "expression": "[NH₄⁺][OH⁻] ÷ [NH₃]",
+      "terms": [
+        {
+          "gibbsId": "ammonium-ion",
+          "coefficient": 1
+        },
+        {
+          "gibbsId": "hydroxide-ion",
+          "coefficient": 1
+        },
+        {
+          "gibbsId": "ammonia",
+          "coefficient": -1
+        },
+        {
+          "gibbsId": "water",
+          "coefficient": -1
+        }
+      ],
+      "gibbs": {
+        "value": 27.075,
+        "unit": "kJ/mol",
+        "working": "(−79.31) + (−157.244) − (−26.50) − (−237.129) = 27.075 kJ/mol"
+      },
+      "constant": {
+        "value": 0.0000181,
+        "shown": "1.81 × 10⁻⁵",
+        "working": "e^(−27 075 ÷ (8.314462618 × 298.15)) = 1.806 × 10⁻⁵, stored to three significant figures"
+      }
+    },
+    {
+      "id": "water",
+      "name": "Ion product of water",
+      "expression": "[H⁺][OH⁻]",
+      "terms": [
+        {
+          "gibbsId": "hydrogen-ion",
+          "coefficient": 1
+        },
+        {
+          "gibbsId": "hydroxide-ion",
+          "coefficient": 1
+        },
+        {
+          "gibbsId": "water",
+          "coefficient": -1
+        }
+      ],
+      "gibbs": {
+        "value": 79.885,
+        "unit": "kJ/mol",
+        "working": "0 + (−157.244) − (−237.129) = 79.885 kJ/mol"
+      },
+      "constant": {
+        "value": 1.01e-14,
+        "shown": "1.01 × 10⁻¹⁴",
+        "working": "e^(−79 885 ÷ (8.314462618 × 298.15)) = 1.011 × 10⁻¹⁴, stored to three significant figures"
+      }
+    }
+  ],
+  "enthalpies": [
+    {
+      "id": "lead-ion",
+      "label": "Pb²⁺(aq)",
+      "value": -1.7,
+      "published": "-1.7",
+      "sourceId": "nbs-tables-1982"
+    },
+    {
+      "id": "chloride-ion",
+      "label": "Cl⁻(aq)",
+      "value": -167.159,
+      "published": "-167.159",
+      "sourceId": "nbs-tables-1982"
+    },
+    {
+      "id": "lead-chloride",
+      "label": "PbCl₂(s)",
+      "value": -359.41,
+      "published": "-359.41",
+      "sourceId": "nbs-tables-1982"
+    }
+  ],
+  "heats": [
+    {
+      "id": "lead-chloride-dissolving",
+      "name": "Heat taken in when lead chloride dissolves",
+      "equation": "PbCl₂(s) → Pb²⁺(aq) + 2Cl⁻(aq)",
+      "terms": [
+        {
+          "enthalpyId": "lead-ion",
+          "coefficient": 1
+        },
+        {
+          "enthalpyId": "chloride-ion",
+          "coefficient": 2
+        },
+        {
+          "enthalpyId": "lead-chloride",
+          "coefficient": -1
+        }
+      ],
+      "enthalpy": {
+        "value": 23.392,
+        "unit": "kJ/mol",
+        "working": "(−1.7) + 2 × (−167.159) − (−359.41) = 23.392 kJ/mol"
+      }
+    }
+  ],
+  "leadChloride": {
+    "atomicWeights": [
+      {
+        "id": "Pb",
+        "value": 207.2,
+        "published": "207.2",
+        "sourceId": "ciaaw-abridged-2024"
+      },
+      {
+        "id": "Cl",
+        "value": 35.45,
+        "published": "35.45",
+        "sourceId": "ciaaw-abridged-2024"
+      }
+    ],
+    "molarMass": {
+      "value": 278.1,
+      "unit": "g/mol",
+      "working": "207.2 + 2 × 35.45 = 278.10 g/mol, from the standard atomic weights of lead and of chlorine"
+    },
+    "solubilityCold": {
+      "value": 10,
+      "published": "10",
+      "unit": "g/L",
+      "celsius": 20,
+      "sourceId": "birk-lead"
+    },
+    "solubilityHot": {
+      "value": 33.5,
+      "published": "33.5",
+      "unit": "g/L",
+      "celsius": 100,
+      "sourceId": "birk-lead"
+    },
+    "saturationCold": {
+      "value": 0.000186,
+      "shown": "1.86 × 10⁻⁴",
+      "working": "10 g/L ÷ 278.10 g/mol = 0.03596 mol/L of lead, and twice that of chloride; 0.03596 × (2 × 0.03596)² = 1.860 × 10⁻⁴, stored to three significant figures"
+    },
+    "saturationHot": {
+      "value": 0.00699,
+      "shown": "6.99 × 10⁻³",
+      "working": "33.5 g/L ÷ 278.10 g/mol = 0.12046 mol/L of lead, and twice that of chloride; 0.12046 × (2 × 0.12046)² = 6.992 × 10⁻³, stored to three significant figures"
+    },
+    "note": {
+      "value": "The two figures are one page's, for 20 °C and for 100 °C, and are for lead chloride alone in water. This tube also holds lead nitrate, with far more lead in it than chloride. The model takes the same product of the two concentrations to mark saturation there, which leaves out what the other ions in the liquid do. One procedure read sees no solid at a mixture where this product says there is one, so a real bench may need more acid than this lab does.",
+      "sourceId": "birk-lead",
+      "alsoSourceId": "bellevue-le-chatelier"
+    }
+  },
+  "indicator": {
+    "reagentId": "methyl-violet",
+    "range": {
+      "from": {
+        "value": 0,
+        "published": "0.0",
+        "sourceId": "libretexts-acid-base-indicators"
+      },
+      "to": {
+        "value": 1.6,
+        "published": "1.6",
+        "sourceId": "libretexts-acid-base-indicators"
+      }
+    },
+    "looks": {
+      "below": {
+        "value": "yellow",
+        "sourceId": "libretexts-acid-base-indicators",
+        "alsoSourceId": "bellevue-le-chatelier"
+      },
+      "within": {
+        "value": "between blue and yellow",
+        "sourceId": "libretexts-acid-base-indicators",
+        "alsoSourceId": "chemguide-indicators"
+      },
+      "noAcid": {
+        "value": "violet",
+        "sourceId": "bellevue-le-chatelier"
+      }
+    },
+    "note": {
+      "value": "The table read gives the change as yellow to blue over the range, and the procedure read calls the indicator in water violet. The model has three looks: yellow at the bottom of the range and below it, a colour between blue and yellow inside it, and violet where no acid is left. It has none for a liquid above the range with a little acid still in it, which the table has as blue, and the build checks that no such liquid is reached.",
+      "sourceId": "libretexts-acid-base-indicators",
+      "alsoSourceId": "bellevue-le-chatelier"
+    }
+  },
+  "equilibria": [
+    {
+      "id": "lead-chloride",
+      "equation": "Pb²⁺(aq) + 2Cl⁻(aq) ⇌ PbCl₂(s)",
+      "left": "lead ions and chloride ions, dissolved",
+      "right": "solid lead chloride, which is white",
+      "seenBy": {
+        "kind": "solid",
+        "side": "right"
+      },
+      "heat": {
+        "takenInToward": "left",
+        "heatId": "lead-chloride-dissolving",
+        "sourceId": "nbs-tables-1982"
+      },
+      "substanceIds": [
+        "lead-chloride"
+      ],
+      "sourceId": "birk-lead"
+    },
+    {
+      "id": "methyl-violet",
+      "equation": "HMV(aq) ⇌ H⁺(aq) + MV⁻(aq)",
+      "left": "the yellow form of methyl violet, which holds a hydrogen ion",
+      "right": "a hydrogen ion, and the violet form of methyl violet",
+      "seenBy": {
+        "kind": "colour",
+        "left": "yellow",
+        "right": "violet"
+      },
+      "substanceIds": [
+        "methyl-violet-acid",
+        "methyl-violet-base"
+      ],
+      "sourceId": "bellevue-le-chatelier"
+    },
+    {
+      "id": "cobalt",
+      "equation": "[Co(H₂O)₆]²⁺(aq) + 4Cl⁻(aq) ⇌ [CoCl₄]²⁻(aq) + 6H₂O(l)",
+      "left": "the pink ion of cobalt with water, and chloride ions",
+      "right": "the blue ion of cobalt with chloride, and water",
+      "seenBy": {
+        "kind": "colour",
+        "left": "pink",
+        "right": "blue"
+      },
+      "heat": {
+        "takenInToward": "right",
+        "sourceId": "nuffield-cobalt-equilibrium"
+      },
+      "substanceIds": [
+        "cobalt-aqua-ion",
+        "cobalt-chloro-ion"
+      ],
+      "sourceId": "nuffield-cobalt-equilibrium",
+      "alsoSourceId": "bellevue-le-chatelier"
+    },
+    {
+      "id": "zinc-hydroxide",
+      "equation": "Zn²⁺(aq) + 2OH⁻(aq) ⇌ Zn(OH)₂(s)",
+      "left": "zinc ions and hydroxide ions, dissolved",
+      "right": "solid zinc hydroxide, which is white",
+      "seenBy": {
+        "kind": "solid",
+        "side": "right"
+      },
+      "numbers": {
+        "solubilityProduct": "zinc-hydroxide",
+        "withHydroxide": "zincate-ion",
+        "withAmmonia": "zinc-ammonia-ion"
+      },
+      "substanceIds": [
+        "zinc-hydroxide",
+        "zincate-ion",
+        "zinc-ammonia-ion"
+      ],
+      "sourceId": "birk-zinc"
+    },
+    {
+      "id": "magnesium-hydroxide",
+      "equation": "Mg²⁺(aq) + 2OH⁻(aq) ⇌ Mg(OH)₂(s)",
+      "left": "magnesium ions and hydroxide ions, dissolved",
+      "right": "solid magnesium hydroxide, which is white",
+      "seenBy": {
+        "kind": "solid",
+        "side": "right"
+      },
+      "numbers": {
+        "solubilityProduct": "magnesium-hydroxide"
+      },
+      "substanceIds": [
+        "magnesium-hydroxide"
+      ],
+      "sourceId": "birk-magnesium"
+    }
+  ],
+  "systems": [
+    {
+      "id": "lead-chloride",
+      "name": "A solid and its ions: lead chloride",
+      "heldBy": "numbers",
+      "equilibriumIds": [
+        "lead-chloride"
+      ],
+      "tubes": [
+        {
+          "id": "lead",
+          "contents": [
+            {
+              "reagentId": "pbno32-0.3m",
+              "drops": "leadNitrateDrops"
+            }
+          ],
+          "shows": {
+            "liquid": "colourless",
+            "solid": "none"
+          }
+        }
+      ],
+      "disturbances": [
+        {
+          "id": "lead-acid",
+          "name": "Add hydrochloric acid",
+          "tube": "lead",
+          "equilibriumId": "lead-chloride",
+          "action": {
+            "kind": "add",
+            "reagentId": "hcl-0.3m",
+            "drops": "leadAcidDrops",
+            "portions": "leadAcidPortions"
+          },
+          "stages": [
+            {
+              "liquid": "colourless",
+              "solid": "none"
+            },
+            {
+              "liquid": "colourless",
+              "solid": "white"
+            },
+            {
+              "liquid": "colourless",
+              "solid": "white"
+            }
+          ],
+          "ask": {
+            "kind": "direction",
+            "right": "right"
+          },
+          "ruleIds": [
+            "lead-chloride-forms"
+          ],
+          "constantIds": [],
+          "notes": [
+            {
+              "value": "Hydrochloric acid brought chloride ions, which are on the left side. After the first portion the liquid could still hold all of its lead and chloride ions, so nothing was seen. The second portion took the tube past that point, and the extra came out as white solid lead chloride: a shift to the right.",
+              "sourceId": "birk-lead",
+              "alsoSourceId": "malik-varying-solubility"
+            },
+            {
+              "value": "On a real bench lead chloride is slow to form. The solid can take some minutes to show, and may need more acid than it does here.",
+              "sourceId": "birk-lead",
+              "alsoSourceId": "bellevue-le-chatelier"
+            }
+          ]
+        },
+        {
+          "id": "lead-heat",
+          "name": "Heat the tube",
+          "tube": "lead",
+          "equilibriumId": "lead-chloride",
+          "action": {
+            "kind": "heat"
+          },
+          "stages": [
+            {
+              "liquid": "colourless",
+              "solid": "none"
+            }
+          ],
+          "ask": {
+            "kind": "direction",
+            "right": "left"
+          },
+          "ruleIds": [
+            "lead-chloride-with-heat"
+          ],
+          "constantIds": [],
+          "notes": [
+            {
+              "value": "Hot water holds over three times as much lead chloride as cold water. In the boiling bath all of the solid dissolved: a shift to the left, toward the ions.",
+              "sourceId": "birk-lead"
+            },
+            {
+              "value": "Dissolving lead chloride takes in heat, about 23 kJ for each mole. Heating a system at equilibrium moves it the way that takes heat in, which here is toward the ions.",
+              "sourceId": "nbs-tables-1982",
+              "alsoSourceId": "chemguide-le-chatelier"
+            }
+          ]
+        },
+        {
+          "id": "lead-cool",
+          "name": "Cool the tube",
+          "tube": "lead",
+          "equilibriumId": "lead-chloride",
+          "action": {
+            "kind": "cool"
+          },
+          "stages": [
+            {
+              "liquid": "colourless",
+              "solid": "white"
+            }
+          ],
+          "ask": {
+            "kind": "direction",
+            "right": "right"
+          },
+          "ruleIds": [
+            "lead-chloride-with-heat"
+          ],
+          "constantIds": [],
+          "notes": [
+            {
+              "value": "Cooling took heat away, and the system moved the way that gives heat out: toward the solid. The cold liquid could no longer hold all of the lead chloride, and the white solid came back: a shift to the right.",
+              "sourceId": "chemguide-le-chatelier",
+              "alsoSourceId": "birk-lead"
+            }
+          ]
+        },
+        {
+          "id": "lead-water",
+          "name": "Add water",
+          "tube": "lead",
+          "equilibriumId": "lead-chloride",
+          "action": {
+            "kind": "add",
+            "reagentId": "water",
+            "drops": "leadWaterDrops"
+          },
+          "stages": [
+            {
+              "liquid": "colourless",
+              "solid": "none"
+            }
+          ],
+          "ask": {
+            "kind": "direction",
+            "right": "left"
+          },
+          "ruleIds": [
+            "lead-chloride-with-water"
+          ],
+          "constantIds": [],
+          "notes": [
+            {
+              "value": "Water spread the same ions through more liquid, so both concentrations fell. They fell below what the liquid can hold, and the solid dissolved: a shift to the left. Diluting a solution moves an equilibrium toward the side with more dissolved particles, and here that side is the ions.",
+              "sourceId": "lower-le-chatelier",
+              "alsoSourceId": "bellevue-le-chatelier"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "methyl-violet",
+      "name": "An indicator: methyl violet",
+      "heldBy": "numbers",
+      "equilibriumIds": [
+        "methyl-violet"
+      ],
+      "tubes": [
+        {
+          "id": "indicator",
+          "contents": [
+            {
+              "reagentId": "water",
+              "drops": "indicatorWaterDrops"
+            },
+            {
+              "reagentId": "methyl-violet",
+              "drops": "indicatorDrops"
+            }
+          ],
+          "shows": {
+            "liquid": "violet",
+            "solid": "none"
+          }
+        }
+      ],
+      "disturbances": [
+        {
+          "id": "indicator-acid",
+          "name": "Add hydrochloric acid",
+          "tube": "indicator",
+          "equilibriumId": "methyl-violet",
+          "action": {
+            "kind": "add",
+            "reagentId": "hcl-6m",
+            "drops": "indicatorPortionDrops",
+            "portions": "indicatorPortions"
+          },
+          "stages": [
+            {
+              "liquid": "between blue and yellow",
+              "solid": "none"
+            },
+            {
+              "liquid": "yellow",
+              "solid": "none"
+            }
+          ],
+          "ask": {
+            "kind": "direction",
+            "right": "left"
+          },
+          "ruleIds": [
+            "indicator-colour"
+          ],
+          "constantIds": [],
+          "notes": [
+            {
+              "value": "Hydrochloric acid added hydrogen ions, which are on the right side. The system used some of them up: they joined the violet form and made more of the yellow form. That is a shift to the left.",
+              "sourceId": "bellevue-le-chatelier",
+              "alsoSourceId": "chemguide-indicators"
+            },
+            {
+              "value": "After the first portion both forms were in the liquid together. The colour was a mixture, neither violet nor yellow.",
+              "sourceId": "chemguide-indicators",
+              "alsoSourceId": "libretexts-acid-base-indicators"
+            }
+          ]
+        },
+        {
+          "id": "indicator-base",
+          "name": "Add sodium hydroxide",
+          "tube": "indicator",
+          "equilibriumId": "methyl-violet",
+          "action": {
+            "kind": "add",
+            "reagentId": "naoh-6m",
+            "drops": "indicatorPortionDrops",
+            "portions": "indicatorPortions"
+          },
+          "stages": [
+            {
+              "liquid": "between blue and yellow",
+              "solid": "none"
+            },
+            {
+              "liquid": "violet",
+              "solid": "none"
+            }
+          ],
+          "ask": {
+            "kind": "direction",
+            "right": "right"
+          },
+          "ruleIds": [
+            "indicator-colour",
+            "acid-meets-base"
+          ],
+          "constantIds": [],
+          "equations": [
+            {
+              "value": "H⁺(aq) + OH⁻(aq) → H₂O(l)",
+              "sourceId": "bellevue-le-chatelier",
+              "alsoSourceId": "malik-varying-solubility"
+            }
+          ],
+          "notes": [
+            {
+              "value": "Each hydroxide ion joined a hydrogen ion and made water. That took hydrogen ions away from the right side. The yellow form let go of hydrogen ions to replace them and became the violet form again: a shift to the right.",
+              "sourceId": "bellevue-le-chatelier",
+              "alsoSourceId": "chemguide-indicators"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cobalt",
+      "name": "A complex ion: cobalt",
+      "heldBy": "observation",
+      "equilibriumIds": [
+        "cobalt"
+      ],
+      "tubes": [
+        {
+          "id": "cobalt",
+          "contents": [
+            {
+              "reagentId": "cocl2-solid",
+              "grams": "cobaltChlorideGrams"
+            },
+            {
+              "reagentId": "hcl-12m",
+              "drops": "cobaltAcidDrops"
+            }
+          ],
+          "shows": {
+            "liquid": "blue",
+            "solid": "none",
+            "sourceId": "nuffield-cobalt-equilibrium",
+            "alsoSourceId": "chemguide-ligand-exchange"
+          }
+        }
+      ],
+      "disturbances": [
+        {
+          "id": "cobalt-water",
+          "name": "Add water",
+          "tube": "cobalt",
+          "equilibriumId": "cobalt",
+          "action": {
+            "kind": "add",
+            "reagentId": "water",
+            "drops": "cobaltWaterDrops",
+            "portions": "cobaltWaterPortions"
+          },
+          "stages": [
+            {
+              "liquid": "violet",
+              "solid": "none",
+              "sourceId": "nuffield-cobalt-equilibrium"
+            },
+            {
+              "liquid": "pink",
+              "solid": "none",
+              "sourceId": "nuffield-cobalt-equilibrium",
+              "alsoSourceId": "chemguide-ligand-exchange"
+            }
+          ],
+          "ask": {
+            "kind": "direction",
+            "right": "left"
+          },
+          "ruleIds": [
+            "cobalt-with-chloride"
+          ],
+          "constantIds": [],
+          "notes": [
+            {
+              "value": "Water is on the right side of this equilibrium. Adding it turned the blue ion, cobalt with four chloride ions, back into the pink ion, cobalt with six water molecules: a shift to the left. After the first portion both ions were there together, and the liquid was violet.",
+              "sourceId": "chemguide-ligand-exchange",
+              "alsoSourceId": "nuffield-cobalt-equilibrium"
+            },
+            {
+              "value": "Concentrated hydrochloric acid gives off heat when water is added to it, so a real tube warms. Warmth moves this system toward blue, against the water. This lab shows the tube once it is back at room temperature.",
+              "sourceId": "flinn-sds-395",
+              "alsoSourceId": "noaa-cameo-3598",
+              "moreSourceIds": [
+                "nuffield-cobalt-equilibrium"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cobalt-heat",
+          "name": "Heat the tube",
+          "tube": "cobalt",
+          "equilibriumId": "cobalt",
+          "action": {
+            "kind": "heat"
+          },
+          "stages": [
+            {
+              "liquid": "blue",
+              "solid": "none",
+              "sourceId": "nuffield-cobalt-equilibrium"
+            }
+          ],
+          "ask": {
+            "kind": "direction",
+            "right": "right"
+          },
+          "ruleIds": [
+            "cobalt-with-heat"
+          ],
+          "constantIds": [],
+          "notes": [
+            {
+              "value": "The change toward the blue ion takes in heat. Heating a system at equilibrium moves it the way that takes heat in, so in the boiling bath the liquid turned blue: a shift to the right.",
+              "sourceId": "nuffield-cobalt-equilibrium",
+              "alsoSourceId": "chemguide-le-chatelier"
+            }
+          ]
+        },
+        {
+          "id": "cobalt-cool",
+          "name": "Cool the tube",
+          "tube": "cobalt",
+          "equilibriumId": "cobalt",
+          "action": {
+            "kind": "cool"
+          },
+          "stages": [
+            {
+              "liquid": "pink",
+              "solid": "none",
+              "sourceId": "nuffield-cobalt-equilibrium"
+            }
+          ],
+          "ask": {
+            "kind": "direction",
+            "right": "left"
+          },
+          "ruleIds": [
+            "cobalt-with-heat"
+          ],
+          "constantIds": [],
+          "notes": [
+            {
+              "value": "In ice water the system moved the way that gives heat out, back toward the pink ion: a shift to the left. The tube can be heated and cooled again and again, and the colour follows each time.",
+              "sourceId": "nuffield-cobalt-equilibrium",
+              "alsoSourceId": "chemguide-le-chatelier"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hydroxides",
+      "name": "Two hydroxides: zinc and magnesium",
+      "heldBy": "numbers",
+      "equilibriumIds": [
+        "zinc-hydroxide",
+        "magnesium-hydroxide"
+      ],
+      "tubes": [
+        {
+          "id": "zinc",
+          "contents": [
+            {
+              "reagentId": "znno32-0.1m",
+              "drops": "metalNitrateDrops"
+            }
+          ],
+          "shows": {
+            "liquid": "colourless",
+            "solid": "none"
+          }
+        },
+        {
+          "id": "zinc-acid",
+          "shareOf": "zinc"
+        },
+        {
+          "id": "zinc-base",
+          "shareOf": "zinc"
+        },
+        {
+          "id": "zinc-ammonia",
+          "shareOf": "zinc"
+        },
+        {
+          "id": "magnesium",
+          "contents": [
+            {
+              "reagentId": "mgno32-0.1m",
+              "drops": "metalNitrateDrops"
+            }
+          ],
+          "shows": {
+            "liquid": "colourless",
+            "solid": "none"
+          }
+        },
+        {
+          "id": "magnesium-acid",
+          "shareOf": "magnesium"
+        },
+        {
+          "id": "magnesium-base",
+          "shareOf": "magnesium"
+        },
+        {
+          "id": "magnesium-ammonia",
+          "shareOf": "magnesium"
+        }
+      ],
+      "disturbances": [
+        {
+          "id": "zinc-drop",
+          "name": "Zinc, a drop of sodium hydroxide",
+          "tube": "zinc",
+          "equilibriumId": "zinc-hydroxide",
+          "action": {
+            "kind": "add",
+            "reagentId": "naoh-6m",
+            "drops": "firstBaseDrops"
+          },
+          "stages": [
+            {
+              "liquid": "colourless",
+              "solid": "white"
+            }
+          ],
+          "ask": {
+            "kind": "direction",
+            "right": "right"
+          },
+          "ruleIds": [
+            "hydroxides-form"
+          ],
+          "constantIds": [
+            "zinc-hydroxide"
+          ],
+          "notes": [
+            {
+              "value": "Sodium hydroxide brought hydroxide ions, which are on the left side. Zinc ions and hydroxide ions joined into white solid zinc hydroxide: a shift to the right.",
+              "sourceId": "birk-zinc"
+            },
+            {
+              "value": "One drop holds enough hydroxide for only half of the zinc in the tube. The other half is still dissolved, so the solid sits in a liquid that holds its own ions.",
+              "sourceId": "bellevue-le-chatelier"
+            }
+          ]
+        },
+        {
+          "id": "zinc-acid",
+          "name": "Zinc, hydrochloric acid",
+          "tube": "zinc-acid",
+          "equilibriumId": "zinc-hydroxide",
+          "action": {
+            "kind": "add",
+            "reagentId": "hcl-6m",
+            "drops": "hydroxideAcidDrops"
+          },
+          "stages": [
+            {
+              "liquid": "colourless",
+              "solid": "none"
+            }
+          ],
+          "ask": {
+            "kind": "direction",
+            "right": "left"
+          },
+          "ruleIds": [
+            "hydroxides-in-acid",
+            "acid-meets-base"
+          ],
+          "constantIds": [
+            "zinc-hydroxide",
+            "water"
+          ],
+          "equations": [
+            {
+              "value": "H⁺(aq) + OH⁻(aq) → H₂O(l)",
+              "sourceId": "bellevue-le-chatelier",
+              "alsoSourceId": "malik-varying-solubility"
+            }
+          ],
+          "notes": [
+            {
+              "value": "The hydrogen ions of the acid joined hydroxide ions and made water, which took hydroxide away from the left side. The solid came apart to replace it, until none of the solid was left: a shift to the left.",
+              "sourceId": "malik-varying-solubility",
+              "alsoSourceId": "bellevue-le-chatelier"
+            }
+          ]
+        },
+        {
+          "id": "zinc-base",
+          "name": "Zinc, more sodium hydroxide",
+          "tube": "zinc-base",
+          "equilibriumId": "zinc-hydroxide",
+          "action": {
+            "kind": "add",
+            "reagentId": "naoh-6m",
+            "drops": "excessBaseDrops"
+          },
+          "stages": [
+            {
+              "liquid": "colourless",
+              "solid": "none"
+            }
+          ],
+          "ask": {
+            "kind": "cause",
+            "right": "hydroxide"
+          },
+          "ruleIds": [
+            "zinc-hydroxide-in-base"
+          ],
+          "constantIds": [
+            "zinc-hydroxide",
+            "zincate-ion"
+          ],
+          "equations": [
+            {
+              "value": "Zn²⁺(aq) + 4OH⁻(aq) ⇌ [Zn(OH)₄]²⁻(aq)",
+              "sourceId": "birk-zinc"
+            }
+          ],
+          "notes": [
+            {
+              "value": "By the first equilibrium alone, more hydroxide should give more solid. But zinc has a second equilibrium. With plenty of hydroxide about, a zinc ion takes up four hydroxide ions and becomes a complex ion, which stays dissolved.",
+              "sourceId": "birk-zinc",
+              "alsoSourceId": "bellevue-le-chatelier"
+            },
+            {
+              "value": "That took zinc ions out of the first equilibrium, and the solid dissolved to replace them. What took the zinc ion away was hydroxide itself.",
+              "sourceId": "bellevue-le-chatelier",
+              "alsoSourceId": "malik-varying-solubility"
+            }
+          ]
+        },
+        {
+          "id": "zinc-ammonia",
+          "name": "Zinc, ammonia",
+          "tube": "zinc-ammonia",
+          "equilibriumId": "zinc-hydroxide",
+          "action": {
+            "kind": "add",
+            "reagentId": "nh3-6m",
+            "drops": "ammoniaDrops"
+          },
+          "stages": [
+            {
+              "liquid": "colourless",
+              "solid": "none"
+            }
+          ],
+          "ask": {
+            "kind": "cause",
+            "right": "ammonia"
+          },
+          "ruleIds": [
+            "zinc-hydroxide-in-ammonia"
+          ],
+          "constantIds": [
+            "zinc-hydroxide",
+            "zinc-ammonia-ion",
+            "ammonia-as-base"
+          ],
+          "equations": [
+            {
+              "value": "Zn²⁺(aq) + 4NH₃(aq) ⇌ [Zn(NH₃)₄]²⁺(aq)",
+              "sourceId": "birk-zinc"
+            }
+          ],
+          "notes": [
+            {
+              "value": "Ammonia is a base, and makes a little hydroxide in water. But it also joins the zinc ion itself: one zinc ion and four ammonia molecules make a complex ion, which stays dissolved. That took zinc ions out of the first equilibrium, and the solid dissolved to replace them.",
+              "sourceId": "birk-zinc",
+              "alsoSourceId": "bellevue-le-chatelier"
+            },
+            {
+              "value": "By this lab's numbers that takes a large excess of ammonia, eight times the volume of the tube, because the hydroxide set free as the solid dissolves holds the change back.",
+              "sourceId": "nbs-tables-1982"
+            }
+          ]
+        },
+        {
+          "id": "magnesium-drop",
+          "name": "Magnesium, a drop of sodium hydroxide",
+          "tube": "magnesium",
+          "equilibriumId": "magnesium-hydroxide",
+          "action": {
+            "kind": "add",
+            "reagentId": "naoh-6m",
+            "drops": "firstBaseDrops"
+          },
+          "stages": [
+            {
+              "liquid": "colourless",
+              "solid": "white"
+            }
+          ],
+          "ask": {
+            "kind": "direction",
+            "right": "right"
+          },
+          "ruleIds": [
+            "hydroxides-form"
+          ],
+          "constantIds": [
+            "magnesium-hydroxide"
+          ],
+          "notes": [
+            {
+              "value": "Sodium hydroxide brought hydroxide ions, which are on the left side. Magnesium ions and hydroxide ions joined into white solid magnesium hydroxide: a shift to the right.",
+              "sourceId": "birk-magnesium"
+            },
+            {
+              "value": "One drop holds enough hydroxide for only half of the magnesium in the tube. The other half is still dissolved, so the solid sits in a liquid that holds its own ions.",
+              "sourceId": "bellevue-le-chatelier"
+            }
+          ]
+        },
+        {
+          "id": "magnesium-acid",
+          "name": "Magnesium, hydrochloric acid",
+          "tube": "magnesium-acid",
+          "equilibriumId": "magnesium-hydroxide",
+          "action": {
+            "kind": "add",
+            "reagentId": "hcl-6m",
+            "drops": "hydroxideAcidDrops"
+          },
+          "stages": [
+            {
+              "liquid": "colourless",
+              "solid": "none"
+            }
+          ],
+          "ask": {
+            "kind": "direction",
+            "right": "left"
+          },
+          "ruleIds": [
+            "hydroxides-in-acid",
+            "acid-meets-base"
+          ],
+          "constantIds": [
+            "magnesium-hydroxide",
+            "water"
+          ],
+          "equations": [
+            {
+              "value": "H⁺(aq) + OH⁻(aq) → H₂O(l)",
+              "sourceId": "bellevue-le-chatelier",
+              "alsoSourceId": "malik-varying-solubility"
+            }
+          ],
+          "notes": [
+            {
+              "value": "The hydrogen ions of the acid joined hydroxide ions and made water, which took hydroxide away from the left side. The solid came apart to replace it, until none of the solid was left: a shift to the left.",
+              "sourceId": "malik-varying-solubility",
+              "alsoSourceId": "bellevue-le-chatelier"
+            }
+          ]
+        },
+        {
+          "id": "magnesium-base",
+          "name": "Magnesium, more sodium hydroxide",
+          "tube": "magnesium-base",
+          "equilibriumId": "magnesium-hydroxide",
+          "action": {
+            "kind": "add",
+            "reagentId": "naoh-6m",
+            "drops": "excessBaseDrops"
+          },
+          "stages": [
+            {
+              "liquid": "colourless",
+              "solid": "white"
+            }
+          ],
+          "ask": {
+            "kind": "cause",
+            "right": "nothing"
+          },
+          "ruleIds": [
+            "magnesium-hydroxide-stays"
+          ],
+          "constantIds": [
+            "magnesium-hydroxide"
+          ],
+          "notes": [
+            {
+              "value": "Magnesium has no second equilibrium to turn to: it forms no complex ion that would hold it dissolved in more hydroxide. More hydroxide only pushed the first equilibrium further to the right, and the white solid stayed. Nothing took the magnesium ion away.",
+              "sourceId": "birk-magnesium",
+              "alsoSourceId": "bellevue-le-chatelier"
+            }
+          ]
+        },
+        {
+          "id": "magnesium-ammonia",
+          "name": "Magnesium, ammonia",
+          "tube": "magnesium-ammonia",
+          "equilibriumId": "magnesium-hydroxide",
+          "action": {
+            "kind": "add",
+            "reagentId": "nh3-6m",
+            "drops": "ammoniaDrops"
+          },
+          "stages": [
+            {
+              "liquid": "colourless",
+              "solid": "white"
+            }
+          ],
+          "ask": {
+            "kind": "cause",
+            "right": "nothing"
+          },
+          "ruleIds": [
+            "magnesium-hydroxide-stays"
+          ],
+          "constantIds": [
+            "magnesium-hydroxide",
+            "ammonia-as-base"
+          ],
+          "equations": [
+            {
+              "value": "NH₃(aq) + H₂O(l) ⇌ NH₄⁺(aq) + OH⁻(aq)",
+              "sourceId": "bellevue-le-chatelier"
+            }
+          ],
+          "notes": [
+            {
+              "value": "Magnesium forms no complex ion with ammonia that would hold it dissolved, either. Here ammonia acted only as a base: it made hydroxide ions in the water, which keeps the first equilibrium to the right, and the white solid stayed.",
+              "sourceId": "birk-magnesium",
+              "alsoSourceId": "bellevue-le-chatelier"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "parameters": {
+    "temperatureKelvin": {
+      "value": 298.15,
+      "rationale": "The temperature the table's Gibbs energies and enthalpies are for, 25 °C. Each constant is worked out at it, and used for a bench at room temperature."
+    },
+    "dropMicrolitres": {
+      "value": 50,
+      "rationale": "A drop from a dropper is taken as 0.05 mL, twenty to the millilitre, as the titration lab and the Group I cations lab take it. Every liquid on this bench is measured out as a count of drops."
+    },
+    "boilingBathCelsius": {
+      "value": 100,
+      "rationale": "A tube standing in the bath of boiling water is taken to be at 100 °C, the temperature the hot solubility of lead chloride is given for. A real tube is a little cooler."
+    },
+    "coldCelsius": {
+      "value": 20,
+      "rationale": "A tube at room temperature and a tube in the bath of ice water are both taken at 20 °C, the temperature the cold solubility of lead chloride is given for. By the two figures read, water holds less lead chloride the colder it is, so a solid that is there by the figure for 20 °C is taken to be there in ice water too."
+    },
+    "clearOfEdge": {
+      "value": 1.25,
+      "rationale": "No number decides a tube from the very edge of what it is compared with. At every stage where a number says whether a solid is there, or which colour the indicator has, the build checks that the number is at least this many times away from its threshold, and stops otherwise."
+    },
+    "completeWithinPercent": {
+      "value": 1,
+      "rationale": "The model takes one drop of sodium hydroxide to put all of its hydroxide into the solid. The build checks that the part of that hydroxide which the solubility product leaves dissolved, beside the metal ion still in the liquid, is under this share of what went in."
+    },
+    "leadNitrateDrops": {
+      "value": 30,
+      "rationale": "Thirty drops, 1.5 mL, of the 0.3 M solution: 450 micromoles of lead. The procedure read starts from 5 mL; this tube is smaller, so that a small portion of acid is still a whole number of drops."
+    },
+    "leadAcidDrops": {
+      "value": 2,
+      "rationale": "One portion of the 0.3 M acid is two drops: 30 micromoles of chloride. It is chosen with the thirty drops of lead solution so that, by the stored solubility, the first portion leaves the tube short of the point where a solid forms and the second takes it past, each by more than the build's margin. The procedure read adds the acid by the millilitre to 5 mL."
+    },
+    "leadAcidPortions": {
+      "value": 3,
+      "rationale": "Three portions: one that shows nothing, one that brings the solid, and one more, so that there is enough solid to watch dissolve and come back."
+    },
+    "leadWaterDrops": {
+      "value": 60,
+      "rationale": "Sixty drops, 3 mL, of distilled water: by the stored solubility, enough to take the tube well below the point where a solid is there. The procedure read adds water by the millilitre until the solid has gone."
+    },
+    "indicatorWaterDrops": {
+      "value": 20,
+      "rationale": "Twenty drops, 1 mL, of distilled water. The procedure read uses about 5 mL and a few drops of acid; this tube is smaller, so that a few whole drops of the 6 M acid take it all the way to the yellow end of the indicator's range."
+    },
+    "indicatorDrops": {
+      "value": 2,
+      "rationale": "Two drops of the indicator solution, where the procedure read says a few. They add their volume to the tube and nothing else: the indicator is taken to use up no acid."
+    },
+    "indicatorPortionDrops": {
+      "value": 3,
+      "rationale": "One portion of the 6 M acid, and one of the 6 M sodium hydroxide, is three drops: 900 micromoles. It is chosen so that one portion of acid leaves the liquid inside the indicator's range and two take it past the yellow end, each by more than the build's margin."
+    },
+    "indicatorPortions": {
+      "value": 2,
+      "rationale": "Two portions of acid and then two of sodium hydroxide. As much base as acid leaves no acid over, which is where the indicator is violet again. The model has no rule for a liquid with base left over, and the build checks that none is reached."
+    },
+    "cobaltChlorideGrams": {
+      "value": 0.1,
+      "rationale": "About 0.1 g of the solid, as the procedure read has it. No number of the model turns on it: the colours of this system are stored observations."
+    },
+    "cobaltAcidDrops": {
+      "value": 40,
+      "rationale": "Forty drops, 2 mL, of the 12 M acid, as the procedure read has it."
+    },
+    "cobaltWaterDrops": {
+      "value": 40,
+      "rationale": "One portion of water is forty drops, 2 mL, which is the volume of the acid. The procedure read adds 2 mL and then goes on by the millilitre until the colour changes."
+    },
+    "cobaltWaterPortions": {
+      "value": 2,
+      "rationale": "Two portions. The demonstration read has both ions together, and a violet liquid, where six tenths of the liquid is concentrated acid. The first portion here leaves half of the liquid acid, which the lab stores as violet; the second leaves a third, which it stores as pink."
+    },
+    "metalNitrateDrops": {
+      "value": 60,
+      "rationale": "Sixty drops, 3 mL, of the 0.1 M solution: 300 micromoles of the metal ion. The procedure read puts about 2 mL in each of three tubes; here one tube is made up and then shared."
+    },
+    "firstBaseDrops": {
+      "value": 1,
+      "rationale": "One drop of the 6 M sodium hydroxide, as the procedure read has it: 300 micromoles of hydroxide, which is enough for half of the metal ion. So half of it stays dissolved, and the solid lies in a liquid that holds its own ions."
+    },
+    "shareDrops": {
+      "value": 10,
+      "rationale": "Ten drops, 0.5 mL, of the stirred mixture go into each of three small tubes, and the amounts in a share are rounded to the whole nanomole. A small share keeps the ammonia of the third tube to an amount that a test tube holds."
+    },
+    "hydroxideAcidDrops": {
+      "value": 1,
+      "rationale": "One drop of the 6 M acid: 300 micromoles, about six times what the hydroxide of a share can take up."
+    },
+    "excessBaseDrops": {
+      "value": 20,
+      "rationale": "Twenty drops, 1 mL, of the 6 M sodium hydroxide. The build checks that, by the stored constants, this much holds all the zinc of a share dissolved as its complex ion, with room to spare."
+    },
+    "ammoniaDrops": {
+      "value": 80,
+      "rationale": "Eighty drops, 4 mL, of the 6 M ammonia: eight times the volume of a share. By the stored constants, zinc hydroxide that sodium hydroxide brought down needs about that much, because the hydroxide ions it sets free as it dissolves hold the change back. The procedure read adds ammonia a drop at a time until the solid is seen to change."
+    }
+  }
+}

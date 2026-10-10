@@ -1,0 +1,170 @@
+{
+  "pbno32-0.3m": {
+    "classifiedAs": "Hazards of solid lead nitrate, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H272: May intensify fire; oxidizer",
+        "H302+H332: Harmful if swallowed or inhaled",
+        "H318: Causes serious eye damage",
+        "H350: May cause cancer",
+        "H360: May damage fertility or the unborn child",
+        "H373: May cause damage to organs through prolonged or repeated exposure",
+        "H410: Very toxic to aquatic life with long lasting effects"
+      ],
+      "note": {
+        "value": "The solution on this bench is 0.3 mol/L lead nitrate. The same supplier's sheet for the solution drops three of the statements above: the fire hazard, the damage to the eyes and the code for water life. It calls for eye protection, gloves and protective clothing, and a fume hood or a well-ventilated room.\n\nStricter, and what this lab goes by: a second supplier's sheet for a stronger solution, 0.5 M, adds H320, it irritates the eyes, and has H410: it is kept out of drains and waterways. Eyes are flushed for 15 minutes or more and a doctor is seen at once; if any is swallowed, a doctor or a poison centre at once. It says that lead builds up in the body. A third's sheet for the solid adds a skin allergy.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-438",
+        "alsoSourceId": "wards-sds-ll0131",
+        "moreSourceIds": [
+          "fisher-sds-pbno32"
+        ]
+      },
+      "sourceId": "flinn-sds-437"
+    }
+  },
+  "hcl-0.3m": {
+    "classifiedAs": "Hazards of concentrated hydrochloric acid (6 M to 12 M), from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H314+H318: Causes severe skin and eye burns and damage",
+        "H332+H302: Harmful if swallowed or inhaled",
+        "H290: May be corrosive to metals"
+      ],
+      "note": {
+        "value": "The acid on this bench is 0.3 mol/L hydrochloric acid; the statements above are those of the concentrated acid it is made from. The same supplier's sheet for this strength keeps Danger and H314, and has H335: it may irritate the airways. It calls for eye protection, gloves and protective clothing, and a fume hood or a well-ventilated room; splashed clothing comes off at once.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 0.5 M solution classes it more mildly, as an irritant, and asks more at the eyewash: eyes are flushed for 15 minutes or more and a doctor is seen at once. NOAA's record adds 15 minutes more where no doctor has come. The acid is kept from bases and from metals, with which it gives off hydrogen.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-395.2",
+        "alsoSourceId": "wards-sds-hh0093",
+        "moreSourceIds": [
+          "noaa-cameo-3598"
+        ]
+      },
+      "sourceId": "flinn-sds-395"
+    }
+  },
+  "hcl-12m": {
+    "classifiedAs": "Hazards of concentrated hydrochloric acid (6 M to 12 M), from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H314+H318: Causes severe skin and eye burns and damage",
+        "H332+H302: Harmful if swallowed or inhaled",
+        "H290: May be corrosive to metals"
+      ],
+      "note": {
+        "value": "The acid on this bench is 12 mol/L hydrochloric acid, the concentrated acid itself. It fumes in air, by NOAA's record: it is used in a fume hood, as a second supplier's sheet asks, and its vapour is not breathed. The sheet above calls for eye protection, gloves and protective clothing; splashed clothing comes off at once.\n\nStricter, and what this lab goes by: two more suppliers' sheets for the concentrated acid add H335, irritation of the airways. Eyes and skin are flushed for 15 minutes or more and a doctor is seen at once; if any is swallowed, a doctor or a poison centre at once. By NOAA's record it reacts violently with sodium hydroxide and with ammonia solution, both on this bench, and gives hydrogen with many metals: it is kept apart from them.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-395",
+        "alsoSourceId": "wards-sds-hh0171",
+        "moreSourceIds": [
+          "fisher-sds-hydrochloric-acid",
+          "noaa-cameo-3598"
+        ]
+      },
+      "sourceId": "flinn-sds-395"
+    }
+  },
+  "methyl-violet": {
+    "classifiedAs": "Hazards of solid methyl violet 2B, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Warning",
+      "statements": [
+        "H302: Harmful if swallowed",
+        "H319: Causes serious eye irritation"
+      ],
+      "note": {
+        "value": "The indicator on this bench is a dilute solution of methyl violet 2B in water; the statements above are those of the solid dye it is made from. The same supplier's sheet for a 1% solution in water gives Warning and H320: it irritates the eyes. Both sheets call for eye protection, gloves and protective clothing, and say that the dye stains skin, clothing and surfaces.\n\nStricter, and what this lab goes by: a second supplier's sheet for the solid adds that the dye is suspected of causing cancer, and calls it very toxic to water life: it is kept out of drains and waterways. Eyes are flushed for 15 minutes or more and a doctor is seen. If any is swallowed, a doctor or a poison centre is called if the person feels unwell.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-523.2",
+        "alsoSourceId": "fisher-sds-methyl-violet-2b",
+        "moreSourceIds": [
+          "flinn-sds-521"
+        ]
+      },
+      "sourceId": "flinn-sds-521"
+    }
+  },
+  "cocl2-solid": {
+    "classifiedAs": "Hazards of solid cobalt(II) chloride hexahydrate, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H350: May cause cancer",
+        "H302: Harmful if swallowed",
+        "H317+H334: May cause an allergic skin reaction or asthma symptoms or breathing difficulties if inhaled",
+        "H341: Suspected of causing genetic defects",
+        "H360: May damage fertility or the unborn child"
+      ],
+      "note": {
+        "value": "The cobalt(II) chloride on this bench is the solid hexahydrate, so the statements above are for it as it stands. The sheet calls for eye protection, gloves and protective clothing; its dust is not breathed, and clothing it gets on is washed before it is worn again.\n\nStricter, and what this lab goes by: a second supplier's sheet classes the solid as corrosive, H314, burning skin and damaging eyes, and as H410, very toxic to water life with lasting effects: it is kept out of drains and waterways. A third's adds harm if it is breathed in, and has it handled only in a fume hood. Eyes and skin are flushed for 15 minutes or more and a doctor is seen at once; if any is swallowed, a doctor or a poison centre at once.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-255",
+        "alsoSourceId": "wards-sds-cc0349",
+        "moreSourceIds": [
+          "fisher-sds-cocl2-hexahydrate"
+        ]
+      },
+      "sourceId": "flinn-sds-255"
+    }
+  },
+  "znno32-0.1m": {
+    "classifiedAs": "Hazards of solid zinc nitrate hexahydrate, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H272: May intensify fire; oxidizer",
+        "H302: Harmful if swallowed",
+        "H315+H319: Causes skin and serious eye irritation",
+        "H335: May cause respiratory irritation"
+      ],
+      "note": {
+        "value": "The solution on this bench is 0.1 mol/L zinc nitrate. The same supplier's sheet for a solution this dilute gives no signal word and no hazard statement. It still calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 0.1 M solution gives Warning: it may be harmful if swallowed, irritates the eyes and, mildly, the skin, and under H335 may irritate the airways; its mist is not breathed. Eyes are flushed for 15 minutes or more and a doctor is seen at once; if any is swallowed, a doctor or a poison centre at once. A third's sheet for the solid calls it toxic to water life with lasting effects: it is kept out of drains and waterways.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-863.2",
+        "alsoSourceId": "wards-sds-zz0091",
+        "moreSourceIds": [
+          "fisher-sds-znno32-hexahydrate"
+        ]
+      },
+      "sourceId": "flinn-sds-862"
+    }
+  },
+  "mgno32-0.1m": {
+    "classifiedAs": "Hazards of solid magnesium nitrate hexahydrate, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H272: May intensify fire; oxidizer",
+        "H315+H320: Causes skin and eye irritation",
+        "H335: May cause respiratory irritation"
+      ],
+      "note": {
+        "value": "The solution on this bench is 0.1 mol/L magnesium nitrate. The same supplier's sheet for the solution, whose range begins at about this strength, gives Warning and one of the statements above: it irritates skin and eyes. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: on the hazard that sheet is the strictest read, and the solution is handled as it says; a second supplier's sheet for a 0.1 M solution and a third's for the solid class them as no hazard. The second still asks more at the eyewash: eyes are flushed for 15 minutes or more and a doctor is seen at once. If any is swallowed, a doctor or a poison centre is called at once.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-477",
+        "alsoSourceId": "wards-sds-mm0096",
+        "moreSourceIds": [
+          "fisher-sds-mgno32-hexahydrate"
+        ]
+      },
+      "sourceId": "flinn-sds-476"
+    }
+  },
+  "nh3-6m": {
+    "classifiedAs": "Hazards of ammonia solution (ammonium hydroxide) of 1.1 M to 14.8 M, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H302: Harmful if swallowed",
+        "H314: Causes severe skin burns and eye damage"
+      ],
+      "note": {
+        "value": "The ammonia solution on this bench is 6 mol/L; the statements above are of a sheet for 1.1 M to 14.8 M. It calls for eye protection, gloves and protective clothing, and a fume hood or a well-ventilated room; splashed clothing comes off at once.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 6 M solution adds H335, irritation of the airways, and H400, very toxic to water life: it is kept out of drains and waterways. Eyes are flushed for 15 minutes or more, 30 by NOAA's record, and a doctor is seen at once. It is kept from acids, of which this bench has three strengths: by NOAA's records it gives off heat with them, enough to drive ammonia gas out of it, and hydrochloric acid reacts violently with it.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-58",
+        "alsoSourceId": "wards-sds-aa0273",
+        "moreSourceIds": [
+          "noaa-cameo-2434",
+          "noaa-cameo-19288",
+          "noaa-cameo-3598"
+        ]
+      },
+      "sourceId": "flinn-sds-58"
+    }
+  }
+}

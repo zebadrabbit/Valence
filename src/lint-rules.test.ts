@@ -205,6 +205,12 @@ describe('architecture lint rules', () => {
     ['@/engine/cations/run', 'src/app/lab/cations/messages.test.ts'],
     ['@/engine/cations/state', 'src/app/lab/cations/x.tsx'],
     ['@/engine/cations/testkit', 'src/app/lab/cations/x.tsx'],
+    // The Le Chatelier engine below its index holds what a tube shows after a press not yet made, and whether an entry is right before it has been judged.
+    ['@/engine/lechatelier/model', 'src/app/lab/lechatelier/messages.ts'],
+    ['../../../engine/lechatelier/run', 'src/app/lab/lechatelier/x.tsx'],
+    ['@/engine/lechatelier/state', 'src/app/lab/lechatelier/messages.test.ts'],
+    ['@/engine/lechatelier/select', 'src/app/lab/lechatelier/x.tsx'],
+    ['@/engine/lechatelier/testkit', 'src/app/lab/lechatelier/x.tsx'],
   ])('rejects importing %s in %s', async (source, filePath) => {
     expect(await ruleIds(`import * as m from "${source}"\nexport const v = m\n`, filePath)).toEqual(['no-restricted-imports'])
     // A type import is refused too: the types below the index describe the hidden values.
@@ -225,6 +231,8 @@ describe('architecture lint rules', () => {
     ['@/engine/calorimetry/testkit', 'src/app/lab/calorimetry/messages.test.ts'],
     ['@/engine/cations', 'src/app/lab/cations/messages.ts'],
     ['@/engine/cations/testkit', 'src/app/lab/cations/messages.test.ts'],
+    ['@/engine/lechatelier', 'src/app/lab/lechatelier/messages.ts'],
+    ['@/engine/lechatelier/testkit', 'src/app/lab/lechatelier/messages.test.ts'],
     // Another folder whose name ends the same way is not the engine's.
     ['@/app/lab/titration/benchView', 'src/app/pages/x.tsx'],
     ['./titration/benchView', 'src/app/lab/x.tsx'],

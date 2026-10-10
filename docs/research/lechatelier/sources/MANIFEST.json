@@ -1,0 +1,604 @@
+{
+  "retrieved": "2026-10-10",
+  "about": "Every source of the Le Chatelier's principle lab's record (docs/research/lechatelier/lechatelier.json) and of its primer (src/chem-data/lechatelier/primer.ts). Each was read for this lab on the retrieval date: fetched that day, or, for the six that an earlier lab also lists and that were not fetched again, read in the copy that lab keeps or in the file it read. No source has a copy in this folder. `fetchedSha256` is the sha256 of the file as it was fetched or read: a record of which file was read, not the hash of anything here, and nothing checks it. Each `supports` row names in `fields` the stored values it supports, each by its place in the record with the item's id in brackets (gibbs[zinc-ion], equilibria[cobalt].heat, systems[cobalt].disturbances[cobalt-heat].stages[0]); gives in `prints` a figure, a label or a heading exactly as the source prints it; and says in `where`, in this project's words, where that is, what the source says there, and how far the stored value goes beyond it. A row whose field is `primer` marks a source the primer rests on. The build holds the record to these rows: every source a value cites must have a row that names the value, and where the record stores the figure a source prints, a row for it must print that figure. No source is quoted beyond such figures, labels and headings. Six sources are also listed by other manifests and are written here exactly as they are there, so that the build lists each once: the NBS tables, NIST's listing of the fundamental constants, the table of standard atomic weights, and three pages read for earlier labs, on the reactions of the lead ion and of the magnesium ion and on how the solubility of a salt is changed. The NBS tables were read from the scan the aqueous reactions lab read, whose sha256 is the one given; each page was turned into an image and read by eye. The hazard statements and the notes under them are not in this file: they are in hazards.json and sources/hazard-manifest.json, which were written apart. Two documents of that manifest, on concentrated hydrochloric acid, are also cited by one note of the record. README.md, one folder up, says what could not be sourced.",
+  "sources": [
+    {
+      "id": "nbs-tables-1982",
+      "url": "https://srd.nist.gov/JPCRD/jpcrdS2Vol11.pdf",
+      "citation": "Wagman, D. D.; Evans, W. H.; Parker, V. B.; Schumm, R. H.; Halow, I.; Bailey, S. M.; Churney, K. L.; Nuttall, R. L. The NBS Tables of Chemical Thermodynamic Properties: Selected Values for Inorganic and C1 and C2 Organic Substances in SI Units. J. Phys. Chem. Ref. Data 1982, 11, Supplement No. 2. Read as the scanned PDF that the National Institute of Standards and Technology serves, linked here; pages 2-38 and 2-260 were read as images of the page, which has no text layer; no copy is kept (retrieved 2026-10-06).",
+      "fetchedSha256": "65249690c25a3c98275279863264b870e9a955f51651ff3845ac3bc47f32de59",
+      "supports": [
+        {
+          "fields": [
+            "gibbs[zinc-ion]"
+          ],
+          "prints": "-147.06",
+          "where": "Page 2-138, Table 33:Zn (zinc), the row for Zn2+ in the state ao, the standard state in water: the column of the standard Gibbs energy of formation at 298.15 K, in kJ/mol. Read by eye from an image of the scanned page, which has no text layer, and a second time from a crop of the row at about twice the size."
+        },
+        {
+          "fields": [
+            "gibbs[zinc-hydroxide]"
+          ],
+          "prints": "-555.07",
+          "where": "Page 2-138, Table 33:Zn, the row for Zn(OH)2 marked epsilon, in the state cr3: the same column. The table has two more crystal forms of it, beta (-553.52) and gamma (-553.81), and a row marked precipitated, which prints an enthalpy and no Gibbs energy. The lab stores the epsilon form, whose figure is the lowest of the three and which is therefore the least soluble: where the build finds that this form dissolves, the other two do as well. What comes down in a tube is the precipitated form, for which the table gives no figure: README.md says what that leaves open. Read by eye from an image of the scanned page, which has no text layer, and a second time from a crop of the row at about twice the size."
+        },
+        {
+          "fields": [
+            "gibbs[zincate-ion]"
+          ],
+          "prints": "-858.52",
+          "where": "Page 2-138, Table 33:Zn, the row for Zn(OH)4 2- in the state ao: the same column. The row over it, for the ion with three hydroxide ions, prints -694.22 and is not used. Read by eye from an image of the scanned page, which has no text layer, and a second time from a crop of the row at about twice the size."
+        },
+        {
+          "fields": [
+            "gibbs[zinc-ammonia-ion]"
+          ],
+          "prints": "-301.9",
+          "where": "Page 2-141, Table 33:Zn, the row for Zn(NH3)4 2+ in the state ao: the same column. The rows for the ions with two and with three ammonia molecules print -225.0 and -264.3 and are not used: the lab stores the ion with four only. Read by eye from an image of the scanned page, which has no text layer, and a second time from a crop of the row at about twice the size."
+        },
+        {
+          "fields": [
+            "gibbs[magnesium-ion]"
+          ],
+          "prints": "-454.8",
+          "where": "Page 2-260, Table 93:Mg (magnesium), the row for Mg2+ in the state ao: the column of the standard Gibbs energy of formation at 298.15 K, in kJ/mol. Read by eye from an image of the scanned page, which has no text layer, and a second time from a crop of the row at about twice the size."
+        },
+        {
+          "fields": [
+            "gibbs[magnesium-hydroxide]"
+          ],
+          "prints": "-833.51",
+          "where": "Page 2-260, Table 93:Mg, the row for Mg(OH)2 in the state cr: the same column. The row under it, marked precipitated and in the state am, prints an enthalpy and no Gibbs energy. Read by eye from an image of the scanned page, which has no text layer, and a second time from a crop of the row at about twice the size."
+        },
+        {
+          "fields": [
+            "gibbs[hydroxide-ion]"
+          ],
+          "prints": "-157.244",
+          "where": "Page 2-38, Table 2:H (hydrogen), the row for OH- in the state ao: the column of the standard Gibbs energy of formation at 298.15 K, in kJ/mol. Read by eye from an image of the scanned page, which has no text layer, and a second time from a crop of the row at about twice the size."
+        },
+        {
+          "fields": [
+            "gibbs[hydrogen-ion]"
+          ],
+          "prints": "0",
+          "where": "Page 2-38, Table 2:H, the row for H+ in the state ao: the same column, where the table prints a nought, the hydrogen ion in water being the zero that every other ion is measured from. Read by eye from an image of the scanned page, which has no text layer, and a second time from a crop of the row at about twice the size."
+        },
+        {
+          "fields": [
+            "gibbs[water]"
+          ],
+          "prints": "-237.129",
+          "where": "Page 2-38, Table 2:H, the row for H2O in the state l, the liquid: the same column. Read by eye from an image of the scanned page, which has no text layer, and a second time from a crop of the row at about twice the size."
+        },
+        {
+          "fields": [
+            "gibbs[ammonia]"
+          ],
+          "prints": "-26.50",
+          "where": "Page 2-64, Table 18:N (nitrogen), the row for NH3 in the state ao, dissolved ammonia: the same column. The page is scanned askew, so the row's figures stand a little above its formula; the row was told from its molar mass, 17.0307, and from the row for the gas over it, which prints -16.45. Read by eye from an image of the scanned page, which has no text layer, and a second time from a crop of the row at about twice the size."
+        },
+        {
+          "fields": [
+            "gibbs[ammonium-ion]"
+          ],
+          "prints": "-79.31",
+          "where": "Page 2-65, Table 18:N, the first row of the page, for NH4+ in the state ao: the same column. Read by eye from an image of the scanned page, which has no text layer, and a second time from a crop of the row at about twice the size."
+        },
+        {
+          "fields": [
+            "enthalpies[lead-ion]"
+          ],
+          "prints": "-1.7",
+          "where": "Page 2-119, Table 27:Pb (lead), the row for Pb2+ in the state ao: the column for the enthalpy of formation in the standard state at 298.15 K, in kJ/mol. The table prints this figure to one decimal place, so the sum it goes into is good to no more. Read by eye from an image of the scanned page, which has no text layer, and a second time from a crop of the row at about twice the size."
+        },
+        {
+          "fields": [
+            "enthalpies[lead-chloride]"
+          ],
+          "prints": "-359.41",
+          "where": "Page 2-119, Table 27:Pb, the row for PbCl2 in the state cr, the crystal: the same column. Read by eye from an image of the scanned page, which has no text layer, and a second time from a crop of the row at about twice the size."
+        },
+        {
+          "fields": [
+            "enthalpies[chloride-ion]"
+          ],
+          "prints": "-167.159",
+          "where": "Page 2-47, Table 10:Cl (chlorine), the row for Cl- in the state ao: the column for the enthalpy of formation in the standard state at 298.15 K, in kJ/mol. Read by eye from an image of the scanned page, which has no text layer, and a second time from a crop of the row at about twice the size."
+        },
+        {
+          "fields": [
+            "rules[lead-chloride-with-heat]",
+            "equilibria[lead-chloride].heat",
+            "systems[lead-chloride].disturbances[lead-heat].notes[1]"
+          ],
+          "prints": "-359.41",
+          "where": "The three enthalpies above taken together: the crystal coming apart into its two ions in water takes in 23.392 kJ for each mole at 25 °C, a sum the build makes again. The note gives it as about 23 kJ. The table is for 25 °C alone; that the change takes in heat is also what the two solubilities, the hot one over three times the cold, show."
+        },
+        {
+          "fields": [
+            "systems[hydroxides].disturbances[zinc-ammonia].notes[1]"
+          ],
+          "prints": "-301.9",
+          "where": "The Gibbs energies above for the zinc ion, its hydroxide, its ion with four ammonia molecules, the hydroxide ion, ammonia, the ammonium ion and water, taken together at the amounts of the lab's bench. The table says nothing of how much ammonia a tube needs: that is the lab's own sum, which the build makes and README.md sets out, and the eight volumes are the lab's amounts."
+        }
+      ]
+    },
+    {
+      "id": "nist-codata-2022",
+      "url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+      "citation": "Mohr, P. J.; Newell, D. B.; Taylor, B. N.; Tiesinga, E. Fundamental Physical Constants: Complete Listing, 2022 CODATA adjustment. National Institute of Standards and Technology. Read as the text file linked here; read and not kept (retrieved 2026-10-07).",
+      "fetchedSha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+      "supports": [
+        {
+          "fields": [
+            "constants.gasConstant"
+          ],
+          "prints": "8.314 462 618...",
+          "where": "The line for the molar gas constant, in J mol^-1 K^-1, marked exact. The stored value is the printed digits. Read for this lab in the file the mechanism timeline's record was read from, which was not fetched again."
+        }
+      ]
+    },
+    {
+      "id": "ciaaw-abridged-2024",
+      "url": "https://www.ciaaw.org/abridged-atomic-weights.htm",
+      "citation": "IUPAC Commission on Isotopic Abundances and Atomic Weights (CIAAW), Abridged Standard Atomic Weights 2024.",
+      "supports": [
+        {
+          "fields": [
+            "leadChloride.atomicWeights[Pb]"
+          ],
+          "prints": "207.2",
+          "where": "The copy kept for the periodic table, docs/research/periodic-table/sources/ciaaw-abridged-atomic-weights.html, the row for lead (82, Pb): the abridged standard atomic weight. The build holds the stored figure to the periodic table's record, which it holds to this copy."
+        },
+        {
+          "fields": [
+            "leadChloride.atomicWeights[Cl]"
+          ],
+          "prints": "35.45",
+          "where": "The same kept copy, the row for chlorine (17, Cl)."
+        }
+      ]
+    },
+    {
+      "id": "birk-lead",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Lead_Ions_(Pb)",
+      "citation": "Birk, J. P. Characteristic Reactions of Lead Ions (Pb²⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "820a12af9d76729380764b968259cf961a183d73b5a324c8d1ea9a2c501f5877",
+      "supports": [
+        {
+          "fields": [
+            "substances[lead-chloride]",
+            "substances[lead-chloride].look",
+            "equilibria[lead-chloride]",
+            "rules[lead-chloride-forms]",
+            "systems[lead-chloride].disturbances[lead-acid].notes[0]"
+          ],
+          "prints": "Chloride Ion",
+          "where": "The heading of the page's first reaction. Under it: a soluble chloride such as hydrochloric acid brings white lead chloride out of a solution of the lead ion that is not too dilute, with the equation the lab heads its first system with, the two ions on its left and the solid on its right. Where the point of saturation lies, and that the first portion of acid falls short of it, are the lab's sums from the two solubilities below. Read for this lab in the copy fetched for the Group I cations lab on 2026-10-09, which was not fetched again."
+        },
+        {
+          "fields": [
+            "leadChloride.solubilityCold"
+          ],
+          "prints": "10",
+          "where": "Under the same heading: the solubility of lead chloride at 20 degrees, in grams for each litre. The page gives no unit of temperature beside its degree sign; the figures are those of the Celsius scale."
+        },
+        {
+          "fields": [
+            "leadChloride.solubilityHot"
+          ],
+          "prints": "33.5",
+          "where": "The next sentence but one: the solubility at 100 degrees, in grams for each litre."
+        },
+        {
+          "fields": [
+            "rules[lead-chloride-with-heat]",
+            "leadChloride.note",
+            "systems[lead-chloride].disturbances[lead-heat].notes[0]",
+            "systems[lead-chloride].disturbances[lead-cool].notes[0]"
+          ],
+          "prints": "33.5 g/L",
+          "where": "The same two figures taken together, with the sentence between them, which says that the solubility climbs steeply with temperature. Both are for lead chloride by itself in water. That the solid of the lab's tube, which holds lead nitrate too, dissolves in the bath and comes back when cold is the lab's sum from the two figures at its own amounts."
+        },
+        {
+          "fields": [
+            "systems[lead-chloride].disturbances[lead-acid].notes[1]"
+          ],
+          "prints": "3 to 5 minutes",
+          "where": "Under the same heading, after the two figures: how long the solid may take to show after the two solutions are mixed, lead chloride being very slow to come down. That a real bench may need more acid than the lab is the note's other source's."
+        }
+      ]
+    },
+    {
+      "id": "malik-varying-solubility",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Qualitative_Analysis_of_Common_Cations_in_Water_(Malik)/1%3A_Chemical_Principles/1.3%3A_Varying_solubility_of_ionic_compounds",
+      "citation": "Malik, M. A. Qualitative Analysis of Common Cations in Water; LibreTexts; Section 1.3 Varying solubility of ionic compounds; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "d39a87fe9a8444c98d1337f6a31bc146ada663df32a61cf69d5bf349a0e9db1e",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Le Chatelier's principle",
+          "where": "The section's first heading, with the principle in a sentence under it: a system at equilibrium that is put through a change of concentration or of temperature goes to a new equilibrium in which part of the change is undone. Read for this lab in the copy fetched for the Group I cations lab on 2026-10-09, which was not fetched again."
+        },
+        {
+          "fields": [
+            "rules[lead-chloride-forms]",
+            "systems[lead-chloride].disturbances[lead-acid].notes[0]"
+          ],
+          "prints": "Common ion effect",
+          "where": "A heading of the section. Under it: an ion added to the liquid that a sparingly soluble compound shares makes less of the compound stay dissolved, the equilibrium moving back toward the solid; and hydrochloric acid, as a source of chloride, is used to bring lead chloride back out of a solution. The section writes that last equilibrium as the lab does, the ions on the left and the solid on the right."
+        },
+        {
+          "fields": [
+            "rules[acid-meets-base]",
+            "rules[hydroxides-in-acid]",
+            "systems[methyl-violet].disturbances[indicator-base].equations[0]",
+            "systems[hydroxides].disturbances[zinc-acid].equations[0]",
+            "systems[hydroxides].disturbances[zinc-acid].notes[0]",
+            "systems[hydroxides].disturbances[magnesium-acid].equations[0]",
+            "systems[hydroxides].disturbances[magnesium-acid].notes[0]"
+          ],
+          "prints": "Effect of pH",
+          "where": "A heading of the section. Under it: an acid added to magnesium hydroxide in water takes hydroxide ions away as water, with the equation of the two ions joining, which the section writes with the hydronium ion and the lab with the hydrogen ion; and by Le Chatelier's principle more of the solid dissolves to make up the loss. The section's example is magnesium hydroxide. That zinc hydroxide does the same is the rule's second source's and the build's sum."
+        },
+        {
+          "fields": [
+            "systems[hydroxides].disturbances[zinc-base].notes[1]"
+          ],
+          "prints": "Complex ion equilibria",
+          "where": "A heading of the section. Under it: a ligand that holds a metal ion in a complex ion takes that ion out of the equilibrium of a solid with its ions, and more of the solid dissolves, as an acid makes a hydroxide dissolve by taking hydroxide away. The section's example is silver chloride in ammonia, and it has nothing on zinc."
+        }
+      ]
+    },
+    {
+      "id": "birk-zinc",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Zinc_Ions_(Zn)",
+      "citation": "Birk, J. P. Characteristic Reactions of Zinc Ions (Zn²⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "9634363ada80adbadef6bbd7bb18a775b392ebee29a5062182bfeb325d88d202",
+      "supports": [
+        {
+          "fields": [
+            "substances[zinc-hydroxide]",
+            "substances[zinc-hydroxide].look",
+            "equilibria[zinc-hydroxide]",
+            "rules[hydroxides-form]",
+            "systems[hydroxides].disturbances[zinc-drop].notes[0]"
+          ],
+          "prints": "Sodium Hydroxide",
+          "where": "A heading of the page. Under it: sodium hydroxide brings zinc hydroxide down, with the equation the lab heads zinc's tubes with, the two ions on its left and the solid on its right. That the solid is white, and gelatinous, is said under the heading before this one, of the same solid."
+        },
+        {
+          "fields": [
+            "substances[zincate-ion]",
+            "rules[zinc-hydroxide-in-base]",
+            "systems[hydroxides].disturbances[zinc-base].equations[0]",
+            "systems[hydroxides].disturbances[zinc-base].notes[0]"
+          ],
+          "prints": "Sodium Hydroxide",
+          "where": "Under the same heading, the second equation: the solid dissolves in an excess of hydroxide as the ion of zinc with four hydroxide ions. The equation the lab shows with its note, the zinc ion and four hydroxide ions giving that ion, is the page's two equations under this heading added together."
+        },
+        {
+          "fields": [
+            "substances[zinc-ammonia-ion]",
+            "rules[zinc-hydroxide-in-ammonia]",
+            "systems[hydroxides].disturbances[zinc-ammonia].equations[0]",
+            "systems[hydroxides].disturbances[zinc-ammonia].notes[0]",
+            "primer"
+          ],
+          "prints": "Aqueous Ammonia",
+          "where": "A heading of the page. Under it: ammonia first brings white gelatinous zinc hydroxide down, and an excess of it dissolves the solid as the ion of zinc with four ammonia molecules, two hydroxide ions being set free. The equation the lab shows with its note, the zinc ion and four ammonia molecules giving that ion, is those two equations added, with the ammonium and hydroxide ions they leave over written back as ammonia and water. The line over the heading says that the zinc ion forms complex ions readily."
+        }
+      ]
+    },
+    {
+      "id": "birk-magnesium",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Magnesium_Ions_(Mg)",
+      "citation": "Birk, J. P. Characteristic Reactions of Magnesium Ions (Mg²⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-06).",
+      "fetchedSha256": "e2715965bb469f1c55a796e4557ef351577e3f128ab55bfcb2d78c8d014382f5",
+      "supports": [
+        {
+          "fields": [
+            "substances[magnesium-hydroxide]",
+            "substances[magnesium-hydroxide].look",
+            "equilibria[magnesium-hydroxide]",
+            "rules[hydroxides-form]",
+            "systems[hydroxides].disturbances[magnesium-drop].notes[0]"
+          ],
+          "prints": "Sodium Hydroxide",
+          "where": "A heading of the page. Under it: sodium hydroxide gives the solid that ammonia gives, with the equation the lab heads magnesium's tubes with, the two ions on its left and the solid on its right. The heading before it calls that solid white and gelatinous. Read for this lab in the copy fetched for the aqueous reactions lab, which was not fetched again."
+        },
+        {
+          "fields": [
+            "rules[magnesium-hydroxide-stays]",
+            "systems[hydroxides].disturbances[magnesium-base].notes[0]",
+            "systems[hydroxides].disturbances[magnesium-ammonia].notes[0]"
+          ],
+          "prints": "Aqueous Ammonia",
+          "where": "A heading of the page. Under it: ammonia brings magnesium hydroxide down, and it is ammonium salts added to the ammonia, not ammonia, that dissolve the solid or keep it from forming. The line over the heading says that complex ions of magnesium are rare. The page has no word on the solid in an excess of sodium hydroxide: that it stays there is the rule's second source's and the build's sum."
+        }
+      ]
+    },
+    {
+      "id": "bellevue-le-chatelier",
+      "url": "https://www.bellevuecollege.edu/wp-content/uploads/sites/140/2014/06/Lab-2-Le-Chatelier.pdf",
+      "citation": "Bellevue College. Lab 2: Properties of Systems in Chemical Equilibrium; a handout of the general chemistry laboratory, nine pages; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "5e223df97c14b1dd265908a60a4acca52c57b9cd3322d7980cde80294b5aaf49",
+      "supports": [
+        {
+          "fields": [
+            "reagents[pbno32-0.3m]",
+            "reagents[hcl-0.3m]"
+          ],
+          "prints": "Procedure for Part D",
+          "where": "The heading over the procedure for lead chloride, which names lead nitrate and hydrochloric acid, each at 0.30 M, with their formulas. Read as the text taken out of the PDF."
+        },
+        {
+          "fields": [
+            "reagents[hcl-6m]",
+            "reagents[naoh-6m]",
+            "reagents[methyl-violet]"
+          ],
+          "prints": "Procedure for Part A",
+          "where": "The heading over the procedure for the indicator, which names hydrochloric acid and sodium hydroxide, each at 6 M, and methyl violet, of which it asks for a few drops and gives no strength."
+        },
+        {
+          "fields": [
+            "reagents[cocl2-solid]",
+            "reagents[hcl-12m]"
+          ],
+          "prints": "Procedure for Part B",
+          "where": "The heading over the procedure for cobalt, which names about 0.10 g of cobalt chloride with its six molecules of water and about 2 mL of 12 M hydrochloric acid, and has the work done in a fume hood. The lab's bottle is named for the hexahydrate, which is what the handout weighs out."
+        },
+        {
+          "fields": [
+            "reagents[znno32-0.1m]",
+            "reagents[mgno32-0.1m]",
+            "reagents[nh3-6m]"
+          ],
+          "prints": "Procedure for Part C",
+          "where": "The heading over the procedure for the two hydroxides, which names zinc nitrate at 0.1 M, magnesium nitrate at 0.10 M and ammonia at 6 M, with their formulas, beside the 6 M acid and base of Part A."
+        },
+        {
+          "fields": [
+            "equilibria[methyl-violet]",
+            "substances[methyl-violet-acid]",
+            "substances[methyl-violet-acid].look",
+            "substances[methyl-violet-base]",
+            "substances[methyl-violet-base].look",
+            "rules[indicator-colour]",
+            "indicator.looks.below",
+            "indicator.looks.noAcid",
+            "indicator.note"
+          ],
+          "prints": "HMV = protonated methyl violet",
+          "where": "In brackets after the first of the five equilibria the handout lists: the form that holds a hydrogen ion on the left, a hydrogen ion and the other form on the right, with yellow printed under the first and violet under the second. Part A has the indicator violet in distilled water. The handout gives no formula for the dye beyond its two letters."
+        },
+        {
+          "fields": [
+            "rules[acid-meets-base]",
+            "systems[methyl-violet].disturbances[indicator-acid].notes[0]",
+            "systems[methyl-violet].disturbances[indicator-base].notes[0]",
+            "systems[methyl-violet].disturbances[indicator-base].equations[0]"
+          ],
+          "prints": "Part A: Methyl violet: Effect of adding and/or removing a reagent",
+          "where": "The heading of Part A. Under it: a strong acid adds hydrogen ions and a strong base takes them away, since hydroxide ions and hydrogen ions make water, and the colour shows the equilibrium moving between the two forms. The handout leaves the direction of each move for the learner to work out; the notes give it."
+        },
+        {
+          "fields": [
+            "equilibria[cobalt]"
+          ],
+          "prints": "Part B: Complex ion: Effect of increasing solution volume, and of changing temperature",
+          "where": "The heading of Part B. Under it the handout prints the equation the lab heads its third system with, pink under the ion with water and blue under the ion with chloride."
+        },
+        {
+          "fields": [
+            "rules[lead-chloride-with-water]",
+            "leadChloride.note",
+            "systems[lead-chloride].disturbances[lead-acid].notes[1]",
+            "systems[lead-chloride].disturbances[lead-water].notes[0]"
+          ],
+          "prints": "Procedure for Part D",
+          "where": "Under this heading: 1 mL of the acid goes into 5 mL of the lead nitrate solution, then two more, one at a time; the tube is held in a hot bath and then cooled; and water is added by the millilitre until the solid has gone. The fourth question after the lab asks why no solid shows after the first 1 mL: a mixture at which the lab's product, taken from the solubility in plain water, would have a solid. So a real bench may need more acid than the lab does, which the first note and the note on the solubility say."
+        },
+        {
+          "fields": [
+            "rules[hydroxides-in-acid]",
+            "systems[hydroxides].disturbances[zinc-acid].equations[0]",
+            "systems[hydroxides].disturbances[zinc-acid].notes[0]",
+            "systems[hydroxides].disturbances[magnesium-acid].equations[0]",
+            "systems[hydroxides].disturbances[magnesium-acid].notes[0]"
+          ],
+          "prints": "Part C: Solubility: effect of addition and/or removal of ions:",
+          "where": "The heading of Part C. Under it: many metal hydroxides hardly dissolve in water, and a strong acid takes hydroxide ions out of the liquid by making water of them."
+        },
+        {
+          "fields": [
+            "rules[zinc-hydroxide-in-base]",
+            "rules[zinc-hydroxide-in-ammonia]",
+            "rules[magnesium-hydroxide-stays]",
+            "systems[hydroxides].disturbances[zinc-base].notes[0]",
+            "systems[hydroxides].disturbances[zinc-base].notes[1]",
+            "systems[hydroxides].disturbances[zinc-ammonia].notes[0]",
+            "systems[hydroxides].disturbances[magnesium-base].notes[0]",
+            "systems[hydroxides].disturbances[magnesium-ammonia].notes[0]",
+            "systems[hydroxides].disturbances[magnesium-ammonia].equations[0]"
+          ],
+          "prints": "Part C: Solubility: effect of addition and/or removal of ions:",
+          "where": "Further under the same heading: a large excess of sodium hydroxide, or of ammonia, can make a complex ion with the metal, the hydroxide ion or the ammonia being its ligand; such an ion dissolves, so making it takes the bare metal ion out of the liquid; ammonia in water also makes ammonium and hydroxide ions, with the equation; and of the two metals one forms such ions and one does not. The handout does not say which metal is which: the two pages on the reactions of the ions do."
+        },
+        {
+          "fields": [
+            "systems[hydroxides].disturbances[zinc-drop].notes[1]",
+            "systems[hydroxides].disturbances[magnesium-drop].notes[1]"
+          ],
+          "prints": "Procedure for Part C",
+          "where": "Under this heading: about 2 mL of the 0.1 M solution and one drop of 6 M sodium hydroxide go into each of three tubes. That one drop is enough for half of the metal is the lab's arithmetic at its own amounts: 300 micromoles of hydroxide to 300 of the metal ion, two hydroxide ions to each."
+        }
+      ]
+    },
+    {
+      "id": "nuffield-cobalt-equilibrium",
+      "url": "https://edu.rsc.org/experiments/the-equilibrium-between-two-coloured-cobalt-species/1.article",
+      "citation": "Nuffield Foundation and Royal Society of Chemistry. The equilibrium between two coloured cobalt species; a demonstration of the Practical Chemistry project, RSC Education; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "3b9550b39f373989080f8bb8f3cb6fd2acf1c853c4ff8a16afa732574c34cc51",
+      "supports": [
+        {
+          "fields": [
+            "substances[cobalt-aqua-ion]",
+            "substances[cobalt-aqua-ion].look",
+            "substances[cobalt-chloro-ion]",
+            "substances[cobalt-chloro-ion].look",
+            "equilibria[cobalt]",
+            "rules[cobalt-with-chloride]",
+            "systems[cobalt].tubes[cobalt].shows",
+            "systems[cobalt].disturbances[cobalt-water].stages[0]",
+            "systems[cobalt].disturbances[cobalt-water].stages[1]",
+            "systems[cobalt].disturbances[cobalt-water].notes[0]"
+          ],
+          "prints": "The equilibrium between two coloured cobalt species",
+          "where": "The page's title. Under it: the equation the lab heads its third system with, pink printed after the ion with water and blue after the ion with chloride; a pink solution of cobalt chloride made up with concentrated hydrochloric acid, six tenths of the whole being the acid, is violet and holds both ions; more acid turns it blue and water turns it pink. The lab's tube starts from the solid in 12 M acid, which the page does not make: the lab takes it to be blue, as the page's liquid is with more acid. The lab's two portions of water leave half and then a third of the liquid acid; its violet and its pink at those two points go beyond the page, which gives no amounts for the change."
+        },
+        {
+          "fields": [
+            "rules[cobalt-with-heat]",
+            "equilibria[cobalt].heat",
+            "systems[cobalt].disturbances[cobalt-heat].stages[0]",
+            "systems[cobalt].disturbances[cobalt-heat].notes[0]",
+            "systems[cobalt].disturbances[cobalt-cool].stages[0]",
+            "systems[cobalt].disturbances[cobalt-cool].notes[0]",
+            "systems[cobalt].disturbances[cobalt-water].notes[1]"
+          ],
+          "prints": "over 90 °C",
+          "where": "In brackets in the procedure, of the hot water a tube of the violet liquid is stood in: the liquid turns blue, and a tube stood in ice and water turns pink; swapping the two tubes undoes both; and the teaching notes call the change toward the blue ion endothermic, so that a rise in temperature moves the equilibrium to the right. The page heats and cools the violet liquid. The lab heats a tube that has had more water and is pink when cold, and stores blue for it hot, which goes beyond the page: README.md says so."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-ligand-exchange",
+      "url": "https://www.chemguide.co.uk/inorganic/complexions/ligandexch.html",
+      "citation": "Clark, J. Chemguide: Complex Metal Ions - Ligand Exchange Reactions; 2003, modified November 2014; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "17dc71bf67ddbb4f6cb70762da66717a1fdba57fa1f3cebbe1924a15bf4e3dc1",
+      "supports": [
+        {
+          "fields": [
+            "substances[cobalt-aqua-ion].look",
+            "substances[cobalt-chloro-ion].look",
+            "rules[cobalt-with-chloride]",
+            "systems[cobalt].tubes[cobalt].shows",
+            "systems[cobalt].disturbances[cobalt-water].stages[1]",
+            "systems[cobalt].disturbances[cobalt-water].notes[0]"
+          ],
+          "prints": "Replacing the water in the hexaaquacobalt(II) ion",
+          "where": "The first heading of that name, in the part on chloride ions taking the place of water. Under it: concentrated hydrochloric acid turns a pink solution of the ion with six water molecules a dark blue, four chloride ions taking the place of the six; the change can go both ways; and water added to the blue liquid, water standing on the right of the equation, moves the equilibrium to the left, so that the pink comes back, paler for being more dilute."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-indicators",
+      "url": "https://www.chemguide.co.uk/physical/acidbaseeqia/indicators.html",
+      "citation": "Clark, J. Chemguide: Acid-Base Indicators; 2002, modified November 2013; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "c37646fe7fe5e19f9f7de4658cac0d0cc6d537037b4a61cc838e68a1018f65f7",
+      "supports": [
+        {
+          "fields": [
+            "rules[indicator-colour]",
+            "indicator.looks.within",
+            "systems[methyl-violet].disturbances[indicator-acid].notes[0]",
+            "systems[methyl-violet].disturbances[indicator-acid].notes[1]",
+            "systems[methyl-violet].disturbances[indicator-base].notes[0]"
+          ],
+          "prints": "Indicators as weak acids",
+          "where": "A heading of the page. Under it, with litmus as the example: an indicator is a weak acid whose molecule and whose ion differ in colour; by Le Chatelier's principle, hydrogen ions added move the equilibrium toward the molecule, and hydroxide ions, which take hydrogen ions away, move it toward the ion; and where both are in the liquid the colour seen is a blend of both. Methyl violet is not among the examples the page gives."
+        }
+      ]
+    },
+    {
+      "id": "libretexts-acid-base-indicators",
+      "url": "https://chem.libretexts.org/Ancillary_Materials/Reference/Reference_Tables/Acid-Base_Indicators",
+      "citation": "LibreTexts. Acid-Base Indicators; a table among the Reference Tables of the Ancillary Materials; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "b55b6676e2216f74ef227f3cc30468166e3dbe0e3c6790070b36432a4dd95b7d",
+      "supports": [
+        {
+          "fields": [
+            "indicator.range.from"
+          ],
+          "prints": "0.0",
+          "where": "The first row of the table, for methyl violet, in the column headed pH Change: the lower end of the range it gives."
+        },
+        {
+          "fields": [
+            "indicator.range.to"
+          ],
+          "prints": "1.6",
+          "where": "The same cell: the upper end of the range."
+        },
+        {
+          "fields": [
+            "substances[methyl-violet-acid].look",
+            "rules[indicator-colour]",
+            "indicator.looks.below",
+            "indicator.looks.within",
+            "indicator.note",
+            "systems[methyl-violet].disturbances[indicator-acid].notes[1]"
+          ],
+          "prints": "yel to bl",
+          "where": "The same row, in the column headed Color Change: yellow at the lower end of the range and blue at the upper. The lab's words for a liquid inside the range, between blue and yellow, are its own way of putting what this cell and the second source say between them: no page read names a colour for the middle of the range. The table gives no source for its rows."
+        }
+      ]
+    },
+    {
+      "id": "lower-le-chatelier",
+      "url": "https://chem.libretexts.org/Bookshelves/General_Chemistry/Chem1_(Lower)/11%3A_Chemical_Equilibrium/11.02%3A_Le_Chatelier's_Principle",
+      "citation": "Lower, S. Chem1; LibreTexts; Section 11.2 Le Chatelier's Principle; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "a313c5942a811b26d504dbe01ca865fccb2525694b5273514d37c616e564aba6",
+      "supports": [
+        {
+          "fields": [
+            "rules[lead-chloride-with-water]",
+            "systems[lead-chloride].disturbances[lead-water].notes[0]",
+            "primer"
+          ],
+          "prints": "the solution is diluted",
+          "where": "A cell of the section's first table, in its column of changes, beside the equilibrium of a weak acid with its two ions: the equilibrium moves toward the ions, because on dilution the product of two concentrations falls faster than one concentration does. The row under it is a solid with its two ions, to which a shared ion is added. The lab applies the first row's reasoning to lead chloride and its two ions."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-le-chatelier",
+      "url": "https://www.chemguide.co.uk/physical/equilibria/lechatelier.html",
+      "citation": "Clark, J. Chemguide: Le Chatelier's Principle; 2002, modified April 2013; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "b950b22ab01c8e997f5e94293ab69dabc947b7cccba17bff1980360ae6eee714",
+      "supports": [
+        {
+          "fields": [
+            "systems[lead-chloride].disturbances[lead-heat].notes[1]",
+            "systems[lead-chloride].disturbances[lead-cool].notes[0]",
+            "systems[cobalt].disturbances[cobalt-heat].notes[0]",
+            "systems[cobalt].disturbances[cobalt-cool].notes[0]",
+            "primer"
+          ],
+          "prints": "Using Le Chatelier's Principle with a change of temperature",
+          "where": "A heading of the page. Under it, and in the summary that closes the part: a system in dynamic equilibrium that is made hotter favours the change that takes heat in, and one that is made cooler favours the change that gives heat out."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-equilibria-introduction",
+      "url": "https://www.chemguide.co.uk/physical/equilibria/introduction.html",
+      "citation": "Clark, J. Chemguide: An Introduction to Chemical Equilibria; 2002, modified April 2013; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "7b17dc60d249274a5c11f4a09401d1062e1d938c61e9a054e7f96f3d4ed11c00",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Dynamic equilibria",
+          "where": "A heading of the page. Under it and in the summary at the page's end: at equilibrium the amount of each thing in the mixture stays the same although both changes go on, because the forward change and the back change run at one rate; and the position of equilibrium is said to lie toward one side or the other, and to move left or right when the conditions change."
+        }
+      ]
+    }
+  ]
+}
