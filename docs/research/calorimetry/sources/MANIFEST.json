@@ -243,6 +243,13 @@
           ],
           "prints": "80.044",
           "where": "The same kept copy, the row for CID 22985, ammonium nitrate: its molecular weight. The build holds the stored figure to this row."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "MolecularWeight",
+          "where": "The name the kept copy gives the figure. The primer gives it as the molar mass printed on the tile of ammonium nitrate."
         }
       ]
     },
@@ -272,14 +279,7 @@
             "parts[neutralisation].notes[0]"
           ],
           "prints": "between -57 and -58 kJ mol-1",
-          "where": "Under the heading that defines the standard enthalpy change of neutralisation: the range the page gives for a strong acid with a strong alkali, counted for each mole of water formed and always negative. Under the next heading the page says why the figures are so alike: such an acid and such an alkali are fully ionised, and the reaction is in each case a hydrogen ion with a hydroxide ion. The note's own two figures are the table's, not this page's; the stored -57.7 lies inside the page's range and the figure for endless dilution, -55.8, outside it."
-        },
-        {
-          "fields": [
-            "primer"
-          ],
-          "prints": "ENTHALPY CHANGE OF NEUTRALISATION",
-          "where": "The page's title, in its capitals."
+          "where": "Under the heading that defines the quantity for standard conditions: the range the page gives for a strong acid with a strong alkali, counted for each mole of water formed and always negative. Under the next heading the page says why the figures are so alike: such an acid and such an alkali are fully ionised, and the reaction is in each case a hydrogen ion with a hydroxide ion. The note's own two figures are the table's, not this page's; the stored -57.7 lies inside the page's range and the figure for endless dilution, -55.8, outside it."
         }
       ]
     },
@@ -311,7 +311,7 @@
             "parts[dissolving].notes[2]"
           ],
           "prints": "Enthalpy changes involving solutions",
-          "where": "A heading of the page. Under it, of the experiments: a foam cup slows the loss of heat through its side and its bottom, heat still leaves from the surface of the liquid, a lid with a hole for the thermometer cuts that down, and the heat lost while the reaction goes on can be allowed for with a cooling curve, which the page names and does not describe. Of the calculations: that a solution is commonly given the density of water and the specific heat of water, that both are approximations, and that the errors they bring are small beside those from lost heat."
+          "where": "A heading of the page. Under it, of the experiments: a foam cup slows the loss of heat through its side and its bottom, heat still leaves where the liquid meets the air, a lid with a hole for the thermometer cuts that down, and the heat lost while the reaction goes on can be allowed for with a cooling curve, which the page names and does not describe. Of the calculations: that a solution is commonly given water's density and water's specific heat, that both are approximations, and that the errors they bring are small beside those from lost heat."
         },
         {
           "fields": [
@@ -333,7 +333,7 @@
             "primer"
           ],
           "prints": "Temperature",
-          "where": "The page's heading. Under it: what temperature measures, the Celsius scale among the scales it is measured on, and that it does not depend on the size of the sample, with two samples of water mixed as the example."
+          "where": "The page's heading. Under it: what temperature measures, the Celsius scale among the scales it is measured on, and that a sample's size makes no difference to it, with two samples of water mixed as the example."
         }
       ]
     },
@@ -348,7 +348,7 @@
             "primer"
           ],
           "prints": "Specific Heat",
-          "where": "A heading of the page. Above it the page says what heat is and that its unit is the joule; under it, what a specific heat is, and that water's is 4.184 J/g-K."
+          "where": "A heading of the page. Above it the page says what heat is and that its unit is the joule; under it, what a specific heat is, and for water the figure 4.184, in joules for each gram and kelvin."
         }
       ]
     },
@@ -393,7 +393,7 @@
             "parts[metal].notes[0]"
           ],
           "prints": "Law of Dulong and Petit",
-          "where": "The name of the law the page gives for the heat capacity of a mole of most solids at room temperature and above: nearly constant. That is the ground for saying that the figure for a solid metal changes little between 25 °C and 100 °C; the page gives no figure for any one metal over that range."
+          "where": "The name of the law the page gives for the heat capacity of a mole of most solids, from room temperature upward: nearly constant. That is the ground for saying that the figure for a solid metal changes little between 25 °C and 100 °C; the page gives no figure for any one metal over that range."
         },
         {
           "fields": [
@@ -438,7 +438,7 @@
             "parts[metal].notes[2]"
           ],
           "prints": "Part 1: Determination of the Heat Capacity of the Calorimeter",
-          "where": "A heading of the page. Above it the page says that a calorimeter has a heat capacity of its own, takes up heat as it warms, and that this heat capacity is not known beforehand and has to be measured; under it, that it is found by a run with a metal whose specific heat is known. The page calls it the heat capacity of the calorimeter. The name calorimeter constant is the lab's, the usual one in laboratory manuals, and is on no page read."
+          "where": "A heading of the page. Above it the page says that a calorimeter has a heat capacity of its own, takes up heat as it warms, and that this heat capacity is not known beforehand and has to be measured; under it, that it is found by a run with a metal whose specific heat is known. The page speaks of the calorimeter's heat capacity. The name calorimeter constant is the lab's, the usual one in laboratory manuals, and is on no page read."
         },
         {
           "fields": [
@@ -484,7 +484,7 @@
             "primer"
           ],
           "prints": "Calorimetry: Heat of Neutralization",
-          "where": "The page's title. Read for the reaction of a hydrogen ion with a hydroxide ion to give water, for the heat of one mole as the heat divided by the moles of whichever of the two runs out first, and for the density of 1.00 g/mL it gives its solution."
+          "where": "The page's title. Read for the reaction of a hydrogen ion with a hydroxide ion to give water, for the heat of one mole as the heat divided by the moles of whichever of the two runs out first, and for the 1.00 g it takes each millilitre of its solution to weigh."
         }
       ]
     },

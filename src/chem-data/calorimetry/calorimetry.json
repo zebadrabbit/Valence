@@ -378,7 +378,7 @@
       },
       "notes": [
         {
-          "value": "The stored figure for this part is −57.7 kJ for each mole of water formed: the heat given out when hydrochloric acid and sodium hydroxide solution of about this strength are mixed, worked out from a table of enthalpies of formation. The minus sign says that the reaction gives heat out. For solutions so dilute that more water would change nothing, the same table gives −55.8 kJ/mol, which is the figure many books print. Any strong acid with any strong base gives close to the same figure, because the reaction is the same one each time: a hydrogen ion and a hydroxide ion make a molecule of water.",
+          "value": "The stored figure for this part is −57.7 kJ for each mole of water formed: the heat given out when the acid and the base of this part are mixed at about this strength, worked out from a table of enthalpies of formation. The minus sign says that the reaction gives heat out. For solutions so dilute that more water would change nothing, the same table gives −55.8 kJ/mol, which is the figure many books print. Any strong acid with any strong base gives close to the same figure, because the reaction is the same one each time: a hydrogen ion and a hydroxide ion make a molecule of water.",
           "sourceId": "nbs-tables-1982",
           "alsoSourceId": "chemguide-enthalpy-neutralisation"
         },
@@ -388,7 +388,7 @@
           "alsoSourceId": "chemguide-measuring-enthalpy"
         },
         {
-          "value": "Two things are taken as simpler than they are. The mixed solution is given the specific heat of water and a density of 1.00 g/mL. And the cup, the lid, the stirrer and the probe are taken to absorb no heat at all. A careful bench deals with the second by finding the calorimeter constant, the heat the calorimeter itself takes up for each degree, and adding that heat in. It deals with the leak by reading on after the peak, drawing a line through the slow cooling, and carrying that line back to the moment of mixing: the temperature the line gives there is used in place of the peak.",
+          "value": "Two things are taken as simpler than they are. The mixed solution is given water's specific heat, and each millilitre of it is taken to weigh 1.00 g. And the cup, the lid, the stirrer and the probe are taken to absorb no heat at all. A careful bench deals with the second by finding the calorimeter constant, the heat the calorimeter itself takes up for each degree, and adding that heat in. It deals with the leak by reading on after the peak, drawing a line through the slow cooling, and carrying that line back to the moment of mixing: the temperature the line gives there is used in place of the peak.",
           "sourceId": "chemguide-measuring-enthalpy",
           "alsoSourceId": "davidson-specific-heat-copper",
           "moreSourceIds": [
@@ -486,7 +486,7 @@
           "alsoSourceId": "docbrown-calorimeter-methods"
         },
         {
-          "value": "Two things are taken as simpler than they are. The solution is given the specific heat of water. And the cup, the lid, the stirrer and the probe are taken to give up no heat of their own as they cool. A careful bench deals with the second by finding the calorimeter constant, the heat the calorimeter itself gives up or takes in for each degree, and adding that heat in. It deals with the leak by reading on after the lowest point, drawing a line through the slow warming, and carrying that line back to the moment the salt went in: the temperature the line gives there is used in place of the lowest point.",
+          "value": "Two things are taken as simpler than they are. The solution is given water's specific heat. And the cup, the lid, the stirrer and the probe are taken to give up no heat of their own as they cool. A careful bench deals with the second by finding the calorimeter constant, the heat the calorimeter itself gives up or takes in for each degree, and adding that heat in. It deals with the leak by reading on after the lowest point, drawing a line through the slow warming, and carrying that line back to the moment the salt went in: the temperature the line gives there is used in place of the lowest point.",
           "sourceId": "chemguide-measuring-enthalpy",
           "alsoSourceId": "davidson-heat-of-solution",
           "moreSourceIds": [

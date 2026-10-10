@@ -218,8 +218,8 @@ describe('the manifest', () => {
     }
   })
 
-  it('marks with a primer row every source the primer may rest on that is not a table of figures', () => {
+  it('marks with a primer row every source of its own that the primer rests on', () => {
     const withRow = sources.filter((s) => s.supports.some((row) => row.fields.includes('primer'))).map((s) => s.id)
-    expect(withRow).toEqual(['nist-webbook-water-25c', 'chemguide-energetics-introduction', 'chemguide-enthalpy-neutralisation', 'chemguide-measuring-enthalpy', 'purdue-temperature', 'purdue-heat', 'purdue-calorimetry', 'nasa-heat-transfer', 'hyperphysics-specific-heat', 'ncsu-calorimetry-lab', 'davidson-specific-heat-copper', 'davidson-heat-of-solution', 'davidson-heat-of-neutralization', 'docbrown-calorimeter-methods'])
+    expect(withRow).toEqual(['nist-webbook-water-25c', 'pubchem-aqueous-reagents', 'chemguide-energetics-introduction', 'chemguide-measuring-enthalpy', 'purdue-temperature', 'purdue-heat', 'purdue-calorimetry', 'nasa-heat-transfer', 'hyperphysics-specific-heat', 'ncsu-calorimetry-lab', 'davidson-specific-heat-copper', 'davidson-heat-of-solution', 'davidson-heat-of-neutralization', 'docbrown-calorimeter-methods'])
   })
 })
