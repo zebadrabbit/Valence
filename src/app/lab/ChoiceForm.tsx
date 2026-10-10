@@ -8,7 +8,7 @@ export interface ChoiceQuestion {
   id: string
   label: string
   choices: readonly { value: string; label: string }[]
-  /** Why the question cannot be answered yet, in words: it is then disabled, with this under it. Null where it can. */
+  /** Why the question cannot be answered yet, in words: it is then disabled, with this under it. Null where it can. Empty where the question waits for what the one over it waits for, and that one says it for both. */
   waits: string | null
 }
 
@@ -124,7 +124,7 @@ export function ChoiceForm({ questions, recorded, judged: found, held, refusal, 
                 </label>
               ))}
             </div>
-            {waiting && held === null && <p className={ROLE.held}>{waits}</p>}
+            {waiting && held === null && waits !== '' && <p className={ROLE.held}>{waits}</p>}
           </fieldset>
         )
       })}

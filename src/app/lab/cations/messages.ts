@@ -339,6 +339,8 @@ export const CHART_TEXT = {
   /** Under the title in part 1: how the chart is filled. */
   help: 'After each step, fill its places from the tiles: which of the three ions is in the solid, which in the liquid, and as what. A tile can be used in more than one place.',
   tiles: 'Tiles to choose from',
+  /** Under the help, while a place can be filled: how a tile is put in one. */
+  how: 'Tap a tile, then the place it belongs in; or tap the place first, then each tile.',
   /** In a place that cannot be filled yet. */
   closed: 'Opens once you have recorded what you see at this step.',
   empty: 'Nothing here yet',
@@ -358,6 +360,8 @@ export const NAMING_TEXT = {
   help: 'Tick each ion that the steps showed. Any of the three may be ticked. This is said once for each run.',
   closed: 'Opens once all five steps are done.',
   submit: 'Name the ions',
+  /** Where no box is ticked: the page asks again and sends nothing, since the naming is said once. */
+  none: 'Tick at least one ion: every sample holds one or more of the three.',
 } as const
 
 /** What each mode does in this lab (spec 17.3), beside its radio button. */
@@ -419,6 +423,8 @@ export const PAGE_TEXT = {
   /** Beside the picture's two brackets: which layer is liquid and which is solid. */
   liquidLayer: 'liquid',
   solidLayer: 'solid',
+  /** Beside the one bracket of a liquid that a solid is spread through, which is neither of those alone. */
+  spreadLayer: 'solid in the liquid',
   /** Beside the picture: what to do with it. It is the picture's description too. */
   explore: 'Hover over or tap the liquid and the bottom of the tube to look at each.',
   /** After the name of a part of the tube, in the list beside the picture and in the name of the part's button. */
@@ -426,6 +432,8 @@ export const PAGE_TEXT = {
   notLookedAt: 'not looked at yet',
   /** The closed disclosure that holds the whole tube described in words. */
   inWords: 'The tube in words',
+  /** Beside the picture of a step that is done: the tube has been poured off or added to since. */
+  asChecked: 'The tube is drawn as it was when this step was checked.',
   change: 'Change',
   cancel: 'Cancel',
   /** Beside a step's observation in Challenge until it is checked. */
