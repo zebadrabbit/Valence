@@ -805,7 +805,7 @@ The net ionic equation of each step is shown in the notes once the step is done,
 
 The engine is pure and deterministic. A tube holds whole-number amounts of what is dissolved in it and of each solid. Each action changes them by a stored rule that has a source: the three chlorides form with hydrochloric acid; lead chloride dissolves in hot water, and in cold water as far as its solubility allows; lead chromate forms with chromate; silver chloride dissolves in ammonia and comes back with acid; mercury(I) chloride with ammonia gives a grey to black solid. Where a stored number can check a rule (an ion product against a solubility product at the bench's amounts; the lead chloride against what the water added can hold, hot and cold; the acid added against the ammonia it has to neutralise), the build makes the check and stops on a disagreement.
 
-Simplifications, each said in the primer: a pouring off is taken to be clean, where a careful bench washes each solid; a little silver chloride that a real bench can lose when much mercury is present is not lost here; the amounts are fixed by the bench, not chosen.
+Simplifications, each said in the primer: a pouring off is taken to be clean, where a careful bench washes each solid; the amounts are fixed by the bench, not chosen.
 
 ### 17.5 Data
 

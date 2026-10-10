@@ -98,7 +98,7 @@ describe('the cations primer: how its text is drawn', () => {
 
   it("sets off only whole sentences of the paragraph that name the lab themselves, each a rule of the simulation's and not of a bench", () => {
     const rules = paragraphs.flatMap(([where, p]) => (p.labRules ?? []).map((rule) => [where, rule, p.text] as const))
-    expect(rules.map(([where]) => where)).toEqual(['what[3]', 'hot-water[2]', 'mercury[2]', 'centrifuge[3]', 'chart[1]', 'safety[4]'])
+    expect(rules.map(([where]) => where)).toEqual(['what[3]', 'hot-water[2]', 'centrifuge[3]', 'chart[1]', 'safety[4]'])
     for (const [where, rule, text] of rules) {
       expect(rule, where).toMatch(/^(In this lab|This lab) .*\.$|^This lab's own caution, .*\.$/)
       // A whole sentence: it starts the text or follows a full stop, and ends the text or is followed by a space and a capital.
@@ -142,7 +142,7 @@ describe('the cations primer: what each paragraph rests on', () => {
 
   it('has exactly these paragraphs with no source, each resting on "This lab:" lines alone', () => {
     const unsourced = paragraphs.filter(([, p]) => p.sourceIds.length === 0)
-    expect(unsourced.map(([where]) => where)).toEqual(['what[0]', 'hot-water[2]', 'mercury[2]', 'chart[1]', 'chart[2]', 'safety[0]'])
+    expect(unsourced.map(([where]) => where)).toEqual(['what[0]', 'hot-water[2]', 'chart[1]', 'chart[2]', 'safety[0]'])
     for (const [where, p] of unsourced) for (const line of p.support.split('\n')) expect(line, where).toMatch(/^This lab: /)
   })
 
@@ -208,7 +208,6 @@ describe('the cations primer: what it has to say', () => {
   it('says each simplification of the model (spec 17.4)', () => {
     expect(shown('centrifuge')).toContain('A real bench washes each solid')
     expect(shown('centrifuge')).toContain('In this lab one pouring off is taken to be clean.')
-    expect(shown('mercury')).toContain('a little of the silver can be lost at this step. In this lab none is lost.')
     expect(shown('what')).toContain('you choose what to do and when, and not how much to add')
   })
 

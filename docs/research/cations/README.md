@@ -64,7 +64,7 @@ Nothing was bent to pass them. The amounts are model parameters, chosen so that 
 
 ## What could not be sourced, or only in part
 
-- **That a little silver can be lost where there is much mercury(I).** The specification asks the primer to say it. No page read says it, and the primer's support line says so.
+- **That a little silver can be lost where there is much mercury(I).** The specification first asked the primer to say it. No page read says it, so on 2026-10-10 the sentence was taken out of the specification and out of the primer: the lab says nothing of it.
 - **What ammonia does to solid lead chloride.** One handout says that a solid with lead still in it gives white lead hydroxide when ammonia is added, and gives no equation. A page on the lead ion says that ammonia brings a white basic salt out of a solution of the ion and does not dissolve it. The stored rule says that a white solid is left, which the handout gives as lead hydroxide. The model turns the lead chloride into it with two ammonia to each, which is the lab's own balancing and is used only to count ammonia.
 - **A Gibbs energy for lead chromate.** The NBS tables have none. Its solubility product is a handout's figure, with no source of its own.
 - **What two solids of different colours look like in one tube.** The model gives the colour that comes later in the choices: white is hidden by yellow, and both by grey to black. No source was read for it. It matters only after a slip.

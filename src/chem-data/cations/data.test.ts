@@ -180,7 +180,7 @@ describe('what each thing is and looks like', () => {
     ])
     for (const rule of cationsData.rules) expect(rule.says.length, rule.id).toBeGreaterThan(40)
     // What ammonia leaves of lead chloride is said as far as the page read goes: a white solid, which that page gives as lead hydroxide.
-    expect(cationsData.rules.find((rule) => rule.id === 'lead-chloride-with-ammonia')!.says).toContain('A white solid is left, which the page read gives as lead hydroxide.')
+    expect(cationsData.rules.find((rule) => rule.id === 'lead-chloride-with-ammonia')!.says).toContain('A white solid is left, which a university laboratory handout gives as lead hydroxide.')
   })
 })
 
@@ -319,7 +319,7 @@ describe('the five steps', () => {
     expect(said('confirm-lead')).toContain('the colour of the liquid proves nothing: only a solid does')
     expect(said('confirm-lead')).toContain('This lab takes the second tube to stay hot.')
     expect(said('separate')).toContain('Together they look grey to black, and that confirms mercury(I).')
-    expect(said('separate')).toContain('It stays as a white solid, which the page read gives as lead hydroxide.')
+    expect(said('separate')).toContain('It stays as a white solid, which a university laboratory handout gives as lead hydroxide.')
     expect(said('confirm-silver')).toContain('a clear liquid means nothing until litmus shows that the liquid is acid')
   })
 

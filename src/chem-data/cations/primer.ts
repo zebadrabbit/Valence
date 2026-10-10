@@ -206,10 +206,12 @@ export const CATIONS_PRIMER: readonly PrimerSection[] = [
         'that the specks are too fine to shine is how this card puts the black of finely divided mercury; the pages read say only that it is black.',
       ),
       paragraph(
-        { label: 'What is left out', labRules: ['In this lab none is lost.'] },
-        'On a real bench that has much mercury(I), a little of the silver can be lost at this step. In this lab none is lost.',
-        [],
-        'that silver can be lost where there is much mercury is the specification\'s (spec 17.4) and was read in no source for this lab: docs/research/cations/README.md says so. That none is lost here is the model\'s.',
+        { label: 'What it parts' },
+        'Silver chloride beside it dissolves in the same ammonia. So after this step the solid holds the mercury and the liquid holds the silver, and each can be tested without the other.',
+        [
+          [SILVER, 'under the headings Chloride Ion and Aqueous Ammonia', 'silver chloride dissolves in aqueous ammonia.'],
+          [MERCURY, 'the first half of the page, under the heading Chloride Ion, the second equation', 'the products of mercury(I) chloride with aqueous ammonia are solids.'],
+        ],
       ),
     ],
   },
@@ -334,7 +336,7 @@ export const CATIONS_PRIMER: readonly PrimerSection[] = [
       ),
       paragraph(
         { label: 'The solids it makes' },
-        'The solids the steps make are no safer. By their sheets, lead chloride and lead chromate may cause cancer; mercury(I) chloride is toxic if swallowed; and mercury and mercury(II) amidochloride, the two parts of the grey to black solid, are each fatal if inhaled. For silver chloride the one hazard its sheet lists is that its dust may irritate the airways.',
+        'The solids the steps make are no safer. By their sheets, lead chloride and lead chromate may cause cancer; mercury(I) chloride is toxic if swallowed; and mercury and mercury(II) amidochloride, the two parts of the grey to black solid, are each fatal if inhaled. For silver chloride one sheet lists a single hazard, that its dust may irritate the airways, and a second adds that it is very toxic to water life.',
         [
           ['flinn-sds-435', SECTION_2, 'solid lead chloride may cause cancer, may harm fertility or an unborn child, and is harmful if it is swallowed or breathed in.'],
           ['flinn-sds-435.5', SECTION_2, 'a saturated solution of lead chloride, as step 2 pours off, may cause cancer.'],

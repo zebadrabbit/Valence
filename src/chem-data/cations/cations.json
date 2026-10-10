@@ -404,7 +404,7 @@
     },
     {
       "id": "lead-chloride-with-ammonia",
-      "says": "Lead chloride that is still with the solid when the ammonia goes in does not dissolve. A white solid is left, which the page read gives as lead hydroxide.",
+      "says": "Lead chloride that is still with the solid when the ammonia goes in does not dissolve. A white solid is left, which a university laboratory handout gives as lead hydroxide.",
       "sourceId": "ntu-group-1-lab",
       "alsoSourceId": "birk-lead"
     },
@@ -862,7 +862,7 @@
           ]
         },
         {
-          "value": "Lead chloride left behind at step 2 does not dissolve in ammonia either. It stays as a white solid, which the page read gives as lead hydroxide. A white solid left at this step is that lead: it is not silver, and it is not mercury(I).",
+          "value": "Lead chloride left behind at step 2 does not dissolve in ammonia either. It stays as a white solid, which a university laboratory handout gives as lead hydroxide. A white solid left at this step is that lead: it is not silver, and it is not mercury(I).",
           "sourceId": "ntu-group-1-lab"
         }
       ]
