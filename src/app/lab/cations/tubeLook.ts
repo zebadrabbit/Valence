@@ -38,6 +38,8 @@ const LIQUID_HEX: Record<string, string> = { colourless: '#e8edf2', 'yellow to o
 const SOLID_HEX: Record<string, string> = { white: '#ffffff', yellow: '#f7e65a', 'grey to black': '#5b6068' }
 /** A colour the drawing has no value for: drawn grey, and named in words all the same. */
 const UNKNOWN_HEX = '#9ca3af'
+/** The grain over a solid too dark for the ink to show on: drawn light. */
+const LIGHT_GRAIN: Record<string, string> = { 'grey to black': '#ffffff' }
 
 export const liquidHex = (colour: string) => LIQUID_HEX[colour] ?? UNKNOWN_HEX
 export const solidHex = (colour: string) => SOLID_HEX[colour] ?? UNKNOWN_HEX
@@ -61,7 +63,7 @@ export function tubeLayers(m: CationsModel, shows: TubeShows | null): TubeLayers
   const { liquid = null, solid = null } = shows ?? {}
   return {
     liquid: liquid && { hex: liquidHex(liquid.colour), surface: surfaceOf(m, liquid.microlitres) },
-    solid: solid?.settled ? { hex: solidHex(solid.colour), top: SOLID_TOP } : null,
+    solid: solid?.settled ? { hex: solidHex(solid.colour), top: SOLID_TOP, ...(solid.colour in LIGHT_GRAIN ? { grain: LIGHT_GRAIN[solid.colour]! } : {}) } : null,
     spread: solid && !solid.settled ? { hex: solidHex(solid.colour) } : null,
   }
 }

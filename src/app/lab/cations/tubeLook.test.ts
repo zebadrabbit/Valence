@@ -30,6 +30,8 @@ describe('what is drawn in a tube', () => {
   it('draws a solid that has settled as a layer at the bottom, and one that has not as specks through the liquid, never both', () => {
     const settled = tubeLayers(m, { liquid: liquid('yellow to orange'), solid: { colour: 'yellow', settled: true } })
     expect(settled.solid).toEqual({ hex: solidHex('yellow'), top: expect.any(Number) })
+    // The grain is the ink's, but over the one solid too dark for the ink to show on.
+    expect(tubeLayers(m, { liquid: liquid('colourless'), solid: { colour: 'grey to black', settled: true } }).solid).toEqual({ hex: solidHex('grey to black'), top: expect.any(Number), grain: '#ffffff' })
     expect(settled.spread).toBeNull()
     expect(settled.liquid!.hex).toBe(liquidHex('yellow to orange'))
     const spread = tubeLayers(m, { liquid: liquid('yellow to orange', 1000, true), solid: { colour: 'yellow', settled: false } })

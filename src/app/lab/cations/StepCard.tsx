@@ -302,7 +302,9 @@ export function StepCard({ data, m, part, mode, view, step, can, warn, wrong, ac
               ) : (
                 <p className="max-w-prose text-muted-foreground">{PAGE_TEXT.asChecked}</p>
               )}
-              {/* Closed: it says the whole of what the picture shows, which the learner is to find by looking. */}
+            </div>
+            {/* Closed: it says the whole of what the picture shows, which the learner is to find by looking. */}
+            <div className="cations-tube-in-words">
               <Disclosure summary={PAGE_TEXT.inWords}>
                 <ul className="grid max-w-prose gap-1">
                   {(current ? TUBE_IDS : [step.tube]).map((tube) => (

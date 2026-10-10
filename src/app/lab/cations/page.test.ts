@@ -145,7 +145,7 @@ const parts = (html: string) =>
     return { look: look!, name: name!, tag: tag!, body: body!, left: left!, top: top!, width: width!, height: height! }
   })
 /** The large tube alone: the picture with the rack, which is the last group of it, taken off. */
-const large = (svg: string) => svg.split('<g><defs><pattern')[0]!
+const large = (svg: string) => svg.split('<g data-rack="">')[0]!
 /** The places of a chart, each by its name, whether it can be filled, and what it holds in words. */
 const places = (chart: string) =>
   [...chart.matchAll(/<ul(?: aria-live="polite")? aria-label="([^"]+)" class="flex[^"]*">(.*?)<\/ul>/gs)].map(([tag, name, body]) => ({
@@ -442,7 +442,7 @@ describe('a step before its reagent is in', () => {
     expect(names(reached(UNKNOWN, 2), UNKNOWN)).toEqual([[TUBE_NAME.a, '400'], [TUBE_NAME.b, '700'], [TUBE_NAME.c, '400']])
     expect(names(reached(UNKNOWN, 4), UNKNOWN)).toEqual([[TUBE_NAME.a, '400'], [TUBE_NAME.b, '400'], [TUBE_NAME.c, '700']])
     // Each small tube holds what its tube holds now: at step 3 the first has its solid and no liquid, the second the liquid poured into it, the third nothing.
-    const rack = picture(bench(reached(KNOWN, 2), KNOWN).entry).split('<g><defs><pattern')[1]!
+    const rack = picture(bench(reached(KNOWN, 2), KNOWN).entry).split('<g data-rack="">')[1]!
     const [first, second, third] = rack.split(/(?=<g><defs><clipPath)/).slice(1)
     expect([first!.includes(`fill="${solidHex('white')}"`), first!.includes(`fill="${liquidHex('colourless')}"`)]).toEqual([true, false])
     expect([second!.includes('stroke-width="0.8"'), second!.includes(`fill="${liquidHex('colourless')}"`)]).toEqual([false, true])
@@ -519,10 +519,12 @@ describe('a step before its reagent is in', () => {
 
   it("lays the tube's card out by the card's own width, never the window's: the buttons beside the picture, and the words beside it too where the card is wide enough", () => {
     const tube = card(entry, PAGE_TEXT.tube)
-    expect(tube).toMatch(/<div class="cations-tube w-full"><div class="cations-tube-grid"><div class="cations-tube-picture">.*<div class="cations-tube-actions [^"]*">.*<div class="cations-tube-words [^"]*">/s)
+    expect(tube).toMatch(/<div class="cations-tube w-full"><div class="cations-tube-grid"><div class="cations-tube-picture">.*<div class="cations-tube-actions [^"]*">.*<div class="cations-tube-words [^"]*">.*<div class="cations-tube-in-words"><details>/s)
     expect(cationsCss).toContain('container: cations-tube / inline-size')
     expect(cationsCss).toContain('@container cations-tube (min-width: 38rem)')
     expect(cationsCss).not.toContain('@media')
+    // The tube in words is beside the picture's foot while it is closed, and has the card's width once it is opened.
+    expect(cationsCss).toContain(".cations-tube-grid:has(.cations-tube-in-words details[open])")
   })
 
   it('has two message lines in the tube\'s card: one for what a look shows, for a screen reader alone, and one for why a press did nothing, which takes no room while it is empty', () => {
@@ -591,6 +593,15 @@ describe('the tube as it is drawn', () => {
     expect(PAGE_TEXT.spreadLayer).toBe('solid in the liquid')
   })
 
+  it('draws the grain light over the grey to black solid, on which the ink would not show, and in the ink over the others', () => {
+    const grain = (state: CationsState, part: PartId) => /<pattern id="[^"]+grain"[^>]*><path[^>]*stroke="(#[0-9a-f]{6})"/.exec(svg(state, part))![1]
+    const black = packed(added(KNOWN, 3), KNOWN)
+    expect(stepOf(black, KNOWN).shows!.solid).toEqual({ colour: 'grey to black', settled: true })
+    expect(grain(black, KNOWN)).toBe('#ffffff')
+    expect(grain(withLead, KNOWN)).toBe('#3f3f46')
+    expect(grain(packed(added(KNOWN, 0), KNOWN), KNOWN)).toBe('#3f3f46')
+  })
+
   it('draws a solid with no liquid over it under its one bracket, and a tube with nothing in it with none', () => {
     const poured = reached(UNKNOWN, 1)
     expect(stepOf(poured, UNKNOWN).shows).toMatchObject({ liquid: null, solid: { colour: 'white' } })
@@ -622,7 +633,7 @@ describe('the tube as it is drawn', () => {
     const done = bench(state, KNOWN, 0).entry
     const tube = card(done, PAGE_TEXT.tube)
     expect(text(tube)).toContain(PAGE_TEXT.asChecked)
-    expect(picture(done)).not.toContain('<g><defs><pattern')
+    expect(picture(done)).not.toContain('data-rack')
     // As it was at the check: the solid packed under the liquid, though the liquid has been poured away since.
     expect(view(state, KNOWN).steps[0]!.shows).toMatchObject({ liquid: { colour: 'colourless' }, solid: { colour: 'white', settled: true } })
     expect(view(state, KNOWN).rack.a.liquid).toBeNull()

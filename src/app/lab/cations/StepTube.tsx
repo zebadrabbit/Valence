@@ -12,8 +12,8 @@ const RACK = { first: 178, apart: 54, mouth: 9, foot: 53, half: 9 }
 /** A height of the large tube as the small one has it. */
 const small = (y: number) => RACK.mouth + ((y - 20) * (RACK.foot - RACK.mouth)) / (TUBE_HEIGHT - 24 - 20)
 
-/** One tube of the rack: what it holds, drawn small, over its name, which is bold for the step's own tube. `grain` is the id of the grain a solid is drawn under. */
-function RackTube({ id, grain, x, name, shows, m, current }: { id: string; grain: string; x: number; name: string; shows: TubeShows; m: CationsModel; current: boolean }) {
+/** One tube of the rack: what it holds, drawn small, over its name, which is bold for the step's own tube. */
+function RackTube({ id, x, name, shows, m, current }: { id: string; x: number; name: string; shows: TubeShows; m: CationsModel; current: boolean }) {
   const { liquid, solid, spread } = tubeLayers(m, shows)
   const { mouth, foot, half } = RACK
   const glass = `M ${x - half} ${mouth} V ${foot - half} A ${half} ${half} 0 0 0 ${x + half} ${foot - half} V ${mouth}`
@@ -29,6 +29,11 @@ function RackTube({ id, grain, x, name, shows, m, current }: { id: string; grain
             <circle cx={2} cy={2} r={1.2} fill={spread.hex} stroke={INK} strokeWidth={0.6} />
           </pattern>
         )}
+        {solid && (
+          <pattern id={`${id}grain`} width={4} height={4} patternUnits="userSpaceOnUse">
+            <circle cx={1.2} cy={1.3} r={0.75} fill={solid.grain ?? INK} fillOpacity={0.6} />
+          </pattern>
+        )}
       </defs>
       <g clipPath={`url(#${id})`}>
         {liquid && <rect {...from(liquid.surface)} fill={liquid.hex} />}
@@ -36,7 +41,7 @@ function RackTube({ id, grain, x, name, shows, m, current }: { id: string; grain
         {solid && (
           <>
             <rect {...from(solid.top)} fill={solid.hex} stroke={INK} strokeWidth={0.8} />
-            <rect {...from(solid.top)} fill={`url(#${grain})`} />
+            <rect {...from(solid.top)} fill={`url(#${id}grain)`} />
           </>
         )}
       </g>
@@ -93,18 +98,13 @@ export function StepTube({ m, tube, shows, rack, looked, describedBy, seen, onLo
       onLook={onLook}
     >
       {rack && (
-        <g>
-          <defs>
-            <pattern id={`${id}grain`} width={4} height={4} patternUnits="userSpaceOnUse">
-              <circle cx={1.2} cy={1.3} r={0.75} fill={INK} fillOpacity={0.6} />
-            </pattern>
-          </defs>
+        <g data-rack="">
           {/* The ground the step's own tube stands on, which marks it; then the rack's two rails, behind the tubes. */}
           <rect x={RACK.first + TUBE_IDS.indexOf(tube) * RACK.apart - 24} y={3.5} width={48} height={78} rx={6} fill="#f4f4f5" stroke={INK} strokeWidth={1.5} />
           <rect x={RACK.first - 26} y={22} width={2 * RACK.apart + 52} height={3} fill={INK} fillOpacity={0.3} />
           <rect x={RACK.first - 26} y={RACK.foot} width={2 * RACK.apart + 52} height={3} fill={INK} fillOpacity={0.3} />
           {TUBE_IDS.map((one, i) => (
-            <RackTube key={one} id={`${id}${one}`} grain={`${id}grain`} x={RACK.first + i * RACK.apart} name={TUBE_NAME[one]} shows={rack[one]} m={m} current={one === tube} />
+            <RackTube key={one} id={`${id}${one}`} x={RACK.first + i * RACK.apart} name={TUBE_NAME[one]} shows={rack[one]} m={m} current={one === tube} />
           ))}
         </g>
       )}

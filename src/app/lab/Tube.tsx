@@ -31,8 +31,8 @@ export const contentsEnd = (height: number) => height - 26
 export interface TubeLayers {
   /** The liquid, and where down the picture its surface is. Null for a tube with no liquid in it. */
   liquid: { hex: string; surface: number } | null
-  /** A solid that lies at the bottom, from `top` down to the foot. */
-  solid: { hex: string; top: number } | null
+  /** A solid that lies at the bottom, from `top` down to the foot. `grain` is the colour of the grain over it, where the ink would not show on it. */
+  solid: { hex: string; top: number; grain?: string } | null
   /** A solid spread through the liquid and not yet settled: drawn as specks of its colour all through it. */
   spread?: { hex: string } | null
   /** Bubbles in the liquid; `moving` is the class that makes them rise, where anything may move. */
@@ -73,7 +73,7 @@ export function TubeDefs({ id, height, layers }: { id: string; height: number; l
       {/* Grains over the settled solid, so that it does not read as a second liquid, and a white one shows on the white card. */}
       <pattern id={`${id}grain`} width={7} height={7} patternUnits="userSpaceOnUse">
         {/* Two dots, as round-capped strokes of no length. */}
-        <path d="M 1.6 1.8 h 0 M 5.2 5 h 0" stroke={INK} strokeOpacity={0.5} strokeWidth={1.8} strokeLinecap="round" />
+        <path d="M 1.6 1.8 h 0 M 5.2 5 h 0" stroke={layers.solid?.grain ?? INK} strokeOpacity={0.5} strokeWidth={1.8} strokeLinecap="round" />
       </pattern>
       {/* The liquid alone: a bubble that rises is not drawn above the surface it breaks at. */}
       {layers.liquid && (
