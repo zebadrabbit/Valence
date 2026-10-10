@@ -37,7 +37,7 @@ No source has a copy in this folder. Three sources are shared with other labs an
 - **Molar masses.** The copies other labs keep; the build holds each stored figure to them.
 - **Water.** One page of the NIST Chemistry WebBook, fetched once. Its site's robots file allows every reader, asks five seconds between requests, and carries a content signal that permits use as input to an AI and refuses use for training.
 - **What each reagent looks like, and the name and formula of each metal.** Section 9 and the title of the supplier's safety data sheet for it, the same sheets its hazards rest on, read in the copies fetched for the hazards.
-- **The primer's ideas.** Fourteen pages, each fetched and read that day, each with a row in the manifest: two of Purdue University's general chemistry help pages and a third of its department's, four pages of Chemguide, a page of NASA's Glenn Research Center, a page of HyperPhysics, a laboratory manual page of North Carolina State University as WebAssign serves it, three of Davidson College's virtual chemistry experiments, and a page of Doc Brown's revision notes. Each site's robots file was read first; none has a rule against automated readers.
+- **The primer's ideas.** Fourteen pages, each fetched and read that day, each with a row in the manifest: two of Purdue University's general chemistry help pages and a third of its department's, four pages of Chemguide, a page of NASA's Glenn Research Center, a page of HyperPhysics, a laboratory manual page of North Carolina State University as WebAssign serves it, three of Davidson College's virtual chemistry experiments, and a page of Doc Brown's revision notes. Each site's robots file was asked for first: three of the sites have none, and none of the others has a rule against automated readers or against the folders read.
 
 ## What could not be sourced, or only in part
 
@@ -60,7 +60,11 @@ No source has a copy in this folder. Three sources are shared with other labs an
 
 ## Tried and not read
 
-The site of the United States Naval Academy names this kind of reader in its robots file; the site of the Centers for Disease Control and Prevention refused the request for its robots file. Nothing was done to get round either, and a guide of the second that another site also serves was left unread. Several addresses guessed at other universities' sites did not exist. No page of OpenStax was fetched: the aqueous reactions lab's figures for water rest on one, and this lab stores the same figures from the NIST page.
+The site of the United States Naval Academy names this kind of reader in its robots file; the site of the Centers for Disease Control and Prevention refused the request for its robots file. Nothing was done to get round either, and a guide of the second that another site also serves was left unread. Several addresses guessed at other universities' sites did not exist.
+
+Pages that were fetched while looking for these and that nothing rests on: the other twenty-one pages of the laboratory manual the calorimetry page is one of, opened for their titles alone; the menus of a university's laboratory site and of a chemistry tutorial site, neither of which has a page on calorimetry; three more pages of Doc Brown's notes and three more of HyperPhysics, one of them on calorimetry, which says in fewer words what the pages cited say; and a page of NASA's on the specific heats of gases.
+
+No page of OpenStax was fetched: the aqueous reactions lab's figures for water rest on one, and this lab stores the same figures from the NIST page.
 
 ## Read and not kept
 
