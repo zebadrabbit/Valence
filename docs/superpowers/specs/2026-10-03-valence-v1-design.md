@@ -750,3 +750,74 @@ Built on 2026-10-09, straight through, as the flame test lab's screens were (sec
 - **The descriptions in words** of the cup and of the graph (16.6) are both in the page: the first beside the drawing, the second behind its disclosure.
 - **What the page keeps and does not store:** what is typed and not yet entered, the part that is shown, the reading last looked at and its callout, a warning that is showing, whether the calculator is open, and what the message lines last said. A reload opens on the first part begun and not done, with its cup, its graph and its entries as the stored record has them. A part that is not the one shown has no calculator, so that no panel floats over the page with no button of its own in view; going to another part closes it.
 - **Not done by a person:** how it looks is the owner's to judge; the hand checklist of section 13 was run by script, by keyboard, by mouse and by emulated touch, in headless Chromium, by the AI coding assistant that built the screens and by nobody at a keyboard. `docs/for-institutions.md` says what was run and what was not. The review of the phase had not been held when this was written. No chemist has read the record, the notes or the primer.
+
+## 17. Group I cations lab (added after v1)
+
+Asked for by the owner on 2026-10-09, the first of a set of labs taken from the owner's department's lab directions. Those directions say what is set out for a lab and not what a learner does, and some of what they say is out of date: by the owner's word the labs and their outcomes are what matters, and the particulars are corrected and brought up to date here. So the procedure is the usual scheme for these three ions, and each choice in it is the owner's to change. It uses the lab shell (Primer, Lab, Record; Guided and Challenge), the test tube that is explored and the observation form of section 8, and the rule for hazards of 5.2.
+
+A real bench of this lab holds lead, mercury, silver and chromate. That is the case for a virtual one, and the primer's safety topic says so.
+
+### 17.1 Set-up
+
+Qualitative analysis: finding which ions a solution holds by what they do, not how much there is. The three ions are silver, Ag⁺; lead, Pb²⁺; and mercury(I), Hg₂²⁺. They are the ones whose chlorides do not dissolve in cold dilute acid, which is what sets them apart from every other common metal ion.
+
+On the bench: hydrochloric acid, 6 M; distilled water and a bath of boiling water; acetic acid, 6 M, and potassium chromate solution, 0.5 M; ammonia solution, 6 M; nitric acid, 6 M; blue and red litmus paper; a centrifuge. The samples are made from 0.1 M solutions of silver nitrate, lead nitrate and mercury(I) nitrate.
+
+Two parts:
+
+1. **The known.** A sample that holds all three ions, worked through the scheme so that every positive result is seen once.
+2. **An unknown.** A sample that holds one, two or all three of the ions, which of the seven by the seed. The learner works it through the same scheme and says which ions it holds.
+
+### 17.2 The scheme
+
+Five steps, each on a tube the step before it left:
+
+1. **Precipitate the group.** Hydrochloric acid is added to the sample: a white solid, the chlorides of whichever of the three are there. The tube is centrifuged and the liquid poured off.
+2. **Take the lead out.** Hot water is added to the solid and the tube is heated in the bath: lead chloride dissolves in hot water and the other two do not. The tube is centrifuged and the hot liquid poured off into a second tube.
+3. **Confirm lead.** Acetic acid and potassium chromate go into the second tube: a yellow solid, lead chromate, if lead is there. With no lead the liquid is yellow, from the chromate, and stays clear: a yellow liquid is not a yellow solid, and the tube's picture marks which is which.
+4. **Part silver from mercury.** Ammonia is added to the solid left by step 2. Silver chloride dissolves, as a colourless ion of silver with ammonia. Mercury(I) chloride does not dissolve: it turns grey to black, which confirms mercury(I). The tube is centrifuged and the liquid poured off into a third tube.
+5. **Confirm silver.** Nitric acid is added to the third tube, a little at a time, until litmus shows the liquid is acid: a white solid, silver chloride come back, if silver is there.
+
+### 17.3 A run
+
+A part is the five steps, one at a time. A step is a short column of cards:
+
+1. **The tube**, drawn, with its layers marked as liquid or solid, and explored: pointing at a layer, focusing it or tapping it says what is seen there (never what it is). The step's actions are beside it: add the step's reagent, heat, centrifuge, pour off, test with litmus, each offered when the engine has a use for it.
+2. **What is seen**: choice boxes, opened by looking, as section 8's observation form: is there a solid, what colour, what the liquid looks like.
+3. **Where each ion went** (part 1 only): a flow chart of the scheme with empty places, filled from a set of tiles, one step's worth after each step: which of the three is in the solid, which in the liquid, and as what. In part 2 the finished chart is beside the work as a map, once part 1 is done.
+4. **Which ions** (part 2 only, after step 5): three boxes, any of which may be ticked.
+
+Guided warns before a technique error and lets the learner go on, checks each observation and each placing as it is made, and has a hint ready in a closed disclosure. Challenge warns of nothing and checks a step's observations together when asked.
+
+**A run counts** when the technique was right, each observation matches what the tube showed, and, in part 2, the ions named are the ones the sample holds. A run that does not count says why. One run that counts completes a part; part 2 can be run again, with a new unknown. The lab is complete when both parts are.
+
+Three errors of technique, each real and each its own cause:
+
+- **Pouring off without centrifuging.** The solid goes over with the liquid, the tube poured into is cloudy, and the run does not count.
+- **Pouring off the water of step 2 without heating it.** Only part of the lead chloride has dissolved; the rest stays in the solid and is still there, white, after the ammonia of step 4.
+- **Judging step 5 before the liquid is acid.** No solid forms though silver is there.
+
+The net ionic equation of each step is shown in the notes once the step is done, with its source. It is not built by the learner: section 8's lab is where equations are written.
+
+### 17.4 Model
+
+The engine is pure and deterministic. A tube holds whole-number amounts of what is dissolved in it and of each solid. Each action changes them by a stored rule that has a source: the three chlorides form with hydrochloric acid; lead chloride dissolves in hot water, and in cold water as far as its solubility allows; lead chromate forms with chromate; silver chloride dissolves in ammonia and comes back with acid; mercury(I) chloride with ammonia gives a grey to black solid. Where a stored number can check a rule (an ion product against a solubility product at the bench's amounts; the lead chloride against what the water added can hold, hot and cold; the acid added against the ammonia it has to neutralise), the build makes the check and stops on a disagreement.
+
+Simplifications, each said in the primer: a pouring off is taken to be clean, where a careful bench washes each solid; a little silver chloride that a real bench can lose when much mercury is present is not lost here; the amounts are fixed by the bench, not chosen.
+
+### 17.5 Data
+
+Solubility products from the Gibbs energies of the NBS tables, as elsewhere, or from another source that can be cited; the solubility of lead chloride in cold and in hot water; the formation constant of the silver ion with ammonia; what each solid and each liquid looks like; what mercury(I) chloride does with ammonia; molar masses. Hazards by 5.2 for every bottle on the bench and for the three nitrates.
+
+### 17.6 Primer
+
+Short topics, those to read first marked: what qualitative analysis is; solids from solutions, and what a solubility product says; the three chlorides; parting ions by a difference (hot water); complex ions (silver and ammonia); mercury(I) and what ammonia does to it; confirming tests, and a yellow liquid against a yellow solid; centrifuging and pouring off; reading the flow chart; safety.
+
+### 17.7 Acceptance
+
+- For the known and for each of the seven unknowns, a careful run shows at every step what its ions give and nothing else, and counts; naming its ions completes part 2.
+- Each error of technique alone makes a run not count wherever it changes what is seen, and its cause is named; Guided warns first.
+- Every rule and every stored value has a source; the build's checks of rules against numbers pass.
+- The same seed and actions give the same run; the stored record round-trips; no state a learner can reach leaves them unable to go on.
+- Challenge shows nothing of what is expected before the observations are recorded, and nothing on the page says which ions an unknown holds before the learner has named them.
+- The description in words of every tube is tested.
