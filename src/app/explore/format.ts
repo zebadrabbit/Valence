@@ -1,4 +1,4 @@
-import { AROMATIC_ORDER_LABEL, BOND_KINDS, RESONANCE_ORDER_LABEL, type DerivedBond } from '@/chem-data/derive'
+import { AROMATIC_ORDER_LABEL, BOND_KINDS, RESONANCE_ORDER_LABEL, RESONANCE_TRIPLE_ORDER_LABEL, type DerivedBond } from '@/chem-data/derive'
 import { evToKjPerMol } from '@/chem-data/element'
 import { GEOMETRY_SOURCE_LABEL } from '@/chem-data/library'
 import { symmetryBasis, symmetryFixes, type Measurement } from '@/chem-data/measure'
@@ -65,16 +65,19 @@ export function ordinal(n: number): string {
   return `${n}${ORDINAL_SUFFIX[ordinalRules.select(n)] ?? 'th'}`
 }
 
-/** A bond's displayed order: "2 (double)", "aromatic (delocalised), order 1.5" or "resonance pair, order 1.5". */
+/** A bond's displayed order: "2 (double)", "aromatic (delocalised), order 1.5", "resonance pair, order 1.5" or "resonance set of three, order 1.33". */
 export function bondOrder(bond: DerivedBond): string {
-  return bond.orderLabel ? `${bond.orderLabel}, order ${bond.displayOrder}` : `${bond.displayOrder} (${BOND_KINDS[bond.displayOrder - 1]})`
+  // An effective order is written to two decimals at most: 4/3 is 1.33.
+  return bond.orderLabel ? `${bond.orderLabel}, order ${Number(bond.displayOrder.toFixed(2))}` : `${bond.displayOrder} (${BOND_KINDS[bond.displayOrder - 1]})`
 }
 
 const DRAWN_ORDER = 'Bond order and the σ and π count come from the Lewis structure as drawn.'
-/** Where a delocalised bond's order of 1.5 comes from, by its order label. */
+/** Where a delocalised bond's order comes from, by its order label. */
 const DELOCALISED_ORDER: Readonly<Record<string, string>> = {
   [RESONANCE_ORDER_LABEL]:
     'The Lewis structure draws one double and one single bond; the pair shares one π bond, so each bond has an effective order of 1.5.',
+  [RESONANCE_TRIPLE_ORDER_LABEL]:
+    'The Lewis structure draws one double and two single bonds; the three share one π bond, so each bond has an effective order of 4/3, about 1.33.',
   [AROMATIC_ORDER_LABEL]:
     'The Lewis structure draws the ring with alternating double and single bonds; the ring bonds share the π bonds equally, so each has an effective order of 1.5.',
 }

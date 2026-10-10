@@ -1,0 +1,155 @@
+{
+  "id": "chlorine-trifluoride",
+  "name": "Chlorine trifluoride",
+  "formula": "ClF3",
+  "pubchemCid": 24637,
+  "topic": "vsepr",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "Cl",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "position2d": [
+        3,
+        -0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "F",
+      "position": [
+        0,
+        0,
+        -1.597
+      ],
+      "position2d": [
+        3,
+        0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "F",
+      "position": [
+        0,
+        1.69532,
+        -0.075502
+      ],
+      "position2d": [
+        2,
+        -0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "F",
+      "position": [
+        0,
+        -1.69532,
+        -0.075502
+      ],
+      "position2d": [
+        4,
+        -0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "cited-experimental",
+  "measurements": {
+    "lengths": [
+      {
+        "atoms": [
+          0,
+          1
+        ],
+        "value": 1.597,
+        "sourceId": "cccbdb-chlorine-trifluoride",
+        "published": "1.597"
+      },
+      {
+        "atoms": [
+          0,
+          2
+        ],
+        "value": 1.697,
+        "sourceId": "cccbdb-chlorine-trifluoride",
+        "published": "1.697"
+      },
+      {
+        "atoms": [
+          0,
+          3
+        ],
+        "value": 1.697,
+        "sourceId": "cccbdb-chlorine-trifluoride",
+        "published": "1.697"
+      }
+    ],
+    "angles": [
+      {
+        "atoms": [
+          1,
+          0,
+          2
+        ],
+        "value": 87.45,
+        "sourceId": "cccbdb-chlorine-trifluoride",
+        "published": "87.45"
+      },
+      {
+        "atoms": [
+          1,
+          0,
+          3
+        ],
+        "value": 87.45,
+        "sourceId": "cccbdb-chlorine-trifluoride",
+        "published": "87.45"
+      },
+      {
+        "atoms": [
+          2,
+          0,
+          3
+        ],
+        "value": 174.9,
+        "sourceId": "cccbdb-chlorine-trifluoride",
+        "published": "174.9"
+      }
+    ],
+    "dihedrals": []
+  },
+  "notes": [
+    "Gas-phase structure. The two axial Cl–F bonds are longer than the equatorial one."
+  ],
+  "sourceId": "cccbdb-chlorine-trifluoride"
+}

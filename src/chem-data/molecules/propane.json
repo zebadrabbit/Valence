@@ -1,0 +1,228 @@
+{
+  "id": "propane",
+  "name": "Propane",
+  "formula": "C3H8",
+  "pubchemCid": 6334,
+  "topic": "organic",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "C",
+      "position": [
+        0,
+        -0.5689,
+        0
+      ],
+      "position2d": [
+        2.866,
+        -0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.2571,
+        0.2844,
+        0
+      ],
+      "position2d": [
+        3.7321,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.2571,
+        0.2845,
+        0
+      ],
+      "position2d": [
+        2,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0,
+        -1.2183,
+        0.8824
+      ],
+      "position2d": [
+        2.4675,
+        -0.7249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0,
+        -1.2183,
+        -0.8824
+      ],
+      "position2d": [
+        3.2646,
+        -0.7249
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.2969,
+        0.9244,
+        0.8873
+      ],
+      "position2d": [
+        4.0421,
+        -0.2869
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.2967,
+        0.9245,
+        -0.8872
+      ],
+      "position2d": [
+        4.269,
+        0.56
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.1475,
+        -0.352,
+        -0.0001
+      ],
+      "position2d": [
+        3.4221,
+        0.7869
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.1475,
+        -0.352,
+        0
+      ],
+      "position2d": [
+        2.31,
+        0.7869
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.2968,
+        0.9245,
+        0.8872
+      ],
+      "position2d": [
+        1.4631,
+        0.56
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.2968,
+        0.9245,
+        -0.8872
+      ],
+      "position2d": [
+        1.69,
+        -0.2869
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-6334"
+}

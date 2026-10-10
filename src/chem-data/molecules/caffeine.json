@@ -1,0 +1,503 @@
+{
+  "id": "caffeine",
+  "name": "Caffeine",
+  "formula": "C8H10N4O2",
+  "pubchemCid": 2519,
+  "topic": "everyday",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        0.47,
+        2.5688,
+        0.0006
+      ],
+      "position2d": [
+        3.7321,
+        2
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -3.1271,
+        -0.4436,
+        -0.0003
+      ],
+      "position2d": [
+        2,
+        -1
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "N",
+      "position": [
+        -0.9686,
+        -1.3125,
+        0
+      ],
+      "position2d": [
+        3.7321,
+        -1
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "N",
+      "position": [
+        2.2182,
+        0.1412,
+        -0.0003
+      ],
+      "position2d": [
+        5.5443,
+        0.8047
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "N",
+      "position": [
+        -1.3477,
+        1.0797,
+        -0.0001
+      ],
+      "position2d": [
+        2.866,
+        0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "N",
+      "position": [
+        1.4119,
+        -1.9372,
+        0.0002
+      ],
+      "position2d": [
+        5.5443,
+        -0.8047
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "C",
+      "position": [
+        0.8579,
+        0.2592,
+        -0.0008
+      ],
+      "position2d": [
+        4.5981,
+        0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.3897,
+        -1.0264,
+        -0.0004
+      ],
+      "position2d": [
+        4.5981,
+        -0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.0307,
+        1.422,
+        -0.0006
+      ],
+      "position2d": [
+        3.7321,
+        1
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.9061,
+        -0.2495,
+        -0.0004
+      ],
+      "position2d": [
+        2.866,
+        -0.5
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.5032,
+        -1.1998,
+        0.0003
+      ],
+      "position2d": [
+        6.1279,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.4276,
+        -2.696,
+        0.0008
+      ],
+      "position2d": [
+        3.7321,
+        -2
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        3.1926,
+        1.2061,
+        0.0003
+      ],
+      "position2d": [
+        5.855,
+        1.7553
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.2969,
+        2.1881,
+        0.0007
+      ],
+      "position2d": [
+        2,
+        1
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.5163,
+        -1.5787,
+        0.0008
+      ],
+      "position2d": [
+        6.7479,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.0451,
+        -3.1973,
+        -0.8937
+      ],
+      "position2d": [
+        3.1121,
+        -2
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.5186,
+        -2.7596,
+        0.0011
+      ],
+      "position2d": [
+        3.7321,
+        -2.62
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.0447,
+        -3.1963,
+        0.8957
+      ],
+      "position2d": [
+        4.3521,
+        -2
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        4.1992,
+        0.7801,
+        0.0002
+      ],
+      "position2d": [
+        6.4443,
+        1.5626
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.0468,
+        1.8092,
+        -0.8992
+      ],
+      "position2d": [
+        6.0476,
+        2.3446
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.0466,
+        1.8083,
+        0.9004
+      ],
+      "position2d": [
+        5.2656,
+        1.9479
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.8087,
+        3.1651,
+        -0.0003
+      ],
+      "position2d": [
+        2.31,
+        1.5369
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.9322,
+        2.1027,
+        0.8881
+      ],
+      "position2d": [
+        1.4631,
+        1.31
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.9346,
+        2.1021,
+        -0.8849
+      ],
+      "position2d": [
+        1.69,
+        0.4631
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 8,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 9,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 10,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 7,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 10,
+      "b": 14,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 11,
+      "b": 15,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 11,
+      "b": 16,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 11,
+      "b": 17,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 18,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 19,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 20,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 13,
+      "b": 21,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 13,
+      "b": 22,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 13,
+      "b": 23,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "The stimulant in coffee and tea."
+  ],
+  "sourceId": "pubchem-cid-2519"
+}

@@ -1,0 +1,524 @@
+{
+  "id": "serotonin",
+  "name": "Serotonin",
+  "formula": "C10H12N2O",
+  "pubchemCid": 5202,
+  "topic": "everyday",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        2.7352,
+        2.462,
+        0.0975
+      ],
+      "position2d": [
+        2.2022,
+        -1.2595
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "N",
+      "position": [
+        0.1121,
+        -2.3478,
+        -0.1123
+      ],
+      "position2d": [
+        4.3693,
+        -4.5946
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "N",
+      "position": [
+        -4.2402,
+        1.5678,
+        -0.288
+      ],
+      "position2d": [
+        7.6132,
+        -2.1758
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.1857,
+        -0.604,
+        0.3372
+      ],
+      "position2d": [
+        5.174,
+        -3.2008
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.1487,
+        -0.1361,
+        0.1781
+      ],
+      "position2d": [
+        4.2022,
+        -2.9916
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.3744,
+        0.2167,
+        0.644
+      ],
+      "position2d": [
+        5.9183,
+        -2.5329
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.9428,
+        -1.2499,
+        -0.103
+      ],
+      "position2d": [
+        3.7022,
+        -3.8576
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.1761,
+        -1.9673,
+        0.1523
+      ],
+      "position2d": [
+        5.277,
+        -4.1895
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -3.0873,
+        0.7369,
+        -0.6178
+      ],
+      "position2d": [
+        6.8689,
+        -2.8436
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.7591,
+        1.132,
+        0.2466
+      ],
+      "position2d": [
+        3.7022,
+        -2.1256
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.3223,
+        -1.1586,
+        -0.3198
+      ],
+      "position2d": [
+        2.7022,
+        -3.8576
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.1379,
+        1.2386,
+        0.032
+      ],
+      "position2d": [
+        2.7022,
+        -2.1256
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.9057,
+        0.1096,
+        -0.2468
+      ],
+      "position2d": [
+        2.2022,
+        -2.9916
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.0828,
+        -0.3736,
+        1.2406
+      ],
+      "position2d": [
+        6.2103,
+        -1.986
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.0842,
+        1.0654,
+        1.2769
+      ],
+      "position2d": [
+        5.4304,
+        -2.1504
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.9688,
+        -2.7018,
+        0.1846
+      ],
+      "position2d": [
+        5.814,
+        -4.4995
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.4109,
+        -3.2968,
+        -0.2895
+      ],
+      "position2d": [
+        4.2414,
+        -5.2013
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.4225,
+        -0.1074,
+        -1.2312
+      ],
+      "position2d": [
+        6.5768,
+        -3.3906
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.3888,
+        1.3212,
+        -1.2284
+      ],
+      "position2d": [
+        7.3567,
+        -3.2262
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.1635,
+        2.0149,
+        0.4625
+      ],
+      "position2d": [
+        4.0122,
+        -1.5886
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.9207,
+        -2.0371,
+        -0.5368
+      ],
+      "position2d": [
+        2.3922,
+        -4.3946
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.9762,
+        0.2086,
+        -0.4111
+      ],
+      "position2d": [
+        1.5822,
+        -2.9916
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -4.6455,
+        1.9395,
+        -1.1461
+      ],
+      "position2d": [
+        8.2025,
+        -2.3683
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.9363,
+        2.3734,
+        0.2574
+      ],
+      "position2d": [
+        7.4853,
+        -1.5691
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.0601,
+        3.1324,
+        0.2995
+      ],
+      "position2d": [
+        1.5822,
+        -1.2595
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 24,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 16,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 22,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 23,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 7,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 6,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 4,
+      "b": 9,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 5,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 14,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 10,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 7,
+      "b": 15,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 17,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 18,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 11,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 9,
+      "b": 19,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 10,
+      "b": 12,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 10,
+      "b": 20,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 11,
+      "b": 12,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 12,
+      "b": 21,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "A neurotransmitter found in the human body.",
+    "One conformer of many."
+  ],
+  "sourceId": "pubchem-cid-5202"
+}

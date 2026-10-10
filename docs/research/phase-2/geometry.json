@@ -71,19 +71,19 @@
    "atoms": [
     {
      "element": "O",
-     "x": 0.0,
-     "y": 0.0,
-     "z": 0.0
+     "x": 0,
+     "y": 0,
+     "z": 0
     },
     {
      "element": "H",
-     "x": 0.0,
+     "x": 0,
      "y": 0.757366,
      "z": -0.586652
     },
     {
      "element": "H",
-     "x": 0.0,
+     "x": 0,
      "y": -0.757366,
      "z": -0.586652
     }
@@ -149,7 +149,7 @@
        2
       ]
      ],
-     "degrees": 180.0,
+     "degrees": 180,
      "valueAsPublished": "180",
      "fixedBySymmetry": true,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=124389",
@@ -160,20 +160,20 @@
    "atoms": [
     {
      "element": "C",
-     "x": 0.0,
-     "y": 0.0,
-     "z": 0.0
+     "x": 0,
+     "y": 0,
+     "z": 0
     },
     {
      "element": "O",
-     "x": 0.0,
-     "y": 0.0,
+     "x": 0,
+     "y": 0,
      "z": 1.162
     },
     {
      "element": "O",
-     "x": 0.0,
-     "y": 0.0,
+     "x": 0,
+     "y": 0,
      "z": -1.162
     }
    ],
@@ -263,13 +263,13 @@
    "atoms": [
     {
      "element": "N",
-     "x": 0.0,
-     "y": 0.0,
-     "z": 0.0
+     "x": 0,
+     "y": 0,
+     "z": 0
     },
     {
      "element": "H",
-     "x": 0.0,
+     "x": 0,
      "y": 0.937347,
      "z": -0.381477
     },
@@ -396,9 +396,9 @@
    "atoms": [
     {
      "element": "C",
-     "x": 0.0,
-     "y": 0.0,
-     "z": 0.0
+     "x": 0,
+     "y": 0,
+     "z": 0
     },
     {
      "element": "H",
@@ -482,14 +482,14 @@
    "atoms": [
     {
      "element": "O",
-     "x": 0.0,
-     "y": 0.0,
+     "x": 0,
+     "y": 0,
      "z": 0.604
     },
     {
      "element": "O",
-     "x": 0.0,
-     "y": 0.0,
+     "x": 0,
+     "y": 0,
      "z": -0.604
     }
    ],
@@ -535,14 +535,14 @@
    "atoms": [
     {
      "element": "N",
-     "x": 0.0,
-     "y": 0.0,
+     "x": 0,
+     "y": 0,
      "z": 0.549
     },
     {
      "element": "N",
-     "x": 0.0,
-     "y": 0.0,
+     "x": 0,
+     "y": 0,
      "z": -0.549
     }
    ],
@@ -588,14 +588,14 @@
    "atoms": [
     {
      "element": "H",
-     "x": 0.0,
-     "y": 0.0,
+     "x": 0,
+     "y": 0,
      "z": 1.239748
     },
     {
      "element": "Cl",
-     "x": 0.0,
-     "y": 0.0,
+     "x": 0,
+     "y": 0,
      "z": -0.035252
     }
    ],
@@ -704,13 +704,13 @@
     {
      "element": "O",
      "x": -0.028139,
-     "y": 0.0,
+     "y": 0,
      "z": 0.7375
     },
     {
      "element": "O",
      "x": -0.028139,
-     "y": 0.0,
+     "y": 0,
      "z": -0.7375
     },
     {
@@ -830,13 +830,13 @@
      {
       "element": "O",
       "x": -0.030619,
-      "y": 0.0,
+      "y": 0,
       "z": 0.7278
      },
      {
       "element": "O",
       "x": -0.030619,
-      "y": 0.0,
+      "y": 0,
       "z": -0.7278
      },
      {
@@ -916,7 +916,7 @@
        3
       ]
      ],
-     "degrees": 120.0,
+     "degrees": 120,
      "valueAsPublished": "120",
      "fixedBySymmetry": true,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7637072",
@@ -927,27 +927,27 @@
    "atoms": [
     {
      "element": "B",
-     "x": 0.0,
-     "y": 0.0,
-     "z": 0.0
+     "x": 0,
+     "y": 0,
+     "z": 0
     },
     {
      "element": "F",
-     "x": 0.0,
+     "x": 0,
      "y": 1.307,
-     "z": 0.0
+     "z": 0
     },
     {
      "element": "F",
      "x": -1.131895,
      "y": -0.6535,
-     "z": 0.0
+     "z": 0
     },
     {
      "element": "F",
      "x": 1.131895,
      "y": -0.6535,
-     "z": 0.0
+     "z": 0
     }
    ],
    "bondList": [
@@ -1027,19 +1027,19 @@
    "atoms": [
     {
      "element": "S",
-     "x": 0.0,
-     "y": 0.0,
-     "z": 0.0
+     "x": 0,
+     "y": 0,
+     "z": 0
     },
     {
      "element": "O",
-     "x": 0.0,
+     "x": 0,
      "y": 1.237012,
      "z": -0.721404
     },
     {
      "element": "O",
-     "x": 0.0,
+     "x": 0,
      "y": -1.237012,
      "z": -0.721404
     }
@@ -1176,7 +1176,7 @@
        6
       ]
      ],
-     "degrees": 90.0,
+     "degrees": 90,
      "valueAsPublished": "90",
      "fixedBySymmetry": true,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=2551624",
@@ -1206,7 +1206,7 @@
        6
       ]
      ],
-     "degrees": 180.0,
+     "degrees": 180,
      "valueAsPublished": "180",
      "fixedBySymmetry": true,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=2551624",
@@ -1217,45 +1217,45 @@
    "atoms": [
     {
      "element": "S",
-     "x": 0.0,
-     "y": 0.0,
-     "z": 0.0
+     "x": 0,
+     "y": 0,
+     "z": 0
     },
     {
      "element": "F",
-     "x": 0.0,
-     "y": 0.0,
+     "x": 0,
+     "y": 0,
      "z": 1.561
     },
     {
      "element": "F",
-     "x": 0.0,
-     "y": 0.0,
+     "x": 0,
+     "y": 0,
      "z": -1.561
     },
     {
      "element": "F",
      "x": 1.561,
-     "y": 0.0,
-     "z": 0.0
+     "y": 0,
+     "z": 0
     },
     {
      "element": "F",
      "x": -1.561,
-     "y": 0.0,
-     "z": 0.0
+     "y": 0,
+     "z": 0
     },
     {
      "element": "F",
-     "x": 0.0,
+     "x": 0,
      "y": 1.561,
-     "z": 0.0
+     "z": 0
     },
     {
      "element": "F",
-     "x": 0.0,
+     "x": 0,
      "y": -1.561,
-     "z": 0.0
+     "z": 0
     }
    ],
    "bondList": [
@@ -1362,7 +1362,7 @@
        4
       ]
      ],
-     "degrees": 90.0,
+     "degrees": 90,
      "valueAsPublished": "90",
      "fixedBySymmetry": true,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=13709610",
@@ -1387,7 +1387,7 @@
        4
       ]
      ],
-     "degrees": 180.0,
+     "degrees": 180,
      "valueAsPublished": "180",
      "fixedBySymmetry": true,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=13709610",
@@ -1398,33 +1398,33 @@
    "atoms": [
     {
      "element": "Xe",
-     "x": 0.0,
-     "y": 0.0,
-     "z": 0.0
+     "x": 0,
+     "y": 0,
+     "z": 0
     },
     {
      "element": "F",
      "x": 1.935,
-     "y": 0.0,
-     "z": 0.0
+     "y": 0,
+     "z": 0
     },
     {
      "element": "F",
      "x": -1.935,
-     "y": 0.0,
-     "z": 0.0
+     "y": 0,
+     "z": 0
     },
     {
      "element": "F",
-     "x": 0.0,
+     "x": 0,
      "y": 1.935,
-     "z": 0.0
+     "z": 0
     },
     {
      "element": "F",
-     "x": 0.0,
+     "x": 0,
      "y": -1.935,
-     "z": 0.0
+     "z": 0
     }
    ],
    "bondList": [
@@ -1534,7 +1534,7 @@
        3
       ]
      ],
-     "degrees": 120.0,
+     "degrees": 120,
      "valueAsPublished": null,
      "fixedBySymmetry": true,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=10026138",
@@ -1579,7 +1579,7 @@
        3
       ]
      ],
-     "degrees": 90.0,
+     "degrees": 90,
      "valueAsPublished": null,
      "fixedBySymmetry": true,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=10026138",
@@ -1599,7 +1599,7 @@
        5
       ]
      ],
-     "degrees": 180.0,
+     "degrees": 180,
      "valueAsPublished": null,
      "fixedBySymmetry": true,
      "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=10026138",
@@ -1610,38 +1610,38 @@
    "atoms": [
     {
      "element": "P",
-     "x": 0.0,
-     "y": 0.0,
-     "z": 0.0
+     "x": 0,
+     "y": 0,
+     "z": 0
     },
     {
      "element": "Cl",
-     "x": 0.0,
+     "x": 0,
      "y": 2.02,
-     "z": 0.0
+     "z": 0
     },
     {
      "element": "Cl",
      "x": -1.749371,
      "y": -1.01,
-     "z": 0.0
+     "z": 0
     },
     {
      "element": "Cl",
      "x": 1.749371,
      "y": -1.01,
-     "z": 0.0
+     "z": 0
     },
     {
      "element": "Cl",
-     "x": 0.0,
-     "y": 0.0,
+     "x": 0,
+     "y": 0,
      "z": 2.124
     },
     {
      "element": "Cl",
-     "x": 0.0,
-     "y": 0.0,
+     "x": 0,
+     "y": 0,
      "z": -2.124
     }
    ],
@@ -1673,6 +1673,625 @@
     }
    ],
    "notes": "Gas-phase molecular structure (solid PCl5 is ionic, [PCl4]+[PCl6]-). CCCBDB lists the two lengths only; it gives no angle rows, so the 120/90/180 angles rest on its stated D3h point group and on its own Cartesians, which this build reproduces."
+  },
+  {
+   "id": "h2",
+   "name": "Hydrogen",
+   "formula": "H2",
+   "pubchemCid": 783,
+   "cas": "1333-74-0",
+   "pointGroup": "D∞h",
+   "origin": "centre of mass at origin; molecule along z",
+   "bonds": [
+    {
+     "label": "r(H-H)",
+     "atoms": [
+      0,
+      1
+     ],
+     "appliesTo": [
+      [
+       0,
+       1
+      ]
+     ],
+     "lengthA": 0.741,
+     "valueAsPublished": "0.741",
+     "lengthType": "re",
+     "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=1333740",
+     "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-09), citing: Huber, K.P.; Herzberg, G., Molecular Spectra and Molecular Structure. IV. Constants of Diatomic Molecules, Van Nostrand Reinhold Co., 1979 (doi:10.1007/978-1-4757-0961-2); comment 're'"
+    }
+   ],
+   "angles": [],
+   "dihedrals": [],
+   "atoms": [
+    {
+     "element": "H",
+     "x": 0,
+     "y": 0,
+     "z": -0.3705
+    },
+    {
+     "element": "H",
+     "x": 0,
+     "y": 0,
+     "z": 0.3705
+    }
+   ],
+   "bondList": [
+    {
+     "a": 0,
+     "b": 1,
+     "order": 1
+    }
+   ],
+   "notes": "Equilibrium (re) length. CCCBDB prints rHH = 0.741 in its internal-coordinate table; its own Cartesians give 0.7414."
+  },
+  {
+   "id": "co",
+   "name": "Carbon monoxide",
+   "formula": "CO",
+   "pubchemCid": 281,
+   "cas": "630-08-0",
+   "pointGroup": "C∞v",
+   "origin": "carbon at origin; molecule along z",
+   "bonds": [
+    {
+     "label": "r(C-O)",
+     "atoms": [
+      0,
+      1
+     ],
+     "appliesTo": [
+      [
+       0,
+       1
+      ]
+     ],
+     "lengthA": 1.128,
+     "valueAsPublished": "1.128",
+     "lengthType": "re",
+     "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=630080",
+     "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-09), citing: NIST Diatomic Spectral Database (doi:10.18434/T4T59X); comment 're'"
+    }
+   ],
+   "angles": [],
+   "dihedrals": [],
+   "atoms": [
+    {
+     "element": "C",
+     "x": 0,
+     "y": 0,
+     "z": 0,
+     "formalCharge": -1
+    },
+    {
+     "element": "O",
+     "x": 0,
+     "y": 0,
+     "z": 1.128,
+     "formalCharge": 1
+    }
+   ],
+   "bondList": [
+    {
+     "a": 0,
+     "b": 1,
+     "order": 3
+    }
+   ],
+   "notes": "Equilibrium (re) length. The bond order and formal charges are the usual Lewis structure (C(-) triple bond O(+)), authored structure. PubChem has a computed conformer for this record; it is not used, because its bond is 1.057 angstrom, 0.07 shorter than the page's, and the length is all the geometry a diatomic molecule has (README.md)."
+  },
+  {
+   "id": "o3",
+   "name": "Ozone",
+   "formula": "O3",
+   "pubchemCid": 24823,
+   "cas": "10028-15-6",
+   "pointGroup": "C2v",
+   "origin": "central atom (O) at origin; C2 axis along z; molecule in the yz plane",
+   "bonds": [
+    {
+     "label": "r(O-O)",
+     "atoms": [
+      0,
+      1
+     ],
+     "appliesTo": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "lengthA": 1.278,
+     "valueAsPublished": "1.278",
+     "lengthType": null,
+     "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=10028156",
+     "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-09), citing: Herzberg, G., Electronic spectra and electronic structure of polyatomic molecules, Van Nostrand, New York, 1966"
+    }
+   ],
+   "angles": [
+    {
+     "label": "a(O-O-O)",
+     "atoms": [
+      1,
+      0,
+      2
+     ],
+     "appliesTo": [
+      [
+       1,
+       0,
+       2
+      ]
+     ],
+     "degrees": 116.8,
+     "valueAsPublished": "116.8",
+     "fixedBySymmetry": false,
+     "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=10028156",
+     "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-09), citing: Herzberg, G., Electronic spectra and electronic structure of polyatomic molecules, Van Nostrand, New York, 1966"
+    }
+   ],
+   "dihedrals": [],
+   "atoms": [
+    {
+     "element": "O",
+     "x": 0,
+     "y": 0,
+     "z": 0,
+     "formalCharge": 1
+    },
+    {
+     "element": "O",
+     "x": 0,
+     "y": 1.088507,
+     "z": 0.669654
+    },
+    {
+     "element": "O",
+     "x": 0,
+     "y": -1.088507,
+     "z": 0.669654,
+     "formalCharge": -1
+    }
+   ],
+   "bondList": [
+    {
+     "a": 0,
+     "b": 1,
+     "order": 2
+    },
+    {
+     "a": 0,
+     "b": 2,
+     "order": 1
+    }
+   ],
+   "notes": "The page gives one O-O length for both bonds and no length type. The bond orders and formal charges are the octet resonance form (O=O(+)-O(-)), authored structure as for sulfur dioxide. PubChem has a computed conformer for this record; it is not used, because its two O-O bonds differ by 0.2 angstrom (1.432 and 1.232), where the page gives the real molecule one length (README.md)."
+  },
+  {
+   "id": "clf3",
+   "name": "Chlorine trifluoride",
+   "formula": "ClF3",
+   "pubchemCid": 24637,
+   "cas": "7790-91-2",
+   "pointGroup": "C2v",
+   "origin": "central atom (Cl) at origin; C2 axis along z; molecule in the yz plane; atom 1 is the equatorial fluorine, atoms 2 and 3 the axial ones",
+   "bonds": [
+    {
+     "label": "r(Cl-F) equatorial",
+     "atoms": [
+      0,
+      1
+     ],
+     "appliesTo": [
+      [
+       0,
+       1
+      ]
+     ],
+     "lengthA": 1.597,
+     "valueAsPublished": "1.597",
+     "lengthType": "re",
+     "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7790912",
+     "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-09), citing: Müller, H. S. P., Phys. Chem. Chem. Phys. 3, 1570-1575 (2001) (doi:10.1039/b100527h); comment 're structure'"
+    },
+    {
+     "label": "r(Cl-F) axial",
+     "atoms": [
+      0,
+      2
+     ],
+     "appliesTo": [
+      [
+       0,
+       2
+      ],
+      [
+       0,
+       3
+      ]
+     ],
+     "lengthA": 1.697,
+     "valueAsPublished": "1.697",
+     "lengthType": "re",
+     "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7790912",
+     "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-09), citing: Müller, H. S. P., Phys. Chem. Chem. Phys. 3, 1570-1575 (2001) (doi:10.1039/b100527h); comment 're structure'"
+    }
+   ],
+   "angles": [
+    {
+     "label": "a(F_eq-Cl-F_ax)",
+     "atoms": [
+      1,
+      0,
+      2
+     ],
+     "appliesTo": [
+      [
+       1,
+       0,
+       2
+      ],
+      [
+       1,
+       0,
+       3
+      ]
+     ],
+     "degrees": 87.45,
+     "valueAsPublished": "87.45",
+     "fixedBySymmetry": false,
+     "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7790912",
+     "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-09), citing: Müller, H. S. P., Phys. Chem. Chem. Phys. 3, 1570-1575 (2001) (doi:10.1039/b100527h); comment 're structure'"
+    },
+    {
+     "label": "a(F_ax-Cl-F_ax)",
+     "atoms": [
+      2,
+      0,
+      3
+     ],
+     "appliesTo": [
+      [
+       2,
+       0,
+       3
+      ]
+     ],
+     "degrees": 174.9,
+     "valueAsPublished": "174.9",
+     "fixedBySymmetry": false,
+     "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7790912",
+     "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-09), citing: Müller, H. S. P., Phys. Chem. Chem. Phys. 3, 1570-1575 (2001) (doi:10.1039/b100527h); comment 'from symmetry assuming planar'"
+    }
+   ],
+   "dihedrals": [],
+   "atoms": [
+    {
+     "element": "Cl",
+     "x": 0,
+     "y": 0,
+     "z": 0
+    },
+    {
+     "element": "F",
+     "x": 0,
+     "y": 0,
+     "z": -1.597
+    },
+    {
+     "element": "F",
+     "x": 0,
+     "y": 1.69532,
+     "z": -0.075502
+    },
+    {
+     "element": "F",
+     "x": 0,
+     "y": -1.69532,
+     "z": -0.075502
+    }
+   ],
+   "bondList": [
+    {
+     "a": 0,
+     "b": 1,
+     "order": 1
+    },
+    {
+     "a": 0,
+     "b": 2,
+     "order": 1
+    },
+    {
+     "a": 0,
+     "b": 3,
+     "order": 1
+    }
+   ],
+   "notes": "Equilibrium (re) structure from the rotational spectrum. The page's connectivity columns number the equatorial fluorine 2 and the axial ones 3 and 4; its own Cartesians agree (Cl-F2 1.598, Cl-F3 1.698). The 174.9 between the axial fluorines is twice 87.45: the page marks it 'from symmetry assuming planar', which is a consequence of the other rows and not a value the point group fixes."
+  },
+  {
+   "id": "xef2",
+   "name": "Xenon difluoride",
+   "formula": "XeF2",
+   "pubchemCid": 83674,
+   "cas": "13709-36-9",
+   "pointGroup": "D∞h",
+   "origin": "central atom (Xe) at origin; molecule along z",
+   "bonds": [
+    {
+     "label": "r(Xe-F)",
+     "atoms": [
+      0,
+      1
+     ],
+     "appliesTo": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "lengthA": 1.974,
+     "valueAsPublished": "1.974",
+     "lengthType": "re",
+     "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=13709369",
+     "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-09), citing: Bürger, H.; Ma, S., J. Mol. Spectrosc. 157, 536-539 (1993) (doi:10.1006/jmsp.1993.1043); comment 're'"
+    }
+   ],
+   "angles": [
+    {
+     "label": "a(F-Xe-F)",
+     "atoms": [
+      1,
+      0,
+      2
+     ],
+     "appliesTo": [
+      [
+       1,
+       0,
+       2
+      ]
+     ],
+     "degrees": 180,
+     "valueAsPublished": "180",
+     "fixedBySymmetry": true,
+     "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=13709369",
+     "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-09): point group D∞h, aFXeF = 180, comment 'from symmetry'"
+    }
+   ],
+   "dihedrals": [],
+   "atoms": [
+    {
+     "element": "Xe",
+     "x": 0,
+     "y": 0,
+     "z": 0
+    },
+    {
+     "element": "F",
+     "x": 0,
+     "y": 0,
+     "z": 1.974
+    },
+    {
+     "element": "F",
+     "x": 0,
+     "y": 0,
+     "z": -1.974
+    }
+   ],
+   "bondList": [
+    {
+     "a": 0,
+     "b": 1,
+     "order": 1
+    },
+    {
+     "a": 0,
+     "b": 2,
+     "order": 1
+    }
+   ],
+   "notes": "Equilibrium (re) length. CCCBDB prints rFXe = 1.974 in its internal-coordinate table; its own Cartesians use 1.9744."
+  },
+  {
+   "id": "sf4",
+   "name": "Sulfur tetrafluoride",
+   "formula": "SF4",
+   "pubchemCid": 24555,
+   "cas": "7783-60-0",
+   "pointGroup": "C2v",
+   "origin": "central atom (S) at origin; C2 axis along z; atoms 1 and 2 are the axial fluorines (yz plane), atoms 3 and 4 the equatorial ones (xz plane)",
+   "bonds": [
+    {
+     "label": "r(S-F) axial",
+     "atoms": [
+      0,
+      1
+     ],
+     "appliesTo": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "lengthA": 1.646,
+     "valueAsPublished": "1.646",
+     "lengthType": null,
+     "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7783600",
+     "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-09), citing: Tolles, W. M.; Gwinn, W. D., J. Chem. Phys. 36, 1119 (1962) (doi:10.1063/1.1732702); comment 'axial'"
+    },
+    {
+     "label": "r(S-F) equatorial",
+     "atoms": [
+      0,
+      3
+     ],
+     "appliesTo": [
+      [
+       0,
+       3
+      ],
+      [
+       0,
+       4
+      ]
+     ],
+     "lengthA": 1.545,
+     "valueAsPublished": "1.545",
+     "lengthType": null,
+     "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7783600",
+     "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-09), citing: Tolles, W. M.; Gwinn, W. D., J. Chem. Phys. 36, 1119 (1962) (doi:10.1063/1.1732702); comment 'equatorial'"
+    }
+   ],
+   "angles": [
+    {
+     "label": "a(F_ax-S-F_ax)",
+     "atoms": [
+      1,
+      0,
+      2
+     ],
+     "appliesTo": [
+      [
+       1,
+       0,
+       2
+      ]
+     ],
+     "degrees": 173.07,
+     "valueAsPublished": "173.07",
+     "fixedBySymmetry": false,
+     "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7783600",
+     "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-09), citing: Tolles, W. M.; Gwinn, W. D., J. Chem. Phys. 36, 1119 (1962) (doi:10.1063/1.1732702); comment 'axial'"
+    },
+    {
+     "label": "a(F_eq-S-F_eq)",
+     "atoms": [
+      3,
+      0,
+      4
+     ],
+     "appliesTo": [
+      [
+       3,
+       0,
+       4
+      ]
+     ],
+     "degrees": 101.55,
+     "valueAsPublished": "101.55",
+     "fixedBySymmetry": false,
+     "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7783600",
+     "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-09), citing: Tolles, W. M.; Gwinn, W. D., J. Chem. Phys. 36, 1119 (1962) (doi:10.1063/1.1732702); comment 'equatorial'"
+    },
+    {
+     "label": "a(F_ax-S-F_eq)",
+     "atoms": [
+      1,
+      0,
+      3
+     ],
+     "appliesTo": [
+      [
+       1,
+       0,
+       3
+      ],
+      [
+       1,
+       0,
+       4
+      ],
+      [
+       2,
+       0,
+       3
+      ],
+      [
+       2,
+       0,
+       4
+      ]
+     ],
+     "degrees": 87.81,
+     "valueAsPublished": "87.81",
+     "fixedBySymmetry": false,
+     "sourceUrl": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7783600",
+     "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-09), citing: Tolles, W. M.; Gwinn, W. D., J. Chem. Phys. 36, 1119 (1962) (doi:10.1063/1.1732702); comment 'by symmetry, axial to equatorial'"
+    }
+   ],
+   "dihedrals": [],
+   "atoms": [
+    {
+     "element": "S",
+     "x": 0,
+     "y": 0,
+     "z": 0
+    },
+    {
+     "element": "F",
+     "x": 0,
+     "y": 1.642991,
+     "z": -0.099482
+    },
+    {
+     "element": "F",
+     "x": 0,
+     "y": -1.642991,
+     "z": -0.099482
+    },
+    {
+     "element": "F",
+     "x": 1.196863,
+     "y": 0,
+     "z": -0.977008
+    },
+    {
+     "element": "F",
+     "x": -1.196863,
+     "y": 0,
+     "z": -0.977008
+    }
+   ],
+   "bondList": [
+    {
+     "a": 0,
+     "b": 1,
+     "order": 1
+    },
+    {
+     "a": 0,
+     "b": 2,
+     "order": 1
+    },
+    {
+     "a": 0,
+     "b": 3,
+     "order": 1
+    },
+    {
+     "a": 0,
+     "b": 4,
+     "order": 1
+    }
+   ],
+   "notes": "From the microwave spectrum (Tolles and Gwinn, 1962). The page gives no length type. The 87.81 between an axial and an equatorial fluorine follows from the other four rows and the C2v point group ('by symmetry' on the page); the coordinates built from those four rows give it. PubChem has a computed conformer for this record; it is not used, because it is not a seesaw (README.md)."
   }
  ],
  "verification": {

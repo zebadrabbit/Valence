@@ -1,0 +1,104 @@
+{
+  "id": "xenon-difluoride",
+  "name": "Xenon difluoride",
+  "formula": "XeF2",
+  "pubchemCid": 83674,
+  "topic": "vsepr",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "Xe",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "position2d": [
+        0,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "F",
+      "position": [
+        0,
+        0,
+        1.974
+      ],
+      "position2d": [
+        1,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    },
+    {
+      "element": "F",
+      "position": [
+        0,
+        0,
+        -1.974
+      ],
+      "position2d": [
+        -1,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 3
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "cited-experimental",
+  "measurements": {
+    "lengths": [
+      {
+        "atoms": [
+          0,
+          1
+        ],
+        "value": 1.974,
+        "sourceId": "cccbdb-xenon-difluoride",
+        "published": "1.974"
+      },
+      {
+        "atoms": [
+          0,
+          2
+        ],
+        "value": 1.974,
+        "sourceId": "cccbdb-xenon-difluoride",
+        "published": "1.974"
+      }
+    ],
+    "angles": [
+      {
+        "atoms": [
+          1,
+          0,
+          2
+        ],
+        "value": 180,
+        "sourceId": "cccbdb-xenon-difluoride",
+        "published": "180",
+        "symmetry": "D∞h"
+      }
+    ],
+    "dihedrals": []
+  },
+  "sourceId": "cccbdb-xenon-difluoride"
+}

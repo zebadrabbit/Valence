@@ -1,0 +1,438 @@
+{
+  "id": "aspirin",
+  "name": "Aspirin (acetylsalicylic acid)",
+  "formula": "C9H8O4",
+  "pubchemCid": 2244,
+  "topic": "everyday",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        1.2333,
+        0.554,
+        0.7792
+      ],
+      "position2d": [
+        3.7321,
+        -0.06
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        -0.6952,
+        -2.7148,
+        -0.7502
+      ],
+      "position2d": [
+        6.3301,
+        1.44
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        0.7958,
+        -2.1843,
+        0.8685
+      ],
+      "position2d": [
+        4.5981,
+        1.44
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        1.7813,
+        0.8105,
+        -1.4821
+      ],
+      "position2d": [
+        2.866,
+        -1.56
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.0857,
+        0.6088,
+        0.4403
+      ],
+      "position2d": [
+        4.5981,
+        -0.56
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.7927,
+        -0.5515,
+        0.1244
+      ],
+      "position2d": [
+        5.4641,
+        -0.06
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.7288,
+        1.8464,
+        0.4133
+      ],
+      "position2d": [
+        4.5981,
+        -1.56
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.1426,
+        -0.4741,
+        -0.2184
+      ],
+      "position2d": [
+        6.3301,
+        -0.56
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.0787,
+        1.9238,
+        0.0706
+      ],
+      "position2d": [
+        5.4641,
+        -2.06
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.7855,
+        0.7636,
+        -0.2453
+      ],
+      "position2d": [
+        6.3301,
+        -1.56
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.1409,
+        -1.8536,
+        0.1477
+      ],
+      "position2d": [
+        5.4641,
+        0.94
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.1094,
+        0.6715,
+        -0.3113
+      ],
+      "position2d": [
+        2.866,
+        -0.56
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        3.5305,
+        0.5996,
+        0.1635
+      ],
+      "position2d": [
+        2,
+        -0.06
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.1851,
+        2.7545,
+        0.6593
+      ],
+      "position2d": [
+        4.0611,
+        -1.87
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.7247,
+        -1.3605,
+        -0.4564
+      ],
+      "position2d": [
+        6.8671,
+        -0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.5797,
+        2.8872,
+        0.0506
+      ],
+      "position2d": [
+        5.4641,
+        -2.68
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.8374,
+        0.8238,
+        -0.509
+      ],
+      "position2d": [
+        6.8671,
+        -1.87
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.729,
+        1.4184,
+        0.8593
+      ],
+      "position2d": [
+        2.31,
+        0.4769
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        4.2045,
+        0.6969,
+        -0.6924
+      ],
+      "position2d": [
+        1.4631,
+        0.25
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.7105,
+        -0.3659,
+        0.6426
+      ],
+      "position2d": [
+        1.69,
+        -0.5969
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.2555,
+        -3.5916,
+        -0.7337
+      ],
+      "position2d": [
+        6.3301,
+        2.06
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 20,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 10,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 11,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 5,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 4,
+      "b": 6,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 5,
+      "b": 7,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 5,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 8,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 6,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 9,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 7,
+      "b": 14,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 9,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 8,
+      "b": 15,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 16,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 11,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 17,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 18,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 19,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "A medicine for pain, fever and inflammation.",
+    "One conformer of many."
+  ],
+  "sourceId": "pubchem-cid-2244"
+}

@@ -1,0 +1,320 @@
+{
+  "id": "adenine",
+  "name": "Adenine",
+  "formula": "C5H5N5",
+  "pubchemCid": 190,
+  "topic": "biomolecules",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "N",
+      "position": [
+        -1.199,
+        -1.3997,
+        0
+      ],
+      "position2d": [
+        4.6783,
+        0.1497
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "N",
+      "position": [
+        -2.0752,
+        0.6499,
+        0
+      ],
+      "position2d": [
+        4.6783,
+        -1.4597
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "N",
+      "position": [
+        0.0337,
+        1.8594,
+        -0.0001
+      ],
+      "position2d": [
+        2.866,
+        -1.655
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "N",
+      "position": [
+        1.9998,
+        0.415,
+        0
+      ],
+      "position2d": [
+        2,
+        -0.155
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "N",
+      "position": [
+        1.8241,
+        -1.976,
+        0
+      ],
+      "position2d": [
+        2.866,
+        1.345
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.1359,
+        -0.5421,
+        0.0001
+      ],
+      "position2d": [
+        3.7321,
+        -0.155
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.7056,
+        0.7241,
+        0.0001
+      ],
+      "position2d": [
+        3.7321,
+        -1.155
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.2359,
+        -0.7004,
+        0
+      ],
+      "position2d": [
+        2.866,
+        0.345
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.3386,
+        -0.6394,
+        0
+      ],
+      "position2d": [
+        5.2619,
+        -0.655
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.3607,
+        1.6092,
+        0
+      ],
+      "position2d": [
+        2,
+        -1.155
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.1566,
+        -2.4103,
+        -0.0002
+      ],
+      "position2d": [
+        4.8709,
+        0.7391
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.3225,
+        -1.0864,
+        -0.0001
+      ],
+      "position2d": [
+        5.8819,
+        -0.655
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.0034,
+        2.4831,
+        -0.0001
+      ],
+      "position2d": [
+        1.4631,
+        -1.465
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.8322,
+        -2.0528,
+        0.0003
+      ],
+      "position2d": [
+        2.3291,
+        1.655
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.2503,
+        -2.8082,
+        0.0004
+      ],
+      "position2d": [
+        3.403,
+        1.655
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 8,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 6,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 9,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 14,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 7,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "sourceId": "pubchem-cid-190"
+}

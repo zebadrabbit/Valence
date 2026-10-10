@@ -25,6 +25,23 @@ const SECTIONS: readonly { heading: string; rows: readonly CardRowId[] }[] = [
   { heading: 'Physical properties and discovery', rows: ['standardState', 'meltingPoint', 'boilingPoint', 'density', 'yearDiscovered'] },
 ]
 
+/** A list of the library's molecules longer than this is folded under its count. */
+const FOLD_ABOVE = 12
+
+function MoleculeLinks({ molecules }: { molecules: ReturnType<typeof moleculesContaining> }) {
+  return (
+    <ul className="columns-[14rem] gap-x-8">
+      {molecules.map((molecule) => (
+        <li key={molecule.id} className="py-0.5">
+          <Link to={`/explore/${molecule.id}`} className="underline underline-offset-4">
+            {molecule.name}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 /** The configuration with superscript counts, as the atom card writes it, and the word PubChem marks it with. */
 function Configuration({ element }: { element: PeriodicElement }) {
   const { core, parts } = coreAndSubshells(element.configuration.text)
@@ -105,16 +122,18 @@ export function ElementCard({ element }: { element: PeriodicElement }) {
           <h3 className="font-medium">In the molecule library</h3>
           {molecules.length === 0 ? (
             <p className="text-muted-foreground">No molecule in the library contains {element.name.toLowerCase()}.</p>
+          ) : molecules.length > FOLD_ABOVE ? (
+            // Carbon and hydrogen are in most of the library: the list is there to open, under its count.
+            <details>
+              <summary className="w-fit cursor-pointer rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                {molecules.length} molecules of the library contain {element.name.toLowerCase()}
+              </summary>
+              <div className="mt-1">
+                <MoleculeLinks molecules={molecules} />
+              </div>
+            </details>
           ) : (
-            <ul className="columns-[14rem] gap-x-8">
-              {molecules.map((molecule) => (
-                <li key={molecule.id} className="py-0.5">
-                  <Link to={`/explore/${molecule.id}`} className="underline underline-offset-4">
-                    {molecule.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <MoleculeLinks molecules={molecules} />
           )}
         </div>
       </div>

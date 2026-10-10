@@ -1,0 +1,638 @@
+{
+  "id": "menthol",
+  "name": "Menthol",
+  "formula": "C10H20O",
+  "pubchemCid": 16666,
+  "topic": "everyday",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        0.4167,
+        2.3656,
+        0.4212
+      ],
+      "position2d": [
+        -0.75,
+        2.5369
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "C",
+      "position": [
+        0.7056,
+        -0.0351,
+        0.4283
+      ],
+      "position2d": [
+        -0.75,
+        4.269
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.0704,
+        1.1567,
+        -0.156
+      ],
+      "position2d": [
+        -0.25,
+        3.403
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.1195,
+        -1.3636,
+        -0.067
+      ],
+      "position2d": [
+        -0.25,
+        5.135
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.1491,
+        -0.2825,
+        -0.3743
+      ],
+      "position2d": [
+        1.25,
+        4.269
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.5705,
+        1.0447,
+        0.1258
+      ],
+      "position2d": [
+        0.75,
+        3.403
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.3769,
+        -1.4666,
+        0.2195
+      ],
+      "position2d": [
+        0.75,
+        5.135
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.1959,
+        0.0476,
+        0.0872
+      ],
+      "position2d": [
+        -1.75,
+        4.269
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -3.6356,
+        -0.3844,
+        -0.038
+      ],
+      "position2d": [
+        2.25,
+        4.269
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.964,
+        -1.0757,
+        0.7771
+      ],
+      "position2d": [
+        -2.25,
+        5.135
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.4009,
+        -0.0067,
+        -1.4238
+      ],
+      "position2d": [
+        -2.25,
+        3.403
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.6107,
+        0.0011,
+        1.5233
+      ],
+      "position2d": [
+        -1.06,
+        4.8059
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.0505,
+        1.2366,
+        -1.2394
+      ],
+      "position2d": [
+        -0.87,
+        3.403
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.6057,
+        -2.217,
+        0.4162
+      ],
+      "position2d": [
+        -0.1423,
+        5.7456
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.2458,
+        -1.4865,
+        -1.1471
+      ],
+      "position2d": [
+        -0.8326,
+        5.3471
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.0478,
+        -0.3149,
+        -1.4673
+      ],
+      "position2d": [
+        1.56,
+        4.8059
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.0912,
+        1.8891,
+        -0.3438
+      ],
+      "position2d": [
+        0.6423,
+        2.7924
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.7507,
+        1.1543,
+        1.204
+      ],
+      "position2d": [
+        1.3326,
+        3.1909
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.7607,
+        -2.4073,
+        -0.1934
+      ],
+      "position2d": [
+        1.3326,
+        5.3471
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.5344,
+        -1.5097,
+        1.305
+      ],
+      "position2d": [
+        0.6423,
+        5.7456
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.5987,
+        0.9985,
+        0.4579
+      ],
+      "position2d": [
+        -2.37,
+        4.269
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -4.1928,
+        0.4445,
+        -0.4872
+      ],
+      "position2d": [
+        2.25,
+        3.649
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -4.0574,
+        -1.319,
+        -0.4227
+      ],
+      "position2d": [
+        2.87,
+        4.269
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.8026,
+        -0.3576,
+        1.0441
+      ],
+      "position2d": [
+        2.25,
+        4.889
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.7722,
+        -2.0566,
+        0.3315
+      ],
+      "position2d": [
+        -1.7131,
+        5.445
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        4.042,
+        -0.8974,
+        0.6899
+      ],
+      "position2d": [
+        -2.56,
+        5.672
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.7273,
+        -1.1242,
+        1.8452
+      ],
+      "position2d": [
+        -2.7869,
+        4.825
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.1015,
+        -0.9567,
+        -1.8739
+      ],
+      "position2d": [
+        -2.7869,
+        3.713
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.4719,
+        0.0983,
+        -1.6398
+      ],
+      "position2d": [
+        -2.56,
+        2.866
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.9134,
+        0.8109,
+        -1.9586
+      ],
+      "position2d": [
+        -1.7131,
+        3.093
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.2875,
+        2.3126,
+        1.3836
+      ],
+      "position2d": [
+        -0.44,
+        2
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 30,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 14,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 15,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 16,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 17,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 18,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 19,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 20,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 21,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 22,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 23,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 24,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 25,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 26,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 10,
+      "b": 27,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 10,
+      "b": 28,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 10,
+      "b": 29,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "The form of menthol most common in nature; it smells of peppermint.",
+    "One conformer of many."
+  ],
+  "sourceId": "pubchem-cid-16666"
+}

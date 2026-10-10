@@ -1,0 +1,296 @@
+{
+  "id": "cysteine-zwitterion",
+  "name": "L-Cysteine",
+  "formula": "HSCH2CH(NH3)COO",
+  "displayFormula": "HSCH2CH(NH3+)COO-",
+  "pubchemCid": 6419722,
+  "topic": "biomolecules",
+  "variantGroup": "cysteine",
+  "variantLabel": "Zwitterion",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "S",
+      "position": [
+        -2.0967,
+        0.761,
+        0.8949
+      ],
+      "position2d": [
+        3.1651,
+        3.1021
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        1.9341,
+        -0.3652,
+        0.5979
+      ],
+      "position2d": [
+        2.299,
+        4.602
+      ],
+      "formalCharge": -1,
+      "lonePairs": 3
+    },
+    {
+      "element": "O",
+      "position": [
+        1.0094,
+        1.5292,
+        -0.2746
+      ],
+      "position2d": [
+        0.567,
+        4.6021
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "N",
+      "position": [
+        -0.3481,
+        -1.8345,
+        0.1294
+      ],
+      "position2d": [
+        0.567,
+        2.602
+      ],
+      "formalCharge": 1,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.1063,
+        -0.5464,
+        -0.5969
+      ],
+      "position2d": [
+        1.433,
+        3.1021
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.4561,
+        0.1679,
+        -0.7053
+      ],
+      "position2d": [
+        2.2991,
+        2.6021
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.0638,
+        0.288,
+        -0.0454
+      ],
+      "position2d": [
+        1.433,
+        4.1021
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.1969,
+        -0.8561,
+        -1.6049
+      ],
+      "position2d": [
+        0.8961,
+        3.4121
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.3694,
+        1.0377,
+        -1.3653
+      ],
+      "position2d": [
+        1.9005,
+        2.1271
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.209,
+        -0.4944,
+        -1.1469
+      ],
+      "position2d": [
+        2.6976,
+        2.1271
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.5095,
+        -2.401,
+        0.1738
+      ],
+      "position2d": [
+        0.0301,
+        2.2921
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.0673,
+        -2.4054,
+        -0.3347
+      ],
+      "position2d": [
+        0.8769,
+        2.0651
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.6575,
+        -1.6674,
+        1.0962
+      ],
+      "position2d": [
+        0.257,
+        3.1389
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.1081,
+        1.631,
+        1.1478
+      ],
+      "position2d": [
+        3.702,
+        2.7921
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 6,
+      "order": 1,
+      "aromatic": false,
+      "resonanceNote": "one of two equivalent resonance structures; effective order 1.5"
+    },
+    {
+      "a": 2,
+      "b": 6,
+      "order": 2,
+      "aromatic": false,
+      "resonanceNote": "one of two equivalent resonance structures; effective order 1.5"
+    },
+    {
+      "a": 3,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "The form found in water and in the solid; the model is a computed conformer."
+  ],
+  "sourceId": "pubchem-cid-6419722"
+}

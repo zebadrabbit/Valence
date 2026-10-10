@@ -54,11 +54,45 @@ describe('describeMolecule', () => {
       expect([molecule.id, /equivalent resonance structures/.test(describeById(molecule.id))]).toEqual([molecule.id, noted])
     }
     expect(registry.molecules.filter((m) => m.bonds.some((b) => b.resonanceNote)).map((m) => m.id)).toEqual([
+      'ozone',
+      'nitric-acid',
+      'nitrate',
+      'carbonate',
+      'acetate',
       'sulfur-dioxide',
+      'sulfur-trioxide',
       'glycine-zwitterion',
       'alanine-zwitterion',
+      'serine-zwitterion',
+      'cysteine-zwitterion',
       'bicarbonate',
     ])
+  })
+
+  it('says of nitrate that one double and two single bonds are one of three resonance structures', () => {
+    expect(describeById('nitrate')).toBe(
+      'Nitrate ion, formula NO3 with a charge of minus 1. It has 4 atoms, joined by 2 single bonds and 1 double bond; ' +
+        'the double bond and the two single bonds to oxygen are drawn as one of three equivalent resonance structures, ' +
+        'and the three real bonds are equal. ' +
+        'Formal charges: 2 oxygen atoms minus 1, nitrogen plus 1. ' +
+        'The nitrogen atom has trigonal planar geometry and is bonded to 3 oxygen atoms.',
+    )
+    // Nitric acid has a third single bond from the nitrogen, to the oxygen that carries the hydrogen: "one single bond" of its pair.
+    expect(describeById('nitric-acid')).toContain(
+      'the double bond and one single bond to oxygen are drawn as one of two equivalent resonance structures, and the two real bonds are equal',
+    )
+  })
+
+  it('counts the atoms of a large molecule by element and geometry, where a sentence for each kind of atom would run past seven', () => {
+    expect(describeById('capsaicin')).toBe(
+      'Capsaicin, formula C18H27NO3. It has 49 atoms, joined by 41 single bonds, 2 double bonds, and 6 aromatic bonds. ' +
+        'Each of 2 oxygen atoms has bent geometry. ' +
+        'The nitrogen atom has trigonal planar geometry. ' +
+        'Of the 18 carbon atoms, 9 have tetrahedral geometry and 9 have trigonal planar geometry.',
+    )
+    expect(describeById('nicotine')).toContain('Of the 2 nitrogen atoms, 1 has trigonal pyramidal geometry and 1 has bent geometry.')
+    // A molecule that fits keeps the sentence for each kind of atom, with its neighbours.
+    expect(describeById('acetic-acid')).toContain('is bonded to 1 carbon atom and 3 hydrogen atoms')
   })
 
   it('states the charge of an ion and describes a molecule with no central atom', () => {

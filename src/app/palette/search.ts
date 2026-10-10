@@ -31,14 +31,19 @@ function rank(text: string, query: string): number | null {
 
 /**
  * The items whose label, formula or other spelling contains the query, ignoring case, best match
- * first; ties keep the given order. An empty query gives every item.
+ * first; ties keep the given order. Capitals in a query are taken as meant: an item the query
+ * spells capitals and all comes before one it matches only when case is ignored, which tells "CO"
+ * from "Co" and "HF" from "Hf". An empty query gives every item.
  */
 export function searchPalette(items: readonly PaletteItem[], query: string): PaletteItem[] {
+  const typed = query.trim().normalize('NFKD')
+  const cased = typed !== typed.toLowerCase()
   const q = fold(query.trim())
   if (q === '') return [...items]
   return items
     .flatMap((item) => {
-      const ranks = [item.label, item.formula, item.alias].flatMap((text) => (text === undefined ? [] : [rank(fold(text), q)])).filter((r) => r !== null)
+      const texts = [item.label, item.formula, item.alias].filter((text) => text !== undefined)
+      const ranks = texts.map((text) => (cased && text.normalize('NFKD') === typed ? -1 : rank(fold(text), q))).filter((r) => r !== null)
       return ranks.length > 0 ? [{ item, rank: Math.min(...ranks) }] : []
     })
     .sort((a, b) => a.rank - b.rank)

@@ -278,6 +278,19 @@ describe('validateRegistry', () => {
       expect(validateRegistry(r).join('\n')).toMatch(/molecule "water": bond 0-1 is 0\.500 Å/)
     })
 
+    it('lets the bond of H₂ be 0.741 Å, the one real bond shorter than 0.80 Å, and rejects one shorter than 0.70 Å', () => {
+      const hydrogen = (length: number) => {
+        const r = validRegistry()
+        const m = r.molecules[0]!
+        const at = (x: number) => ({ element: 'H', position: [x, 0, 0] as [number, number, number], position2d: [x, 0] as [number, number], formalCharge: 0, lonePairs: 0 })
+        m.atoms = [at(0), at(length)]
+        m.bonds = [{ a: 0, b: 1, order: 1, aromatic: false }]
+        return validateRegistry(r).filter((error) => error.includes('2D drawing'))
+      }
+      expect(hydrogen(0.741)).toEqual([])
+      expect(hydrogen(0.62)).toEqual(['molecule "water": bond 0-1 is 0.620 Å, shorter than 0.7 Å (looks like a 2D drawing)'])
+    })
+
     it('rejects a bond between heavy atoms shorter than 1.05 Å', () => {
       const r = validRegistry()
       const m = r.molecules[0]!

@@ -1,0 +1,998 @@
+{
+  "id": "capsaicin",
+  "name": "Capsaicin",
+  "formula": "C18H27NO3",
+  "pubchemCid": 1548943,
+  "topic": "everyday",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "O",
+      "position": [
+        -3.072,
+        -1.1978,
+        -1.6178
+      ],
+      "position2d": [
+        3.0005,
+        7.1971
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        0.1878,
+        2.8332,
+        -1.6625
+      ],
+      "position2d": [
+        -2.1956,
+        6.1971
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "O",
+      "position": [
+        1.4469,
+        3.4844,
+        0.7288
+      ],
+      "position2d": [
+        -2.1957,
+        4.197
+      ],
+      "formalCharge": 0,
+      "lonePairs": 2
+    },
+    {
+      "element": "N",
+      "position": [
+        -3.0435,
+        -0.9878,
+        0.698
+      ],
+      "position2d": [
+        2.1345,
+        5.697
+      ],
+      "formalCharge": 0,
+      "lonePairs": 1
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.1532,
+        -2.7807,
+        -0.2617
+      ],
+      "position2d": [
+        5.5986,
+        5.6971
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.3568,
+        -3.4137,
+        0.4471
+      ],
+      "position2d": [
+        4.7326,
+        6.1971
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.1649,
+        -2.9637,
+        0.4986
+      ],
+      "position2d": [
+        6.4646,
+        6.197
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.6677,
+        -3.1597,
+        -0.2969
+      ],
+      "position2d": [
+        3.8666,
+        5.6971
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        4.3193,
+        -0.8137,
+        -0.3766
+      ],
+      "position2d": [
+        9.0627,
+        5.697
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.3448,
+        -2.3597,
+        -0.2073
+      ],
+      "position2d": [
+        7.3306,
+        5.697
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.9468,
+        -1.6829,
+        -0.4955
+      ],
+      "position2d": [
+        3.0005,
+        6.1971
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        3.1301,
+        -1.4139,
+        0.3296
+      ],
+      "position2d": [
+        8.1967,
+        6.197
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -3.3105,
+        0.4304,
+        0.7665
+      ],
+      "position2d": [
+        1.2684,
+        6.197
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.0471,
+        1.2414,
+        0.7528
+      ],
+      "position2d": [
+        0.4024,
+        5.697
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        5.5978,
+        -1.0917,
+        0.4134
+      ],
+      "position2d": [
+        9.9287,
+        6.1971
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        4.1182,
+        0.6898,
+        -0.563
+      ],
+      "position2d": [
+        9.0627,
+        4.697
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.5052,
+        1.6682,
+        -0.4595
+      ],
+      "position2d": [
+        -0.4636,
+        6.197
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.4152,
+        1.5683,
+        1.9527
+      ],
+      "position2d": [
+        0.4024,
+        4.6971
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.3315,
+        2.4221,
+        -0.4721
+      ],
+      "position2d": [
+        -1.3296,
+        5.6971
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.2414,
+        2.3217,
+        1.9401
+      ],
+      "position2d": [
+        -0.4636,
+        4.1971
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.3004,
+        2.7488,
+        0.7277
+      ],
+      "position2d": [
+        -1.3296,
+        4.6971
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -0.5191,
+        2.4571,
+        -2.8426
+      ],
+      "position2d": [
+        -2.1956,
+        7.197
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.0604,
+        -3.2152,
+        -1.2653
+      ],
+      "position2d": [
+        5.2,
+        5.2221
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.3197,
+        -1.7056,
+        -0.4004
+      ],
+      "position2d": [
+        5.9971,
+        5.2221
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.4166,
+        -3.0305,
+        1.4722
+      ],
+      "position2d": [
+        5.1311,
+        6.672
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.2009,
+        -4.4962,
+        0.5286
+      ],
+      "position2d": [
+        4.334,
+        6.672
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.0607,
+        -2.54,
+        1.5052
+      ],
+      "position2d": [
+        6.8632,
+        6.672
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.3588,
+        -4.0354,
+        0.6292
+      ],
+      "position2d": [
+        6.0661,
+        6.672
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.5042,
+        -3.5994,
+        0.2583
+      ],
+      "position2d": [
+        3.468,
+        5.2221
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.6391,
+        -3.6413,
+        -1.2812
+      ],
+      "position2d": [
+        4.2651,
+        5.2221
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        4.4308,
+        -1.2656,
+        -1.3705
+      ],
+      "position2d": [
+        9.0627,
+        6.3171
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.5632,
+        -2.7349,
+        -1.204
+      ],
+      "position2d": [
+        7.3307,
+        5.0771
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.9108,
+        -1.0453,
+        1.3294
+      ],
+      "position2d": [
+        8.1967,
+        6.8171
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.8754,
+        0.6149,
+        1.6874
+      ],
+      "position2d": [
+        1.667,
+        6.672
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.9609,
+        0.7198,
+        -0.0674
+      ],
+      "position2d": [
+        0.87,
+        6.672
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.9424,
+        -1.4861,
+        1.5768
+      ],
+      "position2d": [
+        2.1345,
+        5.077
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        6.4701,
+        -0.6796,
+        -0.1053
+      ],
+      "position2d": [
+        10.2387,
+        5.6602
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        5.7589,
+        -2.169,
+        0.5323
+      ],
+      "position2d": [
+        10.4657,
+        6.5071
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        5.5592,
+        -0.6446,
+        1.4133
+      ],
+      "position2d": [
+        9.6188,
+        6.734
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        4.0219,
+        1.2064,
+        0.3988
+      ],
+      "position2d": [
+        8.4427,
+        4.697
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        4.9665,
+        1.1305,
+        -1.0977
+      ],
+      "position2d": [
+        9.0627,
+        4.0771
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.2133,
+        0.8952,
+        -1.1461
+      ],
+      "position2d": [
+        9.6827,
+        4.6971
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.0405,
+        1.3881,
+        -1.36
+      ],
+      "position2d": [
+        -0.4636,
+        6.8171
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.8264,
+        1.2398,
+        2.9035
+      ],
+      "position2d": [
+        0.9394,
+        4.3871
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.241,
+        2.5685,
+        2.8821
+      ],
+      "position2d": [
+        -0.4636,
+        3.577
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.7425,
+        3.6089,
+        1.647
+      ],
+      "position2d": [
+        -2.1956,
+        3.5771
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.0349,
+        2.8663,
+        -3.6938
+      ],
+      "position2d": [
+        -1.5757,
+        7.1971
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.5201,
+        2.9009,
+        -2.8727
+      ],
+      "position2d": [
+        -2.1956,
+        7.8171
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.5401,
+        1.3694,
+        -2.9714
+      ],
+      "position2d": [
+        -2.8156,
+        7.197
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 10,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 18,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 21,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 20,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 45,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 35,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 22,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 23,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 24,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 25,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 26,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 27,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 28,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 29,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 14,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 15,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 8,
+      "b": 30,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 11,
+      "order": 2,
+      "aromatic": false
+    },
+    {
+      "a": 9,
+      "b": 31,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 11,
+      "b": 32,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 33,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 12,
+      "b": 34,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 13,
+      "b": 16,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 13,
+      "b": 17,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 14,
+      "b": 36,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 14,
+      "b": 37,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 14,
+      "b": 38,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 15,
+      "b": 39,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 15,
+      "b": 40,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 15,
+      "b": 41,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 16,
+      "b": 18,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 16,
+      "b": 42,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 17,
+      "b": 19,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 17,
+      "b": 43,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 18,
+      "b": 20,
+      "order": 2,
+      "aromatic": true
+    },
+    {
+      "a": 19,
+      "b": 20,
+      "order": 1,
+      "aromatic": true
+    },
+    {
+      "a": 19,
+      "b": 44,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 21,
+      "b": 46,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 21,
+      "b": 47,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 21,
+      "b": 48,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "The compound that gives chili peppers their heat.",
+    "One conformer of many."
+  ],
+  "sourceId": "pubchem-cid-1548943"
+}

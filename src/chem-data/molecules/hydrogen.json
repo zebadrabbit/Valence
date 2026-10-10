@@ -1,0 +1,63 @@
+{
+  "id": "hydrogen",
+  "name": "Hydrogen (H₂)",
+  "formula": "H2",
+  "pubchemCid": 783,
+  "topic": "basics",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "H",
+      "position": [
+        0,
+        0,
+        -0.3705
+      ],
+      "position2d": [
+        2,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0,
+        0,
+        0.3705
+      ],
+      "position2d": [
+        3,
+        0
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "cited-experimental",
+  "measurements": {
+    "lengths": [
+      {
+        "atoms": [
+          0,
+          1
+        ],
+        "value": 0.741,
+        "sourceId": "cccbdb-hydrogen",
+        "published": "0.741"
+      }
+    ],
+    "angles": [],
+    "dihedrals": []
+  },
+  "sourceId": "cccbdb-hydrogen"
+}

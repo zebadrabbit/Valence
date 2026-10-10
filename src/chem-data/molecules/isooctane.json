@@ -1,0 +1,531 @@
+{
+  "id": "isooctane",
+  "name": "2,2,4-Trimethylpentane (isooctane)",
+  "formula": "(CH3)3CCH2CH(CH3)2",
+  "pubchemCid": 10907,
+  "topic": "everyday",
+  "charge": 0,
+  "atoms": [
+    {
+      "element": "C",
+      "position": [
+        -1.1545,
+        -0.0936,
+        0.0108
+      ],
+      "position2d": [
+        2.866,
+        0.067
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        0.2112,
+        -0.7723,
+        0.3209
+      ],
+      "position2d": [
+        3.7321,
+        0.567
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.4706,
+        -0.1336,
+        -0.3107
+      ],
+      "position2d": [
+        4.5981,
+        0.067
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -2.3309,
+        -1.074,
+        0.109
+      ],
+      "position2d": [
+        2,
+        -0.433
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.141,
+        0.5409,
+        -1.392
+      ],
+      "position2d": [
+        2.366,
+        0.933
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        -1.3731,
+        1.0313,
+        1.0438
+      ],
+      "position2d": [
+        3.366,
+        -0.799
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        1.5644,
+        1.3445,
+        0.0845
+      ],
+      "position2d": [
+        5.4641,
+        0.567
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "C",
+      "position": [
+        2.7535,
+        -0.8433,
+        0.1338
+      ],
+      "position2d": [
+        4.5981,
+        -0.933
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.1673,
+        -1.8054,
+        -0.0521
+      ],
+      "position2d": [
+        4.1306,
+        1.0419
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.3448,
+        -0.8661,
+        1.4069
+      ],
+      "position2d": [
+        3.3335,
+        1.0419
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.4209,
+        -0.2077,
+        -1.4031
+      ],
+      "position2d": [
+        4.5981,
+        0.687
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.2309,
+        -1.8797,
+        -0.6268
+      ],
+      "position2d": [
+        1.69,
+        0.1039
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -3.2905,
+        -0.5765,
+        -0.0709
+      ],
+      "position2d": [
+        1.4631,
+        -0.743
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.3738,
+        -1.5343,
+        1.1024
+      ],
+      "position2d": [
+        2.31,
+        -0.9699
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.1565,
+        0.8594,
+        -1.6626
+      ],
+      "position2d": [
+        2.903,
+        1.243
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.5288,
+        1.4283,
+        -1.5206
+      ],
+      "position2d": [
+        2.056,
+        1.47
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.84,
+        -0.1954,
+        -2.1465
+      ],
+      "position2d": [
+        1.8291,
+        0.623
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -0.7309,
+        1.9015,
+        0.918
+      ],
+      "position2d": [
+        2.8291,
+        -1.109
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -2.399,
+        1.4147,
+        0.9709
+      ],
+      "position2d": [
+        3.676,
+        -1.336
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        -1.2485,
+        0.6611,
+        2.0679
+      ],
+      "position2d": [
+        3.903,
+        -0.489
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        1.4702,
+        1.4718,
+        1.1687
+      ],
+      "position2d": [
+        5.7741,
+        0.0301
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.5599,
+        1.7259,
+        -0.1788
+      ],
+      "position2d": [
+        6.001,
+        0.877
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        0.8806,
+        2.0209,
+        -0.4181
+      ],
+      "position2d": [
+        5.1541,
+        1.1039
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.8918,
+        -0.7731,
+        1.2181
+      ],
+      "position2d": [
+        3.9781,
+        -0.933
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        3.6327,
+        -0.4061,
+        -0.3512
+      ],
+      "position2d": [
+        4.5981,
+        -1.553
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    },
+    {
+      "element": "H",
+      "position": [
+        2.7176,
+        -1.9044,
+        -0.1345
+      ],
+      "position2d": [
+        5.2181,
+        -0.933
+      ],
+      "formalCharge": 0,
+      "lonePairs": 0
+    }
+  ],
+  "bonds": [
+    {
+      "a": 0,
+      "b": 1,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 3,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 4,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 0,
+      "b": 5,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 2,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 8,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 1,
+      "b": 9,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 6,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 7,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 2,
+      "b": 10,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 11,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 12,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 3,
+      "b": 13,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 14,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 15,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 4,
+      "b": 16,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 17,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 18,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 5,
+      "b": 19,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 20,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 21,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 6,
+      "b": 22,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 23,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 24,
+      "order": 1,
+      "aromatic": false
+    },
+    {
+      "a": 7,
+      "b": 25,
+      "order": 1,
+      "aromatic": false
+    }
+  ],
+  "geometrySource": "pubchem-computed",
+  "notes": [
+    "Used in finding the octane number of a fuel."
+  ],
+  "sourceId": "pubchem-cid-10907"
+}
