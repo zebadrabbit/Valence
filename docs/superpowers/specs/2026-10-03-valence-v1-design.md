@@ -823,3 +823,63 @@ Short topics, those to read first marked: what qualitative analysis is; solids f
 - The same seed and actions give the same run; the stored record round-trips; no state a learner can reach leaves them unable to go on.
 - Challenge shows nothing of what is expected before the observations are recorded, and nothing on the page says which ions an unknown holds before the learner has named them.
 - The description in words of every tube is tested.
+
+## 18. Le Chatelier's principle lab (added after v1)
+
+The second of the labs taken from the owner's department's lab directions (section 17 says how those are used: the lab and its outcomes are kept, the particulars brought up to date). The directions list the bottles; the procedure is the usual one for those bottles, and each choice in it is the owner's to change. It uses the lab shell, the test tube that is explored and the observation form of section 8, and the rule for hazards of 5.2.
+
+### 18.1 Set-up
+
+Le Chatelier's principle: a system at equilibrium that is disturbed shifts in the direction that undoes part of the disturbance. The lab disturbs four equilibria, each in a test tube, by adding something, taking something away, heating or cooling, and has the learner say beforehand which way each will go, see what happens, and say which way it went.
+
+On the bench: lead nitrate solution, 0.3 M; hydrochloric acid, 0.3 M, 6 M and 12 M; methyl violet indicator solution; solid cobalt(II) chloride; zinc nitrate solution, 0.1 M; magnesium nitrate solution, 0.1 M; sodium hydroxide solution, 6 M; ammonia solution, 6 M; distilled water; a bath of boiling water and a bath of ice water.
+
+Nothing in this lab is drawn by chance: the same actions give the same tubes.
+
+### 18.2 The four systems
+
+Each system is headed by its equilibrium, written one way and kept that way, so that "left" and "right" mean something. Each has a short list of disturbances, done in order, each from the state the one before left.
+
+1. **A solid and its ions: lead chloride.** Lead ions and chloride ions against solid lead chloride. Hydrochloric acid, 0.3 M, is added to the lead nitrate solution a portion at a time until a white solid forms; the tube is heated, and the solid dissolves; cooled, and it comes back; water is added, and it dissolves.
+2. **An indicator: methyl violet.** The indicator's yellow acid form against its violet form and a hydrogen ion. Hydrochloric acid, 6 M, is added by drops, and the violet goes through blue and green to yellow; sodium hydroxide, 6 M, by drops, takes it back.
+3. **A complex ion: cobalt.** The pink ion of cobalt with water against the blue ion of cobalt with chloride. Cobalt(II) chloride in hydrochloric acid, 12 M, is blue; water is added, and it turns pink; heated, it turns toward blue; cooled, pink again.
+4. **Two hydroxides: zinc and magnesium.** Each metal ion with hydroxide ions against its solid hydroxide. A drop of sodium hydroxide gives a white solid with each. The solid is then shared among three tubes: acid dissolves both; more sodium hydroxide dissolves zinc's and not magnesium's; ammonia dissolves zinc's and not magnesium's. Zinc's hydroxide dissolves in more base and in ammonia because a second equilibrium, that of a complex ion, takes the zinc ion away; magnesium has none.
+
+### 18.3 A disturbance
+
+A system is its disturbances, one at a time. A disturbance is a short column of cards:
+
+1. **The equilibrium**, as written, and what is about to be done.
+2. **Before**: which way will it shift (toward the left side as written, toward the right, or not at all)? One choice, recorded and never judged: it is there to be compared with what happens.
+3. **The tube**, drawn and explored as in section 8, with the one action (add, heat or cool; for an addition by drops, one press for each portion, and the tube is looked at as often as the learner likes on the way).
+4. **What is seen**: choice boxes, opened by looking: the liquid's colour, whether there is a solid.
+5. **Which way it went**: one choice, checked. For the three tubes of system 4 that turn on the second equilibrium, the question is instead what took the metal ion away.
+
+Once a disturbance is done, a note says what happened and why, with the learner's own prediction beside it.
+
+Guided checks each answer as it is given and has a hint ready in a closed disclosure. Challenge takes whatever is recorded and checks a system's answers together when asked; a system that is not right is worked again.
+
+**A system counts** when each observation matches what its tube showed and each direction is right. There is no error of technique that spoils a run here: every change in this lab can be taken back, which is the point of it. The lab is complete when all four systems count.
+
+### 18.4 Model
+
+The engine is pure and deterministic, and holds whole-number amounts. What a tube shows after a disturbance comes from a stored rule with a source, and where stored numbers can decide it they do: whether lead chloride is present, from the amounts and its solubility cold and hot; the indicator's colour, from the hydrogen ion left after the acid and the base added and the indicator's stated range; whether a hydroxide is present, from the amounts and the constants of its equilibria. The cobalt system is held by rule and not by number: its colour at each of the lab's states (in concentrated acid, diluted, hot, cold) is a stored observation with a source, since no constant read covers 12 M acid. The amounts of each addition are model parameters with rationales, chosen so that what the numbers give is what the usual procedure shows; no cited constant is bent to that end.
+
+Which disturbance gives off or takes in heat is from cited enthalpies where they can be read.
+
+### 18.5 Data
+
+Solubility products, formation constants and enthalpies from the NBS tables, as elsewhere, or from another source that can be cited; lead chloride's solubility cold and hot (section 17's); methyl violet's range and its colours; the colours of the two cobalt ions; what each tube shows, with a source. Hazards by 5.2 for every bottle; records another lab already holds for the same bottle are shared.
+
+### 18.6 Primer
+
+Short topics, those to read first marked: what equilibrium is (two changes at one rate, not no change); Le Chatelier's principle; adding and taking away; heating and cooling, and which way gives off heat; diluting; a solid and its ions; indicators; complex ions and colour; a second equilibrium that takes an ion away; safety.
+
+### 18.7 Acceptance
+
+- For each system, working its disturbances in order shows at each one what the stored rule gives and nothing else, and the system counts when each observation and each direction is right.
+- Every rule and stored value has a source; where numbers decide what a tube shows, the build checks them at the lab's amounts and stops on a disagreement.
+- A prediction is recorded before the action it is about and can be neither changed after it nor judged.
+- The stored record round-trips; no state a learner can reach leaves them unable to go on.
+- Challenge shows nothing of what is expected before the learner's answers are recorded; a disturbance's note is shown only once it is done.
+- The description in words of every tube is tested.
