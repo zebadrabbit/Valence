@@ -31,6 +31,8 @@
 // Reads docs/research/lechatelier/ (lechatelier.json, hazards.json and the two manifests under sources/), with the
 // hazards of the two bottles it shares with the aqueous reactions lab from docs/research/phase-4/, and writes:
 //   lechatelier/lechatelier.json, and into sources.json the Le Chatelier's principle lab's sources
+// Reads docs/research/clock/ (clock.json, hazards.json and the two manifests under sources/) and writes:
+//   clock/clock.json, and into sources.json the clock reaction lab's sources
 //
 // Deterministic: the same inputs give byte-identical outputs. Anything
 // unexpected in the inputs stops the build with a message and writes nothing.
@@ -50,6 +52,7 @@ import { checkFlameLines } from './flame-lib.mjs'
 import { checkMolarMasses, checkWorkedOut, withSharedHazards, withSharedSheets } from './calorimetry-lib.mjs'
 import { checkAtomicWeights, checkBench, checkWorkedOut as checkCationsWorkedOut } from './cations-lib.mjs'
 import { checkBench as checkLechatelierBench, checkWorkedOut as checkLechatelierWorkedOut } from './lechatelier-lib.mjs'
+import { checkMixtures, checkRateRecord, checkReactions, checkUsedUp } from './clock-lib.mjs'
 import { checkAnnualMean, checkMolecularWeight, checkPublished, checkSha256, checkSheetHazards, checkWikipediaCopy } from './titration-lib.mjs'
 
 const root = join(import.meta.dirname, '..')
@@ -63,6 +66,7 @@ const flameResearch = join(root, 'docs/research/flame')
 const calorimetryResearch = join(root, 'docs/research/calorimetry')
 const cationsResearch = join(root, 'docs/research/cations')
 const lechatelierResearch = join(root, 'docs/research/lechatelier')
+const clockResearch = join(root, 'docs/research/clock')
 const out = join(root, 'src/chem-data')
 
 function fail(message) {
@@ -1761,6 +1765,66 @@ function buildLechatelier(earlierSources, periodicTable) {
   return { lechatelier, sources: [...labSources, ...sheetSources.filter((source) => underHazards.has(source.id) || forPrimer.has(source.id))] }
 }
 
+// ---------------------------------------------------------------------------
+// Clock reaction lab
+//
+// The record is authored in docs/research/clock/clock.json: the five bottles; the gas constant and the kelvin of
+// 0 °C; the two reactions and the count between them; the reaction's rate record, which is what the kinetics
+// engine takes (the order in each reactant, the rate constant at a stated temperature, the activation energy, and
+// what ends a run); the five mixtures, each split between two flasks; the three baths; the three parts with the
+// notes shown when each is done; and the model's parameters. Every source is in sources/MANIFEST.json, each row of
+// which names the stored values it supports, and the build holds the record to those rows as it does the aqueous
+// lab's. No source has a copy in this lab's folder. What the record states of its own chemistry is checked here
+// (scripts/clock-lib.mjs): the reactions balance and give the stored count, the mixtures are those of spec 19.1
+// and keep the reactants apart until they are mixed, what a run uses up is as small as the notes say, and the rate
+// record holds together, with the activation energy marked as the lab's own. The bottles' hazards are authored
+// apart, in hazards.json with sources/hazard-manifest.json, every one this lab's own; they are merged in as the
+// Le Chatelier's principle lab's are, and a bottle that came to carry another lab's record would be named in
+// CLOCK_SHARED. Every document was read and is not kept, so the build holds the hazards to the manifests' rows and
+// cannot check them against the documents.
+
+const CLOCK_KEYS = ['reagents', 'water', 'constants', 'reactions', 'count', 'rateLaw', 'mixtures', 'referenceMixtureId', 'baths', 'parts', 'parameters']
+const CLOCK_REAGENTS = ['ki-0.01m', 'na2s2o3-0.001m', 'kbro3-0.04m', 'hcl-0.1m', 'starch']
+const CLOCK_PARTS = ['runs', 'rate-law', 'temperature']
+/** The bottles whose hazards are another lab's records: none. */
+const CLOCK_SHARED = []
+/** The field of a hazard manifest's row for a document read for the primer's safety topic. */
+const CLOCK_PRIMER_SAFETY = 'primer.safety'
+
+function buildClock(earlierSources) {
+  const json = (name, folder = clockResearch) => JSON.parse(readFileSync(join(folder, name), 'utf8'))
+  const input = json('clock.json')
+  const manifest = json('sources/MANIFEST.json')
+  const hazardManifest = json('sources/hazard-manifest.json')
+
+  onlyKeys(input, CLOCK_KEYS, 'clock.json')
+  if (input.reagents.map((r) => r.id).join() !== CLOCK_REAGENTS.join()) fail('clock.json: the reagents are not the five of spec 19.1, in their order')
+  if (input.parts.map((p) => p.id).join() !== CLOCK_PARTS.join()) fail('clock.json: the parts are not the three of spec 19.1, in their order')
+  if ([...manifest.sources, ...hazardManifest.sources].some((source) => source.file !== undefined)) fail('clock manifests: no source of this lab has a copy in its folder')
+
+  // A source another lab lists too (NIST's listing of the constants, a sheet) is listed once.
+  const labSources = newSources(manifest.sources, earlierSources, 'clock MANIFEST.json')
+
+  checkReactions(input)
+  checkMixtures(input)
+  checkUsedUp(input)
+  checkRateRecord(input)
+
+  // Every bottle's record is this lab's own. A bottle named in CLOCK_SHARED would carry the aqueous reactions lab's record unchanged, with that lab's documents behind it.
+  const shared = CLOCK_SHARED.length > 0
+  const sheets = shared ? withSharedSheets(hazardManifest.sources, json('sources/hazard-manifest.json', aqueousResearch).sources, CLOCK_SHARED) : hazardManifest.sources
+  const sheetSources = newSources(sheets, [...earlierSources, ...labSources], 'clock hazard-manifest.json')
+  const hazards = shared ? withSharedHazards(json('hazards.json'), json('hazards.json', aqueousResearch), CLOCK_SHARED) : json('hazards.json')
+  const clock = { ...input, reagents: mergeHazards(input.reagents, hazards, sheets) }
+  checkSupported(clock, manifest.sources, sheets)
+
+  // As for the Le Chatelier's principle lab: the app lists the documents a bottle's hazards cite, and with them
+  // those the hazard manifest marks as read for the primer's safety topic, which no tile cites.
+  const underHazards = new Set(clock.reagents.flatMap(({ hazards: { sourceId, note } }) => [sourceId, note.sourceId, ...(note.alsoSourceId === undefined ? [] : [note.alsoSourceId]), ...(note.moreSourceIds ?? [])]))
+  const forPrimer = new Set(hazardManifest.sources.filter((source) => source.supports.some((row) => row.field === CLOCK_PRIMER_SAFETY)).map((source) => source.id))
+  return { clock, sources: [...labSources, ...sheetSources.filter((source) => underHazards.has(source.id) || forPrimer.has(source.id))] }
+}
+
 // A static import list keeps the registry free of bundler-only APIs.
 function moleculeIndex(molecules) {
   const name = (id) => id.replace(/-(.)/g, (_, c) => c.toUpperCase())
@@ -1808,7 +1872,9 @@ function main() {
   const { cations, sources: cationsSources } = buildCations(beforeCations, periodicTable)
   const beforeLechatelier = [...beforeCations, ...cationsSources]
   const { lechatelier, sources: lechatelierSources } = buildLechatelier(beforeLechatelier, periodicTable)
-  const sources = [...beforeLechatelier, ...lechatelierSources]
+  const beforeClock = [...beforeLechatelier, ...lechatelierSources]
+  const { clock, sources: clockSources } = buildClock(beforeClock)
+  const sources = [...beforeClock, ...clockSources]
   if (new Set(sources.map((s) => s.id)).size !== sources.length) fail('duplicate source ids')
 
   // Everything is built before anything is written.
@@ -1834,11 +1900,13 @@ function main() {
   writeFileSync(join(out, 'cations/cations.json'), toJson(cations))
   mkdirSync(join(out, 'lechatelier'), { recursive: true })
   writeFileSync(join(out, 'lechatelier/lechatelier.json'), toJson(lechatelier))
+  mkdirSync(join(out, 'clock'), { recursive: true })
+  writeFileSync(join(out, 'clock/clock.json'), toJson(clock))
   mkdirSync(join(root, 'src/mechanisms'), { recursive: true })
   writeFileSync(join(root, 'src/mechanisms', `${mechanism.id}.json`), toJson(mechanism))
   writeFileSync(join(out, 'sources.json'), toJson(sources))
   process.stdout.write(
-    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the flame test lab's record, the calorimetry lab's record, the Group I cations lab's record, the Le Chatelier's principle lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
+    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the flame test lab's record, the calorimetry lab's record, the Group I cations lab's record, the Le Chatelier's principle lab's record, the clock reaction lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
   )
 }
 

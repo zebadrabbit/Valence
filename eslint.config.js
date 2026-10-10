@@ -15,7 +15,7 @@ const NO_CLOCK = 'engine/ and mechanisms/ must not read the clock: take time as 
 const NO_EAGER_THREE =
   'Three.js is imported only inside a scene/ folder, which the app loads lazily. A static import anywhere else puts about 900 kB into an eagerly loaded chunk.'
 const NO_ENGINE_INTERNALS =
-  "Import a lab's engine from its index only: '@/engine/titration', '@/engine/aqueous', '@/engine/flame', '@/engine/calorimetry', '@/engine/cations', '@/engine/lechatelier'. The files below the titration index hold each run's hidden values, which no screen may show; those below the aqueous index work on any tube, and the app is given the ten stations and nothing else; those below the flame index hold what a correct observation is, which a page is given only where it may be shown; those below the calorimetry index hold which metal the piece is, the readings the logger has not yet taken and the value a result is held to; those below the cations index hold which ions an unknown holds, what each tube is made of and whether an observation is right; those below the lechatelier index hold what a tube will show after a press not yet made and whether an observation or an answer is right before it has been judged."
+  "Import a lab's engine from its index only: '@/engine/titration', '@/engine/aqueous', '@/engine/flame', '@/engine/calorimetry', '@/engine/cations', '@/engine/lechatelier', '@/engine/clock'. The files below the titration index hold each run's hidden values, which no screen may show; those below the aqueous index work on any tube, and the app is given the ten stations and nothing else; those below the flame index hold what a correct observation is, which a page is given only where it may be shown; those below the calorimetry index hold which metal the piece is, the readings the logger has not yet taken and the value a result is held to; those below the cations index hold which ions an unknown holds, what each tube is made of and whether an observation is right; those below the lechatelier index hold what a tube will show after a press not yet made and whether an observation or an answer is right before it has been judged; those below the clock index, and all of the kinetics engine it runs on, hold the time of a run before its watch is stopped, whether an entry follows before that may be said, and the orders, the rate constant and the activation energy a result is held to."
 const NO_MECHANISM_INTERNALS =
   "Import the mechanism timeline from its index only: '@/mechanisms'. A screen draws from state(mechanism, t) and from nothing below the index, so that every frame is a function of the scrub position."
 
@@ -49,8 +49,11 @@ const NO_THREE_PATTERNS = [
   },
 ]
 // "@/engine/titration/flask", "../../../engine/aqueous/react": anything below a lab engine's index, by alias or by relative path.
-const ENGINE_INTERNALS = { regex: '(^|/)engine/(titration|aqueous|flame|calorimetry|cations|lechatelier)/', message: NO_ENGINE_INTERNALS }
-const ENGINE_INTERNALS_BUT_TESTKIT = { regex: '(^|/)engine/(titration|aqueous|flame|calorimetry|cations|lechatelier)/(?!testkit$)', message: NO_ENGINE_INTERNALS }
+// The kinetics engine has no door of its own for the app: the lab that runs on it does ("@/engine/clock"), so
+// "@/engine/kinetics" is refused with or without a file after it. Nor are the shared figures the app's to import:
+// a lab's index hands on what a page needs of them.
+const ENGINE_INTERNALS = { regex: '(^|/)engine/((titration|aqueous|flame|calorimetry|cations|lechatelier|clock)/|kinetics(/|$)|figures$)', message: NO_ENGINE_INTERNALS }
+const ENGINE_INTERNALS_BUT_TESTKIT = { regex: '(^|/)engine/((titration|aqueous|flame|calorimetry|cations|lechatelier|clock)/(?!testkit$)|kinetics(/|$)|figures$)', message: NO_ENGINE_INTERNALS }
 // "@/mechanisms/state", "../../mechanisms/hcl-nahco3.json": anything below the mechanisms index.
 const MECHANISM_INTERNALS = { regex: '(^|/)mechanisms/', message: NO_MECHANISM_INTERNALS }
 

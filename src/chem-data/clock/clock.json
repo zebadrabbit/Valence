@@ -1,0 +1,664 @@
+{
+  "reagents": [
+    {
+      "id": "ki-0.01m",
+      "name": "Potassium iodide solution, 0.010 M",
+      "formula": "KI",
+      "form": "solution",
+      "molarity": 0.01,
+      "shown": "0.010",
+      "classifiedAs": "Hazards of solid potassium iodide, the pure substance, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Warning",
+        "statements": [
+          "H302: Harmful if swallowed",
+          "H315+H319: Causes skin and serious eye irritation"
+        ],
+        "note": {
+          "value": "The solution on this bench is 0.010 mol/L potassium iodide; the statements above are those of the solid it is made from. The same supplier's sheet for stronger solutions, 2% to 17%, gives no signal word and no hazard statement. It still calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 0.1 M solution gives Warning and H317: it may set off a skin allergy. Splashed clothing comes off; skin is washed with soap and water. Eyes are flushed for 15 minutes or more and a doctor is seen at once. A third's sheet for the solid adds damage to the thyroid over long exposure. Iodide reacts with oxidising agents, by NOAA's record: it meets the bromate only in the flask, as the experiment.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-639",
+          "alsoSourceId": "wards-sds-pp0630",
+          "moreSourceIds": [
+            "fisher-sds-ki",
+            "noaa-cameo-9014"
+          ]
+        },
+        "sourceId": "flinn-sds-638"
+      },
+      "sourceId": "bellevue-clock-reaction"
+    },
+    {
+      "id": "na2s2o3-0.001m",
+      "name": "Sodium thiosulfate solution, 0.0010 M",
+      "formula": "Na₂S₂O₃",
+      "form": "solution",
+      "molarity": 0.001,
+      "shown": "0.0010",
+      "classifiedAs": "Hazards of solid sodium thiosulfate pentahydrate, the pure substance, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "None",
+        "statements": [],
+        "note": {
+          "value": "The solution on this bench is 0.0010 mol/L sodium thiosulfate, made from the solid pentahydrate. The supplier's sheets for that solid and for solutions of 12% or less print no signal word and no hazard statement. Both call for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: a second supplier's sheet for the solid, which gives it no hazard class either, says that it may irritate eyes and skin. Eyes are flushed for 15 minutes or more and a doctor is seen at once. A third's has a warning for the dust of the dry solid, which is another matter. The sheets keep thiosulfate from strong acids, strong oxidisers, iodine and, by one of them, iodides: it meets all four only in the flask, as the experiment.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-770",
+          "alsoSourceId": "wards-sds-ss0880",
+          "moreSourceIds": [
+            "fisher-sds-na2s2o3-pentahydrate",
+            "flinn-sds-768"
+          ]
+        },
+        "sourceId": "flinn-sds-768"
+      },
+      "sourceId": "bellevue-clock-reaction"
+    },
+    {
+      "id": "kbro3-0.04m",
+      "name": "Potassium bromate solution, 0.040 M",
+      "formula": "KBrO₃",
+      "form": "solution",
+      "molarity": 0.04,
+      "shown": "0.040",
+      "classifiedAs": "Hazards of solid potassium bromate, the pure substance, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Danger",
+        "statements": [
+          "H271: May cause fire or explosion; strong oxidizer",
+          "H301: Toxic if swallowed",
+          "H350: May cause cancer"
+        ],
+        "note": {
+          "value": "The solution on this bench is 0.040 mol/L potassium bromate; the statements above are those of the solid it is made from. The same supplier's sheet for its solution keeps Danger and H350, and has it irritate skin and, seriously, eyes. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: a second supplier's sheet for this strength keeps H301. A state health department's fact sheet has it handled as a carcinogen that passes through skin, contact kept to the least. After any contact, a doctor or a poison centre at once: skin is washed with soap and water while splashed clothing comes off; eyes are flushed for 15 minutes or more, 20 to 30 by NOAA's record. Listed for release reporting, it is kept out of drains and waterways.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-615.1",
+          "alsoSourceId": "wards-sds-pp0398",
+          "moreSourceIds": [
+            "nj-rtk-fs-1559",
+            "noaa-cameo-1353",
+            "fisher-sds-kbro3"
+          ]
+        },
+        "sourceId": "flinn-sds-615"
+      },
+      "sourceId": "bellevue-clock-reaction"
+    },
+    {
+      "id": "hcl-0.1m",
+      "name": "Hydrochloric acid, 0.10 M",
+      "formula": "HCl",
+      "form": "solution",
+      "molarity": 0.1,
+      "shown": "0.10",
+      "classifiedAs": "Hazards of concentrated hydrochloric acid (6 M to 12 M), from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Danger",
+        "statements": [
+          "H314+H318: Causes severe skin and eye burns and damage",
+          "H332+H302: Harmful if swallowed or inhaled",
+          "H290: May be corrosive to metals"
+        ],
+        "note": {
+          "value": "The acid on this bench is 0.10 mol/L hydrochloric acid; the statements above are those of the concentrated acid it is made from. The same supplier's sheet for this strength keeps Danger and H314, and has H335: it may irritate the airways. It calls for eye protection, gloves and protective clothing, and a fume hood or a well-ventilated room; splashed clothing comes off at once.\n\nStricter, and what this lab goes by: a second supplier's sheet for this strength classes it more mildly, as an irritant, and asks more at the eyewash: eyes are flushed for 15 minutes or more and a doctor is seen at once. NOAA's record adds 15 minutes more where no doctor has come. Kept from bases, metals and strong oxidisers, the acid meets the bromate only in the flask, as the experiment.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-395.2",
+          "alsoSourceId": "wards-sds-hh0100",
+          "moreSourceIds": [
+            "noaa-cameo-3598"
+          ]
+        },
+        "sourceId": "flinn-sds-395"
+      },
+      "sourceId": "bellevue-clock-reaction"
+    },
+    {
+      "id": "starch",
+      "name": "Starch solution",
+      "form": "indicator",
+      "classifiedAs": "Hazards of solid starch, the pure substance, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "None",
+        "statements": [],
+        "note": {
+          "value": "The solution on this bench is about 2% soluble starch in water. The supplier's sheets for starch and for a weaker solution of it print no signal word and no hazard statement, and name nothing to be worn: keep it from the eyes, they say, and wash the hands. It is a laboratory chemical, not food.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 5% solution, with no hazard class either, asks for eye protection, gloves and a laboratory coat, and says that it may irritate the eyes: they are flushed for 15 minutes or more and a doctor is seen at once. The sheets and NOAA's record keep starch from oxidising agents, and the record from acids and iodine too: it meets all three only in the flask, as the experiment.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-780",
+          "alsoSourceId": "wards-sds-ss0945",
+          "moreSourceIds": [
+            "flinn-sds-778",
+            "fisher-sds-starch-soluble",
+            "noaa-cameo-25065"
+          ]
+        },
+        "sourceId": "flinn-sds-778"
+      },
+      "sourceId": "bellevue-clock-reaction"
+    }
+  ],
+  "water": {
+    "name": "Distilled water",
+    "formula": "H₂O"
+  },
+  "constants": {
+    "gasConstant": {
+      "value": 8.314462618,
+      "unit": "J/(mol·K)",
+      "sourceId": "nist-codata-2022"
+    },
+    "zeroCelsius": {
+      "value": 273.15,
+      "published": "273.15",
+      "unit": "K",
+      "sourceId": "nist-si-temperature"
+    }
+  },
+  "reactions": [
+    {
+      "id": "slow",
+      "name": "The reaction that is timed",
+      "equation": "6 I⁻(aq) + BrO₃⁻(aq) + 6 H⁺(aq) → 3 I₂(aq) + Br⁻(aq) + 3 H₂O(l)",
+      "reactants": [
+        {
+          "formula": "I⁻",
+          "coefficient": 6,
+          "composition": {
+            "I": 1
+          },
+          "charge": -1
+        },
+        {
+          "formula": "BrO₃⁻",
+          "coefficient": 1,
+          "composition": {
+            "Br": 1,
+            "O": 3
+          },
+          "charge": -1
+        },
+        {
+          "formula": "H⁺",
+          "coefficient": 6,
+          "composition": {
+            "H": 1
+          },
+          "charge": 1
+        }
+      ],
+      "products": [
+        {
+          "formula": "I₂",
+          "coefficient": 3,
+          "composition": {
+            "I": 2
+          },
+          "charge": 0
+        },
+        {
+          "formula": "Br⁻",
+          "coefficient": 1,
+          "composition": {
+            "Br": 1
+          },
+          "charge": -1
+        },
+        {
+          "formula": "H₂O",
+          "coefficient": 3,
+          "composition": {
+            "H": 2,
+            "O": 1
+          },
+          "charge": 0
+        }
+      ],
+      "sourceId": "moorpark-clock-reaction",
+      "alsoSourceId": "smc-initial-rates"
+    },
+    {
+      "id": "clock",
+      "name": "The reaction that holds the iodine back",
+      "equation": "I₂(aq) + 2 S₂O₃²⁻(aq) → 2 I⁻(aq) + S₄O₆²⁻(aq)",
+      "reactants": [
+        {
+          "formula": "I₂",
+          "coefficient": 1,
+          "composition": {
+            "I": 2
+          },
+          "charge": 0
+        },
+        {
+          "formula": "S₂O₃²⁻",
+          "coefficient": 2,
+          "composition": {
+            "S": 2,
+            "O": 3
+          },
+          "charge": -2
+        }
+      ],
+      "products": [
+        {
+          "formula": "I⁻",
+          "coefficient": 2,
+          "composition": {
+            "I": 1
+          },
+          "charge": -1
+        },
+        {
+          "formula": "S₄O₆²⁻",
+          "coefficient": 1,
+          "composition": {
+            "S": 4,
+            "O": 6
+          },
+          "charge": -2
+        }
+      ],
+      "sourceId": "moorpark-clock-reaction",
+      "alsoSourceId": "smc-initial-rates"
+    }
+  ],
+  "count": {
+    "value": 6,
+    "working": "One bromate ion makes 3 molecules of iodine, and each molecule of iodine takes 2 thiosulfate ions: 3 × 2 = 6 thiosulfate ions for each bromate ion.",
+    "sourceId": "moorpark-clock-reaction"
+  },
+  "rateLaw": {
+    "reactionId": "slow",
+    "expression": "rate = k[I⁻][BrO₃⁻][H⁺]²",
+    "reactants": [
+      {
+        "id": "iodide",
+        "name": "iodide ion",
+        "formula": "I⁻",
+        "reagentId": "ki-0.01m",
+        "comparedIn": "mixture-2",
+        "order": {
+          "value": 1,
+          "sourceId": "barton-bromate-iodide-1976",
+          "alsoSourceId": "loo-bromate-iodide-1969"
+        }
+      },
+      {
+        "id": "bromate",
+        "name": "bromate ion",
+        "formula": "BrO₃⁻",
+        "reagentId": "kbro3-0.04m",
+        "comparedIn": "mixture-3",
+        "order": {
+          "value": 1,
+          "sourceId": "barton-bromate-iodide-1976",
+          "alsoSourceId": "loo-bromate-iodide-1969"
+        }
+      },
+      {
+        "id": "hydrogen-ion",
+        "name": "hydrogen ion",
+        "formula": "H⁺",
+        "reagentId": "hcl-0.1m",
+        "comparedIn": "mixture-4",
+        "order": {
+          "value": 2,
+          "sourceId": "barton-bromate-iodide-1976",
+          "alsoSourceId": "loo-bromate-iodide-1969"
+        }
+      }
+    ],
+    "note": {
+      "value": "A study of this reaction by a method that holds the acidity steady, at pH 3 to 4, gives its rate as the sum of two terms. Each is first order in iodide and first order in bromate; one is second order in hydrogen ion and the other first order. The record of a thesis on the same reaction calls its rate law fourth order, which is the first term: one and one and two. The lab stores the first term alone. Its mixtures are near pH 1.5, far more acid than the study, where a term with the higher power of the hydrogen ion counts for more; how the two terms compare there was not read.",
+      "sourceId": "barton-bromate-iodide-1976",
+      "alsoSourceId": "loo-bromate-iodide-1969"
+    },
+    "rateConstant": {
+      "value": 50.26,
+      "published": "50.26",
+      "unit": "L³/(mol³·s)",
+      "celsius": 25,
+      "note": "The fourth-order rate constant at 25 °C, measured in a solution whose ionic strength was held at 1.00 with a nitrate. The lab uses the figure as it is printed. Its own mixtures hold far less dissolved salt, an ionic strength near 0.03 by the lab's arithmetic from the bottles, and a rate constant between ions changes with the salt around them: no figure measured in a mixture like this bench's was read. Only the summary of the thesis was read, in its repository's record; the thesis itself is closed to a reader who is not signed in.",
+      "sourceId": "loo-bromate-iodide-1969"
+    },
+    "activationEnergy": {
+      "value": 50,
+      "unit": "kJ/mol",
+      "rationale": "The lab's own figure, not a measured one. No measurement of this reaction's activation energy in dilute hydrochloric acid was found. Fifty kilojoules for each mole is the size at which a rate about doubles for a rise of ten degrees near room temperature, the rule of thumb for many reactions, and a page read for the primer works that rule through with this very figure. With it the first mixture takes about two minutes in the room, about 40 seconds in the warm bath, about five minutes in the cool one and about ten in ice water. One paper read gives apparent figures for this reaction: 16.21 kJ at an ionic strength of 0.306 in 0.1 M sulfuric acid, falling to 5.23 kJ as potassium chloride is added, and 21 kJ carried back to no salt at all. They are not used. They are for another acid, whose own hydrogen ion changes with temperature; they move threefold with the salt; and the same paper's rate constants, turned into the fourth-order kind by the lab's arithmetic, come to between a twenty-sixth and a sixth of the figure the lab stores."
+    },
+    "end": {
+      "reagentId": "na2s2o3-0.001m",
+      "per": 6,
+      "indicatorId": "starch",
+      "indicatorFlask": "b",
+      "before": {
+        "value": "clear and colourless",
+        "sourceId": "smc-initial-rates"
+      },
+      "after": {
+        "value": "dark blue",
+        "sourceId": "bellevue-clock-reaction",
+        "alsoSourceId": "smc-initial-rates"
+      },
+      "sourceId": "ncssm-clock-reaction"
+    }
+  },
+  "mixtures": [
+    {
+      "id": "mixture-1",
+      "name": "Mixture 1",
+      "flaskA": [
+        {
+          "reagentId": "ki-0.01m",
+          "millilitres": 10
+        },
+        {
+          "reagentId": "na2s2o3-0.001m",
+          "millilitres": 10
+        },
+        {
+          "reagentId": "water",
+          "millilitres": 10
+        }
+      ],
+      "flaskB": [
+        {
+          "reagentId": "kbro3-0.04m",
+          "millilitres": 10
+        },
+        {
+          "reagentId": "hcl-0.1m",
+          "millilitres": 10
+        }
+      ],
+      "sourceId": "ncssm-clock-reaction"
+    },
+    {
+      "id": "mixture-2",
+      "name": "Mixture 2",
+      "flaskA": [
+        {
+          "reagentId": "ki-0.01m",
+          "millilitres": 20
+        },
+        {
+          "reagentId": "na2s2o3-0.001m",
+          "millilitres": 10
+        },
+        {
+          "reagentId": "water",
+          "millilitres": 0
+        }
+      ],
+      "flaskB": [
+        {
+          "reagentId": "kbro3-0.04m",
+          "millilitres": 10
+        },
+        {
+          "reagentId": "hcl-0.1m",
+          "millilitres": 10
+        }
+      ],
+      "sourceId": "ncssm-clock-reaction"
+    },
+    {
+      "id": "mixture-3",
+      "name": "Mixture 3",
+      "flaskA": [
+        {
+          "reagentId": "ki-0.01m",
+          "millilitres": 10
+        },
+        {
+          "reagentId": "na2s2o3-0.001m",
+          "millilitres": 10
+        },
+        {
+          "reagentId": "water",
+          "millilitres": 0
+        }
+      ],
+      "flaskB": [
+        {
+          "reagentId": "kbro3-0.04m",
+          "millilitres": 20
+        },
+        {
+          "reagentId": "hcl-0.1m",
+          "millilitres": 10
+        }
+      ],
+      "sourceId": "ncssm-clock-reaction"
+    },
+    {
+      "id": "mixture-4",
+      "name": "Mixture 4",
+      "flaskA": [
+        {
+          "reagentId": "ki-0.01m",
+          "millilitres": 10
+        },
+        {
+          "reagentId": "na2s2o3-0.001m",
+          "millilitres": 10
+        },
+        {
+          "reagentId": "water",
+          "millilitres": 0
+        }
+      ],
+      "flaskB": [
+        {
+          "reagentId": "kbro3-0.04m",
+          "millilitres": 10
+        },
+        {
+          "reagentId": "hcl-0.1m",
+          "millilitres": 20
+        }
+      ],
+      "sourceId": "ncssm-clock-reaction"
+    },
+    {
+      "id": "mixture-5",
+      "name": "Mixture 5",
+      "flaskA": [
+        {
+          "reagentId": "ki-0.01m",
+          "millilitres": 8
+        },
+        {
+          "reagentId": "na2s2o3-0.001m",
+          "millilitres": 10
+        },
+        {
+          "reagentId": "water",
+          "millilitres": 12
+        }
+      ],
+      "flaskB": [
+        {
+          "reagentId": "kbro3-0.04m",
+          "millilitres": 5
+        },
+        {
+          "reagentId": "hcl-0.1m",
+          "millilitres": 15
+        }
+      ],
+      "sourceId": "ncssm-clock-reaction"
+    }
+  ],
+  "referenceMixtureId": "mixture-1",
+  "baths": [
+    {
+      "id": "ice",
+      "name": "Ice water",
+      "about": 0,
+      "range": "iceRangeTenths",
+      "sourceId": "bellevue-clock-reaction"
+    },
+    {
+      "id": "cool",
+      "name": "Cool water",
+      "about": 10,
+      "range": "coolRangeTenths",
+      "sourceId": "bellevue-clock-reaction"
+    },
+    {
+      "id": "warm",
+      "name": "Warm water",
+      "about": 40,
+      "range": "warmRangeTenths",
+      "sourceId": "bellevue-clock-reaction"
+    }
+  ],
+  "parts": [
+    {
+      "id": "runs",
+      "name": "Five mixtures at room temperature",
+      "notes": [
+        {
+          "value": "Two reactions ran in each flask. A slow one made iodine: 6 I⁻ + BrO₃⁻ + 6 H⁺ → 3 I₂ + Br⁻ + 3 H₂O. A fast one took each bit of iodine away as it formed: I₂ + 2 S₂O₃²⁻ → 2 I⁻ + S₄O₆²⁻. While any thiosulfate was left, no iodine stayed to meet the starch. When the last of it had gone, the next iodine turned the starch blue, all at once.",
+          "sourceId": "moorpark-clock-reaction",
+          "alsoSourceId": "smc-initial-rates"
+        },
+        {
+          "value": "One bromate ion makes three molecules of iodine, and each of those takes two thiosulfate ions: six thiosulfate ions for each bromate ion. Every mixture held the same small amount of thiosulfate, so in every run the blue came when the same amount of bromate had reacted. A shorter time means a faster reaction.",
+          "sourceId": "moorpark-clock-reaction"
+        },
+        {
+          "value": "What this lab takes as simpler than it is. Each time is what the lab's model gives for the mixture, moved a little by a scatter that is the lab's own, with your own delay on the watch added. The few drops of starch are left out of the 50 mL, as they are in the procedures read for this lab.",
+          "sourceId": "ncssm-clock-reaction",
+          "alsoSourceId": "moorpark-clock-reaction"
+        }
+      ]
+    },
+    {
+      "id": "rate-law",
+      "name": "The rate law",
+      "notes": [
+        {
+          "value": "The rate law this lab's model runs on is rate = k[I⁻][BrO₃⁻][H⁺]²: first order in iodide, first order in bromate and second order in hydrogen ion, which is fourth order in all. A study of this reaction in much weaker acid found that term and one more, of first order in hydrogen ion; the model has the first alone. The orders are not the numbers in the equation, 6, 1 and 6: an order is found by experiment.",
+          "sourceId": "barton-bromate-iodide-1976",
+          "alsoSourceId": "loo-bromate-iodide-1969",
+          "moreSourceIds": [
+            "chemguide-orders-of-reaction"
+          ]
+        },
+        {
+          "value": "The model's rate constant is 50.26 L³/(mol³·s) at 25 °C. That figure was measured in a solution with far more dissolved salt than these mixtures hold, and the rate of this reaction changes with the salt around the ions, so a real bench need not give it. A rate constant changes with temperature too: your result was held to what the model gives at this room's temperature, worked out from that figure with the lab's own activation energy.",
+          "sourceId": "loo-bromate-iodide-1969",
+          "alsoSourceId": "uddin-iodide-bromate-1979"
+        },
+        {
+          "value": "What this lab takes as simpler than it is. The rate is taken as steady from the mixing to the blue, with every concentration as it was at mixing. By the blue, under 1% of the bromate and 1% or less of the hydrogen ion have been used up, and the thiosulfate has given back every iodide ion the reaction took. A real run would last about 1% longer than this arithmetic allows for. These figures are the lab's own arithmetic.",
+          "sourceId": "bellevue-clock-reaction",
+          "alsoSourceId": "moorpark-clock-reaction"
+        }
+      ]
+    },
+    {
+      "id": "temperature",
+      "name": "Temperature",
+      "notes": [
+        {
+          "value": "A rate constant rises with temperature as the Arrhenius equation says: ln k = ln A − Ea ÷ (R × T), with T in kelvin. So a graph of ln k against 1 ÷ T is a straight line whose slope is −Ea ÷ R, and the activation energy is the size of the slope times R.",
+          "sourceId": "chemguide-arrhenius",
+          "alsoSourceId": "bellevue-clock-reaction"
+        },
+        {
+          "value": "The activation energy this lab's model runs on is 50 kJ/mol. It is the lab's own figure, not a measured one: no measurement of it in a mixture like this bench's was found. It is the size at which a rate about doubles for a rise of ten degrees near room temperature. One study, made in sulfuric acid with a salt added, reports apparent figures between 5 and 16 kJ/mol that fall as more salt goes in. A real bench may well give a figure far from the lab's.",
+          "sourceId": "chemguide-arrhenius",
+          "alsoSourceId": "uddin-iodide-bromate-1979"
+        },
+        {
+          "value": "What this lab takes as simpler than it is. The flask is taken to stay at the bath's temperature from the mixing to the blue. And iodine is taken to meet thiosulfate in no time at all at every temperature: one procedure read gives that as so above 10 °C, and the ice bath is colder.",
+          "sourceId": "moorpark-clock-reaction"
+        }
+      ]
+    }
+  ],
+  "parameters": {
+    "roomRangeTenths": {
+      "value": [
+        200,
+        240
+      ],
+      "rationale": "The room's temperature, in tenths of a degree Celsius: 20.0 to 24.0 °C, drawn once for a lab. The five mixtures of part 1 are timed at it, and the first of them gives the graph of part 3 its fourth point. The bottles have stood in the room, so nothing is warmer or cooler than it."
+    },
+    "iceRangeTenths": {
+      "value": [
+        5,
+        20
+      ],
+      "rationale": "What the thermometer in a flask reads once the flasks have stood in the ice water, in tenths of a degree Celsius: 0.5 to 2.0 °C, drawn once for a lab. The procedure read sets this bath at 0 °C; a flask standing in ice water is taken to settle a little above it, so the thermometer is read and not taken to be 0."
+    },
+    "coolRangeTenths": {
+      "value": [
+        90,
+        110
+      ],
+      "rationale": "The same for the cool water: 9.0 to 11.0 °C. The procedure read sets this bath at 10 °C."
+    },
+    "warmRangeTenths": {
+      "value": [
+        380,
+        420
+      ],
+      "rationale": "The same for the warm water: 38.0 to 42.0 °C. The procedure read sets this bath at 40 °C."
+    },
+    "standMinutes": {
+      "value": 10,
+      "rationale": "How long the flasks are left to stand in a bath, in minutes, at one press: the procedure read leaves them about ten minutes. After it they are at the bath's temperature; before it they are still at the room's. No clock runs: the wait is a step that is taken or skipped."
+    },
+    "starchDrops": {
+      "value": 4,
+      "rationale": "The drops of starch solution that go into the flask with the bromate and the acid: the procedures read use three or four, or four. They are not counted in the 50 mL."
+    },
+    "scatterPerTenThousand": {
+      "value": 100,
+      "rationale": "The most that the seed moves a time, either way, in parts in ten thousand: one part in a hundred. A bench's own scatter, from a pipette and from a room that drifts, is taken to be at least this; no figure for it was read. It is small beside what the parts measure: doubling a reactant halves a time or quarters it, and the baths move it sixfold."
+    },
+    "delayLimitMs": {
+      "value": 2000,
+      "rationale": "A watch stopped by hand more than this long after the liquid changed, in milliseconds, makes the run not count: two seconds. A hand of ordinary quickness is a few tenths of a second late, which is added to the time as a hand adds it on a real watch. Two seconds is the latest at which no result can leave its tolerance for the watch alone: with every run of a lab stopped that late, at every setup the draw can give, the mean rate constant is 4.33% low at the worst and the activation energy 2.89% low, and no order is nearer another whole number."
+    },
+    "watchLimitSeconds": {
+      "value": 1800,
+      "rationale": "The watch stops itself after half an hour. The longest careful run, the first mixture in ice water, takes under eleven minutes. The limit ends a run in which nothing will ever show, and keeps a record edited by hand from holding a time that means nothing."
+    },
+    "orderChoices": {
+      "value": [
+        0,
+        1,
+        2
+      ],
+      "rationale": "The orders a learner chooses among (spec 19.3)."
+    },
+    "unitPowers": {
+      "value": [
+        0,
+        -1,
+        -2,
+        -3,
+        -4
+      ],
+      "rationale": "The units of a rate constant a learner chooses among, each as the power of mol/L in it: 1/s for a first-order rate law down to L⁴/(mol⁴·s) for a fifth-order one. The right one follows from the learner's own three orders; the choices take in every sum of orders from one to five."
+    },
+    "rateConstantTolerancePercent": {
+      "value": 5,
+      "rationale": "Part 2 counts when the mean of the five runs' rate constants is within 5% of what the model gives at the room's temperature, the edge included. A careful learner, with a hand three tenths of a second late, is between 1.12% low and 0.09% high over seeds 1 to 100. The delay a run may have and still count is set so that the 5% cannot be left for the watch alone."
+    },
+    "activationTolerancePercent": {
+      "value": 5,
+      "rationale": "Part 3 counts when the activation energy is within 5% of the model's, the edge included. A careful learner is between 0.8% low and 0.4% high over seeds 1 to 100, whichever two places on the line the slope is taken between."
+    },
+    "placesFromMicro": {
+      "value": 3150,
+      "rationale": "Where the places on the line of part 3 begin, as 1/T in millionths of a reciprocal kelvin: 0.003150, just under the warmest bath the draw can give (42.0 °C is 0.003173)."
+    },
+    "placesStepMicro": {
+      "value": 50,
+      "rationale": "How far apart the places are: 0.000050 reciprocal kelvin, so that each stands on a round figure."
+    },
+    "placesCount": {
+      "value": 12,
+      "rationale": "How many places there are: twelve, the last at 0.003700, just over the coldest bath the draw can give (0.5 °C is 0.003654). Any two of them give the slope."
+    }
+  }
+}

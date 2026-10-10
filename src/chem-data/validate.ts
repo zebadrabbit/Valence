@@ -4,6 +4,7 @@ import { angleDeg, dihedralDeg, distance } from './geometry'
 import { periodicTableSchema, registrySchema, type PeriodicElement, type Registry, type Source } from './schema'
 import { aqueousSchema, type AqueousData } from './aqueous/data'
 import { calorimetrySchema, type CalorimetryData } from './calorimetry/data'
+import { clockSchema, type ClockData } from './clock/data'
 import { cationsSchema, type CationsData } from './cations/data'
 import { brightestOf, extentOf, flameSchema, rangeOf, type FlameData } from './flame/data'
 import { DISTURBANCE_IDS, lechatelierSchema, type LechatelierData } from './lechatelier/data'
@@ -699,5 +700,61 @@ export function validateLechatelier(input: unknown, sources: readonly Source[], 
     ...checkSourceIds(parsed.data, 'lechatelier', Array.isArray(sources) ? sources : []),
     ...checkPublished(parsed.data, 'lechatelier'),
     ...checkProse(parsed.data, 'lechatelier', Array.isArray(names) ? names : []),
+  ]
+}
+
+/** What the clock reaction lab's record must hold together beyond its shape: its ids, and every id one part of it names in another. */
+function checkClock(data: ClockData): string[] {
+  const errors = [
+    ...duplicates(data.reagents.map((r) => r.id), 'reagents'),
+    ...duplicates(data.reactions.map((r) => r.id), 'reactions'),
+    ...duplicates(data.rateLaw.reactants.map((r) => r.id), 'reactants'),
+    ...duplicates(data.mixtures.map((m) => m.id), 'mixtures'),
+    ...duplicates(data.baths.map((b) => b.id), 'baths'),
+  ]
+  const bottles = new Set(data.reagents.map((r) => r.id))
+  const { rateLaw } = data
+  if (!data.reactions.some((r) => r.id === rateLaw.reactionId)) errors.push(`rateLaw: unknown reaction "${rateLaw.reactionId}"`)
+  for (const reactant of rateLaw.reactants) {
+    const bottle = data.reagents.find((r) => r.id === reactant.reagentId)
+    if (!bottle || bottle.form !== 'solution') errors.push(`reactant "${reactant.id}": "${reactant.reagentId}" is not a solution of the record`)
+    if (!data.mixtures.some((m) => m.id === reactant.comparedIn)) errors.push(`reactant "${reactant.id}": unknown mixture "${reactant.comparedIn}"`)
+    if (reactant.comparedIn === data.referenceMixtureId) errors.push(`reactant "${reactant.id}": its order is found from the reference mixture and another`)
+  }
+  if (data.reagents.find((r) => r.id === rateLaw.end.reagentId)?.form !== 'solution') errors.push(`rateLaw.end: "${rateLaw.end.reagentId}" is not a solution of the record`)
+  if (data.reagents.find((r) => r.id === rateLaw.end.indicatorId)?.form !== 'indicator') errors.push(`rateLaw.end: "${rateLaw.end.indicatorId}" is not an indicator of the record`)
+  if (!data.mixtures.some((m) => m.id === data.referenceMixtureId)) errors.push(`unknown reference mixture "${data.referenceMixtureId}"`)
+  for (const mixture of data.mixtures) {
+    // Water is not a bottle of the record: it has no hazards and no strength.
+    for (const part of [...mixture.flaskA, ...mixture.flaskB]) if (part.reagentId !== 'water' && !bottles.has(part.reagentId)) errors.push(`mixture "${mixture.id}": unknown reagent "${part.reagentId}"`)
+  }
+  const parameters: Record<string, { value: unknown } | undefined> = data.parameters
+  for (const bath of data.baths) {
+    const value = parameters[bath.range]?.value
+    if (!Array.isArray(value) || value.length !== 2) errors.push(`bath "${bath.id}": "${bath.range}" is not a parameter that is a range`)
+  }
+  for (const [name, parameter] of Object.entries(data.parameters)) {
+    if (name.endsWith('RangeTenths') && Array.isArray(parameter.value) && parameter.value[0]! > parameter.value[1]!) errors.push(`parameters.${name}: a range runs from its lower end to its upper`)
+  }
+  return errors
+}
+
+/**
+ * Checks the clock reaction lab's record against the sources it cites: the schema; that its ids hold together;
+ * that every source named exists; that each `published` reads as the number stored beside it; and that no name,
+ * note or rationale holds institution text. Returns a list of problems; an empty list means the record is valid.
+ * Never throws, whatever it is given. That each value is what its source prints is the build script's to hold to
+ * the manifest, and the build checks the record's own chemistry: that its reactions balance, that its mixtures
+ * are those of spec 19.1, and that its rate record holds together.
+ */
+export function validateClock(input: unknown, sources: readonly Source[], options: ValidateOptions = {}): string[] {
+  const parsed = clockSchema.safeParse(input)
+  if (!parsed.success) return schemaErrors(parsed.error.issues)
+  const names = options?.institutionNames
+  return [
+    ...checkClock(parsed.data),
+    ...checkSourceIds(parsed.data, 'clock', Array.isArray(sources) ? sources : []),
+    ...checkPublished(parsed.data, 'clock'),
+    ...checkProse(parsed.data, 'clock', Array.isArray(names) ? names : []),
   ]
 }

@@ -1,0 +1,397 @@
+{
+  "retrieved": "2026-10-10",
+  "about": "Every source of the clock reaction lab's record (docs/research/clock/clock.json) and of its primer (src/chem-data/clock/primer.ts). Each was read for this lab on the retrieval date, fetched that day; one of them, NIST's listing of the constants, is the file earlier labs read, fetched again and found the same. No source has a copy in this folder. `fetchedSha256` is the sha256 of the file as it was fetched: a record of which file was read, not the hash of anything here, and nothing checks it. One source has none: the record of a research portal, whose page is drawn by a script and was read through a tool that fetches a page and answers questions about it. Each `supports` row names in `fields` the stored values it supports, each by its place in the record with the item's id in brackets (rateLaw.reactants[iodide].order, mixtures[mixture-1], parts[temperature].notes[1]); gives in `prints` a figure, a label or a heading as the source prints it; and says in `where`, in this project's words, where that is, what the source says there, and how far the stored value goes beyond it. A row whose field is `primer` marks a source the primer rests on. The build holds the record to these rows: every source a value cites must have a row that names the value, and where the record stores the figure a source prints, a row for it must print that figure. No source is quoted beyond such figures, labels and headings. One source is also listed by other manifests and is written here exactly as it is there, so that the build lists it once: NIST's listing of the fundamental constants. The hazard statements and the notes under them are not in this file: they are in hazards.json and sources/hazard-manifest.json, which were written apart. README.md, one folder up, says what could not be sourced.",
+  "sources": [
+    {
+      "id": "bellevue-clock-reaction",
+      "url": "https://www.bellevuecollege.edu/wp-content/uploads/sites/140/2014/06/162_Lab_IodineClockReaction_20140227GF1.pdf",
+      "citation": "Bellevue College. Reaction Kinetics: The Iodine Clock Reaction; a handout of the general chemistry laboratory, eleven pages; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "941621bfed8c3b6693f44494b523944e9f8436b375e4182d61287997a8d67042",
+      "supports": [
+        {
+          "fields": [
+            "reagents[ki-0.01m]",
+            "reagents[na2s2o3-0.001m]",
+            "reagents[kbro3-0.04m]",
+            "reagents[hcl-0.1m]",
+            "reagents[starch]"
+          ],
+          "prints": "TABLE 1: Intended Composition of Reaction Mixtures",
+          "where": "The heading of the table on its sixth page, whose columns name the five bottles with their strengths and formulas: starch at 0.2%, sodium thiosulfate at 0.001 M, potassium iodide at 0.01 M, potassium bromate at 0.04 M and hydrochloric acid at 0.1 M. The lab writes each strength to two figures, as its specification does, and gives the starch none. The handout works at a fifth of the lab's volumes, 10 mL for a mixture; its fifth mixture is not the lab's. Read as the text taken out of the PDF."
+        },
+        {
+          "fields": [
+            "baths[ice]",
+            "baths[cool]",
+            "baths[warm]"
+          ],
+          "prints": "Part II: Effect of Temperature on Reaction Rate",
+          "where": "The heading over the procedure for the baths, which has three of them made up, cold at 0 °C, cool at 10 °C and hot at 40 °C, has the two solutions of the first mixture stand in each, apart, until they are at its temperature, about ten minutes, and has the temperature read before they are mixed. The lab names the baths ice water, cool water and warm water, as its specification does."
+        },
+        {
+          "fields": [
+            "rateLaw.end.after"
+          ],
+          "prints": "dark blue iodine/starch complex",
+          "where": "The introduction, its first paragraph: what iodine and starch make, and so what the liquid looks like once it has changed. The procedure calls the same change blue-black."
+        },
+        {
+          "fields": [
+            "parts[rate-law].notes[2]"
+          ],
+          "prints": "Typically, the error is less than 5%.",
+          "where": "A note under the rate law, on its third page: when the liquid turns, only a small share of the reactants has been used up, so the strengths at mixing can stand in the rate law. The 1% of the lab's note is the lab's own arithmetic, for its own mixtures."
+        },
+        {
+          "fields": [
+            "parts[temperature].notes[0]"
+          ],
+          "prints": "Effect of Temperature on the Reaction Rate: Determination of Ea",
+          "where": "A heading on its fourth page. Under it the Arrhenius equation is written as a straight line of ln k against 1/T, whose slope gives the activation energy, and four temperatures are used, one for each point of that line."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Calculations",
+          "where": "The heading on its eighth page. Under it: the strength of each ion in a mixture by the dilution formula; the rate of each run from the time; the order in each reactant from the first run and the one that differs from it in that reactant, as a ratio of the two rates; the rate constant of each of the first four runs and their mean; and the graph of ln k against 1/T with its slope. The handout counts its rate in iodine and not in bromate, which is a third of it. Its introduction has the mixture stay colourless until the thiosulfate is used up."
+        }
+      ]
+    },
+    {
+      "id": "ncssm-clock-reaction",
+      "url": "https://www.dlt.ncssm.edu/core/Chapter15-Kinetics/Chapter15-Labs/Bromate-Iodine_clock_reaction_web_01-02.doc",
+      "citation": "North Carolina School of Science and Mathematics. Kinetics: Bromate – Iodide Clock Reaction; a laboratory handout, as a word-processor file; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "7331fbea59fc4019a1a0d53a8049fce7ac1339810b1fab7c9228c43030fe3e46",
+      "supports": [
+        {
+          "fields": [
+            "mixtures[mixture-1]",
+            "mixtures[mixture-2]",
+            "mixtures[mixture-3]",
+            "mixtures[mixture-4]",
+            "mixtures[mixture-5]"
+          ],
+          "prints": "Solution A (mL)",
+          "where": "The head of the first half of its table of mixtures, the other being Solution B. The table gives, for five mixtures of 50 mL made from bottles of the lab's strengths: 10.00 mL each of potassium iodide, sodium thiosulfate and water in A and 10.00 mL each of potassium bromate and hydrochloric acid in B for the first; 20.00 of the iodide and no water for the second; 20.00 of the bromate and no water for the third; 20.00 of the acid and no water for the fourth; and 8.00 of the iodide, 12.00 of water, 5.00 of the bromate and 15.00 of the acid for the fifth, with 10.00 of the thiosulfate in every one. The lab stores those volumes. Read as the words taken out of the file, the table cell by cell."
+        },
+        {
+          "fields": [
+            "rateLaw.end"
+          ],
+          "prints": "blue complex",
+          "where": "What its third equation has iodine and starch make. The text about it says that the iodine of the first reaction is used up by the thiosulfate as fast as it forms, that only when the thiosulfate is gone can iodine meet the starch, and that the colour coming all at once marks that moment. The procedure puts the starch in with the bromate and the acid, which the lab calls flask B."
+        },
+        {
+          "fields": [
+            "parts[runs].notes[2]"
+          ],
+          "prints": "The final volume of the reaction mixture is 50.00 mL in all cases.",
+          "where": "Over its table of data: the volume the strengths are worked out for. The drops of starch, ten in this handout, are not counted in it."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Introduction and Theory:",
+          "where": "A heading. Under it: that how fast a reaction goes depends on what the reacting things are, on how much of each there is, on the temperature and on a catalyst; that the effect of each is found with everything else held the same; and that the powers in a rate law are found by experiment and are not the numbers of the balanced equation."
+        }
+      ]
+    },
+    {
+      "id": "moorpark-clock-reaction",
+      "url": "https://www.moorparkcollege.edu/sites/moorparkcollege/files/media/pdf_document/2020/chem_1b_expt5_0.pdf",
+      "citation": "Moorpark College. Experiment #5: Chemical Kinetics: Iodine Clock Reaction; nine pages of a general chemistry laboratory manual; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "d753ecb781dc8455e7d7cee7a151d8dd61fd827429f478bdf9f2505fc19301aa",
+      "supports": [
+        {
+          "fields": [
+            "reactions[slow]",
+            "reactions[clock]"
+          ],
+          "prints": "Experiment #5 – Chemical Kinetics: Iodine Clock Reaction",
+          "where": "The title. The first page prints both equations with their states: six iodide ions, one bromate ion and six hydrogen ions give three molecules of iodine, one bromide ion and three of water; and one molecule of iodine with two thiosulfate ions gives two iodide ions and one tetrathionate ion. Read as the text taken out of the PDF, in which the small figures of a formula stand on a line of their own."
+        },
+        {
+          "fields": [
+            "count"
+          ],
+          "prints": "1/6 mole",
+          "where": "The first page, in brackets, where it says what the clock tells: when a set amount of bromate has reacted, a sixth of a mole of it for each mole of thiosulfate."
+        },
+        {
+          "fields": [
+            "parts[runs].notes[0]",
+            "parts[runs].notes[1]"
+          ],
+          "prints": "clock",
+          "where": "The word the first page gives the second reaction, in quotation marks. The passage about it says that the iodine of the first reaction is taken up by the thiosulfate, that once the thiosulfate is gone iodine stays in the solution and shows blue with the starch, that the same small amount of thiosulfate is used in every mixture, and that the time for a mixture to turn blue goes inversely as its rate."
+        },
+        {
+          "fields": [
+            "parts[runs].notes[2]"
+          ],
+          "prints": "The final volume of the reaction mixture is 25 mL in all cases.",
+          "where": "Under its table of data: this handout works at half the lab's volumes, and counts its three or four drops of starch in none of them."
+        },
+        {
+          "fields": [
+            "parts[rate-law].notes[2]"
+          ],
+          "prints": "essentially constant",
+          "where": "The second page: the amount of bromate used up is small beside what the mixture holds, so the strengths of all the reactants, and with them the rate, are taken as steady through a run."
+        },
+        {
+          "fields": [
+            "parts[temperature].notes[2]"
+          ],
+          "prints": "essentially instantaneous above 10 °C",
+          "where": "The first page, of the reaction of iodine with thiosulfate set beside the first reaction. The handout runs its own temperatures at about 10 °C and about 40 °C and has no ice bath."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "It should turn blue in about 2 minutes.",
+          "where": "The procedure for its first mixture at room temperature, which is the lab's first mixture at half the volumes. The procedure puts the solutions in two flasks so that nothing reacts until they are mixed, adds the starch to the second, and times from the pour to the blue. Its calculations take the rate as the bromate used up over the time."
+        }
+      ]
+    },
+    {
+      "id": "smc-initial-rates",
+      "url": "https://faculty.uca.edu/kdooley/f2015_chem4450_lab_iodine_clock_experiment.pdf",
+      "citation": "Santa Monica College. Chemical Kinetics: The Method of Initial Rates; a handout of the general chemistry laboratory. Read in the copy that an instructor's page at another university serves, linked here, which holds its first eight pages; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "1e88907461a64cc6734047197aee1e595b3d3b27ab4c600b425974130a0c9215",
+      "supports": [
+        {
+          "fields": [
+            "reactions[slow]",
+            "reactions[clock]"
+          ],
+          "prints": "Chemical Kinetics: The Method of Initial Rates",
+          "where": "The title. Its first two pages print the same two equations as the other handout read for them, numbered 1 and 4, with their states. Read as the text taken out of the PDF."
+        },
+        {
+          "fields": [
+            "rateLaw.end.before",
+            "rateLaw.end.after"
+          ],
+          "prints": "All the other chemical species used in this experiment are colorless.",
+          "where": "The second page, after it says that the indicator makes a deep blue with iodine: so the mixture is without colour until the thiosulfate is used up, and then turns blue. That the liquid is clear is the lab's word for a solution with nothing floating in it."
+        },
+        {
+          "fields": [
+            "parts[runs].notes[0]"
+          ],
+          "prints": "clock reaction",
+          "where": "The name the second page gives the reaction of iodine with thiosulfate. The passage says that it is many times faster than the reaction studied, that it turns the iodine back to iodide until every thiosulfate ion is used, and that iodine then gathers and the indicator shows it; it likens the thiosulfate to a small bucket under a slow drip, timed until it is full."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Part A: Finding the Rate Law Using the Method of Initial Rates",
+          "where": "A heading on its first page. Under it and in the pages after: a rate law says how a rate depends on the strength of each reactant; the orders are found by changing one strength at a time with everything else the same; the rate is the fall in the bromate over the time; and the rate constant depends on the temperature. Part B gives the Arrhenius equation and the graph of ln k against 1/T."
+        }
+      ]
+    },
+    {
+      "id": "barton-bromate-iodide-1976",
+      "url": "https://researchportal.murdoch.edu.au/esploro/outputs/journalArticle/Kinetics-of-the-bromateiodide-and-iodateiodide/991005544032407891",
+      "citation": "Barton, A. F. M.; Cheong, H. N.; Smidt, R. E. Kinetics of the bromate–iodide and iodate–iodide reactions by pH-stat techniques. J. Chem. Soc., Faraday Trans. 1 1976, 72, 568–574. https://doi.org/10.1039/F19767200568 The paper itself was not read. Its summary was read in the record that a university's research portal keeps for it, linked here, through a tool that fetches a page and answers questions about it; no copy of the record's words could be saved (retrieved 2026-10-10).",
+      "supports": [
+        {
+          "fields": [
+            "rateLaw.reactants[iodide].order",
+            "rateLaw.reactants[bromate].order",
+            "rateLaw.reactants[hydrogen-ion].order",
+            "rateLaw.note",
+            "parts[rate-law].notes[0]"
+          ],
+          "prints": "Kinetics of the bromate–iodide and iodate–iodide reactions by pH-stat techniques",
+          "where": "The title of the record. Its summary says that both reactions were followed at pH 3 to 4 by a method that holds the acidity steady with no buffer, and gives the rate of the bromate and iodide reaction as the sum of two terms: a rate constant times the square of the hydrogen ion, the iodide and the bromate; and a second rate constant times the hydrogen ion, the iodide and the bromate. It gives no figure for either constant, no temperature and no ionic strength. The lab stores the orders of the first term: one in iodide, one in bromate, two in hydrogen ion. The page is drawn by a script, and a plain request for it brings no words back: it was read through a tool that fetches a page and answers questions about it, so what is said here rests on that tool's account of the summary, asked twice."
+        }
+      ]
+    },
+    {
+      "id": "loo-bromate-iodide-1969",
+      "url": "https://ir.wgtn.ac.nz/handle/123456789/23347",
+      "citation": "Loo, B. H. Kinetic and mechanistic studies of bromate-iodide reaction: catalysis by molybdate (VI) ion; thesis, Victoria University of Wellington, 1969. The thesis itself was not read: its file is not open to a reader who is not signed in. Its summary was read in the record that the university's repository keeps for it, linked here; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "eae83350d9ff038a5c303599e37fae639171ca60e78126d02a4fc94107772e07",
+      "supports": [
+        {
+          "fields": [
+            "rateLaw.rateConstant"
+          ],
+          "prints": "50.26",
+          "where": "The record's summary, its second sentence: the rate constant of the reaction with no catalyst, at 25 °C, in a nitrate medium whose ionic strength was 1.00, printed with the unit M-3sec-1. The lab stores the figure as printed and writes the unit as litres cubed for each mole cubed and second, which is the same. The record was read in its full view; the address is the one the record gives for itself."
+        },
+        {
+          "fields": [
+            "rateLaw.reactants[iodide].order",
+            "rateLaw.reactants[bromate].order",
+            "rateLaw.reactants[hydrogen-ion].order",
+            "rateLaw.note",
+            "parts[rate-law].notes[0]"
+          ],
+          "prints": "fourth order rate law",
+          "where": "The same sentence: the summary says that the rate law of the reaction with no catalyst, of the fourth order, was confirmed. It does not give the order in each reactant; one, one and two, from the other study read, add up to four, and the unit of the constant is that of a fourth-order one."
+        },
+        {
+          "fields": [
+            "parts[rate-law].notes[1]"
+          ],
+          "prints": "ionic strength 1.00",
+          "where": "The same sentence: how much dissolved salt the measurement was made in. The lab's mixtures are near 0.03, by its own arithmetic from the bottles."
+        }
+      ]
+    },
+    {
+      "id": "uddin-iodide-bromate-1979",
+      "url": "https://pjsir.org/multidisciplinary-archive/Volume%2022%201979/Issue%204/Article%203%20Vol%2022%20Issue%204%201978.pdf",
+      "citation": "Uddin, F.; Ahmed, M. G. Influence of ionic strength on the specific rate constant, energy of activation and the evaluation of change of enthalpy of activation of iodide-bromate reaction. Pakistan J. Sci. Ind. Res. 1979, 22 (4), 181–184. Read as the scanned PDF that the journal's archive serves, linked here, in the text the scan carries, which has slips of its own; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "72733decb5ea9773078ee3cc250c6f023c796ee55bf420d4c315db0470060729",
+      "supports": [
+        {
+          "fields": [
+            "parts[temperature].notes[1]"
+          ],
+          "prints": "16.21",
+          "where": "Table 3, the first row: the apparent energy of activation, in kJ, at an ionic strength of 0.306 with no potassium chloride added. The six rows under it, with more and more of that salt, fall to 5.23 at an ionic strength of 2.106; the text gives 21 kJ for the line carried back to no ionic strength at all. Every run was in 0.1 M sulfuric acid, at 25, 30, 35 and 40 °C, followed by the colour of the iodine. The lab does not use these figures, and its record says why."
+        },
+        {
+          "fields": [
+            "parts[rate-law].notes[1]"
+          ],
+          "prints": "Table 2",
+          "where": "The table of rate constants at four temperatures and seven ionic strengths, with the one before it at 20 °C: at every temperature the figure rises as potassium chloride is added, from 4.68 to 16.34 at 25 °C, in litres for each mole and minute, with the acid taken into the constant. The summary says that the reaction goes faster as the ionic strength is raised though the reacting ions are no stronger, and calls the reaction fourth order."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-orders-of-reaction",
+      "url": "https://www.chemguide.co.uk/physical/basicrates/orders.html",
+      "citation": "Clark, J. Chemguide: Orders of Reaction and Rate Equations; 2002, modified October 2013; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "f227420e8153b88cc12e4653b08465c1048691eaff87f35b0528735803ae2dc4",
+      "supports": [
+        {
+          "fields": [
+            "parts[rate-law].notes[0]",
+            "primer"
+          ],
+          "prints": "Orders of reaction",
+          "where": "A heading of the page. Under it: orders are found by doing experiments and cannot be read off the equation; a rate that doubles when a strength doubles is first order in it, and one that goes up four times is second order; an order of nothing means that the strength does not change the rate; and the overall order is the sum. The part before it takes the rate as how fast the strength of a reactant falls, in moles for each litre and second; the part after says that the rate constant is constant only while nothing but the strengths is changed."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-arrhenius",
+      "url": "https://www.chemguide.co.uk/physical/basicrates/arrhenius.html",
+      "citation": "Clark, J. Chemguide: Rate Constants and the Arrhenius Equation; 2002, modified October 2013; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "b8048ecde9fce7884eeee0aec21d6ea6466ef0cf28d1a3998fbd3e856c49643c",
+      "supports": [
+        {
+          "fields": [
+            "parts[temperature].notes[0]",
+            "parts[temperature].notes[1]",
+            "primer"
+          ],
+          "prints": "The Arrhenius equation",
+          "where": "A heading of the page. Under it the equation is given in both its forms, with the temperature in kelvin, the gas constant, and the activation energy as the least energy a reaction needs, in joules for each mole. The part after works a rise from 20 °C to 30 °C through, taking 50 kJ/mol for the activation energy, and finds the share of molecules able to react almost doubled, which it calls the rule of thumb; a note adds that the rule holds only for activation energies of about that size, near room temperature."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-finding-orders",
+      "url": "https://www.chemguide.co.uk/physical/basicrates/experimental.html",
+      "citation": "Clark, J. Chemguide: Finding Orders of Reaction Experimentally; 2011, modified October 2013; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "4d7c4315894382607c470f919bbcb80f39317e55207c9af2f5fa9920a9bfcc06",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Iodine clock reactions",
+          "where": "A heading of the page, in its part on experiments that time the start of a reaction. Under it: iodine gives a very deep blue with starch; a very small amount of thiosulfate in the mixture takes up the first iodine, so that no blue shows; and when that amount is used up the mixture goes blue all at once. The part before it says that such an experiment times something that happens early in a reaction, and that one over the time measures the rate. The reaction it uses makes its iodine from hydrogen peroxide, not from bromate."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-collision-theory",
+      "url": "https://www.chemguide.co.uk/physical/basicrates/introduction.html",
+      "citation": "Clark, J. Chemguide: The Collision Theory of Reaction Rates; 2002, last modified October 2018; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "68778357d29f36feea706883601c7ca11ab4f594a7d7c4cba1568b594933a240",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Activation Energy",
+          "where": "A heading of the page. Under it: particles react only when they collide with at least a certain energy, the activation energy, which the page likens to a barrier; collisions with less than that end with the particles apart again, unchanged."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-rates-temperature",
+      "url": "https://www.chemguide.co.uk/physical/basicrates/temperature.html",
+      "citation": "Clark, J. Chemguide: The Effect of Temperature on Reaction Rates; 2002, last modified October 2018; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "faa33e9a7e065939e475ad8db6fff373d137f04b6c28777f17a4afefea63533e",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "The facts",
+          "where": "A heading of the page. Under it: a reaction goes faster as it is warmed, and for many reactions near room temperature the rate about doubles for each rise of 10 °C, which the page warns is rough and is not so for every reaction. The explanation after it is that a warmer mixture has many more particles with the activation energy or more, and that their colliding more often counts for little beside that."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-rates-concentration",
+      "url": "https://www.chemguide.co.uk/physical/basicrates/concentration.html",
+      "citation": "Clark, J. Chemguide: The Effect of Concentration on Reaction Rates; 2002, modified October 2013; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "d94ff6ba031da9228bd78ed20f808958f6b23bcc7b112dda3a84c1449138cfb0",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "The facts",
+          "where": "A heading of the page. Under it: for many reactions in solution a stronger solution reacts faster, though doubling a strength need not double the rate. The explanation after it is that particles must collide to react, and collide more often where there are more of them in the same room."
+        }
+      ]
+    },
+    {
+      "id": "nist-codata-2022",
+      "url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+      "citation": "Mohr, P. J.; Newell, D. B.; Taylor, B. N.; Tiesinga, E. Fundamental Physical Constants: Complete Listing, 2022 CODATA adjustment. National Institute of Standards and Technology. Read as the text file linked here; read and not kept (retrieved 2026-10-07).",
+      "fetchedSha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+      "supports": [
+        {
+          "fields": [
+            "constants.gasConstant",
+            "primer"
+          ],
+          "prints": "8.314 462 618...",
+          "where": "The line for the molar gas constant, in J mol^-1 K^-1, marked exact. The stored value is the printed digits. The file was fetched again for this lab on 2026-10-10 and is the one the earlier labs read, byte for byte: its sha256 is the one given."
+        }
+      ]
+    },
+    {
+      "id": "nist-si-temperature",
+      "url": "https://www.nist.gov/pml/owm/si-units-temperature",
+      "citation": "National Institute of Standards and Technology, Office of Weights and Measures. SI Units: Temperature; a page created in 2010 and updated on 17 June 2026; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "ecca1dd602e6d6d5f3bc07bd8184272188897ff0ceadeeaec8919b11b8197d30",
+      "supports": [
+        {
+          "fields": [
+            "constants.zeroCelsius",
+            "primer"
+          ],
+          "prints": "273.15",
+          "where": "The first paragraph of the page: a degree Celsius is a step of one kelvin, and 0 °C is 273.15 K. The table of conversions further down gives the same figure as the number added to a Celsius temperature to make kelvin, and calls the conversion exact."
+        }
+      ]
+    }
+  ]
+}

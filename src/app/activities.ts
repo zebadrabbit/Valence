@@ -30,6 +30,13 @@ export const CATIONS_PROGRESS = { entry: ENTRY.cations, version: 1 } as const
  */
 export const LECHATELIER_PROGRESS = { entry: ENTRY.lechatelier, version: 1 } as const
 
+/**
+ * The clock reaction lab's stored entry and its version. Like the two labs above, it has an engine and no page
+ * yet, so it is not among the activities: its page will put it there with this entry and this version
+ * (src/clock-version.test.ts pins what a stored run is judged against to it).
+ */
+export const CLOCK_PROGRESS = { entry: ENTRY.clock, version: 1 } as const
+
 export type Activity = (typeof ACTIVITIES)[number]
 
 /** False while an activity has no page of its own: its address is still the page that lists its kind. Home and the list of labs then show it as planned, with no link and no status. */

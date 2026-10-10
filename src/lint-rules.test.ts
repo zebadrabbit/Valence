@@ -211,6 +211,17 @@ describe('architecture lint rules', () => {
     ['@/engine/lechatelier/state', 'src/app/lab/lechatelier/messages.test.ts'],
     ['@/engine/lechatelier/select', 'src/app/lab/lechatelier/x.tsx'],
     ['@/engine/lechatelier/testkit', 'src/app/lab/lechatelier/x.tsx'],
+    // The clock engine below its index, and the kinetics engine it runs on, hold the time of a run before its watch is stopped and what a result is held to. The kinetics engine has no door for the app at all.
+    ['@/engine/clock/model', 'src/app/lab/clock/messages.ts'],
+    ['../../../engine/clock/pinnedModel', 'src/app/lab/clock/x.tsx'],
+    ['@/engine/clock/testkit', 'src/app/lab/clock/x.tsx'],
+    ['@/engine/kinetics/state', 'src/app/lab/clock/messages.ts'],
+    ['@/engine/kinetics/select', 'src/app/lab/clock/messages.test.ts'],
+    ['@/engine/kinetics/testkit', 'src/app/lab/clock/messages.test.ts'],
+    ['../../../engine/kinetics/setup', 'src/app/lab/clock/x.tsx'],
+    ['@/engine/kinetics', 'src/app/lab/clock/x.tsx'],
+    ['../../../engine/kinetics', 'src/app/lab/clock/x.test.tsx'],
+    ['@/engine/figures', 'src/app/lab/clock/x.tsx'],
   ])('rejects importing %s in %s', async (source, filePath) => {
     expect(await ruleIds(`import * as m from "${source}"\nexport const v = m\n`, filePath)).toEqual(['no-restricted-imports'])
     // A type import is refused too: the types below the index describe the hidden values.
@@ -233,6 +244,8 @@ describe('architecture lint rules', () => {
     ['@/engine/cations/testkit', 'src/app/lab/cations/messages.test.ts'],
     ['@/engine/lechatelier', 'src/app/lab/lechatelier/messages.ts'],
     ['@/engine/lechatelier/testkit', 'src/app/lab/lechatelier/messages.test.ts'],
+    ['@/engine/clock', 'src/app/lab/clock/messages.ts'],
+    ['@/engine/clock/testkit', 'src/app/lab/clock/messages.test.ts'],
     // Another folder whose name ends the same way is not the engine's.
     ['@/app/lab/titration/benchView', 'src/app/pages/x.tsx'],
     ['./titration/benchView', 'src/app/lab/x.tsx'],
