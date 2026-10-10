@@ -434,6 +434,9 @@ describe('a step before its reagent is in', () => {
     expect(drawn.map(({ tag }) => tag.includes('border-dashed'))).toEqual([true, false])
     // The centrifuge moves the solid, so both are looked at again.
     expect(list(packed(looked(added(KNOWN, 0), KNOWN), KNOWN)).map(([mark]) => mark)).toEqual(['○', '○'])
+    // Before the reagent is in there is nothing to record and a look is not kept, so nothing is listed as looked at or not.
+    expect(list(state)).toEqual([])
+    expect(text(card(entry, PAGE_TEXT.tube))).not.toContain(PAGE_TEXT.notLookedAt)
   })
 
   it('draws the rack beside the tube: the three tubes small, each over its name, the name of the step\'s own in bold', () => {

@@ -281,19 +281,22 @@ export function StepCard({ data, m, part, mode, view, step, can, warn, wrong, ac
               </p>
               {current ? (
                 <>
-                  <ul className="flex flex-wrap gap-x-4 gap-y-0.5 text-xs">
-                    {LOOKS.map((at) => {
-                      const looked = step.looked.includes(at)
-                      return (
-                        <li key={at}>
-                          <span aria-hidden="true" className={looked ? ROLE.done : undefined}>
-                            {looked ? '✓' : '○'}{' '}
-                          </span>
-                          {LOOK_PART[at]}: {looked ? PAGE_TEXT.lookedAt : PAGE_TEXT.notLookedAt}
-                        </li>
-                      )
-                    })}
-                  </ul>
+                  {/* Which parts have been looked at, once there is something to record: before the reagent is in, a look says what is there and is not kept. */}
+                  {step.added > 0 && (
+                    <ul className="flex flex-wrap gap-x-4 gap-y-0.5 text-xs">
+                      {LOOKS.map((at) => {
+                        const looked = step.looked.includes(at)
+                        return (
+                          <li key={at}>
+                            <span aria-hidden="true" className={looked ? ROLE.done : undefined}>
+                              {looked ? '✓' : '○'}{' '}
+                            </span>
+                            {LOOK_PART[at]}: {looked ? PAGE_TEXT.lookedAt : PAGE_TEXT.notLookedAt}
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  )}
                   {/* What has been done to the tube, said again whenever it changes: litmus shows here. */}
                   <p role="status" className="max-w-prose font-medium">
                     {doneText(data, step)}
