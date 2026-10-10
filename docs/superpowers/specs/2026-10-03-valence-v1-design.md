@@ -948,3 +948,48 @@ Short topics, those to read first marked: how fast (a rate, and its unit); what 
 - Challenge shows nothing of what is expected before the entries are made; the notebook fills a row only after the learner has worked the row it copies.
 - The engine holds nothing of this reaction that is not in its record: a test runs it on a second, made-up record with other orders.
 - The descriptions in words of the flasks and of the graph are tested.
+
+## 20. Iodination of acetone lab (added after v1)
+
+The fourth of the labs taken from the owner's department's lab directions (section 17 says how those are used), and the second of the two on how fast a reaction goes. It runs on the engine of section 19, as a second record, and is built like that lab wherever the two do not differ. The directions list the bottles; the procedure is the usual one for them, and each choice in it is the owner's to change.
+
+### 20.1 Set-up
+
+Acetone and iodine react in acid: an iodine atom takes the place of a hydrogen atom of the acetone. Iodine in solution is yellow and nothing else in the flask is coloured, so the reaction can be watched: the yellow fades, and the run ends when it is gone. The time that takes, for a known amount of iodine, is the rate.
+
+What is found is the point of the lab: the rate depends on the acetone and on the acid, and not at all on the iodine. Twice the iodine takes twice as long to go, at the same rate.
+
+On the bench: acetone solution, 4.0 M; hydrochloric acid, 1.0 M; iodine solution, 0.0050 M; distilled water; a flask for the mixture and a second flask of water to compare it with, on white paper; a stopwatch; a thermometer.
+
+Two parts:
+
+1. **Four mixtures at room temperature**, of 50 mL each: the first with 10 mL of each solution and 20 mL of water, and three that double one solution each, with less water. Each is timed.
+2. **The rate law.** From the four times: the rate of each run, the order in acetone, in hydrogen ion and in iodine, and the rate constant.
+
+There is no part on temperature: the directions set out no baths for this lab.
+
+### 20.2 A run
+
+As 19.2, with these differences. Nothing is added to show the end: iodine is its own colour. The acetone, the acid and the water are in the flask and the iodine is poured in and the watch started, as one action. The liquid is yellow and fades steadily, and the learner stops the watch when it cannot be told from the water in the flask beside it.
+
+The drawing keeps a faint yellow to the very end and then shows none, so that the end can be seen on a screen; on a bench the last of the colour is hard to see, which is what the second flask and the white paper are for. The primer says this of the drawing. What the liquid looks like is also said in words at any moment, and the change is announced, so that colour is not the only signal. As in 19.2, a learner may have the watch stopped at the change.
+
+There is no error of technique that the bench can make here beyond the watch itself: a run stopped before the colour is gone, or long after, does not count and says why.
+
+### 20.3 The notebook
+
+As 19.3's part 2. The rate of a run is the iodine it began with, in the mixture, over the time: all of the iodine is used up, so nothing is divided by six. The learner works the first run's three concentrations and its rate by hand and the notebook fills the rest; gives the three orders, each from the two runs its question names; then the rate constant of the first run with its unit, and the notebook fills the others and their mean.
+
+The lab is complete when both parts count.
+
+### 20.4 Model
+
+Section 19's engine, given this reaction's record: orders one in acetone, one in hydrogen ion and nought in iodine; a rate constant at one temperature and an activation energy, each cited where a source that can be read gives it and otherwise the lab's own figure, said to be so; a run that ends when the iodine is used up. The engine is made to take a record with no baths and so no part on temperature, and to say how much of the colour is left at a time handed in, for the drawing. The rate is steady from the mixing to the end, which for this reaction is what the rate law itself says while the acetone and the acid are in large excess; how nearly so, by number, is in the notes.
+
+### 20.5 Data, primer, acceptance
+
+Data: the reaction; the rate law; what the liquid looks like before and after. Hazards by 5.2: acetone above all, which burns; and what the sheets say of the product, iodoacetone, for the primer's safety topic.
+
+Primer: the topics of 19.6 without the clock and without temperature, and with two of its own: watching a colour go; and an order of nought, and what it says about how the reaction happens (the slow step does not involve iodine), from a source that can be cited.
+
+Acceptance: 19.7's lines, for four mixtures and no baths; and the engine's own tests still pass for the clock reaction's record, whose output is unchanged.
