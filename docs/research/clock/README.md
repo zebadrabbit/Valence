@@ -152,4 +152,19 @@ Two things in the engine are not whole-number arithmetic: e to a power, for the 
 
 ## What nobody checked
 
-No chemist has read the record, the notes, the primer or the page's sentences. Two of the sources behind the rate record were read only as summaries. No screen has been built: the engine, the record and the wording were tested by scripts alone.
+No chemist has read the record, the notes, the primer or the page's sentences. Two of the sources behind the rate record were read only as summaries.
+
+## The screens
+
+Built on 2026-10-11 (spec section 19.8, which says where the page is other than 19.2 and 19.3 have it). They changed no engine file and no stored value. What they added to the lab's own rules, which the engine does not have:
+
+- **The page plays the time, and at a speed of its own for each run:** 5 seconds of the lab's time to a true second for the fourth mixture and the warm bath, 7 for the second and third mixtures, 13 for the first, 14 for the fifth, 30 for the cool bath and 55 for the ice bath (`src/app/lab/clock/watch.ts`). A test holds that at every seed from 1 to 100 each careful run changes between 5 and 12 true seconds after its pour. From the frame that shows the change the watch adds true time, so that what it reads when a hand stops it is the time the engine records.
+- **A watch in whose flask nothing will show** runs on to its limit after 20 true seconds, in 4 more, and is stopped there.
+- **The pour is handed to the engine together with the stop.** A run that is left with its watch running has nothing stored and is poured again; its attempt, and so its time, is the same one.
+- **A press in the frame that finds the change** is handed in with no delay.
+- **The delay that is handed in is the page's measure,** from the frame that drew the change to the press, by the browser's own clock. What a device adds before a frame is seen and before a press is handed over is in it and was measured on no device.
+- **The colours on the screen are the drawing's own:** the liquid with no colour #e8edf2 and the dark blue #14296b, on a white card in both themes.
+
+Two sentences were added to the page's wording, each with a test: what a run that was left says, and how the record lists a run stopped by hand with its delay. Both quotation tests were run on 2026-10-11 against a fingerprint rebuilt from the 47 pages saved for the lab, and passed with none skipped.
+
+The screens were checked by script in headless Chromium by the AI coding assistant that built them: `docs/for-institutions.md` says what was run and what was not. No person has run the lab, no screen reader was used, and no real device.

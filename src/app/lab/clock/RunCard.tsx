@@ -73,8 +73,9 @@ const names = (data: ClockData) => ({ a: RUN_TEXT.flaskA, b: RUN_TEXT.flaskB, in
 const bathOf = (data: ClockData, run: RunId) => data.baths.find((bath) => bath.id === bathOfRun(run)) ?? null
 
 /**
- * One run (spec 19.2): its head, and then what can be worked now. Until the pour: the mixture as a table, and the
- * two flasks, drawn, with what has been done to them in words and the buttons that make them ready and pour them.
+ * One run (spec 19.2): its head, and then what can be worked now. Until the pour: the mixture as a table (behind a
+ * closed disclosure for a run of part 3, which is of the first mixture again), and the two flasks, drawn, with
+ * what has been done to them in words and the buttons that make them ready and pour them.
  * From the pour: the watch and the liquid, which is the one card, with the mixture and what was done to the flasks
  * behind two disclosures that are closed. So the flask that is watched and the watch are on the page with nothing
  * else to read.
@@ -133,9 +134,16 @@ export function RunCard(props: RunCardProps) {
         </>
       ) : (
         <>
-          <Step heading={RUN_TEXT.mixture}>
-            <MixtureTable data={data} run={run} />
-          </Step>
+          {bathOfRun(run) === null ? (
+            <Step heading={RUN_TEXT.mixture}>
+              <MixtureTable data={data} run={run} />
+            </Step>
+          ) : (
+            // A run in a bath is of the first mixture again, whose table part 1 has shown: it is behind a disclosure, closed, and the bath's steps have the room.
+            <Disclosure summary={RUN_TEXT.mixture}>
+              <MixtureTable data={data} run={run} />
+            </Disclosure>
+          )}
           <Flasks key={view.attempts} {...props} />
         </>
       )}
@@ -326,7 +334,8 @@ function Watch({ data, m, run, live, startedAt, atChange, onAtChange, reducedMot
           <p role="timer" aria-label={watchStatusText(view, tenths, m)} className="w-fit rounded-xl border-2 border-foreground px-4 py-2 font-mono text-5xl leading-none font-semibold tabular-nums">
             {watchText(tenths)}
           </p>
-          {over ? <p>{watchStatusText(view, tenths, m)}</p> : <p className="text-muted-foreground">{RUN_TEXT.fast}</p>}
+          {/* Until the liquid changes the lab's time runs faster than a clock, and the page says so; from the change the watch adds true time, and the line is gone. */}
+          {over ? <p>{watchStatusText(view, tenths, m)}</p> : look === 'before' && <p className="text-muted-foreground">{RUN_TEXT.fast}</p>}
           <p className="font-medium">{liquidText(data, look, true)}</p>
           {/* Always there, and empty until the liquid changes, so that a screen reader says the change when it comes. */}
           <p role="status" className="font-semibold">

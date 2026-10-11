@@ -3,7 +3,7 @@ import { mixtureOfRun, type ClockData, type RunId } from '@/chem-data/clock/data
 import { timesTable, type ClockModel, type ClockState } from '@/engine/clock'
 import { mixtureRows, mixtureTotal, runTitle, RUN_TEXT, secondsText, TABLE_TEXT, temperatureText } from './messages'
 
-const CELL = 'border-b px-2 py-1 text-left align-top'
+const CELL = 'border-b px-1.5 py-1 text-left align-top'
 const HEAD = `${CELL} font-medium text-muted-foreground`
 
 /**
@@ -30,7 +30,7 @@ export function Table({ caption, head, rows, wide = false }: { caption: string; 
               {first}
             </th>
             {cells.map((cell, at) => (
-              <td key={head[at + 1]} className={`${CELL} tabular-nums ${ROLE.value}`}>
+              <td key={head[at + 1]} className={`${CELL} whitespace-nowrap tabular-nums ${ROLE.value}`}>
                 {cell}
               </td>
             ))}

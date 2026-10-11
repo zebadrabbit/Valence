@@ -10,7 +10,7 @@ import { clockCitations } from '@/chem-data/citations'
 import { BATH_IDS, bathRunId, MIXTURE_IDS, PART_IDS, RUN_IDS, type ClockData, type PartId, type RunId } from '@/chem-data/clock/data'
 import type { Source } from '@/chem-data/schema'
 import { rateLawView, reduce, roomTenths, runView, temperatureView, type Action, type ClockModel, type ClockState } from '@/engine/clock'
-import { LAB_TEXT, NOTEBOOK_TEXT, PAGE_TEXT, PART_AIM, PART_DONE_WHEN, PART_PROGRESS_TEXT, SOURCES_TEXT, TABLE_TEXT, benchLines, blockedText, partProgressOf, partTitle, runProgressOf, runTitle, runsCountText, type PartProgress } from './messages'
+import { LAB_TEXT, NOTEBOOK_TEXT, PAGE_TEXT, PART_AIM, PART_DONE_WHEN, PART_PROGRESS_TEXT, SOURCES_TEXT, TABLE_TEXT, benchLines, blockedText, partNotes, partProgressOf, partTitle, runProgressOf, runTitle, runsCountText, type PartProgress } from './messages'
 import { RateLawNotebook, TemperatureNotebook } from './Notebook'
 import { RunCard, RunProgressLabel } from './RunCard'
 import { TimesTable } from './tables'
@@ -138,7 +138,11 @@ export function ClockBench({ data, m, sources, state, shown, reducedMotion, act,
       onAtChange={setAtChange}
       left={left === runId}
       reducedMotion={reducedMotion}
-      act={act}
+      act={(actions) => {
+        // Once something more is done at the run, that it was left has been read.
+        setLeft(null)
+        act(actions)
+      }}
       onPour={() => {
         setLeft(null)
         setPlay({ run: runId, startedAt: performance.now() })
@@ -230,6 +234,16 @@ export function ClockBench({ data, m, sources, state, shown, reducedMotion, act,
           <p role="status" className="font-medium">
             {progress[of] !== 'not-started' && runsCountText(counting, runs.length)}
           </p>
+          {/* Part 1 has no notebook to carry its notes: once its five runs count and not before, they are here, closed. */}
+          {of === 'runs' && progress.runs === 'done' && (
+            <Disclosure summary={NOTEBOOK_TEXT.notes}>
+              <div className="grid max-w-[75ch] gap-2 leading-relaxed">
+                {partNotes(data, 'runs').map((note) => (
+                  <p key={note}>{note}</p>
+                ))}
+              </div>
+            </Disclosure>
+          )}
         </div>
         <Paged
           roomy

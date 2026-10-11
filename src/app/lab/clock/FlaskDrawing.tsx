@@ -52,7 +52,7 @@ function Glass({ flask, level, fill }: { flask: Flask; level: number; fill: stri
  * a word, and not by a colour: blocks of ice at the surface of the ice water, steam over the warm water, neither
  * for the cool water, and each bath's own name under the trough. The water is one colour in all three.
  */
-function Bath({ bathId, name, left, right, surface, floor, label }: { bathId: string; name: string; left: number; right: number; surface: number; floor: number; label: { x: number; y: number } }) {
+function Bath({ bathId, name, left, right, surface, floor, label }: { bathId: string; name: string; left: number; right: number; surface: number; floor: number; label: { x: number; y: number; size: number } }) {
   const across = (share: number) => left + (right - left) * share
   return (
     <g data-bath={bathId}>
@@ -61,15 +61,15 @@ function Bath({ bathId, name, left, right, surface, floor, label }: { bathId: st
       <line x1={left + 1} x2={right - 1} y1={surface} y2={surface} {...LINE} strokeWidth={1.2} strokeOpacity={0.55} />
       {bathId === 'ice' && [0.04, 0.44, 0.52, 0.9].map((share, i) => <rect key={share} data-ice="" x={across(share)} y={surface - 6} width={13} height={13} rx={2} transform={`rotate(${i % 2 === 0 ? -9 : 11} ${across(share) + 6} ${surface})`} fill={CARD} stroke={INK} strokeWidth={1.4} />)}
       {bathId === 'warm' && [0.06, 0.5, 0.94].map((share) => <path key={share} data-steam="" d={`M ${across(share)} ${surface - 14} q 5 -6 0 -12 q -5 -6 0 -12`} {...LINE} strokeWidth={1.3} strokeOpacity={0.65} />)}
-      <text x={label.x} y={label.y} textAnchor="middle" fontSize={12} fill={INK}>
+      <text x={label.x} y={label.y} textAnchor="middle" fontSize={label.size} fill={INK}>
         {name}
       </text>
     </g>
   )
 }
 
-const FLASK_A: Flask = { cx: 80, top: 26, neck: 62, foot: 132, narrow: 13, wide: 48 }
-const FLASK_B: Flask = { ...FLASK_A, cx: 220 }
+const FLASK_A: Flask = { cx: 68, top: 26, neck: 62, foot: 132, narrow: 13, wide: 48 }
+const FLASK_B: Flask = { ...FLASK_A, cx: 192 }
 const MIXED: Flask = { cx: 100, top: 14, neck: 72, foot: 180, narrow: 18, wide: 76 }
 
 export interface FlaskDrawingProps {
@@ -78,7 +78,7 @@ export interface FlaskDrawingProps {
   look: Look
   /** The record's words for that look, drawn under the mixed flask. */
   lookWord: string
-  /** The names under the two flasks, and what stands under the flask that holds what shows the end of the run, once it is in. */
+  /** The names under the two flasks, and what stands over the mouth of the flask that holds what shows the end of the run, once it is in. */
   names: { a: string; b: string; indicator: string }
   /** The run's bath, with its name; null for a run on the bench. */
   bath: { id: string; name: string } | null
@@ -107,40 +107,41 @@ export function FlaskDrawing({ view, look, lookWord, names, bath, reading, turne
       inBath ? 236 : 220,
       `w-48 ${turned ? 'clock-turned' : ''}`,
       <>
-        {inBath && <Bath bathId={bath.id} name={bath.name} left={8} right={192} surface={128} floor={190} label={{ x: 100, y: 228 }} />}
+        {inBath && <Bath bathId={bath.id} name={bath.name} left={8} right={192} surface={128} floor={190} label={{ x: 100, y: 228, size: 13 }} />}
         <Glass flask={MIXED} level={116} fill={LIQUID[look]} />
         <text x={100} y={208} textAnchor="middle" fontSize={14} fontWeight={600} fill={INK}>
           {lookWord}
         </text>
       </>,
     )
+  // The words are 13 or 14 of the picture's units, which is 11 to 12 px as it is drawn: what was added to flask B over its mouth, what the thermometer reads beside it, each flask's name under it, and the bath's name under those.
   return frame(
-    300,
-    172,
+    260,
+    inBath ? 176 : 158,
     'w-56',
     <>
-      {inBath && <Bath bathId={bath.id} name={bath.name} left={14} right={286} surface={94} floor={140} label={{ x: 150, y: 158 }} />}
+      {inBath && <Bath bathId={bath.id} name={bath.name} left={8} right={252} surface={94} floor={140} label={{ x: 130, y: 170, size: 14 }} />}
       <Glass flask={FLASK_A} level={98} fill={LIQUID.before} />
       <Glass flask={FLASK_B} level={106} fill={LIQUID.before} />
       {inBath && (
         <g data-thermometer="">
-          <line x1={88} y1={8} x2={88} y2={116} {...LINE} strokeWidth={2.4} />
-          <circle cx={88} cy={119} r={4} fill={INK} />
+          <line x1={76} y1={8} x2={76} y2={116} {...LINE} strokeWidth={2.4} />
+          <circle cx={76} cy={119} r={4} fill={INK} />
           {reading !== null && (
-            <text x={98} y={18} fontSize={12} fontWeight={600} fill={INK}>
+            <text x={84} y={18} fontSize={14} fontWeight={600} fill={INK}>
               {reading}
             </text>
           )}
         </g>
       )}
-      <text x={FLASK_A.cx} y={inBath ? 158 : 150} textAnchor="middle" fontSize={12} fill={INK}>
+      <text x={FLASK_A.cx} y={151} textAnchor="middle" fontSize={14} fill={INK}>
         {names.a}
       </text>
-      <text x={FLASK_B.cx} y={inBath ? 158 : 150} textAnchor="middle" fontSize={12} fill={INK}>
+      <text x={FLASK_B.cx} y={151} textAnchor="middle" fontSize={14} fill={INK}>
         {names.b}
       </text>
       {view.indicator && (
-        <text data-indicator="" x={FLASK_B.cx} y={inBath ? 170 : 164} textAnchor="middle" fontSize={11} fill={INK}>
+        <text data-indicator="" x={FLASK_B.cx} y={18} textAnchor="middle" fontSize={13} fill={INK}>
           + {names.indicator}
         </text>
       )}

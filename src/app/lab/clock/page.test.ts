@@ -213,6 +213,14 @@ describe('the Lab tab', () => {
     }
   })
 
+  it("has part 1's notes at the part's head, closed, once its five runs count and not before", () => {
+    const four = MIXTURE_IDS.slice(0, 4).reduce((state, id) => makeRun(m, state, id), fresh())
+    expect(closed(bench(four, ONE, 4))).not.toContain(NOTEBOOK_TEXT.notes)
+    const html = bench(timed(), ONE, 4)
+    expect(closed(html)).toContain(NOTEBOOK_TEXT.notes)
+    for (const note of partNotes(data, ONE)) expect(html).toContain(escaped(note))
+  })
+
   it('says at its head that the lab is complete, and why nothing more is taken, once it is', () => {
     expect(bench(fresh())).toContain('<p role="status" class="max-w-prose text-sm font-medium -mb-3"></p>')
     const html = bench(done())
@@ -228,7 +236,7 @@ describe('a run before the pour', () => {
 
   it('has the mixture as a table: each flask with its liquids and their volumes, and what the two come to', () => {
     const html = bench(fresh(), ONE, 4)
-    for (const row of mixtureRows(data, 'mixture-5')) expect(html).toContain(`<th scope="row" class="border-b px-2 py-1 text-left align-top font-normal">${escaped(row.liquid)}</th><td class="border-b px-2 py-1 text-left align-top whitespace-nowrap tabular-nums lab-value">${row.volume}</td>`)
+    for (const row of mixtureRows(data, 'mixture-5')) expect(html).toContain(`<th scope="row" class="border-b px-1.5 py-1 text-left align-top font-normal">${escaped(row.liquid)}</th><td class="border-b px-1.5 py-1 text-left align-top whitespace-nowrap tabular-nums lab-value">${row.volume}</td>`)
     expect(count(html, /<th scope="rowgroup" rowSpan="\d"/g)).toBe(2)
     expect(html).toContain('50.0 mL in all')
   })
@@ -236,10 +244,10 @@ describe('a run before the pour', () => {
   it('draws the two flasks, hidden from a screen reader, and says what has been done to them in a status line beside the drawing', () => {
     const state = run(m, fresh(), [{ type: 'addIndicator', run: 'mixture-1' }])
     const html = bench(state)
-    expect(html).toMatch(/<svg viewBox="0 0 300 172" aria-hidden="true"/)
+    expect(html).toMatch(/<svg viewBox="0 0 260 158" aria-hidden="true"/)
     expect(html).toContain(`<p role="status" class="font-medium">${escaped(flasksText(data, 'mixture-1', runView(m, state, 'mixture-1')))}</p>`)
     expect(html).toContain(liquidText(data, 'before', false))
-    // What shows the end of the run is in flask B: the picture says so under the flask, and the button reads as done.
+    // What shows the end of the run is in flask B: the picture says so over the flask's mouth, and the button reads as done.
     expect(html).toContain('data-indicator=""')
     expect(bench(fresh())).not.toContain('data-indicator=""')
     expect(button(html, `✓ ${RUN_TEXT.starchDone}`)!.tag).toContain('aria-disabled="true"')
@@ -252,8 +260,10 @@ describe('a run before the pour', () => {
     expect(html).not.toContain('No starch in flask B')
   })
 
-  it('has for a run of part 3 the three steps of its bath before the pour, and the pour waits for the thermometer', () => {
+  it('has for a run of part 3 the three steps of its bath before the pour, and the pour waits for the thermometer; its mixture, the first again, is behind a disclosure that is closed', () => {
     const html = bench(fresh(), THREE, 0)
+    expect(cards(html)).toEqual([RUN_TEXT.flasks])
+    expect(closed(html)[0]).toBe(RUN_TEXT.mixture)
     for (const name of [RUN_TEXT.starch, standLabel(data, ICE), RUN_TEXT.letStand(data), RUN_TEXT.read, RUN_TEXT.pour]) expect(button(html, name), name).toBeDefined()
     expect(button(html, RUN_TEXT.pour)!.tag).toContain('aria-disabled="true"')
     const stood = bench(run(m, fresh(), [{ type: 'standInBath', run: ICE }, { type: 'letStand', run: ICE }, { type: 'readThermometer', run: ICE }]), THREE, 0)
@@ -424,8 +434,11 @@ describe("part 2's notebook", () => {
     expect(row!.items[0]).toContain(escaped(relationText(data, 'concentration:iodide')))
     expect(text(row!.items[1]!)).toBe(fieldLabel(data, 'concentration:bromate'))
     expect(count(html, /<input[^>]*type="text"/g)).toBe(1)
-    // The mixture's own table stands over the entries that are worked from it.
+    // The mixture's own table stands over the entries that are worked from it, with the one time they are worked from under it.
     expect(html.indexOf('rowSpan')).toBeLessThan(html.indexOf('<ol start="1"'))
+    const time = html.indexOf(`<p class="lab-value">${timeRowText(data, timesTable(m, timed())[0]!)}</p>`)
+    expect(time).toBeGreaterThan(html.indexOf('rowSpan'))
+    expect(time).toBeLessThan(html.indexOf('<ol start="1"'))
     expect(bench(timed('challenge'), TWO)).not.toContain(NOTEBOOK_TEXT.hint)
     expect(html).toContain(SHELL_TEXT_CALCULATOR)
   })
@@ -444,7 +457,7 @@ describe("part 2's notebook", () => {
     const html = bench(entered(4), TWO)
     expect(html).toContain(NOTEBOOK_TEXT.filledRows)
     const table = new RegExp(`<caption[^>]*>${SHEET_TABLE_TEXT.rateLawCaption}</caption>.*?</table>`, 's').exec(html)![0]
-    expect([...table.matchAll(/<th scope="row"[^>]*>(.*?)<\/th>/g)].map((match) => match[1])).toEqual([`Mixture 1 (${NOTEBOOK_TEXT.yourRow})`, 'Mixture 2', 'Mixture 3', 'Mixture 4', 'Mixture 5'])
+    expect([...table.matchAll(/<th scope="row"[^>]*>(.*?)<\/th>/g)].map((match) => match[1])).toEqual(MIXTURE_IDS.map((id) => runTitle(data, id)))
     // It stands between the row that was worked and the orders that are read off it.
     expect(html.indexOf(SHEET_TABLE_TEXT.rateLawCaption)).toBeGreaterThan(html.indexOf('<ol start="1"'))
     expect(html.indexOf(SHEET_TABLE_TEXT.rateLawCaption)).toBeLessThan(html.indexOf('<ol start="5"'))
@@ -467,6 +480,7 @@ describe("part 2's notebook", () => {
     const html = bench(state, TWO)
     expect(html).toContain(NOTEBOOK_TEXT.filledConstants)
     expect(html).toContain(`>${NOTEBOOK_TEXT.mean}</th>`)
+    expect(html).toContain(`>Mixture 1 (${NOTEBOOK_TEXT.yourRow})</th>`)
     // In Challenge the check is under the list, and nothing is said of whether an entry follows.
     expect(button(html, NOTEBOOK_TEXT.check)!.tag).not.toContain('aria-disabled')
     expect(button(bench(entered(8, 'challenge'), TWO), NOTEBOOK_TEXT.check)!.tag).toContain('aria-disabled="true"')
@@ -588,9 +602,12 @@ describe('what Challenge is shown before a part is done', () => {
       state = run(m, state, [action])
       points.push([state, TWO, 0])
     }
+    const ofPartOne = partNotes(data, ONE)
     for (const [at, part, entry] of points) {
       const html = bench(at, part, entry)
-      for (const words of kept) expect(html.includes(escaped(words)), words).toBe(false)
+      // Part 1's own notes come once its five runs count, and nothing else of what is kept comes with them.
+      const partOneDone = partProgress(m, at).runs === 'done'
+      for (const words of kept) expect([words, html.includes(escaped(words))]).toEqual([words, partOneDone && part === ONE && ofPartOne.includes(words)])
       expect(html).not.toContain('Follows')
       expect(html).not.toContain(NOTEBOOK_TEXT.hint)
     }

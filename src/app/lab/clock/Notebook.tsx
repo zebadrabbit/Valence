@@ -36,6 +36,7 @@ import {
   sheetOutcomeText,
   temperatureExpectedText,
   temperatureText,
+  timeRowText,
   unitChoices,
   valueText,
 } from './messages'
@@ -290,8 +291,8 @@ export function RateLawNotebook({ data, m, state, shown, act }: SheetProps) {
   if (view.blocked === 'runs-missing') return <p className={`max-w-prose text-sm ${ROLE.held}`}>{blockedText(data, 'runs-missing')}</p>
   const over = view.blocked !== null
   const reference = data.referenceMixtureId
-  const time = new Map(timesTable(m, state).map((row) => [row.runId, row.tenths]))
-  const seconds = (runId: string) => ((time.get(runId) ?? 0) / 10).toFixed(1)
+  const times = timesTable(m, state)
+  const seconds = (runId: string) => ((times.find((timedRow) => timedRow.runId === runId)?.tenths ?? 0) / 10).toFixed(1)
   const kinds = (...wanted: string[]) => view.entries.filter((entry) => wanted.includes(kindOf(entry.field)))
   const [row, orders, constant] = [kinds('concentration', 'rate'), kinds('order'), kinds('rateConstant', 'unit')]
   const list = { data, places: [], over, mode: state.mode, enter }
@@ -304,8 +305,9 @@ export function RateLawNotebook({ data, m, state, shown, act }: SheetProps) {
         {/* One calculator on the page: a part that is not the one shown has none. */}
         {shown && <Calculator />}
         <From>
-          <p className="text-xs font-medium text-muted-foreground">{runTitle(data, reference)}</p>
           <MixtureTable data={data} run={reference} />
+          {/* The one time the row is worked from, said again here: the table of times is a window up the page by now. */}
+          <p className={ROLE.value}>{timeRowText(data, times.find((timedRow) => timedRow.runId === reference)!)}</p>
         </From>
         <Entries {...list} entries={row} from={0} />
         {view.rows !== null && (
@@ -316,7 +318,7 @@ export function RateLawNotebook({ data, m, state, shown, act }: SheetProps) {
               caption={SHEET_TABLE_TEXT.rateLawCaption}
               head={[SHEET_TABLE_TEXT.run, SHEET_TABLE_TEXT.time, ...data.rateLaw.reactants.map((reactant) => SHEET_TABLE_TEXT.concentration(data, reactant.id)), SHEET_TABLE_TEXT.rate]}
               rows={[
-                [yours, seconds(reference), ...data.rateLaw.reactants.map((reactant) => figure(made(view.entries, `concentration:${reactant.id}`))), figure(made(view.entries, 'rate'))],
+                [runTitle(data, reference), seconds(reference), ...data.rateLaw.reactants.map((reactant) => figure(made(view.entries, `concentration:${reactant.id}`))), figure(made(view.entries, 'rate'))],
                 ...view.rows.map((filled) => [runTitle(data, filled.runId as RunId), seconds(filled.runId), ...data.rateLaw.reactants.map((reactant) => figuresText(filled.strengths[reactant.id]!)), figuresText(filled.rate)]),
               ]}
             />
