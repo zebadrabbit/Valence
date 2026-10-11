@@ -84,6 +84,17 @@ On 2026-10-10 section 18 was brought up to points 1, 2, 3, 5, 7 and 8, so that t
 10. **The cobalt chloride is the hexahydrate,** which is what the procedure read weighs out and what the hazards are for.
 11. **The ammonia has a hazards record of its own,** not the Group I cations lab's: that lab's note speaks of its own steps.
 
+## What the screens added
+
+The screens were built on 2026-10-10, after everything above. Section 18.8 of the design spec says what the page is and where it is other than 18.3 has it. Four things of it bear on this record.
+
+1. **The colours on the screen are the drawing's own.** The record stores a word for what is seen, with its source, and the page draws each word in a value of its own choosing (`src/app/lab/tubeDrawing.ts`): nothing is read from a value, and no source gives one. The six for a liquid were chosen to differ in how light they are as well as in hue.
+2. **The middle of methyl violet's range is drawn between blue and yellow.** The record has no name for it (point 2 above), and the picture has to draw something: it draws a colour half way between its own blue and its own yellow in lightness, chroma and hue, which is a blue-green. That is a drawing of the record's words and not a finding. A look at the tube says "between blue and yellow in colour", and the choice a learner records is those words.
+3. **The choices of the two questions of direction name the way alone.** As first written each choice also said what stands on that side. The card of the equilibrium stands over both forms and says it once, so the page's choices are "Toward the left side", "Toward the right side" and "Not at all", and the sentence that stood under a question not yet open is gone, since a question is drawn only once it is open. The tests of the wording follow.
+4. **A liquid's level is not to scale, and a drop or two does not raise it.** The picture fills a tube as far as its own system fills one, from the volumes the model gives; a millilitre or more shows plainly, and the two drops of a portion of acid in system 1 by a unit or two of the picture.
+
+The page has one rule the engine does not: it sends an action only from the disturbance a system has reached, since the engine's actions name a system and not a disturbance. A disturbance that is done can still be looked at, and nothing is stored for it.
+
 ## What the primer gives away
 
 **The primer gives answers the lab asks for.** In both modes its cards say which way each kind of disturbance pushes; that dissolving lead chloride, and the change from the pink ion of cobalt to the blue one, take in heat; and that a large excess of hydroxide or of ammonia holds the zinc ion in a complex ion, so that zinc hydroxide dissolves, while magnesium has no such ion. A learner who has read them has, before the bench, what is needed to answer which way the two heated and the two cooled tubes go, and what took the metal ion away at all four of the tubes that ask it. That is the design's choice (spec 18.6), and it is why a search of what Challenge keeps back is to leave the Primer tab out. The Lab tab itself says none of it before the answer it belongs to is recorded: the equilibrium's card, the tasks, the hints and the refusals are held to that by tests.
@@ -129,4 +140,4 @@ The quotation fingerprint that `src/chem-data/lechatelier/quotation.test.ts` and
 
 ## What nobody checked
 
-No chemist has read the record, the notes, the primer or the page's sentences. The scanned tables were read by one reader, by eye. No screen has been built: the engine, the record and the wording were tested by scripts alone.
+No chemist has read the record, the notes, the primer or the page's sentences. The scanned tables were read by one reader, by eye. The engine, the record and the wording were tested by scripts alone. The screens were built on 2026-10-10 and checked by script in headless Chromium, on that day and the next, by the AI coding assistant that built them, and by no person; `docs/for-institutions.md` says what was run and what was not. No screen reader was used, one browser was tried and no real device, and the review of the lab by an assistant that did not build it has not been held as this is written.

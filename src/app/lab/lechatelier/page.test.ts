@@ -502,6 +502,10 @@ describe('the tube of a disturbance', () => {
     const [liquid, bottom] = parts(one)
     expect(liquid!.tag).toContain('border-dashed')
     expect(bottom!.tag).not.toContain('border-dashed')
+    // An edge has a light line about it, so that it shows on the blue liquid, on which the ink does not; a part that has been looked at has no edge and no line.
+    expect(bottom!.tag).toContain('border-transparent')
+    expect(liquid!.tag).not.toContain('border-transparent')
+    expect(lechatelierCss).toContain('.lechatelier-tube button[data-part]:not(.border-transparent)')
     expect(bottom!.name).toBe(lookLabel('bottom', true))
     // A press of the change empties the looks: the tube has changed.
     expect(read(sheet(bench(changed(run(m, state, [{ type: 'look', system: LEAD, at: 'bottom' }]), LEAD, 1), LEAD).entry, TUBE_NAME.lead)!)).toContain(`|○|${LOOK_PART.bottom}: ${PAGE_TEXT.notLookedAt}|`)
