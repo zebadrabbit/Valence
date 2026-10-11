@@ -569,29 +569,6 @@
       ]
     },
     {
-      "id": "pubchem-compound-76396",
-      "url": "https://pubchem.ncbi.nlm.nih.gov/compound/76396",
-      "citation": "PubChem, National Library of Medicine (NCBI). Compound summary for CID 76396, 2-Propanone, 1-iodo- (iodoacetone), as the data the page is drawn from: https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/76396/JSON (read on 2026-10-10; no copy is kept).",
-      "fetchedSha256": "0af833b3e8d0a03c7c1c0f15604ebe216b4f9dfec43535931036c77c8db74e88",
-      "supports": [
-        {
-          "field": "primer.safety",
-          "prints": "1-iodopropan-2-one",
-          "where": "The record's systematic name, under Names and Identifiers; its title is 2-Propanone, 1-iodo-, its list of other names begins with Iodoacetone, its CAS number is 3019-04-3 and its formula C3H5IO. It is the federal database's record for the product of this lab's reaction, and it was last changed on 2026-09-26. It was read as the data the page is drawn from, at the address in the citation, since a script draws the page; the number of the record was tried and the names in the answer were checked, and the database's search was not used. It is read for the primer's safety topic, and no tile cites it."
-        },
-        {
-          "field": "primer.safety",
-          "prints": "Chemical and Physical Properties",
-          "where": "The third of the record's ten headings. The ten are structures, names and identifiers, these properties, spectra, related records, vendors, literature, patents, results of biological tests and classification. There is no heading for safety and hazards, which is where this database's records give a GHS classification; the properties are computed ones alone; the classifications are of what kind of compound it is; and nowhere does the record have a word on irritation, on tears or on any harm to a person. For the primer's safety topic it supports this: that no official document that could be read says what iodoacetone does to a person. NOAA's database has no record for it: the list of names it shows under the letter I was read on the same day and has none. Three searches of the web found no supplier's safety data sheet for it. The European Chemicals Agency's main site answered a request for its robots file with a refusal and was not asked again; its database of chemicals, opened once in a browser, showed its legal notice and nothing of the substance; the notice was not accepted and the site was left. That iodoacetone strongly irritates the eyes is widely said, and no document read for this lab says it."
-        },
-        {
-          "field": "primer.safety",
-          "prints": "183.98",
-          "where": "The molecular weight the record computes, in grams to the mole. For the primer's safety topic it supports this: how little of the product a run makes. The mixture with the most iodine has 20 mL of the 0.0050 M solution in 50 mL, which is 0.0020 mol/L; were all of it turned to iodoacetone, that would be 0.0020 mol/L of the product, about 0.37 g in a litre, or 18 mg in the flask (worked out from the lab's own mixtures and this weight, not read from a source)."
-        }
-      ]
-    },
-    {
       "id": "noaa-cameo-2648",
       "url": "https://cameochemicals.noaa.gov/chemical/2648",
       "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Bromoacetone (chemical 2648); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-10; no copy is kept).",

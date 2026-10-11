@@ -103,7 +103,7 @@ Every source was fetched once, by a plain request that named itself, and read as
 - **The scatter of a real bench,** beyond the handout's 15 to 20 seconds between two timings, and how late a hand is at the end of a fade.
 - **At what strength an eye stops seeing iodine.** The steps between the words for the colour are the lab's own.
 - **What the iodine is dissolved in.** The handout does not say; the note under the bottle's hazards, written apart, has it in water with potassium iodide.
-- **What iodoacetone does to a person.** See the hazard manifest.
+- **What iodoacetone does to a person.** No official document that could be read says. This is the account of the helper who wrote the hazards, who looked on 2026-10-10: NOAA's database of chemicals, a government record, has no entry for it (the list of names it shows under the letter I was read); three searches of the web found no supplier's safety data sheet for it; and the European Chemicals Agency's site refused a request for its robots file and was not asked again. That helper also read a record for it at PubChem, through that site's data address, which this project does not ask. The record had no section on safety. It is not relied on: it is cited nowhere, it is in neither manifest, and its page is not in the fingerprint. The safety card's sentence, that no official document that could be read says what the product does, is a statement of what was not found and cites no source; its caution rests on NOAA's record for bromoacetone and is the lab's own.
 
 ## What a chemist should look at
 
@@ -119,7 +119,7 @@ Every source was fetched once, by a plain request that named itself, and read as
 
 ## Tried and not read
 
-Three sites refused a request and were not asked again: a government archive of reports (its robots file), a university repository's thesis file (a refusal, after its record page had been read), and a chemistry union's server (its robots file). A second university repository and a medical archive each answered with a check for automated readers, which was not worked round; neither was asked again. One journal host's robots file names AI readers, and no page of it was asked for. One outreach site's robots file closes the folder its lesson is in. One university's robots file has a rule that is not well formed and may be meant to close the whole site; it was read so, and the two handouts there, which have mixtures of 50 mL, were not asked for. PubChem's data service was not asked by this lab's builder; the hazard manifest, written apart, cites one record read through it. No page of OpenStax was fetched, and no page of Wikipedia.
+Three sites refused a request and were not asked again: a government archive of reports (its robots file), a university repository's thesis file (a refusal, after its record page had been read), and a chemistry union's server (its robots file). A second university repository and a medical archive each answered with a check for automated readers, which was not worked round; neither was asked again. One journal host's robots file names AI readers, and no page of it was asked for. One outreach site's robots file closes the folder its lesson is in. One university's robots file has a rule that is not well formed and may be meant to close the whole site; it was read so, and the two handouts there, which have mixtures of 50 mL, were not asked for. PubChem's data service was not asked by this lab's builder. No page of OpenStax was fetched, and no page of Wikipedia.
 
 Pages that were fetched while looking and that nothing rests on: a laboratory file with three mixtures of 25 mL; the cover of a school lesson plan; three more pages of the laboratory site that is cited; the record page of a thesis on the enolisation of acetone in buffers; two journal articles on the enolisation of acetophenones; and three records of other iodinations.
 
@@ -131,7 +131,7 @@ The quotation fingerprint that `src/chem-data/acetone/quotation.test.ts` and `sr
 
     node scripts/fingerprint-sources.mjs <folder of saved pages> 2026-10-10 docs/research/acetone/sources
 
-It holds all 28 documents: the thirteen of this manifest and the fifteen of the hazard manifest. Of the Circular it holds the introduction and the pages of the table, as the text the scan carries.
+It holds all 27 documents: the thirteen of this manifest and the fourteen of the hazard manifest. Of the Circular it holds the introduction and the pages of the table, as the text the scan carries.
 
 ## The engine
 

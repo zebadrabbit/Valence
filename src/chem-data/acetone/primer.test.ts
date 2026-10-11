@@ -268,7 +268,9 @@ describe('the iodination of acetone primer: its safety card', () => {
     expect(p.text).toContain(`The reaction makes a little ${acetoneData.reaction.product.name}, and no official document that could be read says what that does to a person.`)
     expect(p.text).toContain("This lab's own caution, and no source's: a government record calls its bromine relative, bromoacetone, a violent tear gas")
     expect(p.text).toContain('the flask is not sniffed or left open')
-    expect(p.sourceIds).toEqual(['flinn-sds-411', 'pubchem-compound-76396', 'noaa-cameo-2648'])
+    expect(p.sourceIds).toEqual(['flinn-sds-411', 'noaa-cameo-2648'])
+    // That nothing official was found for the product is a statement of what was not found: it cites no source, and its support line says so.
+    expect(p.support).toContain('is a statement of what was not found, and rests on no source')
     expect(p.support).toContain("This lab: that the product is treated with the care its bromine relative calls for is this lab's own caution")
     // It says no more of the product than that.
     expect(card).not.toMatch(/iodoacetone (is|irritates|burns|causes)/i)

@@ -232,10 +232,9 @@ export const ACETONE_PRIMER: readonly PrimerSection[] = [
         'The iodine solution irritates skin and eyes. The reaction makes a little iodoacetone, and no official document that could be read says what that does to a person. This lab\'s own caution, and no source\'s: a government record calls its bromine relative, bromoacetone, a violent tear gas, so a real bench treats the product with the same care, and the flask is not sniffed or left open.',
         [
           ['flinn-sds-411', `the sheet's title, its section 3 (composition) and ${SECTION_2}`, 'a dilute solution of iodine in water with potassium iodide is classed as irritating to the skin and the eyes.'],
-          ['pubchem-compound-76396', "the record's headings and its names", 'the federal record for iodoacetone has no section on safety or hazards and says nothing of harm to a person.'],
           ['noaa-cameo-2648', 'the field General Description', 'bromoacetone, the same molecule with bromine where iodoacetone has iodine, is described as a violent lachrymator that irritates the eyes at low concentrations.'],
         ],
-        'that the product is treated with the care its bromine relative calls for is this lab\'s own caution, reasoned from the likeness of the two molecules; no document read says that iodoacetone does what bromoacetone does, and a chemist should confirm it. No document read says anything of acetone with iodine or with hydrochloric acid, and the card states no hazard of the mixture.',
+        'that the product is treated with the care its bromine relative calls for is this lab\'s own caution, reasoned from the likeness of the two molecules; no document read says that iodoacetone does what bromoacetone does, and a chemist should confirm it. That no official document that could be read says what iodoacetone does to a person is a statement of what was not found, and rests on no source: the README of the lab\'s research record says where was looked. No document read says anything of acetone with iodine or with hydrochloric acid, and the card states no hazard of the mixture.',
       ),
       paragraph(
         { label: 'What to wear' },

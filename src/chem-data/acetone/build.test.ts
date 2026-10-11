@@ -202,7 +202,9 @@ describe('the sources the build lists for the lab', () => {
     const noteOf = (r: (typeof stored.reagents)[number]): { sourceId: string; alsoSourceId?: string; moreSourceIds?: string[] } => r.hazards.note
     const underTiles = new Set(stored.reagents.flatMap((r) => [r.hazards.sourceId, noteOf(r).sourceId, ...(noteOf(r).alsoSourceId === undefined ? [] : [noteOf(r).alsoSourceId!]), ...(noteOf(r).moreSourceIds ?? [])]))
     const forPrimer = ownSheets.filter((s) => s.supports.some((row) => row.field === 'primer.safety')).map((s) => s.id)
-    expect(forPrimer.sort()).toEqual(['flinn-sds-7', 'flinn-sds-7.3', 'nj-rtk-fs-0006', 'noaa-cameo-2648', 'pubchem-compound-76396'])
+    expect(forPrimer.sort()).toEqual(['flinn-sds-7', 'flinn-sds-7.3', 'nj-rtk-fs-0006', 'noaa-cameo-2648'])
+    // No record of PubChem is among the lab's documents: its data address is not asked.
+    expect([...sources, ...ownSheets].filter((s) => /pubchem/i.test(`${s.id} ${s.url} ${s.citation}`))).toEqual([])
     for (const id of [...underTiles, ...forPrimer]) expect(listed(id), id).toBeDefined()
     // The acid's documents are the aqueous reactions lab's, listed by that lab.
     expect(stored.reagents[1]!.hazards).toEqual(aqueousHazards['hcl-1m'].hazards)
