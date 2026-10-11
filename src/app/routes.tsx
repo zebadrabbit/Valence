@@ -36,6 +36,7 @@ export const routes: RouteObject[] = [
       { path: 'lab/cations', lazy: async () => ({ Component: (await import('@/app/lab/cations/CationsPage')).CationsPage }) },
       { path: 'lab/le-chatelier', lazy: async () => ({ Component: (await import('@/app/lab/lechatelier/LechatelierPage')).LechatelierPage }) },
       { path: 'lab/clock-reaction', lazy: async () => ({ Component: (await import('@/app/lab/clock/ClockPage')).ClockPage }) },
+      { path: 'lab/iodination-of-acetone', lazy: async () => ({ Component: (await import('@/app/lab/acetone/AcetonePage')).AcetonePage }) },
       { path: 'learn', element: <Learn /> },
       { path: 'learn/hcl-nahco3', lazy: async () => ({ Component: (await import('@/app/learn/MechanismPage')).MechanismPage }) },
       { path: 'settings', element: <Settings /> },

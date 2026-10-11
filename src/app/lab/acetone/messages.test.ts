@@ -113,6 +113,11 @@ describe("the liquid's look at any moment, in words (spec 20.2)", () => {
     expect(T.CHANGE_TEXT).toBe('The last of the yellow has gone: the mixture cannot be told from the water.')
   })
 
+  it('says beside a running watch that the four mixtures are played at one speed, and of a run that was left that no time was recorded, with nothing of when the colour goes', () => {
+    expect(T.RUN_TEXT.fast).toBe('The page plays the time faster than a clock would, at one speed for all four mixtures.')
+    expect(T.RUN_TEXT.left).toBe('This run was left while its watch was running, so no time was recorded. The flask is as it was before the pour: pour the iodine in again to time it.')
+  })
+
   it('says how the watch stands', () => {
     expect(T.watchStatusText({ poured: false, stopped: null }, 0, m)).toBe('The watch has not been started.')
     expect(T.watchStatusText({ poured: true, stopped: null }, 1244, m)).toBe('The watch is running: 2:04.4.')
@@ -270,6 +275,9 @@ describe('progress, modes and the record', () => {
     expect(T.runsCountText(3, 4)).toBe('3 of 4 runs count')
     expect(T.MODE_TEXT.challenge).toContain('checked all together when you ask')
     expect(T.RECORD_TEXT.timedByEnd(2853)).toBe('285.3 s, watch stopped when the colour had gone')
+    // A hand's own delay is said where the colour had gone, and a watch left to its limit stopped itself.
+    expect([T.RECORD_TEXT.timedByHandAfter(2853, 430), T.RECORD_TEXT.timedByHandAfter(1240, 2649)]).toEqual(['285.3 s, watch stopped by hand 0.4 s after the colour had gone', '124.0 s, watch stopped by hand 2.6 s after the colour had gone'])
+    expect(T.RECORD_TEXT.timedOut(18000)).toBe('1800.0 s, the watch stopped itself')
     expect(T.RECORD_TEXT.region).toBe('Record of the two parts')
   })
 })
@@ -283,7 +291,7 @@ describe('every sentence of the page', () => {
       ...strings([T.LAB_TEXT, T.PART_AIM, T.PART_DONE_WHEN, T.RUN_TEXT, T.LOOK_TEXT, T.RUN_PROGRESS_TEXT, T.TABLE_TEXT, T.NOTEBOOK_TEXT, T.VERDICT_TEXT, T.PART_PROGRESS_TEXT, T.MODE_TEXT, T.SOURCES_TEXT, T.CHANGE_TEXT]),
       ...strings({ ...T.SHEET_TABLE_TEXT, concentration: T.SHEET_TABLE_TEXT.concentration(data, 'acetone') }),
       ...strings({ ...T.PAGE_TEXT, previous: T.PAGE_TEXT.previous('x'), next: T.PAGE_TEXT.next('x') }),
-      ...strings({ ...T.RECORD_TEXT, attempt: T.RECORD_TEXT.attempt(1), working: T.RECORD_TEXT.working(1), timedByHand: T.RECORD_TEXT.timedByHand(2853), timedByEnd: T.RECORD_TEXT.timedByEnd(2853) }),
+      ...strings({ ...T.RECORD_TEXT, attempt: T.RECORD_TEXT.attempt(1), working: T.RECORD_TEXT.working(1), timedByHand: T.RECORD_TEXT.timedByHand(2853), timedByHandAfter: T.RECORD_TEXT.timedByHandAfter(2853, 430), timedByEnd: T.RECORD_TEXT.timedByEnd(2853), timedOut: T.RECORD_TEXT.timedOut(18000) }),
       ...PART_IDS.map((part) => T.partTitle(data, part)),
       ...T.benchLines(data, 225),
       ...RUN_IDS.flatMap((id) => [T.runTitle(data, id), T.mixtureText(data, id), T.mixtureTotal(data, id), T.flaskText(data, id, { poured: false }), T.flaskText(data, id, { poured: true }), ...strings(T.mixtureRows(data, id))]),

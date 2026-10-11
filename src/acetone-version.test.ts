@@ -107,7 +107,7 @@ describe('the iodination of acetone lab', () => {
     })
     // The model the tests are pinned against is the one the stored record gives.
     expect(modelFrom(acetoneData)).toEqual(PINNED_MODEL)
-    // The lab has no page yet, so Home does not list it.
-    expect(ACTIVITIES.map((activity) => activity.entry)).not.toContain(ACETONE_PROGRESS.entry)
+    // The lab's page loads and saves with this entry and this version: it is the eighth of the activities.
+    expect({ entry: ACTIVITIES[7].entry, version: ACTIVITIES[7].version }).toEqual(ACETONE_PROGRESS)
   })
 })

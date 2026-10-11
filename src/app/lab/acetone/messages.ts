@@ -96,8 +96,10 @@ export const RUN_TEXT = {
   /** Beside the two ways of stopping the watch. */
   stopHelp: 'Stop the watch when the liquid can no longer be told from the water beside it. Your own delay is added to the time, as a hand adds it on a real watch.',
   stopAtEndHelp: 'The watch then stops at the moment the last of the colour goes. A run timed this way counts like any other, and the record says how it was timed.',
-  /** Beside the running watch. */
-  fast: 'The page plays the time faster than a clock would.',
+  /** Beside the running watch: the four mixtures are all played at one speed, so a longer time is a longer wait. */
+  fast: 'The page plays the time faster than a clock would, at one speed for all four mixtures.',
+  /** In the flask's card, once a run was left while its watch was running: the page records no time for it, and the iodine is poured in again. */
+  left: 'This run was left while its watch was running, so no time was recorded. The flask is as it was before the pour: pour the iodine in again to time it.',
   runAgain: 'Make this run again',
   runAgainHelp: 'Sets the flask up afresh. The run so far is kept in the record.',
   outcome: 'This run',
@@ -524,7 +526,11 @@ export const RECORD_TEXT = {
   doesNotCount: 'Does not count',
   /** How a run in the record was timed. */
   timedByHand: (tenths: number) => `${secondsText(tenths)}, watch stopped by hand`,
+  /** A watch stopped by hand once the colour had gone: how long after, in true seconds, which is the learner's own delay. */
+  timedByHandAfter: (tenths: number, delayMs: number) => `${secondsText(tenths)}, watch stopped by hand ${(delayMs / 1000).toFixed(1)} s after the colour had gone`,
   timedByEnd: (tenths: number) => `${secondsText(tenths)}, watch stopped when the colour had gone`,
+  /** A watch left running to its limit: no hand stopped it. */
+  timedOut: (tenths: number) => `${secondsText(tenths)}, the watch stopped itself`,
 } as const
 
 /** Under a part's sources: what is Valence's own. */
