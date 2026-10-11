@@ -89,12 +89,13 @@ export function LechatelierBench({ data, m, sources, state, can, wrong, act, ope
               // The system already shown: its heading takes focus all the same.
               if (systemId === shown) headings.current[systemId]?.focus()
             }}
-            className="grid min-h-11 content-start rounded-md border border-l-4 px-2 py-1 text-left outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring aria-[current]:border-foreground aria-[current]:bg-muted aria-[current]:font-medium"
+            className="group grid min-h-11 content-start rounded-md border border-l-4 px-2 py-1 text-left outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring aria-[current]:border-foreground aria-[current]:bg-muted aria-[current]:font-medium"
           >
             {/* Four to a row at every width the bench has, so the name here is the short one; the whole name heads the system's column until its run is begun, and its last entry. */}
-            <span className="text-xs font-normal text-muted-foreground">{systemNumber(systemId)}</span>
+            {/* The number and the progress are grey on the page's ground. On the grey ground of the system shown, or under the pointer, that grey measured 4.35 to 1 in the light theme, too faint for words 12 px tall: there they are the text's own colour, as in the shared list and the Group I cations lab's parts. */}
+            <span className="text-xs font-normal text-muted-foreground group-hover:text-foreground group-aria-[current]:text-foreground">{systemNumber(systemId)}</span>
             <span>{systemShortName(data, systemId)}</span>
-            <span className="text-xs font-normal text-muted-foreground">
+            <span className="text-xs font-normal text-muted-foreground group-hover:text-foreground group-aria-[current]:text-foreground">
               <ProgressLabel progress={progressOf(views[systemId])} />
             </span>
           </button>
@@ -195,7 +196,8 @@ function SystemColumn({ data, m, sources, system, mode, view, completed, can, wr
         // The disturbance's two columns need more room than a primer's card: the list stays behind its button for longer.
         roomy
         after={
-          <div className="grid gap-2 text-sm">
+          // Each is a line of words with a hit area a finger tall laid over it, which reaches 12 px over and under a closed one and 24 px over an open one. They stand far enough apart, and far enough under Previous, that no area lies over another control: closer, a tap on Sources with the bench open under it closed the bench and opened nothing. As in the Group I cations lab.
+          <div className="mt-4 grid gap-9 text-sm">
             {cited !== null && <Sources citations={cited} derived={SOURCES_TEXT} />}
             <Disclosure summary={PAGE_TEXT.bench}>
               <Bench data={data} sources={sources} system={system} />

@@ -68,24 +68,10 @@
   margin-top: -0.75rem;
 }
 
-/*
- * The edge of a part of the tube, dashed until the part has been looked at and whole while it is, is drawn in the
- * ink, which does not show on the blue liquid and hardly on the violet. A light line about the edge does; on the
- * white card and on a pale liquid that line is not seen. A part that has been looked at has no edge, and none here.
- */
-.lechatelier-tube button[data-part]:not(.border-transparent) {
-  box-shadow: 0 0 0 1.5px rgb(255 255 255 / 0.85);
-}
-
-/* The tubes that stand together, in one row where the card has the width and two to a row where it has not. */
+/* The tubes that stand together, each as wide as its words: in one row where the card has the width, and going on to a second where it has not. */
 .lechatelier-rack {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.25rem;
   width: 100%;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-@container lechatelier-tube (min-width: 29rem) {
-  .lechatelier-rack {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
 }

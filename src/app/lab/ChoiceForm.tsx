@@ -7,7 +7,8 @@ import { ROLE } from './roles'
 export interface ChoiceQuestion {
   id: string
   label: string
-  choices: readonly { value: string; label: string }[]
+  /** `describedBy` is the id of something on the page that says more of a choice than its label does: it is then the choice's description, for a reader who is not shown where that stands. */
+  choices: readonly { value: string; label: string; describedBy?: string | undefined }[]
   /** Why the question cannot be answered yet, in words: it is then disabled, with this under it. Null where it can. Empty where the question waits for what the one over it waits for, and that one says it for both. */
   waits: string | null
 }
@@ -55,7 +56,8 @@ const CHOICE =
  * are right the questions are disabled and show them, and the button reads "Change", as an entry made in the
  * titration lab does. The aqueous reactions lab's observations, the flame test lab's, and its closing question.
  * With `brief` (the Le Chatelier's principle lab), answers that are recorded are lines beside "Change" in place of
- * the disabled questions.
+ * the disabled questions; and a choice of that lab's that names a side of an equilibrium is described by the line
+ * of the page that says what stands on that side.
  */
 export function ChoiceForm({ questions, recorded, judged: found, held, refusal, onRecord, text, brief }: ChoiceFormProps) {
   const [draft, setDraft] = useState<Answers>(recorded ?? {})
@@ -124,7 +126,7 @@ export function ChoiceForm({ questions, recorded, judged: found, held, refusal, 
               </p>
             )}
             <div className="flex flex-wrap gap-1.5">
-              {choices.map(({ value, label: choice }, i) => (
+              {choices.map(({ value, label: choice, describedBy }, i) => (
                 <label key={value} className={CHOICE}>
                   <input
                     ref={at === 0 && (shown[id] === undefined ? i === 0 : shown[id] === value) ? focus.field : undefined}
@@ -132,6 +134,7 @@ export function ChoiceForm({ questions, recorded, judged: found, held, refusal, 
                     name={`${name}${id}`}
                     value={value}
                     checked={shown[id] === value}
+                    aria-describedby={describedBy}
                     onChange={() => {
                       setDraft({ ...draft, [id]: value })
                       setJudged(null)

@@ -17,6 +17,7 @@ const lower = (text: string) => `${text[0]!.toLowerCase()}${text.slice(1)}`
 const upper = (text: string) => `${text[0]!.toUpperCase()}${text.slice(1)}`
 const article = (word: string) => (/^[aeiou]/i.test(word) ? 'an' : 'a')
 const TIMES = ['no times', 'once', 'twice', 'three times', 'four times', 'five times']
+const COUNT_WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six']
 const times = (count: number) => TIMES[count] ?? `${count} times`
 
 /** The lab's name, and what its page says at its head. */
@@ -72,6 +73,12 @@ export const TUBE_NAME: Record<TubeId, string> = {
   'magnesium-base': 'Magnesium, tube for more sodium hydroxide',
   'magnesium-ammonia': 'Magnesium, tube for ammonia',
 }
+/**
+ * A tube among the tubes that stand with it, where the metal is said once, over them: "First tube", "For acid",
+ * "For more sodium hydroxide". The name of the list they stand in says the metal: "The four tubes of zinc".
+ */
+export const tubeShortName = (tubeId: TubeId): string => upper((TUBE_NAME[tubeId].split(', ')[1] ?? TUBE_NAME[tubeId]).replace(/^tube /, ''))
+export const tubesLabel = (tubeIds: readonly TubeId[]): string => `The ${COUNT_WORDS[tubeIds.length] ?? tubeIds.length} tubes of ${lower(TUBE_NAME[tubeIds[0]!].split(', ')[0]!)}`
 // A tube that is shared out, as a share speaks of it.
 const SHARED_FROM: Partial<Record<TubeId, string>> = { zinc: 'the first zinc tube', magnesium: 'the first magnesium tube' }
 
@@ -116,7 +123,7 @@ export function benchLines(data: LechatelierData, systemId: SystemId): string[] 
     ...made.map((tube) => `${TUBE_NAME[tube.id]}: ${lower(tubeStartText(data, systemId, tube.id)).replace(/^this tube holds /, '')}`),
     ...(bottles.length > 0 ? [`To add, each from a dropper bottle: ${bottles.join('; ')}.`] : []),
     ...(added.includes('water') ? [`${data.water.name}.`] : []),
-    ...(shares > 0 ? [`${upper(['zero', 'one', 'two', 'three', 'four', 'five', 'six'][shares] ?? String(shares))} small test tubes, clean and empty, for the shares.`] : []),
+    ...(shares > 0 ? [`${upper(COUNT_WORDS[shares] ?? String(shares))} small test tubes, clean and empty, for the shares.`] : []),
     ...(baths ? ['A bath of boiling water and a bath of ice water.'] : []),
   ]
 }
@@ -268,11 +275,15 @@ export const checkedText = (wrong: readonly Field[]): string =>
 /** The metal of each of the fourth system's two equilibria, as its question names it. */
 const METAL: Record<string, string> = { 'zinc-hydroxide': 'zinc', 'magnesium-hydroxide': 'magnesium' }
 
-/** What took the metal ion away, as a choice names it. */
+/**
+ * What took the metal ion away, as a choice names it: the thing alone, so that the three stand in one row. How it
+ * holds the ion is the notes' to say, once the question is answered, and the primer's.
+ */
 export const CAUSE_LABEL: Record<Cause, string> = {
-  hydroxide: 'Hydroxide ions: they hold it in a complex ion that stays dissolved',
-  ammonia: 'Ammonia: it holds it in a complex ion that stays dissolved',
-  nothing: 'Nothing: the solid is still there',
+  hydroxide: 'Hydroxide ions',
+  ammonia: 'Ammonia',
+  // Not the one word: "Answer: Nothing", in the record, would read as no answer given.
+  nothing: 'Nothing did',
 }
 
 /** The question a disturbance asks once its tube has been observed (spec 18.3), with its choices. The same choices stand at every disturbance that asks the same question. */
@@ -287,14 +298,14 @@ export function askText(data: LechatelierData, disturbanceId: DisturbanceId): { 
   }
 }
 
-/** An answer as it was given, for the page and the record: "Toward the left side", "Nothing: the solid is still there". */
+/** An answer as it was given, for the page and the record: "Toward the left side", "Hydroxide ions". */
 export const answerLabel = (answer: string): string => (answer in WAY_LABEL ? WAY_LABEL[answer as Way] : answer in CAUSE_LABEL ? CAUSE_LABEL[answer as Cause] : answer)
 
 /** The answer, and what goes with it. */
 export const ANSWER_TEXT = {
   record: 'Record my answer',
   /** In Challenge, beside the button: an answer ends the disturbance. */
-  once: 'You answer once. After that this disturbance is done and its notes are shown.',
+  once: 'You answer once: that ends the disturbance and opens its notes.',
   right: 'Right',
   notRight: 'Not right',
   /** Beside an observation or an answer in Challenge until its system is checked. */
@@ -367,7 +378,10 @@ export function blockedText(data: LechatelierData, blocked: Blocked, disturbance
     case 'does-not-match':
       return 'That is not what the tube shows. Look at the liquid and at the bottom of the tube again.'
     case 'not-right':
-      return 'Not that one. Look at what changed in the tube, find it in the equilibrium as written, and try again.'
+      // At the tubes that ask what took the metal ion away, what changed is found by looking for the solid, and what was added is not always in the equilibrium as written.
+      return disturbanceId !== null && disturbanceOf(data, disturbanceId).disturbance.ask.kind === 'cause'
+        ? 'Not that one. Look whether the solid is still there, think what went into this tube in a large amount, and try again.'
+        : 'Not that one. Look at what changed in the tube, find it in the equilibrium as written, and try again.'
   }
 }
 

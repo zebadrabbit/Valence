@@ -5,6 +5,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { ACTIVITIES } from '@/app/activities'
 import { ROLE } from '@/app/lab/roles'
 import { NARROW_NOTICE, SHELL_TEXT } from '@/app/lab/shellText'
+import { EDGE_HALO } from '@/app/lab/Tube'
 import { labProgress } from '@/app/lab/useLabProgress'
 import { WarningGroup } from '@/app/lab/WarningGroup'
 import { createMemoryStore, saveEntry, type KeyValueStore } from '@/app/progress/storage'
@@ -435,6 +436,8 @@ describe('a step before its reagent is in', () => {
     const drawn = parts(card(bench(one, KNOWN).entry, PAGE_TEXT.tube))
     expect(drawn.map(({ name }) => name)).toEqual([lookLabel('liquid', false), lookLabel('bottom', true)])
     expect(drawn.map(({ tag }) => tag.includes('border-dashed'))).toEqual([true, false])
+    // The edge has a light line about it, so that it shows on the grey to black solid as well, on which the ink does not.
+    expect(drawn.map(({ tag }) => tag.includes(EDGE_HALO))).toEqual([true, false])
     // The centrifuge moves the solid, so both are looked at again.
     expect(list(packed(looked(added(KNOWN, 0), KNOWN), KNOWN)).map(([mark]) => mark)).toEqual(['○', '○'])
     // Before the reagent is in there is nothing to record and a look is not kept, so nothing is listed as looked at or not.

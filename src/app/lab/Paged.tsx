@@ -68,7 +68,8 @@ export function Paged({
                   type="button"
                   aria-current={i === index ? 'true' : undefined}
                   onClick={() => go(i)}
-                  className="group grid w-full grid-cols-[1.5rem_minmax(0,1fr)] gap-1 rounded-md border-l-4 border-transparent px-2 py-1.5 text-left outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring aria-[current]:border-foreground aria-[current]:bg-muted aria-[current]:font-medium"
+                  // A finger tall: an entry of one line, with no note under it, measured 32 px.
+                  className="group grid min-h-11 w-full grid-cols-[1.5rem_minmax(0,1fr)] content-center gap-1 rounded-md border-l-4 border-transparent px-2 py-1.5 text-left outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring aria-[current]:border-foreground aria-[current]:bg-muted aria-[current]:font-medium"
                 >
                   {/* The number and the note are grey on the page's ground. On the grey ground of the entry shown, or under the pointer, that grey measured 4.35 to 1 in the light theme, too faint for words 12 px tall: there they are the text's own colour. */}
                   <span className="tabular-nums text-muted-foreground group-hover:text-foreground group-aria-[current]:text-foreground">{i + 1}.</span>

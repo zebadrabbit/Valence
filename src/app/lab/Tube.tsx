@@ -13,6 +13,12 @@ const SECTION_WIDTH = 76
 /** Where a callout ends: 10 short of the card's right edge. */
 const CALLOUT_RIGHT = 310
 const BRACE_X = 136
+/**
+ * A light line about the edge of a section, which is drawn in the ink over whatever the tube holds: on a dark liquid
+ * or a dark solid the ink does not show, and the light line does; on the white card and on a pale liquid it is the
+ * light line that is not seen. So an edge shows on anything a lab puts in a tube.
+ */
+export const EDGE_HALO = 'shadow-[0_0_0_1.5px_rgb(255_255_255/0.85)]'
 const BUBBLES = [
   [66, 142, 5],
   [104, 124, 4],
@@ -197,8 +203,8 @@ export function Tube<Part extends string>({ name, describedBy, height, layers, w
             {...looking(part)}
             aria-label={label}
             style={place}
-            // The edge is dashed until the section has been looked at, and whole while it is being looked at; the list beside the picture says the same in words.
-            className={`absolute cursor-pointer rounded-xs border-2 outline-offset-2 outline-[#18181b] focus-visible:outline-3 ${open === part ? 'border-[#18181b]' : looked ? 'border-transparent' : 'border-dashed border-[#3f3f46]/60'}`}
+            // The edge is dashed until the section has been looked at, and whole while it is being looked at; the list beside the picture says the same in words. A section that has been looked at and is not being has no edge, and no light line.
+            className={`absolute cursor-pointer rounded-xs border-2 outline-offset-2 outline-[#18181b] focus-visible:outline-3 ${open === part ? `border-[#18181b] ${EDGE_HALO}` : looked ? 'border-transparent' : `border-dashed border-[#3f3f46]/60 ${EDGE_HALO}`}`}
           >
             {open === part && (
               // Inside its button, so that a pointer moved onto the callout is still over the section and the callout stays.
