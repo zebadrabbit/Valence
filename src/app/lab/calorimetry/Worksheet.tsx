@@ -1,12 +1,10 @@
-import { useId, useState } from 'react'
+import { useState } from 'react'
 import { Disclosure } from '@/app/explore/InspectorCard'
 import { ChoiceForm } from '@/app/lab/ChoiceForm'
 import { Control } from '@/app/lab/Control'
-import { entryKey, fieldState, useEntryFocus } from '@/app/lab/entry'
-import { Field as EntryField } from '@/app/lab/Field'
 import { Line, Mark, useSaid } from '@/app/lab/Line'
 import { ROLE } from '@/app/lab/roles'
-import { Button } from '@/components/ui/button'
+import { TypedEntry as SharedTypedEntry } from '@/app/lab/TypedEntry'
 import type { CalorimetryData, PartId } from '@/chem-data/calorimetry/data'
 import { parseChange, parseSig3, parseTemperature, type Blocked, type EntryView, type Field, type GraphView, type Mode, type Value, type Verdict } from '@/engine/calorimetry'
 import { BENCH_TEXT, DIRECTION_LABEL, PAGE_TEXT, VERDICT_TEXT, blockedText, enteredText, entryFeedback, entryText, fieldLabel, formatHelp, metalChoices, relationText } from './messages'
@@ -48,81 +46,25 @@ const Relation = ({ data, part, field }: { data: CalorimetryData; part: PartId; 
   </Disclosure>
 )
 
-/**
- * A typed entry, in a form of its own: Enter submits it. While it waits it says under its field how it is written,
- * and a refusal takes that line's place. Once made, the field is disabled and shows it, and the button reads
- * "Change". An entry that cannot be made yet says why under its field, and its button stays focusable.
- */
+/** A typed entry: the shell's (../TypedEntry.tsx), with this lab's words and its reading of what was typed. */
 function TypedEntry({ data, part, entry, label, guided, enter }: EntryProps) {
   const { field, value, blocked, verdict } = entry
-  const [text, setText] = useState('')
-  const [changing, setChanging] = useState(false)
-  const [error, setError] = useState('')
-  const noteId = useId()
-  const labelId = useId()
-  const { editable, changeable, cancellable } = fieldState(value !== null, blocked !== null, changing)
-  const focus = useEntryFocus(editable)
-  const made = value === null || typeof value === 'string' ? '' : entryText(value)
-  const settle = () => {
-    setChanging(false)
-    setText('')
-    setError('')
-  }
-  const cancel = () => {
-    // First, while the button that takes focus is the one that stays.
-    focus.button.current?.focus()
-    settle()
-  }
   return (
-    <form
-      noValidate
-      className="grid justify-items-start gap-1.5"
-      onKeyDown={(event) => entryKey(event, cancellable ? cancel : null)}
-      onSubmit={(event) => {
-        event.preventDefault()
-        if (blocked !== null) return
-        if (changeable) {
-          setText(made)
-          setError('')
-          return setChanging(true)
-        }
+    <SharedTypedEntry
+      label={label}
+      made={value === null || typeof value === 'string' ? '' : entryText(value)}
+      held={blocked === null ? null : blockedText(part, blocked, field)}
+      help={formatHelp(field)}
+      signed={isSigned(field)}
+      verdict={verdict && { follows: verdict.follows, feedback: entryFeedback(part, field, verdict) }}
+      hint={guided ? <Relation data={data} part={part} field={field} /> : undefined}
+      text={{ enter: PAGE_TEXT.enter, change: PAGE_TEXT.change, cancel: PAGE_TEXT.cancel, ...VERDICT_TEXT }}
+      onEnter={(text) => {
         const typed = parse(field, text)
         const refused = typed === null ? 'invalid-entry' : enter(field, typed)
-        if (refused === null) settle()
-        else setError(blockedText(part, refused, field))
+        return refused === null ? null : blockedText(part, refused, field)
       }}
-    >
-      <EntryField
-        label={label}
-        value={editable ? text : made}
-        onChange={setText}
-        noteId={noteId}
-        labelId={labelId}
-        disabled={!editable}
-        held={blocked === null ? null : blockedText(part, blocked, field)}
-        error={error}
-        help={formatHelp(field)}
-        tall
-        signed={isSigned(field)}
-        inputRef={focus.field}
-      >
-        {/* Stays focusable when it cannot be used, with the reason as its description. As "Change" it is described by the field it is of, which the Tab key passes over while it is disabled. */}
-        <Button ref={focus.button} type="submit" variant="outline" aria-disabled={blocked !== null || undefined} aria-describedby={blocked !== null ? noteId : changeable ? labelId : undefined} className="min-h-11 px-4 aria-disabled:opacity-50">
-          {changeable ? PAGE_TEXT.change : PAGE_TEXT.enter}
-        </Button>
-        {cancellable && (
-          <Button type="button" variant="outline" className="min-h-11 px-4" onClick={cancel}>
-            {PAGE_TEXT.cancel}
-          </Button>
-        )}
-        {/* Always there, and empty until the entry is made and judged, so that a screen reader says it when it comes. */}
-        <p role="status" className="self-center">
-          {!editable && verdict && <Follows verdict={verdict} />}
-        </p>
-      </EntryField>
-      {!editable && verdict?.follows === false && <p className="max-w-prose">{entryFeedback(part, field, verdict)}</p>}
-      {guided && editable && <Relation data={data} part={part} field={field} />}
-    </form>
+    />
   )
 }
 
