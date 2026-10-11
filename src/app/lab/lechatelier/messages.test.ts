@@ -51,9 +51,11 @@ import {
   systemNumber,
   systemShortName,
   taskText,
+  tubeShortName,
   tubeSoFarText,
   tubeStartText,
   tubeText,
+  tubesLabel,
 } from './messages'
 
 const data = lechatelierData
@@ -199,6 +201,10 @@ describe('the lab, its systems and their benches', () => {
 
   it('names every tube, and says what each holds to begin with', () => {
     expect(Object.keys(TUBE_NAME)).toEqual([...TUBE_IDS])
+    // Among the tubes of its metal a tube is named by what it is for, and the list by the metal.
+    expect((['zinc', 'zinc-acid', 'zinc-base', 'zinc-ammonia'] as const).map(tubeShortName)).toEqual(['First tube', 'For acid', 'For more sodium hydroxide', 'For ammonia'])
+    expect((['magnesium', 'magnesium-acid', 'magnesium-base', 'magnesium-ammonia'] as const).map(tubeShortName)).toEqual(['First tube', 'For acid', 'For more sodium hydroxide', 'For ammonia'])
+    expect(tubesLabel(['magnesium', 'magnesium-acid', 'magnesium-base', 'magnesium-ammonia'])).toBe('The four tubes of magnesium')
     expect(tubeStartText(data, 'lead-chloride', 'lead')).toBe('This tube holds 30 drops (1.5 mL) of lead(II) nitrate solution, 0.3 M.')
     expect(tubeStartText(data, 'hydroxides', 'zinc-ammonia')).toBe('This tube holds 10 drops (0.5 mL) of the stirred mixture from the first zinc tube.')
     expect(tubeStartText(data, 'hydroxides', 'magnesium-acid')).toBe('This tube holds 10 drops (0.5 mL) of the stirred mixture from the first magnesium tube.')
@@ -357,8 +363,8 @@ describe('the question of a disturbance', () => {
       const { ask } = disturbanceOf(data, id).disturbance
       expect(askText(data, id).choices.map((c) => c.value), id).toEqual(ask.kind === 'direction' ? [...WAYS] : [...CAUSES])
     }
-    expect([...WAYS, ...CAUSES].map(answerLabel)).toEqual(['Toward the left side', 'Toward the right side', 'Not at all', 'Hydroxide ions: they hold it in a complex ion that stays dissolved', 'Ammonia: it holds it in a complex ion that stays dissolved', 'Nothing: the solid is still there'])
-    expect(ANSWER_TEXT.once).toMatch(/You answer once/)
+    expect([...WAYS, ...CAUSES].map(answerLabel)).toEqual(['Toward the left side', 'Toward the right side', 'Not at all', 'Hydroxide ions', 'Ammonia', 'Nothing did'])
+    expect(ANSWER_TEXT.once).toBe('You answer once: that ends the disturbance and opens its notes.')
   })
 })
 
@@ -378,6 +384,12 @@ describe('refusals', () => {
     expect(blockedText(data, 'act-first')).toBe('First: make the change.')
     expect(blockedText(data, 'predict-first')).toMatch(/It is not marked\.$/)
     expect(blockedText(data, 'not-right')).toBe('Not that one. Look at what changed in the tube, find it in the equilibrium as written, and try again.')
+    // The question of what took the metal ion away has a refusal of its own, the same at its four tubes: what changed there is whether the solid is left, and ammonia is not in the equilibrium as written.
+    const direction = DISTURBANCE_IDS.filter((id) => disturbanceOf(data, id).disturbance.ask.kind === 'direction')
+    const cause = DISTURBANCE_IDS.filter((id) => disturbanceOf(data, id).disturbance.ask.kind === 'cause')
+    expect(cause).toEqual(['zinc-base', 'zinc-ammonia', 'magnesium-base', 'magnesium-ammonia'])
+    for (const id of direction) expect(blockedText(data, 'not-right', id)).toBe(blockedText(data, 'not-right'))
+    for (const id of cause) expect(blockedText(data, 'not-right', id)).toBe('Not that one. Look whether the solid is still there, think what went into this tube in a large amount, and try again.')
   })
 
   it('are the sentences the engine\'s refusals get, at every point of a careful run', () => {

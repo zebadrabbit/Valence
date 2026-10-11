@@ -213,6 +213,28 @@ describe('the two modes', () => {
     state = wholeSystem(m, state, S)
     expect(systemView(m, state, S).outcome).toEqual({ state: 'does-not-count', reasons: [{ kind: 'answer-wrong', disturbance: 'lead-acid' }] })
   })
+
+  it('Guided takes no answer while an observation that Challenge recorded at the disturbance in hand is not what the tube shows: it is put right first, and the run then counts', () => {
+    const wrong = { solid: 'none', liquid: 'colourless' }
+    const recorded = run(m, createLab('challenge'), [{ type: 'predict', system: S, way: 'left' }, { type: 'act', system: S }, { type: 'act', system: S }, { type: 'act', system: S }, ...LOOK, { type: 'observe', system: S, observation: wrong }])
+    // Challenge takes the answer on it, right or not.
+    expect(can(m, recorded, { type: 'answer', system: S, is: 'right' })).toBeNull()
+    const guided = run(m, recorded, [{ type: 'setMode', mode: 'guided' }])
+    expect(view(guided).wrongFields).toEqual(['solid'])
+    // Guided refuses the right answer and a wrong one alike, for the observation's sake, and so says nothing of the answer.
+    for (const is of ['right', 'left', 'none']) {
+      expect(can(m, guided, { type: 'answer', system: S, is })).toBe('does-not-match')
+      expect(reduce(m, guided, { type: 'answer', system: S, is })).toBe(guided)
+    }
+    // The observation can still be recorded again; then the answer is taken, and the system counts.
+    const right = run(m, guided, [{ type: 'observe', system: S, observation: { solid: 'white', liquid: 'colourless' } }])
+    expect(can(m, right, { type: 'answer', system: S, is: 'left' })).toBe('not-right')
+    expect(can(m, right, { type: 'answer', system: S, is: 'right' })).toBeNull()
+    expect(systemView(m, wholeSystem(m, run(m, right, [{ type: 'answer', system: S, is: 'right' }]), S), S).outcome).toEqual({ state: 'counts' })
+    // The stored shape takes a run that ended a disturbance on such an observation, as Challenge makes one: the mode is not in a run.
+    const ended = run(m, recorded, [{ type: 'answer', system: S, is: 'right' }, { type: 'setMode', mode: 'guided' }])
+    expect(lechatelierStateSchema(m).safeParse(JSON.parse(JSON.stringify(ended))).success).toBe(true)
+  })
 })
 
 describe('a run as it is stored', () => {

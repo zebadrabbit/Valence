@@ -179,6 +179,13 @@ describe("the Le Chatelier's principle page", () => {
     expect(app.store.length).toBe(0)
   })
 
+  it("lists the primer's cards as entries a finger tall, those of one line too: the shared list's, in every lab", () => {
+    const [primer] = panels(page())
+    const entries = buttons(primer!.body).filter((one) => /^\d+\./.test(one.name))
+    expect(entries).toHaveLength(LECHATELIER_PRIMER.length)
+    for (const entry of entries) expect(entry.tag).toContain('min-h-11')
+  })
+
   it('reads its entry once when it mounts and writes nothing; the first write comes with Start or an action', () => {
     const state = open(COBALT, 1)
     save(state)
@@ -262,6 +269,10 @@ describe('the four systems', () => {
     ])
     for (const one of chosen) expect(one.tag).toContain('min-h-11')
     expect(chosen.map((one) => one.tag.includes('aria-current="true"'))).toEqual([false, false, true, false])
+    // The number and the progress are grey, and on the grey ground of the system shown, or under the pointer, the text's own colour: grey on grey they were too faint for words 12 px tall.
+    expect(count(nav, /<span class="text-xs font-normal text-muted-foreground group-hover:text-foreground group-aria-\[current\]:text-foreground">/g)).toBe(8)
+    expect(count(nav, /text-muted-foreground(?! group-hover:text-foreground group-aria-\[current\]:text-foreground)/g)).toBe(0)
+    for (const one of chosen) expect(one.tag).toMatch(/class="group /)
     // The mark is for the eye, and the tick of a system that is done is in the role of a done mark.
     expect(nav).toContain(`<span aria-hidden="true" class="${ROLE.done}">${PROGRESS_MARK.done} </span>${PROGRESS_TEXT.done}`)
     expect(nav).toContain(`<span aria-hidden="true">${PROGRESS_MARK['under-way']} </span>${PROGRESS_TEXT['under-way']}`)
@@ -362,6 +373,8 @@ describe('the list of disturbances', () => {
     for (const { source } of cited) expect(foot).toContain(escaped(source.citation))
     // Closed, all of them.
     expect(foot).not.toContain('<details open')
+    // The two stand far enough apart, and far enough under Previous and Next, that the hit area laid over each line of words lies over nothing else: closer, a tap on Sources with the bench open under it closed the bench.
+    expect(bench(state, LEAD, 1).foot).toContain('<div class="mt-4 grid gap-9 text-sm"><details><summary')
   })
 })
 
@@ -419,7 +432,7 @@ describe('a disturbance before its prediction', () => {
     // Cobalt alone has the third line.
     for (const [system, id] of [[LEAD, 'lead-acid'], [INDICATOR, 'indicator-acid'], [HYDROXIDES, 'zinc-drop']] as const) {
       expect(equilibriumLines(data, id).between).toBeNull()
-      expect(count(sheet(bench(fresh(), system).entry, EQUILIBRIUM_TEXT.heading)!, /<li>/g)).toBe(2)
+      expect(count(sheet(bench(fresh(), system).entry, EQUILIBRIUM_TEXT.heading)!, /<li[ >]/g)).toBe(2)
     }
     // The equilibrium is the metal's own at each of system 4's disturbances.
     expect(text(bench(reached(HYDROXIDES, 4), HYDROXIDES).entry)).toContain(equilibriumLines(data, 'magnesium-drop').equation)
@@ -440,6 +453,26 @@ describe('a disturbance before its prediction', () => {
     expect(button(card, PREDICTION_TEXT.record)!.tag).toContain('min-h-11')
     // What stands on each side is said once, in the sheet over the form.
     expect(card).not.toContain(escaped(equilibriumLines(data, 'cobalt-water').left.replace(/^Left side: |\.$/g, '')))
+  })
+
+  it("describes each choice that names a side by the line of the equilibrium's card that says what stands on that side, for a reader who is not shown the card over the question; the third choice names no side and has no description", () => {
+    const lines = equilibriumLines(data, 'cobalt-water')
+    const [asked] = questions(sheet(guided, PREDICTION_TEXT.heading)!)
+    const described = asked!.choices.map((choice) => /aria-describedby="([^"]+)"/.exec(choice.input)?.[1])
+    expect(described[2]).toBeUndefined()
+    expect(described[0]).not.toBe(described[1])
+    expect(guided).toContain(`<li id="${described[0]}">${escaped(lines.left)}</li>`)
+    expect(guided).toContain(`<li id="${described[1]}">${escaped(lines.right)}</li>`)
+    // The same at the question of which way it went, of the same card.
+    const { entry } = bench(recorded(COBALT, 1), COBALT)
+    const [question] = questions(sheet(entry, askText(data, 'cobalt-heat').heading)!)
+    const again = question!.choices.map((choice) => /aria-describedby="([^"]+)"/.exec(choice.input)?.[1])
+    expect(again[2]).toBeUndefined()
+    expect(entry).toContain(`<li id="${again[0]}">${escaped(equilibriumLines(data, 'cobalt-heat').left)}</li>`)
+    expect(entry).toContain(`<li id="${again[1]}">${escaped(equilibriumLines(data, 'cobalt-heat').right)}</li>`)
+    // What took the metal ion away names no side: none of its choices is described.
+    const [cause] = questions(sheet(bench(recorded(HYDROXIDES, 2), HYDROXIDES).entry, askText(data, 'zinc-base').heading)!)
+    for (const choice of cause!.choices) expect(choice.input).not.toContain('aria-describedby')
   })
 
   it("has Guided's hint under the question, in a disclosure that is closed; Challenge has none", () => {
@@ -654,8 +687,8 @@ describe('the tube as it is drawn', () => {
 
 describe("the tubes of system 4", () => {
   const rack = (entry: string) => {
-    const found = /<ol class="lechatelier-rack text-xs">(.*?)<\/ol>/s.exec(entry)
-    return found === null ? null : [...found[1]!.matchAll(/<li([^>]*)>(.*?)<\/li>/g)].map(([, tag, body]) => ({ current: tag!.includes('aria-current="true"'), name: text(body!) }))
+    const found = /<ol aria-label="([^"]*)" class="lechatelier-rack text-xs">(.*?)<\/ol>/s.exec(entry)
+    return found === null ? null : { label: found[1]!, tubes: [...found[2]!.matchAll(/<li([^>]*)>(.*?)<\/li>/g)].map(([, tag, body]) => ({ current: tag!.includes('aria-current="true"'), name: text(body!) })) }
   }
 
   it('are named at the head of the card of each: which metal, and whether the first tube or the share for acid, for more sodium hydroxide or for ammonia', () => {
@@ -669,20 +702,25 @@ describe("the tubes of system 4", () => {
     expect(new Set(tubes.map((tube) => TUBE_NAME[tube])).size).toBe(8)
   })
 
-  it('stand in a list over the picture, the four of the metal in hand, with the one the learner is on marked as current, in bold, behind a pointer for the eye', () => {
+  it('stand in a list over the picture, the four of the metal in hand, the list named for the metal and each tube by what it is for, with the one the learner is on marked as current, in bold, behind a pointer for the eye', () => {
     const zinc = rack(bench(reached(HYDROXIDES, 2), HYDROXIDES).entry)!
-    expect(zinc).toEqual([
-      { current: false, name: TUBE_NAME.zinc },
-      { current: false, name: TUBE_NAME['zinc-acid'] },
-      { current: true, name: `▸ ${TUBE_NAME['zinc-base']}` },
-      { current: false, name: TUBE_NAME['zinc-ammonia'] },
+    expect(zinc.label).toBe('The four tubes of zinc')
+    expect(zinc.tubes).toEqual([
+      { current: false, name: 'First tube' },
+      { current: false, name: 'For acid' },
+      { current: true, name: '▸ For more sodium hydroxide' },
+      { current: false, name: 'For ammonia' },
     ])
     expect(bench(reached(HYDROXIDES, 2), HYDROXIDES).entry).toContain('<span aria-hidden="true">▸ </span>')
     expect(bench(reached(HYDROXIDES, 2), HYDROXIDES).entry).toContain('aria-[current]:font-semibold')
     const magnesium = rack(bench(reached(HYDROXIDES, 4), HYDROXIDES).entry)!
-    expect(magnesium.map((one) => one.name)).toEqual([`▸ ${TUBE_NAME.magnesium}`, TUBE_NAME['magnesium-acid'], TUBE_NAME['magnesium-base'], TUBE_NAME['magnesium-ammonia']])
+    expect(magnesium.label).toBe('The four tubes of magnesium')
+    expect(magnesium.tubes.map((one) => one.name)).toEqual(['▸ First tube', 'For acid', 'For more sodium hydroxide', 'For ammonia'])
     // A disturbance that is done keeps its list.
-    expect(rack(bench(reached(HYDROXIDES, 2), HYDROXIDES, 1).entry)!.find((one) => one.current)!.name).toBe(`▸ ${TUBE_NAME['zinc-acid']}`)
+    expect(rack(bench(reached(HYDROXIDES, 2), HYDROXIDES, 1).entry)!.tubes.find((one) => one.current)!.name).toBe('▸ For acid')
+    // Each as wide as its words, so that the four are one row in a card as wide as an upright tablet's: a flex row that wraps, and no grid of four columns.
+    expect(lechatelierCss).toMatch(/\.lechatelier-rack \{[^}]*display: flex;[^}]*flex-wrap: wrap;/)
+    expect(lechatelierCss).not.toMatch(/\.lechatelier-rack \{[^}]*grid/)
   })
 
   it('say, in the tube in words, that a share holds the stirred mixture of the first tube', () => {
@@ -814,6 +852,8 @@ describe('the question of a disturbance', () => {
     }
     expect(askText(data, 'zinc-base').heading).toBe('What took the zinc ion away')
     expect(askText(data, 'magnesium-ammonia').heading).toBe('What took the magnesium ion away')
+    // Each names the thing alone, so that the three stand in one row, as the three ways do: none is longer than the longest of the ways.
+    for (const label of Object.values(CAUSE_LABEL)) expect(label.length).toBeLessThanOrEqual(WAY_LABEL.right.length)
   })
 
   it("has Guided's hint under it, closed, and in Challenge the sentence that an answer is given once", () => {
@@ -859,6 +899,8 @@ describe('a disturbance that is done', () => {
     const wrong = workDisturbance(m, fresh('challenge'), COBALT, { wrongAnswerAt: 'cobalt-water', wrongLiquidAt: 'cobalt-water' })
     const before = bench(wrong, COBALT, 0).entry
     expect(read(sheet(before, NOTES_TEXT.notes)!)).toContain(`|${askText(data, 'cobalt-water').heading}:|${WAY_LABEL.right}|${ANSWER_TEXT.notChecked}|`)
+    // On the tinted ground of the two lines over the notes nothing is in the grey of the page's lesser words, which is too faint there.
+    expect(/<ul class="[^"]*bg-muted\/60[^"]*">.*?<\/ul>/s.exec(sheet(before, NOTES_TEXT.notes)!)![0]).not.toContain('text-muted-foreground')
     expect(read(sheet(before, OBSERVATION_TEXT.heading)!)).toContain(`|${ANSWER_TEXT.notChecked}|`)
     expect(before).not.toMatch(/✕/)
     expect(sheet(before, NOTES_TEXT.notes)).not.toMatch(/✓/)

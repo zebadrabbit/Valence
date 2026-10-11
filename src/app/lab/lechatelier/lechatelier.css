@@ -68,15 +68,10 @@
   margin-top: -0.75rem;
 }
 
-/* The tubes that stand together, in one row where the card has the width and two to a row where it has not. */
+/* The tubes that stand together, each as wide as its words: in one row where the card has the width, and going on to a second where it has not. */
 .lechatelier-rack {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.25rem;
   width: 100%;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-@container lechatelier-tube (min-width: 29rem) {
-  .lechatelier-rack {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
 }

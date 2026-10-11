@@ -38,8 +38,10 @@ import {
   observationLines,
   systemNumber,
   taskText,
+  tubeShortName,
   tubeSoFarText,
   tubeText,
+  tubesLabel,
 } from './messages'
 import { fullMicrolitres, tubeGroup } from './tubeLook'
 
@@ -113,6 +115,8 @@ export function DisturbanceCard({ data, m, system, mode, view, disturbance: d, c
   const exploreId = useId()
   const tubeId = useId()
   const notesId = useId()
+  const leftId = useId()
+  const rightId = useId()
   const [tubeSaid, sayOfTube] = useSaid()
   const [lookSaid, sayOfLook] = useSaid()
   const notesRef = useRef<HTMLElement>(null)
@@ -126,6 +130,9 @@ export function DisturbanceCard({ data, m, system, mode, view, disturbance: d, c
   const baths = view.disturbances.some((other) => other.kind !== 'add')
   const equilibrium = equilibriumLines(data, d.id)
   const ask = askText(data, d.id)
+  // A choice that names a side is described by the line of the equilibrium's card that says what stands on that side: the choice's own words are the way alone, and a reader who is not shown the card over the question is told the side with the choice.
+  const sideOf: Readonly<Record<string, string>> = { left: leftId, right: rightId }
+  const withSides = <T extends { value: string }>(choices: readonly T[]) => choices.map((choice) => ({ ...choice, describedBy: sideOf[choice.value] }))
 
   // Focus is never left on the page: the question's form goes when it is answered, and focus goes to the notes, which are what the answer opens.
   const was = useRef(d.status)
@@ -208,7 +215,8 @@ export function DisturbanceCard({ data, m, system, mode, view, disturbance: d, c
               <li>
                 <span className="font-medium">{ask.heading}:</span> {answerLabel(d.answer)}{' '}
                 {d.answerRight === null ? (
-                  <span className="text-muted-foreground">{ANSWER_TEXT.notChecked}</span>
+                  // In the text's own colour and weight, as what a check finds is: on the tinted ground of these two lines the grey of the page's lesser words measured 4.49 to 1.
+                  <span className="font-medium whitespace-nowrap">{ANSWER_TEXT.notChecked}</span>
                 ) : (
                   <span className="font-medium whitespace-nowrap">
                     <Mark ok={d.answerRight} />
@@ -244,8 +252,8 @@ export function DisturbanceCard({ data, m, system, mode, view, disturbance: d, c
             <Sheet heading={EQUILIBRIUM_TEXT.heading}>
               <p className={`text-base ${ROLE.value}`}>{equilibrium.equation}</p>
               <ul className="grid gap-0.5">
-                <li>{equilibrium.left}</li>
-                <li>{equilibrium.right}</li>
+                <li id={leftId}>{equilibrium.left}</li>
+                <li id={rightId}>{equilibrium.right}</li>
                 {equilibrium.between !== null && <li>{equilibrium.between}</li>}
               </ul>
               <p>
@@ -262,7 +270,7 @@ export function DisturbanceCard({ data, m, system, mode, view, disturbance: d, c
               <Sheet heading={PREDICTION_TEXT.heading}>
                 {d.prediction === null && <p className="max-w-prose text-muted-foreground">{PREDICTION_TEXT.help}</p>}
                 <ChoiceForm
-                  questions={[{ id: 'way', label: PREDICTION_TEXT.question, choices: WAY_CHOICES, waits: null }]}
+                  questions={[{ id: 'way', label: PREDICTION_TEXT.question, choices: withSides(WAY_CHOICES), waits: null }]}
                   recorded={d.prediction === null ? null : { way: d.prediction }}
                   // Kept and never marked: nothing is said of it, so no mark is drawn.
                   judged={d.prediction === null ? null : { wrong: [], text: '' }}
@@ -289,13 +297,13 @@ export function DisturbanceCard({ data, m, system, mode, view, disturbance: d, c
               <h3 id={tubeId} className={HEADING}>
                 {TUBE_NAME[d.tube]}
               </h3>
-              {/* The tubes that stand with this one: the tube a solid was brought down in, and the three it is shared among. */}
+              {/* The tubes that stand with this one: the tube a solid was brought down in, and the three it is shared among. The heading over them says the metal, and the list's name does: each is named by what it is for, so that the four stand in one row where the card has the width. */}
               {group.length > 1 && (
-                <ol className="lechatelier-rack text-xs">
+                <ol aria-label={tubesLabel(group)} className="lechatelier-rack text-xs">
                   {group.map((tube) => (
-                    <li key={tube} aria-current={tube === d.tube ? 'true' : undefined} className="rounded-md border px-2 py-1 text-muted-foreground aria-[current]:border-foreground aria-[current]:bg-muted aria-[current]:font-semibold aria-[current]:text-foreground">
+                    <li key={tube} aria-current={tube === d.tube ? 'true' : undefined} className="rounded-md border px-2 py-0.5 text-muted-foreground aria-[current]:border-foreground aria-[current]:bg-muted aria-[current]:font-semibold aria-[current]:text-foreground">
                       {tube === d.tube && <span aria-hidden="true">▸ </span>}
-                      {TUBE_NAME[tube]}
+                      {tubeShortName(tube)}
                     </li>
                   ))}
                 </ol>
@@ -431,7 +439,7 @@ export function DisturbanceCard({ data, m, system, mode, view, disturbance: d, c
               {current && d.answerOpen && (
                 <Sheet heading={ask.heading}>
                   <ChoiceForm
-                    questions={[{ id: 'answer', label: ask.question, choices: ask.choices, waits: null }]}
+                    questions={[{ id: 'answer', label: ask.question, choices: withSides(ask.choices), waits: null }]}
                     recorded={null}
                     judged={null}
                     held={null}
