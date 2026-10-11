@@ -1,5 +1,5 @@
 import { bathOfRun, mixtureOfRun, PART_IDS, reagentOf, type ClockData, type PartId, type RunId } from '@/chem-data/clock/data'
-import { CONCENTRATION_UNIT, listed, lower, minus, RATE_UNIT, secondsText, temperatureText, UNIT_LABEL, volumeText, watchText } from '../kineticsText'
+import { CONCENTRATION_UNIT, listed, lower, minus, RATE_UNIT, secondsText, temperatureText, UNIT_LABEL, volumeText, watchText } from '../kinetics/text'
 import { formatFigures, kindOf, reactantIdOf, type Blocked, type ClockModel, type Field, type FieldKind, type Look, type Mode, type Place, type RateLawView, type RunOutcome, type RunReason, type RunView, type SheetId, type SheetOutcome, type SheetReason, type Sig3, type Slip, type TemperatureView, type TimeRow, type Value, type Verdict, type Warning } from '@/engine/clock'
 
 // Every sentence the clock reaction lab says that is chemistry, keyed by the engine's identifiers, so that an
@@ -18,7 +18,7 @@ import { formatFigures, kindOf, reactantIdOf, type Blocked, type ClockModel, typ
 // Figures as they are written
 
 // A temperature, a time in seconds and on the watch's face, a volume and the units of a rate and of a rate constant
-// are written as the iodination of acetone lab writes them too: one module holds them (../kineticsText.ts), and
+// are written as the iodination of acetone lab writes them too: one module holds them (../kinetics/text.ts), and
 // they are handed on here under the names this lab's page uses.
 export { CONCENTRATION_UNIT, RATE_UNIT, secondsText, temperatureText, UNIT_LABEL, volumeText, watchText }
 

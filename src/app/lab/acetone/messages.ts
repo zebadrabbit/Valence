@@ -1,6 +1,6 @@
 import { mixtureOfRun, PART_IDS, partsOfMixture, reagentOf, type AcetoneData, type PartId, type RunId } from '@/chem-data/acetone/data'
 import { formatFigures, kindOf, parseFigures, reactantIdOf, type AcetoneModel, type Blocked, type Field, type FieldKind, type Left, type Mode, type RateLawView, type RunOutcome, type RunReason, type RunView, type SheetOutcome, type SheetReason, type Sig3, type Slip, type TimeRow, type Value, type Verdict } from '@/engine/acetone'
-import { CONCENTRATION_UNIT, listed, lower, minus, RATE_UNIT, secondsText, temperatureText, UNIT_LABEL, volumeText, watchText } from '../kineticsText'
+import { CONCENTRATION_UNIT, listed, lower, minus, RATE_UNIT, secondsText, temperatureText, UNIT_LABEL, volumeText, watchText } from '../kinetics/text'
 
 // Every sentence the iodination of acetone lab says that is chemistry, keyed by the engine's identifiers, so that
 // an identifier with no sentence does not compile. A sentence can say only what it is handed: the lab's record and
@@ -21,7 +21,7 @@ import { CONCENTRATION_UNIT, listed, lower, minus, RATE_UNIT, secondsText, tempe
 // ---------------------------------------------------------------------------
 // Figures as they are written
 
-// A temperature, a time, a volume and the units are written as the clock reaction lab writes them (../kineticsText.ts).
+// A temperature, a time, a volume and the units are written as the clock reaction lab writes them (../kinetics/text.ts).
 export { CONCENTRATION_UNIT, RATE_UNIT, secondsText, temperatureText, UNIT_LABEL, volumeText, watchText }
 
 /** A typed number of three figures as it is read: "0.800", "2.57 × 10⁻⁶". */
