@@ -62,7 +62,8 @@ function ChoiceEntry({ lab: { words }, entry, guided, places, choices = [], ente
   if (asked.made !== (value !== null)) setAsked({ made: value !== null, times: asked.times + (value === null ? 1 : 0) })
   const found = verdict === null ? { wrong: [], text: '' } : { wrong: verdict.follows ? [] : [field], text: verdict.follows ? words.verdict.follows : words.feedback(field, verdict) }
   return (
-    <div className="grid justify-items-start gap-1.5">
+    // The relation stands 28 px under the form's button: open, its hit area reaches 24 px over it, and at the 18 px the two were first built with it lay over the foot of Enter.
+    <div className="grid justify-items-start gap-4">
       <ChoiceForm
         key={asked.times}
         questions={[{ id: field, label, choices: choices.map((choice) => ({ value: String(choice.value), label: choice.label })), waits: choices.length === 0 ? words.formatHelp(field) : null }]}
