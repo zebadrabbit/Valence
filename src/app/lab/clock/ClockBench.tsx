@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useMemo, useRef, useState, type MouseEvent, type ReactNode } from 'react'
 import { Disclosure, Sources } from '@/app/explore/InspectorCard'
 import { Hazards } from '@/app/lab/Hazards'
 import { openingStation } from '@/app/lab/openingStation'
@@ -14,6 +14,7 @@ import { LAB_TEXT, NOTEBOOK_TEXT, PAGE_TEXT, PART_AIM, PART_DONE_WHEN, PART_PROG
 import { RateLawNotebook, TemperatureNotebook } from './Notebook'
 import { RunCard, RunProgressLabel } from './RunCard'
 import { TimesTable } from './tables'
+import { tooSoon } from './watch'
 
 /** Beside a part's progress in words, and hidden from a screen reader, which is given the words. */
 const PART_MARK: Record<PartProgress, string> = { 'not-started': '○', runs: '◔', notebook: '◑', 'not-counted': '◑', done: '✓' }
@@ -73,7 +74,7 @@ export interface ClockBenchProps {
  * learner has asked for the watch to be stopped at the change, and which part and entry are shown. A watch runs
  * only while its run is on the screen. Leaving it, for another run or part, for another tab of the page or of the
  * browser, ends the play with nothing stored, so the flasks are as they were before the pour, and the run says so
- * when it is shown again (spec 19.8).
+ * when it is shown again (spec 19.8). For the first half second after a pour the bench takes no press at all.
  */
 export function ClockBench({ data, m, sources, state, shown, reducedMotion, act, opensAt }: ClockBenchProps) {
   const [play, setPlay] = useState<{ run: RunId; startedAt: number } | null>(null)
@@ -121,6 +122,16 @@ export function ClockBench({ data, m, sources, state, shown, reducedMotion, act,
     if (!visited.includes(to)) setVisited([...visited, to])
     // What is already shown: its heading takes focus all the same, as the list is closed under it.
     if (to === place) headings.current[place]?.focus()
+  }
+  /**
+   * A press that comes within half a second of the pour is the pour's own, come twice, and the bench takes none:
+   * not Stop, which has focus by then, and not whatever the watch's card has brought to where the pour stood,
+   * which at 768 by 1024 is Stop, the other way of stopping and a disclosure (watch.ts).
+   */
+  const pourTwice = (event: MouseEvent) => {
+    if (play === null || !tooSoon(play, performance.now())) return
+    event.preventDefault()
+    event.stopPropagation()
   }
   const completed = state.status === 'completed'
   const untouched = PART_IDS.every((id) => progress[id] === 'not-started')
@@ -174,9 +185,14 @@ export function ClockBench({ data, m, sources, state, shown, reducedMotion, act,
         {children}
       </div>
     )
-  /** Under the ways on, on every entry: the table of times where the entry is a run, the sources of the part, and the bench. Each closed. */
+  /**
+   * Under the ways on, on every entry: the table of times where the entry is a run, the sources of the part, and
+   * the bench. Each closed. Each is a line of words with a hit area a finger tall laid over it, which reaches 12 px
+   * over and under a closed one and 24 px over an open one: they stand far enough apart, and far enough under the
+   * ways on, that no area lies over another, as the Group I cations lab's and the Le Chatelier lab's do.
+   */
   const foot = (of: PartId) => (
-    <div className="grid gap-2 pt-1 pb-1">
+    <div className="mt-4 grid gap-9 pb-3">
       {entries[of] < RUNS_OF[of].length && (
         <Disclosure summary={TABLE_TEXT.caption}>
           <TimesTable data={data} m={m} state={state} runs={TIMED_FOR(data)[of]} />
@@ -269,7 +285,7 @@ export function ClockBench({ data, m, sources, state, shown, reducedMotion, act,
   const drawn = (of: PartId) => of === part || (of !== 'runs' && visited.some((key) => key.startsWith(`${of}:`)))
 
   return (
-    <div className="grid gap-3">
+    <div className="grid gap-3" onClickCapture={pourTwice}>
       {/* Always there, and empty until the lab is complete, so that a screen reader says it when it comes; while it is empty it takes no room, the gap under it neither. */}
       <p role="status" className={`max-w-prose text-sm font-medium ${completed ? '' : '-mb-3'}`}>
         {completed && <Marked mark="✓" done>{LAB_TEXT.complete}</Marked>}

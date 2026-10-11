@@ -5,22 +5,33 @@ import type { RunId } from '@/chem-data/clock/data'
 // looks like then. Nothing here reads a clock either: the true time comes in as a number of milliseconds, from any
 // origin, so the whole of it is tested without one.
 //
-// Until the liquid changes, the lab's time runs faster than a clock, at a speed that is the run's own, so that a
-// run of half a minute and one of ten minutes both take a few true seconds. From the frame the change is shown
-// in, the watch runs at a clock's own speed: what it reads when a hand stops it is then the time of the change
-// with the hand's own delay added in true seconds, which is the time the engine records (spec 19.2).
+// Until the liquid changes, the lab's time runs faster than a clock. The five mixtures of part 1 are all played at
+// one speed, so that what the lab is about is felt as well as read: the mixture with twice the acid turns four
+// times sooner on the screen too. Each bath of part 3 has a speed of its own, since ten minutes in ice water and
+// forty seconds in warm water cannot both be waited for at one, and the page says so beside the watch. From the
+// frame the change is shown in, the watch runs at a clock's own speed: what it reads when a hand stops it is then
+// the time of the change with the hand's own delay added in true seconds, which is the time the engine records
+// (spec 19.2).
 
 /**
- * How many seconds of the lab's time pass in one true second while a run is waited for. The page's own: chosen
- * so that every careful run, at every seed, changes between 5 and 12 true seconds after the pour (watch.test.ts
- * holds that over seeds 1 to 100). The figure is not shown.
+ * How many seconds of the lab's time pass in one true second while a run on the bench, at the room's temperature,
+ * is waited for: one figure for all of them. The page's own: chosen so that the slowest mixture changes no more
+ * than 12 true seconds after its pour at any room and scatter the draw can give (the fifth, at 20.0 °C and 1%
+ * slow, takes 164 s of the lab's time); the fastest then changes in two to three (watch.test.ts holds both over
+ * seeds 1 to 100). The figure is not shown.
+ */
+export const ROOM_SPEED = 14
+
+/**
+ * The speed of every run. A run in a bath has its own, chosen so that each changes between 5 and 12 true seconds
+ * after its pour at every seed (watch.test.ts).
  */
 export const SPEED: Record<RunId, number> = {
-  'mixture-1': 13,
-  'mixture-2': 7,
-  'mixture-3': 7,
-  'mixture-4': 5,
-  'mixture-5': 14,
+  'mixture-1': ROOM_SPEED,
+  'mixture-2': ROOM_SPEED,
+  'mixture-3': ROOM_SPEED,
+  'mixture-4': ROOM_SPEED,
+  'mixture-5': ROOM_SPEED,
   'bath-ice': 55,
   'bath-cool': 30,
   'bath-warm': 5,
@@ -30,8 +41,17 @@ export const SPEED: Record<RunId, number> = {
  * For how long a run is played at its own speed, in true milliseconds, and how long the watch then takes to run
  * on to where it stops itself. A run that will change has changed long before the first is up; one in which
  * nothing will ever show is ended by the watch's limit, and is not waited for at the run's speed.
+ *
+ * `deafMs` is for how long after the pour the bench takes no press. The page changes under the hand at the pour:
+ * focus goes to Stop, and the watch's card stands where the flasks' was. So a press that comes twice (a second
+ * Enter, a double click, a double tap) would land on Stop, and the run would not count; or, on an upright tablet,
+ * where the pour stood over both, on the other way of stopping, which would then stay pressed unasked. No run
+ * changes so soon: the fastest takes about two true seconds.
  */
-export const PLAY = { steadyMs: 20_000, runOnMs: 4_000 } as const
+export const PLAY = { steadyMs: 20_000, runOnMs: 4_000, deafMs: 500 } as const
+
+/** Whether a press at the true time `now` comes too soon after the pour to be meant: it is then the pour's own, come twice. */
+export const tooSoon = (play: Pick<Play, 'startedAt'>, now: number): boolean => now - play.startedAt < PLAY.deafMs
 
 /** What the watch reads, in whole milliseconds of the lab's time, `realMs` of true time after the pour, while the liquid has not changed. */
 export function labMsAt(realMs: number, speed: number, limitMs: number): number {

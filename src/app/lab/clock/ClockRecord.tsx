@@ -22,7 +22,7 @@ const CELL = 'border-b p-2 text-left align-top'
 /**
  * The Record tab: for each of the three parts, how far it has come; every attempt at each of its runs, in order,
  * with what the watch read and how it was stopped (by hand, with how long after the change where the liquid had
- * changed, or at the change), how the run came out and, where it does not count, why; and every working of its
+ * changed; at the change; or by itself, at its limit), how the run came out and, where it does not count, why; and every working of its
  * notebook, with what was entered. It reads the stored record and judges it as the engine does, so it cannot
  * disagree with the bench, and it shows nothing of what a result is held to.
  */
@@ -52,7 +52,9 @@ export function ClockRecord({ data, m, state }: { data: ClockData; m: ClockModel
       const reasons = outcome.state === 'does-not-count' ? outcome.reasons : []
       // A hand's delay is said where there was a change to be late for.
       const afterChange = stop?.by === 'hand' && !reasons.includes('stopped-early') && !reasons.includes('no-indicator')
-      const timed = stopped === null ? [] : [stopped.by === 'end' ? RECORD_TEXT.timedByEnd(stopped.tenths) : afterChange ? RECORD_TEXT.timedByHandAfter(stopped.tenths, stop.delayMs) : RECORD_TEXT.timedByHand(stopped.tenths)]
+      // A watch at its limit stopped itself, whichever way of stopping was asked for: the run's own card says the same.
+      const itself = stopped !== null && stopped.tenths * 100 >= m.watchLimitMs
+      const timed = stopped === null ? [] : [itself ? RECORD_TEXT.timedOut(stopped.tenths) : stopped.by === 'end' ? RECORD_TEXT.timedByEnd(stopped.tenths) : afterChange ? RECORD_TEXT.timedByHandAfter(stopped.tenths, stop.delayMs) : RECORD_TEXT.timedByHand(stopped.tenths)]
       return (
         <Fragment key={`${run}:${at}`}>
           <tr>

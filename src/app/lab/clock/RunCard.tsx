@@ -42,6 +42,26 @@ export function RunProgressLabel({ progress }: { progress: RunProgress }) {
   )
 }
 
+/**
+ * "Stop the watch for me at the change": a button that stays pressed, with a tick for the eye. It stands beside the
+ * pour before a watch is started, so that a learner who cannot or would rather not time by eye can say so before
+ * the first run, and beside Stop while one runs. What a press does is its card's to say.
+ */
+function AtChange({ pressed, className, onPress }: { pressed: boolean; className: string; onPress(): void }) {
+  return (
+    <Control unavailable={false} aria-pressed={pressed} variant={pressed ? 'secondary' : 'outline'} className={`h-auto px-4 py-1.5 text-left whitespace-normal ${className}`} onClick={onPress}>
+      <span>
+        {pressed && (
+          <span aria-hidden="true" className={ROLE.done}>
+            ✓{' '}
+          </span>
+        )}
+        {RUN_TEXT.stopAtChange}
+      </span>
+    </Control>
+  )
+}
+
 export interface RunCardProps {
   data: ClockData
   m: ClockModel
@@ -75,7 +95,8 @@ const bathOf = (data: ClockData, run: RunId) => data.baths.find((bath) => bath.i
 /**
  * One run (spec 19.2): its head, and then what can be worked now. Until the pour: the mixture as a table (behind a
  * closed disclosure for a run of part 3, which is of the first mixture again), and the two flasks, drawn, with
- * what has been done to them in words and the buttons that make them ready and pour them.
+ * what has been done to them in words, the buttons that make them ready and pour them, and beside the pour the
+ * choice to have the watch stopped at the change.
  * From the pour: the watch and the liquid, which is the one card, with the mixture and what was done to the flasks
  * behind two disclosures that are closed. So the flask that is watched and the watch are on the page with nothing
  * else to read.
@@ -123,7 +144,8 @@ export function RunCard(props: RunCardProps) {
               heading.current?.focus()
             }}
           />
-          <div className="grid gap-2 pb-1">
+          {/* Two lines of words, each under a hit area a finger tall: far enough apart, and far enough from the ways on under them, that neither area lies over the other. */}
+          <div className="grid gap-9 pt-1 pb-4">
             <Disclosure summary={RUN_TEXT.mixture}>
               <MixtureTable data={data} run={run} />
             </Disclosure>
@@ -157,7 +179,7 @@ export function RunCard(props: RunCardProps) {
  * stays focusable and says why when pressed. In Guided, a pour that would not count raises the warning, which
  * takes focus: the way back puts focus on the step that was skipped, and the way on pours.
  */
-function Flasks({ data, m, state, run, left, act, onPour }: RunCardProps) {
+function Flasks({ data, m, state, run, left, atChange, onAtChange, act, onPour }: RunCardProps) {
   const view = runView(m, state, run)
   const [said, say] = useSaid(left ? RUN_TEXT.left : '', left)
   const [warned, setWarned] = useState(false)
@@ -231,6 +253,8 @@ function Flasks({ data, m, state, run, left, act, onPour }: RunCardProps) {
         <Control unavailable={can(m, state, pour) !== null} variant="default" className="h-auto min-h-11 px-4 py-1.5 text-left whitespace-normal" onClick={pourPressed}>
           {RUN_TEXT.pour}
         </Control>
+        {/* The second way of stopping the watch, offered before there is one to stop: pressed here, it is pressed when the watch starts. */}
+        <AtChange pressed={atChange} className="min-h-11" onPress={() => onAtChange(!atChange)} />
       </div>
       {warned && warns.length > 0 && (
         <WarningGroup
@@ -260,8 +284,10 @@ function Flasks({ data, m, state, run, left, act, onPour }: RunCardProps) {
  * (watch.ts). When it changes, the flask is drawn in its new colour at once, the words beside it change, and a
  * status line says the change, once, to a screen reader. Nothing else here is a live region: a watch that spoke
  * its figures would speak over the change. Stopping by hand is a button that has focus from the pour, so that a
- * key stops the watch as a finger does. "Stop the watch for me at the change" can be pressed at any time before or
- * after the change, stays pressed for the runs that follow, and is taken back by pressing it again.
+ * key stops the watch as a finger does; the bench takes no press for the first half second after the pour
+ * (ClockBench), so that a second press of the key that poured does not end the run. "Stop the watch for me at the
+ * change" can be pressed before the pour, where it stands beside it, and at any time before or after the change;
+ * it stays pressed for the runs that follow, and is taken back by pressing it again.
  *
  * Once the watch is stopped the card says what it reads and how the run came out, which takes focus, and offers
  * the run again where it did not count. A run whose stored record is poured with no stop, which this page never
@@ -272,10 +298,17 @@ function Watch({ data, m, run, live, startedAt, atChange, onAtChange, reducedMot
   const playing = startedAt !== null && view.stopped === null
   const playRef = useRef(startedAt === null ? null : startPlay(startedAt))
   const [play, setPlay] = useState(playRef.current)
+  // One stop for one watch: a press that lands between the frame that ends a run and the drawing of its end is not a second stop.
+  const sent = useRef(false)
+  const stop = (action: Action) => {
+    if (sent.current) return
+    sent.current = true
+    onStop(action)
+  }
   // What a frame reads when it is drawn: the lab and the learner's choice as they are at that moment.
-  const latest = useRef({ live, atChange, onStop })
+  const latest = useRef({ live, atChange, stop })
   useEffect(() => {
-    latest.current = { live, atChange, onStop }
+    latest.current = { live, atChange, stop }
   })
   const [said, say] = useSaid()
   const stopRef = useRef<HTMLButtonElement>(null)
@@ -293,7 +326,7 @@ function Watch({ data, m, run, live, startedAt, atChange, onAtChange, reducedMot
       setPlay(next)
       const ends = endsItself(next, limit, latest.current.atChange)
       // At its limit the watch stops itself: as a hand would stop it there, unless it was to be stopped at the change.
-      if (ends !== null) return latest.current.onStop(ends === 'change' || latest.current.atChange ? { type: 'stopAtEnd', run } : { type: 'stop', run, ...handStop(next, now, limit) })
+      if (ends !== null) return latest.current.stop(ends === 'change' || latest.current.atChange ? { type: 'stopAtEnd', run } : { type: 'stop', run, ...handStop(next, now, limit) })
       handle = requestAnimationFrame(draw)
     })
     return () => cancelAnimationFrame(handle)
@@ -311,10 +344,16 @@ function Watch({ data, m, run, live, startedAt, atChange, onAtChange, reducedMot
   const look = lookAt(m, live, run, labMs)
   const tenths = watchAt(m, live, run, labMs)
   const stopByHand = () => {
-    if (playRef.current === null) return onStop({ type: 'stop', run, elapsedMs: 0, delayMs: 0 })
+    if (playRef.current === null) return stop({ type: 'stop', run, elapsedMs: 0, delayMs: 0 })
     const now = performance.now()
     const at = frame(playRef.current, now, SPEED[run], limit, (ms) => lookAt(m, live, run, ms) === 'after')
-    onStop({ type: 'stop', run, ...handStop(at, now, limit) })
+    stop({ type: 'stop', run, ...handStop(at, now, limit) })
+  }
+  /** Pressed before the change, it stays pressed and the watch goes on. Pressed once the change has shown, it stops the watch there at once, and stays pressed too: the learner has said how the watch is to be stopped, for this run and the runs after it. */
+  const atChangePressed = () => {
+    if (play?.shown == null && playing) return onAtChange(!atChange)
+    onAtChange(true)
+    stop({ type: 'stopAtEnd', run })
   }
   const again: Action = { type: 'runAgain', run }
   return (
@@ -335,7 +374,7 @@ function Watch({ data, m, run, live, startedAt, atChange, onAtChange, reducedMot
             {watchText(tenths)}
           </p>
           {/* Until the liquid changes the lab's time runs faster than a clock, and the page says so; from the change the watch adds true time, and the line is gone. */}
-          {over ? <p>{watchStatusText(view, tenths, m)}</p> : look === 'before' && <p className="text-muted-foreground">{RUN_TEXT.fast}</p>}
+          {over ? <p>{watchStatusText(view, tenths, m)}</p> : look === 'before' && <p className="text-muted-foreground">{bathOfRun(run) === null ? RUN_TEXT.fast : RUN_TEXT.fastBath}</p>}
           <p className="font-medium">{liquidText(data, look, true)}</p>
           {/* Always there, and empty until the liquid changes, so that a screen reader says the change when it comes. */}
           <p role="status" className="font-semibold">
@@ -375,17 +414,7 @@ function Watch({ data, m, run, live, startedAt, atChange, onAtChange, reducedMot
             <Control ref={stopRef} unavailable={false} variant="default" className="min-h-14 flex-1 basis-40 px-6 text-base font-semibold" onClick={stopByHand}>
               {RUN_TEXT.stop}
             </Control>
-            {/* Pressed, it stays pressed: the watch of this run and of the runs after it stops at the change. Once the change has shown, a press stops the watch there at once. */}
-            <Control unavailable={false} aria-pressed={atChange} variant={atChange ? 'secondary' : 'outline'} className="h-auto min-h-14 flex-1 basis-40 px-4 py-1.5 whitespace-normal" onClick={() => (play?.shown != null || !playing ? onStop({ type: 'stopAtEnd', run }) : onAtChange(!atChange))}>
-              <span>
-                {atChange && (
-                  <span aria-hidden="true" className={ROLE.done}>
-                    ✓{' '}
-                  </span>
-                )}
-                {RUN_TEXT.stopAtChange}
-              </span>
-            </Control>
+            <AtChange pressed={atChange} className="min-h-14 flex-1 basis-40" onPress={atChangePressed} />
           </div>
           <div className="grid max-w-prose gap-1 text-muted-foreground">
             <p>{RUN_TEXT.stopHelp}</p>

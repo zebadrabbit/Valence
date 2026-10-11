@@ -40,7 +40,8 @@ function Glass({ flask, level, fill }: { flask: Flask; level: number; fill: stri
   return (
     <>
       <path d={`${outline(flask)} Z`} fill={CARD} />
-      <path data-liquid="" d={liquid(flask, level)} fill={fill} />
+      {/* The colour changes between one frame and the next. With motion reduced the app gives every transition a length of a hundredth of a millisecond, which still holds a new fill back by a frame: the liquid has no transition at all. */}
+      <path data-liquid="" d={liquid(flask, level)} fill={fill} style={{ transitionProperty: 'none' }} />
       <line x1={flask.cx - half(flask, level) + 1.5} x2={flask.cx + half(flask, level) - 1.5} y1={level} y2={level} {...LINE} strokeWidth={1.2} strokeOpacity={0.55} />
       <path d={outline(flask)} {...LINE} />
     </>

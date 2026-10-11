@@ -260,6 +260,18 @@ describe('a run before the pour', () => {
     expect(html).not.toContain('No starch in flask B')
   })
 
+  it('offers beside the pour, before any watch is started, the choice to have the watch stopped at the change: a button a finger tall that can stay pressed, in a run of part 1 and of part 3', () => {
+    for (const html of [bench(fresh()), bench(fresh('challenge')), bench(fresh(), THREE, 0)]) {
+      const atChange = button(html, RUN_TEXT.stopAtChange)!
+      expect(atChange.tag).toContain('min-h-11')
+      expect(atChange.tag).toContain('aria-pressed="false"')
+      expect(atChange.tag).not.toContain('aria-disabled')
+      expect(html.indexOf(`>${RUN_TEXT.pour}<`)).toBeLessThan(html.indexOf(RUN_TEXT.stopAtChange))
+      // What it does is said under the running watch, where the two ways of stopping stand side by side.
+      expect(html).not.toContain(RUN_TEXT.stopAtChangeHelp)
+    }
+  })
+
   it('has for a run of part 3 the three steps of its bath before the pour, and the pour waits for the thermometer; its mixture, the first again, is behind a disclosure that is closed', () => {
     const html = bench(fresh(), THREE, 0)
     expect(cards(html)).toEqual([RUN_TEXT.flasks])
@@ -315,7 +327,14 @@ describe('the watch and the liquid', () => {
     const view = runView(m, poured, 'mixture-1')
     expect(html).toMatch(new RegExp(`<p role="timer" aria-label="${watchStatusText(view, 0, m)}" class="[^"]*text-5xl[^"]*tabular-nums">${watchText(0)}</p>`))
     expect(html).toContain(RUN_TEXT.fast)
+    expect(html).not.toContain(RUN_TEXT.fastBath)
     expect(html).not.toMatch(/role="timer"[^>]*aria-live/)
+  })
+
+  it('says beside the running watch of a run in a bath that each bath is played at its own pace, where a run of part 1 says that the five mixtures are played at one speed', () => {
+    const inBath = bench(run(m, fresh(), [{ type: 'addIndicator', run: ICE }, { type: 'standInBath', run: ICE }, { type: 'letStand', run: ICE }, { type: 'readThermometer', run: ICE }, { type: 'pour', run: ICE }]), THREE, 0)
+    expect(inBath).toContain(`<p class="text-muted-foreground">${RUN_TEXT.fastBath}</p>`)
+    expect(inBath).not.toContain(RUN_TEXT.fast)
   })
 
   it('has the two ways of stopping the watch side by side, taller than a finger, the second a button that can stay pressed, with what each does under them', () => {
@@ -348,6 +367,10 @@ describe('the watch and the liquid', () => {
   it('draws the two looks in colours that differ, and never leaves a look to its colour', () => {
     const fill = (html: string) => /<path data-liquid="" d="[^"]+" fill="(#[0-9a-f]{6})"/.exec(html)![1]
     expect(fill(bench(poured))).not.toBe(fill(bench(makeRun(m, fresh(), 'mixture-1'))))
+  })
+
+  it('gives the liquid no transition, so that its colour is the new one in the frame that finds it changed, with motion reduced too', () => {
+    for (const html of [bench(fresh()), bench(poured)]) expect(count(html, /<path data-liquid="" d="[^"]+" fill="#[0-9a-f]{6}" style="transition-property:none"/g)).toBe(count(html, /data-liquid/g))
   })
 
   it('says of a run that does not count why, beside a cross, and offers it again with what that does', () => {
@@ -495,6 +518,21 @@ describe("part 2's notebook", () => {
     expect(html).toContain(escaped(sheetOutcomeText(m, 'rate-law', rateLawView(m, state).outcome)))
     expect(closed(html)).toContain(NOTEBOOK_TEXT.notes)
     expect(html).toContain(escaped(rateLawExpectedText(data, rateLawView(m, state).expected!)))
+  })
+
+  it('has no check to press in Guided, which checks at the last entry, but for a notebook filled in Challenge and not checked before the mode was changed: that one is offered its check, in both notebooks', () => {
+    expect(button(bench(entered(4), TWO), NOTEBOOK_TEXT.check)).toBeUndefined()
+    const full = run(m, entered(9, 'challenge'), [{ type: 'setMode', mode: 'guided' }])
+    expect(rateLawView(m, full).outcome.state).toBe('open')
+    const html = bench(full, TWO)
+    expect(button(html, NOTEBOOK_TEXT.check)!.tag).not.toContain('aria-disabled')
+    // Guided says of each entry whether it follows, as it does of entries made in it.
+    expect(count(html, /Follows/g)).toBe(9)
+    const graph = graphOpen('challenge')
+    const sheet = run(m, run(m, graph, entryActions(m, 'temperature', temperatureValues(m, graph))), [{ type: 'setMode', mode: 'guided' }])
+    expect(temperatureView(m, sheet).outcome.state).toBe('open')
+    expect(button(bench(sheet, THREE, NOTEBOOK), NOTEBOOK_TEXT.check)!.tag).not.toContain('aria-disabled')
+    expect(button(bench(graphOpen(), THREE, NOTEBOOK), NOTEBOOK_TEXT.check)).toBeUndefined()
   })
 
   it('offers a notebook that did not count again, with what that does', () => {
@@ -652,6 +690,18 @@ describe('the record', () => {
     expect(record(early)).toContain(`<li>${RECORD_TEXT.timedByHand(tenths(early, 'mixture-3'))}</li>`)
     expect(record(early)).toContain(runReasonText(m, 'stopped-early'))
     expect(record(early)).not.toContain('after the change')
+  })
+
+  it('says of a watch that ran to its limit, with no starch in the flask, that it stopped itself, whichever way of stopping was asked for: no hand stopped it and there was no change', () => {
+    const poured = run(m, fresh('challenge'), [{ type: 'pour', run: 'mixture-4' }])
+    for (const stop of [{ type: 'stop', run: 'mixture-4', elapsedMs: m.watchLimitMs, delayMs: 0 }, { type: 'stopAtEnd', run: 'mixture-4' }] as const) {
+      const html = record(run(m, poured, [stop]))
+      expect(html).toContain(`<li>${RECORD_TEXT.timedOut(m.watchLimitMs / 100)}</li>`)
+      expect(html).toContain(runReasonText(m, 'no-indicator'))
+      expect(html).not.toContain('watch stopped by hand')
+      expect(html).not.toContain('watch stopped at the change')
+    }
+    expect(RECORD_TEXT.timedOut(18000)).toBe('1800.0 s, the watch stopped itself')
   })
 
   it('keeps an attempt that did not count, with why, over the one made after it', () => {

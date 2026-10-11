@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { clockData as data, RUN_IDS, type RunId } from '@/chem-data/clock/data'
+import { BATH_IDS, bathRunId, clockData as data, MIXTURE_IDS, type RunId } from '@/chem-data/clock/data'
 import { can, createLab, lookAt, modelFrom, reduce, runView, type ClockState } from '@/engine/clock'
 import { makeRun } from '@/engine/clock/testkit'
-import { endsItself, firstChanged, frame, handStop, labMsAt, PLAY, SPEED, startPlay, type Play } from './watch'
+import { endsItself, firstChanged, frame, handStop, labMsAt, PLAY, ROOM_SPEED, SPEED, startPlay, tooSoon, type Play } from './watch'
 
 // The playing of a run's time, with no clock: the true time of each frame is a number the test hands in.
 
@@ -52,16 +52,46 @@ describe('the time of the change', () => {
 })
 
 describe('a run that is played', () => {
-  it.each(RUN_IDS)('shows the change of %s between 5 and 12 true seconds after the pour, at every seed from 1 to 100', (runId) => {
+  /** A careful run played to the frame that shows its change: how long that took in true milliseconds, with the play as it then stands. It holds on the way that the watch then reads the time of the change itself, which is the time the engine gives a watch stopped at the change. */
+  const toChange = (seed: number, runId: RunId): { real: number; play: Play } => {
+    const state = poured(seed, runId)
+    const { play: p, now } = play(state, runId, 16, (at) => at.shown !== null)
+    const end = runView(m, reduce(m, state, { type: 'stopAtEnd', run: runId }), runId).stopped!.tenths
+    expect([runId, seed, Math.round(p.labMs / 100)]).toEqual([runId, seed, end])
+    return { real: now - p.startedAt, play: p }
+  }
+
+  it('plays the five mixtures of part 1 at one speed: at every seed from 1 to 100 the slowest changes within 12 true seconds of its pour and the fastest in two to three', () => {
+    expect(MIXTURE_IDS.map((runId) => SPEED[runId])).toEqual(MIXTURE_IDS.map(() => ROOM_SPEED))
     for (let seed = 1; seed <= 100; seed++) {
-      const state = poured(seed, runId)
-      const { play: p, now } = play(state, runId, 16, (at) => at.shown !== null)
-      const real = now - p.startedAt
-      expect([seed, real >= 5000 && real <= 12_000]).toEqual([seed, true])
-      // The watch then reads the time of the change itself: the time the engine gives a watch stopped at the change.
-      const end = runView(m, reduce(m, state, { type: 'stopAtEnd', run: runId }), runId).stopped!.tenths
-      expect([seed, Math.round(p.labMs / 100)]).toEqual([seed, end])
+      const shown = MIXTURE_IDS.map((runId) => toChange(seed, runId))
+      const reals = shown.map((one) => one.real)
+      expect([seed, Math.max(...reals) <= 12_000, Math.min(...reals) >= 2000 - 100 && Math.min(...reals) <= 3000]).toEqual([seed, true, true])
+      // What a run takes on the screen is what it takes on the watch over that one speed, to within a frame: a time twice as long on the watch is twice as long to wait for.
+      for (const { real, play: p } of shown) expect([seed, Math.abs(real - p.labMs / ROOM_SPEED) <= 16]).toEqual([seed, true])
     }
+  })
+
+  it('so shows the mixture with twice the acid, whose time is a quarter, in a quarter of the true time of the first', () => {
+    for (let seed = 1; seed <= 100; seed++) {
+      const ratio = toChange(seed, 'mixture-1').real / toChange(seed, 'mixture-4').real
+      expect([seed, ratio > 3.8 && ratio < 4.2]).toEqual([seed, true])
+    }
+  })
+
+  it.each(BATH_IDS.map(bathRunId))('plays a bath at a speed of its own: the change of %s shows between 5 and 12 true seconds after the pour, at every seed from 1 to 100', (runId) => {
+    for (let seed = 1; seed <= 100; seed++) {
+      const { real } = toChange(seed, runId)
+      expect([seed, real >= 5000 && real <= 12_000]).toEqual([seed, true])
+    }
+  })
+
+  it('takes a press for the pour come twice for the first half second after it, which is before any careful run has changed, and for no press from then', () => {
+    const p = startPlay(1000)
+    expect([0, 1, 250, 499].map((ms) => tooSoon(p, 1000 + ms))).toEqual([true, true, true, true])
+    expect([500, 501, 2000, 60_000].map((ms) => tooSoon(p, 1000 + ms))).toEqual([false, false, false, false])
+    // No run is near its change by then: the tests above hold the fastest of part 1 to 1.9 true seconds or more and every bath to 5.
+    expect(PLAY.deafMs).toBeLessThan(1900 / 3)
   })
 
   it('shows the change of a run mixed before its flasks had stood while the run is still played at its own speed', () => {

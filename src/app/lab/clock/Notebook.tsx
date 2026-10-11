@@ -186,7 +186,12 @@ const enterIn =
     return blocked
   }
 
-/** Under a sheet's entries: that a change empties what is under it, once two are made; and in Challenge the check, which says what is missing until every entry is made. */
+/**
+ * Under a sheet's entries: that a change empties what is under it, once two are made; and in Challenge the check,
+ * which says what is missing until every entry is made. Guided checks a sheet at its last entry and has no check
+ * to press, but for one case: a sheet whose every entry was made in Challenge and not checked, with the mode then
+ * changed. Nothing waits to be entered there, so the check is offered, and the sheet is not left with no way on.
+ */
 function Foot({ data, m, state, sheet, entries, over, act }: Omit<SheetProps, 'shown'> & { sheet: SheetId; entries: readonly EntryView[]; over: boolean }) {
   const [said, say] = useSaid()
   const check: Action = { type: 'check', sheet }
@@ -194,7 +199,7 @@ function Foot({ data, m, state, sheet, entries, over, act }: Omit<SheetProps, 's
   return (
     <>
       {entries.filter((entry) => entry.value !== null).length > 1 && <p className="text-muted-foreground">{NOTEBOOK_TEXT.changeNote}</p>}
-      {state.mode === 'challenge' && (
+      {(state.mode === 'challenge' || can(m, state, check) === null) && (
         <>
           <Control
             unavailable={can(m, state, check) !== null}
