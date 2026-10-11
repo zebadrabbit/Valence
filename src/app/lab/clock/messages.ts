@@ -1,4 +1,5 @@
 import { bathOfRun, mixtureOfRun, PART_IDS, reagentOf, type ClockData, type PartId, type RunId } from '@/chem-data/clock/data'
+import { CONCENTRATION_UNIT, listed, lower, minus, RATE_UNIT, secondsText, temperatureText, UNIT_LABEL, volumeText, watchText } from '../kineticsText'
 import { formatFigures, kindOf, reactantIdOf, type Blocked, type ClockModel, type Field, type FieldKind, type Look, type Mode, type Place, type RateLawView, type RunOutcome, type RunReason, type RunView, type SheetId, type SheetOutcome, type SheetReason, type Sig3, type Slip, type TemperatureView, type TimeRow, type Value, type Verdict, type Warning } from '@/engine/clock'
 
 // Every sentence the clock reaction lab says that is chemistry, keyed by the engine's identifiers, so that an
@@ -13,38 +14,22 @@ import { formatFigures, kindOf, reactantIdOf, type Blocked, type ClockModel, typ
 // the engine knows one, and never the value it should have been. No label, hint or refusal gives an order of this
 // reaction: Challenge reads them before the entries are made.
 
-const listed = (items: readonly string[]) => (items.length <= 1 ? (items[0] ?? '') : `${items.slice(0, -1).join(', ')} and ${items.at(-1)}`)
-const lower = (text: string) => `${text[0]!.toLowerCase()}${text.slice(1)}`
-/** A number with a true minus sign in front of it where it is negative. */
-const minus = (text: string) => text.replace(/^-/, '−')
-
 // ---------------------------------------------------------------------------
 // Figures as they are written
 
-/** A temperature as a thermometer shows it: "21.6 °C". */
-export const temperatureText = (tenths: number) => `${minus((tenths / 10).toFixed(1))} °C`
+// A temperature, a time in seconds and on the watch's face, a volume and the units of a rate and of a rate constant
+// are written as the iodination of acetone lab writes them too: one module holds them (../kineticsText.ts), and
+// they are handed on here under the names this lab's page uses.
+export { CONCENTRATION_UNIT, RATE_UNIT, secondsText, temperatureText, UNIT_LABEL, volumeText, watchText }
+
 /** A temperature in kelvin, kept as the sum comes: "294.75 K". */
 export const kelvinText = (centiKelvin: number) => `${(centiKelvin / 100).toFixed(2)} K`
-/** A time as the table of times holds it, in seconds: "124.4 s". */
-export const secondsText = (tenths: number) => `${(tenths / 10).toFixed(1)} s`
-/** A time as the face of the watch shows it, in minutes and seconds: "2:04.4". */
-export function watchText(tenths: number): string {
-  const [minutes, rest] = [Math.floor(tenths / 600), tenths % 600]
-  return `${minutes}:${(rest / 10).toFixed(1).padStart(4, '0')}`
-}
-/** A measured volume: "10.0 mL". */
-export const volumeText = (millilitres: number) => `${millilitres.toFixed(1)} mL`
 /** A typed number of three figures as it is read: "50.3", "−6010", "3.22 × 10⁻⁷". */
 export const figuresText = (value: Sig3) => minus(formatFigures(value))
 /** One over a temperature in kelvin, to four significant figures: "0.003393". */
 export const inverseText = (xMicro: number) => (xMicro / 1e6).toFixed(6)
 /** A natural logarithm to three decimal places: "3.735". */
 export const logText = (yMilli: number) => minus((yMilli / 1000).toFixed(3))
-
-/** The units of a rate constant a learner chooses among, by the power of mol/L in each. */
-export const UNIT_LABEL: Record<number, string> = { 0: '1/s', [-1]: 'L/(mol·s)', [-2]: 'L²/(mol²·s)', [-3]: 'L³/(mol³·s)', [-4]: 'L⁴/(mol⁴·s)' }
-export const RATE_UNIT = 'mol/(L·s)'
-export const CONCENTRATION_UNIT = 'mol/L'
 
 // ---------------------------------------------------------------------------
 // The lab, its parts and its bench

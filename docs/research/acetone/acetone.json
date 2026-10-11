@@ -161,7 +161,7 @@
       }
     ],
     "note": {
-      "value": "One university's laboratory page says that the rate at which acetone takes up a halogen has been found not to depend on how much halogen there is, except in very strong acid, and that the same rate is found for chlorine, bromine and iodine; it gives a mechanism from which the rate is first order in acetone and first order in acid. A second university's guide gives the orders as one, one and nought, and a college's handout calls the reaction zero order in iodine. The lab stores those three orders. Its mixtures are 0.2 to 0.4 mol/L in acid, which is not very strong acid; where the line lies was not read.",
+      "value": "One university's laboratory page says that the rate at which acetone takes up a halogen has been found not to depend on how much halogen there is, except in very strong acid, and that the same rate is found for chlorine, bromine and iodine; it gives a mechanism from which the rate comes out of the first order in acetone, and of the first order in acid. A second university's guide gives the orders as one, one and nought, and a college's handout calls the reaction zero order in iodine. The lab stores those three orders. Its mixtures are 0.2 to 0.4 mol/L in acid, which is not very strong acid; where the line lies was not read.",
       "sourceId": "tau-kinetics-iodination",
       "alsoSourceId": "uv-iodine-acetone-kinetics",
       "moreSourceIds": [

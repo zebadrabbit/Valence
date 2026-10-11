@@ -15,7 +15,7 @@
             "reagents[iodine-0.005m]"
           ],
           "prints": "Table 1. Reactant Volumes and Reaction Times",
-          "where": "The heading of its first table, whose columns name the three bottles with their strengths: 4.0 M acetone, 1.0 M HCl and 0.0050 M iodine, with water as the fourth liquid. They are the bottles of the lab's specification. The handout does not say what the iodine is dissolved in. Read as the text taken out of the PDF."
+          "where": "The heading of its first table, whose columns name the three bottles with their strengths: acetone at 4.0 M, hydrochloric acid at 1.0 M and iodine at 0.0050 M, with water as the fourth liquid. They are the bottles of the lab's specification. The handout does not say what the iodine is dissolved in. Read as the text taken out of the PDF."
         },
         {
           "fields": [
@@ -80,7 +80,7 @@
             "primer"
           ],
           "prints": "Part A: Reactant Order Determination",
-          "where": "A heading of its report pages. Under it and in the text before: a rate law has each concentration raised to a power that is its order; the concentration of each solution in a mixture is found by the dilution relation; an order is found from two mixtures that differ in one solution, by the ratio of their rates, worked out to two decimal places and then rounded to a whole number; and the rate constant is worked out for every mixture and should come out about the same."
+          "where": "A heading of its report pages. Under it and in the text before: a rate law has each concentration raised to a power that is its order; the concentration of each solution in a mixture is found by the dilution relation; an order is found from two mixtures that differ in one solution, by the ratio of their rates, worked out with two figures after the point and rounded after that to a whole number; and the rate constant is worked out for every mixture and should come out about the same."
         }
       ]
     },
@@ -201,7 +201,7 @@
             "primer"
           ],
           "prints": "Orders of reaction",
-          "where": "A heading of the page. Under it: orders are found by doing experiments and cannot be read off the equation; a rate that doubles when a concentration doubles is first order in it, and one that goes up four times is second order; an order of zero means that the concentration does not change the rate, and its term drops out of the rate equation; and the overall order is the sum. The part before it takes the rate as how fast the concentration of a reactant falls, in moles for each litre and second; the part after says that the rate constant is constant only while nothing but the concentrations is changed. Read for this lab in the copy fetched on the retrieval date for the clock reaction lab: the file whose sha256 is given."
+          "where": "A heading of the page. Under it: orders are found by doing experiments and cannot be read off the equation; a rate that doubles when a concentration doubles is first order in it, and one that goes up four times is second order; an order of zero means that the concentration does not change the rate, and its term drops out of the rate equation; and the orders are added up for the order of the whole reaction. The part before it takes the rate as how fast the concentration of a reactant falls, in moles for each litre and second; the part after says that the rate constant is constant only while nothing but the concentrations is changed. Read for this lab in the copy fetched on the retrieval date for the clock reaction lab: the file whose sha256 is given."
         }
       ]
     },
@@ -234,7 +234,7 @@
             "primer"
           ],
           "prints": "A commonly quoted example of the use of colorimetry",
-          "where": "The start of a sentence in its part on following a reaction by its colour, which names the reaction of propanone with iodine and an acid catalyst. The sentence after has the solution fade, through yellow, to colourless as the iodine is used up; it begins from brown, for a stronger solution of iodine than this bench's. The part says that any reaction with a coloured substance in it can be followed by its colour. Read for this lab in the copy fetched on the retrieval date for the clock reaction lab: the file whose sha256 is given."
+          "where": "The start of a sentence in its part on following a reaction by its colour, which names the reaction of propanone with iodine and an acid catalyst. The sentence after has the solution fade, by way of yellow, until it has no colour, the iodine being used up; it begins from brown, for a stronger solution of iodine than this bench's. The part says that any reaction with a coloured substance in it can be followed by its colour. Read for this lab in the copy fetched on the retrieval date for the clock reaction lab: the file whose sha256 is given."
         }
       ]
     },
