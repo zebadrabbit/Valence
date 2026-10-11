@@ -139,4 +139,22 @@ The lab runs on the kinetics engine that the clock reaction lab runs on (`src/en
 
 ## What nobody checked
 
-No chemist has read the record, the notes, the primer or the page's sentences. The two figures of the rate record that were read from page images were read by the builder alone. No screen has been built: the engine, the record and the wording were tested by scripts alone.
+No chemist has read the record, the notes, the primer or the page's sentences. The two figures of the rate record that were read from page images were read by the builder alone. The screens, which the next section is about, were checked by script by the assistant that built them and by nobody else: no person has run the lab, no screen reader was used, one browser was tried and no real device, and the lab has not been reviewed.
+
+## The screens
+
+Built on 2026-10-11 (spec section 20.6, which says what the page shares with the clock reaction lab's and where it is other than 20.2 and 20.3 have it). They changed no engine file, no stored value and no model parameter. What they added to the lab's own rules, which the engine does not have:
+
+- **The page plays the time** (`src/app/lab/acetone/watch.ts`, on the shared `src/app/lab/kinetics/play.ts`). The four mixtures are played at one speed, 56 seconds of the lab's time to a true second, chosen so that the slowest fade, the fourth mixture's 785 s at the most, is watched for about 14 true seconds. Over seeds 1 to 100, by a script run once and not kept: the first mixture has faded 4.29 to 6.94 true seconds after its pour, the second 2.16 to 3.50, the third 2.14 to 3.50 and the fourth 8.55 to 13.89. A test holds the slowest within 14 and the fastest at 2 or more, the fourth in twice the first's true time, and the second and third in half of it. From the frame that shows the end the watch adds true time, so that what it reads when a hand stops it is the time the engine records.
+- **The pour is handed to the engine together with the stop.** A run that is left with its watch running has nothing stored and is poured again; its attempt, and so its time, is the same one.
+- **For the first half second after a pour the bench takes no press,** as in the clock reaction lab. No run ends within three times that.
+- **The delay that is handed in is the page's measure,** from the frame that drew the end to the press, by the browser's own clock. What a device adds before a frame is seen and before a press is handed over is in it and was measured on no device.
+- **A watch left running after the end** adds true time until it reads 30 minutes, and then stops itself; the run does not count, for a watch stopped late.
+- **The colours on the screen are the drawing's own** (`src/app/lab/acetone/FlaskDrawing.tsx`): water, and the mixture with no iodine left, #e8edf2; the mixture, a straight line in the three colour channels from #d9a000 at 2000 micromoles for a litre, which the fourth mixture starts with, to #f2e596 at the least there can be. Any amount above nought is drawn in a yellow and nought in the water's colour, which is the step that item 7 of the list above and the primer's card speak of. The faintest yellow and the water differ by 43.6 in CIELAB (the 1976 colour difference) and stand at 1.09 to 1 as a ratio of luminances, measured from pictures of the screen in both themes: they are told apart by hue. Whether a real eye tells them apart on a real screen was not tried.
+- **Nothing is animated,** where the clock reaction lab marks the edge of its picture at the change.
+
+Three sentences were added to the page's wording and one was changed, each with a test: what a run that was left says; how the record lists a run stopped by hand with its delay; how it lists a watch that stopped itself; and the line beside a running watch, which now says that the four mixtures are played at one speed. Both quotation tests were run on 2026-10-11 against the fingerprint of the 27 documents, and passed with none skipped.
+
+One thing was put right in the notebook the two labs share: the relation of a chosen entry stood so close under its form's Enter that, open, its hit area lay over the lowest 6 px of the button. It is in a commit of its own.
+
+What the builder ran in headless Chromium, and what nobody has: `docs/for-institutions.md`, under this lab's name.
