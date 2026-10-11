@@ -9,6 +9,8 @@ describe('the activities', () => {
       ['lab:aqueous', '/lab/aqueous'],
       ['lab:flame', '/lab/flame'],
       ['lab:calorimetry', '/lab/calorimetry'],
+      ['lab:cations', '/lab/cations'],
+      ['lab:le-chatelier', '/lab/le-chatelier'],
       ['mechanism:hcl-nahco3', '/learn/hcl-nahco3'],
     ])
     expect(ACTIVITIES.every(hasPage)).toBe(true)

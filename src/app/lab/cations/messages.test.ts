@@ -228,6 +228,13 @@ describe('the parts, the bench and the steps', () => {
       expect(HINT[id], id).not.toMatch(COLOURS)
       expect(`${STEP_TASK[id]} ${HINT[id]}`, id).not.toMatch(/a solid forms|will form|will dissolve|dissolves|turns/)
     }
+    // The centrifuge is beside the tube, and what ends a step is under its cards, a window further down in part 1. So the task has the centrifuge before the record: a learner who follows it goes down the page once, and makes no slip.
+    for (const id of ['precipitate', 'extract-lead', 'separate'] as const) {
+      const at = (word: string) => STEP_TASK[id].indexOf(word)
+      expect(at('centrifuge'), id).toBeGreaterThan(0)
+      expect(at('Record what you see'), id).toBeGreaterThan(at('centrifuge'))
+      expect(at('pour'), id).toBeGreaterThan(at('Record what you see'))
+    }
     expect(PART_AIM.known).not.toMatch(COLOURS)
     expect(PART_AIM.unknown).toContain('one, two or all three')
   })
@@ -258,7 +265,7 @@ describe('the observation', () => {
 
 describe('refusals and warnings', () => {
   const BLOCKED: Blocked[] = [
-    'unknown-part', 'run-over', 'steps-done', 'steps-not-done', 'not-this-part', 'not-this-step', 'step-checked', 'already-added', 'tube-full', 'add-first', 'already-heated', 'nothing-to-spin', 'look-first', 'observe-first', 'check-first', 'invalid-entry',
+    'unknown-part', 'run-over', 'steps-done', 'steps-not-done', 'not-this-part', 'not-this-step', 'step-checked', 'already-added', 'tube-full', 'add-first', 'already-heated', 'nothing-to-spin', 'look-first', 'observe-first', 'check-first', 'invalid-entry', 'nothing-named',
     'no-such-place', 'no-such-tile', 'already-placed', 'not-placed', 'places-empty', 'nothing-to-repeat', 'no-more-runs', 'run-too-long', 'does-not-match', 'wrong-place', 'chart-not-right',
   ]
 
@@ -335,7 +342,7 @@ describe('how a run came out', () => {
     const known = partView(m, wholeRun(m, createLab(1, 'guided'), 'known'), 'known')
     expect(outcomeText(data, 'known', known.outcome, known.holds)).toBe('This run counts: the technique was right, each observation is what its tube showed, and every place of the flow chart holds what belongs in it.')
     expect(holdsText(data, ION_IDS)).toBe('The sample held silver, lead and mercury(I) ions: all three.')
-    expect([namedText(data, []), namedText(data, ['silver', 'mercury-i'])]).toEqual(['You named none of the three ions.', 'You named silver and mercury(I).'])
+    expect([namedText(data, ['lead']), namedText(data, ['silver', 'mercury-i'])]).toEqual(['You named lead.', 'You named silver and mercury(I).'])
   })
 
   it('says how far a part has come', () => {
@@ -346,7 +353,7 @@ describe('how a run came out', () => {
     expect(progress(state, 'unknown')).toBe('Steps under way')
     for (let at = 0; at < 5; at++) state = workStep(m, at === 0 ? createLab(1, 'challenge') : state, 'unknown')
     expect(progress(state, 'unknown')).toBe('Ions to be named')
-    expect(progress(run(m, state, [{ type: 'nameIons', part: 'unknown', ions: [] }]), 'unknown')).toBe('Run did not count')
+    expect(progress(run(m, state, [{ type: 'nameIons', part: 'unknown', ions: ['silver'] }]), 'unknown')).toBe('Run did not count')
     expect(progress(run(m, state, [{ type: 'nameIons', part: 'unknown', ions: ['lead'] }]), 'unknown')).toBe('Done')
     expect(Object.keys(STEP_STATUS_TEXT)).toEqual(['waiting', 'current', 'done'])
   })
@@ -370,9 +377,20 @@ describe('the flow chart, the naming and the notes', () => {
     expect(CHART_TEXT.remove('Lead ion')).toBe('Take out Lead ion')
   })
 
+  it('says how a tile is put in a place, either one first, and nothing of which tile goes where', () => {
+    expect(CHART_TEXT.how).toBe('Tap a tile, then the place it belongs in; or tap the place first, then each tile.')
+    expect(CHART_TEXT.how).not.toMatch(/chlor|chromat|silver|lead|mercury|ammon|solid|liquid/i)
+    expect(CHART_TEXT.how).not.toMatch(COLOURS)
+  })
+
   it('names the three ions for the tick boxes, and says that the naming is said once', () => {
     expect(ION_IDS.map((ion) => ionLabel(data, ion))).toEqual(['Silver, Ag⁺', 'Lead, Pb²⁺', 'Mercury(I), Hg₂²⁺'])
     expect(NAMING_TEXT.help).toContain('Any of the three may be ticked. This is said once for each run.')
+    // A naming with no box ticked is refused by the engine and asked again: what is said is true of every sample, and of none in particular.
+    const none = blockedText(data, 'unknown', 'nothing-named')
+    expect(none).toBe('Tick at least one ion: every sample holds one or more of the three.')
+    expect(PART_AIM.unknown).toContain('one, two or all three')
+    expect(none).not.toMatch(/silver|lead|mercury/i)
   })
 
   it("hands over a step's notes and equations as the record has them", () => {
@@ -382,6 +400,12 @@ describe('the flow chart, the naming and the notes', () => {
       expect(stepEquations(data, id)).toEqual(step.equations.map((equation) => equation.value))
     }
     expect(NOTES_TEXT.whichever).toContain('may or may not hold')
+  })
+
+  it('has a word for each layer the picture marks, a liquid that a solid is spread through among them, and says of a step that is done which tube its picture is of', () => {
+    expect([PAGE_TEXT.liquidLayer, PAGE_TEXT.solidLayer, PAGE_TEXT.spreadLayer]).toEqual(['liquid', 'solid', 'solid in the liquid'])
+    expect(PAGE_TEXT.asChecked).toBe('The tube is drawn as it was when this step was checked.')
+    for (const said of [PAGE_TEXT.spreadLayer, PAGE_TEXT.asChecked, PAGE_TEXT.explore]) expect(said).not.toMatch(COLOURS)
   })
 
   it('names the way to run a part again for each part, and says where the notes will be', () => {
@@ -426,7 +450,7 @@ describe('every sentence of the page', () => {
   const [fingerprint] = Object.values(import.meta.glob<{ hashes: string }>('../../../../docs/research/cations/sources/quotation-fingerprint.json', { eager: true, import: 'default' }))
   it.skipIf(fingerprint === undefined)('repeats no run of six words of a page the lab rests on (skipped where the fingerprint is absent)', () => {
     const pages = lib!.unpackHashes(fingerprint!.hashes)
-    const BLOCKED_ALL = ['run-over', 'steps-done', 'steps-not-done', 'not-this-part', 'not-this-step', 'step-checked', 'already-added', 'tube-full', 'add-first', 'already-heated', 'nothing-to-spin', 'look-first', 'observe-first', 'check-first', 'does-not-match', 'wrong-place', 'chart-not-right', 'places-empty'] as const
+    const BLOCKED_ALL = ['run-over', 'steps-done', 'steps-not-done', 'not-this-part', 'not-this-step', 'step-checked', 'already-added', 'tube-full', 'add-first', 'already-heated', 'nothing-to-spin', 'look-first', 'observe-first', 'check-first', 'does-not-match', 'wrong-place', 'chart-not-right', 'places-empty', 'nothing-named'] as const
     const more = [...BLOCKED_ALL.map((blocked) => blockedText(data, 'unknown', blocked, 'separate')), ...(['poured-uncentrifuged', 'water-not-heated', 'judged-before-acid', 'observation-wrong'] as const).map((kind) => reasonText({ kind, step: 'separate' })), holdsText(data, ['lead'])]
     for (const text of [...sentences(), ...more]) expect(lib!.quotedRuns(text, pages), text).toEqual([])
   })

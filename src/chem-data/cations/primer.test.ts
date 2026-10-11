@@ -234,7 +234,8 @@ describe('the cations primer: what it has to say', () => {
 
   it('says how the flow chart is filled in part 1 and used in part 2', () => {
     expect(shown('chart')).toContain('In this lab the chart is filled in part 1, a step at a time, from a set of tiles.')
-    expect(shown('chart')).toContain('In part 2 the finished chart is beside you as a map.')
+    // Where the page has it: under each step of part 2, closed, and only once part 1 is done.
+    expect(shown('chart')).toContain('Once part 1 is done, part 2 has the finished chart under each step, as a map to open.')
   })
 })
 

@@ -5,6 +5,7 @@ import { createLab, modelFrom, systemView, type Blocked, type LechatelierState, 
 import { run, wholeSystem, workDisturbance } from '@/engine/lechatelier/testkit'
 import {
   ANSWER_TEXT,
+  BATH_LABEL,
   CAUSE_LABEL,
   DISTURBANCE_STATUS_TEXT,
   EQUILIBRIUM_TEXT,
@@ -23,6 +24,7 @@ import {
   SYSTEM_AIM,
   TEMPERATURE_TEXT,
   TUBE_NAME,
+  WAY_CHOICES,
   WAY_LABEL,
   actionLabel,
   answerLabel,
@@ -47,11 +49,11 @@ import {
   reasonText,
   systemName,
   systemNumber,
+  systemShortName,
   taskText,
   tubeSoFarText,
   tubeStartText,
   tubeText,
-  wayChoices,
 } from './messages'
 
 const data = lechatelierData
@@ -89,9 +91,9 @@ function workDisturbanceFrom(state: LechatelierState, systemId: SystemId): Lecha
 }
 
 describe('the description in words of every tube (spec 18.7, last item)', () => {
-  it('covers every tube the lab can show: thirty-nine of them, of eleven kinds', () => {
+  it('covers every tube the lab can show: thirty-eight of them, of ten kinds', () => {
     expect(tubes.length).toBe(DISTURBANCE_IDS.length + data.systems.flatMap((s) => s.disturbances.flatMap((d) => d.stages)).length)
-    expect(tubes.length).toBe(39)
+    expect(tubes.length).toBe(38)
     const kinds = new Set(tubes.map((t) => `${t.shows.liquid!.colour}/${t.shows.solid?.colour ?? 'none'}/${t.temperature}`))
     expect([...kinds].sort()).toEqual([
       'between blue and yellow/none/room',
@@ -102,7 +104,6 @@ describe('the description in words of every tube (spec 18.7, last item)', () => 
       'colourless/white/cold',
       'colourless/white/room',
       'pink/none/cold',
-      'pink/none/room',
       'violet/none/room',
       'yellow/none/room',
     ].sort())
@@ -122,12 +123,19 @@ describe('the description in words of every tube (spec 18.7, last item)', () => 
     expect(said('indicator-acid', 1)).toBe('The tube holds a liquid that is clear, and between blue and yellow in colour. There is no solid in it. The tube stands in the rack, at room temperature.')
     expect(said('indicator-acid', 2)).toBe('The tube holds a liquid that is clear and yellow. There is no solid in it. The tube stands in the rack, at room temperature.')
     expect(said('cobalt-water', 0)).toBe('The tube holds a liquid that is clear and blue. There is no solid in it. The tube stands in the rack, at room temperature.')
-    expect(said('cobalt-water', 2)).toBe('The tube holds a liquid that is clear and pink. There is no solid in it. The tube stands in the rack, at room temperature.')
+    expect(said('cobalt-water', 1)).toBe('The tube holds a liquid that is clear and violet. There is no solid in it. The tube stands in the rack, at room temperature.')
+    expect(said('cobalt-heat', 0)).toBe(said('cobalt-water', 1))
     expect(said('cobalt-heat', 1)).toBe('The tube holds a liquid that is clear and blue. There is no solid in it. The tube stands in the bath of boiling water.')
     expect(said('cobalt-cool', 1)).toBe('The tube holds a liquid that is clear and pink. There is no solid in it. The tube stands in the bath of ice water.')
     expect(said('magnesium-ammonia', 1)).toBe(said('lead-acid', 2))
     expect(said('zinc-ammonia', 1)).toBe(said('lead-acid', 0))
     expect(tubeText(null)).toBe('The tube is not in use yet.')
+  })
+
+  it("names the bath in the picture by the words of the sentence that says where the tube stands, and has no word for a tube in the rack", () => {
+    expect(Object.keys(BATH_LABEL)).toEqual(['hot', 'cold'])
+    for (const temperature of ['hot', 'cold'] as const) expect(TEMPERATURE_TEXT[temperature]).toBe(`The tube stands in the bath of ${BATH_LABEL[temperature]}.`)
+    expect(BATH_LABEL.hot).not.toBe(BATH_LABEL.cold)
   })
 
   it('names the colour of the liquid and of the solid wherever there is one, and never says what anything is', () => {
@@ -164,6 +172,12 @@ describe('the description in words of every tube (spec 18.7, last item)', () => 
 })
 
 describe('the lab, its systems and their benches', () => {
+  it("has a short name for each system, for the button that chooses it: what stands after the colon of the record's name", () => {
+    expect(SYSTEM_IDS.map((id) => systemShortName(data, id))).toEqual(['Lead chloride', 'Methyl violet', 'Cobalt', 'Zinc and magnesium'])
+    // Every name of the record has the one colon the short name is cut at.
+    for (const id of SYSTEM_IDS) expect(systemName(data, id).split(': ')).toHaveLength(2)
+  })
+
   it('names the lab and its four systems, and says what each is without a word of what a tube shows', () => {
     expect(LAB_TEXT.title).toBe("Le Chatelier's principle")
     expect(SYSTEM_IDS.map((id) => `${systemNumber(id)}. ${systemName(data, id)}`)).toEqual(['System 1. A solid and its ions: lead chloride', 'System 2. An indicator: methyl violet', 'System 3. A complex ion: cobalt', 'System 4. Two hydroxides: zinc and magnesium'])
@@ -174,7 +188,7 @@ describe('the lab, its systems and their benches', () => {
   it('says what is on the bench of each system: its tubes to begin with, the bottles it adds from, and the baths where it uses them', () => {
     expect(benchLines(data, 'lead-chloride')).toEqual(['The tube: 30 drops (1.5 mL) of lead(II) nitrate solution, 0.3 M.', 'To add, each from a dropper bottle: hydrochloric acid, 0.3 M.', 'Distilled water.', 'A bath of boiling water and a bath of ice water.'])
     expect(benchLines(data, 'methyl-violet')).toEqual(['The tube: 20 drops (1 mL) of distilled water and 2 drops of methyl violet indicator solution.', 'To add, each from a dropper bottle: hydrochloric acid, 6 M; sodium hydroxide solution, 6 M.'])
-    expect(benchLines(data, 'cobalt')).toEqual(['The tube: about 0.1 g of cobalt(II) chloride hexahydrate, solid, dissolved in 40 drops (2 mL) of hydrochloric acid, 12 M.', 'Distilled water.', 'A bath of boiling water and a bath of ice water.'])
+    expect(benchLines(data, 'cobalt')).toEqual(['The tube: about 0.1 g of cobalt(II) chloride hexahydrate, solid, dissolved in 30 drops (1.5 mL) of hydrochloric acid, 12 M.', 'Distilled water.', 'A bath of boiling water and a bath of ice water.'])
     expect(benchLines(data, 'hydroxides')).toEqual([
       'Zinc, first tube: 60 drops (3 mL) of zinc nitrate solution, 0.1 M.',
       'Magnesium, first tube: 60 drops (3 mL) of magnesium nitrate solution, 0.1 M.',
@@ -195,7 +209,7 @@ describe('the lab, its systems and their benches', () => {
     expect(tubeSoFarText(data, 'lead-acid')).toBe('This tube holds 30 drops (1.5 mL) of lead(II) nitrate solution, 0.3 M.')
     expect(tubeSoFarText(data, 'lead-water')).toBe('This tube began with 30 drops (1.5 mL) of lead(II) nitrate solution, 0.3 M. Then 6 drops of hydrochloric acid, 0.3 M, went in. Then it stood in the bath of boiling water. Then it stood in the bath of ice water.')
     expect(tubeSoFarText(data, 'indicator-base')).toBe('This tube began with 20 drops (1 mL) of distilled water and 2 drops of methyl violet indicator solution. Then 6 drops of hydrochloric acid, 6 M, went in.')
-    expect(tubeSoFarText(data, 'cobalt-heat')).toBe('This tube began with about 0.1 g of cobalt(II) chloride hexahydrate, solid, dissolved in 40 drops (2 mL) of hydrochloric acid, 12 M. Then 80 drops (4 mL) of distilled water went in.')
+    expect(tubeSoFarText(data, 'cobalt-heat')).toBe('This tube began with about 0.1 g of cobalt(II) chloride hexahydrate, solid, dissolved in 30 drops (1.5 mL) of hydrochloric acid, 12 M. Then 20 drops (1 mL) of distilled water went in.')
     // A share begins with what it was shared from, whose own drop of sodium hydroxide is said at the tube it went into.
     expect(tubeSoFarText(data, 'zinc-base')).toBe('This tube holds 10 drops (0.5 mL) of the stirred mixture from the first zinc tube.')
     for (const id of DISTURBANCE_IDS) expect(tubeSoFarText(data, id).replace(/methyl violet/gi, ''), id).not.toMatch(SEEN)
@@ -208,9 +222,16 @@ describe('the lab, its systems and their benches', () => {
 
 describe('a disturbance', () => {
   it('is headed by its equilibrium as written, with what stands on each side and the colour that tells it', () => {
-    expect(equilibriumLines(data, 'lead-heat')).toEqual({ equation: 'Pb²⁺(aq) + 2Cl⁻(aq) ⇌ PbCl₂(s)', left: 'Left side: lead ions and chloride ions, dissolved.', right: 'Right side: solid lead chloride, which is white.' })
-    expect(equilibriumLines(data, 'indicator-acid')).toEqual({ equation: 'HMV(aq) ⇌ H⁺(aq) + MV⁻(aq)', left: 'Left side: the yellow form of methyl violet, which holds a hydrogen ion.', right: 'Right side: a hydrogen ion, and the violet form of methyl violet.' })
-    expect(equilibriumLines(data, 'cobalt-cool').left).toBe('Left side: the pink ion of cobalt with water, and chloride ions.')
+    expect(equilibriumLines(data, 'lead-heat')).toEqual({ equation: 'Pb²⁺(aq) + 2Cl⁻(aq) ⇌ PbCl₂(s)', left: 'Left side: lead ions and chloride ions, dissolved.', right: 'Right side: solid lead chloride, which is white.', between: null })
+    expect(equilibriumLines(data, 'indicator-acid')).toEqual({ equation: 'HMV(aq) ⇌ H⁺(aq) + MV⁻(aq)', left: 'Left side: the yellow form of methyl violet, which holds a hydrogen ion.', right: 'Right side: a hydrogen ion, and the violet form of methyl violet.', between: null })
+    // Cobalt's card says a third thing, which the first disturbance is read by: what a liquid that holds both ions looks like.
+    expect(equilibriumLines(data, 'cobalt-water')).toEqual({
+      equation: '[Co(H₂O)₆]²⁺(aq) + 4Cl⁻(aq) ⇌ [CoCl₄]²⁻(aq) + 6H₂O(l)',
+      left: 'Left side: the pink ion of cobalt with water, and chloride ions.',
+      right: 'Right side: the blue ion of cobalt with chloride, and water.',
+      between: 'A liquid that holds both is violet.',
+    })
+    expect(equilibriumLines(data, 'cobalt-cool')).toEqual(equilibriumLines(data, 'cobalt-water'))
     expect(equilibriumLines(data, 'magnesium-base').equation).toBe('Mg²⁺(aq) + 2OH⁻(aq) ⇌ Mg(OH)₂(s)')
     // The card is the same at every disturbance of an equilibrium: it gives no answer away.
     expect(equilibriumLines(data, 'lead-acid')).toEqual(equilibriumLines(data, 'lead-water'))
@@ -226,7 +247,7 @@ describe('a disturbance', () => {
     expect(taskText(data, 'lead-cool')).toBe('Stand the tube in the bath of ice water.')
     expect(taskText(data, 'lead-water')).toBe('Add 60 drops (3 mL) of distilled water to the tube.')
     expect(taskText(data, 'indicator-base')).toBe('Add sodium hydroxide solution, 6 M, to the tube: 3 drops at a time, twice. Look at the tube after each portion.')
-    expect(taskText(data, 'cobalt-water')).toBe('Add distilled water to the tube: 40 drops (2 mL) at a time, twice. Look at the tube after each portion.')
+    expect(taskText(data, 'cobalt-water')).toBe('Add 20 drops (1 mL) of distilled water to the tube.')
     expect(taskText(data, 'zinc-drop')).toBe('Add 1 drop of sodium hydroxide solution, 6 M, to the tube.')
     expect(taskText(data, 'zinc-ammonia')).toBe('Add 80 drops (4 mL) of ammonia solution, 6 M, to the tube.')
     for (const id of DISTURBANCE_IDS) for (const text of [taskText(data, id), disturbanceTitle(data, id)]) expect(text.replace(/methyl violet/gi, ''), id).not.toMatch(SEEN)
@@ -240,7 +261,7 @@ describe('a disturbance', () => {
       'Add 60 drops (3 mL) of distilled water',
       'Add 3 drops of hydrochloric acid, 6 M',
       'Add 3 drops of sodium hydroxide solution, 6 M',
-      'Add 40 drops (2 mL) of distilled water',
+      'Add 20 drops (1 mL) of distilled water',
       'Heat the tube in boiling water',
       'Cool the tube in ice water',
       ...['zinc', 'magnesium'].flatMap(() => ['Add 1 drop of sodium hydroxide solution, 6 M', 'Add 1 drop of hydrochloric acid, 6 M', 'Add 20 drops (1 mL) of sodium hydroxide solution, 6 M', 'Add 80 drops (4 mL) of ammonia solution, 6 M']),
@@ -275,13 +296,14 @@ describe('a disturbance', () => {
 })
 
 describe('the prediction', () => {
-  it('is asked before the change, with the three ways and what stands on each side, and says that it is not marked', () => {
-    expect(wayChoices(data, 'lead-acid')).toEqual([
-      { value: 'left', label: 'Toward the left side: lead ions and chloride ions, dissolved' },
-      { value: 'right', label: 'Toward the right side: solid lead chloride, which is white' },
+  it('is asked before the change, with the three ways, each named by the way alone, and says that it is not marked', () => {
+    // What stands on each side is said once, in the card of the equilibrium, which stands over the form: a choice does not say it again.
+    expect(WAY_CHOICES).toEqual([
+      { value: 'left', label: 'Toward the left side' },
+      { value: 'right', label: 'Toward the right side' },
       { value: 'none', label: 'Not at all' },
     ])
-    for (const id of DISTURBANCE_IDS) expect(wayChoices(data, id).map((c) => c.value)).toEqual([...WAYS])
+    for (const id of DISTURBANCE_IDS) for (const side of [equilibriumLines(data, id).left, equilibriumLines(data, id).right]) expect(side).toMatch(/^(Left|Right) side: .+\.$/)
     expect(PREDICTION_TEXT.help).toMatch(/not marked/)
     expect(WAYS.map((way) => PREDICTION_TEXT.said(way))).toEqual(['You predicted: toward the left side.', 'You predicted: toward the right side.', 'You predicted: not at all.'])
     expect(PREDICTION_TEXT.fixed).toBe('Your prediction is fixed: the change has begun.')
@@ -317,7 +339,7 @@ describe('the question of a disturbance', () => {
   it('asks which way the equilibrium went, with the same three choices as the prediction', () => {
     const asked = askText(data, 'cobalt-heat')
     expect([asked.heading, asked.question]).toEqual(['Which way it went', 'Which way did the equilibrium shift?'])
-    expect(asked.choices).toEqual(wayChoices(data, 'cobalt-heat'))
+    expect(asked.choices).toEqual(WAY_CHOICES)
   })
 
   it('asks, at the four tubes that turn on a second equilibrium or on there being none, what took the metal ion away', () => {
@@ -451,14 +473,14 @@ describe('the notes of the record, which a page shows once a disturbance is done
 describe('every sentence of the page', () => {
   /** Every fixed string and every sentence a function gives for the cases above, as one list. */
   function sentences(): string[] {
-    const fixed = [LAB_TEXT, SYSTEM_AIM, TUBE_NAME, TEMPERATURE_TEXT, WAY_LABEL, LOOK_PART, FIELD_LABEL, OBSERVATION_TEXT, CAUSE_LABEL, ANSWER_TEXT, HINT, MODE_TEXT, PROGRESS_TEXT, DISTURBANCE_STATUS_TEXT, NOTES_TEXT, RECORD_TEXT, EQUILIBRIUM_TEXT].flatMap((group) => Object.values(group))
+    const fixed = [LAB_TEXT, SYSTEM_AIM, TUBE_NAME, TEMPERATURE_TEXT, BATH_LABEL, WAY_LABEL, LOOK_PART, FIELD_LABEL, OBSERVATION_TEXT, CAUSE_LABEL, ANSWER_TEXT, HINT, MODE_TEXT, PROGRESS_TEXT, DISTURBANCE_STATUS_TEXT, NOTES_TEXT, RECORD_TEXT, EQUILIBRIUM_TEXT].flatMap((group) => Object.values(group))
     const nested = [...Object.values(PAGE_TEXT).flatMap((v) => (typeof v === 'string' ? [v] : [])), ...Object.values(PREDICTION_TEXT).flatMap((v) => (typeof v === 'string' ? [v] : [])), PAGE_TEXT.previous('x'), PAGE_TEXT.next('x'), PAGE_TEXT.run(2), PAGE_TEXT.tubePicture('The tube')]
     const made = [
-      ...SYSTEM_IDS.flatMap((id) => [...benchLines(data, id), systemNumber(id), systemName(data, id)]),
+      ...SYSTEM_IDS.flatMap((id) => [...benchLines(data, id), systemNumber(id), systemName(data, id), systemShortName(data, id)]),
       ...data.systems.flatMap((system) => system.tubes.map((tube) => tubeStartText(data, system.id, tube.id))),
       ...DISTURBANCE_IDS.map((id) => tubeSoFarText(data, id)),
       // The equation itself is the record's, and is a source's as written: it is left out, as every equation is.
-      ...DISTURBANCE_IDS.flatMap((id) => [disturbanceTitle(data, id), taskText(data, id), actionLabel(data, id), equilibriumLines(data, id).left, equilibriumLines(data, id).right, askText(data, id).heading, askText(data, id).question, ...askText(data, id).choices.map((c) => c.label)]),
+      ...DISTURBANCE_IDS.flatMap((id) => [disturbanceTitle(data, id), taskText(data, id), actionLabel(data, id), equilibriumLines(data, id).left, equilibriumLines(data, id).right, equilibriumLines(data, id).between, askText(data, id).heading, askText(data, id).question, ...askText(data, id).choices.map((c) => c.label)]),
       ...tubes.flatMap(({ shows, temperature }) => [tubeText(shows, temperature), lookText(shows, 'liquid'), lookText(shows, 'bottom')]),
       ...WAYS.map((way) => PREDICTION_TEXT.said(way)),
       ...(['add', 'heat', 'cool'] as const).flatMap((kind) => [0, 1, 2, 3].map((acted) => doneText({ kind, portions: 3, acted }))),

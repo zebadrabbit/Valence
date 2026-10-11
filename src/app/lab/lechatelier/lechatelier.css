@@ -1,0 +1,91 @@
+/*
+ * Where the pieces of a disturbance of the Le Chatelier's principle lab sit. Loaded with the lab page, so none of
+ * it is in the app shell's stylesheet. Nothing here animates, and nothing on this lab's page moves.
+ *
+ * A disturbance is three cards in the order it is worked: the equilibrium with the prediction under it, the tube,
+ * and what is seen with the question under it. Where the disturbance has the width for two columns, the tube
+ * stands on the left for the whole height and the other two are on the right, one over the other, so that the
+ * picture is beside whatever is being answered. Where it has not, the three are one column in that order. The rule
+ * follows the width the disturbance itself has, never the window's.
+ */
+.lechatelier-work {
+  container: lechatelier-work / inline-size;
+}
+.lechatelier-grid {
+  display: grid;
+  gap: 0.5rem;
+  align-items: start;
+  grid-template-columns: minmax(0, 1fr);
+}
+@container lechatelier-work (min-width: 40rem) {
+  .lechatelier-grid {
+    grid-template-columns: 21.625rem minmax(0, 1fr);
+    /* The last row takes what the tube's card is taller by, so that the first is no taller than what is in it. */
+    grid-template-rows: auto 1fr;
+  }
+  .lechatelier-tube {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+  .lechatelier-first,
+  .lechatelier-then {
+    grid-column: 2;
+  }
+}
+
+/*
+ * The tube's card holds the picture and what goes with it: the button that makes the change, what has been done so
+ * far, how the picture is looked at and which parts have been, and the tube in words. In a card with the room,
+ * those are beside the picture; in one too narrow for anything beside it, as the card of the left column is, they
+ * are under it.
+ */
+.lechatelier-tube {
+  container: lechatelier-tube / inline-size;
+}
+.lechatelier-tube-grid {
+  display: grid;
+  gap: 0.5rem 0.75rem;
+  align-items: start;
+  grid-template-columns: minmax(0, 20rem);
+}
+@container lechatelier-tube (min-width: 29rem) {
+  /* The picture a little under its full size, 280 px of 320, so that what is beside it has the room for its words. */
+  .lechatelier-tube-grid {
+    grid-template-columns: minmax(0, 17.5rem) minmax(0, 1fr);
+  }
+}
+
+/*
+ * A choice of this lab's forms is drawn with a little less room either side of its words than the shell gives one,
+ * so that the three ways an equilibrium can go stand in one row in a card as narrow as an upright tablet's. It is
+ * as tall as before.
+ */
+.lechatelier-work form label {
+  padding-inline: 0.5rem;
+}
+/* A form's message line, while it has nothing to say, takes no room, the gap over it neither. It stays in the page, so that a screen reader says what comes to stand in it. A form whose answers are lines does the same by itself. */
+.lechatelier-work form.grid > p:empty {
+  margin-top: -0.75rem;
+}
+
+/*
+ * The edge of a part of the tube, dashed until the part has been looked at and whole while it is, is drawn in the
+ * ink, which does not show on the blue liquid and hardly on the violet. A light line about the edge does; on the
+ * white card and on a pale liquid that line is not seen. A part that has been looked at has no edge, and none here.
+ */
+.lechatelier-tube button[data-part]:not(.border-transparent) {
+  box-shadow: 0 0 0 1.5px rgb(255 255 255 / 0.85);
+}
+
+/* The tubes that stand together, in one row where the card has the width and two to a row where it has not. */
+.lechatelier-rack {
+  display: grid;
+  gap: 0.25rem;
+  width: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@container lechatelier-tube (min-width: 29rem) {
+  .lechatelier-rack {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

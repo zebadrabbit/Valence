@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { CATIONS_PROGRESS } from './app/activities'
+import { ACTIVITIES } from './app/activities'
 import { cationsData } from './chem-data/cations/data'
 import { modelFrom } from './engine/cations/model'
 import { PINNED_MODEL } from './engine/cations/pinnedModel'
@@ -29,7 +29,8 @@ describe('the Group I cations lab', () => {
     }
     const cold = wholeRun(PINNED_MODEL, createLab(1, 'challenge'), 'unknown', { heat: false })
     expect({
-      ...CATIONS_PROGRESS,
+      entry: ACTIVITIES[4].entry,
+      version: ACTIVITIES[4].version,
       model: modelFrom(cationsData),
       order: unknownOrder(1),
       second: unknownOrder(2),

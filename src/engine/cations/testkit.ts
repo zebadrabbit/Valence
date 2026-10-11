@@ -22,7 +22,7 @@ export interface Technique {
   wrongSolidAt?: number
   /** Part 1: the step (from 0) at which a tile that does not belong is put in a place. */
   wrongTileAt?: number
-  /** Part 2: name every ion but the ones the tubes showed. */
+  /** Part 2: name every ion but the ones the tubes showed; where they showed all three, the first alone, since a naming of none is not taken. */
   nameWrong?: boolean
 }
 
@@ -69,12 +69,15 @@ export function workStep(m: CationsModel, state: CationsState, part: PartId, how
 
 /**
  * One whole run of a part from untouched tubes: the five steps and, in part 2, the naming of the ions from what
- * the tubes showed. Careful unless told otherwise. A script that Guided would refuse throws.
+ * the tubes showed, or of the first ion where they showed none. Careful unless told otherwise. A script that Guided
+ * would refuse throws.
  */
 export function wholeRun(m: CationsModel, state: CationsState, part: PartId, how: Technique = {}, through: (s: CationsState) => CationsState = (s) => s): CationsState {
   for (let at = 0; at < STEP_IDS.length; at++) state = workStep(m, state, part, how, through)
   if (part === 'known') return state
   const named = deduced(m, state, part)
-  const ions: IonId[] = how.nameWrong ? (['silver', 'lead', 'mercury-i'] as const).filter((ion) => !named.includes(ion)) : named
+  const others = (['silver', 'lead', 'mercury-i'] as const).filter((ion) => !named.includes(ion))
+  // A naming of none is not taken. So a learner whose tubes showed none of the three, as they do after some slips, names the first; and so does one who is to name wrongly where all three were shown.
+  const ions: IonId[] = how.nameWrong ? (others.length > 0 ? others : ['silver']) : named.length > 0 ? named : ['silver']
   return run(m, state, [{ type: 'nameIons', part, ions }], through)
 }

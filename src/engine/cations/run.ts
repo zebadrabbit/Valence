@@ -109,6 +109,8 @@ export type Refused =
   | 'observe-first'
   | 'check-first'
   | 'invalid-entry'
+  /** Part 2: a naming of none of the three. Every sample holds one or more of them, and a run's ions are named once. */
+  | 'nothing-named'
   | 'no-such-place'
   | 'no-such-tile'
   | 'already-placed'
@@ -128,6 +130,8 @@ export function apply(m: CationsModel, part: PartId, run: RunState, event: RunEv
     if (run.step <= LAST_STEP) return 'steps-not-done'
     const ions = event.ions
     if (!Array.isArray(ions) || ions.some((ion, i) => !ION_IDS.includes(ion) || ions.indexOf(ion) !== i)) return 'invalid-entry'
+    // No sample holds none of the three, so a naming of none is asked again and not spent: it is true of every unknown, and says nothing of this one.
+    if (ions.length === 0) return 'nothing-named'
     return { ...run, named: ION_IDS.filter((ion) => ions.includes(ion)) }
   }
   if (run.step > LAST_STEP) return 'steps-done'

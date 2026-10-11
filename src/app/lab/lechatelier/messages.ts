@@ -1,4 +1,4 @@
-import { SYSTEM_IDS, disturbanceOf, equilibriumOf, parameterOf, systemOf, type Cause, type DisturbanceId, type LechatelierData, type SystemId, type TubeId, type Way } from '@/chem-data/lechatelier/data'
+import { SYSTEM_IDS, WAYS, disturbanceOf, equilibriumOf, parameterOf, systemOf, type Cause, type DisturbanceId, type LechatelierData, type SystemId, type TubeId, type Way } from '@/chem-data/lechatelier/data'
 import type { Blocked, DisturbanceView, Field, LechatelierModel, Look, Mode, Observation, Reason, RunOutcome, SystemView, Temperature, TubeShows } from '@/engine/lechatelier'
 
 // Every sentence the Le Chatelier's principle lab says, keyed by the engine's identifiers, so that an identifier
@@ -33,6 +33,12 @@ export const LAB_TEXT = {
 export const systemNumber = (systemId: SystemId) => `System ${SYSTEM_IDS.indexOf(systemId) + 1}`
 /** A system's name, as the record has it: "A solid and its ions: lead chloride". */
 export const systemName = (data: LechatelierData, systemId: SystemId) => systemOf(data, systemId).name
+
+/**
+ * A system's name where there is no room for the whole of it, as on the button that chooses it: what stands after
+ * the colon of the record's name, which is the thing the system is about. "Lead chloride".
+ */
+export const systemShortName = (data: LechatelierData, systemId: SystemId) => upper(systemName(data, systemId).split(': ').at(-1)!)
 
 /** What each system is, under its name. None says what any tube shows. */
 export const SYSTEM_AIM: Record<SystemId, string> = {
@@ -121,9 +127,11 @@ export const EQUILIBRIUM_TEXT = {
   left: 'Left side',
   right: 'Right side',
 } as const
-export function equilibriumLines(data: LechatelierData, disturbanceId: DisturbanceId): { equation: string; left: string; right: string } {
-  const { equation, left, right } = equilibriumOf(data, disturbanceId)
-  return { equation, left: `${EQUILIBRIUM_TEXT.left}: ${left}.`, right: `${EQUILIBRIUM_TEXT.right}: ${right}.` }
+/** `between` is the colour of a liquid that holds what stands on both sides, where the record has one; null where it has none. */
+export function equilibriumLines(data: LechatelierData, disturbanceId: DisturbanceId): { equation: string; left: string; right: string; between: string | null } {
+  const { equation, left, right, seenBy } = equilibriumOf(data, disturbanceId)
+  const between = seenBy.kind === 'colour' && seenBy.between !== undefined ? `A liquid that holds both is ${seenBy.between}.` : null
+  return { equation, left: `${EQUILIBRIUM_TEXT.left}: ${left}.`, right: `${EQUILIBRIUM_TEXT.right}: ${right}.`, between }
 }
 
 /** "Disturbance 2 of 4: Heat the tube". */
@@ -167,17 +175,20 @@ export const TEMPERATURE_TEXT: Record<Temperature, string> = {
   cold: 'The tube stands in the bath of ice water.',
 }
 
+/**
+ * The word beside a bath in the picture of a tube that stands in one: the bath that `TEMPERATURE_TEXT` names in a
+ * sentence, so that the picture's bath is told by a word as well as by how it is drawn. A tube in the rack has none.
+ */
+export const BATH_LABEL: Record<Exclude<Temperature, 'room'>, string> = { hot: 'boiling water', cold: 'ice water' }
+
 /** The three ways an equilibrium can go, as a choice names them. */
 export const WAY_LABEL: Record<Way, string> = { left: 'Toward the left side', right: 'Toward the right side', none: 'Not at all' }
-/** A way with what stands on that side, for the two choice forms: "Toward the left side: lead ions and chloride ions, dissolved". */
-export function wayChoices(data: LechatelierData, disturbanceId: DisturbanceId): { value: Way; label: string }[] {
-  const { left, right } = equilibriumOf(data, disturbanceId)
-  return [
-    { value: 'left', label: `${WAY_LABEL.left}: ${left}` },
-    { value: 'right', label: `${WAY_LABEL.right}: ${right}` },
-    { value: 'none', label: WAY_LABEL.none },
-  ]
-}
+/**
+ * The three ways as the choices of the two forms that ask for one, the prediction and the question of which way it
+ * went. A choice names the way and nothing else: what stands on each side is said once, in the card of the
+ * equilibrium as written, which stands over both forms.
+ */
+export const WAY_CHOICES: readonly { value: Way; label: string }[] = WAYS.map((value) => ({ value, label: WAY_LABEL[value] }))
 
 /** The prediction made before a disturbance (spec 18.3): asked, kept and never marked. */
 export const PREDICTION_TEXT = {
@@ -267,7 +278,7 @@ export const CAUSE_LABEL: Record<Cause, string> = {
 /** The question a disturbance asks once its tube has been observed (spec 18.3), with its choices. The same choices stand at every disturbance that asks the same question. */
 export function askText(data: LechatelierData, disturbanceId: DisturbanceId): { heading: string; question: string; choices: { value: string; label: string }[] } {
   const { disturbance } = disturbanceOf(data, disturbanceId)
-  if (disturbance.ask.kind === 'direction') return { heading: 'Which way it went', question: 'Which way did the equilibrium shift?', choices: wayChoices(data, disturbanceId) }
+  if (disturbance.ask.kind === 'direction') return { heading: 'Which way it went', question: 'Which way did the equilibrium shift?', choices: [...WAY_CHOICES] }
   const metal = METAL[disturbance.equilibriumId] ?? 'metal'
   return {
     heading: `What took the ${metal} ion away`,
@@ -282,13 +293,11 @@ export const answerLabel = (answer: string): string => (answer in WAY_LABEL ? WA
 /** The answer, and what goes with it. */
 export const ANSWER_TEXT = {
   record: 'Record my answer',
-  /** Under the question until the observation is recorded. */
-  observeFirst: 'Not open yet. Record what you see in the tube first.',
   /** In Challenge, beside the button: an answer ends the disturbance. */
   once: 'You answer once. After that this disturbance is done and its notes are shown.',
   right: 'Right',
   notRight: 'Not right',
-  /** Beside an answer in Challenge until its system is checked. */
+  /** Beside an observation or an answer in Challenge until its system is checked. */
   notChecked: 'Not checked yet',
 } as const
 
@@ -310,7 +319,7 @@ export const HINT: Record<DisturbanceId, string> = {
   'lead-water': 'Water makes everything that is dissolved more dilute, and a solid is not diluted. A diluted system moves toward the side with more dissolved particles.',
   'indicator-acid': `Hydrochloric acid brings hydrogen ions. Find the hydrogen ion in the equilibrium as written. ${ADDED} The colour tells you which form there is more of.`,
   'indicator-base': `Sodium hydroxide brings hydroxide ions, and each one joins a hydrogen ion and makes water. So hydrogen ions are taken away. ${TAKEN}`,
-  'cobalt-water': `Find water in the equilibrium as written. ${ADDED} The colour tells you which ion there is more of.`,
+  'cobalt-water': `Find water in the equilibrium as written. ${ADDED} The colour tells you how the two ions now stand: the card of the equilibrium says what a liquid that holds both looks like.`,
   'cobalt-heat': HEATED,
   'cobalt-cool': COOLED,
   'zinc-drop': DROP,
