@@ -21,7 +21,11 @@ export interface KineticsModel {
     /** The bottle whose solute is used up by then, and how many of it are used for each one of the reaction as the rate counts it. */
     solutionId: string
     per: number
-    /** The bottle that must be in the flask for the end to show; null where it shows by itself. */
+    /**
+     * The bottle that must be in the flask for the end to show; null where it shows by itself. It shows by itself
+     * where what is used up is what is seen, a colour that goes: how much of it is left at a time can then be asked
+     * (`leftAt`), and cannot where something added shows the end, since what is used up there goes unseen.
+     */
     indicatorId: string | null
   }
   /** The rate constant at the reference temperature, in litres, moles and seconds. */
@@ -35,7 +39,7 @@ export interface KineticsModel {
   zeroCelsiusCentiKelvin: number
   /** What goes into each mixture, by bottle; the mixture's volume is the sum. */
   mixtures: readonly { id: string; tenthMl: Readonly<Record<string, number>> }[]
-  /** The runs a learner makes: a mixture at the room's temperature (no bath) or in a bath. */
+  /** The runs a learner makes: a mixture at the room's temperature (no bath) or in a bath. A model may have no baths: it then has no part on temperature (`hasTemperature`). */
   runs: readonly { id: string; mixtureId: string; bathId: string | null }[]
   /** The run whose row the learner works by hand, at the room's temperature. The bath runs are of its mixture. */
   referenceRunId: string
@@ -55,7 +59,7 @@ export interface KineticsModel {
   watchLimitMs: number
   rateConstantTolerancePercent: number
   activationTolerancePercent: number
-  /** The places on the line of the graph that can be looked at: 1/T in millionths of a reciprocal kelvin. */
+  /** The places on the line of the graph that can be looked at: 1/T in millionths of a reciprocal kelvin. A model with no baths has no graph, and a count of 0. */
   places: { fromMicro: number; stepMicro: number; count: number }
 }
 
@@ -72,6 +76,13 @@ export const reactantOf = (m: KineticsModel, reactantId: string) => found(m.reac
 export const roomRuns = (m: KineticsModel) => m.runs.filter((run) => run.bathId === null)
 /** The runs made in a bath, in their order. */
 export const bathRuns = (m: KineticsModel) => m.runs.filter((run) => run.bathId !== null)
+/**
+ * Whether the lab has a part on temperature: it has one where the model has baths. Without them there are the runs
+ * at the room's temperature and the rate law, and nothing more: no second sheet, no graph and no activation energy
+ * to find. The model's activation energy is still what gives the rate constant at the room's temperature.
+ */
+export const hasTemperature = (m: KineticsModel) => m.baths.length > 0
+
 /** The runs the graph of part 3 has a point for: the reference run, at the room's temperature, and each bath's. */
 export const temperatureRuns = (m: KineticsModel) => [runOf(m, m.referenceRunId), ...bathRuns(m)]
 
@@ -184,7 +195,9 @@ export function modelProblems(m: KineticsModel): string[] {
   for (const [name, [low, high]] of [['room', m.roomRangeTenths], ...m.baths.map((bath) => [bath.id, bath.rangeTenths] as const)] as const) {
     if (!Number.isInteger(low) || !Number.isInteger(high) || low > high) problems.push(`the range of "${name}" runs from its lower end to its upper, in whole tenths of a degree`)
   }
-  if (!(m.places.count >= 2 && m.places.stepMicro > 0 && m.places.fromMicro > 0)) problems.push('the line has two places or more, each further along than the last')
+  if (!hasTemperature(m)) {
+    if (m.places.count !== 0) problems.push('a model with no baths has no line, and so no places on one')
+  } else if (!(m.places.count >= 2 && m.places.stepMicro > 0 && m.places.fromMicro > 0)) problems.push('the line has two places or more, each further along than the last')
   if (!(m.delayLimitMs >= 0 && m.watchLimitMs > m.delayLimitMs && m.scatterPerTenThousand >= 0 && m.scatterPerTenThousand < 10000)) problems.push('the limits on the watch and the scatter are not ones a run can be timed with')
   return problems
 }

@@ -1,15 +1,16 @@
 import { toSig3, type Sig3 } from '../figures'
 import { entryBlocked, sheetBlocked, type Blocked } from './actions'
-import { concentration, modelOrders, roomRuns, runOf, type KineticsModel } from './model'
+import { concentration, hasTemperature, modelOrders, roomRuns, runOf, type KineticsModel } from './model'
 import { constantOf, enteredOrders, fieldsOf, rateOf, type Field, type Place, type SheetId, type Value, type Verdict } from './notebook'
 import { labSetup } from './setup'
-import { constantOff, contextOf, currentAttempt, currentSheet, endOf, energyOff, graphPoints, heldConstant, judge, meanConstant, PART_IDS, partDone, sheetDone, tenthsOf, thermometerOf, timed, type Attempt, type KineticsState, type PartId, type RunReason, type Sheet, type SheetReason } from './state'
+import { constantOff, contextOf, currentAttempt, currentSheet, endOf, energyOff, graphPoints, heldConstant, judge, meanConstant, partDone, partIdsOf, sheetDone, tenthsOf, thermometerOf, timed, type Attempt, type KineticsState, type PartId, type RunReason, type Sheet, type SheetReason } from './state'
 
 // Everything the app shows, worked out from the stored record. Nothing here gives the model's orders, its rate
 // constant or its activation energy, or whether an entry follows before it may be said, until the part they
 // belong to is done; and nothing gives the time of a run before its watch is stopped, but for the look of the
-// liquid at a time the page hands in, which is what a learner watches. The wording is the app's: these hand over
-// identifiers and numbers.
+// liquid at a time the page hands in, which is what a learner watches: whether it has changed and, where what is
+// used up is itself what is seen, how much of that is left. The wording is the app's: these hand over identifiers
+// and numbers.
 
 /** What the liquid in the flask looks like: as it is from the mixing on, or as it is once the run has ended. */
 export type Look = 'before' | 'after'
@@ -60,6 +61,40 @@ export function lookAt(m: KineticsModel, state: KineticsState, runId: string, el
   const end = endOf(m, state.seed, runId, attempt)
   const at = attempt.stop === null ? elapsedMs : attempt.stop.by === 'end' ? m.watchLimitMs : attempt.stop.elapsedMs
   return end !== null && end <= m.watchLimitMs && at >= end ? 'after' : 'before'
+}
+
+/** How much of what is used up a mixture holds, in whole micromoles for a litre, each rounded up: now, and at the mixing. */
+export interface Left {
+  microMolar: number
+  ofMicroMolar: number
+}
+
+/**
+ * How much of what is used up the mixture of a run holds when the watch reads `elapsedMs`, for the page that draws
+ * a colour as it goes (spec 20.2 and 20.4). The rate is steady from the mixing to the end, as the model has it, so
+ * what is left falls in a straight line from all of it to none. It is rounded up: none is left only once the run
+ * has ended, which is the very moment `lookAt` says 'after', and nothing here knows what an eye can still see. For
+ * a run that is not under way it is what the mixture holds as it stands: all of it before the pour, and after the
+ * stop what was left at the stop.
+ *
+ * Null where what is used up is not what is seen: where something added shows the end (`end.indicatorId`), what is
+ * used up goes unseen while it lasts, and how much of it is left would say when the run will end.
+ */
+export function leftAt(m: KineticsModel, state: KineticsState, runId: string, elapsedMs: number): Left | null {
+  if (m.end.indicatorId !== null) return null
+  const attempt = currentAttempt(state, runId)
+  const [top, bottom] = concentration(m, runOf(m, runId).mixtureId, m.end.solutionId)
+  /** A share of the mixture's own strength, in micromoles for a litre, rounded up: `part` of every `whole`. */
+  const share = (part: number, whole: number) => {
+    const [n, d] = [top * 1_000_000n * BigInt(part), bottom * BigInt(whole)]
+    return Number((n + d - 1n) / d)
+  }
+  const ofMicroMolar = share(1, 1)
+  if (!attempt.poured) return { microMolar: ofMicroMolar, ofMicroMolar }
+  // With nothing to add, the end of the run always shows.
+  const end = endOf(m, state.seed, runId, attempt)!
+  const at = Math.min(Math.max(attempt.stop === null ? elapsedMs : attempt.stop.by === 'end' ? m.watchLimitMs : attempt.stop.elapsedMs, 0), m.watchLimitMs)
+  return { microMolar: at >= end ? 0 : share(end - Math.floor(at), end), ofMicroMolar }
 }
 
 /** What the watch of a run reads when the page's time is `elapsedMs`, in tenths of a second: nothing before the pour, the stopped time after the stop, and never past where it stops itself. */
@@ -229,8 +264,9 @@ export function rateLawView(m: KineticsModel, state: KineticsState): RateLawView
   }
 }
 
-/** The second sheet as its page shows it. */
+/** The second sheet as its page shows it. A model with no baths has no such sheet: its view is one that cannot be worked and holds nothing. */
 export function temperatureView(m: KineticsModel, state: KineticsState): TemperatureView {
+  if (!hasTemperature(m)) return { blocked: 'unknown-sheet', workings: 0, entries: [], rows: null, graph: null, outcome: { state: 'open' }, done: false, expected: null }
   const sheet = currentSheet(state, 'temperature')
   const points = graphPoints(m, state)
   const places = contextOf(m, state, 'temperature')?.places ?? null
@@ -251,4 +287,4 @@ export function temperatureView(m: KineticsModel, state: KineticsState): Tempera
 export const roomTenths = (m: KineticsModel, state: KineticsState) => labSetup(m, state.seed).roomTenths
 
 /** The parts that are done, in their order. */
-export const doneParts = (m: KineticsModel, state: KineticsState): PartId[] => PART_IDS.filter((part) => partDone(m, state, part))
+export const doneParts = (m: KineticsModel, state: KineticsState): PartId[] => partIdsOf(m).filter((part) => partDone(m, state, part))

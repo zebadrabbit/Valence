@@ -3,7 +3,7 @@ import type { Sig3 } from '../figures'
 import { scripted } from '../scripted'
 import { can, reduce, type Action } from './actions'
 import { bathRuns, mixtureOf, roomRuns, runOf, totalTenthMl, type KineticsModel } from './model'
-import { fieldsOf, kindOf, reactantIdOf, type Field, type SheetId, type Value } from './notebook'
+import { fieldsOf, kindOf, reactantIdOf, sheetIdsOf, type Field, type SheetId, type Value } from './notebook'
 import { rateLawView, temperatureView, timesTable } from './select'
 import { currentAttempt, currentSheet, endOf, runCounts, sheetCounts, sheetDone, type KineticsState } from './state'
 
@@ -128,10 +128,10 @@ export function wholeSheet(m: KineticsModel, state: KineticsState, sheet: SheetI
   return state.mode === 'challenge' ? run(m, state, [{ type: 'check', sheet }], through) : state
 }
 
-/** A whole careful lab: every run, then the two sheets. */
+/** A whole careful lab: every run, then each sheet the model has. */
 export function wholeLab(m: KineticsModel, state: KineticsState, how: Technique & Arithmetic = {}, through: (s: KineticsState) => KineticsState = (s) => s): KineticsState {
   state = makeBathRuns(m, makeRoomRuns(m, state, how, through), how, through)
-  return wholeSheet(m, wholeSheet(m, state, 'rate-law', how, through), 'temperature', how, through)
+  return sheetIdsOf(m).reduce((s, sheet) => wholeSheet(m, s, sheet, how, through), state)
 }
 
 /**
@@ -164,7 +164,7 @@ export function finishRun(m: KineticsModel, state: KineticsState, runId: string,
 /** Brings a whole lab to completion from wherever it stands, carefully: every run, then each sheet that is not done. */
 export function finishLab(m: KineticsModel, state: KineticsState, through: (s: KineticsState) => KineticsState = (s) => s): KineticsState {
   for (const { id } of m.runs) state = finishRun(m, state, id, through)
-  for (const sheet of ['rate-law', 'temperature'] as const) {
+  for (const sheet of sheetIdsOf(m)) {
     if (sheetDone(m, state, sheet)) continue
     const current = currentSheet(state, sheet)
     if (current.closed && !sheetCounts(m, state, sheet, current)) state = run(m, state, [{ type: 'sheetAgain', sheet }], through)

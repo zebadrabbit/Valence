@@ -1,5 +1,5 @@
 import { compare, cutFromAny, cutOffFrom, exact, fromAny, point, products, quotients, reduced, roundsFrom, sizeOf, spanOf, taken, times, toNumber, toSig3, type Exact, type Range, type Sig3 } from '../figures'
-import { bottleStrength, centiKelvin, concentration, power, reactantOf, runOf, strengthsProduct, temperatureRuns, usedUp, type KineticsModel } from './model'
+import { bottleStrength, centiKelvin, concentration, hasTemperature, power, reactantOf, runOf, strengthsProduct, temperatureRuns, usedUp, type KineticsModel } from './model'
 import { ln } from './numbers'
 import type { LabSetup } from './setup'
 
@@ -24,6 +24,8 @@ import type { LabSetup } from './setup'
 
 export const SHEET_IDS = ['rate-law', 'temperature'] as const
 export type SheetId = (typeof SHEET_IDS)[number]
+/** The sheets a model's notebook has: both, or the first alone where the model has no baths and so no part on temperature. */
+export const sheetIdsOf = (m: KineticsModel): readonly SheetId[] => (hasTemperature(m) ? SHEET_IDS : ['rate-law'])
 
 /** The kinds of entry. A strength and an order are asked once for each reactant. */
 export type FieldKind = 'concentration' | 'rate' | 'order' | 'rateConstant' | 'unit' | 'first' | 'second' | 'slope' | 'energy'
@@ -79,6 +81,23 @@ function rateRange(m: KineticsModel, runId: string, timings: Timings): Range {
   return quotients([used], [fullOrRounded(exact(timings[runId]!, 10))])[0]!
 }
 
+/**
+ * The ways the rate of the reference run may be worked from the learner's own entries; null while one of them is
+ * missing. Where what is used up comes from a reactant's own bottle, its strength in the mixture is an entry above
+ * the rate, and the rate is worked from that entry, taken as it was typed or as the unrounded value it was rounded
+ * from, as every entry is. Where it comes from a bottle of its own, no entry gives its strength, and the rate is
+ * worked from the bench alone.
+ */
+function rateRanges(m: KineticsModel, entries: Entries, timings: Timings): Range[] | null {
+  const reference = runOf(m, m.referenceRunId)
+  const own = m.reactants.find((reactant) => reactant.solutionId === m.end.solutionId)
+  if (own === undefined) return [rateRange(m, reference.id, timings)]
+  const typed = entries[`concentration:${own.id}`]
+  if (!isSig3Value(typed)) return null
+  const used = taken(typed, point(concentration(m, reference.mixtureId, m.end.solutionId))).map(([low, high]) => fullOrRounded(exact(low, m.end.per), exact(high, m.end.per)))
+  return quotients(used, [fullOrRounded(exact(timings[reference.id]!, 10))])
+}
+
 /** The orders a learner has entered, by reactant; null until all are. */
 export function enteredOrders(m: KineticsModel, entries: Entries): Record<string, number> | null {
   const orders: Record<string, number> = {}
@@ -115,9 +134,10 @@ function orderFollows(m: KineticsModel, reactantId: string, order: number, timin
 function constantRanges(m: KineticsModel, entries: Entries, timings: Timings): Range[] | null {
   const { rate } = entries
   const orders = enteredOrders(m, entries)
-  if (!isSig3Value(rate) || orders === null) return null
+  const unrounded = rateRanges(m, entries, timings)
+  if (!isSig3Value(rate) || orders === null || unrounded === null) return null
   const { mixtureId } = runOf(m, m.referenceRunId)
-  let ranges = taken(rate, rateRange(m, m.referenceRunId, timings))
+  let ranges = unrounded.flatMap((range) => taken(rate, range))
   for (const reactant of m.reactants) {
     const strength = entries[`concentration:${reactant.id}`]
     if (!isSig3Value(strength)) return null
@@ -231,11 +251,12 @@ export function verdictOf(m: KineticsModel, { timings, places }: Context, entrie
     case 'rate': {
       if (!isSig3Value(value)) return not()
       if (value.mantissa < 0) return not('wrong-sign')
-      const range = rateRange(m, reference.id, timings)
-      if (roundsFrom(value, range)) return FOLLOWS
+      const ranges = rateRanges(m, entries, timings)
+      if (ranges === null) return null
+      if (fromAny(value, ranges)) return FOLLOWS
       // All of what is used up, and not its share for each one of the reaction.
-      if (m.end.per !== 1 && roundsFrom(value, [times(range[0], m.end.per), times(range[1], m.end.per)])) return not('count-left-out')
-      return not(cutOffFrom(value, range) ? 'cut-off' : null)
+      if (m.end.per !== 1 && fromAny(value, ranges.map(([low, high]): Range => [times(low, m.end.per), times(high, m.end.per)]))) return not('count-left-out')
+      return not(cutFromAny(value, ranges) ? 'cut-off' : null)
     }
     case 'order':
       return isChoice(value) && m.orderChoices.includes(value) && orderFollows(m, reactantIdOf(field)!, value, timings) ? FOLLOWS : not()

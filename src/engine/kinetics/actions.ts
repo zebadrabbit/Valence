@@ -1,5 +1,5 @@
 import { runOf, type KineticsModel } from './model'
-import { fieldsOf, kindOf, SHEET_IDS, verdictOf, type Field, type SheetId, type Slip, type Value } from './notebook'
+import { fieldsOf, kindOf, sheetIdsOf, verdictOf, type Field, type SheetId, type Slip, type Value } from './notebook'
 import { contextOf, currentAttempt, currentSheet, isValueOf, MAX_ATTEMPTS, newAttempt, newSheet, runCounts, sheetCounts, statusOf, type Attempt, type KineticsState, type Mode, type Sheet } from './state'
 
 // Every learner action: when it can be done, and what it does. The runs can be made in any order, each in its own
@@ -71,12 +71,14 @@ export type Blocked =
 /** A step of technique about to be skipped. Guided asks before going on; Challenge does not look. */
 export type Warning = 'no-indicator' | 'not-at-temperature'
 
-const isSheet = (sheet: unknown) => SHEET_IDS.includes(sheet as SheetId)
+/** Whether the model's notebook has such a sheet: one with no baths has no second sheet. */
+const isSheet = (m: KineticsModel, sheet: unknown) => sheetIdsOf(m).includes(sheet as SheetId)
 const whole = (n: unknown, max: number): n is number => Number.isSafeInteger(n) && (n as number) >= 0 && (n as number) <= max && !Object.is(n, -0)
 
 /** Why a sheet cannot be worked now, whatever is entered: null when it is open. */
 export function sheetBlocked(m: KineticsModel, state: KineticsState, sheetId: SheetId): Blocked | null {
   if (state.status === 'completed') return 'lab-completed'
+  if (!isSheet(m, sheetId)) return 'unknown-sheet'
   if (currentSheet(state, sheetId).closed) return 'sheet-over'
   if (contextOf(m, state, sheetId) !== null) return null
   // The second sheet waits for its own runs first, then for the first sheet, whose rate law its rate constants are worked with.
@@ -108,7 +110,7 @@ export function can(m: KineticsModel, state: KineticsState, action: Action): Blo
       return blocked ?? (whole(action.place, m.places.count - 1) ? null : 'nothing-there')
     }
     case 'enter': {
-      if (!isSheet(action.sheet)) return 'unknown-sheet'
+      if (!isSheet(m, action.sheet)) return 'unknown-sheet'
       const blocked = entryBlocked(m, state, action.sheet, action.field)
       if (blocked) return blocked
       if (!isValueOf(m, action.field, action.value)) return 'invalid-entry'
@@ -122,13 +124,13 @@ export function can(m: KineticsModel, state: KineticsState, action: Action): Blo
       return verdict === null || verdict.follows ? null : (verdict.slip ?? 'does-not-follow')
     }
     case 'check': {
-      if (!isSheet(action.sheet)) return 'unknown-sheet'
+      if (!isSheet(m, action.sheet)) return 'unknown-sheet'
       const sheet = currentSheet(state, action.sheet)
       if (sheet.closed) return 'sheet-over'
       return fieldsOf(m, action.sheet).every((field) => sheet.entries[field] !== null) ? null : 'sheet-not-full'
     }
     case 'sheetAgain': {
-      if (!isSheet(action.sheet)) return 'unknown-sheet'
+      if (!isSheet(m, action.sheet)) return 'unknown-sheet'
       const sheet = currentSheet(state, action.sheet)
       if (!sheet.closed) return 'sheet-not-over'
       if (sheetCounts(m, state, action.sheet, sheet)) return 'sheet-counts'
