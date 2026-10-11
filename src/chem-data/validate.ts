@@ -635,8 +635,9 @@ function checkLechatelier(data: LechatelierData): string[] {
     if (equilibrium.heat?.heatId !== undefined) unknown(owner, 'heat', [equilibrium.heat.heatId], heats)
     if (equilibrium.numbers) unknown(owner, 'constant', Object.values(equilibrium.numbers), constants)
     if (equilibrium.seenBy.kind === 'colour') {
-      for (const colour of [equilibrium.seenBy.left, equilibrium.seenBy.right]) if (!data.choices.liquid.includes(colour)) errors.push(`${owner}: its colour "${colour}" is not a choice of the observation`)
-      if (equilibrium.seenBy.left === equilibrium.seenBy.right) errors.push(`${owner}: its two sides have one colour, so no shift could be seen`)
+      const colours = [equilibrium.seenBy.left, equilibrium.seenBy.right, ...(equilibrium.seenBy.between === undefined ? [] : [equilibrium.seenBy.between])]
+      for (const colour of colours) if (!data.choices.liquid.includes(colour)) errors.push(`${owner}: its colour "${colour}" is not a choice of the observation`)
+      if (new Set(colours).size !== colours.length) errors.push(`${owner}: two of its colours are one colour, so no shift could be seen`)
     }
   }
   for (const system of data.systems) {

@@ -23,7 +23,7 @@ const reloaded = (state: LechatelierState): LechatelierState => schema.parse(JSO
 /**
  * What each disturbance shows when it is done, written out from the procedure (spec 18.2) and not from the engine:
  * lead chloride comes with the acid, goes when hot, comes back cold and goes with water; methyl violet goes yellow
- * with acid and violet again with base; cobalt goes pink with water, blue when hot and pink when cold; a drop of
+ * with acid and violet again with base; cobalt goes violet with water, blue when hot and pink when cold; a drop of
  * sodium hydroxide brings each hydroxide down, acid dissolves both, and more base and ammonia dissolve zinc's and
  * not magnesium's.
  */
@@ -34,7 +34,7 @@ const PROCEDURE: Record<DisturbanceId, Observation> = {
   'lead-water': { solid: 'none', liquid: 'colourless' },
   'indicator-acid': { solid: 'none', liquid: 'yellow' },
   'indicator-base': { solid: 'none', liquid: 'violet' },
-  'cobalt-water': { solid: 'none', liquid: 'pink' },
+  'cobalt-water': { solid: 'none', liquid: 'violet' },
   'cobalt-heat': { solid: 'none', liquid: 'blue' },
   'cobalt-cool': { solid: 'none', liquid: 'pink' },
   'zinc-drop': { solid: 'white', liquid: 'colourless' },
@@ -111,11 +111,10 @@ describe('working a system in order (spec 18.7, first item)', () => {
     }
   })
 
-  it('shows on the way what the procedure passes through: no solid after the first portion of acid, and a colour between at the indicator and at cobalt', () => {
+  it('shows on the way what the procedure passes through: no solid after the first portion of acid, and a colour between at the indicator', () => {
     const lead = m.systems[0]!.disturbances[0]!
     expect(lead.stages.map((s) => s.solid)).toEqual(['none', 'white', 'white'])
     expect(m.systems[1]!.disturbances.map((d) => d.stages.map((s) => s.liquid))).toEqual([['between blue and yellow', 'yellow'], ['between blue and yellow', 'violet']])
-    expect(m.systems[2]!.disturbances[0]!.stages.map((s) => s.liquid)).toEqual(['violet', 'pink'])
   })
 
   it('stands the tube in its bath when it is heated or cooled', () => {
@@ -197,9 +196,9 @@ describe('the prediction (spec 18.7, third item)', () => {
       let state = run(m, createLab(mode), [{ type: 'predict', system: 'cobalt', way: 'right' }, { type: 'act', system: 'cobalt' }])
       const refused = () => WAYS.map((way) => can(m, state, { type: 'predict', system: 'cobalt', way }))
       expect(refused()).toEqual(['prediction-fixed', 'prediction-fixed', 'prediction-fixed'])
-      state = run(m, state, [{ type: 'act', system: 'cobalt' }, { type: 'look', system: 'cobalt', at: 'liquid' }, { type: 'look', system: 'cobalt', at: 'bottom' }])
+      state = run(m, state, [{ type: 'look', system: 'cobalt', at: 'liquid' }, { type: 'look', system: 'cobalt', at: 'bottom' }])
       expect(refused()).toEqual(['prediction-fixed', 'prediction-fixed', 'prediction-fixed'])
-      state = run(m, state, [{ type: 'observe', system: 'cobalt', observation: { solid: 'none', liquid: 'pink' } }])
+      state = run(m, state, [{ type: 'observe', system: 'cobalt', observation: { solid: 'none', liquid: 'violet' } }])
       expect(refused()).toEqual(['prediction-fixed', 'prediction-fixed', 'prediction-fixed'])
       state = run(m, state, [{ type: 'answer', system: 'cobalt', is: 'left' }])
       // The next disturbance takes a prediction of its own; the first one's stays as it was said.
@@ -395,7 +394,7 @@ describe('the record of the runs', () => {
     const records = runRecords(m, state, 'cobalt')
     expect(records.map((r) => r.outcome.state)).toEqual(['does-not-count', 'counts', 'open'])
     expect(records[0]!.disturbances.map((d) => [d.id, d.prediction, d.observation?.liquid, d.answer, d.answerRight])).toEqual([
-      ['cobalt-water', 'left', 'pink', 'left', true],
+      ['cobalt-water', 'left', 'violet', 'left', true],
       ['cobalt-heat', 'left', 'blue', 'left', false],
       ['cobalt-cool', 'left', 'pink', 'left', true],
     ])

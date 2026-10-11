@@ -249,7 +249,11 @@ describe('the liquid and the watch', () => {
   })
 
   it('says beside the watch that the time is played fast and that the learner\'s own delay is added', () => {
-    expect(RUN_TEXT.fast).toBe('The page plays the time faster than a clock would.')
+    // The five mixtures are played at one speed and each bath at its own, and the page says which beside the watch.
+    expect(RUN_TEXT.fast).toBe('The page plays the time faster than a clock would, at one speed for all five mixtures.')
+    expect(RUN_TEXT.fastBath).toBe('The page plays the time faster than a clock would, and each bath at its own pace.')
+    // A run left with its watch running is not timed: the sentence says so, and what to do, and nothing of when the liquid changes.
+    expect(RUN_TEXT.left).toBe('This run was left while its watch was running, so no time was recorded. The flasks are as they were before the pour: pour again to time it.')
     expect(RUN_TEXT.stopHelp).toContain('Your own delay is added to the time')
     expect(RUN_TEXT.stopAtChangeHelp).toContain('counts like any other, and the record says how it was timed')
   })
@@ -540,6 +544,9 @@ describe('progress, modes and the record', () => {
   it('names the rows of the record, and says how a run in it was timed', () => {
     expect([RECORD_TEXT.attempt(2), RECORD_TEXT.working(3)]).toEqual(['Attempt 2', 'Working 3'])
     expect([RECORD_TEXT.timedByHand(1244), RECORD_TEXT.timedByEnd(309)]).toEqual(['124.4 s, watch stopped by hand', '30.9 s, watch stopped at the change'])
+    expect([RECORD_TEXT.timedByHandAfter(1244, 430), RECORD_TEXT.timedByHandAfter(309, 2649)]).toEqual(['124.4 s, watch stopped by hand 0.4 s after the change', '30.9 s, watch stopped by hand 2.6 s after the change'])
+    // A watch that ran to its limit was stopped by no hand and at no change.
+    expect(RECORD_TEXT.timedOut(18000)).toBe('1800.0 s, the watch stopped itself')
     expect(SOURCES_TEXT).toContain("The activation energy the model runs on is Valence's own figure")
   })
 })
@@ -577,7 +584,9 @@ describe('every sentence of the page', () => {
       RECORD_TEXT.attempt(1),
       RECORD_TEXT.working(1),
       RECORD_TEXT.timedByHand(1244),
+      RECORD_TEXT.timedByHandAfter(1244, 430),
       RECORD_TEXT.timedByEnd(1241),
+      RECORD_TEXT.timedOut(18000),
       SOURCES_TEXT,
       ...PART_IDS.map((part) => partTitle(data, part)),
       ...benchLines(data, 225),

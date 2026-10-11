@@ -10,7 +10,9 @@ import { currentRun, MAX_EVENTS, MAX_RUNS, newRun, runCounts, runStateOf, status
 // The two modes differ here and nowhere else in the engine (spec 18.3). Guided checks each entry as it is given:
 // it refuses an observation that is not what the tube shows and an answer that is not right, so everything it
 // records is right, and it checks a system by itself once its last disturbance is done. Challenge records
-// whatever it is given, and checks a system when asked. Neither judges the prediction, which is only kept.
+// whatever it is given, and checks a system when asked. Neither judges the prediction, which is only kept. A mode
+// changed to Guided in the middle of a disturbance finds what Challenge recorded there: Guided takes no answer
+// until that observation is what the tube shows. What Challenge recorded at a disturbance that is done stays.
 
 export type Action =
   | { type: 'setMode'; mode: Mode }
@@ -64,7 +66,12 @@ function guidedRefuses(m: LechatelierModel, systemId: SystemId, run: RunState, a
   const disturbance = systemModel(m, systemId).disturbances[run.at]
   if (!disturbance) return null
   if (action.type === 'observe') return wrongFieldsOf(action.observation, shownAtEnd(disturbance)).length === 0 ? null : 'does-not-match'
-  if (action.type === 'answer') return action.is === disturbance.right ? null : 'not-right'
+  if (action.type === 'answer') {
+    // An observation that Challenge took, before the mode was changed, and that is not what the tube shows is put right first: Guided ends no disturbance on an entry it has said is not right, since nothing of a disturbance can be entered again once it is done.
+    const { observation } = run.steps[run.at]!
+    if (observation !== null && wrongFieldsOf(observation, shownAtEnd(disturbance)).length > 0) return 'does-not-match'
+    return action.is === disturbance.right ? null : 'not-right'
+  }
   return null
 }
 

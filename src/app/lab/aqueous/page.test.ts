@@ -5,6 +5,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { ACTIVITIES } from '@/app/activities'
 import { ROLE } from '@/app/lab/roles'
 import { HAZARDS_TEXT, NARROW_NOTICE, SHELL_TEXT } from '@/app/lab/shellText'
+import { EDGE_HALO } from '@/app/lab/Tube'
 import { labProgress } from '@/app/lab/useLabProgress'
 import { createMemoryStore, saveEntry, type KeyValueStore } from '@/app/progress/storage'
 import { aqueousData as data } from '@/chem-data/aqueous/data'
@@ -399,6 +400,8 @@ describe('a station once its tube is mixed', () => {
     expect(parts(card(bench(one).station, PAGE_TEXT.tube)).map(({ name }) => name)).toEqual([TOOL_LABEL['look-surface'], `${TOOL_LABEL['look-liquid']}, ${PAGE_TEXT.lookedAt}`, TOOL_LABEL['look-bottom']])
     // A section not yet looked at is drawn with a dashed edge; one that has been is not.
     expect(parts(card(bench(one).station, PAGE_TEXT.tube)).map(({ tag }) => tag.includes('border-dashed'))).toEqual([true, false, true])
+    // The edge has a light line about it, so that it shows on a dark liquid or solid as well, on which the ink does not.
+    expect(parts(card(bench(one).station, PAGE_TEXT.tube)).map(({ tag }) => tag.includes(EDGE_HALO))).toEqual([true, false, true])
   })
 
   it('has a line for what a look shows, for a screen reader alone, beside the line for what a press of Mix says', () => {

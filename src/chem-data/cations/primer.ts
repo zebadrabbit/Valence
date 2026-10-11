@@ -95,7 +95,7 @@ export const CATIONS_PRIMER: readonly PrimerSection[] = [
       ),
       paragraph(
         { label: 'Three numbers' },
-        'The smaller the number, the less dissolves. At 25 °C it is 1.77 × 10⁻¹⁰ for silver chloride, 1.71 × 10⁻⁵ for lead chloride and 1.46 × 10⁻¹⁸ for mercury(I) chloride. Lead chloride is by far the most soluble of the three.',
+        'For these three, the smaller the number, the less dissolves. At 25 °C it is 1.77 × 10⁻¹⁰ for silver chloride, 1.71 × 10⁻⁵ for lead chloride and 1.46 × 10⁻¹⁸ for mercury(I) chloride. Lead chloride is by far the most soluble of the three.',
         [
           [TABLES, 'pages 2-47, 2-119, 2-150 and 2-160, the rows for the chloride ion, for the three metal ions in water and for the three solid chlorides', 'the Gibbs energies of formation from which each of the three figures is worked out, as the record shows.'],
           [EQUILIBRIA, 'section 1.2, under its first heading', 'the three solubility products are of these sizes: the section gives each within about a tenth of the figure here.'],
@@ -307,9 +307,9 @@ export const CATIONS_PRIMER: readonly PrimerSection[] = [
       ),
       paragraph(
         { label: 'Using it' },
-        'In part 2 the finished chart is beside you as a map. Follow the unknown along it: each thing you see, or do not see, says which branch you are on.',
+        'Once part 1 is done, part 2 has the finished chart under each step, as a map to open. Follow the unknown along it: each thing you see, or do not see, says which branch you are on.',
         [],
-        "that part 2 shows the finished chart is this lab's own (spec 17.3).",
+        "that part 2 shows the finished chart, where it shows it and from when, is this lab's own (spec 17.3 and 17.8).",
       ),
     ],
   },

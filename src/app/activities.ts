@@ -13,29 +13,17 @@ export const ACTIVITIES = [
   { entry: ENTRY.flame, version: 1, kind: 'Lab', title: 'Flame tests', to: '/lab/flame' },
   // src/calorimetry-version.test.ts pins what a stored run of this lab is judged against to this entry and this version.
   { entry: ENTRY.calorimetry, version: 1, kind: 'Lab', title: 'Calorimetry', to: '/lab/calorimetry' },
+  // src/cations-version.test.ts pins what a stored run of this lab is judged against to this entry and this version.
+  { entry: ENTRY.cations, version: 1, kind: 'Lab', title: 'Group I cations', to: '/lab/cations' },
+  // src/lechatelier-version.test.ts pins what a stored run of this lab is judged against to this entry and this version.
+  { entry: ENTRY.lechatelier, version: 1, kind: 'Lab', title: "Le Chatelier's principle", to: '/lab/le-chatelier' },
+  // src/clock-version.test.ts pins what a stored run of this lab is judged against to this entry and this version.
+  { entry: ENTRY.clock, version: 1, kind: 'Lab', title: 'Clock reaction', to: '/lab/clock-reaction' },
   { entry: ENTRY.mechanism, version: 1, kind: 'Mechanism', title: 'HCl + NaHCO₃, step by step', to: '/learn/hcl-nahco3' },
 ] as const
 
-/**
- * The Group I cations lab's stored entry and its version. The lab has an engine and no page yet, so it is not among
- * the activities above, which Home lists: its page will put it there with this entry and this version
- * (src/cations-version.test.ts pins what a stored run is judged against to it).
- */
-export const CATIONS_PROGRESS = { entry: ENTRY.cations, version: 1 } as const
-
-/**
- * The Le Chatelier's principle lab's stored entry and its version. Like the Group I cations lab, it has an engine
- * and no page yet, so it is not among the activities above: its page will put it there with this entry and this
- * version (src/lechatelier-version.test.ts pins what a stored run is judged against to it).
- */
-export const LECHATELIER_PROGRESS = { entry: ENTRY.lechatelier, version: 1 } as const
-
-/**
- * The clock reaction lab's stored entry and its version. Like the two labs above, it has an engine and no page
- * yet, so it is not among the activities: its page will put it there with this entry and this version
- * (src/clock-version.test.ts pins what a stored run is judged against to it).
- */
-export const CLOCK_PROGRESS = { entry: ENTRY.clock, version: 1 } as const
+/** The clock reaction lab's stored entry and its version: what its page loads and saves with (src/clock-version.test.ts pins what a stored run is judged against to it). */
+export const CLOCK_PROGRESS = { entry: ACTIVITIES[6].entry, version: ACTIVITIES[6].version } as const
 
 /**
  * The iodination of acetone lab's stored entry and its version. Like the three labs above, it has an engine and no

@@ -110,8 +110,12 @@ export const RUN_TEXT = {
   /** Beside the two ways of stopping the watch. */
   stopHelp: 'Stop the watch when the liquid changes. Your own delay is added to the time, as a hand adds it on a real watch.',
   stopAtChangeHelp: 'The watch then stops at the change itself. A run timed this way counts like any other, and the record says how it was timed.',
-  /** Beside the running watch. */
-  fast: 'The page plays the time faster than a clock would.',
+  /** Beside the running watch of a run on the bench: the five mixtures are all played at one speed, so a shorter time is a shorter wait. */
+  fast: 'The page plays the time faster than a clock would, at one speed for all five mixtures.',
+  /** Beside the running watch of a run in a bath: each bath has a speed of its own, so its wait says nothing of its time. */
+  fastBath: 'The page plays the time faster than a clock would, and each bath at its own pace.',
+  /** In the flasks' card, once a run was left while its watch was running: the page records no time for it, and the flasks are poured again. */
+  left: 'This run was left while its watch was running, so no time was recorded. The flasks are as they were before the pour: pour again to time it.',
   runAgain: 'Make this run again',
   runAgainHelp: 'Sets the two flasks up afresh. The run so far is kept in the record.',
   outcome: 'This run',
@@ -599,7 +603,11 @@ export const RECORD_TEXT = {
   doesNotCount: 'Does not count',
   /** How a run in the record was timed. */
   timedByHand: (tenths: number) => `${secondsText(tenths)}, watch stopped by hand`,
+  /** A watch stopped by hand once the liquid had changed: how long after, in true seconds, which is the learner's own delay. */
+  timedByHandAfter: (tenths: number, delayMs: number) => `${secondsText(tenths)}, watch stopped by hand ${(delayMs / 1000).toFixed(1)} s after the change`,
   timedByEnd: (tenths: number) => `${secondsText(tenths)}, watch stopped at the change`,
+  /** A watch that ran to its limit with nothing to show a change: no hand stopped it, and there was no change to stop it at. */
+  timedOut: (tenths: number) => `${secondsText(tenths)}, the watch stopped itself`,
 } as const
 
 /** Under a part's sources: what is Valence's own. */

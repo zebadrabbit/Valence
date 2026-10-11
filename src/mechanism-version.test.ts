@@ -11,7 +11,7 @@ import { createProgress, predictionsOf } from './mechanisms/progress'
 // pinned here.
 describe('the mechanism timeline', () => {
   it("pins the stored shape, the track and the questions' answers with the stored entry's version: changing any of them means raising the mechanism entry's version in src/app/activities.ts", () => {
-    const { entry, version } = ACTIVITIES[4]
+    const { entry, version } = ACTIVITIES[7]
     expect({
       entry,
       version,
@@ -31,6 +31,6 @@ describe('the mechanism timeline', () => {
       ],
     })
     expect(mechanism.id).toBe('hcl-nahco3')
-    expect(mechanism.title).toBe(ACTIVITIES[4].title)
+    expect(mechanism.title).toBe(ACTIVITIES[7].title)
   })
 })

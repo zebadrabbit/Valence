@@ -184,18 +184,18 @@ describe('what each tube shows', () => {
     expect([shown('magnesium-base'), shown('magnesium-ammonia')]).toEqual([['colourless/white'], ['colourless/white']])
   })
 
-  it('is, for cobalt, a stored observation with its source at each of the four states: blue in the concentrated acid, pink diluted, blue hot, pink cold', () => {
+  it('is, for cobalt, a stored observation with its source at each of the four states: blue in the concentrated acid, violet diluted, blue hot, pink cold', () => {
     const cobalt = systemOf(lechatelierData, 'cobalt')
     const tube = cobalt.tubes[0]!
     expect('contents' in tube && [tube.shows.liquid, tube.shows.sourceId, tube.shows.alsoSourceId]).toEqual(['blue', 'nuffield-cobalt-equilibrium', 'chemguide-ligand-exchange'])
-    expect(cobalt.disturbances.map((d) => d.stages.map((s) => [s.liquid, s.solid, s.sourceId]))).toEqual([
-      [
-        ['violet', 'none', 'nuffield-cobalt-equilibrium'],
-        ['pink', 'none', 'nuffield-cobalt-equilibrium'],
-      ],
-      [['blue', 'none', 'nuffield-cobalt-equilibrium']],
-      [['pink', 'none', 'nuffield-cobalt-equilibrium']],
-    ])
+    expect(cobalt.disturbances.map((d) => d.stages.map((s) => [s.liquid, s.solid, s.sourceId]))).toEqual([[['violet', 'none', 'nuffield-cobalt-equilibrium']], [['blue', 'none', 'nuffield-cobalt-equilibrium']], [['pink', 'none', 'nuffield-cobalt-equilibrium']]])
+    // The tube that is heated and cooled is the violet one, as in the demonstration the three colours are read from: no tube is diluted past it.
+    expect(lechatelierData.equilibria.find((e) => e.id === 'cobalt')!.seenBy).toEqual({ kind: 'colour', left: 'pink', right: 'blue', between: 'violet' })
+    const p = lechatelierData.parameters
+    expect([p.cobaltChlorideGrams.value, p.cobaltAcidDrops.value, p.cobaltWaterDrops.value]).toEqual([0.1, 30, 20])
+    // Six tenths of the diluted tube is concentrated acid, with 0.04 g of the salt in each millilitre: the make-up of the demonstration's violet liquid (60 mL of acid and 4 g in 100 mL).
+    const [acid, water] = [p.cobaltAcidDrops.value * p.dropMicrolitres.value, p.cobaltWaterDrops.value * p.dropMicrolitres.value]
+    expect([acid / (acid + water), (p.cobaltChlorideGrams.value / (acid + water)) * 1000]).toEqual([0.6, 0.04])
     // The systems held by numbers carry no source on a stage: their source is the rules and the numbers.
     for (const { system, disturbance } of disturbances) if (system.heldBy === 'numbers') for (const stage of disturbance.stages) expect(stage.sourceId, disturbance.id).toBeUndefined()
   })
@@ -239,9 +239,12 @@ describe('the right answer of every disturbance follows from the equilibrium as 
         went = is.solid === 'none' ? other(seenBy.side) : seenBy.side
         expect(is.liquid).toBe(was.liquid)
       } else {
-        expect([seenBy.left, seenBy.right], `${id}: the liquid ends at the colour of one side`).toContain(is.liquid)
+        // The colours in their order from the left side to the right, with the colour of a liquid that holds both between them where the record has one.
+        const order = [seenBy.left, ...(seenBy.between === undefined ? [] : [seenBy.between]), seenBy.right]
+        expect(order, `${id}: the liquid begins at a colour the equilibrium names`).toContain(was.liquid)
+        expect(order, `${id}: the liquid ends at a colour the equilibrium names`).toContain(is.liquid)
         expect(is.liquid).not.toBe(was.liquid)
-        went = is.liquid === seenBy.left ? 'left' : 'right'
+        went = order.indexOf(is.liquid) < order.indexOf(was.liquid) ? 'left' : 'right'
       }
       expect(disturbance.ask.right).toBe(went)
       // Heating goes the way that takes heat in, and cooling the other way.

@@ -1,0 +1,49 @@
+/*
+ * Where the pieces of the Group I cations lab's tube card sit. Loaded with the lab page, so none of it is in the
+ * app shell's stylesheet. Nothing here animates, and nothing on this lab's page moves.
+ *
+ * The card holds four things: the picture of the tube, the buttons that work on it, the words (what to do with the
+ * picture, which parts have been looked at, what has been done so far), and the disclosure of the tube in words.
+ * In a card too narrow for the words beside the picture, the buttons are a column beside the picture, the
+ * disclosure is beside the picture's foot while it is closed, and the words run under them all, so that the card
+ * is little taller than the picture; opened, the disclosure has the card's whole width, under the picture. In a
+ * wider card the buttons, the words and the disclosure are all beside the picture. The rule follows the card's
+ * own width, never the window's.
+ */
+.cations-tube {
+  container: cations-tube / inline-size;
+}
+.cations-tube-grid {
+  display: grid;
+  gap: 0.75rem 1rem;
+  align-items: start;
+  grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  grid-template-areas: 'picture actions' 'picture in-words' 'words words';
+}
+.cations-tube-grid:has(.cations-tube-in-words details[open]) {
+  grid-template-areas: 'picture actions' 'picture .' 'in-words in-words' 'words words';
+}
+.cations-tube-picture {
+  grid-area: picture;
+}
+.cations-tube-actions {
+  grid-area: actions;
+}
+.cations-tube-words {
+  grid-area: words;
+}
+.cations-tube-in-words {
+  grid-area: in-words;
+  align-self: end;
+}
+@container cations-tube (min-width: 38rem) {
+  .cations-tube-grid,
+  .cations-tube-grid:has(.cations-tube-in-words details[open]) {
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas: 'picture actions' 'picture words' 'picture in-words';
+  }
+  .cations-tube-in-words {
+    align-self: start;
+  }
+}

@@ -30,9 +30,9 @@ export const PINNED_MODEL: LechatelierModel = {
     {
       id: 'cobalt',
       disturbances: [
-        { id: 'cobalt-water', tube: 'cobalt', kind: 'add', portions: 2, before: s('blue', 'none', 2000), stages: [s('violet', 'none', 4000), s('pink', 'none', 6000)], ask: 'direction', right: 'left' },
-        { id: 'cobalt-heat', tube: 'cobalt', kind: 'heat', portions: 1, before: s('pink', 'none', 6000), stages: [s('blue', 'none', 6000, 'hot')], ask: 'direction', right: 'right' },
-        { id: 'cobalt-cool', tube: 'cobalt', kind: 'cool', portions: 1, before: s('blue', 'none', 6000, 'hot'), stages: [s('pink', 'none', 6000, 'cold')], ask: 'direction', right: 'left' },
+        { id: 'cobalt-water', tube: 'cobalt', kind: 'add', portions: 1, before: s('blue', 'none', 1500), stages: [s('violet', 'none', 2500)], ask: 'direction', right: 'left' },
+        { id: 'cobalt-heat', tube: 'cobalt', kind: 'heat', portions: 1, before: s('violet', 'none', 2500), stages: [s('blue', 'none', 2500, 'hot')], ask: 'direction', right: 'right' },
+        { id: 'cobalt-cool', tube: 'cobalt', kind: 'cool', portions: 1, before: s('blue', 'none', 2500, 'hot'), stages: [s('pink', 'none', 2500, 'cold')], ask: 'direction', right: 'left' },
       ],
     },
     {
