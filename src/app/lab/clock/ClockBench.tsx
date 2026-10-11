@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type MouseEvent, type ReactNode } from 'react'
+import { useEffect, useMemo, useRef, useState, type ReactNode, type SyntheticEvent } from 'react'
 import { Disclosure, Sources } from '@/app/explore/InspectorCard'
 import { Hazards } from '@/app/lab/Hazards'
 import { openingStation } from '@/app/lab/openingStation'
@@ -128,8 +128,9 @@ export function ClockBench({ data, m, sources, state, shown, reducedMotion, act,
    * not Stop, which has focus by then, and not whatever the watch's card has brought to where the pour stood,
    * which at 768 by 1024 is Stop, the other way of stopping and a disclosure (watch.ts).
    */
-  const pourTwice = (event: MouseEvent) => {
-    if (play === null || !tooSoon(play, performance.now())) return
+  const pourTwice = (event: SyntheticEvent) => {
+    // By when the press was made, as the browser has it, and not by when the page came to it: a page that is slow to draw the watch must not take the pour's second press for a later one. Never later than now, for a browser that counts an event's time from another origin.
+    if (play === null || !tooSoon(play, Math.min(event.timeStamp, performance.now()))) return
     event.preventDefault()
     event.stopPropagation()
   }
@@ -285,7 +286,8 @@ export function ClockBench({ data, m, sources, state, shown, reducedMotion, act,
   const drawn = (of: PartId) => of === part || (of !== 'runs' && visited.some((key) => key.startsWith(`${of}:`)))
 
   return (
-    <div className="grid gap-3" onClickCapture={pourTwice}>
+    // A key's press is caught as it goes down, where its own time is known: the click it makes is made when the page comes to it.
+    <div className="grid gap-3" onClickCapture={pourTwice} onKeyDownCapture={(event) => void ((event.key === 'Enter' || event.key === ' ') && pourTwice(event))}>
       {/* Always there, and empty until the lab is complete, so that a screen reader says it when it comes; while it is empty it takes no room, the gap under it neither. */}
       <p role="status" className={`max-w-prose text-sm font-medium ${completed ? '' : '-mb-3'}`}>
         {completed && <Marked mark="✓" done>{LAB_TEXT.complete}</Marked>}

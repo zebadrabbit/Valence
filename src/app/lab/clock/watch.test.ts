@@ -90,6 +90,8 @@ describe('a run that is played', () => {
     const p = startPlay(1000)
     expect([0, 1, 250, 499].map((ms) => tooSoon(p, 1000 + ms))).toEqual([true, true, true, true])
     expect([500, 501, 2000, 60_000].map((ms) => tooSoon(p, 1000 + ms))).toEqual([false, false, false, false])
+    // A press made before the page came to the pour itself, and handled after it, is the pour's own too.
+    expect([-300, -1].map((ms) => tooSoon(p, 1000 + ms))).toEqual([true, true])
     // No run is near its change by then: the tests above hold the fastest of part 1 to 1.9 true seconds or more and every bath to 5.
     expect(PLAY.deafMs).toBeLessThan(1900 / 3)
   })
