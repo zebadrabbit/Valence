@@ -5,6 +5,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { ACTIVITIES } from '@/app/activities'
 import { ROLE } from '@/app/lab/roles'
 import { NARROW_NOTICE, SHELL_TEXT } from '@/app/lab/shellText'
+import { EDGE_HALO } from '@/app/lab/Tube'
 import { TUBE_HEIGHT, liquidHex } from '@/app/lab/tubeDrawing'
 import { labProgress } from '@/app/lab/useLabProgress'
 import { createMemoryStore, saveEntry, type KeyValueStore } from '@/app/progress/storage'
@@ -502,10 +503,12 @@ describe('the tube of a disturbance', () => {
     const [liquid, bottom] = parts(one)
     expect(liquid!.tag).toContain('border-dashed')
     expect(bottom!.tag).not.toContain('border-dashed')
-    // An edge has a light line about it, so that it shows on the blue liquid, on which the ink does not; a part that has been looked at has no edge and no line.
+    // An edge has a light line about it, so that it shows on the blue liquid, on which the ink does not; a part that has been looked at has no edge and no line. The line is the shared tube's, for every lab, and no rule of this lab's stylesheet.
     expect(bottom!.tag).toContain('border-transparent')
     expect(liquid!.tag).not.toContain('border-transparent')
-    expect(lechatelierCss).toContain('.lechatelier-tube button[data-part]:not(.border-transparent)')
+    expect(liquid!.tag).toContain(EDGE_HALO)
+    expect(bottom!.tag).not.toContain(EDGE_HALO)
+    expect(lechatelierCss).not.toContain('data-part')
     expect(bottom!.name).toBe(lookLabel('bottom', true))
     // A press of the change empties the looks: the tube has changed.
     expect(read(sheet(bench(changed(run(m, state, [{ type: 'look', system: LEAD, at: 'bottom' }]), LEAD, 1), LEAD).entry, TUBE_NAME.lead)!)).toContain(`|○|${LOOK_PART.bottom}: ${PAGE_TEXT.notLookedAt}|`)
