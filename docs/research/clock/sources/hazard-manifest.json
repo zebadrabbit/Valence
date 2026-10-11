@@ -1143,7 +1143,7 @@
         {
           "field": "starch.hazards.note",
           "prints": "< 1%",
-          "where": "Section 3, the concentration column, in the row for potato starch; salicylic acid is under 1% too, which the sheet does not explain, and water is over 99%. The solution on the bench is about 2% starch, so this is a sheet for a weaker solution, and the note says so. The second supplier's sheet read is for a stronger one."
+          "where": "Section 3, the concentration column, in the row for potato starch; salicylic acid is under 1% too, which the sheet does not explain, and water is over 99%. The record stores no strength for the solution on the bench, so the note gives this sheet's own figure and makes no comparison. The second supplier's sheet read is for a 5% solution."
         },
         {
           "field": "starch.hazards.note",

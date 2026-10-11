@@ -232,7 +232,7 @@ All in headless Chromium on Linux, on the production build, by script. The scrip
 ### Left for the owner
 
 - **The third row of buttons.** With the choice beside the pour, a run of part 1 before its pour is 50 px longer. On the first screen of a lab at 768 by 1024 the choice is partly under the window's foot until the first press, and at 1280 by 800 it is under it. The starch and the pour are in the window at both sizes.
-- **The starch note still says "for a weaker solution".** With no strength given for the bench's solution, the note's "The supplier's sheets for starch and for a weaker solution of it" has nothing to be weaker than; that sheet is for a solution of under 1%. The row of the hazard manifest for that sheet says that the bench's is about 2%. Both are in the hazard record, of which the review was given the one word.
+- **The starch note said "for a weaker solution"**, which compared a sheet with a bench strength the record does not store. Put right after the review, on 2026-10-11: the note now gives that sheet's own figure, under 1%, and compares nothing, and the hazard record's row for the sheet no longer gives the bench a strength.
 - **The half second takes a press that was meant, too,** and says nothing: "Stop the watch for me at the change" pressed within half a second of the pour is not pressed. It is beside the pour now, and shows whether it is pressed.
 - **A late press of "Stop the watch for me at the change" makes any run one that counts.** Pressed however long after the change, it stops the watch at the change. That is the design; it is said here because it is also a way round the 2.0 seconds.
 - **The slope's line of help gives its example with a minus sign,** "−1230", in Challenge as in Guided, before the entry is made.
