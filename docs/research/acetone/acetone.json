@@ -1,0 +1,407 @@
+{
+  "reagents": [
+    {
+      "id": "acetone-4m",
+      "name": "Acetone solution, 4.0 M",
+      "formula": "CH₃COCH₃",
+      "form": "solution",
+      "molarity": 4,
+      "shown": "4.0",
+      "sourceId": "moorpark-iodination-of-acetone"
+    },
+    {
+      "id": "hcl-1m",
+      "name": "Hydrochloric acid, 1.0 M",
+      "formula": "HCl",
+      "form": "solution",
+      "molarity": 1,
+      "shown": "1.0",
+      "sourceId": "moorpark-iodination-of-acetone"
+    },
+    {
+      "id": "iodine-0.005m",
+      "name": "Iodine solution, 0.0050 M",
+      "formula": "I₂",
+      "form": "solution",
+      "molarity": 0.005,
+      "shown": "0.0050",
+      "sourceId": "moorpark-iodination-of-acetone"
+    }
+  ],
+  "water": {
+    "name": "Distilled water",
+    "formula": "H₂O"
+  },
+  "constants": {
+    "gasConstant": {
+      "value": 8.314462618,
+      "unit": "J/(mol·K)",
+      "sourceId": "nist-codata-2022"
+    },
+    "zeroCelsius": {
+      "value": 273.15,
+      "published": "273.15",
+      "unit": "K",
+      "sourceId": "nist-si-temperature"
+    },
+    "joulesPerCalorie": {
+      "value": 4.184,
+      "published": "4.184",
+      "unit": "J/cal",
+      "sourceId": "nist-sp811-conversion-factors"
+    }
+  },
+  "reaction": {
+    "id": "iodination",
+    "name": "The reaction that is timed",
+    "equation": "CH₃COCH₃(aq) + I₂(aq) → CH₃COCH₂I(aq) + H⁺(aq) + I⁻(aq)",
+    "reactants": [
+      {
+        "formula": "CH₃COCH₃",
+        "coefficient": 1,
+        "composition": {
+          "C": 3,
+          "H": 6,
+          "O": 1
+        },
+        "charge": 0
+      },
+      {
+        "formula": "I₂",
+        "coefficient": 1,
+        "composition": {
+          "I": 2
+        },
+        "charge": 0
+      }
+    ],
+    "products": [
+      {
+        "formula": "CH₃COCH₂I",
+        "coefficient": 1,
+        "composition": {
+          "C": 3,
+          "H": 5,
+          "O": 1,
+          "I": 1
+        },
+        "charge": 0
+      },
+      {
+        "formula": "H⁺",
+        "coefficient": 1,
+        "composition": {
+          "H": 1
+        },
+        "charge": 1
+      },
+      {
+        "formula": "I⁻",
+        "coefficient": 1,
+        "composition": {
+          "I": 1
+        },
+        "charge": -1
+      }
+    ],
+    "product": {
+      "name": "iodoacetone",
+      "formula": "CH₃COCH₂I"
+    },
+    "sourceId": "tau-kinetics-iodination",
+    "alsoSourceId": "docbrown-iodination-of-propanone"
+  },
+  "rateLaw": {
+    "expression": "rate = k[CH₃COCH₃][H⁺]",
+    "reactants": [
+      {
+        "id": "acetone",
+        "name": "acetone",
+        "formula": "CH₃COCH₃",
+        "reagentId": "acetone-4m",
+        "comparedIn": "mixture-2",
+        "order": {
+          "value": 1,
+          "sourceId": "tau-kinetics-iodination",
+          "alsoSourceId": "uv-iodine-acetone-kinetics",
+          "moreSourceIds": [
+            "moorpark-iodination-of-acetone"
+          ]
+        }
+      },
+      {
+        "id": "hydrogen-ion",
+        "name": "hydrogen ion",
+        "formula": "H⁺",
+        "reagentId": "hcl-1m",
+        "comparedIn": "mixture-3",
+        "order": {
+          "value": 1,
+          "sourceId": "tau-kinetics-iodination",
+          "alsoSourceId": "uv-iodine-acetone-kinetics",
+          "moreSourceIds": [
+            "moorpark-iodination-of-acetone"
+          ]
+        }
+      },
+      {
+        "id": "iodine",
+        "name": "iodine",
+        "formula": "I₂",
+        "reagentId": "iodine-0.005m",
+        "comparedIn": "mixture-4",
+        "order": {
+          "value": 0,
+          "sourceId": "tau-kinetics-iodination",
+          "alsoSourceId": "uv-iodine-acetone-kinetics",
+          "moreSourceIds": [
+            "moorpark-iodination-of-acetone"
+          ]
+        }
+      }
+    ],
+    "note": {
+      "value": "One university's laboratory page says that the rate at which acetone takes up a halogen has been found not to depend on how much halogen there is, except in very strong acid, and that the same rate is found for chlorine, bromine and iodine; it gives a mechanism from which the rate is first order in acetone and first order in acid. A second university's guide gives the orders as one, one and nought, and a college's handout calls the reaction zero order in iodine. The lab stores those three orders. Its mixtures are 0.2 to 0.4 mol/L in acid, which is not very strong acid; where the line lies was not read.",
+      "sourceId": "tau-kinetics-iodination",
+      "alsoSourceId": "uv-iodine-acetone-kinetics",
+      "moreSourceIds": [
+        "moorpark-iodination-of-acetone"
+      ]
+    },
+    "rateConstant": {
+      "value": 2.91,
+      "published": "2.91",
+      "exponent": -5,
+      "unit": "L/(mol·s)",
+      "celsius": 25,
+      "note": "The rate constant at 25 °C, as a table of measured rate constants gives it for this reaction in water with hydrochloric acid of 0.2 mol/L: 2.91 × 10⁻⁵, in litres, moles and seconds, for a rate written as the constant times the acetone times the hydrogen ion. The table prints the figure as 2.91 beside a power of ten of −5, and the record stores it so. Three of the lab's mixtures are 0.2 mol/L in acid, and the fourth 0.4. The same row of studies has 2.83 for acid of 0.01 to 0.1 mol/L, 2.99 for 0.5 and 3.05 for 1.0, and another study in the table has 2.86 for 0.03 to 0.11: the constant rises a little with the acid, and the lab takes one figure for every mixture. The table was read from images of its pages; the studies it gathers were not read.",
+      "sourceId": "nbs-circular-510"
+    },
+    "activationEnergy": {
+      "value": 20.6,
+      "published": "20.6",
+      "unit": "kcal/mol",
+      "note": "The activation energy the same table gives for this reaction in water with hydrochloric acid of 0.03 to 0.11 mol/L, from rate constants at 0, 25, 27 and 35 °C: 20.6, in kilocalories for each mole. Taken as thermochemical calories of 4.184 J, that is 86.2 kJ/mol; the table does not say which calorie is meant, and the other in use differs by less than a part in a thousand. No part of this lab finds it: the model uses it to work out the rate constant at the room's temperature from the figure at 25 °C. It comes from another study than the rate constant does.",
+      "sourceId": "nbs-circular-510"
+    },
+    "end": {
+      "reagentId": "iodine-0.005m",
+      "per": 1,
+      "before": {
+        "value": "yellow",
+        "sourceId": "moorpark-iodination-of-acetone",
+        "alsoSourceId": "chemguide-finding-orders"
+      },
+      "after": {
+        "value": "colourless",
+        "sourceId": "chemguide-finding-orders",
+        "alsoSourceId": "moorpark-iodination-of-acetone"
+      },
+      "sourceId": "moorpark-iodination-of-acetone"
+    }
+  },
+  "mixtures": [
+    {
+      "id": "mixture-1",
+      "name": "Mixture 1",
+      "flask": [
+        {
+          "reagentId": "acetone-4m",
+          "millilitres": 10
+        },
+        {
+          "reagentId": "hcl-1m",
+          "millilitres": 10
+        },
+        {
+          "reagentId": "water",
+          "millilitres": 20
+        }
+      ],
+      "added": {
+        "reagentId": "iodine-0.005m",
+        "millilitres": 10
+      },
+      "sourceId": "moorpark-iodination-of-acetone"
+    },
+    {
+      "id": "mixture-2",
+      "name": "Mixture 2",
+      "flask": [
+        {
+          "reagentId": "acetone-4m",
+          "millilitres": 20
+        },
+        {
+          "reagentId": "hcl-1m",
+          "millilitres": 10
+        },
+        {
+          "reagentId": "water",
+          "millilitres": 10
+        }
+      ],
+      "added": {
+        "reagentId": "iodine-0.005m",
+        "millilitres": 10
+      },
+      "sourceId": "moorpark-iodination-of-acetone"
+    },
+    {
+      "id": "mixture-3",
+      "name": "Mixture 3",
+      "flask": [
+        {
+          "reagentId": "acetone-4m",
+          "millilitres": 10
+        },
+        {
+          "reagentId": "hcl-1m",
+          "millilitres": 20
+        },
+        {
+          "reagentId": "water",
+          "millilitres": 10
+        }
+      ],
+      "added": {
+        "reagentId": "iodine-0.005m",
+        "millilitres": 10
+      },
+      "sourceId": "moorpark-iodination-of-acetone"
+    },
+    {
+      "id": "mixture-4",
+      "name": "Mixture 4",
+      "flask": [
+        {
+          "reagentId": "acetone-4m",
+          "millilitres": 10
+        },
+        {
+          "reagentId": "hcl-1m",
+          "millilitres": 10
+        },
+        {
+          "reagentId": "water",
+          "millilitres": 10
+        }
+      ],
+      "added": {
+        "reagentId": "iodine-0.005m",
+        "millilitres": 20
+      },
+      "sourceId": "moorpark-iodination-of-acetone"
+    }
+  ],
+  "referenceMixtureId": "mixture-1",
+  "parts": [
+    {
+      "id": "runs",
+      "name": "Four mixtures at room temperature",
+      "notes": [
+        {
+          "value": "Acetone and iodine reacted, with the acid speeding them on: CH₃COCH₃ + I₂ → CH₃COCH₂I + H⁺ + I⁻. An iodine atom took the place of a hydrogen atom of the acetone, which made iodoacetone. Iodine is the only coloured thing in the flask, so the yellow faded as the iodine was used up.",
+          "sourceId": "tau-kinetics-iodination",
+          "alsoSourceId": "moorpark-iodination-of-acetone",
+          "moreSourceIds": [
+            "docbrown-iodination-of-propanone"
+          ]
+        },
+        {
+          "value": "Each run ended when the last of its iodine had reacted. So the rate of a run is the iodine its mixture began with, over the time that took.",
+          "sourceId": "moorpark-iodination-of-acetone"
+        },
+        {
+          "value": "What this lab takes as simpler than it is. Each time is what the lab's model gives for the mixture, moved a little by a scatter that is the lab's own, with your own delay on the watch added. The drawing keeps a faint yellow until the very end, so that the end can be seen on a screen. On a real bench the last of the colour is hard to see, which is what the flask of water and the white paper are for.",
+          "sourceId": "moorpark-iodination-of-acetone"
+        }
+      ]
+    },
+    {
+      "id": "rate-law",
+      "name": "The rate law",
+      "notes": [
+        {
+          "value": "The rate law this lab's model runs on is rate = k[CH₃COCH₃][H⁺]: first order in acetone, first order in hydrogen ion, and of order nought in iodine. Twice the iodine took twice as long to go, at the same rate. The orders are not the numbers in the equation: an order is found by experiment.",
+          "sourceId": "tau-kinetics-iodination",
+          "alsoSourceId": "uv-iodine-acetone-kinetics",
+          "moreSourceIds": [
+            "moorpark-iodination-of-acetone",
+            "chemguide-orders-of-reaction"
+          ]
+        },
+        {
+          "value": "Why the iodine does not count. The reaction goes in steps. In the slow one, acid helps a molecule of acetone change into another form of itself, called its enol. Iodine then reacts with the enol, quickly. The slow step sets the rate, and iodine takes no part in it.",
+          "sourceId": "tau-kinetics-iodination",
+          "alsoSourceId": "uv-iodine-acetone-kinetics",
+          "moreSourceIds": [
+            "upb-acetone-iodination",
+            "chemguide-orders-and-mechanisms"
+          ]
+        },
+        {
+          "value": "The model's rate constant is 2.91 × 10⁻⁵ L/(mol·s) at 25 °C, measured in hydrochloric acid of 0.2 mol/L, the strength in three of these mixtures. It is from a table of measured rate constants published by the U.S. National Bureau of Standards, which has it a little higher in stronger acid; the model takes the one figure for every mixture. A rate constant changes with temperature too: your result was held to what the model gives at this room's temperature, worked out with the activation energy the same table gives, 20.6 kcal/mol (86.2 kJ/mol).",
+          "sourceId": "nbs-circular-510",
+          "alsoSourceId": "nist-sp811-conversion-factors"
+        },
+        {
+          "value": "What this lab takes as simpler than it is. The rate is taken as steady from the mixing to the end, with the acetone and the acid as they were at mixing. By the end, 0.25% or less of the acetone has been used up, and the reaction has made a little acid: the hydrogen ion is up by 1% or less. The acid counts for more, so a real run would be a little shorter than this arithmetic allows for, by 0.4% at most. These figures are the lab's own arithmetic.",
+          "sourceId": "moorpark-iodination-of-acetone",
+          "alsoSourceId": "upb-acetone-iodination"
+        }
+      ]
+    }
+  ],
+  "parameters": {
+    "roomRangeTenths": {
+      "value": [
+        200,
+        240
+      ],
+      "rationale": "The room's temperature, in tenths of a degree Celsius: 20.0 to 24.0 °C, drawn once for a lab. All four mixtures are timed at it. The bottles have stood in the room, so nothing is warmer or cooler than it. It is the range the clock reaction lab's room has."
+    },
+    "scatterPerTenThousand": {
+      "value": 100,
+      "rationale": "The most that the seed moves a time, either way, in parts in ten thousand: one part in a hundred. A bench's own scatter is larger: the handout read has two runs of one mixture agree within 15 to 20 seconds, in times of a minute or two. The lab's is small beside what the part measures, where doubling a solution halves a time, doubles it, or leaves the rate as it was: over seeds 1 to 100, with a hand three tenths of a second late, the power that fits each pair of runs is within 0.03 of its whole number."
+    },
+    "delayLimitMs": {
+      "value": 5000,
+      "rationale": "A watch stopped by hand more than this long after the last of the colour went, in milliseconds, makes the run not count: five seconds. The delay is added to the time, as a hand adds it on a real watch. The end of a fade is harder to catch than a sudden change, so the limit is more than twice the two seconds of the clock reaction lab; the runs here are longer, and can bear it. With every run of a lab stopped that late, at every setup the draw can give, the mean rate constant is 3.68% low at the worst, and no order is more than 0.09 from its whole number."
+    },
+    "watchLimitSeconds": {
+      "value": 1800,
+      "rationale": "The watch stops itself after half an hour. The longest careful run, the mixture with twice the iodine in the coolest room, takes just over thirteen minutes. The limit keeps a record edited by hand from holding a time that means nothing."
+    },
+    "orderChoices": {
+      "value": [
+        0,
+        1,
+        2
+      ],
+      "rationale": "The orders a learner chooses among (spec 19.3, which spec 20.3 follows)."
+    },
+    "unitPowers": {
+      "value": [
+        0,
+        -1,
+        -2,
+        -3,
+        -4
+      ],
+      "rationale": "The units of a rate constant a learner chooses among, each as the power of mol/L in it: 1/s for a first-order rate law down to L⁴/(mol⁴·s) for a fifth-order one. The right one follows from the learner's own three orders. They are the clock reaction lab's five."
+    },
+    "rateConstantTolerancePercent": {
+      "value": 5,
+      "rationale": "Part 2 counts when the mean of the four runs' rate constants is within 5% of what the model gives at the room's temperature, the edge included. A careful learner, with a hand three tenths of a second late, is between 0.63% low and 0.61% high over seeds 1 to 100. The delay a run may have and still count is set so that the 5% cannot be left for the watch alone."
+    },
+    "paleBelowMicroMolar": {
+      "value": 500,
+      "rationale": "The words for the liquid's colour, which stand beside the drawing so that colour is not the only signal: with less than this much iodine left, in micromoles for a litre, the liquid is called pale yellow, and with this much or more, yellow. Half of what the first mixture begins with. The step is the lab's own: no source read says at what strength an eye calls iodine pale."
+    },
+    "faintestBelowMicroMolar": {
+      "value": 100,
+      "rationale": "With less than this much iodine left, in micromoles for a litre, and any at all, the liquid is called the faintest yellow; with none, it has no colour. A tenth of what the first mixture begins with. The step is the lab's own. On a real bench an eye loses the colour before the last of the iodine has gone, and where it does was not read; the lab draws and names a colour until none is left, so that the end can be seen."
+    }
+  }
+}

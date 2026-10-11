@@ -191,14 +191,18 @@ describe('the sources the build lists for the lab', () => {
     const underTiles = new Set(stored.reagents.flatMap((r) => [r.hazards.sourceId, r.hazards.note.sourceId, ...('alsoSourceId' in r.hazards.note ? [r.hazards.note.alsoSourceId] : []), ...('moreSourceIds' in r.hazards.note ? r.hazards.note.moreSourceIds : [])]))
     const forPrimer = new Set(sheets.filter((s) => s.supports.some((row) => row.field === 'primer.safety')).map((s) => s.id))
     expect([...forPrimer].sort()).toEqual(['fisher-sds-iodine', 'flinn-sds-411', 'flinn-sds-615', 'nj-rtk-fs-1559', 'noaa-cameo-1353', 'noaa-cameo-25035', 'wards-sds-pp0395', 'wards-sds-pp0398'])
-    // A document that an earlier lab read too is listed by that lab, whatever this one does with it.
+    // A document that an earlier lab read too is listed by that lab, whatever this one does with it; and one that a
+    // lab built after this one has under a tile of its own is listed by that lab, after everything this lab lists.
     const first = allSources.findIndex((s) => s.id === sources[0]!.id)
+    const last = Math.max(...[...sources.map((s) => s.id), ...underTiles, ...forPrimer].map((id) => allSources.findIndex((s) => s.id === id)))
     for (const sheet of sheets) {
       const at = allSources.findIndex((s) => s.id === sheet.id)
-      expect(at >= 0, sheet.id).toBe(underTiles.has(sheet.id) || forPrimer.has(sheet.id) || (at >= 0 && at < first))
+      expect(at >= 0, sheet.id).toBe(underTiles.has(sheet.id) || forPrimer.has(sheet.id) || (at >= 0 && (at < first || at > last)))
     }
+    // The sheet for solid iodine is under no tile of this lab; the iodination of acetone lab has it under its iodine's, and lists it.
+    expect(sheets.filter((s) => allSources.findIndex((one) => one.id === s.id) > last).map((s) => s.id)).toEqual(['flinn-sds-407'])
     // Read, and under no tile and not for the card: the manifest keeps what was read of them, and the app does not list them.
-    expect(sheets.filter((s) => listed(s.id) === undefined).map((s) => s.id).sort()).toEqual(['flinn-sds-407', 'wards-sds-pp0610', 'wards-sds-ss0940'])
+    expect(sheets.filter((s) => listed(s.id) === undefined).map((s) => s.id).sort()).toEqual(['wards-sds-pp0610', 'wards-sds-ss0940'])
   })
 
   it('keeps, as read and not carried for length, the rows of the hazard manifest that the safety card does not use', () => {

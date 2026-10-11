@@ -1,0 +1,639 @@
+{
+  "sources": [
+    {
+      "id": "flinn-sds-7",
+      "url": "https://www.flinnsci.com/sds_7-acetone/sds_7",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Acetone, SDS number sds_7; revision date August 31, 2016 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "b8d65ee699d6c22d818145d4e658cef306a81e2c6848fac05b1fffa2b509216f",
+      "supports": [
+        {
+          "field": "acetone-4m.classifiedAs",
+          "prints": "Acetone",
+          "where": "The sheet's title, before the words Safety Data Sheet: the liquid itself. The solution on the bench is 4.0 M acetone in water, and is made up from the liquid this sheet is for. The bottle carries the statements of the most dangerous form it is made from, which is this project's rule for a solution made up from a stock (spec 5.2), and the heading over the statements says whose they are."
+        },
+        {
+          "field": "acetone-4m.classifiedAs",
+          "prints": "Acetone, Dimethyl ketone",
+          "where": "Section 3, the name column: the one component the sheet lists, with the CAS number 67-64-1 and nothing in the concentration column. The heading over the bottle's statements calls that the pure substance; the sheet does not use the word."
+        },
+        {
+          "field": "acetone-4m.hazards",
+          "prints": "August 31, 2016",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "acetone-4m.hazards.signalWord",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Danger, the form its schema has for the word."
+        },
+        {
+          "field": "acetone-4m.hazards.statements[0]",
+          "prints": "Highly flammable liquid and vapor (H225)",
+          "where": "Section 2, the first of the three hazard classes it lists: category 2, for flammable liquids. The record stores the sheet's own line, with its code or codes in front as printed, then a colon and the statement. Beside some of the classes it prints precautionary statements, with codes that begin with P: those are not hazard statements and are not carried into the record."
+        },
+        {
+          "field": "acetone-4m.hazards.statements[1]",
+          "prints": "Causes serious eye irritation (H319)",
+          "where": "Section 2, the second of the three: category 2A, for irritation of the eyes."
+        },
+        {
+          "field": "acetone-4m.hazards.statements[2]",
+          "prints": "May cause drowsiness or dizziness (H336)",
+          "where": "Section 2, the last of the three: category 3, for toxicity to one organ after a single exposure, here a narcotic effect. The section prints no other hazard code."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "Density: 0.79",
+          "where": "Section 9. The sheet gives the figure no unit; it is taken as grams to the millilitre. With the formula weight that section 3 prints, 58.08, it is what the note's 29% by volume is worked out from: 4.0 mol/L is 232 g of acetone in each litre of the solution, which is 294 mL of the liquid (worked out from the molarity and these two figures, not read from a source). By mass the share is smaller, since the liquid is lighter than water; no document read gives the density of such a solution, so no figure by mass is given."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "Flash point: -17 °C (CC)",
+          "where": "Section 5, the start of its third line, which goes on to the limits between which the vapour burns in air, 2.6% to 12.8%, and to the temperature at which it lights of itself, 465 °C. The first line of the section calls the liquid a flammable liquid of class IB, and the second a dangerous fire hazard. For the primer's safety topic it supports this: that acetone gives off enough vapour to be lit far below the temperature of a room, which is why a real bench of this lab has no flame and nothing hot on it. The figure is of the liquid itself; this sheet says nothing of a solution in water."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "Potentially explosive reaction with strong oxidizing agents and halogenated compounds.",
+          "where": "Section 10, after the word Stable. For the primer's safety topic it supports this: that the sheet keeps acetone from strong oxidising agents and from halogenated compounds. It names no iodine and no acid, and says nothing of what acetone and iodine give in dilute acid, which is this lab's reaction. NOAA's record for iodine calls iodine an oxidising agent and does not call it a strong one."
+        },
+        {
+          "field": "acetone-4m.notCarried",
+          "prints": "Use latex, not nitrile gloves.",
+          "where": "Read and not carried. Section 8, after the sentence on what is worn: eye protection, gloves and protective clothing. Why: the documents read do not agree on the glove. The state health department's fact sheet recommends butyl rubber and two laminates by their trade names, and names neither latex nor nitrile; the second supplier's sheet asks for protective gloves and names no material. The note says gloves, and which glove is for the laboratory's supervisor to say."
+        },
+        {
+          "field": "acetone-4m.notCarried",
+          "prints": "Target organs: Liver, kidneys, CNS, respiratory system.",
+          "where": "Read and not carried. Section 11, its third line. The first gives, as what the liquid does at once, irritation of the eyes and the airways, dizziness and a slowing of the nervous system; the second gives dermatitis over a long time. Why: the same sheet has no hazard class for the liver, the kidneys or the airways: its section 2 has the three classes on the tile and no other. The note is held to a length; what the state health department's fact sheet says of the liver and the kidneys is listed under that document."
+        },
+        {
+          "field": "acetone-4m.notCarried",
+          "prints": "P312",
+          "where": "Read and not carried. Section 4, its first line: a poison centre or a doctor is called if the person feels unwell. For the eyes the section gives rinsing with water for several minutes and medical advice if the irritation lasts; for the skin, washing with plenty of water. Why: it is the first aid of the sheet for the solution too, word for word, and the note gives the stricter first aid of the second supplier's sheet and of NOAA's record."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-7.3",
+      "url": "https://www.flinnsci.com/sds_7.3-acetone-chromatography-solvent/sds_7.3",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Acetone Chromatography Solvent, SDS number sds_7.3; revision date September 22, 2014 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "d87ac14c5313c1d36927767588448a0bb626b6ab1e60b18d1209ef1fd0aa32c1",
+      "supports": [
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "Acetone Chromatography Solvent",
+          "where": "The sheet's title, before the words Safety Data Sheet: a product sold for chromatography which, by its section 3, is acetone and water and nothing else. It is the one sheet of this supplier for acetone in water: the list of its sheets, saved on 2026-10-09, has two with acetone in the title, this one and the sheet for the liquid. The solution on the bench is weaker than this sheet's, about 29% by volume against 50%, and no document read is for a solution of the bench's strength. The note goes by this sheet as the nearest one that was read, and says what strength it is for: a weaker solution is handled as this one is."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "50%",
+          "where": "Section 3, the concentration column, where the figure is printed twice, once in the row for acetone and once in the row for water. The sheet does not say on what basis the percentage is."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "September 22, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the note gives it as Danger."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "Highly flammable liquid and vapor (H225)",
+          "where": "Section 2, the first of the four hazard classes it lists: category 2, for flammable liquids, which is the class and the category of the liquid itself. The third and the fourth are the other two of the liquid's sheet, with the same codes and statements: H319, serious irritation of the eyes, and H336, drowsiness or dizziness. So the note says that the sheet keeps all three."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "Causes mild skin irritation (H316)",
+          "where": "Section 2, the second of the four: category 3, for corrosion or irritation of the skin. The sheet for the liquid itself has no class for the skin. The note says that this sheet adds mild irritation of the skin."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "Flammable liquid due to acetone content.",
+          "where": "Section 5, its first line. The section gives the solution no flash point and no limits. It is what the note means by saying that water does not stop it burning."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "P210",
+          "where": "Section 2, beside the first class: the precautionary statement that keeps the solution away from heat, from sparks, from open flame and from hot surfaces, and forbids smoking. Section 10 says that every source of ignition is avoided, and section 6 that they are all taken away from a spill."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "P271",
+          "where": "Sections 7 and 8: the precautionary statement that the solution is used only in a hood or where the air is well changed. Section 7 has the container kept tightly closed and cool."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "P280",
+          "where": "Section 8: the precautionary statement that calls for eye protection, gloves and protective clothing. This sheet says in the same sentence that the gloves are of latex."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "P305+P351+P338",
+          "where": "Section 4, under the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that, with medical advice if the irritation lasts. The sheet gives no number of minutes; the note gives the 15 of the second supplier's sheet and the 20 to 30 of NOAA's record. For the skin the section gives washing with plenty of water."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "Stable. Avoid oxidizing agents and halogenated compounds. Avoid all sources of ignition.",
+          "where": "Section 10, its first line. The note keeps the solution from oxidising agents. This bench has one: iodine, which NOAA's record for it calls an oxidising agent. The acetone meets it in the flask, each of them diluted, as the experiment; the note says so. The bench has no halogenated compound in a bottle; the reaction makes one, iodoacetone, of which the primer's rows say what was read."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods (#18a) is one option. Section 15 prints the RCRA code U002; the note does not give it. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and local regulations."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "Flammable liquid due to acetone content.",
+          "where": "Section 5, its first line, of a solution that is half acetone and half water. For the primer's safety topic it supports this: that acetone mixed with water still burns, so the bottle on the bench is treated as flammable, and so is the flask. The mixtures of this lab are weaker again: at most 20 mL of the 4.0 M solution in 50 mL, which is about 12% acetone by volume (worked out from the lab's own mixtures and the density on the sheet for the liquid, not read from a source). No document read says at what strength a solution of acetone in water stops being flammable."
+        },
+        {
+          "field": "acetone-4m.notCarried",
+          "prints": "Use latex, not nitrile gloves.",
+          "where": "Read and not carried. Section 8, after the sentence on what is worn, which names latex for the gloves. Why: the documents read do not agree on the glove. The state health department's fact sheet recommends butyl rubber and two laminates by their trade names, and names neither latex nor nitrile; the second supplier's sheet asks for protective gloves and names no material. The note says gloves, and which glove is for the laboratory's supervisor to say."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-acetone",
+      "url": "https://www.fishersci.com/store/msds?partNumber=A18500&productDescription=ACETONE&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Acetone, catalogue numbers A18-4 and A18-500, among others; revision 9 of 18 December 2025 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "08b3b20730e03106b7867f2376c5bfbee388bcecccb19d61468b70289f1e59bb",
+      "supports": [
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "Acetone",
+          "where": "Section 1, after the words Product Name, with the CAS number 67-64-1. Section 3 gives acetone at over 95%: the sheet is for the liquid itself, and this supplier was not asked for a sheet of a solution in water. The address above was made from one catalogue number, in the form of the addresses the labs before this one read this supplier's sheets at; the description in it is this project's, and the server answered with the sheet named here. The note calls it a second supplier's sheet."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "18-Dec-2025",
+          "where": "At the head of the sheet, after the words Revision Date, with Revision Number 9 beside it, and again on every page. The sheet says under its title that it is made to the hazard communication standard of the United States, in its form of 2024."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "Danger",
+          "where": "Section 2, under the words Signal Word. The three hazard statements of the label follow it: that the liquid and its vapour are highly flammable, that it seriously irritates the eyes, and that it may bring on drowsiness or dizziness. The sheet prints its hazard statements without codes. The classes are flammable liquids, category 2; irritation of the eyes, category 2; and toxicity to one organ after a single exposure, category 3, with the central nervous system named. They are the three classes of the first supplier's sheet: on the hazard class neither sheet is the stricter."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "for at least 15 minutes. Get",
+          "where": "Section 4, under Eye Contact, where a line ends on these words and the next has the medical attention: the eyes are rinsed at once with plenty of water, under the eyelids too, for 15 minutes or more, and medical attention is got. The first supplier's sheets give several minutes, and medical advice only if the irritation lasts: the note gives the 15 minutes and the doctor as what this lab goes by. For the skin the section gives washing at once for 15 minutes or more, and a doctor if irritation lasts."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "Vapors may travel to source of ignition and flash back.",
+          "where": "Section 5, under the words for specific hazards, its last sentence; the ones before it say that the liquid may be set alight, that containers may burst when they are heated and that the vapour can make an explosive mixture with air. The section gives the flash point as -20 °C, three degrees under the first supplier's figure. The note gives the travelling of the vapour from the state health department's fact sheet, which says the same of it and says why."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "Should not be released into the environment.",
+          "where": "Section 6, after the words Environmental Precautions. This supplier prints the line on many of its sheets, and on its sheet for a dilute iodine solution that was read for this lab too. Here it stands with a regulation: section 15 says that the sheet's product holds a substance regulated as hazardous under the federal law on releases, CERCLA, and its table gives acetone a reportable quantity of 5000 lb; section 13 prints the RCRA waste code U002 for it. Section 12 gives figures for water life and no class for the environment, and section 15 marks the liquid as no marine pollutant. With the state health department's fact sheet it is why the note keeps the solution out of sewers."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "Incompatible Materials",
+          "where": "Section 10, the label of its list, which section 7 has too: oxidising agents, reducing agents and bases, each called strong, with peroxides, halogenated compounds, the alkali metals and amines. It names no acid and no iodine. The note keeps the solution from oxidising agents; of the rest nothing is on this bench."
+        },
+        {
+          "field": "acetone-4m.notCarried",
+          "prints": "Repeated exposure may cause skin dryness or cracking",
+          "where": "Read and not carried. Section 2, under the heading for hazards not otherwise classified, after the precautionary statements. Section 11 says that long contact may take the fat out of the skin and bring on dermatitis. Why: the note is held to a length, and of the skin it gives the graver thing that was read, that acetone may pass through it, from the state health department's fact sheet. That sheet says the same of drying and cracking. It is kept here for whoever wants it in the note."
+        },
+        {
+          "field": "acetone-4m.notCarried",
+          "prints": "Use explosion-proof electrical/ventilating/lighting equipment",
+          "where": "Read and not carried. Section 2, among the precautionary statements for prevention. Beside it are four more of the kind: the container and what it is emptied into are grounded and bonded, static discharge is prevented, tools do not spark, and the liquid is kept cool. Section 7 says that the metal parts of the equipment are grounded. Why: they are precautions for moving the liquid between containers and for the room it is stored in. The note is held to a length, and gives the precaution that reaches a bench: no flame, no spark and no hot surface near. They are kept here for whoever wants them in the note."
+        },
+        {
+          "field": "acetone-4m.notCarried",
+          "prints": "May cause pulmonary edema",
+          "where": "Read and not carried. Section 4, among the symptoms of overexposure, after a headache, dizziness, tiredness and sickness; section 11 has it again. It is said of breathing the vapour at high concentration. Why: the note is held to a length. The sheet has no hazard class for the lungs; the tile has its statement for breathing the vapour, drowsiness or dizziness, and the note has the hood or the well-ventilated room."
+        },
+        {
+          "field": "acetone-4m.notCarried",
+          "prints": "Dispose of contents/container to an approved waste disposal plant",
+          "where": "Read and not carried. Section 2, the precautionary statement under Disposal. Section 13 says that whoever makes the waste decides whether it is hazardous waste and consults the local, regional and national rules. Why: the note gives no procedure of any one site: it says that disposal is decided by the laboratory's own rules and local regulations."
+        }
+      ]
+    },
+    {
+      "id": "nj-rtk-fs-0006",
+      "url": "https://www.nj.gov/health/eoh/rtkweb/documents/fs/0006.pdf",
+      "citation": "New Jersey Department of Health, Right to Know Program. Hazardous Substance Fact Sheet: Acetone, RTK substance number 0006; dated February 2011, revision of June 2015 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "83c4594f733274f051916bb836e6bb3a346171a38a51cb974f2c1c3df5314abb",
+      "supports": [
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "Common Name: ACETONE",
+          "where": "The first line of the sheet, under the words for a fact sheet on a hazardous substance. The CAS number on the page is 67-64-1. It is a state health department's summary, of six pages, for workplaces where the liquid is handled; it is not a safety data sheet and gives no class of the GHS. The address above was made from the substance's number, in the form the department serves its fact sheets at, and the server answered with the sheet named here. It is of the liquid, and says nothing of a solution in water. The note calls it a state health department's fact sheet."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "Revision: June 2015",
+          "where": "At the head of the first page, after the date February 2011: the revision that was read."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "Acetone can affect you when inhaled and may be absorbed",
+          "where": "The hazard summary on the first page, the start of its first point, which goes on over the line end to name the skin: acetone can do harm when it is breathed in, and may also be taken up through the skin. The passage on exposure limits, lower on the same page, says that the limits are for the air alone, and that with contact of the skin a person may be overexposed under them. No safety data sheet read says that acetone passes through skin. The note gives it as what this fact sheet says."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "Vapor is heavier than air and may travel a distance to cause",
+          "where": "The third page, under the heading for fire hazards, the start of a sentence that goes on over the line end: the vapour may reach something that lights it far from where it came from, and the fire may run back. The last page has the sentence again. The sentence after it says that the vapour and air can make a mixture that lights inside a closed tank or container."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "DO NOT wash into sewer",
+          "where": "The fourth page, under the heading for spills and emergencies, at the end of a sentence which says that acetone is kept out of confined spaces, sewers among them, since it could explode there. The last page has the words again and gives a second reason, that acetone is dangerous to water life at high concentrations. The same passage says that it may have to be contained and disposed of as hazardous waste, and to ask the state's or the federal environmental agency; the note gives no method of disposal. The warning is carried: the fact sheet gives it for the substance and with a reason, and acetone is listed for the reporting of releases, as NOAA's record and the second supplier's sheet show."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "for at least 15",
+          "where": "The box of first aid on the first page, under Eye Contact, where a line ends on these words: the eyes are flushed at once with a great deal of water for 15 minutes or more, the lids lifted, and contact lenses taken out during the rinsing. Under Skin Contact: clothing that the liquid has got on comes off quickly, and the skin is washed at once with a great deal of soap and water. It agrees with the second supplier's sheet on the 15 minutes, and with NOAA's record on the clothing."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "Acetone reacts with OXIDIZING AGENTS",
+          "where": "The fourth page, under the heading for handling and storage, the start of its second point. The note keeps the solution from oxidising agents on this line, on the line of the first supplier's sheet for the solution and on the second supplier's list."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "CHLORINE, BROMINE and FLUORINE); ACETIC ACID; and NITRIC ACID to form explosive peroxides.",
+          "where": "The fourth page, under the heading for handling and storage, the end of its second point, which begins with the oxidising agents that acetone reacts with and names, before these, perchlorates, peroxides, permanganates, chlorates and nitrates. For the primer's safety topic it supports this: that the fact sheet names three halogens and two acids among the things acetone reacts with dangerously, and names neither iodine nor hydrochloric acid. The point before it has acetone explode with one perchlorate, and with chloroform or bromoform where a base is present. No document read says anything of acetone with iodine, or of acetone with hydrochloric acid."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "Vapor is heavier than air and may travel a distance to cause",
+          "where": "The third page, under the heading for fire hazards. For the primer's safety topic it supports this: that the vapour of acetone is heavier than air and can find a flame some way from the bottle, so that it is not enough for the flame to be on another bench."
+        },
+        {
+          "field": "acetone-4m.notCarried",
+          "prints": "There is limited evidence that Acetone may damage the",
+          "where": "Read and not carried. The second page, under Reproductive Hazard, the start of a sentence that goes on over the line end: the male reproductive system, with a lower count of sperm, and the fertility of females, in animals. The line above it, under Cancer Hazard, says that acetone has not been tested in animals for causing cancer. Why: the note is held to a length, and of what this fact sheet says of health it gives the passage through skin, which is what a person at a bench can act on. The fact sheet calls the evidence limited and has it from animals. No safety data sheet read classes acetone for reproductive toxicity, and the second supplier's sheet, the newest document read, says in its section 11 that the criteria for that class are not met. It is the one thing read for this bottle that is graver than the note and is not in it: whether it goes in is for the owner to decide."
+        },
+        {
+          "field": "acetone-4m.notCarried",
+          "prints": "Acetone may affect the kidneys and liver.",
+          "where": "Read and not carried. The hazard summary on the first page, its last line but one; the second page has it again under Other Effects, and says there that it has not been evaluated well enough to say whether repeated exposure harms the brain or the nerves. Why: the note is held to a length. The fact sheet does not say at what exposure, and no safety data sheet read has a hazard class for either organ. It is kept here for whoever wants it in the note."
+        },
+        {
+          "field": "acetone-4m.notCarried",
+          "prints": "The recommended glove materials for Acetone are Butyl,",
+          "where": "Read and not carried. The third page, under Gloves and Clothing, the start of a line that goes on to two laminates by their trade names. The page asks for goggles that keep splashes out when liquids are worked with. Why: the documents read do not agree on the glove. The state health department's fact sheet recommends butyl rubber and two laminates by their trade names, and names neither latex nor nitrile; the second supplier's sheet asks for protective gloves and names no material. The note says gloves, and which glove is for the laboratory's supervisor to say."
+        },
+        {
+          "field": "acetone-4m.notCarried",
+          "prints": "Use explosion-proof electrical equipment and fittings",
+          "where": "Read and not carried. The fourth page, under the heading for handling and storage, the start of its last point but one. With it: metal containers are grounded and bonded when acetone is moved between them, tools do not spark, and no smoking or open flame where it is used, handled or stored. The same passage says that acetone attacks plastics. Why: the first three are precautions for moving and storing the liquid in quantity; the note is held to a length and gives the one that reaches a bench, no flame, no spark and no hot surface near. They are kept here for whoever wants them in the note."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-8",
+      "url": "https://cameochemicals.noaa.gov/chemical/8",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Acetone (chemical 8); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "a151bca8b2fd268aaf53adddcd06761b9441405e113d2be15515d5f12f04342c",
+      "supports": [
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "ACETONE",
+          "where": "The page's title, under the words Chemical Datasheet. Its table of identifiers gives the CAS number 67-64-1. The foot of the page prints the version named in the citation and no date of its own; most fields name where their text is from. The page was found in the list of names the site shows under one letter; the site's search was not used, which its robots file closes to automated readers. The general description is of a clear liquid with no colour and a sweetish smell, with a flash point of 0 °F; the page gives no strength, and the list of names under the letter A, in the copy saved on 2026-10-09 for the Group I cations lab, has no record for a solution of acetone in water."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "for 20 to 30 minutes",
+          "where": "The field First Aid, a text the page credits to NTP, 1992, under EYES: contact lenses are looked for and taken out, and the eyes are flushed with water or saline for this long while a hospital or a poison centre is called; the person then goes to hospital whether or not any symptom shows. It is the longest rinsing in the documents read for this bottle, and the note gives it beside the second supplier's 15 minutes. Under SKIN: the skin is flooded with water while the clothing comes off, and then washed with soap and water."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "Work clothing that becomes wet should be immediately removed due to its flammability hazard",
+          "where": "The field Protective Clothing, an excerpt the page credits to a pocket guide of a federal institute, 2024. The note says that splashed clothing comes off. The same excerpt has contact with the skin and with the eyes prevented."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "5000 pounds",
+          "where": "The field Regulatory Information, in the table headed EPA Consolidated List of Lists; the page credits the table to the EPA List of Lists, 2024. Its one row: acetone, by its CAS number, with this figure in the column for the reportable quantity under CERCLA and the code U002 in the column for RCRA. With the state health department's fact sheet it is why the warning on sewers is carried."
+        },
+        {
+          "field": "acetone-4m.hazards.note",
+          "prints": "Vapors may travel to source of ignition and flash back.",
+          "where": "The field Fire Hazard, an excerpt from a guide of the emergency response guidebook, 2024, for flammable liquids that mix with water. It is the guide's sentence for the whole class and not of acetone alone; the state health department's fact sheet says it of acetone, and the note cites that. The same excerpt says that runoff to a sewer may make a hazard of fire or explosion."
+        },
+        {
+          "field": "primer.notCarried",
+          "prints": "Reacts violently with nitric acid.",
+          "where": "Read and not carried. The field Reactivity Profile, its last sentence but one. For the primer's safety topic it would support this: that of the acids NOAA's record for acetone names nitric acid alone. The field says nothing of hydrochloric acid and nothing of iodine or any other halogen; its cases are a mixture with chloroform where a base was present, two compounds of nitrosyl, and aldehydes, with which it says acetone gives off heat. Why: the primer's safety card is held to a length, and of what was read it keeps what a learner at the bench most needs. This is put here for whoever decides what the card says."
+        },
+        {
+          "field": "acetone-4m.notCarried",
+          "prints": "acts as an anesthetic in very high concentrations",
+          "where": "Read and not carried. The field Health Hazard, a text the page credits to the Coast Guard, 1999, under INHALATION, after the words that the vapour irritates the eyes and the mucous membranes. Under SKIN it says that long and heavy contact takes the fat out of the skin, with dermatitis possible. Why: the tile has the statement for it, drowsiness or dizziness under H336, and the note has the hood or the well-ventilated room."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-407",
+      "url": "https://www.flinnsci.com/sds_407-iodine/sds_407",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Iodine, SDS number sds_407; revision date April 1, 2016 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "35e4efd399ce7a3362534cd5a87421cae86c48ed01f0cd34b62176c82f48c215",
+      "supports": [
+        {
+          "field": "iodine-0.005m.classifiedAs",
+          "prints": "Iodine",
+          "where": "The sheet's title, before the words Safety Data Sheet: the element itself, the solid. The solution on the bench is 0.0050 M iodine in water that holds potassium iodide, and is made up from the solid this sheet is for. The bottle carries the statements of the most dangerous form it is made from, which is this project's rule for a solution made up from a stock (spec 5.2), and the heading over the statements says whose they are. Of the two solids that go into the bottle iodine is taken as the more dangerous: the second supplier's sheet for it has the signal word Danger. It was read for the clock reaction lab earlier on the same day, and is here in the copy saved then, which is the page that lab records; it was not fetched a second time."
+        },
+        {
+          "field": "iodine-0.005m.classifiedAs",
+          "prints": "Gray-black flakes with a metallic luster.",
+          "where": "Section 9, its first sentence: the sheet is for the solid. Section 3 lists iodine alone, with nothing in the concentration column. The heading over the bottle's statements calls that the pure substance; the sheet does not use the word."
+        },
+        {
+          "field": "iodine-0.005m.hazards",
+          "prints": "April 1, 2016",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "iodine-0.005m.hazards.signalWord",
+          "prints": "WARNING",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Warning, the form its schema has for the word."
+        },
+        {
+          "field": "iodine-0.005m.hazards.statements[0]",
+          "prints": "Harmful if inhaled or in contact with skin (H312+H332)",
+          "where": "Section 2, the one hazard class it lists: category 4, for acute toxicity through the skin and by breathing in. The record stores the sheet's own line, with its code or codes in front as printed, then a colon and the statement. The two codes are stored in the order the sheet prints them. The section prints no other hazard code."
+        },
+        {
+          "field": "iodine-0.005m.notCarried",
+          "prints": "Acute effects: Highly toxic, harmful vapor, corrosive, severe lachrymator, sensitizer, stomach pains, vomiting.",
+          "where": "Read and not carried. Section 11, its first line, of the solid. Why: the same sheet does not bear most of it out: its classification in section 2 has one class, harm through the skin and by breathing in, category 4, and none for corrosion, for an allergy or for swallowing. The solid is not on this bench."
+        },
+        {
+          "field": "iodine-0.005m.notCarried",
+          "prints": "Use only in a hood or well-ventilated area (P271).",
+          "where": "Read and not carried. Sections 7 and 8. Section 7 says that the solid turns to vapour of itself, and that its dust and fumes are not breathed. Why: it is said of the solid, which gives off vapour and dust. Neither sheet for a solution of iodine that was read asks for a hood: the first supplier's names none, and the second supplier's asks that the air be changed well enough. The solid is not on this bench."
+        },
+        {
+          "field": "iodine-0.005m.notCarried",
+          "prints": "P310",
+          "where": "Read and not carried. Section 4, its first line: a poison centre or a doctor is to be called at once. For the skin the section has all the clothing the solid has got on taken off at once and the skin rinsed. Why: it is the first aid of the solid, which is not in this bottle; the note gives the first aid of the second supplier's sheet for a solution."
+        },
+        {
+          "field": "iodine-0.005m.notCarried",
+          "prints": "Incompatible materials: Reacts violently with metal powders, antimony, ammonia, acetaldehyde and acetylene.",
+          "where": "Read and not carried. Section 10, its second line, which goes on to say that these make a hazard of fire and explosion. Why: none of the five is on this bench. The line names no acetone and no acid."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-411",
+      "url": "https://www.flinnsci.com/sds_411-iodine-potassium-iodide-solution-less-than-0.05-m/sds_411",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Iodine-Potassium Iodide Solution Less than 0.05 M, SDS number sds_411; revision date December 3, 2018 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "a01f68535c90648057e9b538a4782c1db44e85f834eddfec20ff44167f4d9479",
+      "supports": [
+        {
+          "field": "iodine-0.005m.hazards.note",
+          "prints": "Iodine-Potassium Iodide Solution Less than 0.05 M",
+          "where": "The sheet's title, before the words Safety Data Sheet: the weakest of the supplier's sheets for iodine dissolved in water that holds potassium iodide, which is what this bottle is. By its title it is the sheet for the strength on the bench, 0.0050 M. Section 3 gives iodine at 0.3%, potassium iodide at 1.5% and water at over 98%; 0.3% is about 0.012 mol/L of iodine (worked out from the percentage and the sheet's formula weight, 253.81, not read from a source), which is more than twice the bench's. The lab's directions do not say how much potassium iodide the bench's solution holds. It was read for the clock reaction lab earlier on the same day, and is here in the copy saved then, which is the page that lab records; it was not fetched a second time."
+        },
+        {
+          "field": "iodine-0.005m.hazards.note",
+          "prints": "December 3, 2018",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "iodine-0.005m.hazards.note",
+          "prints": "WARNING",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the note gives it as Warning."
+        },
+        {
+          "field": "iodine-0.005m.hazards.note",
+          "prints": "Causes skin and eye irritation (H315+H320)",
+          "where": "Section 2, the one hazard class it lists: irritation of the skin, category 2, and of the eyes, category 2B. The note gives the two codes and says that the solution irritates skin and eyes. The sheet has no class for harm through the skin or by breathing in, which is what the tile has from the sheet for the solid."
+        },
+        {
+          "field": "iodine-0.005m.hazards.note",
+          "prints": "P280",
+          "where": "Section 8: the precautionary statement that calls for eye protection, gloves and protective clothing. The section names no hood."
+        },
+        {
+          "field": "iodine-0.005m.hazards.note",
+          "prints": "P305+P351+P338",
+          "where": "Section 4, under the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that, with medical advice if the irritation lasts. The sheet gives no number of minutes; the note gives the 15 of the second supplier's sheet. For the skin the section gives washing with plenty of water."
+        },
+        {
+          "field": "iodine-0.005m.hazards.note",
+          "prints": "Target organs: Thyroid.",
+          "where": "Section 11, its third line; the first gives, as what the solution does at once, irritation and cramps of the stomach. The sheet gives the solution no hazard class for the thyroid. The second supplier's sheets do, and the note has it from them; this line is the first supplier's agreement on the organ."
+        },
+        {
+          "field": "iodine-0.005m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods (#12a) is one option. Under transport the sheet says that the solution is not regulated. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and local regulations."
+        },
+        {
+          "field": "iodine-0.005m.notCarried",
+          "prints": "Store away from heat and direct light.",
+          "where": "Read and not carried. Section 7, its last sentence, after the storage pattern the supplier suggests. Why: it is about how long the solution keeps, which section 10 calls fair to poor, and not about harm to a person. It is kept here for whoever prepares the bottle."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-iodine-0.1n",
+      "url": "https://www.fishersci.com/store/msds?partNumber=SI861&productDescription=IODINE+SOLUTION&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Iodine, 0.1N standard solution, catalogue numbers SI86-1 and SI86-4, among others; revision 8 of 18 December 2025 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "a79f80e5b885ad190f2f8a78dec0c2f830cf17306949730a5e3430e3b1b7f7bf",
+      "supports": [
+        {
+          "field": "iodine-0.005m.hazards.note",
+          "prints": "Iodine, 0.1N standard solution",
+          "where": "Section 1, after the words Product Name. Section 3 gives water at over 95%, potassium iodide at 2% to 3% and iodine at 1% to 2%, by weight: it is a sheet for iodine dissolved in water with potassium iodide, as the bottle on the bench is. A 0.1 N solution of iodine is 0.05 mol/L, since each molecule of iodine takes up two electrons, and that is 1.27 g in 100 mL, within the range the sheet gives (worked out, not read from a source). So the sheet's solution is ten times as strong as the bench's, and the note says so. The address above was made from one catalogue number, in the form of the addresses the labs before this one read this supplier's sheets at; the description in it is this project's, and the server answered with the sheet named here. The note calls it a second supplier's sheet."
+        },
+        {
+          "field": "iodine-0.005m.hazards.note",
+          "prints": "18-Dec-2025",
+          "where": "At the head of the sheet, after the words Revision Date, with Revision Number 8 beside it, and again on every page. The sheet says under its title that it is made to the hazard communication standard of the United States, in its form of 2024."
+        },
+        {
+          "field": "iodine-0.005m.hazards.note",
+          "prints": "May cause damage to organs through prolonged or repeated exposure",
+          "where": "Section 2, the one hazard statement of the label, under the signal word Warning. The sheet prints its hazard statements without codes. The class is toxicity to organs after repeated exposure, category 2, and the line under it names the thyroid. The first supplier's sheet for a dilute solution has no such class: this sheet is the stricter on it, and the note gives it as harm to the thyroid over long exposure."
+        },
+        {
+          "field": "iodine-0.005m.hazards.note",
+          "prints": "for at least 15 minutes. Get",
+          "where": "Section 4, under Eye Contact, where a line ends on these words and the next has the medical attention: the eyes are rinsed at once with plenty of water, under the eyelids too, for 15 minutes or more, and medical attention is got. The first supplier's sheet for a dilute solution gives several minutes, and medical advice only if the irritation lasts: the note gives the 15 minutes and the doctor as what this lab goes by. For the skin the section gives washing at once for 15 minutes or more, and a doctor if irritation lasts. The same supplier's sheet for the solid has the same two lines."
+        },
+        {
+          "field": "iodine-0.005m.hazards.note",
+          "prints": "This product contains the following substance(s) which are hazardous for the environment.",
+          "where": "Section 12, under Ecotoxicity, its first line. The table under it has iodine with figures for an alga, a fish and a water flea, each under 2 mg/L, and potassium iodide with one for a fish, 3200 mg/L. Section 6 says that the solution is not to be let out into the environment, a line this supplier prints on many of its sheets; here section 12 stands behind it. With the same supplier's sheet for the solid it is why the note keeps the solution out of drains."
+        },
+        {
+          "field": "iodine-0.005m.notCarried",
+          "prints": "Thyroid, Reproductive System.",
+          "where": "Read and not carried. Section 11, after the words Target Organs, under the line for toxicity to organs after repeated exposure. Why: the same sheet does not bear out the second organ: its classification in section 2 names the thyroid alone, and the line of section 11 for reproductive toxicity says that there is no data. The note gives the thyroid."
+        },
+        {
+          "field": "iodine-0.005m.notCarried",
+          "prints": "Incompatible Materials",
+          "where": "Read and not carried. Section 10, the label of a list of one: strong oxidising agents. Section 7 has it too. Why: nothing on this bench is a strong oxidising agent."
+        },
+        {
+          "field": "iodine-0.005m.notCarried",
+          "prints": "Dispose of contents/container to an approved waste disposal plant",
+          "where": "Read and not carried. Section 2, the precautionary statement under Disposal. Section 13 says that whoever makes the waste decides whether it is hazardous waste and consults the local, regional and national rules. Why: the note gives no procedure of any one site: it says that disposal is decided by the laboratory's own rules and local regulations."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-iodine",
+      "url": "https://www.fishersci.com/store/msds?partNumber=I37500&productDescription=IODINE&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Iodine (Certified ACS), catalogue numbers I37-100 and I37-500, among others; revision 7 of 18 December 2025 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "03e99fcd91632ec00d87ebf94a8c4952cff32a1dc3b19e7f879b1cae4c55d9f3",
+      "supports": [
+        {
+          "field": "iodine-0.005m.hazards.note",
+          "prints": "Iodine (Certified ACS)",
+          "where": "Section 1, after the words Product Name, with the CAS number 7553-56-2. Section 3 gives iodine at over 95%: the sheet is for the solid, which the solution on the bench is made up from. It was read for the clock reaction lab earlier on the same day, and is here in the copy saved then, which is the page that lab records; it was not fetched a second time. The note calls it the second supplier's sheet for the solid."
+        },
+        {
+          "field": "iodine-0.005m.hazards.note",
+          "prints": "18-Dec-2025",
+          "where": "At the head of the sheet, after the words Revision Date, with Revision Number 7 beside it, and again on every page. The sheet says under its title that it is made to the hazard communication standard of the United States, in its form of 2024."
+        },
+        {
+          "field": "iodine-0.005m.hazards.note",
+          "prints": "Causes damage to organs through prolonged or repeated exposure",
+          "where": "Section 2, the last of the five hazard statements of the label. The sheet prints its hazard statements without codes. The class is toxicity to organs after repeated exposure, category 1, and the organs named are the kidney, the liver, the blood and the thyroid. The signal word is Danger, graver than the Warning of the first supplier's sheet for the solid, which is the word on the tile. The note says that this supplier's sheets warn of harm to the thyroid over long exposure, for the solid and for a solution; it names the one organ that both sheets name."
+        },
+        {
+          "field": "iodine-0.005m.hazards.note",
+          "prints": "Very toxic to aquatic life",
+          "where": "Section 2, under the heading for hazards not otherwise classified, after the label's statements; the sheet gives it no category. Section 12 says that the solid is very toxic to water life and gives figures for an alga, a fish and a water flea, each under 2 mg/L. Section 6 says that it is not flushed into surface water or a sanitary sewer and is kept from drains. The warning on drains is carried: the sheet classes iodine as a hazard to water life, and the same supplier's sheet for a solution says that the solution holds a substance hazardous for the environment."
+        },
+        {
+          "field": "iodine-0.005m.notCarried",
+          "prints": "Harmful if swallowed, in contact with skin or if inhaled",
+          "where": "Read and not carried. Section 2, the first of the five hazard statements of the label: acute toxicity by mouth, through the skin and by breathing in, each category 4. The three after it are that the solid irritates the skin, that it seriously irritates the eyes, and that it may irritate the airways. Section 8 has the solid used only under a fume hood. Why: they are of the solid. The tile has the first supplier's statement for the solid, harm through the skin and by breathing in; the note has the irritation of skin and eyes from the first supplier's sheet for a solution. Swallowing and the airways are left out for length: neither sheet for a solution that was read has a class for either. They are kept here for whoever wants them in the note."
+        }
+      ]
+    },
+    {
+      "id": "wards-sds-pp0630",
+      "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=501dc753ed20de75627db5aab5069bd72b152ffb&vid=501dc753ed20de75627db5aab5069bd72b152ffb&prid=original&clid=SAPDAM",
+      "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Potassium Iodide, 0.1 Molar Solution, SDS No. PP0630; revision date October 4, 2024 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "17a0f53a00d354221a8e120e57f9ca1d093a906d570798b82b3e2a70353f86f9",
+      "supports": [
+        {
+          "field": "iodine-0.005m.hazards.note",
+          "prints": "POTASSIUM IODIDE, 0.1 MOLAR SOLUTION",
+          "where": "The product named at the head of the sheet, whose number is SDS No. PP0630: a sheet for potassium iodide alone in water, at 1.66% by its section 3, with no iodine in it. It was read for the clock reaction lab earlier on the same day, and is here in the copy saved then, which is the page that lab records; it was not fetched a second time. That lab's manifest says how the address was come by. The bottle on this bench holds potassium iodide beside the iodine, at a strength the lab's directions do not give; the first supplier's sheet for a dilute iodine solution has it at 1.5%, which is about the strength of this sheet's solution. The note calls it a third supplier's sheet for potassium iodide solution."
+        },
+        {
+          "field": "iodine-0.005m.hazards.note",
+          "prints": "H317: May cause an allergic skin reaction.",
+          "where": "Section 2, the second of the two hazard statements, under the signal word WARNING; the class is sensitisation of the skin, category 1A. Neither sheet for iodine with potassium iodide in water that was read has a class for an allergy. It is carried as the stricter thing said of something this bottle holds, and the note says whose sheet it is and what it is a sheet for. Section 4 has the eyes flushed for 15 minutes or more with medical attention at once, which agrees with the second supplier's sheets."
+        },
+        {
+          "field": "iodine-0.005m.notCarried",
+          "prints": "Accidental release measures",
+          "where": "Read and not carried. The heading of section 6. Under it, as an environmental precaution: runoff is to be kept from storm sewers and from ditches that lead to waterways. A spill is taken up and put into a container for disposal, and the place washed. Section 13 says that its guidance is for small amounts, and that disposal is to follow the local, state and federal rules or go through a licensed agency for chemical disposal; the note gives no method of disposal. This sheet gives the solution no class for the environment. Why: the same line is on every sheet of this supplier that was read, for this lab and for the five before it, whatever the substance."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-25035",
+      "url": "https://cameochemicals.noaa.gov/chemical/25035",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Iodine (chemical 25035); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "d4b8ae2cc8649f9911132a79037d25a24c52adc0a6ae0cc7efba8a5b47b03f07",
+      "supports": [
+        {
+          "field": "iodine-0.005m.hazards.note",
+          "prints": "IODINE",
+          "where": "The page's title, under the words Chemical Datasheet. Its table of identifiers gives the CAS number 7553-56-2. The foot of the page prints the version named in the citation and no date of its own; most fields name where their text is from. The page was found in the list of names the site shows under one letter; the site's search was not used, which its robots file closes to automated readers. The page describes violet-black crystals with a sharp smell, the solid; it has no record for a solution. It was read for the clock reaction lab earlier on the same day, and is here in the copy saved then, which is the page that lab records; it was not fetched a second time."
+        },
+        {
+          "field": "iodine-0.005m.hazards.note",
+          "prints": "IODINE is an oxidizing agent.",
+          "where": "The field Reactivity Profile, its first sentence; the next says that it reacts vigorously with reducing materials. The sheets for acetone keep acetone from oxidising agents, the first supplier's and the second's from strong ones. On this bench the iodine meets the acetone in the flask, each of them diluted, as the experiment; the note says so. The record does not call iodine a strong oxidising agent."
+        },
+        {
+          "field": "primer.notCarried",
+          "prints": "with acetaldehyde (violent reaction)",
+          "where": "Read and not carried. The field Reactivity Profile, in its list of what iodine does not go with, which names powdered metals, ammonia, acetylene, azides, hydrides and carbides of metals, and the alkali metals before and after it; its last sentence adds ethanol and formamide, among others. For the primer's safety topic it would support this: that NOAA's record for iodine names an aldehyde and an alcohol among the things iodine does not go with, and names no acetone and no other ketone. The lab's reaction is not in the record. Why: the primer's safety card is held to a length, and of what was read it keeps what a learner at the bench most needs. This is put here for whoever decides what the card says."
+        }
+      ]
+    },
+    {
+      "id": "pubchem-compound-76396",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/compound/76396",
+      "citation": "PubChem, National Library of Medicine (NCBI). Compound summary for CID 76396, 2-Propanone, 1-iodo- (iodoacetone), as the data the page is drawn from: https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/76396/JSON (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "0af833b3e8d0a03c7c1c0f15604ebe216b4f9dfec43535931036c77c8db74e88",
+      "supports": [
+        {
+          "field": "primer.safety",
+          "prints": "1-iodopropan-2-one",
+          "where": "The record's systematic name, under Names and Identifiers; its title is 2-Propanone, 1-iodo-, its list of other names begins with Iodoacetone, its CAS number is 3019-04-3 and its formula C3H5IO. It is the federal database's record for the product of this lab's reaction, and it was last changed on 2026-09-26. It was read as the data the page is drawn from, at the address in the citation, since a script draws the page; the number of the record was tried and the names in the answer were checked, and the database's search was not used. It is read for the primer's safety topic, and no tile cites it."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "Chemical and Physical Properties",
+          "where": "The third of the record's ten headings. The ten are structures, names and identifiers, these properties, spectra, related records, vendors, literature, patents, results of biological tests and classification. There is no heading for safety and hazards, which is where this database's records give a GHS classification; the properties are computed ones alone; the classifications are of what kind of compound it is; and nowhere does the record have a word on irritation, on tears or on any harm to a person. For the primer's safety topic it supports this: that no official document that could be read says what iodoacetone does to a person. NOAA's database has no record for it: the list of names it shows under the letter I was read on the same day and has none. Three searches of the web found no supplier's safety data sheet for it. The European Chemicals Agency's main site answered a request for its robots file with a refusal and was not asked again; its database of chemicals, opened once in a browser, showed its legal notice and nothing of the substance; the notice was not accepted and the site was left. That iodoacetone strongly irritates the eyes is widely said, and no document read for this lab says it."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "183.98",
+          "where": "The molecular weight the record computes, in grams to the mole. For the primer's safety topic it supports this: how little of the product a run makes. The mixture with the most iodine has 20 mL of the 0.0050 M solution in 50 mL, which is 0.0020 mol/L; were all of it turned to iodoacetone, that would be 0.0020 mol/L of the product, about 0.37 g in a litre, or 18 mg in the flask (worked out from the lab's own mixtures and this weight, not read from a source)."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-2648",
+      "url": "https://cameochemicals.noaa.gov/chemical/2648",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Bromoacetone (chemical 2648); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "46479f554b703c7539c3c020971f42178d82fb216ba6fb95b18189fc30bf4620",
+      "supports": [
+        {
+          "field": "primer.safety",
+          "prints": "BROMOACETONE",
+          "where": "The page's title, under the words Chemical Datasheet. Its table of identifiers gives the CAS number 598-31-2. The foot of the page prints the version named in the citation and no date of its own; most fields name where their text is from. The page was found in the list of names the site shows under one letter; the site's search was not used, which its robots file closes to automated readers. It is not a record of the product. Bromoacetone is the molecule of acetone with one hydrogen atom replaced by a bromine atom, as iodoacetone is that molecule with an iodine atom there: that is said of the two formulas, and is in no document read. It was read since no official document could be read for iodoacetone itself, and it is the nearest relative of it in this database. It is read for the primer's safety topic, and no tile cites it."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "A violent lachrymator--low concentrations are very irritating to the eyes",
+          "where": "The field General Description, the start of its fourth sentence, which goes on to say that more of it, or longer, may harm health; the sentences after it say that the liquid is very toxic when breathed in, burns the skin painfully and was used as a war gas. The field Health Hazard, a text the page credits to the Coast Guard, 1999, calls it a very powerful lachrymator that irritates eyes, nose, throat and lungs intensely. For the primer's safety topic it supports this, and no more: that the bromine relative of the product is, by an official record, a tear gas that irritates the eyes at low concentrations. On that ground the card can ask that the flask be treated as holding an irritant of the eyes: eye protection on, and the flask not smelled. No document read says that iodoacetone does the same, or how strongly. That the two are alike is an inference from their likeness, and it is for a chemist to confirm; whether the card reasons from a relative at all is for the owner to decide."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-395.2",
+      "url": "https://www.flinnsci.com/sds_395.2-hydrochloric-acid-solution-0.1-m---2.4-m/sds_395.2",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Hydrochloric Acid Solution 0.1 M - 2.4 M, SDS number sds_395.2; revision date December 3, 2018 (read on 2026-10-05; no copy is kept).",
+      "fetchedSha256": "e87543f4779f511cff7a0c1f1c63896c9269d8ac45586be975e4003b4944f3c7",
+      "supports": [
+        {
+          "field": "primer.notCarried",
+          "prints": "Avoid contact with strong oxidizers, bases, amines, and alkali metals.",
+          "where": "Read and not carried. Section 10, its first sentence, of hydrochloric acid of 0.1 M to 2.4 M, which takes in the 1.0 M acid on this bench. For the primer's safety topic it would support this: that the acid's own sheet names no acetone and no other ketone among the things the acid is kept from. The bottle of acid on this bench carries the aqueous reactions lab's record, whose note rests on this sheet; the copy read is the page that lab's manifest records, by its hash, and it was not fetched again. Why: the primer's safety card is held to a length, and of what was read it keeps what a learner at the bench most needs. This is put here for whoever decides what the card says."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-3598",
+      "url": "https://cameochemicals.noaa.gov/chemical/3598",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Hydrochloric Acid, Solution (chemical 3598); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "a811d5510907e72c6cd03641bae01f8b07bdd47c2f246b1af36fb544a038c068",
+      "supports": [
+        {
+          "field": "primer.notCarried",
+          "prints": "Reacts violently with acetic anhydride",
+          "where": "Read and not carried. The field Reactivity Profile, the start of its list of things that hydrochloric acid reacts violently with, some twenty of them. For the primer's safety topic it would support this: that the list has no acetone and no other ketone in it, and nothing of iodine, and that the sentences before it, on bases, carbonates, sulfides and metals, have none either. The copy read is the page the Le Chatelier's principle lab and the clock reaction lab record, by its hash; it was not fetched again. Why: the primer's safety card is held to a length, and of what was read it keeps what a learner at the bench most needs. This is put here for whoever decides what the card says."
+        }
+      ]
+    }
+  ]
+}

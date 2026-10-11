@@ -33,6 +33,9 @@
 //   lechatelier/lechatelier.json, and into sources.json the Le Chatelier's principle lab's sources
 // Reads docs/research/clock/ (clock.json, hazards.json and the two manifests under sources/) and writes:
 //   clock/clock.json, and into sources.json the clock reaction lab's sources
+// Reads docs/research/acetone/ (acetone.json, hazards.json and the two manifests under sources/), with the
+// aqueous lab's hazards for the bottle the two labs share, and writes:
+//   acetone/acetone.json, and into sources.json the iodination of acetone lab's sources
 //
 // Deterministic: the same inputs give byte-identical outputs. Anything
 // unexpected in the inputs stops the build with a message and writes nothing.
@@ -53,6 +56,7 @@ import { checkMolarMasses, checkWorkedOut, withSharedHazards, withSharedSheets }
 import { checkAtomicWeights, checkBench, checkWorkedOut as checkCationsWorkedOut } from './cations-lib.mjs'
 import { checkBench as checkLechatelierBench, checkWorkedOut as checkLechatelierWorkedOut } from './lechatelier-lib.mjs'
 import { checkMixtures, checkRateRecord, checkReactions, checkUsedUp } from './clock-lib.mjs'
+import { checkExcess, checkMixtures as checkAcetoneMixtures, checkRateRecord as checkAcetoneRateRecord, checkReaction as checkAcetoneReaction } from './acetone-lib.mjs'
 import { checkAnnualMean, checkMolecularWeight, checkPublished, checkSha256, checkSheetHazards, checkWikipediaCopy } from './titration-lib.mjs'
 
 const root = join(import.meta.dirname, '..')
@@ -67,6 +71,7 @@ const calorimetryResearch = join(root, 'docs/research/calorimetry')
 const cationsResearch = join(root, 'docs/research/cations')
 const lechatelierResearch = join(root, 'docs/research/lechatelier')
 const clockResearch = join(root, 'docs/research/clock')
+const acetoneResearch = join(root, 'docs/research/acetone')
 const out = join(root, 'src/chem-data')
 
 function fail(message) {
@@ -1825,6 +1830,66 @@ function buildClock(earlierSources) {
   return { clock, sources: [...labSources, ...sheetSources.filter((source) => underHazards.has(source.id) || forPrimer.has(source.id))] }
 }
 
+// ---------------------------------------------------------------------------
+// Iodination of acetone lab
+//
+// The record is authored in docs/research/acetone/acetone.json: the three bottles; the gas constant, the kelvin of
+// 0 °C and the joules in a calorie; the reaction; the reaction's rate record, which is what the kinetics engine
+// takes (the order in each reactant, the rate constant at a stated temperature, the activation energy, and what
+// ends a run); the four mixtures, each with what is in the flask and what is poured in to start the run; the two
+// parts with the notes shown when each is done; and the model's parameters. There are no baths, and so no part on
+// temperature (spec 20.1). Every source is in sources/MANIFEST.json, each row of which names the stored values it
+// supports, and the build holds the record to those rows as it does the aqueous lab's. No source has a copy in
+// this lab's folder. What the record states of its own chemistry is checked here (scripts/acetone-lib.mjs): the
+// reaction balances, the mixtures are those of spec 20.1 with the iodine kept apart until it is poured in, the
+// acetone and the acid are in as large an excess as the notes say, and the rate record holds together. The
+// bottles' hazards are authored apart, in hazards.json with sources/hazard-manifest.json; the 1 M hydrochloric
+// acid carries the aqueous reactions lab's record unchanged, with that lab's documents behind it, as the
+// calorimetry bench's does. All are merged in as the Le Chatelier's principle lab's are: every document was read
+// and is not kept, so the build holds the hazards to the manifests' rows and cannot check them against the
+// documents.
+
+const ACETONE_KEYS = ['reagents', 'water', 'constants', 'reaction', 'rateLaw', 'mixtures', 'referenceMixtureId', 'parts', 'parameters']
+const ACETONE_REAGENTS = ['acetone-4m', 'hcl-1m', 'iodine-0.005m']
+const ACETONE_PARTS = ['runs', 'rate-law']
+/** The bottle whose hazards are the aqueous reactions lab's record. */
+const ACETONE_SHARED = ['hcl-1m']
+/** The field of a hazard manifest's row for a document read for the primer's safety topic. */
+const ACETONE_PRIMER_SAFETY = 'primer.safety'
+
+function buildAcetone(earlierSources) {
+  const json = (name, folder = acetoneResearch) => JSON.parse(readFileSync(join(folder, name), 'utf8'))
+  const input = json('acetone.json')
+  const manifest = json('sources/MANIFEST.json')
+  const hazardManifest = json('sources/hazard-manifest.json')
+
+  onlyKeys(input, ACETONE_KEYS, 'acetone.json')
+  if (input.reagents.map((r) => r.id).join() !== ACETONE_REAGENTS.join()) fail('acetone.json: the reagents are not the three of spec 20.1, in their order')
+  if (input.parts.map((p) => p.id).join() !== ACETONE_PARTS.join()) fail('acetone.json: the parts are not the two of spec 20.1, in their order')
+  if ([...manifest.sources, ...hazardManifest.sources].some((source) => source.file !== undefined)) fail('acetone manifests: no source of this lab has a copy in its folder')
+
+  // A source another lab lists too (three pages of Chemguide, NIST's listing of the constants and its page on temperature, a sheet) is listed once.
+  const labSources = newSources(manifest.sources, earlierSources, 'acetone MANIFEST.json')
+
+  checkAcetoneReaction(input)
+  checkAcetoneMixtures(input)
+  checkExcess(input)
+  checkAcetoneRateRecord(input)
+
+  // The 1 M hydrochloric acid carries the aqueous reactions lab's record unchanged, with that lab's documents behind it.
+  const sheets = withSharedSheets(hazardManifest.sources, json('sources/hazard-manifest.json', aqueousResearch).sources, ACETONE_SHARED)
+  const sheetSources = newSources(sheets, [...earlierSources, ...labSources], 'acetone hazard-manifest.json')
+  const hazards = withSharedHazards(json('hazards.json'), json('hazards.json', aqueousResearch), ACETONE_SHARED)
+  const acetone = { ...input, reagents: mergeHazards(input.reagents, hazards, sheets) }
+  checkSupported(acetone, manifest.sources, sheets)
+
+  // As for the clock reaction lab: the app lists the documents a bottle's hazards cite, and with them those the
+  // hazard manifest marks as read for the primer's safety topic, which no tile cites.
+  const underHazards = new Set(acetone.reagents.flatMap(({ hazards: { sourceId, note } }) => [sourceId, note.sourceId, ...(note.alsoSourceId === undefined ? [] : [note.alsoSourceId]), ...(note.moreSourceIds ?? [])]))
+  const forPrimer = new Set(hazardManifest.sources.filter((source) => source.supports.some((row) => row.field === ACETONE_PRIMER_SAFETY)).map((source) => source.id))
+  return { acetone, sources: [...labSources, ...sheetSources.filter((source) => underHazards.has(source.id) || forPrimer.has(source.id))] }
+}
+
 // A static import list keeps the registry free of bundler-only APIs.
 function moleculeIndex(molecules) {
   const name = (id) => id.replace(/-(.)/g, (_, c) => c.toUpperCase())
@@ -1874,7 +1939,9 @@ function main() {
   const { lechatelier, sources: lechatelierSources } = buildLechatelier(beforeLechatelier, periodicTable)
   const beforeClock = [...beforeLechatelier, ...lechatelierSources]
   const { clock, sources: clockSources } = buildClock(beforeClock)
-  const sources = [...beforeClock, ...clockSources]
+  const beforeAcetone = [...beforeClock, ...clockSources]
+  const { acetone, sources: acetoneSources } = buildAcetone(beforeAcetone)
+  const sources = [...beforeAcetone, ...acetoneSources]
   if (new Set(sources.map((s) => s.id)).size !== sources.length) fail('duplicate source ids')
 
   // Everything is built before anything is written.
@@ -1902,11 +1969,13 @@ function main() {
   writeFileSync(join(out, 'lechatelier/lechatelier.json'), toJson(lechatelier))
   mkdirSync(join(out, 'clock'), { recursive: true })
   writeFileSync(join(out, 'clock/clock.json'), toJson(clock))
+  mkdirSync(join(out, 'acetone'), { recursive: true })
+  writeFileSync(join(out, 'acetone/acetone.json'), toJson(acetone))
   mkdirSync(join(root, 'src/mechanisms'), { recursive: true })
   writeFileSync(join(root, 'src/mechanisms', `${mechanism.id}.json`), toJson(mechanism))
   writeFileSync(join(out, 'sources.json'), toJson(sources))
   process.stdout.write(
-    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the flame test lab's record, the calorimetry lab's record, the Group I cations lab's record, the Le Chatelier's principle lab's record, the clock reaction lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
+    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the flame test lab's record, the calorimetry lab's record, the Group I cations lab's record, the Le Chatelier's principle lab's record, the clock reaction lab's record, the iodination of acetone lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
   )
 }
 

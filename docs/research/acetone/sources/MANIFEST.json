@@ -1,0 +1,332 @@
+{
+  "retrieved": "2026-10-10",
+  "about": "Every source of the iodination of acetone lab's record (docs/research/acetone/acetone.json) and of its primer (src/chem-data/acetone/primer.ts). Each was read for this lab on the retrieval date, but one, NIST's table of conversion factors, which was fetched and read the day after, as its citation says. Five are sources the clock reaction lab lists too, written here exactly as they are there so that the build lists each once: three pages of Chemguide, NIST's listing of the constants and NIST's page on the units of temperature. Those five were not fetched again: they were read in the copies fetched for that lab on the same day, and each row says so. No source has a copy in this folder. `fetchedSha256` is the sha256 of the file as it was fetched: a record of which file was read, not the hash of anything here, and nothing checks it. Each `supports` row names in `fields` the stored values it supports, each by its place in the record with the item's id in brackets (rateLaw.reactants[iodine].order, mixtures[mixture-1], parts[rate-law].notes[1]); gives in `prints` a figure, a label or a heading as the source prints it; and says in `where`, in this project's words, where that is, what the source says there, and how far the stored value goes beyond it. A row whose field is `primer` marks a source the primer rests on. The build holds the record to these rows: every source a value cites must have a row that names the value, and where the record stores the figure a source prints, a row for it must print that figure. No source is quoted beyond such figures, labels and headings. Every source was read as it was fetched, by the builder: none through a tool that answers questions about a page. The rate constant and the activation energy were read from images of two pages of a scanned table. The hazard statements and the notes under them are not in this file: they are in hazards.json and sources/hazard-manifest.json, which were written apart. README.md, one folder up, says what could not be sourced.",
+  "sources": [
+    {
+      "id": "moorpark-iodination-of-acetone",
+      "url": "https://www.moorparkcollege.edu/sites/moorparkcollege/files/media/pdf_document/2020/chem_1b_expt4.pdf",
+      "citation": "Moorpark College. Experiment #4: Chemical Kinetics: The Iodination of Acetone; pages 14 to 23 of a general chemistry laboratory manual; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "e101368746db873986f51a7882bda879fa956c05991d14f73d21939109f2c404",
+      "supports": [
+        {
+          "fields": [
+            "reagents[acetone-4m]",
+            "reagents[hcl-1m]",
+            "reagents[iodine-0.005m]"
+          ],
+          "prints": "Table 1. Reactant Volumes and Reaction Times",
+          "where": "The heading of its first table, whose columns name the three bottles with their strengths: 4.0 M acetone, 1.0 M HCl and 0.0050 M iodine, with water as the fourth liquid. They are the bottles of the lab's specification. The handout does not say what the iodine is dissolved in. Read as the text taken out of the PDF."
+        },
+        {
+          "fields": [
+            "mixtures[mixture-1]",
+            "mixtures[mixture-2]",
+            "mixtures[mixture-3]",
+            "mixtures[mixture-4]"
+          ],
+          "prints": "Note: Must add up to 5.0 mL; water is not required.",
+          "where": "Under the same table, which gives four mixtures of 5.0 mL made in a test tube: 1.00 mL of each solution with 2.00 of water; 2.00 of the acetone with 1.00 of water; 2.00 of the acid with 1.00 of water; and one with 0.50 of the iodine and 2.50 of water. The lab's first three are the first three of these at ten times the volume, 50 mL, as its specification has them. Its fourth is not the handout's: the handout halves the iodine and the lab doubles it, with 10 mL of water, which is the specification's choice and keeps the pattern of changing one solution alone. The procedure puts the acid, the acetone and the water in first and adds the iodine last, starting the time then; the lab does the same."
+        },
+        {
+          "fields": [
+            "rateLaw.end",
+            "rateLaw.end.before",
+            "rateLaw.end.after"
+          ],
+          "prints": "Procedure",
+          "where": "The heading over the procedure. Under it: the mixture looks yellow for the iodine in it, the colour fades slowly as the iodine reacts, and the time is taken when the colour has just gone, looking down the tube beside a second tube of water with white paper behind. That the liquid is then colourless is the lab's word for it. The pages before say that the time taken is the time for all of a known amount of iodine to be used up."
+        },
+        {
+          "fields": [
+            "rateLaw.reactants[acetone].order",
+            "rateLaw.reactants[hydrogen-ion].order",
+            "rateLaw.reactants[iodine].order",
+            "rateLaw.note",
+            "parts[rate-law].notes[0]"
+          ],
+          "prints": "zero-order in I",
+          "where": "Its second page, where it says of this reaction that the rate turns out not to depend on the iodine at all. It leaves the orders in acetone and in hydrogen ion for the student to find, and gives neither; those are from the other two pages cited."
+        },
+        {
+          "fields": [
+            "parts[runs].notes[0]"
+          ],
+          "prints": "Experiment #4 – Chemical Kinetics: The Iodination of",
+          "where": "The title, as far as its first line runs. The second page draws the reaction, acetone and iodine giving the iodinated ketone, a hydrogen ion and an iodide ion, calls the hydrogen ion a catalyst, and says that iodine has colour, so that the fall in it can be followed by eye."
+        },
+        {
+          "fields": [
+            "parts[runs].notes[1]"
+          ],
+          "prints": "Rate = [I",
+          "where": "The head of the last column of its second table, which goes on to divide the iodine a mixture began with by the time. The text before the procedure works that relation out: the rate is the fall in the iodine over the time, and all of the iodine is gone at the end."
+        },
+        {
+          "fields": [
+            "parts[runs].notes[2]"
+          ],
+          "prints": "reference test tube",
+          "where": "The procedure's name for a second tube, filled with water, that the reacting tube is looked at beside, down their length, towards white paper that is well lit. The handout has two timings of one mixture agree within 20 seconds, or 15: the last of the colour is not sharp on a bench. That the lab's drawing keeps a colour to the end is the lab's own."
+        },
+        {
+          "fields": [
+            "parts[rate-law].notes[3]"
+          ],
+          "prints": "effectively constant",
+          "where": "Its second page: with the acetone and the hydrogen ion far in excess of the iodine, their concentrations hardly change through a run, so the rate stays as it was until the iodine is gone. The procedure says the same again. The percentages of the lab's note are the lab's own arithmetic, for its own mixtures."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Part A: Reactant Order Determination",
+          "where": "A heading of its report pages. Under it and in the text before: a rate law has each concentration raised to a power that is its order; the concentration of each solution in a mixture is found by the dilution relation; an order is found from two mixtures that differ in one solution, by the ratio of their rates, worked out to two decimal places and then rounded to a whole number; and the rate constant is worked out for every mixture and should come out about the same."
+        }
+      ]
+    },
+    {
+      "id": "tau-kinetics-iodination",
+      "url": "https://www.tau.ac.il/~phchlab/exp-kinetics-theory.html",
+      "citation": "Tel Aviv University, School of Chemistry, Physical Chemistry Laboratory. Chemical Kinetics: Theoretical Background; a page of the laboratory's site, copyright 2018; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "9ea5c3add5b2afe9a56880c2da48badd2c7d7438be715d41d27300f01b3d889d",
+      "supports": [
+        {
+          "fields": [
+            "reaction",
+            "parts[runs].notes[0]"
+          ],
+          "prints": "Iodination of Acetone",
+          "where": "A heading of the page. The equation under it is the one stored, with its states: acetone and iodine in water give the ketone with one iodine atom, a hydrogen ion and an iodide ion. The text says the reaction is slow between pH 4 and 7, fast in acid or in base, and catalysed by the hydrogen ion. The page was read as fetched, its equations as the typesetting code they are written in."
+        },
+        {
+          "fields": [
+            "rateLaw.reactants[acetone].order",
+            "rateLaw.reactants[hydrogen-ion].order",
+            "rateLaw.reactants[iodine].order",
+            "rateLaw.note",
+            "parts[rate-law].notes[0]"
+          ],
+          "prints": "Acetone iodination reaction mechanism.",
+          "where": "The caption of its figure of the mechanism. The sentences before it say that the rate at which acetone takes up a halogen has been found not to depend on the halogen's concentration, but for very strong acid, and that chlorine, bromine and iodine go at one rate to within a few percent. The working after it ends in a rate that is a constant times the acetone times the hydrogen ion, which the page reads as first order in each and independent of the halogen. The lab stores one, one and nought."
+        },
+        {
+          "fields": [
+            "parts[rate-law].notes[1]"
+          ],
+          "prints": "Acetone iodination reaction mechanism.",
+          "where": "The same figure and the working after it: acetone takes a hydrogen ion in a quick balance that lies far to the acetone's side; the ion made gives the enol in the step whose rate constant ends up in the rate law; and the enol goes on to the product with the halogen faster than it goes back. So the making of the enol sets the rate, and the halogen comes in after it."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Calculating the Reaction Rate",
+          "where": "A heading of the page. Under it: with acetone and acid in large excess and only a little iodine, the iodine is all used up while the others stay almost as they were, and since the rate does not depend on the iodine it is steady until the iodine is gone. The top of the page says what a rate, a rate law, a rate constant and an order are, that the powers are found by experiment, and that an order of zero means the rate does not depend on that concentration."
+        }
+      ]
+    },
+    {
+      "id": "uv-iodine-acetone-kinetics",
+      "url": "https://www.uv.es/qflab/en/lqfi/p5-teachingguide.pdf",
+      "citation": "Universitat de València, Physical Chemistry Laboratory 1. Lab Session 5: Kinetic Study of the Reaction Between Iodine and Acetone Catalyzed by Acid; a teaching guide of five pages; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "450e1e3b9a5d2f0734d1e27c45d134918172aa7db1735a5f136e1dbd68b860f6",
+      "supports": [
+        {
+          "fields": [
+            "rateLaw.reactants[acetone].order",
+            "rateLaw.reactants[hydrogen-ion].order",
+            "rateLaw.reactants[iodine].order",
+            "rateLaw.note",
+            "parts[rate-law].notes[0]"
+          ],
+          "prints": "(a=b=1)",
+          "where": "The fifth step of its treatment of results, in brackets, where the rate constant is worked out with the two orders just found: one in acetone and one in the acid. Its theory section says before that the order in iodine is zero, written c=0, and has the students check it by a straight line of iodine against time. The guide follows the iodine by titration and not by eye, at 25 °C. Read as the text taken out of the PDF."
+        },
+        {
+          "fields": [
+            "parts[rate-law].notes[1]"
+          ],
+          "prints": "Theoretical bases",
+          "where": "A heading of the guide. Under it the reaction is given three stages: the first two are acetone going over to its enol in acid, and the third is the enol with iodine. The first and third are called fast and the second slow, so that the second decides the rate; and since iodine has no part in that stage the rate does not depend on it."
+        }
+      ]
+    },
+    {
+      "id": "upb-acetone-iodination",
+      "url": "https://laboratoare.cafe.upb.ro/pdf/iodurarea_acetonei_E.pdf",
+      "citation": "Kinetics of Acetone Iodination in Acid Medium; a laboratory handout of four pages, in English, on the laboratories' site of the Politehnica University of Bucharest; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "67d1852147279481cddd90c371c1aee1542d876598d6ef2186a1bb38ed81bc4c",
+      "supports": [
+        {
+          "fields": [
+            "parts[rate-law].notes[1]"
+          ],
+          "prints": "2. THEORETICAL NOTIONS",
+          "where": "A heading of the handout. Under it: the reaction has a slow stage in which the enol is formed and a fast one in which the enol takes up iodine, so the whole goes at the pace of the first and depends on the acetone and the acid and not on the iodine. Read as the text taken out of the PDF."
+        },
+        {
+          "fields": [
+            "parts[rate-law].notes[3]"
+          ],
+          "prints": "autocatalytic reactions",
+          "where": "The same section's name for a reaction that makes what speeds it: the step with iodine gives a hydrogen ion back, so the acid grows as the reaction goes and the reaction quickens. The handout writes the rate with the acetone falling and the acid rising by the same amount, and integrates it; the lab's figure for how much shorter a run would be is that integral worked for its own mixtures, by the lab."
+        }
+      ]
+    },
+    {
+      "id": "docbrown-iodination-of-propanone",
+      "url": "https://docbrown.info/page03/ASA2rates26.htm",
+      "citation": "Brown, P. Doc Brown's Chemistry: Advanced level chemistry kinetics notes: Acid catalysed iodination of ketones-propanone; a page marked as updated on 13 March 2026; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "e37b7ad15c2c93f3cf17f576a6218310986f68f57537bce510a5085d0d10d3b1",
+      "supports": [
+        {
+          "fields": [
+            "reaction",
+            "parts[runs].notes[0]"
+          ],
+          "prints": "1-iodopropanone",
+          "where": "The page's name for the product, near its top, where it writes the reaction with a hydrogen ion and an iodide ion among the products, as the equation stored has it. Propanone is acetone, and the lab calls the product iodoacetone, as its specification does. The page also gives a mechanism in five steps and a shorter one in three that names another step as the slow one; the lab's note on the mechanism does not rest on this page."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-orders-of-reaction",
+      "url": "https://www.chemguide.co.uk/physical/basicrates/orders.html",
+      "citation": "Clark, J. Chemguide: Orders of Reaction and Rate Equations; 2002, modified October 2013; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "f227420e8153b88cc12e4653b08465c1048691eaff87f35b0528735803ae2dc4",
+      "supports": [
+        {
+          "fields": [
+            "parts[rate-law].notes[0]",
+            "primer"
+          ],
+          "prints": "Orders of reaction",
+          "where": "A heading of the page. Under it: orders are found by doing experiments and cannot be read off the equation; a rate that doubles when a concentration doubles is first order in it, and one that goes up four times is second order; an order of zero means that the concentration does not change the rate, and its term drops out of the rate equation; and the overall order is the sum. The part before it takes the rate as how fast the concentration of a reactant falls, in moles for each litre and second; the part after says that the rate constant is constant only while nothing but the concentrations is changed. Read for this lab in the copy fetched on the retrieval date for the clock reaction lab: the file whose sha256 is given."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-orders-and-mechanisms",
+      "url": "https://www.chemguide.co.uk/physical/basicrates/ordermech.html",
+      "citation": "Clark, J. Chemguide: Orders of Reaction and Mechanisms; 2002, last modified October 2013; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "ec1c97b3ad3b29fe9b4728c88ab098b4c00ca90866f7a5d6708351f018108ac0",
+      "supports": [
+        {
+          "fields": [
+            "parts[rate-law].notes[1]",
+            "primer"
+          ],
+          "prints": "The rate determining step",
+          "where": "A heading of the page. Under it: many reactions go in several steps, one after another; the slowest step decides how fast the whole goes, and is given this name. The part after says that where the slow step comes first, the rate equation shows what takes part in it, and that something of order zero must come in at a later, fast step: more of it speeds that step and leaves the measured rate as it was. The page's examples are two reactions of bromoalkanes with hydroxide ions; it does not speak of acetone or of iodine."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-finding-orders",
+      "url": "https://www.chemguide.co.uk/physical/basicrates/experimental.html",
+      "citation": "Clark, J. Chemguide: Finding Orders of Reaction Experimentally; 2011, modified October 2013; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "4d7c4315894382607c470f919bbcb80f39317e55207c9af2f5fa9920a9bfcc06",
+      "supports": [
+        {
+          "fields": [
+            "rateLaw.end.before",
+            "rateLaw.end.after",
+            "primer"
+          ],
+          "prints": "A commonly quoted example of the use of colorimetry",
+          "where": "The start of a sentence in its part on following a reaction by its colour, which names the reaction of propanone with iodine and an acid catalyst. The sentence after has the solution fade, through yellow, to colourless as the iodine is used up; it begins from brown, for a stronger solution of iodine than this bench's. The part says that any reaction with a coloured substance in it can be followed by its colour. Read for this lab in the copy fetched on the retrieval date for the clock reaction lab: the file whose sha256 is given."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-rates-concentration",
+      "url": "https://www.chemguide.co.uk/physical/basicrates/concentration.html",
+      "citation": "Clark, J. Chemguide: The Effect of Concentration on Reaction Rates; 2002, modified October 2013; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "d94ff6ba031da9228bd78ed20f808958f6b23bcc7b112dda3a84c1449138cfb0",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "The facts",
+          "where": "A heading of the page. Under it: for many reactions in solution a stronger solution reacts faster, though doubling a concentration need not double the rate, and in a few cases more of one reactant makes little difference. The explanation after it is that particles must collide to react, and collide more often where there are more of them in the same room. Read for this lab in the copy fetched on the retrieval date for the clock reaction lab: the file whose sha256 is given."
+        }
+      ]
+    },
+    {
+      "id": "nbs-circular-510",
+      "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/circ/nbscircular510.pdf",
+      "citation": "National Bureau of Standards; National Research Council. Tables of Chemical Kinetics: Homogeneous Reactions; NBS Circular 510; U.S. Government Printing Office: Washington, DC, issued 28 September 1951. Read as the scanned PDF that the National Institute of Standards and Technology serves, linked here; its table 312.471 was read from images of two of its pages, since the text the scan carries is not legible there; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "1965e2ee50a4ac0a790759c83b73ae1b3931e6c4db7ddb5561b25e426edb452f",
+      "supports": [
+        {
+          "fields": [
+            "rateLaw.rateConstant"
+          ],
+          "prints": "2.91",
+          "where": "Table 312.471, halogenation on aliphatic carbon, its third page, which is page 337 of the file: reaction 4, acetone with iodine, in water with hydrochloric acid, the rate written as the constant times the acetone times the hydrogen ion. The row for acid of 0.2 has 2.91 at 25 °C with a power of ten of −5 in the column beside it; the rows about it have 2.83 for acid of 0.01 to 0.1, 2.99 for 0.5 and 3.05 for 1.0, all at 25 °C and all from the table's ninth reference. The introduction says that amounts are in moles for a litre unless a table says otherwise and that every time is in seconds, so the constant is in litres for each mole and second. The table's references were not read."
+        },
+        {
+          "fields": [
+            "rateLaw.activationEnergy"
+          ],
+          "prints": "20.6",
+          "where": "The same table's fourth page, page 338 of the file, where reaction 4 goes on: in water with hydrochloric acid of 0.03 to 0.11 and acetone of 0.03 to 0.10, rate constants of 1.15 at 0 °C with a power of ten of −6, and 2.86, 3.60 and 8.80 at 25, 27 and 35 °C with −5, and beside them, in the column for the activation energy, this figure, from the table's twenty-first reference. The introduction says that activation energies are always in kilocalories for each mole."
+        },
+        {
+          "fields": [
+            "parts[rate-law].notes[2]"
+          ],
+          "prints": "Tables of Chemical Kinetics",
+          "where": "The first line of the title. The note gives the two figures above as the record stores them, and says of the rate constant what the rows about it show: that it is a little higher in stronger acid."
+        }
+      ]
+    },
+    {
+      "id": "nist-sp811-conversion-factors",
+      "url": "https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b9",
+      "citation": "Thompson, A.; Taylor, B. N. Guide for the Use of the International System of Units (SI); NIST Special Publication 811, 2008 edition; National Institute of Standards and Technology. Appendix B.9: Factors for units listed by kind of quantity or field of science; a page created on 1 February 2016 and updated on 18 August 2025; read and not kept (retrieved 2026-10-11).",
+      "fetchedSha256": "97a1be1211c485e577089c9100050e6f01e957673922befaa4d14b6a68f09608",
+      "supports": [
+        {
+          "fields": [
+            "constants.joulesPerCalorie",
+            "parts[rate-law].notes[2]"
+          ],
+          "prints": "4.184",
+          "where": "The table for energy, the row for the thermochemical calorie: the number that turns calories into joules, with a power of ten of nought beside it; the row for the thermochemical kilocalorie has the same figure with a power of three. The row above it gives the calorie of the International Table as 4.1868. The lab takes the first for the activation energy it reads in kilocalories, which makes 20.6 into 86.2 kJ/mol; with the second it would be 86.2 as well."
+        }
+      ]
+    },
+    {
+      "id": "nist-codata-2022",
+      "url": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+      "citation": "Mohr, P. J.; Newell, D. B.; Taylor, B. N.; Tiesinga, E. Fundamental Physical Constants: Complete Listing, 2022 CODATA adjustment. National Institute of Standards and Technology. Read as the text file linked here; read and not kept (retrieved 2026-10-07).",
+      "fetchedSha256": "77fb90e66c40db3e6eb16630bc9c88e4c7c8beddbe5e71be406f2f26e3f67e67",
+      "supports": [
+        {
+          "fields": [
+            "constants.gasConstant"
+          ],
+          "prints": "8.314 462 618...",
+          "where": "The line for the molar gas constant, in J mol^-1 K^-1, marked exact. The stored value is the printed digits. The model uses it to work out the rate constant at the room's temperature. Read for this lab in the copy fetched on 2026-10-10 for the clock reaction lab, which is the file the earlier labs read, byte for byte: its sha256 is the one given."
+        }
+      ]
+    },
+    {
+      "id": "nist-si-temperature",
+      "url": "https://www.nist.gov/pml/owm/si-units-temperature",
+      "citation": "National Institute of Standards and Technology, Office of Weights and Measures. SI Units: Temperature; a page created in 2010 and updated on 17 June 2026; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "ecca1dd602e6d6d5f3bc07bd8184272188897ff0ceadeeaec8919b11b8197d30",
+      "supports": [
+        {
+          "fields": [
+            "constants.zeroCelsius"
+          ],
+          "prints": "273.15",
+          "where": "The first paragraph of the page: a degree Celsius is a step of one kelvin, and 0 °C is 273.15 K. The model uses it to turn the room's temperature and the 25 °C of the rate constant into kelvin. Read for this lab in the copy fetched on the retrieval date for the clock reaction lab: the file whose sha256 is given."
+        }
+      ]
+    }
+  ]
+}

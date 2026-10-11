@@ -222,6 +222,13 @@ describe('architecture lint rules', () => {
     ['@/engine/kinetics', 'src/app/lab/clock/x.tsx'],
     ['../../../engine/kinetics', 'src/app/lab/clock/x.test.tsx'],
     ['@/engine/figures', 'src/app/lab/clock/x.tsx'],
+    // The acetone engine below its index is the same kinetics engine with another record: what it holds back is held back the same way.
+    ['@/engine/acetone/model', 'src/app/lab/acetone/messages.ts'],
+    ['../../../engine/acetone/pinnedModel', 'src/app/lab/acetone/x.tsx'],
+    ['@/engine/acetone/testkit', 'src/app/lab/acetone/x.tsx'],
+    ['@/engine/kinetics/select', 'src/app/lab/acetone/messages.ts'],
+    ['@/engine/kinetics', 'src/app/lab/acetone/x.tsx'],
+    ['@/engine/figures', 'src/app/lab/acetone/x.tsx'],
   ])('rejects importing %s in %s', async (source, filePath) => {
     expect(await ruleIds(`import * as m from "${source}"\nexport const v = m\n`, filePath)).toEqual(['no-restricted-imports'])
     // A type import is refused too: the types below the index describe the hidden values.
@@ -246,6 +253,8 @@ describe('architecture lint rules', () => {
     ['@/engine/lechatelier/testkit', 'src/app/lab/lechatelier/messages.test.ts'],
     ['@/engine/clock', 'src/app/lab/clock/messages.ts'],
     ['@/engine/clock/testkit', 'src/app/lab/clock/messages.test.ts'],
+    ['@/engine/acetone', 'src/app/lab/acetone/messages.ts'],
+    ['@/engine/acetone/testkit', 'src/app/lab/acetone/messages.test.ts'],
     // Another folder whose name ends the same way is not the engine's.
     ['@/app/lab/titration/benchView', 'src/app/pages/x.tsx'],
     ['./titration/benchView', 'src/app/lab/x.tsx'],
