@@ -367,6 +367,9 @@ describe('the list of steps', () => {
     expect(text(closing)).not.toContain(escaped(SOURCES_TEXT))
     expect(foot).not.toContain(CHART_TEXT.noMap)
     expect(text(bench(state, UNKNOWN).foot)).toContain(CHART_TEXT.noMap)
+    // Each of them is a line of words 20 px tall under a hit area of 44 (lab.css), which reaches 24 px over the line of one that is open. So they stand 36 px apart and 28 under the ways on: closer, the area of one lay over the words of the one above it.
+    expect(labCss).toMatch(/\.lab-panel summary::after \{[^}]*height: max\(100%, 2\.75rem\)/)
+    expect(foot).toContain('<div class="mt-4 grid gap-9 text-sm">')
   })
 })
 
@@ -637,6 +640,9 @@ describe('the tube as it is drawn', () => {
     const tube = card(done, PAGE_TEXT.tube)
     expect(text(tube)).toContain(PAGE_TEXT.asChecked)
     expect(picture(done)).not.toContain('data-rack')
+    // With no rack drawn, the picture is not named as one drawn in a rack.
+    expect(picture(done)).toContain(`aria-label="${PAGE_TEXT.tubeAsChecked(TUBE_NAME.a)}"`)
+    expect(PAGE_TEXT.tubeAsChecked(TUBE_NAME.a)).toBe('First tube, as it was when this step was checked')
     // As it was at the check: the solid packed under the liquid, though the liquid has been poured away since.
     expect(view(state, KNOWN).steps[0]!.shows).toMatchObject({ liquid: { colour: 'colourless' }, solid: { colour: 'white', settled: true } })
     expect(view(state, KNOWN).rack.a.liquid).toBeNull()
@@ -973,7 +979,9 @@ describe('the naming of the ions', () => {
     expect(open).not.toContain(NAMING_TEXT.closed)
     expect(boxes(open).map(([, ticked]) => ticked)).toEqual([false, false, false])
     expect(button(open, NAMING_TEXT.submit)!.tag).not.toContain('aria-disabled')
-    expect(NAMING_TEXT.none).toContain('Tick at least one ion')
+    // With no box ticked the engine refuses the naming, and the page says the engine's reason and sends nothing.
+    expect(can(m, reached(UNKNOWN, 5), { type: 'nameIons', part: UNKNOWN, ions: [] })).toBe('nothing-named')
+    expect(blockedText(data, UNKNOWN, 'nothing-named')).toContain('Tick at least one ion')
   })
 
   it('is said once: once the ions are named the boxes show them, disabled, with what was named in words, and there is no button to name them again', () => {

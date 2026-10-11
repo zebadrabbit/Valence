@@ -78,12 +78,16 @@ export function stepTitle(data: CationsData, stepId: StepId): string {
   return `Step ${number(stepId)}: ${data.steps[STEP_IDS.indexOf(stepId)]!.name}`
 }
 
-/** What is done at each step, under its title. It says what to do and nothing of what will be seen. */
+/**
+ * What is done at each step, under its title. It says what to do and nothing of what will be seen. The centrifuge
+ * comes before the record: its button is beside the tube, and what ends the step is under the step's cards, a
+ * window further down in part 1, so that in this order the page is worked one way, from its head to its foot.
+ */
 export const STEP_TASK: Record<StepId, string> = {
-  precipitate: 'Add hydrochloric acid to the sample and record what you see. Then centrifuge, and pour the liquid away.',
-  'extract-lead': 'Add distilled water to what is left in the first tube and heat it in the boiling water. Record what you see. Then centrifuge, and pour the hot liquid into the second tube.',
+  precipitate: 'Add hydrochloric acid to the sample and centrifuge. Record what you see, then pour the liquid away.',
+  'extract-lead': 'Add distilled water to what is left in the first tube, heat it in the boiling water and centrifuge. Record what you see, then pour the hot liquid into the second tube.',
   'confirm-lead': 'Add acetic acid and potassium chromate to the second tube, and record what you see.',
-  separate: 'Add ammonia solution to what is left in the first tube and record what you see. Then centrifuge, and pour the liquid into the third tube.',
+  separate: 'Add ammonia solution to what is left in the first tube and centrifuge. Record what you see, then pour the liquid into the third tube.',
   'confirm-silver': 'Add nitric acid to the third tube, a little at a time, testing with litmus paper, until the paper shows that the liquid is acid. Then record what you see.',
 }
 
@@ -195,7 +199,7 @@ export const checkedText = (wrong: readonly Field[]): string =>
 
 /** Guided's hint for each step, in a closed disclosure (spec 17.3). Each says how the step is worked and nothing of what it shows. */
 export const HINT: Record<StepId, string> = {
-  precipitate: 'After the acid goes in, look at the liquid and at the bottom of the tube, and record what you see. A solid that has just formed is spread through the liquid and makes it cloudy. The centrifuge packs it at the bottom; pour only after that, or the solid goes over with the liquid.',
+  precipitate: 'A solid that has just formed is spread through the liquid and makes it cloudy. The centrifuge packs it at the bottom. Then look at the liquid and at the bottom of the tube, and record what you see. Pour only after the centrifuge, or the solid goes over with the liquid.',
   'extract-lead': 'The water does its work only when it is hot, so heat the tube before you record what you see and before you pour. Centrifuge, then pour the hot liquid into the second tube: the next step tests that liquid, and the step after it tests what is left behind.',
   'confirm-lead': 'The reagent that goes in here is itself coloured, so a coloured liquid tells you nothing. What matters is whether there is a solid. The centrifuge packs a solid at the bottom, where it is easy to tell from the liquid over it.',
   separate: 'After the ammonia goes in, look at whether a solid is left and what colour it is. Centrifuge before you pour: the liquid goes into the third tube, and the last step tests it.',
@@ -238,6 +242,9 @@ export function blockedText(data: CationsData, part: PartId, blocked: Blocked, s
       return 'Record what you see in the tube before you pour, and have it checked: once the liquid is poured off, the tube no longer shows it.'
     case 'invalid-entry':
       return 'Choose one answer for each question.'
+    case 'nothing-named':
+      // True of every sample, so it says nothing of this one.
+      return 'Tick at least one ion: every sample holds one or more of the three.'
     case 'no-such-place':
       return 'There is no such place on the flow chart.'
     case 'no-such-tile':
@@ -306,8 +313,8 @@ export function reasonText(reason: Reason): string {
 /** What a sample held, said once the engine hands it over: an unknown's only after its ions are named. */
 export const holdsText = (data: CationsData, ions: readonly IonId[]) => `The sample held ${ionNames(data, ions)} ${ions.length === 1 ? 'ions and neither of the other two' : ions.length === 2 ? 'ions and not the third' : 'ions: all three'}.`
 
-/** The ions a learner named, in words: "silver and lead", or that none was named. */
-export const namedText = (data: CationsData, ions: readonly IonId[]) => (ions.length === 0 ? 'You named none of the three ions.' : `You named ${ionNames(data, ions)}.`)
+/** The ions a learner named, in words: "You named silver and lead." The engine takes no naming of none. */
+export const namedText = (data: CationsData, ions: readonly IonId[]) => `You named ${ionNames(data, ions)}.`
 
 /**
  * The sentence for a run once it is over: that it counts, or that it does not and why (spec 17.3). For an unknown
@@ -360,8 +367,6 @@ export const NAMING_TEXT = {
   help: 'Tick each ion that the steps showed. Any of the three may be ticked. This is said once for each run.',
   closed: 'Opens once all five steps are done.',
   submit: 'Name the ions',
-  /** Where no box is ticked: the page asks again and sends nothing, since the naming is said once. */
-  none: 'Tick at least one ion: every sample holds one or more of the three.',
 } as const
 
 /** What each mode does in this lab (spec 17.3), beside its radio button. */
@@ -418,8 +423,9 @@ export const PAGE_TEXT = {
   seen: 'What is seen',
   outcome: 'This run',
   hint: 'Hint',
-  /** The name of the drawn tube, with which of the three it is. */
+  /** The name of the drawn tube, with which of the three it is; and of the picture of a step that is done, which has no rack beside it. */
   tubePicture: (tube: string) => `${tube}, drawn in a rack`,
+  tubeAsChecked: (tube: string) => `${tube}, as it was when this step was checked`,
   /** Beside the picture's two brackets: which layer is liquid and which is solid. */
   liquidLayer: 'liquid',
   solidLayer: 'solid',

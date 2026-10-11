@@ -449,8 +449,8 @@ export function StepCard({ data, m, part, mode, view, step, can, warn, wrong, ac
         )}
       </p>
       {done ? (
-        // Once the step is done and not before, and closed: the notes and the equations say what each thing is.
-        <div className="text-sm">
+        // Once the step is done and not before, and closed: the notes and the equations say what each thing is. A little room under them: the closed disclosure's hit area reaches 12 px under its line, and that of Previous, in the row below, 4 px over its own.
+        <div className="pb-1 text-sm">
           <Disclosure summary={NOTES_TEXT.notes}>
             <div className="grid max-w-[75ch] gap-2 leading-relaxed">
               {stepNotes(data, step.id).map((note) => (

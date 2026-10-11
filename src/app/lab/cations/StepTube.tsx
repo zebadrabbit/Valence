@@ -88,7 +88,7 @@ export function StepTube({ m, tube, shows, rack, looked, describedBy, seen, onLo
   const layers = tubeLayers(m, shows)
   return (
     <Tube
-      name={PAGE_TEXT.tubePicture(TUBE_NAME[tube])}
+      name={rack ? PAGE_TEXT.tubePicture(TUBE_NAME[tube]) : PAGE_TEXT.tubeAsChecked(TUBE_NAME[tube])}
       describedBy={describedBy}
       height={TUBE_HEIGHT}
       layers={layers}

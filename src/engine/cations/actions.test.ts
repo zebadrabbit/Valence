@@ -284,15 +284,34 @@ describe('naming the ions', () => {
     return state
   }
 
-  it('takes any of the three, none or all, each once, and is said once', () => {
+  it('takes any of the three, one or all, each once, and is said once', () => {
     const state = worked()
-    for (const ions of [[], ['lead'], ['mercury-i', 'silver'], ['silver', 'lead', 'mercury-i']] as const) expect(can(m, state, { type: 'nameIons', part: 'unknown', ions: [...ions] })).toBeNull()
+    for (const ions of [['lead'], ['mercury-i', 'silver'], ['silver', 'lead', 'mercury-i']] as const) expect(can(m, state, { type: 'nameIons', part: 'unknown', ions: [...ions] })).toBeNull()
     for (const ions of [['lead', 'lead'], ['gold'], 'lead', null]) expect(can(m, state, { type: 'nameIons', part: 'unknown', ions: ions as never }), JSON.stringify(ions)).toBe('invalid-entry')
     const named = run(m, state, [{ type: 'nameIons', part: 'unknown', ions: ['mercury-i', 'silver'] }])
     // Stored in the ions' own order.
     expect(partView(m, named, 'unknown').naming).toEqual({ open: false, named: ['silver', 'mercury-i'] })
     expect(can(m, named, { type: 'nameIons', part: 'unknown', ions: ['lead'] })).toBe('run-over')
     for (const action of [{ type: 'add' }, { type: 'centrifuge' }, { type: 'pourOff' }, { type: 'checkStep' }] as const) expect(can(m, named, { ...action, part: 'unknown' } as Action)).toBe('run-over')
+  })
+
+  it('refuses a naming of none of the three, in either mode, and stores nothing: every sample holds one or more, and the naming is said once', () => {
+    for (const mode of ['guided', 'challenge'] as const) {
+      let state = createLab(1, mode)
+      for (let at = 0; at < 5; at++) state = workStep(m, state, 'unknown')
+      const none: Action = { type: 'nameIons', part: 'unknown', ions: [] }
+      expect(can(m, state, none), mode).toBe('nothing-named')
+      // Nothing is done by it: the run is still open, and its ions can still be named.
+      expect(reduce(m, state, none), mode).toBe(state)
+      expect(partView(m, state, 'unknown').naming, mode).toEqual({ open: true, named: null })
+      expect(can(m, state, { type: 'nameIons', part: 'unknown', ions: ['lead'] }), mode).toBeNull()
+      // A stored run that names none is not one the lab could have made.
+      const copy: CationsState = JSON.parse(JSON.stringify(state))
+      copy.parts.unknown[0]!.events.push({ t: 'name', ions: [] })
+      expect(schema.safeParse(copy).success, mode).toBe(false)
+    }
+    // What stands in the way first is said first: before the five steps are done, that they are not.
+    expect(can(m, createLab(1, 'challenge'), { type: 'nameIons', part: 'unknown', ions: [] })).toBe('steps-not-done')
   })
 
   it('ends a run of part 1 at the check of its last step, with no naming', () => {
