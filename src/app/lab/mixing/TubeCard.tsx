@@ -17,7 +17,6 @@ import {
   NOTES_TEXT,
   NOT_SETTLED_TEXT,
   PAGE_TEXT,
-  PART_LABEL,
   RECORD_TEXT,
   SOLID_LABEL,
   STAGE_TEXT,
@@ -35,7 +34,7 @@ import {
   tubeText,
   type TubePart,
 } from './messages'
-import { TUBE_HEIGHT, tubeLayers, tubeMark, tubeSections } from './pageLook'
+import { TUBE_HEIGHT, tubeLayers, tubeMark, tubeSections, tubeWords } from './pageLook'
 import { CARD, HEADING, SHEET, Sheet } from './sheets'
 
 export interface TubeCardProps {
@@ -110,7 +109,7 @@ export function TubeCard({ data, m, state, tube, act, headingRef }: TubeCardProp
   const [lookSaid, sayOfLook] = useSaid()
   // The parts looked at, each with the stage it was looked at in: a tube that has stood is another picture.
   const [seen, setSeen] = useState<readonly string[]>([])
-  // A tube that the stored record says was looked at, as on a reload, has no part left to look at for the first time.
+  // Whether the stored record says the tube was looked at before this card was made, as on a reload or on coming back to it from another tube: the record does not hold which parts.
   const [lookedBefore] = useState(view.looked)
   const outcomeRef = useRef<HTMLDivElement>(null)
   const over = view.outcome.state === 'counts' || view.outcome.state === 'does-not-count'
@@ -151,14 +150,16 @@ export function TubeCard({ data, m, state, tube, act, headingRef }: TubeCardProp
   const found = (answer: string | null, right: boolean | null) => (answer === null ? null : { wrong: right === false ? ['answer'] : [], text: right === false ? BLOCKED_TEXT['not-right'] : '' })
 
   const layers = tubeLayers(view.shows, m.moreMicrolitres + m.lessMicrolitres)
-  const sections = tubeSections(view, layers, (part) => seen.includes(`${view.stage}:${part}`) || (lookedBefore && view.stage === 'stood'))
+  // A part has been looked at once this card has seen it looked at, as the tube now stands. Of a tube looked at before the card was made, every part has been once the tube is checked, when nothing is left to find; until then a part is looked at again, so that no bracket says how many layers there are before the look.
+  const lookedAt = (part: TubePart) => seen.includes(`${view.stage}:${part}`) || (lookedBefore && over)
+  const sections = tubeSections(view, layers, lookedAt)
   const shake: Action = { type: 'shake', tube }
   const stand: Action = { type: 'stand', tube }
   const shaken = view.stage === 'shaken' || view.stage === 'stood'
 
   return (
     <section aria-labelledby={headingId} className="mixing-tube grid min-w-0 gap-2">
-      <div className={CARD}>
+      <div className={`mixing-tube-card ${CARD}`}>
         <div className={SHEET}>
           <div className="flex w-full flex-wrap items-baseline justify-between gap-x-3">
             <h3 ref={headingRef} id={headingId} tabIndex={-1} className={`rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring ${HEADING}`}>
@@ -181,8 +182,8 @@ export function TubeCard({ data, m, state, tube, act, headingRef }: TubeCardProp
               describedBy={exploreId}
               height={TUBE_HEIGHT}
               layers={layers}
-              // Each layer has its bracket and its word: two liquids are told apart by where each is and how thick it is, and never by a colour.
-              words={{ liquid: layers.above ? PART_LABEL.lower : PART_LABEL.liquid, above: PART_LABEL.upper, solid: PART_LABEL.solid }}
+              // Each layer has its bracket and its word once it has been looked at: two liquids are told apart by where each is and how thick it is, and never by a colour.
+              words={tubeWords(layers, lookedAt)}
               sections={sections}
               seen={(part) => partText(view.shows, part)}
               onLook={look}

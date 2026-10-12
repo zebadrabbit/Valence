@@ -387,6 +387,14 @@ describe('refusals', () => {
     }
   })
 
+  it('tell a learner to set a tube up again only where the page offers it: under a tube that does not count, and not at a tube that is filled', () => {
+    for (const reason of ALL) expect(BLOCKED_TEXT[reason], reason).not.toMatch(/set it up again|fresh tube/i)
+    expect(BLOCKED_TEXT['already-in']).toBe('This tube is filled already. What is in it cannot be changed.')
+    const id = 'water+vegetable-oil'
+    expect(tubeOutcomeText(tubeView(m, wholePair(m, lab('challenge'), id, { wrong: true }), id))).toContain(`${FORM_TEXT.again}.`)
+    for (const state of stagesOf(id)) expect(tubeOutcomeText(tubeView(m, state, id))).not.toMatch(/fresh tube/i)
+  })
+
   it("are the sentences the engine's refusals get, at the points of a lab where each first comes up", () => {
     const id = 'water+vegetable-oil'
     const say = (state: MixingState, action: Action) => BLOCKED_TEXT[can(m, state, action)!]

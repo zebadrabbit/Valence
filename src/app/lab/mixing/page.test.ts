@@ -46,7 +46,7 @@ import { MixingBench } from './MixingBench'
 import mixingCss from './mixing.css?raw'
 import { MixingPage } from './MixingPage'
 import { MixingRecord } from './MixingRecord'
-import { OFF_BENCH, TUBE_HEIGHT, opening, partMarks, tubeLayers, tubeMark, tubeSections } from './pageLook'
+import { OFF_BENCH, TUBE_HEIGHT, opening, partMarks, tubeLayers, tubeMark, tubeSections, tubeWords } from './pageLook'
 
 // The polarity and mixing lab's page as markup, on a store the test holds. AppStateProvider builds its store from
 // the browser and the media hook has no value on a server, so both are given directly. What a press does (a tube
@@ -296,24 +296,50 @@ describe('a tube', () => {
     expect(steps(fresh(), 'sugar-in-vinegar')).toEqual([['✓ Put in the vinegar, then a little sugar', false, false], [shake, true, false], [stand, true, false]])
   })
 
-  it('draws two liquids that do not mix as two bands with the line between them and a bracket and a word for each, once the tube has stood and not before', () => {
+  it('draws two liquids that do not mix as two bands with the line between them once the tube has stood and not before, and no bracket or word for a layer until it has been looked at', () => {
     const before = bench(run(m, fresh(), [filled(OIL), { type: 'shake', tube: OIL }]), 'liquids', OIL)
     expect(lines(before)).toHaveLength(1)
-    expect(brackets(before)).toEqual([PART_LABEL.liquid])
+    expect(brackets(before)).toEqual([])
     const after = bench(stood(fresh(), OIL), 'liquids', OIL)
     expect(lines(after)).toHaveLength(2)
     expect(lines(after)[1]).toBe(`<line x1="48" x2="128" y1="138" y2="138" stroke="${LAYER_LINE.stroke}" stroke-width="${LAYER_LINE.width}">`)
-    expect(brackets(after)).toEqual([PART_LABEL.upper, PART_LABEL.lower])
+    expect(brackets(after)).toEqual([])
     expect([...after.matchAll(/data-part="(\w+)"[^>]*aria-label="([^"]*)"/g)].map((match) => [match[1], match[2]])).toEqual([['upper', 'Top layer'], ['lower', 'Bottom layer']])
     // The pale yellow oil over the water: two fills. Two liquids with no colour: one fill twice, and the same line.
     expect(after).toContain(`height="68" fill="${liquidHex('pale yellow')}"`)
     const clear = bench(stood(fresh(), CLEAR), 'liquids', CLEAR)
     expect(count(clear, new RegExp(`<rect x="48"[^>]*fill="${liquidHex('colourless')}"`, 'g'))).toBe(2)
     expect(lines(clear)[1]).toBe(lines(after)[1])
-    // Two that mix: one band, one bracket.
+    // Two that mix: one band.
     const one = bench(stood(fresh(), ONE), 'liquids', ONE)
     expect(lines(one)).toHaveLength(1)
-    expect(brackets(one)).toEqual([PART_LABEL.liquid])
+    expect(brackets(one)).toEqual([])
+  })
+
+  it('draws no bracket at any stage of any tube, in either mode, until a part is looked at or the tube is checked: the number of brackets would say how many layers there are', () => {
+    for (const mode of ['guided', 'challenge'] as const) {
+      for (const id of [...PAIR_IDS, ...SOLID_TUBE_IDS]) {
+        // Filled, stood, and looked at with the card made again, as on a reload: nothing is drawn but the picture.
+        for (const state of [run(m, fresh(mode), [filled(id)]), stood(fresh(mode), id), looked(fresh(mode), id)]) expect(brackets(bench(state, id.includes('+') ? 'liquids' : 'solids', id)), id).toEqual([])
+      }
+    }
+    // Recorded in Challenge and not yet checked: still none. Checked, whether or not it counts: every layer has its bracket.
+    expect(brackets(bench(wholePair(m, fresh('challenge'), OIL, { check: false }), 'liquids', OIL))).toEqual([])
+    expect(brackets(bench(wholePair(m, fresh('challenge'), OIL, { wrong: true }), 'liquids', OIL))).toEqual([PART_LABEL.upper, PART_LABEL.lower])
+    expect(brackets(bench(wholePair(m, fresh(), ONE), 'liquids', ONE))).toEqual([PART_LABEL.liquid])
+    expect(brackets(bench(wholeSolidTube(m, fresh(), 'salt-in-vegetable-oil'), 'solids', 'salt-in-vegetable-oil'))).toEqual([PART_LABEL.liquid, PART_LABEL.solid])
+    expect(brackets(bench(wholeSolidTube(m, fresh(), 'salt-in-water'), 'solids', 'salt-in-water'))).toEqual([PART_LABEL.liquid])
+  })
+
+  it('gives a layer its word once it has been looked at, and no word to a layer that has not', () => {
+    const two = tubeLayers(tubeView(m, stood(fresh(), OIL), OIL).shows, FULL)
+    expect(tubeWords(two, () => false)).toEqual({ liquid: null, above: null, solid: null })
+    expect(tubeWords(two, (part) => part === 'upper')).toEqual({ liquid: null, above: PART_LABEL.upper, solid: null })
+    expect(tubeWords(two, (part) => part === 'lower')).toEqual({ liquid: PART_LABEL.lower, above: null, solid: null })
+    const one = tubeLayers(tubeView(m, stood(fresh(), ONE), ONE).shows, FULL)
+    expect(tubeWords(one, (part) => part === 'liquid')).toEqual({ liquid: PART_LABEL.liquid, above: null, solid: null })
+    // The words of two layers are not those of one, whichever part of the other kind is said to have been looked at.
+    expect(tubeWords(one, (part) => part === 'lower' || part === 'upper').liquid).toBeNull()
   })
 
   it('says what a tube shows nowhere on the page but in a disclosure that is closed, at every stage of every tube in both modes: a look says it', () => {
@@ -517,10 +543,17 @@ describe("the lab's stylesheet", () => {
     expect(mixingCss).not.toMatch(/animation|transition|@keyframes/)
   })
 
-  it('puts the table beside the tube only where the part is 58rem wide, and behind its button elsewhere', () => {
+  it('puts the table beside the tube only where the part is 76rem wide, and behind its button elsewhere', () => {
     expect(mixingCss).toMatch(/\.mixing-chooser \{\s*display: none;\s*\}\s*\.mixing-chooser-open \{\s*display: grid;/)
-    expect(mixingCss).toMatch(/@container mixing-part \(min-width: 58rem\) \{[^@]*\.mixing-choose-button \{\s*display: none;\s*\}\s*\.mixing-chooser \{\s*display: grid;/)
+    expect(mixingCss).toMatch(/@container mixing-part \(min-width: 76rem\) \{[^@]*\.mixing-choose-button \{\s*display: none;\s*\}\s*\.mixing-chooser \{\s*display: grid;/)
     expect(mixingCss).toMatch(/@container mixing-tube \(min-width: 26rem\) \{\s*\.mixing-tube-grid \{\s*grid-template-columns: minmax\(0, 17\.5rem\) minmax\(0, 1fr\);/)
+  })
+
+  it('asks what is seen beside the picture where a tube\'s card is 46rem wide, which it is wherever the table stands beside it, and under the picture elsewhere', () => {
+    expect(mixingCss).toMatch(/@container mixing-tube \(min-width: 46rem\) \{\s*\.mixing-tube-card \{\s*grid-template-columns: 31rem minmax\(0, 1fr\);/)
+    // The table's 29rem and the gap of 0.75rem leave a tube 46rem or more of a part that is 76rem wide.
+    expect(76 - 29 - 0.75).toBeGreaterThanOrEqual(46)
+    expect(bench(stood(fresh(), OIL), 'liquids', OIL)).toContain('class="mixing-tube-card ')
   })
 
 })

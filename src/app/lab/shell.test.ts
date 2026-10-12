@@ -18,7 +18,7 @@ import { ModeSwitch } from './ModeSwitch'
 import { openingStation } from './openingStation'
 import { pieces, Primer, subscriptParts } from './Primer'
 import { HAZARDS_TEXT, NARROW_NOTICE, PRIMER_TEXT, SHELL_TEXT } from './shellText'
-import { LAYER_LINE, Tube, type TubeLayers } from './Tube'
+import { LAYER_LINE, Tube, type LayerWords, type TubeLayers } from './Tube'
 import { liquidHex } from './tubeDrawing'
 import { labProgress, writtenElsewhere } from './useLabProgress'
 
@@ -800,14 +800,14 @@ describe('the station a lab with stations opens on', () => {
 })
 
 describe('the tube that is explored, with a second liquid lying on the first', () => {
-  const draw = (layers: TubeLayers, sections: readonly ['upper' | 'lower' | 'liquid', number, number][]) =>
+  const draw = (layers: TubeLayers, sections: readonly ['upper' | 'lower' | 'liquid', number, number][], words: LayerWords = { liquid: sections.length === 2 ? 'Bottom layer' : 'Liquid', above: 'Top layer', solid: 'Solid' }) =>
     renderToStaticMarkup(
       createElement(Tube<'upper' | 'lower' | 'liquid'>, {
         name: 'A tube',
         describedBy: 'how',
         height: 300,
         layers,
-        words: { liquid: sections.length === 2 ? 'Bottom layer' : 'Liquid', above: 'Top layer', solid: 'Solid' },
+        words,
         sections: sections.map(([part, top, bottom]) => ({ part, top, bottom, name: part, looked: false })),
         seen: () => 'never in the markup',
         onLook: () => undefined,
@@ -852,6 +852,23 @@ describe('the tube that is explored, with a second liquid lying on the first', (
     expect(contrast(LAYER_LINE.stroke, grey)).toBeGreaterThanOrEqual(7)
     expect(contrast(LAYER_LINE.stroke, liquidHex('pale yellow'))).toBeGreaterThanOrEqual(7)
     expect([contrast(LAYER_LINE.stroke, grey), contrast(LAYER_LINE.stroke, liquidHex('pale yellow'))].map((ratio) => ratio.toFixed(1))).toEqual(['8.9', '9.3'])
+  })
+
+  it('draws no bracket for a layer whose word is null, and the picture and the parts to look at all the same', () => {
+    const two: TubeLayers = { liquid: { hex: grey, surface: 138 }, above: { hex: grey, surface: 70 }, solid: { hex: '#ffffff', top: 232 } }
+    const sections: ['upper' | 'lower', number, number][] = [['upper', 58, 138], ['lower', 138, 274]]
+    const words = (html: string) => [...html.matchAll(/<text [^>]*>([^<]*)<\/text>/g)].map((match) => match[1])
+    const whole = draw(two, sections)
+    expect(words(whole)).toEqual(['Top layer', 'Bottom layer', 'Solid'])
+    const none = draw(two, sections, { liquid: null, above: null, solid: null })
+    expect(words(none)).toEqual([])
+    expect(draw(two, sections, { liquid: null, above: 'Top layer', solid: null })).toContain('>Top layer</text>')
+    expect(words(draw(two, sections, { liquid: 'Bottom layer', above: null, solid: null }))).toEqual(['Bottom layer'])
+    expect(words(draw(two, sections, { liquid: null, above: null, solid: 'Solid' }))).toEqual(['Solid'])
+    // Taking the brackets away takes nothing else: the same picture and the same buttons, less each bracket's group.
+    const bracket = /<g><path d="M 136 [^"]*" fill="none" stroke="#3f3f46" stroke-width="1.5" stroke-linecap="round"><\/path><text [^>]*>[^<]*<\/text><\/g>/g
+    expect(count(whole, bracket)).toBe(3)
+    expect(whole.replace(bracket, '')).toBe(none)
   })
 
   it('draws no second liquid in a tube with no first', () => {

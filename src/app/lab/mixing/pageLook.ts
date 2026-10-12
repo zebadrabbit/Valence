@@ -1,4 +1,4 @@
-import { contentsEnd, type TubeLayers, type TubeSection } from '@/app/lab/Tube'
+import { contentsEnd, type LayerWords, type TubeLayers, type TubeSection } from '@/app/lab/Tube'
 import { liquidHex, solidHex } from '@/app/lab/tubeDrawing'
 import { PAIR_IDS, SOLID_TUBE_IDS, type PartId, type TubeId } from '@/chem-data/mixing/data'
 import { benchView, ruleView, tubeView, type MixingModel, type MixingState, type TubeShows, type TubeView } from '@/engine/mixing'
@@ -56,6 +56,17 @@ export function tubeSections(view: Pick<TubeView, 'kind' | 'shows'>, layers: Tub
   if (layers.above) return [section('upper', layers.above.surface - OVER, surface - CLEAR, PART_LABEL.upper), section('lower', surface + CLEAR, END, PART_LABEL.lower, true)]
   if (view.kind === 'solid') return [section('liquid', surface - OVER, BOTTOM, PART_LABEL.liquid), section('solid', BOTTOM, END, PAGE_TEXT.bottom, true)]
   return [section('liquid', surface - OVER, END, PART_LABEL.liquid, true)]
+}
+
+/**
+ * The word beside the bracket of each layer of a tube's picture: there for a layer that has been looked at, and for
+ * no other. A bracket with its word says how many layers a tube has and which is which, and that is the learner's to
+ * find by looking: where two liquids have no colour, finding the line between them is the observation (spec 25.2).
+ * The picture itself, its bands and its line, is drawn from the start.
+ */
+export function tubeWords(layers: TubeLayers, looked: (part: TubePart) => boolean): LayerWords {
+  const word = (part: TubePart, label: string) => (looked(part) ? label : null)
+  return { liquid: layers.above ? word('lower', PART_LABEL.lower) : word('liquid', PART_LABEL.liquid), above: word('upper', PART_LABEL.upper), solid: word('solid', PART_LABEL.solid) }
 }
 
 /** A mark for the eye, the words that say the same, and whether it is the mark of something done. */

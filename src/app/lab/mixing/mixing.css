@@ -2,10 +2,11 @@
  * Where the pieces of the polarity and mixing lab sit. Loaded with the lab page, so none of it is in the app
  * shell's stylesheet. Nothing here animates, and nothing on this lab's page moves.
  *
- * Parts 1 and 2 are the table the tubes are chosen from and the tube chosen. Where the part has the width for both,
- * 58rem, the table stands on the left and the tube beside it, and the button that opens the table is not displayed,
- * so that a screen reader and the Tab key meet no control that does nothing. Where it has not, as on an upright
- * tablet, the table is behind that button once a tube is chosen, and the tube has the width.
+ * Parts 1 and 2 are the table the tubes are chosen from and the tube chosen. Where the part has the width for the
+ * table and for a tube with its questions beside its picture, 76rem, the table stands on the left and the tube beside
+ * it, and the button that opens the table is not displayed, so that a screen reader and the Tab key meet no control
+ * that does nothing. Where it has not, as on an upright tablet and in a window 1280 px wide, the table is behind that
+ * button once a tube is chosen, and the tube has the width.
  */
 .mixing-part {
   container: mixing-part / inline-size;
@@ -22,7 +23,7 @@
 .mixing-chooser-open {
   display: grid;
 }
-@container mixing-part (min-width: 58rem) {
+@container mixing-part (min-width: 76rem) {
   .mixing-layout {
     gap: 0.75rem;
     grid-template-columns: 29rem minmax(0, 1fr);
@@ -56,6 +57,22 @@
 @container mixing-tube (min-width: 26rem) {
   .mixing-tube-grid {
     grid-template-columns: minmax(0, 17.5rem) minmax(0, 1fr);
+  }
+}
+
+/*
+ * Where the card has the width, 46rem, what is seen is asked beside the picture and its steps and not under them, so
+ * that a tube with a question open stands in a window 800 px tall. The picture and the steps keep the width they
+ * have on an upright tablet, where the card is narrower than this and nothing changes.
+ */
+@container mixing-tube (min-width: 46rem) {
+  .mixing-tube-card {
+    grid-template-columns: 31rem minmax(0, 1fr);
+  }
+  .mixing-tube-card > :first-child {
+    border-bottom-width: 0;
+    border-right-style: solid;
+    border-right-width: 1px;
   }
 }
 

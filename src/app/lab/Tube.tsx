@@ -61,13 +61,13 @@ export interface TubeLayers {
   bubbles?: { moving: string | undefined } | null
 }
 
-/** The words beside the brackets that say which layer is which. */
+/** The words beside the brackets that say which layer is which. A word that is null has no bracket drawn for its layer: the polarity and mixing lab's, where a bracket would say how many layers there are before the layer has been looked at. */
 export interface LayerWords {
   /** The liquid; the lower of two. */
-  liquid: string
-  solid: string
+  liquid: string | null
+  solid: string | null
   /** The upper of two liquids. */
-  above?: string
+  above?: string | null
   /** A liquid with a solid spread through it. */
   spread?: string
 }
@@ -121,13 +121,15 @@ export function TubeDefs({ id, height, layers }: { id: string; height: number; l
  * A tube as it is drawn: the liquid in its colour up to its surface, a solid at the bottom in its colour under a
  * grain and with an edge, or spread through the liquid as specks, bubbles where there are any, and the glass over
  * them. A second liquid lies on the first as a band of its own, with a line between the two. With `words`, a bracket
- * beside each layer says which it is: beside the glass, or at `bracesAt` where something that stands about the tube
- * needs that room. Nothing here is a control.
+ * beside each layer that has a word says which it is: beside the glass, or at `bracesAt` where something that stands
+ * about the tube needs that room. Nothing here is a control.
  */
 export function TubeBody({ id, height, layers, words, bracesAt = BRACE_X }: { id: string; height: number; layers: TubeLayers; words?: LayerWords | undefined; bracesAt?: number | undefined }) {
   const { liquid, solid, spread, bubbles } = layers
   const above = liquid ? layers.above : null
   const end = contentsEnd(height)
+  // The word of each bracket; none is drawn for a word that is null.
+  const word = words && { above: words.above === undefined ? words.liquid : words.above, liquid: spread ? (words.spread ?? words.liquid) : words.liquid, solid: words.solid }
   return (
     <>
       <g clipPath={`url(#${id})`}>
@@ -165,9 +167,9 @@ export function TubeBody({ id, height, layers, words, bracesAt = BRACE_X }: { id
       )}
       <path d={glass(height)} fill="none" stroke={INK} strokeWidth={2.5} strokeLinecap="round" />
       <path d="M 42 20 L 134 20" stroke={INK} strokeWidth={2.5} strokeLinecap="round" />
-      {words && liquid && above && <Brace at={bracesAt} from={above.surface} to={liquid.surface} word={words.above ?? words.liquid} />}
-      {words && liquid && <Brace at={bracesAt} from={liquid.surface} to={solid ? solid.top : end} word={spread ? (words.spread ?? words.liquid) : words.liquid} />}
-      {words && solid && <Brace at={bracesAt} from={solid.top} to={end} word={words.solid} />}
+      {word && liquid && above && word.above !== null && <Brace at={bracesAt} from={above.surface} to={liquid.surface} word={word.above} />}
+      {word && liquid && word.liquid !== null && <Brace at={bracesAt} from={liquid.surface} to={solid ? solid.top : end} word={word.liquid} />}
+      {word && solid && word.solid !== null && <Brace at={bracesAt} from={solid.top} to={end} word={word.solid} />}
     </>
   )
 }

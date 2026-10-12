@@ -373,7 +373,7 @@ export const OUTCOME_LABEL: Record<Outcome['state'], string> = { open: 'Not fini
 export const BLOCKED_TEXT: Record<Blocked, string> = {
   'unknown-tube': 'That tube is not on this bench.',
   'not-a-choice': 'That is not one of the choices.',
-  'already-in': 'This tube is filled already. To change what is in it, set it up again in a fresh tube.',
+  'already-in': 'This tube is filled already. What is in it cannot be changed.',
   'nothing-in': 'Nothing is in the tube yet. Fill it first.',
   'already-shaken': 'The tube has been shaken already.',
   'not-shaken': 'Shake the tube first.',
