@@ -53,8 +53,8 @@ const Cubes = ({ cubes }: { cubes: readonly Cube[] }) =>
  * calorimetry lab draws too, with its lid, its stirrer, its probe and the logger; and this lab's own. In the cup,
  * once it is filled, the water with the ice afloat in it: six cubes while there is plenty, two small ones when a
  * little is left, none when none is. Beside it the second cup on the balance, with the wire strainer resting on
- * its rim. Once the cup has been poured through the strainer the cup is empty, the strainer holds the ice that was
- * left, and the solution stands in the second cup. Nothing in it says what the temperature does, and nothing in
+ * its rim. Once the cup has been poured through the strainer the cup is empty with its lid beside it, the strainer
+ * holds the ice that was left, and the solution stands in the second cup. Nothing in it says what the temperature does, and nothing in
  * it is a colour of its own.
  */
 export function CupDrawing({ cup, reducedMotion }: { cup: CupView; reducedMotion: boolean }) {
@@ -62,7 +62,8 @@ export function CupDrawing({ cup, reducedMotion }: { cup: CupView; reducedMotion
   return (
     <FoamCup
       level={inCup ? LEVEL : null}
-      lidOn={cup.lidOn}
+      // A cup that has been poured out has its lid off: it lies on the bench again.
+      lidOn={cup.lidOn && !cup.strained}
       stirring={cup.stirring}
       loggerStarted={cup.loggerStarted}
       reducedMotion={reducedMotion}

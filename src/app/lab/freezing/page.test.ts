@@ -287,12 +287,14 @@ describe('the cup', () => {
     expect(cup(fresh(), ONE)).toContain('stroke-dasharray="2 2.5"')
   })
 
-  it('once it is strained is empty, with the ice that was left in the strainer and the solution in the second cup', () => {
+  it('once it is strained is empty, its lid beside it, with the ice that was left in the strainer and the solution in the second cup', () => {
     const before = cup(run(m, fresh(), [{ type: 'fill', part: TWO }]), TWO)
     expect(before).not.toContain('data-held')
     expect(before).not.toContain('data-solution')
     const strained = cup(worked(TWO), TWO)
     expect(strained).not.toContain('data-ice')
+    // Poured out, its lid lies on the bench again.
+    expect(strained).toContain('data-lid="off"')
     expect(strained).toContain('data-solution')
     expect(cubes(strained, 'held')).toBe(5)
     const unstrained = cup(workCup(m, fresh('challenge'), TWO, { strain: false }), TWO)
