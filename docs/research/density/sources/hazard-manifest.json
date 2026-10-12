@@ -49,7 +49,7 @@
         {
           "field": "ethanol-95.hazards.note",
           "prints": "Keep away from heat, sparks, open flames, and hot surfaces. No smoking (P210).",
-          "where": "Section 2, after the first statement. Section 10 lists what the liquid is kept from, oxidizing agents and acids among them, with heat and any source of ignition. Section 8 calls for gloves, protective clothing and eye protection, with the code P280, and for use only in a hood or where the air is changed well, with P271. Section 5 gives the flash point as 21 °C."
+          "where": "Section 2, after the first statement. Section 10 lists what the liquid is kept from, oxidizing agents and acids among them, with heat and any source of ignition. Section 8 calls for eye protection, gloves and protective clothing, with the code P280, and for use in a fume hood or in a room whose air is changed well, with P271. Section 5 gives the flash point as 21 °C."
         },
         {
           "field": "ethanol-95.hazards.note",
@@ -92,7 +92,7 @@
         {
           "field": "ethanol-95.hazards.note",
           "prints": "First Aid",
-          "where": "The name of the field, a text the page credits to a toxicology programme, 1992. For the eyes: contact lenses are looked for and taken out, the eyes are flushed with water or salt solution for 20 to 30 minutes while a hospital or a poison centre is called, and the person is taken to a hospital after, whether or not anything shows. The supplier's sheet gives several minutes; the note gives this as what the lab goes by."
+          "where": "The name of the field, a text the page credits to a toxicology programme, 1992. For the eyes: contact lenses are looked for and taken out, the eyes are flushed for 20 to 30 minutes, with water or with salt solution, a hospital or a poison centre being called meanwhile, and the person is taken to a hospital after, whether or not anything shows. The supplier's sheet gives several minutes; the note gives this as what the lab goes by."
         },
         {
           "field": "ethanol-95.notCarried",
@@ -153,12 +153,12 @@
         {
           "field": "nacl-20.hazards.note",
           "prints": "SECTION 2 — HAZARDS IDENTIFICATION",
-          "where": "The heading of section 2. Under it the sheet lists no hazard class and no code, and says that the solution is taken to be non-hazardous under the GHS classifications of a standard it names. Its last sentence there says that the product is to be treated as a chemical and is not for consumption, having been stored with chemicals that are not of food grade. Under the title, where the supplier's other sheets have a line for the signal word, this one has none."
+          "where": "The heading of section 2. Under it the sheet lists no hazard class and no code, and says that the solution is taken to be non-hazardous under the GHS classifications of a standard it names. Its last sentence there says that the product is a chemical, not a food, and is not to be eaten or drunk, having been stored with chemicals that are not of food grade. Under the title, where the supplier's other sheets have a line for the signal word, this one has none."
         },
         {
           "field": "nacl-20.hazards.note",
           "prints": "SECTION 8 — EXPOSURE CONTROLS, PERSONAL PROTECTION",
-          "where": "The heading of section 8. Under it the sheet calls for gloves, protective clothing and eye protection, and for washing the hands after handling."
+          "where": "The heading of section 8. Under it the sheet calls for eye protection, gloves and protective clothing, and for washing the hands after handling."
         },
         {
           "field": "nacl-20.hazards.note",
@@ -361,7 +361,7 @@
         {
           "field": "zinc-pieces.hazards.note",
           "prints": "SECTION 10 — STABILITY AND REACTIVITY",
-          "where": "The heading of section 10. Under it the sheet keeps zinc from strong acids and strong bases, and from several other things that are not on this bench. Section 8 calls for gloves, protective clothing and eye protection."
+          "where": "The heading of section 10. Under it the sheet keeps zinc from strong acids and strong bases, and from several other things that are not on this bench. Section 8 calls for eye protection, gloves and protective clothing."
         },
         {
           "field": "zinc-pieces.hazards.note",
@@ -430,7 +430,7 @@
         {
           "field": "copper-pieces.classifiedAs",
           "prints": "Copper",
-          "where": "The sheet's title, before the words Safety Data Sheet. Section 3 lists copper alone. Section 9 describes a red-brown metal that can be drawn out, and lists granules, shot, powder, sheet, wire and foil among its forms; the supplier has a separate sheet for the powder, which was not read. The heading over the statements says the solid and not its powder or dust."
+          "where": "The sheet's title, before the words Safety Data Sheet. Section 3 lists copper alone. Section 9 describes a red-brown metal that can be drawn out, and lists its forms, shot, wire and powder among them; the supplier has a separate sheet for the powder, which was not read. The heading over the statements says the solid and not its powder or dust."
         },
         {
           "field": "copper-pieces.hazards",
@@ -455,7 +455,7 @@
         {
           "field": "copper-pieces.hazards.note",
           "prints": "Avoid contact with nitric acid, emits toxic fumes of nitrogen oxides.",
-          "where": "Section 10, the second sentence. The first keeps copper from strong oxidizers, strong acids, three kinds of salt that are not on this bench, and halogens. Section 8 calls for gloves, protective clothing and eye protection."
+          "where": "Section 10, the second sentence. The first keeps copper from strong oxidizers, strong acids, three kinds of salt that are not on this bench, and halogens. Section 8 calls for eye protection, gloves and protective clothing."
         },
         {
           "field": "copper-pieces.hazards.note",

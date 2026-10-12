@@ -12,7 +12,7 @@
             "metals[aluminium].printed"
           ],
           "prints": "2.70",
-          "where": "The copy kept for the periodic table, docs/research/periodic-table/sources/wikipedia-densities-of-the-elements-data-page.wikitext, in its table of the solid elements, the block for aluminium (13 Al): the row marked CRC, which gives the figure as one for near room temperature, in g/cm³. The row marked LNG has the same figure, as one at room temperature. The build reads the figure from the kept copy."
+          "where": "The copy kept for the periodic table, the one wikitext file under docs/research/periodic-table/sources/, in its table of the solid elements, the block for aluminium (13 Al): the row marked CRC, which gives the figure as one for near room temperature, in g/cm³. The row marked LNG has the same figure, as one at room temperature. The build reads the figure from the kept copy."
         },
         {
           "fields": [
@@ -66,7 +66,8 @@
         },
         {
           "fields": [
-            "parts[liquid].notes[1]"
+            "parts[liquid].notes[1]",
+            "primer"
           ],
           "prints": "91.00",
           "where": "The same table, the first column of the one row near the top of the scale that fills in the second column too: a mass fraction of 91.00 beside a volume concentration of 94.00, with 0.81674 in the column for 20 °C set against water at 20 °C. The row for 95.0 by mass gives no percentage by volume. That a liquid of 94% by volume is a little denser than one of 95% by mass is these two rows compared."
@@ -118,7 +119,8 @@
         {
           "fields": [
             "water.density",
-            "liquids[water].printed"
+            "liquids[water].printed",
+            "primer"
           ],
           "prints": "0.99821",
           "where": "The one row of the table, in the column headed Density (g/ml)."
@@ -143,7 +145,7 @@
             "constants.icePoint"
           ],
           "prints": "0.0001",
-          "where": "The table of key temperatures on the scale, the row for the melting point of ice, in the column for degrees Celsius. A note on that row gives a measurement of the ice point of purified water as 0.000089 of a degree. Further down, the text says that ice melts very slightly, by less than a thousandth of a degree, below 0 °C as the scale is now defined."
+          "where": "The table of key temperatures on the scale, the row for the melting point of ice, in the column for degrees Celsius. A note on that row gives a measurement of where the ice of purified water melts, 0.000089 of a degree. Further down, the text says that ice melts a very little under 0 °C as the scale is now defined, by under a thousandth of a degree."
         },
         {
           "fields": [
@@ -151,7 +153,7 @@
             "primer"
           ],
           "prints": "Melting point of ice",
-          "where": "The name of that row of the table. To a tenth of a degree, which is what the thermometer of this lab is read to, the melting point of ice is 0.0 °C."
+          "where": "The name of that row of the table. To a tenth of a degree, which is what the thermometer of this lab is read to, ice melts at 0.0 °C."
         }
       ]
     },
@@ -214,7 +216,7 @@
             "primer"
           ],
           "prints": "Multiplication and division",
-          "where": "A heading under the one on arithmetic. Under it: a result made by multiplying or dividing measured numbers gets as many significant figures as the measured number with the fewest. The next heading but one, on addition and subtraction, says that there it is the place of the last figure that counts, and that the result ends at the leftmost such place among the numbers; and the text after it sets the two rules side by side."
+          "where": "A heading under the one on arithmetic. Under it: a result made by multiplying or dividing measured numbers takes its count of significant figures from the measured number with the fewest. The next heading but one, on addition and subtraction, says that there it is the place of the last figure that counts, and that the result ends at the leftmost such place among the numbers; and the text after it sets the two rules side by side."
         },
         {
           "fields": [
