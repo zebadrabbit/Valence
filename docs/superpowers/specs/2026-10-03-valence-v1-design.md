@@ -1224,3 +1224,63 @@ Built on 2026-10-11, straight through, on the shell and the pieces of sections 7
 - **What was changed below the page.** One note of the record: the hair conditioner's said that it is more acidic than its maker's shampoo, and the shampoo's figure on this bench is another maker's; the note now gives the conditioner's figure and sets it beside nothing, and a test holds that. The lab's messages have the page's fixed words that were missing (how a part stands, how a picture is looked at, the names of the buttons that record, an estimate as one line, the heading over the shared note), each with its test. No engine file, stored chemistry value or model parameter was changed. The review changed one more note of the record, the lemon juice's, which called it the most acidic thing on the bench where a seed can draw the vinegar lower: it now says that its range is the lowest. It changed the primer's example of two juices, from about two units and about a hundred times to one to two units and ten to a hundred times, as the table's ranges have them; and in the messages the sentences that said an unrinsed probe was pulled where it may not have been, the refusal and the hint on acid, neutral or basic, the refusal of a probe last in the thing shown, and how many count past the eight.
 - **Not done by a person:** how it looks is the owner's to judge. Everything above was run by script, by keyboard, by mouse and by emulated touch, in headless Chromium on Linux, on the production build, by the AI coding assistant that built the screens, and by nobody at a keyboard. `docs/for-institutions.md` says what was run and what was not. No person has run the lab, no screen reader was used, one browser was tried and no real device. The colours are values worked out and drawn, not seen on a bench. No chemist or chemistry instructor has read the record, the notes or the primer.
 - **The review.** Held on 2026-10-12, when the screens were whole, by an AI reviewer that had built none of the lab, by script in headless Chromium and by reading, and by no person. Where the page is other than it was first built: the meter's card, with the reading over the two buttons and all else under them; the warning under the buttons and the half second after it; the estimate's row; the line of a look that stays; focus after a fresh tube; "9 count, 8 needed"; the sentences named in the point before this one; and two of the scale's colours. The research record's last section has each finding with how it is known, the colours as measured from the screen, what was run and measured, what was left for the owner, and what nobody checked: no person, no screen reader, one browser, no real device, no chemistry instructor.
+
+## 22. Measurement and density lab (added after v1)
+
+The sixth of the labs taken from the owner's department's lab directions (section 17 says how those are used). The directions have two first-week labs, one on laboratory techniques and one on density; the second needs exactly what the first teaches, so they are built as one lab in three parts, which the owner can have split. The directions list what is set out; the procedure is the usual one, and each choice in it is the owner's to change. It uses the lab shell, the notebook and typed entries of sections 7 and 16, the burette's drawn scale of section 7, and the rule for hazards of 5.2.
+
+### 22.1 Set-up
+
+Every instrument is read to one figure beyond its finest mark, and that last figure is an estimate; a number worked out from measurements can be no better than the worst of them. The lab has the learner read real scales to the right last figure, and then use two of them to find a density and with it what an unknown is.
+
+On the bench: two rulers, one marked in centimetres and one in millimetres, and a long paper note to measure; a 50 mL graduated cylinder, marked each millilitre; a thermometer, marked each degree, with a beaker of ice and water; a balance that shows hundredths of a gram; an unknown liquid; pieces of an unknown metal; distilled water.
+
+Three parts:
+
+1. **Reading instruments.** The note's length and width with each ruler; a volume in the cylinder; the thermometer in ice water; a mass on the balance. Then two things worked out: the note's area from each ruler's pair of readings, which shows what the better ruler buys; and how far the thermometer is off at the one temperature that is known.
+2. **The density of a liquid.** The empty cylinder is weighed; some of the unknown liquid goes in; its volume is read and the cylinder weighed again. Density is mass over volume, and a table of liquids says which one it is.
+3. **The density of a metal.** The dry pieces are weighed; the cylinder holds water, and its level is read; the pieces are slid in, and the level read again. The rise is the metal's volume. Density, and from a table which metal.
+
+The unknown liquid is one of two and the unknown metal one of three, by the seed, each named only by a letter until it is found; the masses, volumes and readings are seeded too.
+
+### 22.2 A reading
+
+An instrument is drawn large enough to read, with its scale as a real one has it, and is explored as section 7's burette is: the part of the scale that matters can be looked at closely. The learner types what they read.
+
+- **The right last figure.** A reading must have the figures the instrument gives and one estimated figure more: to a tenth of a centimetre on the centimetre ruler and a hundredth on the millimetre one; to a tenth of a millilitre in the cylinder; to a tenth of a degree on the thermometer; every figure of the balance, a final zero included. A reading with too few figures or too many is refused with the reason, as section 7 does for the burette.
+- **Near enough.** A reading counts when it is within a stated allowance of what the drawing shows, since the last figure is anybody's estimate.
+- **Eye level.** A liquid's level is read at the bottom of its curve, with the eye level with it. The drawing has the eye above, level or below, moved by the learner, and shows the level as it looks from there. A level read from above or below is the lab's one error of reading; Guided warns of it and Challenge does not.
+
+### 22.3 The notebook
+
+As section 16's: entries in the order they are worked out, each of which must follow from the learner's own earlier entries; Guided checks each as it is made and has its relation in a closed hint; Challenge checks them together. What differs is the rounding, which here is the lesson and not a house rule:
+
+- a sum or a difference is given to the decimal place of its least exact term;
+- a product or a quotient is given to as many significant figures as its factor with the fewest;
+- an entry rounded to more figures than that, or to fewer, is refused or marked, with which rule it broke.
+
+The amounts are seeded so that the unknowns can be told apart at the figures the instruments give.
+
+Two errors of technique in part 3, each real and each its own cause: **weighing the pieces after they have been in the water**, so that the water on them is weighed too; and **dropping the pieces in**, so that water splashes out and the rise reads low, where sliding them down the tilted cylinder loses none. Guided warns first. A run that does not count says why, and a part can be run again with new numbers.
+
+A part counts when its readings are right, its entries follow, its technique was right, and its result is within tolerance of the stored figure; in parts 2 and 3 the unknown named must also be the one it was. The lab is complete when all three parts count.
+
+### 22.4 Model and data
+
+The engine is pure and deterministic and holds whole numbers. What a scale shows is the seeded true value; what the learner makes of it is theirs. An eye above or below the level shifts what is seen by a stated amount, the model's own. The thermometer reads a seeded few tenths off in ice water.
+
+Data: the densities of the two liquids and of the candidate liquids in their table, and of the three metals and the candidate metals in theirs, each at a stated temperature from a source that can be cited; that ice and water together are at 0 °C. A solution's density depends on how its strength is defined: the record says which definition its source uses. Hazards by 5.2 for the unknown liquids and the metals, sharing other labs' records for the same thing in the same form.
+
+### 22.5 Primer
+
+Short topics, those to read first marked: what a measurement is, and why the last figure is an estimate; reading a scale between its marks; reading a liquid's level; significant figures, and which zeros count; rounding what is worked out, for sums and for products; density, and why it tells one substance from another; volume by the water a thing pushes aside; safety.
+
+### 22.6 Acceptance
+
+- For seeds 1 to 100, a careful learner's readings count, their entries follow, and each unknown is found, with the result within tolerance of the stored density; the candidates in each table are far enough apart to tell at the figures the instruments give.
+- A reading with the wrong number of figures is refused with the reason; a level read from above or below does not count.
+- An entry rounded by the wrong rule, or not following from the learner's own numbers, is refused or marked with which.
+- Each error of technique alone makes a run not count, and its cause is named; Guided warns first.
+- The same seed and actions give the same lab; the stored record round-trips; no state a learner can reach leaves them unable to go on.
+- Challenge shows nothing of what is expected before the entries are made, and nothing on the page says which liquid or metal an unknown is before it is named.
+- The description in words of every instrument's reading is tested, so that the lab can be done without seeing the drawing.
