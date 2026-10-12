@@ -3,7 +3,7 @@ import { ROLE } from '@/app/lab/roles'
 import { Marked } from '@/app/lab/stationPieces'
 import { PART_IDS, type FreezingData } from '@/chem-data/freezing/data'
 import { FIELDS, partView, runOutcomes, type FreezingModel, type FreezingState, type RunOutcome } from '@/engine/freezing'
-import { BENCH_TEXT, RECORD_TEXT, enteredText, fieldLabel, partTitle, progressOf, reasonText, valueText } from './messages'
+import { BENCH_TEXT, RECORD_TEXT, enteredText, fieldLabel, partTitle, progressOf, recordReasonText, valueText } from './messages'
 import { ProgressLabel } from './PartCard'
 
 /** How a run came out, in words: a tick on one that counts. */
@@ -91,7 +91,7 @@ export function FreezingRecord({ data, m, state }: { data: FreezingData; m: Free
                               ))}
                               {reasons.map((reason) => (
                                 <li key={reason} className="text-muted-foreground">
-                                  {reasonText(part, reason)}
+                                  {recordReasonText(part, reason)}
                                 </li>
                               ))}
                             </ul>

@@ -154,7 +154,8 @@ function Row<F extends string, V, J extends Follows>({ entry, label, enteredText
  * "Change"; the one that waits has its field or its choices, how it is written and, in Guided, the relation it
  * uses in a closed disclosure; and those under it are their names alone. An entry that cannot be made yet says why
  * under its field. Changing an entry empties the ones under it, which the list says once two are made. In
- * Challenge the button that checks is under the list, and says what is missing until every entry is made. Once
+ * Challenge the button that checks is under the list, and says what is missing until every entry is made; Guided
+ * has it only where every entry is made and the list is not checked, which a change of mode can leave. Once
  * the run is over, or the lab complete, the list is read and not typed in: each entry as its value in words, with
  * whether it follows.
  */
@@ -183,7 +184,8 @@ export function Worksheet<F extends string, V, J extends Follows>(props: Workshe
         })}
       </ol>
       {!over && entries.filter((entry) => entry.value !== null).length > 1 && <p className="text-muted-foreground">{text.changeNote}</p>}
-      {!over && !guided && (
+      {/* Guided checks at the last entry, so it has no button of its own, but for a list that was filled in Challenge and not checked before the mode was changed: that one is checked by the button too, or it could not be. */}
+      {!over && (!guided || checkHeld === null) && (
         <>
           <Control
             unavailable={checkHeld !== null}

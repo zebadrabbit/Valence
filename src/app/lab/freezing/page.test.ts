@@ -36,6 +36,7 @@ import {
   enteredText,
   expectedText,
   fieldLabel,
+  foldedText,
   formatHelp,
   hazardsHeading,
   liquidChoices,
@@ -45,6 +46,7 @@ import {
   partTitle,
   pointLabel,
   reasonText,
+  recordReasonText,
   relationText,
   soluteChoices,
   temperatureText,
@@ -450,6 +452,28 @@ describe('the notebook', () => {
     expect(button(challenge, BENCH_TEXT.check)!.tag).toContain('aria-disabled="true"')
   })
 
+  it('is checked by its button in Challenge, and in Guided by its last entry: Guided has the button only for a notebook that was filled in Challenge and left unchecked when the mode was changed', () => {
+    const notebook = (state: FreezingState, part: PartId) => card(bench(state, part).part, BENCH_TEXT.notebook)
+    for (const part of [TWO, THREE]) {
+      // Challenge has it from the first entry, and it says what is missing until every entry is made.
+      expect(button(notebook(entered(part, 2, 'challenge'), part), BENCH_TEXT.check)!.tag).toContain('min-h-11')
+      // Guided, part filled: no button. Its own last entry checks the notebook, and the run is then over.
+      expect(button(notebook(entered(part, 7), part), BENCH_TEXT.check)).toBeUndefined()
+      expect(button(notebook(entered(part, 8), part), BENCH_TEXT.check)).toBeUndefined()
+      // Filled in Challenge, not checked, and the mode changed: every entry is made and none can be made again without a change, so the button is the way on.
+      const full = entered(part, 8, 'challenge')
+      expect(view(full, part).outcome.state).toBe('open')
+      const changed = reduce(m, full, { type: 'setMode', mode: 'guided' })
+      expect(can(m, changed, { type: 'check', part })).toBeNull()
+      expect(button(notebook(changed, part), BENCH_TEXT.check)!.tag).toContain('min-h-11')
+      expect(view(reduce(m, changed, { type: 'check', part }), part).outcome.state).toBe('counts')
+    }
+    // Part 1's one entry likewise.
+    const one = reduce(m, entered(ONE, 1, 'challenge'), { type: 'setMode', mode: 'guided' })
+    expect(button(card(bench(one, ONE).part, BENCH_TEXT.notebook), BENCH_TEXT.check)).toBeDefined()
+    expect(button(card(bench(looked(ONE), ONE).part, BENCH_TEXT.notebook), BENCH_TEXT.check)).toBeUndefined()
+  })
+
   it('shows an entry that is made in a disabled field beside Change, and in Guided says that it follows; the liquid is asked as three choice boxes with none chosen', () => {
     const html = card(bench(entered(TWO, 7), TWO).part, BENCH_TEXT.notebook)
     expect(count(html, /<input [^>]*disabled=""[^>]*type="text"|<input [^>]*type="text"[^>]*disabled=""/g)).toBe(7)
@@ -523,6 +547,51 @@ describe('what is kept back until a run counts', () => {
     expect(html).toContain(escaped(hazardsHeading(data, null)))
     expect(html).not.toContain('% under')
     expect(html).not.toContain('% over')
+  })
+})
+
+describe('a run whose solution is weighed', () => {
+  /** A card's one line where it is folded: its heading over a disclosure that is closed, with the line as its summary. Null for a card that is open. */
+  const line = (part: string, heading: string) => new RegExp(`>${heading}</h3><div class="w-full"><details><summary[^>]*>(.*?)</summary>`, 's').exec(card(part, heading))?.[1] ?? null
+
+  it('folds the bench, the cup and the straining, each under its one line in a disclosure that is closed, with everything it held still in it; the graph, the notebook and how the run came out stay open', () => {
+    for (const mode of ['guided', 'challenge'] as const) {
+      for (const part of [TWO, THREE]) {
+        const state = worked(part, mode)
+        const html = bench(state, part).part
+        const said = foldedText(data, part, view(state, part))
+        expect(line(html, BENCH_TEXT.bench), `${mode} ${part}`).toBe(escaped(said.bench))
+        expect(line(html, BENCH_TEXT.cup)).toBe(escaped(said.cup))
+        expect(line(html, BENCH_TEXT.straining)).toBe(escaped(said.straining))
+        for (const open of [BENCH_TEXT.graph, BENCH_TEXT.notebook, PAGE_TEXT.outcome]) expect(line(html, open), open).toBeNull()
+        // What each held is still there to be opened.
+        for (const one of benchLines(data, part, view(state, part))) expect(card(html, BENCH_TEXT.bench)).toContain(escaped(one))
+        expect(card(html, BENCH_TEXT.bench)).toContain('Hazards')
+        expect(card(html, BENCH_TEXT.cup)).toContain('<svg viewBox="0 0 280 196"')
+        expect(card(html, BENCH_TEXT.cup)).toContain(escaped(cupText(data, part, view(state, part), view(state, part).graph.readings.length)))
+        expect(buttons(card(html, BENCH_TEXT.straining)).map((b) => b.name)).toEqual([`✓ ${BENCH_TEXT.strain}`, `✓ ${BENCH_TEXT.weigh}`])
+        // The bench's figures are at the notebook's head, which is open.
+        for (const one of notebookLines(data, part, view(state, part))) expect(card(html, BENCH_TEXT.notebook)).toContain(escaped(one))
+      }
+    }
+    // To the end of the run, and in a part that is read and not worked.
+    const done = wholeLab(m, fresh())
+    for (const heading of [BENCH_TEXT.bench, BENCH_TEXT.cup, BENCH_TEXT.straining]) expect(line(bench(done, TWO).part, heading), heading).not.toBeNull()
+  })
+
+  it('says in the lines of a cup weighed without straining that it was not strained', () => {
+    const state = workCup(m, fresh('challenge'), TWO, { strain: false })
+    const html = bench(state, TWO).part
+    expect(line(html, BENCH_TEXT.bench)).toMatch(/In the cup, not strained: \d+\.\d\d g\.$/)
+    expect(line(html, BENCH_TEXT.cup)).toBe('Left as it was: weighed with everything in it.')
+    expect(line(html, BENCH_TEXT.straining)).toMatch(/^Weighed without straining: the balance reads \d+\.\d\d g\.$/)
+  })
+
+  it('folds nothing before the solution is weighed, and nothing in part 1, which weighs nothing', () => {
+    const strained = run(m, fresh(), [...(['fill', 'putLidOn', 'stir', 'startLogger', 'runOn', 'addSolute', 'runOn', 'strain'] as const).map((type): Action => ({ type, part: TWO }))])
+    expect(cards(bench(strained, TWO).part)).toEqual([BENCH_TEXT.bench, BENCH_TEXT.cup, BENCH_TEXT.graph, BENCH_TEXT.straining, PAGE_TEXT.outcome])
+    for (const heading of cards(bench(strained, TWO).part)) expect(line(bench(strained, TWO).part, heading!), heading).toBeNull()
+    for (const state of [worked(ONE), wholeRun(m, fresh(), ONE)]) for (const heading of cards(bench(state, ONE).part)) expect(line(bench(state, ONE).part, heading!), heading).toBeNull()
   })
 })
 
@@ -606,5 +675,16 @@ describe('the sources and the record', () => {
     expect(html).not.toContain('% under')
     expect(html).not.toContain('% over')
     expect(draw(createElement(FreezingRecord, { data, m, state: fresh() }))).toContain(RECORD_TEXT.open)
+  })
+
+  it('says in the Record of a run with an entry that does not follow that one does not, in a sentence of its own: the Lab tab\'s sends the reader to the marks of a notebook the Record does not show', () => {
+    const slipped = wholeRun(m, fresh('challenge'), TWO, { slip: 'upside-down' })
+    expect(view(slipped, TWO).outcome).toMatchObject({ state: 'does-not-count', reasons: ['entries-do-not-follow'] })
+    const lab = card(bench(slipped, TWO).part, PAGE_TEXT.outcome)
+    expect(lab).toContain(escaped(reasonText(TWO, 'entries-do-not-follow')))
+    expect(lab).toMatch(/marks in the notebook/)
+    const record = draw(createElement(FreezingRecord, { data, m, state: slipped }))
+    expect(record).toContain(escaped(recordReasonText(TWO, 'entries-do-not-follow')))
+    expect(record).not.toMatch(/notebook/i)
   })
 })

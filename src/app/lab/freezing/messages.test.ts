@@ -4,7 +4,7 @@ import { candidatesOf, freezingData as data, PART_IDS, solutesOf, type PartId } 
 import { can, createLab, currentRun, FIELDS, modelFrom, parseEntry, partView, runOutcome, warnings, type Action, type Blocked, type Field, type FreezingState, type Reason, type Slip, type Warning } from '@/engine/freezing'
 import { entryActions, looks, run, wholeLab, wholeRun, workCup, worksheetText } from '@/engine/freezing/testkit'
 import * as messages from './messages'
-import { addLabel, BENCH_TEXT, benchLines, blockedText, candidateLines, constantText, cupText, describeGraph, enteredText, entryFeedback, entryText, expectedText, fieldLabel, formatHelp, hazardsHeading, liquidChoices, massText, MODE_TEXT, notebookLines, outcomeText, PAGE_TEXT, PART_AIM, partNotes, partTitle, pointCallout, pointLabel, PROGRESS_TEXT, progressOf, reasonText, RECORD_TEXT, relationText, soluteChoices, soluteLines, SOURCES_TEXT, temperatureText, timeText, VERDICT_TEXT, wantedText, WARNING_BUTTONS, WARNING_TEXT } from './messages'
+import { addLabel, BENCH_TEXT, benchLines, blockedText, candidateLines, constantText, cupText, describeGraph, enteredText, entryFeedback, entryText, expectedText, foldedText, fieldLabel, formatHelp, hazardsHeading, liquidChoices, massText, MODE_TEXT, notebookLines, outcomeText, PAGE_TEXT, PART_AIM, partNotes, partTitle, pointCallout, pointLabel, PROGRESS_TEXT, progressOf, reasonText, recordReasonText, RECORD_TEXT, relationText, soluteChoices, soluteLines, SOURCES_TEXT, temperatureText, timeText, VERDICT_TEXT, wantedText, WARNING_BUTTONS, WARNING_TEXT } from './messages'
 
 // Every sentence the page will say, on the views a scripted learner makes. The descriptions in words of the cup
 // and of the graph (spec 23.6) are tested here; so is what Challenge may not be told before a run counts.
@@ -97,10 +97,46 @@ describe('the cup in words (spec 23.6)', () => {
     expect(cupOf(steps('unknown', 'fill', 'putLidOn', 'stir', 'startLogger', 'runOn', 'addSolute', 'runOn'), 'unknown')).toBe('Ice, water and the unknown liquid are in the cup. There is plenty of ice. The lid is on. The stirrer is going. The logger has taken 5 readings.')
   })
 
-  it('says what was done with it at the end: strained, with the ice in the strainer, and weighed; or weighed with the ice in it', () => {
+  it('says what was done with it at the end: strained, with the ice in the strainer, and weighed; or weighed without straining', () => {
     expect(cupOf(steps('unknown', 'fill', 'putLidOn', 'stir', 'startLogger', 'addSolute', 'runOn', 'strain'), 'unknown')).toBe('The cup has been poured through the strainer. The strainer holds the ice, and the solution is in the second cup. The solution has not been weighed yet. The logger has taken 3 readings.')
     expect(cupOf(steps('unknown', 'fill', 'putLidOn', 'stir', 'startLogger', 'addSolute', 'runOn', 'strain', 'weigh'), 'unknown')).toMatch(/The solution has been weighed\. The logger has taken 3 readings\.$/)
-    expect(cupOf(steps('unknown', 'fill', 'startLogger', 'addSolute', 'runOn', 'weigh'), 'unknown')).toMatch(/^Ice, water and the unknown liquid are in the cup\. .* The cup has been weighed with the ice in it\.$/)
+    expect(cupOf(steps('unknown', 'fill', 'startLogger', 'addSolute', 'runOn', 'weigh'), 'unknown')).toMatch(/^Ice, water and the unknown liquid are in the cup\. .* The cup has been weighed without straining\.$/)
+  })
+
+  it('names no ice in a cup whose ice has all melted: the words do not say that ice is in it and then that none is left', () => {
+    // The lid left off: by fourteen presses no ice is left, with the solute in or not.
+    const presses = Array.from({ length: 14 }, () => 'runOn' as const)
+    const bare = cupOf(steps('unknown', 'fill', 'stir', 'startLogger', ...presses), 'unknown')
+    expect(bare).toBe('Water is in the cup. No ice is left. The lid is off. The stirrer is going. The logger has taken 29 readings.')
+    const melted = cupOf(steps('unknown', 'fill', 'stir', 'startLogger', 'addSolute', ...presses, 'weigh'), 'unknown')
+    expect(melted).toBe('Water and the unknown liquid are in the cup. No ice is left. The lid is off. The stirrer is going. The logger has taken 29 readings. The cup has been weighed without straining.')
+    for (const words of [bare, melted]) expect(words).not.toMatch(/\bice\b(?! is left)/i)
+    // And what is said of such a run does not say that ice was counted that was not there.
+    expect(WARNING_TEXT['not-strained'].body).toMatch(/any ice in it is counted as water/)
+    expect(reasonText('unknown', 'not-strained')).toMatch(/any ice in it was counted as water/)
+  })
+
+  it('says the bench, the cup and the straining in one line each once the solution is weighed, with what the balance read and whether the cup was strained, and nothing the cards do not show', () => {
+    const strained = steps('unknown', 'fill', 'putLidOn', 'stir', 'startLogger', 'addSolute', 'runOn', 'strain', 'weigh')
+    const { bench } = view(strained, 'unknown')
+    expect(foldedText(data, 'unknown', view(strained, 'unknown'))).toEqual({
+      bench: `Unknown liquid: ${massText(bench.soluteCg!)}. Solution: ${massText(bench.solutionCg!)}.`,
+      cup: 'Poured through the strainer: the cup is empty.',
+      straining: `Strained and weighed: the balance reads ${massText(bench.solutionCg!)}.`,
+    })
+    const iced = steps('unknown', 'fill', 'putLidOn', 'stir', 'startLogger', 'addSolute', 'runOn', 'weigh')
+    const heavy = view(iced, 'unknown').bench.solutionCg!
+    expect(heavy).toBeGreaterThan(bench.solutionCg!)
+    expect(foldedText(data, 'unknown', view(iced, 'unknown'))).toEqual({
+      bench: `Unknown liquid: ${massText(bench.soluteCg!)}. In the cup, not strained: ${massText(heavy)}.`,
+      cup: 'Left as it was: weighed with everything in it.',
+      straining: `Weighed without straining: the balance reads ${massText(heavy)}.`,
+    })
+    const salt = run(m, run(m, createLab(1, 'challenge'), [{ type: 'chooseSolute', part: 'particles', solute: 'kcl' }]), (['fill', 'putLidOn', 'stir', 'startLogger', 'addSolute', 'runOn', 'strain', 'weigh'] as const).map((type): Action => ({ type, part: 'particles' })))
+    expect(foldedText(data, 'particles', view(salt, 'particles')).bench).toMatch(/^Potassium chloride: \d\.\d\d g\. Solution: \d+\.\d\d g\.$/)
+    // The same line whichever liquid the unknown is, but for the balance's figures.
+    const lines = [1, 2, 3, 4, 5, 6, 7, 8].map((seed) => Object.values(foldedText(data, 'unknown', view(run(m, createLab(seed, 'challenge'), (['fill', 'putLidOn', 'stir', 'startLogger', 'addSolute', 'runOn', 'strain', 'weigh'] as const).map((type): Action => ({ type, part: 'unknown' }))), 'unknown'))).join(' ').replace(/[\d.]+ g/g, 'n g'))
+    expect(new Set(lines).size).toBe(1)
   })
 
   it('says as it is seen that only a little ice is left, and then that none is, where the lid is off', () => {
@@ -234,7 +270,7 @@ describe('refusals and feedback', () => {
     state = run(m, state, looks(m, state, 'unknown'))
     const refusal = can(m, state, { type: 'enter', part: 'unknown', field: 'water', value: 99 })!
     expect(blockedText('unknown', refusal, 'water')).toBe('This is not the reading the logger shows just before the solute went in.')
-    expect(blockedText('unknown', 'not-the-logger', 'solution')).toBe('This is not the last reading the logger shows. Take the reading at the end of the level stretch, just before the cup was strained.')
+    expect(blockedText('unknown', 'not-the-logger', 'solution')).toBe('This is not the last reading the logger shows. Take the reading at the end of the level stretch, just before the cup was strained or weighed.')
     expect(blockedText('water', 'not-the-logger', 'water')).toBe('This is not the latest reading the logger shows.')
     expect(blockedText('unknown', 'not-looked', 'water')).toBe('Look at the level reading just before the solute went in, on the graph, first.')
     expect(blockedText('unknown', 'not-weighed', 'water')).toBe('The notebook opens once the solution has been weighed.')
@@ -274,8 +310,12 @@ describe('a run that is checked', () => {
     const reasons: Reason[] = ['water-not-level', 'solution-not-level', 'ice-melted', 'not-strained', 'water-not-shown', 'solution-not-shown', 'entries-do-not-follow', 'outside-tolerance']
     for (const part of PART_IDS) for (const reason of reasons) expect(reasonText(part, reason), `${part} ${reason}`).toMatch(/^[A-Z].*\.$/)
     expect(new Set(reasons.map((reason) => reasonText('unknown', reason))).size).toBe(reasons.length)
+    // The Record tab has no notebook beside it: its sentence for an entry that does not follow sends the reader to none, and every other sentence is the Lab tab's.
+    expect(reasonText('unknown', 'entries-do-not-follow')).toMatch(/notebook/)
+    expect(recordReasonText('unknown', 'entries-do-not-follow')).toBe('An entry does not follow from the ones above it.')
+    for (const part of PART_IDS) for (const reason of reasons) expect(recordReasonText(part, reason), `${part} ${reason}`).toBe(reason === 'entries-do-not-follow' ? 'An entry does not follow from the ones above it.' : reasonText(part, reason))
     const iced = wholeRun(m, createLab(1, 'challenge'), 'unknown', { strain: false })
-    expect(outcomeText('unknown', outcomeOf(iced, 'unknown'))).toBe('This run does not count. The cup was weighed without straining, so the ice was counted as water. The result is too far from the figure the lab holds. Run the part again.')
+    expect(outcomeText('unknown', outcomeOf(iced, 'unknown'))).toBe('This run does not count. The cup was weighed without straining, so any ice in it was counted as water. The result is too far from the figure the lab holds. Run the part again.')
     expect(outcomeText('unknown', outcomeOf(iced, 'unknown'), false)).not.toMatch(/Run the part again/)
     const soon = wholeRun(m, createLab(1, 'challenge'), 'water', { before: 1 })
     expect(outcomeText('water', outcomeOf(soon, 'water'))).toMatch(/^This run does not count\. The reading was taken before the ice and water had levelled off, so it is not the freezing point of water\./)

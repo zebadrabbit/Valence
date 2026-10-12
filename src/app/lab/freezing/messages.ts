@@ -104,7 +104,8 @@ export const BENCH_TEXT = {
   fromBench: 'From the bench',
   fill: 'Put in the ice and water',
   lid: 'Put the lid on',
-  stir: 'Start the stirrer',
+  /** Short, as the calorimetry lab's: with it the cup's five steps are two rows where the bench is narrowest, and the cup and the graph are in one screen. */
+  stir: 'Stir',
   logger: 'Start the logger',
   /** Part 3: over the choice of solute. */
   choose: 'What to dissolve in this run',
@@ -150,9 +151,27 @@ export function cupText(data: FreezingData, part: PartId, view: { bench: BenchVi
   const solute = part === 'unknown' ? lower(data.parts[1].unknown.name) : bench.solute === null ? 'solute' : lower(reagentOf(data, bench.solute).name)
   const logger = readings === 0 ? 'The logger is not started.' : `The logger has taken ${readings} ${readings === 1 ? 'reading' : 'readings'}.`
   if (cup.strained) return `The cup has been poured through the strainer. ${cup.ice === 'none' ? 'The strainer held back no ice: none was left.' : 'The strainer holds the ice, and the solution is in the second cup.'} ${cup.weighed ? 'The solution has been weighed.' : 'The solution has not been weighed yet.'} ${logger}`
-  const contents = cup.soluteAdded ? `Ice, water and the ${solute} are in the cup.` : 'Ice and water are in the cup.'
-  const weighed = cup.weighed ? ' The cup has been weighed with the ice in it.' : ''
+  // A cup whose ice has all melted holds none: what is in it is said as it is.
+  const ice = cup.ice === 'none' ? '' : 'Ice, '
+  const contents = cup.soluteAdded ? `${ice}${ice === '' ? 'Water' : 'water'} and the ${solute} are in the cup.` : ice === '' ? 'Water is in the cup.' : 'Ice and water are in the cup.'
+  const weighed = cup.weighed ? ' The cup has been weighed without straining.' : ''
   return `${contents} ${ICE_TEXT[cup.ice]} The lid is ${cup.lidOn ? 'on' : 'off'}. The stirrer is ${cup.stirring ? 'going' : 'still'}. ${logger}${weighed}`
+}
+
+/**
+ * The bench, the cup and the straining in one line each, for a run whose solution has been weighed: from then on
+ * they are what was done, and a page folds each under its line. They say what the cards themselves say and no more:
+ * the balance's two readings, how the cup was left, and whether it was strained.
+ */
+export function foldedText(data: FreezingData, part: PartId, view: { bench: BenchView; cup: CupView }): { bench: string; cup: string; straining: string } {
+  const { bench, cup } = view
+  const solute = part === 'unknown' ? data.parts[1].unknown.name : bench.solute === null ? 'Solute' : reagentOf(data, bench.solute).name
+  const weighed = bench.solutionCg === null ? '' : massText(bench.solutionCg)
+  return {
+    bench: `${solute}: ${bench.soluteCg === null ? '' : massText(bench.soluteCg)}. ${cup.strained ? 'Solution' : 'In the cup, not strained'}: ${weighed}.`,
+    cup: cup.strained ? 'Poured through the strainer: the cup is empty.' : 'Left as it was: weighed with everything in it.',
+    straining: `${cup.strained ? 'Strained and weighed' : 'Weighed without straining'}: the balance reads ${weighed}.`,
+  }
 }
 
 /** The callout of a point that is looked at, and the same words for a screen reader: "1 min 30 s: −0.16 °C". */
@@ -250,7 +269,7 @@ export function relationText(data: FreezingData, part: PartId, field: Field): st
     case 'water':
       return part === 'water' ? 'Look at the graph. When three readings running are the same, the cup has levelled off: take the latest reading.' : 'The level reading just before the solute went in.'
     case 'solution':
-      return 'The last reading of the logger, taken just before the cup was strained.'
+      return 'The last reading of the logger, taken just before the cup was strained or weighed.'
     case 'fall':
       return 'The first temperature minus the second.'
     case 'waterKg':
@@ -338,7 +357,7 @@ export function blockedText(part: PartId, blocked: Blocked, field?: Field): stri
     case 'nothing-to-repeat':
       return 'This run has not been begun.'
     case 'not-the-logger':
-      if (field === 'solution') return 'This is not the last reading the logger shows. Take the reading at the end of the level stretch, just before the cup was strained.'
+      if (field === 'solution') return 'This is not the last reading the logger shows. Take the reading at the end of the level stretch, just before the cup was strained or weighed.'
       return part === 'water' ? 'This is not the latest reading the logger shows.' : 'This is not the reading the logger shows just before the solute went in.'
     case 'does-not-follow':
       return entryFeedback(field ?? 'fall', { follows: false, slip: null })
@@ -354,7 +373,7 @@ export const WARNING_TEXT: Record<Warning, { title: string; body: string }> = {
   'not-level': { title: 'The temperature has not levelled off', body: 'A reading taken now is not a freezing point, and the run will not count. Wait for three readings running that are the same.' },
   'little-ice': { title: 'Only a little ice is left', body: 'If it all melts, the temperature climbs and no reading is a freezing point. Finish this run now, or run the part again.' },
   'no-ice': { title: 'No ice is left', body: 'With no ice in the cup the temperature is not a freezing point. This run will not count: run the part again.' },
-  'not-strained': { title: 'The cup has not been strained', body: 'Weighed now, the ice is counted as water and the run will not count. Pour the cup through the strainer first.' },
+  'not-strained': { title: 'The cup has not been strained', body: 'Weighed now, any ice in it is counted as water and the run will not count. Pour the cup through the strainer first.' },
 }
 
 /** The two ways out of a warning. */
@@ -364,7 +383,7 @@ const REASON_TEXT: Record<Reason, (part: PartId) => string> = {
   'water-not-level': (part) => (part === 'water' ? 'The reading was taken before the ice and water had levelled off, so it is not the freezing point of water.' : 'The solute went in before the ice and water had levelled off, so the first temperature is not the freezing point of water.'),
   'solution-not-level': () => 'The temperature was still changing at the last reading, so the second temperature is not the freezing point of what was weighed.',
   'ice-melted': () => 'All the ice had melted, so the temperature read was not a freezing point.',
-  'not-strained': () => 'The cup was weighed without straining, so the ice was counted as water.',
+  'not-strained': () => 'The cup was weighed without straining, so any ice in it was counted as water.',
   'water-not-shown': (part) => (part === 'water' ? 'The temperature entered is not the reading the logger shows.' : 'The first temperature is not the reading the logger shows.'),
   'solution-not-shown': () => 'The second temperature is not the reading the logger shows.',
   'entries-do-not-follow': () => 'An entry does not follow from the ones above it: see the marks in the notebook.',
@@ -373,6 +392,9 @@ const REASON_TEXT: Record<Reason, (part: PartId) => string> = {
 
 /** Why a run does not count, one cause in a sentence. */
 export const reasonText = (part: PartId, reason: Reason) => REASON_TEXT[reason](part)
+
+/** The same in the Record tab, which has no notebook beside it: the one sentence that points at the notebook's marks does not. */
+export const recordReasonText = (part: PartId, reason: Reason) => (reason === 'entries-do-not-follow' ? 'An entry does not follow from the ones above it.' : reasonText(part, reason))
 
 const offText = (percentOff: number) => (Math.abs(percentOff) < 0.05 ? 'the same as the figure the lab holds, to a tenth of a percent' : `${Math.abs(percentOff).toFixed(1)}% ${percentOff < 0 ? 'under' : 'over'} the figure the lab holds`)
 

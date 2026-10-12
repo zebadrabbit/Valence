@@ -1,4 +1,4 @@
-import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Disclosure, Sources } from '@/app/explore/InspectorCard'
 import { Calculator } from '@/app/lab/Calculator'
 import { Control } from '@/app/lab/Control'
@@ -29,6 +29,7 @@ import {
   cupText,
   describeGraph,
   expectedText,
+  foldedText,
   hazardsHeading,
   notebookLines,
   outcomeText,
@@ -112,6 +113,24 @@ function MolarMasses({ caption, rows }: { caption: string; rows: readonly Reagen
 }
 
 /**
+ * A card of a run. While the cup is being worked it is the shell's card, open. Once the solution has been weighed
+ * the bench, the cup and the straining are what was done: each is handed its one line, and is drawn as its heading
+ * over a disclosure that is closed, whose summary is that line. Everything the card held is still in it.
+ */
+function Card({ heading, folded, children }: { heading: string; folded: string | null; children: ReactNode }) {
+  if (folded === null) return <Step heading={heading}>{children}</Step>
+  return (
+    <Step heading={heading}>
+      <div className="w-full">
+        <Disclosure summary={folded}>
+          <div className="grid justify-items-start gap-3">{children}</div>
+        </Disclosure>
+      </div>
+    </Step>
+  )
+}
+
+/**
  * One part of the lab: its head, then one run of it as a column of cards (Run), and its Sources. The head says
  * which run this is and how far the part has come, what the part finds, in both modes, what part 3 still wants,
  * and that the part is done once it is. A new run of the part is a new column: nothing typed or said in the one
@@ -185,6 +204,12 @@ export function PartCard(props: PartCardProps) {
  * skipped, or on the button pressed where none was, and the way on does what was pressed. When the notebook is
  * checked, focus goes to how the run came out.
  *
+ * Once the solution is weighed the bench, the cup and the straining fold, each under one line (Card), so that the
+ * graph and the notebook are near one another and the page of a finished run is two screens and not three. The
+ * press that weighs is made in the straining's card: as the cards fold the window is scrolled by as much as that
+ * card moved, so that it stays where it was under the hand, and focus goes to its line, which says what the
+ * balance read. A run that is opened already weighed is drawn folded, and nothing is moved.
+ *
  * The run keeps what is typed and not yet entered, the reading last looked at, a warning that is showing and what
  * its message lines last said; everything the lab stores comes to it as `view` and leaves it through `act`.
  */
@@ -203,6 +228,9 @@ function Run({ data, m, sources, part, mode, view, shown, reducedMotion, can, wa
   const warningRef = useRef<HTMLDivElement>(null)
   const notebookRef = useRef<HTMLDivElement>(null)
   const outcomeRef = useRef<HTMLDivElement>(null)
+  const strainRef = useRef<HTMLDivElement>(null)
+  // Where the top of the straining's card was in the window when the solution was weighed from it; null but for that moment.
+  const foldFrom = useRef<number | null>(null)
   // A warning takes focus when it is raised, and again when the same press raises it again.
   useEffect(() => {
     if (asked !== null) warningRef.current?.focus()
@@ -217,6 +245,18 @@ function Run({ data, m, sources, part, mode, view, shown, reducedMotion, can, wa
 
   const { cup, graph, bench, expected } = view
   const again: Action = { type: 'runAgain', part }
+  // The cards that are history once the solution is weighed, each in one line; null while the cup is worked, and in part 1, which weighs nothing.
+  const folded = part !== 'water' && cup.weighed ? foldedText(data, part, view) : null
+  const isFolded = folded !== null
+  // Before the window is drawn again: the cards over the straining's have just lost most of their height.
+  useLayoutEffect(() => {
+    const card = strainRef.current?.closest('section')
+    if (isFolded && foldFrom.current !== null && card) {
+      window.scrollBy({ top: card.getBoundingClientRect().top - foldFrom.current, behavior: 'instant' })
+      card.querySelector('summary')?.focus({ preventScroll: true })
+    }
+    foldFrom.current = null
+  }, [isFolded])
   // A warning that is showing is of an action Guided would warn of now. Once it would not (the lid was put on, the mode was changed to Challenge), it is dropped, and does not come back by itself.
   if (asked !== null && warn(asked).length === 0) setAsked(null)
 
@@ -235,6 +275,7 @@ function Run({ data, m, sources, part, mode, view, shown, reducedMotion, can, wa
     // A copy, so that the same press made again is a new warning to the effect that gives it focus.
     if (!answered && warn(action).length > 0) return setAsked({ ...action })
     setAsked(null)
+    if (action.type === 'weigh') foldFrom.current = strainRef.current?.closest('section')?.getBoundingClientRect().top ?? null
     act(action)
   }
   const pressRunOn = () => {
@@ -308,7 +349,7 @@ function Run({ data, m, sources, part, mode, view, shown, reducedMotion, can, wa
         <Line said={lookSaid} />
       </div>
 
-      <Step heading={BENCH_TEXT.bench}>
+      <Card heading={BENCH_TEXT.bench} folded={folded && folded.bench}>
         <Listed items={benchLines(data, part, view)} />
         {part !== 'water' && (
           <p>
@@ -362,9 +403,9 @@ function Run({ data, m, sources, part, mode, view, shown, reducedMotion, can, wa
             </Tiles>
           </>
         )}
-      </Step>
+      </Card>
 
-      <Step heading={BENCH_TEXT.cup}>
+      <Card heading={BENCH_TEXT.cup} folded={folded && folded.cup}>
         <div className="flex w-full flex-wrap items-center gap-x-4 gap-y-2">
           <CupDrawing cup={cup} reducedMotion={reducedMotion} />
           {/* The cup's state in words, said again whenever it changes: how much ice is seen is here as well as in the drawing. Beside the drawing at every width that shows a bench. */}
@@ -383,7 +424,7 @@ function Run({ data, m, sources, part, mode, view, shown, reducedMotion, can, wa
           {warning(['startLogger', 'addSolute'], sayOfCup)}
           <Line said={cupSaid} />
         </div>
-      </Step>
+      </Card>
 
       {cup.loggerStarted && (
         <Step heading={BENCH_TEXT.graph}>
@@ -409,8 +450,8 @@ function Run({ data, m, sources, part, mode, view, shown, reducedMotion, can, wa
       )}
 
       {part !== 'water' && cup.soluteAdded && (
-        <Step heading={BENCH_TEXT.straining}>
-          <div className="grid w-full justify-items-start gap-1.5">
+        <Card heading={BENCH_TEXT.straining} folded={folded && folded.straining}>
+          <div ref={strainRef} className="grid w-full justify-items-start gap-1.5">
             <div className="flex flex-wrap gap-1.5">
               {step({ type: 'strain', part }, BENCH_TEXT.strain, cup.strained, sayOfStrain)}
               {step({ type: 'weigh', part }, BENCH_TEXT.weigh, cup.weighed, sayOfStrain)}
@@ -418,14 +459,14 @@ function Run({ data, m, sources, part, mode, view, shown, reducedMotion, can, wa
             {warning(['strain', 'weigh'], sayOfStrain)}
             <Line said={strainSaid} />
           </div>
-        </Step>
+        </Card>
       )}
 
       {notebookOpen && (
         <Step heading={BENCH_TEXT.notebook}>
           {/* One calculator on the page: a part that is not the one shown has none, so that no panel floats over the page with no button of its own in view. Part 1's one entry is a reading, with nothing to work out. */}
           {shown && part !== 'water' && <Calculator />}
-          {/* What the entries are worked from, said again here: the bench's own card is more than a screen up the page by now. */}
+          {/* What the entries are worked from, said again here: the bench's own card is folded by now, and was more than a screen up the page before it was. */}
           {fromBench.length > 0 && (
             <div className="grid w-full max-w-[75ch] gap-1 rounded-md border px-3 py-2">
               <p className="text-xs font-medium text-muted-foreground">{BENCH_TEXT.fromBench}</p>
