@@ -52,7 +52,7 @@
       "name": "Rubbing alcohol",
       "holds": "2-Propanol (isopropyl alcohol) in water",
       "strength": {
-        "value": "about 70% 2-propanol by volume, in water",
+        "value": "about 70% by volume",
         "sourceId": "wikipedia-rubbing-alcohol"
       },
       "looks": {
@@ -80,7 +80,7 @@
       "name": "Vinegar",
       "holds": "Acetic acid in water",
       "strength": {
-        "value": "4% to 8% acetic acid, in water",
+        "value": "4% to 8%",
         "sourceId": "flinn-sds-844"
       },
       "looks": {
