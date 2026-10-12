@@ -294,6 +294,11 @@ describe('a tube', () => {
     expect(steps(run(m, fresh(), [filled(OIL, 'vegetable-oil')]), OIL)).toEqual([[water, true, false], [oil, true, true], [shake, false, false], [stand, true, false]])
     expect(steps(stood(fresh(), OIL), OIL)).toEqual([[water, true, true], [oil, true, false], [shake, true, true], [stand, true, true]])
     expect(steps(fresh(), 'sugar-in-vinegar')).toEqual([['✓ Put in the vinegar, then a little sugar', false, false], [shake, true, false], [stand, true, false]])
+    // The tick is hidden from a screen reader, which is told instead that a step done is pressed: a step done and a step that cannot be taken yet are both unavailable.
+    const pressed = (state: MixingState) => [...bench(state, 'liquids', OIL).matchAll(/<button[^>]*data-slot="button"[^>]*aria-pressed="(true|false)"[^>]*>/g)].map((match) => match[1] === 'true')
+    expect(pressed(fresh())).toEqual([false, false, false, false])
+    expect(pressed(run(m, fresh(), [filled(OIL, 'vegetable-oil')]))).toEqual([false, true, false, false])
+    expect(pressed(stood(fresh(), OIL))).toEqual([true, false, true, true])
   })
 
   it('draws two liquids that do not mix as two bands with the line between them once the tube has stood and not before, and no bracket or word for a layer until it has been looked at', () => {

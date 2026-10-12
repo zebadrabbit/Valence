@@ -48,10 +48,10 @@ export interface TubeCardProps {
   headingRef?: Ref<HTMLHeadingElement>
 }
 
-/** A step of a tube as a button that stays where it is: it has a tick once it is done, and cannot be pressed again. The tick has its room from the start, so that the words do not move when it comes. */
+/** A step of a tube as a button that stays where it is: it has a tick once it is done, and cannot be pressed again. The tick has its room from the start, so that the words do not move when it comes. The tick is for the eye: a screen reader is told that the button is pressed, which a step that cannot be taken yet is not. */
 function StepButton({ done, unavailable, onClick, children }: { done: boolean; unavailable: boolean; onClick(): void; children: ReactNode }) {
   return (
-    <Control unavailable={unavailable} dimmed={unavailable && !done} variant={done ? 'secondary' : 'outline'} className="h-auto min-h-11 w-full justify-start px-3 py-1 text-left whitespace-normal" onClick={onClick}>
+    <Control unavailable={unavailable} dimmed={unavailable && !done} aria-pressed={done} variant={done ? 'secondary' : 'outline'} className="h-auto min-h-11 w-full justify-start px-3 py-1 text-left whitespace-normal" onClick={onClick}>
       <span>
         <span aria-hidden="true" className={`${ROLE.done} ${done ? '' : 'invisible'}`}>
           ✓{' '}

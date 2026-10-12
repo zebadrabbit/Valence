@@ -1,5 +1,5 @@
 import { ChevronDown, ChevronUp } from 'lucide-react'
-import { useEffect, useId, useMemo, useRef, useState, type ReactNode, type Ref } from 'react'
+import { useEffect, useId, useMemo, useRef, useState, type ReactNode, type Ref, type RefObject } from 'react'
 import { Disclosure, Sources } from '@/app/explore/InspectorCard'
 import { CHOICE } from '@/app/lab/ChoiceForm'
 import { Control } from '@/app/lab/Control'
@@ -63,7 +63,7 @@ export interface MixingBenchProps {
   opensAt?: { part: PartId; tube?: TubeId | null }
 }
 
-type Parts = Pick<MixingBenchProps, 'data' | 'm' | 'sources' | 'state' | 'act'> & { headingRef: Ref<HTMLHeadingElement> }
+type Parts = Pick<MixingBenchProps, 'data' | 'm' | 'sources' | 'state' | 'act'> & { headingRef: RefObject<HTMLHeadingElement | null> }
 
 /**
  * The Lab tab of the polarity and mixing lab: the line that says the lab is complete, the three parts to choose
@@ -512,6 +512,12 @@ function RulePart({ data, m, sources, state, act, headingRef }: Parts) {
   // What the part asks for, while nothing is answered, and then for as long as the part is shown.
   const [intro] = useState(() => !rule.sorted.some((one) => one.family !== null) && !rule.questions.some((question) => question.answer !== null))
   const cited = useMemo(() => mixingPartCitations(data, 'rule', sources, rule.notesShown), [data, sources, rule.notesShown])
+  // "Answer again" goes with the answers it clears: focus goes to the part's heading if it was left on the page, as it goes to a tube's when the tube is set up again.
+  const wasTries = useRef(rule.tries)
+  useEffect(() => {
+    if (wasTries.current !== rule.tries && document.activeElement === document.body) headingRef.current?.focus()
+    wasTries.current = rule.tries
+  }, [rule.tries, headingRef])
   const press = (action: Action) => {
     const blocked = can(m, state, action)
     if (blocked !== null) return say(BLOCKED_TEXT[blocked], true)
