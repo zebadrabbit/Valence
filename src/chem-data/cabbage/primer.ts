@@ -59,12 +59,12 @@ export const CABBAGE_PRIMER: readonly PrimerSection[] = [
       ),
       paragraph(
         { label: 'Ten times a step' },
-        'The scale counts in tens. A liquid one unit lower holds ten times the hydrogen ion. Two units lower is a hundred times, and three units a thousand. Lemon juice is about two units below apple juice, so it holds about a hundred times the hydrogen ion.',
+        'The scale counts in tens. A liquid one unit lower holds ten times the hydrogen ion. Two units lower is a hundred times, and three units a thousand. Lemon juice is one to two units below apple juice, so it holds ten to a hundred times the hydrogen ion.',
         [
           [SCALE, 'under the heading on the pH scale', 'the scale is logarithmic, so that each whole step is a change of ten times in the hydrogen ion and two steps a change of a hundred times.'],
           [TABLE, 'in its table, the rows for lemon juice and for the juice of apples', 'lemon juice lies from 2.00 to 2.60 and apple juice from 3.35 to 4.00.'],
         ],
-        "that the two juices are about two units apart is this lab's rounding of the table's ranges.",
+        "that the two juices are one to two units apart is this lab's rounding of the table's ranges: the nearest the two can be is 0.75 of a unit, and the farthest 2.00.",
       ),
     ],
   },

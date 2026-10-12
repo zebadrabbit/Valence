@@ -352,6 +352,13 @@ function ThingsPart({ data, m, sources, state, act, headingRef, thing, onThing }
   const views = THING_IDS.map((id) => sampleView(m, state, id))
   const focused = useRef<HTMLHeadingElement | null>(null)
   const [introAt] = useState(() => (views.every((view) => !view.indicator && view.tries === 0) ? thing : null))
+  // A thing set up again in a fresh tube is a card of its own, and the button that was pressed has gone with the card before it: focus goes to the thing's heading, and is not left on the page.
+  const tube = `${thing}:${views[index]!.tries}`
+  const wasTube = useRef(tube)
+  useEffect(() => {
+    if (wasTube.current !== tube && document.activeElement === document.body) focused.current?.focus()
+    wasTube.current = tube
+  }, [tube])
   if (!bench.thingsOpen) {
     return (
       <section aria-labelledby={headingId} className="grid min-w-0 gap-2">

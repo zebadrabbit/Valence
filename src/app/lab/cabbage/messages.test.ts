@@ -228,14 +228,20 @@ describe('a sample', () => {
     state = run(m, state, [{ type: 'addIndicator', thing }, { type: 'look', thing }, { type: 'estimate', thing, is: 13 }, { type: 'classify', thing, is: 'basic' }, { type: 'read', thing }])
     expect(sampleView(m, state, thing).warning).toBe(true)
     const warning = probeWarning(data, meterView(state).lastIn!)
-    expect(warning).toBe('The probe has not been rinsed since it was in the vinegar. Read now, and the meter will be pulled toward that sample and the reading will not count. Rinse the probe first, or read anyway.')
+    expect(warning).toBe('The probe has not been rinsed since it was in the vinegar. Read now, and the meter may be pulled toward that sample, and the reading will not count. Rinse the probe first, or read anyway.')
     expect(warning).not.toMatch(/\d/)
   })
 
   it('says what the meter reads, and of an unrinsed reading that it does not count and why, once that is judged', () => {
     expect(readingText({ tenths: 30, unrinsed: null })).toBe('The meter reads pH 3.0.')
     expect(readingText({ tenths: 30, unrinsed: false })).toBe('The meter reads pH 3.0.')
-    expect(readingText({ tenths: 104, unrinsed: true })).toBe('The meter reads pH 10.4. This reading does not count: the probe was not rinsed, so the last sample pulled it. Rinse the probe and read again.')
+    expect(readingText({ tenths: 104, unrinsed: true })).toBe('The meter reads pH 10.4. This reading does not count: the probe was not rinsed, so the last sample may have pulled it. Rinse the probe and read again.')
+  })
+
+  it('does not say that an unrinsed probe was pulled: between two things that read alike it is pulled by nothing', () => {
+    // A fifth of the way toward the last sample, to the nearest tenth, is no way at all where the two are two tenths apart or less: the meter then reads what a rinsed probe reads.
+    for (const text of [probeWarning(data, 'vinegar'), readingText({ tenths: 24, unrinsed: true })]) expect(text).toMatch(/may (be|have) pulled/)
+    for (const text of [probeWarning(data, 'vinegar'), readingText({ tenths: 24, unrinsed: true }), REASON_TEXT['probe-unrinsed']]) expect(text).not.toMatch(/will be pulled|sample pulled/)
   })
 
   it('names each cause a sample does not count for, and never what was right', () => {
@@ -332,12 +338,34 @@ describe('refusals', () => {
     expect([...got].sort()).toEqual([...ALL].sort())
     for (const blocked of got) expect(BLOCKED_TEXT[blocked]).toBeDefined()
   })
+
+  it('says of a probe last in the thing shown what is so in a fresh tube of it too, where the meter shows no reading', () => {
+    // Challenge: a sample that does not count is set up again, and the probe is still where it last read.
+    let state = run(m, wholeScale(m, lab()), [{ type: 'addIndicator', thing: 'vinegar' }, { type: 'look', thing: 'vinegar' }, { type: 'estimate', thing: 'vinegar', is: 13 }, { type: 'classify', thing: 'vinegar', is: 'basic' }, { type: 'read', thing: 'vinegar' }, { type: 'checkSample', thing: 'vinegar' }, { type: 'again', thing: 'vinegar' }])
+    state = run(m, state, [{ type: 'addIndicator', thing: 'vinegar' }, { type: 'look', thing: 'vinegar' }, { type: 'estimate', thing: 'vinegar', is: 3 }, { type: 'classify', thing: 'vinegar', is: 'acid' }])
+    expect(sampleView(m, state, 'vinegar').reading).toBeNull()
+    expect(can(m, state, { type: 'read', thing: 'vinegar' })).toBe('probe-still-in')
+    expect(BLOCKED_TEXT['probe-still-in']).not.toMatch(/meter shows|still in this tube/)
+    expect(BLOCKED_TEXT['probe-still-in']).toContain('Rinse the probe')
+  })
+
+  it('sends a learner whose acid, neutral or basic is not taken back to the colour, and not to the tube named, which may be a neighbour within a unit', () => {
+    // Guided takes the tube next to the right one, and then judges acid, neutral or basic against the meter: the side of pH 7 that the tube named is on may not be the answer.
+    for (const text of [BLOCKED_TEXT['class-wrong'], SAMPLE_HINT.which]) {
+      expect(text).toContain('colour')
+      expect(text).not.toContain('you named')
+    }
+  })
 })
 
 describe('the words of the page that are made from what it is handed', () => {
   it('says how far a part has come, how many count, an estimate as one line, and one of two things as a choice', () => {
     expect(Object.values(PART_STATUS)).toEqual(['Not open yet', 'Not begun', 'Under way', 'Done'])
     expect(countShort({ counted: 3, needed: 8 })).toBe('3 of 8 count')
+    expect(countShort({ counted: 8, needed: 8 })).toBe('8 of 8 count')
+    // Past the eight the part needs, the things left over that come to count are not "of 8".
+    expect(countShort({ counted: 9, needed: 8 })).toBe('9 count, 8 needed')
+    expect(countShort({ counted: 14, needed: 8 })).toBe('14 count, 8 needed')
     expect(byEyeLine(3, 'acid')).toBe('pH 3, acid')
     expect(byEyeLine(7, 'neutral')).toBe('pH 7, neutral')
     expect(byEyeLine(CANNOT_SAY, null)).toBe(SAMPLE_TEXT.cannotSay)

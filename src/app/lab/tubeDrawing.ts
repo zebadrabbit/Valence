@@ -50,12 +50,15 @@ const LIQUID_HEX: Record<string, string> = {
   // The red cabbage pH lab's scale, from strong acid to strong base, with the blue and the yellow above for pH 8 and
   // pH 13. A learner tells each tube of its rack from the tubes either side by eye, so each step differs from its
   // neighbours in how light it is or strongly in hue, and a test holds every pair of neighbours apart
-  // (src/app/lab/cabbage/page.test.ts). The lightness falls from pH 4 to pH 7 and rises from there to pH 13.
+  // (src/app/lab/cabbage/page.test.ts). pH 7 is the darkest, and the lightness rises from there to pH 13. A sample is
+  // held against all thirteen, so no two of the twelve may be near each other either, as drawn or as a colour vision
+  // deficiency is simulated: the dark pink and the purple are where they are for that (a purple of #742bb0 came out
+  // as the blue of pH 8 with protanopia simulated, and a dark pink of #99186a near the teal with deuteranopia).
   red: '#e02424',
-  'dark pink': '#99186a',
+  'dark pink': '#992154',
   rose: '#f089ae',
   lavender: '#d2c2f7',
-  purple: '#742bb0',
+  purple: '#920de4',
   'blue-violet': '#6f72f2',
   'dark blue': '#0e1650',
   teal: '#0d7480',

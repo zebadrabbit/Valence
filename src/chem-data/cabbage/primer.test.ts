@@ -173,6 +173,18 @@ describe('the red cabbage primer: what it says against the record', () => {
     expect(all).not.toMatch(/\d\.\d/)
   })
 
+  it('says of the two juices what their ranges bear out: one to two units apart, and so ten to a hundred times', () => {
+    const ph = (id: string) => cabbageData.things.find((t) => t.id === id)!.ph
+    const [lemon, apple] = [ph('lemon-juice'), ph('apple-juice')]
+    // The nearest the two can be and the farthest, as the table's ranges have them: 0.75 and 2.00 of a unit.
+    expect(Math.round(apple.low.value - lemon.high.value)).toBe(1)
+    expect(Math.round(apple.high.value - lemon.low.value)).toBe(2)
+    const { text } = section('ph-scale').paragraphs[1]!
+    expect(text).toContain('one to two units below apple juice')
+    expect(text).toContain('ten to a hundred times')
+    expect(text).not.toContain('about two units')
+  })
+
   it('says of bleach what the record says: the colour goes, and the indicator cannot say', () => {
     expect(shown('bleach')).toContain(cabbageData.indicator.bleached.value)
     expect(shown('bleach')).toContain('the indicator cannot say')

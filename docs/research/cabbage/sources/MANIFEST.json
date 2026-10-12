@@ -143,7 +143,7 @@
             "things[apple-juice].note"
           ],
           "prints": "Approximate pH",
-          "where": "The heading of the table's second column. The page says before the table that its ranges are approximate and that foods vary with variety, growing and processing. Of the three, lemon juice has the lowest range; that it is the most acidic thing on the bench is read from this record's own ranges."
+          "where": "The heading of the table's second column. The page says before the table that its ranges are approximate and that foods vary with variety, growing and processing. Of the three, lemon juice has the lowest range; that its range is the lowest of the things on the bench is read from this record's own ranges. The note does not say that it reads lowest in a lab: vinegar's range reaches down to 2.40, and a seed can draw the vinegar under the lemon juice."
         },
         {
           "fields": [

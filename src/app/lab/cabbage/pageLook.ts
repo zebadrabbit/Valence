@@ -23,6 +23,16 @@ export function attempt(m: CabbageModel, state: CabbageState, actions: readonly 
   return { done, refused: null }
 }
 
+/**
+ * For how long after a press on the meter's button the next press on it is that press come twice, in true
+ * milliseconds. Guided's warning comes up under the two buttons, which stay where they are, so the second press of
+ * a double click or a double tap lands on the button that raised it: taken, it would read through a warning that
+ * nobody has had the time to read. The rate labs' watch is deaf for as long after a pour (kinetics/play.ts).
+ */
+export const DEAF_MS = 500
+/** Whether a press at the true time `now` comes too soon after the press at `pressedAt` that raised Guided's warning to be meant. */
+export const comesTwice = (pressedAt: number, now: number): boolean => now - pressedAt < DEAF_MS
+
 /** A sample that has been begun and does not count yet: there is work in it to come back to. */
 const underWay = (view: SampleView) => view.indicator && view.outcome.state !== 'counts'
 

@@ -267,7 +267,7 @@
         "givenFor": "the food as it is"
       },
       "note": {
-        "value": "A food regulator’s table of the pH of foods gives lemon juice 2.00 to 2.60: the most acidic thing on this bench.",
+        "value": "A food regulator’s table of the pH of foods gives lemon juice 2.00 to 2.60: the lowest range of the things on this bench.",
         "sourceId": "fda-ph-foods-2007"
       }
     },

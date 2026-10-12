@@ -115,6 +115,19 @@ describe('the pH of each thing (spec 21.4)', () => {
     for (const thing of things) if (thing.ph.basis === 'document') expect(thing.ph.givenFor.length).toBeGreaterThan(5)
   })
 
+  it('says of lemon juice that its range is the lowest on the bench, which is so, and not that it reads lowest, which a seed may not bear out', () => {
+    const lemon = thingOf(cabbageData, 'lemon-juice')
+    for (const thing of cabbageData.things) {
+      if (thing.id === 'lemon-juice') continue
+      expect(thing.ph.low.value, thing.id).toBeGreaterThan(lemon.ph.low.value)
+      expect(thing.ph.high.value, thing.id).toBeGreaterThan(lemon.ph.high.value)
+    }
+    // The vinegar's range reaches under the top of the lemon juice's: in some labs the meter reads the vinegar lower.
+    expect(thingOf(cabbageData, 'vinegar').ph.low.value).toBeLessThan(lemon.ph.high.value)
+    expect(lemon.note.value).toContain('the lowest range')
+    expect(lemon.note.value).not.toContain('most acidic')
+  })
+
   it('says in the note of each thing that is worked out that it is, and shows the working', () => {
     for (const thing of things) {
       if (thing.ph.basis !== 'arithmetic') continue

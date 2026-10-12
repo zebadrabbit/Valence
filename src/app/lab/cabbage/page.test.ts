@@ -38,7 +38,7 @@ import {
   thingNote,
   unitQuestionText,
 } from './messages'
-import { attempt, opening, partStatus, thingStatus } from './pageLook'
+import { attempt, comesTwice, DEAF_MS, opening, partStatus, thingStatus } from './pageLook'
 
 // The red cabbage pH lab's page as markup, on a store the test holds. AppStateProvider builds its store from the
 // browser and the media hook has no value on a server, so both are given directly. What a press does (a tube
@@ -129,6 +129,32 @@ describe('the colours the scale is drawn in', () => {
     expect(liquidHex(words[10]!)).toBe(liquidHex(words[11]!))
   })
 
+  it('keeps every two of the twelve colours apart, neighbours or not, as drawn and as each of three colour vision deficiencies is simulated', () => {
+    // A sample is held against all thirteen tubes, so two colours far apart on the rack must not come out alike either. The distance is
+    // the straight one in OKLab. The simulation is Machado, Oliveira and Fernandes (2009) at full severity, on linear RGB; it is a model
+    // of what is seen and nobody's eye. As first built the purple was 0.018 from the blue with protanopia simulated, and the dark pink
+    // 0.045 from the teal with deuteranopia.
+    const SEEN: Record<string, readonly (readonly [number, number, number])[] | null> = {
+      'as drawn': null,
+      deuteranopia: [[0.367322, 0.860646, -0.227968], [0.280085, 0.672501, 0.047413], [-0.01182, 0.04294, 0.968881]],
+      protanopia: [[0.152286, 1.052583, -0.204868], [0.114503, 0.786281, 0.099216], [-0.003882, -0.048116, 1.051998]],
+      tritanopia: [[1.255528, -0.076749, -0.178779], [-0.078411, 0.930809, 0.147602], [0.004733, 0.691367, 0.3039]],
+    }
+    const oklab = (hex: string, matrix: (typeof SEEN)[string]) => {
+      const rgb = channels(hex)
+      const [r, g, b] = (matrix === null ? rgb : matrix.map((row) => row[0] * rgb[0] + row[1] * rgb[1] + row[2] * rgb[2])).map((c) => Math.min(1, Math.max(0, c))) as [number, number, number]
+      const [l, mm, s] = [0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b, 0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b, 0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b].map(Math.cbrt) as [number, number, number]
+      return [0.2104542553 * l + 0.793617785 * mm - 0.0040720468 * s, 1.9779984951 * l - 2.428592205 * mm + 0.4505937099 * s, 0.0259040371 * l + 0.7827717662 * mm - 0.808675766 * s] as const
+    }
+    for (const [name, matrix] of Object.entries(SEEN))
+      m.colours.forEach((a, at) =>
+        m.colours.slice(at + 1).forEach((b) => {
+          const [x, y] = [oklab(liquidHex(a), matrix), oklab(liquidHex(b), matrix)]
+          expect(Math.hypot(x[0] - y[0], x[1] - y[1], x[2] - y[2]), `${a} and ${b}, ${name}`).toBeGreaterThanOrEqual(0.06)
+        }),
+      )
+  })
+
   it('draws the rack darkest at pH 7 and lighter from there to each end but for the two at the acid end', () => {
     const light = words.map((word) => luminance(liquidHex(word)))
     expect(light.indexOf(Math.min(...light))).toBe(6)
@@ -192,6 +218,16 @@ describe('where the page opens, and what it sends on', () => {
     ])
     expect(Object.values(partStatus(m, state)).map((status) => status.text)).toEqual(['Done', '1 of 8 count', 'Not open yet'])
     expect(Object.values(partStatus(m, wholeLab(m, fresh()))).map((status) => `${status.mark} ${status.text}`)).toEqual(['✓ Done', '✓ 8 of 8 count', '✓ Done'])
+  })
+})
+
+describe("a second press on the meter's button under Guided's warning", () => {
+  it('is the first come twice for half a second, and is meant after that', () => {
+    expect(DEAF_MS).toBe(500)
+    expect([0, 1, 120, 499].map((ms) => comesTwice(1000, 1000 + ms))).toEqual([true, true, true, true])
+    expect([500, 501, 3000].map((ms) => comesTwice(1000, 1000 + ms))).toEqual([false, false, false])
+    // No press before it: the first press is always meant.
+    expect(comesTwice(-Infinity, 0)).toBe(false)
   })
 })
 

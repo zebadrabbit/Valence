@@ -34,7 +34,7 @@ import {
   thingNote,
   tubeText,
 } from './messages'
-import { attempt, thingStatus } from './pageLook'
+import { attempt, comesTwice, thingStatus } from './pageLook'
 import { Rack } from './Rack'
 import { CARD, HEADING, SHEET, Sheet } from './sheets'
 
@@ -54,12 +54,14 @@ export interface SampleCardProps {
 
 /**
  * One household thing, in the order it is worked (spec 21.2). The tube, to explore, with the one action, adding
- * the indicator: a look at the liquid says what is seen in words, and nothing else on the page does. The scale,
+ * the indicator: a look at the liquid says what is seen in words, in a callout and then in a line that stays, and
+ * nothing on the page says it before the look. The scale,
  * small, straight under the tube or beside it, so that the two are compared without scrolling: by eye, the tube of
  * the scale the sample is nearest is chosen by pressing that tube, or the choice that the indicator cannot say,
  * and then acid, neutral or basic; the two are recorded with one button, changed until the meter is read, and fold
  * to a line beside "Change". Then the meter: the probe is rinsed and read, and the reading stands large. Guided's
- * warning before an unrinsed probe reads is a line over the two buttons, which are its two ways on: the engine
+ * warning before an unrinsed probe reads is a line under the two buttons, which are its two ways on and stay where
+ * they are: the engine
  * holds the warning in the record, so it is there again after a reload. Last, how the sample came out, and once it
  * counts its note.
  *
@@ -84,6 +86,7 @@ export function SampleCard({ data, m, state, thing, act, headingRef }: SampleCar
   const status = thingStatus(view)
   const [tubeSaid, sayOfTube] = useSaid()
   const [lookSaid, sayOfLook] = useSaid()
+  const [seen, setSeen] = useState<string | null>(null)
   const [eyeSaid, sayOfEye] = useSaid()
   const [meterSaid, sayOfMeter] = useSaid()
   const [draft, setDraft] = useState<{ estimate: Estimate | null; is: Class | null }>({ estimate: view.estimate, is: view.is })
@@ -91,6 +94,7 @@ export function SampleCard({ data, m, state, thing, act, headingRef }: SampleCar
   const recordRef = useRef<HTMLButtonElement>(null)
   const changeRef = useRef<HTMLButtonElement>(null)
   const outcomeRef = useRef<HTMLDivElement>(null)
+  const readAt = useRef(-Infinity)
 
   /** The estimate by eye is whole: a tube with acid, neutral or basic, or that the indicator cannot say. */
   const estimated = view.estimate !== null && (!view.classAsked || view.is !== null)
@@ -121,6 +125,7 @@ export function SampleCard({ data, m, state, thing, act, headingRef }: SampleCar
     const action: Action = { type: 'look', thing }
     if (can(m, state, action) === null) act(action)
     sayOfLook(tubeText(view.shows))
+    setSeen(tubeText(view.shows))
   }
   const pick = (estimate: Estimate) => {
     // Until the sample has been looked at there is nothing to choose by, and the card says so. Once the estimate is recorded, a press on a tube is a look at it: "Change" opens the choice again.
@@ -146,6 +151,14 @@ export function SampleCard({ data, m, state, thing, act, headingRef }: SampleCar
   const add: Action = { type: 'addIndicator', thing }
   const rinse: Action = { type: 'rinse' }
   const read: Action = { type: 'read', thing }
+  /** The meter's button is pressed. With Guided's warning just raised by a press, a press that comes straight after it is that press come twice, and reads nothing. */
+  const readMeter = (event: { timeStamp: number }) => {
+    // By when the press was made, as the browser has it, and never later than now.
+    const now = Math.min(event.timeStamp, performance.now())
+    if (view.warning && comesTwice(readAt.current, now)) return
+    readAt.current = now
+    press(read, sayOfMeter)
+  }
   const judged = view.estimateRight !== null
   const right = view.estimateRight === true && view.classRight !== false
   const warned = view.warning && meter.lastIn !== null
@@ -172,7 +185,7 @@ export function SampleCard({ data, m, state, thing, act, headingRef }: SampleCar
           {KIND_LABEL[record.kind]}. {ON_BENCH[record.onBench]}
         </p>
       </div>
-      {/* What the liquid looked at shows, for a screen reader: the eye has the callout beside it. */}
+      {/* What the liquid looked at shows, for a screen reader, said at each look: the eye has the callout beside the liquid, and the line under the picture's directions. */}
       <div className="sr-only">
         <Line said={lookSaid} />
       </div>
@@ -218,6 +231,8 @@ export function SampleCard({ data, m, state, thing, act, headingRef }: SampleCar
                   <p id={exploreId} className="text-xs text-muted-foreground">
                     {SAMPLE_TEXT.explore}
                   </p>
+                  {/* What the liquid shows, in words, once it has been looked at as it now is, and it stays: the callout beside the liquid goes when the pointer or the finger moves to the scale, and the two are compared there. As tall as a line while it is empty. */}
+                  <p className="min-h-5 font-medium">{seen === tubeText(view.shows) ? seen : ''}</p>
                   <Line said={tubeSaid} />
                 </div>
               </div>
@@ -226,8 +241,8 @@ export function SampleCard({ data, m, state, thing, act, headingRef }: SampleCar
 
           <section aria-labelledby={scaleId} className={`cabbage-eye ${CARD}`}>
             <div className={SHEET}>
-              {/* Once the estimate is recorded it is a line in the heading's row, beside "Change" until the meter is read: the scale under it has the room. */}
-              <div className="flex w-full flex-wrap items-center gap-x-3 gap-y-1">
+              {/* Once the estimate is recorded it is a line in the heading's row, beside "Change" until the meter is read: the scale under it has the room. The row is as tall without "Change" as with it, so that nothing under it moves up when the meter is read. */}
+              <div className={`flex w-full flex-wrap items-center gap-x-3 gap-y-1 ${!editing && estimated ? 'min-h-11' : ''}`}>
                 <h3 id={scaleId} className={HEADING}>
                   {editing ? SAMPLE_TEXT.nearest : RACK_TEXT.kept}
                 </h3>
@@ -329,26 +344,16 @@ export function SampleCard({ data, m, state, thing, act, headingRef }: SampleCar
           {(estimated || view.reading !== null) && (
             <div className={`cabbage-meter ${CARD}`}>
               <Sheet heading={SAMPLE_TEXT.meter}>
-                {/* As tall before the meter is read as with its reading, so that the two buttons under it stay where they are when it is read. */}
-                <div className="flex min-h-10 w-full flex-wrap items-center gap-x-4 gap-y-1">
+                {/* The reading alone, as tall before the meter is read as with its reading, and the two buttons straight under it. Everything that comes and goes with the probe is under the buttons, so that they stay where they are at every press. */}
+                <div className="flex min-h-10 w-full items-center">
                   {view.reading === null ? <p className="font-medium text-muted-foreground">{SAMPLE_TEXT.notRead}</p> : <p className={`text-4xl font-semibold tabular-nums ${ROLE.value}`}>{phText(view.reading.tenths)}</p>}
-                  {/* Where the probe stands; while Guided's warning is up, the warning says it. */}
-                  {!over && !warned && <p className="max-w-prose flex-1 basis-48">{meterText(data, meter)}</p>}
                 </div>
-                {/* The reading as a sentence, said when the meter is read; for the eye it is the figure above, but for a reading that does not count, which says why. */}
-                <p role="status" className={view.reading?.unrinsed ? 'max-w-prose font-medium' : 'sr-only'}>
-                  {view.reading === null ? '' : readingText(view.reading)}
-                </p>
-                {/* Guided's warning, always there and empty until it is given, so that a screen reader says it when it comes. The two buttons under it are its two ways on. */}
-                <p role="status" className={warned ? 'max-w-prose rounded-md border-2 p-2 font-medium' : '-mt-2'}>
-                  {warned && probeWarning(data, meter.lastIn!)}
-                </p>
                 {!over && (
                   <div className="flex flex-wrap gap-1.5">
                     <Control unavailable={can(m, state, rinse) !== null} className="min-h-11" onClick={() => press(rinse, sayOfMeter)}>
                       {SAMPLE_TEXT.rinse}
                     </Control>
-                    <Control unavailable={can(m, state, read) !== null} className="h-auto min-h-11 max-w-full shrink py-1 text-left whitespace-normal" onClick={() => press(read, sayOfMeter)}>
+                    <Control unavailable={can(m, state, read) !== null} className="h-auto min-h-11 max-w-full shrink py-1 text-left whitespace-normal" onClick={readMeter}>
                       {SAMPLE_TEXT.read}
                     </Control>
                     {/* Guided checks a sample by itself once a rinsed probe has read it. */}
@@ -359,6 +364,16 @@ export function SampleCard({ data, m, state, thing, act, headingRef }: SampleCar
                     )}
                   </div>
                 )}
+                {/* Where the probe stands; while Guided's warning is up, the warning says it. */}
+                {!over && !warned && <p className="max-w-prose">{meterText(data, meter)}</p>}
+                {/* Guided's warning, always there and empty until it is given, so that a screen reader says it when it comes. It takes its room under the two buttons, which are its two ways on: a second press in the same place is on the button still. */}
+                <p role="status" className={warned ? 'max-w-prose rounded-md border-2 p-2 font-medium' : '-mt-2'}>
+                  {warned && probeWarning(data, meter.lastIn!)}
+                </p>
+                {/* The reading as a sentence, said when the meter is read; for the eye it is the figure above, but for a reading that does not count, which says why. */}
+                <p role="status" className={view.reading?.unrinsed ? 'max-w-prose font-medium' : 'sr-only'}>
+                  {view.reading === null ? '' : readingText(view.reading)}
+                </p>
                 {view.reading !== null && !over && <p className="max-w-prose text-muted-foreground">{SAMPLE_TEXT.fixed}</p>}
                 <div className={meterSaid.text === '' ? '-mt-2' : undefined}>
                   <Line said={meterSaid} />

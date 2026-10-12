@@ -177,7 +177,7 @@ export const SAMPLE_TEXT = {
 /** Guided's hints at a sample, each in a closed disclosure: how to go about it, and never the answer. */
 export const SAMPLE_HINT = {
   estimate: 'Hold the tube beside the rack and find the tube it looks most like. If the liquid has no colour that any tube has, there is nothing to match.',
-  which: 'Tubes left of pH 7 are acid and tubes right of it are basic. Which side is the tube you named on?',
+  which: 'A sample with the colour of the pH 7 tube is neutral. With the colour of a tube left of it, it is acid; right of it, basic.',
   meter: 'A probe carries some of the last sample with it. Wash that off with distilled water before the next one.',
 } as const
 
@@ -186,12 +186,12 @@ export const meterText = (data: CabbageData, meter: MeterView) => (meter.lastIn 
 
 /** Guided's warning before an unrinsed probe reads (spec 21.2). It says what will happen and leaves the choice. */
 export const probeWarning = (data: CabbageData, lastIn: ThingId) =>
-  `The probe has not been rinsed since it was in ${theThing(data, lastIn)}. Read now, and the meter will be pulled toward that sample and the reading will not count. Rinse the probe first, or read anyway.`
+  `The probe has not been rinsed since it was in ${theThing(data, lastIn)}. Read now, and the meter may be pulled toward that sample, and the reading will not count. Rinse the probe first, or read anyway.`
 
 /** What the meter showed, and, once that is judged, that an unrinsed reading does not count and why. */
 export function readingText(reading: NonNullable<SampleView['reading']>): string {
   const read = `The meter reads ${phText(reading.tenths)}.`
-  return reading.unrinsed ? `${read} This reading does not count: the probe was not rinsed, so the last sample pulled it. Rinse the probe and read again.` : read
+  return reading.unrinsed ? `${read} This reading does not count: the probe was not rinsed, so the last sample may have pulled it. Rinse the probe and read again.` : read
 }
 
 /** What Guided says of an estimate and of acid, neutral or basic as each is recorded. */
@@ -205,7 +205,7 @@ export const GUIDED_TEXT = {
 export const REASON_TEXT: Record<Reason, string> = {
   'estimate-off': 'The estimate was not within one unit of the meter.',
   'class-wrong': 'Acid, neutral or basic did not agree with the meter.',
-  'probe-unrinsed': 'The probe was not rinsed, so the last sample pulled the reading.',
+  'probe-unrinsed': 'The probe was not rinsed after the last sample.',
 }
 
 /** How a sample stands. */
@@ -222,8 +222,8 @@ export function sampleOutcomeText(view: Pick<SampleView, 'outcome' | 'reasons' |
   }
 }
 
-/** How far the second part has come, in a few words: "3 of 8 count". */
-export const countShort = (bench: Pick<BenchView, 'counted' | 'needed'>) => `${bench.counted} of ${bench.needed} count`
+/** How far the second part has come, in a few words: "3 of 8 count", and past the eight the part needs, "9 count, 8 needed". */
+export const countShort = (bench: Pick<BenchView, 'counted' | 'needed'>) => (bench.counted > bench.needed ? `${bench.counted} count, ${bench.needed} needed` : `${bench.counted} of ${bench.needed} count`)
 
 /** How far the second part has come: "3 of 8 count." */
 export function countText(bench: Pick<BenchView, 'counted' | 'needed' | 'things'>): string {
@@ -302,7 +302,7 @@ export const BLOCKED_TEXT: Record<Blocked, string> = {
   'class-not-asked': 'With no tube named, acid, neutral or basic is not asked.',
   'answers-fixed': 'The meter has been read in this sample, so the estimate by eye can no longer be changed.',
   'already-rinsed': 'The probe is already rinsed.',
-  'probe-still-in': 'The probe is still in this tube, and the meter shows its reading. Rinse the probe to read again.',
+  'probe-still-in': 'The probe was last in this thing and has not been rinsed since. Rinse the probe, then read.',
   'not-read': 'Read the meter in this sample first.',
   checked: 'This has been checked. Nothing in it can be changed.',
   'counts-already': 'This counts already, and stays as it is.',
@@ -311,7 +311,7 @@ export const BLOCKED_TEXT: Record<Blocked, string> = {
   'not-enough-count': 'These questions open once eight things count.',
   'not-right': 'Not right. Look again and choose another.',
   'estimate-off': 'Not yet. Hold the tube beside the rack again: is there a colour to match, and which tube has it?',
-  'class-wrong': 'That does not agree with the meter. Think about which side of pH 7 the tube you named is on.',
+  'class-wrong': 'That does not agree with the meter. Match the colour again: is it that of the pH 7 tube, or of a tube to its left or its right?',
 }
 
 export const MODE_TEXT: Record<Mode, string> = {
