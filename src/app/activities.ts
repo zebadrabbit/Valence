@@ -50,6 +50,13 @@ export const FREEZING_PROGRESS = { entry: ACTIVITIES[10].entry, version: ACTIVIT
 /** The types of reactions lab's stored entry and its version: what its page loads and saves with (src/reactions-version.test.ts pins what a stored lab is judged against to it). */
 export const REACTIONS_PROGRESS = { entry: ACTIVITIES[11].entry, version: ACTIVITIES[11].version } as const
 
+/**
+ * The polarity and mixing lab's stored entry and its version: what its page will load and save with
+ * (src/mixing-version.test.ts pins what a stored lab is judged against to it). The lab has no page yet and is not
+ * among the activities: its row is added with its page.
+ */
+export const MIXING_PROGRESS = { entry: ENTRY.mixing, version: 1 } as const
+
 export type Activity = (typeof ACTIVITIES)[number]
 
 /** False while an activity has no page of its own: its address is still the page that lists its kind. Home and the list of labs then show it as planned, with no link and no status. */

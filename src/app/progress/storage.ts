@@ -22,6 +22,7 @@ export const ENTRY = {
   density: 'lab:measurement-and-density',
   freezing: 'lab:freezing-point-depression',
   reactions: 'lab:types-of-reactions',
+  mixing: 'lab:polarity-and-mixing',
   mechanism: 'mechanism:hcl-nahco3',
 } as const
 

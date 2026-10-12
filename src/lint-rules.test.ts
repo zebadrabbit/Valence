@@ -249,6 +249,11 @@ describe('architecture lint rules', () => {
     ['@/engine/reactions/state', 'src/app/lab/reactions/messages.ts'],
     ['../../../engine/reactions/built', 'src/app/lab/reactions/x.tsx'],
     ['@/engine/reactions/testkit', 'src/app/lab/reactions/x.tsx'],
+    // The mixing engine below its index holds whether each pair mixes, which liquid is on top, whether each solid dissolves, each liquid's family, and the judging of every tube.
+    ['@/engine/mixing/model', 'src/app/lab/mixing/x.tsx'],
+    ['@/engine/mixing/state', 'src/app/lab/mixing/messages.ts'],
+    ['../../../engine/mixing/select', 'src/app/lab/mixing/x.tsx'],
+    ['@/engine/mixing/testkit', 'src/app/lab/mixing/x.tsx'],
   ])('rejects importing %s in %s', async (source, filePath) => {
     expect(await ruleIds(`import * as m from "${source}"\nexport const v = m\n`, filePath)).toEqual(['no-restricted-imports'])
     // A type import is refused too: the types below the index describe the hidden values.
@@ -283,6 +288,8 @@ describe('architecture lint rules', () => {
     ['@/engine/freezing/testkit', 'src/app/lab/freezing/messages.test.ts'],
     ['@/engine/reactions', 'src/app/lab/reactions/messages.ts'],
     ['@/engine/reactions/testkit', 'src/app/lab/reactions/messages.test.ts'],
+    ['@/engine/mixing', 'src/app/lab/mixing/messages.ts'],
+    ['@/engine/mixing/testkit', 'src/app/lab/mixing/messages.test.ts'],
     // Another folder whose name ends the same way is not the engine's.
     ['@/app/lab/titration/benchView', 'src/app/pages/x.tsx'],
     ['./titration/benchView', 'src/app/lab/x.tsx'],
