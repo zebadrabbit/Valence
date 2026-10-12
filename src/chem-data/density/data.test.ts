@@ -156,6 +156,21 @@ describe("the hazards of what an unknown may be (spec 5.2)", () => {
     for (const r of densityData.reagents) expect(r.hazards.note.value, r.id).toMatch(r.form === 'metal' ? /^The unknown metal may be this: dry pieces of / : /^The unknown liquid may be this: /)
   })
 
+  it('carries in no note a figure the bench can show that the notes of the other things the unknown may be do not: the balance, the cylinder and the tiles together name nothing', () => {
+    // A number, or a range of numbers, with a unit one of the bench's instruments reads. Every tile can be opened before the unknown is named, and the pieces of each metal weigh a different range of grams: a note that gave its own would name the metal from the balance.
+    const BENCH_FIGURE = /\d[\d.,]*(?:\s*(?:to|and|or|-|–)\s*\d[\d.,]*)?\s*(?:g\/mL|g\/cm³|mL|cm³|cm|mm|°C|g|grams?|millilitres?|centimetres?|degrees?)(?![\p{L}/])/gu
+    const figures = (note: string) => (note.match(BENCH_FIGURE) ?? []).map((figure) => figure.replace(/\s+/g, ' '))
+    expect(figures('pieces of 40 to 54 g, in 15.0 mL at 20 °C')).toEqual(['40 to 54 g', '15.0 mL', '20 °C'])
+    expect(figures('95% by mass; 20 to 30 minutes; 15 minutes or more')).toEqual([])
+    for (const part of ['liquid', 'metal'] as const) {
+      const [first, ...others] = unknownsOf(densityData, part).map((r) => ({ id: r.id, figures: figures(r.hazards.note.value) }))
+      for (const other of others) expect(other.figures, `${other.id} against ${first!.id}`).toEqual(first!.figures)
+    }
+    // The metals' notes carry none at all, and no note an amount in grams.
+    for (const r of unknownsOf(densityData, 'metal')) expect(figures(r.hazards.note.value), r.id).toEqual([])
+    for (const r of densityData.reagents) expect(r.hazards.note.value, r.id).not.toMatch(/\d\s*(?:g|grams?)(?![\p{L}/])/u)
+  })
+
   it('gives no method of disposal, and names no supplier in what a learner reads', () => {
     for (const r of densityData.reagents) {
       expect(`${r.classifiedAs} ${r.hazards.note.value}`, r.id).not.toMatch(/Flinn|Fisher|Ward|Avantor|drain it|pour it|flush it down|in the trash/i)
