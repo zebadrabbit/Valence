@@ -2208,5 +2208,135 @@
     "id": "noaa-cameo-2648",
     "url": "https://cameochemicals.noaa.gov/chemical/2648",
     "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Bromoacetone (chemical 2648); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "flinn-pub-91633",
+    "url": "https://www.flinnsci.com/api/library/Download/7216c8b7dd814eca9e6f8eca99fe513c",
+    "citation": "Flinn Scientific, Inc. Red Cabbage Indicator: Natural Indicators and Household Substances; Publication No. 91633, three pages, 2016. Read as the PDF the supplier serves at the address above; no copy is kept (retrieved 2026-10-11)."
+  },
+  {
+    "id": "libretexts-indicators-in-foods",
+    "url": "https://chem.libretexts.org/Ancillary_Materials/Exemplars_and_Case_Studies/Exemplars/Foods/Indicators_in_Foods",
+    "citation": "LibreTexts. Indicators in Foods; a page among the Exemplars of the Ancillary Materials; read and not kept (retrieved 2026-10-11)."
+  },
+  {
+    "id": "fda-ph-foods-2007",
+    "url": "https://riverstonehealth.org/wp-content/uploads/FDA-Approximate-pH-of-Foods.pdf",
+    "citation": "U.S. Food and Drug Administration, Center for Food Safety and Applied Nutrition. Approximate pH of Foods and Food Products; April 2007. Read as the thirteen-page PDF of the agency's page that a county public health agency serves at the address above; no copy is kept (retrieved 2026-10-11)."
+  },
+  {
+    "id": "fisher-sds-mgso4-heptahydrate",
+    "url": "https://www.fishersci.com/store/msds?partNumber=M63500&productDescription=MAGNESIUM+SULFATE+HEPTAHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Magnesium Sulfate Heptahydrate (Certified ACS), catalogue number M63-500 among others; revision 7 of 18 December 2025 (read on 2026-10-11; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-caco3",
+    "url": "https://www.fishersci.com/store/msds?partNumber=C64500&productDescription=CALCIUM+CARBONATE&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Calcium carbonate, catalogue number C64-500 among others; revision 8 of 18 December 2025 (read on 2026-10-11; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-acetylsalicylic-acid",
+    "url": "https://www.fishersci.com/store/msds?partNumber=AC158180500&productDescription=ACETYLSALICYLIC+ACID&vendorId=VN00032119&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Acetylsalicylic acid, catalogue number AC158180500 among others; revision 6 of 19 December 2025 (read on 2026-10-11; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-75.6",
+    "url": "https://www.flinnsci.com/sds_75.6-antacid-tablets/sds_75.6",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Antacid Tablets, SDS number sds_75.6; revision date February 6, 2014 (read on 2026-10-11; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-85",
+    "url": "https://www.flinnsci.com/sds_85-aspirin-tablets/sds_85",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Aspirin Tablets, SDS number sds_85; revision date March 21, 2014 (read on 2026-10-11; no copy is kept)."
+  },
+  {
+    "id": "mve-sds-laundry-detergent",
+    "url": "https://mve.mo.gov/wp-content/uploads/F-413.pdf",
+    "citation": "Missouri Vocational Enterprises. Safety Data Sheet: Laundry Detergent without Bleach, F-413; revision date October 26, 2015. Read as the PDF the maker serves at the address above; no copy is kept (retrieved 2026-10-11)."
+  },
+  {
+    "id": "kao-sds-conditioner",
+    "url": "https://www.kmshair.com/content/dam/sites/kaousa/www-kmshair-com/Master/pdfs/122014_122016_122020_KMS%20MR%20Conditioner.pdf",
+    "citation": "Kao USA Inc. Safety Data Sheet: a hair conditioner of its KMS range (products 122014, 122016 and 122020). Read as the PDF the maker serves at the address above; no copy is kept (retrieved 2026-10-11)."
+  },
+  {
+    "id": "juuce-sds-shampoo",
+    "url": "https://cdn.shopify.com/s/files/1/0715/6013/4875/files/Juuce_peppermint_shampoo_JVPMS300_JVPMS1000.pdf",
+    "citation": "Safety Data Sheet: HJ Juuce Peppermint Shampoo, version 1 of 1 May 2023. Read as the PDF served for the maker's shop at the address above; no copy is kept (retrieved 2026-10-11)."
+  },
+  {
+    "id": "livingstone-sds-mouthwash",
+    "url": "https://file2.livingstone.com.au/msds/CHL2MOUTH200.pdf",
+    "citation": "Livingstone International Pty Ltd. Safety Data Sheet: a chlorhexidine mouthwash, product code CHL2MOUTH200; version 04, last revised 12 March 2024. Read as the PDF the supplier serves at the address above; no copy is kept (retrieved 2026-10-11)."
+  },
+  {
+    "id": "scjohnson-sds-drain-gel",
+    "url": "https://images.homedepot-static.com/catalog/pdfImages/70/704fbcb1-0911-4980-99fa-b0a9d2cce209.pdf",
+    "citation": "S. C. Johnson & Son, Inc. Safety Data Sheet: a gel clog remover of its Drano range, SDS number 350000013008; version 1.1, revision date 24 February 2015. Read as the PDF a retailer serves at the address above; no copy is kept (retrieved 2026-10-11)."
+  },
+  {
+    "id": "atsdr-phs-ammonia",
+    "url": "https://wwwn.cdc.gov/tsp/PHS/PHS.aspx?phsid=9&toxid=2",
+    "citation": "Agency for Toxic Substances and Disease Registry. Public Health Statement for Ammonia; a page of the agency's Toxic Substances Portal; read and not kept (retrieved 2026-10-11)."
+  },
+  {
+    "id": "nist-webbook-ammonia",
+    "url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7664417&Mask=1",
+    "citation": "NIST Chemistry WebBook, NIST Standard Reference Database Number 69; Linstrom, P. J., Mallard, W. G., Eds.; National Institute of Standards and Technology: Gaithersburg, MD. Ammonia (retrieved 2026-10-11)."
+  },
+  {
+    "id": "libretexts-e2-base-constants",
+    "url": "https://chem.libretexts.org/Ancillary_Materials/Reference/Reference_Tables/Equilibrium_Constants/E2._Base_Dissociation_Constants_at_25C",
+    "citation": "LibreTexts. E2. Base Dissociation Constants at 25°C; a table among the Reference Tables of the Ancillary Materials; read and not kept (retrieved 2026-10-11)."
+  },
+  {
+    "id": "libretexts-e1-acid-constants",
+    "url": "https://chem.libretexts.org/Ancillary_Materials/Reference/Reference_Tables/Equilibrium_Constants/E1%3A_Acid_Dissociation_Constants_at_25C",
+    "citation": "LibreTexts. E1: Acid Dissociation Constants at 25°C; a table among the Reference Tables of the Ancillary Materials; read and not kept (retrieved 2026-10-11)."
+  },
+  {
+    "id": "libretexts-ph-scale",
+    "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Supplemental_Modules_(Physical_and_Theoretical_Chemistry)/Acids_and_Bases/Acids_and_Bases_in_Aqueous_Solutions/The_pH_Scale",
+    "citation": "LibreTexts. The pH Scale; a page of the Supplemental Modules for physical and theoretical chemistry; read and not kept (retrieved 2026-10-11)."
+  },
+  {
+    "id": "chemguide-buffers",
+    "url": "https://www.chemguide.co.uk/physical/acidbaseeqia/buffers.html",
+    "citation": "Clark, J. Chemguide: Buffer Solutions; read and not kept (retrieved 2026-10-11)."
+  },
+  {
+    "id": "libretexts-labquest-ph-sensor",
+    "url": "https://chem.libretexts.org/Courses/Triton_College/General_Chemistry_II_Lab_Manual/13:_Appendices/13.01:_Vernier_LabQuest_3_Instructions",
+    "citation": "LibreTexts. 13.1: Vernier LabQuest 3 Instructions; an appendix of a general chemistry laboratory manual of Triton College; read and not kept (retrieved 2026-10-11)."
+  },
+  {
+    "id": "flinn-sds-665.8",
+    "url": "https://www.flinnsci.com/sds_665.8-red-cabbage-extract-universal-indicator/sds_665.8",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Red Cabbage Extract Universal Indicator, SDS number sds_665.8; revision date January 16, 2014 (read on 2026-10-11; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-46",
+    "url": "https://www.flinnsci.com/sds_46-ammonia/sds_46",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Ammonia, SDS number sds_46; revision date March 21, 2014 (read on 2026-10-11; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-58.05",
+    "url": "https://www.flinnsci.com/sds_58.05-ammonium-hydroxide-solution-1-m-or-less/sds_58.05",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Ammonium Hydroxide Solution 1 M or Less, SDS number sds_58.05; revision date August 7, 2015 (read on 2026-10-11; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-736",
+    "url": "https://www.flinnsci.com/sds_736-sodium-hypochlorite-solution/sds_736",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Hypochlorite Solution, SDS number sds_736; revision date March 21, 2014 (read on 2026-10-11; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-4503",
+    "url": "https://cameochemicals.noaa.gov/chemical/4503",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Sodium Hypochlorite (chemical 4503); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-11; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-246",
+    "url": "https://www.flinnsci.com/sds_246-alconox-cleaner/sds_246",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Alconox® Cleaner, SDS number sds_246; revision date June 6, 2016 (read on 2026-10-11; no copy is kept)."
   }
 ]

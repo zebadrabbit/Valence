@@ -1,0 +1,950 @@
+{
+  "reagents": [
+    {
+      "id": "buffer-ph1",
+      "name": "Buffer solution, pH 1",
+      "holds": "Hydrochloric acid and potassium chloride in water",
+      "form": "solution",
+      "classifiedAs": "Hazards of concentrated hydrochloric acid (6 M to 12 M), from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Danger",
+        "statements": [
+          "H314+H318: Causes severe skin and eye burns and damage",
+          "H332+H302: Harmful if swallowed or inhaled",
+          "H290: May be corrosive to metals"
+        ],
+        "note": {
+          "value": "The buffer on this bench is hydrochloric acid of about 0.13 mol/L with potassium chloride in it; the statements above are those of the concentrated acid such a buffer is made from. The same supplier’s sheet for acid of 0.1 M to 2.4 M, which covers this strength, keeps Danger and H314, and has H335: it may irritate the airways.\n\nThat sheet calls for eye protection, gloves and protective clothing, and a fume hood or a well-ventilated room. If any gets in the eyes they are rinsed with water for several minutes and a poison centre or a doctor is called at once. The acid is kept from bases and from strong oxidisers. The supplier’s sheet for a solution of potassium chloride lists no hazard.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-395.2",
+          "alsoSourceId": "flinn-sds-622"
+        },
+        "sourceId": "flinn-sds-395"
+      }
+    },
+    {
+      "id": "buffer-ph13",
+      "name": "Buffer solution, pH 13",
+      "holds": "Sodium hydroxide and potassium chloride in water",
+      "form": "solution",
+      "classifiedAs": "Hazards of solid sodium hydroxide, the pure substance, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Danger",
+        "statements": [
+          "H314: Causes severe skin burns and eye damage",
+          "H290: May be corrosive to metals"
+        ],
+        "note": {
+          "value": "The buffer on this bench is sodium hydroxide of about 0.13 mol/L with potassium chloride in it; the statements above are those of the solid such a buffer is made from. The same supplier’s sheet for solutions under 0.3 M, which covers this strength, gives Warning and H315+H320: it irritates the skin and the eyes.\n\nThat sheet calls for eye protection, gloves and protective clothing. If any gets in the eyes they are rinsed with water for several minutes, and medical advice is got if the irritation lasts. The supplier’s sheet for a solution of potassium chloride lists no hazard.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-735.2",
+          "alsoSourceId": "flinn-sds-622"
+        },
+        "sourceId": "flinn-sds-734"
+      }
+    },
+    {
+      "id": "indicator",
+      "name": "Red cabbage indicator solution",
+      "holds": "The dye of red cabbage in water",
+      "form": "indicator",
+      "classifiedAs": "Hazards of red cabbage extract, a freeze-dried powder sold as an indicator, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "None",
+        "statements": [],
+        "note": {
+          "value": "The indicator on this bench is that powder dissolved in water. The sheet prints no signal word and no hazard statement. It still calls for eye protection, gloves and protective clothing, and for washing the hands afterwards, as for any laboratory chemical.\n\nIt is made from a food and it is not food: nothing on a laboratory bench is tasted. If any gets in the eyes they are rinsed with water for several minutes. The sheet says that the powder may grow mould where it is kept damp.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-665.8"
+        },
+        "sourceId": "flinn-sds-665.8"
+      }
+    },
+    {
+      "id": "ammonia",
+      "name": "Household ammonia",
+      "holds": "Ammonia in water",
+      "form": "solution",
+      "classifiedAs": "Hazards of ammonia solution (ammonium hydroxide) of 1.1 M to 14.8 M, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Danger",
+        "statements": [
+          "H302: Harmful if swallowed",
+          "H314: Causes severe skin burns and eye damage"
+        ],
+        "note": {
+          "value": "The bottle is household ammonia, on the bench at about one part in twenty in water. The same supplier’s sheet for household ammonia gives Warning: it may be harmful if breathed in, and irritates the skin and the eyes. Its sheet for solutions of 1 M or less, which the bench’s is, gives Danger, with H315 and H318: serious damage to the eyes.\n\nStricter, and what this lab goes by: the statements above, from its sheet for stronger solutions, which a bottle as sold may be. Eye protection, gloves and protective clothing are worn. If any gets in the eyes they are rinsed with water for several minutes and a poison centre or a doctor is called at once. Ammonia is kept away from acids, and from bleach and anything else that holds chlorine.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-46",
+          "alsoSourceId": "flinn-sds-58.05",
+          "moreSourceIds": [
+            "flinn-sds-58"
+          ]
+        },
+        "sourceId": "flinn-sds-58"
+      }
+    },
+    {
+      "id": "bleach",
+      "name": "Bleach",
+      "holds": "Sodium hypochlorite in water",
+      "form": "solution",
+      "classifiedAs": "Hazards of sodium hypochlorite solution of 5% to 12.5%, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Danger",
+        "statements": [
+          "H314: Causes severe skin burns and eye damage"
+        ],
+        "note": {
+          "value": "The bottle is bleach, a solution of sodium hypochlorite in water, on the bench at about one part in a hundred; the statements above are those of the bottle. The sheet calls for eye protection, gloves and protective clothing, and a fume hood or a well-ventilated room.\n\nStricter, and what this lab goes by: NOAA’s record calls it a strong oxidising agent and says that a hypochlorite in contact with an acid gives off chlorine, a highly toxic gas. On this bench bleach is kept away from the vinegar, the juices and the acid buffers, and nothing is mixed with it. If any gets in the eyes they are flushed with water for 15 minutes.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-736",
+          "alsoSourceId": "noaa-cameo-4503"
+        },
+        "sourceId": "flinn-sds-736"
+      }
+    },
+    {
+      "id": "drain-cleaner",
+      "name": "Drain cleaner",
+      "holds": "Taken as sodium hydroxide in water",
+      "form": "solution",
+      "classifiedAs": "Hazards of solid sodium hydroxide, the pure substance, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Danger",
+        "statements": [
+          "H314: Causes severe skin burns and eye damage",
+          "H290: May be corrosive to metals"
+        ],
+        "note": {
+          "value": "The bottle is a drain cleaner, taken here as sodium hydroxide in water, on the bench at about one part in twenty. The same supplier’s sheet for solutions of 0.3 M to 6.0 M, which the bottle is taken to be, keeps Danger and H314. Its sheet for solutions under 0.3 M, which the bench’s is, gives Warning and H315+H320: it irritates the skin and the eyes.\n\nStricter, and what this lab goes by: the bottle’s. Eye protection, gloves and protective clothing are worn, and its mist is not breathed. If any gets in the eyes they are rinsed with water for several minutes. A drain cleaner’s own label gives its cautions, and some hold other things than sodium hydroxide.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-735",
+          "alsoSourceId": "flinn-sds-735.2"
+        },
+        "sourceId": "flinn-sds-734"
+      }
+    },
+    {
+      "id": "lab-detergent",
+      "name": "Laboratory detergent",
+      "holds": "A detergent powder dissolved in water",
+      "form": "solution",
+      "classifiedAs": "Hazards of a laboratory detergent powder, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Warning",
+        "statements": [
+          "H315+H319: Causes skin and serious eye irritation"
+        ],
+        "note": {
+          "value": "The detergent on this bench is that powder at about one part in twenty in water; the statements above are those of the powder, which the sheet says is made of two phosphates and a sulfonate. It calls for eye protection, gloves and protective clothing.\n\nIf any gets in the eyes they are rinsed with water for several minutes, and medical advice is got if the irritation lasts. Skin is washed with plenty of water. The sheet keeps the detergent from strong acids and from oxidising agents.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-246"
+        },
+        "sourceId": "flinn-sds-246"
+      }
+    }
+  ],
+  "water": {
+    "name": "Distilled water",
+    "formula": "H₂O"
+  },
+  "scale": {
+    "buffers": [
+      {
+        "ph": 1,
+        "reagentId": "buffer-ph1"
+      },
+      {
+        "ph": 2
+      },
+      {
+        "ph": 3
+      },
+      {
+        "ph": 4
+      },
+      {
+        "ph": 5
+      },
+      {
+        "ph": 6
+      },
+      {
+        "ph": 7
+      },
+      {
+        "ph": 8
+      },
+      {
+        "ph": 9
+      },
+      {
+        "ph": 10
+      },
+      {
+        "ph": 11
+      },
+      {
+        "ph": 12
+      },
+      {
+        "ph": 13,
+        "reagentId": "buffer-ph13"
+      }
+    ],
+    "questions": [
+      {
+        "id": "acid-end",
+        "kind": "colour-of-tube",
+        "ph": 1
+      },
+      {
+        "id": "neutral",
+        "kind": "colour-of-tube",
+        "ph": 7
+      },
+      {
+        "id": "same-pair",
+        "kind": "same-colour-pair"
+      }
+    ]
+  },
+  "indicator": {
+    "reagentId": "indicator",
+    "colours": [
+      {
+        "id": "red",
+        "colour": "red",
+        "from": 1,
+        "to": 1,
+        "sourceId": "libretexts-indicators-in-foods"
+      },
+      {
+        "id": "dark-pink",
+        "colour": "dark pink",
+        "from": 2,
+        "to": 2,
+        "sourceId": "flinn-pub-91633"
+      },
+      {
+        "id": "rose",
+        "colour": "rose",
+        "from": 3,
+        "to": 3,
+        "sourceId": "flinn-pub-91633"
+      },
+      {
+        "id": "lavender",
+        "colour": "lavender",
+        "from": 4,
+        "to": 4,
+        "sourceId": "flinn-pub-91633"
+      },
+      {
+        "id": "purple",
+        "colour": "purple",
+        "from": 5,
+        "to": 5,
+        "sourceId": "flinn-pub-91633"
+      },
+      {
+        "id": "blue-violet",
+        "colour": "blue-violet",
+        "from": 6,
+        "to": 6,
+        "sourceId": "flinn-pub-91633"
+      },
+      {
+        "id": "dark-blue",
+        "colour": "dark blue",
+        "from": 7,
+        "to": 7,
+        "sourceId": "flinn-pub-91633"
+      },
+      {
+        "id": "blue",
+        "colour": "blue",
+        "from": 8,
+        "to": 8,
+        "sourceId": "flinn-pub-91633"
+      },
+      {
+        "id": "teal",
+        "colour": "teal",
+        "from": 9,
+        "to": 9,
+        "sourceId": "flinn-pub-91633"
+      },
+      {
+        "id": "emerald",
+        "colour": "emerald",
+        "from": 10,
+        "to": 10,
+        "sourceId": "flinn-pub-91633"
+      },
+      {
+        "id": "greenish-yellow",
+        "colour": "greenish-yellow",
+        "from": 11,
+        "to": 12,
+        "sourceId": "flinn-pub-91633"
+      },
+      {
+        "id": "yellow",
+        "colour": "yellow",
+        "from": 13,
+        "to": 13,
+        "sourceId": "libretexts-indicators-in-foods"
+      }
+    ],
+    "bleached": {
+      "value": "colourless",
+      "sourceId": "flinn-pub-91633"
+    },
+    "note": {
+      "value": "Ten of the colours and the pH each stands at are one supplier’s, from a figure for red cabbage indicator that runs from pH 2 to pH 11–12. The figure has nothing below 2 or above 12: red at pH 1 and yellow at pH 13 are from a table for the dyes of this family in general. Where one colour ends and the next begins is the model’s own.",
+      "sourceId": "flinn-pub-91633",
+      "alsoSourceId": "libretexts-indicators-in-foods"
+    }
+  },
+  "things": [
+    {
+      "id": "vinegar",
+      "name": "Vinegar",
+      "kind": "food",
+      "onBench": "as-sold",
+      "before": {
+        "value": {
+          "liquid": "colourless",
+          "cloudy": false,
+          "solid": null
+        },
+        "rationale": "The lab's own description of its bench: white vinegar, a clear liquid with no colour. No source was read for what it looks like."
+      },
+      "ph": {
+        "basis": "document",
+        "low": {
+          "value": 2.4,
+          "published": "2.40",
+          "sourceId": "fda-ph-foods-2007"
+        },
+        "high": {
+          "value": 3.4,
+          "published": "3.40",
+          "sourceId": "fda-ph-foods-2007"
+        },
+        "givenFor": "the food as it is"
+      },
+      "note": {
+        "value": "A food regulator’s table of the pH of foods gives vinegar 2.40 to 3.40.",
+        "sourceId": "fda-ph-foods-2007"
+      }
+    },
+    {
+      "id": "lemon-juice",
+      "name": "Lemon juice",
+      "kind": "food",
+      "onBench": "as-sold",
+      "before": {
+        "value": {
+          "liquid": "pale yellow",
+          "cloudy": true,
+          "solid": null
+        },
+        "rationale": "The lab's own description of its bench: lemon juice, a cloudy liquid of a pale yellow. No source was read for what it looks like. The model takes the indicator's colour to be what is seen once it goes in, whatever the juice's own colour."
+      },
+      "ph": {
+        "basis": "document",
+        "low": {
+          "value": 2,
+          "published": "2.00",
+          "sourceId": "fda-ph-foods-2007"
+        },
+        "high": {
+          "value": 2.6,
+          "published": "2.60",
+          "sourceId": "fda-ph-foods-2007"
+        },
+        "givenFor": "the food as it is"
+      },
+      "note": {
+        "value": "A food regulator’s table of the pH of foods gives lemon juice 2.00 to 2.60: the most acidic thing on this bench.",
+        "sourceId": "fda-ph-foods-2007"
+      }
+    },
+    {
+      "id": "apple-juice",
+      "name": "Apple juice",
+      "kind": "food",
+      "onBench": "as-sold",
+      "before": {
+        "value": {
+          "liquid": "pale yellow",
+          "cloudy": false,
+          "solid": null
+        },
+        "rationale": "The lab's own description of its bench: apple juice, a clear liquid of a pale yellow. No source was read for what it looks like. The model takes the indicator's colour to be what is seen once it goes in, whatever the juice's own colour."
+      },
+      "ph": {
+        "basis": "document",
+        "low": {
+          "value": 3.35,
+          "published": "3.35",
+          "sourceId": "fda-ph-foods-2007"
+        },
+        "high": {
+          "value": 4,
+          "published": "4.00",
+          "sourceId": "fda-ph-foods-2007"
+        },
+        "givenFor": "the food as it is"
+      },
+      "note": {
+        "value": "A food regulator’s table of the pH of foods gives apple juice 3.35 to 4.00.",
+        "sourceId": "fda-ph-foods-2007"
+      }
+    },
+    {
+      "id": "ammonia",
+      "name": "Household ammonia",
+      "kind": "cleaner",
+      "onBench": "one-in-twenty",
+      "reagentId": "ammonia",
+      "before": {
+        "value": {
+          "liquid": "colourless",
+          "cloudy": false,
+          "solid": null
+        },
+        "rationale": "The lab's own description of its bench: a clear liquid with no colour. No source was read for what this looks like."
+      },
+      "ph": {
+        "basis": "arithmetic",
+        "rule": "weak-base",
+        "solute": {
+          "name": "ammonia",
+          "formulaWeight": {
+            "value": 17.0305,
+            "published": "17.0305",
+            "sourceId": "nist-webbook-ammonia"
+          }
+        },
+        "percent": {
+          "low": {
+            "value": 5,
+            "published": "5",
+            "sourceId": "atsdr-phs-ammonia"
+          },
+          "high": {
+            "value": 10,
+            "published": "10",
+            "sourceId": "atsdr-phs-ammonia"
+          }
+        },
+        "low": {
+          "value": 11.2,
+          "unit": "pH",
+          "working": "5 g of ammonia in 100 mL is 2.94 mol/L (17.0305 g/mol); one part in 20 of that is 0.147 mol/L. With pKb 4.75, pOH = (4.75 − log 0.147) ÷ 2 = 2.79, and pH = 14 − 2.79 = 11.21, which is 11.2 to a tenth."
+        },
+        "high": {
+          "value": 11.4,
+          "unit": "pH",
+          "working": "10 g of ammonia in 100 mL is 5.87 mol/L (17.0305 g/mol); one part in 20 of that is 0.294 mol/L. With pKb 4.75, pOH = (4.75 − log 0.294) ÷ 2 = 2.64, and pH = 14 − 2.64 = 11.36, which is 11.4 to a tenth."
+        }
+      },
+      "note": {
+        "value": "This range is worked out, not measured. A public health agency gives household ammonia as 5 to 10% ammonia; at one part in twenty in water, the base constant of ammonia puts that at pH 11.2 to 11.4.",
+        "sourceId": "atsdr-phs-ammonia",
+        "alsoSourceId": "libretexts-e2-base-constants"
+      }
+    },
+    {
+      "id": "shampoo",
+      "name": "Shampoo",
+      "kind": "toiletry",
+      "onBench": "one-in-twenty",
+      "before": {
+        "value": {
+          "liquid": "colourless",
+          "cloudy": false,
+          "solid": null
+        },
+        "rationale": "The lab's own description of its bench: a clear liquid with no colour. No source was read for what this looks like."
+      },
+      "ph": {
+        "basis": "document",
+        "low": {
+          "value": 5.5,
+          "published": "5.50",
+          "sourceId": "juuce-sds-shampoo"
+        },
+        "high": {
+          "value": 6.8,
+          "published": "6.80",
+          "sourceId": "juuce-sds-shampoo"
+        },
+        "givenFor": "the shampoo as sold, at 20 °C"
+      },
+      "note": {
+        "value": "One maker’s sheet gives its shampoo a pH of 5.50 to 6.80 as sold. Shampoos differ by maker, and the lab takes the sample in water to read the same.",
+        "sourceId": "juuce-sds-shampoo"
+      }
+    },
+    {
+      "id": "conditioner",
+      "name": "Hair conditioner",
+      "kind": "toiletry",
+      "onBench": "one-in-twenty",
+      "before": {
+        "value": {
+          "liquid": "white",
+          "cloudy": true,
+          "solid": null
+        },
+        "rationale": "The lab's own description of its bench: a conditioner stirred into water, a cloudy white liquid. No source was read for what it looks like."
+      },
+      "ph": {
+        "basis": "document",
+        "low": {
+          "value": 3.5,
+          "published": "3.5",
+          "sourceId": "kao-sds-conditioner"
+        },
+        "high": {
+          "value": 3.5,
+          "published": "3.5",
+          "sourceId": "kao-sds-conditioner"
+        },
+        "givenFor": "the conditioner as sold, at 20 °C"
+      },
+      "note": {
+        "value": "One maker’s sheet gives its conditioner a pH of 3.5 as sold: more acidic than its shampoo. The lab takes the sample in water to read the same.",
+        "sourceId": "kao-sds-conditioner"
+      }
+    },
+    {
+      "id": "laundry-detergent",
+      "name": "Laundry detergent",
+      "kind": "cleaner",
+      "onBench": "one-in-twenty",
+      "before": {
+        "value": {
+          "liquid": "colourless",
+          "cloudy": false,
+          "solid": null
+        },
+        "rationale": "The lab's own description of its bench: a clear liquid with no colour. No source was read for what this looks like."
+      },
+      "ph": {
+        "basis": "document",
+        "low": {
+          "value": 9.5,
+          "published": "9.5",
+          "sourceId": "mve-sds-laundry-detergent"
+        },
+        "high": {
+          "value": 10.5,
+          "published": "10.5",
+          "sourceId": "mve-sds-laundry-detergent"
+        },
+        "givenFor": "a 1% solution in water"
+      },
+      "note": {
+        "value": "One maker’s sheet gives its laundry detergent a pH of 9.5 to 10.5 as a 1% solution. Detergents differ widely by maker.",
+        "sourceId": "mve-sds-laundry-detergent"
+      }
+    },
+    {
+      "id": "lab-detergent",
+      "name": "Laboratory detergent",
+      "kind": "cleaner",
+      "onBench": "one-in-twenty",
+      "reagentId": "lab-detergent",
+      "before": {
+        "value": {
+          "liquid": "colourless",
+          "cloudy": false,
+          "solid": null
+        },
+        "rationale": "The lab's own description of its bench: a clear liquid with no colour. No source was read for what this looks like."
+      },
+      "ph": {
+        "basis": "document",
+        "low": {
+          "value": 9.5,
+          "published": "9.5",
+          "sourceId": "flinn-sds-246"
+        },
+        "high": {
+          "value": 9.5,
+          "published": "9.5",
+          "sourceId": "flinn-sds-246"
+        },
+        "givenFor": "a solution in water, of no stated strength"
+      },
+      "note": {
+        "value": "A supplier’s sheet gives this detergent a pH of 9.5 in water: one figure, so the meter reads the same in every lab.",
+        "sourceId": "flinn-sds-246"
+      }
+    },
+    {
+      "id": "mouthwash",
+      "name": "Mouthwash",
+      "kind": "toiletry",
+      "onBench": "one-in-twenty",
+      "before": {
+        "value": {
+          "liquid": "colourless",
+          "cloudy": false,
+          "solid": null
+        },
+        "rationale": "The lab's own description of its bench: a clear liquid with no colour. No source was read for what this looks like."
+      },
+      "ph": {
+        "basis": "document",
+        "low": {
+          "value": 6,
+          "published": "6.0",
+          "sourceId": "livingstone-sds-mouthwash"
+        },
+        "high": {
+          "value": 8,
+          "published": "8.0",
+          "sourceId": "livingstone-sds-mouthwash"
+        },
+        "givenFor": "the mouthwash as sold"
+      },
+      "note": {
+        "value": "One supplier’s sheet gives its mouthwash a pH of 6.0 to 8.0 as sold. Mouthwashes differ widely by maker, and the lab takes the sample in water to read the same.",
+        "sourceId": "livingstone-sds-mouthwash"
+      }
+    },
+    {
+      "id": "antacid",
+      "name": "Antacid tablet",
+      "kind": "medicine",
+      "onBench": "tablets",
+      "before": {
+        "value": {
+          "liquid": "white",
+          "cloudy": true,
+          "solid": "white"
+        },
+        "rationale": "The lab's own description of its bench: crushed tablets stirred into water, a cloudy white liquid over a white solid. A supplier's sheet for antacid tablets says that they are white or coloured and dissolve only slightly in water."
+      },
+      "ph": {
+        "basis": "document",
+        "low": {
+          "value": 7,
+          "published": "7",
+          "sourceId": "fisher-sds-caco3"
+        },
+        "high": {
+          "value": 9,
+          "published": "9",
+          "sourceId": "fisher-sds-caco3"
+        },
+        "givenFor": "calcium carbonate in water at 20 °C"
+      },
+      "note": {
+        "value": "This antacid is the calcium carbonate kind. Little of it dissolves, which is why the liquid is cloudy. A supplier’s sheet gives calcium carbonate in water a pH of 7 to 9.",
+        "sourceId": "fisher-sds-caco3",
+        "alsoSourceId": "flinn-sds-75.6"
+      }
+    },
+    {
+      "id": "aspirin",
+      "name": "Aspirin",
+      "kind": "medicine",
+      "onBench": "tablets",
+      "before": {
+        "value": {
+          "liquid": "white",
+          "cloudy": true,
+          "solid": "white"
+        },
+        "rationale": "The lab's own description of its bench: crushed tablets stirred into water, a cloudy white liquid over a white solid. A supplier's sheet for aspirin tablets says that they are white and dissolve only slightly in water."
+      },
+      "ph": {
+        "basis": "document",
+        "low": {
+          "value": 3.5,
+          "published": "3.5",
+          "sourceId": "fisher-sds-acetylsalicylic-acid"
+        },
+        "high": {
+          "value": 3.5,
+          "published": "3.5",
+          "sourceId": "fisher-sds-acetylsalicylic-acid"
+        },
+        "givenFor": "a solution of 2.5 g in a litre, at 20 °C"
+      },
+      "note": {
+        "value": "Aspirin is an acid, and little of it dissolves. A supplier’s sheet gives a solution of 2.5 g in a litre a pH of 3.5: one figure, so the meter reads the same in every lab.",
+        "sourceId": "fisher-sds-acetylsalicylic-acid",
+        "alsoSourceId": "flinn-sds-85"
+      }
+    },
+    {
+      "id": "bleach",
+      "name": "Bleach",
+      "kind": "cleaner",
+      "onBench": "one-in-hundred",
+      "reagentId": "bleach",
+      "bleaches": true,
+      "before": {
+        "value": {
+          "liquid": "colourless",
+          "cloudy": false,
+          "solid": null
+        },
+        "rationale": "The lab's own description of its bench: a clear liquid with no colour. No source was read for what this looks like."
+      },
+      "ph": {
+        "basis": "arithmetic",
+        "rule": "salt-of-weak-acid",
+        "solute": {
+          "name": "sodium hypochlorite",
+          "formulaWeight": {
+            "value": 74.44,
+            "published": "74.44",
+            "sourceId": "flinn-sds-736"
+          }
+        },
+        "percent": {
+          "low": {
+            "value": 5,
+            "published": "5",
+            "sourceId": "flinn-sds-736"
+          },
+          "high": {
+            "value": 12.5,
+            "published": "12.5",
+            "sourceId": "flinn-sds-736"
+          }
+        },
+        "low": {
+          "value": 9.6,
+          "unit": "pH",
+          "working": "5 g of sodium hypochlorite in 100 mL is 0.672 mol/L (74.44 g/mol); one part in 100 of that is 0.00672 mol/L. The pKb of hypochlorite is 14 − 7.40 = 6.60; with it, pOH = (6.60 − log 0.00672) ÷ 2 = 4.39, and pH = 14 − 4.39 = 9.61, which is 9.6 to a tenth."
+        },
+        "high": {
+          "value": 9.8,
+          "unit": "pH",
+          "working": "12.5 g of sodium hypochlorite in 100 mL is 1.68 mol/L (74.44 g/mol); one part in 100 of that is 0.0168 mol/L. The pKb of hypochlorite is 14 − 7.40 = 6.60; with it, pOH = (6.60 − log 0.0168) ÷ 2 = 4.19, and pH = 14 − 4.19 = 9.81, which is 9.8 to a tenth."
+        }
+      },
+      "note": {
+        "value": "Bleach destroys the dye: the colour goes, so the indicator cannot say. The meter still reads it. Worked out, not measured, for sodium hypochlorite alone: bleach of 5 to 12.5%, at one part in a hundred, comes to pH 9.6 to 9.8.",
+        "sourceId": "flinn-pub-91633",
+        "alsoSourceId": "flinn-sds-736",
+        "moreSourceIds": [
+          "libretexts-e1-acid-constants"
+        ]
+      }
+    },
+    {
+      "id": "drain-cleaner",
+      "name": "Drain cleaner",
+      "kind": "cleaner",
+      "onBench": "one-in-twenty",
+      "reagentId": "drain-cleaner",
+      "before": {
+        "value": {
+          "liquid": "colourless",
+          "cloudy": false,
+          "solid": null
+        },
+        "rationale": "The lab's own description of its bench: a clear liquid with no colour. No source was read for what this looks like."
+      },
+      "ph": {
+        "basis": "arithmetic",
+        "rule": "strong-base",
+        "solute": {
+          "name": "sodium hydroxide",
+          "formulaWeight": {
+            "value": 39.997,
+            "published": "39.997",
+            "sourceId": "flinn-sds-734"
+          }
+        },
+        "percent": {
+          "low": {
+            "value": 1,
+            "published": "1.00",
+            "sourceId": "scjohnson-sds-drain-gel"
+          },
+          "high": {
+            "value": 5,
+            "published": "5.00",
+            "sourceId": "scjohnson-sds-drain-gel"
+          }
+        },
+        "low": {
+          "value": 12.1,
+          "unit": "pH",
+          "working": "1.00 g of sodium hydroxide in 100 mL is 0.25 mol/L (39.997 g/mol); one part in 20 of that is 0.0125 mol/L. All of it gives hydroxide ions, so pH = 14 + log 0.0125 = 12.10, which is 12.1 to a tenth."
+        },
+        "high": {
+          "value": 12.8,
+          "unit": "pH",
+          "working": "5.00 g of sodium hydroxide in 100 mL is 1.25 mol/L (39.997 g/mol); one part in 20 of that is 0.0625 mol/L. All of it gives hydroxide ions, so pH = 14 + log 0.0625 = 12.80, which is 12.8 to a tenth."
+        }
+      },
+      "note": {
+        "value": "Worked out, not measured, for sodium hydroxide in water alone: 1 to 5%, as one maker’s sheet gives, at one part in twenty comes to pH 12.1 to 12.8. That maker’s drain cleaner also holds bleach, which would take the colour out; this lab’s is taken to hold none.",
+        "sourceId": "scjohnson-sds-drain-gel"
+      }
+    },
+    {
+      "id": "epsom-salt",
+      "name": "Epsom salt",
+      "kind": "medicine",
+      "onBench": "dissolved",
+      "before": {
+        "value": {
+          "liquid": "colourless",
+          "cloudy": false,
+          "solid": null
+        },
+        "rationale": "The lab's own description of its bench: a clear liquid with no colour. No source was read for what this looks like."
+      },
+      "ph": {
+        "basis": "document",
+        "low": {
+          "value": 5,
+          "published": "5",
+          "sourceId": "fisher-sds-mgso4-heptahydrate"
+        },
+        "high": {
+          "value": 8.2,
+          "published": "8.2",
+          "sourceId": "fisher-sds-mgso4-heptahydrate"
+        },
+        "givenFor": "a 5% solution in water"
+      },
+      "note": {
+        "value": "Epsom salt is magnesium sulfate. A supplier’s sheet gives a 5% solution of it a pH of 5 to 8.2: it can read a little to either side of neutral.",
+        "sourceId": "fisher-sds-mgso4-heptahydrate"
+      }
+    }
+  ],
+  "sharedNote": {
+    "value": "Nothing on a laboratory bench is tasted: not a food, and not a medicine. This is sold under its maker’s own label, which gives its cautions; read that label. Eye protection is worn at this bench as at any other.",
+    "rationale": "The one note that the foods, the toiletries, the medicines, the laundry detergent and the buffers from pH 2 to pH 12 share (spec 21.4). It is the lab's own and rests on no document: makers' labels differ, and the lab cannot know whose product is on a bench."
+  },
+  "constants": {
+    "pKw": {
+      "value": 14,
+      "published": "14",
+      "sourceId": "libretexts-ph-scale"
+    },
+    "ammoniaPKb": {
+      "value": 4.75,
+      "published": "4.75",
+      "sourceId": "libretexts-e2-base-constants"
+    },
+    "hypochlorousPKa": {
+      "value": 7.4,
+      "published": "7.40",
+      "sourceId": "libretexts-e1-acid-constants"
+    }
+  },
+  "parts": [
+    {
+      "id": "scale",
+      "name": "The scale",
+      "notes": [
+        {
+          "value": "The rack is your scale: one dye, a different colour at each step from strong acid to strong base. Acid gives the reds and pinks, neutral the blues, base the greens and yellows.",
+          "sourceId": "flinn-pub-91633",
+          "alsoSourceId": "libretexts-indicators-in-foods"
+        },
+        {
+          "value": "The pH 11 and pH 12 tubes look the same: the supplier’s figure gives one colour for both. There the indicator can place a sample only to within those two.",
+          "sourceId": "flinn-pub-91633"
+        }
+      ]
+    },
+    {
+      "id": "things",
+      "name": "The household things",
+      "notes": [
+        {
+          "value": "An indicator places a thing on the scale to about a unit. The meter reads to a tenth, but only from a probe that has been rinsed.",
+          "sourceId": "libretexts-labquest-ph-sensor"
+        },
+        {
+          "value": "Bleach is the one thing the indicator could not place: it took the colour out.",
+          "sourceId": "flinn-pub-91633"
+        }
+      ]
+    },
+    {
+      "id": "unit",
+      "name": "What a unit means",
+      "notes": [
+        {
+          "value": "One unit of pH is ten times in hydrogen ion, two units are a hundred times, and three a thousand. The lower the pH, the more hydrogen ion.",
+          "sourceId": "libretexts-ph-scale"
+        }
+      ]
+    }
+  ],
+  "parameters": {
+    "colourEdgesTenths": {
+      "value": [
+        15,
+        25,
+        35,
+        45,
+        55,
+        65,
+        75,
+        85,
+        95,
+        105,
+        120
+      ],
+      "rationale": "The highest pH, in tenths, that shows each colour but the last, in the table's order: the edges between neighbouring colours. They are the model's own. A source gives a colour for a pH or for a range, never the pH where one colour gives way to the next, so each edge is put half way between the two pH values named, and a sample exactly half way shows the lower colour. The last edge is the exception: the supplier's figure ends its greenish-yellow at 12, the other table has yellow at 13, and nothing read says what is seen between. The model shows yellow for everything above 12.0, so that the two tubes that share greenish-yellow, pH 11 and pH 12, are both within a unit of every sample of that colour."
+    },
+    "oneInTwenty": {
+      "value": 20,
+      "rationale": "The ammonia, the shampoo, the conditioner, the two detergents, the mouthwash and the drain cleaner are on the bench at about one part in twenty in water, as the directions have them. The model takes it as exactly twenty where it works a pH out."
+    },
+    "oneInHundred": {
+      "value": 100,
+      "rationale": "The bleach is on the bench at about one part in a hundred in water, as the directions have it. The model takes it as exactly a hundred where it works the pH out."
+    },
+    "gramsPerHundredMillilitres": {
+      "value": 5,
+      "rationale": "The antacid tablets, the aspirin and the Epsom salt are on the bench at about 5 g in 100 mL of water, as the directions have them. The tablets do not all dissolve."
+    },
+    "productDensity": {
+      "value": 1,
+      "rationale": "In grams per millilitre. Where a pH is worked out from a strength given in per cent, the per cent is taken as grams in 100 mL of the product: its density is taken as that of water. No density was read from a source. A product a tenth denser than water would read about 0.04 of a pH unit higher at the most."
+    },
+    "dilutedReadsAsSold": {
+      "value": 1,
+      "rationale": "1 for yes. The sheets read for the shampoo, the conditioner and the mouthwash give a pH for the product as sold, and the bench has each at one part in twenty in water. The model takes the diluted sample to read inside the sheet's range. That is the lab's own: a product that holds a buffer keeps its pH on dilution, and one that does not moves toward 7. No source was read for it."
+    },
+    "endBufferMolarity": {
+      "value": 0.13,
+      "rationale": "In mol/L. The pH 1 buffer is taken as about 0.13 mol/L in hydrochloric acid and the pH 13 buffer as about 0.13 mol/L in sodium hydroxide, each with potassium chloride. The directions give no recipe; the figure is used only to choose which safety data sheet covers each, and no pH is worked out from it."
+    },
+    "unrinsedSharePercent": {
+      "value": 20,
+      "rationale": "What a probe that was not rinsed reads: the sample's own pH moved this share of the way toward the pH of the sample the probe was last in, to the nearest tenth. It is the model's own, with no source: a real probe carries over an amount that depends on how much liquid clings to it and on what both samples hold. The share is chosen to be large enough to see on the meter and small enough to be believed."
+    },
+    "estimateWithinTenths": {
+      "value": 10,
+      "rationale": "An estimate by eye counts when it is within one unit of the reading of a rinsed probe (spec 21.2)."
+    },
+    "neededToCount": {
+      "value": 8,
+      "rationale": "The second part is done when eight of the household things count (spec 21.1); the rest are there to try."
+    },
+    "sampleMicrolitres": {
+      "value": 3000,
+      "rationale": "A sample or a buffer in its tube is taken as 3 mL, so that a tube can be drawn to its level. Nothing is worked out from it."
+    },
+    "indicatorMicrolitres": {
+      "value": 500,
+      "rationale": "The indicator added to a tube is taken as ten drops, 0.5 mL, so that the tube is drawn a little fuller once it is in. Nothing is worked out from it."
+    }
+  }
+}
