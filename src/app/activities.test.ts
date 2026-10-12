@@ -18,6 +18,7 @@ describe('the activities', () => {
       ['lab:freezing-point-depression', '/lab/freezing-point-depression'],
       ['lab:types-of-reactions', '/lab/types-of-reactions'],
       ['lab:polarity-and-mixing', '/lab/polarity-and-mixing'],
+      ['lab:endothermic-and-exothermic', '/lab/endothermic-and-exothermic'],
       ['mechanism:hcl-nahco3', '/learn/hcl-nahco3'],
     ])
     expect(ACTIVITIES.every(hasPage)).toBe(true)

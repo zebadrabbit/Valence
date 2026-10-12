@@ -9,6 +9,7 @@ import type { CabbageData, ThingId } from './cabbage/data'
 import type { DensityData, PartId as DensityPartId } from './density/data'
 import type { FreezingData, PartId as FreezingPartId } from './freezing/data'
 import type { ReactionsData, StationId as ReactionsStationId } from './reactions/data'
+import { type HotcoldData, type PartId as HotcoldPartId } from './hotcold/data'
 import { isPairId, type MixingData, type PartId as MixingPartId, type TubeId as MixingTubeId } from './mixing/data'
 import type { ClockData, PartId as ClockPartId } from './clock/data'
 import type { FlameData } from './flame/data'
@@ -662,6 +663,47 @@ export function mixingPartCitations(data: MixingData, partId: MixingPartId, sour
             ...part.notes.flatMap((note) => mixingAll('Notes on this part', note)),
           ]
         : []),
+    ],
+    sources,
+  )
+}
+
+/**
+ * The sources behind one part of the endothermic and exothermic lab (spec 5.1). For a run of a salt: what the salt
+ * is and looks like, how much of it dissolves, its hazards, and the water. `done` adds what is kept back until the
+ * run counts: the tables its enthalpy is worked from, the atomic weights its molar mass is worked from, and its
+ * notes. Which way a salt's temperature goes is the answer the learner records, and the notes' sources stand
+ * beside sentences that say it, so the list names none of them before the answer is given (spec 26.5). Part 3
+ * lists the two salts it asks about, and its notes' sources once it is done.
+ */
+export function hotcoldCitations(data: HotcoldData, partId: HotcoldPartId, sources: readonly Source[], done = false): Citation[] {
+  const part = data.parts.find((p) => p.id === partId)
+  if (!part) throw new Error(`no part "${partId}"`)
+  const all = (label: string, cited: { sourceId: string; alsoSourceId?: string | undefined; moreSourceIds?: string[] | undefined }): Entry[] =>
+    [cited.sourceId, ...(cited.alsoSourceId === undefined ? [] : [cited.alsoSourceId]), ...(cited.moreSourceIds ?? [])].map((id): Entry => [label, id])
+  const substance = (r: HotcoldData['reagents'][number]): Entry[] => [
+    [`${r.name}: the substance`, r.sourceId],
+    [`${r.name}: what it is`, r.chemicalName.sourceId],
+  ]
+  const notes = done ? part.notes.flatMap((note) => all('Notes on this part', note)) : []
+  if (!('reagentId' in part)) return citations([...data.reagents.flatMap(substance), ...notes], sources)
+  const salt = data.reagents.find((r) => r.id === part.reagentId)!
+  const symbols = new Set(Object.keys(salt.composition))
+  return citations(
+    [
+      ...substance(salt),
+      [`${salt.name}: what it looks like`, salt.appearance.sourceId],
+      [`${salt.name}: how much dissolves in water`, salt.solubility.sourceId],
+      [`${salt.name}: hazard classification`, salt.hazards.sourceId],
+      ...all(`${salt.name}: hazards as it is used here`, salt.hazards.note),
+      ['The specific heat and the density of water', data.water.specificHeat.sourceId],
+      ...(done
+        ? [
+            ...[...part.enthalpy.terms, ...('dry' in part ? part.dry.terms : [])].map((term): Entry => ["Enthalpies of formation, for the heat of dissolving the lab's cup runs on", term.enthalpyOfFormation.sourceId]),
+            ...data.atomicWeights.filter((w) => symbols.has(w.id)).map((w): Entry => ['Atomic weights, for the molar mass the cup runs on', w.sourceId]),
+          ]
+        : []),
+      ...notes,
     ],
     sources,
   )

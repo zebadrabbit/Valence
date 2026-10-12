@@ -1,0 +1,502 @@
+{
+  "reagents": [
+    {
+      "id": "epsom-salt",
+      "name": "Epsom salt",
+      "chemicalName": {
+        "value": "magnesium sulfate heptahydrate",
+        "sourceId": "wikipedia-magnesium-sulfate"
+      },
+      "formula": "MgSO₄·7H₂O",
+      "form": "solid",
+      "composition": {
+        "Mg": 1,
+        "S": 1,
+        "O": 11,
+        "H": 14
+      },
+      "watersOfCrystal": 7,
+      "molarMass": {
+        "value": 246.47,
+        "unit": "g/mol",
+        "working": "24.305 + 32.06 + 11 × 15.999 + 14 × 1.0080 = 246.466 g/mol, from the standard atomic weights of magnesium, sulfur, oxygen and hydrogen; stored to two decimals as 246.47 g/mol."
+      },
+      "appearance": {
+        "value": "a white solid",
+        "sourceId": "flinn-sds-480"
+      },
+      "solubility": {
+        "value": 710,
+        "published": "710",
+        "unit": "g/L",
+        "note": "A supplier's sheet for the heptahydrate gives 710 g/L in water at 20 °C; it does not say whether the litre is of water or of solution. The most a run weighs out is 10.40 g for 50.0 mL of water, which is 208 g for each litre of water: under a third of the figure whichever litre is meant. So every portion dissolves, and the build checks it.",
+        "sourceId": "fisher-sds-mgso4-heptahydrate"
+      },
+      "classifiedAs": "Hazards of solid magnesium sulfate heptahydrate (Epsom salt), the pure substance, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "None",
+        "statements": [],
+        "note": {
+          "value": "About 10 g of Epsom salt, weighed out and stirred into 50 mL of water. The supplier's sheet classes it as no hazard and still has it handled as a laboratory chemical: eye protection, gloves and protective clothing, and hands washed after. Its section on toxicology lists two acute effects, irritation and pain in the abdomen.\n\nStricter, and what this lab goes by: a second supplier's sheet, which also classes it as no hazard, has no dust raised or breathed and the salt kept off the skin and out of the eyes. After a splash in the eyes it asks rinsing for 15 minutes or more, under the eyelids as well, and medical attention if symptoms come on.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-480",
+          "alsoSourceId": "fisher-sds-mgso4-heptahydrate"
+        },
+        "sourceId": "flinn-sds-480"
+      },
+      "sourceId": "flinn-sds-480"
+    },
+    {
+      "id": "calcium-chloride",
+      "name": "Calcium chloride",
+      "chemicalName": {
+        "value": "calcium chloride, anhydrous",
+        "sourceId": "flinn-sds-196"
+      },
+      "formula": "CaCl₂",
+      "form": "solid",
+      "composition": {
+        "Ca": 1,
+        "Cl": 2
+      },
+      "watersOfCrystal": 0,
+      "molarMass": {
+        "value": 110.98,
+        "unit": "g/mol",
+        "working": "40.078 + 2 × 35.45 = 110.978 g/mol, from the standard atomic weights of calcium and chlorine; stored to two decimals as 110.98 g/mol."
+      },
+      "appearance": {
+        "value": "a white solid",
+        "sourceId": "flinn-sds-196"
+      },
+      "solubility": {
+        "value": 740,
+        "published": "740",
+        "unit": "g/L",
+        "note": "A supplier's sheet for the anhydrous salt gives 740 g/L in water at 20 °C; it does not say whether the litre is of water or of solution. The most a run weighs out is 4.20 g for 50.0 mL of water, which is 84 g for each litre of water: under an eighth of the figure whichever litre is meant. So every portion dissolves, and the build checks it.",
+        "sourceId": "fisher-sds-cacl2"
+      },
+      "classifiedAs": "Hazards of solid calcium chloride (anhydrous), the pure substance, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Warning",
+        "statements": [
+          "H302: Harmful if swallowed",
+          "H319: Causes serious eye irritation"
+        ],
+        "note": {
+          "value": "About 4 g of dry calcium chloride, weighed out and stirred into 50 mL of water. The supplier's sheet calls for eye protection, gloves and protective clothing, hands washed after, and no eating or drinking at the bench. The salt takes up water from the air: its bottle is kept closed.\n\nStricter, and what this lab goes by: NOAA's record says that the dust irritates the eyes and can injure the cornea for a time, and that the solid irritates the skin: keep it off the skin and raise no dust. For the eyes it asks flooding with water at once, washing for 15 minutes or more, and an eye doctor. A second supplier's sheet asks the same 15 minutes for the skin.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-196",
+          "alsoSourceId": "noaa-cameo-8382",
+          "moreSourceIds": [
+            "fisher-sds-cacl2"
+          ]
+        },
+        "sourceId": "flinn-sds-196"
+      },
+      "sourceId": "flinn-sds-196"
+    }
+  ],
+  "water": {
+    "name": "Distilled water",
+    "formula": "H₂O",
+    "specificHeat": {
+      "value": 4.18,
+      "unit": "J/(g·°C)",
+      "note": "The specific heat of water at 25 °C and ordinary pressure, which the source prints as 4.1813 J/(g·K); the three-figure value is stored, the calorimetry lab's figure. It is used for the water in the cup and, as an idealisation, for each salt's solution. How far a solution of these strengths is from water was not read for this lab.",
+      "sourceId": "nist-webbook-water-25c"
+    },
+    "density": {
+      "value": 1,
+      "unit": "g/mL",
+      "note": "The density of water at 25 °C and ordinary pressure, which the source prints as 0.99705 g/mL; it is stored as 1.00 g/mL, and turns the 50.0 mL of water into 50.0 g.",
+      "sourceId": "nist-webbook-water-25c"
+    },
+    "sourceId": "nist-webbook-water-25c"
+  },
+  "atomicWeights": [
+    {
+      "id": "H",
+      "value": 1.008,
+      "published": "1.0080",
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    {
+      "id": "O",
+      "value": 15.999,
+      "published": "15.999",
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    {
+      "id": "Mg",
+      "value": 24.305,
+      "published": "24.305",
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    {
+      "id": "S",
+      "value": 32.06,
+      "published": "32.06",
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    {
+      "id": "Cl",
+      "value": 35.45,
+      "published": "35.45",
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    {
+      "id": "Ca",
+      "value": 40.078,
+      "published": "40.078",
+      "sourceId": "ciaaw-abridged-2024"
+    }
+  ],
+  "parts": [
+    {
+      "id": "epsom-salt",
+      "name": "Epsom salt in water",
+      "reagentId": "epsom-salt",
+      "amounts": [
+        {
+          "reagentId": "epsom-salt",
+          "about": 10,
+          "unit": "g"
+        },
+        {
+          "reagentId": "water",
+          "value": 50,
+          "shown": "50.0",
+          "unit": "mL"
+        }
+      ],
+      "dilution": {
+        "row": 75,
+        "lower": 50,
+        "upper": 100
+      },
+      "enthalpy": {
+        "value": 17.56,
+        "unit": "kJ/mol",
+        "per": "mole of Epsom salt dissolved",
+        "terms": [
+          {
+            "id": "mgso4-in-75-water",
+            "label": "MgSO₄ in 75 H₂O",
+            "coefficient": 1,
+            "enthalpyOfFormation": {
+              "value": -1370.34,
+              "published": "-1370.34",
+              "sourceId": "nbs-tables-1982"
+            }
+          },
+          {
+            "id": "water",
+            "label": "H₂O(l)",
+            "coefficient": 7,
+            "enthalpyOfFormation": {
+              "value": -285.83,
+              "published": "-285.830",
+              "sourceId": "nbs-tables-1982"
+            }
+          },
+          {
+            "id": "mgso4-7h2o-crystal",
+            "label": "MgSO₄·7H₂O(s)",
+            "coefficient": -1,
+            "enthalpyOfFormation": {
+              "value": -3388.71,
+              "published": "-3388.71",
+              "sourceId": "nbs-tables-1982"
+            }
+          }
+        ],
+        "working": "(−1370.34) + 7 × (−285.830) − (−3388.71) = +17.560 kJ for each mole of Epsom salt dissolved",
+        "note": {
+          "value": "The heat of dissolving the crystal to a solution of about the strength made on the bench, worked out from three rows of the table: the dissolved salt at one mole in 75 moles of water, liquid water, and the crystal with its seven waters, which join the water of the solution. About 10 g in 50.0 g of water is one mole of magnesium sulfate in 73 to 78 moles of water over the masses a run can have, the crystal's own water counted in; the row for 75 is the nearest. The rows for 50 and for 100 give figures 0.46 kJ/mol higher and 0.30 lower, so the stored figure is within about half a percent of the table's own at every mass. At endless dilution the table gives +11.78 kJ/mol, a third less: by the table this salt goes on giving out heat as its solution is diluted, so the two figures are well apart.",
+          "sourceId": "nbs-tables-1982"
+        },
+        "infiniteDilution": {
+          "value": 11.78,
+          "terms": [
+            {
+              "id": "mgso4-ionised",
+              "label": "MgSO₄(aq), fully ionised, standard state",
+              "coefficient": 1,
+              "enthalpyOfFormation": {
+                "value": -1376.12,
+                "published": "-1376.12",
+                "sourceId": "nbs-tables-1982"
+              }
+            },
+            {
+              "id": "water",
+              "label": "H₂O(l)",
+              "coefficient": 7,
+              "enthalpyOfFormation": {
+                "value": -285.83,
+                "published": "-285.830",
+                "sourceId": "nbs-tables-1982"
+              }
+            },
+            {
+              "id": "mgso4-7h2o-crystal",
+              "label": "MgSO₄·7H₂O(s)",
+              "coefficient": -1,
+              "enthalpyOfFormation": {
+                "value": -3388.71,
+                "published": "-3388.71",
+                "sourceId": "nbs-tables-1982"
+              }
+            }
+          ],
+          "working": "(−1376.12) + 7 × (−285.830) − (−3388.71) = +11.780 kJ for each mole of Epsom salt dissolved"
+        }
+      },
+      "dry": {
+        "value": -85.44,
+        "unit": "kJ/mol",
+        "per": "mole of dry magnesium sulfate dissolved",
+        "terms": [
+          {
+            "id": "mgso4-in-75-water",
+            "label": "MgSO₄ in 75 H₂O",
+            "coefficient": 1,
+            "enthalpyOfFormation": {
+              "value": -1370.34,
+              "published": "-1370.34",
+              "sourceId": "nbs-tables-1982"
+            }
+          },
+          {
+            "id": "mgso4-crystal",
+            "label": "MgSO₄(s)",
+            "coefficient": -1,
+            "enthalpyOfFormation": {
+              "value": -1284.9,
+              "published": "-1284.9",
+              "sourceId": "nbs-tables-1982"
+            }
+          }
+        ],
+        "working": "(−1370.34) − (−1284.9) = −85.440 kJ for each mole of dry magnesium sulfate dissolved",
+        "note": {
+          "value": "No model uses this figure: it is for the note that sets the dry salt beside Epsom salt. It is the heat of dissolving magnesium sulfate with no water in its crystal to the same strength, from the table's row for that crystal and the row for the dissolved salt that Epsom salt's figure uses. The crystal's row is printed to one decimal, so the figure is good to a tenth of a kilojoule; the note gives it as about 85. At endless dilution the table gives −91.22 kJ/mol.",
+          "sourceId": "nbs-tables-1982"
+        },
+        "infiniteDilution": {
+          "value": -91.22,
+          "terms": [
+            {
+              "id": "mgso4-ionised",
+              "label": "MgSO₄(aq), fully ionised, standard state",
+              "coefficient": 1,
+              "enthalpyOfFormation": {
+                "value": -1376.12,
+                "published": "-1376.12",
+                "sourceId": "nbs-tables-1982"
+              }
+            },
+            {
+              "id": "mgso4-crystal",
+              "label": "MgSO₄(s)",
+              "coefficient": -1,
+              "enthalpyOfFormation": {
+                "value": -1284.9,
+                "published": "-1284.9",
+                "sourceId": "nbs-tables-1982"
+              }
+            }
+          ],
+          "working": "(−1376.12) − (−1284.9) = −91.220 kJ for each mole of dry magnesium sulfate dissolved"
+        }
+      },
+      "notes": [
+        {
+          "value": "The water got colder, so the dissolving took heat in: it was endothermic. The heat came out of the water. The lab's cup runs on 17.6 kJ taken in for each mole of Epsom salt, written +17.6 kJ/mol, worked out from a table of enthalpies of formation for a solution of about this strength.",
+          "sourceId": "nbs-tables-1982"
+        },
+        {
+          "value": "Epsom salt is magnesium sulfate with seven waters in each unit of its crystal. Magnesium sulfate with no water in its crystal does the opposite: by the same table it gives out about 85 kJ for each mole as it dissolves to this strength. So the label matters. A bottle filled with the dry salt would turn this run round: the cup would get warmer, not colder.",
+          "sourceId": "nbs-tables-1982",
+          "alsoSourceId": "wikipedia-magnesium-sulfate"
+        },
+        {
+          "value": "This cup is simpler than a real one: its salt is dissolved within a minute of stirring, and the cup itself takes up no heat. Heat leaks in from the room all the while, so the lowest reading is a little short of what a cup with no leak would reach.",
+          "sourceId": "docbrown-calorimeter-methods"
+        }
+      ]
+    },
+    {
+      "id": "calcium-chloride",
+      "name": "Calcium chloride in water",
+      "reagentId": "calcium-chloride",
+      "amounts": [
+        {
+          "reagentId": "calcium-chloride",
+          "about": 4,
+          "unit": "g"
+        },
+        {
+          "reagentId": "water",
+          "value": 50,
+          "shown": "50.0",
+          "unit": "mL"
+        }
+      ],
+      "dilution": {
+        "row": 75,
+        "lower": 50,
+        "upper": 100
+      },
+      "enthalpy": {
+        "value": -77.689,
+        "unit": "kJ/mol",
+        "per": "mole of calcium chloride dissolved",
+        "terms": [
+          {
+            "id": "cacl2-in-75-water",
+            "label": "CaCl₂ in 75 H₂O",
+            "coefficient": 1,
+            "enthalpyOfFormation": {
+              "value": -873.489,
+              "published": "-873.489",
+              "sourceId": "nbs-tables-1982"
+            }
+          },
+          {
+            "id": "cacl2-crystal",
+            "label": "CaCl₂(s)",
+            "coefficient": -1,
+            "enthalpyOfFormation": {
+              "value": -795.8,
+              "published": "-795.8",
+              "sourceId": "nbs-tables-1982"
+            }
+          }
+        ],
+        "working": "(−873.489) − (−795.8) = −77.689 kJ for each mole of calcium chloride dissolved",
+        "note": {
+          "value": "The heat of dissolving the dry crystal to a solution of about the strength made on the bench, from the table's row for the crystal and its row for one mole in 75 moles of water. About 4 g in 50.0 g of water is one mole in 73 to 81 moles of water over the masses a run can have; the row for 75 is the nearest, and the rows for 50 and for 100 give figures 0.58 kJ/mol smaller in size and 0.34 larger. The crystal's row is printed to one decimal, so the stored figure is good to a tenth of a kilojoule. At endless dilution the table gives −81.33 kJ/mol.",
+          "sourceId": "nbs-tables-1982"
+        },
+        "infiniteDilution": {
+          "value": -81.33,
+          "terms": [
+            {
+              "id": "cacl2-ionised",
+              "label": "CaCl₂(aq), fully ionised, standard state",
+              "coefficient": 1,
+              "enthalpyOfFormation": {
+                "value": -877.13,
+                "published": "-877.13",
+                "sourceId": "nbs-tables-1982"
+              }
+            },
+            {
+              "id": "cacl2-crystal",
+              "label": "CaCl₂(s)",
+              "coefficient": -1,
+              "enthalpyOfFormation": {
+                "value": -795.8,
+                "published": "-795.8",
+                "sourceId": "nbs-tables-1982"
+              }
+            }
+          ],
+          "working": "(−877.13) − (−795.8) = −81.330 kJ for each mole of calcium chloride dissolved"
+        }
+      },
+      "notes": [
+        {
+          "value": "The water got warmer, so the dissolving gave heat out: it was exothermic. The heat went into the water. The lab's cup runs on 77.7 kJ given out for each mole of calcium chloride, written −77.7 kJ/mol, worked out from a table of enthalpies of formation for a solution of about this strength.",
+          "sourceId": "nbs-tables-1982"
+        },
+        {
+          "value": "This is the dry salt, which takes up water from the air, so its bottle is kept closed. It goes into water at room temperature, in the small portion weighed out: a record of the salt tells of hot water that boiled violently when calcium chloride was put into it.",
+          "sourceId": "flinn-sds-196",
+          "alsoSourceId": "noaa-cameo-8382"
+        },
+        {
+          "value": "This cup is simpler than a real one: its salt is dissolved within a minute of stirring, and the cup itself takes up no heat. Heat leaks out to the room all the while, so the highest reading is a little short of what a cup with no leak would reach.",
+          "sourceId": "docbrown-calorimeter-methods"
+        }
+      ]
+    },
+    {
+      "id": "packs",
+      "name": "Hot pack and cold pack",
+      "notes": [
+        {
+          "value": "Some instant hot packs are this lab's calcium chloride cup in a bag: squeezing breaks a wall inside the pack, the solid meets water, and the dissolving gives out heat.",
+          "sourceId": "wikipedia-heating-pad"
+        },
+        {
+          "value": "An instant cold pack is the same idea with a solid that takes heat in. The solids named for the packs that are sold are ammonium nitrate, calcium ammonium nitrate and urea, not Epsom salt. Epsom salt cooled this cup by less than three degrees: enough to show which way the heat went.",
+          "sourceId": "wikipedia-ice-pack"
+        }
+      ]
+    }
+  ],
+  "parameters": {
+    "loggerStepSeconds": {
+      "value": 15,
+      "rationale": "The logger takes one reading every 15 seconds: the lab's set-up, and the calorimetry lab's. The engine counts steps of this length and reads no clock."
+    },
+    "runOnSteps": {
+      "value": 2,
+      "rationale": "One press of Run on lets 30 seconds pass, which is two readings: the calorimetry lab's value. A careful run shows its highest or lowest reading and the turn after it in a few presses."
+    },
+    "loggerMaxSteps": {
+      "value": 240,
+      "rationale": "The logger stops after an hour of readings: the calorimetry lab's value. No run needs that long. The limit keeps a stored run small, and keeps a record edited by hand from holding the page up."
+    },
+    "mixStirredPpm": {
+      "value": 850000,
+      "rationale": "Of the heat a change has still to give or take, the share given or taken in one 15-second step while the cup is stirred, in parts per million: 85%, the calorimetry lab's value, unchanged. A stirred cup is then within one part in a thousand of its end after a minute. No source was read for how fast these two salts dissolve; Epsom salt in large crystals may take longer than this."
+    },
+    "mixStillPpm": {
+      "value": 150000,
+      "rationale": "The same share while the cup is not stirred: 15%, the calorimetry lab's value, unchanged, so that the change takes about five minutes to get most of the way. Slower than a real cup left alone is likely to be. In this lab a cup that was not stirred does not count by rule, whatever it reads; over seeds 1 to 100 it reads 0.2 to 0.3 °C short for Epsom salt and 1.0 to 1.2 °C short for calcium chloride."
+    },
+    "lossLidOnPpm": {
+      "value": 5000,
+      "rationale": "Of the difference between the cup's temperature and the room's, the share lost in one 15-second step with the lid on, in parts per million: 0.5%, which is 2% a minute, the calorimetry lab's value, unchanged. A cup 12 °C above the room then cools by about a quarter of a degree a minute, and one 3 °C below it warms by about a tenth of a degree in two minutes, so the drift back shows on the logger within a few presses."
+    },
+    "lossLidOffPpm": {
+      "value": 40000,
+      "rationale": "The same share with the lid off: 4%, eight times the share with it on, the calorimetry lab's value, unchanged. More than an open foam cup is likely to lose. In this lab a cup whose lid was off does not count by rule, whatever it reads; over seeds 1 to 100 it reads 0.2 to 0.3 °C short for Epsom salt and 0.9 to 1.0 °C short for calcium chloride."
+    },
+    "startRangeTenths": {
+      "value": [
+        200,
+        240
+      ],
+      "rationale": "The temperature the cup starts at, and the room with it, in tenths of a degree Celsius: 20.0 to 24.0 °C, a room, as in the calorimetry lab. The water, the salt and the cup have stood in the room, so before the salt goes in the logger draws a level line, and after it the cup drifts back towards the same temperature."
+    },
+    "epsomSaltRangeCg": {
+      "value": [
+        960,
+        1040
+      ],
+      "rationale": "The mass of Epsom salt weighed out, in hundredths of a gram: 9.60 to 10.40 g, about 10 g, read on a balance that shows 0.01 g. About a twenty-fifth of a mole, so the water cools by 2.7 to 2.9 °C: a fall that is plain on a logger that shows tenths. Less salt would give a fall too small to read with confidence, since this salt takes in little heat for its mass."
+    },
+    "calciumChlorideRangeCg": {
+      "value": [
+        380,
+        420
+      ],
+      "rationale": "The mass of calcium chloride weighed out, in hundredths of a gram: 3.80 to 4.20 g, about 4 g. About a twenty-eighth of a mole, so the water warms by 11.6 to 12.8 °C and the cup reaches 37 °C at the most: a rise nobody can miss, in a cup that is warm to the hand and no more."
+    },
+    "leastChangeTenths": {
+      "value": 20,
+      "rationale": "The least change in temperature a careful run may show, in tenths of a degree: 2.0 °C, twenty times the logger's last figure, so that which way the temperature went is never in doubt. The build refuses masses that would give less with no heat lost, and a test holds every careful run of seeds 1 to 100 to it."
+    },
+    "highestTemperatureTenths": {
+      "value": 400,
+      "rationale": "The highest temperature a cup of this lab may reach, in tenths of a degree: 40.0 °C, a little over the temperature of the body, so that a learner who does this at a real bench with these masses handles nothing hot. The build refuses masses that would pass it with no heat lost, and a test holds every run of seeds 1 to 100 to it. No source was read for the temperature at which water scalds."
+    },
+    "readingToleranceTenths": {
+      "value": 0,
+      "rationale": "A temperature typed must be the reading the logger shows, to the tenth of a degree: nothing either side of it is taken, as in the calorimetry lab since 2026-10-10. A look at a reading says it to 0.1 °C, so nothing is estimated."
+    }
+  }
+}

@@ -31,6 +31,8 @@ export const ACTIVITIES = [
   { entry: ENTRY.reactions, version: 1, kind: 'Lab', title: 'Types of reactions', to: '/lab/types-of-reactions' },
   // src/mixing-version.test.ts pins what a stored lab is judged against to this entry and this version.
   { entry: ENTRY.mixing, version: 1, kind: 'Lab', title: 'Polarity and mixing', to: '/lab/polarity-and-mixing' },
+  // src/hotcold-version.test.ts pins what a stored lab is judged against to this entry and this version.
+  { entry: ENTRY.hotcold, version: 1, kind: 'Lab', title: 'Endothermic and exothermic', to: '/lab/endothermic-and-exothermic' },
   { entry: ENTRY.mechanism, version: 1, kind: 'Mechanism', title: 'HCl + NaHCO₃, step by step', to: '/learn/hcl-nahco3' },
 ] as const
 
@@ -54,6 +56,9 @@ export const REACTIONS_PROGRESS = { entry: ACTIVITIES[11].entry, version: ACTIVI
 
 /** The polarity and mixing lab's stored entry and its version: what its page loads and saves with (src/mixing-version.test.ts pins what a stored lab is judged against to it). */
 export const MIXING_PROGRESS = { entry: ACTIVITIES[12].entry, version: ACTIVITIES[12].version } as const
+
+/** The endothermic and exothermic lab's stored entry and its version: what its page loads and saves with (src/hotcold-version.test.ts pins what a stored lab is judged against to it). */
+export const HOTCOLD_PROGRESS = { entry: ACTIVITIES[13].entry, version: ACTIVITIES[13].version } as const
 
 export type Activity = (typeof ACTIVITIES)[number]
 

@@ -1,0 +1,34 @@
+{
+  "epsom-salt": {
+    "classifiedAs": "Hazards of solid magnesium sulfate heptahydrate (Epsom salt), the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "None",
+      "statements": [],
+      "note": {
+        "value": "About 10 g of Epsom salt, weighed out and stirred into 50 mL of water. The supplier's sheet classes it as no hazard and still has it handled as a laboratory chemical: eye protection, gloves and protective clothing, and hands washed after. Its section on toxicology lists two acute effects, irritation and pain in the abdomen.\n\nStricter, and what this lab goes by: a second supplier's sheet, which also classes it as no hazard, has no dust raised or breathed and the salt kept off the skin and out of the eyes. After a splash in the eyes it asks rinsing for 15 minutes or more, under the eyelids as well, and medical attention if symptoms come on.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-480",
+        "alsoSourceId": "fisher-sds-mgso4-heptahydrate"
+      },
+      "sourceId": "flinn-sds-480"
+    }
+  },
+  "calcium-chloride": {
+    "classifiedAs": "Hazards of solid calcium chloride (anhydrous), the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Warning",
+      "statements": [
+        "H302: Harmful if swallowed",
+        "H319: Causes serious eye irritation"
+      ],
+      "note": {
+        "value": "About 4 g of dry calcium chloride, weighed out and stirred into 50 mL of water. The supplier's sheet calls for eye protection, gloves and protective clothing, hands washed after, and no eating or drinking at the bench. The salt takes up water from the air: its bottle is kept closed.\n\nStricter, and what this lab goes by: NOAA's record says that the dust irritates the eyes and can injure the cornea for a time, and that the solid irritates the skin: keep it off the skin and raise no dust. For the eyes it asks flooding with water at once, washing for 15 minutes or more, and an eye doctor. A second supplier's sheet asks the same 15 minutes for the skin.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-196",
+        "alsoSourceId": "noaa-cameo-8382",
+        "moreSourceIds": [
+          "fisher-sds-cacl2"
+        ]
+      },
+      "sourceId": "flinn-sds-196"
+    }
+  }
+}

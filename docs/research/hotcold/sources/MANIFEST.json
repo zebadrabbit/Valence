@@ -1,0 +1,363 @@
+{
+  "retrieved": "2026-10-12",
+  "about": "Every source of the endothermic and exothermic lab's record (docs/research/hotcold/hotcold.json) and of its primer (src/chem-data/hotcold/primer.ts). Each was read for this lab on the retrieval date. Three were fetched that day, the three pages of an encyclopedia. The others are sources that earlier labs list: the scanned tables, read again in the copy the aqueous reactions lab read; the table of atomic weights, in the copy the periodic table keeps; and pages and sheets whose saved copies were checked against the hashes recorded here and read again, and not fetched again. No source has a copy in this folder. `fetchedSha256` is the sha256 of the file as it was fetched or read: a record of which file was read, not the hash of anything here, and nothing checks it. Each `supports` row names in `fields` the stored values it supports, each by its place in the record with the item's id in brackets (parts[epsom-salt].enthalpy.terms[water].enthalpyOfFormation, reagents[calcium-chloride].solubility, parts[packs].notes[1]); gives in `prints` a figure, a formula, a label or a heading exactly as the source prints it; and says in `where`, in this project's words, where that is, what the source says there, and how far the stored value goes beyond it. A row whose field is `primer` marks a source the primer rests on. The build holds the record to these rows. No source is quoted beyond such figures, formulas, labels and headings. A source that another manifest lists is written here exactly as it is there, so that the build lists each once.",
+  "sources": [
+    {
+      "id": "nbs-tables-1982",
+      "url": "https://srd.nist.gov/JPCRD/jpcrdS2Vol11.pdf",
+      "citation": "Wagman, D. D.; Evans, W. H.; Parker, V. B.; Schumm, R. H.; Halow, I.; Bailey, S. M.; Churney, K. L.; Nuttall, R. L. The NBS Tables of Chemical Thermodynamic Properties: Selected Values for Inorganic and C1 and C2 Organic Substances in SI Units. J. Phys. Chem. Ref. Data 1982, 11, Supplement No. 2. Read as the scanned PDF that the National Institute of Standards and Technology serves, linked here; pages 2-38 and 2-260 were read as images of the page, which has no text layer; no copy is kept (retrieved 2026-10-06).",
+      "fetchedSha256": "65249690c25a3c98275279863264b870e9a955f51651ff3845ac3bc47f32de59",
+      "supports": [
+        {
+          "fields": [
+            "parts[epsom-salt].enthalpy.terms[mgso4-in-75-water].enthalpyOfFormation",
+            "parts[epsom-salt].dry.terms[mgso4-in-75-water].enthalpyOfFormation"
+          ],
+          "prints": "-1370.34",
+          "where": "Page 2-262, Table 93:Mg (magnesium), the row for MgSO4 \"in 75 H2O\": the column of the standard enthalpy of formation at 298.15 K, in kJ/mol. The rows on either side print -1369.88 for 50 and -1370.64 for 100, and the row for 200 prints -1371.26. Read by eye, twice, from two images of the scanned page made at different sizes: the scan has no text layer."
+        },
+        {
+          "fields": [
+            "parts[epsom-salt].enthalpy.terms[water].enthalpyOfFormation",
+            "parts[epsom-salt].enthalpy.infiniteDilution.terms[water].enthalpyOfFormation"
+          ],
+          "prints": "-285.830",
+          "where": "Page 2-38, Table 2:H (hydrogen), the row for H2O in the state l, the liquid: the same column. The calorimetry lab stores the same figure from the same row; it was read again for this lab. Read by eye, twice, from two images of the scanned page made at different sizes: the scan has no text layer."
+        },
+        {
+          "fields": [
+            "parts[epsom-salt].enthalpy.terms[mgso4-7h2o-crystal].enthalpyOfFormation",
+            "parts[epsom-salt].enthalpy.infiniteDilution.terms[mgso4-7h2o-crystal].enthalpyOfFormation"
+          ],
+          "prints": "-3388.71",
+          "where": "Page 2-263, Table 93:Mg, the row for MgSO4·7H2O in the state cr, the crystal, with the molar mass 246.4814: the same column. The row over it, for the crystal with six waters, prints -3087.0. Read by eye, twice, from two images of the scanned page made at different sizes: the scan has no text layer."
+        },
+        {
+          "fields": [
+            "parts[epsom-salt].enthalpy.infiniteDilution.terms[mgso4-ionised].enthalpyOfFormation",
+            "parts[epsom-salt].dry.infiniteDilution.terms[mgso4-ionised].enthalpyOfFormation"
+          ],
+          "prints": "-1376.12",
+          "where": "Page 2-262, Table 93:Mg, the row for MgSO4 in the state ai, the dissolved salt fully ionised in its standard state: the same column. Page 2-263 prints the same figure in the row \"in ∞ H2O\". The row for the state ao, on page 2-262, prints -1356.0 and is not used. Read by eye, twice, from two images of the scanned page made at different sizes: the scan has no text layer."
+        },
+        {
+          "fields": [
+            "parts[epsom-salt].dry.terms[mgso4-crystal].enthalpyOfFormation",
+            "parts[epsom-salt].dry.infiniteDilution.terms[mgso4-crystal].enthalpyOfFormation"
+          ],
+          "prints": "-1284.9",
+          "where": "Page 2-262, Table 93:Mg, the row for MgSO4 in the state cr, the crystal with no water, with the molar mass 120.3736: the same column, printed to one decimal. Read by eye, twice, from two images of the scanned page made at different sizes: the scan has no text layer."
+        },
+        {
+          "fields": [
+            "parts[calcium-chloride].enthalpy.terms[cacl2-in-75-water].enthalpyOfFormation"
+          ],
+          "prints": "-873.489",
+          "where": "Page 2-267, Table 94:Ca (calcium), the row for CaCl2 \"in 75 H2O\": the column of the standard enthalpy of formation at 298.15 K, in kJ/mol. The rows on either side print -872.91 for 50 and -873.824 for 100; the next after that is for 300. Read by eye, twice, from two images of the scanned page made at different sizes: the scan has no text layer."
+        },
+        {
+          "fields": [
+            "parts[calcium-chloride].enthalpy.terms[cacl2-crystal].enthalpyOfFormation",
+            "parts[calcium-chloride].enthalpy.infiniteDilution.terms[cacl2-crystal].enthalpyOfFormation"
+          ],
+          "prints": "-795.8",
+          "where": "Page 2-267, Table 94:Ca, the row for CaCl2 in the state cr, the crystal with no water, with the molar mass 110.9860: the same column, printed to one decimal. Read by eye, twice, from two images of the scanned page made at different sizes: the scan has no text layer."
+        },
+        {
+          "fields": [
+            "parts[calcium-chloride].enthalpy.infiniteDilution.terms[cacl2-ionised].enthalpyOfFormation"
+          ],
+          "prints": "-877.13",
+          "where": "Page 2-267, Table 94:Ca, the row for CaCl2 in the state ai: the same column. Page 2-268 prints the same figure in the row \"in ∞ H2O\". Read by eye, twice, from two images of the scanned page made at different sizes: the scan has no text layer."
+        },
+        {
+          "fields": [
+            "parts[epsom-salt].enthalpy.note",
+            "parts[calcium-chloride].enthalpy.note",
+            "parts[epsom-salt].dry.note"
+          ],
+          "prints": "in 75 H2O",
+          "where": "The words the table prints beside a dissolved substance at a stated dilution, here on pages 2-262 and 2-267: one mole of the substance in that many moles of water. The table's introduction was not read for how such a row is defined; the lab takes it as the calorimetry lab does, as the enthalpy of formation of the dissolved substance with the water counted as pure water. That the seven waters of Epsom salt's crystal join the water of the solution, and how many moles of water a run's masses give for each mole of salt, are the lab's own arithmetic, from the molar masses and the mass of the water."
+        },
+        {
+          "fields": [
+            "parts[epsom-salt].notes[0]",
+            "parts[epsom-salt].notes[1]",
+            "parts[calcium-chloride].notes[0]"
+          ],
+          "prints": "MgSO4·7H2O",
+          "where": "Page 2-263, Table 93:Mg, how the table writes the crystal of Epsom salt, among the crystals of magnesium sulfate with one, two, four and six waters; the crystal with none is on page 2-262. The notes' three figures are the record's sums of the table's rows, to three figures or as about 85: +17.56 for Epsom salt, -85.44 for the crystal with no water and -77.689 for calcium chloride, each for one mole in 75 moles of water. That a fall in the water's temperature means heat taken in, and a rise heat given out, is what the primer's pages say."
+        }
+      ]
+    },
+    {
+      "id": "nist-webbook-water-25c",
+      "url": "https://webbook.nist.gov/cgi/fluid.cgi?Action=Load&ID=C7732185&Type=IsoBar&Digits=5&P=0.1&THigh=25&TLow=25&TInc=1&RefState=DEF&TUnit=C&PUnit=MPa&DUnit=g%2Fml&HUnit=kJ%2Fkg&WUnit=m%2Fs&VisUnit=uPa*s&STUnit=N%2Fm",
+      "citation": "Lemmon, E. W.; Bell, I. H.; Huber, M. L.; McLinden, M. O. Thermophysical Properties of Fluid Systems. In NIST Chemistry WebBook, NIST Standard Reference Database Number 69; Linstrom, P. J., Mallard, W. G., Eds.; National Institute of Standards and Technology: Gaithersburg, MD. https://doi.org/10.18434/T4D303 Isobaric properties for water at 0.1 MPa and 25 °C, in units of mass; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "35d06b0bd5158893598e1bbc47dc6f9a12d0e8068b78506e93a1bcc4c4b7161b",
+      "supports": [
+        {
+          "fields": [
+            "water"
+          ],
+          "prints": "Isobaric Properties for Water",
+          "where": "The page's title. The table under it has one row, for 25 °C and 0.10000 MPa, whose last column says that the water is liquid. That the water on the bench is distilled is the lab's set-up. Read for the calorimetry lab on 2026-10-09; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        },
+        {
+          "fields": [
+            "water.specificHeat"
+          ],
+          "prints": "4.1813",
+          "where": "The one row of the table of isobaric data, the column headed Cp, in J/(g K). The record stores 4.18, to three figures."
+        },
+        {
+          "fields": [
+            "water.density"
+          ],
+          "prints": "0.99705",
+          "where": "The same row, the column headed Density, in g/ml. The record stores 1.00 g/mL, to three figures."
+        }
+      ]
+    },
+    {
+      "id": "ciaaw-abridged-2024",
+      "url": "https://www.ciaaw.org/abridged-atomic-weights.htm",
+      "citation": "IUPAC Commission on Isotopic Abundances and Atomic Weights (CIAAW), Abridged Standard Atomic Weights 2024.",
+      "supports": [
+        {
+          "fields": [
+            "atomicWeights[H]"
+          ],
+          "prints": "1.0080",
+          "where": "The copy kept for the periodic table, docs/research/periodic-table/sources/ciaaw-abridged-atomic-weights.html, the row for hydrogen (H): the abridged standard atomic weight. The build holds the stored figure to the periodic table's record, which it holds to this copy."
+        },
+        {
+          "fields": [
+            "atomicWeights[O]"
+          ],
+          "prints": "15.999",
+          "where": "The same kept copy, the row for oxygen (O): the abridged standard atomic weight."
+        },
+        {
+          "fields": [
+            "atomicWeights[Mg]"
+          ],
+          "prints": "24.305",
+          "where": "The same kept copy, the row for magnesium (Mg): the abridged standard atomic weight."
+        },
+        {
+          "fields": [
+            "atomicWeights[S]"
+          ],
+          "prints": "32.06",
+          "where": "The same kept copy, the row for sulfur (S): the abridged standard atomic weight."
+        },
+        {
+          "fields": [
+            "atomicWeights[Cl]"
+          ],
+          "prints": "35.45",
+          "where": "The same kept copy, the row for chlorine (Cl): the abridged standard atomic weight."
+        },
+        {
+          "fields": [
+            "atomicWeights[Ca]"
+          ],
+          "prints": "40.078",
+          "where": "The same kept copy, the row for calcium (Ca): the abridged standard atomic weight."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-magnesium-sulfate",
+      "url": "https://en.wikipedia.org/wiki/Magnesium_sulfate?oldid=1377724815",
+      "citation": "Wikipedia, Magnesium sulfate, revision 1377724815 of 2026-09-30; a secondary source, read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "c849f56369792a0c8f9508ede4c4879d2eab053035d02523e3e951886b60d1f2",
+      "supports": [
+        {
+          "fields": [
+            "reagents[epsom-salt].chemicalName"
+          ],
+          "prints": "Epsom salt",
+          "where": "The page's opening section, and its box of names: the salt is usually met as a hydrate, and the commonest, with seven waters, MgSO4·7H2O, is the one known by this name and sold for the household. The box gives the heptahydrate the CAS number 10034-99-8, which is the number on the two suppliers' sheets read for the salt's hazards."
+        },
+        {
+          "fields": [
+            "parts[epsom-salt].notes[1]"
+          ],
+          "prints": "Anhydrous magnesium sulfate",
+          "where": "The words under one of the pictures at the head of the page, and the subject of its section on the salt as a desiccant: magnesium sulfate with no water in its crystal is a substance of its own, in use for drying liquids. That it is the dry salt and not Epsom salt that gives heat out is the tables', not this page's: the page was not found to say which way either goes. Its box gives the solubility of the heptahydrate as 113 g in 100 mL at 20 °C, which no stored value rests on."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-mgso4-heptahydrate",
+      "url": "https://www.fishersci.com/store/msds?partNumber=M63500&productDescription=MAGNESIUM+SULFATE+HEPTAHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Magnesium Sulfate Heptahydrate (Certified ACS), catalogue number M63-500 among others; revision 7 of 18 December 2025 (read on 2026-10-11; no copy is kept).",
+      "fetchedSha256": "e6d820ae5e2841faa0a289c688a00eba001f9a151de0890281e28d64ec85516b",
+      "supports": [
+        {
+          "fields": [
+            "reagents[epsom-salt].solubility"
+          ],
+          "prints": "710",
+          "where": "Section 9, the table of physical and chemical properties, the row Water Solubility: 710 g/l, at 20 °C. The sheet's first section names the product as the heptahydrate, with the CAS number 10034-99-8. Read for the red cabbage pH lab on 2026-10-11; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-cacl2",
+      "url": "https://www.fishersci.com/store/msds?partNumber=C614500&productDescription=CALCIUM+CHLORIDE+ANHYDROUS&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Calcium chloride, catalogue numbers C77 and C614; revision 6 of 18 December 2025 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "d02c0e19e52278d479124590faffeac1d4da44be64b0c71fe11ab2d66e5d10e8",
+      "supports": [
+        {
+          "fields": [
+            "reagents[calcium-chloride].solubility"
+          ],
+          "prints": "740",
+          "where": "Section 9, the table of physical and chemical properties, the row Water Solubility: 740 g/L, at 20 °C. The sheet's first section gives the CAS number 10043-52-4, that of the anhydrous salt. Read for the flame test lab on 2026-10-08; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-heating-pad",
+      "url": "https://en.wikipedia.org/wiki/Heating_pad?oldid=1338160178",
+      "citation": "Wikipedia, Heating pad, revision 1338160178 of 2026-02-13; a secondary source, read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "e450665e5acb3e5b6cd4e1d7d0c56b2e1512b677a9f7c9f3bf2b89d0e0d0a0fb",
+      "supports": [
+        {
+          "fields": [
+            "primer",
+            "parts[packs].notes[0]"
+          ],
+          "prints": "Chemical",
+          "where": "A heading under the page's section on types. Under it: a throw-away pad makes its heat once, by a change that gives heat out; one kind rusts iron powder in air; another keeps its parts in separate compartments until a squeeze breaks the barrier between them, and the page's example of the heat then made is that of calcium chloride dissolving. The page carries a notice, of August 2025, that it needs more references, and gives none for this paragraph: it is a secondary source, and no other was read."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-ice-pack",
+      "url": "https://en.wikipedia.org/wiki/Ice_pack?oldid=1360658766",
+      "citation": "Wikipedia, Ice pack, revision 1360658766 of 2026-06-22; a secondary source, read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "c679b861e89eae297883f5e4f605599c3409179d842de220589df62b5da8eba5",
+      "supports": [
+        {
+          "fields": [
+            "primer",
+            "parts[packs].notes[1]"
+          ],
+          "prints": "Instant cold packs",
+          "where": "A heading of the page. Under it: the pack is used once; it is two bags, the inner one of water and the outer one holding a solid, which the page gives as one of three: ammonium nitrate, urea, or calcium ammonium nitrate; squeezing breaks the inner bag, and the solid dissolves in a change that takes heat in and cools the pack. The page does not name magnesium sulfate. That Epsom salt cooled the cup by less than three degrees is this lab's own run."
+        }
+      ]
+    },
+    {
+      "id": "purdue-temperature",
+      "url": "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch5/index.php",
+      "citation": "Bodner Research Web, Purdue University. General Chemistry Help, Thermochemistry: Temperature; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "447847b16f71a6f3365305dbe41f57dab66700015e2b714f21811cbe95c04412",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Temperature",
+          "where": "The page's heading. Under it: what temperature measures, and the Celsius scale among the scales it is measured on. Read for the calorimetry lab on 2026-10-09; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        }
+      ]
+    },
+    {
+      "id": "purdue-heat",
+      "url": "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch5/heat.php",
+      "citation": "Bodner Research Web, Purdue University. General Chemistry Help, Thermochemistry: Heat; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "447f92c46cf1f36605f75569f3f57bcbe98dc75d797c761a3b1a46943f880299",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Heat",
+          "where": "The page's first heading. Under it: heat is a way of passing energy between a system and what is around it, which often changes the system's temperature. Read for the calorimetry lab on 2026-10-09; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        }
+      ]
+    },
+    {
+      "id": "purdue-calorimetry",
+      "url": "https://www.chem.purdue.edu/gchelp/howtosolveit/Thermodynamics/Calorimetry.html",
+      "citation": "Purdue University, Department of Chemistry. General Chemistry Help, How to Solve It: Calorimetry; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "da714347e6a3d43b389e5baf2f30ba62cbf6c64492d152d59ed807dc03cb0a47",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Calorimetry",
+          "where": "The page's heading. Its first paragraph: a change that gives heat out, run in a solution, raises the solution's temperature, and one that takes heat in takes it from the solution, whose temperature falls. Read for the calorimetry lab on 2026-10-09; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        }
+      ]
+    },
+    {
+      "id": "nasa-heat-transfer",
+      "url": "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/heat-transfer-3-2/",
+      "citation": "National Aeronautics and Space Administration, Glenn Research Center. Beginner's Guide to Aeronautics: Heat Transfer; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "7fdb758468b0da76f7f201097b98191ef72b98a7fb42f397a90ae20591e102f0",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Heat Transfer",
+          "where": "The page's title. Its paragraph on two objects at different temperatures: put in contact they come to one temperature, and heat passes between them on the way. Read for the calorimetry lab on 2026-10-09; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-energetics-introduction",
+      "url": "https://www.chemguide.co.uk/physical/energetics/basic.html",
+      "citation": "Clark, J. Chemguide: An Introduction to Chemical Energetics; 2010, modified May 2013; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "d3f5aab8977a1a809fb02118a180f7414b8d6a0d33714462f7132d810ba4b959",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "exothermic",
+          "where": "Under the page's heading on simple energy diagrams: a change in which heat is given off is called by this word, and one in which heat is taken in is called endothermic; in the first what is around the change warms up, and in the second the heat is taken from what is around it. The page's opening has the burning of a fuel as a change that gives heat out. Read for the calorimetry lab on 2026-10-09; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        }
+      ]
+    },
+    {
+      "id": "davidson-heat-of-solution",
+      "url": "https://www.chm.davidson.edu/vce/Calorimetry/HeatOfSolutionOfAmmoniumNitrate.html",
+      "citation": "Blauch, D. N. Virtual Chemistry Experiments: Calorimetry, Heat of Solution of Ammonium Nitrate, version 3.0. Davidson College, 2000, 2014, 2023; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "ceec7c20933bdc326c337f4fc916c14076bf8385478438c374eaf1826d662053",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "heat of solution",
+          "where": "The page's opening paragraphs: a solid dissolving passes heat one way or the other; ammonium nitrate draws its heat from the solution; and, by the compound, a heat of solution may be of either sign, endothermic or exothermic. Read for the calorimetry lab on 2026-10-09; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        }
+      ]
+    },
+    {
+      "id": "docbrown-calorimeter-methods",
+      "url": "https://www.docbrown.info/page07/delta1Hc.htm",
+      "citation": "Brown, P. Doc Brown's Chemistry, advanced level revision notes: Experimental methods for determining enthalpy changes; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "f91df4a3d1b9e22024a59e1eb629ee3ec4088cf02ef58c5c908ac15d2575058a",
+      "supports": [
+        {
+          "fields": [
+            "primer",
+            "parts[epsom-salt].notes[2]",
+            "parts[calcium-chloride].notes[2]"
+          ],
+          "prints": "Note on graphical analysis",
+          "where": "A heading in the page's section on the foam cup calorimeter. Under it: readings are taken before and after mixing and plotted against time; the early ones give a level line; a cup that has warmed goes on losing heat from the moment the change starts, and one that has cooled goes on gaining it, so the temperature drifts back once the change is over; and without a correction the change in temperature read is always too small. That this lab's salt is dissolved within a minute and that its cup takes up no heat are the lab's own model. Read for the calorimetry lab on 2026-10-09; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,176 @@
+{
+  "retrieved": "2026-10-12",
+  "about": "The documents behind the hazards of the endothermic and exothermic lab's two salts (hazards.json) and behind the safety card of its primer. All five were read and none is kept. None was fetched for this lab: four are documents that the red cabbage pH lab and the flame test lab list, and the fifth, the default supplier's sheet for Epsom salt, was fetched on 2026-10-12 by the builder of the red cabbage pH lab, whose record does not cite it; each saved page was checked against its recorded hash and read again. A row whose field ends in `notCarried` is of something read and left out of the tile, with why. A row whose field is `primer.safety` marks a document the primer's safety card rests on.",
+  "sources": [
+    {
+      "id": "flinn-sds-480",
+      "url": "https://www.flinnsci.com/sds_480-magnesium-sulfate-heptahydrate/sds_480",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Magnesium Sulfate Heptahydrate, SDS number sds_480; revision date February 6, 2014 (read on 2026-10-12; no copy is kept).",
+      "fetchedSha256": "4231b294a1cfd38123865844b3acd2620ef8bf9dbb73b31e5bc447ad1c287bc0",
+      "supports": [
+        {
+          "field": "epsom-salt.classifiedAs",
+          "prints": "Magnesium Sulfate Heptahydrate",
+          "where": "The sheet's title, before the words Safety Data Sheet. Section 3 lists one component and no water, with the formula MgSO4•7H2O, the formula weight 246.5 and the CAS number 10034-99-8, so the sheet is for the solid itself; section 9 describes a white powder with no odour, from which the record stores a white solid. The sheet does not use the name Epsom salt, which the heading over the tile adds. The page was fetched on 2026-10-12 by the builder of the red cabbage pH lab, whose record does not cite it; the saved page was checked against the hash in the log of that fetch, recorded here, and read for this lab, and was not fetched again."
+        },
+        {
+          "field": "epsom-salt.hazards",
+          "prints": "February 6, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "epsom-salt.hazards.signalWord",
+          "prints": "",
+          "where": "The sheet prints no signal word under its title, where its sheets for classed substances print one, and no pictogram. Section 2 says that the chemical is counted as not hazardous under the classifications of the hazard communication standard, and that every laboratory chemical is treated with caution all the same. The record stores None and no statement."
+        },
+        {
+          "field": "epsom-salt.hazards.note",
+          "prints": "Wear protective gloves, protective clothing, and eye protection.",
+          "where": "Section 8, with the washing of hands after handling. Section 11 gives the acute effects as irritant and abdominal pain, with no class in section 2 for either: the note says so in its first paragraph. Section 7 calls the salt slightly hygroscopic and stores it cool and dry."
+        },
+        {
+          "field": "epsom-salt.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 26a, is one option. The note gives no method of disposal, this one or another."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "SECTION 8 — EXPOSURE CONTROLS, PERSONAL PROTECTION",
+          "where": "The heading of section 8: eye protection, gloves and protective clothing, which the primer's safety card asks for at this bench whichever salt is in hand."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-mgso4-heptahydrate",
+      "url": "https://www.fishersci.com/store/msds?partNumber=M63500&productDescription=MAGNESIUM+SULFATE+HEPTAHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Magnesium Sulfate Heptahydrate (Certified ACS), catalogue number M63-500 among others; revision 7 of 18 December 2025 (read on 2026-10-11; no copy is kept).",
+      "fetchedSha256": "e6d820ae5e2841faa0a289c688a00eba001f9a151de0890281e28d64ec85516b",
+      "supports": [
+        {
+          "field": "epsom-salt.hazards.note",
+          "prints": "4. First-aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: they are rinsed at once with a great deal of water, under the eyelids too, for 15 minutes or more, with medical attention if symptoms come on. Section 7 has no dust made or breathed and the salt kept from the skin and the eyes. Section 2 says that the product is not counted as hazardous under the hazard communication standard of the United States in its form of 2024. Read for the red cabbage pH lab on 2026-10-11; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        },
+        {
+          "field": "epsom-salt.notCarried",
+          "prints": "6. Accidental release measures",
+          "where": "Read and not carried. The heading of section 6. Under it, beside the label Environmental Precautions, the sheet says that the substance should not be let out into the environment. Why: the line is on every sheet of this supplier's that the project has read, whatever the substance, and this sheet gives the salt no class as a hazard to the environment."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "4. First-aid measures",
+          "where": "The same heading: the 15 minutes of rinsing that the primer's safety card gives for either salt in the eyes."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-196",
+      "url": "https://www.flinnsci.com/sds_196-calcium-chloride/sds_196",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Calcium Chloride, SDS number sds_196; revision date July 8, 2015 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "0aa5ee77bb460a002f51e06d1ea8890c15a48665344b1ab40039967d4617d2c1",
+      "supports": [
+        {
+          "field": "calcium-chloride.classifiedAs",
+          "prints": "Calcium Chloride",
+          "where": "The sheet's title, before the words Safety Data Sheet. Section 3 lists one component, calcium chloride, anhydrous, with the formula CaCl2, the formula weight 110.98 and the CAS number 10043-52-4, and no water, so the sheet is for the solid itself; section 9 describes a white solid, as powder, crystals or flakes. Read for the flame test lab on 2026-10-08; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        },
+        {
+          "field": "calcium-chloride.hazards",
+          "prints": "July 8, 2015",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "calcium-chloride.hazards.signalWord",
+          "prints": "WARNING",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Warning, the form its schema has for the word."
+        },
+        {
+          "field": "calcium-chloride.hazards.statements[0]",
+          "prints": "Harmful if swallowed (H302)",
+          "where": "Section 2, the first of the two hazard classes it lists: category 4, for acute toxicity by mouth. The record stores the line of the sheet with its code in front, then a colon and the statement. Beside it the sheet prints the precaution against eating, drinking or smoking while the product is in use, which the note gives."
+        },
+        {
+          "field": "calcium-chloride.hazards.statements[1]",
+          "prints": "Causes serious eye irritation (H319)",
+          "where": "Section 2, the second of the two hazard classes it lists: category 2A, for irritation of the eyes. The section prints no other hazard code."
+        },
+        {
+          "field": "calcium-chloride.hazards.note",
+          "prints": "Wear protective gloves, protective clothing, and eye protection (P280).",
+          "where": "Section 8, with the washing of hands after handling. Section 7 calls the salt hygroscopic and stores it cool and dry: the note says that it takes up water from the air and that its bottle is kept closed."
+        },
+        {
+          "field": "calcium-chloride.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 26a, is one option. The note gives no method of disposal, this one or another."
+        },
+        {
+          "field": "calcium-chloride.notCarried",
+          "prints": "SECTION 9 — PHYSICAL AND CHEMICAL PROPERTIES",
+          "where": "Read and not carried into the tile. The heading of section 9. Under it, after what the salt dissolves in, the sheet says in four words what the salt does to the temperature of water. Why: which way this salt's temperature goes is what the learner is there to find, and no tile, note or hint may say it before the run counts (spec 26.5). The part's notes say it once the run counts."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "SECTION 8 — EXPOSURE CONTROLS, PERSONAL PROTECTION",
+          "where": "The heading of section 8: eye protection, gloves and protective clothing, which the primer's safety card asks for at this bench whichever salt is in hand; and section 2, for what the card says of swallowing and of the eyes."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-8382",
+      "url": "https://cameochemicals.noaa.gov/chemical/8382",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Calcium Chloride (chemical 8382); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "b8d218ed078c5bda67fc5dfa40b1d99de83576ecb590422cd6973a87183283b4",
+      "supports": [
+        {
+          "field": "calcium-chloride.hazards.note",
+          "prints": "Health Hazard",
+          "where": "The name of a field, a text the page credits to the United States Coast Guard, 1999: the eyes are irritated, by the dust above all, with injury to the cornea that may pass; the solid on dry skin irritates it mildly; and strong solutions can irritate the skin markedly, to the point of a burn at the surface. The bench's solution is about 7% by mass, which the note does not call strong. The page's table of identifiers gives the CAS number 10043-52-4, that of the anhydrous salt. Read for the flame test lab on 2026-10-08; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        },
+        {
+          "field": "calcium-chloride.hazards.note",
+          "prints": "at least 15 min.",
+          "where": "The field First Aid, under EYES, a text the page credits to the same source: the eyes are flooded with water promptly and washed for this long, and an ophthalmologist is consulted. Under SKIN: it is flushed with water."
+        },
+        {
+          "field": "calcium-chloride.notCarried",
+          "prints": "Air & Water Reactions",
+          "where": "Read and not carried into the tile. The name of a field. Under it the page calls the salt deliquescent and soluble in water, and tells of one case in which the salt was added to hot water and the water boiled violently. Why: the case says which way this salt's temperature goes, which no tile may say before the run counts (spec 26.5). It is not lost: the part's second note tells of it once the run counts, and the primer's safety card says, of no salt by name, that only water at room temperature is used."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "Air & Water Reactions",
+          "where": "The same field: what the primer's safety card says of hot water, of no salt by name; and the field First Aid, for the 15 minutes of rinsing."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-cacl2",
+      "url": "https://www.fishersci.com/store/msds?partNumber=C614500&productDescription=CALCIUM+CHLORIDE+ANHYDROUS&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Calcium chloride, catalogue numbers C77 and C614; revision 6 of 18 December 2025 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "d02c0e19e52278d479124590faffeac1d4da44be64b0c71fe11ab2d66e5d10e8",
+      "supports": [
+        {
+          "field": "calcium-chloride.hazards.note",
+          "prints": "4. First-aid measures",
+          "where": "The heading of section 4. Under it, for the skin: it is washed at once with a great deal of water, for 15 minutes or more, with medical attention if symptoms come on; for the eyes it asks the same 15 minutes, under the eyelids too, and medical attention. The sheet is for the solid, with the CAS number of the anhydrous salt. Read for the flame test lab on 2026-10-08; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        },
+        {
+          "field": "calcium-chloride.notCarried",
+          "prints": "Warning",
+          "where": "Read and not carried. Section 2, under the words Signal Word, and the second of its two hazard statements, on serious irritation of the eyes, in category 2. Why: they are the signal word and the H319 of the first supplier's sheet, which the tile carries already. This sheet has no class for acute toxicity, where the first supplier's has H302: on swallowing the first supplier's is the stricter."
+        },
+        {
+          "field": "calcium-chloride.notCarried",
+          "prints": "May form combustible dust concentrations in air",
+          "where": "Read and not carried. Section 2, the first of the two hazard statements, which the sheet prints without codes. Why: section 5 of the same sheet says that the substance does not itself burn, so the sheet contradicts the statement; and the first supplier's sheet calls the solid nonflammable and noncombustible."
+        },
+        {
+          "field": "calcium-chloride.notCarried",
+          "prints": "6. Accidental release measures",
+          "where": "Read and not carried. The heading of section 6. Under it, beside the label Environmental Precautions, the sheet says that the substance should not be let out into the environment. Why: the line is on every sheet of this supplier's that the project has read, whatever the substance, and this sheet gives the salt no class as a hazard to the environment."
+        }
+      ]
+    }
+  ]
+}

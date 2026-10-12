@@ -57,9 +57,16 @@ export interface WorksheetProps<F extends string, V, J extends Follows> {
   checkHeld: string | null
   onCheck(): void
   text: { hint: string; check: string; enter: string; change: string; cancel: string; changeNote: string; follows: string; not: string }
+  /**
+   * Room over the hint of an entry that is chosen, so that the hit area of the hint, once it is open, which reaches
+   * up from its line, lies clear of the button over it: without it the open hint answers for the lowest 6 px of
+   * "Enter". Added for the endothermic and exothermic lab; the calorimetry lab and the freezing point depression
+   * lab ask for it too, since that lab's review measured the same overlap on their pages.
+   */
+  hintRoom?: boolean
 }
 
-type EntryProps<F extends string, V, J extends Follows> = Pick<WorksheetProps<F, V, J>, 'guided' | 'choices' | 'signed' | 'typedText' | 'enteredText' | 'help' | 'relation' | 'feedback' | 'invalid' | 'parse' | 'enter' | 'text'> & {
+type EntryProps<F extends string, V, J extends Follows> = Pick<WorksheetProps<F, V, J>, 'guided' | 'choices' | 'signed' | 'typedText' | 'enteredText' | 'help' | 'relation' | 'feedback' | 'invalid' | 'parse' | 'enter' | 'text' | 'hintRoom'> & {
   entry: WorksheetEntry<F, V, J>
   label: string
 }
@@ -97,7 +104,7 @@ function Typed<F extends string, V, J extends Follows>({ entry, label, guided, s
  * Guided the engine refuses a choice that does not follow, and the form says why; in Challenge it takes whatever
  * is chosen and the form shows it, disabled, beside "Change", with no word on whether it follows.
  */
-function Chosen<F extends string, V, J extends Follows>({ entry, label, guided, choices, relation, feedback, invalid, enter, text }: EntryProps<F, V, J>) {
+function Chosen<F extends string, V, J extends Follows>({ entry, label, guided, choices, relation, feedback, invalid, enter, text, hintRoom }: EntryProps<F, V, J>) {
   const { field, value, verdict } = entry
   // An entry that a change to one above it has emptied is asked afresh: a form of its own, with nothing chosen and nothing said of the choice that went.
   const [asked, setAsked] = useState({ made: value !== null, times: 0 })
@@ -121,7 +128,7 @@ function Chosen<F extends string, V, J extends Follows>({ entry, label, guided, 
         }}
         text={{ check: text.enter, change: text.change, cancel: text.cancel }}
       />
-      {guided && value === null && <Relation summary={text.hint}>{relation(field)}</Relation>}
+      {guided && value === null && (hintRoom ? <div className="pt-3"><Relation summary={text.hint}>{relation(field)}</Relation></div> : <Relation summary={text.hint}>{relation(field)}</Relation>)}
     </div>
   )
 }

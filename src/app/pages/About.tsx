@@ -300,6 +300,23 @@ export function About() {
             bench, follow the label and the safety data sheet of the product in hand and the laboratory's own rules.
           </p>
           <p className="mb-2">
+            The endothermic and exothermic lab works the heat of each of its two salts dissolving from enthalpies of
+            formation in the NBS tables (Wagman and others, 1982), for a solution of about the strength made on the
+            bench, as the calorimetry lab does, and its two molar masses from the standard atomic weights. The
+            specific heat and the density of water are from the NIST Chemistry WebBook. That Epsom salt is magnesium
+            sulfate with seven waters in its crystal, and what instant hot packs and cold packs are, rest on three of
+            Wikipedia's articles, which are secondary sources; how much of each salt dissolves is from Fisher
+            Scientific's safety data sheets. Its primer rests also on seven pages that the calorimetry lab's primer
+            rests on. The masses of salt, how fast the cup mixes and how fast it trades heat with the room are
+            Valence's own, and each solution is given the specific heat of water. The hazard statements of the two
+            salts are those of Flinn Scientific's safety data sheets, and the notes under them rest also on Fisher
+            Scientific's sheets and on a record of NOAA's database of chemicals. The documents were read on the dates
+            their citations give, and no copy of them is kept. The lab's primer quotes none of its sources. No cup of
+            this lab was run at a bench. None of these publishers is connected with Valence or has reviewed it. At a
+            real bench, follow the label and the safety data sheet of the product in hand and the laboratory's own
+            rules.
+          </p>
+          <p className="mb-2">
             The mechanism timeline takes its enthalpies and free energies of formation from the NBS tables of chemical
             thermodynamic properties of 1982, as NIST serves them; the acid constant of the carbonic acid molecule,
             how long that molecule lasts and the timescales of its two middle steps from a paper in the Journal of

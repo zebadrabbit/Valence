@@ -46,6 +46,9 @@
 // Reads docs/research/mixing/ (mixing.json, hazards.json and the two manifests under sources/), with the red
 //   cabbage pH lab's record for the note the foods share and the library's molecules for the links. Writes
 //   src/chem-data/mixing/mixing.json, and into sources.json the polarity and mixing lab's sources
+// Reads docs/research/hotcold/ (hotcold.json, hazards.json and the two manifests under sources/), with the
+//   periodic table's record for the atomic weights. Writes src/chem-data/hotcold/hotcold.json, and into
+//   sources.json the endothermic and exothermic lab's sources
 // Reads docs/research/freezing/ (freezing.json, hazards.json and the two manifests under sources/), with the
 // periodic table's record for the atomic weights, and writes:
 //   freezing/freezing.json, and into sources.json the freezing point depression lab's sources
@@ -77,6 +80,7 @@ import { checkMetalDensities, checkTellApart, checkWorkedOut as checkDensityWork
 import { checkMeasured, checkMolarMasses as checkFreezingMolarMasses, checkNumbers } from './freezing-lib.mjs'
 import { checkBench as checkReactionsBench, checkEquations, checkOrder, checkSeen, checkTiles } from './reactions-lib.mjs'
 import { checkBench as checkMixingBench, checkLayers, checkMolecules, checkParts as checkMixingParts, checkSourced, withSharedNote } from './mixing-lib.mjs'
+import { checkChange, checkDilution, checkDirections, checkDissolves, checkMolarMasses as checkHotcoldMolarMasses, checkWorkedOut as checkHotcoldWorkedOut } from './hotcold-lib.mjs'
 import { checkExcess, checkMixtures as checkAcetoneMixtures, checkRateRecord as checkAcetoneRateRecord, checkReaction as checkAcetoneReaction } from './acetone-lib.mjs'
 import { checkAnnualMean, checkMolecularWeight, checkPublished, checkSha256, checkSheetHazards, checkWikipediaCopy } from './titration-lib.mjs'
 
@@ -97,6 +101,7 @@ const densityResearch = join(root, 'docs/research/density')
 const freezingResearch = join(root, 'docs/research/freezing')
 const reactionsResearch = join(root, 'docs/research/reactions')
 const mixingResearch = join(root, 'docs/research/mixing')
+const hotcoldResearch = join(root, 'docs/research/hotcold')
 const acetoneResearch = join(root, 'docs/research/acetone')
 const out = join(root, 'src/chem-data')
 
@@ -2199,6 +2204,65 @@ function buildMixing(earlierSources, molecules) {
   return { mixing, sources: [...labSources, ...sheetSources.filter((source) => underHazards.has(source.id) || forPrimer.has(source.id))] }
 }
 
+// ---------------------------------------------------------------------------
+// Endothermic and exothermic lab
+//
+// The record is authored in docs/research/hotcold/hotcold.json: the two salts, each with what it is, its
+// composition, its molar mass worked out from the atomic weights, what it looks like and how much of it dissolves;
+// the water with its specific heat and density; the atomic weights; the three parts, the two runs each with the
+// enthalpy the model runs on, the row of the tables it is worked from and the notes shown when the run counts, the
+// first with the dry magnesium sulfate's figure that its note gives, and part 3 with its notes; and the model's
+// parameters. Every source is in sources/MANIFEST.json, each row of which names the stored values it supports, and
+// the build holds the record to those rows as it does the aqueous lab's. No source has a copy in this lab's folder:
+// the atomic weights are held to the periodic table's record. What the record works out is worked out again here,
+// and its numbers are held to spec 26.3 and 26.5 (scripts/hotcold-lib.mjs): Epsom salt takes heat in where calcium
+// chloride and the dry magnesium sulfate give it out, each row of the tables is the nearest to the strength on the
+// bench, every portion dissolves, and the change in temperature can be read on the logger and takes no cup past
+// what the record allows. The hazards are authored apart, in hazards.json with sources/hazard-manifest.json, and
+// merged in as the freezing point depression lab's are: both records are this lab's own, the solids as they are
+// used here, though four of the five documents behind them are ones the red cabbage pH and flame test labs list.
+
+const HOTCOLD_KEYS = ['reagents', 'water', 'atomicWeights', 'parts', 'parameters']
+const HOTCOLD_REAGENTS = ['epsom-salt', 'calcium-chloride']
+const HOTCOLD_PARTS = ['epsom-salt', 'calcium-chloride', 'packs']
+/** The field of a hazard manifest's row for a document read for the primer's safety topic. */
+const HOTCOLD_PRIMER_SAFETY = 'primer.safety'
+
+function buildHotcold(earlierSources, periodicTable) {
+  const json = (name) => JSON.parse(readFileSync(join(hotcoldResearch, name), 'utf8'))
+  const input = json('hotcold.json')
+  const manifest = json('sources/MANIFEST.json')
+  const hazardManifest = json('sources/hazard-manifest.json')
+
+  onlyKeys(input, HOTCOLD_KEYS, 'hotcold.json')
+  if (input.reagents.map((r) => r.id).join() !== HOTCOLD_REAGENTS.join()) fail('hotcold.json: the reagents are not the two salts of spec 26.1, in their order')
+  if (input.parts.map((p) => p.id).join() !== HOTCOLD_PARTS.join()) fail('hotcold.json: the parts are not the three of spec 26.1, in their order')
+  if (input.parts.map((p) => p.reagentId).join() !== [...HOTCOLD_REAGENTS, undefined].join()) fail('hotcold.json: each run is of its own salt, and part 3 of none')
+  if ([...manifest.sources, ...hazardManifest.sources].some((source) => source.file !== undefined)) fail('hotcold manifests: no source of this lab has a copy in its folder')
+  for (const [key, parameter] of Object.entries(input.parameters)) onlyKeys(parameter, ['value', 'rationale'], `hotcold.json: parameters.${key}`)
+
+  // A source another lab lists too (the tables, the atomic weights, a page of the calorimetry lab's primer, a sheet) is listed once.
+  const labSources = newSources(manifest.sources, earlierSources, 'hotcold MANIFEST.json')
+
+  checkHotcoldMolarMasses(input, periodicTable)
+  checkHotcoldWorkedOut(input)
+  checkDirections(input)
+  checkDilution(input)
+  checkDissolves(input)
+  checkChange(input)
+
+  const sheets = hazardManifest.sources
+  const sheetSources = newSources(sheets, [...earlierSources, ...labSources], 'hotcold hazard-manifest.json')
+  const hotcold = { ...input, reagents: mergeHazards(input.reagents, json('hazards.json'), sheets) }
+  checkSupported(hotcold, manifest.sources, sheets)
+
+  // As for the polarity and mixing lab: the app lists the documents a salt's hazards cite, and with them those
+  // the hazard manifest marks as read for the primer's safety topic.
+  const underHazards = new Set(hotcold.reagents.flatMap(({ hazards: { sourceId, note } }) => [sourceId, note.sourceId, ...(note.alsoSourceId === undefined ? [] : [note.alsoSourceId]), ...(note.moreSourceIds ?? [])]))
+  const forPrimer = new Set(hazardManifest.sources.filter((source) => source.supports.some((row) => row.field === HOTCOLD_PRIMER_SAFETY)).map((source) => source.id))
+  return { hotcold, sources: [...labSources, ...sheetSources.filter((source) => underHazards.has(source.id) || forPrimer.has(source.id))] }
+}
+
 // A static import list keeps the registry free of bundler-only APIs.
 function moleculeIndex(molecules) {
   const name = (id) => id.replace(/-(.)/g, (_, c) => c.toUpperCase())
@@ -2260,7 +2324,9 @@ function main() {
   const { reactions, sources: reactionsSources } = buildReactions(beforeReactions)
   const beforeMixing = [...beforeReactions, ...reactionsSources]
   const { mixing, sources: mixingSources } = buildMixing(beforeMixing, molecules)
-  const sources = [...beforeMixing, ...mixingSources]
+  const beforeHotcold = [...beforeMixing, ...mixingSources]
+  const { hotcold, sources: hotcoldSources } = buildHotcold(beforeHotcold, periodicTable)
+  const sources = [...beforeHotcold, ...hotcoldSources]
   if (new Set(sources.map((s) => s.id)).size !== sources.length) fail('duplicate source ids')
 
   // Everything is built before anything is written.
@@ -2300,11 +2366,13 @@ function main() {
   writeFileSync(join(out, 'reactions/reactions.json'), toJson(reactions))
   mkdirSync(join(out, 'mixing'), { recursive: true })
   writeFileSync(join(out, 'mixing/mixing.json'), toJson(mixing))
+  mkdirSync(join(out, 'hotcold'), { recursive: true })
+  writeFileSync(join(out, 'hotcold/hotcold.json'), toJson(hotcold))
   mkdirSync(join(root, 'src/mechanisms'), { recursive: true })
   writeFileSync(join(root, 'src/mechanisms', `${mechanism.id}.json`), toJson(mechanism))
   writeFileSync(join(out, 'sources.json'), toJson(sources))
   process.stdout.write(
-    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the flame test lab's record, the calorimetry lab's record, the Group I cations lab's record, the Le Chatelier's principle lab's record, the clock reaction lab's record, the iodination of acetone lab's record, the red cabbage pH lab's record, the measurement and density lab's record, the freezing point depression lab's record, the types of reactions lab's record, the polarity and mixing lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
+    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the flame test lab's record, the calorimetry lab's record, the Group I cations lab's record, the Le Chatelier's principle lab's record, the clock reaction lab's record, the iodination of acetone lab's record, the red cabbage pH lab's record, the measurement and density lab's record, the freezing point depression lab's record, the types of reactions lab's record, the polarity and mixing lab's record, the endothermic and exothermic lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
   )
 }
 

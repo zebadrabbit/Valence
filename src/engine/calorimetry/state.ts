@@ -84,7 +84,7 @@ export function readingsOf(m: CalorimetryModel, seed: number, part: PartId, run:
 }
 
 /** What the curve shows once the change is started: its level before, and the reading furthest from that level after, with the first step that shows it. Null before the change, and until a reading has moved. */
-export function curveOf(run: Run, shown: readonly number[]): (Shown & { extremeStep: number; turned: boolean }) | null {
+export function curveOf(run: Pick<Run, 'changedAt'>, shown: readonly number[]): (Shown & { extremeStep: number; turned: boolean }) | null {
   if (run.changedAt === null) return null
   const start = shown[run.changedAt]!
   let extremeStep = -1
@@ -98,7 +98,7 @@ export function curveOf(run: Run, shown: readonly number[]): (Shown & { extremeS
 }
 
 /** The technique that matters (spec 16.2): whether the lid was on, and the stirrer going, from the moment the change was started. */
-export const technique = (run: Run) => ({
+export const technique = (run: Pick<Run, 'changedAt' | 'lidFrom' | 'stirFrom'>) => ({
   lidOn: run.changedAt !== null && run.lidFrom !== null && run.lidFrom <= run.changedAt,
   stirred: run.changedAt !== null && run.stirFrom !== null && run.stirFrom <= run.changedAt,
 })

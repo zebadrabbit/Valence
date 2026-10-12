@@ -483,6 +483,8 @@ describe('the notebook', () => {
     expect(count(html, /<input [^>]*type="radio"/g)).toBe(3)
     expect(html).not.toContain('checked=""')
     for (const choice of liquidChoices(data)) expect(html).toContain(escaped(choice.label))
+    // Room over the hint of the entry that is chosen: open, its hit area reaches 24 px up from its line, and without the room lay over the foot of Enter.
+    expect(html).toContain('<div class="pt-3"><details>')
     const challenge = card(bench(entered(TWO, 7, 'challenge'), TWO).part, BENCH_TEXT.notebook)
     expect(challenge).not.toContain(VERDICT_TEXT.follows)
   })
