@@ -9,6 +9,7 @@ import { cabbageSchema, type CabbageData } from './cabbage/data'
 import { densitySchema, type DensityData } from './density/data'
 import { freezingSchema, type FreezingData } from './freezing/data'
 import { FIELD_AT, reactionsSchema, type ReactionsData } from './reactions/data'
+import { mixingSchema, type MixingData } from './mixing/data'
 import { clockSchema, type ClockData } from './clock/data'
 import { cationsSchema, type CationsData } from './cations/data'
 import { brightestOf, extentOf, flameSchema, rangeOf, type FlameData } from './flame/data'
@@ -977,5 +978,50 @@ export function validateReactions(input: unknown, sources: readonly Source[], op
     ...checkSourceIds(parsed.data, 'reactions', Array.isArray(sources) ? sources : []),
     ...checkPublished(parsed.data, 'reactions'),
     ...checkProse(parsed.data, 'reactions', Array.isArray(names) ? names : []),
+  ]
+}
+
+/**
+ * What the polarity and mixing lab's record must hold together beyond its shape: its ids, the liquids and the solid
+ * each tube names, a count that the bench can reach, and an answer that is one of its question's choices. That every
+ * pair and every solid in a liquid is on the bench or listed as left off it, and that two densities are far enough
+ * apart to say which liquid is on top, are the build's to check (scripts/mixing-lib.mjs), and a test's.
+ */
+function checkMixing(data: MixingData): string[] {
+  const errors = [
+    ...duplicates(data.liquids.map((l) => l.id), 'liquids'),
+    ...duplicates(data.solids.map((s) => s.id), 'solids'),
+    ...duplicates(data.pairs.map((p) => p.id), 'pairs'),
+    ...duplicates(data.solidInLiquid.map((t) => t.id), 'solidInLiquid'),
+    ...duplicates(data.offBench.map((o) => o.id), 'offBench'),
+    ...duplicates(data.rule.questions.map((q) => q.id), 'questions'),
+  ]
+  const bottles = new Set(data.reagents.map((r) => r.id))
+  for (const liquid of data.liquids) if (liquid.reagentId !== undefined && !bottles.has(liquid.reagentId)) errors.push(`liquid "${liquid.id}": unknown reagent "${liquid.reagentId}"`)
+  for (const pair of data.pairs) if (pair.id !== pair.liquidIds.join('+')) errors.push(`pair "${pair.id}": it is named by its two liquids, "${pair.liquidIds.join('+')}"`)
+  for (const tube of data.solidInLiquid) if (tube.id !== `${tube.solidId}-in-${tube.liquidId}`) errors.push(`solid in liquid "${tube.id}": it is named "${tube.solidId}-in-${tube.liquidId}"`)
+  for (const question of data.rule.questions) if (!question.choices.includes(question.answer.value)) errors.push(`question "${question.id}": its answer is not one of its choices`)
+  if (data.parameters.neededPairs.value > data.pairs.length) errors.push('parameters.neededPairs: more than the bench has pairs')
+  if (data.parameters.neededSolids.value > data.solidInLiquid.length) errors.push('parameters.neededSolids: more than the bench has solids in liquids')
+  if (data.parameters.lessMicrolitres.value >= data.parameters.moreMicrolitres.value) errors.push('parameters.lessMicrolitres: the lesser amount is less than the greater')
+  return errors
+}
+
+/**
+ * Checks the polarity and mixing lab's record against the sources it cites: the schema; that its ids hold together;
+ * that every source named exists; that each `published` reads as the number stored beside it; and that no name,
+ * note, reason or rationale holds institution text. Returns a list of problems; an empty list means the record is
+ * valid. Never throws, whatever it is given. That each value is what its source prints is the build script's to hold
+ * to the manifest.
+ */
+export function validateMixing(input: unknown, sources: readonly Source[], options: ValidateOptions = {}): string[] {
+  const parsed = mixingSchema.safeParse(input)
+  if (!parsed.success) return schemaErrors(parsed.error.issues)
+  const names = options?.institutionNames
+  return [
+    ...checkMixing(parsed.data),
+    ...checkSourceIds(parsed.data, 'mixing', Array.isArray(sources) ? sources : []),
+    ...checkPublished(parsed.data, 'mixing'),
+    ...checkProse(parsed.data, 'mixing', Array.isArray(names) ? names : []),
   ]
 }

@@ -1,0 +1,450 @@
+{
+  "retrieved": "2026-10-12",
+  "about": "Every source of the polarity and mixing lab's record (docs/research/mixing/mixing.json) and of its primer (src/chem-data/mixing/primer.ts) that is not read only for the rubbing alcohol's hazards: that one is in hazard-manifest.json. Each row names the stored values it supports, what the source prints and where. No copy of any source is kept. Three were read for earlier labs (the water's density, the sheet for sodium chloride and, in the hazard manifest, the government record of 2-propanol): each saved page was checked against its recorded hash and read again, and was not fetched again. The rest were fetched and read on the retrieved date. The robots file of each site was read before the first request to it; the supplier's sheets were read in a browser, since the site draws them by script.",
+  "sources": [
+    {
+      "id": "nist-webbook-water-20c",
+      "url": "https://webbook.nist.gov/cgi/fluid.cgi?Action=Load&ID=C7732185&Type=IsoBar&Digits=5&P=0.1&THigh=20&TLow=20&TInc=1&RefState=DEF&TUnit=C&PUnit=MPa&DUnit=g%2Fml&HUnit=kJ%2Fkg&WUnit=m%2Fs&VisUnit=uPa*s&STUnit=N%2Fm",
+      "citation": "Lemmon, E. W.; Bell, I. H.; Huber, M. L.; McLinden, M. O. Thermophysical Properties of Fluid Systems. In NIST Chemistry WebBook, NIST Standard Reference Database Number 69; Linstrom, P. J., Mallard, W. G., Eds.; National Institute of Standards and Technology: Gaithersburg, MD. https://doi.org/10.18434/T4D303 Isobaric properties for water at 0.1 MPa and 20 °C, in units of mass; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "8807f891882fe6a25c7b5385c20c51dc19ceb5d36e800d78b99b4686d668fe45",
+      "supports": [
+        {
+          "fields": [
+            "liquids[water].density"
+          ],
+          "prints": "0.99821",
+          "where": "The one row of the table, for 20.000 °C and 0.10000 MPa, in the column headed Density (g/ml). Read for the measurement and density lab on 2026-10-12; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-420.5",
+      "url": "https://www.flinnsci.com/sds_420.5-isopropyl-alcohol-40-90/sds_420.5",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Isopropyl Alcohol 40-90%, SDS number sds_420.5; revision date March 25, 2014 (read on 2026-10-12; no copy is kept).",
+      "fetchedSha256": "9138d657b11850ea62cce7b50f93a95f2f775da49c86a5e4a3e6ca3d330dbdad",
+      "supports": [
+        {
+          "fields": [
+            "liquids[rubbing-alcohol].looks"
+          ],
+          "prints": "Clear, colorless liquid.",
+          "where": "Section 9, the physical and chemical properties: the first line. The record stores the colour in this project's spelling."
+        },
+        {
+          "fields": [
+            "liquids[rubbing-alcohol].density"
+          ],
+          "prints": "0.87",
+          "where": "Section 9, the physical and chemical properties: the line for the specific gravity, which the sheet marks in brackets as the figure for 70%. No temperature is printed with it. Section 3 gives the alcohol as 40% to 90% of the solution and water as the rest."
+        },
+        {
+          "fields": [
+            "pairs[water+rubbing-alcohol].mix",
+            "pairs[water+rubbing-alcohol].note",
+            "pairs[rubbing-alcohol+vinegar].note"
+          ],
+          "prints": "Soluble: Water, alcohol, and ether",
+          "where": "Section 9, the physical and chemical properties: the second line. Section 3 lists water as a component, from a tenth to six tenths of the solution: the note says that the bottle is already part water."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Highly flammable liquid and vapor (H225)",
+          "where": "Section 2, the first of its four hazard classes, with the classes for the skin and for the eyes after it, and section 8, which calls for gloves and eye protection: what the primer's safety card says of the rubbing alcohol. The hazard manifest has the sheet's rows for the bottle's own record."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-844",
+      "url": "https://www.flinnsci.com/sds_844-vinegar/sds_844",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Vinegar, SDS number sds_844; revision date August 11, 2016 (read on 2026-10-12; no copy is kept).",
+      "fetchedSha256": "c88d3e44df5cd130193fd3ae3e240993693e107630f4f557c7f48622c3fa1f98",
+      "supports": [
+        {
+          "fields": [
+            "liquids[vinegar].strength"
+          ],
+          "prints": "4-8%",
+          "where": "Section 3, the table of components, the concentration column, in the row of acetic acid; the row of water has 92-96%. The table does not say whether the per cent is by mass or by volume."
+        },
+        {
+          "fields": [
+            "liquids[vinegar].density"
+          ],
+          "prints": "1.01",
+          "where": "Section 9, the physical and chemical properties: the line for the specific gravity. No temperature is printed with it. The first line of the section gives the liquid as clear or brown."
+        },
+        {
+          "fields": [
+            "liquids[vinegar].family",
+            "pairs[water+vinegar].mix",
+            "pairs[water+vinegar].note",
+            "pairs[rubbing-alcohol+vinegar].mix",
+            "pairs[rubbing-alcohol+vinegar].note",
+            "pairs[vinegar+mineral-oil].mix",
+            "solidInLiquid[salt-in-vinegar].dissolves",
+            "solidInLiquid[salt-in-vinegar].note",
+            "solidInLiquid[sugar-in-vinegar].dissolves",
+            "solidInLiquid[sugar-in-vinegar].note"
+          ],
+          "prints": "92-96%",
+          "where": "Section 3, the concentration column, in the row of water: vinegar is that much water, and the rest acetic acid. Section 9 lists water as what vinegar dissolves in and gives a pH of 2.4, an acid. For the pairs and the solids that name no source of their own, this is the half of the reason that says what vinegar is."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-529",
+      "url": "https://www.flinnsci.com/sds_529-mineral-oil/sds_529",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Mineral Oil, SDS number sds_529; revision date March 25, 2014 (read on 2026-10-12; no copy is kept).",
+      "fetchedSha256": "2a6a7bb70aa43170070a96c1e26de112da1781ecbb00834d5677f1c82b37a3d2",
+      "supports": [
+        {
+          "fields": [
+            "liquids[mineral-oil].looks"
+          ],
+          "prints": "Colorless, oily liquid.",
+          "where": "Section 9, the physical and chemical properties: the first line. The record stores the colour in this project's spelling."
+        },
+        {
+          "fields": [
+            "pairs[water+mineral-oil].mix",
+            "pairs[vinegar+mineral-oil].mix",
+            "pairs[vinegar+mineral-oil].note"
+          ],
+          "prints": "Insoluble in acids and water.",
+          "where": "Section 9, the physical and chemical properties: the second line, after what the oil does dissolve in, which is organic solvents. The same section gives the specific gravity as 0.845-0.860, with no temperature; the record stores the government record's figure, which has one, and says so beside it."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-721",
+      "url": "https://www.flinnsci.com/sds_721-sodium-chloride/sds_721",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Chloride, SDS number sds_721; revision date February 6, 2014 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "9176b22f424fb35a6a2256ed09ae72415ea779af9f7d5e0a9530bf3c155cf1eb",
+      "supports": [
+        {
+          "fields": [
+            "solids[salt].looks"
+          ],
+          "prints": "White crystalline powder.",
+          "where": "Section 9, the physical and chemical properties: the first line. Read for the measurement and density lab on 2026-10-08; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        },
+        {
+          "fields": [
+            "solidInLiquid[salt-in-water].dissolves",
+            "solidInLiquid[salt-in-vinegar].dissolves",
+            "solidInLiquid[salt-in-vinegar].note"
+          ],
+          "prints": "Soluble: Water. Slightly in alcohol.",
+          "where": "Section 9, the physical and chemical properties: the second line. It names no strength of alcohol and no kind, which is one reason salt is not tried in the rubbing alcohol. The same section gives the specific gravity of the solid as 2.17, more than twice any liquid of the bench: a grain sinks in each of them."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-789",
+      "url": "https://www.flinnsci.com/sds_789-sucrose/sds_789",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sucrose, SDS number sds_789; revision date March 25, 2014 (read on 2026-10-12; no copy is kept).",
+      "fetchedSha256": "447c3ad62286d2f9e04fede2571a7be694c268d3281488d8e0b4106debb8c05d",
+      "supports": [
+        {
+          "fields": [
+            "solids[sugar].looks"
+          ],
+          "prints": "Hard, white crystals",
+          "where": "Section 9, the physical and chemical properties: the opening words of the first line, which goes on to forms the supplier also sells."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "not for consumption",
+          "where": "Section 2, its last line: what the supplier sells is to be handled as a chemical and not eaten, having been kept with chemicals that are not of food grade. The primer's safety card says so of every kitchen thing on the bench."
+        },
+        {
+          "fields": [
+            "solidInLiquid[sugar-in-water].dissolves",
+            "solidInLiquid[sugar-in-vinegar].dissolves",
+            "solidInLiquid[sugar-in-vinegar].note"
+          ],
+          "prints": "Soluble: Water. Slightly in alcohol.",
+          "where": "Section 9, the physical and chemical properties: the second line. It names no strength of alcohol and no kind, which is one reason sugar is not tried in the rubbing alcohol. The same section gives the specific gravity of the solid as 1.5877, more than any liquid of the bench: a grain sinks in each of them."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-18022",
+      "url": "https://cameochemicals.noaa.gov/chemical/18022",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Oils, Edible: Vegetable (chemical 18022); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept).",
+      "fetchedSha256": "ef4288be1ef82a61f40e1b06f30b9cecf1577d05d233c0218b5c1b8af53acd08",
+      "supports": [
+        {
+          "fields": [
+            "liquids[vegetable-oil].looks"
+          ],
+          "prints": "Pale yellow oily liquid",
+          "where": "The field General Description, its opening words, credited to the Coast Guard, 1999. The page was found in the list of names the site shows under one letter; the site's search was not used, which its robots file closes to automated readers."
+        },
+        {
+          "fields": [
+            "liquids[vegetable-oil].density"
+          ],
+          "prints": "0.923",
+          "where": "The field Specific Gravity, among the physical properties: the figure, then the temperature it is for, 77°F, and the same credit. The line under it says that the oil is lighter than water and floats."
+        },
+        {
+          "fields": [
+            "liquids[vegetable-oil].family",
+            "pairs[water+vegetable-oil].mix",
+            "pairs[water+vegetable-oil].note"
+          ],
+          "prints": "Insoluble in water.",
+          "where": "The field Air & Water Reactions; the field Water Solubility, among the physical properties, has the one word Insoluble. The general description ends by saying that the oil floats on water."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-12191",
+      "url": "https://cameochemicals.noaa.gov/chemical/12191",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Mineral Oil (chemical 12191); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept).",
+      "fetchedSha256": "613d35e1cba04dc777d0d620a06ba2e3c42a0e8b2cbfd195a44e6a8b40274a28",
+      "supports": [
+        {
+          "fields": [
+            "liquids[mineral-oil].density"
+          ],
+          "prints": "0.822",
+          "where": "The field Specific Gravity, among the physical properties: the figure, then the temperature it is for, 68°F, credited to the Coast Guard, 1999. The page was found in the list of names the site shows under one letter; the site's search was not used."
+        },
+        {
+          "fields": [
+            "liquids[mineral-oil].family",
+            "pairs[vegetable-oil+mineral-oil].mix",
+            "solidInLiquid[salt-in-mineral-oil].dissolves",
+            "solidInLiquid[salt-in-mineral-oil].note",
+            "solidInLiquid[sugar-in-mineral-oil].dissolves",
+            "solidInLiquid[sugar-in-mineral-oil].note",
+            "primer"
+          ],
+          "prints": "Hydrocarbons, Aliphatic Saturated",
+          "where": "The field Reactive Group, the one group the record puts mineral oil in: compounds of carbon and hydrogen alone, with single bonds. The CAS number in the table of identifiers is 8012-95-1."
+        },
+        {
+          "fields": [
+            "pairs[water+mineral-oil].mix",
+            "pairs[water+mineral-oil].note"
+          ],
+          "prints": "Insoluble in water.",
+          "where": "The field Air & Water Reactions, after the word that says the oil burns; the field Water Solubility has the one word Insoluble. The general description gives the liquid as transparent, oily and without colour."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-solvent",
+      "url": "https://en.wikipedia.org/wiki/Solvent?oldid=1376398177",
+      "citation": "Wikipedia, Solvent, revision 1376398177 of 2026-09-23; a secondary source, read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "f15e4a99a7acda65dfe98126e2b304d4e5371cc033b218e90e53e67a644cdfbb",
+      "supports": [
+        {
+          "fields": [
+            "liquids[vegetable-oil].family",
+            "pairs[vegetable-oil+mineral-oil].mix",
+            "pairs[vegetable-oil+mineral-oil].note",
+            "solidInLiquid[salt-in-vegetable-oil].dissolves",
+            "solidInLiquid[salt-in-vegetable-oil].note",
+            "solidInLiquid[salt-in-mineral-oil].dissolves",
+            "solidInLiquid[salt-in-mineral-oil].note",
+            "solidInLiquid[sugar-in-vegetable-oil].dissolves",
+            "solidInLiquid[sugar-in-vegetable-oil].note",
+            "solidInLiquid[sugar-in-mineral-oil].dissolves",
+            "solidInLiquid[sugar-in-mineral-oil].note",
+            "rule.questions[epsom-salt].answer",
+            "parts[solids].notes[0]",
+            "parts[rule].notes[0]",
+            "primer"
+          ],
+          "prints": "like dissolves like",
+          "where": "The section on the classification of solvents, the paragraph after the list of polarity scales: polar liquids dissolve polar things best and non-polar liquids non-polar things. It gives sugars, with sucrose as its example, and ionic compounds, with table salt as its example, as dissolving in very polar liquids such as water and in no others; and oils and waxes as strongly non-polar, dissolving in very non-polar liquids of which it names hexane."
+        },
+        {
+          "fields": [
+            "pairs[vinegar+vegetable-oil].mix",
+            "pairs[vinegar+vegetable-oil].note",
+            "parts[liquids].notes[0]"
+          ],
+          "prints": "vinegar and vegetable oil",
+          "where": "The last sentence of the same paragraph, in brackets beside water and hexane: a pair that does not mix and that parts into two layers soon after it is shaken hard."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-miscibility",
+      "url": "https://en.wikipedia.org/wiki/Miscibility?oldid=1377003340",
+      "citation": "Wikipedia, Miscibility, revision 1377003340 of 2026-09-27; a secondary source, read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "9f6d289052b0f5f5ebe334b9ab0a5394c2a9624be3e4f511ba139a54eb35c498",
+      "supports": [
+        {
+          "fields": [
+            "parts[liquids].notes[0]",
+            "primer"
+          ],
+          "prints": "miscible",
+          "where": "The opening paragraph: two substances that mix in every proportion into one even mixture; its example is water and ethanol. The second paragraph has the opposite word, for two that do not make one mixture at some proportions, with oil and water as its example and the word soluble for what oil is not in water."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-rubbing-alcohol",
+      "url": "https://en.wikipedia.org/wiki/Rubbing_alcohol?oldid=1320216383",
+      "citation": "Wikipedia, Rubbing alcohol, revision 1320216383 of 2025-11-03; a secondary source, read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "711402c26c8b5c7e12ea999a1cf0e1ac36ae2baf9c2c882c1d982d63535db4b4",
+      "supports": [
+        {
+          "fields": [
+            "liquids[rubbing-alcohol].strength"
+          ],
+          "prints": "approximately 70%",
+          "where": "The second paragraph: what a United States pharmacopoeia calls isopropyl rubbing alcohol is a solution of about this much 2-propanol by volume. The paragraph after it says that makers may use their own recipes and that what is sold runs from 70% to 99%; the section on properties gives the rest of the isopropyl kind as water. The lab takes its bottle as the 70% kind, the one the supplier's sheet prints a specific gravity for."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-isopropyl-alcohol",
+      "url": "https://en.wikipedia.org/wiki/Isopropyl_alcohol?oldid=1377601646",
+      "citation": "Wikipedia, Isopropyl alcohol, revision 1377601646 of 2026-09-30; a secondary source, read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "97dfea7b8d8be4d92d8d32b7f584a96dfc761c83e7a77a32a91da48879bea08f",
+      "supports": [
+        {
+          "fields": [
+            "liquids[rubbing-alcohol].family",
+            "pairs[water+rubbing-alcohol].mix",
+            "pairs[water+rubbing-alcohol].note",
+            "pairs[rubbing-alcohol+vinegar].mix",
+            "parts[rule].notes[1]",
+            "primer"
+          ],
+          "prints": "an organic polar molecule",
+          "where": "The section on properties, its first paragraph: the alcohol mixes with water in all proportions, being a polar molecule, and dissolves many oils among other things. The same paragraph says that it does not mix with solutions of salt, and that putting a salt, sodium chloride for one, into its solution in water parts the alcohol from the water as a layer: one reason salt is not tried in the rubbing alcohol. The section on its uses calls it a solvent for non-polar compounds of many kinds."
+        }
+      ]
+    },
+    {
+      "id": "ck12-structure-of-water",
+      "url": "https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introductory_Chemistry_(CK-12)/15%3A_Water/15.01%3A_Structure_of_Water",
+      "citation": "CK-12 Foundation. 15.1: Structure of Water. In Introductory Chemistry (CK-12); LibreTexts; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "27c57d6296c221fcf9341fe658cd869dccd3e3ca418006890cb9dac9ec42cea8",
+      "supports": [
+        {
+          "fields": [
+            "liquids[water].family",
+            "primer"
+          ],
+          "prints": "Water is a polar molecule",
+          "where": "The caption of the second figure, and the paragraph over it: the molecule is bent, the oxygen atom is its negative end and the side of the two hydrogen atoms its positive end. The paragraph after says that the positive end of one polar molecule and the negative end of its neighbour attract each other."
+        }
+      ]
+    },
+    {
+      "id": "ck12-dissolving-process",
+      "url": "https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introductory_Chemistry_(CK-12)/15%3A_Water/15.05%3A_Dissolving_Process",
+      "citation": "CK-12 Foundation. 15.5: Dissolving Process. In Introductory Chemistry (CK-12); LibreTexts; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "184a83ec050232af8c08cadc0936e43b8e50b25a1b53138c889f1d3fba9a3a4e",
+      "supports": [
+        {
+          "fields": [
+            "solidInLiquid[salt-in-water].dissolves",
+            "solidInLiquid[salt-in-water].note",
+            "solidInLiquid[salt-in-vegetable-oil].note",
+            "primer"
+          ],
+          "prints": "The Process of Dissolution",
+          "where": "The paragraphs under this heading on table salt: its crystal is positive and negative ions in turn; water molecules, being polar, turn their oxygen end to the sodium ions and their hydrogen end to the chloride ions, take the crystal apart and then surround each ion."
+        },
+        {
+          "fields": [
+            "solidInLiquid[sugar-in-water].dissolves",
+            "solidInLiquid[sugar-in-water].note",
+            "solidInLiquid[sugar-in-vegetable-oil].note",
+            "solidInLiquid[sugar-in-mineral-oil].note",
+            "primer"
+          ],
+          "prints": "Table sugar is sucrose",
+          "where": "The last paragraph under the same heading: sugar is a compound of molecules, which water parts from each other without breaking them, and whose many O–H groups make hydrogen bonds with water."
+        },
+        {
+          "fields": [
+            "rule.questions[grease].answer"
+          ],
+          "prints": "grease or oil",
+          "where": "The first paragraph under the same heading: many ionic compounds and many polar molecules dissolve in water, and the non-polar molecules of these two things do not."
+        }
+      ]
+    },
+    {
+      "id": "ck12-liquid-liquid-solutions",
+      "url": "https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introductory_Chemistry_(CK-12)/15%3A_Water/15.06%3A_Liquid-Liquid_Solutions",
+      "citation": "CK-12 Foundation. 15.6: Liquid-Liquid Solutions. In Introductory Chemistry (CK-12); LibreTexts; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "7fb8e0221f24f0f845f2cf0e22c1c4623490bc66e3b446d06ca91356dcab16cf",
+      "supports": [
+        {
+          "fields": [
+            "pairs[water+vegetable-oil].note",
+            "pairs[vegetable-oil+mineral-oil].note",
+            "liquids[mineral-oil].family",
+            "parts[liquids].notes[1]",
+            "parts[solids].notes[0]",
+            "parts[rule].notes[0]",
+            "primer"
+          ],
+          "prints": "like dissolves like",
+          "where": "The paragraph under the heading of the page's name, and the caption of its figure: a non-polar liquid such as oil makes two layers with water, with the oil on top because it is the less dense; a polar liquid such as ethanol blends with water; the two words for liquids that do and do not dissolve in each other; and a non-polar solid, iodine, that dissolves in a non-polar liquid and not in water. The paragraph that opens the page says that oil from the ground is mostly hydrocarbons and for that reason does not dissolve in water. The summary uses the word insoluble."
+        },
+        {
+          "fields": [
+            "liquids[vinegar].family",
+            "pairs[rubbing-alcohol+vinegar].mix",
+            "parts[rule].notes[1]",
+            "primer"
+          ],
+          "prints": "acetic acid",
+          "where": "The paragraph after the figure, in a list of four small compounds whose polar groups hold on to water: methanol, ethanol, this acid and acetone. It goes on to say that the larger the non-polar part of a molecule, the less it dissolves in water."
+        }
+      ]
+    },
+    {
+      "id": "purdue-will-olive-oil-float",
+      "url": "https://www.chem.purdue.edu/bcce/Will_olive_oil_float.pdf",
+      "citation": "Wittbrodt, J. (Wayne County Community College District). Teacher’s Guide for “Will Olive Oil Float?”; a one-page demonstration handout served by the Department of Chemistry of Purdue University. Read as the PDF at the address above; no copy is kept (retrieved 2026-10-12).",
+      "fetchedSha256": "5f898b1079704bb59ee1b83d860ff3093dbe5b66115c3c469c36455ca0f73394",
+      "supports": [
+        {
+          "fields": [
+            "liquids[rubbing-alcohol].family",
+            "pairs[water+rubbing-alcohol].mix",
+            "pairs[rubbing-alcohol+vegetable-oil].mix",
+            "pairs[rubbing-alcohol+vegetable-oil].note"
+          ],
+          "prints": "immiscible",
+          "where": "The list of supplies, the description and the last of the discussion points. The supplies name rubbing alcohol of 75% 2-propanol or more, olive oil and water. The description says that the oil sinks in the alcohol, the two not mixing and the oil being the denser, and that water added to the tube mixes into the alcohol until that layer is the denser and the layers change places. The last point classes the alcohol with olive oil, and water with olive oil, as pairs that do not mix, and the alcohol with water as a pair that does. A note says that the alcohol is to be 75% or more so that it is sure to be less dense than the oil: the handout does not name the 70% of this bench, and which liquid is on top here is taken from the stored densities. Its table gives olive oil 0.80 to 0.92 g/mL, which the record does not use."
+        }
+      ]
+    },
+    {
+      "id": "uaf-liquid-layers",
+      "url": "https://outreach.gi.alaska.edu/sites/default/files/lessons/2_4Liquid_Layers.pdf",
+      "citation": "University of Alaska Fairbanks, Geophysical Institute. Liquid Layers; a lesson of the unit Ola Ka Honua: Volcanoes Alive, four pages, 2001 and 2007. Read as the PDF at the address above; no copy is kept (retrieved 2026-10-12).",
+      "fetchedSha256": "98b44acb527e6a9d829f41b92bd90a9e3e62cd8914f9ddcce459c06e07332fe9",
+      "supports": [
+        {
+          "fields": [
+            "pairs[water+vegetable-oil].mix",
+            "parts[liquids].notes[1]",
+            "primer"
+          ],
+          "prints": "Vegetable oil on top, water in middle",
+          "where": "The answers to the worksheet, on the first page of the teacher's instructions, for a beaker of vegetable oil, water and pancake syrup. The worksheet's background says that liquids poured into one vessel part by density, the densest at the bottom and the least dense on top; the procedure defines density as the mass of a thing for its volume."
+        }
+      ]
+    }
+  ]
+}

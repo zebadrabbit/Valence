@@ -29,6 +29,8 @@ export const ACTIVITIES = [
   { entry: ENTRY.freezing, version: 1, kind: 'Lab', title: 'Freezing point depression', to: '/lab/freezing-point-depression' },
   // src/reactions-version.test.ts pins what a stored lab is judged against to this entry and this version.
   { entry: ENTRY.reactions, version: 1, kind: 'Lab', title: 'Types of reactions', to: '/lab/types-of-reactions' },
+  // src/mixing-version.test.ts pins what a stored lab is judged against to this entry and this version.
+  { entry: ENTRY.mixing, version: 1, kind: 'Lab', title: 'Polarity and mixing', to: '/lab/polarity-and-mixing' },
   { entry: ENTRY.mechanism, version: 1, kind: 'Mechanism', title: 'HCl + NaHCO₃, step by step', to: '/learn/hcl-nahco3' },
 ] as const
 
@@ -49,6 +51,9 @@ export const FREEZING_PROGRESS = { entry: ACTIVITIES[10].entry, version: ACTIVIT
 
 /** The types of reactions lab's stored entry and its version: what its page loads and saves with (src/reactions-version.test.ts pins what a stored lab is judged against to it). */
 export const REACTIONS_PROGRESS = { entry: ACTIVITIES[11].entry, version: ACTIVITIES[11].version } as const
+
+/** The polarity and mixing lab's stored entry and its version: what its page loads and saves with (src/mixing-version.test.ts pins what a stored lab is judged against to it). */
+export const MIXING_PROGRESS = { entry: ACTIVITIES[12].entry, version: ACTIVITIES[12].version } as const
 
 export type Activity = (typeof ACTIVITIES)[number]
 

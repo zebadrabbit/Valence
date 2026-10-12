@@ -2523,5 +2523,80 @@
     "id": "flinn-sds-398.5",
     "url": "https://www.flinnsci.com/sds_398.5-hydrogen-peroxide-solution-2-6/sds_398.5",
     "citation": "Flinn Scientific, Inc. Safety Data Sheet: Hydrogen Peroxide Solution 2%-6%, SDS number sds_398.5; revision date August 6, 2015 (read on 2026-10-12; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-420.5",
+    "url": "https://www.flinnsci.com/sds_420.5-isopropyl-alcohol-40-90/sds_420.5",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Isopropyl Alcohol 40-90%, SDS number sds_420.5; revision date March 25, 2014 (read on 2026-10-12; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-844",
+    "url": "https://www.flinnsci.com/sds_844-vinegar/sds_844",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Vinegar, SDS number sds_844; revision date August 11, 2016 (read on 2026-10-12; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-529",
+    "url": "https://www.flinnsci.com/sds_529-mineral-oil/sds_529",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Mineral Oil, SDS number sds_529; revision date March 25, 2014 (read on 2026-10-12; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-789",
+    "url": "https://www.flinnsci.com/sds_789-sucrose/sds_789",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sucrose, SDS number sds_789; revision date March 25, 2014 (read on 2026-10-12; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-18022",
+    "url": "https://cameochemicals.noaa.gov/chemical/18022",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Oils, Edible: Vegetable (chemical 18022); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-12191",
+    "url": "https://cameochemicals.noaa.gov/chemical/12191",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Mineral Oil (chemical 12191); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept)."
+  },
+  {
+    "id": "wikipedia-solvent",
+    "url": "https://en.wikipedia.org/wiki/Solvent?oldid=1376398177",
+    "citation": "Wikipedia, Solvent, revision 1376398177 of 2026-09-23; a secondary source, read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "wikipedia-miscibility",
+    "url": "https://en.wikipedia.org/wiki/Miscibility?oldid=1377003340",
+    "citation": "Wikipedia, Miscibility, revision 1377003340 of 2026-09-27; a secondary source, read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "wikipedia-rubbing-alcohol",
+    "url": "https://en.wikipedia.org/wiki/Rubbing_alcohol?oldid=1320216383",
+    "citation": "Wikipedia, Rubbing alcohol, revision 1320216383 of 2025-11-03; a secondary source, read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "wikipedia-isopropyl-alcohol",
+    "url": "https://en.wikipedia.org/wiki/Isopropyl_alcohol?oldid=1377601646",
+    "citation": "Wikipedia, Isopropyl alcohol, revision 1377601646 of 2026-09-30; a secondary source, read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "ck12-structure-of-water",
+    "url": "https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introductory_Chemistry_(CK-12)/15%3A_Water/15.01%3A_Structure_of_Water",
+    "citation": "CK-12 Foundation. 15.1: Structure of Water. In Introductory Chemistry (CK-12); LibreTexts; read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "ck12-dissolving-process",
+    "url": "https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introductory_Chemistry_(CK-12)/15%3A_Water/15.05%3A_Dissolving_Process",
+    "citation": "CK-12 Foundation. 15.5: Dissolving Process. In Introductory Chemistry (CK-12); LibreTexts; read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "ck12-liquid-liquid-solutions",
+    "url": "https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introductory_Chemistry_(CK-12)/15%3A_Water/15.06%3A_Liquid-Liquid_Solutions",
+    "citation": "CK-12 Foundation. 15.6: Liquid-Liquid Solutions. In Introductory Chemistry (CK-12); LibreTexts; read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "purdue-will-olive-oil-float",
+    "url": "https://www.chem.purdue.edu/bcce/Will_olive_oil_float.pdf",
+    "citation": "Wittbrodt, J. (Wayne County Community College District). Teacher’s Guide for “Will Olive Oil Float?”; a one-page demonstration handout served by the Department of Chemistry of Purdue University. Read as the PDF at the address above; no copy is kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "uaf-liquid-layers",
+    "url": "https://outreach.gi.alaska.edu/sites/default/files/lessons/2_4Liquid_Layers.pdf",
+    "citation": "University of Alaska Fairbanks, Geophysical Institute. Liquid Layers; a lesson of the unit Ola Ka Honua: Volcanoes Alive, four pages, 2001 and 2007. Read as the PDF at the address above; no copy is kept (retrieved 2026-10-12)."
   }
 ]

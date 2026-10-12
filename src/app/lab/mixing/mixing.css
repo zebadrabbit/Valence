@@ -1,0 +1,108 @@
+/*
+ * Where the pieces of the polarity and mixing lab sit. Loaded with the lab page, so none of it is in the app
+ * shell's stylesheet. Nothing here animates, and nothing on this lab's page moves.
+ *
+ * Parts 1 and 2 are the table the tubes are chosen from and the tube chosen. Where the part has the width for the
+ * table and for a tube with its questions beside its picture, 76rem, the table stands on the left and the tube beside
+ * it, and the button that opens the table is not displayed, so that a screen reader and the Tab key meet no control
+ * that does nothing. Where it has not, as on an upright tablet and in a window 1280 px wide, the table is behind that
+ * button once a tube is chosen, and the tube has the width.
+ */
+.mixing-part {
+  container: mixing-part / inline-size;
+}
+.mixing-layout {
+  display: grid;
+  gap: 0.5rem;
+  align-items: start;
+  grid-template-columns: minmax(0, 1fr);
+}
+.mixing-chooser {
+  display: none;
+}
+.mixing-chooser-open {
+  display: grid;
+}
+@container mixing-part (min-width: 76rem) {
+  .mixing-layout {
+    gap: 0.75rem;
+    grid-template-columns: 29rem minmax(0, 1fr);
+  }
+  .mixing-choose-button {
+    display: none;
+  }
+  .mixing-chooser {
+    display: grid;
+  }
+}
+
+/* The table of tubes: every column of tubes as wide as the next, whatever its heading. */
+.mixing-table {
+  table-layout: fixed;
+}
+
+/*
+ * A tube's card: the picture, 280 px wide of its 320, with the steps beside it. In a card too narrow for that the
+ * steps are under the picture.
+ */
+.mixing-tube {
+  container: mixing-tube / inline-size;
+}
+.mixing-tube-grid {
+  display: grid;
+  gap: 0.5rem 0.75rem;
+  align-items: start;
+  grid-template-columns: minmax(0, 20rem);
+}
+@container mixing-tube (min-width: 26rem) {
+  .mixing-tube-grid {
+    grid-template-columns: minmax(0, 17.5rem) minmax(0, 1fr);
+  }
+}
+
+/*
+ * Where the card has the width, 46rem, what is seen is asked beside the picture and its steps and not under them, so
+ * that a tube with a question open stands in a window 800 px tall. The picture and the steps keep the width they
+ * have on an upright tablet, where the card is narrower than this and nothing changes.
+ */
+@container mixing-tube (min-width: 46rem) {
+  .mixing-tube-card {
+    grid-template-columns: 31rem minmax(0, 1fr);
+  }
+  /* The shorter of the two sheets is as tall as the other: what is in it stands at its head, and is not spread down it. */
+  .mixing-tube-card > * {
+    align-content: start;
+  }
+  .mixing-tube-card > :first-child {
+    border-bottom-width: 0;
+    border-right-style: solid;
+    border-right-width: 1px;
+  }
+}
+
+/*
+ * Part 3's two sheets, the sorting and the two questions, stand side by side where the part is 46rem wide, so that
+ * the part with its questions open stands in a window 800 px tall. The sorting has the whole card until the
+ * questions come; its choices stand where they stood.
+ */
+@container mixing-part (min-width: 46rem) {
+  .mixing-rule-card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .mixing-rule-card > :only-child {
+    grid-column: 1 / -1;
+  }
+  .mixing-rule-card > * {
+    align-content: start;
+  }
+  .mixing-rule-card > :first-child:not(:only-child) {
+    border-bottom-width: 0;
+    border-right-style: solid;
+    border-right-width: 1px;
+  }
+}
+
+/* A form's message line, while it has nothing to say, takes no room, the gap over it neither. It stays in the page, so that a screen reader says what comes to stand in it. */
+.mixing-part form.grid > p:empty {
+  margin-top: -0.75rem;
+}

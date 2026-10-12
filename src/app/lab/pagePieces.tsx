@@ -28,3 +28,14 @@ export function PeriodicTableLink({ symbol, children = SHELL_TEXT.periodicTable 
     </a>
   )
 }
+
+/** A molecule of the explorer's library in a browser tab of its own, so that the page is not left, under `children`, the link's words: the polarity and mixing lab's. */
+export function MoleculeLink({ id, children }: { id: string; children: ReactNode }) {
+  return (
+    <a href={`#/explore/${id}`} target="_blank" rel="noopener" className="inline-flex min-h-11 items-center gap-1.5 rounded-md px-2 text-left text-sm font-medium underline-offset-4 outline-none hover:underline focus-visible:ring-2 focus-visible:ring-ring">
+      {children}
+      <ExternalLink aria-hidden="true" className="size-4 shrink-0" />
+      <span className="sr-only">{SHELL_TEXT.newTab}</span>
+    </a>
+  )
+}

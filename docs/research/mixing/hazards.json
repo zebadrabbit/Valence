@@ -1,0 +1,20 @@
+{
+  "rubbing-alcohol": {
+    "classifiedAs": "Hazards of 2-propanol (isopropyl alcohol) of 40% to 90% in water, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H225: Highly flammable liquid and vapor",
+        "H316: Causes mild skin irritation",
+        "H319: Causes serious eye irritation",
+        "H336: May cause drowsiness or dizziness"
+      ],
+      "note": {
+        "value": "The rubbing alcohol here is about 70% 2-propanol in water, a few millilitres in a tube. The supplier's sheet for that strength keeps it from heat, sparks, flames and hot surfaces, and from strong oxidizers and acids; has it used in a hood or a well-ventilated room; and calls for eye protection, gloves and protective clothing. It says that drinking it can kill. The one acid it meets on this bench is vinegar, in a tube.\n\nStricter, and what this lab goes by: NOAA's record of the alcohol says that the vapour is heavier than air and can reach a flame some way off and flash back; that splashed skin is flooded with water while the clothing comes off; and, for the eyes, flushing with water for 20 to 30 minutes and a hospital after.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-420.5",
+        "alsoSourceId": "noaa-cameo-946"
+      },
+      "sourceId": "flinn-sds-420.5"
+    }
+  }
+}

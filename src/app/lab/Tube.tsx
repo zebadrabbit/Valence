@@ -1,7 +1,8 @@
 import { useId, type CSSProperties, type ReactNode } from 'react'
 import { useExplore } from './useExplore'
 
-// A test tube that is explored: the aqueous reactions lab's, the Group I cations lab's, the Le Chatelier's principle lab's and the red cabbage pH lab's. The tube stands on a
+// A test tube that is explored: the aqueous reactions lab's, the Group I cations lab's, the Le Chatelier's principle lab's, the red cabbage pH lab's and the polarity and mixing
+// lab's, whose tube alone holds two liquids, one lying on the other. The tube stands on a
 // white card, as the titration lab's flask does, so that the colours are judged against white in the dark theme
 // too. Everything in the drawing has a fixed colour, the buttons and callouts laid over it too. The picture is 320
 // of its own units wide, and a unit is a pixel wherever its card has 320 px for it: the tube in the left of it, and
@@ -19,6 +20,8 @@ const BRACE_X = 136
  * light line that is not seen. So an edge shows on anything a lab puts in a tube.
  */
 export const EDGE_HALO = 'shadow-[0_0_0_1.5px_rgb(255_255_255/0.85)]'
+/** The line between two liquids of which one lies on the other: its colour, and how heavy it is in the picture's units. */
+export const LAYER_LINE = { stroke: INK, width: 2 } as const
 const BUBBLES = [
   [66, 142, 5],
   [104, 124, 4],
@@ -44,6 +47,12 @@ export const contentsEnd = (height: number) => height - 26
 export interface TubeLayers {
   /** The liquid, and where down the picture its surface is. Null for a tube with no liquid in it. `cloudy` draws wisps through it, so that a cloudy liquid is told from a clear one of the same colour by more than a word (the red cabbage pH lab's). */
   liquid: { hex: string; surface: number; cloudy?: boolean } | null
+  /**
+   * A second liquid lying on the first, from its own surface down to the first's (the polarity and mixing lab's). The
+   * two are drawn as two bands with a line between them that does not rest on either's colour: two liquids with no
+   * colour are two bands of one grey, and the line is what is seen. Never set without `liquid`.
+   */
+  above?: { hex: string; surface: number } | null
   /** A solid that lies at the bottom, from `top` down to the foot. `grain` is the colour of the grain over it, where the ink would not show on it. */
   solid: { hex: string; top: number; grain?: string } | null
   /** A solid spread through the liquid and not yet settled: drawn as specks of its colour all through it. */
@@ -52,10 +61,13 @@ export interface TubeLayers {
   bubbles?: { moving: string | undefined } | null
 }
 
-/** The words beside the brackets that say which layer is which. */
+/** The words beside the brackets that say which layer is which. A word that is null has no bracket drawn for its layer: the polarity and mixing lab's, where a bracket would say how many layers there are before the layer has been looked at. */
 export interface LayerWords {
-  liquid: string
-  solid: string
+  /** The liquid; the lower of two. */
+  liquid: string | null
+  solid: string | null
+  /** The upper of two liquids. */
+  above?: string | null
   /** A liquid with a solid spread through it. */
   spread?: string
 }
@@ -108,16 +120,21 @@ export function TubeDefs({ id, height, layers }: { id: string; height: number; l
 /**
  * A tube as it is drawn: the liquid in its colour up to its surface, a solid at the bottom in its colour under a
  * grain and with an edge, or spread through the liquid as specks, bubbles where there are any, and the glass over
- * them. With `words`, a bracket beside each layer says which it is: beside the glass, or at `bracesAt` where
- * something that stands about the tube needs that room. Nothing here is a control.
+ * them. A second liquid lies on the first as a band of its own, with a line between the two. With `words`, a bracket
+ * beside each layer that has a word says which it is: beside the glass, or at `bracesAt` where something that stands
+ * about the tube needs that room. Nothing here is a control.
  */
 export function TubeBody({ id, height, layers, words, bracesAt = BRACE_X }: { id: string; height: number; layers: TubeLayers; words?: LayerWords | undefined; bracesAt?: number | undefined }) {
   const { liquid, solid, spread, bubbles } = layers
+  const above = liquid ? layers.above : null
   const end = contentsEnd(height)
+  // The word of each bracket; none is drawn for a word that is null.
+  const word = words && { above: words.above === undefined ? words.liquid : words.above, liquid: spread ? (words.spread ?? words.liquid) : words.liquid, solid: words.solid }
   return (
     <>
       <g clipPath={`url(#${id})`}>
         {liquid && <rect x={48} y={liquid.surface} width={80} height={height - liquid.surface} fill={liquid.hex} />}
+        {liquid && above && <rect x={48} y={above.surface} width={80} height={liquid.surface - above.surface} fill={above.hex} />}
         {/* Wisps through a cloudy liquid, in the ink and faint with a light line under each, so that they show on a white liquid and on a dark one. Drawn as one path and not as a pattern: a pattern of them was drawn as a white band across the window by the one browser tried. */}
         {liquid?.cloudy && (
           <>
@@ -140,11 +157,19 @@ export function TubeBody({ id, height, layers, words, bracesAt = BRACE_X }: { id
           </g>
         )}
       </g>
-      {liquid && <line x1={48} x2={128} y1={liquid.surface} y2={liquid.surface} stroke={INK} strokeOpacity={0.5} strokeWidth={1.5} />}
+      {liquid && !above && <line x1={48} x2={128} y1={liquid.surface} y2={liquid.surface} stroke={INK} strokeOpacity={0.5} strokeWidth={1.5} />}
+      {liquid && above && (
+        <>
+          <line x1={48} x2={128} y1={above.surface} y2={above.surface} stroke={INK} strokeOpacity={0.5} strokeWidth={1.5} />
+          {/* Where one liquid lies on the other: a plain line in the whole ink, heavier than a surface's, on the lower liquid's own colour and on the upper's. It is what tells two liquids of one colour apart, and the card is white in both themes. */}
+          <line x1={48} x2={128} y1={liquid.surface} y2={liquid.surface} stroke={LAYER_LINE.stroke} strokeWidth={LAYER_LINE.width} />
+        </>
+      )}
       <path d={glass(height)} fill="none" stroke={INK} strokeWidth={2.5} strokeLinecap="round" />
       <path d="M 42 20 L 134 20" stroke={INK} strokeWidth={2.5} strokeLinecap="round" />
-      {words && liquid && <Brace at={bracesAt} from={liquid.surface} to={solid ? solid.top : end} word={spread ? (words.spread ?? words.liquid) : words.liquid} />}
-      {words && solid && <Brace at={bracesAt} from={solid.top} to={end} word={words.solid} />}
+      {word && liquid && above && word.above !== null && <Brace at={bracesAt} from={above.surface} to={liquid.surface} word={word.above} />}
+      {word && liquid && word.liquid !== null && <Brace at={bracesAt} from={liquid.surface} to={solid ? solid.top : end} word={word.liquid} />}
+      {word && solid && word.solid !== null && <Brace at={bracesAt} from={solid.top} to={end} word={word.solid} />}
     </>
   )
 }
@@ -171,7 +196,7 @@ export interface TubeProps<Part extends string> {
   height: number
   layers: TubeLayers
   words: LayerWords
-  /** The sections drawn as buttons, from the top. Each is 58 units or more tall. */
+  /** The sections drawn as buttons, from the top: the liquid and the bottom, or each of two liquids by itself. Each is 58 units or more tall. */
   sections: readonly TubeSection<Part>[]
   /** What is seen in a section, in words. Asked for only when the section is looked at, so that nothing of it is on the page before. */
   seen(part: Part): string
