@@ -98,17 +98,17 @@ describe('the measured freezing points', () => {
 describe('the numbers of spec 23.3 and 23.6, by number', () => {
   const numbers = checkNumbers(input)
 
-  it('tell the three liquids apart: acetone and 2-propanol are 3.48% apart, and a careful learner, with every entry rounded the least lucky way, is within 0.70%', () => {
+  it('tell the three liquids apart: acetone and 2-propanol are 3.48% apart, and a careful learner, with every entry rounded the least lucky way, is within 0.72%', () => {
     expect(numbers.nearest.lower).toBe('acetone')
     expect(numbers.nearest.upper).toBe('propan-2-ol')
     expect(numbers.nearest.percent).toBeCloseTo(3.478, 3)
-    expect(Object.fromEntries(Object.entries(numbers.liquids).map(([id, n]) => [id, Number(n.worstPercent.toFixed(2))]))).toEqual({ acetone: 0.7, ethanol: 0.6, 'propan-2-ol': 0.69 })
-    expect(Object.fromEntries(Object.entries(numbers.solutes).map(([id, n]) => [id, Number(n.worstPercent.toFixed(2))]))).toEqual({ urea: 1.25, nacl: 0.92, kcl: 0.88, nabr: 0.86 })
+    expect(Object.fromEntries(Object.entries(numbers.liquids).map(([id, n]) => [id, Math.round(n.worstPercent * 100)]))).toEqual({ acetone: 70, ethanol: 60, 'propan-2-ol': 72 })
+    expect(Object.fromEntries(Object.entries(numbers.solutes).map(([id, n]) => [id, Math.round(n.worstPercent * 10)]))).toEqual({ urea: 12, nacl: 9, kcl: 9, nabr: 9 })
   })
 
   it('leave ice in every careful run, keep three figures in every fall, and level within seven presses', () => {
     const all = { ...numbers.liquids, ...numbers.solutes }
-    expect(Object.fromEntries(Object.entries(all).map(([id, n]) => [id, [n.smallestFall, n.largestFall]]))).toEqual({ acetone: [1.09, 1.46], ethanol: [1.37, 1.84], 'propan-2-ol': [1.06, 1.42], urea: [1.53, 1.85], nacl: [1.45, 1.81], kcl: [1.59, 1.98], nabr: [1.59, 1.98] })
+    expect(Object.fromEntries(Object.entries(all).map(([id, n]) => [id, [n.smallestFall, n.largestFall]]))).toEqual({ acetone: [1.09, 1.46], ethanol: [1.37, 1.84], 'propan-2-ol': [1.06, 1.41], urea: [1.53, 1.85], nacl: [1.45, 1.8], kcl: [1.59, 1.98], nabr: [1.59, 1.98] })
     expect(Math.min(...Object.values(all).map((n) => n.leastIceMg))).toBe(16439)
     expect(Math.min(...Object.values(all).map((n) => n.leastIceAtLastStepMg))).toBe(14039)
     expect(Math.max(...Object.values(all).map((n) => n.mostSteps))).toBe(14)

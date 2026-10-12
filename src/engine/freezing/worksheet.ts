@@ -13,8 +13,8 @@ import type { FreezingModel } from './model'
 // three significant figures and must be a correct rounding (either neighbour at an exact tie) of its relation
 // worked on the values above it. A value above may be taken as the entry was typed, already rounded, or as the
 // unrounded value that entry was rounded from; where the typed entry is itself a correct rounding, anything
-// between the two is accepted as well. A number read off the bench with more figures than three may be taken in
-// full or to three figures: the mass of water and a molar mass of the table.
+// between the two is accepted as well. A molar mass of the table, which has four or five figures, may be taken in
+// full or to three; the mass of water is used with every figure it was entered with.
 
 export type Field = 'water' | 'solution' | 'fall' | 'waterKg' | 'molality' | 'moles' | 'molarMass' | 'liquid' | 'idealFall' | 'ratio'
 
@@ -118,7 +118,8 @@ const flipped = (ranges: Range[]): Range[] => ranges.map(([low, high]): Range =>
 function rangesOf(m: FreezingModel, part: PartId, bench: Bench, entries: Entries, field: Field): Range[] | null {
   const { fall, waterKg, molality, moles, idealFall } = entries
   const size = fall === null || fall === 0 ? null : point(exact(Math.abs(fall), 100))
-  const kg = waterKg === null || waterKg <= 0 ? null : benchRange(waterKg, 100000)
+  // The mass of water is used with every figure it was entered with: its third figure is half a percent of it, which is more than this lab can give away.
+  const kg = waterKg === null || waterKg <= 0 ? null : point(exact(waterKg, 100000))
   const grams = bench.soluteCg === null ? null : benchRange(bench.soluteCg, 100)
   const kf = point(exact(m.kfE2, 100))
   const above = (typed: Sig3 | null, from: Field) => {

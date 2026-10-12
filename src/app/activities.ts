@@ -40,6 +40,13 @@ export const CABBAGE_PROGRESS = { entry: ACTIVITIES[8].entry, version: ACTIVITIE
 /** The measurement and density lab's stored entry and its version: what its page loads and saves with (src/density-version.test.ts pins what a stored lab is judged against to it). */
 export const DENSITY_PROGRESS = { entry: ACTIVITIES[9].entry, version: ACTIVITIES[9].version } as const
 
+/**
+ * The freezing point depression lab's stored entry and its version: what its page will load and save with
+ * (src/freezing-version.test.ts pins what a stored lab is judged against to it). The lab has no page yet, so it is
+ * not among the activities above: its row goes there with its page.
+ */
+export const FREEZING_PROGRESS = { entry: ENTRY.freezing, version: 1 } as const
+
 export type Activity = (typeof ACTIVITIES)[number]
 
 /** False while an activity has no page of its own: its address is still the page that lists its kind. Home and the list of labs then show it as planned, with no link and no status. */

@@ -23,7 +23,7 @@ export const PINNED_MODEL: FreezingModel = {
   mixStirredPpm: 700000,
   mixStillPpm: 20000,
   leakLidOnMg: 60,
-  leakLidOffMg: 1000,
+  leakLidOffMg: 1500,
   meltGramDegreesPerGram: 80,
   warmLidOnPpm: 10000,
   warmLidOffPpm: 30000,

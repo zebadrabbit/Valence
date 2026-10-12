@@ -434,7 +434,7 @@
     },
     {
       "id": "unknown",
-      "name": "The molar mass of an unknown",
+      "name": "Molar mass of an unknown",
       "unknown": {
         "name": "Unknown liquid",
         "appearance": "a clear, colourless liquid"
@@ -494,7 +494,7 @@
     },
     "runOnSteps": {
       "value": 2,
-      "rationale": "One press of Run on is two readings, a minute. A careful run is then about seven presses: about four for the ice and water to level and about three after the solute goes in."
+      "rationale": "One press of Run on is two readings, a minute. A careful run is then about seven presses: three or four for the ice and water to level and three or four after the solute goes in."
     },
     "loggerMaxSteps": {
       "value": 60,
@@ -502,7 +502,7 @@
     },
     "mixStirredPpm": {
       "value": 700000,
-      "rationale": "While the cup is stirred, in each step the temperature goes 70% of the way to the freezing point of what is dissolved. From a few degrees off it is then within a hundredth of a degree in six to eight readings, three or four presses: the few minutes a stirred cup of ice and water takes. A model parameter; no source gives a rate."
+      "rationale": "While the cup is stirred, in each step the temperature goes 70% of the way to the freezing point of what is dissolved. From a few degrees off it is then level in six to eight readings, three or four presses: the few minutes a stirred cup of ice and water takes. A model parameter; no source gives a rate."
     },
     "mixStillPpm": {
       "value": 20000,
@@ -513,8 +513,8 @@
       "rationale": "With the lid on, heat from the room melts 60 mg of ice in each step, about 0.1 g a minute, which is about a watt for ice melting at about 334 J/g. In the three presses after the fall that is under half a gram of water into about 100 g, so the creep of the freezing point is under a hundredth of a degree, small beside the tolerance. Over the whole logger it is 3.6 g of the 25 g of ice."
     },
     "leakLidOffMg": {
-      "value": 1000,
-      "rationale": "With the lid off, a gram of ice melts in each step, many times as fast as with it on. That is faster than a real open cup, which gains a few watts: it is chosen so that leaving the lid off loses all the ice within about ten presses, inside the logger, and so that the solution then grows weaker fast enough for its freezing point to climb by a hundredth of a degree or more at each reading. With the lid off the stretch after the fall is never level, and the graph shows it."
+      "value": 1500,
+      "rationale": "With the lid off, a gram and a half of ice melts in each step, 25 times as fast as with it on. That is much faster than a real open cup, which gains a few watts: it is chosen so that leaving the lid off loses all the ice within about seven presses, well inside the logger, and so that the solution then grows weaker faster than the temperature can follow. With the lid off the solution's freezing point climbs by a hundredth of a degree or more at each reading, the stretch after the fall is never level, and the graph shows it."
     },
     "meltGramDegreesPerGram": {
       "value": 80,
@@ -538,11 +538,11 @@
     },
     "iceLowCg": {
       "value": 500,
-      "rationale": "The cup is said to have only a little ice left when 5.00 g or less is left, a fifth of what it started with: five readings before it is gone with the lid off. Guided warns then."
+      "rationale": "The cup is said to have only a little ice left when 5.00 g or less is left, a fifth of what it started with: three readings before it is gone with the lid off. Guided warns then."
     },
     "levelBandMicrodegrees": {
       "value": 2000,
-      "rationale": "The temperature counts as levelled off when it is within 0.002 °C of the freezing point of what is dissolved, with ice still in the cup: a fifth of the last figure the logger shows, so that a reading taken then is the freezing point to that figure. In a stirred cup with its lid on, three readings running that are the same are always inside it. With the lid off the solution is thinned by melting ice faster than the temperature can follow, and it is never inside it."
+      "rationale": "The temperature counts as levelled off when the last three readings of the logger are within a hundredth of a degree of one another and the temperature is within 0.002 °C of the freezing point of what is dissolved, with ice still in the cup: a fifth of the last figure the logger shows, so that a reading taken then is the freezing point to that figure. In a stirred cup with its lid on, three readings running that are the same are always level. With the lid off the solution is thinned by melting ice so fast that three readings running span two hundredths or more, and it is never level."
     },
     "startRangeHundredths": {
       "value": [
@@ -570,7 +570,7 @@
         360,
         450
       ],
-      "rationale": "The unknown liquid weighed out is 3.60 to 4.50 g, whichever of the three it is: the range does not differ with the liquid, so the balance says nothing of which it is. With about 0.1 kg of water the fall is 1.1 to 1.5 °C for acetone and for 2-propanol and 1.4 to 1.8 °C for ethanol: over 1.00 °C, so it has three figures, and under 1.86 °C, so that the molality is under 1 mol/kg and its third figure is fine. A careful learner is then within 0.7% at every amount, however the entries are rounded, where half of what parts acetone from 2-propanol is 1.7%."
+      "rationale": "The unknown liquid weighed out is 3.60 to 4.50 g, whichever of the three it is: the range does not differ with the liquid, so the balance says nothing of which it is. With about 0.1 kg of water the fall is 1.1 to 1.5 °C for acetone and for 2-propanol and 1.4 to 1.8 °C for ethanol: over 1.00 °C, so it has three figures, and under 1.86 °C, so that the molality is under 1 mol/kg and its third figure is fine. A careful learner is then within 0.8% at every amount, however the entries are rounded, where half of what parts acetone from 2-propanol is 1.7%."
     },
     "ureaRangeCg": {
       "value": [
@@ -602,7 +602,7 @@
     },
     "molarMassTolerancePerMille": {
       "value": 15,
-      "rationale": "A molar mass counts when it is within 1.5% of the stored one. It has to be under 1.7%: acetone and 2-propanol are 3.5% apart, and at 1.7% the two allowances would meet, so that a result could count for the wrong liquid. A careful learner is within 0.7% however the entries are rounded, by the build's count over the seeded amounts."
+      "rationale": "A molar mass counts when it is within 1.5% of the stored one. It has to be under 1.7%: acetone and 2-propanol are 3.5% apart, and at 1.7% the two allowances would meet, so that a result could count for the wrong liquid. A careful learner is within 0.8% however the entries are rounded, by the build's count over the seeded amounts."
     },
     "particlesTolerancePerMille": {
       "value": 30,

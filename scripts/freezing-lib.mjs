@@ -122,6 +122,7 @@ export function cupStates(m, setup, solute, timeline) {
   let ice = m.iceCg * 10
   let micro = setup.startHundredths * 1e4
   const out = []
+  const shown = []
   for (let step = 0; step <= timeline.steps; step++) {
     const dissolved = solute !== null && timeline.addedAt !== null && step > timeline.addedAt
     if (step > 0) {
@@ -145,7 +146,10 @@ export function cupStates(m, setup, solute, timeline) {
       }
     }
     const target = dissolved ? targetMicro(m, solute, water) : 0
-    out.push({ waterMg: water, iceMg: ice, micro, level: ice > 0 && Math.abs(micro - target) <= m.levelBandMicrodegrees })
+    shown.push(Math.round(micro / 1e4))
+    const last = shown.slice(-3)
+    const steady = last.length === 3 && Math.max(...last) - Math.min(...last) <= 1
+    out.push({ waterMg: water, iceMg: ice, micro, level: ice > 0 && steady && Math.abs(micro - target) <= m.levelBandMicrodegrees })
   }
   return out
 }

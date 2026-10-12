@@ -33,7 +33,11 @@ export interface CupState {
   iceMg: number
   /** The temperature, in millionths of a degree from the freezing point of water. */
   micro: number
-  /** Ice is left and the temperature is within the model's band of the freezing point of what is dissolved. */
+  /**
+   * Levelled off: ice is left, the temperature is within the model's band of the freezing point of what is
+   * dissolved, and the logger's last three readings are within a hundredth of a degree of one another. The band
+   * alone is not enough: a temperature on its way past the freezing point is inside it for a moment.
+   */
   level: boolean
 }
 
@@ -52,6 +56,7 @@ export function cupStates(m: FreezingModel, run: RunSetup, solute: Dissolved | n
   let ice = m.iceCg * 10
   let micro = run.startHundredths * 1e4
   const out: CupState[] = []
+  const shown: number[] = []
   for (let step = 0; step <= timeline.steps; step++) {
     const dissolved = solute !== null && timeline.addedAt !== null && step > timeline.addedAt ? solute : null
     if (step > 0) {
@@ -75,7 +80,10 @@ export function cupStates(m: FreezingModel, run: RunSetup, solute: Dissolved | n
       }
     }
     const target = dissolved ? targetMicro(m, dissolved, water) : 0
-    out.push({ waterMg: water, iceMg: ice, micro, level: ice > 0 && Math.abs(micro - target) <= m.levelBandMicro })
+    shown.push(Math.round(micro / 1e4))
+    const last = shown.slice(-3)
+    const steady = last.length === 3 && Math.max(...last) - Math.min(...last) <= 1
+    out.push({ waterMg: water, iceMg: ice, micro, level: ice > 0 && steady && Math.abs(micro - target) <= m.levelBandMicro })
   }
   return out
 }
