@@ -20,6 +20,7 @@ export const ENTRY = {
   acetone: 'lab:iodination-of-acetone',
   cabbage: 'lab:red-cabbage-ph',
   density: 'lab:measurement-and-density',
+  freezing: 'lab:freezing-point-depression',
   mechanism: 'mechanism:hcl-nahco3',
 } as const
 

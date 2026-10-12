@@ -1,0 +1,515 @@
+{
+  "reagents": [
+    {
+      "id": "acetone",
+      "name": "Acetone",
+      "formula": "CH₃COCH₃",
+      "form": "liquid",
+      "composition": {
+        "C": 3,
+        "H": 6,
+        "O": 1
+      },
+      "molarMass": {
+        "value": 58.08,
+        "unit": "g/mol",
+        "working": "3 × 12.011 + 6 × 1.0080 + 15.999 = 58.080 g/mol, from the standard atomic weights of carbon, hydrogen and oxygen; stored to two decimals as 58.08 g/mol."
+      },
+      "particles": {
+        "value": 1,
+        "ideal": 1,
+        "kind": "ideal",
+        "note": "The ideal: each molecule is taken as one dissolved particle."
+      },
+      "appearance": "a clear, colourless liquid",
+      "sourceId": "flinn-sds-7"
+    },
+    {
+      "id": "ethanol",
+      "name": "Ethanol",
+      "formula": "C₂H₅OH",
+      "form": "liquid",
+      "composition": {
+        "C": 2,
+        "H": 6,
+        "O": 1
+      },
+      "molarMass": {
+        "value": 46.07,
+        "unit": "g/mol",
+        "working": "2 × 12.011 + 6 × 1.0080 + 15.999 = 46.069 g/mol, from the standard atomic weights of carbon, hydrogen and oxygen; stored to two decimals as 46.07 g/mol."
+      },
+      "particles": {
+        "value": 1,
+        "ideal": 1,
+        "kind": "ideal",
+        "note": "The ideal: each molecule is taken as one dissolved particle."
+      },
+      "appearance": "a clear, colourless liquid",
+      "sourceId": "flinn-sds-326"
+    },
+    {
+      "id": "propan-2-ol",
+      "name": "2-Propanol",
+      "formula": "C₃H₈O",
+      "form": "liquid",
+      "composition": {
+        "C": 3,
+        "H": 8,
+        "O": 1
+      },
+      "molarMass": {
+        "value": 60.1,
+        "unit": "g/mol",
+        "working": "3 × 12.011 + 8 × 1.0080 + 15.999 = 60.096 g/mol, from the standard atomic weights of carbon, hydrogen and oxygen; stored to two decimals as 60.10 g/mol."
+      },
+      "particles": {
+        "value": 1,
+        "ideal": 1,
+        "kind": "ideal",
+        "note": "The ideal: each molecule is taken as one dissolved particle."
+      },
+      "appearance": "a clear, colourless liquid",
+      "sourceId": "flinn-sds-420"
+    },
+    {
+      "id": "urea",
+      "name": "Urea",
+      "formula": "NH₂CONH₂",
+      "form": "solid",
+      "composition": {
+        "C": 1,
+        "H": 4,
+        "N": 2,
+        "O": 1
+      },
+      "molarMass": {
+        "value": 60.06,
+        "unit": "g/mol",
+        "working": "12.011 + 4 × 1.0080 + 2 × 14.007 + 15.999 = 60.056 g/mol, from the standard atomic weights of carbon, hydrogen, nitrogen and oxygen; stored to two decimals as 60.06 g/mol."
+      },
+      "particles": {
+        "value": 1,
+        "ideal": 1,
+        "kind": "ideal",
+        "note": "The ideal: each molecule is taken as one dissolved particle."
+      },
+      "appearance": "a white solid",
+      "sourceId": "flinn-sds-840"
+    },
+    {
+      "id": "nacl",
+      "name": "Sodium chloride",
+      "formula": "NaCl",
+      "form": "solid",
+      "composition": {
+        "Na": 1,
+        "Cl": 1
+      },
+      "molarMass": {
+        "value": 58.44,
+        "unit": "g/mol",
+        "working": "22.990 + 35.45 = 58.440 g/mol, from the standard atomic weights of sodium and chlorine; stored to two decimals as 58.44 g/mol."
+      },
+      "particles": {
+        "value": 1.82,
+        "ideal": 2,
+        "kind": "measured",
+        "measuredId": "nacl-3",
+        "note": "Measured: the ratio of the fall a handbook table gives for a solution of 3% by mass to the fall its molality would give with one particle for each formula unit. The model uses it at every strength of the bench, which runs from about 2.4% to 3.1%."
+      },
+      "appearance": "a white solid",
+      "sourceId": "flinn-sds-721"
+    },
+    {
+      "id": "kcl",
+      "name": "Potassium chloride",
+      "formula": "KCl",
+      "form": "solid",
+      "composition": {
+        "K": 1,
+        "Cl": 1
+      },
+      "molarMass": {
+        "value": 74.55,
+        "unit": "g/mol",
+        "working": "39.098 + 35.45 = 74.548 g/mol, from the standard atomic weights of potassium and chlorine; stored to two decimals as 74.55 g/mol."
+      },
+      "particles": {
+        "value": 2,
+        "ideal": 2,
+        "kind": "ideal",
+        "note": "The ideal: each formula unit is taken as two dissolved particles, one ion of each kind. No measured freezing point of its solutions was found in a source that could be read; a real solution gives a little less."
+      },
+      "appearance": "a white solid",
+      "sourceId": "flinn-sds-621"
+    },
+    {
+      "id": "nabr",
+      "name": "Sodium bromide",
+      "formula": "NaBr",
+      "form": "solid",
+      "composition": {
+        "Na": 1,
+        "Br": 1
+      },
+      "molarMass": {
+        "value": 102.89,
+        "unit": "g/mol",
+        "working": "22.990 + 79.904 = 102.894 g/mol, from the standard atomic weights of sodium and bromine; stored to two decimals as 102.89 g/mol."
+      },
+      "particles": {
+        "value": 2,
+        "ideal": 2,
+        "kind": "ideal",
+        "note": "The ideal: each formula unit is taken as two dissolved particles, one ion of each kind. No measured freezing point of its solutions was found in a source that could be read; a real solution gives a little less."
+      },
+      "appearance": "a white solid",
+      "sourceId": "flinn-sds-714"
+    }
+  ],
+  "water": {
+    "name": "Distilled water",
+    "formula": "H₂O",
+    "freezingPointConstant": {
+      "value": 1.86,
+      "published": "1.86",
+      "unit": "°C·kg/mol",
+      "note": "The freezing point constant of water: how far the freezing point falls for each mole of dissolved particles in a kilogram of water. The source gives it in K·kg/mol; a kelvin and a degree Celsius are steps of the same size. It is the figure of a dilute, ideal solution, and the lab uses it at every strength of the bench.",
+      "sourceId": "wikipedia-freezing-point-depression"
+    },
+    "sourceId": "wikipedia-freezing-point-depression"
+  },
+  "atomicWeights": [
+    {
+      "id": "H",
+      "value": 1.008,
+      "published": "1.0080",
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    {
+      "id": "C",
+      "value": 12.011,
+      "published": "12.011",
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    {
+      "id": "N",
+      "value": 14.007,
+      "published": "14.007",
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    {
+      "id": "O",
+      "value": 15.999,
+      "published": "15.999",
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    {
+      "id": "Na",
+      "value": 22.99,
+      "published": "22.990",
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    {
+      "id": "Cl",
+      "value": 35.45,
+      "published": "35.45",
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    {
+      "id": "K",
+      "value": 39.098,
+      "published": "39.098",
+      "sourceId": "ciaaw-abridged-2024"
+    },
+    {
+      "id": "Br",
+      "value": 79.904,
+      "published": "79.904",
+      "sourceId": "ciaaw-abridged-2024"
+    }
+  ],
+  "measured": [
+    {
+      "id": "nacl-2",
+      "reagentId": "nacl",
+      "massPercent": {
+        "value": 2,
+        "published": "2",
+        "sourceId": "crc-nacl-solutions-wikipedia"
+      },
+      "freezingPoint": {
+        "value": -1.19,
+        "published": "-1.19",
+        "unit": "°C",
+        "sourceId": "crc-nacl-solutions-wikipedia"
+      },
+      "molality": {
+        "value": 0.349,
+        "unit": "mol/kg"
+      },
+      "idealFall": {
+        "value": 0.65,
+        "unit": "°C"
+      },
+      "ratio": {
+        "value": 1.83,
+        "figures": 3
+      },
+      "working": "2 g in every 100 g of solution is 2 g in 98 g of water: 2 ÷ 98 × 1000 ÷ 58.44 g/mol = 0.34922 mol/kg, 0.349 to three figures. With one particle for each formula unit that molality would lower the freezing point by 1.86 × 0.34922 = 0.64954 °C, 0.650 to three figures. The fall printed is 1.19 °C, and 1.19 ÷ 0.64954 = 1.8321, stored as 1.83: three figures, as the fall is printed."
+    },
+    {
+      "id": "nacl-3",
+      "reagentId": "nacl",
+      "massPercent": {
+        "value": 3,
+        "published": "3",
+        "sourceId": "crc-nacl-solutions-wikipedia"
+      },
+      "freezingPoint": {
+        "value": -1.79,
+        "published": "-1.79",
+        "unit": "°C",
+        "sourceId": "crc-nacl-solutions-wikipedia"
+      },
+      "molality": {
+        "value": 0.529,
+        "unit": "mol/kg"
+      },
+      "idealFall": {
+        "value": 0.984,
+        "unit": "°C"
+      },
+      "ratio": {
+        "value": 1.82,
+        "figures": 3
+      },
+      "working": "3 g in every 100 g of solution is 3 g in 97 g of water: 3 ÷ 97 × 1000 ÷ 58.44 g/mol = 0.52922 mol/kg, 0.529 to three figures. With one particle for each formula unit that molality would lower the freezing point by 1.86 × 0.52922 = 0.98436 °C, 0.984 to three figures. The fall printed is 1.79 °C, and 1.79 ÷ 0.98436 = 1.8184, stored as 1.82: three figures, as the fall is printed. This is the count of particles the model gives sodium chloride."
+    },
+    {
+      "id": "ethanol-2.5",
+      "reagentId": "ethanol",
+      "massPercent": {
+        "value": 2.5,
+        "published": "2.5",
+        "sourceId": "lange-ethanol-wikipedia"
+      },
+      "freezingPoint": {
+        "value": -1,
+        "published": "-1",
+        "unit": "°C",
+        "sourceId": "lange-ethanol-wikipedia"
+      },
+      "molality": {
+        "value": 0.557,
+        "unit": "mol/kg"
+      },
+      "idealFall": {
+        "value": 1.04,
+        "unit": "°C"
+      },
+      "ratio": {
+        "value": 1.0,
+        "figures": 1
+      },
+      "working": "2.5 g in every 100 g of solution is 2.5 g in 97.5 g of water: 2.5 ÷ 97.5 × 1000 ÷ 46.07 g/mol = 0.55657 mol/kg, 0.557 to three figures. With one particle for each formula unit that molality would lower the freezing point by 1.86 × 0.55657 = 1.03521 °C, 1.04 to three figures. The fall printed is 1 °C, and 1 ÷ 1.03521 = 0.9660, which is 1 to the one figure the fall is printed to. No model uses this row: it stands beside the ideal in the notes."
+    }
+  ],
+  "parts": [
+    {
+      "id": "water",
+      "name": "The freezing point of water",
+      "notes": [
+        {
+          "value": "Ice and water stirred together stay at water's freezing point, 0 °C. So what the probe read there is how far this probe is from true. Every fall in this lab is the difference of two readings of the one probe, and whatever the probe is off by drops out of a difference.",
+          "sourceId": "wikipedia-thermometer"
+        },
+        {
+          "value": "The reading held steady because ice and water are in balance at one temperature only. While both are in the cup and it is stirred, that is the temperature the probe is at, however much ice there is.",
+          "sourceId": "wikipedia-freezing-point-depression"
+        },
+        {
+          "value": "This cup is simpler than a real one. Its water is pure, its probe is off by the same amount at every temperature, and it settles within a few minutes of stirring.",
+          "sourceId": "wikipedia-thermometer"
+        }
+      ]
+    },
+    {
+      "id": "unknown",
+      "name": "Molar mass of an unknown",
+      "unknown": {
+        "name": "Unknown liquid",
+        "appearance": "a clear, colourless liquid"
+      },
+      "candidateIds": [
+        "acetone",
+        "ethanol",
+        "propan-2-ol"
+      ],
+      "notes": [
+        {
+          "value": "The fall in the freezing point counted the molecules of the unknown. In water it is 1.86 °C for each mole of dissolved particles in a kilogram of water, whatever the particles are. The mass of the unknown divided by that count is its molar mass.",
+          "sourceId": "wikipedia-freezing-point-depression"
+        },
+        {
+          "value": "The lab takes each molecule as one particle and the solution as ideal, which holds best when little is dissolved. One measured figure was found to set beside that: a handbook table has water with 2.5% ethanol by mass freezing at −1 °C, to the one figure it prints, and the ideal gives −1.04 °C. None was found for acetone or 2-propanol.",
+          "sourceId": "lange-ethanol-wikipedia",
+          "alsoSourceId": "wikipedia-freezing-point-depression"
+        },
+        {
+          "value": "Acetone and 2-propanol differ in molar mass by about 2 g/mol, about 3%, so the fall has to be good to about 1% to tell them apart. That is why the probe reads to a hundredth of a degree. Taken as simpler than they are: none of the liquid evaporates, it goes in at the temperature of the cup, and the strainer holds back all of the ice and none of the solution.",
+          "sourceId": "ciaaw-abridged-2024"
+        }
+      ]
+    },
+    {
+      "id": "particles",
+      "name": "How many particles",
+      "soluteIds": [
+        "urea",
+        "nacl",
+        "kcl",
+        "nabr"
+      ],
+      "notes": [
+        {
+          "value": "Urea is made of molecules that stay whole in water, so each formula unit is one particle and the ratio is close to 1. A salt comes apart into ions. Sodium chloride gives a sodium ion and a chloride ion, two particles for each formula unit, so its fall is about twice what its molality alone would give.",
+          "sourceId": "wikipedia-van-t-hoff-factor",
+          "alsoSourceId": "wikipedia-freezing-point-depression"
+        },
+        {
+          "value": "A real salt gives a little under two: at any moment a few of its ions are paired, and a pair counts as one particle. For sodium chloride the lab uses a measured figure, 1.82. A handbook table has water with 3% sodium chloride by mass freezing at −1.79 °C, where two whole particles would give −1.97 °C.",
+          "sourceId": "crc-nacl-solutions-wikipedia",
+          "alsoSourceId": "wikipedia-van-t-hoff-factor"
+        },
+        {
+          "value": "For potassium chloride and sodium bromide no measured freezing point was found in a source that could be read, so the lab uses 2, the ideal. That is more than a real salt gives: a real bench would find a little under two for them as well. Taken as simpler than it is: each solid dissolves at once, at the temperature of the cup.",
+          "sourceId": "wikipedia-van-t-hoff-factor"
+        }
+      ]
+    }
+  ],
+  "parameters": {
+    "loggerStepSeconds": {
+      "value": 30,
+      "rationale": "The logger takes a reading every 30 seconds. Half a minute is short beside the few minutes a stirred cup of ice and water takes to settle, so the fall is drawn in several points and the level stretch in several more."
+    },
+    "runOnSteps": {
+      "value": 2,
+      "rationale": "One press of Run on is two readings, a minute. A careful run is then about seven presses: three or four for the ice and water to level and three or four after the solute goes in."
+    },
+    "loggerMaxSteps": {
+      "value": 60,
+      "rationale": "The logger stops after 60 readings, half an hour. That is about four times what a careful run takes, and long enough that a cup with its lid off has lost its ice well before the end."
+    },
+    "mixStirredPpm": {
+      "value": 700000,
+      "rationale": "While the cup is stirred, in each step the temperature goes 70% of the way to the freezing point of what is dissolved. From a few degrees off it is then level in six to eight readings, three or four presses: the few minutes a stirred cup of ice and water takes. A model parameter; no source gives a rate."
+    },
+    "mixStillPpm": {
+      "value": 20000,
+      "rationale": "With the stirrer still, the temperature goes 2% of the way in each step. It is then still moving by more than a hundredth of a degree at every reading for the whole of the logger, so an unstirred cup never looks level and never is. A model parameter, chosen so that not stirring cannot pass for a level reading."
+    },
+    "leakLidOnMg": {
+      "value": 60,
+      "rationale": "With the lid on, heat from the room melts 60 mg of ice in each step, about 0.1 g a minute, which is about a watt for ice melting at about 334 J/g. In the three presses after the fall that is under half a gram of water into about 100 g, so the creep of the freezing point is under a hundredth of a degree, small beside the tolerance. Over the whole logger it is 3.6 g of the 25 g of ice."
+    },
+    "leakLidOffMg": {
+      "value": 1500,
+      "rationale": "With the lid off, a gram and a half of ice melts in each step, 25 times as fast as with it on. That is much faster than a real open cup, which gains a few watts: it is chosen so that leaving the lid off loses all the ice within about seven presses, well inside the logger, and so that the solution then grows weaker faster than the temperature can follow. With the lid off the solution's freezing point climbs by a hundredth of a degree or more at each reading, the stretch after the fall is never level, and the graph shows it."
+    },
+    "meltGramDegreesPerGram": {
+      "value": 80,
+      "rationale": "Cooling the liquid melts ice: a gram of ice for each 80 gram-degrees, so 100 g of liquid cooled by 1.6 °C melts 2 g. The figure is the heat that melts a gram of ice, about 334 J, over the heat that warms a gram of water a degree, about 4.18 J, rounded. It sets how much water the solution gains as it cools; the learner weighs that water, so no result depends on it."
+    },
+    "warmLidOnPpm": {
+      "value": 10000,
+      "rationale": "Once no ice is left the liquid warms toward the room: 1% of the way in each step with the lid on. From 22 degrees off that is about 0.2 °C in each reading, a climb no one can take for a level stretch."
+    },
+    "warmLidOffPpm": {
+      "value": 30000,
+      "rationale": "Once no ice is left, with the lid off: 3% of the way to the room in each step, three times as fast as with it on."
+    },
+    "roomHundredths": {
+      "value": 2200,
+      "rationale": "The room is at 22.00 °C, an ordinary room."
+    },
+    "iceCg": {
+      "value": 2500,
+      "rationale": "The cup starts with 25.00 g of ice. A careful run melts 3 to 5 g as the water is chilled, about 2 g as the solute goes in and under 1 g by the leak, so 16 g or more is left when it is strained; with the lid on, 14 g or more is left at the last reading of the logger."
+    },
+    "iceLowCg": {
+      "value": 500,
+      "rationale": "The cup is said to have only a little ice left when 5.00 g or less is left, a fifth of what it started with: three readings before it is gone with the lid off. Guided warns then."
+    },
+    "levelBandMicrodegrees": {
+      "value": 2000,
+      "rationale": "The temperature counts as levelled off when the last three readings of the logger are within a hundredth of a degree of one another and the temperature is within 0.002 °C of the freezing point of what is dissolved, with ice still in the cup: a fifth of the last figure the logger shows, so that a reading taken then is the freezing point to that figure. In a stirred cup with its lid on, three readings running that are the same are always level. With the lid off the solution is thinned by melting ice so fast that three readings running span two hundredths or more, and it is never level."
+    },
+    "startRangeHundredths": {
+      "value": [
+        200,
+        400
+      ],
+      "rationale": "The first reading of the logger is 2.00 to 4.00 °C above this probe's freezing point of water: cold water just poured over ice, not yet stirred to one temperature. The start is then well above the level stretch, so the first fall is plain on the graph."
+    },
+    "probeOffRangeHundredths": {
+      "value": [
+        5,
+        25
+      ],
+      "rationale": "The probe reads 0.05 to 0.25 °C high or low, the same at every temperature, by the seed. It is enough to see on a logger that shows hundredths and to make the point of part 1, and far too little to change which stretch of the graph is level."
+    },
+    "waterRangeCg": {
+      "value": [
+        9350,
+        9800
+      ],
+      "rationale": "The cup starts with 93.50 to 98.00 g of water. With the 5 to 9 g of ice that melts in a careful run the solution then holds 99 to 107 g of water, so that with the masses of solute below every molality has its third figure well away from a power of ten and every count of moles is under 0.1."
+    },
+    "unknownRangeCg": {
+      "value": [
+        360,
+        450
+      ],
+      "rationale": "The unknown liquid weighed out is 3.60 to 4.50 g, whichever of the three it is: the range does not differ with the liquid, so the balance says nothing of which it is. With about 0.1 kg of water the fall is 1.1 to 1.5 °C for acetone and for 2-propanol and 1.4 to 1.8 °C for ethanol: over 1.00 °C, so it has three figures, and under 1.86 °C, so that the molality is under 1 mol/kg and its third figure is fine. A careful learner is then within 0.8% at every amount, however the entries are rounded, where half of what parts acetone from 2-propanol is 1.7%."
+    },
+    "ureaRangeCg": {
+      "value": [
+        525,
+        590
+      ],
+      "rationale": "The urea weighed out is 5.25 to 5.90 g: a fall of 1.5 to 1.9 °C with one particle for each formula unit."
+    },
+    "naclRangeCg": {
+      "value": [
+        266,
+        308
+      ],
+      "rationale": "The sodium chloride weighed out is 2.66 to 3.08 g, 2.4% to 3.1% of the solution by mass, about the strength of the handbook row its count of particles is worked out from. The molality is 0.42 to 0.53 mol/kg, so the fall one particle would give is under 1.00 °C and the fall found is 1.4 to 1.8 °C."
+    },
+    "kclRangeCg": {
+      "value": [
+        339,
+        393
+      ],
+      "rationale": "The potassium chloride weighed out is 3.39 to 3.93 g, the same range of molality as the sodium chloride, for a fall of 1.6 to 2.0 °C with two particles."
+    },
+    "nabrRangeCg": {
+      "value": [
+        467,
+        542
+      ],
+      "rationale": "The sodium bromide weighed out is 4.67 to 5.42 g, the same range of molality as the sodium chloride, for a fall of 1.6 to 2.0 °C with two particles."
+    },
+    "molarMassTolerancePerMille": {
+      "value": 15,
+      "rationale": "A molar mass counts when it is within 1.5% of the stored one. It has to be under 1.7%: acetone and 2-propanol are 3.5% apart, and at 1.7% the two allowances would meet, so that a result could count for the wrong liquid. A careful learner is within 0.8% however the entries are rounded, by the build's count over the seeded amounts."
+    },
+    "particlesTolerancePerMille": {
+      "value": 30,
+      "rationale": "A count of particles counts when it is within 3% of the stored one. A count near 1 or 2 has its third figure at a hundredth, which is half a percent or more, and it is worked out through four rounded entries; a careful learner is within 1.3%. At 3% a result that counts for sodium chloride at 1.82 is still plainly under 2, which is 10% away."
+    }
+  }
+}

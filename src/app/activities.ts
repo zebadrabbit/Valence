@@ -25,6 +25,8 @@ export const ACTIVITIES = [
   { entry: ENTRY.cabbage, version: 1, kind: 'Lab', title: 'Red cabbage pH', to: '/lab/red-cabbage-ph' },
   // src/density-version.test.ts pins what a stored lab is judged against to this entry and this version.
   { entry: ENTRY.density, version: 1, kind: 'Lab', title: 'Measurement and density', to: '/lab/measurement-and-density' },
+  // src/freezing-version.test.ts pins what a stored lab is judged against to this entry and this version.
+  { entry: ENTRY.freezing, version: 1, kind: 'Lab', title: 'Freezing point depression', to: '/lab/freezing-point-depression' },
   { entry: ENTRY.mechanism, version: 1, kind: 'Mechanism', title: 'HCl + NaHCO₃, step by step', to: '/learn/hcl-nahco3' },
 ] as const
 
@@ -39,6 +41,9 @@ export const CABBAGE_PROGRESS = { entry: ACTIVITIES[8].entry, version: ACTIVITIE
 
 /** The measurement and density lab's stored entry and its version: what its page loads and saves with (src/density-version.test.ts pins what a stored lab is judged against to it). */
 export const DENSITY_PROGRESS = { entry: ACTIVITIES[9].entry, version: ACTIVITIES[9].version } as const
+
+/** The freezing point depression lab's stored entry and its version: what its page loads and saves with (src/freezing-version.test.ts pins what a stored lab is judged against to it). */
+export const FREEZING_PROGRESS = { entry: ACTIVITIES[10].entry, version: ACTIVITIES[10].version } as const
 
 export type Activity = (typeof ACTIVITIES)[number]
 

@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { PeriodicTablePage } from '@/app/explore/elements/PeriodicTablePage'
 import { AqueousPage } from '@/app/lab/aqueous/AqueousPage'
 import { CalorimetryPage } from '@/app/lab/calorimetry/CalorimetryPage'
+import { FreezingPage } from '@/app/lab/freezing/FreezingPage'
 import { CationsPage } from '@/app/lab/cations/CationsPage'
 import { AcetonePage } from '@/app/lab/acetone/AcetonePage'
 import { ClockPage } from '@/app/lab/clock/ClockPage'
@@ -93,6 +94,16 @@ describe('the routes', () => {
     const loaded = await (route.lazy as () => Promise<{ Component: unknown }>)()
     expect(loaded.Component).toBe(CalorimetryPage)
     expect(page('/lab/calorimetry/2')).toMatchObject({ path: '*' })
+  })
+
+  it('load the freezing point depression lab at #/lab/freezing-point-depression, lazily', async () => {
+    const { path, route } = page('/lab/freezing-point-depression')
+    expect(path).toBe('lab/freezing-point-depression')
+    expect(typeof route.lazy).toBe('function')
+    expect(route.element).toBeUndefined()
+    const loaded = await (route.lazy as () => Promise<{ Component: unknown }>)()
+    expect(loaded.Component).toBe(FreezingPage)
+    expect(page('/lab/freezing-point-depression/2')).toMatchObject({ path: '*' })
   })
 
   it('load the Group I cations lab at #/lab/cations, lazily', async () => {

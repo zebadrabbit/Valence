@@ -1,0 +1,113 @@
+{
+  "acetone": {
+    "classifiedAs": "Hazards of liquid acetone, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H225: Highly flammable liquid and vapor",
+        "H319: Causes serious eye irritation",
+        "H336: May cause drowsiness or dizziness"
+      ],
+      "note": {
+        "value": "The unknown liquid may be this: acetone, a few grams of it, stirred into ice and water. The supplier's sheet keeps it from heat, sparks, flames and hot surfaces and from strong oxidising agents, has it used in a hood or a well-ventilated room, and calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: NOAA's record says that the vapour can reach a flame some way off and flash back; that clothing wet with it is taken off at once, since it can catch fire; and, for the eyes, flushing with water for 20 to 30 minutes and a hospital after.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-7",
+        "alsoSourceId": "noaa-cameo-8"
+      },
+      "sourceId": "flinn-sds-7"
+    }
+  },
+  "ethanol": {
+    "classifiedAs": "Hazards of denatured ethyl alcohol, which is mostly ethanol with other alcohols added, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H225: Highly flammable liquid and vapor",
+        "H302: Harmful if swallowed",
+        "H315+H319: Causes skin and serious eye irritation",
+        "H335: May cause respiratory irritation",
+        "H370: Causes damage to organs"
+      ],
+      "note": {
+        "value": "The unknown liquid may be this: ethanol, a few grams of it, stirred into ice and water. The supplier's sheet is for its denatured ethyl alcohol, which has other alcohols added and is poisonous for them; the statements above are that sheet's. It keeps the liquid from heat, sparks, flames, oxidizers and acids, has it used where the air is changed, and calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: NOAA's record of ethanol says that the vapour is heavier than air and that a flame can run back along it; that clothing wet with it is taken off at once, since it can catch fire; and, for the eyes, flushing with water for 20 to 30 minutes and a hospital after.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-326",
+        "alsoSourceId": "noaa-cameo-667"
+      },
+      "sourceId": "flinn-sds-326"
+    }
+  },
+  "propan-2-ol": {
+    "classifiedAs": "Hazards of liquid 2-propanol (isopropyl alcohol), the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H225: Highly flammable liquid and vapor",
+        "H319: Causes serious eye irritation",
+        "H336: May cause drowsiness or dizziness"
+      ],
+      "note": {
+        "value": "The unknown liquid may be this: 2-propanol, a few grams of it, stirred into ice and water. The supplier's sheet keeps it from heat, sparks, flames and hot surfaces and from strong oxidizers and acids, has it used in a hood or a well-ventilated room, and calls for eye protection, gloves and protective clothing. It says that drinking it can kill, and that a bottle kept long in light and air can form peroxides, which can explode.\n\nStricter, and what this lab goes by: NOAA's record says that the vapour is heavier than air and can reach a flame some way off and flash back; that splashed skin is flooded with water while the clothing comes off; and, for the eyes, flushing with water for 20 to 30 minutes and a hospital after.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-420",
+        "alsoSourceId": "noaa-cameo-946"
+      },
+      "sourceId": "flinn-sds-420"
+    }
+  },
+  "urea": {
+    "classifiedAs": "Hazards of solid urea, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "None",
+      "statements": [],
+      "note": {
+        "value": "The solute of part 3 that is no salt: solid urea, a few grams of it, stirred into ice and water. The supplier's sheet prints no signal word and no hazard statement: it classes urea as not hazardous, and says to treat every laboratory chemical with caution all the same. It calls for eye protection, gloves and protective clothing, and keeps urea from strong oxidizers and from hypochlorites, with which it forms an explosive compound.\n\nStricter, and what this lab goes by: NOAA's record says that urea may irritate the eyes, and has them flushed with water for 20 to 30 minutes, with a hospital after.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-840",
+        "alsoSourceId": "noaa-cameo-9165"
+      },
+      "sourceId": "flinn-sds-840"
+    }
+  },
+  "nacl": {
+    "classifiedAs": "Hazards of solid sodium chloride, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Warning",
+      "statements": [
+        "H303: May be harmful if swallowed"
+      ],
+      "note": {
+        "value": "One of the three salts of part 3: solid sodium chloride, a few grams of it, stirred into ice and water. The supplier's sheet says that it is a laboratory chemical, kept with others, and not for eating. It calls for eye protection, gloves and protective clothing, and keeps the salt from strong oxidizers and from acids.\n\nStricter, and what this lab goes by: a second supplier's sheet classes the solid as not hazardous and asks only for more after a splash: 15 minutes or more of rinsing for the eyes and for the skin, and a doctor seen for the eyes.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-721",
+        "alsoSourceId": "fisher-sds-nacl"
+      },
+      "sourceId": "flinn-sds-721"
+    }
+  },
+  "kcl": {
+    "classifiedAs": "Hazards of solid potassium chloride, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Warning",
+      "statements": [
+        "H303: May be harmful if swallowed"
+      ],
+      "note": {
+        "value": "One of the three salts of part 3: solid potassium chloride, a few grams of it, stirred into ice and water. The supplier's sheet calls for eye protection, gloves and protective clothing, keeps the salt from strong oxidizers and strong acids, and says that it takes up water from the air, so that its jar is kept tightly closed.\n\nStricter, and what this lab goes by: a second supplier's sheet classes the solid as not hazardous and asks only for more after a splash: 15 minutes or more of rinsing for the eyes and for the skin, and a doctor seen for the eyes.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-621",
+        "alsoSourceId": "fisher-sds-kcl"
+      },
+      "sourceId": "flinn-sds-621"
+    }
+  },
+  "nabr": {
+    "classifiedAs": "Hazards of solid sodium bromide, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Warning",
+      "statements": [
+        "H303+H313: May be harmful if swallowed or in contact with skin",
+        "H320: Causes eye irritation"
+      ],
+      "note": {
+        "value": "One of the three salts of part 3: solid sodium bromide, a few grams of it, stirred into ice and water. The supplier's sheet calls for eye protection, gloves and protective clothing, and for hands washed after. It keeps the salt from acids, and says that it takes up water from the air, so that its jar is kept tightly closed. After a splash it has the eyes rinsed for several minutes, and a doctor asked if they stay sore, and the skin washed with plenty of water.\n\nNo stricter document was found: the supplier's sheet is the only one read for this salt, and it is what this lab goes by. NOAA's list of records, read for four of the other things on this bench, has none for sodium bromide.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-714"
+      },
+      "sourceId": "flinn-sds-714"
+    }
+  }
+}

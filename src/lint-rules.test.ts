@@ -239,6 +239,11 @@ describe('architecture lint rules', () => {
     ['@/engine/density/state', 'src/app/lab/density/messages.ts'],
     ['../../../engine/density/worksheet', 'src/app/lab/density/x.tsx'],
     ['@/engine/density/testkit', 'src/app/lab/density/x.tsx'],
+    // The freezing engine below its index holds which liquid the unknown is, how far the probe is off, and the judging of every run.
+    ['@/engine/freezing/setup', 'src/app/lab/freezing/x.tsx'],
+    ['@/engine/freezing/state', 'src/app/lab/freezing/messages.ts'],
+    ['../../../engine/freezing/cup', 'src/app/lab/freezing/x.tsx'],
+    ['@/engine/freezing/testkit', 'src/app/lab/freezing/x.tsx'],
   ])('rejects importing %s in %s', async (source, filePath) => {
     expect(await ruleIds(`import * as m from "${source}"\nexport const v = m\n`, filePath)).toEqual(['no-restricted-imports'])
     // A type import is refused too: the types below the index describe the hidden values.
@@ -269,6 +274,8 @@ describe('architecture lint rules', () => {
     ['@/engine/cabbage/testkit', 'src/app/lab/cabbage/messages.test.ts'],
     ['@/engine/density', 'src/app/lab/density/messages.ts'],
     ['@/engine/density/testkit', 'src/app/lab/density/messages.test.ts'],
+    ['@/engine/freezing', 'src/app/lab/freezing/messages.ts'],
+    ['@/engine/freezing/testkit', 'src/app/lab/freezing/messages.test.ts'],
     // Another folder whose name ends the same way is not the engine's.
     ['@/app/lab/titration/benchView', 'src/app/pages/x.tsx'],
     ['./titration/benchView', 'src/app/lab/x.tsx'],
