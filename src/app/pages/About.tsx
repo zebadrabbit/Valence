@@ -239,6 +239,26 @@ export function About() {
             of the product in hand and the laboratory's own rules.
           </p>
           <p className="mb-2">
+            The freezing point depression lab takes the freezing point constant of water from the table in
+            Wikipedia's article on freezing-point depression, which gives it from a book of chemical data that was
+            not itself read. The molar masses of its three liquids, of urea and of its three salts are worked out
+            from the abridged standard atomic weights of IUPAC's Commission on Isotopic Abundances and Atomic
+            Weights, as the periodic table keeps them. The particles a formula unit of sodium chloride gives, 1.82,
+            is worked out from a freezing point in the CRC Handbook of Chemistry and Physics, and one freezing
+            point of an ethanol solution is from Lange's Handbook of Chemistry, each as a data page of Wikipedia
+            transcribes the handbook's table; neither handbook was itself read. No measured freezing point was
+            found for solutions of potassium chloride or of sodium bromide, so each is held to two particles, the
+            ideal, which is more than a real solution gives; the lab says so. How fast the cup settles, how fast
+            its ice melts, how far the probe is off and every mass set out are Valence's own. The hazard
+            statements of the seven things on the bench are those of Flinn Scientific's safety data sheets, the
+            ethanol's being a sheet for denatured ethyl alcohol, and the notes under them rest also on records of
+            NOAA's database of chemicals and on a second supplier's sheets. The documents were read on the dates
+            their citations give, and no copy of them is kept. The lab's primer quotes none of its sources. No
+            temperature of this lab was read at a bench. None of these publishers is connected with Valence or has
+            reviewed it. At a real bench, follow the label and the safety data sheet of the product in hand and the
+            laboratory's own rules.
+          </p>
+          <p className="mb-2">
             The mechanism timeline takes its enthalpies and free energies of formation from the NBS tables of chemical
             thermodynamic properties of 1982, as NIST serves them; the acid constant of the carbonic acid molecule,
             how long that molecule lasts and the timescales of its two middle steps from a paper in the Journal of

@@ -128,4 +128,4 @@ Every page and sheet but the periodic table's copy: the manifests give each one'
 
 ## What nobody checked
 
-No person has worked the lab, and no chemistry instructor has read the record, the primer or the notes. There is no page yet. The hazard notes were written by the AI coding assistant that built the lab, from the documents the manifest lists, and were read by nobody else.
+No person has worked the lab, and no chemistry instructor has read the record, the primer or the notes. The page was built on 2026-10-12 (section 23.7 of the design spec says how, and what was measured on it) and worked by script in one browser by the AI coding assistant that built it; the lab's one deep review has not been held. The hazard notes were written by the AI coding assistant that built the lab, from the documents the manifest lists, and were read by nobody else.
