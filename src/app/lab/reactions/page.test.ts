@@ -457,6 +457,19 @@ describe('a station that has been checked', () => {
     expect(text(station)).toContain(PAGE_TEXT.workAgain)
   })
 
+  it('marks each line under a checked tube of three with its own tick or cross, and leaves the sentence on what was found to a screen reader, where it would run into the next tube', () => {
+    const wrong = bench(wholeStation(m, fresh('challenge'), 'metals-in-acid', { wrongObservationAt: 'zinc' }), 'metals-in-acid').station
+    const tubes = wrong.slice(wrong.indexOf('class="reactions-tubes"'), wrong.indexOf('One at a time'))
+    expect(text(tubes)).toContain('✓ Bubbles: fast')
+    expect(text(tubes)).toMatch(/✕ Bubbles: (none|fast)/)
+    expect(text(tubes)).toContain('✓ Bubbles: none')
+    // The three sentences are in the page, each hidden from the eye; a station of one tube shows its sentence.
+    expect(count(tubes, /<p class="sr-only"><span class="font-medium whitespace-nowrap">/g)).toBe(3)
+    const one = bench(wholeStation(m, fresh(), 'two-solutions'), 'two-solutions').station
+    expect(one).not.toContain('<p class="sr-only"><span class="font-medium whitespace-nowrap">')
+    expect(text(one)).toContain('✓ That is what it showed.')
+  })
+
   it('gives the order of the three metals as two choices, the most active and the least, and lists it with the other answers once the station is checked', () => {
     const asked = bench(kindSaid('guided', 'metals-in-acid'), 'metals-in-acid').station
     expect(text(asked)).toContain(`${ORDER_TEXT.question}${ORDER_TEXT.mostActive}magnesiumzinccopper${ORDER_TEXT.leastActive}magnesiumzinccopper${ORDER_TEXT.record}`)

@@ -250,18 +250,19 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
     const fields = vessel.fields.map(({ field }) => field)
     if (checked) {
       if (vessel.observation === null) return null
+      // Under one of several tubes the sentence on what was found has no room: it would run into the next tube's. Each line there has its own mark, a tick too, and the sentence is a screen reader's.
       return (
         <Sheet heading={OBSERVATION_TEXT.heading}>
           <ul className="grid gap-0.5">
             {observationLines(drawn, fields, vessel.observation, several).map((line, at) => (
               <li key={line}>
-                {vessel.wrongFields?.includes(fields[at]!) && <Mark ok={false} />}
+                {vessel.wrongFields?.includes(fields[at]!) ? <Mark ok={false} /> : several && vessel.wrongFields !== null && <Mark ok />}
                 {line}
               </li>
             ))}
           </ul>
           {vessel.wrongFields !== null && (
-            <p>
+            <p className={several ? 'sr-only' : undefined}>
               <Found ok={vessel.wrongFields.length === 0}>{checkedText(vessel.wrongFields)}</Found>
             </p>
           )}
