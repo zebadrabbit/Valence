@@ -1122,3 +1122,56 @@ Built on 2026-10-11, straight through, as the labs before it were (section 13), 
 - **What the page keeps and does not store:** as 19.8, without the graph. A reload opens on the first part that is begun and not done: part 1 at the first of its runs that does not count yet, and part 2 once the four runs count.
 - **Where the page is other than it was first built,** all of it from the review of 2026-10-11, which the last section of the lab's research record gives in full: the speed is 60 and the page says it; the status line says a step of the fade only where there is room to say it, and the end in fewer words; the lines beside a running watch keep their room, so that Stop does not move; a notebook that is worked again gives focus to its heading, where focus was lost to the page with the card that held the button; part 1's notes stand clear of the button of the list of runs; the two small lines of the part that is shown, and of one the pointer is over, are in the page's own ink, where grey on the grey ground measured 4.35 to 1 in the light theme; the delay handed to the engine is never more than the watch had left to run; and the primer's card on an order of nought says that the pace is steady if nothing else changes. Four of these are in the pieces the two labs share and change the clock reaction lab's page too, as 19.8 says: the focus, the notes' room, the ink of the small lines and the delay.
 - **Not done by a person:** how it looks is the owner's to judge; the checks were run by script, by mouse, by taps and by keyboard presses a script made, in headless Chromium, by the AI coding assistant that built the screens and then by the AI reviewer, which had built none of them, and by nobody at a keyboard. The builder stepped the fade by a clock the script held; the review also watched it at its own pace, by script. `docs/for-institutions.md` says what was run and what was not. No person has run the lab, no screen reader was used, one browser was tried and no real device, and no chemist or chemistry instructor has read the record, the notes or the primer.
+
+## 21. Red cabbage pH lab (added after v1)
+
+The fifth of the labs taken from the owner's department's lab directions (section 17 says how those are used). It is an introductory lab, and a short one. The directions list the bottles; the procedure is the usual one for them, and each choice in it is the owner's to change. It uses the lab shell, the test tube that is explored and the observation form of sections 8 and 17, and the rule for hazards of 5.2.
+
+### 21.1 Set-up
+
+The juice of red cabbage holds a dye that is a different colour at different acidities: an indicator, and one with many colours where most have two. With it a learner can tell roughly how acid or how basic a thing is by eye, and then check with a meter.
+
+On the bench: thirteen buffer solutions, of pH 1 to pH 13; red cabbage indicator solution; a pH meter with its probe, and a wash bottle of distilled water; and fifteen household things, each as it is used or as a dilute solution in water, named for what they are and never by a brand: vinegar, lemon juice, apple juice, household ammonia, shampoo, hair conditioner, laundry detergent, laboratory detergent, mouthwash, an antacid tablet, aspirin, buffered aspirin, bleach, drain cleaner and Epsom salt.
+
+Three parts:
+
+1. **The scale.** The indicator goes into the thirteen buffers, which stand in a rack in order. The learner looks along the rack and answers three questions that the rack answers.
+2. **The household things.** For each one tried: the indicator goes in; the learner looks, says which tube of the scale it is nearest, and whether the thing is acid, neutral or basic; then measures it with the meter. The part is done when eight of the fifteen count; the rest are there to try.
+3. **What a unit means.** Two questions from the learner's own readings: how many times more hydrogen ion one thing has than another, a whole number of units apart.
+
+### 21.2 A sample
+
+A sample is a short column of cards, with the rack of the scale kept in view beside or above it:
+
+1. **The tube**, drawn and explored as in sections 8 and 17, with the one action, adding the indicator. What is seen is said in words when the liquid is looked at.
+2. **By eye**: which tube of the scale is it nearest, a whole number from 1 to 13, or that the indicator cannot say; and acid, neutral or basic.
+3. **The meter**: the probe is rinsed, put in, and read. The reading is to a tenth of a unit.
+
+An estimate by eye counts when it is within one unit of the meter's reading. Bleach is the exception that the lab keeps on purpose: it destroys the dye, the colour goes, and the right answer by eye is that the indicator cannot say.
+
+One error of technique: **putting the probe into a sample without rinsing it** after the last one. The reading is then pulled toward the last sample's; it does not count, and says why. Guided warns first.
+
+Guided checks each answer as it is given and has a hint in a closed disclosure. Challenge takes what is recorded and checks a sample when asked.
+
+### 21.3 Model
+
+The engine is pure and deterministic. Each household thing has a typical pH with a source, given as a range, since products differ by maker and by batch; the seed picks one value in the range for a lab, to a tenth, and that is what the meter reads from a rinsed probe. The colour the indicator shows at a pH comes from a stored table of colours against pH, with a source; where the sources give a colour for a range and not an edge, the edges are model parameters and say so. What an unrinsed probe reads is the model's own, a stated share of the way toward the last sample's pH.
+
+Each buffer is taken to be at its labelled pH.
+
+### 21.4 Data
+
+The indicator's colours against pH; a typical pH for each household thing, from a source that can be cited (a food regulator's table of the pH of foods, a maker's or supplier's sheet that states a pH, or arithmetic from a cited constant and a stated strength, which is then said to be arithmetic); that bleach destroys the dye. Hazards by 5.2 for what is a laboratory chemical on this bench: the two buffers at the ends of the scale, the indicator, household ammonia, bleach, drain cleaner and the laboratory detergent. Foods, toiletries and medicines are sold under their makers' own labels, which differ; they share one note, which says that nothing on a bench is tasted and that a product's own label gives its cautions.
+
+### 21.5 Primer
+
+Short topics, those to read first marked: acids and bases in the kitchen and the bathroom; the pH scale, and that a unit is ten times; indicators, and why red cabbage has so many colours; buffers, and why the scale is made from them; the meter and its probe; when an indicator fails (bleach); safety.
+
+### 21.6 Acceptance
+
+- For seeds 1 to 100, every household thing's pH is inside its sourced range, and a careful learner's estimate by eye, taken as the tube of the scale with the same colour, is within one unit of the meter for every thing but bleach, where the indicator cannot say.
+- An unrinsed probe makes a reading not count, and its cause is named; Guided warns first.
+- Every stored pH and every colour has a source or is marked as the model's own.
+- The same seed and actions give the same lab; the stored record round-trips; no state a learner can reach leaves them unable to go on.
+- Challenge shows nothing of what is expected before the learner's answers are recorded: a thing's pH is not on the page before the meter is read.
+- Every colour a learner must tell apart is also said in words, and the description in words of every tube is tested.
