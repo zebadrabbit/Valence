@@ -86,9 +86,10 @@ describe('the freezing point depression lab', () => {
     expect(modelFrom(freezingData)).toEqual(PINNED_MODEL)
   })
 
-  it('has a stored entry of its own, and no row among the activities until it has a page', () => {
-    expect(ACTIVITIES.some((activity) => (activity.entry as string) === FREEZING_PROGRESS.entry)).toBe(false)
-    expect(ACTIVITIES.some((activity) => /freezing/i.test(`${activity.title} ${activity.to}`))).toBe(false)
+  it('has a stored entry of its own, which is the one its row among the activities loads and saves with, at its own address', () => {
+    expect({ entry: ACTIVITIES[10].entry, version: ACTIVITIES[10].version }).toEqual(FREEZING_PROGRESS)
+    expect(ACTIVITIES[10].to).toBe('/lab/freezing-point-depression')
+    expect(new Set(ACTIVITIES.map((activity) => activity.entry as string)).size).toBe(ACTIVITIES.length)
   })
 })
 

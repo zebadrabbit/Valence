@@ -15,6 +15,7 @@ describe('the activities', () => {
       ['lab:iodination-of-acetone', '/lab/iodination-of-acetone'],
       ['lab:red-cabbage-ph', '/lab/red-cabbage-ph'],
       ['lab:measurement-and-density', '/lab/measurement-and-density'],
+      ['lab:freezing-point-depression', '/lab/freezing-point-depression'],
       ['mechanism:hcl-nahco3', '/learn/hcl-nahco3'],
     ])
     expect(ACTIVITIES.every(hasPage)).toBe(true)
