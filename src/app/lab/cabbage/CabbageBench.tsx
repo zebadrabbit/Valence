@@ -68,6 +68,7 @@ export function CabbageBench({ data, m, sources, state, act, opensAt }: CabbageB
   const [start] = useState(() => ({ ...opening(m, state), ...opensAt }))
   const [part, setPart] = useState<PartId>(start.part)
   const [thing, setThing] = useState<ThingId>(start.thing)
+  const [intro, setIntro] = useState(() => !benchView(m, state).thingsOpen)
   const heading = useRef<HTMLHeadingElement>(null)
   const status = partStatus(m, state)
   const shown = `${part}:${thing}`
@@ -88,7 +89,8 @@ export function CabbageBench({ data, m, sources, state, act, opensAt }: CabbageB
           </Marked>
         )}
       </p>
-      {!benchView(m, state).thingsOpen && <p className="max-w-prose text-sm">{LAB_TEXT.aim}</p>}
+      {/* What the lab is, over a lab that is not begun, until another part is chosen: it does not go at the first press, which would move the rack from under the hand. */}
+      {intro && <p className="max-w-prose text-sm">{LAB_TEXT.aim}</p>}
       {/* Three to a row at every width the bench has, each as wide as its words ask and a share of what is left, so that the longest name stands in one line on an upright tablet. */}
       <nav aria-label={PAGE_TEXT.parts} className="flex gap-1.5 text-sm">
         {PART_IDS.map((partId) => (
@@ -98,6 +100,7 @@ export function CabbageBench({ data, m, sources, state, act, opensAt }: CabbageB
             aria-current={partId === part ? 'true' : undefined}
             onClick={() => {
               setPart(partId)
+              setIntro(false)
               // The part already shown: its heading takes focus all the same.
               if (partId === part) heading.current?.focus()
             }}
@@ -264,6 +267,8 @@ function ScalePart({ data, m, sources, state, act, headingRef }: Parts) {
   const rack = rackView(m, state)
   const guided = state.mode === 'guided'
   const [said, say] = useSaid()
+  // What the part asks for stands over a rack that is not made, and stays while the part is shown: nothing over the rack goes at a press.
+  const [intro] = useState(() => !rack.indicator)
   const fill: Action = { type: 'fillRack' }
   const cited = useMemo(() => cabbageScaleCitations(data, sources), [data, sources])
   const press = (action: Action) => {
@@ -280,7 +285,7 @@ function ScalePart({ data, m, sources, state, act, headingRef }: Parts) {
   return (
     <section aria-labelledby={headingId} className="cabbage-part grid min-w-0 gap-2">
       <PartHead data={data} part="scale" status={partStatus(m, state).scale} headingId={headingId} headingRef={headingRef} />
-      {!rack.indicator && <p className="max-w-prose text-sm">{PART_AIM.scale}</p>}
+      {intro && <p className="max-w-prose text-sm">{PART_AIM.scale}</p>}
       <div className={CARD}>
         <div className={SHEET}>
           <Rack
@@ -425,6 +430,7 @@ function ThingsPart({ data, m, sources, state, act, headingRef, thing, onThing }
   const cited = useMemo(() => cabbageThingCitations(data, thing, sources), [data, thing, sources])
   const views = THING_IDS.map((id) => sampleView(m, state, id))
   const focused = useRef<HTMLHeadingElement | null>(null)
+  const [introAt] = useState(() => (views.every((view) => !view.indicator && view.tries === 0) ? thing : null))
   if (!bench.thingsOpen) {
     return (
       <section aria-labelledby={headingId} className="grid min-w-0 gap-2">
@@ -464,8 +470,8 @@ function ThingsPart({ data, m, sources, state, act, headingRef, thing, onThing }
       roomy
       after={<Foot data={data} sources={sources} cited={cited} thing={thing} />}
     >
-      {/* Over the things until the first is begun: what the part asks for. */}
-      {views.every((view) => !view.indicator && view.tries === 0) && <p className="max-w-prose text-sm">{PART_AIM.things}</p>}
+      {/* Over the first thing shown while none is begun, and there until another is shown: what the part asks for. It does not go at the first press, which would move the tube from under the hand. */}
+      {introAt === thing && <p className="max-w-prose text-sm">{PART_AIM.things}</p>}
       <SampleCard
         // A card of its own for each thing, each fresh tube of it and each mode: nothing chosen or said in the one before is carried over.
         key={`${thing}:${views[index]!.tries}:${state.mode}`}
@@ -502,6 +508,8 @@ function UnitPart({ data, m, sources, state, act, headingRef }: Parts) {
   const unit = unitView(m, state)
   const guided = state.mode === 'guided'
   const [said, say] = useSaid()
+  // What the part asks for, while nothing is answered, and then for as long as the part is shown.
+  const [intro] = useState(() => !unit.questions.some((q) => q.answer !== null))
   const cited = useMemo(() => cabbageScaleCitations(data, sources), [data, sources])
   const press = (action: Action) => {
     const blocked = can(m, state, action)
@@ -615,7 +623,7 @@ function UnitPart({ data, m, sources, state, act, headingRef }: Parts) {
   return (
     <section aria-labelledby={headingId} className="cabbage-part grid min-w-0 gap-2">
       <PartHead data={data} part="unit" status={partStatus(m, state).unit} headingId={headingId} headingRef={headingRef} />
-      {!unit.questions.some((q) => q.answer !== null) && <p className="max-w-prose text-sm">{PART_AIM.unit}</p>}
+      {intro && <p className="max-w-prose text-sm">{PART_AIM.unit}</p>}
       {body}
       <div className={said.text === '' ? '-mt-2' : 'text-sm'}>
         <Line said={said} />

@@ -329,7 +329,8 @@ export function SampleCard({ data, m, state, thing, act, headingRef }: SampleCar
           {(estimated || view.reading !== null) && (
             <div className={`cabbage-meter ${CARD}`}>
               <Sheet heading={SAMPLE_TEXT.meter}>
-                <div className="flex w-full flex-wrap items-baseline gap-x-4 gap-y-1">
+                {/* As tall before the meter is read as with its reading, so that the two buttons under it stay where they are when it is read. */}
+                <div className="flex min-h-10 w-full flex-wrap items-center gap-x-4 gap-y-1">
                   {view.reading === null ? <p className="font-medium text-muted-foreground">{SAMPLE_TEXT.notRead}</p> : <p className={`text-4xl font-semibold tabular-nums ${ROLE.value}`}>{phText(view.reading.tenths)}</p>}
                   {/* Where the probe stands; while Guided's warning is up, the warning says it. */}
                   {!over && !warned && <p className="max-w-prose flex-1 basis-48">{meterText(data, meter)}</p>}

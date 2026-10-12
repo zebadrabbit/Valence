@@ -23,6 +23,7 @@ import {
   MARK_TEXT,
   NOTES_TEXT,
   PAGE_TEXT,
+  PART_AIM,
   RACK_TEXT,
   REASON_TEXT,
   RECORD_TEXT,
@@ -191,6 +192,18 @@ describe('where the page opens, and what it sends on', () => {
     ])
     expect(Object.values(partStatus(m, state)).map((status) => status.text)).toEqual(['Done', '1 of 8 count', 'Not open yet'])
     expect(Object.values(partStatus(m, wholeLab(m, fresh()))).map((status) => `${status.mark} ${status.text}`)).toEqual(['✓ Done', '✓ 8 of 8 count', '✓ Done'])
+  })
+})
+
+describe('what the lab and a part ask for', () => {
+  it('stands over a lab that is not begun and over a part that is not, and is not drawn again once it is', () => {
+    expect(text(bench(fresh(), 'scale'))).toContain(`${LAB_TEXT.aim} `)
+    expect(text(bench(fresh(), 'scale'))).toContain(PART_AIM.scale)
+    expect(text(bench(scale(), 'scale'))).not.toContain(PART_AIM.scale)
+    expect(text(bench(scale(), 'scale'))).not.toContain(LAB_TEXT.aim)
+    expect(text(bench(scale(), 'things', 'vinegar'))).toContain(PART_AIM.things)
+    expect(text(bench(lookedAt(scale(), 'vinegar'), 'things', 'vinegar'))).not.toContain(PART_AIM.things)
+    expect(text(bench(wholeThings(m, scale()), 'unit'))).toContain(PART_AIM.unit)
   })
 })
 

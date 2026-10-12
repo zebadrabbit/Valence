@@ -513,6 +513,44 @@ As above, there has been no audit and this is no claim of conformance.
 - **A run left with its watch running is poured again,** and nothing of it is stored; the page says so when the run is shown again.
 - Below 768 pixels of width the Lab tab shows a notice in place of the bench, as in every lab.
 
+### The red cabbage pH lab: accessibility
+
+As above, there has been no audit and this is no claim of conformance.
+
+**How it was checked, and by whom.** The lab's screens were built on 2026-10-11 and checked that day by the AI coding assistant that wrote them, by script, in headless Chromium on Linux, on the production build. Nobody sat at a keyboard. The page is built on the pieces of the labs before it: the frame and its tabs, the test tube that is explored, the shared form of choices, the paged list, the tiles of the bench. What is said of those under the labs above was checked on those labs' pages. No review of this lab has been held yet.
+
+**What was checked that way:**
+
+- **A whole lab, six times.** A script worked the lab from Start to the line that says it is complete as a careful learner would, from the page's own words: it read each tube of the rack by moving along it with the arrow keys, looked at each sample's liquid, chose on the small scale the tube with the same colour word, or that the indicator cannot say where no tube had it, rinsed the probe, read the meter, and answered the closing questions from the readings on the page. All fourteen things counted every time. In Guided and in Challenge, at 768×1024 with the menu open and with it closed and at 1280×800; the Challenge run at 768×1024 with the menu open was by emulated touch, with taps. The console was empty and nothing was asked of any other server. One run in six first failed: the lines that said what the part asks for went at the first press, the page moved up under the pointer, and the callout of the look closed. Those lines now stay until another part or thing is shown, and the six ran through after that.
+- **The keyboard along the rack.** The rack is one stop of the Tab key. From the first tube the right arrow came to each of the thirteen in turn, and at each the line under the rack named that tube and its colour in words.
+- **Every colour in words.** A look at a tube of the rack, in part 1 and beside a sample, and a look at a sample's liquid each say the colour as a word; the script worked the whole lab from those words alone. Before a look nothing on the page says what is seen in a sample.
+- **The colours as numbers.** Each pair of neighbours on the scale that differ in word differs by 1.44 to 1 or more as a ratio of contrast and by 16.0 or more as a colour difference (CIEDE2000), and in lightness or strongly in hue; the two that share a word, pH 11 and pH 12, are drawn the same. These are worked out from the values the drawing uses (design spec, section 21.7, has the table); they were not measured from a screen. The weakest pair is the dark blue of pH 7 and the blue of pH 8, which differ in lightness and hardly in hue. Against its white card the palest of the scale, the yellow of pH 13, is 1.41 to 1, and three looks of a thing before the indicator goes in are fainter still (1.18, 1.13 and none): a tube's glass, its surface line and its bracket are drawn in the ink, and the word says the colour.
+- **Every disclosure's hit area, point by point.** At both sizes, in the light theme, on part 1 with a question open, on a sample with the estimate open, with Guided's warning up and once it counts, and on part 3, with every disclosure closed and with each open in turn (the hint, the rack in words, the sources, the bench, and inside the open bench its seven tiles' hazards): a script took the area a finger tall over each line of words, held it against the box of every other control, and asked the page what answers at each point of it, 3 px apart. No area lay over another control, and no point answered for another. Two faults were found and put right first: a hint and the rack in words stood 12 px under the button over them, and the area over an open one reaches 24 px up.
+- **How large each thing to press is.** A tube of the rack is a button 65 by 113 px on an upright tablet with the menu open and never less than 47 px wide at the sizes tried; beside a sample, 47 to 65 px wide and 82 tall; "The indicator cannot say", 51 by 82 or 168 by 44; the liquid of a sample's tube, 57 by 83 or 76 by 110. Drawn smaller than 44 px, each with the 44 px area the frame lays over a small control: the lines that open a disclosure, the list's button, and Previous and Next.
+- **How long a page is.** Design spec, section 21.7, has every figure. At 768×1024 with the menu open a sample is at most 907 px from the line over its name to the foot of its last card in Guided, where 976 px of the window are under the tab bar; the tube and the scale are in one window at every point of working it.
+- **A reload.** Reopened the Lab tab where the stored record says the learner was; Guided's warning, which the record holds, was there again.
+- **By automated tests,** which run without a browser: the markup of the rack, of each of the fourteen things at each point of working it in each mode, of part 3 and of the record; that no thing's pH, note or mark is in the page before the meter is read, the sample counts or a check is made; that the colours of neighbours differ as above; that the stylesheet has no animation and no transition; where the page opens; and every sentence of the page.
+
+**What was not checked:**
+
+- No person has run the lab, by hand, by keyboard or by touch. No screen reader was used: that a look, a reading and a warning are announced is known from the markup, status lines whose words change, and not from hearing them.
+- One browser, headless Chromium on Linux. No real device, no real tablet, no real touch screen.
+- How the colours look on a real screen, in daylight, or to a person with a colour vision deficiency. The figures above are of the colours as drawn. No simulation of a colour vision deficiency was run.
+- The contrast of the page's text, which was not measured on this page. Its text is drawn with the classes the labs before it use, whose contrast was measured on their pages.
+- The page with the text enlarged, at 200% zoom, in a high-contrast mode, or with the window between the sizes named.
+- Reduced motion in a browser: the lab's stylesheet has no animation and no transition, by a test, and nothing more was tried.
+- The Primer tab's cards one by one in a browser, beyond that the tab is drawn.
+
+**Known limits of the red cabbage pH lab's page:**
+
+- **The lab is about telling colours apart.** A learner who cannot tell two neighbours of the scale apart by eye has the word for each at every look, and can work the whole lab from the words, as the script did; that is then matching words and not judging a colour, which is not what the lab sets out to teach.
+- **On an upright tablet with the menu open the rack is two shelves,** pH 1 to 7 over pH 8 to 13, and not one row.
+- **Dark blue and blue,** at pH 7 and pH 8, are the two nearest neighbours of the scale as drawn.
+- **A press on the meter's button under Guided's warning:** the warning comes up over the two buttons and moves them down, so a second press in the same place lands on the warning's words and does nothing.
+- **A tube chosen and not yet recorded is dropped** when another thing or part is shown.
+- **A pointer that crosses a tube has looked at it,** as in the labs before it; the first tube of a rack with the indicator in that is crossed opens part 1's questions.
+- Below 768 pixels of width the Lab tab shows a notice in place of the bench, as in every lab.
+
 ### The mechanism timeline: accessibility
 
 As above, there has been no audit and this is no claim of conformance.
@@ -1122,6 +1160,30 @@ One number of the model is tuned and has no source: the concentration of the pin
 - **The primer gives what the lab asks for,** and is not kept back in either mode. The Lab tab says none of this reaction's orders before part 2 is done.
 - Every source was read and is not kept, so the build cannot check the record against the pages again.
 - No learner has used the lab, and no chemist or chemistry instructor has read its record, its notes, its primer or its page. An AI reviewer read every sentence a learner is shown on 2026-10-11 and worked one lab's figures again by hand, from its four times to its rate constant; it changed one sentence of the primer, which said of a reactant of order nought that it is used up at a steady pace and now says that this is so if nothing else changes.
+
+### The red cabbage pH lab
+
+**What it teaches.** That pH is a scale of acidity, that an indicator shows it by colour, and that a unit of pH is ten times. The juice of red cabbage is an indicator with many colours. Part 1 puts it into thirteen buffers, pH 1 to pH 13, and the rack of them is a scale of colours. Part 2 places fourteen household things on that scale by eye and checks each with a pH meter. Part 3 asks, from the learner's own readings, which of two things holds more hydrogen ion and how many times more.
+
+**The primer.** Short cards, shown one at a time, with those to read first marked. Each card lists its sources, and the primer quotes none of them.
+
+**A sample.** The learner adds the indicator to a thing's tube, looks at it, presses the tube of the scale it is nearest, which stays beside the sample, says whether the thing is acid, neutral or basic, and then rinses the meter's probe and reads it. A sample counts when the estimate is within one unit of the meter and acid, neutral or basic agrees with it. Bleach takes the colour out of the indicator, and there the right answer by eye is that the indicator cannot say. A reading taken with a probe that was not rinsed is pulled toward the last sample; it does not count, and says why; Guided warns first. Eight things of the fourteen make the part.
+
+**Whose figures.** The colours against pH are a supplier's figure for red cabbage indicator, for pH 2 to 12, and a table for anthocyanins in general for pH 1 and 13. Each thing's range of pH is a document's, or is worked out from a cited strength and constant and said to be. Where one colour gives way to the next, what an unrinsed probe reads, what each thing looks like before the indicator goes in and the values the colours are drawn in are the lab's own. The research record, `docs/research/cabbage/README.md`, lists each.
+
+**What is idealised, and what a teacher should know:**
+
+- **Nobody saw these colours or measured these pH values.** No bench was run. A real extract of red cabbage varies with the cabbage and how it was made, and the colour of a real sample will not match a row of buffers this neatly.
+- **A sample shows exactly the colour of a buffer.** The model has twelve colours with sharp edges between them; a real indicator shades from one to the next, and a real thing's own colour or cloudiness changes what is seen. Apple juice and lemon juice are pale yellow before the indicator goes in, and the model shows the indicator's colour all the same.
+- **Neutral means the colour of the pH 7 tube,** a reading from 6.6 to 7.5; the page says so beside the question.
+- **pH 11 and pH 12 share a colour,** as the supplier's figure has them, and everything above pH 12.0 is drawn yellow. A drain cleaner at 12.1 is therefore yellow beside a greenish-yellow pH 12 tube.
+- **The drain cleaner is taken as sodium hydroxide in water alone.** The maker's sheet that gives its strength also lists bleach, which would take the colour out; its note says so. Whether it belongs on this bench as a plain base is a teacher's to decide.
+- **Several figures stand in for the bench's own dilution:** the toiletries' sheets give the product as sold, and the model takes one part in twenty to read the same; the aspirin's figure is for a weaker suspension; the bleach is worked out for hypochlorite alone. The research record lists these for a chemist.
+- **Buffered aspirin,** which the bench's directions list, is left off: no document that states its pH could be read.
+- **In Guided an estimate that is not near enough is refused,** so a learner can find a thing's place by trying tubes. Challenge records what it is given.
+- **The primer gives what the lab asks for,** and is not kept back in either mode.
+- Every source was read and is not kept, so the build cannot check the record against the pages again.
+- No learner has used the lab, and no chemist or chemistry instructor has read its record, its notes, its primer or its page.
 
 ### The mechanism timeline
 
