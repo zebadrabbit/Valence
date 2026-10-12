@@ -96,4 +96,107 @@ Every source. No copy of any page is in the repository; the manifests record wha
 
 ## What nobody checked
 
-No person has read any of it, and no chemist. The engine, the record and the wording were tested by scripts alone. The lab's page was built on 2026-10-12 and checked by script by the AI coding assistant that built it; what it ran, what it measured and what it did not check are in the design spec, section 24.6, and on the page for institutional reviewers. The lab's one deep review has not been held. The scanned NBS tables were not read. The pages earlier labs saved were read again only where this lab stores something from them.
+No person has read any of it, and no chemist. The engine, the record and the wording were tested by scripts alone. The lab's page was built on 2026-10-12 and checked by script by the AI coding assistant that built it; what it ran, what it measured and what it did not check are in the design spec, section 24.6, and on the page for institutional reviewers. The lab's one deep review was held that day by an AI reviewer that had built none of it; the next section is its record. The scanned NBS tables were not read. The pages earlier labs saved were read again only where this lab stores something from them.
+
+## The review of 2026-10-12
+
+The one deep review of the phase, held when the screens were whole, by an AI reviewer that had built none of the lab: not the record, the hazards, the engine, the wording or the page. It worked by script in headless Chromium and by reading, on 2026-10-12 by the machine's own clock. It made the change the project's owner had decided on, worked the lab from Start to the line that says it is complete in each mode, and put right what it found in the same pass. It changed no stored observation, kind, equation or order. The page as it now is, is section 24.6 of the design spec.
+
+### The change the owner had decided: two stations were too long
+
+At 768 by 1024, 976 px of the window are under the tab bar. The lengths are from a station's head to the foot of its last card before the one that closes it, in Guided, by the pointer, measured on the build before the review and on the build after it.
+
+| Stage | A before, after | B before, after | D before, after | E before, after |
+| --- | --- | --- | --- | --- |
+| Before anything is done | 467, 467 px | 467, 467 px | 467, 467 px | 467, 467 px |
+| What is seen open | 795, 795 px | 853, 825 px | 613, 613 px | 695, 695 px |
+| The kind open | 910, 828 px | 1,026, 907 px | 910, 810 px | 910, 810 px |
+| The equation open | 1,001, 839 px | 1,117, 918 px | 1,051, 871 px | 1,001, 821 px |
+| The equation built | 1,021, 859 px | 1,137, 938 px | 1,071, 891 px | 1,021, 841 px |
+| Done, with its notes | 1,023, 951 px | 1,062, 972 px | 902, 830 px | 1,028, 956 px |
+
+| Stage of station C | Before | After |
+| --- | --- | --- |
+| Before anything is done | 673 px | 645 px |
+| What is seen open | 869 px | 841 px |
+| One tube recorded (Challenge, by touch) | 1,379 px | 794 px |
+| The kinds open | 1,281 px | 1,048 px |
+| An equation open | 1,422 px | 1,109 px |
+| An equation built | 1,442 px | 1,129 px |
+| The order open | 1,178 px | 945 px |
+| Done, with its notes | 1,268 px | 1,059 px |
+
+So stations A, B, D and E are inside one screen at every stage, and station C is inside one until its kinds are asked and at most 153 px over one from there, where a screen and a quarter is 1,220 px. In Challenge by emulated touch no stage was longer than in Guided: station B 910 px at the most while it is worked, station C 1,125 px. What was done:
+
+1. **An entry that is recorded is one row:** its lines, what is said of them, and "Change". The sentence had a line of its own under them.
+2. **A picture is drawn short once what is seen of every vessel of its station is recorded:** the drawing alone, 200 units tall, with no room under it. What a part shows is then said in a box that hangs under the drawing, over what stands there, for as long as the part is looked at; a press goes through it. Every part is still there to be looked at.
+3. **The line of a term's controls stands over the row of an equation, under the tiles.** As built the row kept the height of two lines from the start so that the buttons that raise and lower a number would not move as it took its second. They are now over the row, where nothing moves them, and the row takes its second line only when it needs it. At station D, the widest equation, the tiles stood at one place and "One more" at one place through four tiles and eight presses; "Record the equation" moved once, by 52 px. The shared builder's option is `toolsFirst`, which the aqueous reactions lab does not ask for.
+4. **The disclosure with the pictures in words stands beside the one button** where the card has the width.
+5. **Station C asks its kinds, its equations and the order once what is seen in all three tubes is recorded,** and not as soon as one is. With one tube recorded the page had the three full pictures over an open question of five choices, a stage the builder had not measured. Under each tube the recorded answer is a word and its choice with the tick of an answer found right before it; the four buttons that choose what is asked are a word each, in one line.
+
+### What the review found, and what was done
+
+- **Three answers were on the page before they were given** (changed), each behind a closed disclosure at the foot of every station, in both modes. Read in the browser in Challenge before anything was done. The list of a station's sources named the pages behind what is seen afterwards and behind the tiles: at the burning strip the one page on the kinds that carried "What is seen afterwards" was "Combination Reactions"; at the peroxide two pages on catalysts. Those are now listed once the station counts, with the other sources of answers. The hazard note of copper said that its piece goes into the acid "where nothing is seen to happen", and the note of the hydrogen peroxide that it slowly decomposes and that iron(III) chloride "make[s] it do so fast": both sentences are reworded, and what each sheet asks is kept. The notes of zinc and of magnesium still say that each gives hydrogen with acids, which is a hazard of the metal and is in the primer's safety card of any metal in acid.
+- **Under each of the three tubes of a station C that has been checked, the sentence on what was found ran out of its column** (changed): "That is what it showed." is kept on one line, a column at 768 px is narrower than it, and the three ran into one another and out of the card. It was so as built, in the builder's own picture of the station done, which had not been looked at; the review saw it in its own. Each line under a checked tube now has its own tick or cross, and the sentence is there a screen reader's alone, as under a tube that is recorded and not yet checked.
+- **In Challenge a tick stood beside a tube of station C as soon as its kind and equation were recorded** (changed), in the role of a step done, before anything was judged. Seen in the browser. A tick is now for an answer found right; what is recorded and not judged has a filled circle.
+- **The Record tab told the reader to work a station again under a run left behind,** of a station that counts by a later run (changed). It says that the run does not count, or that it counts.
+- **Guided's open hint could be closed by a press on the button over it** (changed): the hit area of its summary reaches upward when it is open, and lay over the lower part of "Record what is seen" and "Record the kind". Found by asking the page, point by point, which control answers. An open hint stands 16 px lower.
+- **Before the strip burns its two parts were named for after** (changed): "Glance at the strip in the flame" and "Look at what is left", of a strip beside the burner. They are "Look at the strip" and "Look at the tongs" until it is held in the flame.
+- **The primer's first card said that two cards can wait "until a station sends you to them"** (changed). No station sends a learner to a card. They can wait until the learner wants them.
+- **The page's files had been run through a formatter with options of its own** (changed where a reader would notice): short literals broken over many lines. They are on one line each, as in every other lab's page files.
+
+### The pictures, and what was measured of them
+
+The picture of every station before and after its action was looked at: on the builder's sheet at 768 px in the light theme, on the sheets retaken after the review at 768 px in the dark theme and at 1280 px in the light, and one by one and larger at 768 px in the light theme. Ten whole pages of the builds the review made were looked at too, in both themes and at both sizes, and two of the build before it. The three metals of station C are plainly three; the tubes that bubble fast, slowly and not at all are told apart at a glance by how many bubbles there are and how large; the coated piece of station A reads as coated; the star with its rays reads as a light and the heap in the tongs as a powder. Each of those is also said in words when it is looked at, and none of the words says what a thing is.
+
+One weakness was left: **the white solid of station D and the bubbles of station E are both white circles with a dark edge.** The solid's are small, many and evenly set, and the liquid is cloudy; the bubbles are seven, larger and scattered. The words of the look say which, station D asks only for a solid and station E only for bubbles. The spread solid is the shared tube's drawing, which the aqueous reactions lab uses.
+
+Every picture stands on a white card in both themes, so its contrast is one figure. Measured in the page, as ratios of contrast: the ink that edges every piece of metal, bubble, light and powder is 10.4 against the card, 8.9 against the colourless liquid, 9.3 against the pale yellow and 4.4 against the paler blue. The fills, which are not what tells a thing: the grey metal 3.4 against the card and 2.9 against the liquid, the reddish 4.1 and 3.4, the silvery 1.3 and 1.1, the red-brown coating 3.2 against the paler blue; a bubble's white 1.2 against the liquid; the light and the powder are white on white and are their edges. The blue of station A before and the paler blue after differ by 3.8, so the fading is seen without telling two hues apart. The dashed outline of a part not yet looked at is 3.4 against the card, the outline of a part looked at 17.7. The grey and the reddish piece differ by 1.2 and are told by hue, by the names over their tubes and by the words of the look.
+
+Text, measured for every piece on the Lab tab at eleven stages in both themes: the least is 4.7 in the light theme (the grey of a line that is not yet anything to do) and 6.9 in the dark. The words of a button that cannot be used now, which is drawn at half strength and still takes focus and says why, are 3.7 in the light theme and 4.9 in the dark.
+
+### Looked at and left
+
+- **The words of a short picture's part hang over the line and the "Change" under it** for as long as the part is looked at. A press goes through them.
+- **A done action pressed again says "That has been done already."** and the sentence stays under the button for the rest of the run.
+- **After a change of mode in the middle of a station, Guided shows what Challenge recorded with its marks** and says "Everything is recorded. Check the station." beside a button, though some of it is marked wrong. That is the engine's design: the learner may put it right or ask for the check.
+- **A row emptied place by place leaves the last place emptied as the chosen one,** so the next tile goes there and not to the first place. The outline shows it.
+- **Every tile goes in as (aq),** a metal and a gas too, as in the aqueous reactions lab.
+- **Station A's notes say that zinc is the more active of zinc and copper,** which is part of the order station C asks for. They are shown once station A counts.
+- **The picture in words says "Bubbles rise off the metal, slowly."** where the look says "from the metal".
+- **"Hover over or tap each part of a picture"** says nothing of the keyboard, by which focus on a part looks at it.
+- **Under a tube the heading "What is seen" is of the same level as the tube's name.**
+
+### What a beginner is not told before the notes
+
+The lab is introductory and its primer is short. Three stations ask for something no sentence gives before the station counts:
+
+- **Station B:** that burning in air is joining with the air's oxygen. The tiles offer oxygen, and Guided's row has two places before the arrow.
+- **Station D:** which of the two products is the solid. Guided says only that a state is not right.
+- **Station E:** that the iron(III) chloride is a catalyst and so is in no equation. The card on a catalyst is not one of the four to read first; Guided's row has one place before the arrow, and Challenge gives no such help.
+
+None was changed: each would put an answer, or most of one, on the page before it is given. They are the owner's to weigh.
+
+### What was read and worked again, and found sound
+
+- **The six equations of the record,** balanced by hand, atom by atom: Zn + CuSO₄ → ZnSO₄ + Cu; 2Mg + O₂ → 2MgO; Mg + 2HCl → MgCl₂ + H₂; Zn + 2HCl → ZnCl₂ + H₂; CaCl₂ + Na₂CO₃ → CaCO₃ + 2NaCl; 2H₂O₂ → 2H₂O + O₂. And the primer's worked example, step by step.
+- **Every sentence a learner sees:** the primer, the labels, the hints, the refusals, the outcomes, the notes and the nine hazard notes. No sentence of the page before a station counts says what a thing seen is.
+- **Against the saved pages:** that the zinc turns red-brown and the blue fades; the intense white flame and the white ash with its nitride; that zinc is slow in cold dilute acid and that reactions are faster higher in the series; that the peroxide decomposes slowly by itself and −98.2 kJ/mol; the match and the phosphate of the primer; the sentences on not staring at the magnesium and not touching the metals; the peroxide sheet's signal word and its two statements. Other rows of the manifests were not read again.
+- **The code:** the engine's states and the page's effects; a stored record that does not fit (six kinds of one were put in the store: each was set aside under a second key with a notice and the lab started fresh, and a sound one reopened at its station); the lint rule that keeps the app out of the engine's files; no test of the lab asserts nothing.
+
+### What was run and measured
+
+- **A whole lab in Challenge by emulated touch,** at 768 by 1024, on the build before the review and after each change: at each station a run recorded wrongly and checked, then worked again right. An equation with an empty side (refused, with its sentence); a species that does not belong; one missing; not balanced; a state; the catalyst on both sides; "No reaction" said of zinc and a reaction, with an equation, of copper; the order wrong, and one metal given twice (refused); whole multiples of three equations, which counted; the peroxide as a liquid, which counted. A reload in the middle of station C kept what was recorded and not what was only chosen. A change to Guided in the middle of station D marked what Challenge had recorded, and the station counted once the kind and the state were put right. Restart asked first and left a new lab. Counted in the live markup before each check: no tile and no place before a kind is said; then the station's six, seven or ten tiles and one empty place on each side, whatever the equation; no tick or cross but the action's own; no hint, no note, nothing over an arrow.
+- **A whole lab in Guided by the keyboard alone,** at 1280 by 800 in the dark theme, by Tab, Shift+Tab, the arrows, Space, Enter and Delete, with nothing focused by script: every part looked at by moving focus to it; a wrong observation, a wrong kind and "No reaction" of the wrong tube refused; equations refused for a species that does not belong, a state, the balance and a species missing; a tile put in the place of another; a place emptied by Delete; a hint opened by Enter. Focus after each press: on "Change" after an entry is taken, on the button after a refusal, on a term's controls after Enter on its place, on the notes when a station comes to count, on the station's heading after Next and after "Work the station again".
+- **Names and roles,** read from the browser's accessibility tree at three stages: a picture is an image with a name and a description; its parts are buttons named for what is looked at and whether it has been; a tile is its formula and its name; a place says its number, its side, what it holds and whether it is chosen; a term's group has its number in front, a group of four states each named in full, and its way out.
+- **The size of everything to press and whose hit area answers where,** at twelve stages at both sizes, with the picture in words closed and open and each hint open, and at the foot with each of its disclosures open in turn: no button, choice, tile or place of a station under 44 px, the least part of a picture 49 px, and after the change to the hint no point of any control answers for another.
+- **Motion:** with reduced motion asked for, no element with a transition or an animation over a millisecond.
+- **The aqueous reactions lab,** whose builder is the shared one: at its first station, at 768 by 1024, the molecular equation built by emulated touch and the complete ionic and the net ionic by the keyboard alone, each found correct and stored, with no error. Its bank of tiles is under the row and moves: by 52 px as the row takes another line (at the first tile of the molecular equation, at the last of the complete ionic) and by 50 px more while a term's controls take two lines, as they do for Fe(OH)₃. That lab has done so since it was built and was left as it is. `toolsFirst` on its one call of the shared builder would put the tiles and the controls over the row, where neither moves.
+
+### What nobody checked
+
+No person has worked the lab, by hand, by keyboard or by touch. No screen reader was used. One browser, headless Chromium on Linux, and no real device. No chemistry instructor has read any of it. The page with its text enlarged, zoomed, or in a high-contrast mode was not looked at. The keyboard was used at one size and touch at one.
+
+### For the owner, or for a chemist
+
+The ten things listed under "What a chemist should look at" stand, station E first. To them the review adds: whether the notes of zinc and of magnesium should say that each gives hydrogen with acids on a bench whose third station asks which tubes react; the three things a beginner is not told; and the line of a term's controls over the row, which is a matter of taste and is one option of the builder to undo, at the cost of 52 px at every equation.
