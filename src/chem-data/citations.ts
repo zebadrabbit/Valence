@@ -8,6 +8,7 @@ import type { AcetoneData, PartId as AcetonePartId } from './acetone/data'
 import type { CabbageData, ThingId } from './cabbage/data'
 import type { DensityData, PartId as DensityPartId } from './density/data'
 import type { FreezingData, PartId as FreezingPartId } from './freezing/data'
+import type { ReactionsData, StationId as ReactionsStationId } from './reactions/data'
 import type { ClockData, PartId as ClockPartId } from './clock/data'
 import type { FlameData } from './flame/data'
 import type { DisturbanceId, LechatelierData } from './lechatelier/data'
@@ -544,6 +545,53 @@ export function freezingCitations(data: FreezingData, partId: FreezingPartId, so
         ...all(`${r.name}: hazards as it is used here`, r.hazards.note),
       ]),
       ...notes,
+    ],
+    sources,
+  )
+}
+
+/**
+ * The sources behind one station of the types of reactions lab (spec 5.1): everything on its bench with its
+ * hazards, what each vessel holds and shows, the kinds and their patterns, each equation and its tiles, the order
+ * of the metals where the station asks for it, and the station's notes. `done` adds what is kept back until the
+ * station counts: what is seen afterwards, the formulas on the tiles, the kind and the equation of each vessel, the
+ * order and the notes. What is seen afterwards is an answer the learner records, and a source of it, or of a
+ * tile's formula, is a page whose name can say what the reaction is ("Combination Reactions" behind the light of the
+ * burning strip, a page on catalysts behind the peroxide's bubbles). So in Challenge the list names no source of an
+ * answer before the answer is given: before, it holds the bench, what is there before, and the four kinds alike at
+ * every station.
+ */
+export function reactionsCitations(data: ReactionsData, stationId: ReactionsStationId, sources: readonly Source[], done = true): Citation[] {
+  const station = data.stations.find((s) => s.id === stationId)
+  if (!station) throw new Error(`no station "${stationId}"`)
+  const all = (label: string, cited: { sourceId: string; alsoSourceId?: string | undefined; moreSourceIds?: string[] | undefined }): Entry[] =>
+    [cited.sourceId, ...(cited.alsoSourceId === undefined ? [] : [cited.alsoSourceId]), ...(cited.moreSourceIds ?? [])].map((id): Entry => [label, id])
+  const reagents = data.reagents.filter((r) => station.reagentIds.includes(r.id))
+  return citations(
+    [
+      ...reagents.flatMap((r): Entry[] => [
+        [`${r.name}: the substance`, r.sourceId],
+        [`${r.name}: hazard classification`, r.hazards.sourceId],
+        ...all(`${r.name}: hazards as it is used here`, r.hazards.note),
+      ]),
+      ...station.vessels.flatMap((vessel): Entry[] => [
+        ...(vessel.liquid === null ? [] : all('What the liquid looks like before', vessel.liquid)),
+        ...(vessel.metal === null ? [] : all('What the metal looks like', vessel.metal.colour)),
+      ]),
+      ...data.kinds.map((kind): Entry => ['The four kinds of reaction and their patterns', kind.sourceId]),
+      ...(done
+        ? [
+            ...station.vessels.flatMap((vessel): Entry[] => Object.values(vessel.after).flatMap((seen) => (seen === undefined ? [] : all('What is seen afterwards', seen)))),
+            ...data.species.filter((s) => station.tiles.includes(s.id)).map((s): Entry => ['The formulas on the tiles', s.sourceId]),
+            ...station.vessels.flatMap((vessel): Entry[] => [
+              ...all('The kind of reaction', vessel.kind),
+              ...(vessel.equation === null ? [] : all('The equation', vessel.equation)),
+              ...(vessel.catalyst === undefined ? [] : all('The catalyst', vessel.catalyst)),
+            ]),
+            ...(station.order ? [['The order of the three metals', data.activity.sourceId] as const] : []),
+            ...station.notes.flatMap((note) => all('Notes on this station', note)),
+          ]
+        : []),
     ],
     sources,
   )

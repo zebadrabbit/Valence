@@ -2438,5 +2438,90 @@
     "id": "flinn-sds-714",
     "url": "https://www.flinnsci.com/sds_714-sodium-bromide/sds_714",
     "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Bromide, SDS number sds_714; revision date January 16, 2014 (read on 2026-10-12; no copy is kept)."
+  },
+  {
+    "id": "smc-types-of-reactions",
+    "url": "https://chem.libretexts.org/Ancillary_Materials/Laboratory_Experiments/Wet_Lab_Experiments/General_Chemistry_Labs/Online_Chemistry_Lab_Manual/Chem_11_Experiments/06%3A_Types_of_Chemical_Reactions__(Experiment)",
+    "citation": "Santa Monica College. 6: Types of Chemical Reactions (Experiment). In Online Chemistry Lab Manual, Chem 11 Experiments; LibreTexts; read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "ck12-combination-reactions",
+    "url": "https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introductory_Chemistry_(CK-12)/11%3A_Chemical_Reactions/11.04%3A_Combination_Reactions",
+    "citation": "CK-12 Foundation. 11.4: Combination Reactions. In Introductory Chemistry (CK-12); LibreTexts; read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "ck12-decomposition-reactions",
+    "url": "https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introductory_Chemistry_(CK-12)/11%3A_Chemical_Reactions/11.05%3A_Decomposition_Reactions",
+    "citation": "CK-12 Foundation. 11.5: Decomposition Reactions. In Introductory Chemistry (CK-12); LibreTexts; read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "ck12-single-replacement-reactions",
+    "url": "https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introductory_Chemistry_(CK-12)/11%3A_Chemical_Reactions/11.07%3A_Single_Replacement_Reactions",
+    "citation": "CK-12 Foundation. 11.7: Single Replacement Reactions. In Introductory Chemistry (CK-12); LibreTexts; read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "ck12-double-replacement-reactions",
+    "url": "https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introductory_Chemistry_(CK-12)/11%3A_Chemical_Reactions/11.09%3A_Double_Replacement_Reactions",
+    "citation": "CK-12 Foundation. 11.9: Double Replacement Reactions. In Introductory Chemistry (CK-12); LibreTexts; read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "ck12-balancing-equations",
+    "url": "https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introductory_Chemistry_(CK-12)/11%3A_Chemical_Reactions/11.03%3A_Balancing_Equations",
+    "citation": "CK-12 Foundation. 11.3: Balancing Equations. In Introductory Chemistry (CK-12); LibreTexts; read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "chemguide-metal-salt-displacement",
+    "url": "https://www.chemguide.co.uk/14to16/rs/mandmsalt.html",
+    "citation": "Clark, J. Chemguide: Displacement Reactions between a Metal and a Salt of Another Metal; read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "chemguide-metals-dilute-acids",
+    "url": "https://www.chemguide.co.uk/14to16/acids/metals.html",
+    "citation": "Clark, J. Chemguide: Reactions between Metals and Dilute Acids; read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "chemguide-reactivity-series",
+    "url": "https://www.chemguide.co.uk/14to16/rs/intro.html",
+    "citation": "Clark, J. Chemguide: An Introduction to the Reactivity Series; read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "chemguide-group2-oxygen",
+    "url": "https://www.chemguide.co.uk/inorganic/group2/reacto2.html",
+    "citation": "Clark, J. Chemguide: Reactions of the Group 2 Elements with Air or Oxygen; read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "microscale-observing-chemical-changes",
+    "url": "https://edu.rsc.org/experiments/observing-chemical-changes/508.article",
+    "citation": "Royal Society of Chemistry. Observing chemical changes: a microscale class experiment. RSC Education; read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "waterloo-catalysts-hydrogen-peroxide",
+    "url": "https://uwaterloo.ca/centre-advanced-science-education/news/thought-lab-catalysts-and-hydrogen-peroxide",
+    "citation": "Modic, A. L. Thought lab: Catalysts and hydrogen peroxide. Chem 13 News Magazine, November 2017; University of Waterloo; read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "lower-catalysts",
+    "url": "https://chem.libretexts.org/Bookshelves/General_Chemistry/Chem1_(Lower)/17%3A_Chemical_Kinetics_and_Dynamics/17.06%3A_Catalysts_and_Catalysis",
+    "citation": "Lower, S. 17.6: Catalysts and Catalysis. In Chem1 Virtual Textbook, Chemical Kinetics and Dynamics; LibreTexts; read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "birk-calcium",
+    "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Calcium_Ions_(Ca)",
+    "citation": "Birk, J. P. Characteristic Reactions of Calcium Ions (Ca²⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "noaa-cameo-20049",
+    "url": "https://cameochemicals.noaa.gov/chemical/20049",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Copper Sulfate Pentahydrate (chemical 20049); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-6949",
+    "url": "https://cameochemicals.noaa.gov/chemical/6949",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Magnesium (chemical 6949); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-398.5",
+    "url": "https://www.flinnsci.com/sds_398.5-hydrogen-peroxide-solution-2-6/sds_398.5",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Hydrogen Peroxide Solution 2%-6%, SDS number sds_398.5; revision date August 6, 2015 (read on 2026-10-12; no copy is kept)."
   }
 ]

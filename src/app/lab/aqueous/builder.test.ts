@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { aqueousData as data } from '@/chem-data/aqueous/data'
 import { FORMS, can, checkEquation, createLab, stationView, type Form, type Term } from '@/engine/aqueous'
 import { correctEntry } from '@/engine/aqueous/testkit'
-import { EMPTY, MAX_COEFFICIENT, SIDES, changeTerm, entered, fit, formulaParts, move, nextEmpty, place, remove, setNoReaction, type At, type Counts, type Refused, type Row, type Side } from './builder'
+import { EMPTY, MAX_COEFFICIENT, SIDES, changeTerm, entered, fit, formulaParts, move, nextEmpty, place, remove, setNoReaction, type At, type Counts, type Refused, type Row, type Side } from '@/app/lab/equationRow'
 
 const lab = createLab(data, 'guided')
 const takes = (stationId: string, row: Row) => can(data, lab, { type: 'enterEquation', stationId, form: 'netIonic', entry: entered(row) })

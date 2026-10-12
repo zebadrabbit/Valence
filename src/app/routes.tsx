@@ -40,6 +40,7 @@ export const routes: RouteObject[] = [
       { path: 'lab/red-cabbage-ph', lazy: async () => ({ Component: (await import('@/app/lab/cabbage/CabbagePage')).CabbagePage }) },
       { path: 'lab/measurement-and-density', lazy: async () => ({ Component: (await import('@/app/lab/density/DensityPage')).DensityPage }) },
       { path: 'lab/freezing-point-depression', lazy: async () => ({ Component: (await import('@/app/lab/freezing/FreezingPage')).FreezingPage }) },
+      { path: 'lab/types-of-reactions', lazy: async () => ({ Component: (await import('@/app/lab/reactions/ReactionsPage')).ReactionsPage }) },
       { path: 'learn', element: <Learn /> },
       { path: 'learn/hcl-nahco3', lazy: async () => ({ Component: (await import('@/app/learn/MechanismPage')).MechanismPage }) },
       { path: 'settings', element: <Settings /> },

@@ -259,6 +259,27 @@ export function About() {
             laboratory's own rules.
           </p>
           <p className="mb-2">
+            The types of reactions lab takes what its five stations show chiefly from pages that describe something
+            near to each: a class experiment of the Royal Society of Chemistry for zinc in copper(II) sulfate solution;
+            pages of Jim Clark's Chemguide for magnesium burning, for metals in dilute acids and for the reactivity
+            series from which the order of its three metals is stored; pages of James P. Birk's module on the
+            reactions of single ions, on LibreTexts, for the white solid a carbonate gives with calcium and for how
+            each metal looks; and a laboratory problem in the University of Waterloo's Chem 13 News, with a page of
+            Stephen Lower's Chem1 Virtual Textbook, for hydrogen peroxide with iron(III) chloride. The four kinds and
+            their patterns in letters are from CK-12's Introductory Chemistry, and the primer rests also on a
+            laboratory manual of Santa Monica College, both on LibreTexts. That reaction of hydrogen peroxide is
+            Valence's reading of directions that name iron(III) chloride and nothing to go with it. How fast each
+            metal bubbles, that the peroxide tube is felt to warm, and the colour that tube is drawn in are Valence's
+            own, and the lab's research record says where each stored value goes beyond its source. The hazard
+            statements of the nine things on the bench are those of Flinn Scientific's safety data sheets, and the
+            notes under them rest also on records of NOAA's database of chemicals and on two other suppliers'
+            sheets; two of the nine are shared with the aqueous reactions lab. The documents were read on the dates
+            their citations give, and no copy of them is kept. The lab's primer quotes none of its sources. No tube
+            of this lab was watched at a bench. None of these publishers is connected with Valence or has reviewed
+            it. At a real bench, follow the label and the safety data sheet of the product in hand and the
+            laboratory's own rules.
+          </p>
+          <p className="mb-2">
             The mechanism timeline takes its enthalpies and free energies of formation from the NBS tables of chemical
             thermodynamic properties of 1982, as NIST serves them; the acid constant of the carbonic acid molecule,
             how long that molecule lasts and the timescales of its two middle steps from a paper in the Journal of

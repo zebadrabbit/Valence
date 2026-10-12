@@ -1,0 +1,495 @@
+{
+  "retrieved": "2026-10-12",
+  "about": "Every source of the types of reactions lab's record (docs/research/reactions/reactions.json) and of its primer (src/chem-data/reactions/primer.ts). Each was read for this lab on the retrieval date: fourteen pages fetched that day, and six that an earlier lab also lists, read in the page that lab saved and not fetched again. No source has a copy in this folder. `fetchedSha256` is the sha256 of the file as it was fetched or read: a record of which file was read, not the hash of anything here, and nothing checks it. Each `supports` row names in `fields` the stored values it supports, each by its place in the record with the item's id in brackets (species[zinc], stations[peroxide].vessels[tube].after.gas); gives in `prints` a word, a formula, a label or a heading as the source prints it; and says in `where`, in this project's words, where that is, what the source says there, and how far the stored value goes beyond it. A row whose field is `primer` marks a source the primer rests on. The build holds the record to these rows: every source a value cites must have a row that names the value. No source is quoted beyond such words, formulas, labels and headings. Six sources are also listed by other labs' manifests and are written here as they are in src/chem-data/sources.json, so that the build lists each once: five pages on the reactions of one metal's ions, and one safety data sheet. The safety data sheets behind the bottles' hazards are in hazard-manifest.json; the record cites eight of them for what a bottle is and what its liquid looks like.",
+  "sources": [
+    {
+      "id": "smc-types-of-reactions",
+      "url": "https://chem.libretexts.org/Ancillary_Materials/Laboratory_Experiments/Wet_Lab_Experiments/General_Chemistry_Labs/Online_Chemistry_Lab_Manual/Chem_11_Experiments/06%3A_Types_of_Chemical_Reactions__(Experiment)",
+      "citation": "Santa Monica College. 6: Types of Chemical Reactions (Experiment). In Online Chemistry Lab Manual, Chem 11 Experiments; LibreTexts; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "6efc8c64a9dbcc2b81dd5d15486579713a20dc7d60021d48a3fe4a0672ff3c30",
+      "supports": [
+        {
+          "fields": [
+            "species[water]",
+            "species[calcium-chloride]",
+            "species[sodium-chloride]",
+            "species[sodium-hydroxide]"
+          ],
+          "prints": "Reaction Types",
+          "where": "The heading over the page's account of the kinds of reaction. The equations under it print H2O with (l), and CaCl2, NaCl and NaOH each with (aq). The names are the usual ones for these formulas."
+        },
+        {
+          "fields": [
+            "stations[metals-in-acid].vessels[magnesium].kind"
+          ],
+          "prints": "Displacement of hydrogen gas from an acid by a metal:",
+          "where": "Under Reaction Types, one of the page's four examples of a displacement reaction, which it also calls a single replacement: the equation that follows is magnesium with hydrochloric acid."
+        },
+        {
+          "fields": [
+            "stations[two-solutions].vessels[tube].kind",
+            "stations[two-solutions].notes[1]"
+          ],
+          "prints": "AB + CD",
+          "where": "The start of the general form the page gives for an exchange reaction, which it also calls a double replacement: two compounds that make ions in solution change partners. It names the making of a solid that does not dissolve as one of three things that let such a reaction go."
+        },
+        {
+          "fields": [
+            "stations[two-solutions].vessels[tube].equation",
+            "stations[two-solutions].notes[0]"
+          ],
+          "prints": "Carbonates, Chromates and Phosphates are insoluble.",
+          "where": "The page's table of solubility. Its first row gives every compound of the first group of metals as soluble, and the row for chlorides gives them as soluble but for three metals, none of them sodium. So calcium carbonate is the solid and sodium chloride stays dissolved. The page does not print this equation: it is written from the general form and the table, and balanced by counting, which is this project's working."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Do not stare directly at the magnesium when it burns",
+          "where": "The safety lines before the instructions; the sentence goes on to say what the light can do to the eyes. The page's introduction lists the signs that go with a reaction: a change of colour, a solid forming, a gas bubbling off, heat given out or taken in, and one metal plating out on another. Under Reaction Types it says that magnesium is used in fireworks, that sodium phosphate softens hard water by an exchange reaction that takes its calcium out as solid calcium phosphate, as some softeners that are sold do, and that a metal that pushes hydrogen out of an acid stands above hydrogen in activity. Its instructions ask for the state of each thing in an equation."
+        }
+      ]
+    },
+    {
+      "id": "ck12-combination-reactions",
+      "url": "https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introductory_Chemistry_(CK-12)/11%3A_Chemical_Reactions/11.04%3A_Combination_Reactions",
+      "citation": "CK-12 Foundation. 11.4: Combination Reactions. In Introductory Chemistry (CK-12); LibreTexts; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "76bd0ce251941b7b723f0df1b4e2173d7a354e7ff09d7cde59e543da61b65e53",
+      "supports": [
+        {
+          "fields": [
+            "kinds[combination]",
+            "primer"
+          ],
+          "prints": "The general form of a combination reaction is:",
+          "where": "The sentence before the pattern in letters, which is stored as the page prints it. The page says that such a reaction is also called a synthesis."
+        },
+        {
+          "fields": [
+            "stations[magnesium-flame].vessels[strip].kind",
+            "stations[magnesium-flame].vessels[strip].equation",
+            "stations[magnesium-flame].vessels[strip].after.solid",
+            "stations[magnesium-flame].notes[0]"
+          ],
+          "prints": "magnesium oxide",
+          "where": "Under Combination Reactions, where the page takes up elements that join with oxygen: it says that lit magnesium joins with the oxygen of the air and leaves this as a fine powder, and prints the equation with its states, two of magnesium to one of oxygen. The page does not give the powder's colour, which is another source's."
+        },
+        {
+          "fields": [
+            "species[oxygen]",
+            "species[chlorine]",
+            "species[magnesium-oxide]"
+          ],
+          "prints": "Combination Reactions",
+          "where": "The heading. The equations under it print O2 and Cl2 each as a gas, and MgO as a solid. The names are the page's."
+        }
+      ]
+    },
+    {
+      "id": "ck12-decomposition-reactions",
+      "url": "https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introductory_Chemistry_(CK-12)/11%3A_Chemical_Reactions/11.05%3A_Decomposition_Reactions",
+      "citation": "CK-12 Foundation. 11.5: Decomposition Reactions. In Introductory Chemistry (CK-12); LibreTexts; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "1d6195f4a2bb4d624d77224d7751e788bd043416d2ae571c593864811fe71f34",
+      "supports": [
+        {
+          "fields": [
+            "kinds[decomposition]",
+            "primer"
+          ],
+          "prints": "The general form of a decomposition reaction is:",
+          "where": "The sentence before the pattern in letters, which is stored as the page prints it. The sentence before that says that one compound is split into simpler substances, two or more."
+        },
+        {
+          "fields": [
+            "species[carbon-dioxide]",
+            "species[calcium-carbonate]"
+          ],
+          "prints": "Decomposition Reactions",
+          "where": "The heading. An equation under it prints CaCO3 as a solid and CO2 as a gas. The names are the page's."
+        }
+      ]
+    },
+    {
+      "id": "ck12-single-replacement-reactions",
+      "url": "https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introductory_Chemistry_(CK-12)/11%3A_Chemical_Reactions/11.07%3A_Single_Replacement_Reactions",
+      "citation": "CK-12 Foundation. 11.7: Single Replacement Reactions. In Introductory Chemistry (CK-12); LibreTexts; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "cc7593594fec778132121620ac550892e9fadba0d926362c2fc45d9f20b2c2dd",
+      "supports": [
+        {
+          "fields": [
+            "kinds[single-replacement]",
+            "primer"
+          ],
+          "prints": "Single-Replacement Reactions",
+          "where": "The heading. Under it the page says that one element takes the place of a like element in a compound, and prints the pattern in letters, which is stored as the page prints it, with AC before B."
+        },
+        {
+          "fields": [
+            "stations[zinc-copper-sulfate].vessels[tube].kind",
+            "stations[metals-in-acid].vessels[zinc].kind"
+          ],
+          "prints": "(also called single-displacement)",
+          "where": "In the sentence before the pattern: the other name of the kind, which is the word another source uses of zinc in copper(II) sulfate solution. Further down the page gives zinc with hydrochloric acid as a reaction of this kind, with its equation, and a strip of magnesium that takes the place of copper in a solution of a copper compound."
+        }
+      ]
+    },
+    {
+      "id": "ck12-double-replacement-reactions",
+      "url": "https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introductory_Chemistry_(CK-12)/11%3A_Chemical_Reactions/11.09%3A_Double_Replacement_Reactions",
+      "citation": "CK-12 Foundation. 11.9: Double Replacement Reactions. In Introductory Chemistry (CK-12); LibreTexts; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "4577e9744f76d4eaf0ff58397ebe337f06f5e55c0dca0d70d8c496edc14c17bc",
+      "supports": [
+        {
+          "fields": [
+            "kinds[double-replacement]",
+            "primer"
+          ],
+          "prints": "Double-Replacement Reactions",
+          "where": "The heading. Under it the page says that the positive and the negative ions of two compounds change places, and prints the pattern in letters, which is stored as the page prints it, with AD before CB."
+        },
+        {
+          "fields": [
+            "species[sodium-carbonate]"
+          ],
+          "prints": "Na_2CO_3",
+          "where": "In the last equation of the page, as its source text writes the formula: sodium carbonate with (aq) after it."
+        }
+      ]
+    },
+    {
+      "id": "ck12-balancing-equations",
+      "url": "https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introductory_Chemistry_(CK-12)/11%3A_Chemical_Reactions/11.03%3A_Balancing_Equations",
+      "citation": "CK-12 Foundation. 11.3: Balancing Equations. In Introductory Chemistry (CK-12); LibreTexts; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "57fec1c0eb439817498f348c5944b546ecb6e45bb1e4244d16eeb5b4f33b5c9e",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Balancing Chemical Equations",
+          "where": "The heading. Under it the page says what a balanced equation is, what a coefficient is, that the small numbers inside a formula are never changed, and that no coefficient is written for one; it works an example by counting the atoms on each side."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-metal-salt-displacement",
+      "url": "https://www.chemguide.co.uk/14to16/rs/mandmsalt.html",
+      "citation": "Clark, J. Chemguide: Displacement Reactions between a Metal and a Salt of Another Metal; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "4e7c701eef85c473405fb43dda31044bc6be5765a5450a8fcce6ff4edf989a6b",
+      "supports": [
+        {
+          "fields": [
+            "species[copper]",
+            "species[copper-ii-sulfate]"
+          ],
+          "prints": "A displacement reaction between iron and copper(II) sulfate solution",
+          "where": "The heading. The equation under it prints Cu with (s) and CuSO4 with (aq)."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "What is a salt?",
+          "where": "The heading. Under it the page says that the salt of the table is sodium chloride. Under its later heading on the reactivity series it says that a metal pushes out one that stands lower, and shows that a metal lower down does nothing to the salt of one above it."
+        },
+        {
+          "fields": [
+            "stations[zinc-copper-sulfate].vessels[tube].equation",
+            "stations[zinc-copper-sulfate].notes[1]",
+            "stations[zinc-copper-sulfate].notes[2]"
+          ],
+          "prints": "Displacement reactions and the reactivity series",
+          "where": "The heading. Under it the page says that a metal higher in the series pushes one lower down out of its salts. Before it the page writes the equation for iron in copper(II) sulfate solution and says that the missing blue shows that no copper(II) sulfate is left. The page does not write the equation for zinc: it is the iron equation with zinc and zinc sulfate, whose formula another page prints, which is this project's working."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-metals-dilute-acids",
+      "url": "https://www.chemguide.co.uk/14to16/acids/metals.html",
+      "citation": "Clark, J. Chemguide: Reactions between Metals and Dilute Acids; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "c914318c47c039de23b6536c63b787e9a66301c95d71278c51bcfd62d4c11a07",
+      "supports": [
+        {
+          "fields": [
+            "species[zinc]",
+            "species[magnesium]",
+            "species[zinc-sulfate]",
+            "species[hydrochloric-acid]",
+            "species[magnesium-chloride]",
+            "species[zinc-chloride]",
+            "species[hydrogen]"
+          ],
+          "prints": "Taking a closer look at two of the metals commonly reacted with acids",
+          "where": "The heading. The equations under it print Mg and Zn each with (s); HCl, MgCl2, ZnCl2 and ZnSO4 each with (aq); and H2 with (g). The names of the two chlorides and of zinc sulfate are the usual ones for these formulas."
+        },
+        {
+          "fields": [
+            "stations[metals-in-acid].vessels[magnesium].equation",
+            "stations[metals-in-acid].vessels[zinc].equation",
+            "stations[metals-in-acid].notes[0]"
+          ],
+          "prints": "metal + acid",
+          "where": "The start of the summary the page gives in words, which ends in a salt and hydrogen. Under the heading for each metal it writes the equation with dilute hydrochloric acid, one of the metal to two of the acid, and calls the gas hydrogen."
+        },
+        {
+          "fields": [
+            "stations[metals-in-acid].vessels[magnesium].after.bubbles",
+            "stations[metals-in-acid].vessels[zinc].after.bubbles",
+            "stations[metals-in-acid].vessels[copper].after.bubbles",
+            "stations[metals-in-acid].vessels[copper].kind",
+            "stations[metals-in-acid].notes[1]",
+            "stations[metals-in-acid].notes[2]"
+          ],
+          "prints": "What you should be comfortable with before you go on",
+          "where": "The heading. Under it the page says that the metals above hydrogen in the series react with acids and those below it do not, and that a metal reacts faster the higher it stands in the series; further down it calls zinc a little slow when the dilute acid is cold. That magnesium is stored as fast and zinc as slow is this reading of those two sentences with the two metals' places in the series; the page gives no rate for either. Copper is not named on the page: its place below hydrogen is another page's."
+        },
+        {
+          "fields": [
+            "stations[zinc-copper-sulfate].vessels[tube].equation",
+            "stations[zinc-copper-sulfate].notes[1]"
+          ],
+          "prints": "Most metals react to give hydrogen and a colourless solution",
+          "where": "A note near the head of the page. The page writes zinc with dilute sulfuric acid giving ZnSO4(aq), which is where the formula of zinc sulfate in this equation is from, and by the note that solution has no colour."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "A catalyst is chemically unchanged at the end of a reaction",
+          "where": "Under the heading on making hydrogen from zinc in the laboratory, where the page says why a thing added there is not a catalyst."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-reactivity-series",
+      "url": "https://www.chemguide.co.uk/14to16/rs/intro.html",
+      "citation": "Clark, J. Chemguide: An Introduction to the Reactivity Series; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "81b47ceb712f88529f4a761f95bda6cc1d81f16945690c7491a80e6902e0e170",
+      "supports": [
+        {
+          "fields": [
+            "activity",
+            "stations[zinc-copper-sulfate].notes[2]",
+            "stations[metals-in-acid].vessels[magnesium].after.bubbles",
+            "stations[metals-in-acid].vessels[zinc].after.bubbles",
+            "stations[metals-in-acid].vessels[copper].after.bubbles",
+            "stations[metals-in-acid].notes[1]",
+            "stations[metals-in-acid].notes[2]",
+            "primer"
+          ],
+          "prints": "most reactive",
+          "where": "The label at the head of the page's list, which runs down to the least reactive. Magnesium stands fifth in it; zinc is two metals lower, with carbon between; hydrogen, in brackets, is three places below zinc; and copper is the next after hydrogen. So the three metals of this lab run magnesium, zinc, copper, with hydrogen between the last two. The order is stored from this list, and not worked out from standard potentials."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-group2-oxygen",
+      "url": "https://www.chemguide.co.uk/inorganic/group2/reacto2.html",
+      "citation": "Clark, J. Chemguide: Reactions of the Group 2 Elements with Air or Oxygen; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "fa47d97e9556154a6c5d29e3faeee7edd7316c580c53bde41b2882666f142170",
+      "supports": [
+        {
+          "fields": [
+            "stations[magnesium-flame].vessels[strip].after.light"
+          ],
+          "prints": "intense white flame",
+          "where": "Under the heading on the reactions with oxygen, of magnesium. The record stores a white light."
+        },
+        {
+          "fields": [
+            "stations[magnesium-flame].vessels[strip].after.solid",
+            "stations[magnesium-flame].notes[1]"
+          ],
+          "prints": "The reactions with air",
+          "where": "The heading. Under it the page says that the metals of this group all take up nitrogen as well when they burn in air, and that the white ash of magnesium ribbon burnt in air is the oxide and the nitride mixed. It gives no proportion, and the note gives none."
+        }
+      ]
+    },
+    {
+      "id": "microscale-observing-chemical-changes",
+      "url": "https://edu.rsc.org/experiments/observing-chemical-changes/508.article",
+      "citation": "Royal Society of Chemistry. Observing chemical changes: a microscale class experiment. RSC Education; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "caf8ee5025af5f9d414d387581bb67a41772d7fa4cb2c431dff4d96d42ceae2b",
+      "supports": [
+        {
+          "fields": [
+            "stations[zinc-copper-sulfate].vessels[tube].liquid",
+            "stations[zinc-copper-sulfate].vessels[tube].after.coating",
+            "stations[zinc-copper-sulfate].vessels[tube].after.liquid",
+            "stations[zinc-copper-sulfate].vessels[tube].kind",
+            "stations[zinc-copper-sulfate].notes[0]"
+          ],
+          "prints": "Teaching notes and expected observations",
+          "where": "The heading. The tenth note under it is for a piece of zinc in copper(II) sulfate solution: the zinc's surface turns red-brown as copper comes out on it, by what the page calls a displacement, and the solution's blue fades. The page's solution is 0.2 M and a few drops; that a tube of the 1 M solution fades to a paler blue and not to no colour is this lab's reading of the word fades."
+        }
+      ]
+    },
+    {
+      "id": "waterloo-catalysts-hydrogen-peroxide",
+      "url": "https://uwaterloo.ca/centre-advanced-science-education/news/thought-lab-catalysts-and-hydrogen-peroxide",
+      "citation": "Modic, A. L. Thought lab: Catalysts and hydrogen peroxide. Chem 13 News Magazine, November 2017; University of Waterloo; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "ff2d03f9bd6f516c34b5c45d5da6a1f5ee86cd952edd1f6944c6dd58c3cd5fc7",
+      "supports": [
+        {
+          "fields": [
+            "stations[peroxide].vessels[tube].after.gas",
+            "stations[peroxide].vessels[tube].kind",
+            "stations[peroxide].vessels[tube].catalyst",
+            "stations[peroxide].notes[0]",
+            "stations[peroxide].notes[1]"
+          ],
+          "prints": "AP Lab Review – Problem 2",
+          "where": "The heading. The paragraph under it says that hydrogen peroxide in water comes apart slowly by itself into oxygen gas and water, names iron(III) chloride as one of three things that speed this up as catalysts, and says that light does it too, which is why the bottles are dark. The page has 6% peroxide and solid iron(III) chloride; that bubbles are seen in a tube of 3% with a few drops of the solution is this lab's reading. It gives no colour for the liquid."
+        },
+        {
+          "fields": [
+            "stations[peroxide].vessels[tube].after.warmth",
+            "stations[peroxide].notes[2]"
+          ],
+          "prints": "-98.2 kJ",
+          "where": "In the last of the page's questions: the enthalpy of the reaction for each mole of hydrogen peroxide, a negative figure, so heat is given out. That the tube is felt to warm is this lab's reading; the page gives no rise in temperature."
+        }
+      ]
+    },
+    {
+      "id": "lower-catalysts",
+      "url": "https://chem.libretexts.org/Bookshelves/General_Chemistry/Chem1_(Lower)/17%3A_Chemical_Kinetics_and_Dynamics/17.06%3A_Catalysts_and_Catalysis",
+      "citation": "Lower, S. 17.6: Catalysts and Catalysis. In Chem1 Virtual Textbook, Chemical Kinetics and Dynamics; LibreTexts; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "f03e7b1d644594c20094bda66bd25c2b1b676260082e73d304336974b2553ee3",
+      "supports": [
+        {
+          "fields": [
+            "species[hydrogen-peroxide]",
+            "stations[peroxide].vessels[tube].equation",
+            "stations[peroxide].vessels[tube].kind",
+            "stations[peroxide].vessels[tube].after.gas",
+            "stations[peroxide].vessels[tube].after.warmth",
+            "stations[peroxide].notes[0]",
+            "stations[peroxide].notes[2]"
+          ],
+          "prints": "Decomposition of Hydrogen Peroxide",
+          "where": "The heading. Under it the page prints the equation, two of the peroxide giving two of water and one of oxygen, with no states, and says that this is very slow with nothing added, that many things speed it up greatly, and that heat comes off as they do. The states are this lab's: the peroxide is a 3% solution in water, written (aq), and (l) is taken too, since the pure substance is a liquid."
+        },
+        {
+          "fields": [
+            "stations[peroxide].notes[1]",
+            "primer"
+          ],
+          "prints": "What are Catalysts?",
+          "where": "The heading. Under it the page says that a catalyst speeds a reaction up, is not used up by it and has no place in the equation for the whole change. Further down, under a heading that comes back to hydrogen peroxide, it shows iron ions spent in one step and made again in the next."
+        }
+      ]
+    },
+    {
+      "id": "birk-calcium",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Calcium_Ions_(Ca)",
+      "citation": "Birk, J. P. Characteristic Reactions of Calcium Ions (Ca²⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "6bfbf6e05ddcfc875b427c0577c18af252be2a3e9122861ac799053b5533e329",
+      "supports": [
+        {
+          "fields": [
+            "stations[two-solutions].vessels[tube].after.solid",
+            "stations[two-solutions].notes[0]"
+          ],
+          "prints": "Ammonium Carbonate",
+          "where": "The heading. Under it the page says only that the calcium ion gives with this a solid like the one the barium ion gives. The page is about ammonium carbonate; that sodium carbonate, another carbonate that dissolves, does the same is this lab's reading. No page that was read describes calcium chloride mixed with sodium carbonate itself."
+        }
+      ]
+    },
+    {
+      "id": "birk-barium",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Barium_(Ba)",
+      "citation": "Birk, J. P. Characteristic Reactions of Barium (Ba²⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-06).",
+      "fetchedSha256": "5d00900fecc9ee7676f7cc5189126331acbedfc771872a6862c5fb1481d253a4",
+      "supports": [
+        {
+          "fields": [
+            "stations[two-solutions].vessels[tube].after.solid"
+          ],
+          "prints": "white barium carbonate",
+          "where": "Under Ammonium Carbonate: what a carbonate that dissolves gives with the barium ion, a white solid. The page on the calcium ion says that calcium's is like it, which is the ground for storing white. Read for this lab in the page an earlier lab saved, which was checked against the hash that lab recorded and was not fetched again."
+        }
+      ]
+    },
+    {
+      "id": "birk-zinc",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Zinc_Ions_(Zn)",
+      "citation": "Birk, J. P. Characteristic Reactions of Zinc Ions (Zn²⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-10).",
+      "fetchedSha256": "9634363ada80adbadef6bbd7bb18a775b392ebee29a5062182bfeb325d88d202",
+      "supports": [
+        {
+          "fields": [
+            "reagents[zinc-pieces]",
+            "stations[zinc-copper-sulfate].vessels[tube].metal.colour",
+            "stations[metals-in-acid].vessels[zinc].metal.colour"
+          ],
+          "prints": "bluish-gray metal",
+          "where": "The page's line of characteristics of the element. The record stores grey. That the metal is on the bench in pieces is this lab's own. Read for this lab in the page an earlier lab saved, which was checked against the hash that lab recorded and was not fetched again."
+        }
+      ]
+    },
+    {
+      "id": "birk-magnesium",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Magnesium_Ions_(Mg)",
+      "citation": "Birk, J. P. Characteristic Reactions of Magnesium Ions (Mg²⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-06).",
+      "fetchedSha256": "e2715965bb469f1c55a796e4557ef351577e3f128ab55bfcb2d78c8d014382f5",
+      "supports": [
+        {
+          "fields": [
+            "reagents[magnesium-ribbon]",
+            "stations[magnesium-flame].vessels[strip].metal.colour",
+            "stations[metals-in-acid].vessels[magnesium].metal.colour"
+          ],
+          "prints": "silvery metal",
+          "where": "The page's line of characteristics of the element. That the metal is on the bench as ribbon is this lab's own. Read for this lab in the page an earlier lab saved, which was checked against the hash that lab recorded and was not fetched again."
+        }
+      ]
+    },
+    {
+      "id": "birk-copper",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Copper_Ions_(Cu)",
+      "citation": "Birk, J. P. Characteristic Reactions of Copper Ions (Cu²⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-06).",
+      "fetchedSha256": "6802828f39e061f4209040a99a5fb1d8b6eed15095957e73143c4c9977ecf084",
+      "supports": [
+        {
+          "fields": [
+            "reagents[copper-pieces]",
+            "stations[metals-in-acid].vessels[copper].metal.colour"
+          ],
+          "prints": "reddish-yellow",
+          "where": "The page's line of characteristics of the element, which also calls it a rather inactive metal. The record stores reddish. That the metal is on the bench in pieces is this lab's own. Read for this lab in the page an earlier lab saved, which was checked against the hash that lab recorded and was not fetched again."
+        }
+      ]
+    },
+    {
+      "id": "birk-iron",
+      "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Iron__(Fe)",
+      "citation": "Birk, J. P. Characteristic Reactions of Iron (Fe³⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-06).",
+      "fetchedSha256": "7dc3b26840a8fe3a555db1cca6eed09c78ae769288d9dd02281879f567aa4662",
+      "supports": [
+        {
+          "fields": [
+            "stations[peroxide].vessels[tube].after.liquid"
+          ],
+          "prints": "yellow or amber-colored",
+          "where": "The page's line of characteristics, of many solutions that hold the iron(III) ion. That a few drops of such a solution in a tube of a liquid with no colour leave it pale yellow is this lab's own, and is stored for the drawing alone: no page that was read says what colour this tube is while it bubbles, and the learner is not asked for it. Read for this lab in the page an earlier lab saved, which was checked against the hash that lab recorded and was not fetched again."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-281.1",
+      "url": "https://www.flinnsci.com/sds_281.1-copperii-chloride-solution-0.99-m/sds_281.1",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Copper(II) Chloride Solution <0.99 M, SDS number sds_281.1; revision date April 14, 2016 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "4010449078c226443aa3bf7b0964527cc30448c7c23e85119cc59ec6db914958",
+      "supports": [
+        {
+          "fields": [
+            "species[copper-ii-chloride]"
+          ],
+          "prints": "CuCl2•2H2O",
+          "where": "Section 3, the formula of the first component, the salt with its water; the sheet's title calls its solution copper(II) chloride solution. The record stores the dissolved salt, CuCl₂, written (aq). It is among the tiles of the station of the three metals and is in no equation of this lab: copper does not react there. Read for this lab in the page an earlier lab saved, which was checked against the hash that lab recorded and was not fetched again."
+        }
+      ]
+    }
+  ]
+}

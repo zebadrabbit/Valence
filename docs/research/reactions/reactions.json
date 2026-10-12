@@ -1,0 +1,1015 @@
+{
+  "reagents": [
+    {
+      "id": "zinc-pieces",
+      "name": "Zinc, pieces",
+      "formula": "Zn",
+      "form": "metal",
+      "sourceId": "birk-zinc"
+    },
+    {
+      "id": "cuso4-1m",
+      "name": "Copper(II) sulfate solution, 1 M",
+      "formula": "CuSO₄",
+      "form": "solution",
+      "sourceId": "flinn-sds-286"
+    },
+    {
+      "id": "magnesium-ribbon",
+      "name": "Magnesium, ribbon",
+      "formula": "Mg",
+      "form": "metal",
+      "sourceId": "birk-magnesium"
+    },
+    {
+      "id": "hcl-1m",
+      "name": "Hydrochloric acid, 1 M",
+      "formula": "HCl",
+      "form": "solution",
+      "sourceId": "flinn-sds-395.2"
+    },
+    {
+      "id": "copper-pieces",
+      "name": "Copper, pieces",
+      "formula": "Cu",
+      "form": "metal",
+      "sourceId": "birk-copper"
+    },
+    {
+      "id": "cacl2-1m",
+      "name": "Calcium chloride solution, 1 M",
+      "formula": "CaCl₂",
+      "form": "solution",
+      "sourceId": "flinn-sds-197"
+    },
+    {
+      "id": "na2co3-1m",
+      "name": "Sodium carbonate solution, 1 M",
+      "formula": "Na₂CO₃",
+      "form": "solution",
+      "sourceId": "flinn-sds-719"
+    },
+    {
+      "id": "fecl3-0.5m",
+      "name": "Iron(III) chloride solution, 0.5 M",
+      "formula": "FeCl₃",
+      "form": "solution",
+      "sourceId": "flinn-sds-339"
+    },
+    {
+      "id": "h2o2-3",
+      "name": "Hydrogen peroxide, 3%",
+      "formula": "H₂O₂",
+      "form": "solution",
+      "sourceId": "flinn-sds-398.5"
+    }
+  ],
+  "species": [
+    {
+      "id": "zinc",
+      "formula": "Zn",
+      "name": "zinc",
+      "composition": {
+        "Zn": 1
+      },
+      "state": "s",
+      "sourceId": "chemguide-metals-dilute-acids"
+    },
+    {
+      "id": "copper",
+      "formula": "Cu",
+      "name": "copper",
+      "composition": {
+        "Cu": 1
+      },
+      "state": "s",
+      "sourceId": "chemguide-metal-salt-displacement"
+    },
+    {
+      "id": "magnesium",
+      "formula": "Mg",
+      "name": "magnesium",
+      "composition": {
+        "Mg": 1
+      },
+      "state": "s",
+      "sourceId": "chemguide-metals-dilute-acids"
+    },
+    {
+      "id": "copper-ii-sulfate",
+      "formula": "CuSO₄",
+      "name": "copper(II) sulfate",
+      "composition": {
+        "Cu": 1,
+        "S": 1,
+        "O": 4
+      },
+      "state": "aq",
+      "sourceId": "chemguide-metal-salt-displacement"
+    },
+    {
+      "id": "zinc-sulfate",
+      "formula": "ZnSO₄",
+      "name": "zinc sulfate",
+      "composition": {
+        "Zn": 1,
+        "S": 1,
+        "O": 4
+      },
+      "state": "aq",
+      "sourceId": "chemguide-metals-dilute-acids"
+    },
+    {
+      "id": "hydrochloric-acid",
+      "formula": "HCl",
+      "name": "hydrochloric acid",
+      "composition": {
+        "H": 1,
+        "Cl": 1
+      },
+      "state": "aq",
+      "sourceId": "chemguide-metals-dilute-acids"
+    },
+    {
+      "id": "magnesium-chloride",
+      "formula": "MgCl₂",
+      "name": "magnesium chloride",
+      "composition": {
+        "Mg": 1,
+        "Cl": 2
+      },
+      "state": "aq",
+      "sourceId": "chemguide-metals-dilute-acids"
+    },
+    {
+      "id": "zinc-chloride",
+      "formula": "ZnCl₂",
+      "name": "zinc chloride",
+      "composition": {
+        "Zn": 1,
+        "Cl": 2
+      },
+      "state": "aq",
+      "sourceId": "chemguide-metals-dilute-acids"
+    },
+    {
+      "id": "copper-ii-chloride",
+      "formula": "CuCl₂",
+      "name": "copper(II) chloride",
+      "composition": {
+        "Cu": 1,
+        "Cl": 2
+      },
+      "state": "aq",
+      "sourceId": "flinn-sds-281.1"
+    },
+    {
+      "id": "hydrogen",
+      "formula": "H₂",
+      "name": "hydrogen",
+      "composition": {
+        "H": 2
+      },
+      "state": "g",
+      "sourceId": "chemguide-metals-dilute-acids"
+    },
+    {
+      "id": "oxygen",
+      "formula": "O₂",
+      "name": "oxygen",
+      "composition": {
+        "O": 2
+      },
+      "state": "g",
+      "sourceId": "ck12-combination-reactions"
+    },
+    {
+      "id": "chlorine",
+      "formula": "Cl₂",
+      "name": "chlorine",
+      "composition": {
+        "Cl": 2
+      },
+      "state": "g",
+      "sourceId": "ck12-combination-reactions"
+    },
+    {
+      "id": "water",
+      "formula": "H₂O",
+      "name": "water",
+      "composition": {
+        "H": 2,
+        "O": 1
+      },
+      "state": "l",
+      "sourceId": "smc-types-of-reactions"
+    },
+    {
+      "id": "carbon-dioxide",
+      "formula": "CO₂",
+      "name": "carbon dioxide",
+      "composition": {
+        "C": 1,
+        "O": 2
+      },
+      "state": "g",
+      "sourceId": "ck12-decomposition-reactions"
+    },
+    {
+      "id": "magnesium-oxide",
+      "formula": "MgO",
+      "name": "magnesium oxide",
+      "composition": {
+        "Mg": 1,
+        "O": 1
+      },
+      "state": "s",
+      "sourceId": "ck12-combination-reactions"
+    },
+    {
+      "id": "calcium-chloride",
+      "formula": "CaCl₂",
+      "name": "calcium chloride",
+      "composition": {
+        "Ca": 1,
+        "Cl": 2
+      },
+      "state": "aq",
+      "sourceId": "smc-types-of-reactions"
+    },
+    {
+      "id": "sodium-carbonate",
+      "formula": "Na₂CO₃",
+      "name": "sodium carbonate",
+      "composition": {
+        "Na": 2,
+        "C": 1,
+        "O": 3
+      },
+      "state": "aq",
+      "sourceId": "ck12-double-replacement-reactions"
+    },
+    {
+      "id": "calcium-carbonate",
+      "formula": "CaCO₃",
+      "name": "calcium carbonate",
+      "composition": {
+        "Ca": 1,
+        "C": 1,
+        "O": 3
+      },
+      "state": "s",
+      "sourceId": "ck12-decomposition-reactions"
+    },
+    {
+      "id": "sodium-chloride",
+      "formula": "NaCl",
+      "name": "sodium chloride",
+      "composition": {
+        "Na": 1,
+        "Cl": 1
+      },
+      "state": "aq",
+      "sourceId": "smc-types-of-reactions"
+    },
+    {
+      "id": "sodium-hydroxide",
+      "formula": "NaOH",
+      "name": "sodium hydroxide",
+      "composition": {
+        "Na": 1,
+        "O": 1,
+        "H": 1
+      },
+      "state": "aq",
+      "sourceId": "smc-types-of-reactions"
+    },
+    {
+      "id": "hydrogen-peroxide",
+      "formula": "H₂O₂",
+      "name": "hydrogen peroxide",
+      "composition": {
+        "H": 2,
+        "O": 2
+      },
+      "state": "aq",
+      "acceptedStates": [
+        "aq",
+        "l"
+      ],
+      "sourceId": "lower-catalysts"
+    },
+    {
+      "id": "iron-iii-chloride",
+      "formula": "FeCl₃",
+      "name": "iron(III) chloride",
+      "composition": {
+        "Fe": 1,
+        "Cl": 3
+      },
+      "state": "aq",
+      "sourceId": "flinn-sds-339"
+    }
+  ],
+  "kinds": [
+    {
+      "id": "combination",
+      "name": "Combination",
+      "pattern": "A + B → AB",
+      "sourceId": "ck12-combination-reactions"
+    },
+    {
+      "id": "decomposition",
+      "name": "Decomposition",
+      "pattern": "AB → A + B",
+      "sourceId": "ck12-decomposition-reactions"
+    },
+    {
+      "id": "single-replacement",
+      "name": "Single replacement",
+      "pattern": "A + BC → AC + B",
+      "sourceId": "ck12-single-replacement-reactions"
+    },
+    {
+      "id": "double-replacement",
+      "name": "Double replacement",
+      "pattern": "AB + CD → AD + CB",
+      "sourceId": "ck12-double-replacement-reactions"
+    }
+  ],
+  "choices": {
+    "coating": [
+      "none",
+      "red-brown",
+      "black",
+      "white"
+    ],
+    "liquid": [
+      "colourless",
+      "blue",
+      "paler blue",
+      "green",
+      "pale yellow"
+    ],
+    "solid": [
+      "none",
+      "white",
+      "blue",
+      "black"
+    ],
+    "bubbles": [
+      "none",
+      "slow",
+      "fast"
+    ],
+    "gas": [
+      "none",
+      "bubbles"
+    ],
+    "light": [
+      "none",
+      "red glow",
+      "white light"
+    ],
+    "warmth": [
+      "no change",
+      "warmer",
+      "colder"
+    ]
+  },
+  "activity": {
+    "order": [
+      "magnesium",
+      "zinc",
+      "copper"
+    ],
+    "hydrogenAfter": "zinc",
+    "basis": "activity-series",
+    "sourceId": "chemguide-reactivity-series"
+  },
+  "stations": [
+    {
+      "id": "zinc-copper-sulfate",
+      "letter": "A",
+      "title": "Zinc in copper(II) sulfate solution",
+      "action": "put-in",
+      "reagentIds": [
+        "zinc-pieces",
+        "cuso4-1m"
+      ],
+      "tiles": [
+        "zinc",
+        "copper-ii-sulfate",
+        "zinc-sulfate",
+        "copper",
+        "hydrogen",
+        "water",
+        "oxygen"
+      ],
+      "vessels": [
+        {
+          "id": "tube",
+          "drawn": "tube",
+          "liquid": {
+            "value": "blue",
+            "sourceId": "microscale-observing-chemical-changes",
+            "start": "tubeMicrolitres",
+            "added": null
+          },
+          "metal": {
+            "id": "zinc",
+            "reagentId": "zinc-pieces",
+            "colour": {
+              "value": "grey",
+              "sourceId": "birk-zinc"
+            }
+          },
+          "asks": [
+            "coating",
+            "liquid"
+          ],
+          "after": {
+            "coating": {
+              "value": "red-brown",
+              "sourceId": "microscale-observing-chemical-changes"
+            },
+            "liquid": {
+              "value": "paler blue",
+              "sourceId": "microscale-observing-chemical-changes"
+            }
+          },
+          "looks": [
+            {
+              "at": "metal",
+              "before": "A grey piece of metal lies beside the tube.",
+              "after": "A red-brown coating covers the metal."
+            },
+            {
+              "at": "liquid",
+              "before": "The liquid is clear and blue.",
+              "after": "The liquid is still clear, and a paler blue than it was."
+            }
+          ],
+          "kind": {
+            "value": "single-replacement",
+            "sourceId": "microscale-observing-chemical-changes",
+            "alsoSourceId": "ck12-single-replacement-reactions"
+          },
+          "equation": {
+            "reactants": [
+              {
+                "speciesId": "zinc",
+                "coefficient": 1
+              },
+              {
+                "speciesId": "copper-ii-sulfate",
+                "coefficient": 1
+              }
+            ],
+            "products": [
+              {
+                "speciesId": "zinc-sulfate",
+                "coefficient": 1
+              },
+              {
+                "speciesId": "copper",
+                "coefficient": 1
+              }
+            ],
+            "sourceId": "chemguide-metal-salt-displacement",
+            "alsoSourceId": "chemguide-metals-dilute-acids"
+          }
+        }
+      ],
+      "order": false,
+      "notes": [
+        {
+          "value": "The red-brown coating is copper metal. Zinc took the place of copper in the dissolved copper(II) sulfate, and the copper came out as a solid on the zinc.",
+          "sourceId": "microscale-observing-chemical-changes"
+        },
+        {
+          "value": "The blue belongs to the dissolved copper(II) sulfate, so it fades as that is used up. The zinc sulfate made in its place has no colour in water.",
+          "sourceId": "chemguide-metal-salt-displacement",
+          "alsoSourceId": "chemguide-metals-dilute-acids"
+        },
+        {
+          "value": "One element took the place of another in a compound: a single replacement. Zinc can push copper out because it is the more active of the two.",
+          "sourceId": "chemguide-metal-salt-displacement",
+          "alsoSourceId": "chemguide-reactivity-series"
+        }
+      ]
+    },
+    {
+      "id": "magnesium-flame",
+      "letter": "B",
+      "title": "Magnesium in a flame",
+      "action": "burn",
+      "reagentIds": [
+        "magnesium-ribbon"
+      ],
+      "tiles": [
+        "magnesium",
+        "oxygen",
+        "magnesium-oxide",
+        "water",
+        "carbon-dioxide",
+        "hydrogen"
+      ],
+      "vessels": [
+        {
+          "id": "strip",
+          "drawn": "flame",
+          "liquid": null,
+          "metal": {
+            "id": "magnesium",
+            "reagentId": "magnesium-ribbon",
+            "colour": {
+              "value": "silvery",
+              "sourceId": "birk-magnesium"
+            }
+          },
+          "asks": [
+            "light",
+            "solid"
+          ],
+          "after": {
+            "light": {
+              "value": "white light",
+              "sourceId": "chemguide-group2-oxygen"
+            },
+            "solid": {
+              "value": "white",
+              "sourceId": "chemguide-group2-oxygen",
+              "alsoSourceId": "ck12-combination-reactions"
+            }
+          },
+          "looks": [
+            {
+              "at": "flame",
+              "before": "A silvery strip of metal is held in tongs, beside the burner.",
+              "after": "The strip burns with a white light, too bright to look at."
+            },
+            {
+              "at": "solid",
+              "before": "Only the strip is in the tongs.",
+              "after": "The strip is gone. A white powder is left where it was."
+            }
+          ],
+          "kind": {
+            "value": "combination",
+            "sourceId": "ck12-combination-reactions"
+          },
+          "equation": {
+            "reactants": [
+              {
+                "speciesId": "magnesium",
+                "coefficient": 2
+              },
+              {
+                "speciesId": "oxygen",
+                "coefficient": 1
+              }
+            ],
+            "products": [
+              {
+                "speciesId": "magnesium-oxide",
+                "coefficient": 2
+              }
+            ],
+            "sourceId": "ck12-combination-reactions"
+          }
+        }
+      ],
+      "order": false,
+      "notes": [
+        {
+          "value": "Magnesium joined with oxygen from the air and made magnesium oxide, a white powder. Two things became one: a combination.",
+          "sourceId": "ck12-combination-reactions"
+        },
+        {
+          "value": "Burnt in air, magnesium also joins with the air's nitrogen, so the ash is a mixture: magnesium oxide with magnesium nitride in it. The equation here is for the oxide alone.",
+          "sourceId": "chemguide-group2-oxygen"
+        }
+      ]
+    },
+    {
+      "id": "metals-in-acid",
+      "letter": "C",
+      "title": "Three metals in hydrochloric acid",
+      "action": "put-in",
+      "reagentIds": [
+        "magnesium-ribbon",
+        "zinc-pieces",
+        "copper-pieces",
+        "hcl-1m"
+      ],
+      "tiles": [
+        "magnesium",
+        "zinc",
+        "copper",
+        "hydrochloric-acid",
+        "magnesium-chloride",
+        "zinc-chloride",
+        "copper-ii-chloride",
+        "hydrogen",
+        "water",
+        "chlorine"
+      ],
+      "vessels": [
+        {
+          "id": "magnesium",
+          "drawn": "tube",
+          "liquid": {
+            "value": "colourless",
+            "sourceId": "flinn-sds-395.2",
+            "start": "tubeMicrolitres",
+            "added": null
+          },
+          "metal": {
+            "id": "magnesium",
+            "reagentId": "magnesium-ribbon",
+            "colour": {
+              "value": "silvery",
+              "sourceId": "birk-magnesium"
+            }
+          },
+          "asks": [
+            "bubbles"
+          ],
+          "after": {
+            "bubbles": {
+              "value": "fast",
+              "sourceId": "chemguide-metals-dilute-acids",
+              "alsoSourceId": "chemguide-reactivity-series"
+            }
+          },
+          "looks": [
+            {
+              "at": "metal",
+              "before": "A silvery strip of metal lies beside the tube.",
+              "after": "Bubbles stream off the metal, fast."
+            }
+          ],
+          "kind": {
+            "value": "single-replacement",
+            "sourceId": "smc-types-of-reactions"
+          },
+          "equation": {
+            "reactants": [
+              {
+                "speciesId": "magnesium",
+                "coefficient": 1
+              },
+              {
+                "speciesId": "hydrochloric-acid",
+                "coefficient": 2
+              }
+            ],
+            "products": [
+              {
+                "speciesId": "magnesium-chloride",
+                "coefficient": 1
+              },
+              {
+                "speciesId": "hydrogen",
+                "coefficient": 1
+              }
+            ],
+            "sourceId": "chemguide-metals-dilute-acids"
+          }
+        },
+        {
+          "id": "zinc",
+          "drawn": "tube",
+          "liquid": {
+            "value": "colourless",
+            "sourceId": "flinn-sds-395.2",
+            "start": "tubeMicrolitres",
+            "added": null
+          },
+          "metal": {
+            "id": "zinc",
+            "reagentId": "zinc-pieces",
+            "colour": {
+              "value": "grey",
+              "sourceId": "birk-zinc"
+            }
+          },
+          "asks": [
+            "bubbles"
+          ],
+          "after": {
+            "bubbles": {
+              "value": "slow",
+              "sourceId": "chemguide-metals-dilute-acids",
+              "alsoSourceId": "chemguide-reactivity-series"
+            }
+          },
+          "looks": [
+            {
+              "at": "metal",
+              "before": "A grey piece of metal lies beside the tube.",
+              "after": "Bubbles rise from the metal, slowly."
+            }
+          ],
+          "kind": {
+            "value": "single-replacement",
+            "sourceId": "ck12-single-replacement-reactions"
+          },
+          "equation": {
+            "reactants": [
+              {
+                "speciesId": "zinc",
+                "coefficient": 1
+              },
+              {
+                "speciesId": "hydrochloric-acid",
+                "coefficient": 2
+              }
+            ],
+            "products": [
+              {
+                "speciesId": "zinc-chloride",
+                "coefficient": 1
+              },
+              {
+                "speciesId": "hydrogen",
+                "coefficient": 1
+              }
+            ],
+            "sourceId": "chemguide-metals-dilute-acids"
+          }
+        },
+        {
+          "id": "copper",
+          "drawn": "tube",
+          "liquid": {
+            "value": "colourless",
+            "sourceId": "flinn-sds-395.2",
+            "start": "tubeMicrolitres",
+            "added": null
+          },
+          "metal": {
+            "id": "copper",
+            "reagentId": "copper-pieces",
+            "colour": {
+              "value": "reddish",
+              "sourceId": "birk-copper"
+            }
+          },
+          "asks": [
+            "bubbles"
+          ],
+          "after": {
+            "bubbles": {
+              "value": "none",
+              "sourceId": "chemguide-metals-dilute-acids",
+              "alsoSourceId": "chemguide-reactivity-series"
+            }
+          },
+          "looks": [
+            {
+              "at": "metal",
+              "before": "A reddish piece of metal lies beside the tube.",
+              "after": "No bubbles. The metal looks as it did."
+            }
+          ],
+          "kind": {
+            "value": "none",
+            "sourceId": "chemguide-metals-dilute-acids"
+          },
+          "equation": null
+        }
+      ],
+      "order": true,
+      "notes": [
+        {
+          "value": "The bubbles are hydrogen. Magnesium and zinc each took the place of the hydrogen in the acid, and each went into the liquid as its chloride: a single replacement, twice.",
+          "sourceId": "chemguide-metals-dilute-acids"
+        },
+        {
+          "value": "Copper did nothing. It stands below hydrogen in the order of the metals, and a metal below hydrogen does not push hydrogen out of an acid.",
+          "sourceId": "chemguide-metals-dilute-acids",
+          "alsoSourceId": "chemguide-reactivity-series"
+        },
+        {
+          "value": "The higher a metal stands in that order, the faster it works on an acid. So the three run, most active first: magnesium, zinc, copper.",
+          "sourceId": "chemguide-metals-dilute-acids",
+          "alsoSourceId": "chemguide-reactivity-series"
+        }
+      ]
+    },
+    {
+      "id": "two-solutions",
+      "letter": "D",
+      "title": "Calcium chloride and sodium carbonate solutions",
+      "action": "mix",
+      "reagentIds": [
+        "cacl2-1m",
+        "na2co3-1m"
+      ],
+      "tiles": [
+        "calcium-chloride",
+        "sodium-carbonate",
+        "calcium-carbonate",
+        "sodium-chloride",
+        "carbon-dioxide",
+        "water",
+        "sodium-hydroxide"
+      ],
+      "vessels": [
+        {
+          "id": "tube",
+          "drawn": "tube",
+          "liquid": {
+            "value": "colourless",
+            "sourceId": "flinn-sds-197",
+            "alsoSourceId": "flinn-sds-719",
+            "start": "mixMicrolitres",
+            "added": "mixMicrolitres"
+          },
+          "metal": null,
+          "asks": [
+            "solid"
+          ],
+          "after": {
+            "solid": {
+              "value": "white",
+              "sourceId": "birk-calcium",
+              "alsoSourceId": "birk-barium"
+            }
+          },
+          "looks": [
+            {
+              "at": "solid",
+              "before": "The liquid is clear and colourless. Nothing solid is in it.",
+              "after": "A white solid has formed and clouds the liquid."
+            }
+          ],
+          "kind": {
+            "value": "double-replacement",
+            "sourceId": "smc-types-of-reactions"
+          },
+          "equation": {
+            "reactants": [
+              {
+                "speciesId": "calcium-chloride",
+                "coefficient": 1
+              },
+              {
+                "speciesId": "sodium-carbonate",
+                "coefficient": 1
+              }
+            ],
+            "products": [
+              {
+                "speciesId": "calcium-carbonate",
+                "coefficient": 1
+              },
+              {
+                "speciesId": "sodium-chloride",
+                "coefficient": 2
+              }
+            ],
+            "sourceId": "smc-types-of-reactions"
+          }
+        }
+      ],
+      "order": false,
+      "notes": [
+        {
+          "value": "The white solid is calcium carbonate, which does not dissolve in water. The sodium chloride made with it stays dissolved, so it is not seen.",
+          "sourceId": "smc-types-of-reactions",
+          "alsoSourceId": "birk-calcium"
+        },
+        {
+          "value": "The two compounds traded partners: calcium went with carbonate, and sodium with chloride. That is a double replacement.",
+          "sourceId": "smc-types-of-reactions"
+        }
+      ]
+    },
+    {
+      "id": "peroxide",
+      "letter": "E",
+      "title": "Hydrogen peroxide with iron(III) chloride",
+      "action": "add-drops",
+      "reagentIds": [
+        "h2o2-3",
+        "fecl3-0.5m"
+      ],
+      "tiles": [
+        "hydrogen-peroxide",
+        "water",
+        "oxygen",
+        "hydrogen",
+        "iron-iii-chloride",
+        "hydrochloric-acid"
+      ],
+      "vessels": [
+        {
+          "id": "tube",
+          "drawn": "tube",
+          "liquid": {
+            "value": "colourless",
+            "sourceId": "flinn-sds-398.5",
+            "start": "tubeMicrolitres",
+            "added": "dropsMicrolitres"
+          },
+          "metal": null,
+          "asks": [
+            "gas",
+            "warmth"
+          ],
+          "after": {
+            "gas": {
+              "value": "bubbles",
+              "sourceId": "waterloo-catalysts-hydrogen-peroxide",
+              "alsoSourceId": "lower-catalysts"
+            },
+            "warmth": {
+              "value": "warmer",
+              "sourceId": "waterloo-catalysts-hydrogen-peroxide",
+              "alsoSourceId": "lower-catalysts"
+            },
+            "liquid": {
+              "value": "pale yellow",
+              "sourceId": "birk-iron"
+            }
+          },
+          "looks": [
+            {
+              "at": "liquid",
+              "before": "The liquid is clear and colourless. Nothing rises in it.",
+              "after": "Bubbles rise through the liquid."
+            },
+            {
+              "at": "touch",
+              "before": "The tube feels no warmer than the room.",
+              "after": "The tube feels warmer than it did."
+            }
+          ],
+          "kind": {
+            "value": "decomposition",
+            "sourceId": "lower-catalysts",
+            "alsoSourceId": "waterloo-catalysts-hydrogen-peroxide"
+          },
+          "equation": {
+            "reactants": [
+              {
+                "speciesId": "hydrogen-peroxide",
+                "coefficient": 2
+              }
+            ],
+            "products": [
+              {
+                "speciesId": "water",
+                "coefficient": 2
+              },
+              {
+                "speciesId": "oxygen",
+                "coefficient": 1
+              }
+            ],
+            "sourceId": "lower-catalysts"
+          },
+          "catalyst": {
+            "speciesId": "iron-iii-chloride",
+            "sourceId": "waterloo-catalysts-hydrogen-peroxide"
+          }
+        }
+      ],
+      "order": false,
+      "notes": [
+        {
+          "value": "The bubbles are oxygen. Hydrogen peroxide came apart into water and oxygen: one thing became two, a decomposition.",
+          "sourceId": "waterloo-catalysts-hydrogen-peroxide",
+          "alsoSourceId": "lower-catalysts"
+        },
+        {
+          "value": "It does this by itself, but far too slowly to see. The iron(III) chloride speeds it up and is not used up: it is a catalyst, so it is not in the equation.",
+          "sourceId": "lower-catalysts",
+          "alsoSourceId": "waterloo-catalysts-hydrogen-peroxide"
+        },
+        {
+          "value": "The tube warmed because this reaction gives out heat.",
+          "sourceId": "waterloo-catalysts-hydrogen-peroxide",
+          "alsoSourceId": "lower-catalysts"
+        }
+      ]
+    }
+  ],
+  "parameters": {
+    "tubeMicrolitres": {
+      "value": 3000,
+      "rationale": "About 3 mL of liquid in a tube: enough to cover a piece of metal. The amount is this lab's own, chosen for the drawing; no result depends on it."
+    },
+    "mixMicrolitres": {
+      "value": 2000,
+      "rationale": "About 2 mL of each of the two solutions that are mixed. The amount is this lab's own, chosen for the drawing; no result depends on it."
+    },
+    "dropsMicrolitres": {
+      "value": 250,
+      "rationale": "Five drops of about 0.05 mL each: the little iron(III) chloride that is added. The amount is this lab's own, chosen for the drawing; no result depends on it."
+    }
+  }
+}
