@@ -13,6 +13,8 @@ export const ACTIVITIES = [
   { entry: ENTRY.flame, version: 1, kind: 'Lab', title: 'Flame tests', to: '/lab/flame' },
   // src/calorimetry-version.test.ts pins what a stored run of this lab is judged against to this entry and this version.
   { entry: ENTRY.calorimetry, version: 1, kind: 'Lab', title: 'Calorimetry', to: '/lab/calorimetry' },
+  // src/cations-version.test.ts pins what a stored run of this lab is judged against to this entry and this version.
+  { entry: ENTRY.cations, version: 1, kind: 'Lab', title: 'Group I cations', to: '/lab/cations' },
   { entry: ENTRY.mechanism, version: 1, kind: 'Mechanism', title: 'HCl + NaHCO₃, step by step', to: '/learn/hcl-nahco3' },
 ] as const
 

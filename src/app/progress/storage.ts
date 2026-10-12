@@ -14,6 +14,7 @@ export const ENTRY = {
   aqueous: 'lab:aqueous',
   flame: 'lab:flame',
   calorimetry: 'lab:calorimetry',
+  cations: 'lab:cations',
   mechanism: 'mechanism:hcl-nahco3',
 } as const
 

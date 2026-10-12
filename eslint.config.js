@@ -15,7 +15,7 @@ const NO_CLOCK = 'engine/ and mechanisms/ must not read the clock: take time as 
 const NO_EAGER_THREE =
   'Three.js is imported only inside a scene/ folder, which the app loads lazily. A static import anywhere else puts about 900 kB into an eagerly loaded chunk.'
 const NO_ENGINE_INTERNALS =
-  "Import a lab's engine from its index only: '@/engine/titration', '@/engine/aqueous', '@/engine/flame', '@/engine/calorimetry'. The files below the titration index hold each run's hidden values, which no screen may show; those below the aqueous index work on any tube, and the app is given the ten stations and nothing else; those below the flame index hold what a correct observation is, which a page is given only where it may be shown; those below the calorimetry index hold which metal the piece is, the readings the logger has not yet taken and the value a result is held to."
+  "Import a lab's engine from its index only: '@/engine/titration', '@/engine/aqueous', '@/engine/flame', '@/engine/calorimetry', '@/engine/cations'. The files below the titration index hold each run's hidden values, which no screen may show; those below the aqueous index work on any tube, and the app is given the ten stations and nothing else; those below the flame index hold what a correct observation is, which a page is given only where it may be shown; those below the calorimetry index hold which metal the piece is, the readings the logger has not yet taken and the value a result is held to; those below the cations index hold which ions an unknown holds, what each tube is made of and whether an observation is right."
 const NO_MECHANISM_INTERNALS =
   "Import the mechanism timeline from its index only: '@/mechanisms'. A screen draws from state(mechanism, t) and from nothing below the index, so that every frame is a function of the scrub position."
 
@@ -49,8 +49,8 @@ const NO_THREE_PATTERNS = [
   },
 ]
 // "@/engine/titration/flask", "../../../engine/aqueous/react": anything below a lab engine's index, by alias or by relative path.
-const ENGINE_INTERNALS = { regex: '(^|/)engine/(titration|aqueous|flame|calorimetry)/', message: NO_ENGINE_INTERNALS }
-const ENGINE_INTERNALS_BUT_TESTKIT = { regex: '(^|/)engine/(titration|aqueous|flame|calorimetry)/(?!testkit$)', message: NO_ENGINE_INTERNALS }
+const ENGINE_INTERNALS = { regex: '(^|/)engine/(titration|aqueous|flame|calorimetry|cations)/', message: NO_ENGINE_INTERNALS }
+const ENGINE_INTERNALS_BUT_TESTKIT = { regex: '(^|/)engine/(titration|aqueous|flame|calorimetry|cations)/(?!testkit$)', message: NO_ENGINE_INTERNALS }
 // "@/mechanisms/state", "../../mechanisms/hcl-nahco3.json": anything below the mechanisms index.
 const MECHANISM_INTERNALS = { regex: '(^|/)mechanisms/', message: NO_MECHANISM_INTERNALS }
 

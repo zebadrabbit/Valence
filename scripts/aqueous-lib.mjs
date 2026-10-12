@@ -118,9 +118,10 @@ const onlyKeys = (object, keys, where, optional = []) => {
  * have rows of their own. A note names its sources in `sourceId`, a second in `alsoSourceId` and any further ones
  * in `moreSourceIds`. No statement may carry a code listed for the reagent in `never`. The flame test lab's six
  * solutions are merged by this too: there a "sheet" is any document read for a bottle's hazards and not kept, a
- * government record among them.
+ * government record among them. `standard` lists, for a reagent, the printed lines that the standard phrases of
+ * their codes stand for (see `checkSheetHazards`): it holds for those lines of that reagent and for nothing else.
  */
-export function mergeHazards(reagents, hazards, sheets, never = {}) {
+export function mergeHazards(reagents, hazards, sheets, never = {}, standard = {}) {
   const ids = reagents.map((r) => r.id)
   onlyKeys(hazards, ids, 'hazards.json')
   const sheet = (sourceId, where) => {
@@ -141,7 +142,7 @@ export function mergeHazards(reagents, hazards, sheets, never = {}) {
     if (typeof entry.classifiedAs !== 'string' || entry.classifiedAs.trim() === '') throw new Error(`${where}: classifiedAs is empty`)
     const statements = sheet(entry.hazards.sourceId, `${where}.hazards`)
     hasRow(statements, `${reagent.id}.classifiedAs`, where)
-    checkSheetHazards(statements, `${reagent.id}.hazards`, entry.hazards, never[reagent.id] ?? [])
+    checkSheetHazards(statements, `${reagent.id}.hazards`, entry.hazards, never[reagent.id] ?? [], standard[reagent.id] ?? {})
     const { note } = entry.hazards
     if (typeof note.value !== 'string' || note.value.trim() === '') throw new Error(`${where}.hazards.note: the note is empty`)
     if (note.alsoSourceId === note.sourceId) throw new Error(`${where}.hazards.note: alsoSourceId names "${note.alsoSourceId}", the source the note already cites`)

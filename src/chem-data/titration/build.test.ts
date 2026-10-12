@@ -102,6 +102,49 @@ describe('checkSheetHazards', () => {
     expect(() => checkSheetHazards(sheetOf(indicator), 'bottles.indicator.hazards', { ...indicator.hazards, signalWord: 'Warning' })).toThrow(/"flinn-sds-591" prints the signal word "DANGER", not "Warning"/)
   })
 
+  it('reads a line that prints its code first, with a dash, as the same statement, and keeps no space about a "+"', () => {
+    // Some suppliers' sheets print "H290 - May be corrosive to metals"; the Group I cations lab's bottle of mercury(I) nitrate rests on one.
+    const codeFirst: Sheet = {
+      ...sheet,
+      supports: sheet.supports.map((row) => (row.field === `${field}.statements[0]` ? { ...row, prints: 'H314 + H318 - Causes severe skin and eye burns and damage' } : row.field === `${field}.statements[2]` ? { ...row, prints: 'H290 - May be corrosive to metals' } : row)),
+    }
+    expect(() => checkSheetHazards(codeFirst, field, hcl.hazards, ['H331'])).not.toThrow()
+    expect(() => checkSheetHazards(printing(`${field}.statements[0]`, 'H314+H318 - Causes severe skin and eye burns and damage'), field, hcl.hazards)).not.toThrow()
+    // The codes stay in the sheet's order, the words are the sheet's, and a line in neither layout is refused.
+    expect(() => checkSheetHazards(printing(`${field}.statements[0]`, 'H318 + H314 - Causes severe skin and eye burns and damage'), field, hcl.hazards)).toThrow(/not the stored "H314\+H318: Causes severe skin and eye burns and damage"/)
+    expect(() => checkSheetHazards(printing(`${field}.statements[2]`, 'H290 - May corrode metals'), field, hcl.hazards)).toThrow(/prints "H290 - May corrode metals" for bottles\.hcl\.hazards\.statements\[2\], not the stored/)
+    for (const line of ['H290: May be corrosive to metals', 'H290 May be corrosive to metals', 'May be corrosive to metals - H290', 'H290 -May be corrosive to metals']) {
+      expect(() => checkSheetHazards(printing(`${field}.statements[2]`, line), field, hcl.hazards), line).toThrow(/which is not a statement and then its code or codes in brackets, nor a code or codes, a dash and then the statement/)
+    }
+  })
+
+  it('lets the standard phrase of each code stand for a printed line only where the caller states the line and the row says so', () => {
+    // The Group I cations lab's bottle of potassium chromate: its sheet prints one line for two codes with a word dropped.
+    const LINE = 'Causes skin and serious irritation (H315+H319)'
+    const STANDARD = { [LINE]: { H315: 'Causes skin irritation', H319: 'Causes serious eye irritation' } }
+    const SAYS = 'The record stores the standard phrase of the code in place of this line.'
+    const row = (index: number, prints: string, where = SAYS) => ({ field: `x.hazards.statements[${index}]`, prints, where })
+    const chromate: Sheet = { ...sheet, supports: [{ field: 'x.hazards.signalWord', prints: 'DANGER', where: '' }, row(0, 'Toxic if swallowed (H301)', ''), row(1, LINE), row(2, LINE), row(3, 'May cause cancer (H350)', '')] }
+    const stored = ['H301: Toxic if swallowed', 'H315: Causes skin irritation', 'H319: Causes serious eye irritation', 'H350: May cause cancer']
+    const check = (statements: string[], standard: Record<string, Record<string, string>> = STANDARD, from: Sheet = chromate) => () =>
+      (checkSheetHazards as (sheet: Sheet, field: string, hazards: Hazards, never: string[], standard: Record<string, Record<string, string>>) => void)(from, 'x.hazards', { ...hcl.hazards, signalWord: 'Danger', statements }, [], standard)
+    expect(check(stored)).not.toThrow()
+    // Without the stated exception the two rows are refused, as any row is whose line is not the stored statement.
+    expect(check(stored, {})).toThrow(/prints "Causes skin and serious irritation \(H315\+H319\)" for x\.hazards\.statements\[1\], not the stored "H315: Causes skin irritation"/)
+    // The exception holds for that line alone: another line of the same sheet is still read as it is printed.
+    expect(check(['H301: Toxic when swallowed', ...stored.slice(1)])).toThrow(/for x\.hazards\.statements\[0\], not the stored "H301: Toxic when swallowed"/)
+    // The phrases are the stated ones, one to a code, in the line's order, and no other wording.
+    expect(check([stored[0]!, stored[2]!, stored[1]!, stored[3]!])).toThrow(/which the standard phrase "H315: Causes skin irritation" stands for, not the stored "H319: Causes serious eye irritation"/)
+    expect(check([stored[0]!, 'H315: Irritates the skin', stored[2]!, stored[3]!])).toThrow(/which the standard phrase "H315: Causes skin irritation" stands for, not the stored "H315: Irritates the skin"/)
+    expect(check([stored[0]!, 'H315+H319: Causes skin and serious irritation', stored[2]!, stored[3]!])).toThrow(/stands for, not the stored "H315\+H319: Causes skin and serious irritation"/)
+    // The row has to say so, and there is one row to a code.
+    const silent: Sheet = { ...chromate, supports: chromate.supports.map((r) => (r.field === 'x.hazards.statements[2]' ? { ...r, where: 'Section 2.' } : r)) }
+    expect(check(stored, STANDARD, silent)).toThrow(/the row for x\.hazards\.statements\[2\] does not say that the record stores a standard phrase/)
+    const thrice: Sheet = { ...chromate, supports: [...chromate.supports.slice(0, 4), row(3, LINE)] }
+    expect(check([...stored.slice(0, 3), 'H319: Causes serious eye irritation'], STANDARD, thrice)).toThrow(/has 2 codes, and must have one row and one standard phrase for each, in their order/)
+    expect(check(stored, { [LINE]: { H315: 'Causes skin irritation' } })).toThrow(/must have one row and one standard phrase for each/)
+  })
+
   it('reads a stored statement as the line the sheet prints, turned round: the codes first, then the statement', () => {
     expect(sheet.supports.find((row) => row.field === `${field}.statements[0]`)!.prints).toBe('Causes severe skin and eye burns and damage (H314+H318)')
     expect(burns).toBe('H314+H318: Causes severe skin and eye burns and damage')

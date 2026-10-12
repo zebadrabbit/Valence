@@ -1,0 +1,1038 @@
+{
+  "reagents": [
+    {
+      "id": "hcl-6m",
+      "name": "Hydrochloric acid, 6 M",
+      "formula": "HCl",
+      "form": "solution",
+      "molarity": 6,
+      "classifiedAs": "Hazards of concentrated hydrochloric acid (6 M to 12 M), from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Danger",
+        "statements": [
+          "H314+H318: Causes severe skin and eye burns and damage",
+          "H332+H302: Harmful if swallowed or inhaled",
+          "H290: May be corrosive to metals"
+        ],
+        "note": {
+          "value": "The acid on this bench is 6 mol/L, which is about 20% hydrogen chloride by mass (worked out from the molarity and a density of about 1.1 g/mL, not read from a source). The sheet the statements above come from is for acid of 6 M to 12 M, so it covers this acid, the least concentrated it is for, and the statements apply to it as they stand. The sheet gives the signal word Danger and three statements: under H314 and H318, that the acid burns the skin and the eyes severely and damages them; under H332 and H302, that it is harmful if it is swallowed or breathed in; and under H290, that it may corrode metals. The sheet calls for eye protection, gloves and protective clothing, and for working in a fume hood or a well-ventilated room, and says that the mist, the vapour or the spray of the acid is not to be breathed. It says that a poison centre or a doctor is to be called at once. It says that a splash in the eyes is to be rinsed with water for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up. After a splash on the skin or the hair, it says, the wet clothing is to come off at once and the skin be rinsed with water.",
+          "sourceId": "flinn-sds-395"
+        },
+        "sourceId": "flinn-sds-395"
+      },
+      "sourceId": "ntu-group-1-lab"
+    },
+    {
+      "id": "acetic-acid-6m",
+      "name": "Acetic acid, 6 M",
+      "formula": "CH₃COOH",
+      "form": "solution",
+      "molarity": 6,
+      "classifiedAs": "Hazards of concentrated acetic acid (6.1 M to 17.4 M, glacial), from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Danger",
+        "statements": [
+          "H226: Flammable liquid and vapor",
+          "H303: May be harmful if swallowed",
+          "H312: Harmful in contact with skin",
+          "H314: Causes severe skin burns and eye damage",
+          "H317: May cause an allergic skin reaction",
+          "H331: Toxic if inhaled"
+        ],
+        "note": {
+          "value": "The acid on this bench is 6 mol/L acetic acid; the statements above are those of the concentrated acid it is made from. The same supplier's sheet for this strength gives Warning: it irritates skin and eyes and may set off a skin allergy. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 6 M solution gives Danger and H314: it burns skin severely and damages eyes. Its mist is not breathed. Splashed clothing comes off at once; eyes are flushed for 15 minutes or more, 30 by NOAA's record, and a doctor is seen at once. It is kept from nitric acid, with which NOAA's record says the undiluted acid can explode.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-5.2",
+          "alsoSourceId": "wards-sds-aa0003",
+          "moreSourceIds": [
+            "noaa-cameo-9215",
+            "noaa-cameo-2272"
+          ]
+        },
+        "sourceId": "flinn-sds-5"
+      },
+      "sourceId": "ntu-group-1-lab"
+    },
+    {
+      "id": "k2cro4-0.5m",
+      "name": "Potassium chromate solution, 0.5 M",
+      "formula": "K₂CrO₄",
+      "form": "solution",
+      "molarity": 0.5,
+      "classifiedAs": "Hazards of solid potassium chromate, the pure substance, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Danger",
+        "statements": [
+          "H301: Toxic if swallowed",
+          "H315: Causes skin irritation",
+          "H319: Causes serious eye irritation",
+          "H317: May cause an allergic skin reaction",
+          "H335: May cause respiratory irritation",
+          "H340: May cause genetic defects",
+          "H350: May cause cancer"
+        ],
+        "note": {
+          "value": "The solution on this bench is 0.5 mol/L potassium chromate. The same supplier's one sheet for the solution, a stronger one, gives Danger and, among five statements, H302: harmful if swallowed. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 0.1 M solution keeps the statements above for skin, eyes and skin allergy, and adds H410, very toxic to water life with lasting effects: it is kept out of drains and waterways. Its mist is not breathed. Eyes are flushed for 15 minutes or more and a doctor is seen at once; if any is swallowed, a doctor or a poison centre at once. A third supplier's sheet for the solid adds harm to organs over long exposure.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-624",
+          "alsoSourceId": "wards-sds-pp0494",
+          "moreSourceIds": [
+            "fisher-sds-k2cro4"
+          ]
+        },
+        "sourceId": "flinn-sds-623"
+      },
+      "sourceId": "ntu-group-1-lab"
+    },
+    {
+      "id": "nh3-6m",
+      "name": "Ammonia solution, 6 M",
+      "formula": "NH₃",
+      "form": "solution",
+      "molarity": 6,
+      "classifiedAs": "Hazards of ammonia solution (ammonium hydroxide) of 1.1 M to 14.8 M, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Danger",
+        "statements": [
+          "H302: Harmful if swallowed",
+          "H314: Causes severe skin burns and eye damage"
+        ],
+        "note": {
+          "value": "The ammonia solution on this bench is 6 mol/L; the statements above are of a sheet for 1.1 M to 14.8 M. It calls for eye protection, gloves and protective clothing, and a fume hood or a well-ventilated room; splashed clothing comes off at once, and the solution is kept from acids.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 6 M solution adds H335, irritation of the airways, and H400, very toxic to water life: it is kept out of drains and waterways. Eyes are flushed for 15 minutes or more, 30 by NOAA's record, and a doctor is seen at once. By NOAA's records ammonia can form explosive compounds with silver and with mercury: ask the supervisor before any tube from steps 4 and 5 is set aside or kept.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-58",
+          "alsoSourceId": "wards-sds-aa0273",
+          "moreSourceIds": [
+            "noaa-cameo-2434",
+            "noaa-cameo-1064"
+          ]
+        },
+        "sourceId": "flinn-sds-58"
+      },
+      "sourceId": "smc-group-1-lab"
+    },
+    {
+      "id": "hno3-6m",
+      "name": "Nitric acid, 6 M",
+      "formula": "HNO₃",
+      "form": "solution",
+      "molarity": 6,
+      "classifiedAs": "Hazards of concentrated nitric acid (9 M to 15.8 M), from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Danger",
+        "statements": [
+          "H272: May intensify fire; oxidizer",
+          "H290: May be corrosive to metals",
+          "H314: Causes severe skin burns and eye damage"
+        ],
+        "note": {
+          "value": "The acid on this bench is 6 mol/L nitric acid; the statements above are those of the concentrated acid it is made from. The same supplier's sheet for this strength adds H332: harmful if breathed in. It calls for eye protection, gloves and protective clothing, and a fume hood or a well-ventilated room; splashed clothing comes off at once.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 6 M solution asks eyes flushed for 15 minutes or more and a doctor at once. A third's classes the concentrated acid as toxic if breathed in. It is kept from acetic acid, bases, metals and anything that burns; by NOAA's record the undiluted acid ignites on contact with ammonia. Step 5 adds it to ammonia a little at a time, as the experiment does.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-552.5",
+          "alsoSourceId": "wards-sds-nn0280",
+          "moreSourceIds": [
+            "fisher-sds-nitric-acid",
+            "noaa-cameo-19337"
+          ]
+        },
+        "sourceId": "flinn-sds-552"
+      },
+      "sourceId": "ntu-group-1-lab"
+    },
+    {
+      "id": "agno3-0.1m",
+      "name": "Silver nitrate solution, 0.1 M",
+      "formula": "AgNO₃",
+      "form": "solution",
+      "molarity": 0.1,
+      "classifiedAs": "Hazards of solid silver nitrate, the pure substance, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Danger",
+        "statements": [
+          "H272: May intensify fire; oxidizer",
+          "H302: Harmful if swallowed",
+          "H314: Causes severe skin burns and eye damage"
+        ],
+        "note": {
+          "value": "The solution on this bench is 0.1 mol/L silver nitrate. The same supplier's sheet for this strength gives Warning: it irritates skin and seriously irritates eyes. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 0.1 M solution adds H400, very toxic to water life: it is kept out of drains and waterways. Eyes are flushed for 15 minutes or more and a doctor is seen at once; if any is swallowed, a doctor or a poison centre at once. A third's sheet for the solid adds harm to an unborn child. With ammonia it forms shock-sensitive compounds, by the first supplier's sheet for the solid: ask the supervisor before any tube from steps 4 and 5 is set aside or kept.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-692",
+          "alsoSourceId": "wards-sds-ss0180",
+          "moreSourceIds": [
+            "fisher-sds-agno3",
+            "flinn-sds-691"
+          ]
+        },
+        "sourceId": "flinn-sds-691"
+      },
+      "sourceId": "smc-group-1-lab"
+    },
+    {
+      "id": "pbno32-0.1m",
+      "name": "Lead(II) nitrate solution, 0.1 M",
+      "formula": "Pb(NO₃)₂",
+      "form": "solution",
+      "molarity": 0.1,
+      "classifiedAs": "Hazards of solid lead nitrate, the pure substance, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Danger",
+        "statements": [
+          "H272: May intensify fire; oxidizer",
+          "H302+H332: Harmful if swallowed or inhaled",
+          "H318: Causes serious eye damage",
+          "H350: May cause cancer",
+          "H360: May damage fertility or the unborn child",
+          "H373: May cause damage to organs through prolonged or repeated exposure",
+          "H410: Very toxic to aquatic life with long lasting effects"
+        ],
+        "note": {
+          "value": "The solution on this bench is 0.1 mol/L lead nitrate. The same supplier's sheet for the solution drops three of the statements above: the fire hazard, the damage to the eyes and the code for water life. It calls for eye protection, gloves and protective clothing, and a fume hood or a well-ventilated room.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 0.1 M solution adds H320, it irritates the eyes, and has H410: it is kept out of drains and waterways. Eyes are flushed for 15 minutes or more and a doctor is seen at once; if any is swallowed, a doctor or a poison centre at once. It says that lead builds up in the body. A third's sheet for the solid adds a skin allergy.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-438",
+          "alsoSourceId": "wards-sds-ll0133",
+          "moreSourceIds": [
+            "fisher-sds-pbno32"
+          ]
+        },
+        "sourceId": "flinn-sds-437"
+      },
+      "sourceId": "ntu-group-1-lab"
+    },
+    {
+      "id": "hg2no32-0.1m",
+      "name": "Mercury(I) nitrate solution, 0.1 M",
+      "formula": "Hg₂(NO₃)₂",
+      "form": "solution",
+      "molarity": 0.1,
+      "classifiedAs": "Hazards of solid mercury(I) nitrate dihydrate, the pure substance, from a supplier's safety data sheet",
+      "hazards": {
+        "signalWord": "Danger",
+        "statements": [
+          "H410: Very toxic to aquatic life with long lasting effects",
+          "H373: May cause damage to organs through prolonged or repeated exposure",
+          "H300+H310+H330: Fatal if swallowed, in contact with skin or if inhaled"
+        ],
+        "note": {
+          "value": "The solution on this bench is 0.1 mol/L mercury(I) nitrate. No sheet for a solution of this salt could be read, and the supplier of the other bottles' statements has none for the salt: the statements above are another supplier's, for the solid, and the solution is handled as the solid is.\n\nStricter, and what this lab goes by: the sheets count every route as fatal, the skin among them. They call for eye protection, gloves, protective clothing and a fume hood. After any contact: a doctor or a poison centre at once; eyes flushed for 15 minutes or more; skin washed with soap and water while splashed clothing comes off. NOAA's record marks it a strong oxidising agent, kept from anything that burns; the sheets keep it out of drains and waterways.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "fisher-sds-hg2no32-dihydrate",
+          "alsoSourceId": "fisher-uk-sds-hg2no32-dihydrate",
+          "moreSourceIds": [
+            "noaa-cameo-3837"
+          ]
+        },
+        "sourceId": "fisher-uk-sds-hg2no32-dihydrate"
+      },
+      "sourceId": "smc-group-1-lab"
+    }
+  ],
+  "water": {
+    "name": "Distilled water",
+    "formula": "H₂O"
+  },
+  "ions": [
+    {
+      "id": "silver",
+      "name": "Silver",
+      "formula": "Ag⁺",
+      "reagentId": "agno3-0.1m",
+      "chlorideId": "silver-chloride",
+      "sourceId": "smc-group-1-lab"
+    },
+    {
+      "id": "lead",
+      "name": "Lead",
+      "formula": "Pb²⁺",
+      "reagentId": "pbno32-0.1m",
+      "chlorideId": "lead-chloride",
+      "sourceId": "smc-group-1-lab"
+    },
+    {
+      "id": "mercury-i",
+      "name": "Mercury(I)",
+      "formula": "Hg₂²⁺",
+      "reagentId": "hg2no32-0.1m",
+      "chlorideId": "mercury-i-chloride",
+      "sourceId": "smc-group-1-lab"
+    }
+  ],
+  "substances": [
+    {
+      "id": "silver-chloride",
+      "name": "Silver chloride",
+      "formula": "AgCl",
+      "state": "s",
+      "look": {
+        "value": "white",
+        "sourceId": "birk-silver"
+      },
+      "sourceId": "birk-silver"
+    },
+    {
+      "id": "lead-chloride",
+      "name": "Lead chloride",
+      "formula": "PbCl₂",
+      "state": "s",
+      "look": {
+        "value": "white",
+        "sourceId": "birk-lead"
+      },
+      "sourceId": "birk-lead"
+    },
+    {
+      "id": "mercury-i-chloride",
+      "name": "Mercury(I) chloride",
+      "formula": "Hg₂Cl₂",
+      "state": "s",
+      "look": {
+        "value": "white",
+        "sourceId": "birk-mercury"
+      },
+      "sourceId": "birk-mercury"
+    },
+    {
+      "id": "lead-chromate",
+      "name": "Lead chromate",
+      "formula": "PbCrO₄",
+      "state": "s",
+      "look": {
+        "value": "yellow",
+        "sourceId": "smc-group-1-lab",
+        "alsoSourceId": "ntu-group-1-lab"
+      },
+      "sourceId": "smc-group-1-lab"
+    },
+    {
+      "id": "mercury-and-amidochloride",
+      "name": "Mercury with mercury(II) amidochloride",
+      "formula": "Hg + HgNH₂Cl",
+      "state": "s",
+      "look": {
+        "value": "grey to black",
+        "sourceId": "birk-mercury",
+        "alsoSourceId": "birk-confirmatory-tests",
+        "moreSourceIds": [
+          "malik-group-1-ions",
+          "smc-group-1-lab",
+          "ntu-group-1-lab"
+        ]
+      },
+      "sourceId": "birk-mercury"
+    },
+    {
+      "id": "lead-hydroxide",
+      "name": "Lead hydroxide",
+      "formula": "Pb(OH)₂",
+      "state": "s",
+      "look": {
+        "value": "white",
+        "sourceId": "ntu-group-1-lab"
+      },
+      "sourceId": "ntu-group-1-lab"
+    },
+    {
+      "id": "silver-ion",
+      "name": "Silver ion",
+      "formula": "Ag⁺",
+      "state": "aq",
+      "sourceId": "birk-silver"
+    },
+    {
+      "id": "lead-ion",
+      "name": "Lead ion",
+      "formula": "Pb²⁺",
+      "state": "aq",
+      "sourceId": "birk-lead"
+    },
+    {
+      "id": "mercury-i-ion",
+      "name": "Mercury(I) ion",
+      "formula": "Hg₂²⁺",
+      "state": "aq",
+      "sourceId": "birk-mercury"
+    },
+    {
+      "id": "silver-ammonia-ion",
+      "name": "Silver-ammonia ion",
+      "formula": "[Ag(NH₃)₂]⁺",
+      "state": "aq",
+      "look": {
+        "value": "colourless",
+        "sourceId": "birk-silver"
+      },
+      "sourceId": "birk-silver"
+    },
+    {
+      "id": "chromate-ion",
+      "name": "Chromate ion",
+      "formula": "CrO₄²⁻",
+      "state": "aq",
+      "look": {
+        "value": "yellow to orange",
+        "sourceId": "birk-confirmatory-tests",
+        "alsoSourceId": "hope-q1-analysis"
+      },
+      "sourceId": "birk-confirmatory-tests"
+    }
+  ],
+  "rules": [
+    {
+      "id": "chlorides-form",
+      "says": "Hydrochloric acid brings silver, lead and mercury(I) ions out of a solution as solid chlorides. The model takes each of them to come down whole.",
+      "sourceId": "malik-group-1-separation",
+      "alsoSourceId": "smc-group-1-lab"
+    },
+    {
+      "id": "lead-chloride-in-water",
+      "says": "Lead chloride dissolves in water as far as its solubility allows, and hot water holds about three times as much of it as cold. Silver chloride and mercury(I) chloride stay solid in both.",
+      "sourceId": "birk-lead",
+      "alsoSourceId": "malik-group-1-ions"
+    },
+    {
+      "id": "lead-chromate-forms",
+      "says": "Lead ions and chromate ions form solid lead chromate.",
+      "sourceId": "smc-group-1-lab",
+      "alsoSourceId": "ntu-group-1-lab"
+    },
+    {
+      "id": "silver-chloride-in-ammonia",
+      "says": "Silver chloride dissolves in ammonia solution: the silver goes into the liquid as the silver-ammonia ion, and the chloride with it.",
+      "sourceId": "birk-silver",
+      "alsoSourceId": "smc-group-1-lab"
+    },
+    {
+      "id": "mercury-chloride-with-ammonia",
+      "says": "With ammonia solution, mercury(I) chloride does not dissolve. It turns into finely divided mercury and mercury(II) amidochloride, which stay as a solid.",
+      "sourceId": "birk-mercury",
+      "alsoSourceId": "malik-group-1-ions",
+      "moreSourceIds": [
+        "smc-group-1-lab"
+      ]
+    },
+    {
+      "id": "lead-chloride-with-ammonia",
+      "says": "Lead chloride that is still with the solid when the ammonia goes in does not dissolve. A white solid is left, which a university laboratory handout gives as lead hydroxide.",
+      "sourceId": "ntu-group-1-lab",
+      "alsoSourceId": "birk-lead"
+    },
+    {
+      "id": "silver-chloride-returns",
+      "says": "Acid uses up the ammonia. Once the liquid is acid, the silver-ammonia ion is gone and the silver comes back out as silver chloride, with the chloride that was still dissolved.",
+      "sourceId": "birk-silver",
+      "alsoSourceId": "malik-group-1-ions",
+      "moreSourceIds": [
+        "smc-group-1-lab"
+      ]
+    },
+    {
+      "id": "litmus",
+      "says": "In an acid liquid blue litmus paper goes red and red litmus paper keeps its colour. In a basic liquid red litmus paper goes blue and blue litmus paper keeps its colour.",
+      "sourceId": "malik-ph-measurement",
+      "alsoSourceId": "smc-group-1-lab"
+    }
+  ],
+  "choices": {
+    "solid": [
+      "none",
+      "white",
+      "yellow",
+      "grey to black"
+    ],
+    "liquid": [
+      "colourless",
+      "yellow to orange"
+    ]
+  },
+  "constants": {
+    "gasConstant": {
+      "value": 8.314462618,
+      "unit": "J/(mol·K)",
+      "sourceId": "nist-codata-2022"
+    }
+  },
+  "gibbs": [
+    {
+      "id": "silver-ion",
+      "label": "Ag⁺(aq)",
+      "value": 77.107,
+      "published": "77.107",
+      "sourceId": "nbs-tables-1982"
+    },
+    {
+      "id": "lead-ion",
+      "label": "Pb²⁺(aq)",
+      "value": -24.43,
+      "published": "-24.43",
+      "sourceId": "nbs-tables-1982"
+    },
+    {
+      "id": "mercury-i-ion",
+      "label": "Hg₂²⁺(aq)",
+      "value": 153.52,
+      "published": "153.52",
+      "sourceId": "nbs-tables-1982"
+    },
+    {
+      "id": "chloride-ion",
+      "label": "Cl⁻(aq)",
+      "value": -131.228,
+      "published": "-131.228",
+      "sourceId": "nbs-tables-1982"
+    },
+    {
+      "id": "silver-chloride",
+      "label": "AgCl(s)",
+      "value": -109.789,
+      "published": "-109.789",
+      "sourceId": "nbs-tables-1982"
+    },
+    {
+      "id": "lead-chloride",
+      "label": "PbCl₂(s)",
+      "value": -314.1,
+      "published": "-314.10",
+      "sourceId": "nbs-tables-1982"
+    },
+    {
+      "id": "mercury-i-chloride",
+      "label": "Hg₂Cl₂(s)",
+      "value": -210.745,
+      "published": "-210.745",
+      "sourceId": "nbs-tables-1982"
+    },
+    {
+      "id": "ammonia",
+      "label": "NH₃(aq)",
+      "value": -26.5,
+      "published": "-26.50",
+      "sourceId": "nbs-tables-1982"
+    },
+    {
+      "id": "silver-ammonia-ion",
+      "label": "[Ag(NH₃)₂]⁺(aq)",
+      "value": -17.12,
+      "published": "-17.12",
+      "sourceId": "nbs-tables-1982"
+    }
+  ],
+  "equilibria": [
+    {
+      "id": "silver-chloride",
+      "name": "Solubility product of silver chloride",
+      "expression": "[Ag⁺][Cl⁻]",
+      "terms": [
+        {
+          "gibbsId": "silver-ion",
+          "coefficient": 1
+        },
+        {
+          "gibbsId": "chloride-ion",
+          "coefficient": 1
+        },
+        {
+          "gibbsId": "silver-chloride",
+          "coefficient": -1
+        }
+      ],
+      "gibbs": {
+        "value": 55.668,
+        "unit": "kJ/mol",
+        "working": "77.107 + (−131.228) − (−109.789) = 55.668 kJ/mol"
+      },
+      "constant": {
+        "value": 1.77e-10,
+        "shown": "1.77 × 10⁻¹⁰",
+        "working": "e^(−55 668 ÷ (8.314462618 × 298.15)) = 1.768 × 10⁻¹⁰, stored to three significant figures"
+      }
+    },
+    {
+      "id": "lead-chloride",
+      "name": "Solubility product of lead chloride",
+      "expression": "[Pb²⁺][Cl⁻]²",
+      "terms": [
+        {
+          "gibbsId": "lead-ion",
+          "coefficient": 1
+        },
+        {
+          "gibbsId": "chloride-ion",
+          "coefficient": 2
+        },
+        {
+          "gibbsId": "lead-chloride",
+          "coefficient": -1
+        }
+      ],
+      "gibbs": {
+        "value": 27.214,
+        "unit": "kJ/mol",
+        "working": "(−24.43) + 2 × (−131.228) − (−314.10) = 27.214 kJ/mol"
+      },
+      "constant": {
+        "value": 0.0000171,
+        "shown": "1.71 × 10⁻⁵",
+        "working": "e^(−27 214 ÷ (8.314462618 × 298.15)) = 1.707 × 10⁻⁵, stored to three significant figures"
+      }
+    },
+    {
+      "id": "mercury-i-chloride",
+      "name": "Solubility product of mercury(I) chloride",
+      "expression": "[Hg₂²⁺][Cl⁻]²",
+      "terms": [
+        {
+          "gibbsId": "mercury-i-ion",
+          "coefficient": 1
+        },
+        {
+          "gibbsId": "chloride-ion",
+          "coefficient": 2
+        },
+        {
+          "gibbsId": "mercury-i-chloride",
+          "coefficient": -1
+        }
+      ],
+      "gibbs": {
+        "value": 101.809,
+        "unit": "kJ/mol",
+        "working": "153.52 + 2 × (−131.228) − (−210.745) = 101.809 kJ/mol"
+      },
+      "constant": {
+        "value": 1.46e-18,
+        "shown": "1.46 × 10⁻¹⁸",
+        "working": "e^(−101 809 ÷ (8.314462618 × 298.15)) = 1.458 × 10⁻¹⁸, stored to three significant figures"
+      }
+    },
+    {
+      "id": "silver-ammonia-ion",
+      "name": "Formation constant of the silver-ammonia ion",
+      "expression": "[[Ag(NH₃)₂]⁺] ÷ ([Ag⁺][NH₃]²)",
+      "terms": [
+        {
+          "gibbsId": "silver-ammonia-ion",
+          "coefficient": 1
+        },
+        {
+          "gibbsId": "silver-ion",
+          "coefficient": -1
+        },
+        {
+          "gibbsId": "ammonia",
+          "coefficient": -2
+        }
+      ],
+      "gibbs": {
+        "value": -41.227,
+        "unit": "kJ/mol",
+        "working": "(−17.12) − 77.107 − 2 × (−26.50) = −41.227 kJ/mol"
+      },
+      "constant": {
+        "value": 16700000,
+        "shown": "1.67 × 10⁷",
+        "working": "e^(41 227 ÷ (8.314462618 × 298.15)) = 1.670 × 10⁷, stored to three significant figures"
+      }
+    }
+  ],
+  "leadChromate": {
+    "solubilityProduct": {
+      "value": 2.8e-13,
+      "shown": "2.8 × 10⁻¹³",
+      "sourceId": "ntu-group-1-lab"
+    }
+  },
+  "leadChloride": {
+    "atomicWeights": [
+      {
+        "id": "Pb",
+        "value": 207.2,
+        "published": "207.2",
+        "sourceId": "ciaaw-abridged-2024"
+      },
+      {
+        "id": "Cl",
+        "value": 35.45,
+        "published": "35.45",
+        "sourceId": "ciaaw-abridged-2024"
+      }
+    ],
+    "molarMass": {
+      "value": 278.1,
+      "unit": "g/mol",
+      "working": "207.2 + 2 × 35.45 = 278.10 g/mol, from the standard atomic weights of lead and of chlorine"
+    },
+    "solubilityCold": {
+      "value": 10,
+      "published": "10",
+      "unit": "g/L",
+      "celsius": 20,
+      "sourceId": "birk-lead"
+    },
+    "solubilityHot": {
+      "value": 33.5,
+      "published": "33.5",
+      "unit": "g/L",
+      "celsius": 100,
+      "sourceId": "birk-lead"
+    },
+    "cold": {
+      "value": 35958,
+      "unit": "nmol/mL",
+      "working": "10 g/L ÷ 278.10 g/mol = 0.035958 mol/L, which is 35 958 nmol in each millilitre"
+    },
+    "hot": {
+      "value": 120460,
+      "unit": "nmol/mL",
+      "working": "33.5 g/L ÷ 278.10 g/mol = 0.120460 mol/L, which is 120 460 nmol in each millilitre"
+    },
+    "note": {
+      "value": "The two figures are one page's, for 20 °C and for 100 °C. A second page read gives about 1.1 g and about 3.2 g in 100 mL at the same two temperatures. The lab's amounts behave the same way with either pair: the hot water holds all the lead chloride and the cold water does not. Water straight from a boiling bath is a little under 100 °C, and the model takes it as 100 °C.",
+      "sourceId": "birk-lead",
+      "alsoSourceId": "malik-group-1-ions"
+    }
+  },
+  "steps": [
+    {
+      "id": "precipitate",
+      "name": "Precipitate the group",
+      "tube": "a",
+      "reagentIds": [
+        "hcl-6m"
+      ],
+      "ruleIds": [
+        "chlorides-form"
+      ],
+      "substanceIds": [
+        "silver-chloride",
+        "lead-chloride",
+        "mercury-i-chloride"
+      ],
+      "equilibriumIds": [
+        "silver-chloride",
+        "lead-chloride",
+        "mercury-i-chloride"
+      ],
+      "equations": [
+        {
+          "value": "Ag⁺(aq) + Cl⁻(aq) → AgCl(s)",
+          "sourceId": "birk-silver",
+          "alsoSourceId": "smc-group-1-lab"
+        },
+        {
+          "value": "Pb²⁺(aq) + 2Cl⁻(aq) → PbCl₂(s)",
+          "sourceId": "birk-lead",
+          "alsoSourceId": "smc-group-1-lab"
+        },
+        {
+          "value": "Hg₂²⁺(aq) + 2Cl⁻(aq) → Hg₂Cl₂(s)",
+          "sourceId": "birk-mercury",
+          "alsoSourceId": "smc-group-1-lab"
+        }
+      ],
+      "notes": [
+        {
+          "value": "The white solid is the chloride of each of the three ions that the sample holds: silver chloride, lead chloride, mercury(I) chloride. The chlorides of almost every other metal dissolve, so one reagent takes these three out of a mixture together. That is why they are called Group I.",
+          "sourceId": "malik-group-1-separation",
+          "alsoSourceId": "smc-group-1-lab"
+        },
+        {
+          "value": "Lead chloride is the most soluble of the three, and it is slow to form. On a real bench some lead stays in the liquid, and the acid goes in a drop at a time until no more solid comes. Far too much acid begins to dissolve the chlorides again. This lab adds a fixed amount and takes all three to come down whole.",
+          "sourceId": "birk-lead",
+          "alsoSourceId": "ntu-group-1-lab",
+          "moreSourceIds": [
+            "malik-group-1-separation"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "extract-lead",
+      "name": "Take the lead out",
+      "tube": "a",
+      "reagentIds": [
+        "water"
+      ],
+      "ruleIds": [
+        "lead-chloride-in-water"
+      ],
+      "substanceIds": [
+        "lead-chloride",
+        "silver-chloride",
+        "mercury-i-chloride",
+        "lead-ion"
+      ],
+      "equilibriumIds": [],
+      "equations": [
+        {
+          "value": "PbCl₂(s) → Pb²⁺(aq) + 2Cl⁻(aq)",
+          "sourceId": "smc-group-1-lab",
+          "alsoSourceId": "malik-group-1-ions"
+        }
+      ],
+      "notes": [
+        {
+          "value": "Hot water holds about three times as much lead chloride as cold water. Silver chloride and mercury(I) chloride hardly dissolve in either. So the hot liquid carries the lead away, and the other two stay behind as the solid.",
+          "sourceId": "birk-lead",
+          "alsoSourceId": "malik-group-1-ions"
+        },
+        {
+          "value": "If the water is poured off cold, part of the lead chloride is still with the solid, and it is still there at step 4. A real bench goes further than this lab does: it washes the solid with hot water two or three times more, until no lead is left in it.",
+          "sourceId": "ntu-group-1-lab"
+        }
+      ]
+    },
+    {
+      "id": "confirm-lead",
+      "name": "Confirm lead",
+      "tube": "b",
+      "reagentIds": [
+        "acetic-acid-6m",
+        "k2cro4-0.5m"
+      ],
+      "ruleIds": [
+        "lead-chromate-forms"
+      ],
+      "substanceIds": [
+        "lead-chromate",
+        "chromate-ion",
+        "lead-ion"
+      ],
+      "equilibriumIds": [],
+      "equations": [
+        {
+          "value": "Pb²⁺(aq) + CrO₄²⁻(aq) → PbCrO₄(s)",
+          "sourceId": "smc-group-1-lab",
+          "alsoSourceId": "ntu-group-1-lab"
+        }
+      ],
+      "notes": [
+        {
+          "value": "A yellow solid is lead chromate, and it confirms lead. The chromate colours the liquid whether lead is there or not, so the colour of the liquid proves nothing: only a solid does. Centrifuging packs the solid down, which makes the two easy to tell apart.",
+          "sourceId": "smc-group-1-lab",
+          "alsoSourceId": "ntu-group-1-lab",
+          "moreSourceIds": [
+            "hope-q1-analysis"
+          ]
+        },
+        {
+          "value": "The acetic acid is there to keep the chromates of other metals from coming down as well. On a real bench the liquid is tested before it cools, because lead chloride can come back out of cooling water as a white solid. This lab takes the second tube to stay hot.",
+          "sourceId": "ntu-group-1-lab"
+        }
+      ]
+    },
+    {
+      "id": "separate",
+      "name": "Part silver from mercury",
+      "tube": "a",
+      "reagentIds": [
+        "nh3-6m"
+      ],
+      "ruleIds": [
+        "silver-chloride-in-ammonia",
+        "mercury-chloride-with-ammonia",
+        "lead-chloride-with-ammonia"
+      ],
+      "substanceIds": [
+        "silver-chloride",
+        "silver-ammonia-ion",
+        "mercury-i-chloride",
+        "mercury-and-amidochloride",
+        "lead-hydroxide"
+      ],
+      "equilibriumIds": [
+        "silver-chloride",
+        "silver-ammonia-ion"
+      ],
+      "equations": [
+        {
+          "value": "AgCl(s) + 2NH₃(aq) → [Ag(NH₃)₂]⁺(aq) + Cl⁻(aq)",
+          "sourceId": "birk-silver",
+          "alsoSourceId": "smc-group-1-lab"
+        },
+        {
+          "value": "Hg₂Cl₂(s) + 2NH₃(aq) → Hg(l) + HgNH₂Cl(s) + NH₄⁺(aq) + Cl⁻(aq)",
+          "sourceId": "birk-mercury",
+          "alsoSourceId": "smc-group-1-lab"
+        }
+      ],
+      "notes": [
+        {
+          "value": "Silver chloride dissolves in ammonia. Each silver ion joins two ammonia molecules and becomes a colourless ion that stays in the liquid, so the silver is poured off with it.",
+          "sourceId": "birk-silver",
+          "alsoSourceId": "malik-varying-solubility"
+        },
+        {
+          "value": "Mercury(I) chloride does not dissolve. Ammonia turns it into mercury metal, in specks so fine that they look black, and a white compound of mercury(II), mercury(II) amidochloride. Together they look grey to black, and that confirms mercury(I).",
+          "sourceId": "birk-mercury",
+          "alsoSourceId": "malik-group-1-ions",
+          "moreSourceIds": [
+            "smc-group-1-lab"
+          ]
+        },
+        {
+          "value": "Lead chloride left behind at step 2 does not dissolve in ammonia either. It stays as a white solid, which a university laboratory handout gives as lead hydroxide. A white solid left at this step is that lead: it is not silver, and it is not mercury(I).",
+          "sourceId": "ntu-group-1-lab"
+        }
+      ]
+    },
+    {
+      "id": "confirm-silver",
+      "name": "Confirm silver",
+      "tube": "c",
+      "reagentIds": [
+        "hno3-6m"
+      ],
+      "ruleIds": [
+        "silver-chloride-returns",
+        "litmus"
+      ],
+      "substanceIds": [
+        "silver-ammonia-ion",
+        "silver-chloride"
+      ],
+      "equilibriumIds": [
+        "silver-chloride",
+        "silver-ammonia-ion"
+      ],
+      "equations": [
+        {
+          "value": "[Ag(NH₃)₂]⁺(aq) + Cl⁻(aq) + 2H⁺(aq) → AgCl(s) + 2NH₄⁺(aq)",
+          "sourceId": "birk-silver"
+        }
+      ],
+      "notes": [
+        {
+          "value": "The acid uses up the ammonia. With no ammonia left the silver-ammonia ion falls apart, and the silver meets the chloride that is still in the liquid. Silver chloride comes back as a white solid, and that confirms silver.",
+          "sourceId": "birk-silver",
+          "alsoSourceId": "malik-group-1-ions",
+          "moreSourceIds": [
+            "smc-group-1-lab"
+          ]
+        },
+        {
+          "value": "While ammonia is left, the silver stays dissolved. So a clear liquid means nothing until litmus shows that the liquid is acid.",
+          "sourceId": "smc-group-1-lab",
+          "alsoSourceId": "malik-group-1-procedure"
+        }
+      ]
+    }
+  ],
+  "chart": {
+    "tileIds": [
+      "silver-chloride",
+      "lead-chloride",
+      "mercury-i-chloride",
+      "lead-chromate",
+      "mercury-and-amidochloride",
+      "silver-ion",
+      "lead-ion",
+      "mercury-i-ion",
+      "silver-ammonia-ion"
+    ],
+    "places": [
+      {
+        "id": "precipitate-solid",
+        "stepId": "precipitate",
+        "layer": "solid",
+        "holds": [
+          "silver-chloride",
+          "lead-chloride",
+          "mercury-i-chloride"
+        ]
+      },
+      {
+        "id": "extract-lead-solid",
+        "stepId": "extract-lead",
+        "layer": "solid",
+        "holds": [
+          "silver-chloride",
+          "mercury-i-chloride"
+        ]
+      },
+      {
+        "id": "extract-lead-liquid",
+        "stepId": "extract-lead",
+        "layer": "liquid",
+        "holds": [
+          "lead-ion"
+        ]
+      },
+      {
+        "id": "confirm-lead-solid",
+        "stepId": "confirm-lead",
+        "layer": "solid",
+        "holds": [
+          "lead-chromate"
+        ]
+      },
+      {
+        "id": "separate-solid",
+        "stepId": "separate",
+        "layer": "solid",
+        "holds": [
+          "mercury-and-amidochloride"
+        ]
+      },
+      {
+        "id": "separate-liquid",
+        "stepId": "separate",
+        "layer": "liquid",
+        "holds": [
+          "silver-ammonia-ion"
+        ]
+      },
+      {
+        "id": "confirm-silver-solid",
+        "stepId": "confirm-silver",
+        "layer": "solid",
+        "holds": [
+          "silver-chloride"
+        ]
+      }
+    ],
+    "sourceId": "ntu-group-1-lab",
+    "alsoSourceId": "smc-group-1-lab"
+  },
+  "parameters": {
+    "temperatureKelvin": {
+      "value": 298.15,
+      "rationale": "The temperature the table's Gibbs energies are for, 25 °C. Each solubility product and the formation constant are worked out at it, and used for a bench at room temperature."
+    },
+    "dropMicrolitres": {
+      "value": 50,
+      "rationale": "A drop from a dropper is taken as 0.05 mL, twenty to the millilitre: the figure one of the pages read gives for its own samples, and the one the titration lab stores. Every amount on this bench is a count of drops."
+    },
+    "sampleDropsOfEach": {
+      "value": 10,
+      "rationale": "A sample holds 10 drops, 0.5 mL, of the 0.1 M solution of each ion it is made from: 50 micromoles of each ion. It is the same for every ion and every sample, so the amount of an ion never depends on what else is there."
+    },
+    "sampleDrops": {
+      "value": 30,
+      "rationale": "Every sample is made up to 30 drops, 1.5 mL, with distilled water. The known needs no water; an unknown with one ion has 20 drops of it. So a sample's volume says nothing of how many ions it holds, and each ion is about 0.033 M."
+    },
+    "hydrochloricAcidDrops": {
+      "value": 4,
+      "rationale": "Four drops of the 6 M acid: 1.2 millimoles of chloride, nearly five times what the three ions together can take up. The pages read use two to four drops on a smaller sample. The build checks that it is enough to bring each chloride down, and one page read warns that a very large excess dissolves silver chloride again."
+    },
+    "waterDrops": {
+      "value": 15,
+      "rationale": "Fifteen drops, 0.75 mL, of distilled water at step 2. Chosen between the two limits the build checks: hot, it can hold nearly twice the lead chloride there is; cold, only about half. The pages read use more water, and then wash the solid again."
+    },
+    "aceticAcidDrops": {
+      "value": 1,
+      "rationale": "One drop of the 6 M acid before the chromate, as both procedures read have it. It adds its volume to the tube and takes no other part in the model."
+    },
+    "chromateDrops": {
+      "value": 4,
+      "rationale": "Four drops of the 0.5 M solution: 100 micromoles of chromate, twice the lead a sample can hold. So some chromate is always left over, and the liquid is coloured whether lead is there or not. The build checks both."
+    },
+    "ammoniaDrops": {
+      "value": 15,
+      "rationale": "Fifteen drops, 0.75 mL, of the 6 M solution: 4.5 millimoles of ammonia. One procedure read uses ten to twelve drops and another two millilitres. The build checks that this much can hold all the silver chloride in solution."
+    },
+    "nitricAcidDrops": {
+      "value": 8,
+      "rationale": "One addition of nitric acid is eight drops of the 6 M acid: 2.4 millimoles. One addition leaves ammonia over and two do not, whatever the sample holds, so the liquid has to be tested between additions. The build checks that, and that the ammonia left after one addition still holds the silver in solution."
+    },
+    "nitricAcidAdditions": {
+      "value": 4,
+      "rationale": "The most additions of nitric acid the third tube takes. Two make the liquid acid; two more are room for a learner who goes on adding. After that the tube is taken to be full."
+    },
+    "completeWithinPercent": {
+      "value": 1,
+      "rationale": "The model takes a chloride to come down whole at step 1. The build checks that the part its solubility product leaves dissolved, at the chloride left in the tube, is under this share of what went in. That sum counts free ions only; a real tube keeps more lead dissolved than it says."
+    }
+  }
+}

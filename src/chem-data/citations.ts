@@ -3,6 +3,7 @@ import { EMISSION_SCOPE_NOTE } from './element'
 import type { Element, ElementSpectrum, Emission, MoDiagram, Molecule, Source } from './schema'
 import type { AqueousData } from './aqueous/data'
 import type { CalorimetryData, PartId } from './calorimetry/data'
+import type { CationsData, StepId } from './cations/data'
 import type { FlameData } from './flame/data'
 import type { TitrationData } from './titration/data'
 
@@ -242,6 +243,47 @@ export function calorimetryCitations(data: CalorimetryData, partId: PartId, sour
       ...sum.map((term): Entry => ['Enthalpies of formation, for the figure the lab holds', term.enthalpyOfFormation.sourceId]),
       ...('enthalpy' in part ? all('Enthalpies of formation, for the figure the lab holds', part.enthalpy.note) : []),
       ...part.notes.flatMap((note) => all('Notes on this part', note)),
+    ],
+    sources,
+  )
+}
+
+/**
+ * The sources behind one step of the Group I cations lab (spec 5.1): the bottles it adds from and their hazards,
+ * the rules its actions follow, what the things it makes or leaves are and look like, the numbers the build
+ * checks it with, its net ionic equations and its notes. The list is the scheme's and is the same whatever a
+ * sample holds, and no label in it names a substance: what a solid is, is said in the notes of a step that is done.
+ */
+export function cationsCitations(data: CationsData, stepId: StepId, sources: readonly Source[]): Citation[] {
+  const step = data.steps.find((s) => s.id === stepId)
+  if (!step) throw new Error(`no step "${stepId}"`)
+  const all = (label: string, cited: { sourceId: string; alsoSourceId?: string | undefined; moreSourceIds?: string[] | undefined }): Entry[] =>
+    [cited.sourceId, ...(cited.alsoSourceId === undefined ? [] : [cited.alsoSourceId]), ...(cited.moreSourceIds ?? [])].map((id): Entry => [label, id])
+  const reagents = step.reagentIds.flatMap((id) => data.reagents.filter((r) => r.id === id))
+  // Step 1 is worked on the sample, which is made from the three nitrate solutions whichever of them an unknown holds.
+  const bottles = step.id === 'precipitate' ? [...data.ions.flatMap((ion) => data.reagents.filter((r) => r.id === ion.reagentId)), ...reagents] : reagents
+  const rules = step.ruleIds.flatMap((id) => data.rules.filter((r) => r.id === id))
+  const substances = step.substanceIds.flatMap((id) => data.substances.filter((s) => s.id === id))
+  const equilibria = step.equilibriumIds.flatMap((id) => data.equilibria.filter((e) => e.id === id))
+  const energies = equilibria.flatMap((e) => e.terms.flatMap((term) => data.gibbs.filter((g) => g.id === term.gibbsId)))
+  const NUMBERS = "Numbers the build checks this step's rules with"
+  const lead = data.leadChloride
+  return citations(
+    [
+      ...bottles.flatMap((r): Entry[] => [
+        [`${r.name}: the solution`, r.sourceId],
+        [`${r.name}: hazard classification`, r.hazards.sourceId],
+        ...all(`${r.name}: hazards at the strength used`, r.hazards.note),
+      ]),
+      ...rules.flatMap((rule) => all('What happens at this step', rule)),
+      ...substances.flatMap((s): Entry[] => [['What the solids and the dissolved things of this step are', s.sourceId], ...(s.look ? all('What they look like', s.look) : [])]),
+      ...energies.map((g): Entry => [NUMBERS, g.sourceId]),
+      ...(equilibria.length > 0 ? [[NUMBERS, data.constants.gasConstant.sourceId] as const] : []),
+      ...(step.id === 'extract-lead' ? [[NUMBERS, lead.solubilityCold.sourceId] as const, [NUMBERS, lead.solubilityHot.sourceId] as const, ...lead.atomicWeights.map((w): Entry => [NUMBERS, w.sourceId]), ...all(NUMBERS, lead.note)] : []),
+      ...(step.id === 'confirm-lead' ? [[NUMBERS, data.leadChromate.solubilityProduct.sourceId] as const] : []),
+      ...step.equations.flatMap((equation) => all('Net ionic equations', equation)),
+      ...step.notes.flatMap((note) => all('Notes on this step', note)),
+      ...all('Where each ion goes: the flow chart', data.chart),
     ],
     sources,
   )
