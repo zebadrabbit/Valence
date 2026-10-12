@@ -8,6 +8,7 @@ import { acetoneSchema, type AcetoneData } from './acetone/data'
 import { cabbageSchema, type CabbageData } from './cabbage/data'
 import { densitySchema, type DensityData } from './density/data'
 import { freezingSchema, type FreezingData } from './freezing/data'
+import { FIELD_AT, reactionsSchema, type ReactionsData } from './reactions/data'
 import { clockSchema, type ClockData } from './clock/data'
 import { cationsSchema, type CationsData } from './cations/data'
 import { brightestOf, extentOf, flameSchema, rangeOf, type FlameData } from './flame/data'
@@ -925,5 +926,56 @@ export function validateFreezing(input: unknown, sources: readonly Source[], opt
     ...checkSourceIds(parsed.data, 'freezing', Array.isArray(sources) ? sources : []),
     ...checkPublished(parsed.data, 'freezing'),
     ...checkProse(parsed.data, 'freezing', Array.isArray(names) ? names : []),
+  ]
+}
+
+/**
+ * What the types of reactions lab's record must hold together beyond its shape: its ids; that every station's
+ * tiles and every equation's terms are species of the record; that every field asked has something stored for
+ * after, in one of its choices, and a look that opens it; and that every bench is reagents of the record. That
+ * the equations balance is the build's to check (scripts/reactions-lib.mjs), and a test's.
+ */
+function checkReactions(data: ReactionsData): string[] {
+  const errors = [...duplicates(data.reagents.map((r) => r.id), 'reagents'), ...duplicates(data.species.map((s) => s.id), 'species'), ...duplicates(data.stations.map((s) => s.id), 'stations'), ...duplicates(data.stations.map((s) => s.letter), "the stations' letters")]
+  const species = new Set(data.species.map((s) => s.id))
+  const reagents = new Set(data.reagents.map((r) => r.id))
+  for (const station of data.stations) {
+    errors.push(...duplicates(station.vessels.map((v) => v.id), `station "${station.id}": vessels`), ...duplicates(station.tiles, `station "${station.id}": tiles`))
+    for (const tile of station.tiles) if (!species.has(tile)) errors.push(`station "${station.id}": the tile "${tile}" is no species of the record`)
+    for (const reagent of station.reagentIds) if (!reagents.has(reagent)) errors.push(`station "${station.id}": "${reagent}" is no reagent of the record`)
+    for (const vessel of station.vessels) {
+      const where = `station "${station.id}", vessel "${vessel.id}"`
+      for (const term of vessel.equation === null ? [] : [...vessel.equation.reactants, ...vessel.equation.products]) {
+        if (!station.tiles.includes(term.speciesId)) errors.push(`${where}: the equation needs "${term.speciesId}", which is not among the station's tiles`)
+      }
+      if ((vessel.kind.value === 'none') !== (vessel.equation === null)) errors.push(`${where}: a vessel has an equation when something reacts in it, and none when nothing does`)
+      if (vessel.catalyst !== undefined && !species.has(vessel.catalyst.speciesId)) errors.push(`${where}: the catalyst "${vessel.catalyst.speciesId}" is no species of the record`)
+      if (vessel.liquid !== null && !data.choices.liquid.includes(vessel.liquid.value)) errors.push(`${where}: "${vessel.liquid.value}" is no choice of the liquid's colour`)
+      for (const field of vessel.asks) {
+        const seen = vessel.after[field]
+        if (seen === undefined) errors.push(`${where}: nothing is stored for "${field}", which is asked`)
+        if (!vessel.looks.some((look) => look.at === FIELD_AT[field])) errors.push(`${where}: no look opens "${field}"`)
+      }
+      for (const [field, seen] of Object.entries(vessel.after)) {
+        if (seen !== undefined && !data.choices[field as keyof ReactionsData['choices']].includes(seen.value)) errors.push(`${where}: "${seen.value}" is no choice of "${field}"`)
+      }
+    }
+  }
+  return errors
+}
+
+/**
+ * Checks the types of reactions lab's record against the sources it cites: the schema; that its ids hold
+ * together; that every cited source exists; and that no prose holds institution text.
+ */
+export function validateReactions(input: unknown, sources: readonly Source[], options: ValidateOptions = {}): string[] {
+  const parsed = reactionsSchema.safeParse(input)
+  if (!parsed.success) return schemaErrors(parsed.error.issues)
+  const names = options?.institutionNames
+  return [
+    ...checkReactions(parsed.data),
+    ...checkSourceIds(parsed.data, 'reactions', Array.isArray(sources) ? sources : []),
+    ...checkPublished(parsed.data, 'reactions'),
+    ...checkProse(parsed.data, 'reactions', Array.isArray(names) ? names : []),
   ]
 }

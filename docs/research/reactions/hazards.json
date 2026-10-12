@@ -1,0 +1,116 @@
+{
+  "zinc-pieces": {
+    "classifiedAs": "Hazards of zinc metal, as shot, sheet, foil or granules, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "None",
+      "statements": [],
+      "note": {
+        "value": "On this bench a piece of zinc goes into copper(II) sulfate solution and another into dilute hydrochloric acid: pieces, not dust. The supplier's sheet for zinc as shot, sheet, foil and granules prints no signal word and no hazard statement, and puts the fire hazards with the dust. It keeps the metal from strong acids. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: a second supplier's sheet for zinc shot says that zinc gives hydrogen with acids, as it does here on purpose: no flame is brought near that tube. It names dermatitis, and for the eyes asks 15 minutes or more of flushing with water and a doctor at once. A third's calls zinc very toxic to water life: it is kept out of drains and waterways.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-859",
+        "alsoSourceId": "wards-sds-zz0022",
+        "moreSourceIds": [
+          "fisher-sds-zinc-granular-mossy"
+        ]
+      },
+      "sourceId": "flinn-sds-859"
+    }
+  },
+  "cuso4-1m": {
+    "classifiedAs": "Hazards of solid copper(II) sulfate pentahydrate, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H301: Toxic if swallowed",
+        "H315+H319: Causes skin and serious eye irritation"
+      ],
+      "note": {
+        "value": "The solution on this bench is 1 mol/L copper(II) sulfate; the statements above are those of the solid it is made from. The same supplier's sheet for solutions of 0.5 M to 1.5 M gives Warning, with H302, harmful if swallowed, and H315 with H320, irritation of skin and eyes. It calls for eye protection, gloves and protective clothing, and for no eating or drinking near the solution.\n\nStricter, and what this lab goes by: NOAA's record of the solid has the eyes flushed with water for 20 to 30 minutes while a hospital or a poison centre is called, and the skin flooded with water, then washed with soap. If any is swallowed, the solid's sheet has a poison centre or doctor called at once. It keeps the salt from magnesium and from finely powdered metals.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-286",
+        "alsoSourceId": "flinn-sds-285",
+        "moreSourceIds": [
+          "noaa-cameo-20049"
+        ]
+      },
+      "sourceId": "flinn-sds-285"
+    }
+  },
+  "magnesium-ribbon": {
+    "classifiedAs": "Hazards of magnesium metal, as turnings or ribbon, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H228: Flammable solid"
+      ],
+      "note": {
+        "value": "On this bench a short strip of magnesium ribbon is burned in a flame, and another goes into dilute hydrochloric acid. The supplier's sheet for the metal as turnings or ribbon keeps it from heat, sparks and flames, and from acids and water: here it meets a flame and an acid on purpose, as the experiments. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: by NOAA's record the metal burns with an intense white flame, very bright, and a dense white smoke. A magnesium fire is never put out with water, which the sheet says reacts violently with it, nor, by NOAA's record, with foam or carbon dioxide: dry sand or a class D extinguisher is used. With dilute acids it gives off hydrogen, a gas that burns.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-468",
+        "alsoSourceId": "noaa-cameo-6949"
+      },
+      "sourceId": "flinn-sds-468"
+    }
+  },
+  "copper-pieces": {
+    "classifiedAs": "Hazards of copper metal, the solid and not its powder or dust, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "None",
+      "statements": [],
+      "note": {
+        "value": "On this bench a piece of copper goes into dilute hydrochloric acid, where nothing is seen to happen: a solid piece, not a powder. The supplier's sheet for copper prints no signal word and no hazard statement. It says that the metal in bulk does not burn, though its dust may, and keeps it from strong acids, nitric acid above all. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: NOAA's record of copper, from a federal guide to its dusts and mists, has skin that it touches washed promptly with soap and water, and the eyes washed at once with plenty of water, with medical attention immediately. It names sore eyes and nose and dermatitis as what the dust does: the dust is another matter.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-265",
+        "alsoSourceId": "noaa-cameo-16146"
+      },
+      "sourceId": "flinn-sds-265"
+    }
+  },
+  "cacl2-1m": {
+    "classifiedAs": "Hazards of solid calcium chloride (anhydrous), the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Warning",
+      "statements": [
+        "H302: Harmful if swallowed",
+        "H319: Causes serious eye irritation"
+      ],
+      "note": {
+        "value": "The solution on this bench is 1 mol/L calcium chloride; the statements above are those of the solid it is made from. The same supplier's sheet for the solution, whose table of composition stops short of 15% of the hydrated salt (this strength is under that: 147 g in a litre, by this project's working), prints no signal word and no hazard statement. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: a second supplier's sheet for a solution ten times weaker gives Warning and H320: it irritates the eyes. This solution is taken to do so at least as much. For the eyes that sheet asks rinsing with water for 15 minutes; NOAA's record of the solid asks 15 minutes or more, and an eye doctor.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-197",
+        "alsoSourceId": "wards-sds-cc0070",
+        "moreSourceIds": [
+          "noaa-cameo-8382"
+        ]
+      },
+      "sourceId": "flinn-sds-196"
+    }
+  },
+  "na2co3-1m": {
+    "classifiedAs": "Hazards of solid sodium carbonate (anhydrous), the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Warning",
+      "statements": [
+        "H303: May be harmful if swallowed",
+        "H316: Causes mild skin irritation",
+        "H319: Causes serious eye irritation"
+      ],
+      "note": {
+        "value": "The solution on this bench is 1 mol/L sodium carbonate; the statements above are those of the solid it is made from. The same supplier's sheet for the solution, whose table of composition runs from 1% to 20% (this strength is 106 g in a litre, by this project's working), gives Warning and one statement, H316: mild irritation of the skin. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: the solution's sheet has no statement for the eyes, and the solid's has one, H319. The solution is handled as the solid: eyes are rinsed with water for several minutes and a doctor is seen if they stay sore; skin is washed with plenty of water. The solid is kept from acids: this bench's acid and this solution are not mixed.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-719",
+        "alsoSourceId": "flinn-sds-716"
+      },
+      "sourceId": "flinn-sds-716"
+    }
+  },
+  "h2o2-3": {
+    "classifiedAs": "Hazards of hydrogen peroxide solution, 2% to 6%, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H315: Causes skin irritation",
+        "H318: Causes serious eye damage"
+      ],
+      "note": {
+        "value": "The liquid on this bench is 3% hydrogen peroxide in water, inside the 2% to 6% that the sheet above is for, so its statements apply as they stand: it irritates the skin and can do serious damage to the eyes. The sheet calls for eye protection, gloves and protective clothing. Eyes are rinsed with water for several minutes, and a doctor is seen if they stay sore; skin is washed with plenty of water.\n\nThe sheet keeps the solution from heat, strong bases, reducing agents and anything that burns or is easily oxidised, and has it stored in the dark in a vented container, since it slowly decomposes. Here a few drops of iron(III) chloride make it do so fast, on purpose: the tube is left open. No second document was read for this strength.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-398.5"
+      },
+      "sourceId": "flinn-sds-398.5"
+    }
+  }
+}

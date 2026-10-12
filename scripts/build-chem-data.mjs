@@ -40,6 +40,9 @@
 // of the handbooks' densities kept for the periodic table, and writes:
 //   density/density.json, and into sources.json the measurement and density lab's sources
 //
+// Reads docs/research/reactions/ (reactions.json, hazards.json and the two manifests under sources/), with the
+//   aqueous reactions lab's hazards for the two bottles shared with it. Writes src/chem-data/reactions/reactions.json,
+//   and into sources.json the types of reactions lab's sources
 // Reads docs/research/freezing/ (freezing.json, hazards.json and the two manifests under sources/), with the
 // periodic table's record for the atomic weights, and writes:
 //   freezing/freezing.json, and into sources.json the freezing point depression lab's sources
@@ -69,6 +72,7 @@ import { checkMixtures, checkRateRecord, checkReactions, checkUsedUp } from './c
 import { checkEstimates, checkScale, checkWorkedOut as checkCabbageWorkedOut } from './cabbage-lib.mjs'
 import { checkMetalDensities, checkTellApart, checkWorkedOut as checkDensityWorkedOut } from './density-lib.mjs'
 import { checkMeasured, checkMolarMasses as checkFreezingMolarMasses, checkNumbers } from './freezing-lib.mjs'
+import { checkBench as checkReactionsBench, checkEquations, checkOrder, checkSeen, checkTiles } from './reactions-lib.mjs'
 import { checkExcess, checkMixtures as checkAcetoneMixtures, checkRateRecord as checkAcetoneRateRecord, checkReaction as checkAcetoneReaction } from './acetone-lib.mjs'
 import { checkAnnualMean, checkMolecularWeight, checkPublished, checkSha256, checkSheetHazards, checkWikipediaCopy } from './titration-lib.mjs'
 
@@ -87,6 +91,7 @@ const clockResearch = join(root, 'docs/research/clock')
 const cabbageResearch = join(root, 'docs/research/cabbage')
 const densityResearch = join(root, 'docs/research/density')
 const freezingResearch = join(root, 'docs/research/freezing')
+const reactionsResearch = join(root, 'docs/research/reactions')
 const acetoneResearch = join(root, 'docs/research/acetone')
 const out = join(root, 'src/chem-data')
 
@@ -2064,6 +2069,69 @@ function buildFreezing(earlierSources, periodicTable) {
   return { freezing, sources: [...labSources, ...sheetSources.filter((source) => underHazards.has(source.id))] }
 }
 
+// ---------------------------------------------------------------------------
+// Types of reactions lab
+//
+// The record is authored in docs/research/reactions/reactions.json: the nine things on the benches; the species an
+// equation is built from; the four kinds with their patterns in letters; the choices an observation is recorded
+// from; the order of the three metals; the five stations, each with its vessels (what is there before, what is
+// seen after, the words for each look, the kind, the equation and, at one, the catalyst), its tiles and the notes
+// shown when it is done; and the model's parameters. Every source is in sources/MANIFEST.json, each row of which
+// names the stored values it supports, and the build holds the record to those rows as it does the aqueous lab's.
+// No source has a copy in this lab's folder. What the record states of its own chemistry is checked here
+// (scripts/reactions-lib.mjs): every equation balances in atoms and in charge, every tile an equation needs is
+// offered with some that are not needed, what is seen has stored words and stored choices, and the order of the
+// metals is the order their tubes show (spec 24.5). The hazards are authored apart, in hazards.json with
+// sources/hazard-manifest.json, and merged in as the iodination of acetone lab's are: the 1 M hydrochloric acid
+// and the 0.5 M iron(III) chloride carry the aqueous reactions lab's records unchanged, with that lab's documents
+// behind them; the other seven are this lab's own, though fourteen of the documents behind them are ones the
+// aqueous reactions, flame test, calorimetry and density labs list too.
+
+const REACTIONS_KEYS = ['reagents', 'species', 'kinds', 'choices', 'activity', 'stations', 'parameters']
+const REACTIONS_REAGENTS = ['zinc-pieces', 'cuso4-1m', 'magnesium-ribbon', 'hcl-1m', 'copper-pieces', 'cacl2-1m', 'na2co3-1m', 'fecl3-0.5m', 'h2o2-3']
+const REACTIONS_STATIONS = ['zinc-copper-sulfate', 'magnesium-flame', 'metals-in-acid', 'two-solutions', 'peroxide']
+const REACTIONS_KINDS = ['combination', 'decomposition', 'single-replacement', 'double-replacement']
+/** The bottles whose hazards are the aqueous reactions lab's records. */
+const REACTIONS_SHARED = ['hcl-1m', 'fecl3-0.5m']
+/** The field of a hazard manifest's row for a document read for the primer. */
+const REACTIONS_PRIMER_SAFETY = 'primer.safety'
+
+function buildReactions(earlierSources) {
+  const json = (name, folder = reactionsResearch) => JSON.parse(readFileSync(join(folder, name), 'utf8'))
+  const input = json('reactions.json')
+  const manifest = json('sources/MANIFEST.json')
+  const hazardManifest = json('sources/hazard-manifest.json')
+
+  onlyKeys(input, REACTIONS_KEYS, 'reactions.json')
+  if (input.reagents.map((r) => r.id).join() !== REACTIONS_REAGENTS.join()) fail('reactions.json: the reagents are not the nine of spec 24.1, in their order')
+  if (input.stations.map((s) => s.id).join() !== REACTIONS_STATIONS.join()) fail('reactions.json: the stations are not the five of spec 24.1, in their order')
+  if (input.kinds.map((k) => k.id).join() !== REACTIONS_KINDS.join()) fail('reactions.json: the kinds are not the four of spec 24.1, in their order')
+  if ([...manifest.sources, ...hazardManifest.sources].some((source) => source.file !== undefined)) fail('reactions manifests: no source of this lab has a copy in its folder')
+  for (const [key, parameter] of Object.entries(input.parameters)) onlyKeys(parameter, ['value', 'rationale'], `reactions.json: parameters.${key}`)
+
+  // A source another lab lists too (a page on one metal's ions, a sheet) is listed once.
+  const labSources = newSources(manifest.sources, earlierSources, 'reactions MANIFEST.json')
+
+  checkReactionsBench(input)
+  checkEquations(input)
+  checkTiles(input)
+  checkSeen(input)
+  checkOrder(input)
+
+  // The two shared bottles carry the aqueous reactions lab's records unchanged, with that lab's documents behind them.
+  const sheets = withSharedSheets(hazardManifest.sources, json('sources/hazard-manifest.json', aqueousResearch).sources, REACTIONS_SHARED)
+  const sheetSources = newSources(sheets, [...earlierSources, ...labSources], 'reactions hazard-manifest.json')
+  const hazards = withSharedHazards(json('hazards.json'), json('hazards.json', aqueousResearch), REACTIONS_SHARED)
+  const reactions = { ...input, reagents: mergeHazards(input.reagents, hazards, sheets) }
+  checkSupported(reactions, manifest.sources, sheets)
+
+  // As for the clock reaction lab: the app lists the documents a reagent's hazards cite, and with them those the
+  // hazard manifest marks as read for the primer, which no tile need cite.
+  const underHazards = new Set(reactions.reagents.flatMap(({ hazards: { sourceId, note } }) => [sourceId, note.sourceId, ...(note.alsoSourceId === undefined ? [] : [note.alsoSourceId]), ...(note.moreSourceIds ?? [])]))
+  const forPrimer = new Set(hazardManifest.sources.filter((source) => source.supports.some((row) => row.field === REACTIONS_PRIMER_SAFETY)).map((source) => source.id))
+  return { reactions, sources: [...labSources, ...sheetSources.filter((source) => underHazards.has(source.id) || forPrimer.has(source.id))] }
+}
+
 // A static import list keeps the registry free of bundler-only APIs.
 function moleculeIndex(molecules) {
   const name = (id) => id.replace(/-(.)/g, (_, c) => c.toUpperCase())
@@ -2121,7 +2189,9 @@ function main() {
   const { density, sources: densitySources } = buildDensity(beforeDensity)
   const beforeFreezing = [...beforeDensity, ...densitySources]
   const { freezing, sources: freezingSources } = buildFreezing(beforeFreezing, periodicTable)
-  const sources = [...beforeFreezing, ...freezingSources]
+  const beforeReactions = [...beforeFreezing, ...freezingSources]
+  const { reactions, sources: reactionsSources } = buildReactions(beforeReactions)
+  const sources = [...beforeReactions, ...reactionsSources]
   if (new Set(sources.map((s) => s.id)).size !== sources.length) fail('duplicate source ids')
 
   // Everything is built before anything is written.
@@ -2157,11 +2227,13 @@ function main() {
   writeFileSync(join(out, 'density/density.json'), toJson(density))
   mkdirSync(join(out, 'freezing'), { recursive: true })
   writeFileSync(join(out, 'freezing/freezing.json'), toJson(freezing))
+  mkdirSync(join(out, 'reactions'), { recursive: true })
+  writeFileSync(join(out, 'reactions/reactions.json'), toJson(reactions))
   mkdirSync(join(root, 'src/mechanisms'), { recursive: true })
   writeFileSync(join(root, 'src/mechanisms', `${mechanism.id}.json`), toJson(mechanism))
   writeFileSync(join(out, 'sources.json'), toJson(sources))
   process.stdout.write(
-    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the flame test lab's record, the calorimetry lab's record, the Group I cations lab's record, the Le Chatelier's principle lab's record, the clock reaction lab's record, the iodination of acetone lab's record, the red cabbage pH lab's record, the measurement and density lab's record, the freezing point depression lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
+    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the flame test lab's record, the calorimetry lab's record, the Group I cations lab's record, the Le Chatelier's principle lab's record, the clock reaction lab's record, the iodination of acetone lab's record, the red cabbage pH lab's record, the measurement and density lab's record, the freezing point depression lab's record, the types of reactions lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
   )
 }
 
