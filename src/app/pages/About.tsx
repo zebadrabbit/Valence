@@ -196,6 +196,30 @@ export function About() {
             sheet of the product in hand and the laboratory's own rules.
           </p>
           <p className="mb-2">
+            The red cabbage pH lab takes the colours of its indicator from pH 2 to pH 12 from a publication of Flinn
+            Scientific on red cabbage indicator, and those at pH 1 and pH 13 from a LibreTexts page on indicators in
+            foods, whose table is for anthocyanins in general. Where one colour gives way to the next, and what is
+            seen between pH 12 and pH 13, are Valence's own. Each household thing has a range of pH from a document
+            that states one, or one that is worked out and said to be: the foods from the U.S. Food and Drug
+            Administration's table of the approximate pH of foods; the shampoo, the conditioner, the laundry
+            detergent and the mouthwash from makers' safety data sheets; the antacid, the aspirin and the Epsom salt
+            from Fisher Scientific's sheets for calcium carbonate, acetylsalicylic acid and magnesium sulfate
+            heptahydrate; the laboratory detergent from Flinn Scientific's sheet; and the household ammonia, the
+            bleach and the drain cleaner by arithmetic, from a strength and a formula weight that a document gives
+            (the Agency for Toxic Substances and Disease Registry, NIST, a maker's sheet and Flinn Scientific's
+            sheets) and constants from LibreTexts' tables. Valence's model draws one pH inside each range for a lab.
+            What an unrinsed probe reads, what each thing looks like before the indicator goes in, and the values
+            the colours are drawn in are Valence's own. Buffered aspirin, which the bench's directions list, is left
+            off: no document that states its pH could be read. The hazard statements of the seven bottles that are
+            laboratory chemicals are those of Flinn Scientific's safety data sheets, and one note rests also on a
+            record of NOAA's database of chemicals; the foods, the toiletries and the medicines share one note, which
+            is Valence's own. The documents were read on the dates their citations give, and no copy of them is
+            kept. The lab's primer also rests on pages of LibreTexts and of Chemguide; it quotes none of its sources.
+            No colour of this lab was seen on a bench, and no pH was measured. None of these publishers is connected
+            with Valence or has reviewed it. At a real bench, follow the label and the safety data sheet of the
+            product in hand and the laboratory's own rules.
+          </p>
+          <p className="mb-2">
             The mechanism timeline takes its enthalpies and free energies of formation from the NBS tables of chemical
             thermodynamic properties of 1982, as NIST serves them; the acid constant of the carbonic acid molecule,
             how long that molecule lasts and the timescales of its two middle steps from a paper in the Journal of

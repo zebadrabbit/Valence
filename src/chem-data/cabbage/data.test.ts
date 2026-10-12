@@ -126,6 +126,8 @@ describe('the pH of each thing (spec 21.4)', () => {
   it('says of the drain cleaner that it is taken as sodium hydroxide alone, and that a maker’s holds bleach', () => {
     expect(thingOf(cabbageData, 'drain-cleaner').note.value).toMatch(/sodium hydroxide in water alone/)
     expect(thingOf(cabbageData, 'drain-cleaner').note.value).toMatch(/also holds bleach/)
+    // The conditioner's figure and the shampoo's are from two makers' sheets: its note sets it beside no other thing, and so says nothing of a thing not yet measured.
+    expect(thingOf(cabbageData, 'conditioner').note.value).not.toMatch(/shampoo|more acidic|than/i)
   })
 
   it("marks what each thing looks like before the indicator goes in as the lab's own", () => {

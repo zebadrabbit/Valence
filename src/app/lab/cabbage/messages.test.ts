@@ -7,13 +7,16 @@ import {
   benchLines,
   BLOCKED_TEXT,
   bufferLabel,
+  byEyeLine,
   CLASS_LABEL,
   colourLabel,
+  countShort,
   countText,
   estimateLabel,
   GUIDED_TEXT,
   HAZARD_TEXT,
   hazardsText,
+  itemLabel,
   itemName,
   KIND_LABEL,
   LAB_TEXT,
@@ -25,6 +28,7 @@ import {
   ON_BENCH,
   PAGE_TEXT,
   PART_AIM,
+  PART_STATUS,
   partName,
   partNotes,
   partNumber,
@@ -330,6 +334,25 @@ describe('refusals', () => {
   })
 })
 
+describe('the words of the page that are made from what it is handed', () => {
+  it('says how far a part has come, how many count, an estimate as one line, and one of two things as a choice', () => {
+    expect(Object.values(PART_STATUS)).toEqual(['Not open yet', 'Not begun', 'Under way', 'Done'])
+    expect(countShort({ counted: 3, needed: 8 })).toBe('3 of 8 count')
+    expect(byEyeLine(3, 'acid')).toBe('pH 3, acid')
+    expect(byEyeLine(7, 'neutral')).toBe('pH 7, neutral')
+    expect(byEyeLine(CANNOT_SAY, null)).toBe(SAMPLE_TEXT.cannotSay)
+    expect(itemLabel(data, { kind: 'thing', id: 'vinegar', tenths: 29 })).toBe('The vinegar')
+    expect(itemLabel(data, { kind: 'buffer', ph: 4, tenths: 40 })).toBe('The pH 4 buffer')
+    expect([PAGE_TEXT.previous('Vinegar'), PAGE_TEXT.next('Bleach'), PAGE_TEXT.tubePicture('Vinegar')]).toEqual(['Previous: Vinegar', 'Next: Bleach', 'Vinegar: the tube, drawn'])
+  })
+
+  it('says how a picture is looked at and a tube chosen without a word of what is seen, and heads the shared note for what has no tile', () => {
+    for (const text of [RACK_TEXT.explore, SAMPLE_TEXT.explore, SAMPLE_TEXT.pick, HAZARD_TEXT.others]) for (const colour of m.colours) expect(text.toLowerCase(), text).not.toContain(colour)
+    expect(RACK_TEXT.explore).toMatch(/arrow keys/)
+    expect(HAZARD_TEXT.others).toBe('Anything else on this bench')
+  })
+})
+
 describe('the notes and the modes', () => {
   it("hands over a part's notes and a thing's note as the record has them", () => {
     expect(partNotes(data, 'unit')).toEqual(data.parts[2].notes.map((n) => n.value))
@@ -346,7 +369,7 @@ describe('the notes and the modes', () => {
 describe('every sentence of the page', () => {
   /** Every fixed string and every sentence a function gives for the cases above, as one list. */
   function sentences(): string[] {
-    const fixed = [LAB_TEXT, PART_AIM, RACK_TEXT, SCALE_HINT, ON_BENCH, KIND_LABEL, CLASS_LABEL, SAMPLE_TEXT, SAMPLE_HINT, GUIDED_TEXT, REASON_TEXT, UNIT_TEXT, MARK_TEXT, BLOCKED_TEXT, MODE_TEXT, HAZARD_TEXT, NOTES_TEXT, PAGE_TEXT]
+    const fixed = [LAB_TEXT, PART_AIM, PART_STATUS, RACK_TEXT, SCALE_HINT, ON_BENCH, KIND_LABEL, CLASS_LABEL, SAMPLE_TEXT, SAMPLE_HINT, GUIDED_TEXT, REASON_TEXT, UNIT_TEXT, MARK_TEXT, BLOCKED_TEXT, MODE_TEXT, HAZARD_TEXT, NOTES_TEXT, PAGE_TEXT]
     const state = wholeThings(m, wholeScale(m, lab()))
     const made = [
       ...benchLines(data),
@@ -365,8 +388,13 @@ describe('every sentence of the page', () => {
       ...Object.values(RECORD_TEXT).map((v) => (typeof v === 'string' ? v : v(1))),
       sampleOutcomeText({ outcome: { state: 'does-not-count' }, reasons: ['estimate-off', 'class-wrong', 'probe-unrinsed'], indicator: true }),
       SOURCES_TEXT,
+      countShort({ counted: 3, needed: 8 }),
+      byEyeLine(3, 'acid'),
+      byEyeLine(CANNOT_SAY, null),
+      ...unitView(m, state).questions.flatMap((q) => q.items.map((item) => itemLabel(data, item))),
     ]
-    return [...fixed.flatMap((group) => Object.values(group) as string[]), ...made]
+    // A group's entry that is made from a name is given one.
+    return [...fixed.flatMap((group) => Object.values(group).map((value: string | ((name: string) => string)) => (typeof value === 'string' ? value : value('Vinegar')))), ...made]
   }
 
   it('is there: over two hundred of them, none empty', () => {

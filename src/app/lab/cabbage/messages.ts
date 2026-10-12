@@ -30,6 +30,9 @@ export const partNumber = (partId: PartId) => `Part ${PART_IDS.indexOf(partId) +
 /** A part's name, as the record has it: "The scale". */
 export const partName = (data: CabbageData, partId: PartId) => data.parts.find((p) => p.id === partId)!.name
 
+/** How far a part has come, in a word or two, beside its name where the parts are chosen between. */
+export const PART_STATUS = { closed: 'Not open yet', 'not-begun': 'Not begun', 'under-way': 'Under way', done: 'Done' } as const
+
 /** What a part asks for, said before it is begun, without a word of what will be seen. */
 export const PART_AIM: Record<PartId, string> = {
   scale: 'Put the indicator into the thirteen buffers, look along the rack, and answer three questions that the rack answers.',
@@ -89,6 +92,9 @@ export const RACK_TEXT = {
   before: 'Thirteen buffers stand in the rack in order, from pH 1 on the left to pH 13 on the right.',
   filled: 'The indicator is in. Look along the rack.',
   questions: 'Three questions',
+  record: 'Record the answer',
+  /** Beside the rack, on how to look at it. */
+  explore: 'Hover over a tube or tap it, and its colour is said in words. The arrow keys move along the rack.',
   check: 'Check the three answers',
   again: 'Answer the three again',
   hint: 'Hint',
@@ -135,6 +141,9 @@ export const CLASS_LABEL: Record<Class, string> = { acid: 'Acid', neutral: 'Neut
 /** An estimate by eye, as it was given: "pH 3", or that the indicator cannot say. */
 export const estimateLabel = (estimate: Estimate) => (estimate === CANNOT_SAY ? SAMPLE_TEXT.cannotSay : bufferLabel(estimate))
 
+/** An estimate by eye that is recorded, as one line: "pH 3, acid", or that the indicator cannot say. */
+export const byEyeLine = (estimate: Estimate, is: Class | null) => (estimate === CANNOT_SAY || is === null ? estimateLabel(estimate) : `${estimateLabel(estimate)}, ${lower(CLASS_LABEL[is])}`)
+
 /** A reading of the meter: "pH 3.0". */
 export const phText = (tenths: number) => `pH ${(tenths / 10).toFixed(1)}`
 
@@ -143,6 +152,11 @@ export const SAMPLE_TEXT = {
   addIndicator: 'Add the indicator',
   look: 'Look at the liquid',
   byEye: 'By eye',
+  /** Beside the tube's picture, on how to look at it. */
+  explore: 'Hover over or tap the liquid to look at it.',
+  /** Beside the small scale, on how to choose a tube of it. */
+  pick: 'Press a tube of the scale to choose it.',
+  record: 'Record the estimate',
   nearest: 'Which tube of the scale is it nearest?',
   cannotSay: 'The indicator cannot say',
   which: 'Is it acid, neutral or basic?',
@@ -208,6 +222,9 @@ export function sampleOutcomeText(view: Pick<SampleView, 'outcome' | 'reasons' |
   }
 }
 
+/** How far the second part has come, in a few words: "3 of 8 count". */
+export const countShort = (bench: Pick<BenchView, 'counted' | 'needed'>) => `${bench.counted} of ${bench.needed} count`
+
 /** How far the second part has come: "3 of 8 count." */
 export function countText(bench: Pick<BenchView, 'counted' | 'needed' | 'things'>): string {
   const left = bench.things - bench.counted
@@ -222,6 +239,9 @@ export function countText(bench: Pick<BenchView, 'counted' | 'needed' | 'things'
 /** One of the two things a closing question sets side by side, inside a sentence: "the vinegar", "the pH 4 buffer". */
 export const itemName = (data: CabbageData, item: UnitItem) => (item.kind === 'thing' ? theThing(data, item.id) : `the pH ${item.ph} buffer`)
 
+/** One of the two as a choice: "The vinegar". */
+export const itemLabel = (data: CabbageData, item: UnitItem) => upper(itemName(data, item))
+
 /** A power of ten in words: "10 times", "1,000 times". */
 export const powerLabel = (power: number) => `${(10 ** power).toLocaleString('en-US')} times`
 
@@ -230,6 +250,7 @@ export const UNIT_TEXT = {
   closed: 'These two questions open once eight things count: they are drawn from your own readings.',
   more: 'Which holds more hydrogen ion?',
   times: 'How many times more?',
+  record: 'Record the answer',
   check: 'Check the two answers',
   again: 'Answer the two again',
   hint: 'Hint',
@@ -317,6 +338,8 @@ export const HAZARD_TEXT = {
   /** Where a sheet lists no hazard statement. */
   none: 'The safety data sheet lists no hazard statement for this.',
   atThisStrength: 'On this bench',
+  /** Over the shared note, where it stands for every thing that has no bottle with a tile of its own. */
+  others: 'Anything else on this bench',
 } as const
 
 export const NOTES_TEXT = { thing: 'About this thing', part: 'About this part' } as const
@@ -349,6 +372,15 @@ export const PAGE_TEXT = {
   looked: 'looked at',
   seen: 'What you see',
   rackInWords: 'The rack in words',
+  parts: 'Parts',
+  previous: (name: string) => `Previous: ${name}`,
+  next: (name: string) => `Next: ${name}`,
+  change: 'Change',
+  cancel: 'Cancel',
+  /** The name of a tube's picture: "Vinegar: the tube, drawn". */
+  tubePicture: (name: string) => `${name}: the tube, drawn`,
+  liquidLayer: 'liquid',
+  solidLayer: 'solid',
   startOver: 'Start the lab again',
   startOverWarning: 'This clears everything recorded in this lab and starts a new bench, with new readings.',
 } as const

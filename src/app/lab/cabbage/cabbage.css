@@ -1,0 +1,99 @@
+/*
+ * Where the pieces of the red cabbage pH lab sit. Loaded with the lab page, so none of it is in the app shell's
+ * stylesheet. Nothing here animates, and nothing on this lab's page moves.
+ *
+ * The rack of the scale is thirteen tubes, each a button a finger wide. Where the rack has the width for thirteen
+ * such buttons in a row, 576 px, it is one row. Where it has not, as on an upright tablet with the menu open, it is
+ * two shelves of seven, in order, read as a line of words is: thirteen in one row would be 36 px each there. The
+ * choice that the indicator cannot say, where the rack is chosen from, is the fourteenth place of the two shelves,
+ * and stands under the one row. The rule follows the width the rack itself has, never the window's.
+ */
+.cabbage-rack {
+  container: cabbage-rack / inline-size;
+}
+.cabbage-rack-grid {
+  display: grid;
+  row-gap: 0.25rem;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+.cabbage-rack-tube {
+  width: 2.25rem;
+}
+.cabbage-rack-small .cabbage-rack-tube {
+  width: 1.5rem;
+}
+@container cabbage-rack (min-width: 36rem) {
+  .cabbage-rack-grid {
+    grid-template-columns: repeat(13, minmax(0, 1fr));
+  }
+  .cabbage-rack-rest {
+    grid-column: 1 / -1;
+    justify-self: start;
+    padding-inline: 0.75rem;
+  }
+}
+
+/*
+ * A sample is its tube, the scale it is judged against, the meter, and how it came out, in the order it is worked.
+ * Where the sample has the width for two columns, the tube stands on the left for the whole height and the others
+ * are on the right, one over the other. Where it has not, they are one column, the scale straight under the tube.
+ */
+.cabbage-work {
+  container: cabbage-work / inline-size;
+}
+.cabbage-grid {
+  display: grid;
+  gap: 0.5rem;
+  align-items: start;
+  grid-template-columns: minmax(0, 1fr);
+}
+@container cabbage-work (min-width: 44rem) {
+  .cabbage-grid {
+    grid-template-columns: 21.625rem minmax(0, 1fr);
+    /* The last row takes what the tube's card is taller by. */
+    grid-template-rows: auto auto 1fr;
+  }
+  .cabbage-tube {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+  }
+  .cabbage-eye,
+  .cabbage-meter,
+  .cabbage-outcome {
+    grid-column: 2;
+  }
+}
+
+/* The tube's card: in one with the room, the heading and what goes with the picture are beside it, and the picture is 240 px wide of its 320; in the narrow card of the left column the heading is over the picture and the rest under it. */
+.cabbage-tube {
+  container: cabbage-tube / inline-size;
+}
+.cabbage-tube-grid {
+  display: grid;
+  gap: 0.5rem 0.75rem;
+  align-items: start;
+  grid-template-columns: minmax(0, 20rem);
+}
+@container cabbage-tube (min-width: 26rem) {
+  .cabbage-tube-grid {
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+  }
+  .cabbage-tube-grid > :not(.cabbage-tube-head, .cabbage-tube-beside) {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+  .cabbage-tube-head,
+  .cabbage-tube-beside {
+    grid-column: 2;
+  }
+}
+
+/* A choice of this lab's forms has a little less room either side of its words than the shell gives one, so that twelve colours stand in three rows on an upright tablet. It is as tall as before. */
+.cabbage-part form label {
+  padding-inline: 0.5rem;
+}
+/* A form's message line, while it has nothing to say, takes no room, the gap over it neither. It stays in the page, so that a screen reader says what comes to stand in it. */
+.cabbage-part form.grid > p:empty {
+  margin-top: -0.75rem;
+}

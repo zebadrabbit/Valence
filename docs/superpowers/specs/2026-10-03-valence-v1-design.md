@@ -1131,21 +1131,21 @@ The fifth of the labs taken from the owner's department's lab directions (sectio
 
 The juice of red cabbage holds a dye that is a different colour at different acidities: an indicator, and one with many colours where most have two. With it a learner can tell roughly how acid or how basic a thing is by eye, and then check with a meter.
 
-On the bench: thirteen buffer solutions, of pH 1 to pH 13; red cabbage indicator solution; a pH meter with its probe, and a wash bottle of distilled water; and fifteen household things, each as it is used or as a dilute solution in water, named for what they are and never by a brand: vinegar, lemon juice, apple juice, household ammonia, shampoo, hair conditioner, laundry detergent, laboratory detergent, mouthwash, an antacid tablet, aspirin, buffered aspirin, bleach, drain cleaner and Epsom salt.
+On the bench: thirteen buffer solutions, of pH 1 to pH 13; red cabbage indicator solution; a pH meter with its probe, and a wash bottle of distilled water; and fourteen household things, each as it is used or as a dilute solution in water, named for what they are and never by a brand: vinegar, lemon juice, apple juice, household ammonia, shampoo, hair conditioner, laundry detergent, laboratory detergent, mouthwash, an antacid tablet, aspirin, bleach, drain cleaner and Epsom salt. The directions list a fifteenth, buffered aspirin; it is left off the bench, since no document that states its pH in water could be read.
 
 Three parts:
 
-1. **The scale.** The indicator goes into the thirteen buffers, which stand in a rack in order. The learner looks along the rack and answers three questions that the rack answers.
-2. **The household things.** For each one tried: the indicator goes in; the learner looks, says which tube of the scale it is nearest, and whether the thing is acid, neutral or basic; then measures it with the meter. The part is done when eight of the fifteen count; the rest are there to try.
-3. **What a unit means.** Two questions from the learner's own readings: how many times more hydrogen ion one thing has than another, a whole number of units apart.
+1. **The scale.** The indicator goes into the thirteen buffers, which stand in a rack in order. The learner looks along the rack and answers three questions that the rack answers: the colour at pH 1, the colour at pH 7, and which two neighbouring tubes show the same colour (pH 11 and pH 12, as the supplier's figure has them).
+2. **The household things.** For each one tried: the indicator goes in; the learner looks, says which tube of the scale it is nearest, and whether the thing is acid, neutral or basic; then measures it with the meter. The part is done when eight of the fourteen count; the rest are there to try.
+3. **What a unit means.** Two questions from the learner's own readings: how many times more hydrogen ion one thing has than another, a whole number of units apart. Where the first eight things to count hold too few such pairs, a pair of buffers of the scale stands in.
 
 ### 21.2 A sample
 
 A sample is a short column of cards, with the rack of the scale kept in view beside or above it:
 
 1. **The tube**, drawn and explored as in sections 8 and 17, with the one action, adding the indicator. What is seen is said in words when the liquid is looked at.
-2. **By eye**: which tube of the scale is it nearest, a whole number from 1 to 13, or that the indicator cannot say; and acid, neutral or basic.
-3. **The meter**: the probe is rinsed, put in, and read. The reading is to a tenth of a unit.
+2. **By eye**: which tube of the scale is it nearest, a whole number from 1 to 13, or that the indicator cannot say; and acid, neutral or basic, which is not asked where the indicator cannot say. Neutral means the colour of the pH 7 tube, a reading from 6.6 to 7.5; acid is below that and basic above. The estimate can be changed until the meter is read.
+3. **The meter**: the probe is rinsed, put in, and read. The reading is to a tenth of a unit. The meter can be read again: after an unrinsed reading the probe is rinsed and the sample read again, and the last reading stands.
 
 An estimate by eye counts when it is within one unit of the meter's reading. Bleach is the exception that the lab keeps on purpose: it destroys the dye, the colour goes, and the right answer by eye is that the indicator cannot say.
 

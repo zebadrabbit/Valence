@@ -21,6 +21,8 @@ export const ACTIVITIES = [
   { entry: ENTRY.clock, version: 1, kind: 'Lab', title: 'Clock reaction', to: '/lab/clock-reaction' },
   // src/acetone-version.test.ts pins what a stored run of this lab is judged against to this entry and this version.
   { entry: ENTRY.acetone, version: 1, kind: 'Lab', title: 'Iodination of acetone', to: '/lab/iodination-of-acetone' },
+  // src/cabbage-version.test.ts pins what a stored lab is judged against to this entry and this version.
+  { entry: ENTRY.cabbage, version: 1, kind: 'Lab', title: 'Red cabbage pH', to: '/lab/red-cabbage-ph' },
   { entry: ENTRY.mechanism, version: 1, kind: 'Mechanism', title: 'HCl + NaHCO₃, step by step', to: '/learn/hcl-nahco3' },
 ] as const
 
@@ -30,12 +32,8 @@ export const CLOCK_PROGRESS = { entry: ACTIVITIES[6].entry, version: ACTIVITIES[
 /** The iodination of acetone lab's stored entry and its version: what its page loads and saves with (src/acetone-version.test.ts pins what a stored run is judged against to it). */
 export const ACETONE_PROGRESS = { entry: ACTIVITIES[7].entry, version: ACTIVITIES[7].version } as const
 
-/**
- * The red cabbage pH lab's stored entry and its version: what its page will load and save with
- * (src/cabbage-version.test.ts pins what a stored lab is judged against to it). The lab has no page yet, so it is
- * not in ACTIVITIES: Home and the command palette do not list it.
- */
-export const CABBAGE_PROGRESS = { entry: ENTRY.cabbage, version: 1 } as const
+/** The red cabbage pH lab's stored entry and its version: what its page loads and saves with (src/cabbage-version.test.ts pins what a stored lab is judged against to it). */
+export const CABBAGE_PROGRESS = { entry: ACTIVITIES[8].entry, version: ACTIVITIES[8].version } as const
 
 export type Activity = (typeof ACTIVITIES)[number]
 

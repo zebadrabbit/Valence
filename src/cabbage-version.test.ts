@@ -67,7 +67,9 @@ describe('the red cabbage pH lab', () => {
     expect({ ...wholeLab(PINNED_MODEL, createLab('guided', 1)), mode: 'challenge' }).toEqual(careful)
   })
 
-  it('is not yet among the activities Home lists: it has no page', () => {
-    expect(ACTIVITIES.map((activity): string => activity.entry)).not.toContain(CABBAGE_PROGRESS.entry)
+  it('is among the activities Home lists, at the entry and the version its page loads and saves with', () => {
+    const listed = ACTIVITIES.find((activity) => activity.to === '/lab/red-cabbage-ph')!
+    expect({ entry: listed.entry, version: listed.version }).toEqual(CABBAGE_PROGRESS)
+    expect(listed.title).toBe('Red cabbage pH')
   })
 })
