@@ -184,13 +184,15 @@ export function can(m: FreezingModel, state: FreezingState, action: Action): Blo
  * blocked anyway, and in Challenge. In Guided the page asks first, and the same action sent again is the way on.
  * Starting the logger or adding the solute with the lid off or the stirrer still; adding the solute, straining,
  * or in part 1 entering the reading, before the temperature has levelled off or with no ice left; running on with
- * little ice left; weighing without straining.
+ * little ice left, the first time in a run that it is; weighing without straining.
  */
 export function warnings(m: FreezingModel, state: FreezingState, action: Action): Warning[] {
   if (state.mode !== 'guided' || action.type === 'setMode' || can(m, state, action) !== null) return []
   const { part } = action
   const run = currentRun(state, part)
-  const cup = statesOf(m, state.seed, part, run)[run.steps]
+  const cups = statesOf(m, state.seed, part, run)
+  const cup = cups[run.steps]
+  const little = (one: (typeof cups)[number] | undefined) => one !== undefined && one.iceMg > 0 && one.iceMg <= m.iceLowCg * 10
   const lid = run.lidFrom === null ? (['lid-off'] as const) : []
   const stirrer = run.stirFrom === null ? (['not-stirring'] as const) : []
   const reading = cup === undefined ? [] : cup.iceMg === 0 ? (['no-ice'] as const) : cup.level ? [] : (['not-level'] as const)
@@ -204,7 +206,8 @@ export function warnings(m: FreezingModel, state: FreezingState, action: Action)
     case 'weigh':
       return run.strainedAt === null ? ['not-strained'] : []
     case 'runOn':
-      return cup !== undefined && cup.iceMg > 0 && cup.iceMg <= m.iceLowCg * 10 ? ['little-ice'] : []
+      // Once in a run: at the first press made with little ice left. At the press before this one there was more, and after it the learner has been told.
+      return little(cup) && !little(cups[run.steps - m.runOnSteps]) ? ['little-ice'] : []
     case 'enter':
       return part === 'water' && action.field === 'water' ? [...reading] : []
     default:

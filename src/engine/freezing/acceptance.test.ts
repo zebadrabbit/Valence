@@ -238,11 +238,37 @@ describe('each error of technique alone (spec 23.6, second item)', () => {
         asked.push(...warnings(m, cup, { type: 'runOn', part: 'unknown' }))
         cup = run(m, cup, [{ type: 'runOn', part: 'unknown' }])
       }
-      expect(asked, `${seed}`).toContain('little-ice')
+      expect(asked, `${seed}`).toEqual(['little-ice'])
       expect(warnings(m, cup, { type: 'strain', part: 'unknown' }), `${seed}`).toEqual(['no-ice'])
       expect(warnings(m, cup, { type: 'runOn', part: 'unknown' }), `${seed}`).toEqual([])
     }
   }, 120_000)
+
+  it('warns that little ice is left once in a run: at the first press of Run on made with little left, again if that press is not made, and at no press after it while a little is left', () => {
+    let told = 0
+    for (const seed of SEEDS) {
+      // The lid left off until the ice is little, then put on: the ice then goes slowly, and a little is left for many presses.
+      let cup = run(m, createLab(seed, 'guided'), [{ type: 'fill', part: 'water' }, { type: 'stir', part: 'water' }, { type: 'startLogger', part: 'water' }])
+      while (partView(m, cup, 'water').cup.ice === 'plenty') {
+        expect(warnings(m, cup, { type: 'runOn', part: 'water' }), `${seed}`).toEqual([])
+        cup = run(m, cup, [{ type: 'runOn', part: 'water' }])
+      }
+      expect(partView(m, cup, 'water').cup.ice, `${seed}`).toBe('little')
+      expect(warnings(m, cup, { type: 'runOn', part: 'water' }), `${seed}`).toEqual(['little-ice'])
+      // Nothing is stored of a warning: until the press is made it is asked about again, whatever else is done.
+      cup = run(m, cup, [{ type: 'putLidOn', part: 'water' }])
+      expect(warnings(m, cup, { type: 'runOn', part: 'water' }), `${seed}`).toEqual(['little-ice'])
+      for (let press = 0; press < 5; press++) {
+        cup = run(m, cup, [{ type: 'runOn', part: 'water' }])
+        expect(partView(m, cup, 'water').cup.ice, `${seed}`).toBe('little')
+        expect(warnings(m, cup, { type: 'runOn', part: 'water' }), `${seed} press ${press}`).toEqual([])
+        told++
+      }
+      // Challenge is not told at all.
+      expect(warnings(m, { ...cup, mode: 'challenge' }, { type: 'runOn', part: 'water' })).toEqual([])
+    }
+    expect(told).toBe(SEEDS.length * 5)
+  })
 
   it('with the lid off the solution never levels, so a run strained while ice is left is named for that: the lid is how both errors come about', () => {
     for (const seed of SEEDS) {
