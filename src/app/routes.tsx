@@ -42,6 +42,7 @@ export const routes: RouteObject[] = [
       { path: 'lab/freezing-point-depression', lazy: async () => ({ Component: (await import('@/app/lab/freezing/FreezingPage')).FreezingPage }) },
       { path: 'lab/types-of-reactions', lazy: async () => ({ Component: (await import('@/app/lab/reactions/ReactionsPage')).ReactionsPage }) },
       { path: 'lab/polarity-and-mixing', lazy: async () => ({ Component: (await import('@/app/lab/mixing/MixingPage')).MixingPage }) },
+      { path: 'lab/endothermic-and-exothermic', lazy: async () => ({ Component: (await import('@/app/lab/hotcold/HotcoldPage')).HotcoldPage }) },
       { path: 'learn', element: <Learn /> },
       { path: 'learn/hcl-nahco3', lazy: async () => ({ Component: (await import('@/app/learn/MechanismPage')).MechanismPage }) },
       { path: 'settings', element: <Settings /> },

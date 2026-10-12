@@ -23,6 +23,7 @@ export const ENTRY = {
   freezing: 'lab:freezing-point-depression',
   reactions: 'lab:types-of-reactions',
   mixing: 'lab:polarity-and-mixing',
+  hotcold: 'lab:endothermic-and-exothermic',
   mechanism: 'mechanism:hcl-nahco3',
 } as const
 

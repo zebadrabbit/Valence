@@ -6,6 +6,7 @@ import { CalorimetryPage } from '@/app/lab/calorimetry/CalorimetryPage'
 import { FreezingPage } from '@/app/lab/freezing/FreezingPage'
 import { ReactionsPage } from '@/app/lab/reactions/ReactionsPage'
 import { MixingPage } from '@/app/lab/mixing/MixingPage'
+import { HotcoldPage } from '@/app/lab/hotcold/HotcoldPage'
 import { CationsPage } from '@/app/lab/cations/CationsPage'
 import { AcetonePage } from '@/app/lab/acetone/AcetonePage'
 import { ClockPage } from '@/app/lab/clock/ClockPage'
@@ -126,6 +127,16 @@ describe('the routes', () => {
     const loaded = await (route.lazy as () => Promise<{ Component: unknown }>)()
     expect(loaded.Component).toBe(MixingPage)
     expect(page('/lab/polarity-and-mixing/2')).toMatchObject({ path: '*' })
+  })
+
+  it('load the endothermic and exothermic lab at #/lab/endothermic-and-exothermic, lazily', async () => {
+    const { path, route } = page('/lab/endothermic-and-exothermic')
+    expect(path).toBe('lab/endothermic-and-exothermic')
+    expect(typeof route.lazy).toBe('function')
+    expect(route.element).toBeUndefined()
+    const loaded = await (route.lazy as () => Promise<{ Component: unknown }>)()
+    expect(loaded.Component).toBe(HotcoldPage)
+    expect(page('/lab/endothermic-and-exothermic/2')).toMatchObject({ path: '*' })
   })
 
   it('load the Group I cations lab at #/lab/cations, lazily', async () => {
