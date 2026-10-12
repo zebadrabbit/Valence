@@ -55,6 +55,7 @@ export function Notebook({ data, part, mode, entries, full, enter, checkBlocked,
         return refused === null ? null : blockedText(data, part, refused, field)
       }}
       checkHeld={checkBlocked === null ? null : blockedText(data, part, checkBlocked)}
+      hintRoom
       onCheck={onCheck}
       text={{ hint: BENCH_TEXT.hint, check: BENCH_TEXT.check, enter: PAGE_TEXT.enter, change: PAGE_TEXT.change, cancel: PAGE_TEXT.cancel, changeNote: PAGE_TEXT.changeNote, ...VERDICT_TEXT }}
     />

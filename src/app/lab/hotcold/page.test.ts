@@ -53,8 +53,8 @@ const entered = (part: SaltId, made: number, mode?: Mode) => {
 const both = (mode?: Mode) => SALT_IDS.reduce((state, salt) => wholeRun(m, state, salt), fresh(mode))
 
 /** The Lab tab's bench on a state, opened at a part, and that part's own markup: the one that is not hidden. */
-function bench(state: HotcoldState, at: PartId = E) {
-  const html = draw(createElement(HotcoldBench, { data, m, sources, state, reducedMotion: false, can: (action: Action) => can(m, state, action), warn: (action: Action) => warnings(m, state, action), act: (action: Action) => void reduce(m, state, action), opensAt: PART_IDS.indexOf(at) }))
+function bench(state: HotcoldState, at: PartId = E, reducedMotion = false) {
+  const html = draw(createElement(HotcoldBench, { data, m, sources, state, reducedMotion, can: (action: Action) => can(m, state, action), warn: (action: Action) => warnings(m, state, action), act: (action: Action) => void reduce(m, state, action), opensAt: PART_IDS.indexOf(at) }))
   const shown = html
     .split(/(?=<div(?: hidden="")?><section aria-labelledby=)/)
     .slice(1)
@@ -126,6 +126,18 @@ describe('a run, card by card', () => {
     expect(card(started, BENCH_TEXT.graph)).toContain(escaped(BENCH_TEXT.runOnHelp(m)))
   })
 
+  it('draws the cup on the shared foam cup, the same for either salt, with nothing in it that says what the temperature does; the stirrer bobs only where motion is allowed', () => {
+    const stirring = (salt: SaltId, reducedMotion: boolean) => /<svg viewBox="0 0 280 196" aria-hidden="true".*?<\/svg>/s.exec(bench(run(m, fresh(), [{ type: 'stir', part: salt }]), salt, reducedMotion).part)![0]
+    expect(stirring(E, false)).toContain('class="cal-stir"')
+    expect(stirring(E, true)).not.toContain('cal-stir')
+    expect(stirring(E, true)).toContain('data-stirring')
+    expect(stirring(E, false)).toBe(stirring(C, false))
+    expect(stirring(E, false)).toContain('data-waiting')
+    const added = /<svg viewBox="0 0 280 196" aria-hidden="true".*?<\/svg>/s.exec(bench(worked(E), E).part)![0]
+    expect(added).not.toContain('data-waiting')
+    expect(added).toBe(/<svg viewBox="0 0 280 196" aria-hidden="true".*?<\/svg>/s.exec(bench(worked(C), C).part)![0])
+  })
+
   it('folds the bench and the cup, each under one line, once the salt is in: the notebook and how the run stands come under the graph', () => {
     const state = run(m, fresh(), [{ type: 'putLidOn', part: E }, { type: 'stir', part: E }, { type: 'startLogger', part: E }, { type: 'addSalt', part: E }])
     const part = bench(state).part
@@ -151,6 +163,8 @@ describe('a run, card by card', () => {
     expect(count(choice, /<input [^>]*type="radio"/g)).toBe(2)
     for (const label of Object.values(CHOICE_LABEL.temperature)) expect(choice).toContain(`>${label}<`)
     expect(choice).toContain(escaped(HINT_TEXT.temperature))
+    // Room over the hint of an entry that is chosen: open, its hit area reaches up from its line, toward the Enter button over it.
+    expect(choice).toContain('<div class="pt-3"><details>')
     const challenge = card(bench(entered(E, 3, 'challenge')).part, BENCH_TEXT.notebook)
     expect(summaries(challenge)).toEqual([])
     for (const hint of Object.values(HINT_TEXT)) expect(challenge).not.toContain(escaped(hint))

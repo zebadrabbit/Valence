@@ -102,6 +102,7 @@ export function PacksCard({ data, sources, mode, view, missed, can, act, heading
             }}
             checkHeld={checkBlocked === null ? null : blockedText(data, null, checkBlocked)}
             onCheck={() => act({ type: 'checkPacks' })}
+            hintRoom
             text={{ hint: PACKS_TEXT.hintSummary, check: PACKS_TEXT.check, enter: PAGE_TEXT.enter, change: PAGE_TEXT.change, cancel: PAGE_TEXT.cancel, changeNote: PACKS_TEXT.changeNote, follows: PACKS_TEXT.right, not: PACKS_TEXT.notRight }}
           />
         </div>
