@@ -128,6 +128,8 @@ export function TubeCard({ data, m, state, tube, act, headingRef }: TubeCardProp
     const blocked = can(m, state, action)
     if (blocked !== null) return sayOfStep(BLOCKED_TEXT[blocked], true)
     sayOfStep('')
+    // What the last look said was of the tube as it stood then: a step makes it another picture.
+    sayOfLook('')
     act(action)
   }
   /** A part is looked at: said each time, and stored the first time the engine takes it, which is once the tube has stood. Before that a look is of the tube as it is, and stores nothing. */

@@ -392,6 +392,24 @@ describe('a tube', () => {
   })
 })
 
+describe('a part that is done', () => {
+  it('says so, with its notes, under a tube that counts and under the table alone, and not under a tube tried after that while it is under way', () => {
+    const done = wholePairs(m, fresh())
+    const [sixth, seventh] = [PAIR_IDS[5]!, PAIR_IDS[6]!]
+    const under = (state: MixingState, id: TubeId) => text(bench(state, 'liquids', id))
+    expect(benchView(m, done).pairsDone).toBe(true)
+    expect(under(done, sixth)).toContain(`${countText(benchView(m, done), 'liquids')} ${NOTES_TEXT.part} ${partNotes(data, 'liquids').join(' ')}`)
+    expect(text(bench(done, 'liquids'))).toContain(`${countText(benchView(m, done), 'liquids')} ${NOTES_TEXT.part}`)
+    // The seventh tube, from empty to looked at: the page of a tube and no more, as the first six had it.
+    for (const state of [done, stood(done, seventh), looked(done, seventh)]) {
+      expect(under(state, seventh)).not.toContain(NOTES_TEXT.part)
+      expect(under(state, seventh)).not.toContain('this part is done')
+    }
+    const seven = wholePair(m, done, seventh)
+    expect(under(seven, seventh)).toContain(`${countText(benchView(m, seven), 'liquids')} ${NOTES_TEXT.part}`)
+  })
+})
+
 describe('Challenge shows nothing of what is expected before the answers are recorded and checked (spec 25.5)', () => {
   it('records a wrong answer with no mark, no note and no source that names an outcome, and says why the tube does not count only once it is checked', () => {
     const recorded = wholePair(m, fresh('challenge'), OIL, { wrong: true, check: false })
@@ -547,6 +565,13 @@ describe("the lab's stylesheet", () => {
     expect(mixingCss).toMatch(/\.mixing-chooser \{\s*display: none;\s*\}\s*\.mixing-chooser-open \{\s*display: grid;/)
     expect(mixingCss).toMatch(/@container mixing-part \(min-width: 76rem\) \{[^@]*\.mixing-choose-button \{\s*display: none;\s*\}\s*\.mixing-chooser \{\s*display: grid;/)
     expect(mixingCss).toMatch(/@container mixing-tube \(min-width: 26rem\) \{\s*\.mixing-tube-grid \{\s*grid-template-columns: minmax\(0, 17\.5rem\) minmax\(0, 1fr\);/)
+  })
+
+  it("puts part 3's two sheets side by side where the part is 46rem wide, the sorting having the whole card until the questions come", () => {
+    expect(mixingCss).toMatch(/@container mixing-part \(min-width: 46rem\) \{\s*\.mixing-rule-card \{\s*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);\s*\}\s*\.mixing-rule-card > :only-child \{\s*grid-column: 1 \/ -1;/)
+    const open = wholeSolids(m, wholePairs(m, fresh()))
+    expect(count(bench(open, 'rule'), /class="mixing-rule-card /g)).toBe(1)
+    expect(count(bench(wholeRule(m, open), 'rule'), /class="mixing-rule-card /g)).toBe(1)
   })
 
   it('asks what is seen beside the picture where a tube\'s card is 46rem wide, which it is wherever the table stands beside it, and under the picture elsewhere', () => {

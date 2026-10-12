@@ -327,8 +327,9 @@ function Chooser({ data, m, state, part, tube, onTube }: Pick<Parts, 'data' | 'm
 /**
  * Part 1 or part 2: the table its tubes are chosen from, and the tube chosen. Until a tube is chosen the table
  * stands alone. Once one is, the table is beside the tube where the part has the width, and behind a button where
- * it has not (mixing.css); choosing a tube there closes it again. Under the tube, once the part's count is
- * reached, that it is done, and its notes.
+ * it has not (mixing.css); choosing a tube there closes it again. Under a tube that counts, once the part's count
+ * is reached, that the part is done, and its notes: a tube tried after that has the room to itself while it is
+ * under way, as the first six had.
  */
 function TubesPart({ data, m, sources, state, act, headingRef, part, tube, onTube }: Parts & { part: 'liquids' | 'solids'; tube: TubeId | null; onTube(tube: TubeId): void }) {
   const headingId = useId()
@@ -394,11 +395,11 @@ function TubesPart({ data, m, sources, state, act, headingRef, part, tube, onTub
               act={act}
               headingRef={focused}
             />
-            {/* Under the tube, so that the tube stays where it was: always there, and empty until the part's count is reached, so that a screen reader says it when it comes. */}
+            {/* Under the tube, so that the tube stays where it was: always there, and empty until the part's count is reached and this tube counts, so that a screen reader says it when it comes. */}
             <p role="status" className="max-w-prose text-sm font-medium empty:hidden">
-              {done && <Marked mark="✓" done>{countText(bench, part)}</Marked>}
+              {done && counts && <Marked mark="✓" done>{countText(bench, part)}</Marked>}
             </p>
-            {done && (
+            {done && counts && (
               <div className="text-sm">
                 <PartNotes data={data} part={part} />
               </div>
@@ -532,7 +533,7 @@ function RulePart({ data, m, sources, state, act, headingRef }: Parts) {
   let body: ReactNode = <p className={`max-w-prose text-sm ${ROLE.held}`}>{RULE_TEXT.closed}</p>
   if (rule.open) {
     body = rule.answersOpen ? (
-      <div className={CARD}>
+      <div className={`mixing-rule-card ${CARD}`}>
         <Sheet heading={RULE_TEXT.sortHeading}>
           <p className="max-w-prose">{RULE_TEXT.sortIntro}</p>
           <div className="grid w-full gap-1.5">
@@ -585,7 +586,7 @@ function RulePart({ data, m, sources, state, act, headingRef }: Parts) {
         )}
       </div>
     ) : (
-      <div className={CARD}>
+      <div className={`mixing-rule-card ${CARD}`}>
         <Sheet heading={RULE_TEXT.sortHeading}>
           <ul className="grid gap-1">
             {rule.sorted.map((one) => (

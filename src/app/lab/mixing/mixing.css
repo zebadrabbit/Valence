@@ -76,6 +76,25 @@
   }
 }
 
+/*
+ * Part 3's two sheets, the sorting and the two questions, stand side by side where the part is 46rem wide, so that
+ * the part with its questions open stands in a window 800 px tall. The sorting has the whole card until the
+ * questions come; its choices stand where they stood.
+ */
+@container mixing-part (min-width: 46rem) {
+  .mixing-rule-card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .mixing-rule-card > :only-child {
+    grid-column: 1 / -1;
+  }
+  .mixing-rule-card > :first-child:not(:only-child) {
+    border-bottom-width: 0;
+    border-right-style: solid;
+    border-right-width: 1px;
+  }
+}
+
 /* A form's message line, while it has nothing to say, takes no room, the gap over it neither. It stays in the page, so that a screen reader says what comes to stand in it. */
 .mixing-part form.grid > p:empty {
   margin-top: -0.75rem;

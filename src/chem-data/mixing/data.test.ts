@@ -158,7 +158,7 @@ describe('mixingData', () => {
   })
 
   it('speaks in each note of its own tube only: none says what another tube did, which may not have been tried or recorded yet (spec 25.5)', () => {
-    for (const item of [...pairs, ...solidInLiquid]) expect(item.note.value, item.id).not.toMatch(/as it did|the other oil|the other tube|again|too\b/i)
+    for (const item of [...pairs, ...solidInLiquid]) expect(item.note.value, item.id).not.toMatch(/as it did|the other oil|the other tube|again|this time|too\b/i)
     // A note names no liquid or solid that is not in its tube, but water, which two of the bottles hold.
     const NAMES: Record<string, RegExp> = { 'rubbing-alcohol': /alcohol/i, vinegar: /vinegar/i, 'vegetable-oil': /vegetable|the oil\b/i, 'mineral-oil': /mineral/i, salt: /\bsalt/i, sugar: /sugar/i }
     for (const pair of pairs) for (const [id, name] of Object.entries(NAMES)) if (!pair.id.includes(id) && !['vegetable-oil'].includes(id)) expect(pair.note.value, `${pair.id}: ${id}`).not.toMatch(name)
