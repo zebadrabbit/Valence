@@ -67,8 +67,16 @@ export const along =
   (atE3: number): number =>
     before + ((atE3 - stretch.fromE3) / (stretch.toE3 - stretch.fromE3)) * (length - before - after)
 
-/** A closer look's room at either end: half a gap, so that its first and last marks stand clear of the picture's edge. */
-export const closerPad = (scale: Marked, stretch: Stretch, length: number) => length / (2 * (gapsIn(scale, stretch) + 1))
+/** How far apart two marks of a closer look are drawn, in the units of its viewBox. `room` is what is left beyond its first and last marks, as a share of a gap: half a gap unless told. */
+export const closerGap = (scale: Marked, stretch: Stretch, length: number, room = 0.5) => length / (gapsIn(scale, stretch) + 2 * room)
 
-/** How far apart two marks of a closer look are drawn, in the units of its viewBox. */
-export const closerGap = (scale: Marked, stretch: Stretch, length: number) => length / (gapsIn(scale, stretch) + 1)
+/** A closer look's room at either end, so that its first and last marks stand clear of the picture's edge. */
+export const closerPad = (scale: Marked, stretch: Stretch, length: number, room = 0.5) => room * closerGap(scale, stretch, length, room)
+
+/**
+ * The cylinder's closer look: 400 units tall, with 25 beyond its first and last marks where the others have half a
+ * gap, so that its five gaps are the thermometer's 70 apart and the page of part 3's cylinder, the longest of the
+ * lab, keeps to one screen of an upright tablet. A level stands between the two middle marks, so nothing of the
+ * liquid is in the room given up.
+ */
+export const CYLINDER_CLOSER = { height: 400, room: 5 / 14 } as const

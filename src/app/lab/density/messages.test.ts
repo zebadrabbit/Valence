@@ -339,6 +339,8 @@ describe('refusals and feedback', () => {
     }
     expect(blockedText('liquid', 'not-shown-yet', 'fullMass')).toBe('Put the cylinder on the balance again, with the liquid in it, first.')
     expect(blockedText('liquid', 'no-longer-shown', 'emptyMass')).toContain('run the part again')
+    // The water's first level is gone while the pieces are in the cylinder and once they are out on the balance again: the sentence holds in both.
+    expect(blockedText('metal', 'no-longer-shown', 'waterLevel')).toBe('The pieces have been put into the water, so its first level is gone. To change this reading, run the part again.')
     expect(blockedText('liquid', 'reading-not-taken')).toContain("empty cylinder's mass")
     expect(blockedText('metal', 'reading-not-taken')).toContain('Type the level into the notebook first')
     expect(blockedText('reading', 'not-what-is-shown', 'firstMass')).toBe('That is not what the balance shows. Copy every figure of its display.')

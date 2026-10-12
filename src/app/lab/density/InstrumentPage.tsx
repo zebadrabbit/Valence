@@ -280,9 +280,9 @@ export function InstrumentPage({ data, m, part, view, instrument, can, warn, act
           </div>
           {instrument === 'cylinder' && (
             <>
-              {/* Two lines tall at every eye, so that what is under it stays where it is. */}
+              {/* Two lines tall at every eye, so that what is under it stays where it is. An empty cylinder has no surface to look at: the line says that it is empty. */}
               <p role="status" className="min-h-10 max-w-prose">
-                {EYE_TEXT[eye]}
+                {bench.cylinder.scale === null ? describeCylinder(bench.cylinder) : EYE_TEXT[eye]}
               </p>
               {steps.length === 0 && <Line said={said} />}
             </>

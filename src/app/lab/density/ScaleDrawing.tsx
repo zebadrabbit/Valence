@@ -1,6 +1,6 @@
 import type { BalanceView, DensityModel, Eye, ScaleView } from '@/engine/density'
 import { readingText } from './messages'
-import { along, closerPad, marksIn, type MarkKind, type ScaleMark, type Stretch } from './scaleGeometry'
+import { along, closerPad, CYLINDER_CLOSER, marksIn, type MarkKind, type ScaleMark, type Stretch } from './scaleGeometry'
 
 /** What a scale is drawn from. A ScaleView is one; so is the scale of an empty cylinder, with nothing standing against it. */
 export type ScaleLook = Pick<ScaleView, 'instrument' | 'fromE3' | 'toE3' | 'markE3' | 'numberE3' | 'unit'> & { atE3: number | null }
@@ -89,9 +89,9 @@ const PIECES = ['4,-2 17,-2 18,-11 6,-13', '19,-2 33,-2 32,-12 21,-10', '35,-2 4
 const EYE_OFF: Record<Eye, number> = { above: -64, level: 0, below: 64 }
 
 function Cylinder({ look, closer, eye = 'level', pieces = false, name, describedBy }: ScaleDrawingProps) {
-  const [W, H, L, R] = closer ? [264, 420, 24, 184] : [170, 300, 80, 130]
+  const [W, H, L, R] = closer ? [264, CYLINDER_CLOSER.height, 24, 184] : [170, 300, 80, 130]
   const MID = (L + R) / 2
-  const [below, above] = closer ? [closerPad(look, closer, H), closerPad(look, closer, H)] : [34, 26]
+  const [below, above] = closer ? [closerPad(look, closer, H, CYLINDER_CLOSER.room), closerPad(look, closer, H, CYLINDER_CLOSER.room)] : [34, 26]
   const up = along(closer ?? look, H, below, above)
   const y = (atE3: number) => H - up(atE3)
   // How far up the glass the liquid stands at the walls: three tenths of a mark, more than a reading is allowed to be out, so that the top of the curve is not the level.
@@ -103,7 +103,7 @@ function Cylinder({ look, closer, eye = 'level', pieces = false, name, described
   // The eye, beside the cylinder as it stands on the bench: over, level with or under the level it looks at, or the middle of an empty cylinder.
   const eyeAt = Math.min(H - 14, Math.max(14, (bottom ?? H / 2) + EYE_OFF[eye]))
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={name} aria-describedby={describedBy} data-closer={closer ? '' : undefined} className={`${FRAME} ${closer ? 'h-[420px] w-[264px]' : 'h-[300px] w-[170px]'} max-w-full`}>
+    <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={name} aria-describedby={describedBy} data-closer={closer ? '' : undefined} className={`${FRAME} ${closer ? 'h-[400px] w-[264px]' : 'h-[300px] w-[170px]'} max-w-full`}>
       {bottom !== null && (
         <>
           <path data-thing="liquid" d={`${surface(L, R, bottom, rise)} V ${floor} H ${L} Z`} fill="currentColor" fillOpacity={0.1} />

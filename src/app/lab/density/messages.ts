@@ -392,7 +392,7 @@ const NOT_SHOWN_YET: Partial<Record<Field, string>> = {
 }
 const NO_LONGER_SHOWN: Partial<Record<Field, string>> = {
   emptyMass: 'The liquid is in the cylinder now, so the balance cannot show the empty cylinder again. To change this reading, run the part again.',
-  waterLevel: 'The pieces are in the water now, so its first level is gone. To change this reading, run the part again.',
+  waterLevel: 'The pieces have been put into the water, so its first level is gone. To change this reading, run the part again.',
   finalLevel: 'The pieces have been taken out, so that level is gone. To change this reading, run the part again.',
 }
 

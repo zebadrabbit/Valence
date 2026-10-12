@@ -37,7 +37,7 @@ import {
 } from './messages'
 import { entriesOf, openingPage, PAGES, readingsOf, sameAction, type PageId } from './pageLook'
 import { BalanceDrawing, ScaleDrawing } from './ScaleDrawing'
-import { along, closerGap, closerPad, closerStretch, gapsIn, marksIn } from './scaleGeometry'
+import { along, closerGap, closerPad, closerStretch, CYLINDER_CLOSER, gapsIn, marksIn } from './scaleGeometry'
 
 // The measurement and density lab's page as markup, on a store the test holds. AppStateProvider builds its store
 // from the browser and the media hook has no value on a server, so both are given directly. What a press does (a
@@ -163,17 +163,25 @@ describe('where a scale is drawn', () => {
     }
   })
 
-  it('draws an edge where it stands between its two marks, and two marks of a closer look far enough apart to judge tenths between: 57 units of a ruler 460 wide at the least, and 70 of a cylinder or a thermometer 420 tall', () => {
+  it('draws an edge where it stands between its two marks, and two marks of a closer look far enough apart to judge tenths between: 57 units of a ruler 460 wide at the least, and 70 of a thermometer 420 tall and of a cylinder 400 tall, which has less room beyond its end marks', () => {
+    expect(CYLINDER_CLOSER).toEqual({ height: 400, room: 5 / 14 })
     for (const seed of SEEDS) {
       for (const { view: look } of scalesOf(seed)) {
         const stretch = closerStretch(look)
-        const length = look.instrument === 'cylinder' || look.instrument === 'thermometer' ? 420 : 460
-        const at = along(stretch, length, closerPad(look, stretch, length), closerPad(look, stretch, length))
-        expect(at(look.upperE3) - at(look.lowerE3)).toBeCloseTo(closerGap(look, stretch, length))
+        const upright = look.instrument === 'cylinder' || look.instrument === 'thermometer'
+        const [length, room] = look.instrument === 'cylinder' ? [CYLINDER_CLOSER.height, CYLINDER_CLOSER.room] : [upright ? 420 : 460, 0.5]
+        const pad = closerPad(look, stretch, length, room)
+        const at = along(stretch, length, pad, pad)
+        expect(at(look.upperE3) - at(look.lowerE3)).toBeCloseTo(closerGap(look, stretch, length, room))
         expect(at(look.atE3)).toBeGreaterThanOrEqual(at(look.lowerE3))
         expect(at(look.atE3)).toBeLessThan(at(look.upperE3))
-        expect((at(look.atE3) - at(look.lowerE3)) / closerGap(look, stretch, length)).toBeCloseTo((look.atE3 - look.lowerE3) / look.markE3)
-        expect(closerGap(look, stretch, length)).toBeGreaterThanOrEqual(length === 420 ? 70 : 57)
+        expect((at(look.atE3) - at(look.lowerE3)) / closerGap(look, stretch, length, room)).toBeCloseTo((look.atE3 - look.lowerE3) / look.markE3)
+        if (upright) expect(closerGap(look, stretch, length, room)).toBeCloseTo(70)
+        else expect(closerGap(look, stretch, length, room)).toBeGreaterThanOrEqual(57)
+        // The first and last marks stand clear of the picture's edge, by the height of half a number at the least.
+        expect(pad).toBeGreaterThanOrEqual(25 - 1e-9)
+        expect(at(stretch.fromE3)).toBeCloseTo(pad)
+        expect(at(stretch.toE3)).toBeCloseTo(length - pad)
       }
     }
   })
@@ -333,6 +341,13 @@ describe('an instrument on its page', () => {
         }
       }
     }
+  })
+
+  it('says of an empty cylinder that it is empty, where a cylinder with a liquid in it has what is seen from where the eye is: part 2 before the liquid is poured', () => {
+    const empty = text(closed(card(bench(fresh(), 'liquid', 'cylinder'))))
+    expect(empty).toContain('The cylinder is empty and dry.')
+    for (const seen of Object.values(EYE_TEXT)) expect(empty).not.toContain(seen)
+    expect(text(closed(card(bench(fresh(), 'metal', 'cylinder'))))).toContain(EYE_TEXT.above)
   })
 
   it('has beside the cylinder three buttons a finger tall that move the eye, the one where the eye is pressed and marked, with what is seen from there in words; the eye begins above', () => {
