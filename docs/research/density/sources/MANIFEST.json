@@ -1,6 +1,6 @@
 {
   "retrieved": "2026-10-12",
-  "about": "Every source read for the measurement and density lab on the retrieval date, apart from the documents behind the hazards, which are in hazard-manifest.json. No copy of any of them is kept in this folder. The densities of the four metals are read from a copy the periodic table keeps; the rest were read at the addresses given and are not kept. Each row names the stored values it supports, gives a few words the source prints there, and says in this project's words where they are and what they establish.",
+  "about": "Every source read for the measurement and density lab on the retrieval date, apart from the documents behind the hazards, which are in hazard-manifest.json. No copy of any of them is kept in this folder. The densities of the four metals are read from a copy the periodic table keeps; the rest were read at the addresses given and are not kept. The seven Wikipedia pages read for this lab are given at the addresses the site serves to readers, each at the revision read, and the hash recorded for each is of the page as served there. Each row names the stored values it supports, gives a few words the source prints there, and says in this project's words where they are and what they establish.",
   "sources": [
     {
       "id": "handbook-densities-wikipedia",
@@ -46,9 +46,9 @@
     },
     {
       "id": "lange-ethanol-wikipedia",
-      "url": "https://en.wikipedia.org/w/index.php?title=Ethanol_(data_page)&oldid=1341104734",
-      "citation": "Lange, N. A. Lange's Handbook of Chemistry, 10th ed.; Dean, J. A., Ed.; McGraw-Hill: New York, 1967. The book was not read: the figures were taken from a secondary transcription, Wikipedia's Ethanol (data page), revision 1341104734 of 2026-03-01, linked here, its table of the properties of aqueous ethanol solutions; read and not kept (retrieved 2026-10-12).",
-      "fetchedSha256": "b985aa0914fd1d8d453c128cc68bd9569648dbd8e21677054c563032136ce63c",
+      "url": "https://en.wikipedia.org/wiki/Ethanol_(data_page)?oldid=1341104734",
+      "citation": "Lange, N. A. Lange's Handbook of Chemistry, 10th ed.; Dean, J. A., Ed.; McGraw-Hill, 1967. The book was not read: the figures were taken from a secondary transcription, Wikipedia's Ethanol (data page), revision 1341104734 of 2026-03-01, linked here, its table of the properties of aqueous ethanol solutions; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "7ea78e36b53aec6e373ddc37405d16b268b9ac1d4f2adce60f1b94ae72a93748",
       "supports": [
         {
           "fields": [
@@ -76,9 +76,9 @@
     },
     {
       "id": "crc-nacl-solutions-wikipedia",
-      "url": "https://en.wikipedia.org/w/index.php?title=Sodium_chloride_(data_page)&oldid=1379379503",
+      "url": "https://en.wikipedia.org/wiki/Sodium_chloride_(data_page)?oldid=1379379503",
       "citation": "Lide, D. R., Ed. CRC Handbook of Chemistry and Physics, 86th ed.; CRC Press: Boca Raton, FL, 2005; pp 8-71 and 8-116. The book was not read: the figures were taken from a secondary transcription, Wikipedia's Sodium chloride (data page), revision 1379379503 of 2026-10-09, linked here, its table of the properties of mixtures of water and sodium chloride; read and not kept (retrieved 2026-10-12).",
-      "fetchedSha256": "247deb8aa1435ab0a38c0863571c59bde3a6fce0fe9462f45f0d5d20cfe0b175",
+      "fetchedSha256": "ade420d4cb7f3da60343936a01ee972632a2db747c9f515b05df279087418ded",
       "supports": [
         {
           "fields": [
@@ -136,9 +136,9 @@
     },
     {
       "id": "wikipedia-celsius",
-      "url": "https://en.wikipedia.org/w/index.php?title=Celsius&oldid=1373142018",
+      "url": "https://en.wikipedia.org/wiki/Celsius?oldid=1373142018",
       "citation": "Wikipedia, Celsius, revision 1373142018 of 2026-09-04; a secondary source, read and not kept (retrieved 2026-10-12).",
-      "fetchedSha256": "9bf099288f311ab2954d62072980be84bed31795b9260c2382751ce7c7bca3fb",
+      "fetchedSha256": "907b1596de38b1703b1018bb525e18e61db4f370c2464831ce04001202cfc034",
       "supports": [
         {
           "fields": [
@@ -159,9 +159,9 @@
     },
     {
       "id": "wikipedia-thermometer",
-      "url": "https://en.wikipedia.org/w/index.php?title=Thermometer&oldid=1378639224",
+      "url": "https://en.wikipedia.org/wiki/Thermometer?oldid=1378639224",
       "citation": "Wikipedia, Thermometer, revision 1378639224 of 2026-10-05; a secondary source, read and not kept (retrieved 2026-10-12).",
-      "fetchedSha256": "9400f9204a6a4727389c9ac2cc44f8e2c78b32f62fe4d551f73dd156997768a8",
+      "fetchedSha256": "016d866a9b1081e708fb9a20e4ecdaef31b36d18bd18265f463d380f3708796a",
       "supports": [
         {
           "fields": [
@@ -175,9 +175,9 @@
     },
     {
       "id": "wikipedia-graduated-cylinder",
-      "url": "https://en.wikipedia.org/w/index.php?title=Graduated_cylinder&oldid=1333139371",
+      "url": "https://en.wikipedia.org/wiki/Graduated_cylinder?oldid=1333139371",
       "citation": "Wikipedia, Graduated cylinder, revision 1333139371 of 2026-01-15; a secondary source, read and not kept (retrieved 2026-10-12).",
-      "fetchedSha256": "6e38eee86a81d88668ebabce9da48f1f2c15e97140eb5a21913b825932934b87",
+      "fetchedSha256": "e03fe103448115470fa6758acdc9a575bc9c021d05ec64d23fbda4dfea6cecbf",
       "supports": [
         {
           "fields": [
@@ -198,9 +198,9 @@
     },
     {
       "id": "wikipedia-significant-figures",
-      "url": "https://en.wikipedia.org/w/index.php?title=Significant_figures&oldid=1376805448",
+      "url": "https://en.wikipedia.org/wiki/Significant_figures?oldid=1376805448",
       "citation": "Wikipedia, Significant figures, revision 1376805448 of 2026-09-26; a secondary source, read and not kept (retrieved 2026-10-12).",
-      "fetchedSha256": "d26dd1861a4c2b1033c3798679fc9e6e2230dc70ae2f451a7e072154d5a47a83",
+      "fetchedSha256": "9cfc717d117bd5c028000b9523f8fefa9465776c64e07279de03c8b38dab7efa",
       "supports": [
         {
           "fields": [
@@ -229,9 +229,9 @@
     },
     {
       "id": "wikipedia-density",
-      "url": "https://en.wikipedia.org/w/index.php?title=Density&oldid=1379698777",
+      "url": "https://en.wikipedia.org/wiki/Density?oldid=1379698777",
       "citation": "Wikipedia, Density, revision 1379698777 of 2026-10-11; a secondary source, read and not kept (retrieved 2026-10-12).",
-      "fetchedSha256": "36526f40b6884de64ecfe44688bc49311e987eca55cb1c3c9e59f4d793d08309",
+      "fetchedSha256": "5cfe2db0893444a2ee0021ead7197e4d63a4b453794aabf40db20ad8e857c5ee",
       "supports": [
         {
           "fields": [
