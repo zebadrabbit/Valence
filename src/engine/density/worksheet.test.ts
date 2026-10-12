@@ -115,6 +115,22 @@ describe('a product or a quotient: given to the significant figures of its facto
     expect(verdict({ ...cm, areaCm: typed('21.8') }, 'areaCm')).toEqual(not())
   })
 
+  it('counts the zero that ends a whole number where the rule asks for it: an area of 70 cm² of two figures is typed "70"', () => {
+    // 12.5 cm x 5.6 cm = 70.00 cm², and 14.6 cm x 4.1 cm = 59.86 cm²: two figures each, and no way to type them but "70" and "60".
+    expect(typed('70')).toEqual({ mantissa: 7, exponent: 1 })
+    expect(verdict({ lengthCm: 125, widthCm: 56, areaCm: typed('70') }, 'areaCm')).toEqual(FOLLOWS)
+    expect(verdict({ lengthCm: 146, widthCm: 41, areaCm: typed('60') }, 'areaCm')).toEqual(FOLLOWS)
+    expect(verdict({ lengthCm: 125, widthCm: 56, areaCm: typed('70.0') }, 'areaCm')).toEqual(not('figures-too-many'))
+    expect(verdict({ lengthCm: 146, widthCm: 41, areaCm: typed('59') }, 'areaCm')).toEqual(not('cut-off'))
+    // Counted or not, a zero does not make a number right: 15.6 cm x 6.2 cm = 96.72 cm² is 97, and 14.6 cm x 4.4 cm = 64.24 cm² is 64.
+    expect(verdict({ ...cm, areaCm: typed('100') }, 'areaCm')).toEqual(not('figures-too-few'))
+    expect(verdict({ lengthCm: 146, widthCm: 44, areaCm: typed('60') }, 'areaCm')).toEqual(not('figures-too-few'))
+    expect(verdict({ lengthCm: 146, widthCm: 44, areaCm: typed('70') }, 'areaCm')).toEqual(not())
+    // Three figures are asked of the millimetre ruler's area, and "70" has two at most: 12.50 cm x 5.60 cm = 70.0 cm².
+    expect(verdict({ lengthMm: 1250, widthMm: 560, areaMm: typed('70') }, 'areaMm')).toEqual(not('figures-too-few'))
+    expect(verdict({ lengthMm: 1250, widthMm: 560, areaMm: typed('70.0') }, 'areaMm')).toEqual(FOLLOWS)
+  })
+
   it('takes either neighbour at an exact tie', () => {
     // 12.5 cm x 4.2 cm = 52.5 cm² exactly.
     for (const tie of ['52', '53']) expect(verdict({ lengthCm: 125, widthCm: 42, areaCm: typed(tie) }, 'areaCm'), tie).toEqual(FOLLOWS)

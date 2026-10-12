@@ -1,5 +1,5 @@
 import type { PartId } from '@/chem-data/density/data'
-import { compare, decimalsOfSum, exact, exactOf, figuresIn, figuresOfProduct, judgeDecimals, judgeFigures, point, roundsToFigures, type Exact, type Figures, type Rounding } from '../figures'
+import { compare, decimalsOfSum, exact, exactOf, figuresIn, figuresOfProduct, isFigures, judgeDecimals, judgeFigures, point, roundsToFigures, type Exact, type Figures, type Rounding } from '../figures'
 import type { Candidate, DensityModel } from './model'
 import { nearEnough, stepE3, type Eye, type Instrument } from './readings'
 
@@ -184,8 +184,17 @@ function difference(typed: Figures, a: Figures, b: Figures): Verdict {
   return not(SUM_SLIP[rounding] ?? null)
 }
 
+/**
+ * A whole number that ends in zeros does not say whether they count: "70" may be 7 x 10, of one figure, or 70, of
+ * two. Each way it may be read, the fewest figures first, which is how it is stored. An area of 70 cm² from a
+ * ruler read to two figures can be typed no other way, as an entry takes no power of ten.
+ */
+const waysToRead = (typed: Figures): Figures[] => Array.from({ length: Math.max(0, typed.exponent) + 1 }, (_, zeros) => ({ mantissa: typed.mantissa * 10 ** zeros, exponent: typed.exponent - zeros })).filter(isFigures)
+
 /** A product or a quotient of two entries, given to the significant figures of the one with the fewest; `others` are values it may have been mistaken for, each with its slip. */
 function product(typed: Figures, value: Exact, figures: number, others: readonly (readonly [Exact | null, Slip])[] = []): Verdict {
+  // Zeros that end a whole number are counted where that makes the figures the rule asks for.
+  if (waysToRead(typed).some((read) => figuresIn(read) === figures && judgeFigures(read, point(value), figures) === 'right')) return FOLLOWS
   const rounding = judgeFigures(typed, point(value), figures)
   if (rounding === 'right') return FOLLOWS
   if (rounding !== 'wrong') return not(PRODUCT_SLIP[rounding] ?? null)

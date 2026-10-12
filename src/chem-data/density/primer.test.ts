@@ -97,7 +97,7 @@ describe('the density primer: how its text is drawn', () => {
 
   it("sets off only whole sentences of the paragraph that name the lab themselves, each a rule of the simulation's and not of a bench", () => {
     const rules = paragraphs.flatMap(([where, paragraph]) => (paragraph.labRules ?? []).map((rule): [string, string, string] => [where, rule, paragraph.text]))
-    expect(rules.length).toBe(5)
+    expect(rules.length).toBe(6)
     for (const [where, rule, text] of rules) {
       expect(rule, where).toMatch(/^In this lab .*\.$/)
       const at = text.indexOf(rule)

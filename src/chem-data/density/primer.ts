@@ -125,6 +125,12 @@ export const DENSITY_PRIMER: readonly PrimerSection[] = [
         ],
       ),
       paragraph(
+        { label: 'Whole tens', labRules: ['In this lab the notebook counts such a zero where a rounding rule asks for it, so an answer of two figures can be typed as 70.'] },
+        'A whole number such as 70 does not say whether its zero was measured or only holds a place. In this lab the notebook counts such a zero where a rounding rule asks for it, so an answer of two figures can be typed as 70.',
+        [[ARTICLE, 'the article on significant figures, under the heading on the rules for finding them in a number', 'the zeros that end a whole number may or may not count, which the number alone does not say.']],
+        'that the notebook counts such a zero where a rule asks for it is the rule of the notebook: an entry takes no power of ten, so an answer of two figures that comes to 70 can be typed no other way.',
+      ),
+      paragraph(
         { label: 'Why it matters' },
         'The figures say how finely a thing was measured. On a calculator 7 cm and 7.0 cm are the same number. As measurements they differ: the second was read to a tenth of a centimetre, and the first only to a whole one.',
         [[FIGURES, 'the page on significant figures, its opening and the three balances under its first heading', 'the number of figures reported says how exact the equipment was.']],

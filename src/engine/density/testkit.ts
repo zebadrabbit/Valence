@@ -1,6 +1,6 @@
 // Scripted learners, for tests only: nothing in the app imports this file.
 import type { PartId } from '@/chem-data/density/data'
-import { exact, exactOf, figuresIn, toDecimals, toFigures, type Exact, type Figures } from '../figures'
+import { exact, exactOf, figuresIn, formatDecimal, parseDecimal, toDecimals, toFigures, type Exact, type Figures } from '../figures'
 import { scripted } from '../scripted'
 import { can, reduce, type Action } from './actions'
 import type { DensityModel } from './model'
@@ -72,6 +72,12 @@ export function cut(value: Exact, figures: number): Figures {
  * bench, by the two rounding rules. Careful unless a slip is asked for.
  */
 export function workedValue(m: DensityModel, state: DensityState, part: PartId, field: Field, slip?: How['slip']): Value {
+  const value = workedOut(m, state, part, field, slip)
+  // A number goes in as the page takes it: written out and read back, so that 70 of two figures is the "70" a learner can type.
+  return typeof value === 'object' && 'mantissa' in value ? parseDecimal(formatDecimal(value))! : value
+}
+
+function workedOut(m: DensityModel, state: DensityState, part: PartId, field: Field, slip?: How['slip']): Value {
   const entries = currentRun(state, part).entries
   const of = (from: Field) => asFigures(m, from, entries[from]!)
   const quotient = (top: Figures, bottom: Figures): Figures => {

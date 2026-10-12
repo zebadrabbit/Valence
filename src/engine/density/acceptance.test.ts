@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { PART_IDS, type PartId } from '@/chem-data/density/data'
-import { exactOf, toNumber, type Figures } from '../figures'
+import { exactOf, formatDecimal, parseDecimal, toNumber, type Figures } from '../figures'
 import { mulberry32 } from '../rng'
 import { can, reduce, warnings, type Action } from './actions'
 import type { Candidate } from './model'
@@ -42,6 +42,22 @@ describe('for seeds 1 to 100, a careful learner', () => {
         expect(state.status).toBe('completed')
       }
     }
+  })
+
+  it('can type every worked-out number the notebook asks for: an area that comes to a whole number of tens is taken as it is typed, in both modes', () => {
+    // 12.5 cm x 5.6 cm is 70 cm² of two figures at seed 9. Typed, that is "70", which reads back as one figure with a zero that holds its place.
+    let tens = 0
+    for (const seed of Array.from({ length: 400 }, (_, i) => i + 1)) {
+      const read = takeReadings(m, lab(seed, 'guided'), 'reading')
+      const area = workedValue(m, read, 'reading', 'areaCm') as Figures
+      if (area.exponent < 1) continue
+      tens++
+      expect(parseDecimal(formatDecimal(area)), `seed ${seed}`).toEqual(area)
+      expect(can(m, read, { type: 'enter', part: 'reading', field: 'areaCm', value: area }), `seed ${seed}`).toBeNull()
+      const checked = wholeRun(m, lab(seed, 'challenge'), 'reading')
+      expect(outcome(checked, 'reading'), `seed ${seed}`).toMatchObject({ state: 'counts' })
+    }
+    expect(tens).toBeGreaterThan(20)
   })
 
   it('comes out within the tolerance of the stored density: at most 0.2% from it when every level is read where it stands', () => {
@@ -86,7 +102,9 @@ describe('for seeds 1 to 100, a careful learner', () => {
     for (const seed of seeds) {
       const state = wholeRun(m, lab(seed), 'reading')
       const figures = Object.fromEntries(partView(m, state, 'reading').notebook.map((e) => [e.field, e.figures]))
-      expect(figures, `seed ${seed}`).toMatchObject({ lengthCm: 3, widthCm: 2, areaCm: 2, lengthMm: 4, widthMm: 3, areaMm: 3, firstVolume: 3, firstMass: 4 })
+      // An area that comes to a whole number of tens is typed "70": as it stands it has one figure and a zero that holds its place, and it is judged with the zero counted.
+      const tens = (currentRun(state, 'reading').entries.areaCm as Figures).exponent === 1
+      expect(figures, `seed ${seed}`).toMatchObject({ lengthCm: 3, widthCm: 2, areaCm: tens ? 1 : 2, lengthMm: 4, widthMm: 3, areaMm: 3, firstVolume: 3, firstMass: 4 })
     }
   })
 
