@@ -139,7 +139,7 @@ The lab runs on the kinetics engine that the clock reaction lab runs on (`src/en
 
 ## What nobody checked
 
-No chemist has read the record, the notes, the primer or the page's sentences. The two figures of the rate record that were read from page images were read by the builder alone. The screens, which the next section is about, were checked by script by the assistant that built them, and at the review of 2026-10-12 by an AI reviewer that had built none of the lab, which the last section is about. No person has run the lab, no screen reader was used, and one browser was tried and no real device. The review read no source of the rate record again, and read the hazard notes as sentences and not against their documents.
+No chemist has read the record, the notes, the primer or the page's sentences. The two figures of the rate record that were read from page images were read by the builder alone. The screens, which the next section is about, were checked by script by the assistant that built them, and at the review of 2026-10-11 by an AI reviewer that had built none of the lab, which the last section is about. No person has run the lab, no screen reader was used, and one browser was tried and no real device. The review read no source of the rate record again, and read the hazard notes as sentences and not against their documents.
 
 ## The screens
 
@@ -159,7 +159,7 @@ One thing was put right in the notebook the two labs share: the relation of a ch
 
 What the builder ran in headless Chromium, and what nobody has: `docs/for-institutions.md`, under this lab's name.
 
-## The review of 2026-10-12
+## The review of 2026-10-11
 
 The one deep review of the phase, held when the screens were whole, by an AI reviewer that had built none of the lab: not the record, the hazards, the engine, the wording or the page. It worked by script in headless Chromium and by reading. It made the one change the project's owner had decided on, looked for faults by using the page and not by reading alone, and put right what it found in the same pass. This section says what was changed, what was found, what was left and what nobody checked. The page as it now is, is section 20.6 of the design spec.
 

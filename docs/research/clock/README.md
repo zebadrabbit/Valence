@@ -244,7 +244,7 @@ All in headless Chromium on Linux, on the production build, by script. The scrip
 
 No person has run the lab or read its text. No screen reader was used: what is announced at the change, and how long after it, has been heard by nobody. One browser was tried, headless Chromium, and no real device: no tablet, no finger, and no slow machine but the script's own, where a watch started just after a reload stood still for between 1 and about 22 seconds while the browser disposed of the page before; a trace of one such stall put it in the browser and not in the page's script, and each time the watch then read the right time of the change. No chemistry instructor and no chemist has read the record, the notes, the primer or the page's sentences. The review did not read the sources of the rate record again, and did not read the hazard notes against their documents. Browser zoom, enlarged text and forced colours were not tried.
 
-## Changed on 2026-10-12, with the review of the iodination of acetone lab
+## Changed on 2026-10-11, with the review of the iodination of acetone lab
 
 This lab's page draws pieces it shares with the iodination of acetone lab's (`src/app/lab/kinetics/`, design spec 20.6), and that lab's review, by an AI reviewer working by script in headless Chromium, changed four things in them. What it found and how is the last section of `../acetone/README.md`.
 
