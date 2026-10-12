@@ -30,6 +30,7 @@ import {
   NOTES_TEXT,
   OUTCOME_LABEL,
   PAGE_TEXT,
+  pairName,
   pairOffBenchText,
   PART_AIM,
   PART_LABEL,
@@ -48,6 +49,7 @@ import {
   ruleOutcomeText,
   SOLID_LABEL,
   solidHolds,
+  solidInName,
   solidName,
   solidOffBenchText,
   sortedLine,
@@ -227,6 +229,22 @@ describe('the lab, its parts and its bench', () => {
     ])
   })
 
+  it('names what is left off the bench in the same way, and has a few words for its place where the tubes are chosen, which say nothing of what it might show', () => {
+    expect(pairName(data, 'rubbing-alcohol', 'mineral-oil')).toBe('Rubbing alcohol with mineral oil')
+    expect(SOLID_IDS.map((solid) => solidInName(data, solid, 'rubbing-alcohol'))).toEqual(['Table salt in rubbing alcohol', 'Sugar in rubbing alcohol'])
+    // A tube of the bench is named by the same two.
+    for (const id of PAIR_IDS) expect(tubeName(data, id)).toBe(pairName(data, ...liquidsOf(id)))
+    for (const tube of data.solidInLiquid) expect(tubeName(data, tube.id)).toBe(solidInName(data, tube.solidId, tube.liquidId))
+    expect(TUBE_STATUS['off-bench']).toBe('Not on this bench')
+    expect(TUBE_STATUS['off-bench']).not.toMatch(ANSWERS)
+  })
+
+  it('names the foot of a picture, where a solid lies if there is one, without saying whether one does', () => {
+    expect(PAGE_TEXT.bottom).toBe('Bottom of the tube')
+    expect(PAGE_TEXT.bottom).not.toMatch(/solid|gone|left|nothing/i)
+    expect(PAGE_TEXT.molecules).toBe('Molecules to look at')
+  })
+
   it('has a link to the explorer for each thing the record links to a molecule, and for no other', () => {
     expect(Object.keys(MOLECULE_LINK).sort()).toEqual([...data.liquids, ...data.solids].filter((item) => item.moleculeId !== undefined).map((item) => item.id).sort())
     for (const text of Object.values(MOLECULE_LINK)) expect(text).toMatch(/^Look at .+ in the explorer$/)
@@ -309,7 +327,7 @@ describe('a tube', () => {
     const wrong = wholePair(m, lab(), id, { wrong: true })
     expect(at(wrong)[1]).toBe('Does not count')
     expect(at(wholePair(m, reduce(m, wrong, { type: 'again', tube: id }), id))).toEqual(['This tube counts.', 'Counts'])
-    expect(Object.keys(TUBE_STATUS)).toEqual(['not-begun', 'under-way', 'to-check', 'counts', 'does-not-count'])
+    expect(Object.keys(TUBE_STATUS)).toEqual(['not-begun', 'under-way', 'to-check', 'counts', 'does-not-count', 'off-bench'])
     expect(Object.keys(OUTCOME_LABEL)).toEqual(['open', 'to-check', 'counts', 'does-not-count'])
   })
 

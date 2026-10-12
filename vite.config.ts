@@ -36,7 +36,7 @@ export default defineConfig({
     include: ['src/**/*.test.ts'],
     // Vitest hands a test an empty string for a stylesheet unless told otherwise. One test reads the periodic
     // table's stylesheet, where its dimming and motion rules are, one the app's, for its colour schemes, and one
-    // the lab shell's, for which form of a guide it displays. Four read a lab's own, for how long its one animation runs, and two a lab's own for where it lays its tube's card out.
-    css: { include: [/periodic\.css/, /src\/index\.css/, /lab\/lab\.css/, /aqueous\.css/, /flame\.css/, /foamCup\.css/, /cations\.css/, /lechatelier\.css/, /clock\.css/, /cabbage\.css/] },
+    // the lab shell's, for which form of a guide it displays. Four read a lab's own, for how long its one animation runs, two a lab's own for where it lays its tube's card out, and one the polarity and mixing lab's, for where the table its tubes are chosen from stands.
+    css: { include: [/periodic\.css/, /src\/index\.css/, /lab\/lab\.css/, /aqueous\.css/, /flame\.css/, /foamCup\.css/, /cations\.css/, /lechatelier\.css/, /clock\.css/, /cabbage\.css/, /mixing\.css/] },
   },
 })

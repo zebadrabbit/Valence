@@ -67,14 +67,19 @@ export function liquidHolds(data: MixingData, liquid: LiquidId): string {
 /** What a solid is, under its name: "Sodium chloride". */
 export const solidHolds = (data: MixingData, solid: SolidId) => solidOf(data, solid).holds
 
+/** Two liquids by name, whether or not the bench has a tube for them: "Rubbing alcohol with mineral oil". */
+export const pairName = (data: MixingData, a: LiquidId, b: LiquidId) => `${liquidName(data, a)} with ${lower(liquidName(data, b))}`
+/** A solid in a liquid by name, whether or not the bench has a tube for it: "Sugar in rubbing alcohol". */
+export const solidInName = (data: MixingData, solid: SolidId, liquid: LiquidId) => `${solidName(data, solid)} in ${lower(liquidName(data, liquid))}`
+
 /** A tube's name, from what is in it: "Distilled water with vegetable oil", "Table salt in vinegar". */
 export function tubeName(data: MixingData, tubeId: TubeId): string {
   if (isPairId(tubeId)) {
     const [a, b] = data.pairs.find((p) => p.id === tubeId)!.liquidIds
-    return `${liquidName(data, a)} with ${lower(liquidName(data, b))}`
+    return pairName(data, a, b)
   }
   const tube = data.solidInLiquid.find((t) => t.id === tubeId)!
-  return `${solidName(data, tube.solidId)} in ${lower(liquidName(data, tube.liquidId))}`
+  return solidInName(data, tube.solidId, tube.liquidId)
 }
 
 /** The link from a thing to its molecule in the explorer, for each thing the record links (spec 25.2); the rest have none. */
@@ -279,8 +284,8 @@ export function tubeOutcomeText(view: Pick<TubeView, 'outcome' | 'reasons' | 'st
   }
 }
 
-/** How a tube stands, in a word or two, beside its name in a list. */
-export const TUBE_STATUS = { 'not-begun': 'Not begun', 'under-way': 'Under way', 'to-check': 'To check', counts: 'Counts', 'does-not-count': 'Does not count' } as const
+/** How a tube stands, in a word or two, beside its name in a list; and what stands in the place of a tube the bench has not got. */
+export const TUBE_STATUS = { 'not-begun': 'Not begun', 'under-way': 'Under way', 'to-check': 'To check', counts: 'Counts', 'does-not-count': 'Does not count', 'off-bench': 'Not on this bench' } as const
 export const tubeStatus = (view: Pick<TubeView, 'outcome' | 'stage'>): string => (view.outcome.state === 'open' ? (view.stage === 'empty' ? TUBE_STATUS['not-begun'] : TUBE_STATUS['under-way']) : TUBE_STATUS[view.outcome.state])
 
 /** How far a part has come, in a few words: "3 of 6 count", and past the six the part needs, "7 count, 6 needed". */
@@ -444,6 +449,10 @@ export const PAGE_TEXT = {
   seen: 'What you see',
   hint: 'Hint',
   tubeInWords: 'The tube in words',
+  /** The name of the part of a picture where a solid lies if there is one: it says nothing of whether one does. */
+  bottom: 'Bottom of the tube',
+  /** Over the links to the explorer. */
+  molecules: 'Molecules to look at',
   previous: (name: string) => `Previous: ${name}`,
   next: (name: string) => `Next: ${name}`,
   cancel: 'Cancel',

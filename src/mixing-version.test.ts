@@ -70,7 +70,10 @@ describe('the polarity and mixing lab', () => {
     expect({ ...wholeLab(PINNED_MODEL, createLab('guided')), mode: 'challenge' }).toEqual(careful)
   })
 
-  it('has a stored entry of its own, which no activity yet lists: the lab has no page', () => {
-    expect(ACTIVITIES.some((activity) => (activity.entry as string) === MIXING_PROGRESS.entry)).toBe(false)
+  it('has a stored entry of its own, which is the one its row among the activities loads and saves with, at its own address', () => {
+    expect({ entry: ACTIVITIES[12].entry, version: ACTIVITIES[12].version }).toEqual(MIXING_PROGRESS)
+    expect(ACTIVITIES[12].to).toBe('/lab/polarity-and-mixing')
+    expect(ACTIVITIES[12].title).toBe('Polarity and mixing')
+    expect(new Set(ACTIVITIES.map((activity) => activity.entry as string)).size).toBe(ACTIVITIES.length)
   })
 })

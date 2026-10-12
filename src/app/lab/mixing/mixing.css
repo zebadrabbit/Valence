@@ -1,0 +1,65 @@
+/*
+ * Where the pieces of the polarity and mixing lab sit. Loaded with the lab page, so none of it is in the app
+ * shell's stylesheet. Nothing here animates, and nothing on this lab's page moves.
+ *
+ * Parts 1 and 2 are the table the tubes are chosen from and the tube chosen. Where the part has the width for both,
+ * 58rem, the table stands on the left and the tube beside it, and the button that opens the table is not displayed,
+ * so that a screen reader and the Tab key meet no control that does nothing. Where it has not, as on an upright
+ * tablet, the table is behind that button once a tube is chosen, and the tube has the width.
+ */
+.mixing-part {
+  container: mixing-part / inline-size;
+}
+.mixing-layout {
+  display: grid;
+  gap: 0.5rem;
+  align-items: start;
+  grid-template-columns: minmax(0, 1fr);
+}
+.mixing-chooser {
+  display: none;
+}
+.mixing-chooser-open {
+  display: grid;
+}
+@container mixing-part (min-width: 58rem) {
+  .mixing-layout {
+    gap: 0.75rem;
+    grid-template-columns: 29rem minmax(0, 1fr);
+  }
+  .mixing-choose-button {
+    display: none;
+  }
+  .mixing-chooser {
+    display: grid;
+  }
+}
+
+/* The table of tubes: every column of tubes as wide as the next, whatever its heading. */
+.mixing-table {
+  table-layout: fixed;
+}
+
+/*
+ * A tube's card: the picture, 280 px wide of its 320, with the steps beside it. In a card too narrow for that the
+ * steps are under the picture.
+ */
+.mixing-tube {
+  container: mixing-tube / inline-size;
+}
+.mixing-tube-grid {
+  display: grid;
+  gap: 0.5rem 0.75rem;
+  align-items: start;
+  grid-template-columns: minmax(0, 20rem);
+}
+@container mixing-tube (min-width: 26rem) {
+  .mixing-tube-grid {
+    grid-template-columns: minmax(0, 17.5rem) minmax(0, 1fr);
+  }
+}
+
+/* A form's message line, while it has nothing to say, takes no room, the gap over it neither. It stays in the page, so that a screen reader says what comes to stand in it. */
+.mixing-part form.grid > p:empty {
+  margin-top: -0.75rem;
+}
