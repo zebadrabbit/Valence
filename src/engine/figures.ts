@@ -328,7 +328,8 @@ export function toDecimals(value: Exact, decimals: number): Figures {
   const negative = value[0] < 0n
   const [n, d] = negative ? [-value[0], value[1]] : value
   const mantissa = Number((2n * n * 10n ** BigInt(decimals) + d) / (2n * d))
-  return { mantissa: negative && mantissa !== 0 ? -mantissa : mantissa, exponent: -decimals }
+  // Not negative zero, for no decimal places: it would not come back from JSON as it went in.
+  return { mantissa: negative && mantissa !== 0 ? -mantissa : mantissa, exponent: decimals === 0 ? 0 : -decimals }
 }
 
 /** The decimal places a sum or a difference is given to: those of its least exact term. */

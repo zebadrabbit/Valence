@@ -135,6 +135,8 @@ describe('rounding to a decimal place', () => {
     expect(toDecimals(exact(3428, 100), 1)).toEqual({ mantissa: 343, exponent: -1 })
     expect(toDecimals(exact(-4, 100), 1)).toEqual({ mantissa: 0, exponent: -1 })
     expect(toDecimals(exact(-6, 10), 1)).toEqual({ mantissa: -6, exponent: -1 })
+    expect(toDecimals(exact(159, 10), 0)).toEqual({ mantissa: 16, exponent: 0 })
+    expect(isFigures(toDecimals(exact(159, 10), 0))).toBe(true)
   })
 })
 

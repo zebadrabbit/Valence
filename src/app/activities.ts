@@ -35,6 +35,13 @@ export const ACETONE_PROGRESS = { entry: ACTIVITIES[7].entry, version: ACTIVITIE
 /** The red cabbage pH lab's stored entry and its version: what its page loads and saves with (src/cabbage-version.test.ts pins what a stored lab is judged against to it). */
 export const CABBAGE_PROGRESS = { entry: ACTIVITIES[8].entry, version: ACTIVITIES[8].version } as const
 
+/**
+ * The measurement and density lab's stored entry and its version: what its page will load and save with
+ * (src/density-version.test.ts pins what a stored lab is judged against to it). The lab is not in ACTIVITIES yet:
+ * it has no page, and joins the list when it has one.
+ */
+export const DENSITY_PROGRESS = { entry: ENTRY.density, version: 1 } as const
+
 export type Activity = (typeof ACTIVITIES)[number]
 
 /** False while an activity has no page of its own: its address is still the page that lists its kind. Home and the list of labs then show it as planned, with no link and no status. */
