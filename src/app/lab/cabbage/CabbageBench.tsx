@@ -12,33 +12,7 @@ import { PART_IDS, THING_IDS, thingOf, type CabbageData, type PartId, type Reage
 import type { Citation } from '@/chem-data/citations'
 import type { Source } from '@/chem-data/schema'
 import { benchView, can, rackView, sampleView, unitView, type Action, type CabbageModel, type CabbageState, type Outcome } from '@/engine/cabbage'
-import {
-  BLOCKED_TEXT,
-  HAZARD_TEXT,
-  LAB_TEXT,
-  NOTES_TEXT,
-  PAGE_TEXT,
-  PART_AIM,
-  RACK_TEXT,
-  SCALE_HINT,
-  SOURCES_TEXT,
-  UNIT_TEXT,
-  benchLines,
-  countText,
-  hazardsText,
-  itemLabel,
-  markText,
-  partName,
-  partNotes,
-  partNumber,
-  partOutcomeText,
-  powerLabel,
-  rackTubeText,
-  scaleChoiceLabel,
-  scaleQuestionText,
-  thingName,
-  unitQuestionText,
-} from './messages'
+import { BLOCKED_TEXT, HAZARD_TEXT, LAB_TEXT, NOTES_TEXT, PAGE_TEXT, PART_AIM, RACK_TEXT, SCALE_HINT, SOURCES_TEXT, UNIT_TEXT, benchLines, countText, hazardsText, itemLabel, markText, partName, partNotes, partNumber, partOutcomeText, powerLabel, rackTubeText, scaleChoiceLabel, scaleQuestionText, thingName, unitQuestionText } from './messages'
 import { opening, partStatus, thingStatus } from './pageLook'
 import { Rack } from './Rack'
 import { SampleCard } from './SampleCard'
@@ -83,11 +57,7 @@ export function CabbageBench({ data, m, sources, state, act, opensAt }: CabbageB
     <div className="grid gap-3">
       {/* Always there, and empty until the lab is complete, so that a screen reader says it when it comes; while it is empty it takes no room, the gap under it neither. */}
       <p role="status" className={`max-w-prose text-sm font-medium ${state.status === 'completed' ? '' : '-mb-3'}`}>
-        {state.status === 'completed' && (
-          <Marked mark="✓" done>
-            {LAB_TEXT.completed}
-          </Marked>
-        )}
+        {state.status === 'completed' && <Marked mark="✓" done>{LAB_TEXT.completed}</Marked>}
       </p>
       {/* What the lab is, over a lab that is not begun, until another part is chosen: it does not go at the first press, which would move the rack from under the hand. */}
       {intro && <p className="max-w-prose text-sm">{LAB_TEXT.aim}</p>}
@@ -110,9 +80,7 @@ export function CabbageBench({ data, m, sources, state, act, opensAt }: CabbageB
             <span className="text-xs font-normal text-muted-foreground group-hover:text-foreground group-aria-[current]:text-foreground">{partNumber(partId)}</span>
             <span>{partName(data, partId)}</span>
             <span className="text-xs font-normal text-muted-foreground group-hover:text-foreground group-aria-[current]:text-foreground">
-              <Marked mark={status[partId].mark} done={status[partId].done}>
-                {status[partId].text}
-              </Marked>
+              <Marked mark={status[partId].mark} done={status[partId].done}>{status[partId].text}</Marked>
             </span>
           </button>
         ))}
@@ -133,9 +101,7 @@ function PartHead({ data, part, status, headingId, headingRef }: { data: Cabbage
         {partNumber(part)}
         {' · '}
         <span className="font-medium text-foreground">
-          <Marked mark={status.mark} done={status.done}>
-            {status.text}
-          </Marked>
+          <Marked mark={status.mark} done={status.done}>{status.text}</Marked>
         </span>
       </p>
       <h2 ref={headingRef} id={headingId} tabIndex={-1} aria-describedby={placeId} className="w-fit rounded-sm text-lg font-semibold outline-none focus-visible:ring-2 focus-visible:ring-ring">
@@ -186,12 +152,8 @@ function PartEnd({ data, part, outcome, notesShown, check, again, text, press }:
       )}
       {notesShown && (
         <section aria-labelledby={notesId} className="grid max-w-[75ch] gap-2 leading-relaxed">
-          <h3 id={notesId} className={HEADING}>
-            {NOTES_TEXT.part}
-          </h3>
-          {partNotes(data, part).map((note) => (
-            <p key={note}>{note}</p>
-          ))}
+          <h3 id={notesId} className={HEADING}>{NOTES_TEXT.part}</h3>
+          {partNotes(data, part).map((note) => <p key={note}>{note}</p>)}
         </section>
       )}
     </div>
@@ -308,25 +270,17 @@ function ScalePart({ data, m, sources, state, act, headingRef }: Parts) {
                 {RACK_TEXT.fill}
               </span>
             </Control>
-            <p role="status" className="max-w-prose flex-1 basis-48 font-medium">
-              {!rack.indicator ? RACK_TEXT.before : rack.looked ? '' : RACK_TEXT.filled}
-            </p>
+            <p role="status" className="max-w-prose flex-1 basis-48 font-medium">{!rack.indicator ? RACK_TEXT.before : rack.looked ? '' : RACK_TEXT.filled}</p>
           </div>
           {/* How the rack is looked at: for everyone until it has been looked along, and after that the rack's description, not drawn, so that the question in hand has the room. */}
-          <p id={exploreId} className={rack.looked ? 'sr-only' : 'max-w-prose text-xs text-muted-foreground'}>
-            {RACK_TEXT.explore}
-          </p>
+          <p id={exploreId} className={rack.looked ? 'sr-only' : 'max-w-prose text-xs text-muted-foreground'}>{RACK_TEXT.explore}</p>
           <div className={said.text === '' ? '-mt-2' : undefined}>
             <Line said={said} />
           </div>
           <div className="pt-4 pb-1">
             {/* Closed: the whole of what the rack shows, which the learner is to find by looking. */}
             <Disclosure summary={PAGE_TEXT.rackInWords}>
-              <ol className="grid gap-0.5">
-                {rack.tubes.map((tube) => (
-                  <li key={tube.ph}>{rackTubeText(tube.ph, tube.shows)}</li>
-                ))}
-              </ol>
+              <ol className="grid gap-0.5">{rack.tubes.map((tube) => <li key={tube.ph}>{rackTubeText(tube.ph, tube.shows)}</li>)}</ol>
             </Disclosure>
           </div>
         </div>
@@ -345,50 +299,21 @@ function ScalePart({ data, m, sources, state, act, headingRef }: Parts) {
                       <ChoiceForm
                         // A form of its own for each mode and each time the three are answered again.
                         key={`${state.mode}:${rack.tries}`}
-                        questions={[
-                          {
-                            id: q.id,
-                            label: scaleQuestionText(q),
-                            choices: q.choices.map((choice) => ({
-                              value: String(choice),
-                              label: scaleChoiceLabel(q, choice),
-                            })),
-                            waits: null,
-                          },
-                        ]}
+                        questions={[{ id: q.id, label: scaleQuestionText(q), choices: q.choices.map((choice) => ({ value: String(choice), label: scaleChoiceLabel(q, choice) })), waits: null }]}
                         recorded={q.answer === null ? null : { [q.id]: String(q.answer) }}
                         // Challenge says nothing of an answer until the three are checked. Guided takes only what is right, but for an answer recorded in Challenge before the mode was changed: that one is held to the rack.
-                        judged={
-                          q.answer === null
-                            ? null
-                            : {
-                                wrong: q.right === false ? [q.id] : [],
-                                text: q.right === false ? BLOCKED_TEXT['not-right'] : '',
-                              }
-                        }
+                        judged={q.answer === null ? null : { wrong: q.right === false ? [q.id] : [], text: q.right === false ? BLOCKED_TEXT['not-right'] : '' }}
                         held={null}
                         refusal={(answers) => (answers[q.id] === undefined ? BLOCKED_TEXT['not-all-answered'] : null)}
                         onRecord={(answers) => {
-                          const action: Action = {
-                            type: 'answerScale',
-                            question: q.id,
-                            is: q.kind === 'same-colour-pair' ? Number(answers[q.id]) : answers[q.id]!,
-                          }
+                          const action: Action = { type: 'answerScale', question: q.id, is: q.kind === 'same-colour-pair' ? Number(answers[q.id]) : answers[q.id]! }
                           const blocked = can(m, state, action)
                           // That the answer is not right is said, and never what it should be.
-                          if (blocked !== null)
-                            return {
-                              wrong: [q.id],
-                              text: BLOCKED_TEXT[blocked],
-                            }
+                          if (blocked !== null) return { wrong: [q.id], text: BLOCKED_TEXT[blocked] }
                           act(action)
                           return { wrong: [], text: '' }
                         }}
-                        text={{
-                          check: RACK_TEXT.record,
-                          change: PAGE_TEXT.change,
-                          cancel: PAGE_TEXT.cancel,
-                        }}
+                        text={{ check: RACK_TEXT.record, change: PAGE_TEXT.change, cancel: PAGE_TEXT.cancel }}
                         brief={(answers) => [`${scaleQuestionText(q)} ${label(q.id, answers[q.id]!)}`]}
                       />
                       {/* Closed, and Guided's alone, under the question that is open: where to look, and never the answer. */}
@@ -403,11 +328,7 @@ function ScalePart({ data, m, sources, state, act, headingRef }: Parts) {
                   ),
               )
             ) : (
-              <ul className="grid gap-1">
-                {rack.questions.map((q) => (
-                  <CheckedLine key={q.id} question={scaleQuestionText(q)} answer={q.answer === null ? '' : scaleChoiceLabel(q, q.answer)} right={q.right} />
-                ))}
-              </ul>
+              <ul className="grid gap-1">{rack.questions.map((q) => <CheckedLine key={q.id} question={scaleQuestionText(q)} answer={q.answer === null ? '' : scaleChoiceLabel(q, q.answer)} right={q.right} />)}</ul>
             )}
           </Sheet>
         </div>
@@ -445,15 +366,7 @@ function ThingsPart({ data, m, sources, state, act, headingRef, thing, onThing }
     <Paged
       items={views.map((view) => {
         const status = thingStatus(view)
-        return {
-          id: view.id,
-          heading: thingName(data, view.id),
-          note: (
-            <Marked mark={status.mark} done={status.done}>
-              {status.text}
-            </Marked>
-          ),
-        }
+        return { id: view.id, heading: thingName(data, view.id), note: <Marked mark={status.mark} done={status.done}>{status.text}</Marked> }
       })}
       index={index}
       onGo={(to) => {
@@ -461,11 +374,7 @@ function ThingsPart({ data, m, sources, state, act, headingRef, thing, onThing }
         // The thing already shown: its heading takes focus all the same, as the list is closed under it.
         if (to === index) focused.current?.focus()
       }}
-      text={{
-        list: PAGE_TEXT.choose,
-        previous: PAGE_TEXT.previous,
-        next: PAGE_TEXT.next,
-      }}
+      text={{ list: PAGE_TEXT.choose, previous: PAGE_TEXT.previous, next: PAGE_TEXT.next }}
       // A sample's two columns need more room than a primer's card: the list stays behind its button for longer.
       roomy
       after={<Foot data={data} sources={sources} cited={cited} thing={thing} />}
@@ -488,11 +397,7 @@ function ThingsPart({ data, m, sources, state, act, headingRef, thing, onThing }
       />
       {/* Under the sample, so that the tube and the scale stay where they were: always there, and empty until eight count, so that a screen reader says it when it comes. */}
       <p role="status" className="max-w-prose text-sm font-medium empty:hidden">
-        {bench.thingsDone && (
-          <Marked mark="✓" done>
-            {countText(bench)}
-          </Marked>
-        )}
+        {bench.thingsDone && <Marked mark="✓" done>{countText(bench)}</Marked>}
       </p>
     </Paged>
   )
@@ -531,68 +436,23 @@ function UnitPart({ data, m, sources, state, act, headingRef }: Parts) {
                   <ChoiceForm
                     key={`${state.mode}:${unit.tries}`}
                     questions={[
-                      {
-                        id: 'more',
-                        label: `${unitQuestionText(data, q)} ${UNIT_TEXT.more}`,
-                        choices: q.items.map((item, k) => ({
-                          value: String(k),
-                          label: itemLabel(data, item),
-                        })),
-                        waits: null,
-                      },
-                      {
-                        id: 'power',
-                        label: UNIT_TEXT.times,
-                        choices: unit.powers.map((power) => ({
-                          value: String(power),
-                          label: powerLabel(power),
-                        })),
-                        waits: null,
-                      },
+                      { id: 'more', label: `${unitQuestionText(data, q)} ${UNIT_TEXT.more}`, choices: q.items.map((item, k) => ({ value: String(k), label: itemLabel(data, item) })), waits: null },
+                      { id: 'power', label: UNIT_TEXT.times, choices: unit.powers.map((power) => ({ value: String(power), label: powerLabel(power) })), waits: null },
                     ]}
-                    recorded={
-                      q.answer === null
-                        ? null
-                        : {
-                            more: String(q.answer.more),
-                            power: String(q.answer.power),
-                          }
-                    }
+                    recorded={q.answer === null ? null : { more: String(q.answer.more), power: String(q.answer.power) }}
                     // Challenge says nothing of an answer until the two are checked. Guided takes only what is right, but for an answer recorded in Challenge before the mode was changed.
-                    judged={
-                      q.answer === null
-                        ? null
-                        : {
-                            wrong: q.right === false ? ['more', 'power'] : [],
-                            text: q.right === false ? BLOCKED_TEXT['not-right'] : '',
-                          }
-                    }
+                    judged={q.answer === null ? null : { wrong: q.right === false ? ['more', 'power'] : [], text: q.right === false ? BLOCKED_TEXT['not-right'] : '' }}
                     held={null}
                     refusal={(answers) => (answers.more === undefined || answers.power === undefined ? BLOCKED_TEXT['not-all-answered'] : null)}
                     onRecord={(answers) => {
-                      const action: Action = {
-                        type: 'answerUnit',
-                        question: at as 0 | 1,
-                        answer: {
-                          more: Number(answers.more) as 0 | 1,
-                          power: Number(answers.power),
-                        },
-                      }
+                      const action: Action = { type: 'answerUnit', question: at as 0 | 1, answer: { more: Number(answers.more) as 0 | 1, power: Number(answers.power) } }
                       const blocked = can(m, state, action)
                       // That the answer is not right is said, and never which of its two halves.
-                      if (blocked !== null)
-                        return {
-                          wrong: ['more', 'power'],
-                          text: BLOCKED_TEXT[blocked],
-                        }
+                      if (blocked !== null) return { wrong: ['more', 'power'], text: BLOCKED_TEXT[blocked] }
                       act(action)
                       return { wrong: [], text: '' }
                     }}
-                    text={{
-                      check: UNIT_TEXT.record,
-                      change: PAGE_TEXT.change,
-                      cancel: PAGE_TEXT.cancel,
-                    }}
+                    text={{ check: UNIT_TEXT.record, change: PAGE_TEXT.change, cancel: PAGE_TEXT.cancel }}
                     brief={(answers) => [`${unitQuestionText(data, q)} ${answerLine(q, Number(answers.more), Number(answers.power))}`]}
                   />
                 </div>
@@ -610,11 +470,7 @@ function UnitPart({ data, m, sources, state, act, headingRef }: Parts) {
     ) : (
       <div className={CARD}>
         <div className={SHEET}>
-          <ul className="grid gap-1">
-            {unit.questions.map((q, at) => (
-              <CheckedLine key={at} question={unitQuestionText(data, q)} answer={q.answer === null ? '' : answerLine(q, q.answer.more, q.answer.power)} right={q.right} />
-            ))}
-          </ul>
+          <ul className="grid gap-1">{unit.questions.map((q, at) => <CheckedLine key={at} question={unitQuestionText(data, q)} answer={q.answer === null ? '' : answerLine(q, q.answer.more, q.answer.power)} right={q.right} />)}</ul>
         </div>
       </div>
     )
