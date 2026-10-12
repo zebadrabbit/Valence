@@ -30,6 +30,13 @@ export const CLOCK_PROGRESS = { entry: ACTIVITIES[6].entry, version: ACTIVITIES[
 /** The iodination of acetone lab's stored entry and its version: what its page loads and saves with (src/acetone-version.test.ts pins what a stored run is judged against to it). */
 export const ACETONE_PROGRESS = { entry: ACTIVITIES[7].entry, version: ACTIVITIES[7].version } as const
 
+/**
+ * The red cabbage pH lab's stored entry and its version: what its page will load and save with
+ * (src/cabbage-version.test.ts pins what a stored lab is judged against to it). The lab has no page yet, so it is
+ * not in ACTIVITIES: Home and the command palette do not list it.
+ */
+export const CABBAGE_PROGRESS = { entry: ENTRY.cabbage, version: 1 } as const
+
 export type Activity = (typeof ACTIVITIES)[number]
 
 /** False while an activity has no page of its own: its address is still the page that lists its kind. Home and the list of labs then show it as planned, with no link and no status. */
