@@ -581,6 +581,9 @@ describe("the lab's stylesheet", () => {
 
   it('asks what is seen beside the picture where a tube\'s card is 46rem wide, which it is wherever the table stands beside it, and under the picture elsewhere', () => {
     expect(mixingCss).toMatch(/@container mixing-tube \(min-width: 46rem\) \{\s*\.mixing-tube-card \{\s*grid-template-columns: 31rem minmax\(0, 1fr\);/)
+    // Side by side, the shorter sheet is as tall as the other: its lines stand at its head and are not spread down it.
+    expect(mixingCss).toMatch(/\.mixing-tube-card > \* \{\s*align-content: start;/)
+    expect(mixingCss).toMatch(/\.mixing-rule-card > \* \{\s*align-content: start;/)
     // The table's 29rem and the gap of 0.75rem leave a tube 46rem or more of a part that is 76rem wide.
     expect(76 - 29 - 0.75).toBeGreaterThanOrEqual(46)
     expect(bench(stood(fresh(), OIL), 'liquids', OIL)).toContain('class="mixing-tube-card ')

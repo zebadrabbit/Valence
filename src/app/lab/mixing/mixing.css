@@ -69,6 +69,10 @@
   .mixing-tube-card {
     grid-template-columns: 31rem minmax(0, 1fr);
   }
+  /* The shorter of the two sheets is as tall as the other: what is in it stands at its head, and is not spread down it. */
+  .mixing-tube-card > * {
+    align-content: start;
+  }
   .mixing-tube-card > :first-child {
     border-bottom-width: 0;
     border-right-style: solid;
@@ -87,6 +91,9 @@
   }
   .mixing-rule-card > :only-child {
     grid-column: 1 / -1;
+  }
+  .mixing-rule-card > * {
+    align-content: start;
   }
   .mixing-rule-card > :first-child:not(:only-child) {
     border-bottom-width: 0;
