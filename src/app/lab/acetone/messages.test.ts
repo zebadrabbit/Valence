@@ -4,6 +4,7 @@ import { findInstitutionText } from '@/chem-data/denylist'
 import { can, createLab, currentAttempt, fieldsOf, leftAt, lookAt, modelFrom, parseFigures, rateLawView, runView, timesTable, type AcetoneState, type Blocked, type RunReason, type SheetReason, type Slip } from '@/engine/acetone'
 import { entryActions, makeRoomRuns, makeRun, rateLawValues, run, wholeLab, wholeSheet } from '@/engine/acetone/testkit'
 import * as T from './messages'
+import { SPEED } from './watch'
 
 // The iodination of acetone lab's sentences (spec 20.5, with 19.7's last item): that the flask and the flask of
 // water beside it, the look of the liquid at any moment and the change that ends a run are said in words; that
@@ -108,13 +109,25 @@ describe("the liquid's look at any moment, in words (spec 20.2)", () => {
     }
   })
 
-  it('announces each step of the fade, and the change that ends a run, so that colour is not the only signal', () => {
-    expect((['yellow', 'pale-yellow', 'faintest-yellow', 'none'] as const).map(T.fadeText)).toEqual(['', 'The mixture has faded to pale yellow.', 'The mixture has faded to the faintest yellow.', 'The last of the yellow has gone: the mixture cannot be told from the water.'])
-    expect(T.CHANGE_TEXT).toBe('The last of the yellow has gone: the mixture cannot be told from the water.')
+  it('has a sentence for each step of the fade, and for the change that ends a run, so that colour is not the only signal', () => {
+    expect((['yellow', 'pale-yellow', 'faintest-yellow', 'none'] as const).map(T.fadeText)).toEqual(['', 'The mixture has faded to pale yellow.', 'The mixture has faded to the faintest yellow.', 'The last of the yellow has gone.'])
+    expect(T.CHANGE_TEXT).toBe('The last of the yellow has gone.')
   })
 
-  it('says beside a running watch that the four mixtures are played at one speed, and of a run that was left that no time was recorded, with nothing of when the colour goes', () => {
-    expect(T.RUN_TEXT.fast).toBe('The page plays the time faster than a clock would, at one speed for all four mixtures.')
+  it('says the end always, and a step only where there is room to say it before the end: a step with no room leaves the line saying the step before it, or nothing', () => {
+    const amounts = [1000, 499, 99, 0]
+    const said = (room: (step: number) => boolean) => amounts.map((microMolar) => T.fadeSaid(data, left(microMolar), room))
+    const [pale, faintest] = [T.fadeText('pale-yellow'), T.fadeText('faintest-yellow')]
+    expect(said(() => true)).toEqual(['', pale, faintest, T.CHANGE_TEXT])
+    expect(said(() => false)).toEqual(['', '', '', T.CHANGE_TEXT])
+    // Room for the first step and not for the second: the line goes on saying the first until the end.
+    expect(said((step) => step === data.parameters.paleBelowMicroMolar.value)).toEqual(['', pale, pale, T.CHANGE_TEXT])
+  })
+
+  it('says beside a running watch what the one speed of the four mixtures is, a minute on the watch to a second, and of a run that was left that no time was recorded, with nothing of when the colour goes', () => {
+    expect(T.RUN_TEXT.fast).toBe('One second here is one minute on the watch, for all four mixtures.')
+    // The sentence and the speed are one figure: sixty seconds of the lab's time to a true second.
+    expect(SPEED).toBe(60)
     expect(T.RUN_TEXT.left).toBe('This run was left while its watch was running, so no time was recorded. The flask is as it was before the pour: pour the iodine in again to time it.')
   })
 

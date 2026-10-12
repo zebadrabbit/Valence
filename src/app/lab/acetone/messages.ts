@@ -96,8 +96,8 @@ export const RUN_TEXT = {
   /** Beside the two ways of stopping the watch. */
   stopHelp: 'Stop the watch when the liquid can no longer be told from the water beside it. Your own delay is added to the time, as a hand adds it on a real watch.',
   stopAtEndHelp: 'The watch then stops at the moment the last of the colour goes. A run timed this way counts like any other, and the record says how it was timed.',
-  /** Beside the running watch: the four mixtures are all played at one speed, so a longer time is a longer wait. */
-  fast: 'The page plays the time faster than a clock would, at one speed for all four mixtures.',
+  /** Beside the running watch: the speed the page plays the time at (watch.ts), which is one speed for all four mixtures, so a longer time is a longer wait. */
+  fast: 'One second here is one minute on the watch, for all four mixtures.',
   /** In the flask's card, once a run was left while its watch was running: the page records no time for it, and the iodine is poured in again. */
   left: 'This run was left while its watch was running, so no time was recorded. The flask is as it was before the pour: pour the iodine in again to time it.',
   runAgain: 'Make this run again',
@@ -171,15 +171,33 @@ export function liquidText(data: AcetoneData, left: Pick<Left, 'microMolar'>, po
   return look === 'none' ? 'The mixture has no colour: it cannot be told from the water in the flask beside it.' : `The mixture is ${LOOK_TEXT[look]}. The water in the flask beside it has no colour.`
 }
 
-/** Said to a status line each time the liquid's look passes to a paler word while the watch runs; empty for a look that is not a step down. */
+/** What a status line says of a step down in the liquid's look, and of the end; empty for a look that is not a step down. */
 export function fadeText(look: LiquidLook): string {
   if (look === 'pale-yellow') return 'The mixture has faded to pale yellow.'
   if (look === 'faintest-yellow') return 'The mixture has faded to the faintest yellow.'
   return look === 'none' ? CHANGE_TEXT : ''
 }
 
-/** Said once, to a status line, at the moment the last of the colour goes while the watch runs: the change that ends a run. */
-export const CHANGE_TEXT = 'The last of the yellow has gone: the mixture cannot be told from the water.'
+/**
+ * Said once, to a status line, at the moment the last of the colour goes while the watch runs: the change that
+ * ends a run. Short, so that a listener has heard it all the sooner; the sentence beside the watch says the rest,
+ * that the mixture cannot be told from the water.
+ */
+export const CHANGE_TEXT = 'The last of the yellow has gone.'
+
+/**
+ * What the status line says while the watch runs, for how much iodine is left: the end, always; and before it the
+ * palest step reached that has room to be said, which `room` answers for the amount under which a step's word
+ * begins (watch.ts). A status line's sentences are said to a listener one after another, so a step that comes
+ * just before the end is left unsaid, and the line goes on saying the step before it, if that was said. The look
+ * itself is in words beside the watch at every frame (`liquidText`).
+ */
+export function fadeSaid(data: AcetoneData, left: Pick<Left, 'microMolar'>, room: (stepMicroMolar: number) => boolean): string {
+  const look = liquidLook(data, left)
+  if (look === 'none') return CHANGE_TEXT
+  if (look === 'faintest-yellow' && room(data.parameters.faintestBelowMicroMolar.value)) return fadeText(look)
+  return look !== 'yellow' && room(data.parameters.paleBelowMicroMolar.value) ? fadeText('pale-yellow') : ''
+}
 
 /** The watch in words: not started, running with what it reads, or stopped with what it reads and how. */
 export function watchStatusText(view: Pick<RunView, 'poured' | 'stopped'>, tenthsNow: number, m: AcetoneModel): string {

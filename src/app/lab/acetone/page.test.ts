@@ -288,12 +288,13 @@ describe('the watch and the liquid', () => {
     const start = leftAt(m, poured(), 'mixture-1', 0)!
     expect(fills(html)).toEqual([liquidFill(start.microMolar, DEEPEST), WATER])
     expect([...html.matchAll(/<text data-look=""[^>]*>(.*?)<\/text>/g)].map((match) => match[1])).toEqual([LOOK_TEXT.yellow, LOOK_TEXT.none])
-    expect(html).toContain(`<p class="font-medium">${liquidText(data, start, true)}</p>`)
-    // The status line that says each step of the fade, and then the end, is empty until there is one to say.
-    expect(html).toContain('<p role="status" class="font-semibold"></p>')
+    // While the watch runs the look keeps the room of two lines and the status line of one, so that a line that comes or grows does not move Stop under a hand.
+    expect(html).toContain(`<p class="min-h-10 font-medium">${liquidText(data, start, true)}</p>`)
+    // The status line that says a step of the fade, and then the end, is empty until there is one to say.
+    expect(html).toContain('<p role="status" class="min-h-5 font-semibold"></p>')
   })
 
-  it('shows the watch as a timer, which is not a live region, named by what it reads, in large figures, with the line that says the four mixtures are played at one speed, faster than a clock', () => {
+  it('shows the watch as a timer, which is not a live region, named by what it reads, in large figures, with the line that says what the one speed of the four mixtures is', () => {
     const html = bench(poured())
     expect(html).toMatch(new RegExp(`<p role="timer" aria-label="${watchStatusText(runView(m, poured(), 'mixture-1'), 0, m)}" class="[^"]*text-5xl[^"]*tabular-nums">${watchText(0)}</p>`))
     expect(html).toContain(`<p class="text-muted-foreground">${RUN_TEXT.fast}</p>`)

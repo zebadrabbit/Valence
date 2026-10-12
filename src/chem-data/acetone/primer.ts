@@ -151,12 +151,12 @@ export const ACETONE_PRIMER: readonly PrimerSection[] = [
     paragraphs: [
       paragraph(
         { label: 'What it looks like' },
-        'A reactant of order 0 does not change the rate: add more of it, and the reaction goes no faster. So it is used up at a steady pace for as long as any is left, and twice as much of it takes twice as long to go.',
+        'A reactant of order 0 does not change the rate: add more of it, and the reaction goes no faster. So, if nothing else changes, it is used up at a steady pace for as long as any is left, and twice as much of it takes twice as long to go.',
         [
           [ORDERS, ORDERS_PAGE, 'an order of zero means that the concentration of that reactant does not affect the rate.'],
           [THEORY, 'under the heading Calculating the Reaction Rate', 'where the rate does not depend on a reactant that is being used up, and the others hardly change, the rate stays the same until that reactant is gone.'],
         ],
-        'that twice as much then takes twice as long follows from the steady pace, by arithmetic.',
+        'that twice as much then takes twice as long follows from the steady pace, by arithmetic. The pace is steady only while nothing else that the rate depends on changes, which the passage read says too, and the card says so.',
       ),
       paragraph(
         { label: 'Steps', terms: ['slow step'] },

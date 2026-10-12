@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest'
 import { acetoneData as data, RUN_IDS, type RunId } from '@/chem-data/acetone/data'
 import { can, createLab, leftAt, lookAt, modelFrom, reduce, runView, type AcetoneState } from '@/engine/acetone'
 import { makeRun } from '@/engine/acetone/testkit'
-import { liquidLook } from './messages'
-import { endsItself, frame, handStop, PLAY, SPEED, startPlay, tooSoon, type Play } from './watch'
+import { CHANGE_TEXT, fadeSaid, fadeText, liquidLook } from './messages'
+import { endsItself, frame, handStop, PLAY, roomToSay, SAY_MS, SPEED, startPlay, tooSoon, type Play } from './watch'
 
 // The playing of a run's time in this lab, with no clock: the true time of each frame is a number the test hands
 // in. The playing itself is the shared piece, which the clock reaction lab's watch.test.ts holds; these hold this
@@ -38,13 +38,18 @@ const toEnd = (seed: number, runId: RunId): { real: number; play: Play; now: num
 }
 
 describe('a run that is played', () => {
-  it('plays the four mixtures at one speed: at every seed from 1 to 100 the slowest, the fourth, has faded within 14 true seconds of its pour, and the fastest takes two seconds or more', () => {
+  it('plays the four mixtures at one speed, a minute on the watch to a true second: at every seed from 1 to 100 the slowest, the fourth, has faded within 13.1 true seconds of its pour, and the fastest takes 1.9 seconds or more', () => {
+    expect(SPEED).toBe(60)
+    const span: Record<string, number[]> = {}
     for (let seed = 1; seed <= 100; seed++) {
       const reals = RUN_IDS.map((runId) => toEnd(seed, runId))
-      expect([seed, Math.max(...reals.map((one) => one.real)) === reals[3]!.real, reals[3]!.real <= 14_000, Math.min(...reals.map((one) => one.real)) >= 2000]).toEqual([seed, true, true, true])
+      RUN_IDS.forEach((runId, at) => (span[runId] = [Math.min(span[runId]?.[0] ?? Infinity, reals[at]!.play.labMs / SPEED), Math.max(span[runId]?.[1] ?? 0, reals[at]!.play.labMs / SPEED)]))
+      expect([seed, Math.max(...reals.map((one) => one.real)) === reals[3]!.real, reals[3]!.real <= 13_100, Math.min(...reals.map((one) => one.real)) >= 1900]).toEqual([seed, true, true, true])
       // What a run takes on the screen is what it takes on the watch over that one speed, to within a frame.
       for (const { real, play: p } of reals) expect([seed, Math.abs(real - p.labMs / SPEED) <= 16]).toEqual([seed, true])
     }
+    // The true seconds from a pour to the end of its fade, the least and the most over the hundred seeds, as the documents give them.
+    expect(RUN_IDS.map((runId) => span[runId]!.map((ms) => Number((ms / 1000).toFixed(2))))).toEqual([[4.01, 6.48], [2.01, 3.27], [1.99, 3.26], [7.98, 12.96]])
   })
 
   it('so shows the mixture with twice the iodine fading for twice the true time of the first, and the two with twice the acetone or the acid for half of it', () => {
@@ -78,6 +83,30 @@ describe('a run that is played', () => {
     }
   })
 
+  it('has the status line say a step of the fade only where the end is still 1.8 true seconds off or more: pale yellow and then the end in the first and the fourth mixture, the end alone in the second and the third, and the faintest yellow in none', () => {
+    const [pale, faintest] = [fadeText('pale-yellow'), fadeText('faintest-yellow')]
+    for (let seed = 1; seed <= 100; seed++) {
+      const said = RUN_IDS.map((runId) => {
+        const state = poured(seed, runId)
+        // What the status line says at each frame, as the run's card asks it, with the true time of the frame that first said it.
+        const lines: { text: string; at: number }[] = []
+        const { now: end } = play(state, runId, 16, (at, now) => {
+          const left = leftAt(m, state, runId, at.labMs)!
+          const text = fadeSaid(data, left, (step) => roomToSay(at.labMs, left, step))
+          if (text !== (lines.at(-1)?.text ?? '')) lines.push({ text, at: now })
+          return at.shown !== null
+        })
+        // A step that is said has been said for 1.8 true seconds, less a frame, before the end is.
+        for (const line of lines.slice(0, -1)) expect([seed, runId, end - line.at >= SAY_MS - 16]).toEqual([seed, runId, true])
+        return lines.map((line) => line.text)
+      })
+      expect([seed, ...said]).toEqual([seed, [pale, CHANGE_TEXT], [CHANGE_TEXT], [CHANGE_TEXT], [pale, CHANGE_TEXT]])
+      expect(said.flat()).not.toContain(faintest)
+    }
+    // The room is the step's own amount over the amount gone, of the time so far: half of a run for a step at half of its iodine.
+    expect([roomToSay(SAY_MS * SPEED, { microMolar: 500, ofMicroMolar: 1000 }, 500), roomToSay(SAY_MS * SPEED - 1, { microMolar: 500, ofMicroMolar: 1000 }, 500), roomToSay(0, { microMolar: 1000, ofMicroMolar: 1000 }, 500)]).toEqual([true, false, false])
+  })
+
   it('adds true time, and no more, from the frame that shows the end: a hand 400 ms late is recorded 400 ms late, and the stopped watch reads what the running one read', () => {
     for (const runId of ['mixture-1', 'mixture-4'] as const) {
       const state = poured(7, runId)
@@ -102,6 +131,22 @@ describe('a run that is played', () => {
     const stop = { type: 'stop', run: 'mixture-2', ...handStop(late, now + m.delayLimitMs + 100, LIMIT) } as const
     expect(can(m, state, stop)).toBeNull()
     expect(runView(m, reduce(m, state, stop), 'mixture-2').outcome).toEqual({ state: 'does-not-count', reasons: ['stopped-late'] })
+  })
+
+  it('never hands the engine a time past the limit of the watch: a frame that comes two hours after the end, as when a computer has slept, stops the watch at its limit, and the stopped watch reads that and no more', () => {
+    for (const runId of ['mixture-2', 'mixture-4'] as const) {
+      const state = poured(5, runId)
+      const { play: shown, now } = toEnd(5, runId)
+      const late = frame(shown, now + 7_200_000, SPEED, LIMIT, gone(state, runId))
+      expect([late.labMs, endsItself(late, LIMIT, false)]).toEqual([LIMIT, 'limit'])
+      const stop = { type: 'stop', run: runId, ...handStop(late, now + 7_200_000, LIMIT) } as const
+      // The delay is what the watch had left to run at the end, and not the two hours.
+      expect(stop).toMatchObject({ elapsedMs: LIMIT, delayMs: LIMIT - shown.labMs })
+      expect(can(m, state, stop)).toBeNull()
+      const view = runView(m, reduce(m, state, stop), runId)
+      expect(view.stopped).toEqual({ tenths: LIMIT / 100, by: 'hand' })
+      expect(view.outcome).toEqual({ state: 'does-not-count', reasons: ['stopped-late'] })
+    }
   })
 
   it('is ended at the end of the fade, and not before, where the learner asked for the watch to be stopped then', () => {

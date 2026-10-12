@@ -72,11 +72,14 @@ export function frame(play: Play, now: number, speed: number, limitMs: number, c
 /**
  * What a hand that stops the watch at the true time `now` hands the engine, from the play as that moment's frame
  * has it: what the watch reads, and how long ago the change was shown, in true milliseconds; 0 where it has not
- * been. Both whole, and neither past the watch's limit.
+ * been. Both whole, and neither past the watch's limit. Nor is the delay more than the watch had left to run when
+ * the change was shown: the engine's time is the time of the change with the delay added, and a frame can come
+ * long after the one before it (a computer that slept with the page showing), so a delay taken whole would give a
+ * stopped watch that reads more than its limit, and more than the running watch ever read.
  */
 export const handStop = (play: Play, now: number, limitMs: number): { elapsedMs: number; delayMs: number } => ({
   elapsedMs: play.labMs,
-  delayMs: play.shown === null ? 0 : Math.min(limitMs, Math.max(0, Math.round(now - play.shown.at))),
+  delayMs: play.shown === null ? 0 : Math.min(Math.max(0, limitMs - play.shown.labMs), Math.max(0, Math.round(now - play.shown.at))),
 })
 
 /**

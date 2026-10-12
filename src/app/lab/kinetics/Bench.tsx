@@ -93,6 +93,14 @@ export function KineticsBench({ lab, state, shown, act, opensAt, citations, bott
     was.current = place
   }, [place])
 
+  // A notebook that is worked again is a new working, from empty, and the button that asked for it is gone with the card it stood in: the notebook's heading takes focus, as a run's does when it is made again.
+  const workings = parts.map((one) => (one.sheet === null ? 0 : state.sheets[one.sheet].length)).join(':')
+  const hadWorkings = useRef(workings)
+  useEffect(() => {
+    if (hadWorkings.current !== workings) headings.current[place]?.focus()
+    hadWorkings.current = workings
+  }, [workings, place])
+
   /** The play is ended with nothing stored, and its run says so when it is next shown. */
   const leave = () => {
     if (play === null) return
@@ -238,15 +246,17 @@ export function KineticsBench({ lab, state, shown, act, opensAt, citations, bott
           <p role="status" className="font-medium">
             {progress[of.id] !== 'not-started' && words.runsCount(counting, runs.length)}
           </p>
-          {/* A part with no notebook has none to carry its notes: once its runs count and not before, they are here, closed. */}
+          {/* A part with no notebook has none to carry its notes: once its runs count and not before, they are here, closed. Room under them, so that the hit area of the line, which reaches 12 px under it, does not lie over that of the button of the list of runs, which on an upright tablet stands next under it. */}
           {of.sheet === null && progress[of.id] === 'done' && (
-            <Disclosure summary={words.notebook.notes}>
-              <div className="grid max-w-[75ch] gap-2 leading-relaxed">
-                {words.partNotes(of.id).map((note) => (
-                  <p key={note}>{note}</p>
-                ))}
-              </div>
-            </Disclosure>
+            <div className="pb-2">
+              <Disclosure summary={words.notebook.notes}>
+                <div className="grid max-w-[75ch] gap-2 leading-relaxed">
+                  {words.partNotes(of.id).map((note) => (
+                    <p key={note}>{note}</p>
+                  ))}
+                </div>
+              </Disclosure>
+            </div>
           )}
         </div>
         <Paged
@@ -290,11 +300,12 @@ export function KineticsBench({ lab, state, shown, act, opensAt, citations, bott
               type="button"
               aria-current={id === part ? 'true' : undefined}
               onClick={() => go(id)}
-              className="grid min-h-11 content-start rounded-md border border-l-4 px-2 py-1 text-left outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring aria-[current]:border-foreground aria-[current]:bg-muted aria-[current]:font-medium"
+              className="group grid min-h-11 content-start rounded-md border border-l-4 px-2 py-1 text-left outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring aria-[current]:border-foreground aria-[current]:bg-muted aria-[current]:font-medium"
             >
-              <span className="text-xs font-normal text-muted-foreground">{number}</span>
+              {/* The two small lines are grey on the page's ground. On the grey ground of the part that is shown, and of one the pointer is over, grey on grey measured 4.35 to 1 in the light theme: there they are in the page's own ink. */}
+              <span className="text-xs font-normal text-muted-foreground group-hover:text-foreground group-aria-[current]:text-foreground">{number}</span>
               <span>{name}</span>
-              <span className="text-xs font-normal text-muted-foreground">
+              <span className="text-xs font-normal text-muted-foreground group-hover:text-foreground group-aria-[current]:text-foreground">
                 <PartProgressLabel words={words} progress={progress[id]!} />
               </span>
             </button>

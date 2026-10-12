@@ -88,6 +88,13 @@ export interface WatchCardProps {
    * is true while the watch runs once the change has been shown, where the reduced-motion setting allows a mark of it.
    */
   liquid(labMs: number, turned: boolean): { picture: ReactNode; sentence: string; said: string }
+  /**
+   * For a lab whose picture is wide enough that on an upright tablet the watch and its lines stand under it and
+   * over the two buttons: while the watch runs the lines keep their room, two lines for the look and one for the
+   * status line, and the line on the speed keeps its own once the liquid has changed, so that no line that comes,
+   * goes or grows moves Stop under a hand that waits on it.
+   */
+  steady?: boolean
 }
 
 /**
@@ -107,7 +114,7 @@ export interface WatchCardProps {
  * the run again where it did not count. A run whose stored record is poured with no stop, which a page never
  * stores, is drawn with its watch at nothing and not running: stopping it ends it, and it is then made again.
  */
-export function WatchCard({ lab: { engine, m, words }, live, run, speed, startedAt, atChange, onAtChange, reducedMotion, onStop, onAgain, fast, liquid }: WatchCardProps) {
+export function WatchCard({ lab: { engine, m, words }, live, run, speed, startedAt, atChange, onAtChange, reducedMotion, onStop, onAgain, fast, liquid, steady = false }: WatchCardProps) {
   const view = engine.runView(m, live, run)
   const playing = startedAt !== null && view.stopped === null
   const playRef = useRef(startedAt === null ? null : startPlay(startedAt))
@@ -158,6 +165,8 @@ export function WatchCard({ lab: { engine, m, words }, live, run, speed, started
   const look = engine.lookAt(m, live, run, labMs)
   const tenths = engine.watchAt(m, live, run, labMs)
   const { picture, sentence, said: change } = liquid(labMs, playing && play?.shown != null && !reducedMotion)
+  // The lines keep their room while the watch runs, in a lab that asks for it; a stopped watch's card is read, and nothing on it waits for a hand.
+  const held = steady && view.stopped === null
   const stopByHand = () => {
     if (playRef.current === null) return stop({ type: 'stop', run, elapsedMs: 0, delayMs: 0 })
     const now = performance.now()
@@ -180,11 +189,11 @@ export function WatchCard({ lab: { engine, m, words }, live, run, speed, started
           <p role="timer" aria-label={words.watchStatus(view, tenths)} className="w-fit rounded-xl border-2 border-foreground px-4 py-2 font-mono text-5xl leading-none font-semibold tabular-nums">
             {watchText(tenths)}
           </p>
-          {/* Until the liquid changes the lab's time runs faster than a clock, and the page says so; from the change the watch adds true time, and the line is gone. */}
-          {over ? <p>{words.watchStatus(view, tenths)}</p> : look === 'before' && <p className="text-muted-foreground">{fast}</p>}
-          <p className="font-medium">{sentence}</p>
+          {/* Until the liquid changes the lab's time runs faster than a clock, and the page says so; from the change the watch adds true time, and the line is gone: taken away, or, where the lines keep their room, there and not shown. */}
+          {over ? <p>{words.watchStatus(view, tenths)}</p> : look === 'before' ? <p className="text-muted-foreground">{fast}</p> : held && <p className="invisible text-muted-foreground">{fast}</p>}
+          <p className={held ? 'min-h-10 font-medium' : 'font-medium'}>{sentence}</p>
           {/* Always there, and empty until the lab has something to say of the liquid, so that a screen reader says it when it comes. */}
-          <p role="status" className="font-semibold">
+          <p role="status" className={held ? 'min-h-5 font-semibold' : 'font-semibold'}>
             {change}
           </p>
         </div>

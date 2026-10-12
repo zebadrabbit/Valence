@@ -10,8 +10,8 @@ import { Step } from '@/app/lab/stationPieces'
 import type { AcetoneData, RunId } from '@/chem-data/acetone/data'
 import { can, leftAt, reduce, runView, type Action, type AcetoneState } from '@/engine/acetone'
 import { FlaskDrawing, liquidFill } from './FlaskDrawing'
-import { CHANGE_TEXT, LOOK_TEXT, RUN_TEXT, blockedText, fadeText, flaskText, liquidLook, liquidText, mixtureRows, mixtureTotal, runTitle } from './messages'
-import { SPEED } from './watch'
+import { CHANGE_TEXT, LOOK_TEXT, RUN_TEXT, blockedText, fadeSaid, flaskText, liquidLook, liquidText, mixtureRows, mixtureTotal, runTitle } from './messages'
+import { roomToSay, SPEED } from './watch'
 
 export interface RunCardProps extends RunOnBench {
   data: AcetoneData
@@ -42,8 +42,9 @@ const names = (data: AcetoneData, run: RunId) => ({ mixture: runTitle(data, run)
  * the two labs on the kinetics engine (src/app/lab/kinetics/Watch.tsx). What is this lab's own is the fade: at
  * every frame the engine says how much iodine is left at the time on the watch, the mixture is drawn in the yellow
  * of that amount beside water that never changes, the look is said in words under the flask and beside the watch,
- * and the status line says each step down in those words and then the end. Nothing here moves or pulses, with
- * motion reduced or not: the colour is each frame's own, with no transition.
+ * and the status line says a step down in those words where there is room to say it before the end, and then the
+ * end (watch.ts). Nothing here moves or pulses, with motion reduced or not: the colour is each frame's own, with
+ * no transition; and while the watch runs the lines beside it keep their room, so that Stop stays where it is.
  */
 export function RunCard(props: RunCardProps) {
   const { data, lab, state, run, deepest, startedAt, atChange, onAtChange, reducedMotion, act, onStop, headingRef } = props
@@ -81,6 +82,8 @@ export function RunCard(props: RunCardProps) {
               heading.current?.focus()
             }}
             fast={RUN_TEXT.fast}
+            // On an upright tablet the two flasks are as wide as the card, and the watch and its lines stand under them, over Stop.
+            steady
             liquid={(labMs) => {
               // How much iodine is left when the watch reads this, or was left at the stop: the colour and the words are both from it.
               const left = leftAt(m, live, run, labMs)!
@@ -88,8 +91,8 @@ export function RunCard(props: RunCardProps) {
               return {
                 picture: <FlaskDrawing names={names(data, run)} watched={{ fill: liquidFill(left.microMolar, deepest), looks: { mixture: LOOK_TEXT[look], water: LOOK_TEXT.none } }} />,
                 sentence: liquidText(data, left, true),
-                // While the watch runs, each step down in the words for the colour, and then the end. Once it is stopped, the end alone, where the colour had gone.
-                said: view.stopped === null ? fadeText(look) : look === 'none' ? CHANGE_TEXT : '',
+                // While the watch runs, a step down in the words for the colour where there is room to say it before the end, and then the end. Once it is stopped, the end alone, where the colour had gone.
+                said: view.stopped === null ? fadeSaid(data, left, (step) => roomToSay(labMs, left, step)) : look === 'none' ? CHANGE_TEXT : '',
               }
             }}
           />
