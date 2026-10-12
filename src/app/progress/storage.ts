@@ -16,6 +16,7 @@ export const ENTRY = {
   calorimetry: 'lab:calorimetry',
   cations: 'lab:cations',
   lechatelier: 'lab:le-chatelier',
+  clock: 'lab:clock-reaction',
   mechanism: 'mechanism:hcl-nahco3',
 } as const
 

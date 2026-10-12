@@ -76,17 +76,8 @@ export function columns(count: number, axes: Axes): { from: number; to: number }
   return Array.from({ length: count }, (_, step) => ({ from: Math.max(0, xOf(axes, step - 0.5)), to: Math.min(GRAPH.width, xOf(axes, step + 0.5)) }))
 }
 
-/** The reading a key moves to from reading `at` of `count`: the arrow keys one reading back or on, Home and End to the first and the last. Null for any other key, and where there is no reading that way. */
-export function keyTarget(key: string, at: number, count: number): number | null {
-  const to = { ArrowLeft: at - 1, ArrowRight: at + 1, Home: 0, End: count - 1 }[key]
-  return to === undefined || to === at || to < 0 || to >= count ? null : to
-}
-
-/** The reading a step back or on from the one last looked at lands on; from none, the first going on and the latest going back. Null where there is no reading that way. */
-export function stepTarget(by: -1 | 1, at: number | null, count: number): number | null {
-  const to = at === null ? (by === 1 ? 0 : count - 1) : at + by
-  return to < 0 || to >= count ? null : to
-}
+// What a key and a step button move to is the shell's (../exploreKeys.ts), handed on here under the same names.
+export { keyTarget, stepTarget } from '@/app/lab/exploreKeys'
 
 /** The plot's own corners, for what is drawn the plot's whole height or width. */
 export const PLOT_EDGE = { left: GRAPH.left, right: GRAPH.width - GRAPH.right, top: GRAPH.top, bottom: GRAPH.height - GRAPH.bottom } as const

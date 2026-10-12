@@ -17,8 +17,13 @@ export const ACTIVITIES = [
   { entry: ENTRY.cations, version: 1, kind: 'Lab', title: 'Group I cations', to: '/lab/cations' },
   // src/lechatelier-version.test.ts pins what a stored run of this lab is judged against to this entry and this version.
   { entry: ENTRY.lechatelier, version: 1, kind: 'Lab', title: "Le Chatelier's principle", to: '/lab/le-chatelier' },
+  // src/clock-version.test.ts pins what a stored run of this lab is judged against to this entry and this version.
+  { entry: ENTRY.clock, version: 1, kind: 'Lab', title: 'Clock reaction', to: '/lab/clock-reaction' },
   { entry: ENTRY.mechanism, version: 1, kind: 'Mechanism', title: 'HCl + NaHCO₃, step by step', to: '/learn/hcl-nahco3' },
 ] as const
+
+/** The clock reaction lab's stored entry and its version: what its page loads and saves with (src/clock-version.test.ts pins what a stored run is judged against to it). */
+export const CLOCK_PROGRESS = { entry: ACTIVITIES[6].entry, version: ACTIVITIES[6].version } as const
 
 export type Activity = (typeof ACTIVITIES)[number]
 

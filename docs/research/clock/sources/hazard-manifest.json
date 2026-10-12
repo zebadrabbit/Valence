@@ -1,0 +1,1440 @@
+{
+  "sources": [
+    {
+      "id": "flinn-sds-638",
+      "url": "https://www.flinnsci.com/sds_638-potassium-iodide/sds_638",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Potassium Iodide, SDS number sds_638; revision date March 21, 2014 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "1d8b8fecd6dcc5399e936fe2fc95ff776d6529d48ee42bcd414c7f0eafac4f7a",
+      "supports": [
+        {
+          "field": "ki-0.01m.classifiedAs",
+          "prints": "Potassium Iodide",
+          "where": "The sheet's title, before the words Safety Data Sheet: the substance the sheet is for, with no strength. Section 3 lists potassium iodide alone, with the formula weight 166.01, no water and nothing in its concentration column, so the sheet is for the substance itself and not for a solution of it. The heading over the bottle's statements calls that the pure substance; the sheet does not use the word. The solution on the bench is made up from this solid, and the bottle carries the statements of the most dangerous form it is made from (spec 5.2)."
+        },
+        {
+          "field": "ki-0.01m.classifiedAs",
+          "prints": "White crystals, granules or powder.",
+          "where": "Section 9, the first words of the description: the form the sheet is for. Section 5 calls the substance a solid. The heading over the bottle's statements says solid potassium iodide."
+        },
+        {
+          "field": "ki-0.01m.hazards",
+          "prints": "March 21, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "ki-0.01m.hazards.signalWord",
+          "prints": "WARNING",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Warning, the form its schema has for the word."
+        },
+        {
+          "field": "ki-0.01m.hazards.statements[0]",
+          "prints": "Harmful if swallowed (H302)",
+          "where": "Section 2, the first of the two hazard classes it lists: category 4, for acute toxicity by mouth. The record stores the sheet's own line, with its code or codes in front as printed, then a colon and the statement."
+        },
+        {
+          "field": "ki-0.01m.hazards.statements[1]",
+          "prints": "Causes skin and serious eye irritation (H315+H319)",
+          "where": "Section 2, the second and last of the two hazard classes it lists: irritation of the skin, category 2, and of the eyes, category 2A, which the sheet prints as one class with one statement and a pair of codes. The line is whole as it stands, and is stored as printed. The section prints no other hazard code. Beside some of the classes it prints precautionary statements, with codes that begin with P: those are not hazard statements and are not carried into the record."
+        },
+        {
+          "field": "ki-0.01m.notCarried",
+          "prints": "Chronic effects: Possible teratogen",
+          "where": "Read and not carried. Section 11, its second line: that the salt may be able to harm an unborn child. The line carries no hazard class and no code. Why: the same sheet does not bear it out: its classification in section 2 has no class for harm to the unborn child or to fertility. Neither of the other two suppliers' sheets has one, the third's says that it has no data on it, and NOAA's record says nothing of it. The note is held to a length and has the classes that the documents do give. It is put here for whoever decides what the note says."
+        },
+        {
+          "field": "ki-0.01m.notCarried",
+          "prints": "Acute effects: Irritant, possible sensitizer",
+          "where": "Read and not carried. Section 11, its first line. Section 2 has the irritation, of the skin and of the eyes, and no class for an allergy. Why: the note has the skin allergy from the second supplier's sheet for a solution, which gives it a class and a code; this line agrees with it and has neither."
+        },
+        {
+          "field": "ki-0.01m.notCarried",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "Read and not carried. The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that; the sheet gives no number of minutes. Its first line is that anyone exposed or worried gets medical advice (P308+P313). For the eyes it adds medical advice if the irritation lasts. For the skin: it is rinsed with water for several minutes. For swallowing: the mouth is rinsed, and a poison centre or a doctor is called by anyone who feels unwell. Why: it is the first aid of the solid; the note gives the first aid of the second supplier's sheet for a solution, which asks more for the eyes."
+        },
+        {
+          "field": "primer.notCarried",
+          "prints": "Avoid contact with reducers, acid, steel, aluminum, alkali metals, brass, magnesium, zinc, cadmium, copper, tin, nickel and their alloys.",
+          "where": "Read and not carried. Section 10, its first sentence, of the solid. For the primer's safety topic it would support this: that the sheet for potassium iodide keeps it from acid, among other things, and does not say what the two give. The sheet does not name oxidisers there; the other documents read for the iodide do. On this bench the iodide meets the acid in the flask, each of them diluted, as the experiment. Why: the primer's safety card is held to a length, and of what was read it keeps what a learner at the bench most needs. This is put here for whoever decides what the card says."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-639",
+      "url": "https://www.flinnsci.com/sds_639-potassium-iodide-solution/sds_639",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Potassium Iodide Solution, SDS number sds_639; revision date February 6, 2014 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "63018c30bf962115b7ea0626856bc8fae903201d3d7001b161bdd940d8da8ef1",
+      "supports": [
+        {
+          "field": "ki-0.01m.hazards.note",
+          "prints": "Potassium Iodide Solution",
+          "where": "The sheet's title, before the words Safety Data Sheet: the supplier's one sheet for a solution of potassium iodide. The row for its table of composition is below: its solutions are stronger than the one on the bench."
+        },
+        {
+          "field": "ki-0.01m.hazards.note",
+          "prints": "February 6, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "ki-0.01m.hazards.note",
+          "prints": "2-17%",
+          "where": "Section 3, the concentration column, in the row for potassium iodide; the rest is water, at 83% to 98%, with propionic acid at 0.2%, which the sheet does not explain. The sheet does not say on what basis the percentages are. The solution on the bench is 0.010 mol/L, which is 1.66 g of potassium iodide in a litre, about 0.17% (worked out from the molarity and the sheet's formula weight, not read from a source): below this range: the weakest solution the sheet is for is about twelve times as strong. The note says that the sheet is for stronger solutions and gives the range."
+        },
+        {
+          "field": "ki-0.01m.hazards.note",
+          "prints": "This chemical is considered nonhazardous according to GHS classifications for the Hazard Communication Standard.",
+          "where": "Section 2, its first sentence. The sheet prints no signal word, where the supplier's other sheets have one under the title, and no hazard class, statement or code; the section goes on to say that every laboratory chemical is still treated with caution. The note says that the sheet gives no signal word and no hazard statement."
+        },
+        {
+          "field": "ki-0.01m.hazards.note",
+          "prints": "SECTION 8 — EXPOSURE CONTROLS, PERSONAL PROTECTION",
+          "where": "The heading of section 8. Under it the sheet calls for eye protection, gloves and protective clothing, and for washing the hands after handling; it prints no codes."
+        },
+        {
+          "field": "ki-0.01m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods (#26b) is one option. Section 12, on ecology, has one line, that there is no data yet, and section 15 says that the solution is not listed. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and local regulations."
+        },
+        {
+          "field": "ki-0.01m.notCarried",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "Read and not carried. The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that; the sheet gives no number of minutes. It has no line on medical advice for the eyes. For the skin: it is washed with plenty of water. For swallowing: the mouth is rinsed, and a poison centre or a doctor is called by anyone who feels unwell. Why: the second supplier's sheet for a 0.1 M solution asks more for the eyes, and the note gives that."
+        }
+      ]
+    },
+    {
+      "id": "wards-sds-pp0630",
+      "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=501dc753ed20de75627db5aab5069bd72b152ffb&vid=501dc753ed20de75627db5aab5069bd72b152ffb&prid=original&clid=SAPDAM",
+      "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Potassium Iodide, 0.1 Molar Solution, SDS No. PP0630; revision date October 4, 2024 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "17a0f53a00d354221a8e120e57f9ca1d093a906d570798b82b3e2a70353f86f9",
+      "supports": [
+        {
+          "field": "ki-0.01m.hazards.note",
+          "prints": "POTASSIUM IODIDE, 0.1 MOLAR SOLUTION",
+          "where": "The product named at the head of the sheet, whose number is SDS No. PP0630. The sheet carries the names of two suppliers of one company, Ward's Science and Boreal Science, and has English pages and then French ones; the English pages were read. It was read as the PDF served at the address above, which is one the supplier's own product page leads to: the page's link for safety data sheets opens the site's lookup of sheets by catalogue number, filled in with the product's own numbers, and this sheet is in the list it shows. The site's robots file closes its search by words to automated readers, and that search was not used; it does not close this lookup. It is a sheet for a solution ten times as strong as the one on the bench: section 3 gives potassium iodide at 1.66% and water at 98.34%. The supplier's page for the solution that was opened lists it at 0.1 M, in two sizes, and no weaker one was found; this is the nearest that is not weaker than the bench's."
+        },
+        {
+          "field": "ki-0.01m.hazards.note",
+          "prints": "October 4, 2024",
+          "where": "At the foot of the last English page, after the words Revision Date; the sheet says that it takes the place of one of November 7, 2022. This is the revision the address served on the day it was read."
+        },
+        {
+          "field": "ki-0.01m.hazards.note",
+          "prints": "Signal word: WARNING",
+          "where": "Section 2, its first line, the word in capitals, where the first supplier's sheet for its solutions prints no word at all. The note gives it as Warning. The pictogram is the exclamation mark, GHS07."
+        },
+        {
+          "field": "ki-0.01m.hazards.note",
+          "prints": "H317: May cause an allergic skin reaction.",
+          "where": "Section 2, the second of the two hazard statements; the class is sensitisation of the skin, category 1A. The first is H303, that the solution may be harmful if swallowed (acute toxicity by mouth, category 5), which is milder than the H302 on the tile. Neither of the first supplier's sheets has a class for an allergy. The note gives this one with its code and says that the solution may set off a skin allergy."
+        },
+        {
+          "field": "ki-0.01m.hazards.note",
+          "prints": "P302+P352: IF ON SKIN: Wash with plenty of water and soap.",
+          "where": "Section 2, among the precautionary statements. With it are P362+P364, that clothing the solution has got on is taken off and washed before it is worn again; P333+P313, medical attention if the skin is irritated or a rash comes; P272, that such clothing does not leave the workplace; P261, on not breathing its mist; P280, on gloves, protective clothing and protection for the eyes and the face; and P312, a call to a poison centre or a doctor by anyone who feels unwell. They are the precautions that go with the class for a skin allergy. The note has the clothing and the washing with soap and water."
+        },
+        {
+          "field": "ki-0.01m.hazards.note",
+          "prints": "First aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: contact lenses are looked for and taken out, the eyes are flushed with water for 15 minutes or more, the upper and lower lids lifted from time to time, and medical attention is got at once. The first supplier's sheet for its solutions gives several minutes and no line on medical advice for the eyes; the note gives the 15 minutes and the doctor at once as what this lab goes by. For the skin the section has the clothing taken off and the skin flushed with mild soap and water. The form of this supplier prints the same line for the eyes on every sheet of its that was read; it is carried all the same, as first aid on a sheet for the thing on the bench. Section 8 says that safety glasses, goggles or a face shield, a laboratory coat or apron and gloves are to be worn, and that an eyewash and a safety shower are to be at hand."
+        },
+        {
+          "field": "ki-0.01m.hazards.note",
+          "prints": "Incompatible materials:",
+          "where": "Section 10, the label of its list: the salt reacts violently, it says, with alkali metals, diazonium salts, oxidants and three compounds of the halogens that it names, and may explode or take fire. It agrees with NOAA's record, which the note names for the reaction with oxidising agents. On this bench the oxidiser is the potassium bromate."
+        },
+        {
+          "field": "ki-0.01m.notCarried",
+          "prints": "Target organs: Thyroid",
+          "where": "Read and not carried. Section 2, its third line. Section 11 tells of an underactive thyroid and of goitre among the signs of exposure, and of a set of complaints that come of swallowing iodides for a long time. Why: the note has the thyroid from the third supplier's sheet, which gives it a hazard class; this sheet gives it none."
+        },
+        {
+          "field": "ki-0.01m.notCarried",
+          "prints": "INGESTION: MAY BE HARMFUL IF SWALLOWED.",
+          "where": "Read and not carried. Section 4, the first of its lines. After the capitals: a doctor or a poison centre is called at once, and vomiting is brought on only if medical staff say so. Why: the note is held to a length. The form of this supplier prints the same call on every sheet of its that was read; this sheet's own precautionary statement P312 asks for the call only if the person feels unwell, and the tile has the graver statement for swallowing, from the first supplier's sheet for the solid."
+        },
+        {
+          "field": "ki-0.01m.notCarried",
+          "prints": "INHALATION: MAY BE HARMFUL IF INHALED. CAUSES RESPIRATORY TRACT IRRITATION.",
+          "where": "Read and not carried. Section 4, the second of its lines, in capitals; the same words are on the same supplier's sheet for the solid. Section 2 prints P261, on not breathing the mist. Why: the capitals name no hazard class, and section 2 has none for breathing it in; a solution in a flask raises no mist, and the note is held to a length."
+        },
+        {
+          "field": "ki-0.01m.notCarried",
+          "prints": "NOTE: Solutions of this product are corrosive to most metals.",
+          "where": "Read and not carried. Section 10, at the end of the list of what the salt does not go with. Why: the sheet gives the solution no class for the corrosion of metals, and there is no metal on this bench."
+        },
+        {
+          "field": "ki-0.01m.notCarried",
+          "prints": "Accidental release measures",
+          "where": "Read and not carried. The heading of section 6. Under it, as an environmental precaution: runoff is to be kept from storm sewers and from ditches that lead to waterways. A spill is taken up and put into a container for disposal, and the place washed. Section 13 says that its guidance is for small amounts, and that disposal is to follow the local, state and federal rules or go through a licensed agency for chemical disposal; the note gives no method of disposal. Why: the same line is on every sheet of this supplier that was read, for this lab and for the four before it, whatever the substance. This sheet gives the solution no class for the environment, and its section 14 answers No beside the words Reportable Quantity."
+        },
+        {
+          "field": "ki-0.01m.notCarried",
+          "prints": "Ecological information",
+          "where": "Read and not carried. The heading of section 12, and the last line under it: that harm to the environment cannot be ruled out if the product is handled or disposed of carelessly. Above it the section says that there is no data for a fish or a water flea. Why: the same line is on every sheet of this supplier that was read, for this lab and for the four before it, whatever the substance."
+        },
+        {
+          "field": "primer.notCarried",
+          "prints": "Contact with strong oxidizers may cause fire or explosion.",
+          "where": "Read and not carried. Section 5, under the words for specific hazards, its last sentence. The sheet is for a 0.1 M solution, but the sentence is that of the same supplier's sheet for the solid, word for word, and it says nothing of a dilute solution. For the primer's safety topic it would support this: that iodide and a strong oxidiser, which potassium bromate is by its own sheets, are kept apart except where the experiment has them meet, in the flask and diluted. Why: the primer's safety card is held to a length, and of what was read it keeps what a learner at the bench most needs. This is put here for whoever decides what the card says."
+        },
+        {
+          "field": "primer.notCarried",
+          "prints": "Hazardous decomposition products: Yields iodine when in contact with air.",
+          "where": "Read and not carried. Section 10, its last line, which goes on to say that iodine, an oxide of potassium and hydrogen iodide come off in moist air. For the primer's safety topic it would support this: that iodide slowly gives iodine in air, which is why a solution of it that has stood may be faintly yellow. Why: the primer's safety card is held to a length, and of what was read it keeps what a learner at the bench most needs. This is put here for whoever decides what the card says."
+        }
+      ]
+    },
+    {
+      "id": "wards-sds-pp0610",
+      "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=e25ad5b2a010b0d53cc8ce4c9a676f14f1cfa794&vid=e25ad5b2a010b0d53cc8ce4c9a676f14f1cfa794&prid=original&clid=SAPDAM",
+      "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Potassium Iodide, SDS No. PP0610; revision date October 4, 2024 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "3ff7537f2e52bc0262552660d94601d31b8219c0d6afde7b5f61d5b275a61bc4",
+      "supports": [
+        {
+          "field": "ki-0.01m.notCarried",
+          "prints": "POTASSIUM IODIDE",
+          "where": "Read and not carried. The product named at the head of the sheet, whose number is SDS No. PP0610. The sheet carries the names of two suppliers of one company, Ward's Science and Boreal Science, and has English pages and then French ones; the English pages were read. It was read as the PDF served at the address above, which is one the supplier's own product page leads to: the page's link for safety data sheets opens the site's lookup of sheets by catalogue number, filled in with the product's own numbers, and this sheet is in the list it shows. The site's robots file closes its search by words to automated readers, and that search was not used; it does not close this lookup. It is a sheet for the solid: section 3 gives potassium iodide at 100%. The foot of its last English page gives the revision date of the citation, and says that it takes the place of one of November 7, 2022. Its signal word is WARNING and its two statements are H303 and H317, with the thyroid as the organ named. Why: it classes the solid as the same supplier's sheet for a 0.1 M solution classes the solution, statement for statement, and the note cites that one, which is nearer the bench."
+        },
+        {
+          "field": "ki-0.01m.notCarried",
+          "prints": "P261: Avoid breathing dust.",
+          "where": "Read and not carried. Section 2, the first of the precautionary statements. Why: it is of the dry solid, which is not on this bench: the bottle holds a solution."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-ki",
+      "url": "https://www.fishersci.com/store/msds?partNumber=P410500&productDescription=POTASSIUM+IODIDE&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Potassium iodide, catalogue numbers P410-3, P410-10, P410-100 and P410-500; revision 10 of 18 December 2025 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "8543be9115916cfad32a0ab21264b881b372bac528565d2d026868c568492a74",
+      "supports": [
+        {
+          "field": "ki-0.01m.hazards.note",
+          "prints": "Potassium iodide",
+          "where": "Section 1, after the words Product Name, with the CAS number 7681-11-0. Section 3 gives potassium iodide at up to 100%, and section 9 calls it a solid: the sheet is for the solid, and the note says so. The address above was made from one catalogue number, in the form of the addresses the labs before this one read this supplier's sheets at; the description in it is this project's, and the server answered with the sheet named here."
+        },
+        {
+          "field": "ki-0.01m.hazards.note",
+          "prints": "18-Dec-2025",
+          "where": "At the head of the sheet, after the words Revision Date, with Revision Number 10 beside it, and again on every page. The sheet says under its title that it is made to the hazard communication standard of the United States, in its form of 2024."
+        },
+        {
+          "field": "ki-0.01m.hazards.note",
+          "prints": "Causes damage to organs through prolonged or repeated exposure",
+          "where": "Section 2, the one hazard statement of the label. The sheet prints its hazard statements without codes. The class is toxicity to organs after repeated exposure, category 1, and the organ named is the thyroid; section 11 gives the route as by mouth. The signal word is Danger, graver than the Warning of the first supplier's sheet for the solid, which has no such class. The sheet has no class for swallowing, the skin or the eyes. The note says that this sheet adds damage to the thyroid over long exposure."
+        },
+        {
+          "field": "ki-0.01m.hazards.note",
+          "prints": "Strong oxidizing agents",
+          "where": "Section 10, after the words for what the salt does not go with: the line names nothing else; section 7 says the same. It agrees with NOAA's record, which the note names. Section 10 also says that the salt is sensitive to air, to light and to damp."
+        },
+        {
+          "field": "ki-0.01m.notCarried",
+          "prints": "4. First-aid measures",
+          "where": "Read and not carried. The heading of section 4. Under it, for the eyes: rinsing at once with plenty of water, under the lids too, for 15 minutes or more, and medical attention. For the skin: washing at once with plenty of water for 15 minutes or more, and a doctor if irritation lasts. For swallowing: the mouth is cleaned with water, plenty of water is drunk after, and medical attention is got if symptoms come. Why: it is the first aid of the solid; for the eyes it asks what the second supplier's sheet for a solution asks, and the note gives that sheet's line."
+        },
+        {
+          "field": "ki-0.01m.notCarried",
+          "prints": "May cause pulmonary edema",
+          "where": "Read and not carried. Section 4, after the words for the most important symptoms and effects, and again in section 11: fluid in the lungs. Why: the same sheet contradicts it: its section 11 says that breathing the salt in is not a route by which exposure is expected, and section 2 has no class for it."
+        },
+        {
+          "field": "ki-0.01m.notCarried",
+          "prints": "Should not be released into the environment.",
+          "where": "Read and not carried. Section 6, beside the label Environmental Precautions. Section 12 gives a figure for a fish, of 3200 mg/L, and says that the salt is not likely to last in the environment. Why: the line is on this supplier's sheets whatever the substance; this sheet gives the salt no class for the environment and says in section 15 that it holds no chemical under SARA 313."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-9014",
+      "url": "https://cameochemicals.noaa.gov/chemical/9014",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Potassium Iodide (chemical 9014); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "f30d049d337930344995ce51caef16360c5cf4277dcb9c221bb2f7e227b649c5",
+      "supports": [
+        {
+          "field": "ki-0.01m.hazards.note",
+          "prints": "POTASSIUM IODIDE",
+          "where": "The page's title, under the words Chemical Datasheet. Its table of identifiers gives the CAS number 7681-11-0. The foot of the page prints the version named in the citation and no date of its own; most fields name where their text is from. The page was found in the list of names the site shows under one letter; the site's search was not used, which its robots file closes to automated readers. The page describes a white solid with no smell that sinks in water and mixes with it. Its alerts for reactivity are none, and its field for regulation says that there is no information: the salt is on none of the lists the page shows. The page has no record for a solution."
+        },
+        {
+          "field": "ki-0.01m.hazards.note",
+          "prints": "Potassium iodide is a weak reducing agent, and may react with strong or weak oxidizing agents.",
+          "where": "The field Reactivity Profile, its first sentence; the second is of one compound of bromine and fluorine. The note says that iodide reacts with oxidising agents by NOAA's record. The record does not say what the reaction gives. On this bench the oxidising agent is the potassium bromate, and the two meet in the flask, as the experiment."
+        },
+        {
+          "field": "ki-0.01m.notCarried",
+          "prints": "May irritate eyes or open cuts.",
+          "where": "Read and not carried. The field Health Hazard, all of it, a text the page credits to the Coast Guard, 1999. The field Protective Clothing, from the same source, names goggles or a face shield. Why: the tile has the graver statement, serious irritation of the eyes, from the first supplier's sheet for the solid, and the note has the eye protection from the same supplier's sheet for the solution."
+        },
+        {
+          "field": "ki-0.01m.notCarried",
+          "prints": "Flush all affected areas with water.",
+          "where": "Read and not carried. The field First Aid, all of it, from the same source. Why: the second supplier's sheet asks more, a number of minutes and a doctor, and the note gives that."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-768",
+      "url": "https://www.flinnsci.com/sds_768-sodium-thiosulfate-pentahydrate/sds_768",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Thiosulfate Pentahydrate, SDS number sds_768; revision date July 24, 2015 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "0ff4f6feed1705c7b9efcd5a51abc3cbc1d3f498453ccfcca49bae09371afc62",
+      "supports": [
+        {
+          "field": "na2s2o3-0.001m.classifiedAs",
+          "prints": "Sodium Thiosulfate Pentahydrate",
+          "where": "The sheet's title, before the words Safety Data Sheet: the substance the sheet is for, with no strength. Section 3 lists sodium thiosulfate pentahydrate alone, with the formula weight 248.19, no water beside it and nothing in its concentration column, so the sheet is for the substance itself and not for a solution of it. The heading over the bottle's statements calls that the pure substance; the sheet does not use the word. The solution on the bench is made up from this solid, and the bottle carries the statements of the most dangerous form it is made from (spec 5.2). The supplier lists a sheet for the salt without its water too (sds_769), which was not read: the bench's solution is made from the pentahydrate."
+        },
+        {
+          "field": "na2s2o3-0.001m.classifiedAs",
+          "prints": "White, translucent crystals or powder.",
+          "where": "Section 9, the first words of the description: the form the sheet is for. Section 5 calls the substance a solid. The heading over the bottle's statements says solid sodium thiosulfate pentahydrate."
+        },
+        {
+          "field": "na2s2o3-0.001m.hazards",
+          "prints": "July 24, 2015",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "na2s2o3-0.001m.hazards.signalWord",
+          "prints": "",
+          "where": "The sheet prints no signal word: where the supplier's other sheets have a line that begins Signal Word, under the title and the revision date, this one has none. The record stores None, the word its schema has for a sheet with no signal word; the sheet does not print that word either."
+        },
+        {
+          "field": "na2s2o3-0.001m.hazards.statements",
+          "prints": "SECTION 2 — HAZARDS IDENTIFICATION",
+          "where": "The heading of section 2. Under it the sheet lists no hazard class, no hazard statement and no code. In their place it says that the chemical is taken to be non-hazardous under the GHS classifications of a standard it names, with every laboratory chemical still to be treated with caution. A second sentence says that reactions nobody foresaw can always happen, so careful practice is to be kept. The record stores no statement, and no sentence of the section is carried into it as one."
+        },
+        {
+          "field": "na2s2o3-0.001m.hazards.note",
+          "prints": "This chemical is considered nonhazardous according to GHS classifications for the Hazard Communication Standard.",
+          "where": "Section 2, its first sentence. The note says that the supplier's sheet for the solid prints no signal word and no hazard statement."
+        },
+        {
+          "field": "na2s2o3-0.001m.hazards.note",
+          "prints": "SECTION 8 — EXPOSURE CONTROLS, PERSONAL PROTECTION",
+          "where": "The heading of section 8. Under it the sheet calls for eye protection, gloves and protective clothing, and for washing the hands after handling; it prints no codes."
+        },
+        {
+          "field": "na2s2o3-0.001m.hazards.note",
+          "prints": "Avoid contact with strong acids, strong oxidizers, lead, silver, mercury salts and iodine.",
+          "where": "Section 10, its first line. The note gives the strong acids, the strong oxidisers and the iodine; nothing of lead, silver or mercury is on this bench. This bench has an acid, a strong oxidiser in the potassium bromate, and the iodine that the reaction makes: the thiosulfate meets each of them in the flask, diluted, which is the experiment, and the note says so. The sheet does not say what thiosulfate gives with any of them."
+        },
+        {
+          "field": "na2s2o3-0.001m.hazards.note",
+          "prints": "Acute effects: Irritant.",
+          "where": "Section 11, its first line; the sheet gives the solid no hazard class for it. It agrees with the second supplier's sheet, from which the note has it that the salt may irritate eyes and skin."
+        },
+        {
+          "field": "na2s2o3-0.001m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods (#12b) is one option. Section 12, on ecology, has one line, that there is no data yet. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and local regulations."
+        },
+        {
+          "field": "na2s2o3-0.001m.notCarried",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "Read and not carried. The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that; the sheet gives no number of minutes. It has no line on medical advice for the eyes. For the skin: it is washed with plenty of water. For swallowing: the mouth is rinsed, and a poison centre or a doctor is called by anyone who feels unwell. Why: the second supplier's sheet for the solid asks more for the eyes, and the note gives that."
+        },
+        {
+          "field": "primer.notCarried",
+          "prints": "Avoid contact with strong acids, strong oxidizers, lead, silver, mercury salts and iodine.",
+          "where": "Read and not carried. Section 10, its first line, of the solid. For the primer's safety topic it would support this: that the sheet for sodium thiosulfate keeps it from strong acids, from strong oxidisers, of which potassium bromate is one by its own sheets, and from iodine. It does not say what the salt gives with any of them, and no document read does. Why: the primer's safety card is held to a length, and of what was read it keeps what a learner at the bench most needs. This is put here for whoever decides what the card says."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-770",
+      "url": "https://www.flinnsci.com/sds_770-sodium-thiosulfate-solution/sds_770",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Thiosulfate Solution, SDS number sds_770; revision date January 16, 2014 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "6552c2ff52c23d405f99c157f058d959782e44d27a76dd87035bde99f3c98d06",
+      "supports": [
+        {
+          "field": "na2s2o3-0.001m.hazards.note",
+          "prints": "Sodium Thiosulfate Solution",
+          "where": "The sheet's title, before the words Safety Data Sheet: the supplier's one sheet for a plain solution of the salt. The row for its table of composition is below."
+        },
+        {
+          "field": "na2s2o3-0.001m.hazards.note",
+          "prints": "January 16, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "na2s2o3-0.001m.hazards.note",
+          "prints": "12% or less",
+          "where": "Section 3, the concentration column, in the row for sodium thiosulfate, which the sheet gives with the formula of the salt without water and the CAS number of the pentahydrate; the rest is water. The sheet does not say on what basis the percentage is. The solution on the bench is 0.0010 mol/L, which is 0.25 g of the pentahydrate in a litre, about 0.025% (worked out from the molarity and the formula weight of the first supplier's sheet for the solid, not read from a source): far inside the range. The note gives the range."
+        },
+        {
+          "field": "na2s2o3-0.001m.hazards.note",
+          "prints": "This chemical is considered nonhazardous according to GHS classifications for the Hazard Communication Standard.",
+          "where": "Section 2, its first sentence. The sheet prints no signal word, where the supplier's other sheets have one under the title, and no hazard class, statement or code; the section goes on to say that every laboratory chemical is still treated with caution. The note says that the sheet prints no signal word and no hazard statement."
+        },
+        {
+          "field": "na2s2o3-0.001m.hazards.note",
+          "prints": "SECTION 8 — EXPOSURE CONTROLS, PERSONAL PROTECTION",
+          "where": "The heading of section 8. Under it the sheet calls for eye protection, gloves and protective clothing, and for washing the hands after handling; it prints no codes."
+        },
+        {
+          "field": "na2s2o3-0.001m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods (#12b) is one option. Section 15 says that the solution is not listed. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and local regulations."
+        },
+        {
+          "field": "na2s2o3-0.001m.notCarried",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "Read and not carried. The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that; the sheet gives no number of minutes. It has no line on medical advice for the eyes. For the skin: it is washed with plenty of water. For swallowing: the mouth is rinsed, and a poison centre or a doctor is called by anyone who feels unwell. Why: the second supplier's sheet for the solid asks more for the eyes, and the note gives that."
+        }
+      ]
+    },
+    {
+      "id": "wards-sds-ss0880",
+      "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=66f7d3140ebf767a88711cabb351c3a24bd429d6&vid=66f7d3140ebf767a88711cabb351c3a24bd429d6&prid=original&clid=SAPDAM",
+      "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Sodium Thiosulfate, Pentahydrate, SDS No. SS0880; revision date November 5, 2024 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "17370e6e5f9bf0320a2ab92ce15aaab031089e75ffb962f6299e24d955643a82",
+      "supports": [
+        {
+          "field": "na2s2o3-0.001m.hazards.note",
+          "prints": "SODIUM THIOSULFATE, PENTAHYDRATE",
+          "where": "The product named at the head of the sheet, whose number is SDS No. SS0880. The sheet carries the names of two suppliers of one company, Ward's Science and Boreal Science, and has English pages and then French ones; the English pages were read. It was read as the PDF served at the address above, which is the one the supplier's own product page gives for the sheet of this product. It is a sheet for the solid: section 3 gives the pentahydrate at 100%. The supplier's product page lists the solid and a concentrate that makes a 0.1 M solution, and no solution near the strength on the bench; the sheet for the solid, of the laboratory grade, was read."
+        },
+        {
+          "field": "na2s2o3-0.001m.hazards.note",
+          "prints": "November 5, 2024",
+          "where": "At the foot of the last English page, after the words Revision Date; the sheet says that it takes the place of one of November 14, 2022. This is the revision the address served on the day it was read."
+        },
+        {
+          "field": "na2s2o3-0.001m.hazards.note",
+          "prints": "Signal word: Not classified",
+          "where": "Section 2: the sheet prints these two words in place of a signal word, and the same two after the words for pictograms, for the GHS classification, for hazard statements and for precautionary statements. The section begins by saying that the substance has not been classed as hazardous under the GHS. So this sheet, like the first supplier's, has no signal word and no statement, and the note says that it gives the solid no hazard class either. Beside them the section has a few lines of advice: that dust is not breathed, that the solid is kept from the eyes, the skin and the clothing, and that gloves, protective clothing and protection for the eyes and face are worn."
+        },
+        {
+          "field": "na2s2o3-0.001m.hazards.note",
+          "prints": "EYE CONTACT: MAY CAUSE EYE IRRITATION.",
+          "where": "Section 4, the third of its lines, the hazard in capitals; the line for the skin says in capitals that the solid may irritate it. Section 11 bears both out: for the skin it gives irritation, itching and redness, and for the eyes irritation, redness and tears. Section 2 gives the solid no class for either all the same. The first supplier's sheet for the solid calls it an irritant in its section 11. The note says that the sheet says the salt may irritate eyes and skin."
+        },
+        {
+          "field": "na2s2o3-0.001m.hazards.note",
+          "prints": "First aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: contact lenses are looked for and taken out, the eyes are flushed with water for 15 minutes or more, the upper and lower lids lifted from time to time, and medical attention is got at once. The first supplier's two sheets give several minutes and no line on medical advice for the eyes; the note gives the 15 minutes and the doctor at once as what this lab goes by. The form of this supplier prints the same line for the eyes on every sheet of its that was read; it is carried all the same, as first aid on a sheet for the thing on the bench. Section 8 says that safety glasses, goggles or a face shield, a laboratory coat or apron and gloves are to be worn, and that an eyewash and a safety shower are to be at hand."
+        },
+        {
+          "field": "na2s2o3-0.001m.hazards.note",
+          "prints": "Incompatible materials: Strong oxidizing agents, sodium nitrate, iodides, silver salts, mercury salts, lead.",
+          "where": "Section 10, the line for what the salt does not go with, all of it. The first supplier's sheet has much the same list, with iodine where this one has iodides, and with strong acids. The note gives the strong oxidisers, and gives the iodides as what one of the sheets says. On this bench the thiosulfate and the potassium iodide are mixed on purpose, in dilute solution, as the experiment. No other document read keeps thiosulfate from iodides, and this one may mean iodine, which thiosulfate does react with; that is a reading of the sheet and not something it says, so the line is carried as printed."
+        },
+        {
+          "field": "na2s2o3-0.001m.notCarried",
+          "prints": "INHALATION: MAY BE HARMFUL IF INHALED. MAY CAUSE RESPIRATORY TRACT IRRITATION.",
+          "where": "Read and not carried. Section 4, the second of its lines, in capitals. Section 11 lists, for breathing the solid in, inflammation and swelling of the airways and several graver things. Section 2 says that dust is not to be breathed. Why: it is of the dry solid as a dust, which is not on this bench: the bottle holds a solution of a quarter of a gram in a litre. The capitals name no hazard class, and section 2 has none."
+        },
+        {
+          "field": "na2s2o3-0.001m.notCarried",
+          "prints": "INGESTION: MAY BE HARMFUL IF SWALLOWED.",
+          "where": "Read and not carried. Section 4, the first of its lines. After the capitals: a doctor or a poison centre is called at once, and vomiting is brought on only if medical staff say so. Section 11 gives nausea and vomiting as what swallowing it does. Why: the capitals name no hazard class, section 2 has none, and the form of this supplier prints the same call on every sheet of its that was read; the note is held to a length and gives the first aid for the eyes."
+        },
+        {
+          "field": "na2s2o3-0.001m.notCarried",
+          "prints": "Accidental release measures",
+          "where": "Read and not carried. The heading of section 6. Under it, as an environmental precaution: runoff is to be kept from storm sewers and from ditches that lead to waterways. A spill is taken up and put into a container for disposal, and the place washed. Section 13 says that its guidance is for small amounts, and that disposal is to follow the local, state and federal rules or go through a licensed agency for chemical disposal; the note gives no method of disposal. Why: the same line is on every sheet of this supplier that was read, for this lab and for the four before it, whatever the substance. This sheet gives the salt no class for the environment, and its section 14 answers No beside the words Reportable Quantity."
+        },
+        {
+          "field": "na2s2o3-0.001m.notCarried",
+          "prints": "Ecological information",
+          "where": "Read and not carried. The heading of section 12, and the last line under it: that harm to the environment cannot be ruled out if the product is handled or disposed of carelessly. Above it the section says that there is no data for a fish or a water flea. Why: the same line is on every sheet of this supplier that was read, for this lab and for the four before it, whatever the substance."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-na2s2o3-pentahydrate",
+      "url": "https://www.fishersci.com/store/msds?partNumber=S445500&productDescription=SODIUM+THIOSULFATE+PENTAHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Sodium thiosulfate pentahydrate, catalogue numbers S445, S474 and S475, among others; revision 8 of 18 December 2025 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "439ce429d8d1789be32e1925b71fa750f4213e1357041b4f7578c0f45890772e",
+      "supports": [
+        {
+          "field": "na2s2o3-0.001m.hazards.note",
+          "prints": "Sodium thiosulfate pentahydrate",
+          "where": "Section 1, after the words Product Name, with the CAS number 10102-17-7. Section 3 gives the pentahydrate at up to 100%, and section 9 calls it a solid: the sheet is for the solid, and the note says so. The address above was made from one catalogue number, in the form of the addresses the labs before this one read this supplier's sheets at; the description in it is this project's, and the server answered with the sheet named here."
+        },
+        {
+          "field": "na2s2o3-0.001m.hazards.note",
+          "prints": "18-Dec-2025",
+          "where": "At the head of the sheet, after the words Revision Date, with Revision Number 8 beside it, and again on every page. The sheet says under its title that it is made to the hazard communication standard of the United States, in its form of 2024."
+        },
+        {
+          "field": "na2s2o3-0.001m.hazards.note",
+          "prints": "May form combustible dust concentrations in air",
+          "where": "Section 2, the one hazard statement of the label, under the signal word Warning. The sheet prints its hazard statements without codes. The classification above it has one line, that the solid is a combustible dust; there is no class for health. The note says that this sheet has a warning for the dust of the dry solid, and that the dust is another matter: the bottle on the bench holds a solution."
+        },
+        {
+          "field": "na2s2o3-0.001m.hazards.note",
+          "prints": "Strong oxidizing agents",
+          "where": "Section 10, after the words for what the salt does not go with: the line names nothing else; section 7 says the same. It is one of the sheets the note means when it says that the sheets keep thiosulfate from strong oxidisers."
+        },
+        {
+          "field": "na2s2o3-0.001m.notCarried",
+          "prints": "4. First-aid measures",
+          "where": "Read and not carried. The heading of section 4. Under it, for the eyes: rinsing at once with plenty of water, under the lids too, for 15 minutes or more, and medical attention. For the skin: washing at once with plenty of water for 15 minutes or more, and medical attention at once if symptoms come. For swallowing: no vomiting is brought on, and medical attention is got. Why: it is the first aid of the solid; for the eyes it asks what the second supplier's sheet asks, and the note gives that sheet's line."
+        },
+        {
+          "field": "na2s2o3-0.001m.notCarried",
+          "prints": "Do not empty into drains. Do not flush into surface water or sanitary sewer system.",
+          "where": "Read and not carried. Section 12, under the word Ecotoxicity. Section 6 says that the salt should not be let out into the environment. Under the two sentences section 12 gives a figure for a fish, of more than 10000 mg/L. Why: the first sentence is on this supplier's sheets whatever the substance: its sheets for starch and for potassium bromate, read for this lab, have it too. This sheet gives the salt no class for the environment, its own figure for a fish is a very large one, and section 15 says that it holds no chemical under SARA 313."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-615",
+      "url": "https://www.flinnsci.com/sds_615-potassium-bromate/sds_615",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Potassium Bromate, SDS number sds_615; revision date March 21, 2014 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "d54cc74664bfefda3de2a85b1abfd5bf4879e79610d523810de08fc8a605d1b4",
+      "supports": [
+        {
+          "field": "kbro3-0.04m.classifiedAs",
+          "prints": "Potassium Bromate",
+          "where": "The sheet's title, before the words Safety Data Sheet: the substance the sheet is for, with no strength. Section 3 lists potassium bromate alone, with the formula weight 167.02, no water and nothing in its concentration column, so the sheet is for the substance itself and not for a solution of it. The heading over the bottle's statements calls that the pure substance; the sheet does not use the word. The solution on the bench is made up from this solid, and the bottle carries the statements of the most dangerous form it is made from (spec 5.2). In its column for the CAS number the section prints 2139594, which is not the number every other document read gives for the salt, 7758-01-2: a slip of the sheet's, on which nothing here rests."
+        },
+        {
+          "field": "kbro3-0.04m.classifiedAs",
+          "prints": "White crystalline powder.",
+          "where": "Section 9, the first words of the description: the form the sheet is for. Section 5 calls the substance a solid. The heading over the bottle's statements says solid potassium bromate."
+        },
+        {
+          "field": "kbro3-0.04m.hazards",
+          "prints": "March 21, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.signalWord",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Danger, the form its schema has for the word."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.statements[0]",
+          "prints": "May cause fire or explosion; strong oxidizer (H271)",
+          "where": "Section 2, the first of the three hazard classes it lists: category 1, for oxidising solids. The record stores the sheet's own line, with its code or codes in front as printed, then a colon and the statement."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.statements[1]",
+          "prints": "Toxic if swallowed (H301)",
+          "where": "Section 2, the second of the three hazard classes it lists: category 3, for acute toxicity by mouth."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.statements[2]",
+          "prints": "May cause cancer (H350)",
+          "where": "Section 2, the last of the three hazard classes it lists: for carcinogens, category 1, which the sheet prints with no letter after the figure. After the precautionary statements of the line it says that the salt is a possible carcinogen in people, with the listing of one agency, in its group 2B: that sentence carries no hazard code and is not carried into the record. The section prints no other hazard code. Beside some of the classes it prints precautionary statements, with codes that begin with P: those are not hazard statements and are not carried into the record."
+        },
+        {
+          "field": "kbro3-0.04m.notCarried",
+          "prints": "Strong oxidizer. Dangerous fire risk.",
+          "where": "Read and not carried. Section 5, in its first line. Section 7 keeps the solid from clothing and from what burns, section 8 asks for clothing that resists fire, and section 10 keeps it from strong reducers and from finely powdered metals. Section 15 prints the RCRA code D001. Why: they are of the solid as an oxidiser; the same supplier's sheet for its solution has no class for one and calls its solution one that does not burn, and the second supplier's sheet for a 0.04 M solution has none either. The tile has the solid's statement for an oxidiser."
+        },
+        {
+          "field": "kbro3-0.04m.notCarried",
+          "prints": "Target organs: Kidneys, ears, central nervous system",
+          "where": "Read and not carried. Section 11, its third line. The two before it give, as what the salt does at once, irritation of the skin and the eyes, diarrhoea and failure of the kidneys, and as what it does over time, that it is a possible carcinogen. Why: the note is held to a length: it has the cancer, and for swallowing the call at once. The organs are named here, and in the second supplier's sheets, for whoever decides what the note says."
+        },
+        {
+          "field": "kbro3-0.04m.notCarried",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "Read and not carried. The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that; the sheet gives no number of minutes. Its first line is that anyone exposed or worried gets medical advice (P308+P313). For the skin: it is washed with plenty of water, and clothing the solid has got on is rinsed at once, with the skin, before it is taken off (P306+P360). For swallowing: the mouth is rinsed, and a poison centre or a doctor is called at once (P301+P310+P330). Why: it is the first aid of the solid; the note gives the call at once after any contact, from NOAA's record, and the first aid of the second supplier's sheet for a solution of the strength on the bench, which asks as much for swallowing and more for the eyes."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "Avoid contact with strong reducers, finely powdered metals.",
+          "where": "Section 10, its first line, of the solid. For the primer's safety topic it supports this: that the sheet for potassium bromate keeps it from strong reducers. It names no acid, no iodide and no thiosulfate, and does not say what the salt gives with a reducer. NOAA's record calls potassium iodide a weak reducing agent; the sheets for sodium thiosulfate keep it from strong oxidisers."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-615.1",
+      "url": "https://www.flinnsci.com/sds_615.1-potassium-bromate-aqueous-solution/sds_615.1",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Potassium Bromate Aqueous Solution, SDS number sds_615.1; revision date March 21, 2014 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "649b972ef00171b86ddf77e67378449319f79b3bc988bcb60bc9d60c90ca3c69",
+      "supports": [
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "Potassium Bromate Aqueous Solution",
+          "where": "The sheet's title, before the words Safety Data Sheet: the supplier's one sheet for a solution of the salt. The row for its table of composition is below: the solution on the bench is inside its range."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "March 21, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "3.8% or less",
+          "where": "Section 3, the concentration column, in the row for potassium bromate; the rest is water, at 96% or more. The sheet does not say on what basis the percentage is. The solution on the bench is 0.040 mol/L, which is 6.68 g of potassium bromate in a litre, about 0.67% (worked out from the molarity and the sheet's formula weight, 167.02, not read from a source): inside the range. The note calls this the supplier's sheet for its solution."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the note gives it as Danger."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "May cause cancer (H350)",
+          "where": "Section 2, the last of the three hazard classes it lists: for carcinogens, category 1, as on the sheet for the solid, with the same sentence after it on a possible carcinogen in people. Beside the class it prints P201 and P202, that instructions are got and every precaution read and understood before the solution is used, and P281, on protective equipment. The note says that the sheet keeps H350; the statement itself is on the tile."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "Causes skin and serious eye irritation (H315+H319)",
+          "where": "Section 2, the first of the three hazard classes it lists: irritation of the skin, category 2, and of the eyes, category 2A. The sheet for the solid has no class for either. The note says that this sheet has the solution irritate skin and seriously irritate eyes."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "SECTION 8 — EXPOSURE CONTROLS, PERSONAL PROTECTION",
+          "where": "The heading of section 8. Under it the sheet calls for eye protection, gloves and protective clothing, with P280, and for washing the hands after handling, with P264."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods (#26b) is one option. Section 12, on ecology, has one line, that there is no data yet, and section 15 says that the solution is not listed. That the solution is kept out of drains and waterways the note has from the other documents: the rows of the third supplier's sheet and of NOAA's record say why. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and local regulations."
+        },
+        {
+          "field": "kbro3-0.04m.notCarried",
+          "prints": "May be harmful if swallowed (H303)",
+          "where": "Read and not carried. Section 2, the second of the three hazard classes it lists: category 5, for acute toxicity by mouth. Why: the tile has the graver statement for swallowing, H301, from the sheet for the solid, and the second supplier's sheet for a solution of the strength on the bench keeps H301: the note goes by that."
+        },
+        {
+          "field": "kbro3-0.04m.notCarried",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "Read and not carried. The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that; the sheet gives no number of minutes. Its first line is that a poison centre or a doctor is called by anyone who feels unwell (P312). For the eyes it adds medical advice if the irritation lasts (P337+P313). For the skin: it is washed with plenty of water, with medical advice if it is irritated. For swallowing: the mouth is rinsed, and the call is made by anyone who feels unwell. Why: the second supplier's sheet for a solution of the strength on the bench asks for more, for the eyes and for swallowing, and the note gives that."
+        },
+        {
+          "field": "primer.notCarried",
+          "prints": "Slight bromine odor.",
+          "where": "Read and not carried. Section 9, the second of its two sentences; the first calls the solution a colourless liquid. For the primer's safety topic it would support this: that the supplier's sheet says its solution of potassium bromate smells slightly of bromine. The sheet says nothing more of bromine, and no document read says that the lab's mixture gives any off. Why: the primer's safety card is held to a length, and of what was read it keeps what a learner at the bench most needs. This is put here for whoever decides what the card says."
+        }
+      ]
+    },
+    {
+      "id": "wards-sds-pp0398",
+      "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=1037da37a0975529a6aea5bc40363cec143ce7e7&vid=1037da37a0975529a6aea5bc40363cec143ce7e7&prid=original&clid=SAPDAM",
+      "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Potassium Bromate, 0.04M Solution, SDS No. PP0398; revision date October 1, 2024 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "d3ef3a8195ebbbb0fd6cc6c012aa3a2fefe131f92058302ac30596449c85bb67",
+      "supports": [
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "POTASSIUM BROMATE, 0.04M SOLUTION",
+          "where": "The product named at the head of the sheet, whose number is SDS No. PP0398. The sheet carries the names of two suppliers of one company, Ward's Science and Boreal Science, and has English pages and then French ones; the English pages were read. It was read as the PDF served at the address above, which is one the supplier's own product page leads to: the page's link for safety data sheets opens the site's lookup of sheets by catalogue number, filled in with the product's own numbers, and this sheet is in the list it shows. The site's robots file closes its search by words to automated readers, and that search was not used; it does not close this lookup. The product page lists no option for sale on the day it was read; its list of sheets gave three addresses for this catalogue number. Two were opened: the one read is the later revision, and the other, of April 16, 2018, classes the solution the same way. The third was not opened. It is a sheet for a solution of the strength on the bench. Section 3 gives potassium bromate at 0.476% and water at 99.524%. 0.04 mol/L of potassium bromate is 6.68 g in a litre, about 0.67% (worked out, not read from a source), and 0.476% is what 0.04 mol/L comes to with a formula weight of 119, which is potassium bromide's; the supplier's list of sheets describes this product as potassium bromide too, with that weight. The name on the sheet, its CAS number 7758-01-2 and every hazard on it are potassium bromate's, and it is read as a sheet for the bromate; the percentage is taken for a slip."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "October 1, 2024",
+          "where": "At the foot of the last English page, after the words Revision Date; the sheet says that it takes the place of one of November 2, 2022. This is the revision the address served on the day it was read."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "Signal word: DANGER",
+          "where": "Section 2, its first line, the word in capitals, as on the first supplier's two sheets. The pictograms are the skull and the health hazard, GHS06 and GHS08."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "H301: Toxic if swallowed.",
+          "where": "Section 2, the first of the two hazard statements. The class printed for it is acute toxicity by breathing in, category 3, which does not fit the statement or its code: the statement, the code, the first-aid line and the precautionary statement P301+P310+P330 are all for swallowing, and the class is taken for a slip of the sheet's. The first supplier's sheet for its solution has the milder H303; this sheet, for a solution of the strength on the bench, keeps the H301 of the solid. The note says so, and goes by it; the statement itself is on the tile."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "H350: May cause cancer.",
+          "where": "Section 2, the second of the two hazard statements; the class is for carcinogens, category 1B. Section 11 gives the listing of one agency, in its group 2B, as possibly carcinogenic to people, and a warning under a law of California. It agrees with the first supplier's two sheets, from which the tile and the note have the statement. Section 2 prints P201 and P202 too, on instructions got and read before use."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "INGESTION: TOXIC IF SWALLOWED.",
+          "where": "Section 4, the first of its lines. After the capitals: a doctor or a poison centre is called at once, and vomiting is brought on only if medical staff say so. The precautionary statement P301+P310+P330 of section 2 asks the same call at once, and the rinsing of the mouth. The first supplier's sheet for its solution asks for the call only if the person feels unwell; the note gives the call at once, after any contact and so after swallowing, as what this lab goes by, and says nothing of vomiting."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "First aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: contact lenses are looked for and taken out, the eyes are flushed with water for 15 minutes or more, the upper and lower lids lifted from time to time, and medical attention is got at once. The first supplier's sheet for its solution gives several minutes, and medical advice only if irritation lasts; the note gives the 15 minutes and the doctor at once as what this lab goes by. The form of this supplier prints the same line for the eyes on every sheet of its that was read; it is carried all the same, as first aid on a sheet for the thing on the bench. Section 8 says that safety glasses, goggles or a face shield, a laboratory coat or apron and gloves are to be worn, and that an eyewash and a safety shower are to be at hand."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "SKIN ABSORPTION: MAY BE HARMFUL IF ABSORBED THROUGH SKIN.",
+          "where": "Section 4, the last of its lines, which goes on in capitals to say that the solution may irritate the skin; then that clothing it has got on is taken off and the skin flushed with mild soap and water. Section 2 gives the solution no class for the skin. It agrees with the state health department's fact sheet, from which the note has it that the salt passes through the skin. The note has the clothing and the washing with soap and water from this line and from NOAA's record."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "Accidental release measures",
+          "where": "The heading of section 6. Under it, as an environmental precaution: runoff is to be kept from storm sewers and from ditches that lead to waterways. A spill is taken up and put into a container for disposal, and the place washed. Section 13 says that its guidance is for small amounts, and that disposal is to follow the local, state and federal rules or go through a licensed agency for chemical disposal; the note gives no method of disposal. The same line is on every sheet of this supplier that was read, for this lab and for the four before it, whatever the substance. The note carries it for potassium bromate, as keeping the solution out of drains and waterways, because the substance is regulated for release: NOAA's record shows potassium bromate itself on a list of the Environmental Protection Agency, and the third supplier's sheet says that it is subject to reporting under SARA 313."
+        },
+        {
+          "field": "kbro3-0.04m.notCarried",
+          "prints": "Target organs: Auditory and Central nervous systems, Liver, Kidneys.",
+          "where": "Read and not carried. Section 2, its third line. Section 11 says that swallowing the salt could act on the kidneys and the central nervous system, with failure of the kidneys, slowed breathing and loss of hearing, and that the effects may come late. Why: the note is held to a length: the effects are those of swallowing it, and the note has the call at once. They are put here for whoever decides what the note says."
+        },
+        {
+          "field": "kbro3-0.04m.notCarried",
+          "prints": "Reportable Quantity: Yes",
+          "where": "Read and not carried. Section 14, among the lines on transport. Why: the same sheet contradicts it: its section 15 prints Not listed in the column for CERCLA, and the same supplier's sheet for the solid answers No at this place. The note's warning on drains does not rest on it."
+        },
+        {
+          "field": "kbro3-0.04m.notCarried",
+          "prints": "Ecological information",
+          "where": "Read and not carried. The heading of section 12, and the last line under it: that harm to the environment cannot be ruled out if the product is handled or disposed of carelessly. Above it the section says that there is no data for a fish or a water flea. Why: the same line is on every sheet of this supplier that was read, for this lab and for the four before it, whatever the substance."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "Incompatible materials: Strong oxidizers, reducing agents, metals powders",
+          "where": "Section 10, the start of its list of what the solution does not go with, which goes on to compounds of ammonium, to what burns and to what is easily oxidised, and then to three reactions of bromates that it names, none of them with anything on this bench. For the primer's safety topic it supports this: that the sheet for a 0.04 M solution keeps it from reducing agents. It names no acid, no iodide and no thiosulfate, and does not say what a reducing agent and the solution give."
+        }
+      ]
+    },
+    {
+      "id": "wards-sds-pp0395",
+      "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=af0a736dafcc737926696af14500e24621316b41&vid=af0a736dafcc737926696af14500e24621316b41&prid=original&clid=SAPDAM",
+      "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Potassium Bromate, SDS No. PP0395; revision date October 1, 2024 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "6c70e8f80d420d07f70058a6f6132d0d470a3662e169720044596db964ead5cc",
+      "supports": [
+        {
+          "field": "primer.safety",
+          "prints": "POTASSIUM BROMATE",
+          "where": "The product named at the head of the sheet, whose number is SDS No. PP0395. The sheet carries the names of two suppliers of one company, Ward's Science and Boreal Science, and has English pages and then French ones; the English pages were read. It was read as the PDF served at the address above, which is one the supplier's own product page leads to: the page's link for safety data sheets opens the site's lookup of sheets by catalogue number, filled in with the product's own numbers, and this sheet is in the list it shows. The site's robots file closes its search by words to automated readers, and that search was not used; it does not close this lookup. It is a sheet for the solid: section 3 gives potassium bromate at 100%. The list gave two addresses for it, of which one was opened. The foot of its last English page gives the revision date of the citation, and says that it takes the place of one of November 2, 2022. Its signal word is DANGER and its three statements are H271, H301 and H350, which are those of the first supplier's sheet for the solid. It is read for the primer's safety topic and beside the same supplier's sheet for the solution; no tile cites it."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "Mixing with acids, ammonium compounds, combustible materials or readily oxidizable substances may explode when subjected to slight friction.",
+          "where": "Section 5, under the words for specific hazards, its last sentence. It is the one line in the documents read that speaks of a bromate with acids, and it is of the solid, mixed with one of those things and rubbed. The same supplier's sheet for the 0.04 M solution does not have the sentence. For the primer's safety topic it supports this: that solid potassium bromate is never mixed with an acid or with anything that burns or is easily oxidised. No document read says what the dilute solution does with dilute acid; in the lab the two meet in the flask, each already diluted, as the experiment."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-kbro3",
+      "url": "https://www.fishersci.com/store/msds?partNumber=P207500&productDescription=POTASSIUM+BROMATE&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Potassium bromate, catalogue numbers P207-250, P207-500 and S80133; revision 5 of 18 December 2025 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "e04732d87b1774a29c1e60c3cd02d7cc57a3d7f33443e888e130f394f6da60b5",
+      "supports": [
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "Potassium bromate",
+          "where": "Section 1, after the words Product Name, with the CAS number 7758-01-2. Section 3 gives potassium bromate at over 95%, and section 9 calls it a solid: the sheet is for the solid. Its signal word is Danger, and its first two statements are those of the first supplier's sheet for the solid: the strong oxidiser and toxic if swallowed. The address above was made from one catalogue number, in the form of the addresses the labs before this one read this supplier's sheets at; the description in it is this project's, and the server answered with the sheet named here."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "18-Dec-2025",
+          "where": "At the head of the sheet, after the words Revision Date, with Revision Number 5 beside it, and again on every page. The sheet says under its title that it is made to the hazard communication standard of the United States, in its form of 2024."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "Do not empty into drains.",
+          "where": "Section 12, under the word Ecotoxicity, all of it; section 6 says that release to the environment is to be avoided. The first of these is on this supplier's sheets whatever the substance: its sheets for starch and for sodium thiosulfate, read for this lab, have it too. The note carries it for potassium bromate, as keeping the solution out of drains and waterways, because the substance is regulated for release: the next row, and NOAA's record. The sheet gives the salt no class for the environment and says that it is not likely to last there."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "This product contains a chemical or chemicals which are subject to the reporting requirements of the Act",
+          "where": "Section 15, under the words SARA 313, in its first sentence; the table under it has one row, potassium bromate, with a threshold of 0.1%. It is what the note means by listed for release reporting. The section says that the salt is not under the Clean Water Act and has no reportable quantity under CERCLA."
+        },
+        {
+          "field": "kbro3-0.04m.notCarried",
+          "prints": "Suspected of causing cancer",
+          "where": "Read and not carried. Section 2, the third of the six hazard statements of the label. The sheet prints its hazard statements without codes. The class above it is for carcinogens, category 2. Why: it is milder than the statement of the first two suppliers' sheets, that the salt may cause cancer, which is on the tile; and the same sheet contradicts it: its section 11 gives category 1B for carcinogenicity, with the listing of one agency in its group 2B."
+        },
+        {
+          "field": "kbro3-0.04m.notCarried",
+          "prints": "May cause damage to organs through prolonged or repeated exposure",
+          "where": "Read and not carried. Section 2, the last of the six hazard statements; the class is toxicity to organs after repeated exposure, category 2, and the organ named is the kidney. The two before it are that the solid may irritate the airways and may cause drowsiness or dizziness, under a class for a single exposure, category 3. None of the three is on the first supplier's sheets. Why: the same sheet contradicts them: its section 11 says, for a single exposure and for repeated exposure alike, that there is no data, and that it has no information on the organs. The two for a single exposure are of the solid breathed in as dust, which is not on this bench. The note is held to a length; the kidneys are named in the rows of the first two suppliers' sheets, for whoever decides what the note says."
+        },
+        {
+          "field": "kbro3-0.04m.notCarried",
+          "prints": "Oxidizer: Contact with combustible/organic material may cause fire.",
+          "where": "Read and not carried. Section 5, the first sentence under the words for the hazards that come of the chemical itself, and again in section 10. Section 10 names, as what the solid does not go with, reducing agents that are strong, organic matter, metals in fine powder and what burns. Why: it is of the solid as an oxidiser; neither sheet read for a solution has a class for one. The tile has the solid's statement."
+        },
+        {
+          "field": "kbro3-0.04m.notCarried",
+          "prints": "4. First-aid measures",
+          "where": "Read and not carried. The heading of section 4. Under it, for the eyes: rinsing at once with plenty of water, under the lids too, for 15 minutes or more, and medical attention. For the skin: washing at once with plenty of water for 15 minutes or more. For swallowing: no vomiting is brought on, and a doctor or a poison centre is called at once. Why: it is the first aid of the solid; it asks what the second supplier's sheet for a solution of the strength on the bench asks, and the note gives that sheet's lines."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-1353",
+      "url": "https://cameochemicals.noaa.gov/chemical/1353",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Potassium Bromate (chemical 1353); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "8022ebe4aa16d92bed6ba552419a04d6548cac8893179693f9b8ce322667e297",
+      "supports": [
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "POTASSIUM BROMATE",
+          "where": "The page's title, under the words Chemical Datasheet. Its table of identifiers gives the CAS number 7758-01-2. The foot of the page prints the version named in the citation and no date of its own; most fields name where their text is from. The page was found in the list of names the site shows under one letter; the site's search was not used, which its robots file closes to automated readers. The page describes a white crystalline solid that dissolves in water; it has no record for a solution."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "normal saline solution for 20 to 30 minutes",
+          "where": "The field First Aid, a text the page credits to the National Toxicology Program, 1992, under EYES: contact lenses are looked for and taken out, the eyes are flushed for this long while a hospital or a poison control centre is called, and the person is taken to a hospital after the flushing even if nothing shows. The note gives the second supplier's 15 minutes or more and says that NOAA's record has 20 to 30."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "IMMEDIATELY flood affected skin with water",
+          "where": "The field First Aid, under SKIN, from the same source: the skin is flooded with water at once while clothing the salt has got on is taken off and set apart, then washed with soap and water, and a hospital or a poison control centre is called at once even if nothing shows. The lines for breathing it in and for swallowing ask for a call at once too. The note says that after any contact a doctor or a poison centre is called at once, and has the washing with soap and water while the clothing comes off. The record is of the solid; it is the strictest first aid read, and the note goes by it for the solution."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "Since this chemical is a known or suspected carcinogen",
+          "where": "The field First Aid, under OTHER, from the same source: the start of a sentence that sends anyone exposed to a doctor for advice on effects that may come long after. The three suppliers' sheets and the state health department's fact sheet treat the salt as a carcinogen too; the tile has the statement of the first supplier's."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "Potassium bromate",
+          "where": "The field Regulatory Information, in the table headed EPA Consolidated List of Lists; the page credits the table to the EPA List of Lists, 2024. Its one row: potassium bromate itself, by its CAS number, with the figure 313 in the column for EPCRA 313 (TRI) and nothing in the columns for CERCLA or RCRA. With section 15 of the third supplier's sheet it is what the note means by listed for release reporting, and why the warning on drains is carried."
+        },
+        {
+          "field": "kbro3-0.04m.notCarried",
+          "prints": "Strong Oxidizing Agent",
+          "where": "Read and not carried. The one entry of the field Reactivity Alerts. The field Fire Hazard and the field Health Hazard are passages of a guide for emergencies of 2024, for oxidisers at large, the second of which says that breathing such a substance in, swallowing it or touching it may injure severely or kill. Why: the alert is of the solid in bulk, and the sheets read for a solution give it no class for an oxidiser; the tile has the solid's statement for one. The guide's passages are its standing text for every oxidiser, with no hazard class or statement."
+        },
+        {
+          "field": "kbro3-0.04m.notCarried",
+          "prints": "DO NOT INDUCE VOMITING.",
+          "where": "Read and not carried. The field First Aid, under INGESTION, from the National Toxicology Program, 1992: no vomiting is brought on; a person who is awake is given a glass or two of water and a hospital or a poison control centre is called at once. The passage speaks of corrosive chemicals at large. Why: the note has the call at once, and says nothing of vomiting; the second supplier's sheet has vomiting brought on only if medical staff say so, and the third supplier's says not at all, so on that point the documents agree that nothing is done at the bench."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "POTASSIUM BROMATE is a strong oxidizing agent.",
+          "where": "The field Reactivity Profile, its first sentence. The field goes on to mixtures with what burns, which it says may be explosive and can be set off by friction, and to two things the salt explodes with, a powdered metal and selenium. For the primer's safety topic it supports this: that the solid is a strong oxidiser. The record says nothing of acids, of iodides or of thiosulfates, and nothing of a solution."
+        }
+      ]
+    },
+    {
+      "id": "nj-rtk-fs-1559",
+      "url": "https://www.nj.gov/health/eoh/rtkweb/documents/fs/1559.pdf",
+      "citation": "New Jersey Department of Health and Senior Services, Right to Know Program. Hazardous Substance Fact Sheet: Potassium Bromate, RTK substance number 1559; dated May 1998, revision of July 2005 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "7566818120754980227eb12a56f41cfe3169278a2ada18a12e45a95fed07144b",
+      "supports": [
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "Common Name: POTASSIUM BROMATE",
+          "where": "The first line of the sheet, under a heading that is a picture: the department's name and the words for a fact sheet on a hazardous substance. The CAS number beside it is 7758-01-2. It is a state health department's summary, of six pages, for workplaces where the solid is handled; it is not a safety data sheet and gives no class of the GHS. The address above was made from the substance's number, in the form the department serves its fact sheets at, and the server answered with the sheet named here. The note calls it a state health department's fact sheet."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "Revision: July 2005",
+          "where": "At the head of the first page, after the date May 1998 and the substance number 1559: the revision that was read. It is the oldest of the documents read for this bottle."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "CARCINOGEN--WITH EXTREME CAUTION",
+          "where": "The hazard summary on the first page, its second line: how the sheet says the salt should be handled. The second page says that it may be a carcinogen in people since it has caused cancers of three kinds in animals. The note says that the sheet has it handled as a carcinogen."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "by passing through your skin.",
+          "where": "The hazard summary on the first page, the end of its first line: the two ways the sheet says the salt can affect a person, the other being by breathing it in. Further down the page it says again that the salt can be taken up through the skin. None of the three suppliers' sheets has a hazard class for the skin taking it up; the second's says in its first aid that it may be harmful that way. The note says that the salt passes through the skin."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "all contact should be reduced to the lowest possible level",
+          "where": "The first page, under the heading on limits for the workplace, where the sheet says that no limit has been set for the salt: the end of a sentence that begins by saying that for a carcinogen there may be no exposure that is safe. The note says that contact is kept to the least."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "immediately wash or shower to remove the chemical",
+          "where": "The second page, among the work practices: what is done when the salt gets on the skin. It agrees with the washing of the skin that the note has."
+        },
+        {
+          "field": "kbro3-0.04m.hazards.note",
+          "prints": "Immediately flush with large amounts of water for at least 15 minutes",
+          "where": "The last page, under the heading for first aid, the line for the eyes, which goes on to the lifting of the lids. It agrees with the second and third suppliers' sheets on the 15 minutes; the note gives that figure and NOAA's longer one."
+        },
+        {
+          "field": "kbro3-0.04m.notCarried",
+          "prints": "Contact can irritate and burn the skin and eyes.",
+          "where": "Read and not carried. The hazard summary on the first page, its third line, and again on the second page among the effects that come at once. Why: it is of the solid handled in a workplace. Neither sheet read for a solution classes it for burns: the first supplier's has irritation of the skin and the eyes, category 2, which the note gives, and the second's has no class for either. The note has the washing at once and the flushing of the eyes."
+        },
+        {
+          "field": "kbro3-0.04m.notCarried",
+          "prints": "Potassium Bromate may damage the kidneys.",
+          "where": "Read and not carried. The hazard summary on the first page, its last line; the line before it says that repeated exposure may affect the nervous system. The second page asks for tests of the kidneys and the lungs where symptoms come. Why: the note is held to a length; they are effects of repeated exposure in a workplace, and the note has what keeps the exposure from happening."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "Potassium Bromate is not compatible with STRONG BASES",
+          "where": "The last page, under the heading for handling and storage, the start of the second of its two lists: strong bases, finely powdered metals, sulfides of metals, arsenic, phosphorus, organic materials and sulfur. The first list is of three things it reacts violently with, none of them on this bench. For the primer's safety topic it supports this: that the fact sheet names organic materials, which starch is, among what the solid does not go with, and names no acid, no iodide and no thiosulfate."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-395",
+      "url": "https://www.flinnsci.com/sds_395-hydrochloric-acid-6-m---12-m-concentrated/sds_395",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Hydrochloric Acid 6 M - 12 M (Concentrated), SDS number sds_395; revision date December 3, 2018 (read on 2026-10-05; no copy is kept).",
+      "fetchedSha256": "7f7a4674e69680d31910c4146a6f1e8a7527185259521bcd8de94ad93114b7c8",
+      "supports": [
+        {
+          "field": "hcl-0.1m.classifiedAs",
+          "prints": "6 M - 12 M (Concentrated)",
+          "where": "The sheet's title, after the words Hydrochloric Acid: the strengths the sheet is for. The heading over the bottle's statements gives them as 6 M to 12 M. The acid on the bench is 0.10 M, far below this range, and is made up from the acid this sheet is for. The bottle carries the statements of the most dangerous form it is made from, which is this project's rule for a solution made up from a stock (spec 5.2), and the heading over the statements says whose they are."
+        },
+        {
+          "field": "hcl-0.1m.classifiedAs",
+          "prints": "20-38%",
+          "where": "Section 3, the concentration column, in the row for hydrochloric acid, the rest being water: the composition the sheet gives for the solution its title names. The sheet does not say on what basis the percentage is."
+        },
+        {
+          "field": "hcl-0.1m.hazards",
+          "prints": "December 3, 2018",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "hcl-0.1m.hazards.signalWord",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Danger, the form its schema has for the word."
+        },
+        {
+          "field": "hcl-0.1m.hazards.statements[0]",
+          "prints": "Causes severe skin and eye burns and damage (H314+H318)",
+          "where": "Section 2, the first of the three hazard classes it lists: category 1, for corrosion or irritation of the skin and damage to the eyes. The sheet prints each statement and then its code or codes in brackets, and where it pairs two codes it joins them with a plus sign and gives the pair one statement in wording of its own. The record stores the sheet's own three lines, each with its codes in front as printed, then a colon and the statement, and not one line for each code in the GHS's standard wording for that code: the sheet does not print that wording, and a line for each code would put under this source words that are not in it."
+        },
+        {
+          "field": "hcl-0.1m.hazards.statements[1]",
+          "prints": "Harmful if swallowed or inhaled (H332+H302)",
+          "where": "Section 2, the second of the three: category 4, for acute toxicity by mouth and by breathing in. The two codes are stored in the order the sheet prints them."
+        },
+        {
+          "field": "hcl-0.1m.hazards.statements[2]",
+          "prints": "May be corrosive to metals (H290)",
+          "where": "Section 2, the last of the three: category 1, for corrosion of metals. The section prints no other hazard code, and so not H331. After the three classes it has one more sentence, on a cancer listing for mists of the acid in industry: that sentence carries no hazard code, is not a GHS hazard statement, and is not carried into the record. Nor are the precautionary statements the section prints beside two of the classes, whose codes begin with P."
+        },
+        {
+          "field": "hcl-0.1m.notCarried",
+          "prints": "P310",
+          "where": "Read and not carried. Section 4, its first line: a poison centre or a doctor is to be called at once. For the eyes the section gives rinsing with water for several minutes, and for the skin or the hair that the clothing the acid has got on comes off at once and the skin is rinsed. Why: it is the first aid of the concentrated acid, which is not in this bottle; the note gives the first aid of the same supplier's sheet for this strength and of the second supplier's sheet for a 0.1 M solution."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-395.2",
+      "url": "https://www.flinnsci.com/sds_395.2-hydrochloric-acid-solution-0.1-m---2.4-m/sds_395.2",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Hydrochloric Acid Solution 0.1 M - 2.4 M, SDS number sds_395.2; revision date December 3, 2018 (read on 2026-10-05; no copy is kept).",
+      "fetchedSha256": "e87543f4779f511cff7a0c1f1c63896c9269d8ac45586be975e4003b4944f3c7",
+      "supports": [
+        {
+          "field": "hcl-0.1m.hazards.note",
+          "prints": "0.1 M - 2.4 M",
+          "where": "The sheet's title, after the words Hydrochloric Acid Solution: the strengths the sheet is for. The acid on the bench is 0.10 M, the strength at which this range begins: by its title this is the supplier's sheet for the strength on the bench, and the note's first paragraph rests on it. The same supplier's sheet for weaker acid, less than 0.1 M, was read beside it and is milder; it is listed here as flinn-sds-395.3, with what it says."
+        },
+        {
+          "field": "hcl-0.1m.hazards.note",
+          "prints": "December 3, 2018",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "hcl-0.1m.hazards.note",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the note gives it as Danger."
+        },
+        {
+          "field": "hcl-0.1m.hazards.note",
+          "prints": "Causes severe skin burns and eye damage (H314)",
+          "where": "Section 2, the first of the three hazard classes it lists: category 1, for corrosion or irritation of the skin. The note gives the code; the statement is on the tile, in the words of the sheet for the concentrated acid."
+        },
+        {
+          "field": "hcl-0.1m.hazards.note",
+          "prints": "May cause respiratory irritation (H335)",
+          "where": "Section 2, the second of the three hazard classes it lists: category 3, for toxicity to one organ after a single exposure, here irritation of the airways."
+        },
+        {
+          "field": "hcl-0.1m.hazards.note",
+          "prints": "2-10%",
+          "where": "Section 3, the concentration column, in the row for hydrochloric acid, the rest being water. The sheet does not say on what basis the percentage is. Taken by mass, 2% is about 0.55 mol/L, so the table starts above the 0.1 M of the sheet's own title, and above the acid on the bench, which is about 0.36% (worked out from the molarity, not read from a source). The title takes the bench's strength in and the table does not. The note goes by the title, and is no milder for it: the sheet's statements are then those of an acid at least as strong as the bench's."
+        },
+        {
+          "field": "hcl-0.1m.hazards.note",
+          "prints": "P280",
+          "where": "Section 8: the precautionary statement that calls for eye protection, gloves and protective clothing."
+        },
+        {
+          "field": "hcl-0.1m.hazards.note",
+          "prints": "P271",
+          "where": "Sections 7 and 8: the precautionary statement that the acid is used only in a hood or where the air is well changed."
+        },
+        {
+          "field": "hcl-0.1m.hazards.note",
+          "prints": "P305+P351+P338",
+          "where": "Section 4, under the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that. The sheet gives no number of minutes for the eyes; the note gives the 15 of the second supplier's sheet."
+        },
+        {
+          "field": "hcl-0.1m.hazards.note",
+          "prints": "P310",
+          "where": "Section 4, straight after the codes for the eyes: a poison centre or a doctor is to be called at once. The same section says that after contact with the skin or the hair the clothing that was wetted is taken off at once and the skin rinsed with water: the note has the clothing."
+        },
+        {
+          "field": "hcl-0.1m.notCarried",
+          "prints": "May be harmful if swallowed (H303)",
+          "where": "Read and not carried. Section 2, the last of the three hazard classes it lists: category 5, for acute toxicity by mouth. The section prints no other hazard code. After the three classes it has the sentence on a cancer listing for mists of the acid in industry that the sheet for the concentrated acid has, which carries no code. Why: the tile has the graver statement for swallowing, under H302, from the sheet for the concentrated acid."
+        },
+        {
+          "field": "hcl-0.1m.hazards.note",
+          "prints": "Avoid contact with strong oxidizers, bases, amines, and alkali metals.",
+          "where": "Section 10, its first sentence; the next says that the acid corrodes metal, stainless steel included. The note keeps the acid from bases, from metals and from strong oxidisers. This bench has no base and no metal. It has a strong oxidiser, the potassium bromate, which the acid meets in the flask, each of them diluted, as the experiment; the note says so."
+        },
+        {
+          "field": "hcl-0.1m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods (#24b) is one option. Section 15 prints the RCRA code D002; the note does not give it. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and local regulations."
+        },
+        {
+          "field": "primer.notCarried",
+          "prints": "Avoid contact with strong oxidizers, bases, amines, and alkali metals.",
+          "where": "Read and not carried. Section 10, its first sentence, of hydrochloric acid of 0.1 M to 2.4 M. For the primer's safety topic it would support this: that the acid's own sheet keeps it from strong oxidisers, of which potassium bromate is one by its sheets. The sheet does not name bromates, and says nothing of what the acid and an oxidiser give together. Why: the primer's safety card is held to a length, and of what was read it keeps what a learner at the bench most needs. This is put here for whoever decides what the card says."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-395.3",
+      "url": "https://www.flinnsci.com/sds_395.3-hydrochloric-acid-solution-less-than-0.1-m/sds_395.3",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Hydrochloric Acid Solution Less than 0.1 M, SDS number sds_395.3; revision date December 3, 2018 (read on 2026-10-05; no copy is kept).",
+      "fetchedSha256": "ec9b827d09641955c24e33d8cf7004b07f3c37db6ced890b08a36fdc8655eff8",
+      "supports": [
+        {
+          "field": "hcl-0.1m.notCarried",
+          "prints": "Less than 0.1 M",
+          "where": "Read and not carried. The sheet's title, after the words Hydrochloric Acid Solution: the strengths the sheet is for. The signal word under it is WARNING. Section 2 has two hazard classes: that the acid may be harmful if it is swallowed, breathed in or gets on the skin (category 5, H303+H313+H333), and that it irritates the skin and the eyes (categories 2 and 2B, H315+H320). Section 8 calls for eye protection, gloves and protective clothing, and names no hood. Why: the acid on the bench is 0.10 M, which is not less than 0.1 M: by the two titles it comes under the same supplier's sheet for 0.1 M to 2.4 M, which is the stricter of the two, and the note rests on that one. The page read for the titration lab on 2026-10-05 was fetched again for this lab on 2026-10-10, and was the same byte for byte; the citation keeps the date of the first reading, since the list of sources has one entry for the sheet."
+        }
+      ]
+    },
+    {
+      "id": "wards-sds-hh0100",
+      "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=3b62369ead9c7fbf620da440ac019718c0fbba67&vid=3b62369ead9c7fbf620da440ac019718c0fbba67&prid=original&clid=SAPDAM",
+      "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Hydrochloric Acid, 0.1 Molar (0.1 Normal) Solution, SDS No. HH0100; revision date August 22, 2024 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "5598d090e26084410800a99f4c297a40a2853a7fd0afcd3bf3088c5b66c3085c",
+      "supports": [
+        {
+          "field": "hcl-0.1m.hazards.note",
+          "prints": "HYDROCHLORIC ACID, 0.1 MOLAR (0.1 NORMAL) SOLUTION",
+          "where": "The product named at the head of the sheet, whose number is SDS No. HH0100. The sheet carries the names of two suppliers of one company, Ward's Science and Boreal Science, and has English pages and then French ones; the English pages were read. It was read as the PDF served at the address above, which is the one the supplier's own product page for hydrochloric acid gave for the sheet of its 1 L of 0.1 M acid when that page was read for the Le Chatelier's principle lab, earlier on the same day; the page was not opened a second time. It is a sheet for a solution of the strength on the bench: section 3 gives hydrochloric acid at 0.314% and water at 99.68%, and does not say on what basis. That lab read this supplier's sheet for a 0.5 M solution, listed as wards-sds-hh0093; this is another sheet, for the weaker acid."
+        },
+        {
+          "field": "hcl-0.1m.hazards.note",
+          "prints": "August 22, 2024",
+          "where": "At the foot of the last English page, after the words Revision Date; the sheet says that it takes the place of one of October 18, 2022. This is the revision the address served on the day it was read."
+        },
+        {
+          "field": "hcl-0.1m.hazards.note",
+          "prints": "Signal word: WARNING",
+          "where": "Section 2, its first line, the word in capitals: milder than the Danger of the first supplier's sheets. The two classes are irritation of the skin, category 3, with H316, and irritation of the eyes, category 2B, with H320, and the sheet asks for no pictogram. It has no class for corrosion, for the airways or for swallowing: on the hazard the first supplier's sheet for this strength is the stricter, and the note takes its classes from that sheet. The note says that this one classes the solution more mildly, as an irritant."
+        },
+        {
+          "field": "hcl-0.1m.hazards.note",
+          "prints": "First aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: contact lenses are looked for and taken out, the eyes are flushed with water for 15 minutes or more, the upper and lower lids lifted from time to time, and medical attention is got at once. The first supplier's sheet for this strength gives several minutes and a call at once; the note gives the 15 minutes and the doctor at once as what this lab goes by. The precautionary statements of section 2 give the rinsing of the eyes as 15 minutes too, with P305+P351+P338. The form of this supplier prints the same line for the eyes on every sheet of its that was read; it is carried all the same, as first aid on a sheet for the thing on the bench. Section 8 says that safety glasses, goggles or a face shield, a laboratory coat or apron and gloves are to be worn, and that an eyewash and a safety shower are to be at hand."
+        },
+        {
+          "field": "hcl-0.1m.hazards.note",
+          "prints": "Incompatible materials:",
+          "where": "Section 10, the label of its list: metals, the active and the alkali metals named again, bases, hydroxides, oxidising agents, amines, carbonates, cyanides, sulfides, sulfites and formaldehyde. Section 5 says that the acid on metals gives hydrogen, which burns and can make an explosive mixture with air. The note gives the bases, the metals and the oxidisers; of the rest nothing is on this bench."
+        },
+        {
+          "field": "hcl-0.1m.notCarried",
+          "prints": "INGESTION: MAY BE HARMFUL IF SWALLOWED.",
+          "where": "Read and not carried. Section 4, the first of its lines. After the capitals: a doctor or a poison centre is called at once, and vomiting is brought on only if medical staff say so. Section 11 says that the acid may be harmful if it is breathed in. Why: the note is held to a length, and of the first aid it gives the eyes and the clothing. The capitals name no hazard class, and section 2 of the sheet has none for toxicity; the tile has the statement for swallowing and breathing in, from the sheet for the concentrated acid. The call at once is kept here for whoever wants it in the note."
+        },
+        {
+          "field": "hcl-0.1m.notCarried",
+          "prints": "Avoid contact with water.",
+          "where": "Read and not carried. Section 10, after the words for the conditions to avoid, where it follows a sentence on containers that may burst when they are heated. Why: the same sheet contradicts it: by its section 3 the solution is more than 99% water."
+        },
+        {
+          "field": "hcl-0.1m.notCarried",
+          "prints": "Accidental release measures",
+          "where": "Read and not carried. The heading of section 6. Under it, as an environmental precaution: runoff is to be kept from storm sewers and from ditches that lead to waterways. A spill is taken up and put into a container for disposal, and the place washed. Section 13 says that its guidance is for small amounts, and that disposal is to follow the local, state and federal rules or go through a licensed agency for chemical disposal; the note gives no method of disposal. Why: the same line is on every sheet of this supplier that was read, for this lab and for the four before it, whatever the substance. This sheet gives the acid no class for the environment."
+        },
+        {
+          "field": "hcl-0.1m.notCarried",
+          "prints": "Ecological information",
+          "where": "Read and not carried. The heading of section 12, and the last line under it: that harm to the environment cannot be ruled out if the product is handled or disposed of carelessly. Above it the section gives a figure for a fish, of 282 mg/l. Why: the same line is on every sheet of this supplier that was read, for this lab and for the four before it, whatever the substance."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-3598",
+      "url": "https://cameochemicals.noaa.gov/chemical/3598",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Hydrochloric Acid, Solution (chemical 3598); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "a811d5510907e72c6cd03641bae01f8b07bdd47c2f246b1af36fb544a038c068",
+      "supports": [
+        {
+          "field": "hcl-0.1m.hazards.note",
+          "prints": "HYDROCHLORIC ACID, SOLUTION",
+          "where": "The page's title, under the words Chemical Datasheet. Its table of identifiers gives the CAS number 7647-01-0. The foot of the page prints the version named in the citation and no date of its own; most fields name where their text is from. The page was found in the list of names the site shows under one letter; the site's search was not used, which its robots file closes to automated readers. The general description is of a watery liquid with a sharp smell, hydrogen chloride dissolved in water; the page gives no strength, and the database has no record for a dilute solution of the acid. Its field Reactivity Profile, read for this lab, names bases, carbonates, sulfides and many metals among what the acid reacts with, and no bromate, iodide or thiosulfate."
+        },
+        {
+          "field": "hcl-0.1m.hazards.note",
+          "prints": "continue flushing for another 15 min. if physician does not arrive promptly",
+          "where": "The field First Aid, a text the page credits to the Coast Guard, 1999, under EYES: flushing at once with plenty of water for 15 minutes or more, and medical attention; then these words. The note gives the second supplier's 15 minutes and says that NOAA's record adds 15 more where no doctor has come."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-778",
+      "url": "https://www.flinnsci.com/sds_778-starch/sds_778",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Starch, SDS number sds_778; revision date March 26, 2014 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "de5567ee1107565352bdaa04cdb907dbb5f3ac221727a35ad8a55c1655eadf79",
+      "supports": [
+        {
+          "field": "starch.classifiedAs",
+          "prints": "Starch",
+          "where": "The sheet's title, before the words Safety Data Sheet: the substance the sheet is for, with no strength. Section 3 lists starch alone, of potato or of corn, with the CAS number 9005-84-9, which is that of soluble starch, a formula and a formula weight that it calls unspecified, and nothing in its concentration column, so the sheet is for the substance itself and not for a solution of it. The heading over the bottle's statements calls that the pure substance; the sheet does not use the word. The solution on the bench is made up from soluble starch and water, and the bottle carries what the sheet for the solid says (spec 5.2)."
+        },
+        {
+          "field": "starch.classifiedAs",
+          "prints": "White amorphous powder.",
+          "where": "Section 9, the first words of the description: the form the sheet is for. The next line says that it dissolves in hot water. The heading over the tile says solid starch."
+        },
+        {
+          "field": "starch.hazards",
+          "prints": "March 26, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "starch.hazards.signalWord",
+          "prints": "",
+          "where": "The sheet prints no signal word: where the supplier's other sheets have a line that begins Signal Word, under the title and the revision date, this one has none. The record stores None, the word its schema has for a sheet with no signal word; the sheet does not print that word either."
+        },
+        {
+          "field": "starch.hazards.statements",
+          "prints": "SECTION 2 — HAZARDS IDENTIFICATION",
+          "where": "The heading of section 2. Under it the sheet lists no hazard class, no hazard statement and no code. In their place it says that the chemical is taken to be non-hazardous under the GHS classifications of a standard it names, with every laboratory chemical still to be treated with caution. A second sentence says that reactions nobody foresaw can always happen, so careful practice is to be kept. The record stores no statement, and no sentence of the section is carried into it as one. A third sentence, which the supplier's other sheets of this kind do not have, is in the row below."
+        },
+        {
+          "field": "starch.hazards.note",
+          "prints": "Product should be treated as a chemical and is not for consumption",
+          "where": "Section 2, the start of its third sentence, which gives as the reason that the starch has been kept with chemicals that are not of food grade; section 9 says again that it is not for people to eat. The note says that the starch is a laboratory chemical and not food."
+        },
+        {
+          "field": "starch.hazards.note",
+          "prints": "Avoid contact with eyes. Wash hands thoroughly after handling.",
+          "where": "Section 8, its first line. The section names no gloves, no protective clothing and no eye protection, where the supplier's sheets for the other bottles of this bench name all three; it goes on to limits for starch as dust in workplace air. The note says that the sheet names nothing to be worn and gives the two things it does say."
+        },
+        {
+          "field": "starch.hazards.note",
+          "prints": "Avoid contact with strong oxidizers.",
+          "where": "Section 10, its first line. It is one of the sheets the note means when it says that the sheets keep starch from oxidising agents. On this bench the oxidiser is the potassium bromate, which the starch meets in the flask, diluted, as the experiment."
+        },
+        {
+          "field": "starch.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods (#26a) is one option. Section 12, on ecology, has one line, that there is no data yet. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and local regulations."
+        },
+        {
+          "field": "starch.notCarried",
+          "prints": "Acute effects: Nuisance dust, an allergen.",
+          "where": "Read and not carried. Section 11, its first line. Why: it is of the dry powder raised as dust, which is not on this bench: the bottle holds a solution. The sheet gives starch no hazard class for an allergy or for anything else."
+        },
+        {
+          "field": "starch.notCarried",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "Read and not carried. The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that; the sheet gives no number of minutes. It has no line on medical advice for the eyes. For the skin: it is washed with plenty of water. For swallowing: the mouth is rinsed, and a poison centre or a doctor is called by anyone who feels unwell. Why: the second supplier's sheet for a 5% solution asks more for the eyes, and the note gives that."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-780",
+      "url": "https://www.flinnsci.com/sds_780-starch-solution/sds_780",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Starch Solution, SDS number sds_780; revision date January 16, 2014 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "22c1f5fa35fcf23fcb013cb861fb27d7dddb698acc34bdf5769bb4c22aef7587",
+      "supports": [
+        {
+          "field": "starch.hazards.note",
+          "prints": "Starch Solution",
+          "where": "The sheet's title, before the words Safety Data Sheet: the supplier's one sheet for a plain solution of starch. The row for its table of composition is below: its solution is weaker than the one on the bench."
+        },
+        {
+          "field": "starch.hazards.note",
+          "prints": "January 16, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "starch.hazards.note",
+          "prints": "< 1%",
+          "where": "Section 3, the concentration column, in the row for potato starch; salicylic acid is under 1% too, which the sheet does not explain, and water is over 99%. The record stores no strength for the solution on the bench, so the note gives this sheet's own figure and makes no comparison. The second supplier's sheet read is for a 5% solution."
+        },
+        {
+          "field": "starch.hazards.note",
+          "prints": "This chemical is considered nonhazardous according to GHS classifications for the Hazard Communication Standard.",
+          "where": "Section 2, its first sentence. The sheet prints no signal word, where the supplier's other sheets have one under the title, and no hazard class, statement or code; the section goes on to say that every laboratory chemical is still treated with caution. The note says that the sheet prints no signal word and no hazard statement."
+        },
+        {
+          "field": "starch.hazards.note",
+          "prints": "Avoid contact with eyes. Wash hands thoroughly after handling.",
+          "where": "Section 8, all of it: the same two sentences as the same supplier's sheet for the solid has, and nothing named to be worn. The note gives the two."
+        },
+        {
+          "field": "starch.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods (#26b) is one option. Section 15 says that the solution is not listed. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and local regulations."
+        },
+        {
+          "field": "starch.notCarried",
+          "prints": "Will grow mold, bacteria, or algae especially if exposed to strong light.",
+          "where": "Read and not carried. Section 7, in its second line, which begins by saying that the solution is not to be kept for long and ends with a cool, dry, dark place for it. Section 10 calls its shelf life poor. Why: it is of how long the solution keeps, and names no harm to a person; the note is held to a length."
+        },
+        {
+          "field": "starch.notCarried",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "Read and not carried. The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that; the sheet gives no number of minutes. It has no line on medical advice for the eyes. For the skin: it is washed with plenty of water. For swallowing: the mouth is rinsed, and a poison centre or a doctor is called by anyone who feels unwell. Why: the second supplier's sheet for a 5% solution asks more for the eyes, and the note gives that."
+        }
+      ]
+    },
+    {
+      "id": "wards-sds-ss0945",
+      "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=fcda9f47229a76a3fc6eda4613db4ae45b433044&vid=fcda9f47229a76a3fc6eda4613db4ae45b433044&prid=original&clid=SAPDAM",
+      "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Starch, 5% Solution, SDS No. SS0945; revision date November 5, 2024 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "7b54aff196e452344516b7e6a5ae4c284774e9554e4bc64d25e2a5487a3dd3a7",
+      "supports": [
+        {
+          "field": "starch.hazards.note",
+          "prints": "STARCH, 5% SOLUTION",
+          "where": "The product named at the head of the sheet, whose number is SDS No. SS0945. The sheet carries the names of two suppliers of one company, Ward's Science and Boreal Science, and has English pages and then French ones; the English pages were read. It was read as the PDF served at the address above, which is the one the supplier's own product page gives for the sheet of this product. It is a sheet for a solution stronger than the one on the bench: section 3 gives soluble starch at 5.0% and water at 94.5%, with 0.5% of a preservative under a trade name. The supplier's product page lists starch solutions at 1% and at 5%; this is the nearest that is not weaker than the bench's 2%."
+        },
+        {
+          "field": "starch.hazards.note",
+          "prints": "November 5, 2024",
+          "where": "At the foot of the last English page, after the words Revision Date; the sheet says that it takes the place of one of November 15, 2022. This is the revision the address served on the day it was read."
+        },
+        {
+          "field": "starch.hazards.note",
+          "prints": "Signal word: Not classified",
+          "where": "Section 2: the sheet prints these two words in place of a signal word, and the same two after the words for pictograms, for the GHS classification, for hazard statements and for precautionary statements. The section begins by saying that the mixture has not been classed as hazardous under the GHS. So this sheet, like the first supplier's, has no signal word and no statement, and the note says that it gives no hazard class either. Beside them the section has a few lines of advice: that the mist is not breathed, that the solution is kept from the eyes, the skin and the clothing, and that gloves, protective clothing and protection for the eyes and face are worn. Section 8 names safety glasses, goggles or a face shield, a laboratory coat or apron and gloves; the first supplier's sheets name nothing to be worn, and the note gives the eye protection, the gloves and the coat as what this lab goes by."
+        },
+        {
+          "field": "starch.hazards.note",
+          "prints": "Eyes: Contact with eyes may cause irritation.",
+          "where": "Section 11, among the possible effects on health; the sheet gives the solution no class for it. The note says that the sheet says the solution may irritate the eyes."
+        },
+        {
+          "field": "starch.hazards.note",
+          "prints": "First aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: contact lenses are looked for and taken out, the eyes are flushed with water for 15 minutes or more, the upper and lower lids lifted from time to time, and medical attention is got at once. The first supplier's two sheets give several minutes and no line on medical advice for the eyes; the note gives the 15 minutes and the doctor at once as what this lab goes by. The form of this supplier prints the same line for the eyes on every sheet of its that was read; it is carried all the same, as first aid on a sheet for the thing on the bench. Section 8 says that safety glasses, goggles or a face shield, a laboratory coat or apron and gloves are to be worn, and that an eyewash and a safety shower are to be at hand."
+        },
+        {
+          "field": "starch.notCarried",
+          "prints": "Ingestion: Ingestion may cause stomach irritation.",
+          "where": "Read and not carried. Section 11, among the possible effects on health. Section 4 has a doctor or a poison centre called at once for swallowing, and vomiting brought on only if medical staff say so. Why: the sheet gives the solution no hazard class, the form of this supplier prints the same call on every sheet of its that was read, and the note is held to a length; it says that the starch is not food."
+        },
+        {
+          "field": "starch.notCarried",
+          "prints": "Germaben II",
+          "where": "Read and not carried. Section 3, the third row of the table: a preservative, at 0.5%, which the sheet lists as a mixture and says no more of. Why: it is in the solution this supplier sells. The one on the bench is made up from soluble starch and water alone, and the note is of that."
+        },
+        {
+          "field": "starch.notCarried",
+          "prints": "Accidental release measures",
+          "where": "Read and not carried. The heading of section 6. Under it, as an environmental precaution: runoff is to be kept from storm sewers and from ditches that lead to waterways. A spill is taken up and put into a container for disposal, and the place washed. Section 13 says that its guidance is for small amounts, and that disposal is to follow the local, state and federal rules or go through a licensed agency for chemical disposal; the note gives no method of disposal. Why: the same line is on every sheet of this supplier that was read, for this lab and for the four before it, whatever the substance. This sheet gives the solution no class for the environment."
+        },
+        {
+          "field": "starch.notCarried",
+          "prints": "Ecological information",
+          "where": "Read and not carried. The heading of section 12, and the last line under it: that harm to the environment cannot be ruled out if the product is handled or disposed of carelessly. Above it the section says that there is no data for a fish or a water flea. Why: the same line is on every sheet of this supplier that was read, for this lab and for the four before it, whatever the substance."
+        }
+      ]
+    },
+    {
+      "id": "wards-sds-ss0940",
+      "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=3b95aa928825ffaa1ad178b467751df3d926e373&vid=3b95aa928825ffaa1ad178b467751df3d926e373&prid=original&clid=SAPDAM",
+      "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Starch, Soluble, Potato, SDS No. SS0940; revision date November 5, 2024 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "578d043a4c62b145c8134e1fc60256ff91f6f2598c30bf50ec68aa33aee1a41b",
+      "supports": [
+        {
+          "field": "starch.notCarried",
+          "prints": "STARCH, SOLUBLE, POTATO",
+          "where": "Read and not carried. The product named at the head of the sheet, whose number is SDS No. SS0940. The sheet carries the names of two suppliers of one company, Ward's Science and Boreal Science, and has English pages and then French ones; the English pages were read. It was read as the PDF served at the address above, which is the one the supplier's own product page gives for the sheet of this product. It is a sheet for the solid that the bench's solution is made up from: section 3 gives soluble starch at 100%. The foot of its last English page gives the revision date of the citation, and says that it takes the place of one of November 15, 2022. Section 2 says that the substance is not classed as hazardous and prints no signal word and no statement; section 4 asks, for the eyes, the same flushing for 15 minutes or more and the same medical attention at once. Why: it says of the solid what the same supplier's sheet for the 5% solution says of the solution, and the note cites that one, which is nearer the bench."
+        },
+        {
+          "field": "starch.notCarried",
+          "prints": "Dust dispersed in air becomes explosive when exposed to ignition sources.",
+          "where": "Read and not carried. Section 5, under the words for specific hazards, its last sentence. Section 10 says that practices that raise dust are to be avoided. Why: it is of the dry powder raised as dust, which is not on this bench: the bottle holds a solution."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-starch-soluble",
+      "url": "https://www.fishersci.com/store/msds?partNumber=S516500&productDescription=STARCH+SOLUBLE&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Starch, Soluble (Certified ACS), catalogue numbers S516-100 and S516-500; revision 5 of 18 December 2025 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "c58acbc3b3cf1a84e4dc4d0ed64f6ad24a1d4ade0d37db21d4f5dcf147c98d79",
+      "supports": [
+        {
+          "field": "starch.hazards.note",
+          "prints": "Starch, Soluble (Certified ACS)",
+          "where": "Section 1, after the words Product Name, with the CAS number 9005-84-9. Section 3 gives soluble starch at 100%: the sheet is for the solid. Section 2 says that the product is not taken to be hazardous under the hazard communication standard of the United States in its form of 2024, and that no label elements are required. The address above was made from one catalogue number, in the form of the addresses the labs before this one read this supplier's sheets at; the description in it is this project's, and the server answered with the sheet named here."
+        },
+        {
+          "field": "starch.hazards.note",
+          "prints": "18-Dec-2025",
+          "where": "At the head of the sheet, after the words Revision Date, with Revision Number 5 beside it, and again on every page. The sheet says under its title that it is made to the hazard communication standard of the United States, in its form of 2024."
+        },
+        {
+          "field": "starch.hazards.note",
+          "prints": "Strong oxidizing agents",
+          "where": "Section 10, after the words for what starch does not go with: the line names nothing else. It is one of the sheets the note means when it says that the sheets keep starch from oxidising agents."
+        },
+        {
+          "field": "starch.notCarried",
+          "prints": "4. First-aid measures",
+          "where": "Read and not carried. The heading of section 4. Under it, for the eyes: rinsing at once with plenty of water, under the lids too, for 15 minutes or more, and medical attention. For the skin: washing with soap and a great deal of water, with the clothing and shoes it has got on taken off, and medical attention. For swallowing: the mouth is cleaned with water, no vomiting is brought on, and medical attention is got. Why: it is the first aid of the dry solid; for the eyes it asks what the second supplier's sheet for a solution asks, and the note gives that sheet's line."
+        },
+        {
+          "field": "starch.notCarried",
+          "prints": "Do not empty into drains.",
+          "where": "Read and not carried. Section 12, under the word Ecotoxicity, all of it; section 6 says that the starch should not be let out into the environment. Why: the line is on this supplier's sheets whatever the substance: its sheets for potassium bromate and for sodium thiosulfate, read for this lab, have it too. This sheet gives starch no class for the environment and says in section 15 that it holds no chemical under SARA 313."
+        },
+        {
+          "field": "starch.notCarried",
+          "prints": "Keep product and empty container away from heat and sources of ignition.",
+          "where": "Read and not carried. Section 5, under the words for the hazards that come of the chemical itself: its one sentence. Why: the same sentence is on this supplier's sheets for potassium iodide and potassium bromate, read for this lab, and on others read for the labs before it: it is a line the supplier prints whatever the substance. The bottle on the bench holds a solution in water."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-25065",
+      "url": "https://cameochemicals.noaa.gov/chemical/25065",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Starch (chemical 25065); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "283d3c66390512f3605fad1f41852d4f7191a95fbf9aa449dc66e19abf1be4eb",
+      "supports": [
+        {
+          "field": "starch.hazards.note",
+          "prints": "STARCH",
+          "where": "The page's title, under the words Chemical Datasheet. Its table of identifiers gives the CAS number 9005-25-8. The foot of the page prints the version named in the citation and no date of its own; most fields name where their text is from. The page was found in the list of names the site shows under one letter; the site's search was not used, which its robots file closes to automated readers. That is the number of starch at large; the suppliers' sheets give 9005-84-9, that of soluble starch. The page describes a fine white powder with no smell, used above all as food. Its alerts for reactivity are none, and its field for regulation says that there is no information. The page has no record for a solution."
+        },
+        {
+          "field": "starch.hazards.note",
+          "prints": "Incompatible with oxidizing agents, acids, iodine, bases.",
+          "where": "The field Reactivity Profile, its fourth sentence. The note says that the record keeps starch from oxidising agents, as the sheets do, and from acids and iodine too. This bench has all three: the potassium bromate, the acid, and the iodine the reaction makes, which the starch is there to show. The starch meets them in the flask, diluted, as the experiment, and the note says so. The record does not say what starch gives with any of them; there is no base on this bench."
+        },
+        {
+          "field": "starch.notCarried",
+          "prints": "Symptoms: Irritation eyes, skin, mucous membrane; cough, chest pain; dermatitis; rhinorrhea",
+          "where": "Read and not carried. The field Health Hazard, a passage the page credits to a pocket guide of a federal institute, 2024, which gives the routes as breathing it in, swallowing it and contact with the skin or the eyes. The field First Aid, from the same guide, has the eyes washed at once with a great deal of water and medical attention got at once. Why: it is of starch as a powder and as dust in the air of a workplace, which is not on this bench: the bottle holds a solution. The page gives starch no hazard class. The note has the irritation of the eyes from the second supplier's sheet for a solution, and the same first aid for them."
+        },
+        {
+          "field": "starch.notCarried",
+          "prints": "Presents a dust explosion hazard if dispersed as a fine dust in air in sufficient concentrations.",
+          "where": "Read and not carried. The field Reactivity Profile, its second sentence; the first says that starch burns. Why: it is of the dry powder raised as dust, which is not on this bench."
+        },
+        {
+          "field": "primer.notCarried",
+          "prints": "Incompatible with oxidizing agents, acids, iodine, bases.",
+          "where": "Read and not carried. The field Reactivity Profile, its fourth sentence. For the primer's safety topic it would support this: that the record lists iodine among what starch does not go with, and says no more of the two. No document read says anything of the blue that starch gives with iodine, as a hazard or otherwise. Why: the primer's safety card is held to a length, and of what was read it keeps what a learner at the bench most needs. This is put here for whoever decides what the card says."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-411",
+      "url": "https://www.flinnsci.com/sds_411-iodine-potassium-iodide-solution-less-than-0.05-m/sds_411",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Iodine-Potassium Iodide Solution Less than 0.05 M, SDS number sds_411; revision date December 3, 2018 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "a01f68535c90648057e9b538a4782c1db44e85f834eddfec20ff44167f4d9479",
+      "supports": [
+        {
+          "field": "primer.safety",
+          "prints": "Iodine-Potassium Iodide Solution Less than 0.05 M",
+          "where": "The sheet's title, before the words Safety Data Sheet: the weakest of the supplier's sheets for iodine dissolved in water that holds potassium iodide, which is what the flask holds once the liquid has turned. Section 3 gives iodine at 0.3%, potassium iodide at 1.5% and water at over 98%; 0.3% is about 0.012 mol/L of iodine (worked out from the percentage and the sheet's formula weight, 253.81, not read from a source). What the lab makes is weaker still: all the iodide of the 0.010 M bottle, undiluted and turned wholly to iodine, would be 0.005 mol/L, and in the flask it is diluted further (worked out from the bottle's strength, not read from a source). It is read for the primer's safety topic, and no tile cites it."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "December 3, 2018",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "Causes skin and eye irritation (H315+H320)",
+          "where": "Section 2, the one hazard class it lists: irritation of the skin, category 2, and of the eyes, category 2B. The signal word, under the title, is WARNING. Section 8 calls for eye protection, gloves and protective clothing. Section 4 has the eyes rinsed with water for several minutes and the skin washed with plenty of water, with medical advice if either stays irritated."
+        },
+        {
+          "field": "primer.notCarried",
+          "prints": "Target organs: Thyroid.",
+          "where": "Read and not carried. Section 11, its third line; the first gives, as what the solution does at once, irritation and cramps of the stomach. The sheet gives the solution no hazard class for either. Why: the primer's safety card is held to a length, and of what was read it keeps what a learner at the bench most needs. This is put here for whoever decides what the card says."
+        },
+        {
+          "field": "primer.notCarried",
+          "prints": "Pale yellow/brown liquid. Slight iodine odor.",
+          "where": "Read and not carried. Section 9, all of its description: what a dilute solution of iodine looks like with no starch in it. The sheet says nothing of starch, or of the blue it gives with iodine. Why: the primer's safety card is held to a length, and of what was read it keeps what a learner at the bench most needs. This is put here for whoever decides what the card says."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-407",
+      "url": "https://www.flinnsci.com/sds_407-iodine/sds_407",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Iodine, SDS number sds_407; revision date April 1, 2016 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "35e4efd399ce7a3362534cd5a87421cae86c48ed01f0cd34b62176c82f48c215",
+      "supports": [
+        {
+          "field": "primer.notCarried",
+          "prints": "Iodine",
+          "where": "Read and not carried. The sheet's title, before the words Safety Data Sheet: the element itself, the solid, which is never on this bench. Section 3 lists iodine alone, and section 9 describes grey-black flakes that do not dissolve in water. It is read to say what the sheets for the solid have that the sheet for a dilute solution does not. It is read for the primer's safety topic, and no tile cites it. Why: the primer's safety card is held to a length, and of what was read it keeps what a learner at the bench most needs. This is put here for whoever decides what the card says."
+        },
+        {
+          "field": "primer.notCarried",
+          "prints": "April 1, 2016",
+          "where": "Read and not carried. Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under. Why: the primer's safety card is held to a length, and of what was read it keeps what a learner at the bench most needs. This is put here for whoever decides what the card says."
+        },
+        {
+          "field": "primer.notCarried",
+          "prints": "Harmful if inhaled or in contact with skin (H312+H332)",
+          "where": "Read and not carried. Section 2, the one hazard class it lists: category 4, for acute toxicity through the skin and by breathing in. The signal word, under the title, is WARNING. Sections 7 and 8 say that the solid turns to vapour of itself, that it is used only in a hood or where the air is well changed, and that its dust and fumes are not breathed. None of this is on the same supplier's sheet for the dilute solution. Why: the primer's safety card is held to a length, and of what was read it keeps what a learner at the bench most needs. This is put here for whoever decides what the card says."
+        },
+        {
+          "field": "primer.notCarried",
+          "prints": "Incompatible materials: Reacts violently with metal powders, antimony, ammonia, acetaldehyde and acetylene.",
+          "where": "Read and not carried. Section 10, its second line, which goes on to say that these make a hazard of fire and explosion. None of the five is on this bench. The line names no thiosulfate, no bromate and no starch. Why: the primer's safety card is held to a length, and of what was read it keeps what a learner at the bench most needs. This is put here for whoever decides what the card says."
+        },
+        {
+          "field": "primer.notCarried",
+          "prints": "Acute effects: Highly toxic, harmful vapor, corrosive, severe lachrymator, sensitizer, stomach pains, vomiting.",
+          "where": "Read and not carried. Section 11, its first line, of the solid. Why: the same sheet does not bear most of it out: its classification in section 2 has one class, harm through the skin and by breathing in, category 4, and none for corrosion, for an allergy or for swallowing. The solid is not on this bench."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-iodine",
+      "url": "https://www.fishersci.com/store/msds?partNumber=I37500&productDescription=IODINE&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Iodine (Certified ACS), catalogue numbers I37-100 and I37-500, among others; revision 7 of 18 December 2025 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "03e99fcd91632ec00d87ebf94a8c4952cff32a1dc3b19e7f879b1cae4c55d9f3",
+      "supports": [
+        {
+          "field": "primer.safety",
+          "prints": "Iodine (Certified ACS)",
+          "where": "Section 1, after the words Product Name, with the CAS number 7553-56-2. Section 3 gives iodine at over 95%: the sheet is for the solid, which is never on this bench. The address above was made from one catalogue number, in the form of the addresses the labs before this one read this supplier's sheets at; the description in it is this project's, and the server answered with the sheet named here. It is read for the primer's safety topic, and no tile cites it."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "18-Dec-2025",
+          "where": "At the head of the sheet, after the words Revision Date, with Revision Number 7 beside it, and again on every page. The sheet says under its title that it is made to the hazard communication standard of the United States, in its form of 2024."
+        },
+        {
+          "field": "primer.notCarried",
+          "prints": "Causes damage to organs through prolonged or repeated exposure",
+          "where": "Read and not carried. Section 2, the last of the five hazard statements of the label. The sheet prints its hazard statements without codes. The class is toxicity to organs after repeated exposure, category 1, and the organs named are the kidney, the liver, the blood and the thyroid. The four before it are that the solid is harmful if swallowed, on the skin or if breathed in; that it irritates the skin; that it seriously irritates the eyes; and that it may irritate the airways. The signal word is Danger, graver than the Warning of the first supplier's sheet for the solid. Section 8 has the solid used only under a fume hood. Why: the primer's safety card is held to a length, and of what was read it keeps what a learner at the bench most needs. This is put here for whoever decides what the card says."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "Very toxic to aquatic life",
+          "where": "Section 2, under the heading for hazards not otherwise classified, after the label's statements; the sheet gives it no category. Section 12 says that the solid is very toxic to water life and gives figures for an alga, a fish and a water flea, each under 2 mg/L. Section 6 says that it is not flushed into surface water or a sanitary sewer and is kept from drains. For the primer's safety topic it supports this: that iodine is harmful to water life, so that what a flask holds after a run is not poured away as water would be. How it is disposed of is decided by the laboratory's own rules and local regulations."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-25035",
+      "url": "https://cameochemicals.noaa.gov/chemical/25035",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Iodine (chemical 25035); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "d4b8ae2cc8649f9911132a79037d25a24c52adc0a6ae0cc7efba8a5b47b03f07",
+      "supports": [
+        {
+          "field": "primer.safety",
+          "prints": "IODINE",
+          "where": "The page's title, under the words Chemical Datasheet. Its table of identifiers gives the CAS number 7553-56-2. The foot of the page prints the version named in the citation and no date of its own; most fields name where their text is from. The page was found in the list of names the site shows under one letter; the site's search was not used, which its robots file closes to automated readers. The page describes violet-black crystals with a sharp smell, the solid; it has no record for a solution. Its field for regulation says that there is no information. It is read for the primer's safety topic, and no tile cites it."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "Nearly insoluble in water but very soluble in aqueous solutions of iodides.",
+          "where": "The field General Description, its last sentence. For the primer's safety topic it supports this: that the iodine the reaction makes stays dissolved, since the flask holds iodide. The sentence before it says that the solid gives off a toxic vapour at room conditions; that is of the solid."
+        },
+        {
+          "field": "primer.notCarried",
+          "prints": "IODINE is an oxidizing agent. Reacts vigorously with reducing materials.",
+          "where": "Read and not carried. The field Reactivity Profile, its first two sentences. For the primer's safety topic it would support this: that iodine is itself an oxidising agent, which is why the thiosulfate takes it up. The field goes on to a list of what iodine does not go with, powdered metals and ammonia among them, in which nothing on this bench is named. Why: the primer's safety card is held to a length, and of what was read it keeps what a learner at the bench most needs. This is put here for whoever decides what the card says."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "Symptoms: Irritation eyes, skin, nose",
+          "where": "The field Health Hazard, a passage the page credits to a pocket guide of a federal institute, 2024, which gives the routes as breathing it in, swallowing it and contact with the skin or the eyes; the list goes on to tears, headache, tightness of the chest, burns and rash of the skin. The field First Aid, from the same guide, has the eyes washed at once with a great deal of water and the skin washed at once with soap and water, with medical attention. They are of iodine itself; the page gives no strength."
+        }
+      ]
+    }
+  ]
+}

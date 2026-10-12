@@ -50,7 +50,7 @@ vi.mock('./scene/MechanismScene', async () => {
   return { MechanismScene: (props: { state: { t: number }; label: string; describedBy: string }) => createElement('div', { 'data-scene': props.label, 'data-t': props.state.t, 'data-described-by': props.describedBy }) }
 })
 
-const [, , , , , , activity] = ACTIVITIES
+const [, , , , , , , activity] = ACTIVITIES
 const escaped = (text: string) => text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#x27;')
 const count = (html: string, pattern: RegExp) => [...html.matchAll(pattern)].length
 const text = (html: string) => html.replace(/<[^>]+>/g, '|').replace(/\|+/g, '|')

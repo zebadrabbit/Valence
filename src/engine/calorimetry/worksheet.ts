@@ -1,5 +1,6 @@
 import type { PartId } from '@/chem-data/calorimetry/data'
 import { contentsCg, massCg, waterFormedMicromol } from './cup'
+import { cutFromAny, fromAny, point, quotients, taken } from '../figures'
 import { compare, cutOffFrom, exact, roundsFrom, sizeOf, spanOf, times, type Exact, type Range, type Sig3 } from './entries'
 import type { CalorimetryModel } from './model'
 import type { RunSetup } from './setup'
@@ -72,21 +73,7 @@ const threeFigures = (n: number) => {
   while (n / unit >= 1000) unit *= 10
   return Math.round(n / unit) * unit
 }
-const point = (value: Exact): Range => [value, value]
-
-/**
- * The ways a value above may be taken: its unrounded range, and the entry as typed. Where the typed entry is a
- * correct rounding of the unrounded range the two are within half a step of each other, and everything between
- * them is taken too.
- */
-function taken(typed: Sig3, unrounded: Range): Range[] {
-  const size = sizeOf(typed)
-  return roundsFrom(typed, unrounded) ? [spanOf(size, ...unrounded)] : [point(size), unrounded]
-}
-/** a / b for every way of taking each: the range of each quotient. */
-const quotients = (tops: Range[], bottoms: Range[], scale: Exact = exact(1)): Range[] => tops.flatMap(([lowTop, highTop]) => bottoms.map(([lowBottom, highBottom]): Range => [times(exact(lowTop, highBottom), scale), times(exact(highTop, lowBottom), scale)]))
-const fromAny = (value: Sig3, ranges: Range[]) => ranges.some((range) => roundsFrom(value, range))
-const cutFromAny = (value: Sig3, ranges: Range[]) => ranges.some((range) => cutOffFrom(value, range))
+// How a value above may be taken, and the quotients of such values, are the shared rule's (../figures.ts).
 
 /** The heat of a mass, in hundredths of a gram, warming or cooling by a change in tenths of a degree, in joules: mass x specific heat of water x change. */
 const heatOf = (m: CalorimetryModel, cg: number, changeTenths: number): Exact => exact(cg * m.specificHeatE2 * Math.abs(changeTenths), 1e5)

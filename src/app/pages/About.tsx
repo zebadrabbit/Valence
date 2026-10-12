@@ -158,6 +158,25 @@ export function About() {
             rules.
           </p>
           <p className="mb-2">
+            The clock reaction lab takes the order of its reaction in iodide, in bromate and in hydrogen ion from the
+            summary of a kinetic study in the Journal of the Chemical Society, Faraday Transactions 1, and from
+            the summary of a thesis of Victoria University of Wellington, and its rate constant from that thesis's
+            summary, where it was measured in a far saltier solution than the lab's mixtures. The activation energy
+            its model runs on is Valence's own figure and not a measured one: no source read gives it for a mixture
+            like this bench's, and the lab says so where it gives the figure. The five mixtures and the procedure
+            are those of handouts for this experiment from three colleges and a school; the gas
+            constant and the kelvin of 0 °C are NIST's. The time of each run is what Valence's model gives,
+            with a small scatter that is its own and the learner's own delay on the watch. The hazard statements of
+            its five bottles are those of Flinn Scientific's safety data sheets, for the solid or, for the acid,
+            for the concentrated acid, and the note under each rests on a sheet for the solution where one could be
+            read and, where a sheet of Ward's Science or of Fisher Scientific, a fact sheet of the New Jersey
+            Department of Health and Senior Services or a record of NOAA's database of chemicals says something stricter of the
+            substance, on that too. The documents were read on the dates their citations give, and no copy of them
+            is kept. The lab's primer also rests on pages of Chemguide; it quotes none of its sources. None of these
+            publishers is connected with Valence or has reviewed it. At a real bench, follow the safety data sheet
+            of the product in hand and the laboratory's own rules.
+          </p>
+          <p className="mb-2">
             The mechanism timeline takes its enthalpies and free energies of formation from the NBS tables of chemical
             thermodynamic properties of 1982, as NIST serves them; the acid constant of the carbonic acid molecule,
             how long that molecule lasts and the timescales of its two middle steps from a paper in the Journal of

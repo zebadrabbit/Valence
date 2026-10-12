@@ -1,0 +1,19 @@
+/*
+ * The clock reaction lab's one animation. Loaded with the lab page, so none of it is in the app shell's stylesheet.
+ *
+ * The liquid changes all at once, between one frame and the next, and nothing fades. Where the app's
+ * reduced-motion setting allows, the edge of the picture is marked once as the change is shown, for under a
+ * second, so that an eye that was on the watch is drawn to the flask. The picture is given this class only then,
+ * and the app's own rule would stop it if it were not.
+ */
+.clock-turned {
+  animation: clock-turned 0.7s ease-out 1;
+}
+@keyframes clock-turned {
+  from {
+    box-shadow: 0 0 0 0 var(--foreground);
+  }
+  to {
+    box-shadow: 0 0 0 14px transparent;
+  }
+}
