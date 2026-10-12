@@ -19,6 +19,7 @@ export const ENTRY = {
   clock: 'lab:clock-reaction',
   acetone: 'lab:iodination-of-acetone',
   cabbage: 'lab:red-cabbage-ph',
+  density: 'lab:measurement-and-density',
   mechanism: 'mechanism:hcl-nahco3',
 } as const
 

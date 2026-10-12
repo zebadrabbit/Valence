@@ -6,6 +6,7 @@ import type { CalorimetryData, PartId } from './calorimetry/data'
 import type { CationsData, StepId } from './cations/data'
 import type { AcetoneData, PartId as AcetonePartId } from './acetone/data'
 import type { CabbageData, ThingId } from './cabbage/data'
+import type { DensityData, PartId as DensityPartId } from './density/data'
 import type { ClockData, PartId as ClockPartId } from './clock/data'
 import type { FlameData } from './flame/data'
 import type { DisturbanceId, LechatelierData } from './lechatelier/data'
@@ -478,6 +479,37 @@ export function cabbageThingCitations(data: CabbageData, thingId: ThingId, sourc
       ...(thing.bleaches ? everySource('What is seen where the dye is destroyed', data.indicator.bleached) : []),
       ...(reagent ? bottleEntries(reagent) : []),
       ...data.parts[1].notes.flatMap((note) => everySource('Notes on the household things', note)),
+    ],
+    sources,
+  )
+}
+
+/**
+ * The sources behind one part of the measurement and density lab (spec 5.1): for part 1 the melting point of ice
+ * and its notes; for parts 2 and 3 every row of the table shown beside the unknown, the water's density that the
+ * relative densities are worked out with, the things the unknown may be with their hazards, and the part's notes.
+ * A part lists every candidate and every thing the unknown may be, whichever it is, so the list says nothing of
+ * which it is.
+ */
+export function densityCitations(data: DensityData, partId: DensityPartId, sources: readonly Source[]): Citation[] {
+  const part = data.parts.find((p) => p.id === partId)
+  if (!part) throw new Error(`no part "${partId}"`)
+  const all = (label: string, cited: { sourceId: string; alsoSourceId?: string | undefined; moreSourceIds?: string[] | undefined }): Entry[] =>
+    [cited.sourceId, ...(cited.alsoSourceId === undefined ? [] : [cited.alsoSourceId]), ...(cited.moreSourceIds ?? [])].map((id): Entry => [label, id])
+  const notes = part.notes.flatMap((note) => all('Notes on this part', note))
+  if (part.id === 'reading') return citations([['The melting point of ice', data.constants.icePoint.sourceId], ...notes], sources)
+  const rows = (part.id === 'liquid' ? data.liquids : data.metals).filter((row) => part.candidateIds.includes(row.id))
+  const reagents = data.reagents.filter((r) => part.unknownIds.includes(r.tableId))
+  return citations(
+    [
+      ...rows.map((row): Entry => [`${row.name}: density at ${row.temperature}`, row.printed.sourceId]),
+      ...(part.id === 'liquid' ? [['Density of water at 20 °C, for the densities a source gives relative to water', data.water.density.sourceId] as const] : []),
+      ...reagents.flatMap((r): Entry[] => [
+        [`${r.name}: the substance`, r.sourceId],
+        [`${r.name}: hazard classification`, r.hazards.sourceId],
+        ...all(`${r.name}: hazards as it is used here`, r.hazards.note),
+      ]),
+      ...notes,
     ],
     sources,
   )

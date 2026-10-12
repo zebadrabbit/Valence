@@ -234,6 +234,11 @@ describe('architecture lint rules', () => {
     ['@/engine/cabbage/state', 'src/app/lab/cabbage/messages.ts'],
     ['../../../engine/cabbage/model', 'src/app/lab/cabbage/x.tsx'],
     ['@/engine/cabbage/testkit', 'src/app/lab/cabbage/x.tsx'],
+    // The density engine below its index holds which liquid and which metal an unknown is, and the judging of every entry.
+    ['@/engine/density/setup', 'src/app/lab/density/x.tsx'],
+    ['@/engine/density/state', 'src/app/lab/density/messages.ts'],
+    ['../../../engine/density/worksheet', 'src/app/lab/density/x.tsx'],
+    ['@/engine/density/testkit', 'src/app/lab/density/x.tsx'],
   ])('rejects importing %s in %s', async (source, filePath) => {
     expect(await ruleIds(`import * as m from "${source}"\nexport const v = m\n`, filePath)).toEqual(['no-restricted-imports'])
     // A type import is refused too: the types below the index describe the hidden values.
@@ -262,6 +267,8 @@ describe('architecture lint rules', () => {
     ['@/engine/acetone/testkit', 'src/app/lab/acetone/messages.test.ts'],
     ['@/engine/cabbage', 'src/app/lab/cabbage/messages.ts'],
     ['@/engine/cabbage/testkit', 'src/app/lab/cabbage/messages.test.ts'],
+    ['@/engine/density', 'src/app/lab/density/messages.ts'],
+    ['@/engine/density/testkit', 'src/app/lab/density/messages.test.ts'],
     // Another folder whose name ends the same way is not the engine's.
     ['@/app/lab/titration/benchView', 'src/app/pages/x.tsx'],
     ['./titration/benchView', 'src/app/lab/x.tsx'],

@@ -35,6 +35,10 @@
 //   clock/clock.json, and into sources.json the clock reaction lab's sources
 // Reads docs/research/cabbage/ (cabbage.json, hazards.json and the two manifests under sources/) and writes:
 //   cabbage/cabbage.json, and into sources.json the red cabbage pH lab's sources
+//
+// Reads docs/research/density/ (density.json, hazards.json and the two manifests under sources/), with the copy
+// of the handbooks' densities kept for the periodic table, and writes:
+//   density/density.json, and into sources.json the measurement and density lab's sources
 // Reads docs/research/acetone/ (acetone.json, hazards.json and the two manifests under sources/), with the
 // aqueous lab's hazards for the bottle the two labs share, and writes:
 //   acetone/acetone.json, and into sources.json the iodination of acetone lab's sources
@@ -59,6 +63,7 @@ import { checkAtomicWeights, checkBench, checkWorkedOut as checkCationsWorkedOut
 import { checkBench as checkLechatelierBench, checkWorkedOut as checkLechatelierWorkedOut } from './lechatelier-lib.mjs'
 import { checkMixtures, checkRateRecord, checkReactions, checkUsedUp } from './clock-lib.mjs'
 import { checkEstimates, checkScale, checkWorkedOut as checkCabbageWorkedOut } from './cabbage-lib.mjs'
+import { checkMetalDensities, checkTellApart, checkWorkedOut as checkDensityWorkedOut } from './density-lib.mjs'
 import { checkExcess, checkMixtures as checkAcetoneMixtures, checkRateRecord as checkAcetoneRateRecord, checkReaction as checkAcetoneReaction } from './acetone-lib.mjs'
 import { checkAnnualMean, checkMolecularWeight, checkPublished, checkSha256, checkSheetHazards, checkWikipediaCopy } from './titration-lib.mjs'
 
@@ -75,6 +80,7 @@ const cationsResearch = join(root, 'docs/research/cations')
 const lechatelierResearch = join(root, 'docs/research/lechatelier')
 const clockResearch = join(root, 'docs/research/clock')
 const cabbageResearch = join(root, 'docs/research/cabbage')
+const densityResearch = join(root, 'docs/research/density')
 const acetoneResearch = join(root, 'docs/research/acetone')
 const out = join(root, 'src/chem-data')
 
@@ -1949,6 +1955,57 @@ function buildCabbage(earlierSources) {
   return { cabbage, sources: [...labSources, ...sheetSources.filter((source) => underHazards.has(source.id) || forPrimer.has(source.id))] }
 }
 
+// ---------------------------------------------------------------------------
+// Measurement and density lab
+//
+// The record is authored in docs/research/density/density.json: the two liquids and the three metals an unknown
+// may be; the water; the five instruments; the table of liquids and the table of metals, each row with the figure
+// its source prints, the temperature it is for and the density stored, worked out from it; the melting point of
+// ice; the three parts with the notes shown when each is done; and the model's parameters. Every source is in
+// sources/MANIFEST.json, each row of which names the stored values it supports, and the build holds the record to
+// those rows as it does the aqueous lab's. No source has a copy in this lab's folder: the metals' densities are
+// held to the copy of the handbooks' transcription that the periodic table keeps. What the record works out is
+// worked out again here, and its numbers are held to spec 22.6 (scripts/density-lib.mjs): the candidates of each
+// table far enough apart to tell at the figures the instruments give, and every seeded amount keeping its figures.
+// The hazards are authored apart, in hazards.json with sources/hazard-manifest.json, and merged in as the clock
+// reaction lab's are: every record is this lab's own, none being the same thing in the same form and amount as
+// another lab's, though eight of the documents behind them are ones the calorimetry and flame test labs list too.
+
+const DENSITY_KEYS = ['reagents', 'water', 'instruments', 'liquids', 'metals', 'constants', 'parts', 'parameters']
+const DENSITY_REAGENTS = ['ethanol-95', 'nacl-20', 'aluminium-pieces', 'zinc-pieces', 'copper-pieces']
+const DENSITY_PARTS = ['reading', 'liquid', 'metal']
+
+function buildDensity(earlierSources) {
+  const json = (name) => JSON.parse(readFileSync(join(densityResearch, name), 'utf8'))
+  const input = json('density.json')
+  const manifest = json('sources/MANIFEST.json')
+  const hazardManifest = json('sources/hazard-manifest.json')
+
+  onlyKeys(input, DENSITY_KEYS, 'density.json')
+  if (input.reagents.map((r) => r.id).join() !== DENSITY_REAGENTS.join()) fail('density.json: the reagents are not the two liquids and the three metals of spec 22.1, in their order')
+  if (input.parts.map((p) => p.id).join() !== DENSITY_PARTS.join()) fail('density.json: the parts are not the three of spec 22.1, in their order')
+  if ([...manifest.sources, ...hazardManifest.sources].some((source) => source.file !== undefined)) fail('density manifests: no source of this lab has a copy in its folder')
+  for (const [key, parameter] of Object.entries(input.parameters)) onlyKeys(parameter, ['value', 'rationale'], `density.json: parameters.${key}`)
+  const rows = new Set([...input.liquids, ...input.metals].map((row) => row.id))
+  for (const reagent of input.reagents) if (!rows.has(reagent.tableId)) fail(`density.json: the reagent "${reagent.id}" is no row of a table`)
+
+  // A source another lab lists too (the handbooks' densities, a sheet) is listed once.
+  const labSources = newSources(manifest.sources, earlierSources, 'density MANIFEST.json')
+
+  checkDensityWorkedOut(input)
+  checkMetalDensities(input, readFileSync(join(periodicResearch, 'sources/wikipedia-densities-of-the-elements-data-page.wikitext'), 'utf8'))
+  checkTellApart(input)
+
+  const sheets = hazardManifest.sources
+  const sheetSources = newSources(sheets, [...earlierSources, ...labSources], 'density hazard-manifest.json')
+  const density = { ...input, reagents: mergeHazards(input.reagents, json('hazards.json'), sheets) }
+  checkSupported(density, manifest.sources, sheets)
+
+  // As for the calorimetry lab: the app lists only the documents a reagent's hazards cite.
+  const underHazards = new Set(density.reagents.flatMap(({ hazards: { sourceId, note } }) => [sourceId, note.sourceId, ...(note.alsoSourceId === undefined ? [] : [note.alsoSourceId]), ...(note.moreSourceIds ?? [])]))
+  return { density, sources: [...labSources, ...sheetSources.filter((source) => underHazards.has(source.id))] }
+}
+
 // A static import list keeps the registry free of bundler-only APIs.
 function moleculeIndex(molecules) {
   const name = (id) => id.replace(/-(.)/g, (_, c) => c.toUpperCase())
@@ -2002,7 +2059,9 @@ function main() {
   const { acetone, sources: acetoneSources } = buildAcetone(beforeAcetone)
   const beforeCabbage = [...beforeAcetone, ...acetoneSources]
   const { cabbage, sources: cabbageSources } = buildCabbage(beforeCabbage)
-  const sources = [...beforeCabbage, ...cabbageSources]
+  const beforeDensity = [...beforeCabbage, ...cabbageSources]
+  const { density, sources: densitySources } = buildDensity(beforeDensity)
+  const sources = [...beforeDensity, ...densitySources]
   if (new Set(sources.map((s) => s.id)).size !== sources.length) fail('duplicate source ids')
 
   // Everything is built before anything is written.
@@ -2034,11 +2093,13 @@ function main() {
   writeFileSync(join(out, 'acetone/acetone.json'), toJson(acetone))
   mkdirSync(join(out, 'cabbage'), { recursive: true })
   writeFileSync(join(out, 'cabbage/cabbage.json'), toJson(cabbage))
+  mkdirSync(join(out, 'density'), { recursive: true })
+  writeFileSync(join(out, 'density/density.json'), toJson(density))
   mkdirSync(join(root, 'src/mechanisms'), { recursive: true })
   writeFileSync(join(root, 'src/mechanisms', `${mechanism.id}.json`), toJson(mechanism))
   writeFileSync(join(out, 'sources.json'), toJson(sources))
   process.stdout.write(
-    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the flame test lab's record, the calorimetry lab's record, the Group I cations lab's record, the Le Chatelier's principle lab's record, the clock reaction lab's record, the iodination of acetone lab's record, the red cabbage pH lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
+    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the flame test lab's record, the calorimetry lab's record, the Group I cations lab's record, the Le Chatelier's principle lab's record, the clock reaction lab's record, the iodination of acetone lab's record, the red cabbage pH lab's record, the measurement and density lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
   )
 }
 

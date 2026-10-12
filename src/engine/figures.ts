@@ -205,3 +205,156 @@ export function withinPercent(result: Sig3, stored: number, scale: number, perce
   const gap = signed[0] * BigInt(scale) - BigInt(stored) * signed[1]
   return (gap < 0n ? -gap : gap) * 100n <= BigInt(percent) * BigInt(Math.abs(stored)) * signed[1]
 }
+
+// What the measurement and density lab added (spec 22.3): numbers typed to any count of figures, and the two
+// rules a worked-out number is rounded by there. A sum or a difference is given to the decimal place of its
+// least exact term; a product or a quotient is given to as many significant figures as its factor with the
+// fewest. Nothing above this line is changed by it: a `Sig3` is a `Figures` whose mantissa has three digits.
+
+/**
+ * A number as it was typed, with the figures it was typed to: `mantissa` x 10^`exponent`. Every digit of the
+ * mantissa is a significant figure. Zeros in front are not kept. Behind a decimal point every figure counts, so
+ * "24.30" is 2430 x 10^-2, of four figures. Zeros that end a whole number only hold the others in their places,
+ * so they go into the exponent: "1200" is 12 x 10^2, of two figures. Zero has no significant figure and keeps its
+ * decimal places: "0.0" is 0 x 10^-1.
+ */
+export interface Figures {
+  mantissa: number
+  exponent: number
+}
+
+/** The most digits a typed number may have: a whole number of so many digits is exact in a double. */
+const MAX_DIGITS = 9
+
+/** A plain decimal number as it was typed, with or without a sign ("24.30", "-0.4", "+0.4", ".5", "1200"); null otherwise, and for one of more than nine digits. A typed minus sign (U+2212) is read as a hyphen. */
+export function parseDecimal(text: string): Figures | null {
+  const match = /^([+-]?)(\d*)(?:\.(\d+))?$/.exec(text.trim().replace('−', '-'))
+  if (!match || (match[2] === '' && match[3] === undefined)) return null
+  const [, sign, whole = '', decimals] = match
+  let digits = (whole + (decimals ?? '')).replace(/^0+/, '')
+  let exponent = -(decimals?.length ?? 0)
+  if (decimals === undefined) {
+    const kept = digits.replace(/0+$/, '')
+    exponent = digits.length - kept.length
+    digits = kept
+  }
+  if (digits.length > MAX_DIGITS || (decimals?.length ?? 0) > 12) return null
+  // Not negative zero: JSON writes it as 0, so a stored "-0.0" would not come back as it went in.
+  return { mantissa: (sign === '-' ? -1 : 1) * Number(digits || '0') || 0, exponent }
+}
+
+/** True for a Figures the parser could have made: whole numbers within its bounds, and no negative zero. */
+export const isFigures = (value: unknown): value is Figures => {
+  if (typeof value !== 'object' || value === null) return false
+  const { mantissa, exponent, ...rest } = value as Record<string, unknown>
+  return Object.keys(rest).length === 0 && Number.isInteger(mantissa) && Math.abs(mantissa as number) < 10 ** MAX_DIGITS && !Object.is(mantissa, -0) && Number.isInteger(exponent) && Math.abs(exponent as number) <= 12 && !Object.is(exponent, -0)
+}
+
+/** How many significant figures a number was typed to: none for zero. */
+export const figuresIn = ({ mantissa }: Figures): number => (mantissa === 0 ? 0 : String(Math.abs(mantissa)).length)
+/** How many decimal places a number was typed to. */
+export const decimalsIn = ({ exponent }: Figures): number => Math.max(0, -exponent)
+
+/** A Figures as it is written: "24.30", "-0.4", "0.0", "1200". A negative number has a hyphen in front. */
+export function formatDecimal({ mantissa, exponent }: Figures): string {
+  const digits = String(Math.abs(mantissa))
+  const sign = mantissa < 0 ? '-' : ''
+  if (exponent >= 0) return sign + (mantissa === 0 ? '0' : digits + '0'.repeat(exponent))
+  const padded = digits.padStart(1 - exponent, '0')
+  return `${sign}${padded.slice(0, exponent)}.${padded.slice(exponent)}`
+}
+
+/** The exact value of a Figures, with its sign. */
+export const exactOf = ({ mantissa, exponent }: Figures): Exact => times(power(exponent), mantissa)
+
+const negated = ([low, high]: Range): Range => [[-high[0], high[1]], [-low[0], low[1]]]
+const isPowerOfTen = (n: number) => /^10*$/.test(String(n))
+
+/** The stretch of values from `below` a size to `above` it, in units of 10^`unitExponent`, meets the range. */
+function meets(value: Figures, range: Range, unitExponent: number, below: Exact, above: Exact, openAbove = false): boolean {
+  const [low, high] = value.mantissa < 0 ? negated(range) : range
+  const size = times(power(value.exponent), Math.abs(value.mantissa))
+  const unit = power(unitExponent)
+  const down: Exact = [size[0] * unit[1] * below[1] - unit[0] * below[0] * size[1], size[1] * unit[1] * below[1]]
+  const up: Exact = [size[0] * unit[1] * above[1] + unit[0] * above[0] * size[1], size[1] * unit[1] * above[1]]
+  return compare(down, high) <= 0 && (openAbove ? compare(up, low) > 0 : compare(up, low) >= 0)
+}
+
+/**
+ * True when a number is a correct rounding, to the significant figures it was typed to, of some value in the
+ * range: `roundsFrom` for any count of figures, and with the number's sign. Both neighbours are right at an exact
+ * tie. Zero is no rounding to significant figures of anything.
+ */
+export function roundsToFigures(value: Figures, range: Range): boolean {
+  if (value.mantissa === 0) return false
+  // Below a power of ten the next number down is ten times as fine, so the stretch reaches a twentieth of a unit down.
+  return meets(value, range, value.exponent, exact(1, isPowerOfTen(Math.abs(value.mantissa)) ? 20 : 2), exact(1, 2))
+}
+
+/** True when a number is a value of the range cut off after its last figure where it should have been rounded. Asked only of a number that is not a correct rounding. */
+export const cutOffToFigures = (value: Figures, range: Range): boolean => value.mantissa !== 0 && meets(value, range, value.exponent, exact(0), exact(1), true)
+
+/** The place a number was typed to, as a power of ten: its last decimal place, or the units for a whole number. */
+const placeOf = (value: Figures) => Math.min(value.exponent, 0)
+
+/** True when a number is a correct rounding, to the decimal place it was typed to, of some value in the range: half a unit of that place either way, both ends included. */
+export const roundsToPlace = (value: Figures, range: Range): boolean => meets(value, range, placeOf(value), exact(1, 2), exact(1, 2))
+
+/** True when a number is a value of the range cut off after its last decimal place. Asked only of a number that is not a correct rounding. */
+export const cutOffToPlace = (value: Figures, range: Range): boolean => meets(value, range, placeOf(value), exact(0), exact(1), true)
+
+/**
+ * An exact value written to so many significant figures, a half going away from zero: `toSig3` for any count.
+ * Zero has no such writing and gives null. A whole number that needs zeros to hold its places is written with
+ * them ("1200" for 1.20 x 10^3), and so reads back with fewer figures than it was given.
+ */
+export function toFigures(value: Exact, figures: number): Figures | null {
+  const negative = value[0] < 0n
+  const [n, d] = negative ? [-value[0], value[1]] : value
+  if (n === 0n || !Number.isInteger(figures) || figures < 1 || figures > MAX_DIGITS) return null
+  const [floor, ceiling] = [10n ** BigInt(figures - 1), 10n ** BigInt(figures)]
+  const scaled = (exponent: number): [bigint, bigint] => [n * 10n ** BigInt(Math.max(0, -exponent)), d * 10n ** BigInt(Math.max(0, exponent))]
+  let exponent = 0
+  while (scaled(exponent)[0] >= ceiling * scaled(exponent)[1]) exponent++
+  while (scaled(exponent)[0] < floor * scaled(exponent)[1]) exponent--
+  const [top, bottom] = scaled(exponent)
+  let mantissa = Number((2n * top + bottom) / (2n * bottom))
+  if (mantissa === Number(ceiling)) [mantissa, exponent] = [Number(floor), exponent + 1]
+  return { mantissa: negative ? -mantissa : mantissa, exponent }
+}
+
+/** An exact value written to so many decimal places, a half going away from zero. */
+export function toDecimals(value: Exact, decimals: number): Figures {
+  const negative = value[0] < 0n
+  const [n, d] = negative ? [-value[0], value[1]] : value
+  const mantissa = Number((2n * n * 10n ** BigInt(decimals) + d) / (2n * d))
+  // Not negative zero, for no decimal places: it would not come back from JSON as it went in.
+  return { mantissa: negative && mantissa !== 0 ? -mantissa : mantissa, exponent: decimals === 0 ? 0 : -decimals }
+}
+
+/** The decimal places a sum or a difference is given to: those of its least exact term. */
+export const decimalsOfSum = (...terms: Figures[]): number => Math.min(...terms.map(decimalsIn))
+/** The significant figures a product or a quotient is given to: those of its factor with the fewest. */
+export const figuresOfProduct = (...factors: Figures[]): number => Math.min(...factors.map(figuresIn))
+
+/**
+ * How a typed number stands against the value it should be a rounding of: right; right arithmetic kept to too
+ * many figures or to too few; cut off where it should have been rounded; or wrong.
+ */
+export type Rounding = 'right' | 'too-many' | 'too-few' | 'cut-off' | 'wrong'
+
+/** A product or a quotient, which is given to `figures` significant figures: how a typed number stands against its value. */
+export function judgeFigures(typed: Figures, value: Range, figures: number): Rounding {
+  const given = figuresIn(typed)
+  if (given === figures) return roundsToFigures(typed, value) ? 'right' : cutOffToFigures(typed, value) ? 'cut-off' : 'wrong'
+  if (given > figures) return roundsToFigures(typed, value) || cutOffToFigures(typed, value) ? 'too-many' : 'wrong'
+  return roundsToFigures(typed, value) ? 'too-few' : 'wrong'
+}
+
+/** A sum or a difference, which is given to `decimals` decimal places: how a typed number stands against its value. */
+export function judgeDecimals(typed: Figures, value: Range, decimals: number): Rounding {
+  const given = decimalsIn(typed)
+  if (given === decimals) return roundsToPlace(typed, value) ? 'right' : cutOffToPlace(typed, value) ? 'cut-off' : 'wrong'
+  if (given > decimals) return roundsToPlace(typed, value) || cutOffToPlace(typed, value) ? 'too-many' : 'wrong'
+  return roundsToPlace(typed, value) ? 'too-few' : 'wrong'
+}

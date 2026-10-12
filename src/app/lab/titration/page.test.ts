@@ -27,7 +27,7 @@ const app = vi.hoisted(() => ({ store: undefined as unknown as KeyValueStore, pe
 vi.mock('@/app/AppState', () => ({ useAppState: () => ({ store: app.store, persistent: app.persistent, reducedMotion: false }) }))
 vi.mock('@/app/useMediaQuery', () => ({ useMediaQuery: () => app.wide }))
 
-const [titration, aqueous, flame, calorimetry, cations, lechatelier, clock, acetone, cabbage, mechanism] = ACTIVITIES
+const [titration, aqueous, flame, calorimetry, cations, lechatelier, clock, acetone, cabbage, density, mechanism] = ACTIVITIES
 const draw = (element: ReactElement) => renderToStaticMarkup(createElement(MemoryRouter, null, element))
 const save = (state: TitrationState) => saveEntry(app.store, titration.entry, titration.version, state)
 const count = (html: string, pattern: RegExp) => [...html.matchAll(pattern)].length
@@ -89,7 +89,7 @@ describe('the list of labs', () => {
 
   it('links the titration lab, with its status as Home gives it', () => {
     const [first, ...rest] = items()
-    expect(rest).toHaveLength(8)
+    expect(rest).toHaveLength(9)
     expect([...first!.matchAll(/<a [^>]*href="([^"]*)"[^>]*>(.*?)<\/a>/g)].map((match) => [match[1], match[2]])).toEqual([['/lab/titration', titration.title]])
     expect(text(first!)).toContain('|Not started|')
     save(createLab(1, 'guided'))
@@ -166,7 +166,7 @@ describe('the list of labs', () => {
     saveEntry(app.store, acetone.entry, acetone.version, { status: 'in-progress' })
     expect(text(eighth())).toContain('|In progress|')
     expect(text(items()[6]!)).toContain('|Not started|')
-    expect(items()).toHaveLength(9)
+    expect(items()).toHaveLength(10)
   })
 
   it('links the red cabbage pH lab the same way, ninth, with its own status', () => {
@@ -177,7 +177,18 @@ describe('the list of labs', () => {
     saveEntry(app.store, cabbage.entry, cabbage.version, { status: 'in-progress' })
     expect(text(ninth())).toContain('|In progress|')
     expect(text(items()[7]!)).toContain('|Not started|')
-    expect(items()).toHaveLength(9)
+    expect(items()).toHaveLength(10)
+  })
+
+  it('links the measurement and density lab the same way, tenth, with its own status', () => {
+    const tenth = () => items()[9]!
+    expect([...tenth().matchAll(/<a [^>]*href="([^"]*)"[^>]*>(.*?)<\/a>/g)].map((match) => [match[1], match[2]])).toEqual([['/lab/measurement-and-density', density.title]])
+    expect(density.title).toBe('Measurement and density')
+    expect(text(tenth())).toContain('|Not started|')
+    saveEntry(app.store, density.entry, density.version, { status: 'in-progress' })
+    expect(text(tenth())).toContain('|In progress|')
+    expect(text(items()[8]!)).toContain('|Not started|')
+    expect(items()).toHaveLength(10)
   })
 
   it('Home links every activity, the mechanism too, each with its own status, and shows none as planned', () => {
@@ -185,7 +196,7 @@ describe('the list of labs', () => {
     const home = [...draw(createElement(Home)).matchAll(/<li[^>]*>(.*?)<\/li>/gs)].map((match) => match[1]!)
     // A title is in the markup with its apostrophe written as markup writes one.
     const item = (title: string) => home.find((html) => html.includes(title.replaceAll("'", '&#x27;')))!
-    for (const [activity, status] of [[titration, 'Not started'], [aqueous, 'Not started'], [flame, 'Not started'], [calorimetry, 'Not started'], [cations, 'Not started'], [lechatelier, 'Not started'], [clock, 'Not started'], [acetone, 'Not started'], [cabbage, 'Not started'], [mechanism, 'Completed']] as const) {
+    for (const [activity, status] of [[titration, 'Not started'], [aqueous, 'Not started'], [flame, 'Not started'], [calorimetry, 'Not started'], [cations, 'Not started'], [lechatelier, 'Not started'], [clock, 'Not started'], [acetone, 'Not started'], [cabbage, 'Not started'], [density, 'Not started'], [mechanism, 'Completed']] as const) {
       expect(item(activity.title)).toMatch(new RegExp(`<a [^>]*href="${activity.to}"`))
       expect(text(item(activity.title))).toContain(`|${status}|`)
       expect(text(item(activity.title))).not.toContain(SHELL_TEXT.planned)
