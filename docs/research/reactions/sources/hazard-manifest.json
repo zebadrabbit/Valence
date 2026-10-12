@@ -169,7 +169,7 @@
         {
           "field": "cuso4-1m.hazards.note",
           "prints": "First Aid",
-          "where": "The name of the field. For the eyes: they are flushed with water or salt water for 20 to 30 minutes while a hospital or a poison centre is called, and the person is taken to a hospital afterwards whatever the eyes look like. For the skin: it is flooded with water at once, the wet clothing taken off, and then washed with soap and water. The supplier's sheets give several minutes of rinsing; the note gives these as what the lab goes by."
+          "where": "The name of the field. For the eyes: they are flushed with water or salt water for 20 minutes to 30, with a hospital or a poison centre called meanwhile, and the person is taken to a hospital afterwards whatever the eyes look like. For the skin: it is flooded with water at once, the wet clothing taken off, and then washed with soap and water. The supplier's sheets give several minutes of rinsing; the note gives these as what the lab goes by."
         },
         {
           "field": "cuso4-1m.hazards.note",
@@ -235,12 +235,12 @@
         {
           "field": "magnesium-ribbon.hazards.note",
           "prints": "MAGNESIUM",
-          "where": "The page's title, under the words Chemical Datasheet; its description is of a light silvery metal that burns with an intense white flame. The site has a separate record for the powder, which was not read. The page was found in the list of names the site shows under one letter; the site's search was not used, which its robots file closes to automated readers. The foot of the page prints the version named in the citation and no date of its own."
+          "where": "The page's title, under the words Chemical Datasheet; its description is of a light silvery metal whose flame is intensely white. The site has a separate record for the powder, which was not read. The page was found in the list of names the site shows under one letter; the site's search was not used, which its robots file closes to automated readers. The foot of the page prints the version named in the citation and no date of its own."
         },
         {
           "field": "magnesium-ribbon.hazards.note",
           "prints": "Behavior in Fire: Forms dense white smoke. Flame is very bright. (USCG, 1999)",
-          "where": "The field Fire Hazard, whole. The field for firefighting lists what is not to be used: water, foam, halogenated agents and carbon dioxide; and what is: dry powders that do not react."
+          "where": "The field Fire Hazard, whole. The field for firefighting rules out four things: water, foam, carbon dioxide and agents that hold a halogen; and names what is used: dry powders that do not react."
         },
         {
           "field": "magnesium-ribbon.hazards.note",
@@ -526,8 +526,8 @@
         },
         {
           "field": "primer.safety",
-          "prints": "Light sensitive.",
-          "where": "Section 7. The primer's card on the four kinds gives a bottle of hydrogen peroxide, kept in the dark, as an everyday decomposition."
+          "prints": "Hazard class: Serious eye damage (Category 1).",
+          "where": "Section 2, the class of the second statement. The primer's safety card says that hydrogen peroxide can damage the eyes."
         }
       ]
     }

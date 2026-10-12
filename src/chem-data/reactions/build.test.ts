@@ -84,7 +84,7 @@ describe('the record and its manifest', () => {
 
   it('has a row marked for the primer on every source the primer alone rests on', () => {
     const forPrimer = manifest.sources.filter((s) => s.supports.some((row) => row.fields.includes('primer'))).map((s) => s.id)
-    expect(forPrimer).toEqual(['smc-types-of-reactions', 'soult-types-of-inorganic-reactions', 'ck12-balancing-equations', 'chemguide-metals-dilute-acids', 'chemguide-reactivity-series', 'waterloo-catalysts-hydrogen-peroxide', 'lower-catalysts'])
+    expect(forPrimer).toEqual(['smc-types-of-reactions', 'ck12-combination-reactions', 'ck12-decomposition-reactions', 'ck12-single-replacement-reactions', 'ck12-double-replacement-reactions', 'ck12-balancing-equations', 'chemguide-metal-salt-displacement', 'chemguide-metals-dilute-acids', 'chemguide-reactivity-series', 'lower-catalysts'])
   })
 })
 

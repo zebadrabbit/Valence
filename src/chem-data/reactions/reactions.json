@@ -26,7 +26,7 @@
       "name": "Copper(II) sulfate solution, 1 M",
       "formula": "CuSO₄",
       "form": "solution",
-      "classifiedAs": "Hazards of solid copper(II) sulfate pentahydrate, the pure substance, from a supplier's safety data sheet",
+      "classifiedAs": "Hazards of copper(II) sulfate pentahydrate, the solid and pure substance, from a supplier's safety data sheet",
       "hazards": {
         "signalWord": "Danger",
         "statements": [
@@ -34,7 +34,7 @@
           "H315+H319: Causes skin and serious eye irritation"
         ],
         "note": {
-          "value": "The solution on this bench is 1 mol/L copper(II) sulfate; the statements above are those of the solid it is made from. The same supplier's sheet for solutions of 0.5 M to 1.5 M gives Warning, with H302, harmful if swallowed, and H315 with H320, irritation of skin and eyes. It calls for eye protection, gloves and protective clothing, and for no eating or drinking near the solution.\n\nStricter, and what this lab goes by: NOAA's record of the solid has the eyes flushed with water for 20 to 30 minutes while a hospital or a poison centre is called, and the skin flooded with water, then washed with soap. If any is swallowed, the solid's sheet has a poison centre or doctor called at once. It keeps the salt from magnesium and from finely powdered metals.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "value": "The solution on this bench is 1 mol/L copper(II) sulfate; the statements above are those of the solid it is made from. The same supplier's sheet for solutions of 0.5 M to 1.5 M gives Warning, with H302, harmful if swallowed, and H315 with H320, irritation of skin and eyes. It calls for eye protection, gloves and protective clothing, and for no eating or drinking near the solution.\n\nStricter, and what this lab goes by: NOAA's record of the solid has the eyes flushed with water for 20 minutes to 30, with a hospital or a poison centre called meanwhile, and the skin flooded with water, then washed with soap. If any is swallowed, the solid's sheet has a poison centre or doctor called at once. It keeps the salt from magnesium and from finely powdered metals.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
           "sourceId": "flinn-sds-286",
           "alsoSourceId": "flinn-sds-285",
           "moreSourceIds": [
@@ -57,7 +57,7 @@
           "H228: Flammable solid"
         ],
         "note": {
-          "value": "On this bench a short strip of magnesium ribbon is burned in a flame, and another goes into dilute hydrochloric acid. The supplier's sheet for the metal as turnings or ribbon keeps it from heat, sparks and flames, and from acids and water: here it meets a flame and an acid on purpose, as the experiments. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: by NOAA's record the metal burns with an intense white flame, very bright, and a dense white smoke. A magnesium fire is never put out with water, which the sheet says reacts violently with it, nor, by NOAA's record, with foam or carbon dioxide: dry sand or a class D extinguisher is used. With dilute acids it gives off hydrogen, a gas that burns.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "value": "On this bench a short strip of magnesium ribbon is burned in a flame, and another goes into dilute hydrochloric acid. The supplier's sheet for the metal as turnings or ribbon keeps it from heat, sparks and flames, and from acids and water: here it meets a flame and an acid on purpose, as the experiments. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: by NOAA's record its flame is intensely white and very bright, with a dense white smoke. A magnesium fire is never put out with water, which the sheet says reacts violently with it, nor, by NOAA's record, with foam or carbon dioxide: dry sand or a class D extinguisher is used. With dilute acids it gives off hydrogen, a gas that burns.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
           "sourceId": "flinn-sds-468",
           "alsoSourceId": "noaa-cameo-6949"
         },
@@ -310,7 +310,7 @@
         "O": 2
       },
       "state": "g",
-      "sourceId": "soult-types-of-inorganic-reactions"
+      "sourceId": "ck12-combination-reactions"
     },
     {
       "id": "chlorine",
@@ -320,7 +320,7 @@
         "Cl": 2
       },
       "state": "g",
-      "sourceId": "soult-types-of-inorganic-reactions"
+      "sourceId": "ck12-combination-reactions"
     },
     {
       "id": "water",
@@ -342,7 +342,7 @@
         "O": 2
       },
       "state": "g",
-      "sourceId": "soult-types-of-inorganic-reactions"
+      "sourceId": "ck12-decomposition-reactions"
     },
     {
       "id": "magnesium-oxide",
@@ -353,7 +353,7 @@
         "O": 1
       },
       "state": "s",
-      "sourceId": "soult-types-of-inorganic-reactions"
+      "sourceId": "ck12-combination-reactions"
     },
     {
       "id": "calcium-chloride",
@@ -376,7 +376,7 @@
         "O": 3
       },
       "state": "aq",
-      "sourceId": "smc-types-of-reactions"
+      "sourceId": "ck12-double-replacement-reactions"
     },
     {
       "id": "calcium-carbonate",
@@ -388,7 +388,7 @@
         "O": 3
       },
       "state": "s",
-      "sourceId": "soult-types-of-inorganic-reactions"
+      "sourceId": "ck12-decomposition-reactions"
     },
     {
       "id": "sodium-chloride",
@@ -445,25 +445,25 @@
       "id": "combination",
       "name": "Combination",
       "pattern": "A + B → AB",
-      "sourceId": "soult-types-of-inorganic-reactions"
+      "sourceId": "ck12-combination-reactions"
     },
     {
       "id": "decomposition",
       "name": "Decomposition",
       "pattern": "AB → A + B",
-      "sourceId": "soult-types-of-inorganic-reactions"
+      "sourceId": "ck12-decomposition-reactions"
     },
     {
       "id": "single-replacement",
       "name": "Single replacement",
       "pattern": "A + BC → AC + B",
-      "sourceId": "soult-types-of-inorganic-reactions"
+      "sourceId": "ck12-single-replacement-reactions"
     },
     {
       "id": "double-replacement",
       "name": "Double replacement",
       "pattern": "AB + CD → AD + CB",
-      "sourceId": "soult-types-of-inorganic-reactions"
+      "sourceId": "ck12-double-replacement-reactions"
     }
   ],
   "choices": {
@@ -582,7 +582,7 @@
           "kind": {
             "value": "single-replacement",
             "sourceId": "microscale-observing-chemical-changes",
-            "alsoSourceId": "soult-types-of-inorganic-reactions"
+            "alsoSourceId": "ck12-single-replacement-reactions"
           },
           "equation": {
             "reactants": [
@@ -669,7 +669,7 @@
             "solid": {
               "value": "white",
               "sourceId": "chemguide-group2-oxygen",
-              "alsoSourceId": "soult-types-of-inorganic-reactions"
+              "alsoSourceId": "ck12-combination-reactions"
             }
           },
           "looks": [
@@ -686,7 +686,7 @@
           ],
           "kind": {
             "value": "combination",
-            "sourceId": "soult-types-of-inorganic-reactions"
+            "sourceId": "ck12-combination-reactions"
           },
           "equation": {
             "reactants": [
@@ -705,7 +705,7 @@
                 "coefficient": 2
               }
             ],
-            "sourceId": "soult-types-of-inorganic-reactions"
+            "sourceId": "ck12-combination-reactions"
           }
         }
       ],
@@ -713,7 +713,7 @@
       "notes": [
         {
           "value": "Magnesium joined with oxygen from the air and made magnesium oxide, a white powder. Two things became one: a combination.",
-          "sourceId": "soult-types-of-inorganic-reactions"
+          "sourceId": "ck12-combination-reactions"
         },
         {
           "value": "Burnt in air, magnesium also joins with the air's nitrogen, so the ash is a mixture: magnesium oxide with magnesium nitride in it. The equation here is for the oxide alone.",
@@ -843,7 +843,7 @@
           ],
           "kind": {
             "value": "single-replacement",
-            "sourceId": "soult-types-of-inorganic-reactions"
+            "sourceId": "ck12-single-replacement-reactions"
           },
           "equation": {
             "reactants": [

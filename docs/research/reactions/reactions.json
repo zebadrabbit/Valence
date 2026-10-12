@@ -181,7 +181,7 @@
         "O": 2
       },
       "state": "g",
-      "sourceId": "soult-types-of-inorganic-reactions"
+      "sourceId": "ck12-combination-reactions"
     },
     {
       "id": "chlorine",
@@ -191,7 +191,7 @@
         "Cl": 2
       },
       "state": "g",
-      "sourceId": "soult-types-of-inorganic-reactions"
+      "sourceId": "ck12-combination-reactions"
     },
     {
       "id": "water",
@@ -213,7 +213,7 @@
         "O": 2
       },
       "state": "g",
-      "sourceId": "soult-types-of-inorganic-reactions"
+      "sourceId": "ck12-decomposition-reactions"
     },
     {
       "id": "magnesium-oxide",
@@ -224,7 +224,7 @@
         "O": 1
       },
       "state": "s",
-      "sourceId": "soult-types-of-inorganic-reactions"
+      "sourceId": "ck12-combination-reactions"
     },
     {
       "id": "calcium-chloride",
@@ -247,7 +247,7 @@
         "O": 3
       },
       "state": "aq",
-      "sourceId": "smc-types-of-reactions"
+      "sourceId": "ck12-double-replacement-reactions"
     },
     {
       "id": "calcium-carbonate",
@@ -259,7 +259,7 @@
         "O": 3
       },
       "state": "s",
-      "sourceId": "soult-types-of-inorganic-reactions"
+      "sourceId": "ck12-decomposition-reactions"
     },
     {
       "id": "sodium-chloride",
@@ -316,25 +316,25 @@
       "id": "combination",
       "name": "Combination",
       "pattern": "A + B → AB",
-      "sourceId": "soult-types-of-inorganic-reactions"
+      "sourceId": "ck12-combination-reactions"
     },
     {
       "id": "decomposition",
       "name": "Decomposition",
       "pattern": "AB → A + B",
-      "sourceId": "soult-types-of-inorganic-reactions"
+      "sourceId": "ck12-decomposition-reactions"
     },
     {
       "id": "single-replacement",
       "name": "Single replacement",
       "pattern": "A + BC → AC + B",
-      "sourceId": "soult-types-of-inorganic-reactions"
+      "sourceId": "ck12-single-replacement-reactions"
     },
     {
       "id": "double-replacement",
       "name": "Double replacement",
       "pattern": "AB + CD → AD + CB",
-      "sourceId": "soult-types-of-inorganic-reactions"
+      "sourceId": "ck12-double-replacement-reactions"
     }
   ],
   "choices": {
@@ -453,7 +453,7 @@
           "kind": {
             "value": "single-replacement",
             "sourceId": "microscale-observing-chemical-changes",
-            "alsoSourceId": "soult-types-of-inorganic-reactions"
+            "alsoSourceId": "ck12-single-replacement-reactions"
           },
           "equation": {
             "reactants": [
@@ -540,7 +540,7 @@
             "solid": {
               "value": "white",
               "sourceId": "chemguide-group2-oxygen",
-              "alsoSourceId": "soult-types-of-inorganic-reactions"
+              "alsoSourceId": "ck12-combination-reactions"
             }
           },
           "looks": [
@@ -557,7 +557,7 @@
           ],
           "kind": {
             "value": "combination",
-            "sourceId": "soult-types-of-inorganic-reactions"
+            "sourceId": "ck12-combination-reactions"
           },
           "equation": {
             "reactants": [
@@ -576,7 +576,7 @@
                 "coefficient": 2
               }
             ],
-            "sourceId": "soult-types-of-inorganic-reactions"
+            "sourceId": "ck12-combination-reactions"
           }
         }
       ],
@@ -584,7 +584,7 @@
       "notes": [
         {
           "value": "Magnesium joined with oxygen from the air and made magnesium oxide, a white powder. Two things became one: a combination.",
-          "sourceId": "soult-types-of-inorganic-reactions"
+          "sourceId": "ck12-combination-reactions"
         },
         {
           "value": "Burnt in air, magnesium also joins with the air's nitrogen, so the ash is a mixture: magnesium oxide with magnesium nitride in it. The equation here is for the oxide alone.",
@@ -714,7 +714,7 @@
           ],
           "kind": {
             "value": "single-replacement",
-            "sourceId": "soult-types-of-inorganic-reactions"
+            "sourceId": "ck12-single-replacement-reactions"
           },
           "equation": {
             "reactants": [
