@@ -77,5 +77,20 @@ export function withSharedHazards(own, other, sharedIds) {
   return { ...Object.fromEntries(shared), ...own }
 }
 
-/** The documents behind those hazards: this lab's, then the other lab's that this lab's manifest does not list. */
-export const withSharedSheets = (own, other) => [...own, ...other.filter((sheet) => !own.some((mine) => mine.id === sheet.id))]
+/**
+ * The documents behind those hazards: this lab's, then the other lab's that this lab's manifest does not list. A
+ * document both manifests list is one document read for two labs' bottles, and is listed once, as this lab writes
+ * it. Where a bottle shared from the other lab (`sharedIds`) rests on such a document, the other lab's rows for
+ * that bottle are put after this lab's own, so that the shared bottle still finds its rows: a sheet for
+ * concentrated hydrochloric acid is behind the Le Chatelier's principle lab's own 12 M acid and behind the 6 M acid
+ * it shares from the aqueous reactions lab. The other lab's rows for any other bottle are left out: a bottle both
+ * labs have, each with a record of its own, keeps this lab's rows alone.
+ */
+export const withSharedSheets = (own, other, sharedIds = []) => [
+  ...own.map((mine) => {
+    const theirs = other.find((sheet) => sheet.id === mine.id)
+    const rows = theirs === undefined ? [] : theirs.supports.filter((row) => sharedIds.some((id) => row.field.startsWith(`${id}.`)))
+    return rows.length === 0 ? mine : { ...mine, supports: [...mine.supports, ...rows] }
+  }),
+  ...other.filter((sheet) => !own.some((mine) => mine.id === sheet.id)),
+]

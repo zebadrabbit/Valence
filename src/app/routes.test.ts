@@ -4,6 +4,7 @@ import { PeriodicTablePage } from '@/app/explore/elements/PeriodicTablePage'
 import { AqueousPage } from '@/app/lab/aqueous/AqueousPage'
 import { CalorimetryPage } from '@/app/lab/calorimetry/CalorimetryPage'
 import { CationsPage } from '@/app/lab/cations/CationsPage'
+import { LechatelierPage } from '@/app/lab/lechatelier/LechatelierPage'
 import { FlamePage } from '@/app/lab/flame/FlamePage'
 import { TitrationPage } from '@/app/lab/titration/TitrationPage'
 import { MechanismPage } from '@/app/learn/MechanismPage'
@@ -100,6 +101,16 @@ describe('the routes', () => {
     const loaded = await (route.lazy as () => Promise<{ Component: unknown }>)()
     expect(loaded.Component).toBe(CationsPage)
     expect(page('/lab/cations/2')).toMatchObject({ path: '*' })
+  })
+
+  it("load the Le Chatelier's principle lab at #/lab/le-chatelier, lazily", async () => {
+    const { path, route } = page('/lab/le-chatelier')
+    expect(path).toBe('lab/le-chatelier')
+    expect(typeof route.lazy).toBe('function')
+    expect(route.element).toBeUndefined()
+    const loaded = await (route.lazy as () => Promise<{ Component: unknown }>)()
+    expect(loaded.Component).toBe(LechatelierPage)
+    expect(page('/lab/le-chatelier/2')).toMatchObject({ path: '*' })
   })
 
   it('still open the list of labs at #/lab, with no chunk to load, and send an address below a lab to the not-found page', () => {

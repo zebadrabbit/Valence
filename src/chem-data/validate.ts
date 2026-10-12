@@ -6,6 +6,7 @@ import { aqueousSchema, type AqueousData } from './aqueous/data'
 import { calorimetrySchema, type CalorimetryData } from './calorimetry/data'
 import { cationsSchema, type CationsData } from './cations/data'
 import { brightestOf, extentOf, flameSchema, rangeOf, type FlameData } from './flame/data'
+import { DISTURBANCE_IDS, lechatelierSchema, type LechatelierData } from './lechatelier/data'
 import { titrationSchema } from './titration/data'
 
 export interface ValidateOptions {
@@ -579,5 +580,125 @@ export function validateCations(input: unknown, sources: readonly Source[], opti
     ...checkSourceIds(parsed.data, 'cations', Array.isArray(sources) ? sources : []),
     ...checkPublished(parsed.data, 'cations'),
     ...checkProse(parsed.data, 'cations', Array.isArray(names) ? names : []),
+  ]
+}
+
+/** What the Le Chatelier's principle lab's record must hold together beyond its shape: its ids, every id one part of it names in another, and what its tubes are stored as showing. */
+function checkLechatelier(data: LechatelierData): string[] {
+  const disturbances = data.systems.flatMap((system) => system.disturbances)
+  const errors = [
+    ...duplicates(data.reagents.map((r) => r.id), 'reagents'),
+    ...duplicates(data.substances.map((s) => s.id), 'substances'),
+    ...duplicates(data.rules.map((r) => r.id), 'rules'),
+    ...duplicates(data.gibbs.map((g) => g.id), 'Gibbs energies'),
+    ...duplicates(data.enthalpies.map((e) => e.id), 'enthalpies'),
+    ...duplicates(data.equilibriumConstants.map((c) => c.id), 'constants'),
+    ...duplicates(data.heats.map((h) => h.id), 'heats'),
+    ...duplicates(data.equilibria.map((e) => e.id), 'equilibria'),
+    ...duplicates(data.systems.flatMap((system) => system.tubes.map((t) => t.id)), 'tubes'),
+    ...duplicates(data.choices.solid, 'choices of a solid'),
+    ...duplicates(data.choices.liquid, 'choices of a liquid'),
+  ]
+  if (disturbances.map((d) => d.id).join() !== DISTURBANCE_IDS.join()) errors.push('disturbances: they are not the seventeen the lab names, each once and in their order')
+  const has = (ids: readonly string[]) => new Set(ids)
+  const reagents = has([...data.reagents.map((r) => r.id), 'water'])
+  const substances = has(data.substances.map((s) => s.id))
+  const rules = has(data.rules.map((r) => r.id))
+  const gibbs = has(data.gibbs.map((g) => g.id))
+  const enthalpies = has(data.enthalpies.map((e) => e.id))
+  const constants = has(data.equilibriumConstants.map((c) => c.id))
+  const heats = has(data.heats.map((h) => h.id))
+  const parameters = has(Object.keys(data.parameters))
+  const unknown = (owner: string, kind: string, ids: readonly string[], known: Set<string>) => {
+    for (const id of ids) if (!known.has(id)) errors.push(`${owner}: unknown ${kind} "${id}"`)
+  }
+  const shows = (owner: string, stage: { liquid: string; solid: string }) => {
+    if (!data.choices.liquid.includes(stage.liquid)) errors.push(`${owner}: its liquid, "${stage.liquid}", is not a choice of the observation`)
+    if (!data.choices.solid.includes(stage.solid)) errors.push(`${owner}: its solid, "${stage.solid}", is not a choice of the observation`)
+  }
+  for (const constant of data.equilibriumConstants) unknown(`constant "${constant.id}"`, 'Gibbs energy', constant.terms.map((term) => term.gibbsId), gibbs)
+  for (const heat of data.heats) unknown(`heat "${heat.id}"`, 'enthalpy', heat.terms.map((term) => term.enthalpyId), enthalpies)
+  unknown('indicator', 'reagent', [data.indicator.reagentId], reagents)
+  for (const look of Object.values(data.indicator.looks)) if (!data.choices.liquid.includes(look.value)) errors.push(`indicator: its look "${look.value}" is not a choice of the observation`)
+  if (data.indicator.range.from.value >= data.indicator.range.to.value) errors.push('indicator: its range runs from its lower end to its upper')
+  // Every look a substance has is one an observation can record: a solid's among the choices of a solid, a dissolved thing's among those of the liquid.
+  for (const substance of data.substances) {
+    if (substance.state === 's' && substance.look === undefined) errors.push(`substance "${substance.id}": a solid needs a look`)
+    const choices = substance.state === 's' ? data.choices.solid : data.choices.liquid
+    if (substance.look !== undefined && !choices.includes(substance.look.value)) errors.push(`substance "${substance.id}": its look, "${substance.look.value}", is not a choice of the observation`)
+  }
+  for (const equilibrium of data.equilibria) {
+    const owner = `equilibrium "${equilibrium.id}"`
+    unknown(owner, 'substance', equilibrium.substanceIds, substances)
+    if (equilibrium.heat?.heatId !== undefined) unknown(owner, 'heat', [equilibrium.heat.heatId], heats)
+    if (equilibrium.numbers) unknown(owner, 'constant', Object.values(equilibrium.numbers), constants)
+    if (equilibrium.seenBy.kind === 'colour') {
+      const colours = [equilibrium.seenBy.left, equilibrium.seenBy.right, ...(equilibrium.seenBy.between === undefined ? [] : [equilibrium.seenBy.between])]
+      for (const colour of colours) if (!data.choices.liquid.includes(colour)) errors.push(`${owner}: its colour "${colour}" is not a choice of the observation`)
+      if (new Set(colours).size !== colours.length) errors.push(`${owner}: two of its colours are one colour, so no shift could be seen`)
+    }
+  }
+  for (const system of data.systems) {
+    const tubes = has(system.tubes.map((t) => t.id))
+    const begun = new Set<string>()
+    unknown(`system "${system.id}"`, 'equilibrium', system.equilibriumIds, has(data.equilibria.map((e) => e.id)))
+    for (const tube of system.tubes) {
+      const owner = `tube "${tube.id}"`
+      if ('shareOf' in tube) {
+        unknown(owner, 'tube', [tube.shareOf], tubes)
+        if (!system.tubes.some((other) => other.id === tube.shareOf && 'contents' in other)) errors.push(`${owner}: it takes a share of a tube that is itself a share, or is not of this system`)
+        continue
+      }
+      unknown(owner, 'reagent', tube.contents.map((c) => c.reagentId), reagents)
+      unknown(owner, 'parameter', tube.contents.map((c) => ('drops' in c ? c.drops : c.grams)), parameters)
+      shows(owner, tube.shows)
+      if (system.heldBy === 'observation' && tube.shows.sourceId === undefined) errors.push(`${owner}: what it shows is a stored observation and needs a source`)
+    }
+    for (const disturbance of system.disturbances) {
+      const owner = `disturbance "${disturbance.id}"`
+      unknown(owner, 'tube', [disturbance.tube], tubes)
+      unknown(owner, 'equilibrium', [disturbance.equilibriumId], has(system.equilibriumIds))
+      unknown(owner, 'rule', disturbance.ruleIds, rules)
+      unknown(owner, 'constant', disturbance.constantIds, constants)
+      const { action } = disturbance
+      if (action.kind === 'add') {
+        unknown(owner, 'reagent', [action.reagentId], reagents)
+        unknown(owner, 'parameter', [action.drops, ...(action.portions === undefined ? [] : [action.portions])], parameters)
+      }
+      const portions = action.kind === 'add' && action.portions !== undefined ? (data.parameters as Record<string, { value: number } | undefined>)[action.portions]?.value : 1
+      if (portions !== undefined && disturbance.stages.length !== portions) errors.push(`${owner}: ${disturbance.stages.length} stages are stored for ${portions} ${portions === 1 ? 'portion' : 'portions'}`)
+      disturbance.stages.forEach((stage, at) => {
+        shows(`${owner}, stage ${at + 1}`, stage)
+        if (system.heldBy === 'observation' && stage.sourceId === undefined) errors.push(`${owner}, stage ${at + 1}: what the tube shows is a stored observation and needs a source`)
+      })
+      // A share is taken of a tube that something has already been done to, and a tube is begun once.
+      const tube = system.tubes.find((t) => t.id === disturbance.tube)
+      if (tube && 'shareOf' in tube && !begun.has(tube.shareOf)) errors.push(`${owner}: its tube takes a share of a tube that nothing has yet been done to`)
+      begun.add(disturbance.tube)
+      const equilibrium = data.equilibria.find((e) => e.id === disturbance.equilibriumId)
+      if (equilibrium && disturbance.ask.kind === 'cause' && equilibrium.seenBy.kind !== 'solid') errors.push(`${owner}: what took the ion away is asked only of a solid and its ions`)
+      if (equilibrium && action.kind !== 'add' && equilibrium.heat === undefined) errors.push(`${owner}: the tube is heated or cooled, and its equilibrium says nothing of heat`)
+    }
+  }
+  return errors
+}
+
+/**
+ * Checks the Le Chatelier's principle lab's record against the sources it cites: the schema; that its ids hold
+ * together and its tubes show only what an observation can record; that every source named exists; that each
+ * `published` reads as the number stored beside it; and that no name, note, working or rationale holds institution
+ * text. Returns a list of problems; an empty list means the record is valid. Never throws, whatever it is given.
+ * That each value is what its source prints is the build script's to hold to the manifest; the values worked out
+ * from cited ones are worked out again there, and what the tubes show is checked against the numbers there.
+ */
+export function validateLechatelier(input: unknown, sources: readonly Source[], options: ValidateOptions = {}): string[] {
+  const parsed = lechatelierSchema.safeParse(input)
+  if (!parsed.success) return schemaErrors(parsed.error.issues)
+  const names = options?.institutionNames
+  return [
+    ...checkLechatelier(parsed.data),
+    ...checkSourceIds(parsed.data, 'lechatelier', Array.isArray(sources) ? sources : []),
+    ...checkPublished(parsed.data, 'lechatelier'),
+    ...checkProse(parsed.data, 'lechatelier', Array.isArray(names) ? names : []),
   ]
 }

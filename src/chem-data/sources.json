@@ -1773,5 +1773,165 @@
     "id": "noaa-cameo-8809",
     "url": "https://cameochemicals.noaa.gov/chemical/8809",
     "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Mercury Ammonium Chloride (chemical 8809); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "birk-zinc",
+    "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Zinc_Ions_(Zn)",
+    "citation": "Birk, J. P. Characteristic Reactions of Zinc Ions (Zn²⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-10)."
+  },
+  {
+    "id": "bellevue-le-chatelier",
+    "url": "https://www.bellevuecollege.edu/wp-content/uploads/sites/140/2014/06/Lab-2-Le-Chatelier.pdf",
+    "citation": "Bellevue College. Lab 2: Properties of Systems in Chemical Equilibrium; a handout of the general chemistry laboratory, nine pages; read and not kept (retrieved 2026-10-10)."
+  },
+  {
+    "id": "nuffield-cobalt-equilibrium",
+    "url": "https://edu.rsc.org/experiments/the-equilibrium-between-two-coloured-cobalt-species/1.article",
+    "citation": "Nuffield Foundation and Royal Society of Chemistry. The equilibrium between two coloured cobalt species; a demonstration of the Practical Chemistry project, RSC Education; read and not kept (retrieved 2026-10-10)."
+  },
+  {
+    "id": "chemguide-ligand-exchange",
+    "url": "https://www.chemguide.co.uk/inorganic/complexions/ligandexch.html",
+    "citation": "Clark, J. Chemguide: Complex Metal Ions - Ligand Exchange Reactions; 2003, modified November 2014; read and not kept (retrieved 2026-10-10)."
+  },
+  {
+    "id": "chemguide-indicators",
+    "url": "https://www.chemguide.co.uk/physical/acidbaseeqia/indicators.html",
+    "citation": "Clark, J. Chemguide: Acid-Base Indicators; 2002, modified November 2013; read and not kept (retrieved 2026-10-10)."
+  },
+  {
+    "id": "libretexts-acid-base-indicators",
+    "url": "https://chem.libretexts.org/Ancillary_Materials/Reference/Reference_Tables/Acid-Base_Indicators",
+    "citation": "LibreTexts. Acid-Base Indicators; a table among the Reference Tables of the Ancillary Materials; read and not kept (retrieved 2026-10-10)."
+  },
+  {
+    "id": "lower-le-chatelier",
+    "url": "https://chem.libretexts.org/Bookshelves/General_Chemistry/Chem1_(Lower)/11%3A_Chemical_Equilibrium/11.02%3A_Le_Chatelier's_Principle",
+    "citation": "Lower, S. Chem1; LibreTexts; Section 11.2 Le Chatelier's Principle; read and not kept (retrieved 2026-10-10)."
+  },
+  {
+    "id": "chemguide-le-chatelier",
+    "url": "https://www.chemguide.co.uk/physical/equilibria/lechatelier.html",
+    "citation": "Clark, J. Chemguide: Le Chatelier's Principle; 2002, modified April 2013; read and not kept (retrieved 2026-10-10)."
+  },
+  {
+    "id": "chemguide-equilibria-introduction",
+    "url": "https://www.chemguide.co.uk/physical/equilibria/introduction.html",
+    "citation": "Clark, J. Chemguide: An Introduction to Chemical Equilibria; 2002, modified April 2013; read and not kept (retrieved 2026-10-10)."
+  },
+  {
+    "id": "flinn-sds-863.2",
+    "url": "https://www.flinnsci.com/sds_863.2-zinc-nitrate-solution-10/sds_863.2",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Zinc Nitrate Solution <10%, SDS number sds_863.2; revision date April 12, 2016 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-477",
+    "url": "https://www.flinnsci.com/sds_477-magnesium-nitrate-solution/sds_477",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Magnesium Nitrate Solution, SDS number sds_477; revision date March 21, 2014 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-ll0131",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=6bc35ad423e1e16131139a12758bceb932957e03&vid=6bc35ad423e1e16131139a12758bceb932957e03&prid=original&clid=SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Lead Nitrate, 0.5 Molar Solution, SDS No. LL0131; revision date September 5, 2024 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-hh0093",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=bfc5350df252e745fef34a139b6c2dcb3a156f9a&vid=bfc5350df252e745fef34a139b6c2dcb3a156f9a&prid=original&clid=SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Hydrochloric Acid, 0.5 Molar (0.5 Normal) Solution, SDS No. HH0093; revision date August 22, 2024 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-hh0171",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=aced1021014843694fb0cfc914dca243b32fccf3&vid=aced1021014843694fb0cfc914dca243b32fccf3&prid=original&clid=SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Hydrochloric Acid, 36.5-38%, SDS No. HH0171; revision date August 23, 2024 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-hydrochloric-acid",
+    "url": "https://www.fishersci.com/store/msds?partNumber=A144212&productDescription=HYDROCHLORIC+ACID&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Hydrochloric Acid, catalogue numbers A144, A144C, A144P, A144S and A144SI; revision 9 of 18 December 2025 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-3598",
+    "url": "https://cameochemicals.noaa.gov/chemical/3598",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Hydrochloric Acid, Solution (chemical 3598); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-19288",
+    "url": "https://cameochemicals.noaa.gov/chemical/19288",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Ammonia, Solution, With More Than 10% But Not More Than 35% Ammonia (chemical 19288); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-521",
+    "url": "https://www.flinnsci.com/sds_521-methyl-violet-2b/sds_521",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Methyl Violet 2B, SDS number sds_521; revision date March 21, 2014 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-523.2",
+    "url": "https://www.flinnsci.com/sds_523.2-methyl-violet-2b-aqueous-solution/sds_523.2",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Methyl Violet 2B Aqueous Solution, SDS number sds_523.2; revision date February 6, 2014 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-methyl-violet-2b",
+    "url": "https://www.fishersci.com/store/msds?partNumber=AC415070250&productDescription=METHYL+VIOLET+2B&vendorId=VN00032119&countryCode=US&language=en",
+    "citation": "Acros Organics, Fisher Scientific Company. Safety Data Sheet: Methyl Violet 2B, catalogue number AC41507; revision 6 of 19 December 2025 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-cc0349",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=dbd3d49c322cc4ff5e1ab6d2ff5e2dc05a77cd7f&vid=dbd3d49c322cc4ff5e1ab6d2ff5e2dc05a77cd7f&prid=original&clid=SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Cobalt(II) Chloride, Hexahydrate, SDS No. CC0349; revision date July 25, 2024 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-cocl2-hexahydrate",
+    "url": "https://www.fishersci.com/store/msds?partNumber=C371100&productDescription=COBALT+CHLORIDE+HEXAHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Cobalt(II) chloride hexahydrate, catalogue number C371; revision 6 of 18 December 2025 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-862",
+    "url": "https://www.flinnsci.com/sds_862-zinc-nitrate/sds_862",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Zinc Nitrate, SDS number sds_862; revision date July 14, 2015 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-zz0091",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=3603eab0bc8d36edb544924a8f82e26aefb989d2&vid=3603eab0bc8d36edb544924a8f82e26aefb989d2&prid=original&clid=SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Zinc Nitrate, 0.1 Molar Solution, SDS No. ZZ0091; revision date November 15, 2024 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-znno32-hexahydrate",
+    "url": "https://www.fishersci.com/store/msds?partNumber=Z45500&productDescription=ZINC+NITRATE+HEXAHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Zinc Nitrate Hexahydrate (Certified), catalogue number Z45; revision 6 of 18 December 2025 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-476",
+    "url": "https://www.flinnsci.com/sds_476-magnesium-nitrate/sds_476",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Magnesium Nitrate, SDS number sds_476; revision date June 9, 2017 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-mm0096",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=970b157677b2b1c8b4743c867057d8210a614c8a&vid=970b157677b2b1c8b4743c867057d8210a614c8a&prid=original&clid=SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Magnesium Nitrate, 0.1 Molar Solution, SDS No. MM0096; revision date September 11, 2024 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-mgno32-hexahydrate",
+    "url": "https://www.fishersci.com/store/msds?partNumber=M46500&productDescription=MAGNESIUM+NITRATE+HEXAHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Magnesium nitrate hexahydrate, catalogue number M46; revision 8 of 18 December 2025 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-475",
+    "url": "https://www.flinnsci.com/sds_475-magnesium-hydroxide/sds_475",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Magnesium Hydroxide, SDS number sds_475; revision date March 21, 2014 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-mgoh2",
+    "url": "https://www.fishersci.com/store/msds?partNumber=M342500&productDescription=MAGNESIUM+HYDROXIDE&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Magnesium Hydroxide (USP/FCC), catalogue number M342 among others; revision 6 of 18 December 2025 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "mpbio-sds-zinc-hydroxide",
+    "url": "https://assets.fishersci.com/TFS-Assets/CCG/EU/SDS/SDS_11433825_EN.pdf",
+    "citation": "MP Biomedicals Europe. Safety data sheet: Zinc Hydroxide, article number 219969; revision of 13.08.2019 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-255.6",
+    "url": "https://www.flinnsci.com/sds_255.6-cobalt-chloride-acidic-solution/sds_255.6",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Cobalt Chloride Acidic Solution, SDS number sds_255.6; revision date March 25, 2014 (read on 2026-10-10; no copy is kept)."
   }
 ]

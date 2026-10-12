@@ -7,7 +7,8 @@ import { ROLE } from './roles'
 export interface ChoiceQuestion {
   id: string
   label: string
-  choices: readonly { value: string; label: string }[]
+  /** `describedBy` is the id of something on the page that says more of a choice than its label does: it is then the choice's description, for a reader who is not shown where that stands. */
+  choices: readonly { value: string; label: string; describedBy?: string | undefined }[]
   /** Why the question cannot be answered yet, in words: it is then disabled, with this under it. Null where it can. Empty where the question waits for what the one over it waits for, and that one says it for both. */
   waits: string | null
 }
@@ -38,6 +39,12 @@ export interface ChoiceFormProps {
   onRecord(answers: Answers): Judged
   /** The button that checks, the two of a change under way, and the words beside a question whose recorded answer is not right, where the form marks one. */
   text: { check: string; change: string; cancel: string; again?: string }
+  /**
+   * The answers as lines to be read. Where it is given, answers that are recorded and not being changed are shown
+   * as these lines beside "Change", and not in their boxes: for a page with little room, where a form that has
+   * been answered makes way for the next.
+   */
+  brief?(answers: Answers): readonly string[]
 }
 
 const CHOICE =
@@ -48,8 +55,11 @@ const CHOICE =
  * them all. A question that cannot be answered yet is disabled, with what to do first under it. Once the answers
  * are right the questions are disabled and show them, and the button reads "Change", as an entry made in the
  * titration lab does. The aqueous reactions lab's observations, the flame test lab's, and its closing question.
+ * With `brief` (the Le Chatelier's principle lab), answers that are recorded are lines beside "Change" in place of
+ * the disabled questions; and a choice of that lab's that names a side of an equilibrium is described by the line
+ * of the page that says what stands on that side.
  */
-export function ChoiceForm({ questions, recorded, judged: found, held, refusal, onRecord, text }: ChoiceFormProps) {
+export function ChoiceForm({ questions, recorded, judged: found, held, refusal, onRecord, text, brief }: ChoiceFormProps) {
   const [draft, setDraft] = useState<Answers>(recorded ?? {})
   const [changing, setChanging] = useState(false)
   const [said, say] = useSaid(found?.text ?? '', found?.wrong === null)
@@ -61,6 +71,7 @@ export function ChoiceForm({ questions, recorded, judged: found, held, refusal, 
   const focus = useEntryFocus(editable)
   const shown = editable ? draft : (recorded ?? {})
   const reason = held !== null || !editable ? null : refusal(draft)
+  const lines = brief !== undefined && !editable && recorded !== null ? brief(recorded) : null
 
   const cancel = () => {
     focus.button.current?.focus()
@@ -72,7 +83,8 @@ export function ChoiceForm({ questions, recorded, judged: found, held, refusal, 
   return (
     <form
       noValidate
-      className="grid justify-items-start gap-3"
+      // The lines of answers that are recorded stand in a row with "Change", and what is said of them under the row: a line of its own, which takes no room while it is empty.
+      className={lines === null ? 'grid justify-items-start gap-3' : 'flex w-full flex-wrap items-center gap-x-3 gap-y-2 [&>p]:basis-full [&>p:empty]:-mt-2'}
       onKeyDown={(event) => entryKey(event, cancellable ? cancel : null)}
       onSubmit={(event) => {
         event.preventDefault()
@@ -92,7 +104,15 @@ export function ChoiceForm({ questions, recorded, judged: found, held, refusal, 
         say(next.text, next.wrong === null)
       }}
     >
+      {lines !== null && (
+        <ul className="grid min-w-0 flex-1 basis-48 gap-0.5">
+          {lines.map((line) => (
+            <li key={line}>{line}</li>
+          ))}
+        </ul>
+      )}
       {questions.map(({ id, label, choices, waits }, at) => {
+        if (lines !== null) return null
         const waiting = waits !== null
         const again = text.again !== undefined && editable && judged === false && found?.wrong?.includes(id) && draft[id] === recorded?.[id]
         return (
@@ -106,7 +126,7 @@ export function ChoiceForm({ questions, recorded, judged: found, held, refusal, 
               </p>
             )}
             <div className="flex flex-wrap gap-1.5">
-              {choices.map(({ value, label: choice }, i) => (
+              {choices.map(({ value, label: choice, describedBy }, i) => (
                 <label key={value} className={CHOICE}>
                   <input
                     ref={at === 0 && (shown[id] === undefined ? i === 0 : shown[id] === value) ? focus.field : undefined}
@@ -114,6 +134,7 @@ export function ChoiceForm({ questions, recorded, judged: found, held, refusal, 
                     name={`${name}${id}`}
                     value={value}
                     checked={shown[id] === value}
+                    aria-describedby={describedBy}
                     onChange={() => {
                       setDraft({ ...draft, [id]: value })
                       setJudged(null)

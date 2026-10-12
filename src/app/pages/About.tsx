@@ -131,6 +131,33 @@ export function About() {
             bench, follow the safety data sheet of the product in hand and the laboratory's own rules.
           </p>
           <p className="mb-2">
+            The Le Chatelier's principle lab works out the solubility products of zinc hydroxide and of
+            magnesium hydroxide, the formation constants of the two complex ions of zinc, the constant of ammonia as
+            a base and the ion product of water from the Gibbs energies of formation in the NBS tables of chemical
+            thermodynamic properties of 1982, as NIST serves them, and the heat that dissolving lead chloride takes
+            in from the same tables' enthalpies. The solubility of lead chloride in cold and in hot water is from
+            a page on the reactions of the lead ion, and the range over which methyl violet changes colour from a
+            reference table of indicators. Its procedure and its bottles are those of a college's handout for a
+            lab of this kind. The colours of the two cobalt ions, and of the liquid that holds both when it is heated
+            and cooled, are from a demonstration of the Nuffield Foundation and the Royal Society of Chemistry and a
+            page of Chemguide; the rules its other tubes follow are from pages on the reactions of metal ions and an
+            open textbook of qualitative analysis. The record does not name the colour in the middle of methyl
+            violet's range, for want of a source that names it: the picture draws it between its blue and its
+            yellow, and the colours on the screen are the drawing's own. The hazard statements of its 6 M
+            hydrochloric acid and of its sodium hydroxide are those of the aqueous reactions lab. Those of its other
+            eight bottles are those of Flinn Scientific's safety data sheets, for the concentrated acid, for the
+            solid salt or dye and, for the ammonia, for solutions of 1.1 M to 14.8 M, and the note under each rests
+            on a sheet for the solution where one could be read and, where a sheet of Ward's Science or of
+            Fisher Scientific or a record of NOAA's database of chemicals says something stricter of the
+            substance, on that too. The documents were read on the dates their citations give, and no copy of them
+            is kept. The lab's primer also rests on pages of Chemguide and on a section of an open general
+            chemistry text, and its safety card on sheets of those suppliers and of MP Biomedicals for the three
+            solids the lab makes; it quotes none of its sources. How much of anything is in a tube is Valence's own
+            model, with amounts that are fixed. None of these publishers is connected with Valence or has reviewed
+            it. At a real bench, follow the safety data sheet of the product in hand and the laboratory's own
+            rules.
+          </p>
+          <p className="mb-2">
             The mechanism timeline takes its enthalpies and free energies of formation from the NBS tables of chemical
             thermodynamic properties of 1982, as NIST serves them; the acid constant of the carbonic acid molecule,
             how long that molecule lasts and the timescales of its two middle steps from a paper in the Journal of

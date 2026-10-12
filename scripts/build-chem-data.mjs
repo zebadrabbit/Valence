@@ -28,6 +28,9 @@
 // Reads docs/research/cations/ (cations.json, hazards.json and the two manifests under sources/), with the hazards
 // of the one bottle it shares with the aqueous reactions lab from docs/research/phase-4/, and writes:
 //   cations/cations.json, and into sources.json the Group I cations lab's sources
+// Reads docs/research/lechatelier/ (lechatelier.json, hazards.json and the two manifests under sources/), with the
+// hazards of the two bottles it shares with the aqueous reactions lab from docs/research/phase-4/, and writes:
+//   lechatelier/lechatelier.json, and into sources.json the Le Chatelier's principle lab's sources
 //
 // Deterministic: the same inputs give byte-identical outputs. Anything
 // unexpected in the inputs stops the build with a message and writes nothing.
@@ -46,6 +49,7 @@ import { observedLines, parseNistLines, spectrumFromSaved } from './emission-lib
 import { checkFlameLines } from './flame-lib.mjs'
 import { checkMolarMasses, checkWorkedOut, withSharedHazards, withSharedSheets } from './calorimetry-lib.mjs'
 import { checkAtomicWeights, checkBench, checkWorkedOut as checkCationsWorkedOut } from './cations-lib.mjs'
+import { checkBench as checkLechatelierBench, checkWorkedOut as checkLechatelierWorkedOut } from './lechatelier-lib.mjs'
 import { checkAnnualMean, checkMolecularWeight, checkPublished, checkSha256, checkSheetHazards, checkWikipediaCopy } from './titration-lib.mjs'
 
 const root = join(import.meta.dirname, '..')
@@ -58,6 +62,7 @@ const emissionResearch = join(root, 'docs/research/emission-spectra')
 const flameResearch = join(root, 'docs/research/flame')
 const calorimetryResearch = join(root, 'docs/research/calorimetry')
 const cationsResearch = join(root, 'docs/research/cations')
+const lechatelierResearch = join(root, 'docs/research/lechatelier')
 const out = join(root, 'src/chem-data')
 
 function fail(message) {
@@ -1695,6 +1700,67 @@ function buildCations(earlierSources, periodicTable) {
   return { cations, sources: [...labSources, ...sheetSources.filter((source) => underHazards.has(source.id) || forPrimer.has(source.id))] }
 }
 
+// ---------------------------------------------------------------------------
+// Le Chatelier's principle lab
+//
+// The record is authored in docs/research/lechatelier/lechatelier.json: the ten bottles; what each solid and each
+// coloured thing is and looks like; the rules its tubes follow; the Gibbs energies and the constants worked out
+// from them; the enthalpies behind the heat that dissolving lead chloride takes in; the solubility of lead chloride
+// cold and hot, and the product at saturation each gives; the indicator's range and looks; the five equilibria as
+// written; the four systems, each with its tubes and its disturbances in order, and for each disturbance what is
+// done, what the tube shows after each portion, what is asked and what is right, and the notes shown when it is
+// done; and the model's parameters. Every source is in sources/MANIFEST.json, each row of which names the stored
+// values it supports, and the build holds the record to those rows as it does the aqueous lab's. No source has a
+// copy in this lab's folder. What the record works out from cited values is worked out again here, the two atomic
+// weights are held to the periodic table's record, and what each tube of a system held by numbers is stored as
+// showing is worked out from the numbers at the bench's amounts, as spec 18.4 and 18.7 ask: the build stops where
+// the two disagree, or where a number decides from too near its edge (scripts/lechatelier-lib.mjs). The bottles'
+// hazards are authored apart, in hazards.json with sources/hazard-manifest.json; the 6 M acid and the 6 M sodium
+// hydroxide carry the aqueous lab's records unchanged, with that lab's documents behind them. All are merged in as
+// the aqueous lab's are: every document was read and is not kept, so the build holds them to the manifests' rows
+// and cannot check them against the documents.
+
+const LECHATELIER_KEYS = ['reagents', 'water', 'substances', 'rules', 'choices', 'constants', 'gibbs', 'equilibriumConstants', 'enthalpies', 'heats', 'leadChloride', 'indicator', 'equilibria', 'systems', 'parameters']
+const LECHATELIER_REAGENTS = ['pbno32-0.3m', 'hcl-0.3m', 'hcl-6m', 'hcl-12m', 'methyl-violet', 'cocl2-solid', 'znno32-0.1m', 'mgno32-0.1m', 'naoh-6m', 'nh3-6m']
+const LECHATELIER_SYSTEMS = ['lead-chloride', 'methyl-violet', 'cobalt', 'hydroxides']
+/** The bottles whose hazards are the aqueous reactions lab's records. */
+const LECHATELIER_SHARED = ['hcl-6m', 'naoh-6m']
+/** The field of a hazard manifest's row for a document read for the primer's safety topic. */
+const LECHATELIER_PRIMER_SAFETY = 'primer.safety'
+
+function buildLechatelier(earlierSources, periodicTable) {
+  const json = (name, folder = lechatelierResearch) => JSON.parse(readFileSync(join(folder, name), 'utf8'))
+  const input = json('lechatelier.json')
+  const manifest = json('sources/MANIFEST.json')
+  const hazardManifest = json('sources/hazard-manifest.json')
+
+  onlyKeys(input, LECHATELIER_KEYS, 'lechatelier.json')
+  if (input.reagents.map((r) => r.id).join() !== LECHATELIER_REAGENTS.join()) fail('lechatelier.json: the reagents are not the ten of spec 18.1, in their order')
+  if (input.systems.map((s) => s.id).join() !== LECHATELIER_SYSTEMS.join()) fail('lechatelier.json: the systems are not the four of spec 18.2, in their order')
+  if ([...manifest.sources, ...hazardManifest.sources].some((source) => source.file !== undefined)) fail('lechatelier manifests: no source of this lab has a copy in its folder')
+
+  // A source another lab lists too (the NBS tables, the constants, the atomic weights, a page of reactions, a sheet) is listed once.
+  const labSources = newSources(manifest.sources, earlierSources, 'lechatelier MANIFEST.json')
+
+  checkLechatelierWorkedOut(input)
+  checkAtomicWeights(input, periodicTable)
+  checkLechatelierBench(input)
+  for (const [key, parameter] of Object.entries(input.parameters)) onlyKeys(parameter, ['value', 'rationale'], `lechatelier.json: parameters.${key}`)
+
+  // The 6 M acid and the 6 M sodium hydroxide carry the aqueous reactions lab's records unchanged, with that lab's documents behind them.
+  const sheets = withSharedSheets(hazardManifest.sources, json('sources/hazard-manifest.json', aqueousResearch).sources, LECHATELIER_SHARED)
+  const sheetSources = newSources(sheets, [...earlierSources, ...labSources], 'lechatelier hazard-manifest.json')
+  const hazards = withSharedHazards(json('hazards.json'), json('hazards.json', aqueousResearch), LECHATELIER_SHARED)
+  const lechatelier = { ...input, reagents: mergeHazards(input.reagents, hazards, sheets) }
+  checkSupported(lechatelier, manifest.sources, sheets)
+
+  // As for the Group I cations lab: the app lists the documents a bottle's hazards cite, and with them those the
+  // hazard manifest marks as read for the primer's safety topic, which no tile cites.
+  const underHazards = new Set(lechatelier.reagents.flatMap(({ hazards: { sourceId, note } }) => [sourceId, note.sourceId, ...(note.alsoSourceId === undefined ? [] : [note.alsoSourceId]), ...(note.moreSourceIds ?? [])]))
+  const forPrimer = new Set(hazardManifest.sources.filter((source) => source.supports.some((row) => row.field === LECHATELIER_PRIMER_SAFETY)).map((source) => source.id))
+  return { lechatelier, sources: [...labSources, ...sheetSources.filter((source) => underHazards.has(source.id) || forPrimer.has(source.id))] }
+}
+
 // A static import list keeps the registry free of bundler-only APIs.
 function moleculeIndex(molecules) {
   const name = (id) => id.replace(/-(.)/g, (_, c) => c.toUpperCase())
@@ -1740,7 +1806,9 @@ function main() {
   const { calorimetry, sources: calorimetrySources } = buildCalorimetry(beforeCalorimetry, periodicTable)
   const beforeCations = [...beforeCalorimetry, ...calorimetrySources]
   const { cations, sources: cationsSources } = buildCations(beforeCations, periodicTable)
-  const sources = [...beforeCations, ...cationsSources]
+  const beforeLechatelier = [...beforeCations, ...cationsSources]
+  const { lechatelier, sources: lechatelierSources } = buildLechatelier(beforeLechatelier, periodicTable)
+  const sources = [...beforeLechatelier, ...lechatelierSources]
   if (new Set(sources.map((s) => s.id)).size !== sources.length) fail('duplicate source ids')
 
   // Everything is built before anything is written.
@@ -1764,11 +1832,13 @@ function main() {
   writeFileSync(join(out, 'calorimetry/calorimetry.json'), toJson(calorimetry))
   mkdirSync(join(out, 'cations'), { recursive: true })
   writeFileSync(join(out, 'cations/cations.json'), toJson(cations))
+  mkdirSync(join(out, 'lechatelier'), { recursive: true })
+  writeFileSync(join(out, 'lechatelier/lechatelier.json'), toJson(lechatelier))
   mkdirSync(join(root, 'src/mechanisms'), { recursive: true })
   writeFileSync(join(root, 'src/mechanisms', `${mechanism.id}.json`), toJson(mechanism))
   writeFileSync(join(out, 'sources.json'), toJson(sources))
   process.stdout.write(
-    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the flame test lab's record, the calorimetry lab's record, the Group I cations lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
+    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the flame test lab's record, the calorimetry lab's record, the Group I cations lab's record, the Le Chatelier's principle lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
   )
 }
 

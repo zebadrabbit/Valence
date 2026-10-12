@@ -302,7 +302,8 @@ describe('the sources the lab adds', () => {
     const ids = [...own, ...added.filter((sheet) => cited.has(sheet.id) || forPrimer.has(sheet.id))].map((s) => s.id)
     expect(new Set(ids).size).toBe(ids.length)
     expect(allSources.slice(first, first + ids.length).map((s) => s.id)).toEqual(ids)
-    expect(first + ids.length).toBe(allSources.length)
+    // They end where the next lab's begin: the Le Chatelier's principle lab was added after this one.
+    expect(allSources[first + ids.length]?.id).toBe('birk-zinc')
     for (const id of [...cited, ...forPrimer]) expect(allSources.some((s) => s.id === id), id).toBe(true)
     // A document that was read and that nothing shown rests on stays in the manifest and is not listed in the app.
     const unlisted = hazardManifest.sources.filter((s) => !allSources.some((listed) => listed.id === s.id)).map((s) => s.id)

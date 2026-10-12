@@ -5,6 +5,7 @@ import type { AqueousData } from './aqueous/data'
 import type { CalorimetryData, PartId } from './calorimetry/data'
 import type { CationsData, StepId } from './cations/data'
 import type { FlameData } from './flame/data'
+import type { DisturbanceId, LechatelierData } from './lechatelier/data'
 import type { TitrationData } from './titration/data'
 
 // What an inspector card's "Sources" control lists (spec 5.1): each source once, with the values it covers.
@@ -284,6 +285,61 @@ export function cationsCitations(data: CationsData, stepId: StepId, sources: rea
       ...step.equations.flatMap((equation) => all('Net ionic equations', equation)),
       ...step.notes.flatMap((note) => all('Notes on this step', note)),
       ...all('Where each ion goes: the flow chart', data.chart),
+    ],
+    sources,
+  )
+}
+
+/**
+ * The sources behind one disturbance of the Le Chatelier's principle lab (spec 5.1): the bottles its tube was made
+ * up from and the bottle it adds from, with their hazards; its equilibrium as written and what stands on each
+ * side of it; the rules that say what the tube shows; the numbers the build checks the tube with; what the tube
+ * shows, where that is a stored observation; and its equations and notes. No label in the list says what the tube
+ * shows or which way the equilibrium goes: that is said in the notes of a disturbance that is done.
+ */
+export function lechatelierCitations(data: LechatelierData, disturbanceId: DisturbanceId, sources: readonly Source[]): Citation[] {
+  const system = data.systems.find((s) => s.disturbances.some((d) => d.id === disturbanceId))
+  const disturbance = system?.disturbances.find((d) => d.id === disturbanceId)
+  if (!system || !disturbance) throw new Error(`no disturbance "${disturbanceId}"`)
+  const all = (label: string, cited: { sourceId?: string | undefined; alsoSourceId?: string | undefined; moreSourceIds?: string[] | undefined }): Entry[] =>
+    [...(cited.sourceId === undefined ? [] : [cited.sourceId]), ...(cited.alsoSourceId === undefined ? [] : [cited.alsoSourceId]), ...(cited.moreSourceIds ?? [])].map((id): Entry => [label, id])
+  // The tube the disturbance is done in, or the tube that one is a share of: what went into it to begin with.
+  const tube = system.tubes.find((t) => t.id === disturbance.tube)
+  const made = tube && 'shareOf' in tube ? system.tubes.find((t) => t.id === tube.shareOf) : tube
+  const madeFrom = made && 'contents' in made ? made.contents.map((c) => c.reagentId) : []
+  // Every bottle that has gone into the tube by the end of this disturbance: those of the disturbances before it on the same tube, and its own.
+  const before = system.disturbances.slice(0, system.disturbances.indexOf(disturbance) + 1).filter((d) => d.tube === disturbance.tube || d.tube === made?.id)
+  const addedFrom = before.flatMap((d) => (d.action.kind === 'add' ? [d.action.reagentId] : []))
+  const bottles = [...new Set([...madeFrom, ...addedFrom])].flatMap((id) => data.reagents.filter((r) => r.id === id))
+  const equilibrium = data.equilibria.find((e) => e.id === disturbance.equilibriumId)!
+  const substances = equilibrium.substanceIds.flatMap((id) => data.substances.filter((s) => s.id === id))
+  const rules = disturbance.ruleIds.flatMap((id) => data.rules.filter((r) => r.id === id))
+  const constants = disturbance.constantIds.flatMap((id) => data.equilibriumConstants.filter((c) => c.id === id))
+  const energies = constants.flatMap((c) => c.terms.flatMap((term) => data.gibbs.filter((g) => g.id === term.gibbsId)))
+  const heat = equilibrium.heat?.heatId === undefined ? undefined : data.heats.find((h) => h.id === equilibrium.heat!.heatId)
+  const heated = disturbance.action.kind !== 'add'
+  const NUMBERS = "Numbers the build checks this tube with"
+  const lead = data.leadChloride
+  return citations(
+    [
+      ...bottles.flatMap((r): Entry[] => [
+        [`${r.name}: what is in the bottle`, r.sourceId],
+        [`${r.name}: hazard classification`, r.hazards.sourceId],
+        ...all(r.form === 'solid' ? `${r.name}: hazards as it is used here` : `${r.name}: hazards at the strength used`, r.hazards.note),
+      ]),
+      ...all('The equilibrium as written', equilibrium),
+      ...substances.flatMap((s): Entry[] => [['What stands on each side of it', s.sourceId], ...(s.look ? all('The colours that tell the two sides apart', s.look) : [])]),
+      ...(heated && equilibrium.heat ? [['Which way takes heat in', equilibrium.heat.sourceId] as const] : []),
+      ...(heated && heat ? heat.terms.flatMap((term) => data.enthalpies.filter((e) => e.id === term.enthalpyId)).map((e): Entry => ['Which way takes heat in', e.sourceId]) : []),
+      ...rules.flatMap((rule) => all('What happens in this tube', rule)),
+      ...(made && 'contents' in made ? all('What the tube shows', made.shows) : []),
+      ...disturbance.stages.flatMap((stage) => all('What the tube shows', stage)),
+      ...energies.map((g): Entry => [NUMBERS, g.sourceId]),
+      ...(constants.length > 0 ? [[NUMBERS, data.constants.gasConstant.sourceId] as const] : []),
+      ...(system.id === 'lead-chloride' ? [[NUMBERS, lead.solubilityCold.sourceId] as const, [NUMBERS, lead.solubilityHot.sourceId] as const, ...lead.atomicWeights.map((w): Entry => [NUMBERS, w.sourceId]), ...all(NUMBERS, lead.note)] : []),
+      ...(system.id === 'methyl-violet' ? [[NUMBERS, data.indicator.range.from.sourceId] as const, [NUMBERS, data.indicator.range.to.sourceId] as const, ...Object.values(data.indicator.looks).flatMap((look) => all("The indicator's colours", look)), ...all("The indicator's colours", data.indicator.note)] : []),
+      ...(disturbance.equations ?? []).flatMap((equation) => all('Equations', equation)),
+      ...disturbance.notes.flatMap((note) => all('Notes on this disturbance', note)),
     ],
     sources,
   )
