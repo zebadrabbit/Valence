@@ -1,5 +1,6 @@
 import type { AqueousData } from '@/chem-data/aqueous/data'
 import type { Station } from '@/chem-data/schema'
+import { sideFault, type Entry, type State, type Term } from '../equation'
 
 // What a learner records and enters, and whether it is right (spec 8.3). An observation is recorded from fixed
 // choices, in the fields the station's tools can show and no others. An equation is built from the station's
@@ -89,18 +90,8 @@ export function wrongFields(station: Station, observation: Observation): Field[]
 
 export const FORMS = ['molecular', 'completeIonic', 'netIonic'] as const
 export type Form = (typeof FORMS)[number]
-export type State = 'aq' | 's' | 'l' | 'g'
-export interface Term {
-  speciesId: string
-  coefficient: number
-  state: State
-}
-/** An equation as entered: "No reaction", or the species on each side. */
-export interface Entry {
-  noReaction: boolean
-  reactants: Term[]
-  products: Term[]
-}
+// An equation as entered is the shape every lab's builder makes (../equation.ts).
+export type { Entry, State, Term }
 
 /**
  * What kind of thing is wrong with an entered equation, the first that applies. The first two are about whether
@@ -130,9 +121,8 @@ export function checkEquation(data: AqueousData, station: Station, form: Form, e
   if (form === 'molecular' && terms.some((term) => (species(term.speciesId)?.charge ?? 0) !== 0)) return 'ions-in-molecular'
   if (form !== 'molecular' && terms.some((term) => species(term.speciesId)?.ions !== undefined)) return 'not-split'
   if (form === 'netIonic' && entry.reactants.some((term) => entry.products.some((other) => other.speciesId === term.speciesId))) return 'spectator'
-  const sameSpecies = (entered: Term[], wanted: { speciesId: string }[]) =>
-    entered.length === wanted.length && wanted.every((term) => entered.filter((other) => other.speciesId === term.speciesId).length === 1)
-  if (!sameSpecies(entry.reactants, curated.reactants) || !sameSpecies(entry.products, curated.products)) return 'species'
+  // Each side holds each of its curated species once and nothing else.
+  if (sideFault(entry.reactants, curated.reactants) !== null || sideFault(entry.products, curated.products) !== null) return 'species'
   if (terms.some((term) => !(species(term.speciesId)?.acceptedStates ?? [species(term.speciesId)?.state]).includes(term.state))) return 'state'
   // In proportion: every entered coefficient over its curated one is the same ratio, tested by cross-multiplying.
   const pairs = [

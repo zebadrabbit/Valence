@@ -21,6 +21,7 @@ export const ENTRY = {
   cabbage: 'lab:red-cabbage-ph',
   density: 'lab:measurement-and-density',
   freezing: 'lab:freezing-point-depression',
+  reactions: 'lab:types-of-reactions',
   mechanism: 'mechanism:hcl-nahco3',
 } as const
 
