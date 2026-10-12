@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { toNumber, withinPercent, type Sig3 } from '../figures'
-import { centiKelvin, endMs, modelOrders, rateConstantAt, roomRuns, runOf, temperatureRuns, type KineticsModel } from './model'
-import { constantOf, enteredOrders, fieldsOf, meanOf, noEntries, percentOff, placesOf, pointsOf, SHEET_IDS, verdictOf, type Context, type Entries, type Field, type Place, type Point, type SheetId, type Timings, type Value, type Verdict } from './notebook'
+import { centiKelvin, endMs, hasTemperature, modelOrders, rateConstantAt, roomRuns, runOf, temperatureRuns, type KineticsModel } from './model'
+import { constantOf, enteredOrders, fieldsOf, meanOf, noEntries, percentOff, placesOf, pointsOf, SHEET_IDS, sheetIdsOf, verdictOf, type Context, type Entries, type Field, type Place, type Point, type SheetId, type Timings, type Value, type Verdict } from './notebook'
 import { labSetup, scatterOf, type LabSetup } from './setup'
 
 // The lab as plain data: the whole record saved for it. It holds the seed, what the learner did at each run (what
@@ -56,8 +56,12 @@ const stateSchema = z.strictObject({
   status: z.enum(['in-progress', 'completed']),
   /** Every attempt at each run, by the run's id, in order; the last is the current one. */
   runs: z.record(z.string(), z.array(attemptSchema).min(1).max(MAX_ATTEMPTS)),
-  /** Every working of each sheet of the notebook, in order; the last is the current one. */
-  sheets: z.strictObject({ 'rate-law': z.array(sheetSchema).min(1).max(MAX_ATTEMPTS), temperature: z.array(sheetSchema).min(1).max(MAX_ATTEMPTS) }),
+  /**
+   * Every working of each sheet of the notebook, in order; the last is the current one. A lab whose model has no
+   * baths has no second sheet, and no working of it: its list is empty, and stays so. `kineticsStateSchema` holds
+   * the list to the model, with a working or more where the model has the sheet.
+   */
+  sheets: z.strictObject({ 'rate-law': z.array(sheetSchema).min(1).max(MAX_ATTEMPTS), temperature: z.array(sheetSchema).max(MAX_ATTEMPTS) }),
 })
 
 export type Attempt = z.infer<typeof attemptSchema>
@@ -75,7 +79,7 @@ export function createLab(m: KineticsModel, seed: number, mode: Mode): KineticsS
     mode,
     status: 'in-progress',
     runs: Object.fromEntries(m.runs.map((run) => [run.id, [newAttempt(0)]])),
-    sheets: { 'rate-law': [newSheet(m, 'rate-law')], temperature: [newSheet(m, 'temperature')] },
+    sheets: { 'rate-law': [newSheet(m, 'rate-law')], temperature: hasTemperature(m) ? [newSheet(m, 'temperature')] : [] },
   }
 }
 
@@ -84,6 +88,7 @@ export const currentAttempt = (state: Pick<KineticsState, 'runs'>, runId: string
   if (!attempts) throw new Error(`no run "${runId}"`)
   return attempts[attempts.length - 1]!
 }
+/** The current working of a sheet the model has (`sheetIdsOf`). A lab with no baths has no working of the second sheet to give. */
 export const currentSheet = (state: Pick<KineticsState, 'sheets'>, sheet: SheetId): Sheet => state.sheets[sheet][state.sheets[sheet].length - 1]!
 
 /** Whether an attempt lacks what shows the end of its run. */
@@ -196,6 +201,8 @@ export const heldConstant = (m: KineticsModel, seed: number) => rateConstantAt(m
 /** A part of the lab: the runs at the room's temperature, and the two sheets of the notebook, the second with its runs in the baths. */
 export const PART_IDS = ['runs', ...SHEET_IDS] as const
 export type PartId = (typeof PART_IDS)[number]
+/** The parts a model's lab has: all three, or the first two where the model has no baths. */
+export const partIdsOf = (m: KineticsModel): readonly PartId[] => ['runs', ...sheetIdsOf(m)]
 
 /** The times the first sheet is worked from; null until every run at the room's temperature counts. */
 export const roomTimings = (m: KineticsModel, state: Pick<KineticsState, 'seed' | 'runs'>) => timingsOf(m, state, roomRuns(m))
@@ -226,8 +233,9 @@ export function contextOf(m: KineticsModel, state: Pick<KineticsState, 'seed' | 
   return byGraph
 }
 
-/** The points of the graph of part 3; null until its sheet can be opened. */
+/** The points of the graph of part 3; null until its sheet can be opened, and always for a model with no baths, which has no such part. */
 export function graphPoints(m: KineticsModel, state: Pick<KineticsState, 'seed' | 'runs' | 'sheets'>): Point[] | null {
+  if (!hasTemperature(m)) return null
   const timings = timingsOf(m, state, temperatureRuns(m))
   if (timings === null || !sheetDone(m, state, 'rate-law')) return null
   return pointsOf(m, labSetup(m, state.seed), timings, modelOrders(m))
@@ -287,8 +295,8 @@ export function partDone(m: KineticsModel, state: Pick<KineticsState, 'seed' | '
   return sheetDone(m, state, part)
 }
 
-/** The status the parts give: completed when all three are done. */
-export const statusOf = (m: KineticsModel, state: Pick<KineticsState, 'seed' | 'runs' | 'sheets'>): KineticsState['status'] => (PART_IDS.every((part) => partDone(m, state, part)) ? 'completed' : 'in-progress')
+/** The status the parts give: completed when every part the lab has is done. */
+export const statusOf = (m: KineticsModel, state: Pick<KineticsState, 'seed' | 'runs' | 'sheets'>): KineticsState['status'] => (partIdsOf(m).every((part) => partDone(m, state, part)) ? 'completed' : 'in-progress')
 
 /** True for a value of the kind a field takes, whatever it is: a number of three figures, or a whole number for a choice. */
 export function isValueOf(m: KineticsModel, field: Field, value: unknown): value is Value {
@@ -302,7 +310,8 @@ export function isValueOf(m: KineticsModel, field: Field, value: unknown): value
 
 /**
  * The stored shape, held to the model it is read with: nothing stored that the reducer would not have stored (a
- * run the model does not have, an attempt whose index is not its place, flasks in a bath where the run has none,
+ * run the model does not have, a working of a sheet the model does not have or none of one it has, an attempt
+ * whose index is not its place, flasks in a bath where the run has none,
  * a watch stopped before it was started or past where it stops itself, an attempt left unfinished or counting
  * behind a later one, an entry of another sheet or of the wrong kind or with an empty entry above it, an entry or
  * a look on a sheet that cannot be opened, a look at a place that is not there, a place entered that was not
@@ -329,6 +338,11 @@ export const kineticsStateSchema = (m: KineticsModel): z.ZodType<KineticsState> 
       })
     }
     for (const sheetId of SHEET_IDS) {
+      // A sheet the model has is worked at least once, the first working being the empty one a new lab holds; a sheet it lacks, never.
+      if (state.sheets[sheetId].length === 0 || !sheetIdsOf(m).includes(sheetId)) {
+        if (state.sheets[sheetId].length > 0 || sheetIdsOf(m).includes(sheetId)) issue(['sheets', sheetId], "the workings of the model's own sheets, and of no other")
+        continue
+      }
       const fields = fieldsOf(m, sheetId)
       const open = contextOf(m, state, sheetId) !== null
       state.sheets[sheetId].forEach((sheet, place) => {

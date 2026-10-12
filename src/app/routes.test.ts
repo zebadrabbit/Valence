@@ -4,6 +4,7 @@ import { PeriodicTablePage } from '@/app/explore/elements/PeriodicTablePage'
 import { AqueousPage } from '@/app/lab/aqueous/AqueousPage'
 import { CalorimetryPage } from '@/app/lab/calorimetry/CalorimetryPage'
 import { CationsPage } from '@/app/lab/cations/CationsPage'
+import { AcetonePage } from '@/app/lab/acetone/AcetonePage'
 import { ClockPage } from '@/app/lab/clock/ClockPage'
 import { LechatelierPage } from '@/app/lab/lechatelier/LechatelierPage'
 import { FlamePage } from '@/app/lab/flame/FlamePage'
@@ -122,6 +123,16 @@ describe('the routes', () => {
     const loaded = await (route.lazy as () => Promise<{ Component: unknown }>)()
     expect(loaded.Component).toBe(ClockPage)
     expect(page('/lab/clock-reaction/2')).toMatchObject({ path: '*' })
+  })
+
+  it('load the iodination of acetone lab at #/lab/iodination-of-acetone, lazily', async () => {
+    const { path, route } = page('/lab/iodination-of-acetone')
+    expect(path).toBe('lab/iodination-of-acetone')
+    expect(typeof route.lazy).toBe('function')
+    expect(route.element).toBeUndefined()
+    const loaded = await (route.lazy as () => Promise<{ Component: unknown }>)()
+    expect(loaded.Component).toBe(AcetonePage)
+    expect(page('/lab/iodination-of-acetone/2')).toMatchObject({ path: '*' })
   })
 
   it('still open the list of labs at #/lab, with no chunk to load, and send an address below a lab to the not-found page', () => {

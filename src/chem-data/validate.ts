@@ -4,6 +4,7 @@ import { angleDeg, dihedralDeg, distance } from './geometry'
 import { periodicTableSchema, registrySchema, type PeriodicElement, type Registry, type Source } from './schema'
 import { aqueousSchema, type AqueousData } from './aqueous/data'
 import { calorimetrySchema, type CalorimetryData } from './calorimetry/data'
+import { acetoneSchema, type AcetoneData } from './acetone/data'
 import { clockSchema, type ClockData } from './clock/data'
 import { cationsSchema, type CationsData } from './cations/data'
 import { brightestOf, extentOf, flameSchema, rangeOf, type FlameData } from './flame/data'
@@ -757,5 +758,47 @@ export function validateClock(input: unknown, sources: readonly Source[], option
     ...checkSourceIds(parsed.data, 'clock', Array.isArray(sources) ? sources : []),
     ...checkPublished(parsed.data, 'clock'),
     ...checkProse(parsed.data, 'clock', Array.isArray(names) ? names : []),
+  ]
+}
+
+/** What the iodination of acetone lab's record must hold together beyond its shape: its ids, and every id one part of it names in another. */
+function checkAcetone(data: AcetoneData): string[] {
+  const errors = [...duplicates(data.reagents.map((r) => r.id), 'reagents'), ...duplicates(data.rateLaw.reactants.map((r) => r.id), 'reactants'), ...duplicates(data.mixtures.map((m) => m.id), 'mixtures')]
+  const bottles = new Set(data.reagents.map((r) => r.id))
+  const { rateLaw } = data
+  for (const reactant of rateLaw.reactants) {
+    if (!bottles.has(reactant.reagentId)) errors.push(`reactant "${reactant.id}": "${reactant.reagentId}" is not a solution of the record`)
+    if (!data.mixtures.some((m) => m.id === reactant.comparedIn)) errors.push(`reactant "${reactant.id}": unknown mixture "${reactant.comparedIn}"`)
+    if (reactant.comparedIn === data.referenceMixtureId) errors.push(`reactant "${reactant.id}": its order is found from the reference mixture and another`)
+  }
+  if (!rateLaw.reactants.some((reactant) => reactant.reagentId === rateLaw.end.reagentId)) errors.push(`rateLaw.end: "${rateLaw.end.reagentId}" is not the bottle of a reactant`)
+  if (!data.mixtures.some((m) => m.id === data.referenceMixtureId)) errors.push(`unknown reference mixture "${data.referenceMixtureId}"`)
+  for (const mixture of data.mixtures) {
+    // Water is not a bottle of the record: it has no hazards and no strength.
+    for (const part of [...mixture.flask, mixture.added]) if (part.reagentId !== 'water' && !bottles.has(part.reagentId)) errors.push(`mixture "${mixture.id}": unknown reagent "${part.reagentId}"`)
+    if (mixture.added.reagentId !== rateLaw.end.reagentId) errors.push(`mixture "${mixture.id}": what is poured in is what is used up, "${rateLaw.end.reagentId}"`)
+  }
+  const [low, high] = data.parameters.roomRangeTenths.value
+  if (low > high) errors.push('parameters.roomRangeTenths: a range runs from its lower end to its upper')
+  return errors
+}
+
+/**
+ * Checks the iodination of acetone lab's record against the sources it cites: the schema; that its ids hold
+ * together; that every source named exists; that each `published` reads as the number stored beside it; and that
+ * no name, note or rationale holds institution text. Returns a list of problems; an empty list means the record is
+ * valid. Never throws, whatever it is given. That each value is what its source prints is the build script's to
+ * hold to the manifest, and the build checks the record's own chemistry: that its reaction balances, that its
+ * mixtures are those of spec 20.1, and that its rate record holds together.
+ */
+export function validateAcetone(input: unknown, sources: readonly Source[], options: ValidateOptions = {}): string[] {
+  const parsed = acetoneSchema.safeParse(input)
+  if (!parsed.success) return schemaErrors(parsed.error.issues)
+  const names = options?.institutionNames
+  return [
+    ...checkAcetone(parsed.data),
+    ...checkSourceIds(parsed.data, 'acetone', Array.isArray(sources) ? sources : []),
+    ...checkPublished(parsed.data, 'acetone'),
+    ...checkProse(parsed.data, 'acetone', Array.isArray(names) ? names : []),
   ]
 }

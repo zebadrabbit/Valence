@@ -4,6 +4,7 @@ import type { Element, ElementSpectrum, Emission, MoDiagram, Molecule, Source } 
 import type { AqueousData } from './aqueous/data'
 import type { CalorimetryData, PartId } from './calorimetry/data'
 import type { CationsData, StepId } from './cations/data'
+import type { AcetoneData, PartId as AcetonePartId } from './acetone/data'
 import type { ClockData, PartId as ClockPartId } from './clock/data'
 import type { FlameData } from './flame/data'
 import type { DisturbanceId, LechatelierData } from './lechatelier/data'
@@ -376,6 +377,49 @@ export function clockCitations(data: ClockData, partId: ClockPartId, sources: re
       ...(partId === 'temperature' ? data.baths.map((bath): Entry => ['The three baths', bath.sourceId]) : []),
       ...(partId === 'runs' ? [] : [...rateLaw.reactants.flatMap((reactant) => all(RATE_LAW, reactant.order)), ...all(RATE_LAW, rateLaw.note), [RATE_LAW, rateLaw.rateConstant.sourceId] as const]),
       ...(partId === 'temperature' ? [['The gas constant', data.constants.gasConstant.sourceId] as const, ['Kelvin from degrees Celsius', data.constants.zeroCelsius.sourceId] as const] : []),
+      ...part.notes.flatMap((note) => all('Notes on this part', note)),
+    ],
+    sources,
+  )
+}
+
+/**
+ * The sources behind one part of the iodination of acetone lab (spec 5.1): the bottles and their hazards; the
+ * reaction; the mixtures; what the liquid looks like before and after; and, for the part with the notebook, the
+ * rate record and the constants the model works the rate constant at the room's temperature with. The notes of a
+ * part are listed with it. No label in the list gives an order, the rate constant or the activation energy: those
+ * are said in the notes of a part that is done.
+ */
+export function acetoneCitations(data: AcetoneData, partId: AcetonePartId, sources: readonly Source[]): Citation[] {
+  const part = data.parts.find((p) => p.id === partId)
+  if (!part) throw new Error(`no part "${partId}"`)
+  const all = (label: string, cited: { sourceId: string; alsoSourceId?: string | undefined; moreSourceIds?: string[] | undefined }): Entry[] =>
+    [cited.sourceId, ...(cited.alsoSourceId === undefined ? [] : [cited.alsoSourceId]), ...(cited.moreSourceIds ?? [])].map((id): Entry => [label, id])
+  const { rateLaw, constants } = data
+  const RATE_LAW = 'The rate law the lab holds, its rate constant and how that changes with temperature'
+  return citations(
+    [
+      ...data.reagents.flatMap((r): Entry[] => [
+        [`${r.name}: what is in the bottle`, r.sourceId],
+        [`${r.name}: hazard classification`, r.hazards.sourceId],
+        ...all(`${r.name}: hazards at the strength used`, r.hazards.note),
+      ]),
+      ...all('The reaction', data.reaction),
+      ['What ends a run, and how it is seen', rateLaw.end.sourceId],
+      ...all('What the liquid looks like before and after', rateLaw.end.before),
+      ...all('What the liquid looks like before and after', rateLaw.end.after),
+      ...data.mixtures.map((mixture): Entry => ['The four mixtures', mixture.sourceId]),
+      ...(partId === 'runs'
+        ? []
+        : [
+            ...rateLaw.reactants.flatMap((reactant) => all(RATE_LAW, reactant.order)),
+            ...all(RATE_LAW, rateLaw.note),
+            [RATE_LAW, rateLaw.rateConstant.sourceId] as const,
+            [RATE_LAW, rateLaw.activationEnergy.sourceId] as const,
+            [RATE_LAW, constants.joulesPerCalorie.sourceId] as const,
+            ['The gas constant', constants.gasConstant.sourceId] as const,
+            ['Kelvin from degrees Celsius', constants.zeroCelsius.sourceId] as const,
+          ]),
       ...part.notes.flatMap((note) => all('Notes on this part', note)),
     ],
     sources,

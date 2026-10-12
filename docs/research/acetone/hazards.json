@@ -1,0 +1,44 @@
+{
+  "acetone-4m": {
+    "classifiedAs": "Hazards of liquid acetone, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H225: Highly flammable liquid and vapor",
+        "H319: Causes serious eye irritation",
+        "H336: May cause drowsiness or dizziness"
+      ],
+      "note": {
+        "value": "The solution on this bench is 4.0 mol/L acetone in water, about 29% by volume; the statements above are pure acetone's. The same supplier's sheet for a 50% solution keeps Danger and all three, and adds mild skin irritation: water does not stop it burning. It calls for no flame, spark or hot surface, a hood or well-ventilated room, eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: a second supplier's sheet has eyes flushed at least 15 minutes and a doctor seen, 20 to 30 by NOAA's record; splashed clothing comes off. By a state health department's fact sheet it may pass through skin, its vapour can reach a distant flame and flash back, and none enters a sewer. Kept from oxidising agents, it meets the iodine only in the flask.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-7.3",
+        "alsoSourceId": "fisher-sds-acetone",
+        "moreSourceIds": [
+          "nj-rtk-fs-0006",
+          "noaa-cameo-8",
+          "flinn-sds-7"
+        ]
+      },
+      "sourceId": "flinn-sds-7"
+    }
+  },
+  "iodine-0.005m": {
+    "classifiedAs": "Hazards of solid iodine, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Warning",
+      "statements": [
+        "H312+H332: Harmful if inhaled or in contact with skin"
+      ],
+      "note": {
+        "value": "The solution on this bench is 0.0050 mol/L iodine, in water with potassium iodide; the statement above is that of the solid iodine it is made from. The same supplier's sheet for solutions below 0.05 M gives Warning and H315+H320: it irritates skin and eyes. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: a second supplier's sheets warn of harm to the thyroid over long exposure, for the solid and for a solution ten times as strong; eyes are flushed at least 15 minutes and a doctor seen. The solid's calls iodine very toxic to water life: it is kept out of drains. A third's, for potassium iodide solution, adds a risk of skin allergy. An oxidising agent by NOAA's record, iodine meets the acetone only in the flask.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-411",
+        "alsoSourceId": "fisher-sds-iodine-0.1n",
+        "moreSourceIds": [
+          "fisher-sds-iodine",
+          "wards-sds-pp0630",
+          "noaa-cameo-25035"
+        ]
+      },
+      "sourceId": "flinn-sds-407"
+    }
+  }
+}

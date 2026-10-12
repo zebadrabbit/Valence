@@ -19,11 +19,16 @@ export const ACTIVITIES = [
   { entry: ENTRY.lechatelier, version: 1, kind: 'Lab', title: "Le Chatelier's principle", to: '/lab/le-chatelier' },
   // src/clock-version.test.ts pins what a stored run of this lab is judged against to this entry and this version.
   { entry: ENTRY.clock, version: 1, kind: 'Lab', title: 'Clock reaction', to: '/lab/clock-reaction' },
+  // src/acetone-version.test.ts pins what a stored run of this lab is judged against to this entry and this version.
+  { entry: ENTRY.acetone, version: 1, kind: 'Lab', title: 'Iodination of acetone', to: '/lab/iodination-of-acetone' },
   { entry: ENTRY.mechanism, version: 1, kind: 'Mechanism', title: 'HCl + NaHCO₃, step by step', to: '/learn/hcl-nahco3' },
 ] as const
 
 /** The clock reaction lab's stored entry and its version: what its page loads and saves with (src/clock-version.test.ts pins what a stored run is judged against to it). */
 export const CLOCK_PROGRESS = { entry: ACTIVITIES[6].entry, version: ACTIVITIES[6].version } as const
+
+/** The iodination of acetone lab's stored entry and its version: what its page loads and saves with (src/acetone-version.test.ts pins what a stored run is judged against to it). */
+export const ACETONE_PROGRESS = { entry: ACTIVITIES[7].entry, version: ACTIVITIES[7].version } as const
 
 export type Activity = (typeof ACTIVITIES)[number]
 

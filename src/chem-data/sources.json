@@ -2128,5 +2128,85 @@
     "id": "noaa-cameo-25035",
     "url": "https://cameochemicals.noaa.gov/chemical/25035",
     "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Iodine (chemical 25035); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "moorpark-iodination-of-acetone",
+    "url": "https://www.moorparkcollege.edu/sites/moorparkcollege/files/media/pdf_document/2020/chem_1b_expt4.pdf",
+    "citation": "Moorpark College. Experiment #4: Chemical Kinetics: The Iodination of Acetone; pages 14 to 23 of a general chemistry laboratory manual; read and not kept (retrieved 2026-10-10)."
+  },
+  {
+    "id": "tau-kinetics-iodination",
+    "url": "https://www.tau.ac.il/~phchlab/exp-kinetics-theory.html",
+    "citation": "Tel Aviv University, School of Chemistry, Physical Chemistry Laboratory. Chemical Kinetics: Theoretical Background; a page of the laboratory's site, copyright 2018; read and not kept (retrieved 2026-10-10)."
+  },
+  {
+    "id": "uv-iodine-acetone-kinetics",
+    "url": "https://www.uv.es/qflab/en/lqfi/p5-teachingguide.pdf",
+    "citation": "Universitat de València, Physical Chemistry Laboratory 1. Lab Session 5: Kinetic Study of the Reaction Between Iodine and Acetone Catalyzed by Acid; a teaching guide of five pages; read and not kept (retrieved 2026-10-10)."
+  },
+  {
+    "id": "upb-acetone-iodination",
+    "url": "https://laboratoare.cafe.upb.ro/pdf/iodurarea_acetonei_E.pdf",
+    "citation": "Kinetics of Acetone Iodination in Acid Medium; a laboratory handout of four pages, in English, on the laboratories' site of the Politehnica University of Bucharest; read and not kept (retrieved 2026-10-10)."
+  },
+  {
+    "id": "docbrown-iodination-of-propanone",
+    "url": "https://docbrown.info/page03/ASA2rates26.htm",
+    "citation": "Brown, P. Doc Brown's Chemistry: Advanced level chemistry kinetics notes: Acid catalysed iodination of ketones-propanone; a page marked as updated on 13 March 2026; read and not kept (retrieved 2026-10-10)."
+  },
+  {
+    "id": "chemguide-orders-and-mechanisms",
+    "url": "https://www.chemguide.co.uk/physical/basicrates/ordermech.html",
+    "citation": "Clark, J. Chemguide: Orders of Reaction and Mechanisms; 2002, last modified October 2013; read and not kept (retrieved 2026-10-10)."
+  },
+  {
+    "id": "nbs-circular-510",
+    "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/circ/nbscircular510.pdf",
+    "citation": "National Bureau of Standards; National Research Council. Tables of Chemical Kinetics: Homogeneous Reactions; NBS Circular 510; U.S. Government Printing Office: Washington, DC, issued 28 September 1951. Read as the scanned PDF that the National Institute of Standards and Technology serves, linked here; its table 312.471 was read from images of two of its pages, since the text the scan carries is not legible there; read and not kept (retrieved 2026-10-10)."
+  },
+  {
+    "id": "nist-sp811-conversion-factors",
+    "url": "https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b9",
+    "citation": "Thompson, A.; Taylor, B. N. Guide for the Use of the International System of Units (SI); NIST Special Publication 811, 2008 edition; National Institute of Standards and Technology. Appendix B.9: Factors for units listed by kind of quantity or field of science; a page created on 1 February 2016 and updated on 18 August 2025; read and not kept (retrieved 2026-10-11)."
+  },
+  {
+    "id": "flinn-sds-7",
+    "url": "https://www.flinnsci.com/sds_7-acetone/sds_7",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Acetone, SDS number sds_7; revision date August 31, 2016 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-7.3",
+    "url": "https://www.flinnsci.com/sds_7.3-acetone-chromatography-solvent/sds_7.3",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Acetone Chromatography Solvent, SDS number sds_7.3; revision date September 22, 2014 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-acetone",
+    "url": "https://www.fishersci.com/store/msds?partNumber=A18500&productDescription=ACETONE&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Acetone, catalogue numbers A18-4 and A18-500, among others; revision 9 of 18 December 2025 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "nj-rtk-fs-0006",
+    "url": "https://www.nj.gov/health/eoh/rtkweb/documents/fs/0006.pdf",
+    "citation": "New Jersey Department of Health, Right to Know Program. Hazardous Substance Fact Sheet: Acetone, RTK substance number 0006; dated February 2011, revision of June 2015 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-8",
+    "url": "https://cameochemicals.noaa.gov/chemical/8",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Acetone (chemical 8); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-407",
+    "url": "https://www.flinnsci.com/sds_407-iodine/sds_407",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Iodine, SDS number sds_407; revision date April 1, 2016 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-iodine-0.1n",
+    "url": "https://www.fishersci.com/store/msds?partNumber=SI861&productDescription=IODINE+SOLUTION&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Iodine, 0.1N standard solution, catalogue numbers SI86-1 and SI86-4, among others; revision 8 of 18 December 2025 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-2648",
+    "url": "https://cameochemicals.noaa.gov/chemical/2648",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Bromoacetone (chemical 2648); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-10; no copy is kept)."
   }
 ]
