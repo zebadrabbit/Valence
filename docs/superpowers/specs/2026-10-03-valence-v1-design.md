@@ -1312,3 +1312,58 @@ Built on 2026-10-12, straight through, as the labs' screens before it were (sect
 - **What the tests hold,** without a browser: the marks of every scale; that every closer look holds the engine's stretch and a numbered mark, and how far apart two of its marks are drawn, at seeds 1 to 100; that an edge is drawn where it stands between its two marks; that a picture prints no number but the scale's own, and no page a reading of a scale before it is typed, at seeds 1 to 30; that the pieces are drawn alike for all three metals; that every page of parts 2 and 3 names each thing an unknown may be as often at every seed from 1 to 30; that Challenge says nothing of a reading or an entry before the check and has no relation to open; where the page opens; and the markup of each page, the notebook and the record. What a press does was run in the browser.
 - **The review of 2026-10-12.** One pass, by an AI reviewer that had built none of the lab, by script in headless Chromium and by reading. It worked a whole lab in Guided by the keyboard alone (1280 by 800, dark) and one in Challenge by emulated touch (768 by 1024, light), each in stages over the stored record, reading every scale from a picture of its closer look and typing what it read: 50 readings of the four scales at seven seeds, all within the allowance. Its points above: the cylinder's closer look and the length of its pages; the line under an empty cylinder; a whole number of tens in the notebook. Besides: a first level that can no longer be changed says that the pieces have been put into the water, where it said that they are in it, which was false once they were out; the metals' hazard notes no longer say how many grams of each metal the bench holds, which named the metal from the balance; and the primer's card on significant figures has a paragraph on a whole number of tens. It measured the contrast of the text (4.7 to 1 or more in the light theme, 6.2 to 1 or more in the dark, but for controls that cannot be used, the frame's, at 3.7 and 4.9 to 1) and of the scales (marks and numbers 19 to 1 or more; the curve of a liquid 4.4 to 1 or more against the picture and 3.5 to 1 or more against the liquid). It left the millimetre ruler's closer look widened, since a mark must be counted from a number. The lab's research record has the review whole, in its last section.
 - **Not checked.** No person has used the page, by hand, by keyboard or by touch: every reading of a scale was made by an AI, the builder's by script from the engine's figures and the reviewer's from pictures. No screen reader has been used on it. It was run in headless Chromium on Linux only, at 768 by 1024 and 1280 by 800, in the light and the dark theme, on no real device. No chemistry instructor has read the record, the primer, the notes or the hazards.
+
+## 23. Freezing point depression lab (added after v1)
+
+The seventh of the labs taken from the owner's department's lab directions (section 17 says how those are used). The directions list what is set out; the procedure is the usual one for those things, and each choice in it is the owner's to change. It is built on the calorimetry lab's pieces (section 16): the foam cup, the logger and its graph that is explored, the worksheet, an unknown named from a table.
+
+### 23.1 Set-up
+
+Something dissolved in water makes the water freeze at a lower temperature, and how much lower depends on how many dissolved particles there are for each kilogram of water, not on what they are. So the fall in the freezing point counts particles: it gives the molar mass of an unknown, and it shows that a salt comes apart into ions.
+
+On the bench: a foam cup with a lid, a stirrer and a temperature probe read by a logger to a hundredth of a degree; ice and distilled water; a balance that shows hundredths of a gram; a wire strainer and a second cup; an unknown liquid, which is one of acetone, ethanol and 2-propanol, by the seed; and urea, sodium chloride, potassium chloride and sodium bromide.
+
+Three parts:
+
+1. **The freezing point of water.** Ice and water are stirred in the cup until the logger is steady. That reading is this probe's freezing point of water, and every fall is measured from it.
+2. **The molar mass of an unknown.** A weighed amount of the unknown liquid is stirred into ice and water; the logger falls and steadies; the ice is strained out and the solution weighed. From the fall and the masses, the unknown's molar mass, and from a table which of the three it is.
+3. **How many particles.** The same with urea and with one of the three salts, of the learner's choosing; the other two salts are there to try. From each fall, how many dissolved particles each formula unit gave: close to one for urea, and close to two, a little under, for a salt.
+
+### 23.2 A run
+
+A run is a short column of cards, as section 16's:
+
+1. **The bench**: what is used, with its hazards, and the balance's readings as they are made. Until the unknown is named the bench shows the tiles of all three liquids it may be.
+2. **The cup**: drawn, with its state in words. Ice and water go in; the lid goes on and the stirrer is started; the logger is started; the weighed solute is added; "Run on" lets time pass. No clock runs.
+3. **The graph**: temperature against time, explored as section 16's. The curve falls when the solute goes in and levels off. The learner looks at the level stretch before the solute and the level stretch after it.
+4. **Straining and weighing**: the cup is poured through the strainer into the second cup, which holds back the ice, and the solution is weighed. The water in it is its mass less the solute's.
+5. **The notebook**: the two temperatures and their difference; the mass of water, in kilograms; then for part 2 the molality from the fall, the moles of unknown, its molar mass, and which liquid it is; for part 3 the moles of solute from its molar mass, the molality, the fall that molality would give if each formula unit were one particle, and the ratio of the fall found to that one.
+
+Entries are typed and checked as section 16's: each must follow from the learner's own earlier entries, rounded as the primer says; Guided checks each as it is made and has its relation in a closed hint; Challenge checks them together.
+
+Three errors of technique, each real and each its own cause: **reading the temperature before it has levelled off**; **letting all the ice melt**, so that what is read is no longer a freezing point; and **weighing the solution without straining out the ice**, so that ice is counted as water. Guided warns first. A run that does not count says why, and can be made again with new numbers.
+
+A part counts when its technique was right, its readings are the logger's, its entries follow, and its result is within tolerance of the stored figure; in part 2 the liquid named must be the one it was. The lab is complete when all three parts count.
+
+### 23.3 Model
+
+The engine is pure and deterministic and holds whole numbers. While ice and liquid are both in the cup and it is stirred, the temperature goes to the freezing point of what is dissolved at that moment; ice melts as the solute goes in and as the cup takes heat from the room, slowly with the lid on, and the solution grows a little more dilute as it does, which the graph shows as a slow creep after the fall. If the ice runs out the temperature climbs toward the room's.
+
+The freezing point's fall is the constant for water times the molality times the particles each formula unit gives. For the unknown liquids and for urea that is one, the ideal, said as one. For each salt it is a measured figure at about the strength used where a source that can be read gives one, and otherwise two, the ideal, said to be the ideal and to be more than a real salt gives. The amounts are seeded, and chosen so that the three liquids can be told apart at the figures the instruments give.
+
+### 23.4 Data
+
+The freezing point constant of water; the molar masses of the three liquids, urea and the three salts; the measured freezing points of solutions of each where a source gives them. Hazards by 5.2 for the three liquids, urea and the three salts, sharing other labs' records for the same thing in the same form.
+
+### 23.5 Primer
+
+Short topics, those to read first marked: freezing and melting, and why ice and water together sit at one temperature; what dissolving something does to that temperature; molality, and why it is counted for each kilogram of water; the freezing point constant; from a fall to a molar mass; salts and ions, and the count of particles; reading the graph; straining and weighing; safety.
+
+### 23.6 Acceptance
+
+- For seeds 1 to 100, a careful run of each part counts; the unknown's molar mass is within tolerance of the stored one and names the right liquid of the three; urea's count of particles is close to one and each salt's close to its stored figure.
+- Each error of technique alone makes a run not count, and its cause is named; Guided warns first.
+- An entry that does not follow from the learner's own numbers is refused or marked.
+- The same seed and actions give the same run; the stored record round-trips; no state a learner can reach leaves them unable to go on.
+- Challenge shows nothing of what is expected before the entries are made, and nothing on the page says which liquid the unknown is before it is named.
+- The descriptions in words of the cup and of the graph are tested.
