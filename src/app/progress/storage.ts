@@ -18,6 +18,7 @@ export const ENTRY = {
   lechatelier: 'lab:le-chatelier',
   clock: 'lab:clock-reaction',
   acetone: 'lab:iodination-of-acetone',
+  cabbage: 'lab:red-cabbage-ph',
   mechanism: 'mechanism:hcl-nahco3',
 } as const
 

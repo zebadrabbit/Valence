@@ -1,7 +1,7 @@
 import { useId, type CSSProperties, type ReactNode } from 'react'
 import { useExplore } from './useExplore'
 
-// A test tube that is explored: the aqueous reactions lab's, the Group I cations lab's and the Le Chatelier's principle lab's. The tube stands on a
+// A test tube that is explored: the aqueous reactions lab's, the Group I cations lab's, the Le Chatelier's principle lab's and the red cabbage pH lab's. The tube stands on a
 // white card, as the titration lab's flask does, so that the colours are judged against white in the dark theme
 // too. Everything in the drawing has a fixed colour, the buttons and callouts laid over it too. The picture is 320
 // of its own units wide, and a unit is a pixel wherever its card has 320 px for it: the tube in the left of it, and
@@ -28,6 +28,13 @@ const BUBBLES = [
   [92, 116, 4],
 ] as const
 
+/** Short waves in rows through a liquid whose surface is at `surface`, each row set off from the one over it, `down` units under where the row stands. */
+function wisps(surface: number, height: number, down: number): string {
+  const waves: string[] = []
+  for (let y = surface + 9, row = 0; y < height - 20; y += 16, row++) for (let x = row % 2 === 0 ? 52 : 63; x < 118; x += 22) waves.push(`M ${x} ${y + down} q 3 -3 6 0 t 6 0`)
+  return waves.join(' ')
+}
+
 /** The glass of a tube in a picture `height` tall: from its mouth at 20 down to a round foot. */
 const glass = (height: number) => `M 48 20 L 48 ${height - 64} A 40 40 0 0 0 128 ${height - 64} L 128 20`
 /** Where the contents of that tube end, just inside the glass at its foot. */
@@ -35,8 +42,8 @@ export const contentsEnd = (height: number) => height - 26
 
 /** What is in a tube, as it is drawn. A colour here is the drawing's own value; what has a source is the word a look says. */
 export interface TubeLayers {
-  /** The liquid, and where down the picture its surface is. Null for a tube with no liquid in it. */
-  liquid: { hex: string; surface: number } | null
+  /** The liquid, and where down the picture its surface is. Null for a tube with no liquid in it. `cloudy` draws wisps through it, so that a cloudy liquid is told from a clear one of the same colour by more than a word (the red cabbage pH lab's). */
+  liquid: { hex: string; surface: number; cloudy?: boolean } | null
   /** A solid that lies at the bottom, from `top` down to the foot. `grain` is the colour of the grain over it, where the ink would not show on it. */
   solid: { hex: string; top: number; grain?: string } | null
   /** A solid spread through the liquid and not yet settled: drawn as specks of its colour all through it. */
@@ -111,6 +118,13 @@ export function TubeBody({ id, height, layers, words, bracesAt = BRACE_X }: { id
     <>
       <g clipPath={`url(#${id})`}>
         {liquid && <rect x={48} y={liquid.surface} width={80} height={height - liquid.surface} fill={liquid.hex} />}
+        {/* Wisps through a cloudy liquid, in the ink and faint with a light line under each, so that they show on a white liquid and on a dark one. Drawn as one path and not as a pattern: a pattern of them was drawn as a white band across the window by the one browser tried. */}
+        {liquid?.cloudy && (
+          <>
+            <path d={wisps(liquid.surface, height, 0)} fill="none" stroke={INK} strokeOpacity={0.3} strokeWidth={1.3} strokeLinecap="round" />
+            <path d={wisps(liquid.surface, height, 1.5)} fill="none" stroke="#ffffff" strokeOpacity={0.55} strokeWidth={1.3} strokeLinecap="round" />
+          </>
+        )}
         {liquid && spread && <rect x={48} y={liquid.surface} width={80} height={height - liquid.surface} fill={`url(#${id}spread)`} />}
         {solid && (
           <>

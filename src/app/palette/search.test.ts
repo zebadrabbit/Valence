@@ -6,16 +6,16 @@ import { searchPalette, stepActive, type PaletteItem } from './search'
 const labels = (query: string) => searchPalette(PALETTE_ITEMS, query).map((item) => item.label)
 
 describe('PALETTE_ITEMS', () => {
-  it('holds the 101 molecules, the eight labs, the mechanism, the six pages, the periodic table and its 118 elements, with unique ids', () => {
-    expect(PALETTE_ITEMS).toHaveLength(101 + 8 + 1 + 6 + 1 + 118)
+  it('holds the 101 molecules, the nine labs, the mechanism, the six pages, the periodic table and its 118 elements, with unique ids', () => {
+    expect(PALETTE_ITEMS).toHaveLength(101 + 9 + 1 + 6 + 1 + 118)
     expect(new Set(PALETTE_ITEMS.map((item) => item.id)).size).toBe(PALETTE_ITEMS.length)
   })
 
   it('lists the periodic table and then the elements, by atomic number, after the molecules, labs and pages', () => {
     const kinds = PALETTE_ITEMS.map((item) => item.kind.replace(/ .*/, ''))
-    expect(kinds.slice(0, 116)).toEqual([...Array<string>(101).fill('Molecule'), ...Array<string>(8).fill('Lab'), 'Mechanism', ...Array<string>(6).fill('Page')])
-    expect(PALETTE_ITEMS[116]).toEqual({ id: 'page:/explore/elements', label: 'Periodic table', kind: 'Page', to: '/explore/elements' })
-    expect(PALETTE_ITEMS.slice(117).map((item) => item.label)).toEqual(ELEMENT_INDEX.map((e) => e.name))
+    expect(kinds.slice(0, 117)).toEqual([...Array<string>(101).fill('Molecule'), ...Array<string>(9).fill('Lab'), 'Mechanism', ...Array<string>(6).fill('Page')])
+    expect(PALETTE_ITEMS[117]).toEqual({ id: 'page:/explore/elements', label: 'Periodic table', kind: 'Page', to: '/explore/elements' })
+    expect(PALETTE_ITEMS.slice(118).map((item) => item.label)).toEqual(ELEMENT_INDEX.map((e) => e.name))
   })
 
   it('links an element to its page, with its symbol where a molecule has its formula', () => {
@@ -36,13 +36,14 @@ describe('PALETTE_ITEMS', () => {
   })
 
   it('sends each lab and the mechanism to its own page', () => {
-    expect(PALETTE_ITEMS.filter((item) => item.kind === 'Lab').map((item) => item.to)).toEqual(['/lab/titration', '/lab/aqueous', '/lab/flame', '/lab/calorimetry', '/lab/cations', '/lab/le-chatelier', '/lab/clock-reaction', '/lab/iodination-of-acetone'])
+    expect(PALETTE_ITEMS.filter((item) => item.kind === 'Lab').map((item) => item.to)).toEqual(['/lab/titration', '/lab/aqueous', '/lab/flame', '/lab/calorimetry', '/lab/cations', '/lab/le-chatelier', '/lab/clock-reaction', '/lab/iodination-of-acetone', '/lab/red-cabbage-ph'])
     expect(PALETTE_ITEMS.find((item) => item.to === '/lab/flame')).toEqual({ id: 'lab:flame', label: 'Flame tests', kind: 'Lab', to: '/lab/flame' })
     expect(PALETTE_ITEMS.find((item) => item.to === '/lab/calorimetry')).toEqual({ id: 'lab:calorimetry', label: 'Calorimetry', kind: 'Lab', to: '/lab/calorimetry' })
     expect(PALETTE_ITEMS.find((item) => item.to === '/lab/cations')).toEqual({ id: 'lab:cations', label: 'Group I cations', kind: 'Lab', to: '/lab/cations' })
     expect(PALETTE_ITEMS.find((item) => item.to === '/lab/le-chatelier')).toEqual({ id: 'lab:le-chatelier', label: "Le Chatelier's principle", kind: 'Lab', to: '/lab/le-chatelier' })
     expect(PALETTE_ITEMS.find((item) => item.to === '/lab/clock-reaction')).toEqual({ id: 'lab:clock-reaction', label: 'Clock reaction', kind: 'Lab', to: '/lab/clock-reaction' })
     expect(PALETTE_ITEMS.find((item) => item.to === '/lab/iodination-of-acetone')).toEqual({ id: 'lab:iodination-of-acetone', label: 'Iodination of acetone', kind: 'Lab', to: '/lab/iodination-of-acetone' })
+    expect(PALETTE_ITEMS.find((item) => item.to === '/lab/red-cabbage-ph')).toEqual({ id: 'lab:red-cabbage-ph', label: 'Red cabbage pH', kind: 'Lab', to: '/lab/red-cabbage-ph' })
     expect(PALETTE_ITEMS.filter((item) => item.kind === 'Mechanism').map((item) => item.to)).toEqual(['/learn/hcl-nahco3'])
   })
 

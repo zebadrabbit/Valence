@@ -1,0 +1,111 @@
+{
+  "buffer-ph1": {
+    "classifiedAs": "Hazards of concentrated hydrochloric acid (6 M to 12 M), from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H314+H318: Causes severe skin and eye burns and damage",
+        "H332+H302: Harmful if swallowed or inhaled",
+        "H290: May be corrosive to metals"
+      ],
+      "note": {
+        "value": "The buffer on this bench is hydrochloric acid of about 0.13 mol/L with potassium chloride in it; the statements above are those of the concentrated acid such a buffer is made from. The same supplier’s sheet for acid of 0.1 M to 2.4 M, which covers this strength, keeps Danger and H314, and has H335: it may irritate the airways.\n\nThat sheet calls for eye protection, gloves and protective clothing, and a fume hood or a well-ventilated room. If any gets in the eyes they are rinsed with water for several minutes and a poison centre or a doctor is called at once. The acid is kept from bases and from strong oxidisers. The supplier’s sheet for a solution of potassium chloride lists no hazard.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-395.2",
+        "alsoSourceId": "flinn-sds-622"
+      },
+      "sourceId": "flinn-sds-395"
+    }
+  },
+  "buffer-ph13": {
+    "classifiedAs": "Hazards of solid sodium hydroxide, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H314: Causes severe skin burns and eye damage",
+        "H290: May be corrosive to metals"
+      ],
+      "note": {
+        "value": "The buffer on this bench is sodium hydroxide of about 0.13 mol/L with potassium chloride in it; the statements above are those of the solid such a buffer is made from. The same supplier’s sheet for solutions under 0.3 M, which covers this strength, gives Warning and H315+H320: it irritates the skin and the eyes.\n\nThat sheet calls for eye protection, gloves and protective clothing. If any gets in the eyes they are rinsed with water for several minutes, and medical advice is got if the irritation lasts. The supplier’s sheet for a solution of potassium chloride lists no hazard.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-735.2",
+        "alsoSourceId": "flinn-sds-622"
+      },
+      "sourceId": "flinn-sds-734"
+    }
+  },
+  "indicator": {
+    "classifiedAs": "Hazards of red cabbage extract, a freeze-dried powder sold as an indicator, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "None",
+      "statements": [],
+      "note": {
+        "value": "The indicator on this bench is that powder dissolved in water. The sheet prints no signal word and no hazard statement. It still calls for eye protection, gloves and protective clothing, and for washing the hands afterwards, as for any laboratory chemical.\n\nIt is made from a food and it is not food: nothing on a laboratory bench is tasted. If any gets in the eyes they are rinsed with water for several minutes. The sheet says that the powder may grow mould where it is kept damp.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-665.8"
+      },
+      "sourceId": "flinn-sds-665.8"
+    }
+  },
+  "ammonia": {
+    "classifiedAs": "Hazards of ammonia solution (ammonium hydroxide) of 1.1 M to 14.8 M, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H302: Harmful if swallowed",
+        "H314: Causes severe skin burns and eye damage"
+      ],
+      "note": {
+        "value": "The bottle is household ammonia, on the bench at about one part in twenty in water. The same supplier’s sheet for household ammonia gives Warning: it may be harmful if breathed in, and irritates the skin and the eyes. Its sheet for solutions of 1 M or less, which the bench’s is, gives Danger, with H315 and H318: serious damage to the eyes.\n\nStricter, and what this lab goes by: the statements above, from its sheet for stronger solutions, which a bottle as sold may be. Eye protection, gloves and protective clothing are worn. If any gets in the eyes they are rinsed with water for several minutes and a poison centre or a doctor is called at once. Ammonia is kept away from acids, and from bleach and anything else that holds chlorine.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-46",
+        "alsoSourceId": "flinn-sds-58.05",
+        "moreSourceIds": [
+          "flinn-sds-58"
+        ]
+      },
+      "sourceId": "flinn-sds-58"
+    }
+  },
+  "bleach": {
+    "classifiedAs": "Hazards of sodium hypochlorite solution of 5% to 12.5%, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H314: Causes severe skin burns and eye damage"
+      ],
+      "note": {
+        "value": "The bottle is bleach, a solution of sodium hypochlorite in water, on the bench at about one part in a hundred; the statements above are those of the bottle. The sheet calls for eye protection, gloves and protective clothing, and a fume hood or a well-ventilated room.\n\nStricter, and what this lab goes by: NOAA’s record calls it a strong oxidising agent and says that a hypochlorite in contact with an acid gives off chlorine, a highly toxic gas. On this bench bleach is kept away from the vinegar, the juices and the acid buffers, and nothing is mixed with it. If any gets in the eyes they are flushed with water for 15 minutes.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-736",
+        "alsoSourceId": "noaa-cameo-4503"
+      },
+      "sourceId": "flinn-sds-736"
+    }
+  },
+  "drain-cleaner": {
+    "classifiedAs": "Hazards of solid sodium hydroxide, the pure substance, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Danger",
+      "statements": [
+        "H314: Causes severe skin burns and eye damage",
+        "H290: May be corrosive to metals"
+      ],
+      "note": {
+        "value": "The bottle is a drain cleaner, taken here as sodium hydroxide in water, on the bench at about one part in twenty. The same supplier’s sheet for solutions of 0.3 M to 6.0 M, which the bottle is taken to be, keeps Danger and H314. Its sheet for solutions under 0.3 M, which the bench’s is, gives Warning and H315+H320: it irritates the skin and the eyes.\n\nStricter, and what this lab goes by: the bottle’s. Eye protection, gloves and protective clothing are worn, and its mist is not breathed. If any gets in the eyes they are rinsed with water for several minutes. A drain cleaner’s own label gives its cautions, and some hold other things than sodium hydroxide.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-735",
+        "alsoSourceId": "flinn-sds-735.2"
+      },
+      "sourceId": "flinn-sds-734"
+    }
+  },
+  "lab-detergent": {
+    "classifiedAs": "Hazards of a laboratory detergent powder, from a supplier's safety data sheet",
+    "hazards": {
+      "signalWord": "Warning",
+      "statements": [
+        "H315+H319: Causes skin and serious eye irritation"
+      ],
+      "note": {
+        "value": "The detergent on this bench is that powder at about one part in twenty in water; the statements above are those of the powder, which the sheet says is made of two phosphates and a sulfonate. It calls for eye protection, gloves and protective clothing.\n\nIf any gets in the eyes they are rinsed with water for several minutes, and medical advice is got if the irritation lasts. Skin is washed with plenty of water. The sheet keeps the detergent from strong acids and from oxidising agents.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-246"
+      },
+      "sourceId": "flinn-sds-246"
+    }
+  }
+}

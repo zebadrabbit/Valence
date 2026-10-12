@@ -1,8 +1,8 @@
 import type { TubeShows } from '@/engine/tubeShows'
 import { contentsEnd, type TubeLayers } from './Tube'
 
-// What a tube shows, turned into what is drawn of it: the Group I cations lab's and the Le Chatelier's principle
-// lab's, whose engines hand a page the one shape (src/engine/tubeShows.ts). Nothing here is chemistry: a tube is
+// What a tube shows, turned into what is drawn of it: the Group I cations lab's, the Le Chatelier's principle
+// lab's and the red cabbage pH lab's, whose engines hand a page the one shape (src/engine/tubeShows.ts). Nothing here is chemistry: a tube is
 // drawn from what an engine says is seen of it, and the words for each part of it are each lab's own messages.
 
 /** How tall the picture of such a tube is, of its own units (Tube.tsx). */
@@ -47,6 +47,27 @@ const LIQUID_HEX: Record<string, string> = {
   blue: '#1d3ea6',
   violet: '#8f58d1',
   pink: '#f8b4ce',
+  // The red cabbage pH lab's scale, from strong acid to strong base, with the blue and the yellow above for pH 8 and
+  // pH 13. A learner tells each tube of its rack from the tubes either side by eye, so each step differs from its
+  // neighbours in how light it is or strongly in hue, and a test holds every pair of neighbours apart
+  // (src/app/lab/cabbage/page.test.ts). pH 7 is the darkest, and the lightness rises from there to pH 13. A sample is
+  // held against all thirteen, so no two of the twelve may be near each other either, as drawn or as a colour vision
+  // deficiency is simulated: the dark pink and the purple are where they are for that (a purple of #742bb0 came out
+  // as the blue of pH 8 with protanopia simulated, and a dark pink of #99186a near the teal with deuteranopia).
+  red: '#e02424',
+  'dark pink': '#992154',
+  rose: '#f089ae',
+  lavender: '#d2c2f7',
+  purple: '#920de4',
+  'blue-violet': '#6f72f2',
+  'dark blue': '#0e1650',
+  teal: '#0d7480',
+  emerald: '#16a05c',
+  'greenish-yellow': '#8eba0e',
+  // What two household things of that lab look like before the indicator goes in. A white liquid is the card's own
+  // white: it is told from one with no colour by the wisps a cloudy liquid is drawn with, and by the word.
+  'pale yellow': '#fbf3bd',
+  white: '#ffffff',
 }
 const SOLID_HEX: Record<string, string> = { white: '#ffffff', yellow: '#f7e65a', 'grey to black': '#5b6068' }
 /** A colour the drawing has no value for: drawn grey, and named in words all the same. */

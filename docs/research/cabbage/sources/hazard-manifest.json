@@ -1,0 +1,430 @@
+{
+  "retrieved": "2026-10-11",
+  "about": "The documents behind the hazards of the red cabbage pH lab's seven bottles (hazards.json) and behind the safety card of its primer. Every one was read and none is kept. Five are safety data sheets of the default supplier fetched and read for this lab on the retrieval date, with its browser page saved as text; one is a government record fetched that day; seven are sheets that earlier labs' manifests list, written here exactly as they are there so that the build lists each once: those were not fetched again, and were read in the copies those labs saved, each checked against the hash that lab recorded. `fetchedSha256` is the sha256 of the file as it was fetched or saved. Each `supports` row names in `field` what it supports, gives in `prints` what the document prints, and says in `where` where that is. A row whose field ends in `notCarried` is something read and left out, with the reason.",
+  "sources": [
+    {
+      "id": "flinn-sds-395",
+      "url": "https://www.flinnsci.com/sds_395-hydrochloric-acid-6-m---12-m-concentrated/sds_395",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Hydrochloric Acid 6 M - 12 M (Concentrated), SDS number sds_395; revision date December 3, 2018 (read on 2026-10-05; no copy is kept).",
+      "fetchedSha256": "7f7a4674e69680d31910c4146a6f1e8a7527185259521bcd8de94ad93114b7c8",
+      "supports": [
+        {
+          "field": "buffer-ph1.classifiedAs",
+          "prints": "6 M - 12 M (Concentrated)",
+          "where": "The sheet's title, after the words Hydrochloric Acid: the strengths the sheet is for. The buffer on the bench is about 0.13 M, far below them; a buffer of this kind is made up from the concentrated acid, and the bottle carries the statements of the most dangerous form it is made from (spec 5.2). Not fetched again: read in the copy an earlier lab saved, whose hash is the one that lab recorded."
+        },
+        {
+          "field": "buffer-ph1.hazards",
+          "prints": "December 3, 2018",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read."
+        },
+        {
+          "field": "buffer-ph1.hazards.signalWord",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Danger."
+        },
+        {
+          "field": "buffer-ph1.hazards.statements[0]",
+          "prints": "Causes severe skin and eye burns and damage (H314+H318)",
+          "where": "Section 2, the first of the three hazard classes it lists: category 1, for corrosion of the skin and damage to the eyes. The record stores the sheet's own line, with its code or codes in front as printed, then a colon and the statement. Precautionary statements, whose codes begin with P, are not hazard statements and are not carried into the record."
+        },
+        {
+          "field": "buffer-ph1.hazards.statements[1]",
+          "prints": "Harmful if swallowed or inhaled (H332+H302)",
+          "where": "Section 2, the second of the three: category 4, for acute toxicity by mouth and by breathing in. The two codes are stored in the order the sheet prints them."
+        },
+        {
+          "field": "buffer-ph1.hazards.statements[2]",
+          "prints": "May be corrosive to metals (H290)",
+          "where": "Section 2, the last of the three: category 1, for corrosion of metals. The section prints no other hazard code."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-395.2",
+      "url": "https://www.flinnsci.com/sds_395.2-hydrochloric-acid-solution-0.1-m---2.4-m/sds_395.2",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Hydrochloric Acid Solution 0.1 M - 2.4 M, SDS number sds_395.2; revision date December 3, 2018 (read on 2026-10-05; no copy is kept).",
+      "fetchedSha256": "e87543f4779f511cff7a0c1f1c63896c9269d8ac45586be975e4003b4944f3c7",
+      "supports": [
+        {
+          "field": "buffer-ph1.hazards.note",
+          "prints": "0.1 M - 2.4 M",
+          "where": "The sheet's title, after the words Hydrochloric Acid Solution: the strengths it is for, which take in the buffer's 0.13 M. That figure is the lab's own (parameters.endBufferMolarity). The signal word under the title is DANGER. Not fetched again: read in the copy an earlier lab saved, whose hash is the one that lab recorded."
+        },
+        {
+          "field": "buffer-ph1.hazards.note",
+          "prints": "May cause respiratory irritation (H335)",
+          "where": "Section 2, the second of the three hazard classes it lists. The first is H314, burns of the skin and damage to the eyes; the third is H303, that it may be harmful if swallowed, which is milder than the H302 on the tile and is not said again."
+        },
+        {
+          "field": "buffer-ph1.hazards.note",
+          "prints": "SECTION 8 — EXPOSURE CONTROLS, PERSONAL PROTECTION",
+          "where": "The heading of section 8. Under it: eye protection, gloves and protective clothing, washing the hands after, and a hood or a room where the air is well changed. Section 4 has the eyes rinsed with water for several minutes and a poison centre or a doctor called at once. Section 10 keeps the acid from strong oxidisers, bases, amines and alkali metals."
+        },
+        {
+          "field": "buffer-ph1.notCarried",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "Read and not carried. The heading of section 13, under which the sheet says that the rules that may apply are looked at first and that one of the supplier's own numbered methods (#24b) is one option. Why: the note gives no method of disposal (spec 5.2)."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-622",
+      "url": "https://www.flinnsci.com/sds_622-potassium-chloride-solution/sds_622",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Potassium Chloride Solution, SDS number sds_622; revision date January 16, 2014 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "8005961308b5f6f8db8fa6bb17736d07c93bac48065a2b79614bab07552a0aaa",
+      "supports": [
+        {
+          "field": "buffer-ph1.hazards.note",
+          "prints": "Potassium Chloride Solution",
+          "where": "The sheet's title. Under the title it prints no signal word, and section 2 lists no hazard class, statement or code. Section 3 gives potassium chloride at 1 to 4%, the rest water. The same supplier's sheet for the solid gives Warning and H303; it is not carried, the buffer being a dilute solution. Not fetched again: read in the copy an earlier lab saved, whose hash is the one that lab recorded."
+        },
+        {
+          "field": "buffer-ph13.hazards.note",
+          "prints": "Potassium Chloride Solution",
+          "where": "The sheet's title. Under the title it prints no signal word, and section 2 lists no hazard class, statement or code. Section 3 gives potassium chloride at 1 to 4%, the rest water. The same supplier's sheet for the solid gives Warning and H303; it is not carried, the buffer being a dilute solution. Not fetched again: read in the copy an earlier lab saved, whose hash is the one that lab recorded."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-734",
+      "url": "https://www.flinnsci.com/sds_734-sodium-hydroxide/sds_734",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Hydroxide, SDS number sds_734; revision date March 25, 2014 (read on 2026-10-05; no copy is kept).",
+      "fetchedSha256": "c154c843826cbb76d3c670a26f0cfb6201036f36f4c3d7464846c371d9d11317",
+      "supports": [
+        {
+          "field": "buffer-ph13.classifiedAs",
+          "prints": "Sodium Hydroxide",
+          "where": "The sheet's title: the substance, with no strength. Section 3 lists sodium hydroxide alone, formula weight 39.997, and section 14 ships it as a solid. The buffer on the bench is a dilute solution made up from this solid, and the bottle carries the statements of the most dangerous form it is made from (spec 5.2). Not fetched again: read in the copy an earlier lab saved, whose hash is the one that lab recorded."
+        },
+        {
+          "field": "buffer-ph13.hazards",
+          "prints": "March 25, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read."
+        },
+        {
+          "field": "buffer-ph13.hazards.signalWord",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Danger."
+        },
+        {
+          "field": "buffer-ph13.hazards.statements[0]",
+          "prints": "Causes severe skin burns and eye damage (H314)",
+          "where": "Section 2, the first of the two hazard classes it lists: category 1, for corrosion of the skin. The record stores the sheet's own line, with its code or codes in front as printed, then a colon and the statement. Precautionary statements, whose codes begin with P, are not hazard statements and are not carried into the record."
+        },
+        {
+          "field": "buffer-ph13.hazards.statements[1]",
+          "prints": "May be corrosive to metals (H290)",
+          "where": "Section 2, the second and last of the two: category 1, for corrosion of metals. The section prints no other hazard code."
+        },
+        {
+          "field": "drain-cleaner.classifiedAs",
+          "prints": "Sodium Hydroxide",
+          "where": "The sheet's title: the substance, with no strength. Section 3 lists sodium hydroxide alone, formula weight 39.997, and section 14 ships it as a solid. The lab takes its drain cleaner as a solution of this solid in water, and the bottle carries the statements of the most dangerous form it is made from (spec 5.2). Not fetched again: read in the copy an earlier lab saved, whose hash is the one that lab recorded."
+        },
+        {
+          "field": "drain-cleaner.hazards",
+          "prints": "March 25, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read."
+        },
+        {
+          "field": "drain-cleaner.hazards.signalWord",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Danger."
+        },
+        {
+          "field": "drain-cleaner.hazards.statements[0]",
+          "prints": "Causes severe skin burns and eye damage (H314)",
+          "where": "Section 2, the first of the two hazard classes it lists: category 1, for corrosion of the skin. The record stores the sheet's own line, with its code or codes in front as printed, then a colon and the statement. Precautionary statements, whose codes begin with P, are not hazard statements and are not carried into the record."
+        },
+        {
+          "field": "drain-cleaner.hazards.statements[1]",
+          "prints": "May be corrosive to metals (H290)",
+          "where": "Section 2, the second and last of the two: category 1, for corrosion of metals. The section prints no other hazard code."
+        },
+        {
+          "field": "drain-cleaner.formulaWeight",
+          "prints": "39.997",
+          "where": "Section 3, the column of formula weights, in the row for sodium hydroxide: the figure the record works the pH of the drain cleaner out with (things[drain-cleaner].ph.solute.formulaWeight)."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-735.2",
+      "url": "https://www.flinnsci.com/sds_735.2-sodium-hydroxide-solution-less-than-0.3-m/sds_735.2",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Hydroxide Solution Less than 0.3 M, SDS number sds_735.2; revision date December 3, 2018 (read on 2026-10-05; no copy is kept).",
+      "fetchedSha256": "5c8bd20a5695e1733ef82a15a88af40e79500758859f7cbea96931776a75f88e",
+      "supports": [
+        {
+          "field": "buffer-ph13.hazards.note",
+          "prints": "Less than 0.3 M",
+          "where": "The sheet's title, after the words Sodium Hydroxide Solution: the strengths it is for. The buffer's 0.13 M, the lab's own figure (parameters.endBufferMolarity), is under it. The signal word under the title is WARNING. Not fetched again: read in the copy an earlier lab saved, whose hash is the one that lab recorded."
+        },
+        {
+          "field": "buffer-ph13.hazards.note",
+          "prints": "Causes skin and eye irritation (H315+H320)",
+          "where": "Section 2, the one hazard class it lists: category 2 for the skin and 2B for the eyes. Section 8 calls for eye protection, gloves and protective clothing. Section 4 has the eyes rinsed with water for several minutes, and medical advice got if the irritation lasts."
+        },
+        {
+          "field": "drain-cleaner.hazards.note",
+          "prints": "Less than 0.3 M",
+          "where": "The sheet's title, after the words Sodium Hydroxide Solution: the strengths it is for. The drain cleaner at one part in twenty is 0.0125 to 0.0625 mol/L by the record’s arithmetic, which is under it. The signal word under the title is WARNING. Not fetched again: read in the copy an earlier lab saved, whose hash is the one that lab recorded."
+        },
+        {
+          "field": "drain-cleaner.hazards.note",
+          "prints": "Causes skin and eye irritation (H315+H320)",
+          "where": "Section 2, the one hazard class it lists: category 2 for the skin and 2B for the eyes. Section 8 calls for eye protection, gloves and protective clothing. Section 4 has the eyes rinsed with water for several minutes, and medical advice got if the irritation lasts."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-735",
+      "url": "https://www.flinnsci.com/sds_735-sodium-hydroxide-solution-0.3-m---6.0-m/sds_735",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Hydroxide Solution 0.3 M - 6.0 M, SDS number sds_735; revision date December 3, 2018 (read on 2026-10-06; no copy is kept).",
+      "fetchedSha256": "043548ee42436bfbda34d59d033639d74e8a901f494be8c54021286dfc724b76",
+      "supports": [
+        {
+          "field": "drain-cleaner.hazards.note",
+          "prints": "0.3 M - 6.0 M",
+          "where": "The sheet's title, after the words Sodium Hydroxide Solution: the strengths it is for. Section 3 gives sodium hydroxide at 1.2 to 24%. The lab takes its drain cleaner as 1 to 5% sodium hydroxide, from a maker's sheet (MANIFEST.json), which is 0.25 to 1.25 mol/L by the record's arithmetic: inside this range but for its weakest end. Not fetched again: read in the copy an earlier lab saved, whose hash is the one that lab recorded."
+        },
+        {
+          "field": "drain-cleaner.hazards.note",
+          "prints": "Causes severe skin burns and eye damage (H314)",
+          "where": "Section 2, the one hazard class it lists, under the signal word DANGER; beside it the precaution that its mist, vapour or spray is not breathed. Section 8 calls for eye protection, gloves and protective clothing. Section 4 has the eyes rinsed with water for several minutes."
+        },
+        {
+          "field": "drain-cleaner.notCarried",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "Read and not carried. The heading of section 13, under which the sheet says that the rules that may apply are looked at first and that one of the supplier's own numbered methods (#10) is one option. Why: the note gives no method of disposal (spec 5.2)."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-665.8",
+      "url": "https://www.flinnsci.com/sds_665.8-red-cabbage-extract-universal-indicator/sds_665.8",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Red Cabbage Extract Universal Indicator, SDS number sds_665.8; revision date January 16, 2014 (read on 2026-10-11; no copy is kept).",
+      "fetchedSha256": "095824c99906fc44cd8fb1f6f106126e2eb9980a509003ebb38c4436f0e6e62f",
+      "supports": [
+        {
+          "field": "indicator.classifiedAs",
+          "prints": "Red Cabbage Extract Universal Indicator",
+          "where": "The sheet's title. Section 9 describes a maroon powder and says that it is extract of red cabbage that has been freeze-dried, and an indicator of pH. Section 3 gives no composition."
+        },
+        {
+          "field": "indicator.hazards",
+          "prints": "January 16, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read."
+        },
+        {
+          "field": "indicator.hazards.signalWord",
+          "prints": "",
+          "where": "The sheet prints no signal word: where the supplier’s other sheets have a line that begins Signal Word, this one has none. The record stores None."
+        },
+        {
+          "field": "indicator.hazards.statements",
+          "prints": "SECTION 2 — HAZARDS IDENTIFICATION",
+          "where": "The heading of section 2. Under it the sheet lists no hazard class, no statement and no code; it says that the chemical is taken to be non-hazardous under the classification it follows, and that every laboratory chemical is still treated with caution. The record stores no statement."
+        },
+        {
+          "field": "indicator.hazards.note",
+          "prints": "SECTION 8 — EXPOSURE CONTROLS, PERSONAL PROTECTION",
+          "where": "The heading of section 8. Under it: eye protection, gloves and protective clothing, and washing the hands after. Section 4 has the eyes rinsed with water for several minutes. Section 10 gives the shelf life as fair and says that mould may grow on it, the more so where the air is humid. That it is not tasted is the rule of every bench; the sheet does not say it."
+        },
+        {
+          "field": "indicator.notCarried",
+          "prints": "Combustible solid.",
+          "where": "Read and not carried. Section 5, the first line, for the dry powder. Why: the bench holds a solution of it in water."
+        },
+        {
+          "field": "indicator.notCarried",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "Read and not carried. The heading of section 13, under which the sheet says that the rules that may apply are looked at first and that one of the supplier's own numbered methods (#26a) is one option. Why: the note gives no method of disposal (spec 5.2)."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-58",
+      "url": "https://www.flinnsci.com/sds_58-ammonium-hydroxide-1.1-m---14.8-m/sds_58",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Ammonium Hydroxide 1.1 M - 14.8 M, SDS number sds_58; revision date October 12, 2015 (read on 2026-10-09; no copy is kept).",
+      "fetchedSha256": "f8567f517b5b54df81760cb91b9ec68fbe6f56cd4e4dddcdc59ac50ac1121837",
+      "supports": [
+        {
+          "field": "ammonia.classifiedAs",
+          "prints": "1.1 M - 14.8 M",
+          "where": "The sheet's title, after the words Ammonium Hydroxide: the strengths it is for. Section 3 gives ammonium hydroxide at 5 to 70%. Household ammonia of 5 to 10% ammonia, as a public health agency gives it (MANIFEST.json), is about 2.9 to 5.9 mol/L by this record's arithmetic, inside the range: this is the strictest of the supplier's three sheets that bear on the bottle, and the tile carries it. Not fetched again: read in the copy an earlier lab saved, whose hash is the one that lab recorded."
+        },
+        {
+          "field": "ammonia.hazards",
+          "prints": "October 12, 2015",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read."
+        },
+        {
+          "field": "ammonia.hazards.signalWord",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Danger."
+        },
+        {
+          "field": "ammonia.hazards.statements[0]",
+          "prints": "Harmful if swallowed (H302)",
+          "where": "Section 2, the first of the two hazard classes it lists: category 4, for acute toxicity by mouth. The record stores the sheet's own line, with its code or codes in front as printed, then a colon and the statement. Precautionary statements, whose codes begin with P, are not hazard statements and are not carried into the record."
+        },
+        {
+          "field": "ammonia.hazards.statements[1]",
+          "prints": "Causes severe skin burns and eye damage (H314)",
+          "where": "Section 2, the last of the two: category 1, for corrosion of the skin. The section prints no other hazard code."
+        },
+        {
+          "field": "ammonia.hazards.note",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "The heading of section 4. Under it, for the eyes: rinsed with water for several minutes, and a poison centre or a doctor called at once. Section 8 calls for eye protection, gloves and protective clothing. Section 10 keeps the solution from acids."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-46",
+      "url": "https://www.flinnsci.com/sds_46-ammonia/sds_46",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Ammonia, SDS number sds_46; revision date March 21, 2014 (read on 2026-10-11; no copy is kept).",
+      "fetchedSha256": "4230401f7fc64f98501fe14ca735a88957d4dd73717f1579b7cd24a077b656b5",
+      "supports": [
+        {
+          "field": "ammonia.hazards.note",
+          "prints": "Ammonia",
+          "where": "The sheet's title. Section 3 gives ammonium hydroxide at under 10%, the rest water, and section 9 a clear, cloudy white or coloured liquid with a pungent smell: household ammonia as it is sold. The signal word under the title is WARNING."
+        },
+        {
+          "field": "ammonia.hazards.note",
+          "prints": "May be harmful if inhaled (H333)",
+          "where": "Section 2, the first of the three hazard classes it lists. The other two are H316, mild irritation of the skin, and H320, irritation of the eyes. Section 10 keeps it from acids, from copper, galvanised iron and aluminium, and from compounds that hold chlorine: the note names bleach, which is on this bench."
+        },
+        {
+          "field": "ammonia.notCarried",
+          "prints": "Acutely toxic to aquatic species.",
+          "where": "Read and not carried. Section 12, all of it, with no hazard class and no code. Why: the sheet does not class the solution as a hazard to the environment, and no other document read does."
+        },
+        {
+          "field": "ammonia.notCarried",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "Read and not carried. The heading of section 13, under which the sheet says that the rules that may apply are looked at first and that one of the supplier's own numbered methods (#26b) is one option. Why: the note gives no method of disposal (spec 5.2)."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-58.05",
+      "url": "https://www.flinnsci.com/sds_58.05-ammonium-hydroxide-solution-1-m-or-less/sds_58.05",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Ammonium Hydroxide Solution 1 M or Less, SDS number sds_58.05; revision date August 7, 2015 (read on 2026-10-11; no copy is kept).",
+      "fetchedSha256": "15d1cea427a63460502025ce72053c7086d2a54391aedcf392f88a2c173e9e54",
+      "supports": [
+        {
+          "field": "ammonia.hazards.note",
+          "prints": "1 M or Less",
+          "where": "The sheet's title, after the words Ammonium Hydroxide Solution: the strengths it is for. Household ammonia at one part in twenty is about 0.15 to 0.29 mol/L by the record's arithmetic, which is under 1 M. The signal word under the title is DANGER."
+        },
+        {
+          "field": "ammonia.hazards.note",
+          "prints": "Causes serious eye damage (H318)",
+          "where": "Section 2, the second of the two hazard classes it lists; the first is H315, irritation of the skin. Section 4 has the eyes rinsed with water for several minutes and a poison centre or a doctor called at once."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-736",
+      "url": "https://www.flinnsci.com/sds_736-sodium-hypochlorite-solution/sds_736",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Hypochlorite Solution, SDS number sds_736; revision date March 21, 2014 (read on 2026-10-11; no copy is kept).",
+      "fetchedSha256": "ab4e68ef127fec0d8bb255f47b1b06ce701cf9c0530c50e5cea5a6e4d32a5cc9",
+      "supports": [
+        {
+          "field": "bleach.classifiedAs",
+          "prints": "Sodium Hypochlorite Solution",
+          "where": "The sheet's title. Section 3 gives sodium hypochlorite at 5-12.5%, formula weight 74.44, the rest water: the strengths the heading over the tile gives, and the figures the record works the pH of bleach out with (things[bleach].ph). Section 9 describes a liquid with no colour, a little cloudy, with the smell of bleach, and gives the pH only as basic."
+        },
+        {
+          "field": "bleach.hazards",
+          "prints": "March 21, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read."
+        },
+        {
+          "field": "bleach.hazards.signalWord",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Danger."
+        },
+        {
+          "field": "bleach.hazards.statements[0]",
+          "prints": "Causes severe skin burns and eye damage (H314)",
+          "where": "Section 2, the one hazard class it lists: category 1B. The record stores the sheet's own line, with its code or codes in front as printed, then a colon and the statement. Precautionary statements, whose codes begin with P, are not hazard statements and are not carried into the record."
+        },
+        {
+          "field": "bleach.hazards.note",
+          "prints": "SECTION 8 — EXPOSURE CONTROLS, PERSONAL PROTECTION",
+          "where": "The heading of section 8. Under it: eye protection, gloves and protective clothing, washing the hands after, and a hood or a room where the air is well changed. Section 10 keeps it from great heat, from reducers and from strong mineral acids."
+        },
+        {
+          "field": "bleach.notCarried",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "Read and not carried. The heading of section 13, under which the sheet says that the rules that may apply are looked at first and that one of the supplier's own numbered methods (#26b) is one option. Why: the note gives no method of disposal (spec 5.2)."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-4503",
+      "url": "https://cameochemicals.noaa.gov/chemical/4503",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Sodium Hypochlorite (chemical 4503); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-11; no copy is kept).",
+      "fetchedSha256": "854858723e017ec8272b07167645af31fdd58bc80cf0900905505d0e89fb7bdd",
+      "supports": [
+        {
+          "field": "bleach.hazards.note",
+          "prints": "Strong Oxidizing Agent",
+          "where": "The field Reactivity Alerts, all of it. The field Reactivity Profile says of the salts of hypochlorous acid that they give off highly toxic fumes of chlorine when heated or in contact with acids. The record is for solutions of sodium hypochlorite; that the acids of this bench are the vinegar, the juices and the acid buffers is read from this lab’s own record."
+        },
+        {
+          "field": "bleach.hazards.note",
+          "prints": "Flush with plenty of water for 15 minutes.",
+          "where": "The field First Aid, for the eyes: longer than the several minutes of the supplier’s sheet, and what the note gives."
+        },
+        {
+          "field": "bleach.notCarried",
+          "prints": "Induce vomiting, give water.",
+          "where": "Read and not carried. The field First Aid, for swallowing, from a response guide of 1999. Why: the supplier’s sheet, which is the later document, has the mouth rinsed and a poison centre or a doctor called; the note gives no advice on swallowing."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-246",
+      "url": "https://www.flinnsci.com/sds_246-alconox-cleaner/sds_246",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Alconox® Cleaner, SDS number sds_246; revision date June 6, 2016 (read on 2026-10-11; no copy is kept).",
+      "fetchedSha256": "86ddd4bcf02e56062950e2c7391cdce7a3a85db6b4e311a4f2a859098fc7d8e2",
+      "supports": [
+        {
+          "field": "lab-detergent.classifiedAs",
+          "prints": "Alconox® Cleaner",
+          "where": "The sheet's title: a laboratory detergent sold under a trade name, which the heading over the tile does not give. Section 9 describes white to cream flakes or powder, an anionic detergent, and gives the pH of a solution in water as 9.5, with no strength: the figure the record stores for the thing (things[lab-detergent].ph)."
+        },
+        {
+          "field": "lab-detergent.hazards",
+          "prints": "June 6, 2016",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read."
+        },
+        {
+          "field": "lab-detergent.hazards.signalWord",
+          "prints": "WARNING",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Warning."
+        },
+        {
+          "field": "lab-detergent.hazards.statements[0]",
+          "prints": "Causes skin and serious eye irritation (H315+H319)",
+          "where": "Section 2, the one hazard class it lists: category 2 for the skin and 2A for the eyes. The record stores the sheet's own line, with its code or codes in front as printed, then a colon and the statement. Precautionary statements, whose codes begin with P, are not hazard statements and are not carried into the record."
+        },
+        {
+          "field": "lab-detergent.hazards.note",
+          "prints": "Sodium tripolyphosphate",
+          "where": "Section 3, the first of three components; the others are a sodium alkylbenzene sulfonate and tetrasodium pyrophosphate. Section 8 calls for eye protection, gloves and protective clothing. Section 4 has the eyes rinsed with water for several minutes, with medical advice if the irritation lasts, and the skin washed with plenty of water. Section 10 keeps it from strong acids and oxidising agents."
+        },
+        {
+          "field": "lab-detergent.notCarried",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "Read and not carried. The heading of section 13, under which the sheet says that the rules that may apply are looked at first and that one of the supplier's own numbered methods (#26b) is one option. Why: the note gives no method of disposal (spec 5.2)."
+        }
+      ]
+    }
+  ]
+}

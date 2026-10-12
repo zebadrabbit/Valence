@@ -13,6 +13,7 @@ describe('the activities', () => {
       ['lab:le-chatelier', '/lab/le-chatelier'],
       ['lab:clock-reaction', '/lab/clock-reaction'],
       ['lab:iodination-of-acetone', '/lab/iodination-of-acetone'],
+      ['lab:red-cabbage-ph', '/lab/red-cabbage-ph'],
       ['mechanism:hcl-nahco3', '/learn/hcl-nahco3'],
     ])
     expect(ACTIVITIES.every(hasPage)).toBe(true)

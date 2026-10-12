@@ -33,6 +33,8 @@
 //   lechatelier/lechatelier.json, and into sources.json the Le Chatelier's principle lab's sources
 // Reads docs/research/clock/ (clock.json, hazards.json and the two manifests under sources/) and writes:
 //   clock/clock.json, and into sources.json the clock reaction lab's sources
+// Reads docs/research/cabbage/ (cabbage.json, hazards.json and the two manifests under sources/) and writes:
+//   cabbage/cabbage.json, and into sources.json the red cabbage pH lab's sources
 // Reads docs/research/acetone/ (acetone.json, hazards.json and the two manifests under sources/), with the
 // aqueous lab's hazards for the bottle the two labs share, and writes:
 //   acetone/acetone.json, and into sources.json the iodination of acetone lab's sources
@@ -56,6 +58,7 @@ import { checkMolarMasses, checkWorkedOut, withSharedHazards, withSharedSheets }
 import { checkAtomicWeights, checkBench, checkWorkedOut as checkCationsWorkedOut } from './cations-lib.mjs'
 import { checkBench as checkLechatelierBench, checkWorkedOut as checkLechatelierWorkedOut } from './lechatelier-lib.mjs'
 import { checkMixtures, checkRateRecord, checkReactions, checkUsedUp } from './clock-lib.mjs'
+import { checkEstimates, checkScale, checkWorkedOut as checkCabbageWorkedOut } from './cabbage-lib.mjs'
 import { checkExcess, checkMixtures as checkAcetoneMixtures, checkRateRecord as checkAcetoneRateRecord, checkReaction as checkAcetoneReaction } from './acetone-lib.mjs'
 import { checkAnnualMean, checkMolecularWeight, checkPublished, checkSha256, checkSheetHazards, checkWikipediaCopy } from './titration-lib.mjs'
 
@@ -71,6 +74,7 @@ const calorimetryResearch = join(root, 'docs/research/calorimetry')
 const cationsResearch = join(root, 'docs/research/cations')
 const lechatelierResearch = join(root, 'docs/research/lechatelier')
 const clockResearch = join(root, 'docs/research/clock')
+const cabbageResearch = join(root, 'docs/research/cabbage')
 const acetoneResearch = join(root, 'docs/research/acetone')
 const out = join(root, 'src/chem-data')
 
@@ -1890,6 +1894,61 @@ function buildAcetone(earlierSources) {
   return { acetone, sources: [...labSources, ...sheetSources.filter((source) => underHazards.has(source.id) || forPrimer.has(source.id))] }
 }
 
+// ---------------------------------------------------------------------------
+// Red cabbage pH lab
+//
+// The record is authored in docs/research/cabbage/cabbage.json: the seven bottles that are laboratory chemicals;
+// the scale's thirteen buffers and its three questions; the indicator's colours, each with the pH or the range
+// its source names it for; the fourteen household things, each with how it is on the bench, what it looks like
+// before the indicator goes in, its range of pH and the note shown when its sample is done; the note that the
+// things with no record of their own share; three constants; the three parts with the notes shown when each is
+// done; and the model's parameters. Every source is in sources/MANIFEST.json, each row of which names the stored
+// values it supports, and the build holds the record to those rows as it does the aqueous lab's. No source has a
+// copy in this lab's folder. What the record states of its own chemistry is checked here (scripts/cabbage-lib.mjs):
+// the colours cover the scale with no gap, every range lies inside the scale, each pH that is worked out is what
+// its cited figures give, and a careful estimate by eye is within a unit of the meter for every thing but bleach
+// (spec 21.6). The bottles' hazards are authored apart, in hazards.json with sources/hazard-manifest.json, and
+// merged in as the clock reaction lab's are: every record is this lab's own, none being the same bottle at the
+// same strength as another lab's, though seven of the documents behind them are ones earlier labs list too.
+
+const CABBAGE_KEYS = ['reagents', 'water', 'scale', 'indicator', 'things', 'sharedNote', 'constants', 'parts', 'parameters']
+const CABBAGE_REAGENTS = ['buffer-ph1', 'buffer-ph13', 'indicator', 'ammonia', 'bleach', 'drain-cleaner', 'lab-detergent']
+const CABBAGE_PARTS = ['scale', 'things', 'unit']
+/** The field of a hazard manifest's row for a document read for the primer's safety topic. */
+const CABBAGE_PRIMER_SAFETY = 'primer.safety'
+
+function buildCabbage(earlierSources) {
+  const json = (name) => JSON.parse(readFileSync(join(cabbageResearch, name), 'utf8'))
+  const input = json('cabbage.json')
+  const manifest = json('sources/MANIFEST.json')
+  const hazardManifest = json('sources/hazard-manifest.json')
+
+  onlyKeys(input, CABBAGE_KEYS, 'cabbage.json')
+  if (input.reagents.map((r) => r.id).join() !== CABBAGE_REAGENTS.join()) fail('cabbage.json: the reagents are not the seven laboratory chemicals of spec 21.4, in their order')
+  if (input.parts.map((p) => p.id).join() !== CABBAGE_PARTS.join()) fail('cabbage.json: the parts are not the three of spec 21.1, in their order')
+  if ([...manifest.sources, ...hazardManifest.sources].some((source) => source.file !== undefined)) fail('cabbage manifests: no source of this lab has a copy in its folder')
+  for (const [key, parameter] of Object.entries(input.parameters)) onlyKeys(parameter, ['value', 'rationale'], `cabbage.json: parameters.${key}`)
+  const bottles = new Set(CABBAGE_REAGENTS)
+  for (const item of [...input.things, ...input.scale.buffers]) if (item.reagentId !== undefined && !bottles.has(item.reagentId)) fail(`cabbage.json: unknown reagent "${item.reagentId}"`)
+
+  const labSources = newSources(manifest.sources, earlierSources, 'cabbage MANIFEST.json')
+
+  checkScale(input)
+  checkCabbageWorkedOut(input)
+  checkEstimates(input)
+
+  const sheets = hazardManifest.sources
+  const sheetSources = newSources(sheets, [...earlierSources, ...labSources], 'cabbage hazard-manifest.json')
+  const cabbage = { ...input, reagents: mergeHazards(input.reagents, json('hazards.json'), sheets) }
+  checkSupported(cabbage, manifest.sources, sheets)
+
+  // As for the clock reaction lab: the app lists the documents a bottle's hazards cite, and with them those the
+  // hazard manifest marks as read for the primer's safety topic, which no tile cites.
+  const underHazards = new Set(cabbage.reagents.flatMap(({ hazards: { sourceId, note } }) => [sourceId, note.sourceId, ...(note.alsoSourceId === undefined ? [] : [note.alsoSourceId]), ...(note.moreSourceIds ?? [])]))
+  const forPrimer = new Set(hazardManifest.sources.filter((source) => source.supports.some((row) => row.field === CABBAGE_PRIMER_SAFETY)).map((source) => source.id))
+  return { cabbage, sources: [...labSources, ...sheetSources.filter((source) => underHazards.has(source.id) || forPrimer.has(source.id))] }
+}
+
 // A static import list keeps the registry free of bundler-only APIs.
 function moleculeIndex(molecules) {
   const name = (id) => id.replace(/-(.)/g, (_, c) => c.toUpperCase())
@@ -1941,7 +2000,9 @@ function main() {
   const { clock, sources: clockSources } = buildClock(beforeClock)
   const beforeAcetone = [...beforeClock, ...clockSources]
   const { acetone, sources: acetoneSources } = buildAcetone(beforeAcetone)
-  const sources = [...beforeAcetone, ...acetoneSources]
+  const beforeCabbage = [...beforeAcetone, ...acetoneSources]
+  const { cabbage, sources: cabbageSources } = buildCabbage(beforeCabbage)
+  const sources = [...beforeCabbage, ...cabbageSources]
   if (new Set(sources.map((s) => s.id)).size !== sources.length) fail('duplicate source ids')
 
   // Everything is built before anything is written.
@@ -1971,11 +2032,13 @@ function main() {
   writeFileSync(join(out, 'clock/clock.json'), toJson(clock))
   mkdirSync(join(out, 'acetone'), { recursive: true })
   writeFileSync(join(out, 'acetone/acetone.json'), toJson(acetone))
+  mkdirSync(join(out, 'cabbage'), { recursive: true })
+  writeFileSync(join(out, 'cabbage/cabbage.json'), toJson(cabbage))
   mkdirSync(join(root, 'src/mechanisms'), { recursive: true })
   writeFileSync(join(root, 'src/mechanisms', `${mechanism.id}.json`), toJson(mechanism))
   writeFileSync(join(out, 'sources.json'), toJson(sources))
   process.stdout.write(
-    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the flame test lab's record, the calorimetry lab's record, the Group I cations lab's record, the Le Chatelier's principle lab's record, the clock reaction lab's record, the iodination of acetone lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
+    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the flame test lab's record, the calorimetry lab's record, the Group I cations lab's record, the Le Chatelier's principle lab's record, the clock reaction lab's record, the iodination of acetone lab's record, the red cabbage pH lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
   )
 }
 

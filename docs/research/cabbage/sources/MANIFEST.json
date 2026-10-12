@@ -1,0 +1,562 @@
+{
+  "retrieved": "2026-10-11",
+  "about": "Every source of the red cabbage pH lab's record (docs/research/cabbage/cabbage.json) and of its primer (src/chem-data/cabbage/primer.ts) that is not a safety data sheet under a bottle's hazards: those are in hazard-manifest.json. Each was fetched and read for this lab on the retrieval date. No source has a copy in this folder. `fetchedSha256` is the sha256 of the file as it was fetched: a record of which file was read, not the hash of anything here, and nothing checks it. Each `supports` row names in `fields` the stored values it supports, gives in `prints` what the source prints, and says in `where` where that is; the build holds the record to these rows. A row whose field is `primer` supports a paragraph of the primer.",
+  "sources": [
+    {
+      "id": "flinn-pub-91633",
+      "url": "https://www.flinnsci.com/api/library/Download/7216c8b7dd814eca9e6f8eca99fe513c",
+      "citation": "Flinn Scientific, Inc. Red Cabbage Indicator: Natural Indicators and Household Substances; Publication No. 91633, three pages, 2016. Read as the PDF the supplier serves at the address above; no copy is kept (retrieved 2026-10-11).",
+      "fetchedSha256": "c7d42cd604a575584b4852f3af9b8eada16997284783ff2d6bcc1ce444200788",
+      "supports": [
+        {
+          "fields": [
+            "indicator.colours[dark-pink]",
+            "indicator.colours[rose]",
+            "indicator.colours[lavender]",
+            "indicator.colours[purple]",
+            "indicator.colours[blue-violet]",
+            "indicator.colours[dark-blue]",
+            "indicator.colours[blue]",
+            "indicator.colours[teal]",
+            "indicator.colours[emerald]",
+            "indicator.colours[greenish-yellow]"
+          ],
+          "prints": "Dark Pink Rose Lavender Purple Blue-violet Dark Blue Blue Teal Emerald Greenish-yellow",
+          "where": "Page 3, Figure 1: a strip of ten swatches with a name over each and a pH under each: the whole numbers from 2 to 10 in order, and then 11–12. The names are given here in the figure's order, left to right; the last is printed on two lines. Which name stands over which pH was read from the places of the words on the page as well as from their order. The record stores the names in lower case. The figure has no swatch below 2 and none above 12."
+        },
+        {
+          "fields": [
+            "indicator.bleached"
+          ],
+          "prints": "colorless",
+          "where": "Page 2, among the tips, the note marked with a star under the table of suggested things: bleach is basic, which is easy to miss because it soon takes the colour out of the indicator. The record stores the word in this project's spelling."
+        },
+        {
+          "fields": [
+            "things[bleach].note",
+            "parts[things].notes[1]"
+          ],
+          "prints": "Bleach*",
+          "where": "Page 2, the table of suggested household things, in the column of bases, and the starred note under it: the same passage. It gives no reason for the loss of colour and no time for it; the notes give neither."
+        },
+        {
+          "fields": [
+            "indicator.note",
+            "parts[scale].notes[0]",
+            "parts[scale].notes[1]"
+          ],
+          "prints": "Figure 1.",
+          "where": "Page 3, the caption of the strip of swatches, and the paragraph over it, which says that acid gives the dye its red and pink shades, a neutral liquid its blue and violet, and a base green to yellow. The strip gives one swatch and one name for pH 11–12."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Discussion",
+          "where": "Page 3, the paragraph under this heading: the dyes of red cabbage dissolve in water, are called anthocyanins, and change colour with the pH. Page 1 says that food brought into a laboratory is a laboratory chemical and is not tasted, and that a neutral batch of the indicator is a bluish purple. Page 2 has a cup of distilled water for rinsing the stirrer between one thing and the next."
+        }
+      ]
+    },
+    {
+      "id": "libretexts-indicators-in-foods",
+      "url": "https://chem.libretexts.org/Ancillary_Materials/Exemplars_and_Case_Studies/Exemplars/Foods/Indicators_in_Foods",
+      "citation": "LibreTexts. Indicators in Foods; a page among the Exemplars of the Ancillary Materials; read and not kept (retrieved 2026-10-11).",
+      "fetchedSha256": "f5c990b5af9b599e95ad34eeefbc5c3df5a3007ab7db38d8927ed1cebdb7a393",
+      "supports": [
+        {
+          "fields": [
+            "indicator.colours[red]",
+            "indicator.colours[yellow]"
+          ],
+          "prints": "red",
+          "where": "Table 1, the pH and colour of anthocyanins: the first row gives pH 1 this colour, and the last gives pH 13 yellow. The rows between give 4, 6, 8 and 12 with blue-red, purple, blue and green. The table is for the dyes of this family in general, taken from petunias in its figure, and not for red cabbage alone; the record uses its two ends only, where the supplier’s figure for red cabbage has nothing."
+        },
+        {
+          "fields": [
+            "indicator.note",
+            "parts[scale].notes[0]"
+          ],
+          "prints": "Table 1",
+          "where": "The same table, and the paragraph after it on red cabbage: a raw extract holds a second group of dyes that has no colour in acid and is yellow in base, so that the mixture looks green in base."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Natural indicators",
+          "where": "The first part of the page: an indicator is a weak acid whose two forms differ in colour, and the red and the blue of these dyes are such a pair. The paragraph on red cabbage says why its extract shows more colours than two."
+        }
+      ]
+    },
+    {
+      "id": "fda-ph-foods-2007",
+      "url": "https://riverstonehealth.org/wp-content/uploads/FDA-Approximate-pH-of-Foods.pdf",
+      "citation": "U.S. Food and Drug Administration, Center for Food Safety and Applied Nutrition. Approximate pH of Foods and Food Products; April 2007. Read as the thirteen-page PDF of the agency's page that a county public health agency serves at the address above; no copy is kept (retrieved 2026-10-11).",
+      "fetchedSha256": "43697422659ccf2662dfdeff39911e4bee0f5f002a243f941914218fce67a9ab",
+      "supports": [
+        {
+          "fields": [
+            "things[vinegar].ph.low"
+          ],
+          "prints": "2.40",
+          "where": "The table of items in the order of the alphabet, the row Vinegar: 2.40 - 3.40. The row under it gives cider vinegar one figure, 3.10, which lies inside the range."
+        },
+        {
+          "fields": [
+            "things[vinegar].ph.high"
+          ],
+          "prints": "3.40",
+          "where": "The same row."
+        },
+        {
+          "fields": [
+            "things[lemon-juice].ph.low"
+          ],
+          "prints": "2.00",
+          "where": "The row for the juice of lemons, whose two figures these are."
+        },
+        {
+          "fields": [
+            "things[lemon-juice].ph.high"
+          ],
+          "prints": "2.60",
+          "where": "The same row."
+        },
+        {
+          "fields": [
+            "things[apple-juice].ph.low"
+          ],
+          "prints": "3.35",
+          "where": "Under the row Apples, the indented row Juice: 3.35 - 4.00. The meter reads to a tenth, so the lowest reading the model gives is 3.4."
+        },
+        {
+          "fields": [
+            "things[apple-juice].ph.high"
+          ],
+          "prints": "4.00",
+          "where": "The same row."
+        },
+        {
+          "fields": [
+            "things[vinegar].note",
+            "things[lemon-juice].note",
+            "things[apple-juice].note"
+          ],
+          "prints": "Approximate pH",
+          "where": "The heading of the table's second column. The page says before the table that its ranges are approximate and that foods vary with variety, growing and processing. Of the three, lemon juice has the lowest range; that its range is the lowest of the things on the bench is read from this record's own ranges. The note does not say that it reads lowest in a lab: vinegar's range reaches down to 2.40, and a seed can draw the vinegar under the lemon juice."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Item",
+          "where": "The table as a whole: everyday foods with the pH of each."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-mgso4-heptahydrate",
+      "url": "https://www.fishersci.com/store/msds?partNumber=M63500&productDescription=MAGNESIUM+SULFATE+HEPTAHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Magnesium Sulfate Heptahydrate (Certified ACS), catalogue number M63-500 among others; revision 7 of 18 December 2025 (read on 2026-10-11; no copy is kept).",
+      "fetchedSha256": "e6d820ae5e2841faa0a289c688a00eba001f9a151de0890281e28d64ec85516b",
+      "supports": [
+        {
+          "fields": [
+            "things[epsom-salt].ph.low"
+          ],
+          "prints": "5",
+          "where": "Section 9, the table of physical and chemical properties, the row pH: 5-8.2, for a 5% solution in water. The bench has about 5 g in 100 mL, which is that strength."
+        },
+        {
+          "fields": [
+            "things[epsom-salt].ph.high"
+          ],
+          "prints": "8.2",
+          "where": "The same row."
+        },
+        {
+          "fields": [
+            "things[epsom-salt].note"
+          ],
+          "prints": "Magnesium Sulfate Heptahydrate",
+          "where": "The product's name at the head of the sheet. That Epsom salt is this compound is the name the salt is commonly sold under; the sheet does not use that name."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-caco3",
+      "url": "https://www.fishersci.com/store/msds?partNumber=C64500&productDescription=CALCIUM+CARBONATE&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Calcium carbonate, catalogue number C64-500 among others; revision 8 of 18 December 2025 (read on 2026-10-11; no copy is kept).",
+      "fetchedSha256": "c567e227b874b93bacf2ad7db7f8ef45b3a78eb4cc914dfb4a1de75c9096a25a",
+      "supports": [
+        {
+          "fields": [
+            "things[antacid].ph.low"
+          ],
+          "prints": "7",
+          "where": "Section 9, the table of physical and chemical properties, the row pH: 7 - 9 at 20 °C. The sheet gives no strength for the figure."
+        },
+        {
+          "fields": [
+            "things[antacid].ph.high"
+          ],
+          "prints": "9",
+          "where": "The same row."
+        },
+        {
+          "fields": [
+            "things[antacid].note"
+          ],
+          "prints": "Calcium carbonate",
+          "where": "The product's name at the head of the sheet: the compound the lab takes its antacid tablet to be made of."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-acetylsalicylic-acid",
+      "url": "https://www.fishersci.com/store/msds?partNumber=AC158180500&productDescription=ACETYLSALICYLIC+ACID&vendorId=VN00032119&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Acetylsalicylic acid, catalogue number AC158180500 among others; revision 6 of 19 December 2025 (read on 2026-10-11; no copy is kept).",
+      "fetchedSha256": "4eda7e9c62646225ecf9a3dba872d6ddb77ee21f128312215e443506d028b42b",
+      "supports": [
+        {
+          "fields": [
+            "things[aspirin].ph.low",
+            "things[aspirin].ph.high"
+          ],
+          "prints": "3.5",
+          "where": "Section 9, the table of physical and chemical properties, the row pH: 3.5, for 2.5 g in a litre at 20 °C. It is one figure, so both ends of the stored range are it."
+        },
+        {
+          "fields": [
+            "things[aspirin].note"
+          ],
+          "prints": "Acetylsalicylic acid",
+          "where": "The product's name at the head of the sheet, which is the chemical name of aspirin: an acid by its name and by the pH the sheet gives."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-75.6",
+      "url": "https://www.flinnsci.com/sds_75.6-antacid-tablets/sds_75.6",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Antacid Tablets, SDS number sds_75.6; revision date February 6, 2014 (read on 2026-10-11; no copy is kept).",
+      "fetchedSha256": "576e7bcd151a85e8616ae4299a552819a040cb612b7c536052933d6e24917b2e",
+      "supports": [
+        {
+          "fields": [
+            "things[antacid].note"
+          ],
+          "prints": "Calcium carbonate",
+          "where": "Section 3, the first component, at about 500 mg; the sheet says that a tablet may hold magnesium hydroxide too. Section 9 says that the tablets dissolve slightly in water. The lab takes the calcium carbonate kind."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-85",
+      "url": "https://www.flinnsci.com/sds_85-aspirin-tablets/sds_85",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Aspirin Tablets, SDS number sds_85; revision date March 21, 2014 (read on 2026-10-11; no copy is kept).",
+      "fetchedSha256": "e8647761389bd8de6f0cb57fe2547ea9cf10a5c3a2979c7f2b8444f8db5b7ffb",
+      "supports": [
+        {
+          "fields": [
+            "things[aspirin].note"
+          ],
+          "prints": "Slightly in water (1%)",
+          "where": "Section 9, after the word Soluble. Section 3 gives about 325 mg of acetylsalicylic acid in a tablet, with binders."
+        }
+      ]
+    },
+    {
+      "id": "mve-sds-laundry-detergent",
+      "url": "https://mve.mo.gov/wp-content/uploads/F-413.pdf",
+      "citation": "Missouri Vocational Enterprises. Safety Data Sheet: Laundry Detergent without Bleach, F-413; revision date October 26, 2015. Read as the PDF the maker serves at the address above; no copy is kept (retrieved 2026-10-11).",
+      "fetchedSha256": "93bc9201034b07d73c9ec8b08cecd2063cfc82ba88771d491808566189ffe280",
+      "supports": [
+        {
+          "fields": [
+            "things[laundry-detergent].ph.low"
+          ],
+          "prints": "9.5",
+          "where": "Section 9, the table of physical and chemical properties, the row pH: 9.5-10.5, for a 1% solution. The bench has the detergent at about one part in twenty, which is stronger; the record stores the sheet's range."
+        },
+        {
+          "fields": [
+            "things[laundry-detergent].ph.high"
+          ],
+          "prints": "10.5",
+          "where": "The same row."
+        },
+        {
+          "fields": [
+            "things[laundry-detergent].note"
+          ],
+          "prints": "1% solution",
+          "where": "The same row, the strength the figure is for."
+        }
+      ]
+    },
+    {
+      "id": "kao-sds-conditioner",
+      "url": "https://www.kmshair.com/content/dam/sites/kaousa/www-kmshair-com/Master/pdfs/122014_122016_122020_KMS%20MR%20Conditioner.pdf",
+      "citation": "Kao USA Inc. Safety Data Sheet: a hair conditioner of its KMS range (products 122014, 122016 and 122020). Read as the PDF the maker serves at the address above; no copy is kept (retrieved 2026-10-11).",
+      "fetchedSha256": "d67d9865e34714d28d53de24ec6f214108dcb2bd25ddef39dc2b495af2f2e3d4",
+      "supports": [
+        {
+          "fields": [
+            "things[conditioner].ph.low",
+            "things[conditioner].ph.high"
+          ],
+          "prints": "3.5",
+          "where": "Section 9, the line for the pH value at 20 °C: 3.5. It is one figure, for the product as sold, so both ends of the stored range are it."
+        },
+        {
+          "fields": [
+            "things[conditioner].note"
+          ],
+          "prints": "pH-value at 20 °C (68 °F)",
+          "where": "The same line. That it is more acidic than the shampoo is read from this record: the other maker’s sheet gives its shampoo 5.50 to 6.80."
+        }
+      ]
+    },
+    {
+      "id": "juuce-sds-shampoo",
+      "url": "https://cdn.shopify.com/s/files/1/0715/6013/4875/files/Juuce_peppermint_shampoo_JVPMS300_JVPMS1000.pdf",
+      "citation": "Safety Data Sheet: HJ Juuce Peppermint Shampoo, version 1 of 1 May 2023. Read as the PDF served for the maker's shop at the address above; no copy is kept (retrieved 2026-10-11).",
+      "fetchedSha256": "66d9351e68785b978afc03fa40cadc0c8a207bc6bc81ceb2879f39d2b851e447",
+      "supports": [
+        {
+          "fields": [
+            "things[shampoo].ph.low"
+          ],
+          "prints": "5.50",
+          "where": "Section 9, the line for the pH at 20 °C: 5.50 – 6.80, for the product as sold."
+        },
+        {
+          "fields": [
+            "things[shampoo].ph.high"
+          ],
+          "prints": "6.80",
+          "where": "The same line."
+        },
+        {
+          "fields": [
+            "things[shampoo].note"
+          ],
+          "prints": "pH @20c",
+          "where": "The same line."
+        }
+      ]
+    },
+    {
+      "id": "livingstone-sds-mouthwash",
+      "url": "https://file2.livingstone.com.au/msds/CHL2MOUTH200.pdf",
+      "citation": "Livingstone International Pty Ltd. Safety Data Sheet: a chlorhexidine mouthwash, product code CHL2MOUTH200; version 04, last revised 12 March 2024. Read as the PDF the supplier serves at the address above; no copy is kept (retrieved 2026-10-11).",
+      "fetchedSha256": "eff315e4ed56724fff188e2815b4d4dd83b4aa692ca0abe1f019c8bfdfed6b5a",
+      "supports": [
+        {
+          "fields": [
+            "things[mouthwash].ph.low"
+          ],
+          "prints": "6.0",
+          "where": "The table of physical properties, the row pH, which the sheet prints with a comma and a stray space, as 6,0 - 8 .0; the record stores the two figures with a point. It is for the product as sold."
+        },
+        {
+          "fields": [
+            "things[mouthwash].ph.high"
+          ],
+          "prints": "8.0",
+          "where": "The same row."
+        },
+        {
+          "fields": [
+            "things[mouthwash].note"
+          ],
+          "prints": "Chlorhexidine Gluconate",
+          "where": "The table of ingredients, which names this and ethanol: the kind of mouthwash the figure is for. A sheet read for another maker’s rinse, which holds hydrogen peroxide, gives 3.5 to 4.5; it is not used (README.md)."
+        }
+      ]
+    },
+    {
+      "id": "scjohnson-sds-drain-gel",
+      "url": "https://images.homedepot-static.com/catalog/pdfImages/70/704fbcb1-0911-4980-99fa-b0a9d2cce209.pdf",
+      "citation": "S. C. Johnson & Son, Inc. Safety Data Sheet: a gel clog remover of its Drano range, SDS number 350000013008; version 1.1, revision date 24 February 2015. Read as the PDF a retailer serves at the address above; no copy is kept (retrieved 2026-10-11).",
+      "fetchedSha256": "1abb6bb6f8e27392d1976cdbc421ff998f46e7aa655cc857b8e1b72248be3e1c",
+      "supports": [
+        {
+          "fields": [
+            "things[drain-cleaner].ph.percent.low"
+          ],
+          "prints": "1.00",
+          "where": "Section 3, the table of composition, the row for sodium hydroxide: 1.00 - 5.00 per cent by weight."
+        },
+        {
+          "fields": [
+            "things[drain-cleaner].ph.percent.high"
+          ],
+          "prints": "5.00",
+          "where": "The same row."
+        },
+        {
+          "fields": [
+            "things[drain-cleaner].note"
+          ],
+          "prints": "Sodium hypochlorite",
+          "where": "Section 3, the first row of the same table: 5.00 - 10.00 per cent by weight. Section 9 gives the smell as that of bleach and the pH of the product as sold as 11.5 - 13.5. The lab takes its drain cleaner to be sodium hydroxide in water with no hypochlorite, which this product is not: the note says so."
+        }
+      ]
+    },
+    {
+      "id": "atsdr-phs-ammonia",
+      "url": "https://wwwn.cdc.gov/tsp/PHS/PHS.aspx?phsid=9&toxid=2",
+      "citation": "Agency for Toxic Substances and Disease Registry. Public Health Statement for Ammonia; a page of the agency's Toxic Substances Portal; read and not kept (retrieved 2026-10-11).",
+      "fetchedSha256": "a11e8cd804f246775a0cf5ffeaad371983c5798d540905ff94e62a60d914aa7a",
+      "supports": [
+        {
+          "fields": [
+            "things[ammonia].ph.percent.low"
+          ],
+          "prints": "5",
+          "where": "In the answer on how a person might be exposed, the sentence on cleaning solutions: household ammonia cleaners are typically between 5 and 10% ammonia, and industrial ones up to 25%. The page does not say on what basis the percentage is."
+        },
+        {
+          "fields": [
+            "things[ammonia].ph.percent.high"
+          ],
+          "prints": "10",
+          "where": "The same sentence."
+        },
+        {
+          "fields": [
+            "things[ammonia].note"
+          ],
+          "prints": "between 5 and 10%",
+          "where": "The same sentence."
+        }
+      ]
+    },
+    {
+      "id": "nist-webbook-ammonia",
+      "url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7664417&Mask=1",
+      "citation": "NIST Chemistry WebBook, NIST Standard Reference Database Number 69; Linstrom, P. J., Mallard, W. G., Eds.; National Institute of Standards and Technology: Gaithersburg, MD. Ammonia (retrieved 2026-10-11).",
+      "fetchedSha256": "47bb52f0cf5a5c7458726226a919ed1134fee941022f27d92608bae15526178b",
+      "supports": [
+        {
+          "fields": [
+            "things[ammonia].ph.solute.formulaWeight"
+          ],
+          "prints": "17.0305",
+          "where": "At the head of the page, after the words Molecular weight; the formula over it is H3N."
+        }
+      ]
+    },
+    {
+      "id": "libretexts-e2-base-constants",
+      "url": "https://chem.libretexts.org/Ancillary_Materials/Reference/Reference_Tables/Equilibrium_Constants/E2._Base_Dissociation_Constants_at_25C",
+      "citation": "LibreTexts. E2. Base Dissociation Constants at 25°C; a table among the Reference Tables of the Ancillary Materials; read and not kept (retrieved 2026-10-11).",
+      "fetchedSha256": "45dfc07ef0b9a8e5e4a5ac8c1ccd30651a277650d2e6451bf01ef89c71007ea2",
+      "supports": [
+        {
+          "fields": [
+            "constants.ammoniaPKb"
+          ],
+          "prints": "4.75",
+          "where": "The first row of the table, Ammonia, NH3: the last column, the pKb. The column before it gives the constant itself as 1.8 × 10−5."
+        },
+        {
+          "fields": [
+            "things[ammonia].note"
+          ],
+          "prints": "Ammonia",
+          "where": "The same row."
+        }
+      ]
+    },
+    {
+      "id": "libretexts-e1-acid-constants",
+      "url": "https://chem.libretexts.org/Ancillary_Materials/Reference/Reference_Tables/Equilibrium_Constants/E1%3A_Acid_Dissociation_Constants_at_25C",
+      "citation": "LibreTexts. E1: Acid Dissociation Constants at 25°C; a table among the Reference Tables of the Ancillary Materials; read and not kept (retrieved 2026-10-11).",
+      "fetchedSha256": "5e9b06ade790a9cc3473bcf4b3975317b16f59b461805d737acfa7ac3eeae826",
+      "supports": [
+        {
+          "fields": [
+            "constants.hypochlorousPKa"
+          ],
+          "prints": "7.40",
+          "where": "The row Hypochlorous acid, HClO: the pKa. The column before it gives the constant itself as 4.0 × 10−8."
+        },
+        {
+          "fields": [
+            "things[bleach].note"
+          ],
+          "prints": "Hypochlorous acid",
+          "where": "The same row: the acid whose salt bleach is a solution of."
+        }
+      ]
+    },
+    {
+      "id": "libretexts-ph-scale",
+      "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Supplemental_Modules_(Physical_and_Theoretical_Chemistry)/Acids_and_Bases/Acids_and_Bases_in_Aqueous_Solutions/The_pH_Scale",
+      "citation": "LibreTexts. The pH Scale; a page of the Supplemental Modules for physical and theoretical chemistry; read and not kept (retrieved 2026-10-11).",
+      "fetchedSha256": "176ccf12bf5638714954a06d31ad7e7c59630f55e55893655746e3ab7be0afed",
+      "supports": [
+        {
+          "fields": [
+            "constants.pKw"
+          ],
+          "prints": "14",
+          "where": "In the part on the self-ionisation of water: the constant of water is 1.0 × 10−14 at 25 °C, and its pKw is 14."
+        },
+        {
+          "fields": [
+            "parts[unit].notes[0]"
+          ],
+          "prints": "tenfold",
+          "where": "Under the heading on the pH scale: the scale is logarithmic, so a step of one whole unit changes the hydrogen ion ten times over; its examples are pH 3 against pH 4, ten times, and pH 3 against pH 5, a hundred times."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "pH",
+          "where": "The same passages, and with them: pH is worked out as minus the logarithm of how much hydrogen ion a litre holds; a liquid at pH 7 is neutral, with as much hydrogen ion as hydroxide ion; below 7 is acidic and above 7 basic."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-buffers",
+      "url": "https://www.chemguide.co.uk/physical/acidbaseeqia/buffers.html",
+      "citation": "Clark, J. Chemguide: Buffer Solutions; read and not kept (retrieved 2026-10-11).",
+      "fetchedSha256": "8460d0bf5b872e74417a9517d724a1ddc37b852cd35b2ca52526fbeaf55c91dd",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "buffer solution",
+          "where": "The page's opening definition: a solution whose pH changes little when a small amount of acid or of alkali goes into it. The page says that an acidic buffer has a pH under 7 and an alkaline one a pH over 7."
+        }
+      ]
+    },
+    {
+      "id": "libretexts-labquest-ph-sensor",
+      "url": "https://chem.libretexts.org/Courses/Triton_College/General_Chemistry_II_Lab_Manual/13:_Appendices/13.01:_Vernier_LabQuest_3_Instructions",
+      "citation": "LibreTexts. 13.1: Vernier LabQuest 3 Instructions; an appendix of a general chemistry laboratory manual of Triton College; read and not kept (retrieved 2026-10-11).",
+      "fetchedSha256": "68d96220f62b677b21209bacedfc8f23f9b9a8a87f645c990497554b341bdbc9",
+      "supports": [
+        {
+          "fields": [
+            "parts[things].notes[0]"
+          ],
+          "prints": "pH Sensor",
+          "where": "Part B, on the pH sensor: the probe is rinsed with distilled water before it goes into each of the two buffers it is calibrated in. The page gives no reason and no figure for what an unrinsed probe reads: that is the model's own (parameters.unrinsedSharePercent). That an indicator places a thing to about a unit is this lab's rule for an estimate."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Two-Point pH Calibration",
+          "where": "The same part: a pH probe is set against buffers of known pH, pH 4.00 and pH 7.00 there, and drifts with time."
+        }
+      ]
+    }
+  ]
+}

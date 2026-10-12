@@ -5,6 +5,7 @@ import { periodicTableSchema, registrySchema, type PeriodicElement, type Registr
 import { aqueousSchema, type AqueousData } from './aqueous/data'
 import { calorimetrySchema, type CalorimetryData } from './calorimetry/data'
 import { acetoneSchema, type AcetoneData } from './acetone/data'
+import { cabbageSchema, type CabbageData } from './cabbage/data'
 import { clockSchema, type ClockData } from './clock/data'
 import { cationsSchema, type CationsData } from './cations/data'
 import { brightestOf, extentOf, flameSchema, rangeOf, type FlameData } from './flame/data'
@@ -800,5 +801,46 @@ export function validateAcetone(input: unknown, sources: readonly Source[], opti
     ...checkSourceIds(parsed.data, 'acetone', Array.isArray(sources) ? sources : []),
     ...checkPublished(parsed.data, 'acetone'),
     ...checkProse(parsed.data, 'acetone', Array.isArray(names) ? names : []),
+  ]
+}
+
+/** What the red cabbage pH lab's record must hold together beyond its shape: its ids, and every id one part of it names in another. */
+function checkCabbage(data: CabbageData): string[] {
+  const errors = [
+    ...duplicates(data.reagents.map((r) => r.id), 'reagents'),
+    ...duplicates(data.things.map((t) => t.id), 'things'),
+    ...duplicates(data.indicator.colours.map((c) => c.id), 'colours'),
+    ...duplicates(data.scale.questions.map((q) => q.id), 'questions'),
+    ...duplicates(data.scale.buffers.map((b) => String(b.ph)), 'buffers'),
+  ]
+  const bottles = new Set(data.reagents.map((r) => r.id))
+  if (!bottles.has(data.indicator.reagentId)) errors.push(`indicator: "${data.indicator.reagentId}" is not a bottle of the record`)
+  for (const buffer of data.scale.buffers) if (buffer.reagentId !== undefined && !bottles.has(buffer.reagentId)) errors.push(`buffer of pH ${buffer.ph}: unknown reagent "${buffer.reagentId}"`)
+  for (const thing of data.things) {
+    if (thing.reagentId !== undefined && !bottles.has(thing.reagentId)) errors.push(`thing "${thing.id}": unknown reagent "${thing.reagentId}"`)
+    if (thing.ph.low.value > thing.ph.high.value) errors.push(`thing "${thing.id}": a range runs from its lower end to its upper`)
+  }
+  if (data.parameters.colourEdgesTenths.value.length !== data.indicator.colours.length - 1) errors.push('parameters.colourEdgesTenths: one edge between each two neighbouring colours')
+  if (data.parameters.neededToCount.value > data.things.length) errors.push('parameters.neededToCount: more than the bench has things')
+  return errors
+}
+
+/**
+ * Checks the red cabbage pH lab's record against the sources it cites: the schema; that its ids hold together;
+ * that every source named exists; that each `published` reads as the number stored beside it; and that no name,
+ * note or rationale holds institution text. Returns a list of problems; an empty list means the record is valid.
+ * Never throws, whatever it is given. That each value is what its source prints is the build script's to hold to
+ * the manifest, and the build checks the record's own chemistry: that the colours cover the scale, that each pH
+ * worked out is what its figures give, and that a careful estimate is within a unit of every range.
+ */
+export function validateCabbage(input: unknown, sources: readonly Source[], options: ValidateOptions = {}): string[] {
+  const parsed = cabbageSchema.safeParse(input)
+  if (!parsed.success) return schemaErrors(parsed.error.issues)
+  const names = options?.institutionNames
+  return [
+    ...checkCabbage(parsed.data),
+    ...checkSourceIds(parsed.data, 'cabbage', Array.isArray(sources) ? sources : []),
+    ...checkPublished(parsed.data, 'cabbage'),
+    ...checkProse(parsed.data, 'cabbage', Array.isArray(names) ? names : []),
   ]
 }

@@ -47,7 +47,8 @@ export interface ChoiceFormProps {
   brief?(answers: Answers): readonly string[]
 }
 
-const CHOICE =
+/** How one choice is drawn: a box a finger tall about a radio button and its words. The red cabbage pH lab draws the three choices of its own form with it. */
+export const CHOICE =
   'flex min-h-11 cursor-pointer items-center gap-2 rounded-md border px-3 py-1 has-checked:border-foreground has-checked:bg-muted has-checked:font-medium has-disabled:cursor-default has-focus-visible:ring-2 has-focus-visible:ring-ring'
 
 /**

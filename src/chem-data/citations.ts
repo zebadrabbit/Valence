@@ -5,6 +5,7 @@ import type { AqueousData } from './aqueous/data'
 import type { CalorimetryData, PartId } from './calorimetry/data'
 import type { CationsData, StepId } from './cations/data'
 import type { AcetoneData, PartId as AcetonePartId } from './acetone/data'
+import type { CabbageData, ThingId } from './cabbage/data'
 import type { ClockData, PartId as ClockPartId } from './clock/data'
 import type { FlameData } from './flame/data'
 import type { DisturbanceId, LechatelierData } from './lechatelier/data'
@@ -421,6 +422,62 @@ export function acetoneCitations(data: AcetoneData, partId: AcetonePartId, sourc
             ['Kelvin from degrees Celsius', constants.zeroCelsius.sourceId] as const,
           ]),
       ...part.notes.flatMap((note) => all('Notes on this part', note)),
+    ],
+    sources,
+  )
+}
+
+type CitedText = { sourceId: string; alsoSourceId?: string | undefined; moreSourceIds?: string[] | undefined }
+const everySource = (label: string, cited: CitedText): Entry[] => [cited.sourceId, ...(cited.alsoSourceId === undefined ? [] : [cited.alsoSourceId]), ...(cited.moreSourceIds ?? [])].map((id): Entry => [label, id])
+const bottleEntries = (reagent: CabbageData['reagents'][number]): Entry[] => [[`${reagent.name}: hazard classification`, reagent.hazards.sourceId], ...everySource(`${reagent.name}: hazards at the strength used`, reagent.hazards.note)]
+
+/**
+ * The sources behind the red cabbage pH lab's scale (spec 5.1): the indicator's colours, the two buffers at the
+ * ends of the scale and the indicator as bottles, the constant behind what a unit means, and the notes of the
+ * first and the last part. No label gives the colour of a tube.
+ */
+export function cabbageScaleCitations(data: CabbageData, sources: readonly Source[]): Citation[] {
+  const ends = data.scale.buffers.flatMap((buffer) => data.reagents.filter((r) => r.id === buffer.reagentId))
+  return citations(
+    [
+      ...data.indicator.colours.map((colour): Entry => ['The colours of the indicator and the pH of each', colour.sourceId]),
+      ...everySource('The colours of the indicator and the pH of each', data.indicator.note),
+      ...[...ends, ...data.reagents.filter((r) => r.id === data.indicator.reagentId)].flatMap(bottleEntries),
+      ...data.parts[0].notes.flatMap((note) => everySource('Notes on the scale', note)),
+      ...data.parts[2].notes.flatMap((note) => everySource('Notes on what a unit means', note)),
+    ],
+    sources,
+  )
+}
+
+/**
+ * The sources behind one household thing: its range of pH and what that range is worked out from, its note, what
+ * is seen where the dye is destroyed, and its hazards where it is a laboratory chemical. The list names where a
+ * range is from and never the range, so it can be shown before the meter is read.
+ */
+export function cabbageThingCitations(data: CabbageData, thingId: ThingId, sources: readonly Source[]): Citation[] {
+  const thing = data.things.find((t) => t.id === thingId)
+  if (!thing) throw new Error(`no thing "${thingId}"`)
+  const { ph } = thing
+  const RANGE = `${thing.name}: its usual pH`
+  const { constants } = data
+  const reagent = data.reagents.find((r) => r.id === thing.reagentId)
+  return citations(
+    [
+      ...(ph.basis === 'document'
+        ? ([[RANGE, ph.low.sourceId], [RANGE, ph.high.sourceId]] as const)
+        : ([
+            [`${thing.name}: its strength as sold`, ph.percent.low.sourceId],
+            [`${thing.name}: its strength as sold`, ph.percent.high.sourceId],
+            [`The formula weight of ${ph.solute.name}`, ph.solute.formulaWeight.sourceId],
+            ['The constants its pH is worked out with', constants.pKw.sourceId],
+            ...(ph.rule === 'weak-base' ? ([['The constants its pH is worked out with', constants.ammoniaPKb.sourceId]] as const) : []),
+            ...(ph.rule === 'salt-of-weak-acid' ? ([['The constants its pH is worked out with', constants.hypochlorousPKa.sourceId]] as const) : []),
+          ] as const)),
+      ...everySource(`${thing.name}: notes`, thing.note),
+      ...(thing.bleaches ? everySource('What is seen where the dye is destroyed', data.indicator.bleached) : []),
+      ...(reagent ? bottleEntries(reagent) : []),
+      ...data.parts[1].notes.flatMap((note) => everySource('Notes on the household things', note)),
     ],
     sources,
   )
