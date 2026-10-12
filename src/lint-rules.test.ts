@@ -229,6 +229,11 @@ describe('architecture lint rules', () => {
     ['@/engine/kinetics/select', 'src/app/lab/acetone/messages.ts'],
     ['@/engine/kinetics', 'src/app/lab/acetone/x.tsx'],
     ['@/engine/figures', 'src/app/lab/acetone/x.tsx'],
+    // The red cabbage engine below its index holds each thing's pH and the judging of every answer.
+    ['@/engine/cabbage/setup', 'src/app/lab/cabbage/x.tsx'],
+    ['@/engine/cabbage/state', 'src/app/lab/cabbage/messages.ts'],
+    ['../../../engine/cabbage/model', 'src/app/lab/cabbage/x.tsx'],
+    ['@/engine/cabbage/testkit', 'src/app/lab/cabbage/x.tsx'],
   ])('rejects importing %s in %s', async (source, filePath) => {
     expect(await ruleIds(`import * as m from "${source}"\nexport const v = m\n`, filePath)).toEqual(['no-restricted-imports'])
     // A type import is refused too: the types below the index describe the hidden values.
@@ -255,6 +260,8 @@ describe('architecture lint rules', () => {
     ['@/engine/clock/testkit', 'src/app/lab/clock/messages.test.ts'],
     ['@/engine/acetone', 'src/app/lab/acetone/messages.ts'],
     ['@/engine/acetone/testkit', 'src/app/lab/acetone/messages.test.ts'],
+    ['@/engine/cabbage', 'src/app/lab/cabbage/messages.ts'],
+    ['@/engine/cabbage/testkit', 'src/app/lab/cabbage/messages.test.ts'],
     // Another folder whose name ends the same way is not the engine's.
     ['@/app/lab/titration/benchView', 'src/app/pages/x.tsx'],
     ['./titration/benchView', 'src/app/lab/x.tsx'],
