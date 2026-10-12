@@ -1392,3 +1392,54 @@ Built on 2026-10-12, straight through, on the shell and the pieces of sections 7
 - **What the page keeps and does not store:** what is typed and not yet entered, the part that is shown, the reading last looked at and its callout, a warning that is showing, whether the calculator is open, and what the message lines last said.
 - **Not done by a person:** how it looks is the owner's to judge. The lab was worked by script in headless Chromium by the AI coding assistant that built the screens, from Start to the line that says it is complete, in Guided at 768×1024 and in Challenge at 1280×800, each entry typed from what the page showed; `docs/for-institutions.md` says what was run and what was not. No person has run the lab, no screen reader was used, one browser was tried and no real device. No chemist or chemistry instructor has read the record, the notes or the primer.
 - **The review of 2026-10-12,** by an AI reviewer that had built none of the lab, by script in headless Chromium and by reading. The points above that are its own: the fold of the bench, the cup and the straining once the solution is weighed, with the window held where it was and focus on the straining's line; "Stir", and the cup's five steps in two rows; the cup's words for a cup with no ice and for one weighed unstrained; Run on's warning of little ice once in a run; the button that checks a notebook filled in Challenge once the mode is Guided; the Record's own sentence for an entry that does not follow; the lengths measured again; and the hit areas measured again with the disclosures inside others. Besides these it changed four sentences that said the cup had been strained, or that ice had been counted, where it might not have been. It worked the lab from Start to complete four times, in Guided by the keyboard alone at both sizes and in Challenge by emulated touch, with each of the three salts carried to its end, and worked the calorimetry lab's part 1 to its end by the keyboard alone. It changed no stored value and no parameter of the model. What it found, measured, looked at and left, and what nobody checked, is the last section of `docs/research/freezing/README.md`.
+
+## 24. Types of reactions lab (added after v1)
+
+The eighth of the labs taken from the owner's department's lab directions (section 17 says how those are used), and the first of three short ones from an introductory course. The directions list what is set out for five reactions, named A to E; the procedure is the usual one for those things, and each choice in it is the owner's to change. It uses the lab shell, the test tube that is explored and the observation form of sections 8 and 17, and section 8's builder of equations from tiles.
+
+### 24.1 Set-up
+
+Most reactions a first course meets are one of four kinds: two things join into one (combination); one thing comes apart into two (decomposition); an element takes the place of another in a compound (single replacement); two compounds trade partners (double replacement). The lab shows one or two of each, and has the learner see what happens, say which kind it is, and write its equation.
+
+Five stations:
+
+- **A. Zinc in copper(II) sulfate solution.** A grey piece of zinc in a blue solution: a red-brown coating forms on the zinc and the blue fades. Single replacement.
+- **B. Magnesium burned in air.** A strip of magnesium held in a flame burns with a white light too bright to look at and leaves a white powder. Combination.
+- **C. Three metals in hydrochloric acid.** Magnesium, zinc and copper, each in its own tube of acid: magnesium bubbles fast, zinc slowly, copper not at all. Single replacement, twice, and no reaction once; and from the three, which metal is the most active.
+- **D. Calcium chloride and sodium carbonate solutions.** Two clear, colourless solutions give a white solid. Double replacement.
+- **E. Hydrogen peroxide with a little iron(III) chloride.** The peroxide alone does nothing that can be seen; with a few drops of iron(III) chloride it bubbles and the tube grows warm. Decomposition, and the iron chloride is not used up.
+
+The directions name iron(III) chloride for reaction E and nothing to go with it. Hydrogen peroxide is this lab's reading of that, since it gives the one kind of reaction the other four stations lack; it is the owner's to correct.
+
+### 24.2 A station
+
+A station is a short column of cards:
+
+1. **The bench**: what is used, with its hazards.
+2. **Before and after**: the tube, the dish or the flame, drawn and explored as in sections 8 and 17: what is there before, the one action (put the metal in; hold the strip in the flame; mix the two solutions; add the drops), and what is there after. Bubbles, a coating, a solid, a colour that goes, light and warmth are each shown and each said in words.
+3. **What is seen**: choice boxes, opened by looking.
+4. **Which kind**: one choice of the four, or that nothing reacted (station C's copper).
+5. **The equation**: built from tiles with section 8's builder, balanced; for station C one equation for each metal that reacts.
+
+Station C adds one question: the three metals in order of how active they are.
+
+Guided checks each answer as it is given and has a hint in a closed disclosure. Challenge takes what is recorded and checks a station when asked. A station counts when what was seen matches what the station showed, the kind is right and the equation is right and balanced. No slip of technique spoils a run. The lab is complete when all five stations count.
+
+### 24.3 Model and data
+
+The engine is driven by its record, as section 8's and section 18's are: each station holds what is seen before and after, the right answers and the tiles its equation is built from, each with a source. Nothing is drawn by chance.
+
+Data: what each reaction gives and what is seen, from sources that can be cited; that magnesium is more active than zinc and zinc than copper, from a cited activity series or from the standard potentials in the tables the other labs use; that iron(III) speeds the decomposition of hydrogen peroxide and is left unchanged. Hazards by 5.2 for every bottle and metal, sharing other labs' records for the same thing in the same form. Burning magnesium is in the primer's safety topic: its light harms the eyes and water makes the fire worse.
+
+### 24.4 Primer
+
+Short topics, those to read first marked: what a chemical reaction is, and the signs of one; the four kinds, each with a pattern in letters and one everyday case; an equation, and what balancing means; metals that push other metals out, and the order they come in; a catalyst; safety.
+
+### 24.5 Acceptance
+
+- For each station, what is shown before and after is what its stored record gives and nothing else, and the station counts when what was seen, the kind and the equation are right.
+- Every equation of the record balances in atoms and in charge, by a test; the builder refuses or marks an unbalanced one.
+- Every stored observation and rule has a source.
+- The stored record round-trips; no state a learner can reach leaves them unable to go on.
+- Challenge shows nothing of what is expected before the learner's answers are recorded: a station's kind and its equation are not on the page before they are given.
+- The description in words of every picture is tested.
