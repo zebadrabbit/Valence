@@ -9,6 +9,7 @@ import type { CabbageData, ThingId } from './cabbage/data'
 import type { DensityData, PartId as DensityPartId } from './density/data'
 import type { FreezingData, PartId as FreezingPartId } from './freezing/data'
 import type { ReactionsData, StationId as ReactionsStationId } from './reactions/data'
+import { isPairId, type MixingData, type PartId as MixingPartId, type TubeId as MixingTubeId } from './mixing/data'
 import type { ClockData, PartId as ClockPartId } from './clock/data'
 import type { FlameData } from './flame/data'
 import type { DisturbanceId, LechatelierData } from './lechatelier/data'
@@ -590,6 +591,75 @@ export function reactionsCitations(data: ReactionsData, stationId: ReactionsStat
             ]),
             ...(station.order ? [['The order of the three metals', data.activity.sourceId] as const] : []),
             ...station.notes.flatMap((note) => all('Notes on this station', note)),
+          ]
+        : []),
+    ],
+    sources,
+  )
+}
+
+const mixingAll = (label: string, cited: { sourceId?: string | undefined; alsoSourceId?: string | undefined; moreSourceIds?: string[] | undefined }): Entry[] =>
+  [...(cited.sourceId === undefined ? [] : [cited.sourceId]), ...(cited.alsoSourceId === undefined ? [] : [cited.alsoSourceId]), ...(cited.moreSourceIds ?? [])].map((id): Entry => [label, id])
+/** The documents behind the hazards of every bottle of the polarity and mixing lab that is a laboratory chemical: the rubbing alcohol. */
+const mixingBottles = (data: MixingData, liquidIds: readonly string[]): Entry[] =>
+  data.liquids
+    .filter((liquid) => liquidIds.includes(liquid.id))
+    .flatMap((liquid) => data.reagents.filter((r) => r.id === liquid.reagentId))
+    .flatMap((r): Entry[] => [[`${r.name}: hazard classification`, r.hazards.sourceId], ...mixingAll(`${r.name}: hazards as it is used here`, r.hazards.note)])
+
+/**
+ * The sources behind one tube of the polarity and mixing lab (spec 5.1): a pair of liquids or a solid in a liquid.
+ * `done` adds what is kept back until the tube counts: what each thing in it looks like, each liquid's strength and
+ * density, what the outcome rests on, and the tube's note. Before that the list holds only the documents behind
+ * the hazards of a bottle in the tube. What a tube shows is the answer the learner records, and a source of it can
+ * be a page whose name says it (a lesson called for layers of liquids, a handout that asks whether an oil floats),
+ * so the list names no source of an answer before the answer is given (spec 25.5).
+ */
+export function mixingTubeCitations(data: MixingData, tubeId: MixingTubeId, sources: readonly Source[], done = false): Citation[] {
+  const pair = isPairId(tubeId) ? data.pairs.find((p) => p.id === tubeId) : undefined
+  const solidTube = pair ? undefined : data.solidInLiquid.find((t) => t.id === tubeId)
+  if (!pair && !solidTube) throw new Error(`no tube "${tubeId}"`)
+  const liquidIds: readonly string[] = pair ? pair.liquidIds : [solidTube!.liquidId]
+  const liquids = data.liquids.filter((liquid) => liquidIds.includes(liquid.id))
+  const solid = data.solids.find((s) => s.id === solidTube?.solidId)
+  return citations(
+    [
+      ...mixingBottles(data, liquidIds),
+      ...(done
+        ? [
+            ...liquids.flatMap((liquid): Entry[] => [
+              ...mixingAll(`${liquid.name}: what it looks like`, liquid.looks as { sourceId?: string }),
+              ...(liquid.strength ? mixingAll(`${liquid.name}: its strength`, liquid.strength) : []),
+              ...(pair ? mixingAll(`${liquid.name}: its density`, liquid.density) : []),
+            ]),
+            ...(solid ? mixingAll(`${solid.name}: what it looks like`, solid.looks) : []),
+            ...(pair ? mixingAll('Whether the two liquids mix', pair.mix) : mixingAll('Whether the solid dissolves', solidTube!.dissolves)),
+            ...mixingAll('Notes on this tube', (pair ?? solidTube!).note),
+          ]
+        : []),
+    ],
+    sources,
+  )
+}
+
+/**
+ * The sources behind one part of the polarity and mixing lab. `done` adds what is kept back until the part is done:
+ * its notes and, for part 3, the family of each liquid and the answers to its two questions. Before that the list
+ * holds only the documents behind the hazards of the bench's one laboratory chemical, so no liquid's family is on
+ * the page before part 3 is done (spec 25.5).
+ */
+export function mixingPartCitations(data: MixingData, partId: MixingPartId, sources: readonly Source[], done = false): Citation[] {
+  const part = data.parts.find((p) => p.id === partId)
+  if (!part) throw new Error(`no part "${partId}"`)
+  return citations(
+    [
+      ...mixingBottles(data, data.liquids.map((liquid) => liquid.id)),
+      ...(done
+        ? [
+            ...(partId === 'rule'
+              ? [...data.liquids.flatMap((liquid) => mixingAll(`${liquid.name}: its family`, liquid.family)), ...data.rule.questions.flatMap((question) => mixingAll('The two questions', question.answer))]
+              : []),
+            ...part.notes.flatMap((note) => mixingAll('Notes on this part', note)),
           ]
         : []),
     ],

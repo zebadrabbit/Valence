@@ -1,0 +1,112 @@
+{
+  "retrieved": "2026-10-12",
+  "about": "The documents behind the hazards of the polarity and mixing lab's one bottle that is a laboratory chemical, the rubbing alcohol (hazards.json), and behind the safety card of its primer. Both were read and neither is kept. The supplier's sheet is the one for 2-propanol of 40% to 90% in water, the strength on this bench, fetched and read on the retrieved date; the lab's own manifest lists it too, for the density and the look it prints. The government record of the alcohol itself was read for the freezing point depression lab: its saved page was checked against the hash recorded here and read again, and was not fetched again. The water, the vinegar, the two oils, the salt and the sugar have no record: they share the red cabbage pH lab's note for foods on a bench.",
+  "sources": [
+    {
+      "id": "flinn-sds-420.5",
+      "url": "https://www.flinnsci.com/sds_420.5-isopropyl-alcohol-40-90/sds_420.5",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Isopropyl Alcohol 40-90%, SDS number sds_420.5; revision date March 25, 2014 (read on 2026-10-12; no copy is kept).",
+      "fetchedSha256": "9138d657b11850ea62cce7b50f93a95f2f775da49c86a5e4a3e6ca3d330dbdad",
+      "supports": [
+        {
+          "field": "rubbing-alcohol.classifiedAs",
+          "prints": "Isopropyl Alcohol 40-90%",
+          "where": "The sheet's title, before the words Safety Data Sheet. Section 3 lists two components: the alcohol, with the CAS number 67-63-0, at 40% to 90%, and water at 10% to 60%. The heading over the statements gives the name 2-propanol, which the lab uses, beside the sheet's name. The bottle on this bench is taken as about 70%, inside that range."
+        },
+        {
+          "field": "rubbing-alcohol.hazards",
+          "prints": "March 25, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "rubbing-alcohol.hazards.signalWord",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Danger, the form its schema has for the word."
+        },
+        {
+          "field": "rubbing-alcohol.hazards.statements[0]",
+          "prints": "Highly flammable liquid and vapor (H225)",
+          "where": "Section 2, the first of the four hazard classes it lists: flammable liquids, category 2. The record stores the line of the sheet with its code in front, then a colon and the statement."
+        },
+        {
+          "field": "rubbing-alcohol.hazards.statements[1]",
+          "prints": "Causes mild skin irritation (H316)",
+          "where": "Section 2, the second class: irritation of the skin, category 3. The supplier's sheet for the alcohol with no water, which the freezing point depression lab's record rests on, has no line for the skin."
+        },
+        {
+          "field": "rubbing-alcohol.hazards.statements[2]",
+          "prints": "Causes serious eye irritation (H319)",
+          "where": "Section 2, the third class: irritation of the eyes, category 2A."
+        },
+        {
+          "field": "rubbing-alcohol.hazards.statements[3]",
+          "prints": "May cause drowsiness or dizziness (H336)",
+          "where": "Section 2, the fourth class: narcotic effects after one exposure, in category 3. The section prints no other hazard code."
+        },
+        {
+          "field": "rubbing-alcohol.hazards.note",
+          "prints": "Keep away from heat, sparks, open flames, and hot surfaces. No smoking (P210).",
+          "where": "Section 2, after the first statement. Section 7 has the liquid used only in a hood or a well-ventilated area, with the code P271, and the container kept closed; section 8 calls for eye protection, for gloves and for protective clothing, with P280. Section 5 gives the flash point as 18 °C from 50% to 90%."
+        },
+        {
+          "field": "rubbing-alcohol.hazards.note",
+          "prints": "strong oxidizers",
+          "where": "Section 10, the first of six things the liquid is kept from; acids are the fifth, and none of the other four is on this bench. The one acid on this bench is vinegar, 4% to 8% acetic acid in water, which goes into a tube with the rubbing alcohol: the note says so, and leaves it to the reader of the sheet whether a weak acid of that strength is what the sheet means."
+        },
+        {
+          "field": "rubbing-alcohol.hazards.note",
+          "prints": "as little as 150 mL can be fatal",
+          "where": "Section 2, under the four classes: the sheet says that one dose of about 400 mL kills an adult and that less has, and warns teachers of students who drink it on a dare. The sheet gives the liquid no hazard class for swallowing, so no statement is stored for it; the note says that drinking it can kill."
+        },
+        {
+          "field": "rubbing-alcohol.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 18a, is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and local regulations."
+        },
+        {
+          "field": "rubbing-alcohol.notCarried",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "Read and not carried. The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, with contact lenses taken out, and medical advice is got if the irritation lasts; for skin or hair, the clothing is taken off at once and the skin rinsed. Why: NOAA's record asks for more for the eyes, and the note gives its lines."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "Highly flammable liquid and vapor (H225)",
+          "where": "Section 2, the first hazard class, and the lines of sections 7 and 8 named above: what the primer's safety card says of the rubbing alcohol."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-946",
+      "url": "https://cameochemicals.noaa.gov/chemical/946",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Isopropanol (chemical 946); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept).",
+      "fetchedSha256": "a9826df328a76a3e339cbfc157860286d0f43baebe5e2a55533b6616d9263282",
+      "supports": [
+        {
+          "field": "rubbing-alcohol.hazards.note",
+          "prints": "ISOPROPANOL",
+          "where": "The page's title, under the words Chemical Datasheet: a record of the alcohol itself, with the CAS number 67-63-0 in its table of identifiers, the number the supplier's sheet gives its first component. Read for the freezing point depression lab on 2026-10-12; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        },
+        {
+          "field": "rubbing-alcohol.hazards.note",
+          "prints": "Vapors are heavier than air",
+          "where": "The field General Description, which also gives a flash point of 53 °F. The field Fire Hazard, an excerpt from a guide of the emergency response guidebook, 2024, for flammable liquids that mix with water, prints the guide's sentence for the whole class: that the vapour may travel to something that lights it and flash back. The note says both. The record is of the alcohol with no water in it; the bottle on this bench is about a third water, and the lab goes by the record all the same."
+        },
+        {
+          "field": "rubbing-alcohol.hazards.note",
+          "prints": "for 20 to 30 minutes",
+          "where": "The field First Aid, under EYES: contact lenses are looked for and taken out, and the eyes are flushed with water or saline for this long while a hospital or a poison centre is called; the person then goes to hospital whether or not any symptom shows. Under SKIN: the skin is flooded with water at once while the clothing that was splashed comes off, and is then washed with soap and water. The supplier's sheet gives several minutes for the eyes; the note gives these lines as what the lab goes by."
+        },
+        {
+          "field": "rubbing-alcohol.notCarried",
+          "prints": "Reactivity Profile",
+          "where": "Read and not carried. The name of the field: that the alcohol forms unstable peroxides with air or oxygen, and a long list of what it reacts with violently. Why: it is of the alcohol with no water in it and of a bottle kept long; the supplier's sheet for the solution on this bench says nothing of peroxides, and nothing of the list is on this bench but what the note already keeps the liquid from."
+        },
+        {
+          "field": "primer.safety",
+          "prints": "Vapors are heavier than air",
+          "where": "The field General Description: what the primer's safety card says of the vapour."
+        }
+      ]
+    }
+  ]
+}

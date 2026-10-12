@@ -1,0 +1,556 @@
+{
+  "reagents": [
+    {
+      "id": "rubbing-alcohol",
+      "name": "Rubbing alcohol",
+      "holds": "2-Propanol (isopropyl alcohol), about 70% by volume, in water",
+      "form": "liquid"
+    }
+  ],
+  "liquids": [
+    {
+      "id": "water",
+      "name": "Distilled water",
+      "holds": "Water",
+      "looks": {
+        "value": "colourless",
+        "rationale": "The lab's own description of its bench: distilled water, a clear liquid with no colour. No source was read for what it looks like."
+      },
+      "density": {
+        "value": 0.99821,
+        "published": "0.99821",
+        "unit": "g/mL",
+        "temperature": "20 °C",
+        "note": "The density of liquid water at 20 °C and ordinary pressure, as the table prints it.",
+        "sourceId": "nist-webbook-water-20c"
+      },
+      "family": {
+        "value": "water",
+        "reason": "Water is the liquid the family is named for: the page says that its molecule is polar, with a negative end at the oxygen atom and a positive end at the hydrogen atoms.",
+        "sourceId": "ck12-structure-of-water"
+      },
+      "moleculeId": "water"
+    },
+    {
+      "id": "rubbing-alcohol",
+      "name": "Rubbing alcohol",
+      "holds": "2-Propanol (isopropyl alcohol) in water",
+      "strength": {
+        "value": "about 70% 2-propanol by volume, in water",
+        "sourceId": "wikipedia-rubbing-alcohol"
+      },
+      "looks": {
+        "value": "colourless",
+        "sourceId": "flinn-sds-420.5"
+      },
+      "density": {
+        "value": 0.87,
+        "published": "0.87",
+        "unit": "g/mL",
+        "temperature": null,
+        "note": "The sheet prints this as a specific gravity, a density relative to water, and marks it as the figure for 70%. It prints no temperature. At two figures a specific gravity and a density in grams for each millilitre are the same number.",
+        "sourceId": "flinn-sds-420.5"
+      },
+      "family": {
+        "value": "water",
+        "reason": "The article calls 2-propanol a polar molecule that mixes with water in all proportions, and the handout has rubbing alcohol mix with water and stay apart from a vegetable oil. So on this bench, where it is also about a third water, it sorts with water. The article says too that the alcohol itself dissolves many oils: its molecule has an oily part, and the note of part 3 says so.",
+        "sourceId": "wikipedia-isopropyl-alcohol",
+        "alsoSourceId": "purdue-will-olive-oil-float"
+      },
+      "reagentId": "rubbing-alcohol"
+    },
+    {
+      "id": "vinegar",
+      "name": "Vinegar",
+      "holds": "Acetic acid in water",
+      "strength": {
+        "value": "4% to 8% acetic acid, in water",
+        "sourceId": "flinn-sds-844"
+      },
+      "looks": {
+        "value": "colourless",
+        "rationale": "The lab's own description of its bench: white vinegar, a clear liquid with no colour. The supplier's sheet gives vinegar as clear or brown; the bench has the clear kind."
+      },
+      "density": {
+        "value": 1.01,
+        "published": "1.01",
+        "unit": "g/mL",
+        "temperature": null,
+        "note": "The sheet prints this as a specific gravity, a density relative to water, for vinegar of 4% to 8% acetic acid. It prints no temperature. At three figures a specific gravity and a density in grams for each millilitre differ by 0.002 at most.",
+        "sourceId": "flinn-sds-844"
+      },
+      "family": {
+        "value": "water",
+        "reason": "The sheet gives vinegar as 92% to 96% water, so it is water with a little acetic acid in it; the textbook page names acetic acid among the small molecules whose polar groups hold on to water.",
+        "sourceId": "flinn-sds-844",
+        "alsoSourceId": "ck12-liquid-liquid-solutions"
+      },
+      "moleculeId": "acetic-acid"
+    },
+    {
+      "id": "vegetable-oil",
+      "name": "Vegetable oil",
+      "holds": "An edible oil pressed from plants",
+      "looks": {
+        "value": "pale yellow",
+        "sourceId": "noaa-cameo-18022"
+      },
+      "density": {
+        "value": 0.923,
+        "published": "0.923",
+        "unit": "g/mL",
+        "temperature": "25 °C",
+        "note": "The record prints this as a specific gravity at 77 °F, which is 25 °C. At three figures a specific gravity and a density in grams for each millilitre differ by 0.003 at most.",
+        "sourceId": "noaa-cameo-18022"
+      },
+      "family": {
+        "value": "oil",
+        "reason": "The article names oils among the strongly non-polar compounds, and the record gives edible vegetable oil as insoluble in water.",
+        "sourceId": "wikipedia-solvent",
+        "alsoSourceId": "noaa-cameo-18022"
+      }
+    },
+    {
+      "id": "mineral-oil",
+      "name": "Mineral oil",
+      "holds": "A mixture of oily hydrocarbons",
+      "looks": {
+        "value": "colourless",
+        "sourceId": "flinn-sds-529"
+      },
+      "density": {
+        "value": 0.822,
+        "published": "0.822",
+        "unit": "g/mL",
+        "temperature": "20 °C",
+        "note": "The record prints this as a specific gravity at 68 °F, which is 20 °C. The supplier's sheet for mineral oil prints 0.845 to 0.860 with no temperature: mineral oils differ by grade. Either figure is well below water's and vinegar's, the two liquids it makes layers with on this bench.",
+        "sourceId": "noaa-cameo-12191"
+      },
+      "family": {
+        "value": "oil",
+        "reason": "The record lists mineral oil in the group of saturated hydrocarbons and says that it does not dissolve in water; the textbook page says that oil made of hydrocarbons is non-polar.",
+        "sourceId": "noaa-cameo-12191",
+        "alsoSourceId": "ck12-liquid-liquid-solutions"
+      }
+    }
+  ],
+  "solids": [
+    {
+      "id": "salt",
+      "name": "Table salt",
+      "holds": "Sodium chloride",
+      "looks": {
+        "value": "white",
+        "sourceId": "flinn-sds-721"
+      }
+    },
+    {
+      "id": "sugar",
+      "name": "Sugar",
+      "holds": "Sucrose",
+      "looks": {
+        "value": "white",
+        "sourceId": "flinn-sds-789"
+      },
+      "moleculeId": "sucrose"
+    }
+  ],
+  "pairs": [
+    {
+      "id": "water+rubbing-alcohol",
+      "liquidIds": ["water", "rubbing-alcohol"],
+      "mix": {
+        "value": true,
+        "basis": "named",
+        "reason": "The sheet for the alcohol in water lists water among what it dissolves in; the article says that the alcohol mixes with water in all proportions; the handout classes the alcohol and water as a pair that mixes.",
+        "sourceId": "flinn-sds-420.5",
+        "alsoSourceId": "wikipedia-isopropyl-alcohol",
+        "moreSourceIds": ["purdue-will-olive-oil-float"]
+      },
+      "note": {
+        "value": "One layer: the two mixed. Rubbing alcohol is already part water, and its alcohol mixes with water in any amounts.",
+        "sourceId": "flinn-sds-420.5",
+        "alsoSourceId": "wikipedia-isopropyl-alcohol"
+      }
+    },
+    {
+      "id": "water+vinegar",
+      "liquidIds": ["water", "vinegar"],
+      "mix": {
+        "value": true,
+        "basis": "named",
+        "reason": "The sheet for vinegar lists water as what it dissolves in, and gives vinegar as 92% to 96% water itself.",
+        "sourceId": "flinn-sds-844"
+      },
+      "note": {
+        "value": "One layer. Vinegar is mostly water already, with a little acetic acid dissolved in it.",
+        "sourceId": "flinn-sds-844"
+      }
+    },
+    {
+      "id": "water+vegetable-oil",
+      "liquidIds": ["water", "vegetable-oil"],
+      "mix": {
+        "value": false,
+        "basis": "named",
+        "reason": "The record gives edible vegetable oil as insoluble in water; the lesson has vegetable oil and water settle as two layers.",
+        "sourceId": "noaa-cameo-18022",
+        "alsoSourceId": "uaf-liquid-layers"
+      },
+      "note": {
+        "value": "Two layers: the oil and the water do not mix. The oil is on top because it is the less dense of the two.",
+        "sourceId": "noaa-cameo-18022",
+        "alsoSourceId": "ck12-liquid-liquid-solutions"
+      }
+    },
+    {
+      "id": "water+mineral-oil",
+      "liquidIds": ["water", "mineral-oil"],
+      "mix": {
+        "value": false,
+        "basis": "named",
+        "reason": "The record and the supplier's sheet both give mineral oil as insoluble in water.",
+        "sourceId": "noaa-cameo-12191",
+        "alsoSourceId": "flinn-sds-529"
+      },
+      "note": {
+        "value": "Two layers, and neither has a colour: the thinner one is the liquid you put in less of. Water does not dissolve mineral oil, and the oil is the less dense.",
+        "sourceId": "noaa-cameo-12191"
+      }
+    },
+    {
+      "id": "rubbing-alcohol+vinegar",
+      "liquidIds": ["rubbing-alcohol", "vinegar"],
+      "mix": {
+        "value": true,
+        "basis": "general",
+        "reason": "No source that was read names this pair. It rests on what each bottle holds: vinegar is 92% to 96% water with a little acetic acid, the rubbing alcohol is 2-propanol that already has water in it, and 2-propanol mixes with water in all proportions. The textbook page names acetic acid among the small molecules that mix with water.",
+        "sourceId": "flinn-sds-844",
+        "alsoSourceId": "wikipedia-isopropyl-alcohol",
+        "moreSourceIds": ["ck12-liquid-liquid-solutions"]
+      },
+      "note": {
+        "value": "One layer. Vinegar is mostly water, and the alcohol in rubbing alcohol mixes with water.",
+        "sourceId": "flinn-sds-844",
+        "alsoSourceId": "wikipedia-isopropyl-alcohol"
+      }
+    },
+    {
+      "id": "rubbing-alcohol+vegetable-oil",
+      "liquidIds": ["rubbing-alcohol", "vegetable-oil"],
+      "mix": {
+        "value": false,
+        "basis": "general",
+        "reason": "The handout is for rubbing alcohol of 75% or more and olive oil, which is a vegetable oil: it classes the two as a pair that does not mix, and has them stay as two layers while water is added, until the watered alcohol is the denser and the layers change places. The bottle on this bench is about 70%, a strength the handout's tube passes through as the water goes in. Which liquid is on top is not taken from the handout: it follows from the two stored densities.",
+        "sourceId": "purdue-will-olive-oil-float"
+      },
+      "note": {
+        "value": "Two layers, and this time the oil is underneath. Rubbing alcohol of this strength does not mix with the oil, and it is the less dense of the two.",
+        "sourceId": "purdue-will-olive-oil-float"
+      }
+    },
+    {
+      "id": "vinegar+vegetable-oil",
+      "liquidIds": ["vinegar", "vegetable-oil"],
+      "mix": {
+        "value": false,
+        "basis": "named",
+        "reason": "The article names vinegar and vegetable oil as a pair that does not mix and that goes back to two layers soon after a good shake.",
+        "sourceId": "wikipedia-solvent"
+      },
+      "note": {
+        "value": "Two layers, however hard the tube was shaken. Vinegar is mostly water, and the oil does not mix with it. The oil is the less dense, so it is on top.",
+        "sourceId": "wikipedia-solvent"
+      }
+    },
+    {
+      "id": "vinegar+mineral-oil",
+      "liquidIds": ["vinegar", "mineral-oil"],
+      "mix": {
+        "value": false,
+        "basis": "general",
+        "reason": "The supplier's sheet says that mineral oil dissolves neither in acids nor in water. Vinegar is both: a weak acid, 4% to 8% of it, in water.",
+        "sourceId": "flinn-sds-529",
+        "alsoSourceId": "flinn-sds-844"
+      },
+      "note": {
+        "value": "Two layers with no colour in either. Neither water nor an acid dissolves mineral oil, and vinegar is an acid in water.",
+        "sourceId": "flinn-sds-529"
+      }
+    },
+    {
+      "id": "vegetable-oil+mineral-oil",
+      "liquidIds": ["vegetable-oil", "mineral-oil"],
+      "mix": {
+        "value": true,
+        "basis": "general",
+        "reason": "No source that was read names this pair. It rests on the rule for the family: the article says that oils dissolve in very non-polar liquids and gives hexane, a saturated hydrocarbon, as one; the record lists mineral oil in the group of saturated hydrocarbons.",
+        "sourceId": "wikipedia-solvent",
+        "alsoSourceId": "noaa-cameo-12191"
+      },
+      "note": {
+        "value": "One layer: the two oils mixed. Neither kind of molecule has charged ends, so nothing holds one kind apart from the other.",
+        "sourceId": "wikipedia-solvent",
+        "alsoSourceId": "ck12-liquid-liquid-solutions"
+      }
+    }
+  ],
+  "solidInLiquid": [
+    {
+      "id": "salt-in-water",
+      "solidId": "salt",
+      "liquidId": "water",
+      "dissolves": {
+        "value": true,
+        "basis": "named",
+        "reason": "The sheet for sodium chloride lists water as what it dissolves in; the textbook page describes table salt dissolving in water.",
+        "sourceId": "flinn-sds-721",
+        "alsoSourceId": "ck12-dissolving-process"
+      },
+      "note": {
+        "value": "The salt is gone from sight: it dissolved. Water molecules pulled its charged particles out of the crystal and surrounded them.",
+        "sourceId": "ck12-dissolving-process"
+      }
+    },
+    {
+      "id": "salt-in-vinegar",
+      "solidId": "salt",
+      "liquidId": "vinegar",
+      "dissolves": {
+        "value": true,
+        "basis": "general",
+        "reason": "No source that was read names salt in vinegar. The sheet for sodium chloride says that it dissolves in water, and the sheet for vinegar gives it as 92% to 96% water.",
+        "sourceId": "flinn-sds-721",
+        "alsoSourceId": "flinn-sds-844"
+      },
+      "note": {
+        "value": "Dissolved. Vinegar is mostly water, and water dissolves salt.",
+        "sourceId": "flinn-sds-721",
+        "alsoSourceId": "flinn-sds-844"
+      }
+    },
+    {
+      "id": "salt-in-vegetable-oil",
+      "solidId": "salt",
+      "liquidId": "vegetable-oil",
+      "dissolves": {
+        "value": false,
+        "basis": "general",
+        "reason": "The article says that a salt such as table salt dissolves in very polar liquids such as water and in no others, and names oils among the strongly non-polar compounds.",
+        "sourceId": "wikipedia-solvent"
+      },
+      "note": {
+        "value": "The salt sits at the bottom. Oil molecules have no charged ends to pull the salt’s charged particles apart.",
+        "sourceId": "wikipedia-solvent",
+        "alsoSourceId": "ck12-dissolving-process"
+      }
+    },
+    {
+      "id": "salt-in-mineral-oil",
+      "solidId": "salt",
+      "liquidId": "mineral-oil",
+      "dissolves": {
+        "value": false,
+        "basis": "general",
+        "reason": "The article says that a salt such as table salt dissolves in very polar liquids such as water and in no others; the record lists mineral oil in the group of saturated hydrocarbons, which the textbook page calls non-polar.",
+        "sourceId": "wikipedia-solvent",
+        "alsoSourceId": "noaa-cameo-12191"
+      },
+      "note": {
+        "value": "The salt sits at the bottom, as it did in the other oil. A liquid of carbon and hydrogen alone has nothing to pull charged particles apart with.",
+        "sourceId": "wikipedia-solvent",
+        "alsoSourceId": "noaa-cameo-12191"
+      }
+    },
+    {
+      "id": "sugar-in-water",
+      "solidId": "sugar",
+      "liquidId": "water",
+      "dissolves": {
+        "value": true,
+        "basis": "named",
+        "reason": "The sheet for sucrose lists water as what it dissolves in; the textbook page describes table sugar dissolving in water.",
+        "sourceId": "flinn-sds-789",
+        "alsoSourceId": "ck12-dissolving-process"
+      },
+      "note": {
+        "value": "Dissolved. Sugar is not made of charged particles, but its molecules carry many O–H groups, and water molecules hold on to those.",
+        "sourceId": "ck12-dissolving-process"
+      }
+    },
+    {
+      "id": "sugar-in-vinegar",
+      "solidId": "sugar",
+      "liquidId": "vinegar",
+      "dissolves": {
+        "value": true,
+        "basis": "general",
+        "reason": "No source that was read names sugar in vinegar. The sheet for sucrose says that it dissolves in water, and the sheet for vinegar gives it as 92% to 96% water.",
+        "sourceId": "flinn-sds-789",
+        "alsoSourceId": "flinn-sds-844"
+      },
+      "note": {
+        "value": "Dissolved. Vinegar is mostly water, and water dissolves sugar.",
+        "sourceId": "flinn-sds-789",
+        "alsoSourceId": "flinn-sds-844"
+      }
+    },
+    {
+      "id": "sugar-in-vegetable-oil",
+      "solidId": "sugar",
+      "liquidId": "vegetable-oil",
+      "dissolves": {
+        "value": false,
+        "basis": "general",
+        "reason": "The article says that sugars such as sucrose dissolve only in very polar liquids such as water, and names oils among the strongly non-polar compounds.",
+        "sourceId": "wikipedia-solvent"
+      },
+      "note": {
+        "value": "The sugar sits at the bottom. Its O–H groups find nothing in the oil to hold on to.",
+        "sourceId": "wikipedia-solvent",
+        "alsoSourceId": "ck12-dissolving-process"
+      }
+    },
+    {
+      "id": "sugar-in-mineral-oil",
+      "solidId": "sugar",
+      "liquidId": "mineral-oil",
+      "dissolves": {
+        "value": false,
+        "basis": "general",
+        "reason": "The article says that sugars such as sucrose dissolve only in very polar liquids such as water; the record lists mineral oil in the group of saturated hydrocarbons, which the textbook page calls non-polar.",
+        "sourceId": "wikipedia-solvent",
+        "alsoSourceId": "noaa-cameo-12191"
+      },
+      "note": {
+        "value": "The sugar sits at the bottom, as it did in the other oil.",
+        "sourceId": "wikipedia-solvent",
+        "alsoSourceId": "noaa-cameo-12191"
+      }
+    }
+  ],
+  "offBench": [
+    {
+      "id": "rubbing-alcohol+mineral-oil",
+      "kind": "pair",
+      "rationale": "No source that was read says what rubbing alcohol of about 70% and mineral oil show together. What an alcohol in water does with an oil depends on how much water is in it, so no rule for a family settles it; and the supplier's sheet gives mineral oil a density of 0.845 to 0.860 g/mL, within 0.03 g/mL of the rubbing alcohol's 0.87. The pair is left off the bench (spec 25.1)."
+    },
+    {
+      "id": "salt-in-rubbing-alcohol",
+      "kind": "solid-in-liquid",
+      "rationale": "No source that was read says what a little salt does in rubbing alcohol of about 70%. The supplier's sheet says that sodium chloride dissolves slightly in alcohol, with no strength given; the article on 2-propanol says that salt can drive the alcohol out of its mixture with water as a layer of its own. What is seen would turn on the amount of salt. It is left off the bench (spec 25.1)."
+    },
+    {
+      "id": "sugar-in-rubbing-alcohol",
+      "kind": "solid-in-liquid",
+      "rationale": "No source that was read says what a little sugar does in rubbing alcohol of about 70%. The supplier's sheet says that sucrose dissolves slightly in alcohol, with no strength given, and the bottle is about a third water. It is left off the bench (spec 25.1)."
+    }
+  ],
+  "rule": {
+    "questions": [
+      {
+        "id": "grease",
+        "asks": "Cooking grease is oily: its molecules have no charged ends. A greasy pan is rinsed with plain water. What does the grease do?",
+        "choices": ["mixes", "stays-apart"],
+        "answer": {
+          "value": "stays-apart",
+          "reason": "The textbook page says that water does not dissolve the non-polar molecules of grease and of oil.",
+          "sourceId": "ck12-dissolving-process"
+        }
+      },
+      {
+        "id": "epsom-salt",
+        "asks": "Epsom salt is a salt: like table salt, it is made of charged particles. A little is shaken into mineral oil. What does it do?",
+        "choices": ["dissolves", "stays-solid"],
+        "answer": {
+          "value": "stays-solid",
+          "reason": "The article says that ionic compounds such as inorganic salts dissolve only in very polar liquids such as water. That Epsom salt is such a salt, magnesium sulfate, is not read in a source of this lab: the question states it, and the rule is asked of what the question states.",
+          "sourceId": "wikipedia-solvent"
+        }
+      }
+    ]
+  },
+  "sharedNote": {
+    "sharedWith": "cabbage",
+    "rationale": "The note that the water, the vinegar, the two oils, the salt and the sugar share (spec 25.3). It is the red cabbage pH lab's note for foods on a bench (spec 21.4), in that lab's wording: the build copies it from that lab's record, so the two cannot come to differ. It rests on no document: makers' labels differ, and the lab cannot know whose product is on a bench."
+  },
+  "parts": [
+    {
+      "id": "liquids",
+      "name": "Liquid with liquid",
+      "notes": [
+        {
+          "value": "Two liquids that mix in any amounts are called miscible. Two that go back to layers are immiscible, and shaking does not change that.",
+          "sourceId": "wikipedia-miscibility",
+          "alsoSourceId": "wikipedia-solvent"
+        },
+        {
+          "value": "Where a tube had two layers, the less dense liquid was the one on top.",
+          "sourceId": "uaf-liquid-layers",
+          "alsoSourceId": "ck12-liquid-liquid-solutions"
+        }
+      ]
+    },
+    {
+      "id": "solids",
+      "name": "Solid in liquid",
+      "notes": [
+        {
+          "value": "A solid that dissolves in a liquid is called soluble in it. One that stays at the bottom is insoluble in it. The same solid can be both: it depends on the liquid.",
+          "sourceId": "ck12-liquid-liquid-solutions",
+          "alsoSourceId": "wikipedia-solvent"
+        }
+      ]
+    },
+    {
+      "id": "rule",
+      "name": "The rule",
+      "notes": [
+        {
+          "value": "Like dissolves like. Liquids whose molecules have charged ends, as water’s have, mix with each other and dissolve salt and sugar. Oily liquids mix with each other and with little else.",
+          "sourceId": "wikipedia-solvent",
+          "alsoSourceId": "ck12-liquid-liquid-solutions"
+        },
+        {
+          "value": "Rubbing alcohol went with water on this bench. Its molecule has a water-like end and an oily part too, and the alcohol with no water in it dissolves many oils.",
+          "sourceId": "wikipedia-isopropyl-alcohol",
+          "alsoSourceId": "ck12-liquid-liquid-solutions"
+        }
+      ]
+    }
+  ],
+  "parameters": {
+    "neededPairs": {
+      "value": 6,
+      "rationale": "The first part is done when six pairs of liquids count (spec 25.1); the rest are there to try. The bench offers nine."
+    },
+    "neededSolids": {
+      "value": 6,
+      "rationale": "The second part is done when six tubes of a solid in a liquid count (spec 25.1); the rest are there to try. The spec has six of ten; the bench offers eight, since neither solid is tried in the rubbing alcohol."
+    },
+    "leastDensityGap": {
+      "value": 0.03,
+      "rationale": "In g/mL. A pair that makes two layers is on the bench only where the two stored densities differ by at least this much. The densities are for 20 °C, for 25 °C and, for two liquids, for no stated temperature, and products differ by maker, so a smaller difference would not be taken to say which liquid floats. The least difference on the bench is 0.053 g/mL, between the rubbing alcohol and the vegetable oil."
+    },
+    "moreMicrolitres": {
+      "value": 3000,
+      "rationale": "The liquid there is more of in a tube of two is taken as 3 mL, so that a tube can be drawn to its level and the thicker layer told from the thinner. Nothing else is worked out from it."
+    },
+    "lessMicrolitres": {
+      "value": 1500,
+      "rationale": "The liquid there is less of in a tube of two is taken as 1.5 mL, half the other. Two liquids that mix are drawn as one liquid of the two volumes added together, which is the lab's own: a real mixture of an alcohol and water takes up a little less."
+    },
+    "solidTubeMicrolitres": {
+      "value": 3000,
+      "rationale": "The liquid a solid is tried in is taken as 3 mL, so that the tube can be drawn to its level. Nothing is worked out from it. The solid is a little, enough to see, and no amount is stored."
+    },
+    "unsettledUntilStood": {
+      "value": 1,
+      "rationale": "1 for yes. Until a tube has been shaken and has stood, the lab draws what is in it as one cloudy, unsettled liquid, with any solid spread through it, whatever the tube holds. That is the lab's own and is no claim about any pair: it keeps a tube from being read before it has stood, and makes every tube look alike until then."
+    },
+    "mixedKeepsColour": {
+      "value": 1,
+      "rationale": "1 for yes. Where the pale yellow oil mixes with a liquid of no colour, the lab draws the one liquid pale yellow. That is the lab's own: no source was read for the colour of a mixture, and no answer rests on it."
+    }
+  }
+}
