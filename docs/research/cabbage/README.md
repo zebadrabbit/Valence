@@ -112,7 +112,7 @@ Every source was read and none is kept. The manifests record the sha256 of each 
 
 ## The engine
 
-`src/engine/cabbage/` is pure and seeded, in whole numbers, with a pH held in tenths. A stored lab holds the seed and what the learner did, and no pH, colour or mark. `src/cabbage-version.test.ts` pins the model, the draw and the stored shape to the stored entry `lab:red-cabbage-ph`, version 1. The lab has no page yet and is not in the list of activities.
+`src/engine/cabbage/` is pure and seeded, in whole numbers, with a pH held in tenths. A stored lab holds the seed and what the learner did, and no pH, colour or mark. `src/cabbage-version.test.ts` pins the model, the draw and the stored shape to the stored entry `lab:red-cabbage-ph`, version 1. The lab's page is `src/app/lab/cabbage/`, which uses the engine through its index alone; the lab is in the list of activities as "Red cabbage pH", and section 21.7 of the design spec says how the page was built and where it is other than section 21.2. The page's builder changed one note of this record on 2026-10-11: the hair conditioner's, which had said that it is more acidic than its maker's shampoo, while the shampoo's figure on this bench is another maker's. The note now gives the conditioner's figure and sets it beside nothing.
 
 ## What nobody checked
 
