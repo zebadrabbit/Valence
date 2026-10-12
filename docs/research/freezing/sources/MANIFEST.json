@@ -1,0 +1,205 @@
+{
+  "retrieved": "2026-10-12",
+  "about": "Every source read for the freezing point depression lab on the retrieval date, apart from the documents behind the hazards, which are in hazard-manifest.json. No copy of any of them is kept in this folder. The atomic weights are read from a copy the periodic table keeps. Two Wikipedia articles were read for this lab at the addresses the site serves to readers, each at the revision read, and the hash recorded for each is of the page as served there; three more pages are ones the measurement and density lab read on the same day, whose saved pages were checked against their recorded hashes and read again, and not fetched again. Each row names the stored values it supports, gives a few words the source prints there, and says in this project's words where they are and what they establish.",
+  "sources": [
+    {
+      "id": "wikipedia-freezing-point-depression",
+      "url": "https://en.wikipedia.org/wiki/Freezing-point_depression?oldid=1336114117",
+      "citation": "Wikipedia, Freezing-point depression, revision 1336114117 of 2026-02-02; a secondary source, read and not kept (retrieved 2026-10-12). Its table of cryoscopic constants gives the figure for water from Aylward, G.; Findlay, T. SI Chemical Data, 5th ed.; Wiley, 2002; p 202, a book that was not read.",
+      "fetchedSha256": "e4dbdda0f722e785ff59d7169b4a1a73d4b035859996bc77e319a21f75e35ae7",
+      "supports": [
+        {
+          "fields": [
+            "water",
+            "water.freezingPointConstant"
+          ],
+          "prints": "1.86",
+          "where": "The table under the heading on the formula for a dilute solution, which lists the constant for twelve solvents in K·kg/mol: the row for water, whose freezing point it gives as 0 °C. The figure carries a reference of its own, to a book of chemical data that was not read; the table as a whole is credited to a textbook of physical chemistry."
+        },
+        {
+          "fields": [
+            "parts[unknown].notes[0]",
+            "parts[unknown].notes[1]",
+            "primer"
+          ],
+          "prints": "Blagden's Law",
+          "where": "Under the same heading: for a solution taken as ideal, the fall depends only on how much is dissolved, as the constant of the solvent times the molality times the count of particles for each formula unit; the molality is the moles dissolved for each kilogram of solvent; and the constant belongs to the solvent and not to what is dissolved. The next heading says that this simple relation is good only for a dilute solution. An earlier section says that the fall can be used to find a molar mass, where the count of particles is known, or the degree to which a solute comes apart, where the molar mass is."
+        },
+        {
+          "fields": [
+            "parts[water].notes[1]",
+            "parts[particles].notes[0]",
+            "primer"
+          ],
+          "prints": "equilibrium",
+          "where": "Under the heading that explains the fall: liquid and solid of the solvent are in balance at one temperature, the freezing point; a solute thins out the solvent, so that the balance of freezing and melting is found again at a lower temperature; and the solute does not get in the way of freezing. The opening says that salt in water and alcohol in water are examples, and the list under the formula gives the count for sodium chloride as two."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-van-t-hoff-factor",
+      "url": "https://en.wikipedia.org/wiki/Van_%27t_Hoff_factor?oldid=1315827894",
+      "citation": "Wikipedia, Van 't Hoff factor, revision 1315827894 of 2025-10-08; a secondary source, read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "4ce8b73c919ac365fdf86abade238e6c6a5083a95ab8e8d9f55dcd3cb1461f70",
+      "supports": [
+        {
+          "fields": [
+            "parts[particles].notes[0]",
+            "parts[particles].notes[1]",
+            "parts[particles].notes[2]",
+            "primer"
+          ],
+          "prints": "ion pairing",
+          "where": "The article's opening paragraphs. They say that the factor sets the particles a dissolved substance gives against the count its formula alone would give; that for most things that are not electrolytes it is very nearly one in water; that for most ionic compounds it is the number of ions in a formula unit, which holds for an ideal solution only; and that some ions are paired at any moment and count as one particle, in every solution of an electrolyte, so that a measured factor is under the ideal one. The section on what the factor means names sodium chloride and potassium chloride in water among the solutes that come apart. The article names no urea and no sodium bromide: that urea stays whole is the lab's reading of the sentence on things that are not electrolytes, and that sodium bromide gives two ions is its formula."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-thermometer",
+      "url": "https://en.wikipedia.org/wiki/Thermometer?oldid=1378639224",
+      "citation": "Wikipedia, Thermometer, revision 1378639224 of 2026-10-05; a secondary source, read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "016d866a9b1081e708fb9a20e4ecdaef31b36d18bd18265f463d380f3708796a",
+      "supports": [
+        {
+          "fields": [
+            "parts[water].notes[0]",
+            "parts[water].notes[2]",
+            "primer"
+          ],
+          "prints": "Calibration",
+          "where": "A heading of the article. Under it: a thermometer can be checked against fixed points of the scale, of which the melting and the boiling of pure water are the best known; one of the old steps for putting a scale on a thermometer is to stand its bulb in ice and water, stirred together, and to mark where it settles; and, of a bath held steady, that any difference from the scale is written down. That a probe is off by the same amount at every temperature is the model's, and the note says that it is simpler than a real one. Read for the measurement and density lab on 2026-10-12; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        }
+      ]
+    },
+    {
+      "id": "crc-nacl-solutions-wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Sodium_chloride_(data_page)?oldid=1379379503",
+      "citation": "Lide, D. R., Ed. CRC Handbook of Chemistry and Physics, 86th ed.; CRC Press: Boca Raton, FL, 2005; pp 8-71 and 8-116. The book was not read: the figures were taken from a secondary transcription, Wikipedia's Sodium chloride (data page), revision 1379379503 of 2026-10-09, linked here, its table of the properties of mixtures of water and sodium chloride; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "ade420d4cb7f3da60343936a01ee972632a2db747c9f515b05df279087418ded",
+      "supports": [
+        {
+          "fields": [
+            "measured[nacl-2].massPercent"
+          ],
+          "prints": "2",
+          "where": "The table under the heading on density data of solutions in water, whose caption cites the handbook: the first column, sodium chloride in percent by weight, of the row for 2. Read for the measurement and density lab on 2026-10-12; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        },
+        {
+          "fields": [
+            "measured[nacl-2].freezingPoint"
+          ],
+          "prints": "−1.19",
+          "where": "The same row, the second column, headed as an equilibrium temperature in °C. The note under the table says that for temperatures under about 0 °C it is the temperature at which ice and the solution are in balance: the solution's freezing point."
+        },
+        {
+          "fields": [
+            "measured[nacl-3].massPercent"
+          ],
+          "prints": "3",
+          "where": "The same table, the first column of the row for 3 percent by weight."
+        },
+        {
+          "fields": [
+            "measured[nacl-3].freezingPoint",
+            "parts[particles].notes[1]"
+          ],
+          "prints": "−1.79",
+          "where": "The same row, the second column: the temperature at which ice and a solution of that strength are in balance. The rows for 1, 4 and 5 percent print −0.59, −2.41 and −3.05, which worked the same way give 1.84, 1.82 and 1.82: the figure changes little over the strengths of the bench."
+        }
+      ]
+    },
+    {
+      "id": "lange-ethanol-wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Ethanol_(data_page)?oldid=1341104734",
+      "citation": "Lange, N. A. Lange's Handbook of Chemistry, 10th ed.; Dean, J. A., Ed.; McGraw-Hill, 1967. The book was not read: the figures were taken from a secondary transcription, Wikipedia's Ethanol (data page), revision 1341104734 of 2026-03-01, linked here, its table of the properties of aqueous ethanol solutions; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "7ea78e36b53aec6e373ddc37405d16b268b9ac1d4f2adce60f1b94ae72a93748",
+      "supports": [
+        {
+          "fields": [
+            "measured[ethanol-2.5].massPercent"
+          ],
+          "prints": "2.5",
+          "where": "The table under the heading on the properties of solutions of ethanol in water, which the page says is taken from the handbook: the first column, the mass fraction in percent, of the first row that fills in the last column. Read for the measurement and density lab on 2026-10-12; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        },
+        {
+          "fields": [
+            "measured[ethanol-2.5].freezingPoint",
+            "parts[unknown].notes[1]"
+          ],
+          "prints": "−1",
+          "where": "The same row, the last column, headed as the freezing temperature in °C. The column gives whole degrees in its first rows: −2 at 4.8 percent and −3 at 6.8 percent, where one particle for each molecule gives −2.04 and −2.95."
+        }
+      ]
+    },
+    {
+      "id": "ciaaw-abridged-2024",
+      "url": "https://www.ciaaw.org/abridged-atomic-weights.htm",
+      "citation": "IUPAC Commission on Isotopic Abundances and Atomic Weights (CIAAW), Abridged Standard Atomic Weights 2024.",
+      "supports": [
+        {
+          "fields": [
+            "atomicWeights[H]"
+          ],
+          "prints": "1.0080",
+          "where": "The copy kept for the periodic table, docs/research/periodic-table/sources/ciaaw-abridged-atomic-weights.html, the row for hydrogen (H): the abridged standard atomic weight. The build holds the stored figure to the periodic table's record, which it holds to this copy."
+        },
+        {
+          "fields": [
+            "atomicWeights[C]"
+          ],
+          "prints": "12.011",
+          "where": "The same kept copy, the row for carbon (C): the abridged standard atomic weight."
+        },
+        {
+          "fields": [
+            "atomicWeights[N]"
+          ],
+          "prints": "14.007",
+          "where": "The same kept copy, the row for nitrogen (N): the abridged standard atomic weight."
+        },
+        {
+          "fields": [
+            "atomicWeights[O]"
+          ],
+          "prints": "15.999",
+          "where": "The same kept copy, the row for oxygen (O): the abridged standard atomic weight."
+        },
+        {
+          "fields": [
+            "atomicWeights[Na]"
+          ],
+          "prints": "22.990",
+          "where": "The same kept copy, the row for sodium (Na): the abridged standard atomic weight."
+        },
+        {
+          "fields": [
+            "atomicWeights[Cl]"
+          ],
+          "prints": "35.45",
+          "where": "The same kept copy, the row for chlorine (Cl): the abridged standard atomic weight."
+        },
+        {
+          "fields": [
+            "atomicWeights[K]"
+          ],
+          "prints": "39.098",
+          "where": "The same kept copy, the row for potassium (K): the abridged standard atomic weight."
+        },
+        {
+          "fields": [
+            "atomicWeights[Br]"
+          ],
+          "prints": "79.904",
+          "where": "The same kept copy, the row for bromine (Br): the abridged standard atomic weight."
+        },
+        {
+          "fields": [
+            "parts[unknown].notes[2]"
+          ],
+          "prints": "12.011",
+          "where": "The same kept copy, the row for carbon again, for the note's two molar masses: with the weights of hydrogen and oxygen it gives acetone 58.08 g/mol and 2-propanol 60.10 g/mol, which are 2.02 g/mol apart, 3.5% of the smaller. The rest of the note is the lab's own: what its model takes as simpler than a bench."
+        }
+      ]
+    }
+  ]
+}

@@ -7,6 +7,7 @@ import { calorimetrySchema, type CalorimetryData } from './calorimetry/data'
 import { acetoneSchema, type AcetoneData } from './acetone/data'
 import { cabbageSchema, type CabbageData } from './cabbage/data'
 import { densitySchema, type DensityData } from './density/data'
+import { freezingSchema, type FreezingData } from './freezing/data'
 import { clockSchema, type ClockData } from './clock/data'
 import { cationsSchema, type CationsData } from './cations/data'
 import { brightestOf, extentOf, flameSchema, rangeOf, type FlameData } from './flame/data'
@@ -881,5 +882,48 @@ export function validateDensity(input: unknown, sources: readonly Source[], opti
     ...checkSourceIds(parsed.data, 'density', Array.isArray(sources) ? sources : []),
     ...checkPublished(parsed.data, 'density'),
     ...checkProse(parsed.data, 'density', Array.isArray(names) ? names : []),
+  ]
+}
+
+/** What the freezing point depression lab's record must hold together beyond its shape: its ids, the reagents its parts and its measured rows name, the atoms its atomic weights cover, and ranges that run upward. */
+function checkFreezing(data: FreezingData): string[] {
+  const errors = [...duplicates(data.reagents.map((r) => r.id), 'reagents'), ...duplicates(data.atomicWeights.map((w) => w.id), 'atomicWeights'), ...duplicates(data.measured.map((row) => row.id), 'measured')]
+  const [, unknown, particles] = data.parts
+  const ids = data.reagents.map((r) => r.id)
+  errors.push(...duplicates([...unknown.candidateIds, ...particles.soluteIds], 'the liquids of part 2 and the solutes of part 3'))
+  for (const candidate of unknown.candidateIds) {
+    const reagent = data.reagents.find((r) => r.id === candidate)
+    if (!reagent) errors.push(`part "unknown": the candidate "${candidate}" is no reagent of the record`)
+    // The unknown is a liquid that is poured, whichever it is.
+    else if (reagent.form !== 'liquid') errors.push(`part "unknown": the candidate "${candidate}" is not a liquid`)
+  }
+  for (const solute of particles.soluteIds) if (!ids.includes(solute)) errors.push(`part "particles": the solute "${solute}" is no reagent of the record`)
+  for (const reagent of data.reagents) {
+    if (![...unknown.candidateIds, ...particles.soluteIds].includes(reagent.id)) errors.push(`reagent "${reagent.id}": no part uses it`)
+    for (const symbol of Object.keys(reagent.composition)) if (!data.atomicWeights.some((w) => w.id === symbol)) errors.push(`reagent "${reagent.id}": no atomic weight for ${symbol}`)
+    if (reagent.particles.kind === 'measured' && !data.measured.some((row) => row.id === reagent.particles.measuredId && row.reagentId === reagent.id)) errors.push(`reagent "${reagent.id}": its count of particles names no measured row of its own`)
+    if (reagent.particles.kind === 'ideal' && reagent.particles.value !== reagent.particles.ideal) errors.push(`reagent "${reagent.id}": a count marked as the ideal is not the ideal count`)
+  }
+  for (const row of data.measured) if (!ids.includes(row.reagentId)) errors.push(`measured "${row.id}": "${row.reagentId}" is no reagent of the record`)
+  for (const [name, parameter] of Object.entries(data.parameters)) {
+    if (Array.isArray(parameter.value) && parameter.value[0] > parameter.value[1]) errors.push(`parameters.${name}: a range runs from its lower end to its upper`)
+  }
+  return errors
+}
+
+/**
+ * Checks the freezing point depression lab's record against the sources it cites: the schema; that its ids hold
+ * together; that every cited source exists; that every `published` figure is the number stored beside it; and
+ * that no prose holds institution text.
+ */
+export function validateFreezing(input: unknown, sources: readonly Source[], options: ValidateOptions = {}): string[] {
+  const parsed = freezingSchema.safeParse(input)
+  if (!parsed.success) return schemaErrors(parsed.error.issues)
+  const names = options?.institutionNames
+  return [
+    ...checkFreezing(parsed.data),
+    ...checkSourceIds(parsed.data, 'freezing', Array.isArray(sources) ? sources : []),
+    ...checkPublished(parsed.data, 'freezing'),
+    ...checkProse(parsed.data, 'freezing', Array.isArray(names) ? names : []),
   ]
 }

@@ -7,6 +7,7 @@ import type { CationsData, StepId } from './cations/data'
 import type { AcetoneData, PartId as AcetonePartId } from './acetone/data'
 import type { CabbageData, ThingId } from './cabbage/data'
 import type { DensityData, PartId as DensityPartId } from './density/data'
+import type { FreezingData, PartId as FreezingPartId } from './freezing/data'
 import type { ClockData, PartId as ClockPartId } from './clock/data'
 import type { FlameData } from './flame/data'
 import type { DisturbanceId, LechatelierData } from './lechatelier/data'
@@ -504,6 +505,39 @@ export function densityCitations(data: DensityData, partId: DensityPartId, sourc
     [
       ...rows.map((row): Entry => [`${row.name}: density at ${row.temperature}`, row.printed.sourceId]),
       ...(part.id === 'liquid' ? [['Density of water at 20 °C, for the densities a source gives relative to water', data.water.density.sourceId] as const] : []),
+      ...reagents.flatMap((r): Entry[] => [
+        [`${r.name}: the substance`, r.sourceId],
+        [`${r.name}: hazard classification`, r.hazards.sourceId],
+        ...all(`${r.name}: hazards as it is used here`, r.hazards.note),
+      ]),
+      ...notes,
+    ],
+    sources,
+  )
+}
+
+/**
+ * The sources behind one part of the freezing point depression lab (spec 5.1): for part 1 its notes; for parts 2
+ * and 3 the freezing point constant, the atomic weights the molar masses of the table are worked out from, every
+ * liquid the unknown may be or every solute of part 3 with its hazards, the measured freezing points the notes
+ * rest on, and the part's notes. Part 2 lists every liquid, whichever the unknown is, so the list says nothing of
+ * which it is.
+ */
+export function freezingCitations(data: FreezingData, partId: FreezingPartId, sources: readonly Source[]): Citation[] {
+  const part = data.parts.find((p) => p.id === partId)
+  if (!part) throw new Error(`no part "${partId}"`)
+  const all = (label: string, cited: { sourceId: string; alsoSourceId?: string | undefined; moreSourceIds?: string[] | undefined }): Entry[] =>
+    [cited.sourceId, ...(cited.alsoSourceId === undefined ? [] : [cited.alsoSourceId]), ...(cited.moreSourceIds ?? [])].map((id): Entry => [label, id])
+  const notes = part.notes.flatMap((note) => all('Notes on this part', note))
+  if (part.id === 'water') return citations(notes, sources)
+  const ids: readonly string[] = part.id === 'unknown' ? part.candidateIds : part.soluteIds
+  const reagents = data.reagents.filter((r) => ids.includes(r.id))
+  const symbols = new Set(reagents.flatMap((r) => Object.keys(r.composition)))
+  return citations(
+    [
+      ['Freezing point constant of water', data.water.freezingPointConstant.sourceId],
+      ...data.atomicWeights.filter((w) => symbols.has(w.id)).map((w): Entry => ['Atomic weights, for the molar masses in the table', w.sourceId]),
+      ...data.measured.filter((row) => ids.includes(row.reagentId)).map((row): Entry => [`${reagents.find((r) => r.id === row.reagentId)!.name}: a measured freezing point of its solution`, row.freezingPoint.sourceId]),
       ...reagents.flatMap((r): Entry[] => [
         [`${r.name}: the substance`, r.sourceId],
         [`${r.name}: hazard classification`, r.hazards.sourceId],

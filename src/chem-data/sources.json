@@ -2403,5 +2403,40 @@
     "id": "noaa-cameo-16146",
     "url": "https://cameochemicals.noaa.gov/chemical/16146",
     "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Copper (chemical 16146); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept)."
+  },
+  {
+    "id": "wikipedia-freezing-point-depression",
+    "url": "https://en.wikipedia.org/wiki/Freezing-point_depression?oldid=1336114117",
+    "citation": "Wikipedia, Freezing-point depression, revision 1336114117 of 2026-02-02; a secondary source, read and not kept (retrieved 2026-10-12). Its table of cryoscopic constants gives the figure for water from Aylward, G.; Findlay, T. SI Chemical Data, 5th ed.; Wiley, 2002; p 202, a book that was not read."
+  },
+  {
+    "id": "wikipedia-van-t-hoff-factor",
+    "url": "https://en.wikipedia.org/wiki/Van_%27t_Hoff_factor?oldid=1315827894",
+    "citation": "Wikipedia, Van 't Hoff factor, revision 1315827894 of 2025-10-08; a secondary source, read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "flinn-sds-420",
+    "url": "https://www.flinnsci.com/sds_420-isopropyl-alcohol/sds_420",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Isopropyl Alcohol, SDS number sds_420; revision date June 26, 2015 (read on 2026-10-12; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-946",
+    "url": "https://cameochemicals.noaa.gov/chemical/946",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Isopropanol (chemical 946); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-840",
+    "url": "https://www.flinnsci.com/sds_840-urea/sds_840",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Urea, SDS number sds_840; revision date July 17, 2015 (read on 2026-10-12; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-9165",
+    "url": "https://cameochemicals.noaa.gov/chemical/9165",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Urea (chemical 9165); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-714",
+    "url": "https://www.flinnsci.com/sds_714-sodium-bromide/sds_714",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Bromide, SDS number sds_714; revision date January 16, 2014 (read on 2026-10-12; no copy is kept)."
   }
 ]

@@ -39,6 +39,10 @@
 // Reads docs/research/density/ (density.json, hazards.json and the two manifests under sources/), with the copy
 // of the handbooks' densities kept for the periodic table, and writes:
 //   density/density.json, and into sources.json the measurement and density lab's sources
+//
+// Reads docs/research/freezing/ (freezing.json, hazards.json and the two manifests under sources/), with the
+// periodic table's record for the atomic weights, and writes:
+//   freezing/freezing.json, and into sources.json the freezing point depression lab's sources
 // Reads docs/research/acetone/ (acetone.json, hazards.json and the two manifests under sources/), with the
 // aqueous lab's hazards for the bottle the two labs share, and writes:
 //   acetone/acetone.json, and into sources.json the iodination of acetone lab's sources
@@ -64,6 +68,7 @@ import { checkBench as checkLechatelierBench, checkWorkedOut as checkLechatelier
 import { checkMixtures, checkRateRecord, checkReactions, checkUsedUp } from './clock-lib.mjs'
 import { checkEstimates, checkScale, checkWorkedOut as checkCabbageWorkedOut } from './cabbage-lib.mjs'
 import { checkMetalDensities, checkTellApart, checkWorkedOut as checkDensityWorkedOut } from './density-lib.mjs'
+import { checkMeasured, checkMolarMasses as checkFreezingMolarMasses, checkNumbers } from './freezing-lib.mjs'
 import { checkExcess, checkMixtures as checkAcetoneMixtures, checkRateRecord as checkAcetoneRateRecord, checkReaction as checkAcetoneReaction } from './acetone-lib.mjs'
 import { checkAnnualMean, checkMolecularWeight, checkPublished, checkSha256, checkSheetHazards, checkWikipediaCopy } from './titration-lib.mjs'
 
@@ -81,6 +86,7 @@ const lechatelierResearch = join(root, 'docs/research/lechatelier')
 const clockResearch = join(root, 'docs/research/clock')
 const cabbageResearch = join(root, 'docs/research/cabbage')
 const densityResearch = join(root, 'docs/research/density')
+const freezingResearch = join(root, 'docs/research/freezing')
 const acetoneResearch = join(root, 'docs/research/acetone')
 const out = join(root, 'src/chem-data')
 
@@ -2006,6 +2012,58 @@ function buildDensity(earlierSources) {
   return { density, sources: [...labSources, ...sheetSources.filter((source) => underHazards.has(source.id))] }
 }
 
+// ---------------------------------------------------------------------------
+// Freezing point depression lab
+//
+// The record is authored in docs/research/freezing/freezing.json: the three liquids the unknown may be, urea and
+// the three salts, each with its composition, its molar mass worked out from the atomic weights, and the particles
+// each formula unit gives (the ideal, or a measured figure with the row it is worked out from); the water with its
+// freezing point constant; the atomic weights; the measured freezing points of solutions that were found; the
+// three parts with the notes shown when each is done; and the model's parameters. Every source is in
+// sources/MANIFEST.json, each row of which names the stored values it supports, and the build holds the record to
+// those rows as it does the aqueous lab's. No source has a copy in this lab's folder: the atomic weights are held
+// to the periodic table's record. What the record works out is worked out again here, and its numbers are held to
+// spec 23.3 and 23.6 (scripts/freezing-lib.mjs): the three liquids far enough apart to tell at the figures the
+// instruments give, ice left in a careful run at every seeded amount, and every fall of three figures. The hazards
+// are authored apart, in hazards.json with sources/hazard-manifest.json, and merged in as the measurement and
+// density lab's are: every record is this lab's own, none being the same thing in the same form as another lab's,
+// though eight of the documents behind them are ones the iodination of acetone, flame test and density labs list.
+
+const FREEZING_KEYS = ['reagents', 'water', 'atomicWeights', 'measured', 'parts', 'parameters']
+const FREEZING_REAGENTS = ['acetone', 'ethanol', 'propan-2-ol', 'urea', 'nacl', 'kcl', 'nabr']
+const FREEZING_PARTS = ['water', 'unknown', 'particles']
+
+function buildFreezing(earlierSources, periodicTable) {
+  const json = (name) => JSON.parse(readFileSync(join(freezingResearch, name), 'utf8'))
+  const input = json('freezing.json')
+  const manifest = json('sources/MANIFEST.json')
+  const hazardManifest = json('sources/hazard-manifest.json')
+
+  onlyKeys(input, FREEZING_KEYS, 'freezing.json')
+  if (input.reagents.map((r) => r.id).join() !== FREEZING_REAGENTS.join()) fail('freezing.json: the reagents are not the three liquids, urea and the three salts of spec 23.1, in their order')
+  if (input.parts.map((p) => p.id).join() !== FREEZING_PARTS.join()) fail('freezing.json: the parts are not the three of spec 23.1, in their order')
+  if ([...manifest.sources, ...hazardManifest.sources].some((source) => source.file !== undefined)) fail('freezing manifests: no source of this lab has a copy in its folder')
+  for (const [key, parameter] of Object.entries(input.parameters)) onlyKeys(parameter, ['value', 'rationale'], `freezing.json: parameters.${key}`)
+  const [, unknown, particles] = input.parts
+  if ([...unknown.candidateIds, ...particles.soluteIds].join() !== FREEZING_REAGENTS.join()) fail('freezing.json: the liquids the unknown may be and the solutes of part 3 are not the reagents, in their order')
+
+  // A source another lab lists too (the atomic weights, a handbook table, a sheet) is listed once.
+  const labSources = newSources(manifest.sources, earlierSources, 'freezing MANIFEST.json')
+
+  checkFreezingMolarMasses(input, periodicTable)
+  checkMeasured(input)
+  checkNumbers(input)
+
+  const sheets = hazardManifest.sources
+  const sheetSources = newSources(sheets, [...earlierSources, ...labSources], 'freezing hazard-manifest.json')
+  const freezing = { ...input, reagents: mergeHazards(input.reagents, json('hazards.json'), sheets) }
+  checkSupported(freezing, manifest.sources, sheets)
+
+  // As for the calorimetry lab: the app lists only the documents a reagent's hazards cite.
+  const underHazards = new Set(freezing.reagents.flatMap(({ hazards: { sourceId, note } }) => [sourceId, note.sourceId, ...(note.alsoSourceId === undefined ? [] : [note.alsoSourceId]), ...(note.moreSourceIds ?? [])]))
+  return { freezing, sources: [...labSources, ...sheetSources.filter((source) => underHazards.has(source.id))] }
+}
+
 // A static import list keeps the registry free of bundler-only APIs.
 function moleculeIndex(molecules) {
   const name = (id) => id.replace(/-(.)/g, (_, c) => c.toUpperCase())
@@ -2061,7 +2119,9 @@ function main() {
   const { cabbage, sources: cabbageSources } = buildCabbage(beforeCabbage)
   const beforeDensity = [...beforeCabbage, ...cabbageSources]
   const { density, sources: densitySources } = buildDensity(beforeDensity)
-  const sources = [...beforeDensity, ...densitySources]
+  const beforeFreezing = [...beforeDensity, ...densitySources]
+  const { freezing, sources: freezingSources } = buildFreezing(beforeFreezing, periodicTable)
+  const sources = [...beforeFreezing, ...freezingSources]
   if (new Set(sources.map((s) => s.id)).size !== sources.length) fail('duplicate source ids')
 
   // Everything is built before anything is written.
@@ -2095,11 +2155,13 @@ function main() {
   writeFileSync(join(out, 'cabbage/cabbage.json'), toJson(cabbage))
   mkdirSync(join(out, 'density'), { recursive: true })
   writeFileSync(join(out, 'density/density.json'), toJson(density))
+  mkdirSync(join(out, 'freezing'), { recursive: true })
+  writeFileSync(join(out, 'freezing/freezing.json'), toJson(freezing))
   mkdirSync(join(root, 'src/mechanisms'), { recursive: true })
   writeFileSync(join(root, 'src/mechanisms', `${mechanism.id}.json`), toJson(mechanism))
   writeFileSync(join(out, 'sources.json'), toJson(sources))
   process.stdout.write(
-    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the flame test lab's record, the calorimetry lab's record, the Group I cations lab's record, the Le Chatelier's principle lab's record, the clock reaction lab's record, the iodination of acetone lab's record, the red cabbage pH lab's record, the measurement and density lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
+    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the flame test lab's record, the calorimetry lab's record, the Group I cations lab's record, the Le Chatelier's principle lab's record, the clock reaction lab's record, the iodination of acetone lab's record, the red cabbage pH lab's record, the measurement and density lab's record, the freezing point depression lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
   )
 }
 
