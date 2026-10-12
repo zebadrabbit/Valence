@@ -280,6 +280,26 @@ export function About() {
             laboratory's own rules.
           </p>
           <p className="mb-2">
+            The polarity and mixing lab takes the density of water from the NIST Chemistry WebBook, those of the two
+            oils from records of NOAA's database of chemicals, and those of the rubbing alcohol and the vinegar from
+            Flinn Scientific's safety data sheets, which print no temperature for them. Which liquid of two is on top
+            is worked out from those densities and is stored nowhere. Whether two liquids mix, whether a solid
+            dissolves, the two families of its last part and its primer rest on those sheets and records; on
+            Wikipedia's articles on solvents, on miscibility, on isopropyl alcohol and on rubbing alcohol; on three
+            sections of CK-12's Introductory Chemistry, on LibreTexts; on a one-page demonstration handout served by
+            the Department of Chemistry of Purdue University; and on a lesson of the Geophysical Institute of the
+            University of Alaska Fairbanks. Ten of the seventeen tubes rest on a rule for a family or on what a
+            bottle holds, and not on a page that names the two things, and the lab's research record says which.
+            Three things are left off the bench because nothing that was read settles what they show. That a tube is
+            cloudy until it has stood, and the colour two mixed liquids are drawn in, are Valence's own. The hazard
+            statements of the rubbing alcohol are those of Flinn Scientific's sheet for 2-propanol of 40% to 90% in
+            water, and the note under them rests also on NOAA's record of the alcohol; the note that everything else
+            on the bench shares is the red cabbage pH lab's. The documents were read on the dates their citations
+            give, and no copy of them is kept. The lab's primer quotes none of its sources. No tube of this lab was
+            set up at a bench. None of these publishers is connected with Valence or has reviewed it. At a real
+            bench, follow the label and the safety data sheet of the product in hand and the laboratory's own rules.
+          </p>
+          <p className="mb-2">
             The mechanism timeline takes its enthalpies and free energies of formation from the NBS tables of chemical
             thermodynamic properties of 1982, as NIST serves them; the acid constant of the carbonic acid molecule,
             how long that molecule lasts and the timescales of its two middle steps from a paper in the Journal of
