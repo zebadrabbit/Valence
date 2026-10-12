@@ -2338,5 +2338,70 @@
     "id": "flinn-sds-246",
     "url": "https://www.flinnsci.com/sds_246-alconox-cleaner/sds_246",
     "citation": "Flinn Scientific, Inc. Safety Data Sheet: Alconox® Cleaner, SDS number sds_246; revision date June 6, 2016 (read on 2026-10-11; no copy is kept)."
+  },
+  {
+    "id": "lange-ethanol-wikipedia",
+    "url": "https://en.wikipedia.org/w/index.php?title=Ethanol_(data_page)&oldid=1341104734",
+    "citation": "Lange, N. A. Lange's Handbook of Chemistry, 10th ed.; Dean, J. A., Ed.; McGraw-Hill: New York, 1967. The book was not read: the figures were taken from a secondary transcription, Wikipedia's Ethanol (data page), revision 1341104734 of 2026-03-01, linked here, its table of the properties of aqueous ethanol solutions; read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "crc-nacl-solutions-wikipedia",
+    "url": "https://en.wikipedia.org/w/index.php?title=Sodium_chloride_(data_page)&oldid=1379379503",
+    "citation": "Lide, D. R., Ed. CRC Handbook of Chemistry and Physics, 86th ed.; CRC Press: Boca Raton, FL, 2005; pp 8-71 and 8-116. The book was not read: the figures were taken from a secondary transcription, Wikipedia's Sodium chloride (data page), revision 1379379503 of 2026-10-09, linked here, its table of the properties of mixtures of water and sodium chloride; read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "nist-webbook-water-20c",
+    "url": "https://webbook.nist.gov/cgi/fluid.cgi?Action=Load&ID=C7732185&Type=IsoBar&Digits=5&P=0.1&THigh=20&TLow=20&TInc=1&RefState=DEF&TUnit=C&PUnit=MPa&DUnit=g%2Fml&HUnit=kJ%2Fkg&WUnit=m%2Fs&VisUnit=uPa*s&STUnit=N%2Fm",
+    "citation": "Lemmon, E. W.; Bell, I. H.; Huber, M. L.; McLinden, M. O. Thermophysical Properties of Fluid Systems. In NIST Chemistry WebBook, NIST Standard Reference Database Number 69; Linstrom, P. J., Mallard, W. G., Eds.; National Institute of Standards and Technology: Gaithersburg, MD. https://doi.org/10.18434/T4D303 Isobaric properties for water at 0.1 MPa and 20 °C, in units of mass; read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "wikipedia-celsius",
+    "url": "https://en.wikipedia.org/w/index.php?title=Celsius&oldid=1373142018",
+    "citation": "Wikipedia, Celsius, revision 1373142018 of 2026-09-04; a secondary source, read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "wikipedia-thermometer",
+    "url": "https://en.wikipedia.org/w/index.php?title=Thermometer&oldid=1378639224",
+    "citation": "Wikipedia, Thermometer, revision 1378639224 of 2026-10-05; a secondary source, read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "wikipedia-graduated-cylinder",
+    "url": "https://en.wikipedia.org/w/index.php?title=Graduated_cylinder&oldid=1333139371",
+    "citation": "Wikipedia, Graduated cylinder, revision 1333139371 of 2026-01-15; a secondary source, read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "wikipedia-significant-figures",
+    "url": "https://en.wikipedia.org/w/index.php?title=Significant_figures&oldid=1376805448",
+    "citation": "Wikipedia, Significant figures, revision 1376805448 of 2026-09-26; a secondary source, read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "wikipedia-density",
+    "url": "https://en.wikipedia.org/w/index.php?title=Density&oldid=1379698777",
+    "citation": "Wikipedia, Density, revision 1379698777 of 2026-10-11; a secondary source, read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "purdue-significant-figures",
+    "url": "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch1/sigfigs.html",
+    "citation": "Bodner Research Web, Purdue University. General Chemistry Help, Units, Errors, Significant Figures and Scientific Notation: Significant Figures; read and not kept (retrieved 2026-10-12)."
+  },
+  {
+    "id": "flinn-sds-326",
+    "url": "https://www.flinnsci.com/sds_326-ethyl-alcohol-denatured/sds_326",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Ethyl Alcohol Denatured, SDS number sds_326; revision date March 21, 2014 (read on 2026-10-12; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-667",
+    "url": "https://cameochemicals.noaa.gov/chemical/667",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Ethanol (chemical 667); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept)."
+  },
+  {
+    "id": "flinn-sds-265",
+    "url": "https://www.flinnsci.com/sds_265-copper/sds_265",
+    "citation": "Flinn Scientific, Inc. Safety Data Sheet: Copper, SDS number sds_265; revision date July 13, 2015 (read on 2026-10-12; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-16146",
+    "url": "https://cameochemicals.noaa.gov/chemical/16146",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Copper (chemical 16146); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept)."
   }
 ]

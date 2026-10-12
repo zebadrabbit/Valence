@@ -6,6 +6,7 @@ import { aqueousSchema, type AqueousData } from './aqueous/data'
 import { calorimetrySchema, type CalorimetryData } from './calorimetry/data'
 import { acetoneSchema, type AcetoneData } from './acetone/data'
 import { cabbageSchema, type CabbageData } from './cabbage/data'
+import { densitySchema, type DensityData } from './density/data'
 import { clockSchema, type ClockData } from './clock/data'
 import { cationsSchema, type CationsData } from './cations/data'
 import { brightestOf, extentOf, flameSchema, rangeOf, type FlameData } from './flame/data'
@@ -842,5 +843,43 @@ export function validateCabbage(input: unknown, sources: readonly Source[], opti
     ...checkSourceIds(parsed.data, 'cabbage', Array.isArray(sources) ? sources : []),
     ...checkPublished(parsed.data, 'cabbage'),
     ...checkProse(parsed.data, 'cabbage', Array.isArray(names) ? names : []),
+  ]
+}
+
+/** What the measurement and density lab's record must hold together beyond its shape: its ids, the rows its reagents and its parts name, and ranges that run upward. */
+function checkDensity(data: DensityData): string[] {
+  const errors = [...duplicates(data.reagents.map((r) => r.id), 'reagents'), ...duplicates(data.liquids.map((l) => l.id), 'liquids'), ...duplicates(data.metals.map((m) => m.id), 'metals'), ...duplicates(data.instruments.map((i) => i.id), 'instruments')]
+  const [, liquid, metal] = data.parts
+  for (const [part, rows, form] of [[liquid, data.liquids, 'liquid'], [metal, data.metals, 'metal']] as const) {
+    errors.push(...duplicates(part.candidateIds, `part "${part.id}": candidates`), ...duplicates(part.unknownIds, `part "${part.id}": unknowns`))
+    for (const candidate of part.candidateIds) if (!rows.some((row) => row.id === candidate)) errors.push(`part "${part.id}": the candidate "${candidate}" is no row of its table`)
+    for (const unknown of part.unknownIds) {
+      if (!part.candidateIds.includes(unknown)) errors.push(`part "${part.id}": the unknown "${unknown}" is not a candidate`)
+      // What an unknown may be is on the bench, so it carries hazards: a reagent of the right form.
+      if (!data.reagents.some((r) => r.tableId === unknown && (r.form === 'metal') === (form === 'metal'))) errors.push(`part "${part.id}": the unknown "${unknown}" is no reagent of the record`)
+    }
+  }
+  for (const reagent of data.reagents) if (![...liquid.unknownIds, ...metal.unknownIds].includes(reagent.tableId)) errors.push(`reagent "${reagent.id}": it is no unknown of a part`)
+  for (const [name, parameter] of Object.entries(data.parameters)) {
+    if (Array.isArray(parameter.value) && parameter.value[0] > parameter.value[1]) errors.push(`parameters.${name}: a range runs from its lower end to its upper`)
+  }
+  for (const instrument of data.instruments) if (instrument.from >= instrument.to) errors.push(`instrument "${instrument.id}": its scale runs from its lower end to its upper`)
+  return errors
+}
+
+/**
+ * Checks the measurement and density lab's record against the sources it cites: the schema; that its ids hold
+ * together; that every cited source exists; that every `published` figure is the number stored beside it; and
+ * that no prose holds institution text.
+ */
+export function validateDensity(input: unknown, sources: readonly Source[], options: ValidateOptions = {}): string[] {
+  const parsed = densitySchema.safeParse(input)
+  if (!parsed.success) return schemaErrors(parsed.error.issues)
+  const names = options?.institutionNames
+  return [
+    ...checkDensity(parsed.data),
+    ...checkSourceIds(parsed.data, 'density', Array.isArray(sources) ? sources : []),
+    ...checkPublished(parsed.data, 'density'),
+    ...checkProse(parsed.data, 'density', Array.isArray(names) ? names : []),
   ]
 }

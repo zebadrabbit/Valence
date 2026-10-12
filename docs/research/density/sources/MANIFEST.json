@@ -1,0 +1,270 @@
+{
+  "retrieved": "2026-10-12",
+  "about": "Every source read for the measurement and density lab on the retrieval date, apart from the documents behind the hazards, which are in hazard-manifest.json. No copy of any of them is kept in this folder. The densities of the four metals are read from a copy the periodic table keeps; the rest were read at the addresses given and are not kept. Each row names the stored values it supports, gives a few words the source prints there, and says in this project's words where they are and what they establish.",
+  "sources": [
+    {
+      "id": "handbook-densities-wikipedia",
+      "url": "https://en.wikipedia.org/w/index.php?title=Densities_of_the_elements_(data_page)&oldid=1258326075",
+      "citation": "Lide, D. R., Ed. CRC Handbook of Chemistry and Physics, 84th ed.; CRC Press: Boca Raton, FL, 2003; Section 4, Physical Constants of Inorganic Compounds. Dean, J. A., Ed. Lange's Handbook of Chemistry, 15th ed.; McGraw-Hill: New York, 1999; Table 3.2. Neither handbook was read: their densities were taken from a secondary transcription, Wikipedia's Densities of the elements (data page), revision 1258326075, linked here (retrieved 2026-10-03).",
+      "supports": [
+        {
+          "fields": [
+            "metals[aluminium].printed"
+          ],
+          "prints": "2.70",
+          "where": "The copy kept for the periodic table, docs/research/periodic-table/sources/wikipedia-densities-of-the-elements-data-page.wikitext, in its table of the solid elements, the block for aluminium (13 Al): the row marked CRC, which gives the figure as one for near room temperature, in g/cm³. The row marked LNG has the same figure, as one at room temperature. The build reads the figure from the kept copy."
+        },
+        {
+          "fields": [
+            "metals[zinc].printed"
+          ],
+          "prints": "7.14",
+          "where": "The same kept copy, the block for zinc (30 Zn): the row marked CRC, for near room temperature, in g/cm³. The row marked LNG has the same figure, as one at room temperature."
+        },
+        {
+          "fields": [
+            "metals[iron].printed"
+          ],
+          "prints": "7.87",
+          "where": "The same kept copy, the block for iron (26 Fe): the row marked CRC, for near room temperature, in g/cm³. The row marked LNG has 7.86, as one at room temperature; the row of the first handbook is the one stored, as for the other three metals."
+        },
+        {
+          "fields": [
+            "metals[copper].printed"
+          ],
+          "prints": "8.96",
+          "where": "The same kept copy, the block for copper (29 Cu): the row marked CRC, for near room temperature, in g/cm³. The row marked LNG has the same figure and gives its temperature as 20 °C, the one row of the four metals that names a temperature in degrees."
+        },
+        {
+          "fields": [
+            "parts[metal].notes[1]"
+          ],
+          "prints": "near r.t.",
+          "where": "The words in front of each figure of the rows marked CRC in the table of solids, short for room temperature: all the page says of the temperature these densities are for. Its list of references under the tables says which handbook each mark stands for. That the metals are pure is the lab's reading of a table of the elements."
+        }
+      ]
+    },
+    {
+      "id": "lange-ethanol-wikipedia",
+      "url": "https://en.wikipedia.org/w/index.php?title=Ethanol_(data_page)&oldid=1341104734",
+      "citation": "Lange, N. A. Lange's Handbook of Chemistry, 10th ed.; Dean, J. A., Ed.; McGraw-Hill: New York, 1967. The book was not read: the figures were taken from a secondary transcription, Wikipedia's Ethanol (data page), revision 1341104734 of 2026-03-01, linked here, its table of the properties of aqueous ethanol solutions; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "b985aa0914fd1d8d453c128cc68bd9569648dbd8e21677054c563032136ce63c",
+      "supports": [
+        {
+          "fields": [
+            "liquids[ethanol-95].printed"
+          ],
+          "prints": "0.80567",
+          "where": "The table under the heading on the properties of solutions of ethanol in water, which the page says is taken from the handbook: the row whose first column, the mass fraction in percent, is 95.0, in the column for the density at 20 °C set against water at 20 °C. The four columns before it give densities set against water at 4 °C for four temperatures, and print 0.80424 for 20 °C; the page marks those four as wanting a citation, so the column next to them was taken. The two agree: 0.80567 times the density of water at 20 °C is 0.80423."
+        },
+        {
+          "fields": [
+            "liquids[ethanol-50].printed"
+          ],
+          "prints": "0.91546",
+          "where": "The same table, the row whose mass fraction is 50.0, in the same column. The flagged column for 20 °C prints 0.91384 in that row, and 0.91546 times the density of water at 20 °C is 0.91382."
+        },
+        {
+          "fields": [
+            "parts[liquid].notes[1]"
+          ],
+          "prints": "91.00",
+          "where": "The same table, the first column of the one row near the top of the scale that fills in the second column too: a mass fraction of 91.00 beside a volume concentration of 94.00, with 0.81674 in the column for 20 °C set against water at 20 °C. The row for 95.0 by mass gives no percentage by volume. That a liquid of 94% by volume is a little denser than one of 95% by mass is these two rows compared."
+        }
+      ]
+    },
+    {
+      "id": "crc-nacl-solutions-wikipedia",
+      "url": "https://en.wikipedia.org/w/index.php?title=Sodium_chloride_(data_page)&oldid=1379379503",
+      "citation": "Lide, D. R., Ed. CRC Handbook of Chemistry and Physics, 86th ed.; CRC Press: Boca Raton, FL, 2005; pp 8-71 and 8-116. The book was not read: the figures were taken from a secondary transcription, Wikipedia's Sodium chloride (data page), revision 1379379503 of 2026-10-09, linked here, its table of the properties of mixtures of water and sodium chloride; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "247deb8aa1435ab0a38c0863571c59bde3a6fce0fe9462f45f0d5d20cfe0b175",
+      "supports": [
+        {
+          "fields": [
+            "liquids[nacl-20].printed"
+          ],
+          "prints": "1.1478",
+          "where": "The table under the heading on density data of solutions in water, whose caption cites the handbook: the row whose first column, sodium chloride in percent by weight, is 20, in the column for the density in g/cm³. The note under the table says that the density, the refractive index and the viscosity are all for 20 °C."
+        },
+        {
+          "fields": [
+            "liquids[nacl-10].printed"
+          ],
+          "prints": "1.0707",
+          "where": "The same table, the row for 10 percent by weight, in the same column."
+        },
+        {
+          "fields": [
+            "parts[liquid].notes[1]"
+          ],
+          "prints": "NaCl, wt%",
+          "where": "The head of the first column of the same table: the strength is by weight, which is by mass. The note under the table gives the temperature of the densities, 20 °C."
+        }
+      ]
+    },
+    {
+      "id": "nist-webbook-water-20c",
+      "url": "https://webbook.nist.gov/cgi/fluid.cgi?Action=Load&ID=C7732185&Type=IsoBar&Digits=5&P=0.1&THigh=20&TLow=20&TInc=1&RefState=DEF&TUnit=C&PUnit=MPa&DUnit=g%2Fml&HUnit=kJ%2Fkg&WUnit=m%2Fs&VisUnit=uPa*s&STUnit=N%2Fm",
+      "citation": "Lemmon, E. W.; Bell, I. H.; Huber, M. L.; McLinden, M. O. Thermophysical Properties of Fluid Systems. In NIST Chemistry WebBook, NIST Standard Reference Database Number 69; Linstrom, P. J., Mallard, W. G., Eds.; National Institute of Standards and Technology: Gaithersburg, MD. https://doi.org/10.18434/T4D303 Isobaric properties for water at 0.1 MPa and 20 °C, in units of mass; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "8807f891882fe6a25c7b5385c20c51dc19ceb5d36e800d78b99b4686d668fe45",
+      "supports": [
+        {
+          "fields": [
+            "water"
+          ],
+          "prints": "Isobaric Properties for Water",
+          "where": "The page's title. The table under it has one row, for 20.000 °C and 0.10000 MPa, whose last column says that the water is liquid. That the water on the bench is distilled is the lab's set-up."
+        },
+        {
+          "fields": [
+            "water.density",
+            "liquids[water].printed"
+          ],
+          "prints": "0.99821",
+          "where": "The one row of the table, in the column headed Density (g/ml)."
+        },
+        {
+          "fields": [
+            "parts[liquid].notes[1]"
+          ],
+          "prints": "20.000",
+          "where": "The one row of the table, in the column for the temperature in degrees Celsius: the temperature the water of the table of liquids is given for, and the one the two handbook tables give their densities for."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-celsius",
+      "url": "https://en.wikipedia.org/w/index.php?title=Celsius&oldid=1373142018",
+      "citation": "Wikipedia, Celsius, revision 1373142018 of 2026-09-04; a secondary source, read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "9bf099288f311ab2954d62072980be84bed31795b9260c2382751ce7c7bca3fb",
+      "supports": [
+        {
+          "fields": [
+            "constants.icePoint"
+          ],
+          "prints": "0.0001",
+          "where": "The table of key temperatures on the scale, the row for the melting point of ice, in the column for degrees Celsius. A note on that row gives a measurement of the ice point of purified water as 0.000089 of a degree. Further down, the text says that ice melts very slightly, by less than a thousandth of a degree, below 0 °C as the scale is now defined."
+        },
+        {
+          "fields": [
+            "parts[reading].notes[1]",
+            "primer"
+          ],
+          "prints": "Melting point of ice",
+          "where": "The name of that row of the table. To a tenth of a degree, which is what the thermometer of this lab is read to, the melting point of ice is 0.0 °C."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-thermometer",
+      "url": "https://en.wikipedia.org/w/index.php?title=Thermometer&oldid=1378639224",
+      "citation": "Wikipedia, Thermometer, revision 1378639224 of 2026-10-05; a secondary source, read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "9400f9204a6a4727389c9ac2cc44f8e2c78b32f62fe4d551f73dd156997768a8",
+      "supports": [
+        {
+          "fields": [
+            "parts[reading].notes[1]",
+            "primer"
+          ],
+          "prints": "Calibration",
+          "where": "A heading of the article. Under it: a thermometer can be checked against fixed points of the scale, of which the melting and the boiling of pure water are the best known; the first of the old steps for putting a scale on a thermometer is to stand its bulb in ice and water, stirred together, and to mark where it settles; and, of a bath held steady, that any difference from the scale is written down. Under the next heading the article says that being able to read a small fraction of a degree does not make the reading true."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-graduated-cylinder",
+      "url": "https://en.wikipedia.org/w/index.php?title=Graduated_cylinder&oldid=1333139371",
+      "citation": "Wikipedia, Graduated cylinder, revision 1333139371 of 2026-01-15; a secondary source, read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "6e38eee86a81d88668ebabce9da48f1f2c15e97140eb5a21913b825932934b87",
+      "supports": [
+        {
+          "fields": [
+            "parts[metal].notes[0]",
+            "primer"
+          ],
+          "prints": "displacement",
+          "where": "The paragraph on what the cylinder is used for, its last sentence: the volume of a solid can be found with it indirectly, from how much liquid the solid moves aside. That the rise is the volume of the pieces whatever their shape is how that is used here."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "meniscus",
+          "where": "The section on measuring with the cylinder. It says that the eye has to be at the height of the liquid and that the level is read at the bottom of its curve, which it names by this word; that the liquid curves because it is drawn to the wall; and, of a cylinder marked each millilitre, that it is read to a tenth of a millilitre, with 36.5 mL and 40.0 mL as its two readings, each of three significant figures."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-significant-figures",
+      "url": "https://en.wikipedia.org/w/index.php?title=Significant_figures&oldid=1376805448",
+      "citation": "Wikipedia, Significant figures, revision 1376805448 of 2026-09-26; a secondary source, read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "d26dd1861a4c2b1033c3798679fc9e6e2230dc70ae2f451a7e072154d5a47a83",
+      "supports": [
+        {
+          "fields": [
+            "parts[reading].notes[2]",
+            "primer"
+          ],
+          "prints": "Estimating an extra digit",
+          "where": "A heading of the article. Under it: a ruler can in practice be read by eye to closer than its smallest mark, and with a good ruler tenths can be judged between the two nearest marks, which gives one more decimal place. A note there cites a rule to read any scale to a tenth of its smallest division."
+        },
+        {
+          "fields": [
+            "parts[reading].notes[0]",
+            "primer"
+          ],
+          "prints": "Multiplication and division",
+          "where": "A heading under the one on arithmetic. Under it: a result made by multiplying or dividing measured numbers gets as many significant figures as the measured number with the fewest. The next heading but one, on addition and subtraction, says that there it is the place of the last figure that counts, and that the result ends at the leftmost such place among the numbers; and the text after it sets the two rules side by side."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Rules to identify significant figures in a number",
+          "where": "A heading of the article. Under it: digits that are not zero count; zeros between them count; zeros in front of the first of them do not; zeros that end a number with a decimal point count; and zeros that end a whole number may or may not, which the number alone does not say."
+        }
+      ]
+    },
+    {
+      "id": "wikipedia-density",
+      "url": "https://en.wikipedia.org/w/index.php?title=Density&oldid=1379698777",
+      "citation": "Wikipedia, Density, revision 1379698777 of 2026-10-11; a secondary source, read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "36526f40b6884de64ecfe44688bc49311e987eca55cb1c3c9e59f4d793d08309",
+      "supports": [
+        {
+          "fields": [
+            "parts[liquid].notes[0]",
+            "parts[liquid].notes[2]",
+            "parts[metal].notes[1]",
+            "primer"
+          ],
+          "prints": "intensive property",
+          "where": "The article's opening paragraphs. They say that density is the mass of a substance divided by its volume; that materials differ in it as a rule; that it changes with temperature and pressure, only a little for solids and liquids, and that warming a substance at steady pressure lowers it, a few cases aside; and, with these two words, that more of a substance has more mass and no more density."
+        }
+      ]
+    },
+    {
+      "id": "purdue-significant-figures",
+      "url": "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch1/sigfigs.html",
+      "citation": "Bodner Research Web, Purdue University. General Chemistry Help, Units, Errors, Significant Figures and Scientific Notation: Significant Figures; read and not kept (retrieved 2026-10-12).",
+      "fetchedSha256": "3668cc035fa780297864ba4e862d57f692793bdd5ae202ed7d2c96aa9ff16025",
+      "supports": [
+        {
+          "fields": [
+            "parts[reading].notes[0]",
+            "primer"
+          ],
+          "prints": "Multiplication and Division With Significant Figures",
+          "where": "A heading of the page. Under it: an answer can be no more exact than the least exact measurement that went into it, and for multiplying and dividing that is counted in significant figures, not in decimal places. The heading before it gives the rule for adding and subtracting, which is counted in decimal places, with a mass of water and a mass of salt added as its example."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Determining the Number of Significant Figures",
+          "where": "A heading of the page. Under it: the figures of a measurement are the digits that are known and one last digit that is an estimate; better equipment gives more of them, with three balances as the example; zeros inside a number count, zeros that only set the decimal point do not, and zeros at the end that are not needed to set it do. The last heading of the page, on rounding off, says that a digit under 5 is dropped and that 5 or more adds one to the digit before."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,516 @@
+{
+  "sources": [
+    {
+      "id": "flinn-sds-326",
+      "url": "https://www.flinnsci.com/sds_326-ethyl-alcohol-denatured/sds_326",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Ethyl Alcohol Denatured, SDS number sds_326; revision date March 21, 2014 (read on 2026-10-12; no copy is kept).",
+      "fetchedSha256": "bbef19f47e9b3214f2f3df07121f1fb32a9b2e2b17a8d72de0abace5beff8535",
+      "supports": [
+        {
+          "field": "ethanol-95.classifiedAs",
+          "prints": "Ethyl Alcohol Denatured",
+          "where": "The sheet's title, before the words Safety Data Sheet. Section 3 lists five components: ethyl alcohol at 80-86%, isopropyl alcohol at 9%, methyl alcohol at 4-5%, methyl isobutyl ketone at 1% and water at 5%; it does not say on what basis the percentages are. The foot of the page lists the supplier's product of 95% ethyl alcohol beside this sheet. The supplier's list has no sheet for ethanol and water alone at this strength: its others are for a specially denatured alcohol and for solutions of 70% and under. So the heading over the statements says that they are those of the denatured product."
+        },
+        {
+          "field": "ethanol-95.hazards",
+          "prints": "March 21, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "ethanol-95.hazards.signalWord",
+          "prints": "DANGER",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Danger, the form its schema has for the word."
+        },
+        {
+          "field": "ethanol-95.hazards.statements[0]",
+          "prints": "Highly flammable liquid and vapor (H225)",
+          "where": "Section 2, the first hazard class it lists: flammable liquids, category 2. The record stores the line of the sheet with its code in front, then a colon and the statement."
+        },
+        {
+          "field": "ethanol-95.hazards.statements[1]",
+          "prints": "Harmful if swallowed (H302)",
+          "where": "Section 2, the second class: acute toxicity by mouth, category 4."
+        },
+        {
+          "field": "ethanol-95.hazards.statements[2]",
+          "prints": "Causes skin and serious eye irritation (H315+H319)",
+          "where": "Section 2, the third class, for the skin and the eyes, categories 2 and 2A: the sheet joins the two codes under one statement, and the record stores them so."
+        },
+        {
+          "field": "ethanol-95.hazards.statements[3]",
+          "prints": "May cause respiratory irritation (H335)",
+          "where": "Section 2, the fourth class: a single exposure, irritation of the airways, category 3."
+        },
+        {
+          "field": "ethanol-95.hazards.statements[4]",
+          "prints": "Causes damage to organs (H370)",
+          "where": "Section 2, the fifth class: a single exposure, category 1. The line after it says that the denaturant makes the product poisonous and that it cannot be made safe to drink; the note says that the product is poisonous for what is added to it. Ethanol and water alone would not carry this statement by this sheet; the lab shows it because it cannot know which product a laboratory has."
+        },
+        {
+          "field": "ethanol-95.hazards.note",
+          "prints": "Keep away from heat, sparks, open flames, and hot surfaces. No smoking (P210).",
+          "where": "Section 2, after the first statement. Section 10 lists what the liquid is kept from, oxidizing agents and acids among them, with heat and any source of ignition. Section 8 calls for gloves, protective clothing and eye protection, with the code P280, and for use only in a hood or where the air is changed well, with P271. Section 5 gives the flash point as 21 °C."
+        },
+        {
+          "field": "ethanol-95.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and local regulations."
+        },
+        {
+          "field": "ethanol-95.notCarried",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "Read and not carried. The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, with contact lenses taken out, and medical advice is got if the irritation lasts; for skin or hair, the clothing is taken off at once and the skin rinsed. Why: NOAA's record asks for more for the eyes and says why wet clothing comes off, and the note gives its lines."
+        },
+        {
+          "field": "ethanol-95.notCarried",
+          "prints": "Liver damage, reproductive, teratogenic effects, carcinogen.",
+          "where": "Read and not carried. Section 11, after the label for chronic effects. Why: section 2 of the same sheet gives the product no hazard class for any of these, so the sheet does not bear its own line out; they are the effects of drinking alcohol over years, which is no part of work at a bench."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-667",
+      "url": "https://cameochemicals.noaa.gov/chemical/667",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Ethanol (chemical 667); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept).",
+      "fetchedSha256": "74655d1ea098e5449ce5bdb5e94af7f9bea3b9034848b150be025c61918af477",
+      "supports": [
+        {
+          "field": "ethanol-95.hazards.note",
+          "prints": "ETHANOL",
+          "where": "The page's title, under the words Chemical Datasheet: a record of ethanol itself, not of a denatured product or of a solution. The page was found in the list of names the site shows under one letter; the site's search was not used, which its robots file closes to automated readers. The foot of the page prints the version named in the citation and no date of its own."
+        },
+        {
+          "field": "ethanol-95.hazards.note",
+          "prints": "Vapors are heavier than air.",
+          "where": "The field General Description, its last sentence. The field Fire Hazard, which the page credits to a coast guard manual of 1999, says that the liquid is flammable, that fire may flash back along a trail of vapour, and that the vapour may explode if it is lit in a closed space. The note says that a flame can run back along the vapour."
+        },
+        {
+          "field": "ethanol-95.hazards.note",
+          "prints": "Protective Clothing",
+          "where": "The name of the field, a text the page credits to a pocket guide of a federal institute, 2024. It has work clothing that gets wet taken off at once, and gives the reason in brackets: that the liquid is flammable. It asks for clothing that keeps the liquid from the skin and for protection for the eyes."
+        },
+        {
+          "field": "ethanol-95.hazards.note",
+          "prints": "First Aid",
+          "where": "The name of the field, a text the page credits to a toxicology programme, 1992. For the eyes: contact lenses are looked for and taken out, the eyes are flushed with water or salt solution for 20 to 30 minutes while a hospital or a poison centre is called, and the person is taken to a hospital after, whether or not anything shows. The supplier's sheet gives several minutes; the note gives this as what the lab goes by."
+        },
+        {
+          "field": "ethanol-95.notCarried",
+          "prints": "Reactivity Profile",
+          "where": "Read and not carried. The name of the field, a long list of what ethanol reacts with violently: some acid chlorides, concentrated sulfuric acid with strong hydrogen peroxide, hypochlorous acid and chlorine, potassium, and others. Why: none of them is on this bench, and the supplier's sheet already keeps the liquid from oxidizers and acids, which the note says."
+        },
+        {
+          "field": "ethanol-95.notCarried",
+          "prints": "Non-Fire Response",
+          "where": "Read and not carried. The name of the field, a text from a guide for emergencies of 2024 for flammable liquids that mix with water: sources of ignition are removed, and a spill is kept out of waterways and sewers. Why: it is the guide's standing text for a class of liquids and a spill from a tank; no document read gives ethanol a class for the environment."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-721",
+      "url": "https://www.flinnsci.com/sds_721-sodium-chloride/sds_721",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Chloride, SDS number sds_721; revision date February 6, 2014 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "9176b22f424fb35a6a2256ed09ae72415ea779af9f7d5e0a9530bf3c155cf1eb",
+      "supports": [
+        {
+          "field": "nacl-20.classifiedAs",
+          "prints": "Sodium Chloride",
+          "where": "The sheet's title, before the words Safety Data Sheet: the substance the sheet is for, with no strength. Section 3 lists one component and no water, so the sheet is for the substance itself; section 9 calls it a white crystalline powder. The heading over the statements says solid sodium chloride, the pure substance. Read for the flame test lab on 2026-10-08; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        },
+        {
+          "field": "nacl-20.hazards",
+          "prints": "February 6, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read."
+        },
+        {
+          "field": "nacl-20.hazards.signalWord",
+          "prints": "WARNING",
+          "where": "Under the title, after the words Signal Word. The sheet prints it in capitals; the record stores Warning."
+        },
+        {
+          "field": "nacl-20.hazards.statements[0]",
+          "prints": "May be harmful if swallowed (H303)",
+          "where": "Section 2, the one hazard class it lists: category 5, for acute toxicity by mouth. The section prints no other hazard code."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-722",
+      "url": "https://www.flinnsci.com/sds_722-sodium-chloride-solution/sds_722",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Chloride Solution, SDS number sds_722; revision date March 16, 2016 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "5ef92e0cda91868fc68d142ced63ae1ff1577c2bb5eb17e16f9a4ca54ea630bf",
+      "supports": [
+        {
+          "field": "nacl-20.hazards.note",
+          "prints": "Sodium Chloride Solution",
+          "where": "The sheet's title, before the words Safety Data Sheet: it names no strength. Read for the flame test lab on 2026-10-08; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again. It was fetched once more for this lab on 2026-10-12, before it was seen that the manifest of the flame test lab lists it, and what came had the same hash."
+        },
+        {
+          "field": "nacl-20.hazards.note",
+          "prints": "0.6-20%",
+          "where": "Section 3, the concentration column, in the row for sodium chloride; the row for water prints 80-99%. The sheet does not say on what basis the percentage is. The 20% by mass of this bench is the top of the range the sheet prints, which is what the note says."
+        },
+        {
+          "field": "nacl-20.hazards.note",
+          "prints": "SECTION 2 — HAZARDS IDENTIFICATION",
+          "where": "The heading of section 2. Under it the sheet lists no hazard class and no code, and says that the solution is taken to be non-hazardous under the GHS classifications of a standard it names. Its last sentence there says that the product is to be treated as a chemical and is not for consumption, having been stored with chemicals that are not of food grade. Under the title, where the supplier's other sheets have a line for the signal word, this one has none."
+        },
+        {
+          "field": "nacl-20.hazards.note",
+          "prints": "SECTION 8 — EXPOSURE CONTROLS, PERSONAL PROTECTION",
+          "where": "The heading of section 8. Under it the sheet calls for gloves, protective clothing and eye protection, and for washing the hands after handling."
+        },
+        {
+          "field": "nacl-20.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and local regulations."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-nacl",
+      "url": "https://www.fishersci.com/store/msds?partNumber=S271500&productDescription=SODIUM+CHLORIDE&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Sodium chloride, catalogue number S271; revision 8 of 18 December 2025 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "f8d017aadb77ee9a18c9e0cb3e2a76ccc924404a6b8be51673e478ef8dc5da93",
+      "supports": [
+        {
+          "field": "nacl-20.hazards.note",
+          "prints": "Sodium chloride",
+          "where": "Section 1, after the words Product Name: a sheet for the solid, at over 95% in its section 3. It is one of the two other suppliers' sheets the note speaks of. Read for the flame test lab on 2026-10-08; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        },
+        {
+          "field": "nacl-20.hazards.note",
+          "prints": "None required",
+          "where": "Section 2, under the words Label Elements: the sheet prints no signal word and no hazard statement, and says above this that the product is not taken to be hazardous under the standard it is made to."
+        },
+        {
+          "field": "nacl-20.hazards.note",
+          "prints": "4. First-aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: they are rinsed at once with a great deal of water, under the eyelids as well, for 15 minutes or more, and medical attention is got."
+        },
+        {
+          "field": "nacl-20.notCarried",
+          "prints": "12. Ecological information",
+          "where": "Read and not carried. The heading of section 12. Under it the sheet says that the substance is not to be emptied into drains. Why: the sheet gives sodium chloride no class for the environment, and the supplier prints the same line on its sheets whatever the substance."
+        }
+      ]
+    },
+    {
+      "id": "wards-sds-ss0450",
+      "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=bfe6a4ee099940279a81ed7610dc8a9c104cb5ff&vid=bfe6a4ee099940279a81ed7610dc8a9c104cb5ff&prid=original&clid=SAPDAM",
+      "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Sodium Chloride, SDS No. SS0450; revision date October 29, 2024 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "a653e9058600b1c57145e390c59309cca999a080ddcecdc07a1a8f3b23bc16f5",
+      "supports": [
+        {
+          "field": "nacl-20.hazards.note",
+          "prints": "SODIUM CHLORIDE",
+          "where": "The product named at the head of the sheet, whose number is SDS No. SS0450: a sheet for the solid. The English pages were read. Read for the flame test lab on 2026-10-08; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        },
+        {
+          "field": "nacl-20.hazards.note",
+          "prints": "Not classified",
+          "where": "Section 2, after the words Signal word, and again after the labels for the classification and the hazard statements."
+        },
+        {
+          "field": "nacl-20.hazards.note",
+          "prints": "First aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: contact lenses are looked for and taken out, the eyes are flushed with water for 15 minutes or more, and medical attention is got at once. The note gives the 15 minutes and the doctor at once as what this lab goes by."
+        },
+        {
+          "field": "nacl-20.notCarried",
+          "prints": "Ecological information",
+          "where": "Read and not carried. The heading of section 12, and the last line under it, that harm to the environment cannot be ruled out if the product is handled or disposed of carelessly. Why: the same line is on every sheet of this supplier that was read, whatever the substance."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-34",
+      "url": "https://www.flinnsci.com/sds_34-aluminum/sds_34",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Aluminum, SDS number sds_34; revision date June 29, 2015 (read on 2026-10-09; no copy is kept).",
+      "fetchedSha256": "b202caa2fa321718dd23c4459f346073b0a1a9c47946079175830f5fc53cf64e",
+      "supports": [
+        {
+          "field": "aluminium-pieces.classifiedAs",
+          "prints": "Aluminum",
+          "where": "The sheet's title, before the words Safety Data Sheet. Section 3 lists aluminum alone; section 9 begins by calling it a silvery solid and names no form. The supplier has a separate sheet for the powder or dust, which is not the pieces on this bench. The record spells the metal aluminium. Read for the calorimetry lab on 2026-10-09; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        },
+        {
+          "field": "aluminium-pieces.hazards",
+          "prints": "June 29, 2015",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read."
+        },
+        {
+          "field": "aluminium-pieces.hazards.signalWord",
+          "prints": "",
+          "where": "The sheet prints no signal word: where the supplier's other sheets have a line that begins Signal Word, this one has none. The record stores None, the word its schema has for a sheet with no signal word."
+        },
+        {
+          "field": "aluminium-pieces.hazards.note",
+          "prints": "Aluminum, as dust, is a flammable solid.",
+          "where": "Section 5, the first line. The note says that the sheet says the dust burns. Section 2 lists no hazard class and no code, and says that the chemical is taken to be non-hazardous under the classifications of a standard it names."
+        },
+        {
+          "field": "aluminium-pieces.hazards.note",
+          "prints": "Heat is generated when fine powder and dust are mixed with water.",
+          "where": "Section 9, after the line that the metal does not dissolve in water. The pieces on this bench are not powder and go into cold water; that is this project's statement, not the sheet's."
+        },
+        {
+          "field": "aluminium-pieces.hazards.note",
+          "prints": "Contact with acids liberates flammable hydrogen gas.",
+          "where": "Section 10, the first sentence. Section 8 calls for protection for the eyes and the face, gloves and protective clothing."
+        },
+        {
+          "field": "aluminium-pieces.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and local regulations."
+        },
+        {
+          "field": "aluminium-pieces.notCarried",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "Read and not carried. The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that; the sheet gives no number of minutes. For the skin: it is washed with plenty of water. Why: the same lines are on every sheet of this supplier that was read for a substance it classes as no hazard, and the other document read asks for more, which the note gives."
+        }
+      ]
+    },
+    {
+      "id": "wards-sds-aa0145",
+      "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=a080627ca3e61e991757a9aab5ae1e6ad631be12&vid=a080627ca3e61e991757a9aab5ae1e6ad631be12&prid=original&clid=SAPDAM",
+      "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Aluminum Metal, SDS No. AA0145; revision date June 4, 2024 (read on 2026-10-09; no copy is kept).",
+      "fetchedSha256": "5e176b753eebe5fb79561c87bd3a5101b00c6fba1bfc26ebe53fb0f5bb882ae4",
+      "supports": [
+        {
+          "field": "aluminium-pieces.hazards.note",
+          "prints": "ALUMINUM METAL",
+          "where": "The product named at the head of the sheet, whose number is SDS No. AA0145; its section 9 describes granules, and the supplier's product page calls the form shot. The English pages were read. Read for the calorimetry lab on 2026-10-09; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        },
+        {
+          "field": "aluminium-pieces.hazards.note",
+          "prints": "Not classified",
+          "where": "Section 2, after the words Signal word: like the first supplier's sheet, this one has no signal word and no statement."
+        },
+        {
+          "field": "aluminium-pieces.hazards.note",
+          "prints": "Strong oxidizers, mineral acids, strong alkalies, halogenated hydrocarbons, and water.",
+          "where": "Section 10, after the words for what the metal does not go with. The first supplier's sheet names acids and no alkalis. The note says that this sheet keeps the metal from strong alkalis as well."
+        },
+        {
+          "field": "aluminium-pieces.hazards.note",
+          "prints": "Reacts with water (in molten form), acids or alkalies to generate hydrogen gas.",
+          "where": "Section 10, after the words for what the metal breaks down to: the sheet's own word on how water comes into it. The note says that it is the molten metal that reacts; the water of this bench is cold."
+        },
+        {
+          "field": "aluminium-pieces.hazards.note",
+          "prints": "First aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: they are flushed with water for 15 minutes or more and medical attention is got at once."
+        },
+        {
+          "field": "aluminium-pieces.notCarried",
+          "prints": "Combustible dust",
+          "where": "Read and not carried. Section 2, after the words for hazards not otherwise classified. Why: it is of the dust, and the pieces on this bench are not dust; the note says that the powder is another matter."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-14008",
+      "url": "https://cameochemicals.noaa.gov/chemical/14008",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Aluminum Powder, Uncoated (chemical 14008); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-09; no copy is kept).",
+      "fetchedSha256": "42ad09aae7df2a654ff013442b6a7a30b45ae7b929d6441f51f235304183a3f4",
+      "supports": [
+        {
+          "field": "aluminium-pieces.hazards.note",
+          "prints": "ALUMINUM POWDER, UNCOATED",
+          "where": "The page's title: a record of the powder, the only form of the metal alone that the record read for the calorimetry lab is for. Read for the calorimetry lab on 2026-10-09; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        },
+        {
+          "field": "aluminium-pieces.hazards.note",
+          "prints": "Water-Reactive",
+          "where": "The field Reactivity Alerts, the second of its three entries; the third is Pyrophoric. The note says that the record marks the powder as reacting with water and catching fire in air, and that the powder is another matter."
+        },
+        {
+          "field": "aluminium-pieces.notCarried",
+          "prints": "Health Hazard",
+          "where": "Read and not carried. The name of the field, the standing text of a guide for emergencies for a class the powder is in. Why: the page is of the powder, which this bench does not have."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-859",
+      "url": "https://www.flinnsci.com/sds_859-zinc/sds_859",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Zinc, SDS number sds_859; revision date September 1, 2015 (read on 2026-10-09; no copy is kept).",
+      "fetchedSha256": "330cd06042004e799d6b14ff1ac2988d9e5557e184a37a7162b4e230ba7e77d4",
+      "supports": [
+        {
+          "field": "zinc-pieces.classifiedAs",
+          "prints": "Zinc",
+          "where": "The sheet's title, before the words Safety Data Sheet. Section 9 lists the forms it is for: granular, mossy, pieces, foil, sheets, shot and strips. The supplier has a separate sheet for zinc dust. Read for the calorimetry lab on 2026-10-09; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        },
+        {
+          "field": "zinc-pieces.hazards",
+          "prints": "September 1, 2015",
+          "where": "Under the title, after the words Revision Date: the revision that was read."
+        },
+        {
+          "field": "zinc-pieces.hazards.signalWord",
+          "prints": "",
+          "where": "The sheet prints no signal word. The record stores None, the word its schema has for a sheet with no signal word."
+        },
+        {
+          "field": "zinc-pieces.hazards.note",
+          "prints": "Combustible hazards are associated with the dust or powdered forms.",
+          "where": "Section 2, its last sentence; the one before it says that no harm goes with zinc as shot, sheet, foil or granules as shipped. The section lists no hazard class and no code."
+        },
+        {
+          "field": "zinc-pieces.hazards.note",
+          "prints": "SECTION 10 — STABILITY AND REACTIVITY",
+          "where": "The heading of section 10. Under it the sheet keeps zinc from strong acids and strong bases, and from several other things that are not on this bench. Section 8 calls for gloves, protective clothing and eye protection."
+        },
+        {
+          "field": "zinc-pieces.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and local regulations."
+        },
+        {
+          "field": "zinc-pieces.notCarried",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "Read and not carried. The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that; the sheet gives no number of minutes. For the skin: it is washed with plenty of water. Why: the same lines are on every sheet of this supplier that was read for a substance it classes as no hazard, and the other document read asks for more, which the note gives."
+        }
+      ]
+    },
+    {
+      "id": "wards-sds-zz0022",
+      "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=ee21d2b9345332c41e90414576d729dc74563d70&vid=ee21d2b9345332c41e90414576d729dc74563d70&prid=original&clid=SAPDAM",
+      "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Zinc Shot, SDS No. ZZ0022; revision date November 15, 2024 (read on 2026-10-09; no copy is kept).",
+      "fetchedSha256": "819d8cf818c906061a7d5ab93cfc8206b34e72ee49822c4541a6d7c8a7567bac",
+      "supports": [
+        {
+          "field": "zinc-pieces.hazards.note",
+          "prints": "ZINC SHOT",
+          "where": "The product named at the head of the sheet, whose number is SDS No. ZZ0022. The English pages were read. Read for the calorimetry lab on 2026-10-09; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        },
+        {
+          "field": "zinc-pieces.hazards.note",
+          "prints": "Hydrogen may evolve when in contact with water or damp air.",
+          "where": "Section 10, after the words for the conditions to avoid. The pieces of this bench go into water for a few minutes, for the measurement; that is this project's statement, not the sheet's. Section 2 prints the words Not classified where a signal word would be."
+        },
+        {
+          "field": "zinc-pieces.hazards.note",
+          "prints": "SKIN ABSORPTION: MAY CAUSE DERMATITIS.",
+          "where": "Section 4, the last of its four lines. The line for the eyes says that zinc may irritate them by rubbing, and asks that they be flushed with water for 15 minutes or more and that medical attention be got at once."
+        },
+        {
+          "field": "zinc-pieces.notCarried",
+          "prints": "INHALATION: HARMFUL IF INHALED AS FUME.",
+          "where": "Read and not carried. Section 4, the line for breathing. Why: the fume comes off zinc that is melted or burning, and this bench heats nothing."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-zinc-granular-mossy",
+      "url": "https://www.fishersci.com/store/msds?partNumber=Z15500&productDescription=ZINC+METAL+MOSSY&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Zinc, Granular and Mossy, catalogue numbers Z2, Z11, Z15 and Z16; revision 6 of 18 December 2025 (read on 2026-10-09; no copy is kept).",
+      "fetchedSha256": "a58a9f884eeada8310e253681ed1bcdde7e76a105d658b996b51c91d5139ea5f",
+      "supports": [
+        {
+          "field": "zinc-pieces.hazards.note",
+          "prints": "Zinc, Granular and Mossy",
+          "where": "Section 1, after the words Product Name: a sheet for the metal in pieces. Section 2 says that the product is not taken to be hazardous under the standard the sheet is made to, and that no label is required. Read for the calorimetry lab on 2026-10-09; the page saved then was checked against the hash recorded here and read again for this lab, and was not fetched again."
+        },
+        {
+          "field": "zinc-pieces.hazards.note",
+          "prints": "aquatic organisms.",
+          "where": "Section 12, the end of the sentence under the label Ecotoxicity, which says that the product holds a substance that is very toxic to them; a table of figures for water life follows. The note says that this sheet calls zinc very toxic to water life, and keeps it out of drains and waterways for that."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-265",
+      "url": "https://www.flinnsci.com/sds_265-copper/sds_265",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Copper, SDS number sds_265; revision date July 13, 2015 (read on 2026-10-12; no copy is kept).",
+      "fetchedSha256": "7af05e2e0c31a22346f42dd3028d8ede37059e70325109cca35f862468869da4",
+      "supports": [
+        {
+          "field": "copper-pieces.classifiedAs",
+          "prints": "Copper",
+          "where": "The sheet's title, before the words Safety Data Sheet. Section 3 lists copper alone. Section 9 describes a red-brown metal that can be drawn out, and lists granules, shot, powder, sheet, wire and foil among its forms; the supplier has a separate sheet for the powder, which was not read. The heading over the statements says the solid and not its powder or dust."
+        },
+        {
+          "field": "copper-pieces.hazards",
+          "prints": "July 13, 2015",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read."
+        },
+        {
+          "field": "copper-pieces.hazards.signalWord",
+          "prints": "",
+          "where": "The sheet prints no signal word: where the supplier's other sheets have a line that begins Signal Word, this one has none. The record stores None, the word its schema has for a sheet with no signal word."
+        },
+        {
+          "field": "copper-pieces.hazards.note",
+          "prints": "SECTION 2 — HAZARDS IDENTIFICATION",
+          "where": "The heading of section 2. Under it the sheet lists no hazard class and no code, and says that the chemical is taken to be non-hazardous under the classifications of a standard it names."
+        },
+        {
+          "field": "copper-pieces.hazards.note",
+          "prints": "Noncombustible solid in bulk form, but air-born dust may ignite.",
+          "where": "Section 5, the second line; the first calls the solid nonflammable. The note says that the metal in bulk does not burn, though its dust may."
+        },
+        {
+          "field": "copper-pieces.hazards.note",
+          "prints": "Avoid contact with nitric acid, emits toxic fumes of nitrogen oxides.",
+          "where": "Section 10, the second sentence. The first keeps copper from strong oxidizers, strong acids, three kinds of salt that are not on this bench, and halogens. Section 8 calls for gloves, protective clothing and eye protection."
+        },
+        {
+          "field": "copper-pieces.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and local regulations."
+        },
+        {
+          "field": "parts[metal].notes[2]",
+          "prints": "Red-brown ductile metal.",
+          "where": "Section 9, the first words of the description: the colour of copper. That real copper is known by it at a glance, and that the lab draws its pieces alike, are this project's statements."
+        },
+        {
+          "field": "copper-pieces.notCarried",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "Read and not carried. The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that; the sheet gives no number of minutes. For the skin: it is washed with plenty of water. Why: the same lines are on every sheet of this supplier that was read for a substance it classes as no hazard, and the other document read asks for more, which the note gives."
+        },
+        {
+          "field": "copper-pieces.notCarried",
+          "prints": "RCRA code D001.",
+          "where": "Read and not carried. Section 15, the end of its one line: the code of a waste that can be set alight. Why: the same sheet contradicts it, calling the solid nonflammable and noncombustible in its section 5 and giving it no hazard class in its section 2."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-16146",
+      "url": "https://cameochemicals.noaa.gov/chemical/16146",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Copper (chemical 16146); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept).",
+      "fetchedSha256": "b8423405e556b35e9cc10bf13078a6c6140251c01c95d2843f8efc546f818a4b",
+      "supports": [
+        {
+          "field": "copper-pieces.hazards.note",
+          "prints": "COPPER",
+          "where": "The page's title, under the words Chemical Datasheet; its general description is of a reddish metallic solid, and its field for reactivity alerts has none. The page was found in the list of names the site shows under one letter; the site's search was not used, which its robots file closes to automated readers. The foot of the page prints the version named in the citation and no date of its own."
+        },
+        {
+          "field": "copper-pieces.hazards.note",
+          "prints": "Excerpt from NIOSH Pocket Guide for Copper (dusts and mists, as Cu):",
+          "where": "The first line of the fields Health Hazard, Protective Clothing and First Aid, each credited to a pocket guide of a federal institute, 2024: what they say is of the dusts and mists. The first names irritation of the eyes, the nose and the throat, a metallic taste and dermatitis. The note says that the record draws on a federal guide to dusts and mists, and that the dust is another matter."
+        },
+        {
+          "field": "copper-pieces.hazards.note",
+          "prints": "First Aid",
+          "where": "The name of the field. For the eyes: they are washed at once with a great deal of water, the lids lifted from time to time, and medical attention is got immediately. For the skin: it is washed promptly with soap and water. The supplier's sheet gives several minutes of rinsing and no line on medical advice for the eyes; the note gives these as what the lab goes by."
+        },
+        {
+          "field": "copper-pieces.notCarried",
+          "prints": "Fire Hazard",
+          "where": "Read and not carried. The name of the field, the standing text of a guide for emergencies of 2024 for metals as powders, dusts, shavings and turnings: that such metals may react violently with water and may be lit by friction or sparks. Why: it is the guide's text for a class of finely divided metals; the page's own field on air and water says that solid pieces only tarnish slowly in air and do not dissolve in water."
+        },
+        {
+          "field": "copper-pieces.notCarried",
+          "prints": "Reactivity Profile",
+          "where": "Read and not carried. The name of the field: copper reacts faster as powder or granules, and finely divided copper mixed with finely divided bromates, chlorates or iodates can explode. Why: none of these is on this bench, and the supplier's sheet already keeps copper from them."
+        }
+      ]
+    }
+  ]
+}
