@@ -19,8 +19,8 @@ import labCss from '../lab.css?raw'
 import { CalorimetryBench } from './CalorimetryBench'
 import { CalorimetryPage } from './CalorimetryPage'
 import { CalorimetryRecord } from './CalorimetryRecord'
-import calorimetryCss from './calorimetry.css?raw'
-import { GRAPH, PLOT_EDGE, axesOf, columns, xOf, yOf } from './graphGeometry'
+import calorimetryCss from '../foamCup.css?raw'
+import { GRAPH, PLOT_EDGE, axesOf, columns, xOf, yOf } from '../graphGeometry'
 import {
   BENCH_TEXT,
   CHANGE_LABEL,

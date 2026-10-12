@@ -1,5 +1,6 @@
 /*
- * The calorimetry lab's one animation. Loaded with the lab page, so none of it is in the app shell's stylesheet.
+ * The one animation of the foam cup's drawing, which the calorimetry lab and the freezing point depression lab
+ * share. Loaded with the lab page, so none of it is in the app shell's stylesheet.
  *
  * The drawn stirrer bobs four times as the drawing first shows it going and then rests as it is drawn, so that
  * nothing on the page moves for longer than five seconds; the marks about its ring say that it is going from then
