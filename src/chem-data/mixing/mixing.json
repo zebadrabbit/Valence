@@ -520,7 +520,7 @@
         ],
         "answer": {
           "value": "stays-solid",
-          "reason": "The article says that ionic compounds such as inorganic salts dissolve only in very polar liquids such as water. That Epsom salt is such a salt, magnesium sulfate, is not read in a source of this lab: the question states it, and the rule is asked of what the question states.",
+          "reason": "The article says that ionic compounds such as inorganic salts dissolve only in very polar liquids such as water. That Epsom salt is such a salt, magnesium sulfate, is in no source of this lab's manifest: the question states it, and the rule is asked of what the question states. Two pages read for other parts of the project say it between them: PubChem's page for the element magnesium, read for the periodic table, gives Epsom salt as hydrated magnesium sulphate, and the page on metals with dilute acids that the types of reactions lab cites names magnesium sulfate among the salts a metal and an acid form and speaks of the ions in them.",
           "sourceId": "wikipedia-solvent"
         }
       }
