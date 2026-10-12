@@ -132,8 +132,9 @@ describe('the measurement and density lab', () => {
     expect(modelFrom(densityData)).toEqual(PINNED_MODEL)
   })
 
-  it('has a stored entry of its own, and is not yet among the activities that have a page', () => {
-    expect(ACTIVITIES.some((activity) => (activity.entry as string) === DENSITY_PROGRESS.entry)).toBe(false)
-    expect(new Set([...ACTIVITIES.map((activity) => activity.entry as string), DENSITY_PROGRESS.entry]).size).toBe(ACTIVITIES.length + 1)
+  it('has a stored entry of its own, which is the one its activity loads and saves with', () => {
+    expect({ entry: ACTIVITIES[9].entry, version: ACTIVITIES[9].version }).toEqual(DENSITY_PROGRESS)
+    expect(ACTIVITIES[9].to).toBe('/lab/measurement-and-density')
+    expect(new Set(ACTIVITIES.map((activity) => activity.entry as string)).size).toBe(ACTIVITIES.length)
   })
 })

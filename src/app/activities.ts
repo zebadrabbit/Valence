@@ -23,6 +23,8 @@ export const ACTIVITIES = [
   { entry: ENTRY.acetone, version: 1, kind: 'Lab', title: 'Iodination of acetone', to: '/lab/iodination-of-acetone' },
   // src/cabbage-version.test.ts pins what a stored lab is judged against to this entry and this version.
   { entry: ENTRY.cabbage, version: 1, kind: 'Lab', title: 'Red cabbage pH', to: '/lab/red-cabbage-ph' },
+  // src/density-version.test.ts pins what a stored lab is judged against to this entry and this version.
+  { entry: ENTRY.density, version: 1, kind: 'Lab', title: 'Measurement and density', to: '/lab/measurement-and-density' },
   { entry: ENTRY.mechanism, version: 1, kind: 'Mechanism', title: 'HCl + NaHCO₃, step by step', to: '/learn/hcl-nahco3' },
 ] as const
 
@@ -35,12 +37,8 @@ export const ACETONE_PROGRESS = { entry: ACTIVITIES[7].entry, version: ACTIVITIE
 /** The red cabbage pH lab's stored entry and its version: what its page loads and saves with (src/cabbage-version.test.ts pins what a stored lab is judged against to it). */
 export const CABBAGE_PROGRESS = { entry: ACTIVITIES[8].entry, version: ACTIVITIES[8].version } as const
 
-/**
- * The measurement and density lab's stored entry and its version: what its page will load and save with
- * (src/density-version.test.ts pins what a stored lab is judged against to it). The lab is not in ACTIVITIES yet:
- * it has no page, and joins the list when it has one.
- */
-export const DENSITY_PROGRESS = { entry: ENTRY.density, version: 1 } as const
+/** The measurement and density lab's stored entry and its version: what its page loads and saves with (src/density-version.test.ts pins what a stored lab is judged against to it). */
+export const DENSITY_PROGRESS = { entry: ACTIVITIES[9].entry, version: ACTIVITIES[9].version } as const
 
 export type Activity = (typeof ACTIVITIES)[number]
 

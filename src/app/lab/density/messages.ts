@@ -217,7 +217,15 @@ export const BENCH_TEXT = {
   drop: 'Drop the pieces in',
   readingBox: (instrument: Instrument) => `Your reading of the ${lower(INSTRUMENT_NAME[instrument])}`,
   record: 'Record the reading',
+  /** The name of the closer look's picture. */
+  closerPicture: (instrument: Instrument) => `${INSTRUMENT_NAME[instrument]}, seen closer`,
+  /** Over each of a ruler's two pictures: which side of the note lies along it. */
+  side: { length: 'The long side of the note along the ruler', width: 'The short side of the note along the ruler' },
+  inWords: 'What it shows, in words',
 } as const
+
+/** How far the readings of one instrument have come, in the list of a part's pages. */
+export const readText = (made: number, of: number) => (made === of ? 'Read' : made === 0 ? 'Not read yet' : `${made} of ${of} read`)
 
 /** The label of the one weighing a part's bench offers now. */
 export function weighLabel(part: PartId, bench: BenchView): string {
@@ -511,6 +519,7 @@ export const PAGE_TEXT = {
   hint: 'The relation and the rule',
   enter: 'Enter',
   change: 'Change',
+  cancel: 'Cancel',
   changeNote: 'Changing an entry empties the entries worked from it.',
   check: 'Check the notebook',
   runAgain: 'Run this part again with new numbers',
@@ -521,6 +530,9 @@ export const PAGE_TEXT = {
   sources: 'Sources',
   mode: 'Mode',
   complete: 'The lab is complete: all three parts count.',
+  pages: 'Pages of this part',
+  previous: (name: string) => `Previous: ${name}`,
+  next: (name: string) => `Next: ${name}`,
   figures: (field: Field, figures: number) => `${LABEL[field]}: ${figuresText(figures)}`,
 } as const
 

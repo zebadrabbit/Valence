@@ -41,6 +41,7 @@ import {
   PROGRESS_TEXT,
   progressOf,
   readingRefusal,
+  readText,
   readingText,
   reasonText,
   RECORD_TEXT,
@@ -270,6 +271,10 @@ describe('every instrument’s reading in words (spec 22.6)', () => {
     expect(BENCH_TEXT.closerLookOf('cylinder')).toBe('Look closer at the graduated cylinder')
     expect(BENCH_TEXT.readingBox('balance')).toBe('Your reading of the balance')
     expect(Object.values(BENCH_TEXT.moveEye)).toEqual(['Look from above', 'Bring your eye level', 'Look from below'])
+    expect(BENCH_TEXT.closerPicture('thermometer')).toBe('Thermometer, seen closer')
+    expect(Object.values(BENCH_TEXT.side)).toEqual(['The long side of the note along the ruler', 'The short side of the note along the ruler'])
+    expect([readText(0, 2), readText(1, 2), readText(2, 2), readText(1, 1)]).toEqual(['Not read yet', '1 of 2 read', 'Read', 'Read'])
+    expect([PAGE_TEXT.previous('Balance'), PAGE_TEXT.next('Notebook')]).toEqual(['Previous: Balance', 'Next: Notebook'])
   })
 })
 
@@ -504,7 +509,8 @@ describe('every sentence of the module', () => {
       SOURCES_TEXT,
       PAGE_TEXT.figures('liquidDensity', 3),
       RECORD_TEXT.run(2),
-      ...INSTRUMENTS.flatMap((instrument) => [BENCH_TEXT.closerLookOf(instrument), BENCH_TEXT.readingBox(instrument), ...(['not-a-number', 'too-few-figures', 'too-many-figures', 'off-the-scale'] as const).map((problem) => readingRefusal(instrument, problem, '12'))]),
+      ...[readText(0, 2), readText(1, 2), readText(2, 2), PAGE_TEXT.previous('Balance'), PAGE_TEXT.next('Notebook')],
+      ...INSTRUMENTS.flatMap((instrument) => [BENCH_TEXT.closerLookOf(instrument), BENCH_TEXT.closerPicture(instrument), BENCH_TEXT.readingBox(instrument), ...(['not-a-number', 'too-few-figures', 'too-many-figures', 'off-the-scale'] as const).map((problem) => readingRefusal(instrument, problem, '12'))]),
       ...PART_IDS.flatMap((part) => [partTitle(data, part), ...benchLines(data, part), ...describeBench(m, part, partView(m, lab(1), part).bench), ...describeBench(m, part, partView(m, state, part).bench), outcomeText(m, part, partView(m, state, part).outcome), expectedText(data, part, partView(m, state, part).expected!)]),
       ...(['liquid', 'metal'] as const).flatMap((part) => [...candidateLines(data, part), hazardsHeading(data, part, null), hazardsHeading(data, part, partView(m, state, part).expected)]),
       ...describeBench(m, 'metal', partView(m, failed, 'metal').bench),
