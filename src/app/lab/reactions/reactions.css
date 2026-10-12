@@ -76,6 +76,10 @@
   white-space: normal;
   text-align: left;
 }
+/* A choice in such a column has a little less room still either side of its words, so that the three choices of a tube break into rows the same way under each of the three tubes. */
+.reactions-station .reactions-tubes form label {
+  padding-inline: 0.375rem;
+}
 
 /* What that station asks one at a time, to choose between: all four in one row at every width the bench has. */
 .reactions-chooser {
@@ -86,7 +90,10 @@
 
 /*
  * The builder of an equation is its sheet here, and not a card inside one. The words before its row of places
- * have a line of their own, so that the row has the sheet's whole width.
+ * have a line of their own, so that the row has the sheet's whole width. In a card too narrow for every equation
+ * of the lab to stand in one line, the row has the height of two lines from the start: the buttons under it that
+ * raise and lower a number are pressed again and again, and a number that makes the row take its second line
+ * would otherwise move them under the hand. The tiles stand over the row, and do not move whatever it does.
  */
 .reactions-equation form {
   border: 0;
@@ -94,6 +101,12 @@
 }
 .reactions-equation [data-row] > span:first-child {
   flex-basis: 100%;
+}
+@container reactions-station (max-width: 43.99rem) {
+  .reactions-equation [data-row] {
+    min-height: 7.75rem;
+    align-content: flex-start;
+  }
 }
 
 /*
