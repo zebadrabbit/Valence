@@ -18,6 +18,8 @@ import { ModeSwitch } from './ModeSwitch'
 import { openingStation } from './openingStation'
 import { pieces, Primer, subscriptParts } from './Primer'
 import { HAZARDS_TEXT, NARROW_NOTICE, PRIMER_TEXT, SHELL_TEXT } from './shellText'
+import { LAYER_LINE, Tube, type TubeLayers } from './Tube'
+import { liquidHex } from './tubeDrawing'
 import { labProgress, writtenElsewhere } from './useLabProgress'
 
 // The markup the shell puts its wording and its slots in. Focus, keys, which tab a press shows, the confirm on
@@ -794,5 +796,67 @@ describe('the station a lab with stations opens on', () => {
     expect(openingStation(['done', 'not-counted', 'started'])).toBe(1)
     expect(openingStation(['done', 'not-started', 'not-correct'])).toBe(2)
     expect(openingStation(['done', 'done', 'done'])).toBe(0)
+  })
+})
+
+describe('the tube that is explored, with a second liquid lying on the first', () => {
+  const draw = (layers: TubeLayers, sections: readonly ['upper' | 'lower' | 'liquid', number, number][]) =>
+    renderToStaticMarkup(
+      createElement(Tube<'upper' | 'lower' | 'liquid'>, {
+        name: 'A tube',
+        describedBy: 'how',
+        height: 300,
+        layers,
+        words: { liquid: sections.length === 2 ? 'Bottom layer' : 'Liquid', above: 'Top layer', solid: 'Solid' },
+        sections: sections.map(([part, top, bottom]) => ({ part, top, bottom, name: part, looked: false })),
+        seen: () => 'never in the markup',
+        onLook: () => undefined,
+      }),
+    )
+  const grey = liquidHex('colourless')
+  const lines = (html: string) => [...html.matchAll(/<line [^>]*>/g)].map((match) => match[0])
+  const luminance = (hex: string) => {
+    const [r, g, b] = [1, 3, 5].map((at) => parseInt(hex.slice(at, at + 2), 16) / 255).map((c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4)) as [number, number, number]
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b
+  }
+  const contrast = (a: string, b: string) => (Math.max(luminance(a), luminance(b)) + 0.05) / (Math.min(luminance(a), luminance(b)) + 0.05)
+
+  it('draws one liquid as before: one band, the one faint line at its surface, one bracket', () => {
+    const html = draw({ liquid: { hex: grey, surface: 70 }, solid: null }, [['liquid', 58, 274]])
+    expect(count(html, /<rect x="48"/g)).toBe(1)
+    expect(lines(html)).toEqual(['<line x1="48" x2="128" y1="70" y2="70" stroke="#3f3f46" stroke-opacity="0.5" stroke-width="1.5">'])
+    expect(count(html, /<text /g)).toBe(1)
+    expect(html).toContain('>Liquid</text>')
+    expect(html).not.toContain('Top layer')
+  })
+
+  it('draws two liquids as two bands, each as tall as it is given, with a whole dark line between them and a bracket and a word for each', () => {
+    const html = draw({ liquid: { hex: grey, surface: 138 }, above: { hex: grey, surface: 70 }, solid: null }, [['upper', 58, 138], ['lower', 138, 274]])
+    // The lower band from where the two meet down, and the upper from its own surface down to there: 68 units over 136.
+    expect(html).toContain(`<rect x="48" y="138" width="80" height="162" fill="${grey}">`)
+    expect(html).toContain(`<rect x="48" y="70" width="80" height="68" fill="${grey}">`)
+    expect(lines(html)).toEqual([
+      '<line x1="48" x2="128" y1="70" y2="70" stroke="#3f3f46" stroke-opacity="0.5" stroke-width="1.5">',
+      // The line between the two: the whole ink, with no opacity taken off it, and heavier than a surface's.
+      '<line x1="48" x2="128" y1="138" y2="138" stroke="#3f3f46" stroke-width="2">',
+    ])
+    expect([...html.matchAll(/<text [^>]*>([^<]*)<\/text>/g)].map((match) => match[1])).toEqual(['Top layer', 'Bottom layer'])
+    // Each layer is a button of its own to look at, and nothing of what is seen is in the page.
+    expect([...html.matchAll(/data-part="(\w+)"/g)].map((match) => match[1])).toEqual(['upper', 'lower'])
+    expect(html).not.toContain('never in the markup')
+  })
+
+  it('keeps that line plain to see on a liquid with no colour and on a pale yellow one, on a card that is white in both themes: 7 to 1 or more', () => {
+    expect(LAYER_LINE).toEqual({ stroke: '#3f3f46', width: 2 })
+    // Two liquids with no colour are two bands of one grey: the line is all that sets them apart in the drawing.
+    expect(contrast(LAYER_LINE.stroke, grey)).toBeGreaterThanOrEqual(7)
+    expect(contrast(LAYER_LINE.stroke, liquidHex('pale yellow'))).toBeGreaterThanOrEqual(7)
+    expect([contrast(LAYER_LINE.stroke, grey), contrast(LAYER_LINE.stroke, liquidHex('pale yellow'))].map((ratio) => ratio.toFixed(1))).toEqual(['8.9', '9.3'])
+  })
+
+  it('draws no second liquid in a tube with no first', () => {
+    const html = draw({ liquid: null, above: { hex: grey, surface: 70 }, solid: null }, [])
+    expect(count(html, /<rect x="48"/g)).toBe(0)
+    expect(lines(html)).toEqual([])
   })
 })
