@@ -59,8 +59,9 @@ export interface WorksheetProps<F extends string, V, J extends Follows> {
   text: { hint: string; check: string; enter: string; change: string; cancel: string; changeNote: string; follows: string; not: string }
   /**
    * Room over the hint of an entry that is chosen, so that the hit area of the hint, once it is open, which reaches
-   * up from its line, lies clear of the button over it. The endothermic and exothermic lab asks for it; the two
-   * labs that drew this notebook before it are drawn as they were.
+   * up from its line, lies clear of the button over it: without it the open hint answers for the lowest 6 px of
+   * "Enter". Added for the endothermic and exothermic lab; the calorimetry lab and the freezing point depression
+   * lab ask for it too, since that lab's review measured the same overlap on their pages.
    */
   hintRoom?: boolean
 }

@@ -730,7 +730,10 @@ describe('the notebook', () => {
     expect(buttons(direction).map((one) => one.name)).toEqual([PAGE_TEXT.enter])
     expect(button(direction, PAGE_TEXT.enter)!.tag).toContain('aria-disabled="true"')
     expect(direction).toContain(`>${BENCH_TEXT.hint}</summary>`)
+    // Room over the hint of an entry that is chosen: open, its hit area reaches 24 px up from its line, and without the room lay over the foot of Enter.
+    expect(direction).toContain('<div class="pt-3"><details>')
     const metal = entries(notebook(entered(THREE, 5), THREE))[5]!
+    expect(metal).toContain('<div class="pt-3"><details>')
     expect([...metal.matchAll(/<input type="radio" name="[^"]+" value="([^"]+)"\/>([^<]*)<\/label>/g)].map((match) => [match[1], match[2]])).toEqual(metalChoices(data).map((choice) => [choice.value, choice.label]))
     expect(metalChoices(data).map((choice) => choice.label)).toEqual(['aluminium', 'iron', 'zinc', 'tin'])
   })

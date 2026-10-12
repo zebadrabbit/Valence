@@ -59,6 +59,8 @@ export function Worksheet({ data, part, mode, entries, graph, enter, checkBlocke
         return refused === null ? null : blockedText(part, refused, field)
       }}
       checkHeld={checkBlocked === null ? null : blockedText(part, checkBlocked)}
+      // Room over the hint of an entry that is chosen: open, its hit area reached 6 px into the foot of Enter, measured in the browser.
+      hintRoom
       onCheck={onCheck}
       text={{ hint: BENCH_TEXT.hint, check: BENCH_TEXT.check, enter: PAGE_TEXT.enter, change: PAGE_TEXT.change, cancel: PAGE_TEXT.cancel, changeNote: PAGE_TEXT.changeNote, ...VERDICT_TEXT }}
     />
