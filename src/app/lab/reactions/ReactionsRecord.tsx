@@ -4,7 +4,7 @@ import { ROLE } from '@/app/lab/roles'
 import { Marked } from '@/app/lab/stationPieces'
 import { STATION_IDS, stationOf, type ReactionsData } from '@/chem-data/reactions/data'
 import { runRecords, stationView, type ReactionsModel, type ReactionsState, type RunRecord } from '@/engine/reactions'
-import { KIND_LABEL, LAB_TEXT, RECORD_TEXT, observationLines, orderText, outcomeText, progressOf, reasonText, stationName, vesselName } from './messages'
+import { KIND_LABEL, LAB_TEXT, RECORD_TEXT, observationLines, orderText, progressOf, reasonText, stationName, vesselName } from './messages'
 import { ProgressLabel } from './StationCard'
 
 /** A formula-bearing line of a built equation, drawn with its subscripts. */
@@ -69,7 +69,7 @@ export function ReactionsRecord({ data, m, state }: { data: ReactionsData; m: Re
                       ) : (
                         <>
                           {checked && <Mark ok={run.outcome.state === 'counts'} />}
-                          {checked ? outcomeText(run.outcome) : RECORD_TEXT.notChecked}
+                          {checked ? (run.outcome.state === 'counts' ? RECORD_TEXT.counts : RECORD_TEXT.doesNotCount) : RECORD_TEXT.notChecked}
                         </>
                       )}
                     </span>

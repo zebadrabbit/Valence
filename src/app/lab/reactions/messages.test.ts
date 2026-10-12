@@ -10,6 +10,7 @@ import {
   BUILDER_TEXT,
   EQUATION_TEXT,
   FIELD_LABEL,
+  FIELD_SHORT,
   HINT,
   HINT_LABEL,
   KIND_LABEL,
@@ -53,6 +54,7 @@ import {
   stationNotes,
   tileLabel,
   vesselName,
+  vesselShort,
   vesselText,
 } from './messages'
 
@@ -178,6 +180,11 @@ describe('the lab, its stations and their benches', () => {
     expect(STATION_IDS.flatMap((id) => benchLines(data, id)).length).toBe(11)
     expect(STATION_IDS.map((id) => data.stations.find((s) => s.id === id)!.vessels.map((v) => vesselName(data, id, v.id)))).toEqual([['The tube'], ['The strip'], ['The magnesium tube', 'The zinc tube', 'The copper tube'], ['The tube'], ['The tube']])
     expect(() => vesselName(data, 'peroxide', 'nothing')).toThrow(/no vessel/)
+    // One of several tubes in a word, for a button with little room: the word is in the tube's whole name, which is the button's.
+    for (const vessel of data.stations.find((s) => s.id === 'metals-in-acid')!.vessels) expect(vesselName(data, 'metals-in-acid', vessel.id).toLowerCase()).toContain(vesselShort(data, 'metals-in-acid', vessel.id).toLowerCase())
+    expect(vesselShort(data, 'metals-in-acid', 'copper')).toBe('Copper')
+    expect(() => vesselShort(data, 'two-solutions', 'tube')).toThrow(/no tube with a metal/)
+    expect(ORDER_TEXT.heading.toLowerCase()).toContain(ORDER_TEXT.short.toLowerCase())
     expect(Object.keys(METAL_NAME)).toEqual([...METAL_IDS])
   })
 })
@@ -198,6 +205,9 @@ describe('what is seen', () => {
     expect(choiceList('gas', data.choices.gas).map((c) => c.value)).toEqual(data.choices.gas)
     expect(choiceLabel('coating', 'red-brown')).toBe('a red-brown coating')
     expect(observationLines('flame', ['light', 'solid'], { light: 'white light', solid: 'white' })).toEqual(['Light: a white light', 'What is left: a white solid'])
+    // Under one of several tubes a line is short: each field in a word or two.
+    expect(observationLines('tube', ['bubbles'], { bubbles: 'slow' }, true)).toEqual(['Bubbles: slowly'])
+    for (const field of FIELDS) expect(FIELD_SHORT[field].length, field).toBeLessThanOrEqual(FIELD_LABEL[field].length)
   })
 
   it('says which part to look at again, and never what it should be', () => {
@@ -416,7 +426,7 @@ describe('every sentence of the page', () => {
   /** Every fixed string and every sentence a function gives for the cases above, as one list. */
   function sentences(): string[] {
     const flat = (value: unknown): string[] => (typeof value === 'string' ? [value] : value && typeof value === 'object' ? Object.values(value).flatMap(flat) : [])
-    const fixed = [LAB_TEXT, STATION_TASK, ACTION_LABEL, ACTION_DONE, BENCH_TEXT, FIELD_LABEL, OBSERVATION_TEXT, KIND_LABEL, KIND_MEANS, KIND_TEXT, STATE_LABEL, EQUATION_TEXT, BUILDER_TEXT, PROBLEM_TEXT, ORDER_TEXT, HINT, HINT_LABEL, MODE_TEXT, PROGRESS_TEXT, NOTES_TEXT, PAGE_TEXT, RECORD_TEXT, SOURCES_TEXT, WARM_TEXT, METAL_NAME].flatMap(flat)
+    const fixed = [LAB_TEXT, STATION_TASK, ACTION_LABEL, ACTION_DONE, BENCH_TEXT, FIELD_LABEL, FIELD_SHORT, OBSERVATION_TEXT, KIND_LABEL, KIND_MEANS, KIND_TEXT, STATE_LABEL, EQUATION_TEXT, BUILDER_TEXT, PROBLEM_TEXT, ORDER_TEXT, HINT, HINT_LABEL, MODE_TEXT, PROGRESS_TEXT, NOTES_TEXT, PAGE_TEXT, RECORD_TEXT, SOURCES_TEXT, WARM_TEXT, METAL_NAME].flatMap(flat)
     const made = [
       ...STATION_IDS.flatMap((id) => [stationName(data, id), stationLetter(data, id), ...benchLines(data, id), ...data.stations.find((s) => s.id === id)!.vessels.map((v) => vesselName(data, id, v.id))]),
       ...pictures.map((p) => vesselText(p.shows)),

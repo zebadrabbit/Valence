@@ -9,11 +9,13 @@ import { contentsEnd } from '@/app/lab/Tube'
 // drawn `narrow`, 160 wide, with its piece of metal close beside it: an upright tablet has the width for three of
 // those at very nearly full size, and not for three of the wide ones.
 
-/** How wide a picture is, and how tall the room under its drawing is, on the same white card, where what a part shows is said while the part is looked at: a narrow picture's line breaks more often and has more room. */
-export const sizeOf = (narrow: boolean) => ({
-  width: narrow ? 160 : 240,
-  height: DRAWING + (narrow ? 96 : 72),
-})
+/**
+ * How wide a picture is, and how tall the room under its drawing is, on the same white card, where what a part shows
+ * is said while the part is looked at: a narrow picture's line breaks more often and has more room. A picture drawn
+ * `short` has no such room: it is the drawing alone, for a vessel whose observation is recorded, and what a part
+ * shows is then said in a box that hangs under the drawing for as long as the part is looked at.
+ */
+export const sizeOf = (narrow: boolean, short = false) => ({ width: narrow ? 160 : 240, height: DRAWING + (short ? 0 : narrow ? 96 : 72) })
 /** How tall the drawing is: the tube as src/app/lab/Tube.tsx draws one of this height, or the burner and the tongs. */
 export const DRAWING = 200
 /** The line everything stands on. */
@@ -80,10 +82,7 @@ export const BUBBLES: Record<Exclude<Bubbles, 'none'>, readonly (readonly [cx: n
 
 /** The burner, and the tips of the tongs where they are held beside it and where they are held in its flame. */
 export const FLAME = { x: 60, top: 54, foot: 112 } as const
-export const TONGS = {
-  beside: { x: 150, y: 112 },
-  inFlame: { x: 86, y: 80 },
-} as const
+export const TONGS = { beside: { x: 150, y: 112 }, inFlame: { x: 86, y: 80 } } as const
 /** Where the light of the strip is drawn: about the top of the flame. */
 export const LIGHT = { x: 60, y: 80, r: 30 } as const
 
@@ -117,24 +116,12 @@ export function partsOf(shows: VesselShows, looks: readonly Look[], scene: Scene
     const flame: Part =
       scene === 'whole' && !shows.metal?.placed && shows.light === null
         ? { at: 'flame', left: 96, top: 86, width: 50, height: 52 }
-        : {
-            at: 'flame',
-            left: LIGHT.x - 33,
-            top: LIGHT.y - 33,
-            width: 66,
-            height: 66,
-          }
+        : { at: 'flame', left: LIGHT.x - 33, top: LIGHT.y - 33, width: 66, height: 66 }
     const left: Part = scene === 'whole' ? { at: 'solid', left: 146, top: 86, width: 52, height: 52 } : { at: 'solid', left: 122, top: 84, width: 56, height: 56 }
     return [...(has('flame') && scene !== 'afterwards' ? [flame] : []), ...(has('solid') && scene !== 'burning' ? [left] : [])]
   }
   const dx = shiftOf(shows, narrow)
-  const band = (at: Look, top: number, bottom: number): Part => ({
-    at,
-    left: 50 + dx,
-    top,
-    width: 76,
-    height: bottom - top,
-  })
+  const band = (at: Look, top: number, bottom: number): Part => ({ at, left: 50 + dx, top, width: 76, height: bottom - top })
   const top = surface - 10
   const placed = shows.metal?.placed === true
   // The piece in the liquid has the foot of the tube, and the liquid what is over it; with no piece in it the liquid is one part.

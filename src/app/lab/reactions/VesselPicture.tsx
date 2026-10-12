@@ -26,13 +26,7 @@ function TubeDrawing({ id, shows, surface, narrow }: { id: string; shows: Vessel
   const { tube, metal, bubbles } = shows
   const dx = shiftOf(shows, narrow)
   const layers = {
-    liquid: tube?.liquid
-      ? {
-          hex: liquidHex(tube.liquid.colour),
-          surface,
-          cloudy: tube.liquid.cloudy,
-        }
-      : null,
+    liquid: tube?.liquid ? { hex: liquidHex(tube.liquid.colour), surface, cloudy: tube.liquid.cloudy } : null,
     solid: null,
     spread: tube?.solid ? { hex: solidHex(tube.solid.colour) } : null,
   }
@@ -142,6 +136,8 @@ export interface VesselPictureProps {
   full: number
   /** One of several tubes that stand in a row: drawn 160 units wide and not 240. */
   narrow?: boolean
+  /** The drawing alone, with no room under it (vesselLook.sizeOf): for a vessel whose observation is recorded, so that what is asked next has the room. */
+  short?: boolean
   /** The vessel's looks, and whether each has been made since the vessel last changed. */
   looks: readonly { at: Look; looked: boolean }[]
   /** What is seen at a part, in words. Asked for only while the part is looked at, so that nothing of it is on the page before. */
@@ -157,22 +153,18 @@ export interface VesselPictureProps {
  * tap looks at it: the part is outlined, and what is seen there is said under the drawing, on the same card, and
  * nothing else is. That line is a status, so a screen reader says it too. Nothing of what is seen is in the page
  * until then. While no part is looked at, the same room says what to do with the picture, and that sentence is the
- * picture's description. Warmth cannot be drawn: once the tube has been felt, and it is warm, the words stand by the hand.
- * Everything here has a fixed colour, and nothing moves.
+ * picture's description. A picture drawn `short` has no such room: what is seen at a part is then said in a box that
+ * hangs under the drawing, over whatever stands there, for as long as the part is looked at, and what to do with the
+ * picture is a screen reader's alone. Warmth cannot be drawn: once the tube has been felt, and it is warm, the words
+ * stand by the hand. Everything here has a fixed colour, and nothing moves.
  */
-export function VesselPicture({ name, shows, scene, full, narrow = false, looks, seen, onLook }: VesselPictureProps) {
+export function VesselPicture({ name, shows, scene, full, narrow = false, short = false, looks, seen, onLook }: VesselPictureProps) {
   const id = useId()
   const hintId = useId()
-  const { width: WIDTH, height: HEIGHT } = sizeOf(narrow)
+  const { width: WIDTH, height: HEIGHT } = sizeOf(narrow, short)
   const { open, part: looking } = useExplore<Look>(onLook)
   const surface = shows.tube?.liquid ? surfaceOf(shows.tube.liquid.microlitres, full) : BENCH
-  const parts = partsOf(
-    shows,
-    looks.map((look) => look.at),
-    scene,
-    surface,
-    narrow,
-  )
+  const parts = partsOf(shows, looks.map((look) => look.at), scene, surface, narrow)
   const felt = parts.find((part) => part.at === 'touch')
   return (
     <div className={`relative max-w-full ${narrow ? 'w-40' : 'w-60'}`}>
@@ -190,12 +182,7 @@ export function VesselPicture({ name, shows, scene, full, narrow = false, looks,
       </svg>
       {parts.map(({ at, left, top, width, height }) => {
         const looked = looks.find((look) => look.at === at)?.looked ?? false
-        const place: CSSProperties = {
-          left: percent(left, WIDTH),
-          top: percent(top, HEIGHT),
-          width: percent(width, WIDTH),
-          height: percent(height, HEIGHT),
-        }
+        const place: CSSProperties = { left: percent(left, WIDTH), top: percent(top, HEIGHT), width: percent(width, WIDTH), height: percent(height, HEIGHT) }
         return (
           <button
             key={at}
@@ -211,23 +198,16 @@ export function VesselPicture({ name, shows, scene, full, narrow = false, looks,
       })}
       {/* By the hand, once the tube has been felt: what no drawing shows. */}
       {felt && shows.warm && looks.some((look) => look.at === 'touch' && look.looked) && (
-        <p
-          style={{
-            left: percent(felt.left - 8, WIDTH),
-            bottom: percent(HEIGHT - felt.top + 2, HEIGHT),
-            width: percent(felt.width + 6, WIDTH),
-          }}
-          className="absolute text-center text-xs leading-tight font-medium text-[#18181b]"
-        >
+        <p style={{ left: percent(felt.left - 8, WIDTH), bottom: percent(HEIGHT - felt.top + 2, HEIGHT), width: percent(felt.width + 6, WIDTH) }} className="absolute text-center text-xs leading-tight font-medium text-[#18181b]">
           {WARM_TEXT}
         </p>
       )}
-      {/* What the part looked at shows. Always there, and empty until a part is looked at, so that a screen reader says it when it comes. */}
-      <p role="status" style={{ height: percent(HEIGHT - DRAWING - 8, HEIGHT) }} className="pointer-events-none absolute inset-x-2 bottom-2 flex items-end">
-        {open !== null && <span className="w-full rounded-md border-2 border-[#18181b] bg-white px-2 py-1 text-sm leading-snug font-medium text-[#18181b]">{seen(open)}</span>}
+      {/* What the part looked at shows. Always there, and empty until a part is looked at, so that a screen reader says it when it comes. Under a short picture it hangs over what stands there, and a press goes through it. */}
+      <p role="status" style={short ? undefined : { height: percent(HEIGHT - DRAWING - 8, HEIGHT) }} className={`pointer-events-none absolute ${short ? 'inset-x-0 top-full z-10 mt-1' : 'inset-x-2 bottom-2 flex items-end'}`}>
+        {open !== null && <span className={`block w-full rounded-md border-2 border-[#18181b] bg-white px-2 py-1 text-sm leading-snug font-medium text-[#18181b] ${short ? 'shadow-md' : ''}`}>{seen(open)}</span>}
       </p>
       {/* What to do with the picture, in the same room while nothing is looked at. It says nothing of what is seen. */}
-      <p id={hintId} style={{ height: percent(HEIGHT - DRAWING - 8, HEIGHT) }} className={`pointer-events-none absolute inset-x-3 bottom-2 flex items-center text-xs leading-snug text-[#52525b] ${open === null ? '' : 'invisible'}`}>
+      <p id={hintId} style={short ? undefined : { height: percent(HEIGHT - DRAWING - 8, HEIGHT) }} className={short ? 'sr-only' : `pointer-events-none absolute inset-x-3 bottom-2 flex items-center text-xs leading-snug text-[#52525b] ${open === null ? '' : 'invisible'}`}>
         {PAGE_TEXT.explore}
       </p>
     </div>

@@ -44,6 +44,7 @@ import {
   stationNotes,
   tileLabel,
   vesselName,
+  vesselShort,
   vesselText,
   type Progress,
 } from './messages'
@@ -72,15 +73,14 @@ const STATES: readonly State[] = ['aq', 's', 'l', 'g']
 const CARD = 'grid min-w-0 divide-y rounded-lg border bg-card text-sm'
 const SHEET = 'grid min-w-0 justify-items-start gap-2 p-3'
 const isProblem = (blocked: Blocked): blocked is Problem => blocked in PROBLEM_TEXT
-const lower = (text: string) => `${text[0]!.toLowerCase()}${text.slice(1)}`
 /** The order of the metals, among the things a station of several tubes asks one at a time: no vessel has this id. */
 const ORDER = ':order'
 
-/** One question of a vessel, named by its heading. `folded` is for one whose answer is recorded and stands as a line beside "Change": the line says what it is of, so the heading is then a screen reader's alone, and the sheet is as short as the line. */
+/** One question of a vessel, named by its heading. `folded` is for one whose answer is recorded and stands as a line beside "Change": the line says what it is of, so the heading is then a screen reader's alone, and the sheet is as short as the line, with what is said of the answer in the same row where there is the width (reactions.css). */
 function Sheet({ heading, folded = false, children }: { heading: string; folded?: boolean; children: ReactNode }) {
   const headingId = useId()
   return (
-    <section aria-labelledby={headingId} className={folded ? 'grid min-w-0 justify-items-start gap-2 px-3 py-1.5' : SHEET}>
+    <section aria-labelledby={headingId} className={folded ? 'reactions-folded' : SHEET}>
       <h4 id={headingId} className={folded ? 'sr-only' : 'font-semibold'}>
         {heading}
       </h4>
@@ -188,6 +188,8 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
   const [asked, setAsked] = useState(() => view.vessels.find((vessel) => !answered(vessel))?.id ?? (view.order?.said === null ? ORDER : view.vessels[0]!.id))
   const checked = outcome.state === 'counts' || outcome.state === 'does-not-count'
   const several = view.vessels.length > 1
+  // What is seen of every vessel is recorded, or the run is checked: the pictures are then drawn short, with no room under them, so that what is asked next has it.
+  const observed = checked || view.vessels.every((vessel) => vessel.observation !== null)
   const name = (vessel: VesselView) => vesselName(data, stationId, vessel.id)
   const drawnOf = (vessel: VesselView) => vessel.shows.drawn
   const formula = (speciesId: string) => view.tiles.find((tile) => tile.speciesId === speciesId)?.formula ?? speciesId
@@ -211,12 +213,7 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
 
   /** A part of a vessel is looked at: stored the first time, where the engine takes it, and said each time. A run that is checked can still be looked at. */
   const look = (vessel: VesselView, at: Look) => {
-    const action: Action = {
-      type: 'look',
-      station: stationId,
-      vessel: vessel.id,
-      at,
-    }
+    const action: Action = { type: 'look', station: stationId, vessel: vessel.id, at }
     if (!vessel.looks.find((l) => l.at === at)?.looked && can(action) === null) act(action)
   }
   const picture = (vessel: VesselView, scene: Scene) => (
@@ -226,6 +223,7 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
       scene={scene}
       full={full}
       narrow={several}
+      short={observed}
       looks={vessel.looks}
       seen={(at) => vessel.looks.find((l) => l.at === at)?.words ?? ''}
       onLook={(at) => look(vessel, at)}
@@ -233,8 +231,7 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
   )
   /** Which parts of a vessel have been looked at, until what is seen of it is recorded: all have been by then. */
   const looksList = (vessel: VesselView) =>
-    vessel.observation === null &&
-    !checked && (
+    vessel.observation === null && !checked && (
       <ul className="grid gap-0.5 text-xs">
         {vessel.looks.map(({ at, looked }) => (
           <li key={at}>
@@ -256,7 +253,7 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
       return (
         <Sheet heading={OBSERVATION_TEXT.heading}>
           <ul className="grid gap-0.5">
-            {observationLines(drawn, fields, vessel.observation).map((line, at) => (
+            {observationLines(drawn, fields, vessel.observation, several).map((line, at) => (
               <li key={line}>
                 {vessel.wrongFields?.includes(fields[at]!) && <Mark ok={false} />}
                 {line}
@@ -283,42 +280,20 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
             <ChoiceForm
               // A form of its own for each mode: what is said of an observation that is recorded differs.
               key={mode}
-              questions={vessel.fields.map(({ field, choices }) => ({
-                id: field,
-                label: fieldLabel(drawn, field),
-                choices: choiceList(field, choices),
-                waits: null,
-              }))}
+              questions={vessel.fields.map(({ field, choices }) => ({ id: field, label: fieldLabel(drawn, field), choices: choiceList(field, choices), waits: null }))}
               recorded={vessel.observation}
               // Guided takes only what the vessel shows, so what it has taken is right, but for one that was recorded in Challenge before the mode was changed: that one is held to the vessel. Challenge says nothing of an observation until the station is checked.
-              judged={
-                vessel.observation === null
-                  ? null
-                  : {
-                      wrong: vessel.wrongFields ?? [],
-                      text: vessel.wrongFields === null ? '' : vessel.wrongFields.length === 0 ? checkedText([]) : mismatchText(vessel.wrongFields),
-                    }
-              }
+              judged={vessel.observation === null ? null : { wrong: vessel.wrongFields ?? [], text: vessel.wrongFields === null ? '' : vessel.wrongFields.length === 0 ? checkedText([]) : mismatchText(vessel.wrongFields) }}
               held={null}
               refusal={(answers) => {
                 if (fields.some((field) => answers[field] === undefined)) return blockedText('invalid-entry')
-                const refused = can({
-                  type: 'observe',
-                  station: stationId,
-                  vessel: vessel.id,
-                  observation: answers as Observation,
-                })
+                const refused = can({ type: 'observe', station: stationId, vessel: vessel.id, observation: answers as Observation })
                 // Whether the answers are what the vessel shows is said when they are recorded, and not before.
                 return refused === null || refused === 'does-not-match' ? null : blockedText(refused)
               }}
               onRecord={(answers) => {
                 const observation = answers as Observation
-                const action: Action = {
-                  type: 'observe',
-                  station: stationId,
-                  vessel: vessel.id,
-                  observation,
-                }
+                const action: Action = { type: 'observe', station: stationId, vessel: vessel.id, observation }
                 if (can(action) === 'does-not-match') {
                   const not = wrong(vessel.id, observation)
                   return { wrong: not, text: mismatchText(not) }
@@ -326,12 +301,9 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
                 act(action)
                 return { wrong: [], text: guided ? checkedText([]) : '' }
               }}
-              text={{
-                check: OBSERVATION_TEXT.record,
-                change: PAGE_TEXT.change,
-                cancel: PAGE_TEXT.cancel,
-              }}
-              brief={(answers) => observationLines(drawn, fields, answers as Observation)}
+              text={{ check: OBSERVATION_TEXT.record, change: PAGE_TEXT.change, cancel: PAGE_TEXT.cancel }}
+              // Under one of several tubes a line has little room: each field in a word, and the tick of an answer found right before its line, where the sentence that says so has no room to stand (reactions.css).
+              brief={(answers) => observationLines(drawn, fields, answers as Observation, several).map((line) => (several && vessel.wrongFields?.length === 0 ? `✓ ${line}` : line))}
             />
             {!guided && vessel.observation !== null && <p className="text-muted-foreground">{RECORD_TEXT.notChecked}</p>}
             {guided && !several && vessel.observation === null && <Hint>{HINT.observe}</Hint>}
@@ -359,56 +331,23 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
       <Sheet heading={KIND_TEXT.heading} folded={vessel.kind !== null && vessel.kindRight !== false}>
         <ChoiceForm
           key={mode}
-          questions={[
-            {
-              id: 'kind',
-              label: KIND_TEXT.question,
-              choices: kindChoices(data).map((choice) => ({
-                value: choice.value,
-                label: kindChoiceLabel(choice),
-              })),
-              waits: null,
-            },
-          ]}
+          questions={[{ id: 'kind', label: KIND_TEXT.question, choices: kindChoices(data).map((choice) => ({ value: choice.value, label: kindChoiceLabel(choice) })), waits: null }]}
           recorded={vessel.kind === null ? null : { kind: vessel.kind }}
-          judged={
-            vessel.kind === null
-              ? null
-              : vessel.kindRight === false
-                ? { wrong: ['kind'], text: KIND_TEXT.wrong }
-                : {
-                    wrong: [],
-                    text: vessel.kindRight === null ? '' : KIND_TEXT.right,
-                  }
-          }
+          judged={vessel.kind === null ? null : vessel.kindRight === false ? { wrong: ['kind'], text: KIND_TEXT.wrong } : { wrong: [], text: vessel.kindRight === null ? '' : KIND_TEXT.right }}
           held={null}
           refusal={(answers) => {
             if (answers.kind === undefined) return blockedText('invalid-entry')
-            const refused = can({
-              type: 'sayKind',
-              station: stationId,
-              vessel: vessel.id,
-              kind: answers.kind as KindAnswer,
-            })
+            const refused = can({ type: 'sayKind', station: stationId, vessel: vessel.id, kind: answers.kind as KindAnswer })
             // Whether the kind is right is said when it is given, and not before.
             return refused === null || refused === 'not-right' ? null : blockedText(refused)
           }}
           onRecord={(answers) => {
-            const action: Action = {
-              type: 'sayKind',
-              station: stationId,
-              vessel: vessel.id,
-              kind: answers.kind as KindAnswer,
-            }
+            const action: Action = { type: 'sayKind', station: stationId, vessel: vessel.id, kind: answers.kind as KindAnswer }
             if (can(action) === 'not-right') return { wrong: ['kind'], text: KIND_TEXT.tryAgain }
             act(action)
             return { wrong: [], text: guided ? KIND_TEXT.right : '' }
           }}
-          text={{
-            check: KIND_TEXT.record,
-            change: PAGE_TEXT.change,
-            cancel: PAGE_TEXT.cancel,
-          }}
+          text={{ check: KIND_TEXT.record, change: PAGE_TEXT.change, cancel: PAGE_TEXT.cancel }}
           brief={(answers) => [`${KIND_TEXT.heading}: ${KIND_LABEL[answers.kind as KindAnswer]}`]}
         />
         {!guided && vessel.kind !== null && <p className="text-muted-foreground">{RECORD_TEXT.notChecked}</p>}
@@ -455,33 +394,17 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
           formula={formula}
           tileName={(speciesId) => tileLabel(view.tiles.find((tile) => tile.speciesId === speciesId)!)}
           states={STATES}
-          recorded={
-            recorded && {
-              entry: { noReaction: false, ...recorded.built },
-              ok: recorded.judged ? recorded.problem === null : null,
-              text: !recorded.judged ? EQUATION_TEXT.recorded : recorded.problem === null ? EQUATION_TEXT.right : PROBLEM_TEXT[recorded.problem],
-            }
-          }
+          recorded={recorded && { entry: { noReaction: false, ...recorded.built }, ok: recorded.judged ? recorded.problem === null : null, text: !recorded.judged ? EQUATION_TEXT.recorded : recorded.problem === null ? EQUATION_TEXT.right : PROBLEM_TEXT[recorded.problem] }}
           counts={vessel.places}
           held={null}
           refusal={(entry) => {
-            const refused = can({
-              type: 'enterEquation',
-              station: stationId,
-              vessel: vessel.id,
-              entry,
-            })
+            const refused = can({ type: 'enterEquation', station: stationId, vessel: vessel.id, entry })
             // What is wrong with an equation is said when it is recorded, and not before. The one entry the builder makes that the engine does not take is a side with nothing on it.
             if (refused === null || isProblem(refused)) return null
             return refused === 'invalid-entry' ? EQUATION_TEXT.incomplete : blockedText(refused)
           }}
           onEnter={(entry) => {
-            const action: Action = {
-              type: 'enterEquation',
-              station: stationId,
-              vessel: vessel.id,
-              entry,
-            }
+            const action: Action = { type: 'enterEquation', station: stationId, vessel: vessel.id, entry }
             const refused = can(action)
             if (refused !== null && isProblem(refused)) return { ok: false, text: PROBLEM_TEXT[refused] }
             act(action)
@@ -489,8 +412,8 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
           }}
           text={BUILDER_TEXT}
           intro={`${EQUATION_TEXT.build} ${EQUATION_TEXT.balance}`}
-          // The tiles stand over the row: the row takes a second line as it is filled in a narrow card, and the tiles, pressed one after another, must not move.
-          bankFirst
+          // The tiles and a term's controls stand over the row: the row takes a second line as it is filled in a narrow card, and what is pressed one time after another must not move.
+          toolsFirst
         />
         {guided && open && <Hint>{HINT.equation}</Hint>}
       </div>
@@ -501,10 +424,7 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
   const order = () => {
     if (view.order === null) return null
     const { metals, said: given, right, open } = view.order
-    const choices = metals.map((metal) => ({
-      value: metal,
-      label: METAL_NAME[metal],
-    }))
+    const choices = metals.map((metal) => ({ value: metal, label: METAL_NAME[metal] }))
     const orderOf = (answers: Readonly<Record<string, string>>): MetalId[] => [answers.most as MetalId, ...metals.filter((metal) => metal !== answers.most && metal !== answers.least), answers.least as MetalId]
     return (
       <Sheet heading={ORDER_TEXT.heading} folded={!checked && given !== null && right !== false}>
@@ -522,60 +442,25 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
             <ChoiceForm
               key={mode}
               questions={[
-                {
-                  id: 'most',
-                  label: ORDER_TEXT.mostActive,
-                  choices,
-                  waits: null,
-                },
-                {
-                  id: 'least',
-                  label: ORDER_TEXT.leastActive,
-                  choices,
-                  waits: null,
-                },
+                { id: 'most', label: ORDER_TEXT.mostActive, choices, waits: null },
+                { id: 'least', label: ORDER_TEXT.leastActive, choices, waits: null },
               ]}
               recorded={given === null ? null : { most: given[0]!, least: given.at(-1)! }}
-              judged={
-                given === null
-                  ? null
-                  : right === false
-                    ? { wrong: ['most', 'least'], text: ORDER_TEXT.wrong }
-                    : {
-                        wrong: [],
-                        text: right === null ? '' : ORDER_TEXT.right,
-                      }
-              }
+              judged={given === null ? null : right === false ? { wrong: ['most', 'least'], text: ORDER_TEXT.wrong } : { wrong: [], text: right === null ? '' : ORDER_TEXT.right }}
               held={null}
               refusal={(answers) => {
                 if (answers.most === undefined || answers.least === undefined) return blockedText('invalid-entry')
                 if (answers.most === answers.least) return ORDER_TEXT.sameMetal
-                const refused = can({
-                  type: 'sayOrder',
-                  station: stationId,
-                  order: orderOf(answers),
-                })
+                const refused = can({ type: 'sayOrder', station: stationId, order: orderOf(answers) })
                 return refused === null || refused === 'not-right' ? null : blockedText(refused)
               }}
               onRecord={(answers) => {
-                const action: Action = {
-                  type: 'sayOrder',
-                  station: stationId,
-                  order: orderOf(answers),
-                }
-                if (can(action) === 'not-right')
-                  return {
-                    wrong: ['most', 'least'],
-                    text: ORDER_TEXT.tryAgain,
-                  }
+                const action: Action = { type: 'sayOrder', station: stationId, order: orderOf(answers) }
+                if (can(action) === 'not-right') return { wrong: ['most', 'least'], text: ORDER_TEXT.tryAgain }
                 act(action)
                 return { wrong: [], text: guided ? ORDER_TEXT.right : '' }
               }}
-              text={{
-                check: ORDER_TEXT.record,
-                change: PAGE_TEXT.change,
-                cancel: PAGE_TEXT.cancel,
-              }}
+              text={{ check: ORDER_TEXT.record, change: PAGE_TEXT.change, cancel: PAGE_TEXT.cancel }}
               brief={(answers) => [`${ORDER_TEXT.heading}: ${orderText(orderOf(answers))}`]}
             />
             {!guided && given !== null && <p className="text-muted-foreground">{RECORD_TEXT.notChecked}</p>}
@@ -587,13 +472,7 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
   }
 
   const actButton = (
-    <Control
-      unavailable={can(doIt) !== null}
-      dimmed={!view.acted && can(doIt) !== null}
-      variant={view.acted ? 'secondary' : 'default'}
-      className="h-auto min-h-11 max-w-full px-4 py-1 text-left whitespace-normal"
-      onClick={() => press(doIt, say)}
-    >
+    <Control unavailable={can(doIt) !== null} dimmed={!view.acted && can(doIt) !== null} variant={view.acted ? 'secondary' : 'default'} className="h-auto min-h-11 max-w-full px-4 py-1 text-left whitespace-normal" onClick={() => press(doIt, say)}>
       <span>
         {view.acted && (
           <span aria-hidden="true" className={ROLE.done}>
@@ -621,8 +500,18 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
       ))}
     </Disclosure>
   )
+  /** The one button and, beside it where the card has the width, the closed disclosure that holds the pictures in words. */
+  const doing = (
+    <div className="reactions-act">
+      {actButton}
+      {inWords}
+    </div>
+  )
   const first = view.vessels[0]!
   const scenes = scenesOf(first.shows)
+  // Under the row of several tubes, while any of them is still to be recorded: what opens their boxes, said once, and Guided's one hint for them all.
+  const unopened = !checked && view.vessels.some((vessel) => !vessel.observationOpen && vessel.observation === null)
+  const hinted = guided && !checked && view.vessels.some((vessel) => vessel.observation === null)
   const equations = (counted?.vessels ?? []).flatMap((recorded) => {
     const vessel = view.vessels.find((v) => v.id === recorded.id)
     return recorded.equation === null || vessel === undefined ? [] : [{ vessel, built: recorded.equation.built }]
@@ -688,7 +577,7 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
                 {PAGE_TEXT.beforeAndAfter}
               </h3>
               {stage}
-              {actButton}
+              {doing}
               <Line said={said} />
             </div>
             {/* The three tubes in one row, each with its name over it and what is seen of it under it. */}
@@ -704,66 +593,48 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
                 </div>
               ))}
             </div>
-            <div className={SHEET}>
-              {!checked && view.vessels.some((vessel) => !vessel.observationOpen && vessel.observation === null) && <p className={`max-w-prose ${ROLE.held}`}>{view.acted ? OBSERVATION_TEXT.lookFirst : OBSERVATION_TEXT.actFirst}</p>}
-              {/* One hint for the three tubes, while any of them is still to be recorded. */}
-              {guided && !checked && view.vessels.some((vessel) => vessel.observation === null) && <Hint>{HINT.observe}</Hint>}
-              {inWords}
-            </div>
+            {(unopened || hinted) && (
+              <div className={SHEET}>
+                {unopened && <p className={`max-w-prose ${ROLE.held}`}>{view.acted ? OBSERVATION_TEXT.lookFirst : OBSERVATION_TEXT.actFirst}</p>}
+                {hinted && <Hint>{HINT.observe}</Hint>}
+              </div>
+            )}
           </section>
-          {/* One thing at a time: a tube's kind and its equation, or the order of the metals. Each keeps what is chosen or built for it while another is shown. */}
-          <section aria-labelledby={tubesId} hidden={!view.vessels.some((vessel) => vessel.observation !== null)} className={CARD}>
+          {/* One thing at a time, once what is seen in every tube is recorded: a tube's kind and its equation, or the order of the metals. Each keeps what is chosen or built for it while another is shown. Until then the three tubes, which are compared, have the page. */}
+          <section aria-labelledby={tubesId} hidden={!observed} className={CARD}>
             <div className={SHEET}>
               <h3 id={tubesId} className="text-base font-semibold">
                 {PAGE_TEXT.oneAtATime}
               </h3>
               <div role="group" aria-labelledby={tubesId} className="reactions-chooser w-full">
                 {[
-                  ...view.vessels.map((vessel) => ({
-                    id: vessel.id,
-                    label: name(vessel),
-                    done: answered(vessel),
-                  })),
-                  ...(view.order === null
-                    ? []
-                    : [
-                        {
-                          id: ORDER,
-                          label: ORDER_TEXT.heading,
-                          done: view.order.said !== null,
-                        },
-                      ]),
-                ].map(({ id, label, done }) => (
-                  <button
-                    key={id}
-                    type="button"
-                    aria-pressed={id === asked}
-                    onClick={() => setAsked(id)}
-                    className="min-h-11 rounded-md border border-l-4 px-2 py-1 text-left outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring aria-pressed:border-foreground aria-pressed:bg-muted aria-pressed:font-medium"
-                  >
-                    <Marked mark={done ? '✓' : '○'} done={done}>
+                  // A tick is for an answer found right, which Challenge finds only at the check: until then what is recorded has a mark of its own.
+                  ...view.vessels.map((vessel) => ({ id: vessel.id, label: name(vessel), short: vesselShort(data, stationId, vessel.id), recorded: answered(vessel), right: vessel.kindRight === true && (vessel.equation === null || (vessel.equation.judged && vessel.equation.problem === null)) })),
+                  ...(view.order === null ? [] : [{ id: ORDER, label: ORDER_TEXT.heading, short: ORDER_TEXT.short, recorded: view.order.said !== null, right: view.order.right === true }]),
+                ].map(({ id, label, short, recorded, right }) => (
+                  <button key={id} type="button" aria-pressed={id === asked} onClick={() => setAsked(id)} className="min-h-11 rounded-md border border-l-4 px-1.5 py-1 text-left outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring aria-pressed:border-foreground aria-pressed:bg-muted aria-pressed:font-medium">
+                    {/* A word, where four stand in a row; the whole name is a screen reader's. */}
+                    <span aria-hidden="true">
+                      <Marked mark={recorded && right ? '✓' : recorded ? '●' : '○'} done={recorded && right}>
+                        {short}
+                      </Marked>
+                    </span>
+                    <span className="sr-only">
                       {label}
-                    </Marked>
-                    {done && <span className="sr-only">: {EQUATION_TEXT.recorded}</span>}
+                      {recorded && `: ${EQUATION_TEXT.recorded}`}
+                    </span>
                   </button>
                 ))}
               </div>
             </div>
-            {view.vessels.map((vessel) => (
-              <section key={vessel.id} aria-label={name(vessel)} hidden={vessel.id !== asked} className="divide-y">
-                {vessel.kind === null && !vessel.kindOpen ? (
-                  <p className={`max-w-prose p-3 ${ROLE.held}`}>
-                    {name(vessel)}: {lower(KIND_TEXT.observeFirst)}
-                  </p>
-                ) : (
-                  <>
-                    {kind(vessel)}
-                    {equation(vessel)}
-                  </>
-                )}
-              </section>
-            ))}
-            <div hidden={asked !== ORDER}>{order()}</div>
+            {observed &&
+              view.vessels.map((vessel) => (
+                <section key={vessel.id} aria-label={name(vessel)} hidden={vessel.id !== asked} className="divide-y">
+                  {kind(vessel)}
+                  {equation(vessel)}
+                </section>
+              ))}
+            {observed && <div hidden={asked !== ORDER}>{order()}</div>}
           </section>
         </>
       ) : (
@@ -784,10 +655,9 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
             </div>
             <div className={`reactions-side ${SHEET} content-start`}>
               {stage}
-              {actButton}
+              {doing}
               <Line said={said} />
               {looksList(first)}
-              {inWords}
             </div>
             <div className="reactions-asked grid min-w-0 content-start divide-y">
               {seen(first)}

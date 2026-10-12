@@ -121,11 +121,12 @@ export interface EquationBuilderProps {
   /** What is to be built, in a sentence or two under the heading, while the equation is being built. */
   intro?: string | undefined
   /**
-   * The bank of tiles over the row of slots, and not under it. For a card too narrow for every equation a learner
-   * can build to stand in one row: the row then takes a second line as it is filled, and tiles under it, which are
-   * pressed one after another, would move under the hand.
+   * The bank of tiles and the line of a term's controls over the row of slots, and not under it. For a card too
+   * narrow for every equation a learner can build to stand in one row: the row then takes a second line as it is
+   * filled, and what is under it moves down. The tiles and the buttons that raise and lower a number are pressed
+   * one after another, and over the row they keep their place under the hand.
    */
-  bankFirst?: boolean | undefined
+  toolsFirst?: boolean | undefined
 }
 
 /** A target a finger finds: 44 px each way at the least. */
@@ -195,13 +196,14 @@ export function TermControls({ name, formula, term, states, text, onStep, onStat
  * into it, and the next empty slot becomes the active one. A press of a slot makes that one active. A tile can
  * also be dragged from the bank onto a slot, from one slot to another, and out of the row, which empties its
  * slot; nothing is done by dragging alone. The slot last filled or pressed has its coefficient, its state and its
- * way out in one line between the row and the bank. In a template (`counts`) each side has the slots it is given;
+ * way out in one line between the row and the bank (with `toolsFirst`, the bank and then that line stand over the
+ * row). In a template (`counts`) each side has the slots it is given;
  * otherwise a side is its terms and one empty slot. The button enters the equation, and the line under it says what
  * its lab finds of it: what kind of thing is wrong, never the answer. An equation that is entered and not found
  * wrong is shown as its one line, with "Change" beside it: one that is right, and one that its lab has taken and
  * not yet judged.
  */
-export function EquationBuilder({ heading, palette, formula, tileName, states, recorded, counts, held, refusal, onEnter, text, intro, bankFirst = false }: EquationBuilderProps) {
+export function EquationBuilder({ heading, palette, formula, tileName, states, recorded, counts, held, refusal, onEnter, text, intro, toolsFirst = false }: EquationBuilderProps) {
   const [draft, setDraft] = useState<Row>(recorded?.entry ?? EMPTY)
   const [changing, setChanging] = useState(false)
   // The slot last pressed, or the one the row moved on to when a tile went in: the active one while it is there.
@@ -376,6 +378,35 @@ export function EquationBuilder({ heading, palette, formula, tileName, states, r
     </div>
   )
 
+  /** The coefficient, the state and the way out of the term last filled or pressed; until there is one, how the row is filled. */
+  const termLine = (
+    <div ref={controls}>
+      {editedAt === null ? (
+        <p className={`flex items-center text-muted-foreground ${TAP}`}>{text.slotHelp}</p>
+      ) : (
+        <TermControls
+          name={text.slot.term(formula(edited!.speciesId), editedAt)}
+          formula={formula(edited!.speciesId)}
+          term={termAt(editedAt)!}
+          states={states}
+          text={text}
+          onStep={(by) => {
+            const coefficient = termAt(editedAt)!.coefficient + by
+            const next = changeTerm(row, editedAt, { coefficient })
+            if (next === row) say(text.coefficientLimit, true)
+            else change(next, text.slot.coefficient(formula(edited!.speciesId), coefficient))
+          }}
+          onState={(state) => change(changeTerm(row, editedAt, { state }), text.slot.state(formula(edited!.speciesId), state))}
+          onRemove={() => {
+            // Its controls go with the term, and focus goes to the slot it leaves.
+            formRef.current?.querySelector<HTMLElement>(`[data-place="${editedAt.side}:${editedAt.index}"]`)?.focus()
+            take(editedAt)
+          }}
+        />
+      )}
+    </div>
+  )
+
   return (
     <form
       ref={formRef}
@@ -415,7 +446,8 @@ export function EquationBuilder({ heading, palette, formula, tileName, states, r
       {building ? (
         <>
           {intro !== undefined && <p className="max-w-[75ch] text-muted-foreground">{intro}</p>}
-          {bankFirst && bank}
+          {toolsFirst && bank}
+          {toolsFirst && termLine}
           {/* The row of slots is the equation's line while it is built: a sign stays with the slot after it where the row wraps. */}
           <div role="group" aria-labelledby={labelId} data-row="" className="flex flex-wrap items-center gap-x-1.5 gap-y-2">
             <span id={labelId} className={`font-medium ${ROLE.entry}`}>
@@ -461,32 +493,8 @@ export function EquationBuilder({ heading, palette, formula, tileName, states, r
               }),
             )}
           </div>
-          <div ref={controls}>
-            {editedAt === null ? (
-              <p className={`flex items-center text-muted-foreground ${TAP}`}>{text.slotHelp}</p>
-            ) : (
-              <TermControls
-                name={text.slot.term(formula(edited!.speciesId), editedAt)}
-                formula={formula(edited!.speciesId)}
-                term={termAt(editedAt)!}
-                states={states}
-                text={text}
-                onStep={(by) => {
-                  const coefficient = termAt(editedAt)!.coefficient + by
-                  const next = changeTerm(row, editedAt, { coefficient })
-                  if (next === row) say(text.coefficientLimit, true)
-                  else change(next, text.slot.coefficient(formula(edited!.speciesId), coefficient))
-                }}
-                onState={(state) => change(changeTerm(row, editedAt, { state }), text.slot.state(formula(edited!.speciesId), state))}
-                onRemove={() => {
-                  // Its controls go with the term, and focus goes to the slot it leaves.
-                  formRef.current?.querySelector<HTMLElement>(`[data-place="${editedAt.side}:${editedAt.index}"]`)?.focus()
-                  take(editedAt)
-                }}
-              />
-            )}
-          </div>
-          {!bankFirst && bank}
+          {!toolsFirst && termLine}
+          {!toolsFirst && bank}
           {drag !== null &&
             createPortal(
               // The tile under the pointer while it is dragged. In the document's body: the page is a container, and would place it by itself.

@@ -17,6 +17,7 @@ import type { Blocked, Built, Mode, Observation, Problem, Reason, RunOutcome, St
 
 const listed = (items: readonly string[]) => (items.length <= 1 ? (items[0] ?? '') : `${items.slice(0, -1).join(', ')} and ${items.at(-1)}`)
 const lower = (text: string) => `${text[0]!.toLowerCase()}${text.slice(1)}`
+const upper = (text: string) => `${text[0]!.toUpperCase()}${text.slice(1)}`
 const article = (word: string) => (/^[aeiou]/i.test(word) ? 'an' : 'a')
 
 /** The lab's name, and what its page says at its head. */
@@ -81,6 +82,13 @@ export function vesselName(data: ReactionsData, stationId: StationId, vesselId: 
 }
 
 export const METAL_NAME: Record<MetalId, string> = { magnesium: 'magnesium', zinc: 'zinc', copper: 'copper' }
+
+/** One of several tubes in a word, for a button with little room: its metal, "Magnesium". The button's full name is the tube's. */
+export function vesselShort(data: ReactionsData, stationId: StationId, vesselId: string): string {
+  const metal = stationOf(data, stationId).vessels.find((v) => v.id === vesselId)?.metal
+  if (!metal) throw new Error(`no tube with a metal "${vesselId}" at the station "${stationId}"`)
+  return upper(METAL_NAME[metal.id])
+}
 
 // ---------------------------------------------------------------------------
 // Looking, and the description in words of every picture
@@ -170,8 +178,12 @@ export function choiceLabel(field: Field, choice: string): string {
 }
 export const choiceList = (field: Field, choices: readonly string[]) => choices.map((value) => ({ value, label: choiceLabel(field, value) }))
 
-/** An observation as its record lists it, a line for each field. */
-export const observationLines = (drawn: VesselShows['drawn'], fields: readonly Field[], observation: Observation): string[] => fields.map((field) => `${fieldLabel(drawn, field)}: ${choiceLabel(field, observation[field] ?? '')}`)
+/** A field in a word or two, for the line of an answer that is recorded under one of several tubes, where a line is short. */
+export const FIELD_SHORT: Record<Field, string> = { coating: 'Coating', liquid: 'Liquid', solid: 'Solid', bubbles: 'Bubbles', gas: 'Bubbles', light: 'Light', warmth: 'To the touch' }
+
+/** An observation as its record lists it, a line for each field; `short` names each field in a word or two. */
+export const observationLines = (drawn: VesselShows['drawn'], fields: readonly Field[], observation: Observation, short = false): string[] =>
+  fields.map((field) => `${short ? FIELD_SHORT[field] : fieldLabel(drawn, field)}: ${choiceLabel(field, observation[field] ?? '')}`)
 
 export const OBSERVATION_TEXT = {
   heading: 'What is seen',
@@ -266,7 +278,6 @@ export const PROBLEM_TEXT: Record<Problem, string> = {
   'not-balanced': 'The atoms do not balance yet: count each element on both sides.',
 }
 
-const upper = (text: string) => `${text[0]!.toUpperCase()}${text.slice(1)}`
 const sideName = (side: Side) => (side === 'reactants' ? 'before the arrow' : 'after the arrow')
 /** A place of an equation's row as a sentence speaks of it: "place 2 before the arrow", or "place 2 of 2 before the arrow" where the row has a count of places. */
 const placeName = ({ side, index }: At, of: number | null = null) => `place ${index + 1}${of === null ? '' : ` of ${of}`} ${sideName(side)}`
@@ -315,6 +326,8 @@ export const catalystText = (tile: Tile): string => `Over the arrow: ${tile.form
 
 export const ORDER_TEXT = {
   heading: 'The three metals in order',
+  /** On the button that asks for it, where there is little room. */
+  short: 'Order',
   question: 'Put the three metals in order, the most active first.',
   mostActive: 'Most active',
   leastActive: 'Least active',
@@ -478,6 +491,9 @@ export const RECORD_TEXT = {
   empty: 'Nothing has been recorded yet.',
   run: (index: number) => `Run ${index + 1}`,
   notChecked: 'Not checked',
+  /** How a run that was checked came out, in the list of a station's runs: a run left behind is not to be worked again. */
+  counts: 'This run counts.',
+  doesNotCount: 'This run does not count.',
   nothingRecorded: 'Nothing recorded',
   kind: 'Kind',
   equation: 'Equation',

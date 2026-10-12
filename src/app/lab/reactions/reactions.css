@@ -90,10 +90,10 @@
 
 /*
  * The builder of an equation is its sheet here, and not a card inside one. The words before its row of places
- * have a line of their own, so that the row has the sheet's whole width. In a card too narrow for every equation
- * of the lab to stand in one line, the row has the height of two lines from the start: the buttons under it that
- * raise and lower a number are pressed again and again, and a number that makes the row take its second line
- * would otherwise move them under the hand. The tiles stand over the row, and do not move whatever it does.
+ * have a line of their own, so that the row has the sheet's whole width. In a card too narrow for an equation to
+ * stand in one line the row takes a second as it is filled, and what is under it moves down: so the tiles and the
+ * line of a term's controls, whose buttons are pressed again and again, stand over the row (the builder's
+ * `toolsFirst`), and under it is only the button that records, which is pressed once.
  */
 .reactions-equation form {
   border: 0;
@@ -102,11 +102,72 @@
 .reactions-equation [data-row] > span:first-child {
   flex-basis: 100%;
 }
-@container reactions-station (max-width: 43.99rem) {
-  .reactions-equation [data-row] {
-    min-height: 7.75rem;
-    align-content: flex-start;
-  }
+
+/*
+ * What is done to the vessels: the one button and, beside it where the card has the width, the closed disclosure
+ * that holds the pictures in words. Open, the disclosure has a line of its own, far enough under the button that
+ * the hit area of its summary, which then reaches upward (lab.css), does not lie over the button.
+ */
+.reactions-act {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  width: 100%;
+}
+.reactions-act > details[open] {
+  flex-basis: 100%;
+  margin-top: 0.75rem;
+}
+
+/*
+ * An entry that is recorded: its lines, what is said of them and "Change" stand in one row where the card has the
+ * width, in that order, and not one under another. The form's own three pieces are laid out as the sheet's, with
+ * the sentence that Challenge puts beside an entry it has not judged. While the entry is being changed the form is
+ * as it is anywhere, with the sheet's whole width.
+ */
+.reactions-folded {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+  min-width: 0;
+  padding: 0.375rem 0.75rem;
+}
+.reactions-folded > form {
+  flex: 1 1 100%;
+}
+.reactions-folded > form:has(> ul) {
+  display: contents;
+}
+.reactions-folded > form > ul {
+  order: 1;
+  flex: 1 1 9rem;
+}
+.reactions-station .reactions-folded > form:has(> ul) > p,
+.reactions-folded > p {
+  order: 2;
+  flex: 0 1 auto;
+  margin: 0;
+}
+/* The form's message line stays in the page while it has nothing to say, and takes no room, the gap before it neither. */
+.reactions-station .reactions-folded > form:has(> ul) > p:empty {
+  margin-inline-start: -0.75rem;
+}
+.reactions-folded > form:has(> ul) > div {
+  order: 3;
+}
+/*
+ * Under one of several tubes there is no room for that sentence beside its answer or under it: the tick of an
+ * answer found right stands before its line (StationCard), and the sentence is a screen reader's.
+ */
+.reactions-station .reactions-tubes .reactions-folded > form:has(> ul) > p[role='status'] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 /*

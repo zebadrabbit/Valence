@@ -33,6 +33,7 @@ import {
   outcomeText,
   stationNotes,
   vesselName,
+  vesselShort,
   vesselText,
 } from './messages'
 import { ReactionsBench, fullMicrolitres } from './ReactionsBench'
@@ -244,6 +245,38 @@ describe('a station of the types of reactions lab', () => {
     for (const metal of ['magnesium', 'zinc', 'copper']) expect(station).toContain(`>The ${metal} tube</h4>`)
   })
 
+  it('keeps the three tubes the page until what is seen in each is recorded, and only then asks the kinds, the equations and the order', () => {
+    const one = go(looked(fresh(), 'metals-in-acid'), [{ type: 'observe', station: 'metals-in-acid', vessel: 'magnesium', observation: { bubbles: 'fast' } }])
+    const waiting = bench(one, 'metals-in-acid').station
+    expect(waiting).toMatch(/<section aria-labelledby="[^"]*" hidden=""[^>]*><div[^>]*><h3[^>]*>One at a time</)
+    expect(waiting).not.toContain(KIND_TEXT.question)
+    // The tube that is recorded has its answer in a word with its tick, under a tube that is still drawn with the room under it.
+    expect(text(waiting)).toContain('✓ Bubbles: fast')
+    expect(pictures(waiting).map((picture) => picture.height)).toEqual([296, 296, 296])
+    const all = go(one, [
+      { type: 'observe', station: 'metals-in-acid', vessel: 'zinc', observation: { bubbles: 'slow' } },
+      { type: 'observe', station: 'metals-in-acid', vessel: 'copper', observation: { bubbles: 'none' } },
+    ])
+    const asked = bench(all, 'metals-in-acid').station
+    expect(asked).not.toMatch(/hidden=""[^>]*><div[^>]*><h3[^>]*>One at a time</)
+    expect(asked).toContain(KIND_TEXT.question)
+    expect(pictures(asked).map((picture) => picture.height)).toEqual([200, 200, 200])
+  })
+
+  it('draws a picture short, with no room under its drawing, once what is seen of its vessel is recorded, and says what to do with it to a screen reader alone', () => {
+    for (const stationId of STATION_IDS) {
+      const open = bench(looked(fresh('challenge'), stationId), stationId).station
+      const recorded = bench(kindSaid('challenge', stationId), stationId).station
+      const narrow = stationId === 'metals-in-acid'
+      expect(pictures(open).map((picture) => `${picture.width}x${picture.height}`), stationId).toEqual(pictures(open).map(() => (narrow ? '160x296' : '240x272')))
+      expect(pictures(recorded).map((picture) => `${picture.width}x${picture.height}`), stationId).toEqual(pictures(open).map(() => (narrow ? '160x200' : '240x200')))
+      expect(count(recorded, new RegExp(`class="sr-only">${escaped(PAGE_TEXT.explore)}<`, 'g')), stationId).toBe(pictures(open).length)
+      expect(open, stationId).not.toContain(`class="sr-only">${escaped(PAGE_TEXT.explore)}<`)
+      // Every part is still there to be looked at.
+      expect(parts(recorded).map((part) => part.part), stationId).toEqual(parts(open).map((part) => part.part))
+    }
+  })
+
   it('draws the strip in the tongs beside the burner, and once it has burned its light in one picture and the powder left in the tongs in another, with nothing that moves', () => {
     const before = pictures(bench(fresh(), 'magnesium-flame').station)
     expect(before.map((picture) => picture.scene)).toEqual(['whole'])
@@ -324,7 +357,11 @@ describe('the equation of a station', () => {
     expect(challenge).not.toMatch(/✓|✕/)
     const guided = bench(go(kindSaid('guided', 'metals-in-acid'), [{ type: 'enterEquation', station: 'metals-in-acid', vessel: 'magnesium', entry: rightEntry(m, 'metals-in-acid', 'magnesium') }]), 'metals-in-acid').station
     expect(text(builder(guided))).toContain(`${BUILDER_TEXT.change}✓ ${EQUATION_TEXT.right}`)
-    expect(text(guided)).toContain(`✓ The magnesium tube: ${EQUATION_TEXT.recorded}`)
+    expect(text(guided)).toContain(`✓ ${vesselShort(data, 'metals-in-acid', 'magnesium')}The magnesium tube: ${EQUATION_TEXT.recorded}`)
+    // A tick is for an answer found right: Challenge marks what is recorded with a mark of its own until the check.
+    const taken = bench(go(kindSaid('challenge', 'metals-in-acid'), [{ type: 'enterEquation', station: 'metals-in-acid', vessel: 'magnesium', entry: rightEntry(m, 'metals-in-acid', 'magnesium') }]), 'metals-in-acid').station
+    expect(text(taken)).toContain(`● ${vesselShort(data, 'metals-in-acid', 'magnesium')}The magnesium tube: ${EQUATION_TEXT.recorded}○ ${vesselShort(data, 'metals-in-acid', 'zinc')}The zinc tube`)
+    expect(text(taken).replace(`✓ ${ACTION_LABEL['metals-in-acid']}`, '')).not.toMatch(/✓|✕/)
   })
 
   it('is not asked of a tube whose learner said that nothing reacted, whatever the tube', () => {
@@ -337,10 +374,17 @@ describe('the equation of a station', () => {
     expect(station).not.toContain('data-place')
   })
 
-  it('leaves the aqueous reactions lab its own order: the shared builder puts the tiles under the row unless it is told otherwise', () => {
-    const drawn = (bankFirst: boolean) => draw(createElement(EquationBuilder, { heading: 'H', palette: ['a'], formula: (id: string) => id, states: ['aq'], recorded: null, counts: null, held: null, refusal: () => null, onEnter: () => ({ ok: null, text: '' }), text: BUILDER_TEXT, bankFirst }))
-    expect(drawn(false).indexOf('data-row')).toBeLessThan(drawn(false).indexOf(`aria-label="${BUILDER_TEXT.palette}"`))
-    expect(drawn(true).indexOf('data-row')).toBeGreaterThan(drawn(true).indexOf(`aria-label="${BUILDER_TEXT.palette}"`))
+  it('leaves the aqueous reactions lab its own order: the shared builder puts the row first, then the line of a term\'s controls, then the tiles, unless it is told otherwise; told, the tiles and that line are over the row', () => {
+    const drawn = (toolsFirst: boolean) => draw(createElement(EquationBuilder, { heading: 'H', palette: ['a'], formula: (id: string) => id, states: ['aq'], recorded: null, counts: null, held: null, refusal: () => null, onEnter: () => ({ ok: null, text: '' }), text: BUILDER_TEXT, toolsFirst }))
+    const order = (html: string) => ['data-row', escaped(BUILDER_TEXT.slotHelp), `aria-label="${BUILDER_TEXT.palette}"`].map((piece) => html.indexOf(piece))
+    const [row, line, bank] = order(drawn(false))
+    expect(row).toBeGreaterThan(-1)
+    expect(row).toBeLessThan(line!)
+    expect(line).toBeLessThan(bank!)
+    const [rowUnder, lineOver, bankOver] = order(drawn(true))
+    expect(bankOver).toBeGreaterThan(-1)
+    expect(bankOver).toBeLessThan(lineOver!)
+    expect(lineOver).toBeLessThan(rowUnder!)
   })
 })
 
@@ -416,7 +460,13 @@ describe('a station that has been checked', () => {
   it('gives the order of the three metals as two choices, the most active and the least, and lists it with the other answers once the station is checked', () => {
     const asked = bench(kindSaid('guided', 'metals-in-acid'), 'metals-in-acid').station
     expect(text(asked)).toContain(`${ORDER_TEXT.question}${ORDER_TEXT.mostActive}magnesiumzinccopper${ORDER_TEXT.leastActive}magnesiumzinccopper${ORDER_TEXT.record}`)
-    expect([...asked.matchAll(/aria-pressed="(true|false)"[^>]*>(?:<span[^>]*>[^<]*<\/span>)?([^<]*)</g)].map(([, pressed, name]) => `${pressed} ${name}`)).toEqual(['true The magnesium tube', 'false The zinc tube', 'false The copper tube', `false ${ORDER_TEXT.heading}`])
+    // Each of the four is a word to the eye, where they stand in one row, and its whole name to a screen reader.
+    expect([...asked.matchAll(/aria-pressed="(true|false)"[^>]*><span aria-hidden="true"><span[^>]*>[^<]*<\/span>([^<]*)<\/span><span class="sr-only">([^<]*)</g)].map(([, pressed, word, name]) => `${pressed} ${word} / ${name}`)).toEqual([
+      'true Magnesium / The magnesium tube',
+      'false Zinc / The zinc tube',
+      `false Copper / The copper tube: ${EQUATION_TEXT.recorded}`,
+      `false ${ORDER_TEXT.short} / ${ORDER_TEXT.heading}`,
+    ])
     const done = bench(wholeStation(m, fresh(), 'metals-in-acid'), 'metals-in-acid').station
     expect(text(done)).toContain(`magnesium, then zinc, then copper ✓ ${ORDER_TEXT.right}`)
     expect(text(done)).toContain(EQUATION_TEXT.nothingToWrite)
@@ -431,9 +481,10 @@ describe('the Record tab and the page', () => {
     const html = draw(createElement(ReactionsRecord, { data, m, state }))
     const read = text(html)
     expect(read).toContain(`Station A: Zinc in copper(II) sulfate solution✓ ${PROGRESS_TEXT.done}`)
-    expect(read).toContain(`${RECORD_TEXT.run(0)}: ✕ ${outcomeText({ state: 'does-not-count', reasons: [] })}`)
+    // A run left behind is not said to be worked again: the station counts by the run after it.
+    expect(read).toContain(`${RECORD_TEXT.run(0)}: ✕ ${RECORD_TEXT.doesNotCount}On the metal`)
     expect(read).toContain('The tube: the kind is not right.')
-    expect(read).toContain(`${RECORD_TEXT.run(1)}: ✓ ${outcomeText({ state: 'counts' })}`)
+    expect(read).toContain(`${RECORD_TEXT.run(1)}: ✓ ${RECORD_TEXT.counts}`)
     expect(read).toContain(`${RECORD_TEXT.kind}: ${KIND_LABEL['single-replacement']}${RECORD_TEXT.equation}: Zn(s) + CuSO4(aq) → ZnSO4(aq) + Cu(s)`)
     const acid = read.slice(read.indexOf('Station C'), read.indexOf('Station D'))
     expect(acid).toContain(`${RECORD_TEXT.run(0)}: ${RECORD_TEXT.notChecked}`)
