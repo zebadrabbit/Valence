@@ -10,6 +10,7 @@ import { densitySchema, type DensityData } from './density/data'
 import { freezingSchema, type FreezingData } from './freezing/data'
 import { FIELD_AT, reactionsSchema, type ReactionsData } from './reactions/data'
 import { mixingSchema, type MixingData } from './mixing/data'
+import { hotcoldSchema, type HotcoldData } from './hotcold/data'
 import { clockSchema, type ClockData } from './clock/data'
 import { cationsSchema, type CationsData } from './cations/data'
 import { brightestOf, extentOf, flameSchema, rangeOf, type FlameData } from './flame/data'
@@ -1023,5 +1024,49 @@ export function validateMixing(input: unknown, sources: readonly Source[], optio
     ...checkSourceIds(parsed.data, 'mixing', Array.isArray(sources) ? sources : []),
     ...checkPublished(parsed.data, 'mixing'),
     ...checkProse(parsed.data, 'mixing', Array.isArray(names) ? names : []),
+  ]
+}
+
+/**
+ * What the endothermic and exothermic lab's record must hold together beyond its shape: its ids, a run of each salt
+ * in the salts' order, an atomic weight for every atom, ranges that run upward, and a term of each sum named once.
+ * That each sum is the sum of its terms, which way each salt's heat goes, that each row of the tables is the
+ * nearest to the bench's strength and that every portion dissolves are the build's to check
+ * (scripts/hotcold-lib.mjs), and a test's.
+ */
+function checkHotcold(data: HotcoldData): string[] {
+  const errors = [...duplicates(data.reagents.map((r) => r.id), 'reagents'), ...duplicates(data.atomicWeights.map((w) => w.id), 'atomicWeights')]
+  const [epsom, calcium] = data.parts
+  for (const [place, run] of [epsom, calcium].entries()) {
+    if (run.reagentId !== data.reagents[place]!.id || run.id !== run.reagentId) errors.push(`part "${run.id}": a run is named for its salt, and the runs are in the salts' order`)
+    if (!run.amounts.some((amount) => 'about' in amount && amount.reagentId === run.reagentId)) errors.push(`part "${run.id}": its salt is not among what goes into the cup`)
+    if (!run.amounts.some((amount) => 'value' in amount && amount.reagentId === 'water')) errors.push(`part "${run.id}": no measured water goes into the cup`)
+    for (const worked of [run.enthalpy, run.enthalpy.infiniteDilution, ...('dry' in run ? [run.dry, run.dry.infiniteDilution] : [])]) errors.push(...duplicates(worked.terms.map((term) => term.id), `the terms of a sum of part "${run.id}"`))
+  }
+  for (const reagent of data.reagents) {
+    for (const symbol of Object.keys(reagent.composition)) if (!data.atomicWeights.some((w) => w.id === symbol)) errors.push(`reagent "${reagent.id}": no atomic weight for ${symbol}`)
+  }
+  for (const [name, parameter] of Object.entries(data.parameters)) {
+    if (Array.isArray(parameter.value) && parameter.value[0] > parameter.value[1]) errors.push(`parameters.${name}: a range runs from its lower end to its upper`)
+  }
+  return errors
+}
+
+/**
+ * Checks the endothermic and exothermic lab's record against the sources it cites: the schema; that its ids hold
+ * together; that every source named exists; that each `published` reads as the number stored beside it; and that
+ * no name, note or rationale holds institution text. Returns a list of problems; an empty list means the record is
+ * valid. Never throws, whatever it is given. That each value is what its source prints is the build script's to
+ * hold to the manifest.
+ */
+export function validateHotcold(input: unknown, sources: readonly Source[], options: ValidateOptions = {}): string[] {
+  const parsed = hotcoldSchema.safeParse(input)
+  if (!parsed.success) return schemaErrors(parsed.error.issues)
+  const names = options?.institutionNames
+  return [
+    ...checkHotcold(parsed.data),
+    ...checkSourceIds(parsed.data, 'hotcold', Array.isArray(sources) ? sources : []),
+    ...checkPublished(parsed.data, 'hotcold'),
+    ...checkProse(parsed.data, 'hotcold', Array.isArray(names) ? names : []),
   ]
 }

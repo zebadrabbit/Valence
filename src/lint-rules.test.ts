@@ -254,6 +254,11 @@ describe('architecture lint rules', () => {
     ['@/engine/mixing/state', 'src/app/lab/mixing/messages.ts'],
     ['../../../engine/mixing/select', 'src/app/lab/mixing/x.tsx'],
     ['@/engine/mixing/testkit', 'src/app/lab/mixing/x.tsx'],
+    // The endothermic and exothermic engine below its index holds the readings the logger has not yet taken, which way each salt's temperature goes, and the judging of every run and answer.
+    ['@/engine/hotcold/model', 'src/app/lab/hotcold/x.tsx'],
+    ['@/engine/hotcold/state', 'src/app/lab/hotcold/messages.ts'],
+    ['../../../engine/hotcold/setup', 'src/app/lab/hotcold/x.tsx'],
+    ['@/engine/hotcold/testkit', 'src/app/lab/hotcold/x.tsx'],
   ])('rejects importing %s in %s', async (source, filePath) => {
     expect(await ruleIds(`import * as m from "${source}"\nexport const v = m\n`, filePath)).toEqual(['no-restricted-imports'])
     // A type import is refused too: the types below the index describe the hidden values.
@@ -290,6 +295,8 @@ describe('architecture lint rules', () => {
     ['@/engine/reactions/testkit', 'src/app/lab/reactions/messages.test.ts'],
     ['@/engine/mixing', 'src/app/lab/mixing/messages.ts'],
     ['@/engine/mixing/testkit', 'src/app/lab/mixing/messages.test.ts'],
+    ['@/engine/hotcold', 'src/app/lab/hotcold/messages.ts'],
+    ['@/engine/hotcold/testkit', 'src/app/lab/hotcold/messages.test.ts'],
     // Another folder whose name ends the same way is not the engine's.
     ['@/app/lab/titration/benchView', 'src/app/pages/x.tsx'],
     ['./titration/benchView', 'src/app/lab/x.tsx'],

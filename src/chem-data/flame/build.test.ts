@@ -190,9 +190,11 @@ describe('the sources the lab adds', () => {
     // Of the documents of the hazard manifest, the app lists those a bottle's hazards cite, and not the ones that were read and that no note carries anything from.
     const cited = new Set(stored.salts.flatMap(({ hazards: { sourceId, note } }) => [sourceId, note.sourceId, note.alsoSourceId, ...(note.moreSourceIds ?? [])]))
     const unused = sheets.filter((sheet) => !cited.has(sheet.id))
+    // One of them a later lab does carry something from: the endothermic and exothermic lab has the solid calcium chloride on its bench, cites its second sheet, and lists it among its own sources.
+    const listedLater = ['fisher-sds-cacl2']
     for (const sheet of unused) {
       expect(sheet.supports.every((row) => row.field.endsWith('.notCarried')), sheet.id).toBe(true)
-      expect(allSources.some((s) => s.id === sheet.id), sheet.id).toBe(false)
+      expect(allSources.some((s) => s.id === sheet.id), sheet.id).toBe(listedLater.includes(sheet.id))
     }
     const ids = [...own, ...added.filter((sheet) => cited.has(sheet.id))].map((s) => s.id)
     expect(new Set(ids).size).toBe(ids.length)
