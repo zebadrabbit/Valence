@@ -1462,3 +1462,51 @@ Built on 2026-10-12, straight through, on the shell and the pieces the eleven la
 - **What was run.** The whole lab from Start to the line that says it is complete, in Guided, every look by a press on the picture, every answer by its box, every equation tile by tile: by the pointer at 768×1024 and at 1280×800 in the light and the dark theme, by the keyboard alone at 1280×800, and by emulated touch at 768×1024, six runs, with no error reported by the browser; in each, an equation with every number 1 was first recorded at station B and refused with the sentence that the atoms do not balance; a reload then opened the Lab tab on the complete lab. In Challenge, station A recorded wrongly, with "No reaction" said, which asked for no equation and showed no mark until the check, did not count and said why; worked again, right, it showed "Recorded." with no mark and counted when checked.
 - **What nobody checked as it was built.** No person has worked the lab. No screen reader was used. One browser, headless Chromium on Linux, and no real device. No contrast was measured. The builder looked at four sheets that hold the picture of every station before and after its action and the notes of station E, at both sizes in both themes, and at three whole pages of the build as it was (an equation refused, in the dark theme; the order at station C; the Record tab) and six of builds before it; the other pictures were taken and not looked at. No chemistry instructor has read any of it.
 - **The review of 2026-10-12,** the lab's one deep review, held by an AI reviewer that had built none of it, by script in headless Chromium and by reading; its record is the last section of `docs/research/reactions/README.md`. What it changed, each marked above: an entry that is recorded is one row; a picture is drawn short once what is seen is recorded; the line of a term's controls is over the row, and the row no longer keeps the height of two lines; the picture in words is beside the one button; station C asks its kinds, equations and order once its three tubes are recorded, with a word under each tube and a word on each of the four buttons; a tick in that row of four is for an answer found right; under a checked tube of the three each line has its own tick or cross, where as built a sentence kept on one line ran out of its column into the next tube's; the Record tab's two sentences for a run; the sources of what is seen afterwards and of the tiles are kept back until a station counts; two hazard notes no longer say what a station shows; an open hint stands clear of the button over it; the strip's two parts are named for what they are before it burns; and the primer's sentence on the two cards that can wait. The lengths at 768×1024 as it left them, in Guided, at the six stages of the point on what was measured: station A 467, 795, 828, 839, 859 and 951 px; station B 467, 825, 907, 918, 938 and 972 px; station D 467, 613, 810, 871, 891 and 830 px; station E 467, 695, 810, 821, 841 and 956 px; station C 645 px before, 841 px with what is seen open, 1,048 px with the kinds open, 1,109 and 1,129 px with an equation open and built, 945 px at the order and 1,059 px done. So four stations are inside a screen at every stage, and station C is inside one until its kinds are asked and at most 153 px over one from there. It measured contrast (the least text 4.7 to 1 in the light theme and 6.9 in the dark; the words of a button that cannot be used now 3.7 and 4.9; the ink that edges everything drawn 4.4 to 10.4 against what it stands on), worked a whole lab in Challenge by emulated touch and one in Guided by the keyboard alone with every kind of wrong answer the engine names, changed the mode in the middle of a station, reloaded in the middle of one, and loaded the page on stored records that do not fit. What nobody has checked still: no person, no screen reader, one browser, no real device, and no chemistry instructor.
+
+## 25. Polarity and mixing lab (added after v1)
+
+The ninth of the labs taken from the owner's department's lab directions (section 17 says how those are used), and the second of three short ones from an introductory course, where it is called polarity, solubility and miscibility. The directions list what is set out; the procedure is the usual one, and each choice in it is the owner's to change. It uses the lab shell, the test tube that is explored and the observation form of sections 8 and 17.
+
+### 25.1 Set-up
+
+Some liquids mix into one and some stay as two layers; some solids dissolve in a liquid and some sit at the bottom of it. One rule covers most of it: like dissolves like. Liquids whose molecules have a positive end and a negative end, as water's have, mix with each other and dissolve salts and sugar; oily liquids, whose molecules have no such ends, mix with each other and with little else.
+
+On the bench, each in a dropper bottle or a small jar: distilled water; rubbing alcohol (2-propanol); vinegar; vegetable oil; mineral oil; table salt (sodium chloride); sugar (sucrose).
+
+Three parts:
+
+1. **Liquid with liquid.** Any two of the five liquids go into a test tube, more of the first than of the second, and the tube is shaken and left to stand. One layer or two; and if two, which liquid is on top. Every pair the bench offers can be tried; the part is done when six of them count.
+2. **Solid in liquid.** A little salt or a little sugar goes into each of the five liquids. It dissolves or it does not. The part is done when six of the ten count.
+3. **The rule.** The learner sorts the five liquids into those like water and those like oil, from what the tubes showed, and answers two questions that the rule answers and the bench did not show.
+
+A pair or a solid-and-liquid for which no source says what happens is not on the bench.
+
+### 25.2 A tube
+
+A tube is a short column of cards:
+
+1. **The tube**, drawn and explored as in sections 8 and 17, with its layers marked: one liquid, or two liquids one over the other, the thicker being the one there is more of; a solid at the bottom, or none. Vegetable oil is yellow and the other four liquids have no colour, so the layers are told apart by how thick each is and by what is said when each is looked at, never by colour alone.
+2. **What is seen**: choice boxes, opened by looking: one layer or two; which is on top; whether the solid is gone.
+
+Guided checks each answer as it is given and has a hint in a closed disclosure. Challenge takes what is recorded and checks a tube when asked. A tube counts when what was recorded matches what it showed. No slip of technique spoils a run, and nothing is drawn by chance.
+
+Each of the five liquids links to its molecule in the explorer where the library holds it, so that the shape behind the rule can be looked at.
+
+### 25.3 Model and data
+
+The engine is driven by its record, as section 18's is. Each pair holds whether the two mix, with a source; which liquid is on top follows from the two densities, each with a source and a temperature, and the build checks that the stored answer agrees with them. Each solid-and-liquid holds whether the solid dissolves, with a source. Each liquid holds which family it belongs to for the rule, with a source.
+
+Hazards by 5.2 for the rubbing alcohol, which burns; the kitchen things share the note of section 21 for foods on a bench.
+
+### 25.4 Primer
+
+Short topics, those to read first marked: mixing and not mixing, and the words for each (miscible, immiscible, soluble, insoluble); a molecule with two ends (polar) and one without (nonpolar); like dissolves like; which layer is on top, and density; why salt comes apart in water and not in oil; safety.
+
+### 25.5 Acceptance
+
+- Every tube the bench offers shows what its stored record gives and nothing else; which liquid is on top agrees with the stored densities.
+- Every stored outcome and density has a source; nothing unsourced is on the bench.
+- A part is done at its count; the sorting of part 3 is checked against the stored families.
+- The stored record round-trips; no state a learner can reach leaves them unable to go on.
+- Challenge shows nothing of what is expected before the learner's answers are recorded; the families of the liquids are not on the page before part 3 is done.
+- The description in words of every tube is tested, and no answer depends on seeing a colour.
