@@ -238,6 +238,11 @@ describe('a sample', () => {
     expect(readingText({ tenths: 104, unrinsed: true })).toBe('The meter reads pH 10.4. This reading does not count: the probe was not rinsed, so the last sample may have pulled it. Rinse the probe and read again.')
   })
 
+  it('does not tell a learner to rinse and read again in a sample that has been checked, where the meter has no buttons left', () => {
+    expect(readingText({ tenths: 104, unrinsed: true }, false)).toBe('The meter reads pH 10.4. This reading does not count: the probe was not rinsed, so the last sample may have pulled it.')
+    expect(readingText({ tenths: 30, unrinsed: false }, false)).toBe('The meter reads pH 3.0.')
+  })
+
   it('does not say that an unrinsed probe was pulled: between two things that read alike it is pulled by nothing', () => {
     // A fifth of the way toward the last sample, to the nearest tenth, is no way at all where the two are two tenths apart or less: the meter then reads what a rinsed probe reads.
     for (const text of [probeWarning(data, 'vinegar'), readingText({ tenths: 24, unrinsed: true })]) expect(text).toMatch(/may (be|have) pulled/)

@@ -366,6 +366,9 @@ describe('part 2: a household thing', () => {
     const checked = text(bench(run(m, read, [{ type: 'checkSample', thing: 'lemon-juice' }]), 'things', 'lemon-juice'))
     expect(checked).toContain(REASON_TEXT['probe-unrinsed'])
     expect(checked).toContain(SAMPLE_TEXT.again)
+    // The meter has no buttons left in a sample that has been checked: the page does not say to rinse and read again there.
+    expect(checked).not.toContain('Rinse the probe and read again')
+    expect(text(bench(run(m, toRead('guided'), [{ type: 'read', thing: 'lemon-juice' }]), 'things', 'lemon-juice'))).toContain('Rinse the probe and read again')
   })
 
   it('has the bench in one place under every part and thing: seven bottles with their hazards, and the shared note', () => {

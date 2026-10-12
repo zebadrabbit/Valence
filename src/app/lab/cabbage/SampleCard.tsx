@@ -372,7 +372,7 @@ export function SampleCard({ data, m, state, thing, act, headingRef }: SampleCar
                 </p>
                 {/* The reading as a sentence, said when the meter is read; for the eye it is the figure above, but for a reading that does not count, which says why. */}
                 <p role="status" className={view.reading?.unrinsed ? 'max-w-prose font-medium' : 'sr-only'}>
-                  {view.reading === null ? '' : readingText(view.reading)}
+                  {view.reading === null ? '' : readingText(view.reading, !over)}
                 </p>
                 {view.reading !== null && !over && <p className="max-w-prose text-muted-foreground">{SAMPLE_TEXT.fixed}</p>}
                 <div className={meterSaid.text === '' ? '-mt-2' : undefined}>

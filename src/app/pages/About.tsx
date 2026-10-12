@@ -201,8 +201,8 @@ export function About() {
             foods, whose table is for anthocyanins in general. Where one colour gives way to the next, and what is
             seen between pH 12 and pH 13, are Valence's own. Each household thing has a range of pH from a document
             that states one, or one that is worked out and said to be: the foods from the U.S. Food and Drug
-            Administration's table of the approximate pH of foods; the shampoo, the conditioner, the laundry
-            detergent and the mouthwash from makers' safety data sheets; the antacid, the aspirin and the Epsom salt
+            Administration's table of the approximate pH of foods; the shampoo, the conditioner and the laundry
+            detergent from makers' safety data sheets and the mouthwash from a supplier's; the antacid, the aspirin and the Epsom salt
             from Fisher Scientific's sheets for calcium carbonate, acetylsalicylic acid and magnesium sulfate
             heptahydrate; the laboratory detergent from Flinn Scientific's sheet; and the household ammonia, the
             bleach and the drain cleaner by arithmetic, from a strength and a formula weight that a document gives

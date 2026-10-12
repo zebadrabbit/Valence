@@ -188,10 +188,13 @@ export const meterText = (data: CabbageData, meter: MeterView) => (meter.lastIn 
 export const probeWarning = (data: CabbageData, lastIn: ThingId) =>
   `The probe has not been rinsed since it was in ${theThing(data, lastIn)}. Read now, and the meter may be pulled toward that sample, and the reading will not count. Rinse the probe first, or read anyway.`
 
-/** What the meter showed, and, once that is judged, that an unrinsed reading does not count and why. */
-export function readingText(reading: NonNullable<SampleView['reading']>): string {
+/**
+ * What the meter showed, and, once that is judged, that an unrinsed reading does not count and why. `again` is
+ * whether the sample can still be read: one that has been checked cannot, and is not told to be.
+ */
+export function readingText(reading: NonNullable<SampleView['reading']>, again = true): string {
   const read = `The meter reads ${phText(reading.tenths)}.`
-  return reading.unrinsed ? `${read} This reading does not count: the probe was not rinsed, so the last sample may have pulled it. Rinse the probe and read again.` : read
+  return reading.unrinsed ? `${read} This reading does not count: the probe was not rinsed, so the last sample may have pulled it.${again ? ' Rinse the probe and read again.' : ''}` : read
 }
 
 /** What Guided says of an estimate and of acid, neutral or basic as each is recorded. */
