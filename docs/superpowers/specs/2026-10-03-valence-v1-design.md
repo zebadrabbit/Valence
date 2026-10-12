@@ -1530,3 +1530,48 @@ Built on 2026-10-12, straight through, on the shell and the pieces the twelve la
 - **What the builder did not check.** The keyboard alone was not used for a whole lab, and no contrast but the line's was measured: the review did both. The builder looked at every kind of tube in pictures taken at both sizes in both themes (not settled; one layer with no colour and one pale yellow; two layers with the oil on top and with it underneath; two with no colour, the thinner on top and the thicker on top; a solid just in, spread through, gone and left), at both tables, part 3, the Record tab and a page with every disclosure open; the rest of the hundred pictures were taken and not looked at.
 - **The review, on 2026-10-12,** by an AI reviewer that had built none of the lab, by script in headless Chromium on the production build and by reading. It made three changes the owner had decided on: a layer's bracket and word drawn only once the layer has been looked at; the sentence at a filled tube, which told the learner to set the tube up again in a fresh one where the page offers none; and what is seen beside the picture where the card has the width. It put right what it found by using the page: the part's notes under a tube tried after the part was done, which made that tube 954 and 1,074 px with its questions open at 768×1024; part 3 past the window at 1280×800; focus left on the page itself by "Answer again"; what the last look said left in a screen reader's line after a step; a step done and a step not yet to be taken both announced only as unavailable; and a note that spoke of other tubes. It worked a whole lab in Guided by the keyboard alone, 1,693 presses, through all seventeen tubes and the three places off the bench, and Challenge by emulated touch through wrong answers, checks, fresh tubes and a change of mode; measured the contrast of every text (4.5 to 1 or more in the light theme and 6.2 in the dark, but for a step that cannot be taken yet, 3.7 and 4.9) and what is pressed, point by point, on eighteen states at both sizes in both themes (44 px or more each way but for the links of an open list of sources, 16 to 32 px tall as in every lab); worked which liquid is on top again by hand from the densities; and read every sentence a learner sees, the hazard note against its sheet. The lab's research record has the whole of it (`docs/research/mixing/README.md`), with what was looked at and left.
 - **What nobody checked.** No person has worked the lab. No screen reader was used. One browser, headless Chromium on Linux, and no real device. No chemistry instructor has read any of it.
+
+## 26. Endothermic and exothermic lab (added after v1)
+
+The tenth of the labs taken from the owner's department's lab directions (section 17 says how those are used), and the third of three short ones from an introductory course. The directions set out two salts and timers; the procedure is the usual one, and each choice in it is the owner's to change. It is the calorimetry lab (section 16) made small: the same foam cup, logger and graph, with two salts and a short notebook that asks for no moles.
+
+### 26.1 Set-up
+
+Some changes give heat out and some take heat in. Dissolving is a change that can go either way: one salt warms the water it dissolves in and another cools it. The lab has the learner dissolve one of each, watch the temperature, and say which change is which.
+
+On the bench: a foam cup with a lid, a stirrer and a temperature probe read by a logger every 15 seconds; distilled water; a balance; Epsom salt, which is magnesium sulfate with seven waters in its crystal; and calcium chloride, the dry (anhydrous) salt.
+
+Three parts:
+
+1. **Epsom salt in water.** A weighed portion goes into 50.0 mL of water in the cup, and the temperature is followed until it has turned back.
+2. **Calcium chloride in water.** The same.
+3. **Hot pack and cold pack.** Two questions the two runs answer: which salt would make a pack that warms, and which one that cools.
+
+Which salt comes first is the learner's to choose. The starting temperature and the masses are seeded.
+
+### 26.2 A run
+
+As section 16's run, with the cup, the graph that is explored, and the technique that makes a run count (the lid on and the cup stirred from the moment the salt goes in). The notebook is short: the starting temperature; the highest or the lowest temperature reached; the change in temperature, as a size; whether the water got warmer or colder; whether the dissolving gave heat out or took heat in; and the word for it, exothermic or endothermic. No heat in joules and no moles are asked: this is the lab before the one that asks them.
+
+Guided warns of a lid off or a stirrer still, checks each entry as it is made and has a hint in a closed disclosure. Challenge warns of nothing and checks the notebook when asked. A run counts when its technique was right, its temperatures are the logger's and its entries follow; a run that does not count says why and can be made again with new numbers. The lab is complete when both runs count and part 3's two questions are right.
+
+### 26.3 Model and data
+
+The calorimetry lab's engine, given this lab's record, or its cup and logger on a thin engine of this lab's own, whichever is the smaller change that leaves the calorimetry lab's behaviour and output untouched. The heat of each run is the moles dissolved times a stored enthalpy of solution, from the NBS tables at about the strength on the bench, as section 16's is; the cup warms or cools as its mass times the specific heat of water, and trades a little heat with the room.
+
+The record names the hydrate: Epsom salt, the heptahydrate, takes heat in as it dissolves, and the dry magnesium sulfate gives heat out. That the same compound does both is said in the notes, with its source, because a bottle refilled with the wrong one turns this lab round.
+
+Hazards by 5.2 for the two salts.
+
+### 26.4 Primer
+
+Short topics, those to read first marked: temperature and heat; giving heat out and taking heat in, and the two words; where the heat goes when the water's temperature changes; reading the graph; hot packs and cold packs; safety.
+
+### 26.5 Acceptance
+
+- For seeds 1 to 100, a careful run of each salt counts: Epsom salt's cup cools and calcium chloride's warms, each by enough to read on the logger and by no more than a cup of water can stand.
+- Each error of technique alone makes a run not count, and its cause is named; Guided warns first.
+- An entry that does not follow from the learner's own readings is refused or marked.
+- The same seed and actions give the same run; the stored record round-trips; no state a learner can reach leaves them unable to go on.
+- Challenge shows nothing of what is expected before the entries are made: which salt warms and which cools is not on the page before its run.
+- The calorimetry lab's tests pass untouched and its generated record is unchanged.
