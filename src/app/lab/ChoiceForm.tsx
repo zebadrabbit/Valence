@@ -84,7 +84,10 @@ export function ChoiceForm({ questions, recorded, judged: found, held, refusal, 
         if (held !== null) return
         if (reason !== null) return say(reason, true)
         const next = onRecord(draft)
-        setChanging(false)
+        // Enter in a choice box records too. Answers that are right are then shown in boxes that are disabled, and a disabled box cannot keep focus: it goes to the button, which reads "Change" from then on, and not to the page.
+        if (next.wrong?.length === 0 && document.activeElement instanceof HTMLInputElement && event.currentTarget.contains(document.activeElement)) focus.button.current?.focus()
+        // A change whose answers are not right is still under way. Where a lab refuses such answers and keeps the ones it had (the calorimetry lab's worksheet in Guided), the form must not close on the old answers with the refusal beside them.
+        if (!next.wrong?.length) setChanging(false)
         setJudged(next.wrong ? next.wrong.length === 0 : null)
         say(next.text, next.wrong === null)
       }}

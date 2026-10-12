@@ -836,7 +836,8 @@ describe('the bench', () => {
       step({ type: 'startNextTrial' })
       // Both answers were met on the way.
       expect(new Set(seen)).toEqual(new Set([true, false]))
-    })
+      // A longer limit than the default: this test runs in about 3 s alone, and timed out at the default 5 s when several builds ran at once.
+    }, 20_000)
 
     it("shows the learner's own reading and never the meniscus: a misread in Challenge is shown as it was typed", () => {
       const state = run(m, createLab(1, 'challenge'), [{ type: 'conditionBurette' }, { type: 'fillBurette' }, { type: 'clearTipBubble' }])

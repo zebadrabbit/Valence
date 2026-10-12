@@ -22,6 +22,9 @@
 // Reads docs/research/flame/ (flame.json, hazards.json, the two manifests under sources/ and the one kept table)
 // and writes:
 //   flame/flame.json, and into sources.json the flame test lab's sources
+// Reads docs/research/calorimetry/ (calorimetry.json, hazards.json and the two manifests under sources/), with the
+// hazards of the two bottles it shares with the aqueous reactions lab from docs/research/phase-4/, and writes:
+//   calorimetry/calorimetry.json, and into sources.json the calorimetry lab's sources
 //
 // Deterministic: the same inputs give byte-identical outputs. Anything
 // unexpected in the inputs stops the build with a message and writes nothing.
@@ -38,6 +41,7 @@ import { checkReagents, checkSupported, mergeHazards, newSources } from './aqueo
 import { buildMechanism } from './mechanism-lib.mjs'
 import { observedLines, parseNistLines, spectrumFromSaved } from './emission-lib.mjs'
 import { checkFlameLines } from './flame-lib.mjs'
+import { checkMolarMasses, checkWorkedOut, withSharedHazards, withSharedSheets } from './calorimetry-lib.mjs'
 import { checkAnnualMean, checkMolecularWeight, checkPublished, checkSha256, checkSheetHazards, checkWikipediaCopy } from './titration-lib.mjs'
 
 const root = join(import.meta.dirname, '..')
@@ -48,6 +52,7 @@ const aqueousResearch = join(root, 'docs/research/phase-4')
 const mechanismResearch = join(root, 'docs/research/phase-5')
 const emissionResearch = join(root, 'docs/research/emission-spectra')
 const flameResearch = join(root, 'docs/research/flame')
+const calorimetryResearch = join(root, 'docs/research/calorimetry')
 const out = join(root, 'src/chem-data')
 
 function fail(message) {
@@ -1567,6 +1572,56 @@ function buildFlame(earlierSources) {
   return { flame, sources: [...labSources, ...sheetSources.filter((source) => underHazards.has(source.id))] }
 }
 
+// ---------------------------------------------------------------------------
+// Calorimetry lab
+//
+// The record is authored in docs/research/calorimetry/calorimetry.json: the seven reagents, the water with its
+// specific heat and density, the three parts, each with the enthalpy the model runs on and the notes shown when it
+// is done, and the model's parameters. Every source is in sources/MANIFEST.json, each row of which names the
+// stored values it supports, and the build holds the record to those rows as it does the aqueous lab's. No source
+// has a copy in this lab's folder. The molar masses are held to copies other labs keep: the metals' to the
+// periodic table's record, ammonium nitrate's to PubChem's table of the aqueous lab. What the record works out
+// from cited values (each metal's specific heat, each enthalpy) is worked out again here. The hazards of solid
+// ammonium nitrate and of the four metals are authored apart, in hazards.json with sources/hazard-manifest.json;
+// the acid and the base carry the aqueous lab's records unchanged, with that lab's documents behind them. All are
+// merged in as the aqueous lab's are: every document was read and is not kept, so the build holds them to the
+// manifests' rows and cannot check them against the documents.
+
+const CALORIMETRY_KEYS = ['reagents', 'water', 'parts', 'parameters']
+const CALORIMETRY_REAGENTS = ['hcl-1m', 'naoh-1m', 'nh4no3-solid', 'aluminium-piece', 'iron-piece', 'zinc-piece', 'tin-piece']
+const CALORIMETRY_PARTS = ['neutralisation', 'dissolving', 'metal']
+/** The bottles whose hazards are the aqueous reactions lab's records (spec 16.4). */
+const CALORIMETRY_SHARED = ['hcl-1m', 'naoh-1m']
+
+function buildCalorimetry(earlierSources, periodicTable) {
+  const json = (name, folder = calorimetryResearch) => JSON.parse(readFileSync(join(folder, name), 'utf8'))
+  const input = json('calorimetry.json')
+  const manifest = json('sources/MANIFEST.json')
+  const hazardManifest = json('sources/hazard-manifest.json')
+
+  onlyKeys(input, CALORIMETRY_KEYS, 'calorimetry.json')
+  if (input.reagents.map((r) => r.id).join() !== CALORIMETRY_REAGENTS.join()) fail('calorimetry.json: the reagents are not the seven of spec 16.1, in their order')
+  if (input.parts.map((p) => p.id).join() !== CALORIMETRY_PARTS.join()) fail('calorimetry.json: the parts are not the three of spec 16.1, in their order')
+  if ([...manifest.sources, ...hazardManifest.sources].some((source) => source.file !== undefined)) fail('calorimetry manifests: no source of this lab has a copy in its folder')
+
+  // A source another lab lists too (the NBS tables, the atomic weights, PubChem's table, a sheet) is listed once.
+  const labSources = newSources(manifest.sources, earlierSources, 'calorimetry MANIFEST.json')
+  const sheets = withSharedSheets(hazardManifest.sources, json('sources/hazard-manifest.json', aqueousResearch).sources)
+  const sheetSources = newSources(sheets, [...earlierSources, ...labSources], 'calorimetry hazard-manifest.json')
+
+  checkWorkedOut(input)
+  checkMolarMasses(input, periodicTable, json('sources/pubchem-aqueous-reagents.json', aqueousResearch))
+
+  const hazards = withSharedHazards(json('hazards.json'), json('hazards.json', aqueousResearch), CALORIMETRY_SHARED)
+  const calorimetry = { ...input, reagents: mergeHazards(input.reagents, hazards, sheets) }
+  checkSupported(calorimetry, manifest.sources, sheets)
+  for (const [key, parameter] of Object.entries(input.parameters)) onlyKeys(parameter, ['value', 'rationale'], `calorimetry.json: parameters.${key}`)
+
+  // As for the flame test lab: the app lists only the documents a reagent's hazards cite.
+  const underHazards = new Set(calorimetry.reagents.flatMap(({ hazards: { sourceId, note } }) => [sourceId, note.sourceId, ...(note.alsoSourceId === undefined ? [] : [note.alsoSourceId]), ...(note.moreSourceIds ?? [])]))
+  return { calorimetry, sources: [...labSources, ...sheetSources.filter((source) => underHazards.has(source.id))] }
+}
+
 // A static import list keeps the registry free of bundler-only APIs.
 function moleculeIndex(molecules) {
   const name = (id) => id.replace(/-(.)/g, (_, c) => c.toUpperCase())
@@ -1608,7 +1663,9 @@ function main() {
   const { spectra, sources: emissionSpectraSources } = buildEmissionSpectra(periodicTable, elements)
   const beforeFlame = [...labSources, ...mechanismSources, ...emissionSpectraSources]
   const { flame, sources: flameSources } = buildFlame(beforeFlame)
-  const sources = [...beforeFlame, ...flameSources]
+  const beforeCalorimetry = [...beforeFlame, ...flameSources]
+  const { calorimetry, sources: calorimetrySources } = buildCalorimetry(beforeCalorimetry, periodicTable)
+  const sources = [...beforeCalorimetry, ...calorimetrySources]
   if (new Set(sources.map((s) => s.id)).size !== sources.length) fail('duplicate source ids')
 
   // Everything is built before anything is written.
@@ -1628,11 +1685,13 @@ function main() {
   writeFileSync(join(out, 'aqueous/aqueous.json'), toJson(aqueous))
   mkdirSync(join(out, 'flame'), { recursive: true })
   writeFileSync(join(out, 'flame/flame.json'), toJson(flame))
+  mkdirSync(join(out, 'calorimetry'), { recursive: true })
+  writeFileSync(join(out, 'calorimetry/calorimetry.json'), toJson(calorimetry))
   mkdirSync(join(root, 'src/mechanisms'), { recursive: true })
   writeFileSync(join(root, 'src/mechanisms', `${mechanism.id}.json`), toJson(mechanism))
   writeFileSync(join(out, 'sources.json'), toJson(sources))
   process.stdout.write(
-    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the flame test lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
+    `Wrote ${elements.length} elements, ${molecules.length} structures, ${diagrams.length} MO diagrams, ${periodicTable.length} periodic table records, the titration lab's record, the aqueous reactions lab's record, the flame test lab's record, the calorimetry lab's record, the mechanism timeline's record, ${spectra.filter((s) => s.emission).length} emission spectra, ${sources.length} sources.\n`,
   )
 }
 

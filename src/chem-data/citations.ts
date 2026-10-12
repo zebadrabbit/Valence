@@ -2,6 +2,7 @@ import type { Measurement } from './measure'
 import { EMISSION_SCOPE_NOTE } from './element'
 import type { Element, ElementSpectrum, Emission, MoDiagram, Molecule, Source } from './schema'
 import type { AqueousData } from './aqueous/data'
+import type { CalorimetryData, PartId } from './calorimetry/data'
 import type { FlameData } from './flame/data'
 import type { TitrationData } from './titration/data'
 
@@ -206,6 +207,41 @@ export function flameCitations(data: FlameData, saltId: string, sources: readonl
       ...salt.notes.flatMap((note) => all('Notes on this station', note)),
       ...all('Sodium on a loop that has been handled', data.handling),
       ["Sodium's yellow hiding other colours", data.masking.sourceId],
+    ],
+    sources,
+  )
+}
+
+/**
+ * The sources behind one part of the calorimetry lab (spec 5.1): what is used in it and its hazards, the water's
+ * specific heat and density, the enthalpies of formation its stored figure is worked out from, or the heat
+ * capacities and molar masses behind the four metals' specific heats, and its notes. Part 3 lists all four metals
+ * whichever the piece is, so the list says nothing of which it is.
+ */
+export function calorimetryCitations(data: CalorimetryData, partId: PartId, sources: readonly Source[]): Citation[] {
+  const part = data.parts.find((p) => p.id === partId)
+  if (!part) throw new Error(`no part "${partId}"`)
+  const all = (label: string, cited: { sourceId: string; alsoSourceId?: string | undefined; moreSourceIds?: string[] | undefined }): Entry[] =>
+    [cited.sourceId, ...(cited.alsoSourceId === undefined ? [] : [cited.alsoSourceId]), ...(cited.moreSourceIds ?? [])].map((id): Entry => [label, id])
+  // Types alone are taken from the lab's record, so that this file loads no lab's data: the four metals are found here as the record lists them.
+  const used = part.id === 'metal' ? part.candidateIds : part.amounts.map((amount) => amount.reagentId)
+  const reagents = used.flatMap((id) => data.reagents.filter((r) => r.id === id))
+  const sum = 'enthalpy' in part ? [...part.enthalpy.terms, ...part.enthalpy.infiniteDilution.terms] : []
+  return citations(
+    [
+      ...reagents.flatMap((r): Entry[] => [
+        [`${r.name}: the substance`, r.sourceId],
+        ...(r.form === 'solution' ? [] : [[`${r.name}: molar mass`, r.molarMass.sourceId] as const]),
+        ...(r.form === 'solid' ? [[`${r.name}: appearance`, r.appearance.sourceId] as const] : []),
+        ...(r.form === 'metal' ? [[`${r.name}: heat capacity of a mole, for its specific heat`, r.molarHeatCapacity.sourceId] as const] : []),
+        [`${r.name}: hazard classification`, r.hazards.sourceId],
+        ...all(r.form === 'solution' ? `${r.name}: hazards at the strength used` : `${r.name}: hazards as it is used here`, r.hazards.note),
+      ]),
+      ['Specific heat and density of water, taken for every solution too (idealised)', data.water.specificHeat.sourceId],
+      ['Specific heat and density of water, taken for every solution too (idealised)', data.water.density.sourceId],
+      ...sum.map((term): Entry => ['Enthalpies of formation, for the figure the lab holds', term.enthalpyOfFormation.sourceId]),
+      ...('enthalpy' in part ? all('Enthalpies of formation, for the figure the lab holds', part.enthalpy.note) : []),
+      ...part.notes.flatMap((note) => all('Notes on this part', note)),
     ],
     sources,
   )

@@ -1,0 +1,519 @@
+{
+  "retrieved": "2026-10-09",
+  "about": "Every source of the calorimetry lab's record (docs/research/calorimetry/calorimetry.json) and of its primer (src/chem-data/calorimetry/primer.ts). Each was read for this lab on the retrieval date: fetched that day, or, for the three that an earlier lab also lists, read in the copy that lab keeps or in the scan it read. No source has a copy in this folder. `fetchedSha256` is the sha256 of the file as it was fetched or read: a record of which file was read, not the hash of anything here, and nothing checks it. Each `supports` row names in `fields` the stored values it supports, each by its place in the record with the item's id in brackets (reagents[iron-piece].molarHeatCapacity, parts[dissolving].enthalpy.terms[nh4no3-crystal].enthalpyOfFormation, parts[metal].notes[2]); gives in `prints` a figure, a formula, a label or a heading exactly as the source prints it; and says in `where`, in this project's words, where that is, what the source says there, and how far the stored value goes beyond it. A row whose field is `primer` marks a source the primer rests on. The build holds the record to these rows: every source a value cites must have a row that names the value, and where the record stores the figure a source prints, a row for it must print that figure. No source is quoted beyond such figures, formulas, labels and headings. Three sources are also listed by other manifests and are written here exactly as they are there, so that the build lists each once: the NBS tables, the table of standard atomic weights and PubChem's table of the aqueous reactions lab's compounds. The NBS tables were read from the scan the aqueous reactions lab read, whose sha256 is the one given; each page was turned into an image and read by eye. The hazard statements and the notes under them are not in this file: those of solid ammonium nitrate and of the four metals are in hazards.json and sources/hazard-manifest.json, and those of the acid and the base are the aqueous reactions lab's (docs/research/phase-4/hazards.json and its hazard manifest), which the build merges in unchanged. README.md, one folder up, says what could not be sourced.",
+  "sources": [
+    {
+      "id": "nbs-tables-1982",
+      "url": "https://srd.nist.gov/JPCRD/jpcrdS2Vol11.pdf",
+      "citation": "Wagman, D. D.; Evans, W. H.; Parker, V. B.; Schumm, R. H.; Halow, I.; Bailey, S. M.; Churney, K. L.; Nuttall, R. L. The NBS Tables of Chemical Thermodynamic Properties: Selected Values for Inorganic and C1 and C2 Organic Substances in SI Units. J. Phys. Chem. Ref. Data 1982, 11, Supplement No. 2. Read as the scanned PDF that the National Institute of Standards and Technology serves, linked here; pages 2-38 and 2-260 were read as images of the page, which has no text layer; no copy is kept (retrieved 2026-10-06).",
+      "fetchedSha256": "65249690c25a3c98275279863264b870e9a955f51651ff3845ac3bc47f32de59",
+      "supports": [
+        {
+          "fields": [
+            "parts[neutralisation].enthalpy.terms[nacl-in-100-water].enthalpyOfFormation"
+          ],
+          "prints": "-407.066",
+          "where": "Page 2-301, Table 99:Na (sodium), the row for NaCl \"in 100 H2O\": the column of the standard enthalpy of formation at 298.15 K, in kJ/mol. The rows on either side print -407.187 for 75 and -406.961 for 150. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "parts[neutralisation].enthalpy.terms[water].enthalpyOfFormation",
+            "parts[neutralisation].enthalpy.infiniteDilution.terms[water].enthalpyOfFormation"
+          ],
+          "prints": "-285.830",
+          "where": "Page 2-38, Table 2:H (hydrogen), the row for H2O in the state l, the liquid: the same column. The aqueous reactions lab stores the same figure from the same row; it was read again for this lab. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "parts[neutralisation].enthalpy.terms[hcl-in-50-water].enthalpyOfFormation"
+          ],
+          "prints": "-165.356",
+          "where": "Page 2-47, Table 10:Cl (chlorine), the row for HCl \"in 50 H2O\", the last row of the page: the same column. The next row, for 75, is the first of page 2-48 and prints -165.724. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "parts[neutralisation].enthalpy.terms[naoh-in-50-water].enthalpyOfFormation"
+          ],
+          "prints": "-469.834",
+          "where": "Page 2-300, Table 99:Na, the row for NaOH \"in 50 H2O\": the same column. The next row, for 75, prints -469.700. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "parts[neutralisation].enthalpy.infiniteDilution.terms[hydrogen-ion].enthalpyOfFormation"
+          ],
+          "prints": "0",
+          "where": "Page 2-38, Table 2:H, the row for H+ in the state ao, the standard state in water: the same column. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "parts[neutralisation].enthalpy.infiniteDilution.terms[hydroxide-ion].enthalpyOfFormation"
+          ],
+          "prints": "-229.994",
+          "where": "Page 2-38, Table 2:H, the row for OH- in the state ao: the same column. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "parts[neutralisation].enthalpy.note"
+          ],
+          "prints": "in 50 H2O",
+          "where": "The words the table prints beside a dissolved substance at a stated dilution, here on pages 2-47, 2-300 and 2-301: one mole of the substance in that many moles of water. The table's introduction was not read for how such a row is defined; the lab takes it as the enthalpy of formation of the dissolved substance with the water counted as pure water, which is how a heat of mixing is worked from such rows. That a litre of a 1.00 M solution holds about 55 moles of water is the lab's own arithmetic, from the mass of a litre of water and the molar mass of water. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "parts[neutralisation].notes[0]"
+          ],
+          "prints": "-407.27",
+          "where": "Page 2-301, Table 99:Na, the row for NaCl \"in ∞ H2O\", and the row for NaCl in the state ai: the figure for sodium chloride at endless dilution. With the rows for HCl in the state ai (-167.159, page 2-47) and for NaOH in the state ai (-470.114, page 2-299) it gives -55.83, which is the -55.836 of the three rows of page 2-38 to the two decimals the row for NaCl has: the check that the note's two figures, -57.7 and -55.8, are the two ends of one table. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "parts[dissolving].enthalpy.terms[nh4no3-in-50-water].enthalpyOfFormation"
+          ],
+          "prints": "-341.155",
+          "where": "Page 2-67, Table 18:N (nitrogen), the row for NH4NO3 \"in 50 H2O\": the column of the standard enthalpy of formation at 298.15 K, in kJ/mol. The next row, for 75, prints -340.628, and the row for endless dilution -339.87. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "parts[dissolving].enthalpy.terms[nh4no3-crystal].enthalpyOfFormation",
+            "parts[dissolving].enthalpy.infiniteDilution.terms[nh4no3-crystal].enthalpyOfFormation"
+          ],
+          "prints": "-365.56",
+          "where": "Page 2-66, Table 18:N, the row for NH4NO3, ammonium nitrate, in the state cr, the crystal: the same column. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "parts[dissolving].enthalpy.infiniteDilution.terms[nh4no3-ionised].enthalpyOfFormation"
+          ],
+          "prints": "-339.87",
+          "where": "Page 2-66, Table 18:N, the row for NH4NO3 in the state ai, the dissolved salt fully ionised in its standard state: the same column. Page 2-67 prints the same figure for \"in ∞ H2O\". Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "parts[dissolving].enthalpy.note"
+          ],
+          "prints": "-132.51",
+          "where": "Page 2-65, Table 18:N, the row for NH4+ in the state ao: the same column. The note gives the figure and does not use it. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "parts[dissolving].enthalpy.note"
+          ],
+          "prints": "-205.0",
+          "where": "Page 2-64, Table 18:N, the row for NO3-, nitrate, in the state ao: the same column. With the row for NH4+ it sums to -337.51, which would make the heat of solution +28.05 kJ/mol. The note gives the figure and does not use it, for the reason in the next row. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "parts[dissolving].enthalpy.note"
+          ],
+          "prints": "-207.36",
+          "where": "Page 2-65, Table 18:N, the row for HNO3 in the state ai, and again for HNO3 \"in ∞ H2O\": the same column. With the hydrogen ion at 0 this is the table's figure for the nitrate ion in fully ionised nitric acid, and with the row for NH4+ it sums to -339.87, exactly the table's row for NH4NO3 in the state ai. So the table's rows for the dissolved acid and the dissolved salt agree with each other, and its row for the nitrate ion alone, -205.0, is 2.36 kJ/mol away from both. The lab goes by the rows for the salt itself. No correction to the table was read. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "parts[dissolving].notes[0]"
+          ],
+          "prints": "in ∞ H2O",
+          "where": "Page 2-67, Table 18:N, the last of the rows for NH4NO3 at a stated dilution, which prints -339.87: the figure for a solution so dilute that more water changes nothing. Less the crystal's -365.56 it gives the note's +25.7 kJ/mol; the row for 50 gives its +24.4. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "reagents[aluminium-piece].molarHeatCapacity"
+          ],
+          "prints": "24.35",
+          "where": "Page 2-127, Table 29:Al (aluminum), the row for Al in the state cr, the crystal: the last column, the heat capacity at constant pressure at 298.15 K, in J/(mol K). The row prints a molar mass of 26.9815, the atomic weight of its day; the record takes the molar mass from the table of standard atomic weights. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "reagents[iron-piece].molarHeatCapacity"
+          ],
+          "prints": "25.10",
+          "where": "Page 2-177, Table 41:Fe (iron), the row for Fe in the state cr: the same column. The row prints a molar mass of 55.8470. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "reagents[zinc-piece].molarHeatCapacity"
+          ],
+          "prints": "25.40",
+          "where": "Page 2-138, Table 33:Zn (zinc), the row for Zn in the state cr: the same column. The row prints a molar mass of 65.3700; with it the figure for a gram would be 0.3886 where the record, with today's 65.38, has 0.3885, and the two round to different third figures. The record goes by today's atomic weight. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "reagents[tin-piece].molarHeatCapacity"
+          ],
+          "prints": "26.99",
+          "where": "Page 2-116, Table 26:Sn (tin), the row for Sn \"I, white\" in the state cr, whose enthalpy of formation is 0: the same column. The row under it, for gray tin, prints 25.77; the piece on the bench is taken to be white tin, the form the table makes its reference. The row prints a molar mass of 118.6900. Read by eye from an image of the scanned page, which has no text layer."
+        },
+        {
+          "fields": [
+            "parts[metal].notes[0]"
+          ],
+          "prints": "Cp",
+          "where": "The heading of the last column of every table, over the unit J/(mol K), under the heading for 298.15 K, which is 25 °C: the four heat capacities are for that one temperature. That the lab uses them for a piece cooling from near 100 °C is the lab's own idealisation. Read by eye from an image of the scanned page, which has no text layer."
+        }
+      ]
+    },
+    {
+      "id": "nist-webbook-water-25c",
+      "url": "https://webbook.nist.gov/cgi/fluid.cgi?Action=Load&ID=C7732185&Type=IsoBar&Digits=5&P=0.1&THigh=25&TLow=25&TInc=1&RefState=DEF&TUnit=C&PUnit=MPa&DUnit=g%2Fml&HUnit=kJ%2Fkg&WUnit=m%2Fs&VisUnit=uPa*s&STUnit=N%2Fm",
+      "citation": "Lemmon, E. W.; Bell, I. H.; Huber, M. L.; McLinden, M. O. Thermophysical Properties of Fluid Systems. In NIST Chemistry WebBook, NIST Standard Reference Database Number 69; Linstrom, P. J., Mallard, W. G., Eds.; National Institute of Standards and Technology: Gaithersburg, MD. https://doi.org/10.18434/T4D303 Isobaric properties for water at 0.1 MPa and 25 °C, in units of mass; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "35d06b0bd5158893598e1bbc47dc6f9a12d0e8068b78506e93a1bcc4c4b7161b",
+      "supports": [
+        {
+          "fields": [
+            "water"
+          ],
+          "prints": "Isobaric Properties for Water",
+          "where": "The page's title. The table under it has one row, for 25 °C and 0.10000 MPa, whose last column says that the water is liquid. That the water on the bench is distilled is the lab's set-up."
+        },
+        {
+          "fields": [
+            "water.specificHeat"
+          ],
+          "prints": "4.1813",
+          "where": "The one row of the table of isobaric data, the column headed Cp, in J/(g K). The record stores 4.18, to three figures."
+        },
+        {
+          "fields": [
+            "water.density"
+          ],
+          "prints": "0.99705",
+          "where": "The same row, the column headed Density, in g/ml. The record stores 1.00 g/mL, to three figures."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "99.9743 C",
+          "where": "Under the heading for additional properties of the fluid, the row for the normal boiling point: the temperature at which water boils at one atmosphere."
+        }
+      ]
+    },
+    {
+      "id": "ciaaw-abridged-2024",
+      "url": "https://www.ciaaw.org/abridged-atomic-weights.htm",
+      "citation": "IUPAC Commission on Isotopic Abundances and Atomic Weights (CIAAW), Abridged Standard Atomic Weights 2024.",
+      "supports": [
+        {
+          "fields": [
+            "reagents[aluminium-piece].molarMass"
+          ],
+          "prints": "26.982",
+          "where": "The copy kept for the periodic table, docs/research/periodic-table/sources/ciaaw-abridged-atomic-weights.html, the row for aluminium (13, Al): the abridged standard atomic weight, printed with an uncertainty of 0.001. The molar mass in g/mol is the same number. The build holds the stored figure to the periodic table's record, which it holds to this copy."
+        },
+        {
+          "fields": [
+            "reagents[iron-piece].molarMass"
+          ],
+          "prints": "55.845",
+          "where": "The same kept copy, the row for iron (26, Fe), printed with an uncertainty of 0.002."
+        },
+        {
+          "fields": [
+            "reagents[zinc-piece].molarMass"
+          ],
+          "prints": "65.38",
+          "where": "The same kept copy, the row for zinc (30, Zn), printed with an uncertainty of 0.02."
+        },
+        {
+          "fields": [
+            "reagents[tin-piece].molarMass"
+          ],
+          "prints": "118.71",
+          "where": "The same kept copy, the row for tin (50, Sn), printed with an uncertainty of 0.01."
+        }
+      ]
+    },
+    {
+      "id": "pubchem-aqueous-reagents",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/24380,14798,10340,24462,24385,25204,24288,22985,10112,313,24470,5462224/property/MolecularFormula,MolecularWeight,Title/JSON",
+      "citation": "PubChem [Internet]. Bethesda (MD): National Library of Medicine (US), National Center for Biotechnology Information; 2004-. Molecular formula, molecular weight and title of the twelve compounds of the aqueous reactions lab, from the PUG REST service (retrieved 2026-10-06). Source: National Library of Medicine.",
+      "supports": [
+        {
+          "fields": [
+            "reagents[hcl-1m]",
+            "reagents[naoh-1m]",
+            "reagents[nh4no3-solid]"
+          ],
+          "prints": "PropertyTable",
+          "where": "The copy kept for the aqueous reactions lab, docs/research/phase-4/sources/pubchem-aqueous-reagents.json: its one table, which has a row for hydrochloric acid (CID 313, formula ClH), for sodium hydroxide (CID 14798, HNaO) and for ammonium nitrate (CID 22985, H4N2O3). PubChem writes a formula's elements in the order of the alphabet; the record writes each formula as chemists do. The strength in each solution's name is the lab's set-up."
+        },
+        {
+          "fields": [
+            "reagents[nh4no3-solid].molarMass"
+          ],
+          "prints": "80.044",
+          "where": "The same kept copy, the row for CID 22985, ammonium nitrate: its molecular weight. The build holds the stored figure to this row."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "MolecularWeight",
+          "where": "The name the kept copy gives the figure. The primer gives it as the molar mass printed on the tile of ammonium nitrate."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-energetics-introduction",
+      "url": "https://www.chemguide.co.uk/physical/energetics/basic.html",
+      "citation": "Clark, J. Chemguide: An Introduction to Chemical Energetics; 2010, modified May 2013; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "d3f5aab8977a1a809fb02118a180f7414b8d6a0d33714462f7132d810ba4b959",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Expressing exothermic and endothermic changes in numbers",
+          "where": "A heading of the page. Above it the page names the two kinds of change, one that gives heat off and one that takes it in. Under it the page gives a figure for one change of each kind and says how the sign tells them apart, and from whose side the change is counted."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-enthalpy-neutralisation",
+      "url": "https://www.chemguide.co.uk/physical/energetics/neutralisation.html",
+      "citation": "Clark, J. Chemguide: Enthalpy Change of Neutralisation; 2010, modified July 2013; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "64b5cd8db7dcafa0f348403cdf87d1e188b56faf19b7c877dd43f32e051e2a37",
+      "supports": [
+        {
+          "fields": [
+            "parts[neutralisation].notes[0]"
+          ],
+          "prints": "between -57 and -58 kJ mol-1",
+          "where": "Under the heading that defines the quantity for standard conditions: the range the page gives for a strong acid with a strong alkali, counted for each mole of water formed and always negative. Under the next heading the page says why the figures are so alike: such an acid and such an alkali are fully ionised, and the reaction is in each case a hydrogen ion with a hydroxide ion. The note's own two figures are the table's, not this page's; the stored -57.7 lies inside the page's range and the figure for endless dilution, -55.8, outside it."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-enthalpy-solution",
+      "url": "https://www.chemguide.co.uk/physical/energetics/solution.html",
+      "citation": "Clark, J. Chemguide: Enthalpies of Solution and Hydration; 2010, modified October 2018; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "e99004ef154ec72d462e44b93de514e93c98897149dc3ef9d324bbd9611118ac",
+      "supports": [
+        {
+          "fields": [
+            "parts[dissolving].notes[0]"
+          ],
+          "prints": "Defining enthalpy change of solution",
+          "where": "A heading of the page. Under it the page defines the quantity for one mole of a substance dissolved to a solution of endless dilution, says what such a solution is, says that the figure can be of either sign, and says of a salt that takes heat in as it dissolves that the solution ends up colder than the water was. Ammonium nitrate is not on the page; the note's figures are the table's."
+        }
+      ]
+    },
+    {
+      "id": "chemguide-measuring-enthalpy",
+      "url": "https://www.chemguide.co.uk/physical/energetics/practical.html",
+      "citation": "Clark, J. Chemguide: Simple Measurements of Enthalpy Changes; 2010, modified January 2015; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "30ceb7169248a1eb42c3f4373e30317658397f7f6e4d26837eefaebb7c082247",
+      "supports": [
+        {
+          "fields": [
+            "parts[neutralisation].notes[1]",
+            "parts[neutralisation].notes[2]",
+            "parts[dissolving].notes[2]"
+          ],
+          "prints": "Enthalpy changes involving solutions",
+          "where": "A heading of the page. Under it, of the experiments: a foam cup slows the loss of heat through its side and its bottom, heat still leaves where the liquid meets the air, a lid with a hole for the thermometer cuts that down, and the heat lost while the reaction goes on can be allowed for with a cooling curve, which the page names and does not describe. Of the calculations: that a solution is commonly given water's density and water's specific heat, that both are approximations, and that the errors they bring are small beside those from lost heat."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "4.18 J g-1 K-1",
+          "where": "Under the heading for the calculations: the specific heat of water, with what a specific heat is and the relation between heat, mass, specific heat and change in temperature. The page prints the unit with raised figures."
+        }
+      ]
+    },
+    {
+      "id": "purdue-temperature",
+      "url": "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch5/index.php",
+      "citation": "Bodner Research Web, Purdue University. General Chemistry Help, Thermochemistry: Temperature; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "447847b16f71a6f3365305dbe41f57dab66700015e2b714f21811cbe95c04412",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Temperature",
+          "where": "The page's heading. Under it: what temperature measures, the Celsius scale among the scales it is measured on, and that a sample's size makes no difference to it, with two samples of water mixed as the example."
+        }
+      ]
+    },
+    {
+      "id": "purdue-heat",
+      "url": "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch5/heat.php",
+      "citation": "Bodner Research Web, Purdue University. General Chemistry Help, Thermochemistry: Heat; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "447f92c46cf1f36605f75569f3f57bcbe98dc75d797c761a3b1a46943f880299",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Specific Heat",
+          "where": "A heading of the page. Above it the page says what heat is and that its unit is the joule; under it, what a specific heat is, and for water the figure 4.184, in joules for each gram and kelvin."
+        }
+      ]
+    },
+    {
+      "id": "purdue-calorimetry",
+      "url": "https://www.chem.purdue.edu/gchelp/howtosolveit/Thermodynamics/Calorimetry.html",
+      "citation": "Purdue University, Department of Chemistry. General Chemistry Help, How to Solve It: Calorimetry; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "da714347e6a3d43b389e5baf2f30ba62cbf6c64492d152d59ed807dc03cb0a47",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Calorimetry",
+          "where": "The page's title. The page says which way the temperature of the solution goes for a reaction that gives heat out and for one that takes it in, and that the heat of the solution and the heat of the reaction have opposite signs. Its relation between heat, mass, specific heat and change in temperature is an image, read from the image's own description."
+        }
+      ]
+    },
+    {
+      "id": "nasa-heat-transfer",
+      "url": "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/heat-transfer-3-2/",
+      "citation": "National Aeronautics and Space Administration, Glenn Research Center. Beginner's Guide to Aeronautics: Heat Transfer; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "7fdb758468b0da76f7f201097b98191ef72b98a7fb42f397a90ae20591e102f0",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Heat Transfer",
+          "where": "The page's title. Read at its paragraph on two objects at different temperatures brought into contact: they come to one temperature, heat passes between them on the way, always from the hotter to the colder, and how much passes goes with the difference in temperature and with a heat capacity that differs from one material to another."
+        }
+      ]
+    },
+    {
+      "id": "hyperphysics-specific-heat",
+      "url": "http://hyperphysics.phy-astr.gsu.edu/hbase/thermo/spht.html",
+      "citation": "Nave, C. R. HyperPhysics: Specific Heat. Georgia State University; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "4313ff21e2c1c52ca4c7db74d12c47004595ee9e99c344deef823f6ee98b9db2",
+      "supports": [
+        {
+          "fields": [
+            "parts[metal].notes[0]"
+          ],
+          "prints": "Law of Dulong and Petit",
+          "where": "The name of the law the page gives for the heat capacity of a mole of most solids, from room temperature upward: nearly constant. That is the ground for saying that the figure for a solid metal changes little between 25 °C and 100 °C; the page gives no figure for any one metal over that range."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "4.186 joule/gram °C",
+          "where": "The page's figure for the specific heat of water, beside the same in calories. The page says what a specific heat is, gives the relation between heat added, specific heat, mass and the two temperatures, and says that water's is higher than that of any other common substance and far higher, gram for gram, than a metal's."
+        }
+      ]
+    },
+    {
+      "id": "ncsu-calorimetry-lab",
+      "url": "https://www.webassign.net/question_assets/ncsugenchem202labv1/lab_4/manual.html",
+      "citation": "North Carolina State University, Department of Chemistry. General chemistry laboratory manual, Lab 4: Calorimetry. Advanced Instructional Systems, Inc. and North Carolina State University, 2010-2013. Read on the pages that WebAssign serves, linked here; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "df45a616d0690b7a0f4d40c9ce24679b1aa60e4a365f0f98ddd16a1e3f161fb6",
+      "supports": [
+        {
+          "fields": [
+            "parts[metal].notes[2]"
+          ],
+          "prints": "Part B: Identifying an Unknown Metal by Specific Heat",
+          "where": "A heading of the procedure. Under it the weighed metal is put in a test tube, the test tube is stood in a beaker of boiling water, the temperature of that water is read once the metal has been in it some minutes, and the metal is poured from the tube into the cup with care and without delay, the tube held in a holder so that nobody is burned, and the cover put straight back."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Lab 4 - Calorimetry",
+          "where": "The page's title. Read at its introduction (what a calorimeter is made of, what is assumed of the foam cup and of the rest of the apparatus, the relation for the heat the water takes in, how a metal's specific heat follows from it, and how a heat of reaction is turned into a figure for one mole) and at its procedure, parts B to D."
+        }
+      ]
+    },
+    {
+      "id": "davidson-specific-heat-copper",
+      "url": "https://www.chm.davidson.edu/vce/Calorimetry/SpecificHeatCapacityOfCopper.html",
+      "citation": "Blauch, D. N. Virtual Chemistry Experiments: Calorimetry, Specific Heat Capacity of Copper, version 3.0. Davidson College, 2000, 2014, 2023; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "41f68eec3ffc275083d06c14410c2005b58a1e579d8a87b359371bf2ccea69b3",
+      "supports": [
+        {
+          "fields": [
+            "parts[neutralisation].notes[2]",
+            "parts[metal].notes[2]"
+          ],
+          "prints": "Part 1: Determination of the Heat Capacity of the Calorimeter",
+          "where": "A heading of the page. Above it the page says that a calorimeter has a heat capacity of its own, takes up heat as it warms, and that this heat capacity is not known beforehand and has to be measured; under it, that it is found by a run with a metal whose specific heat is known. The page speaks of the calorimeter's heat capacity. The name calorimeter constant is the lab's, the usual one in laboratory manuals, and is on no page read."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Calorimetry: Specific Heat Capacity of Copper",
+          "where": "The page's title. Read at its sections on heat capacity and on calorimetry: what heat and temperature are, what a calorimeter is and why it is insulated, what its stirrer is for, and how the heats of a hot piece of metal, of the water and of the calorimeter add up to nothing."
+        }
+      ]
+    },
+    {
+      "id": "davidson-heat-of-solution",
+      "url": "https://www.chm.davidson.edu/vce/Calorimetry/HeatOfSolutionOfAmmoniumNitrate.html",
+      "citation": "Blauch, D. N. Virtual Chemistry Experiments: Calorimetry, Heat of Solution of Ammonium Nitrate, version 3.0. Davidson College, 2000, 2014, 2023; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "ceec7c20933bdc326c337f4fc916c14076bf8385478438c374eaf1826d662053",
+      "supports": [
+        {
+          "fields": [
+            "parts[dissolving].notes[0]",
+            "parts[dissolving].notes[1]",
+            "parts[dissolving].notes[2]"
+          ],
+          "prints": "Heat of Solution of Ammonium Nitrate",
+          "where": "The page's heading. Under it: dissolving ammonium nitrate draws heat from the solution; the mass of the solution is the water and the ammonium nitrate together; a dilute solution's specific heat is close to water's; the calorimeter has a heat of its own in the sum; and the heat for one mole is the heat divided by the moles dissolved. The page's own simulation is set to 28.05 kJ/mol, which is the sum of the table's rows for the two ions; the lab does not use that figure, for the reason its record gives."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Calorimetry: Heat of Solution of Ammonium Nitrate",
+          "where": "The page's title."
+        }
+      ]
+    },
+    {
+      "id": "davidson-heat-of-neutralization",
+      "url": "https://www.chm.davidson.edu/vce/Calorimetry/HeatOfNeutralization.html",
+      "citation": "Blauch, D. N. Virtual Chemistry Experiments: Calorimetry, Heat of Neutralization, version 3.0. Davidson College, 2000, 2014, 2023; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "b333ad35f6a6a8add8e00ffa876643b9239edc78a3791439ec98835b78ac80c3",
+      "supports": [
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Calorimetry: Heat of Neutralization",
+          "where": "The page's title. Read for the reaction of a hydrogen ion with a hydroxide ion to give water, for the heat of one mole as the heat divided by the moles of whichever of the two runs out first, and for the 1.00 g it takes each millilitre of its solution to weigh."
+        }
+      ]
+    },
+    {
+      "id": "docbrown-calorimeter-methods",
+      "url": "https://www.docbrown.info/page07/delta1Hc.htm",
+      "citation": "Brown, P. Doc Brown's Chemistry, advanced level revision notes: Experimental methods for determining enthalpy changes; read and not kept (retrieved 2026-10-09).",
+      "fetchedSha256": "f91df4a3d1b9e22024a59e1eb629ee3ec4088cf02ef58c5c908ac15d2575058a",
+      "supports": [
+        {
+          "fields": [
+            "parts[neutralisation].notes[1]",
+            "parts[neutralisation].notes[2]",
+            "parts[dissolving].notes[1]",
+            "parts[dissolving].notes[2]",
+            "parts[metal].notes[1]",
+            "parts[metal].notes[2]"
+          ],
+          "prints": "Note on graphical analysis",
+          "where": "A heading in the page's section on the foam cup calorimeter. Under it: readings are taken before and after mixing and plotted against time; the early ones give a level line; a cup that has warmed goes on losing heat from the moment the reaction starts, and one that has cooled goes on gaining it, so the temperature drifts back once the reaction is over; the line of that drift is carried back to the time the reaction started to find the true change; and without this the change in temperature read is always too small. A later note says that the cup, its lid and the thermometer take up or give out a little heat themselves. The page's examples are a metal with an acid and a salt dissolving; the lab applies the same to its three parts."
+        },
+        {
+          "fields": [
+            "primer"
+          ],
+          "prints": "Simple plastic cup calorimeter at room temperature",
+          "where": "The heading of that section, which lists a double foam cup with a lid and a hole for a thermometer or a probe."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,502 @@
+{
+  "reagents": [
+    {
+      "id": "hcl-1m",
+      "name": "Hydrochloric acid, 1.00 M",
+      "formula": "HCl",
+      "pubchemCid": 313,
+      "form": "solution",
+      "molarity": 1,
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "naoh-1m",
+      "name": "Sodium hydroxide solution, 1.00 M",
+      "formula": "NaOH",
+      "pubchemCid": 14798,
+      "form": "solution",
+      "molarity": 1,
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "nh4no3-solid",
+      "name": "Ammonium nitrate",
+      "formula": "NH₄NO₃",
+      "pubchemCid": 22985,
+      "form": "solid",
+      "molarMass": {
+        "value": 80.044,
+        "published": "80.044",
+        "sourceId": "pubchem-aqueous-reagents"
+      },
+      "appearance": {
+        "value": "white crystals",
+        "sourceId": "flinn-sds-61"
+      },
+      "sourceId": "pubchem-aqueous-reagents"
+    },
+    {
+      "id": "aluminium-piece",
+      "name": "Aluminium",
+      "formula": "Al",
+      "form": "metal",
+      "molarMass": {
+        "value": 26.982,
+        "published": "26.982",
+        "sourceId": "ciaaw-abridged-2024"
+      },
+      "molarHeatCapacity": {
+        "value": 24.35,
+        "published": "24.35",
+        "unit": "J/(mol·K)",
+        "sourceId": "nbs-tables-1982"
+      },
+      "specificHeat": {
+        "value": 0.902,
+        "unit": "J/(g·°C)",
+        "working": "24.35 J/(mol·K) ÷ 26.982 g/mol = 0.902453 J/(g·K), stored to three significant figures as 0.902 J/(g·°C). A kelvin and a degree Celsius are steps of the same size."
+      },
+      "appearance": {
+        "value": "silvery solid",
+        "sourceId": "flinn-sds-34"
+      },
+      "sourceId": "flinn-sds-34"
+    },
+    {
+      "id": "iron-piece",
+      "name": "Iron",
+      "formula": "Fe",
+      "form": "metal",
+      "molarMass": {
+        "value": 55.845,
+        "published": "55.845",
+        "sourceId": "ciaaw-abridged-2024"
+      },
+      "molarHeatCapacity": {
+        "value": 25.1,
+        "published": "25.10",
+        "unit": "J/(mol·K)",
+        "sourceId": "nbs-tables-1982"
+      },
+      "specificHeat": {
+        "value": 0.449,
+        "unit": "J/(g·°C)",
+        "working": "25.10 J/(mol·K) ÷ 55.845 g/mol = 0.449458 J/(g·K), stored to three significant figures as 0.449 J/(g·°C). A kelvin and a degree Celsius are steps of the same size."
+      },
+      "appearance": {
+        "value": "silver-white metal",
+        "sourceId": "flinn-sds-416"
+      },
+      "sourceId": "flinn-sds-416"
+    },
+    {
+      "id": "zinc-piece",
+      "name": "Zinc",
+      "formula": "Zn",
+      "form": "metal",
+      "molarMass": {
+        "value": 65.38,
+        "published": "65.38",
+        "sourceId": "ciaaw-abridged-2024"
+      },
+      "molarHeatCapacity": {
+        "value": 25.4,
+        "published": "25.40",
+        "unit": "J/(mol·K)",
+        "sourceId": "nbs-tables-1982"
+      },
+      "specificHeat": {
+        "value": 0.388,
+        "unit": "J/(g·°C)",
+        "working": "25.40 J/(mol·K) ÷ 65.38 g/mol = 0.388498 J/(g·K), stored to three significant figures as 0.388 J/(g·°C). A kelvin and a degree Celsius are steps of the same size."
+      },
+      "appearance": {
+        "value": "white metal with a bluish-grey lustre",
+        "sourceId": "flinn-sds-859"
+      },
+      "sourceId": "flinn-sds-859"
+    },
+    {
+      "id": "tin-piece",
+      "name": "Tin",
+      "formula": "Sn",
+      "form": "metal",
+      "molarMass": {
+        "value": 118.71,
+        "published": "118.71",
+        "sourceId": "ciaaw-abridged-2024"
+      },
+      "molarHeatCapacity": {
+        "value": 26.99,
+        "published": "26.99",
+        "unit": "J/(mol·K)",
+        "sourceId": "nbs-tables-1982"
+      },
+      "specificHeat": {
+        "value": 0.227,
+        "unit": "J/(g·°C)",
+        "working": "26.99 J/(mol·K) ÷ 118.71 g/mol = 0.227361 J/(g·K), stored to three significant figures as 0.227 J/(g·°C). A kelvin and a degree Celsius are steps of the same size."
+      },
+      "appearance": {
+        "value": "silver-white solid",
+        "sourceId": "flinn-sds-822"
+      },
+      "sourceId": "flinn-sds-822"
+    }
+  ],
+  "water": {
+    "name": "Distilled water",
+    "formula": "H₂O",
+    "specificHeat": {
+      "value": 4.18,
+      "unit": "J/(g·°C)",
+      "note": "The specific heat of water at 25 °C and ordinary pressure, which the source prints as 4.1813 J/(g·K); the three-figure value is stored, the same figure as the aqueous reactions lab. It is used for the water in the cup and, as an idealisation, for every solution in it: for the mixed acid and base, and for the ammonium nitrate solution. How far a real solution of these strengths is from water was not read for this lab.",
+      "sourceId": "nist-webbook-water-25c"
+    },
+    "density": {
+      "value": 1,
+      "unit": "g/mL",
+      "note": "The density of water at 25 °C and ordinary pressure, which the source prints as 0.99705 g/mL; it is stored as 1.00 g/mL. It is used to turn the 50.0 mL of water into 50.0 g and, as an idealisation, to turn the 50.0 mL of each solution of part 1 into 50.0 g. The densities of the two solutions were not read for this lab.",
+      "sourceId": "nist-webbook-water-25c"
+    },
+    "sourceId": "nist-webbook-water-25c"
+  },
+  "parts": [
+    {
+      "id": "neutralisation",
+      "name": "Neutralisation",
+      "amounts": [
+        {
+          "reagentId": "hcl-1m",
+          "value": 50,
+          "shown": "50.0",
+          "unit": "mL"
+        },
+        {
+          "reagentId": "naoh-1m",
+          "value": 50,
+          "shown": "50.0",
+          "unit": "mL"
+        }
+      ],
+      "enthalpy": {
+        "value": -57.706,
+        "unit": "kJ/mol",
+        "per": "mole of water formed",
+        "terms": [
+          {
+            "id": "nacl-in-100-water",
+            "label": "NaCl in 100 H₂O",
+            "coefficient": 1,
+            "enthalpyOfFormation": {
+              "value": -407.066,
+              "published": "-407.066",
+              "sourceId": "nbs-tables-1982"
+            }
+          },
+          {
+            "id": "water",
+            "label": "H₂O(l)",
+            "coefficient": 1,
+            "enthalpyOfFormation": {
+              "value": -285.83,
+              "published": "-285.830",
+              "sourceId": "nbs-tables-1982"
+            }
+          },
+          {
+            "id": "hcl-in-50-water",
+            "label": "HCl in 50 H₂O",
+            "coefficient": -1,
+            "enthalpyOfFormation": {
+              "value": -165.356,
+              "published": "-165.356",
+              "sourceId": "nbs-tables-1982"
+            }
+          },
+          {
+            "id": "naoh-in-50-water",
+            "label": "NaOH in 50 H₂O",
+            "coefficient": -1,
+            "enthalpyOfFormation": {
+              "value": -469.834,
+              "published": "-469.834",
+              "sourceId": "nbs-tables-1982"
+            }
+          }
+        ],
+        "working": "(−407.066) + (−285.830) − (−165.356) − (−469.834) = −57.706 kJ for each mole of water formed",
+        "note": {
+          "value": "The heat of mixing the two solutions as they are on the bench, worked out from the enthalpies of formation the table prints for each dissolved substance at a stated dilution. A litre of a 1.00 M solution holds one mole in about 55 moles of water, and the table has rows for one mole in 50 and in 75: the row for 50 is taken for the acid and for the base, and the row for 100 for the sodium chloride they make, which ends up in about twice as much water. Taking the nearest rows and not working between them moves the figure by about a tenth of one percent. The same figure is used whatever the run.",
+          "sourceId": "nbs-tables-1982"
+        },
+        "infiniteDilution": {
+          "value": -55.836,
+          "terms": [
+            {
+              "id": "water",
+              "label": "H₂O(l)",
+              "coefficient": 1,
+              "enthalpyOfFormation": {
+                "value": -285.83,
+                "published": "-285.830",
+                "sourceId": "nbs-tables-1982"
+              }
+            },
+            {
+              "id": "hydrogen-ion",
+              "label": "H⁺(aq)",
+              "coefficient": -1,
+              "enthalpyOfFormation": {
+                "value": 0,
+                "published": "0",
+                "sourceId": "nbs-tables-1982"
+              }
+            },
+            {
+              "id": "hydroxide-ion",
+              "label": "OH⁻(aq)",
+              "coefficient": -1,
+              "enthalpyOfFormation": {
+                "value": -229.994,
+                "published": "-229.994",
+                "sourceId": "nbs-tables-1982"
+              }
+            }
+          ],
+          "working": "(−285.830) − 0 − (−229.994) = −55.836 kJ for each mole of water formed"
+        }
+      },
+      "notes": [
+        {
+          "value": "The stored figure for this part is −57.7 kJ for each mole of water formed: the heat given out when the acid and the base of this part are mixed at about this strength, worked out from a table of enthalpies of formation. The minus sign says that the reaction gives heat out. For solutions so dilute that more water would change nothing, the same table gives −55.8 kJ/mol. Any strong acid with any strong base gives close to the same figure, because the reaction is the same one each time: a hydrogen ion and a hydroxide ion make a molecule of water.",
+          "sourceId": "nbs-tables-1982",
+          "alsoSourceId": "chemguide-enthalpy-neutralisation"
+        },
+        {
+          "value": "A careful run in this lab comes out a little under the stored figure, as a real cup does. Heat is already leaking to the room while the two solutions are still mixing, so the highest temperature the logger shows is a little below the one a cup with no leak would have reached. With the lid off or the stirrer still, the leak has more time or more room, and the result is lower again: that is why such a run does not count.",
+          "sourceId": "docbrown-calorimeter-methods",
+          "alsoSourceId": "chemguide-measuring-enthalpy"
+        },
+        {
+          "value": "Two things are taken as simpler than they are. The mixed solution is given water's specific heat, and each millilitre of it is taken to weigh 1.00 g. And the cup, the lid, the stirrer and the probe are taken to absorb no heat at all. A careful bench deals with the second by finding the calorimeter constant, the heat the calorimeter itself takes up for each degree, and adding that heat in. It deals with the leak by reading on after the peak, drawing a line through the slow cooling, and carrying that line back to the moment of mixing: the temperature the line gives there is used in place of the peak.",
+          "sourceId": "chemguide-measuring-enthalpy",
+          "alsoSourceId": "davidson-specific-heat-copper",
+          "moreSourceIds": [
+            "docbrown-calorimeter-methods"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dissolving",
+      "name": "Dissolving",
+      "amounts": [
+        {
+          "reagentId": "nh4no3-solid",
+          "about": 4,
+          "unit": "g"
+        },
+        {
+          "reagentId": "water",
+          "value": 50,
+          "shown": "50.0",
+          "unit": "mL"
+        }
+      ],
+      "enthalpy": {
+        "value": 24.405,
+        "unit": "kJ/mol",
+        "per": "mole of ammonium nitrate dissolved",
+        "terms": [
+          {
+            "id": "nh4no3-in-50-water",
+            "label": "NH₄NO₃ in 50 H₂O",
+            "coefficient": 1,
+            "enthalpyOfFormation": {
+              "value": -341.155,
+              "published": "-341.155",
+              "sourceId": "nbs-tables-1982"
+            }
+          },
+          {
+            "id": "nh4no3-crystal",
+            "label": "NH₄NO₃(s)",
+            "coefficient": -1,
+            "enthalpyOfFormation": {
+              "value": -365.56,
+              "published": "-365.56",
+              "sourceId": "nbs-tables-1982"
+            }
+          }
+        ],
+        "working": "(−341.155) − (−365.56) = +24.405 kJ for each mole of ammonium nitrate dissolved",
+        "note": {
+          "value": "The heat of dissolving the solid to a solution of about the strength made on the bench, worked out from the table's row for the crystal and its row for one mole in 50 moles of water. About 4 g in 50.0 g of water is one mole in 53 to 59 moles of water over the range of masses a run can have; the row for 50 is the nearest, and the next, for 75, is 0.5 kJ/mol higher. So the stored figure is within about one percent of the table's own for every run, and the same figure is used whatever the run. The table also prints rows for the ammonium ion and for the nitrate ion in water, −132.51 and −205.0. Their sum is not used: it is 2.36 kJ/mol above the table's own row for the dissolved salt, fully ionised, and that row agrees with the table's row for nitric acid where the row for the nitrate ion does not.",
+          "sourceId": "nbs-tables-1982"
+        },
+        "infiniteDilution": {
+          "value": 25.69,
+          "terms": [
+            {
+              "id": "nh4no3-ionised",
+              "label": "NH₄NO₃(aq), fully ionised, standard state",
+              "coefficient": 1,
+              "enthalpyOfFormation": {
+                "value": -339.87,
+                "published": "-339.87",
+                "sourceId": "nbs-tables-1982"
+              }
+            },
+            {
+              "id": "nh4no3-crystal",
+              "label": "NH₄NO₃(s)",
+              "coefficient": -1,
+              "enthalpyOfFormation": {
+                "value": -365.56,
+                "published": "-365.56",
+                "sourceId": "nbs-tables-1982"
+              }
+            }
+          ],
+          "working": "(−339.87) − (−365.56) = +25.690 kJ for each mole of ammonium nitrate dissolved"
+        }
+      },
+      "notes": [
+        {
+          "value": "The stored figure for this part is +24.4 kJ for each mole of ammonium nitrate: the heat taken in when a mole of the solid dissolves in about fifty moles of water, which is close to the strength made here, worked out from a table of enthalpies of formation. The plus sign says that dissolving takes heat in. The heat comes out of the water, which is why the cup gets cold. For a solution so dilute that more water would change nothing, the same table gives +25.7 kJ/mol, and an enthalpy of solution is usually quoted for that case.",
+          "sourceId": "nbs-tables-1982",
+          "alsoSourceId": "chemguide-enthalpy-solution",
+          "moreSourceIds": [
+            "davidson-heat-of-solution"
+          ]
+        },
+        {
+          "value": "The mass that cooled is the water and the salt together: once it has dissolved, the salt is part of the solution. A careful run in this lab comes out a little under the stored figure, as a real cup does. Heat is already leaking in from the room while the salt is still dissolving, so the lowest temperature the logger shows is not quite as low as a cup with no leak would have reached. With the lid off or the stirrer still, the leak has more time or more room, and the result is smaller again: that is why such a run does not count.",
+          "sourceId": "davidson-heat-of-solution",
+          "alsoSourceId": "docbrown-calorimeter-methods"
+        },
+        {
+          "value": "Two things are taken as simpler than they are. The solution is given water's specific heat. And the cup, the lid, the stirrer and the probe are taken to give up no heat of their own as they cool. A careful bench deals with the second by finding the calorimeter constant, the heat the calorimeter itself gives up or takes in for each degree, and adding that heat in. It deals with the leak by reading on after the lowest point, drawing a line through the slow warming, and carrying that line back to the moment the salt went in: the temperature the line gives there is used in place of the lowest point.",
+          "sourceId": "chemguide-measuring-enthalpy",
+          "alsoSourceId": "davidson-heat-of-solution",
+          "moreSourceIds": [
+            "docbrown-calorimeter-methods"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "metal",
+      "name": "A metal's specific heat",
+      "amounts": [
+        {
+          "reagentId": "unknown-metal",
+          "about": 50,
+          "unit": "g"
+        },
+        {
+          "reagentId": "water",
+          "value": 50,
+          "shown": "50.0",
+          "unit": "mL"
+        }
+      ],
+      "candidateIds": [
+        "aluminium-piece",
+        "iron-piece",
+        "zinc-piece",
+        "tin-piece"
+      ],
+      "unknown": {
+        "name": "Unknown metal",
+        "appearance": "a grey piece of metal"
+      },
+      "notes": [
+        {
+          "value": "The specific heat of a metal is the heat that one gram of it takes in to warm by one degree, and gives out again as it cools by one. Each figure in the table of four is worked out from the heat capacity of a mole of the metal at 25 °C, as a table of thermodynamic values prints it, divided by the mass of a mole. The piece cooled from near 100 °C, and the lab uses the figure for 25 °C the whole way down: an idealisation, though for a solid metal at these temperatures the figure changes little.",
+          "sourceId": "nbs-tables-1982",
+          "alsoSourceId": "hyperphysics-specific-heat"
+        },
+        {
+          "value": "A careful run in this lab comes out a little under the figure in the table, as a real cup does. Heat is already leaking to the room while the piece is still warming the water, so the highest temperature the logger shows is a little low. That makes the heat the water took in look smaller and the fall of the metal look larger, and both push the answer down. With the lid off or the stirrer still the answer is lower again, and may land nearer another metal: that is why such a run does not count.",
+          "sourceId": "docbrown-calorimeter-methods"
+        },
+        {
+          "value": "Three things are taken as simpler than they are. The piece is taken to reach the cup at once, as hot as the bath; it is taken to arrive dry; and the cup, the lid, the stirrer and the probe are taken to absorb no heat. A careful bench heats the piece in a dry test tube that stands in the boiling water, so that no hot water comes with it, and tips it into the cup quickly. It finds the calorimeter constant, the heat the calorimeter itself takes up for each degree, and adds that heat in. And it reads on after the peak, draws a line through the slow cooling, and carries that line back to the moment the piece went in.",
+          "sourceId": "ncsu-calorimetry-lab",
+          "alsoSourceId": "davidson-specific-heat-copper",
+          "moreSourceIds": [
+            "docbrown-calorimeter-methods"
+          ]
+        }
+      ]
+    }
+  ],
+  "parameters": {
+    "loggerStepSeconds": {
+      "value": 15,
+      "rationale": "The logger takes one reading every 15 seconds: the lab's set-up. The engine counts steps of this length and reads no clock."
+    },
+    "runOnSteps": {
+      "value": 2,
+      "rationale": "One press of Run on lets 30 seconds pass, which is two readings: short enough that a careful run shows its peak and the turn after it in a few presses, long enough that the slow drift back shows."
+    },
+    "loggerMaxSteps": {
+      "value": 240,
+      "rationale": "The logger stops after an hour of readings. No run needs that long: with the stirrer still, the slowest curve turns back within nine minutes. The limit keeps a stored run small, and keeps a record edited by hand from holding the page up."
+    },
+    "mixStirredPpm": {
+      "value": 850000,
+      "rationale": "Of the heat a change has still to give or take, the share given or taken in one 15-second step while the cup is stirred, in parts per million: 85%. A stirred cup is then within one part in a thousand of its end after a minute. The laboratory manual page read for the primer has its mixtures steady from about half a minute to a minute or two after mixing. Chosen with the next three so that a careful run lands within the tolerance at every seed."
+    },
+    "mixStillPpm": {
+      "value": 150000,
+      "rationale": "The same share while the cup is not stirred: 15%, so that the change takes about five minutes to get most of the way. Slower than a real cup left alone is likely to be: it is made large enough that the heat lost to the room over that time puts an unstirred run outside the tolerance at every seed, as the titration lab makes each of its technique errors large enough to fail on its own. A real unstirred cup also reads unevenly, which the model leaves out."
+    },
+    "lossLidOnPpm": {
+      "value": 5000,
+      "rationale": "Of the difference between the cup's temperature and the room's, the share lost in one 15-second step with the lid on, in parts per million: 0.5%, which is 2% a minute. A cup 7 °C above the room then cools by about a tenth of a degree a minute, so the drift back shows on the logger within a few presses, and a careful run reads between 0.4% and 3.1% low."
+    },
+    "lossLidOffPpm": {
+      "value": 40000,
+      "rationale": "The same share with the lid off: 4%, eight times the share with it on. More than an open foam cup is likely to lose: it is made large enough that a run with the lid off is outside the tolerance at every seed."
+    },
+    "startRangeTenths": {
+      "value": [
+        200,
+        240
+      ],
+      "rationale": "The temperature the cup starts at, and the room with it, in tenths of a degree Celsius: 20.0 to 24.0 °C, a room. The solutions, the water and the cup have stood in the room, so before the change the logger draws a level line, and after it the cup drifts back towards the same temperature."
+    },
+    "saltRangeCg": {
+      "value": [
+        380,
+        420
+      ],
+      "rationale": "The mass of ammonium nitrate weighed out, in hundredths of a gram: 3.80 to 4.20 g, the specification's about 4 g, read on a balance that shows 0.01 g. About a twentieth of a mole, so the water cools by 5 to 6 °C."
+    },
+    "metalRangeCg": {
+      "value": [
+        4800,
+        5200
+      ],
+      "rationale": "The mass of the piece of metal, in hundredths of a gram: 48.00 to 52.00 g, the specification's about 50 g. In 50.0 g of water it gives a rise of about 4 °C for tin and about 14 °C for aluminium."
+    },
+    "bathRangeTenths": {
+      "value": [
+        990,
+        1000
+      ],
+      "rationale": "The temperature of the boiling water the piece is heated in, in tenths of a degree Celsius: 99.0 to 100.0 °C. The page read for water gives 99.97 °C for its boiling point at one atmosphere; a bath is seldom exactly there, so the bath is read each time and not taken to be 100."
+    },
+    "readingToleranceTenths": {
+      "value": 0,
+      "rationale": "A temperature typed must be the reading the logger shows, to the tenth of a degree: nothing either side of it is taken. A look at a reading says it to 0.1 °C, so nothing is estimated. Until 2026-10-10 a tenth either side was taken, and a run could then have every entry taken and still not count: a tenth of a degree at each end is 3% to 5% of a change of 4 to 6 °C, which is as much as the tolerance on the result."
+    },
+    "tolerancePercent": {
+      "value": 5,
+      "rationale": "A run counts when its result is within 5% of the stored figure, the edge included. A careful run is between 0.4% and 3.1% low, from the heat the cup loses before the peak and from the logger showing a temperature to 0.1 °C, which on the smallest rise, tin's 4 °C, is over 1% by itself. With the two temperatures the logger's own, as they must be, it stays within that whichever way the worksheet's rounding rule lets its entries be worked: at seeds 1 to 100 the least favourable chain of entries is 3.1% low, which a test holds. Each technique error alone puts a run 8% or more low. The tolerance sits between the two, and it is under half the gap between iron and zinc, the closest pair of the four metals, so a result within it is never nearer to the wrong metal."
+    }
+  }
+}

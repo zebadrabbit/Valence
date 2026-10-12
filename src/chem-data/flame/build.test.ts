@@ -196,7 +196,9 @@ describe('the sources the lab adds', () => {
     }
     const ids = [...own, ...added.filter((sheet) => cited.has(sheet.id))].map((s) => s.id)
     expect(new Set(ids).size).toBe(ids.length)
-    expect(allSources.slice(-ids.length).map((s) => s.id)).toEqual(ids)
+    // They stand together in the list of sources, in this order, wherever a later lab's come after them.
+    const from = allSources.findIndex((s) => s.id === ids[0])
+    expect(allSources.slice(from, from + ids.length).map((s) => s.id)).toEqual(ids)
   })
 
   it('refuses a shared source written differently in the two places', () => {
