@@ -153,6 +153,34 @@ describe('a run, card by card', () => {
     expect(card(part, PAGE_TEXT.outcome)).toContain(RECORD_TEXT.open)
   })
 
+  it('says under Run on that the notebook is open, from the press that turns the curve back until the first entry is made, in both modes and for either salt; and at no other time', () => {
+    const line = `<p role="status" class="max-w-prose font-medium">${BENCH_TEXT.turned}</p>`
+    const graphCard = (state: HotcoldState, part: SaltId) => card(bench(state, part).part, BENCH_TEXT.graph)
+    for (const mode of ['guided', 'challenge'] as const) {
+      for (const salt of SALT_IDS) {
+        // The salt in and the curve not yet turned: the line is there and empty, so that a screen reader says it when it comes.
+        const moving = run(m, fresh(mode), [{ type: 'putLidOn', part: salt }, { type: 'stir', part: salt }, { type: 'startLogger', part: salt }, { type: 'addSalt', part: salt }, { type: 'runOn', part: salt }])
+        expect(runView(m, moving, salt).graph.turned).toBe(false)
+        expect(graphCard(moving, salt)).toContain('<p role="status" class="max-w-prose font-medium"></p>')
+        expect(graphCard(moving, salt)).not.toContain(BENCH_TEXT.turned)
+        // Turned back, before a look and after the two looks: the notebook is open and nothing is entered.
+        expect(graphCard(worked(salt, mode), salt)).toContain(line)
+        expect(graphCard(looked(salt, mode), salt)).toContain(line)
+        // The line is under Run on and over the picture: nothing over the button changes as it is pressed.
+        const turned = graphCard(worked(salt, mode), salt)
+        expect(turned.indexOf(`>${BENCH_TEXT.runOn}<`)).toBeLessThan(turned.indexOf(line))
+        expect(turned.indexOf(line)).toBeLessThan(turned.indexOf('<svg'))
+        // Once an entry is made the cup is left as it is, and the line is empty again; so it is when the notebook is whole and when the run is checked.
+        for (const made of [1, 3, 6]) expect(graphCard(entered(salt, made, mode), salt), `${mode} ${salt} ${made}`).not.toContain(BENCH_TEXT.turned)
+      }
+    }
+    // The other salt's page says nothing of it, and a part read once the lab is complete does not.
+    expect(bench(worked(E), C).part).not.toContain(BENCH_TEXT.turned)
+    const complete = run(m, both(), [{ type: 'answer', question: 'warms', salt: C }, { type: 'answer', question: 'cools', salt: E }])
+    expect(complete.status).toBe('completed')
+    for (const salt of SALT_IDS) expect(bench(complete, salt).part).not.toContain(BENCH_TEXT.turned)
+  })
+
   it('asks the six entries one at a time once the curve has turned back, the three that are choices as choice boxes, and has a hint in Guided and none in Challenge', () => {
     const waiting = card(bench(looked(E)).part, BENCH_TEXT.notebook)
     for (const field of FIELDS) expect(waiting).toContain(escaped(FIELD_LABEL[field]))

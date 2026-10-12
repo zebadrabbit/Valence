@@ -118,9 +118,9 @@ describe('the notebook', () => {
     for (const field of FIELDS) if (isChoice(field)) expect(Object.keys(CHOICE_LABEL[field])).toEqual([...CHOICES[field]])
   })
 
-  it('says how each entry is made, with no example that a run can have, and has a hint for each that gives no figure and names no salt', () => {
+  it('says how each entry is made, with an example temperature that no run starts at, and has a hint for each that gives no figure and names no salt', () => {
     expect(FIELDS.map(formatHelp)).toEqual(['One decimal place, as the logger shows it: 18.6', 'One decimal place, as the logger shows it: 18.6', 'One decimal place: 3.5', 'Choose one.', 'Choose one.', 'Choose one.'])
-    // No run starts under 20.0 °C, and no run changes by 3.5 °C: Epsom salt's is under 3 and calcium chloride's over 11.
+    // No run starts under 20.0 °C, and no run changes by 3.5 °C: Epsom salt's is under 3 and calcium chloride's over 11. The example temperature can be the lowest reading of a run of Epsom salt, by chance: it is the same under both temperatures of either salt.
     expect(m.startRangeTenths[0]).toBeGreaterThan(186)
     for (const field of FIELDS) {
       expect(HINT_TEXT[field], field).not.toMatch(/\d|Epsom|calcium|chloride/i)

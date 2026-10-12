@@ -77,6 +77,11 @@ export const BENCH_TEXT = {
   explore: 'Point at a point of the graph, or tap it or move to it with the keyboard, to look at it.',
   hint: 'A hint for this entry',
   notes: 'Notes on this part',
+  /**
+   * Under Run on, from the press that turns the curve back until the first entry is made: the notebook opens under
+   * the graph, which may be out of the window, and focus stays on Run on. It says nothing of which way the curve went.
+   */
+  turned: 'The curve has turned back: the notebook is open, under the graph.',
   /** In the notebook and under Run on, where the logger is full and no notebook can open. */
   spent: 'The logger has taken all the readings it can hold, and the curve has not turned back, so the notebook cannot open. Run this part again.',
   done: 'Part done: one run of it counts.',
@@ -158,7 +163,7 @@ export const entryText = (value: number) => minus(formatTenths(value))
 /** An entry as it is read beside its label, in the notebook once it takes no typing and in the record: the number alone, or the choice in words. */
 export const enteredText = (field: Field, value: Value) => (typeof value === 'number' ? entryText(value) : isChoice(field) ? ((CHOICE_LABEL[field] as Record<string, string>)[value] ?? value) : value)
 
-/** How each kind of entry is made, under its field. No example is a figure any run can have. */
+/** How each kind of entry is made, under its field. No run starts at the example temperature or changes by the example change; the temperature can be the lowest reading of a run of Epsom salt, by chance, and it is the same under both temperatures of either salt. */
 export function formatHelp(field: Field): string {
   if (isChoice(field)) return 'Choose one.'
   return field === 'change' ? 'One decimal place: 3.5' : 'One decimal place, as the logger shows it: 18.6'

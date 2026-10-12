@@ -239,6 +239,9 @@ function Run({ data, m, sources, part, mode, view, reducedMotion, can, warn, act
   }
   const raised = asked === null ? [] : warn(asked)
   const salt = saltOf(data, part)
+  // The notebook is open and nothing is entered in it yet: its first entry's field is open, or waits only for a look at the graph.
+  const first = view.worksheet[0]!.blocked
+  const opened = graph.turned && !cup.notebookBegun && (first === null || first === 'not-looked')
 
   return (
     <>
@@ -299,7 +302,13 @@ function Run({ data, m, sources, part, mode, view, reducedMotion, can, warn, act
               {step({ type: 'runOn', part }, BENCH_TEXT.runOn, false, sayOfGraph, pressRunOn)}
               <p className="max-w-prose flex-1 basis-48 text-muted-foreground">{BENCH_TEXT.runOnHelp(m)}</p>
             </div>
-            <Line said={graphSaid} />
+            {/* Two lines in one box, which is nothing high while both are empty. The second is always there, and empty until the curve has turned back, so that a screen reader says it when it comes: the notebook opens under the graph, out of the window at most sizes, and focus stays on "Run on". Gone once the notebook is begun. */}
+            <div>
+              <Line said={graphSaid} />
+              <p role="status" className="max-w-prose font-medium">
+                {opened && BENCH_TEXT.turned}
+              </p>
+            </div>
           </div>
           {/* What to do with the picture, and the keys that move along it, as one paragraph: it is the picture's description. What a reading is, is not said here: a point says it when it is looked at. */}
           <p id={seenId} className="max-w-prose">

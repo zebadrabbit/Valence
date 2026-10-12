@@ -38,9 +38,9 @@ export const HOTCOLD_PRIMER: readonly PrimerSection[] = [
     paragraphs: [
       paragraph(
         { label: 'Where to start' },
-        'This primer has six cards. Read four of them before you go to the bench, in this order: Temperature and heat; Giving heat out and taking heat in; Reading the graph; Safety. The other two can wait until the bench sends you to them.',
+        "This primer has six cards. Read four of them before you go to the bench, in this order: Temperature and heat; Giving heat out and taking heat in; Reading the graph; Safety. The other two are for the notebook's fifth entry and for part 3.",
         [],
-        "which cards to read first, and in what order, is this lab's advice. Between them the four give what is measured, the two words the notebook asks for, how the logger's picture is read, and what a real bench of this lab holds.",
+        "which cards to read first, and in what order, is this lab's advice. Between them the four give what is measured, the two words the notebook asks for, how the logger's picture is read, and what a real bench of this lab holds. Of the other two, the card on where the heat goes is what the notebook's fifth entry asks, and the card on packs is part 3's; the bench itself sends a learner to neither.",
       ),
       paragraph(
         { label: 'Temperature', terms: ['temperature'] },
