@@ -1,6 +1,6 @@
 import type { AqueousData } from '@/chem-data/aqueous/data'
 import { choicesFor, expectedObservation, fieldsOf, isLook, stationResult, usesShowing, type Action, type Blocked, type Entry, type Field, type Form, type Look, type Mode, type Observation, type Problem, type State, type ToolUse } from '@/engine/aqueous'
-import type { At, Side } from './builder'
+import type { At, Side } from '@/app/lab/equationRow'
 import { tubeLook, type Progress } from './stationLook'
 
 // Every sentence the aqueous reactions lab says that is chemistry, keyed by the engine's identifiers, so that an

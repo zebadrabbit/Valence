@@ -1,9 +1,10 @@
-import type { Entry, State, Term } from '@/engine/aqueous'
+import type { Entry, State, Term } from '@/engine/equation'
 
-// An equation while it is built (spec 8.3): a row of places on each side of the arrow, each holding one term or
-// nothing yet, filled from the station's bank of species. What is checked is the engine's own entry, the terms in
-// their order with the empty places left out, so nothing is translated. No rule of chemistry is here: whether a
-// species belongs, on which side and in what state is the engine's check.
+// An equation while it is built (spec 8.3, 24.2): a row of places on each side of the arrow, each holding one term
+// or nothing yet, filled from a station's bank of species. The aqueous reactions lab's and the types of reactions
+// lab's, whose engines take the one shape of entry (src/engine/equation.ts). What is checked is the engine's own
+// entry, the terms in their order with the empty places left out, so nothing is translated. No rule of chemistry
+// is here: whether a species belongs, on which side and in what state is each engine's check.
 
 export type Side = 'reactants' | 'products'
 export const SIDES: readonly Side[] = ['reactants', 'products']
@@ -65,7 +66,7 @@ const withSlot = (row: Row, at: At, slot: Slot): Row => ({ ...row, [at.side]: ro
 
 /**
  * The row with a species put in a place, in place of whatever was there: one of it, written as dissolved, which is
- * how nearly everything in these tubes starts and is the learner's to change. A species that is on that side
+ * how nearly everything in a tube starts and is the learner's to change. A species that is on that side
  * already, in another place, is refused; one put where it already is changes nothing, and the very same row comes
  * back.
  */
