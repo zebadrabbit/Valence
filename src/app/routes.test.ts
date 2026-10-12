@@ -4,6 +4,7 @@ import { PeriodicTablePage } from '@/app/explore/elements/PeriodicTablePage'
 import { AqueousPage } from '@/app/lab/aqueous/AqueousPage'
 import { CalorimetryPage } from '@/app/lab/calorimetry/CalorimetryPage'
 import { FreezingPage } from '@/app/lab/freezing/FreezingPage'
+import { ReactionsPage } from '@/app/lab/reactions/ReactionsPage'
 import { CationsPage } from '@/app/lab/cations/CationsPage'
 import { AcetonePage } from '@/app/lab/acetone/AcetonePage'
 import { ClockPage } from '@/app/lab/clock/ClockPage'
@@ -104,6 +105,16 @@ describe('the routes', () => {
     const loaded = await (route.lazy as () => Promise<{ Component: unknown }>)()
     expect(loaded.Component).toBe(FreezingPage)
     expect(page('/lab/freezing-point-depression/2')).toMatchObject({ path: '*' })
+  })
+
+  it('load the types of reactions lab at #/lab/types-of-reactions, lazily', async () => {
+    const { path, route } = page('/lab/types-of-reactions')
+    expect(path).toBe('lab/types-of-reactions')
+    expect(typeof route.lazy).toBe('function')
+    expect(route.element).toBeUndefined()
+    const loaded = await (route.lazy as () => Promise<{ Component: unknown }>)()
+    expect(loaded.Component).toBe(ReactionsPage)
+    expect(page('/lab/types-of-reactions/2')).toMatchObject({ path: '*' })
   })
 
   it('load the Group I cations lab at #/lab/cations, lazily', async () => {

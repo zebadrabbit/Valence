@@ -118,6 +118,14 @@ export interface EquationBuilderProps {
   /** Enters it, and hands back what was found of it: right, not right, or (null) not judged, with the sentence that says so. Called only with one that can be entered. */
   onEnter(entry: Entry): Omit<Entered, 'entry'>
   text: BuilderText
+  /** What is to be built, in a sentence or two under the heading, while the equation is being built. */
+  intro?: string | undefined
+  /**
+   * The bank of tiles over the row of slots, and not under it. For a card too narrow for every equation a learner
+   * can build to stand in one row: the row then takes a second line as it is filled, and tiles under it, which are
+   * pressed one after another, would move under the hand.
+   */
+  bankFirst?: boolean | undefined
 }
 
 /** A target a finger finds: 44 px each way at the least. */
@@ -193,7 +201,7 @@ export function TermControls({ name, formula, term, states, text, onStep, onStat
  * wrong is shown as its one line, with "Change" beside it: one that is right, and one that its lab has taken and
  * not yet judged.
  */
-export function EquationBuilder({ heading, palette, formula, tileName, states, recorded, counts, held, refusal, onEnter, text }: EquationBuilderProps) {
+export function EquationBuilder({ heading, palette, formula, tileName, states, recorded, counts, held, refusal, onEnter, text, intro, bankFirst = false }: EquationBuilderProps) {
   const [draft, setDraft] = useState<Row>(recorded?.entry ?? EMPTY)
   const [changing, setChanging] = useState(false)
   // The slot last pressed, or the one the row moved on to when a tile went in: the active one while it is there.
@@ -349,6 +357,24 @@ export function EquationBuilder({ heading, palette, formula, tileName, states, r
   }
   const reason = held !== null || !editable ? null : refusal(entered(row))
   const building = editable && !row.noReaction
+  const bank = (
+    <div role="group" aria-label={text.palette} className="flex flex-wrap gap-1.5">
+      {palette.map((speciesId) => (
+        // Unavailable where no slot is active, and where the active slot's side holds it already; pressed, it says which.
+        <Control
+          key={speciesId}
+          unavailable={active === null || where(row, active.side, speciesId) !== null}
+          aria-label={tileName?.(speciesId)}
+          className={`cursor-grab touch-none px-3 text-base ${TAP}`}
+          {...pointer({ speciesId, from: null }, () => (active === null ? say(text.full, true) : put(active, speciesId)))}
+        >
+          <span>
+            <Formula text={formula(speciesId)} />
+          </span>
+        </Control>
+      ))}
+    </div>
+  )
 
   return (
     <form
@@ -388,6 +414,8 @@ export function EquationBuilder({ heading, palette, formula, tileName, states, r
       </div>
       {building ? (
         <>
+          {intro !== undefined && <p className="max-w-[75ch] text-muted-foreground">{intro}</p>}
+          {bankFirst && bank}
           {/* The row of slots is the equation's line while it is built: a sign stays with the slot after it where the row wraps. */}
           <div role="group" aria-labelledby={labelId} data-row="" className="flex flex-wrap items-center gap-x-1.5 gap-y-2">
             <span id={labelId} className={`font-medium ${ROLE.entry}`}>
@@ -458,22 +486,7 @@ export function EquationBuilder({ heading, palette, formula, tileName, states, r
               />
             )}
           </div>
-          <div role="group" aria-label={text.palette} className="flex flex-wrap gap-1.5">
-            {palette.map((speciesId) => (
-              // Unavailable where no slot is active, and where the active slot's side holds it already; pressed, it says which.
-              <Control
-                key={speciesId}
-                unavailable={active === null || where(row, active.side, speciesId) !== null}
-                aria-label={tileName?.(speciesId)}
-                className={`cursor-grab touch-none px-3 text-base ${TAP}`}
-                {...pointer({ speciesId, from: null }, () => (active === null ? say(text.full, true) : put(active, speciesId)))}
-              >
-                <span>
-                  <Formula text={formula(speciesId)} />
-                </span>
-              </Control>
-            ))}
-          </div>
+          {!bankFirst && bank}
           {drag !== null &&
             createPortal(
               // The tile under the pointer while it is dragged. In the document's body: the page is a container, and would place it by itself.

@@ -1,0 +1,112 @@
+/*
+ * Where the pieces of a station of the types of reactions lab sit. Loaded with the lab page, so none of it is in
+ * the app shell's stylesheet. Nothing here animates, and nothing on this lab's page moves. Every rule follows the
+ * width the station itself has, never the window's.
+ *
+ * A station with one vessel is one card of four pieces: its picture or pictures; what is done to the vessel, with
+ * how the picture is looked at and the picture in words; what is asked of it, which is what is seen and which
+ * kind; and, under those, the equation. In the narrowest card they are one column in that order. In a card with
+ * the room, what is done stands beside the picture. In a wide card the picture is on the left for the whole
+ * height, with what is done and what is asked on the right, so that the picture is beside whatever is being
+ * answered. The equation always has the card's whole width, so that its row of places and its tiles have room.
+ * The two pictures of a strip that has burned stand side by side and take the width between them, so what is done
+ * goes under them.
+ */
+.reactions-station {
+  container: reactions-station / inline-size;
+}
+.reactions-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+.reactions-asked {
+  border-top: 1px solid var(--border);
+}
+@container reactions-station (min-width: 29rem) {
+  .reactions-top:not([data-scenes='2']) {
+    grid-template-columns: max-content minmax(0, 1fr);
+  }
+  .reactions-top:not([data-scenes='2']) > .reactions-asked {
+    grid-column: 1 / -1;
+  }
+}
+@container reactions-station (min-width: 44rem) {
+  .reactions-top:not([data-scenes='2']) > .reactions-pictures {
+    grid-row: 1 / span 2;
+  }
+  .reactions-top:not([data-scenes='2']) > .reactions-asked {
+    grid-column: 2;
+    border-left: 1px solid var(--border);
+  }
+  .reactions-top:not([data-scenes='2']) > .reactions-side {
+    border-left: 1px solid var(--border);
+  }
+  .reactions-top[data-scenes='2'] {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .reactions-top[data-scenes='2'] > .reactions-pictures {
+    grid-column: 1 / -1;
+  }
+  .reactions-top[data-scenes='2'] > .reactions-side {
+    border-top: 1px solid var(--border);
+  }
+  .reactions-top[data-scenes='2'] > .reactions-asked {
+    border-left: 1px solid var(--border);
+  }
+}
+
+/*
+ * The three tubes of the station that compares them stand in one row at every width the bench has, each with its
+ * name over it and what is seen of it under it, so that the three are looked at together. A button of a form in
+ * so narrow a column takes two lines where its words need them.
+ */
+.reactions-tubes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--border);
+}
+.reactions-tubes > * + * {
+  border-left: 1px solid var(--border);
+}
+.reactions-tubes section {
+  padding-inline: 0.5rem;
+}
+.reactions-tubes form button {
+  height: auto;
+  white-space: normal;
+  text-align: left;
+}
+
+/* What that station asks one at a time, to choose between: all four in one row at every width the bench has. */
+.reactions-chooser {
+  display: grid;
+  gap: 0.375rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/*
+ * The builder of an equation is its sheet here, and not a card inside one. The words before its row of places
+ * have a line of their own, so that the row has the sheet's whole width.
+ */
+.reactions-equation form {
+  border: 0;
+  padding: 0;
+}
+.reactions-equation [data-row] > span:first-child {
+  flex-basis: 100%;
+}
+
+/*
+ * A choice of this lab's forms is drawn with a little less room either side of its words than the shell gives one,
+ * so that the choices of a field stand in as few rows as they can. It is as tall as before.
+ */
+.reactions-station form label {
+  padding-inline: 0.5rem;
+}
+/* A form's message line, while it has nothing to say, takes no room, the gap over it neither. It stays in the page, so that a screen reader says what comes to stand in it. A form whose answers are lines does the same by itself. */
+.reactions-station form.gap-3 > p:empty {
+  margin-top: -0.75rem;
+}
+.reactions-station form.gap-2 > p:empty {
+  margin-top: -0.5rem;
+}

@@ -68,8 +68,17 @@ const LIQUID_HEX: Record<string, string> = {
   // white: it is told from one with no colour by the wisps a cloudy liquid is drawn with, and by the word.
   'pale yellow': '#fbf3bd',
   white: '#ffffff',
+  // The types of reactions lab's solution once a piece of metal has stood in it: the blue above with white let into
+  // it, still plainly a blue and plainly lighter than it, and far from the grey a liquid with no colour is drawn in.
+  // The green is a choice of that lab's that no tube of it shows.
+  'paler blue': '#8ea5ec',
+  green: '#3f9b4b',
 }
-const SOLID_HEX: Record<string, string> = { white: '#ffffff', yellow: '#f7e65a', 'grey to black': '#5b6068' }
+const SOLID_HEX: Record<string, string> = { white: '#ffffff', yellow: '#f7e65a', 'grey to black': '#5b6068', blue: '#3b62c4', black: '#27272a' }
+// A piece of metal, and a coating on one, by the word the types of reactions lab's record stores for how it looks.
+// The three metals differ in how light they are as well as in hue, and each is named beside its picture.
+const METAL_HEX: Record<string, string> = { silvery: '#dde1e7', grey: '#868c96', reddish: '#b86a45' }
+const COATING_HEX: Record<string, string> = { 'red-brown': '#8a3b22', black: '#27272a', white: '#ffffff' }
 /** A colour the drawing has no value for: drawn grey, and named in words all the same. */
 const UNKNOWN_HEX = '#9ca3af'
 /** The grain over a solid too dark for the ink to show on: drawn light. */
@@ -77,6 +86,8 @@ const LIGHT_GRAIN: Record<string, string> = { 'grey to black': '#ffffff' }
 
 export const liquidHex = (colour: string) => LIQUID_HEX[colour] ?? UNKNOWN_HEX
 export const solidHex = (colour: string) => SOLID_HEX[colour] ?? UNKNOWN_HEX
+export const metalHex = (colour: string) => METAL_HEX[colour] ?? UNKNOWN_HEX
+export const coatingHex = (colour: string) => COATING_HEX[colour] ?? UNKNOWN_HEX
 
 /**
  * Where the surface of a liquid is drawn, in a tube whose bench fills one to `full` at the most. More liquid stands

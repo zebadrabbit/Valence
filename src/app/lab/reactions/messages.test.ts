@@ -7,6 +7,7 @@ import {
   ACTION_DONE,
   ACTION_LABEL,
   BENCH_TEXT,
+  BUILDER_TEXT,
   EQUATION_TEXT,
   FIELD_LABEL,
   HINT,
@@ -36,6 +37,7 @@ import {
   choiceList,
   equationText,
   fieldLabel,
+  kindChoiceLabel,
   kindChoices,
   lookLabel,
   lookPart,
@@ -349,11 +351,72 @@ describe('the notes and the modes', () => {
   })
 })
 
+/** Everything the builder of an equation says of a row, for a tile that stands for any: the words name a place and a tile, and never which belongs where. */
+const first = { side: 'reactants', index: 0 } as const
+const second = { side: 'products', index: 1 } as const
+const builderSaid = [
+  BUILDER_TEXT.remove('X'),
+  BUILDER_TEXT.alreadyOnSide('X', 'reactants'),
+  BUILDER_TEXT.alreadyOnSide('X', 'products'),
+  BUILDER_TEXT.slotLabel(first, 2, null, true),
+  BUILDER_TEXT.slotLabel(second, null, { formula: 'X', coefficient: 2, state: 's' }, false),
+  BUILDER_TEXT.slot.placed('X', first),
+  BUILDER_TEXT.slot.replaced('X', second, 'Y'),
+  BUILDER_TEXT.slot.exchanged('X', first, 'Y', second),
+  BUILDER_TEXT.slot.takenOut('X', 'products'),
+  BUILDER_TEXT.slot.coefficient('X', 2),
+  BUILDER_TEXT.slot.state('X', 'g'),
+  BUILDER_TEXT.slot.term('X', second),
+  BUILDER_TEXT.slot.active(first),
+]
+
+describe("the builder's words, and the page's own that were added with its screens", () => {
+  it('name a place of the row by its number and its side of the arrow, a tile by its formula, and say every change that is made to the row', () => {
+    expect(builderSaid).toEqual([
+      'Take X out',
+      'X is before the arrow already.',
+      'X is after the arrow already.',
+      'Place 1 of 2 before the arrow, empty, chosen',
+      'Place 2 after the arrow: 2 X, solid',
+      'X is now in place 1 before the arrow.',
+      'X is now in place 2 after the arrow, in place of Y.',
+      'X is now in place 1 before the arrow, and Y in place 2 after the arrow.',
+      'X is taken out from after the arrow.',
+      'X: 2 in front.',
+      'X: state (g), gas.',
+      'Place 2 after the arrow: X',
+      'Place 1 before the arrow is chosen.',
+    ])
+    expect(BUILDER_TEXT.noReaction).toBeNull()
+    expect(BUILDER_TEXT.check).toBe(EQUATION_TEXT.record)
+    expect(BUILDER_TEXT.stateName).toBe(STATE_LABEL)
+    // How the row is filled, by taps alone: nothing here speaks of dragging, which the builder also takes.
+    expect(`${BUILDER_TEXT.slotHelp} ${BUILDER_TEXT.full}`).not.toMatch(/drag/i)
+  })
+
+  it('word each of the five kinds for its box with what it means and its pattern, the same at every vessel', () => {
+    expect(kindChoices(data).map(kindChoiceLabel)).toEqual([
+      'Combination: two things join into one (A + B → AB)',
+      'Decomposition: one thing comes apart (AB → A + B)',
+      'Single replacement: an element takes the place of another in a compound (A + BC → AC + B)',
+      'Double replacement: two compounds trade partners (AB + CD → AD + CB)',
+      'No reaction: nothing changed',
+    ])
+  })
+
+  it('say what to do with a picture and nothing of what it shows, name a picture, and say why two answers for the order cannot be recorded', () => {
+    expect(PAGE_TEXT.explore).toBe('Hover over or tap each part of a picture to look at it.')
+    expect([PAGE_TEXT.picture('The tube'), PAGE_TEXT.whileBurning, PAGE_TEXT.afterwards, PAGE_TEXT.inWords, PAGE_TEXT.oneAtATime]).toEqual(['The tube, drawn', 'While it burns', 'Afterwards', 'The picture in words', 'One at a time'])
+    expect(ORDER_TEXT.sameMetal).toBe('The most active and the least active cannot be the same metal.')
+    expect([PAGE_TEXT.previous('A'), PAGE_TEXT.next('B'), KIND_TEXT.record]).toEqual(['Previous: A', 'Next: B', 'Record the kind'])
+  })
+})
+
 describe('every sentence of the page', () => {
   /** Every fixed string and every sentence a function gives for the cases above, as one list. */
   function sentences(): string[] {
     const flat = (value: unknown): string[] => (typeof value === 'string' ? [value] : value && typeof value === 'object' ? Object.values(value).flatMap(flat) : [])
-    const fixed = [LAB_TEXT, STATION_TASK, ACTION_LABEL, ACTION_DONE, BENCH_TEXT, FIELD_LABEL, OBSERVATION_TEXT, KIND_LABEL, KIND_MEANS, KIND_TEXT, STATE_LABEL, EQUATION_TEXT, PROBLEM_TEXT, ORDER_TEXT, HINT, HINT_LABEL, MODE_TEXT, PROGRESS_TEXT, NOTES_TEXT, PAGE_TEXT, RECORD_TEXT, SOURCES_TEXT, WARM_TEXT, METAL_NAME].flatMap(flat)
+    const fixed = [LAB_TEXT, STATION_TASK, ACTION_LABEL, ACTION_DONE, BENCH_TEXT, FIELD_LABEL, OBSERVATION_TEXT, KIND_LABEL, KIND_MEANS, KIND_TEXT, STATE_LABEL, EQUATION_TEXT, BUILDER_TEXT, PROBLEM_TEXT, ORDER_TEXT, HINT, HINT_LABEL, MODE_TEXT, PROGRESS_TEXT, NOTES_TEXT, PAGE_TEXT, RECORD_TEXT, SOURCES_TEXT, WARM_TEXT, METAL_NAME].flatMap(flat)
     const made = [
       ...STATION_IDS.flatMap((id) => [stationName(data, id), stationLetter(data, id), ...benchLines(data, id), ...data.stations.find((s) => s.id === id)!.vessels.map((v) => vesselName(data, id, v.id))]),
       ...pictures.map((p) => vesselText(p.shows)),
@@ -373,6 +436,11 @@ describe('every sentence of the page', () => {
       orderText(['magnesium', 'zinc', 'copper']),
       catalystText({ speciesId: 'x', formula: 'X', name: 'a thing' }),
       RECORD_TEXT.run(0),
+      ...kindChoices(data).map(kindChoiceLabel),
+      PAGE_TEXT.picture('The tube'),
+      PAGE_TEXT.previous(stationName(data, 'zinc-copper-sulfate')),
+      PAGE_TEXT.next(stationName(data, 'two-solutions')),
+      ...builderSaid,
     ]
     return [...new Set([...fixed, ...made])]
   }

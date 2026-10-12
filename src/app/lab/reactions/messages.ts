@@ -1,4 +1,6 @@
 import { KIND_ANSWERS, STATION_IDS, stationOf, type Field, type KindAnswer, type Look, type MetalId, type ReactionsData, type StationId } from '@/chem-data/reactions/data'
+import type { BuilderText } from '@/app/lab/EquationBuilder'
+import type { At, Side } from '@/app/lab/equationRow'
 import type { Blocked, Built, Mode, Observation, Problem, Reason, RunOutcome, State, StationView, Tile, VesselShows } from '@/engine/reactions'
 
 // Every sentence the types of reactions lab says, keyed by the engine's identifiers, so that an identifier with no
@@ -209,9 +211,13 @@ export const KIND_MEANS: Record<KindAnswer, string> = {
 export const kindChoices = (data: ReactionsData): { value: KindAnswer; label: string; means: string; pattern: string | null }[] =>
   KIND_ANSWERS.map((value) => ({ value, label: KIND_LABEL[value], means: KIND_MEANS[value], pattern: data.kinds.find((kind) => kind.id === value)?.pattern ?? null }))
 
+/** An answer as its box words it: its name, what it means and, for the four kinds, the pattern. */
+export const kindChoiceLabel = ({ label, means, pattern }: { label: string; means: string; pattern: string | null }): string => `${label}: ${means}${pattern === null ? '' : ` (${pattern})`}`
+
 export const KIND_TEXT = {
   heading: 'Which kind',
   question: 'Which kind of reaction did you see?',
+  record: 'Record the kind',
   observeFirst: 'Record what is seen first.',
   right: 'That is the kind.',
   wrong: 'That is not the kind.',
@@ -260,6 +266,47 @@ export const PROBLEM_TEXT: Record<Problem, string> = {
   'not-balanced': 'The atoms do not balance yet: count each element on both sides.',
 }
 
+const upper = (text: string) => `${text[0]!.toUpperCase()}${text.slice(1)}`
+const sideName = (side: Side) => (side === 'reactants' ? 'before the arrow' : 'after the arrow')
+/** A place of an equation's row as a sentence speaks of it: "place 2 before the arrow", or "place 2 of 2 before the arrow" where the row has a count of places. */
+const placeName = ({ side, index }: At, of: number | null = null) => `place ${index + 1}${of === null ? '' : ` of ${of}`} ${sideName(side)}`
+
+/**
+ * Every word the builder of an equation says here (src/app/lab/EquationBuilder.tsx): the row's places are named by
+ * the side of the arrow they are on, as the line over the builder speaks of them. None says which tile belongs
+ * where. There is no choice of "No reaction" in the builder: that is said as the kind.
+ */
+export const BUILDER_TEXT: BuilderText = {
+  yourEquation: 'Your equation',
+  palette: EQUATION_TEXT.tiles,
+  slotHelp: 'A tile you tap goes into the place with the thick outline. Tap a place to choose it.',
+  full: 'Every place is full. To change one, tap it and then a tile.',
+  coefficient: 'Number in front',
+  fewer: 'One fewer',
+  more: 'One more',
+  state: 'State',
+  remove: (formula) => `Take ${formula} out`,
+  coefficientLimit: 'The number in front is a whole number from 1 to 9.',
+  check: EQUATION_TEXT.record,
+  change: 'Change',
+  cancel: 'Cancel',
+  noReaction: null,
+  stateName: STATE_LABEL,
+  alreadyOnSide: (formula, side) => `${formula} is ${sideName(side)} already.`,
+  slotLabel: (at, of, term, active) => `${upper(placeName(at, of))}${term === null ? ', empty' : `: ${term.coefficient === 1 ? '' : `${term.coefficient} `}${term.formula}, ${STATE_LABEL[term.state]}`}${active ? ', chosen' : ''}`,
+  slot: {
+    placed: (formula, at) => `${formula} is now in ${placeName(at)}.`,
+    replaced: (formula, at, was) => `${formula} is now in ${placeName(at)}, in place of ${was}.`,
+    exchanged: (formula, at, other, otherAt) => `${formula} is now in ${placeName(at)}, and ${other} in ${placeName(otherAt)}.`,
+    takenOut: (formula, side) => `${formula} is taken out from ${sideName(side)}.`,
+    coefficient: (formula, coefficient) => `${formula}: ${coefficient} in front.`,
+    state: (formula, state) => `${formula}: state (${state}), ${STATE_LABEL[state]}.`,
+    term: (formula, at) => `${upper(placeName(at))}: ${formula}`,
+    active: (at) => `${upper(placeName(at))} is chosen.`,
+    noneActive: 'No place is chosen: every place is full.',
+  },
+}
+
 /** A catalyst, shown over the arrow of a finished equation once its station counts. */
 export const catalystText = (tile: Tile): string => `Over the arrow: ${tile.formula}, ${tile.name}. It sped the reaction and was not used up, so it is on neither side.`
 
@@ -272,6 +319,8 @@ export const ORDER_TEXT = {
   mostActive: 'Most active',
   leastActive: 'Least active',
   observeFirst: 'Record what is seen in all three tubes first.',
+  /** Where the two answers name one metal. */
+  sameMetal: 'The most active and the least active cannot be the same metal.',
   record: 'Record the order',
   right: 'That is the order.',
   wrong: 'That is not the order.',
@@ -399,6 +448,23 @@ export const PAGE_TEXT = {
   felt: 'felt',
   /** Under a look's button until it is pressed. */
   notLooked: 'Not looked at yet.',
+  /** In the list of a picture's parts, after a part's name. */
+  notLookedAt: 'not looked at yet',
+  /** In a picture, under its drawing, while no part is looked at: what to do with it. It is the picture's description, and says nothing of what is seen. */
+  explore: 'Hover over or tap each part of a picture to look at it.',
+  /** Over the choice of what is asked now, where a station has several tubes: each tube's kind and equation, and the order. */
+  oneAtATime: 'One at a time',
+  /** A closed disclosure that holds the whole of what the pictures show, in words. */
+  inWords: 'The picture in words',
+  /** A picture's name: "The tube, drawn". */
+  picture: (name: string) => `${name}, drawn`,
+  /** Under each of the two pictures of a strip that has burned. */
+  whileBurning: 'While it burns',
+  afterwards: 'Afterwards',
+  change: 'Change',
+  cancel: 'Cancel',
+  previous: (title: string) => `Previous: ${title}`,
+  next: (title: string) => `Next: ${title}`,
   check: 'Check the station',
   workAgain: 'Work the station again',
   /** Asked before a station that counts, or holds entries, is set up again. */

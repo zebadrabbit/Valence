@@ -61,7 +61,10 @@ describe('the types of reactions lab', () => {
     )
   })
 
-  it('has a stored entry of its own, which no activity yet lists: the lab has no page', () => {
-    expect(ACTIVITIES.some((activity) => (activity.entry as string) === REACTIONS_PROGRESS.entry)).toBe(false)
+  it('has a stored entry of its own, which is the one its row among the activities loads and saves with, at its own address', () => {
+    expect({ entry: ACTIVITIES[11].entry, version: ACTIVITIES[11].version }).toEqual(REACTIONS_PROGRESS)
+    expect(ACTIVITIES[11].to).toBe('/lab/types-of-reactions')
+    expect(ACTIVITIES[11].title).toBe('Types of reactions')
+    expect(new Set(ACTIVITIES.map((activity) => activity.entry as string)).size).toBe(ACTIVITIES.length)
   })
 })
