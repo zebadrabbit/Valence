@@ -265,9 +265,9 @@
         ]
       },
       "note": {
-        "value": "One layer. Vinegar is mostly water, and the alcohol in rubbing alcohol mixes with water.",
+        "value": "One layer. Vinegar is mostly water, and rubbing alcohol already has water mixed into it.",
         "sourceId": "flinn-sds-844",
-        "alsoSourceId": "wikipedia-isopropyl-alcohol"
+        "alsoSourceId": "flinn-sds-420.5"
       }
     },
     {
@@ -318,7 +318,7 @@
         "alsoSourceId": "flinn-sds-844"
       },
       "note": {
-        "value": "Two layers with no colour in either. Neither water nor an acid dissolves mineral oil, and vinegar is an acid in water.",
+        "value": "Two layers with no colour in either. Vinegar is an acid in water, and it does not dissolve mineral oil.",
         "sourceId": "flinn-sds-529"
       }
     },
@@ -404,7 +404,7 @@
         "alsoSourceId": "noaa-cameo-12191"
       },
       "note": {
-        "value": "The salt sits at the bottom, as it did in the other oil. A liquid of carbon and hydrogen alone has nothing to pull charged particles apart with.",
+        "value": "The salt sits at the bottom. A liquid of carbon and hydrogen alone has nothing to pull charged particles apart with.",
         "sourceId": "wikipedia-solvent",
         "alsoSourceId": "noaa-cameo-12191"
       }
@@ -470,9 +470,12 @@
         "alsoSourceId": "noaa-cameo-12191"
       },
       "note": {
-        "value": "The sugar sits at the bottom, as it did in the other oil.",
+        "value": "The sugar sits at the bottom. Mineral oil is carbon and hydrogen alone: it has no O–H groups for the sugar’s own to hold on to.",
         "sourceId": "wikipedia-solvent",
-        "alsoSourceId": "noaa-cameo-12191"
+        "alsoSourceId": "noaa-cameo-12191",
+        "moreSourceIds": [
+          "ck12-dissolving-process"
+        ]
       }
     }
   ],

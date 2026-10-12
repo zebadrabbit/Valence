@@ -40,7 +40,8 @@
         {
           "fields": [
             "pairs[water+rubbing-alcohol].mix",
-            "pairs[water+rubbing-alcohol].note"
+            "pairs[water+rubbing-alcohol].note",
+            "pairs[rubbing-alcohol+vinegar].note"
           ],
           "prints": "Soluble: Water, alcohol, and ether",
           "where": "Section 9, the physical and chemical properties: the second line. Section 3 lists water as a component, from a tenth to six tenths of the solution: the note says that the bottle is already part water."
@@ -319,7 +320,6 @@
             "pairs[water+rubbing-alcohol].mix",
             "pairs[water+rubbing-alcohol].note",
             "pairs[rubbing-alcohol+vinegar].mix",
-            "pairs[rubbing-alcohol+vinegar].note",
             "parts[rule].notes[1]",
             "primer"
           ],
@@ -365,6 +365,7 @@
             "solidInLiquid[sugar-in-water].dissolves",
             "solidInLiquid[sugar-in-water].note",
             "solidInLiquid[sugar-in-vegetable-oil].note",
+            "solidInLiquid[sugar-in-mineral-oil].note",
             "primer"
           ],
           "prints": "Table sugar is sucrose",

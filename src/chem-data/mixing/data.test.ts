@@ -157,6 +157,14 @@ describe('mixingData', () => {
     for (const tube of solidInLiquid) expect(tube.note.value, tube.id).toMatch(tube.dissolves.value ? /^(Dissolved|The \w+ is gone from sight)/ : /^The (salt|sugar) sits at the bottom/)
   })
 
+  it('speaks in each note of its own tube only: none says what another tube did, which may not have been tried or recorded yet (spec 25.5)', () => {
+    for (const item of [...pairs, ...solidInLiquid]) expect(item.note.value, item.id).not.toMatch(/as it did|the other oil|the other tube|again|too\b/i)
+    // A note names no liquid or solid that is not in its tube, but water, which two of the bottles hold.
+    const NAMES: Record<string, RegExp> = { 'rubbing-alcohol': /alcohol/i, vinegar: /vinegar/i, 'vegetable-oil': /vegetable|the oil\b/i, 'mineral-oil': /mineral/i, salt: /\bsalt/i, sugar: /sugar/i }
+    for (const pair of pairs) for (const [id, name] of Object.entries(NAMES)) if (!pair.id.includes(id) && !['vegetable-oil'].includes(id)) expect(pair.note.value, `${pair.id}: ${id}`).not.toMatch(name)
+    for (const tube of solidInLiquid) for (const [id, name] of Object.entries(NAMES)) if (!tube.id.includes(id) && id !== 'vegetable-oil') expect(tube.note.value, `${tube.id}: ${id}`).not.toMatch(name)
+  })
+
   it('keeps the counts that finish parts 1 and 2 within what the bench has', () => {
     expect([parameters.neededPairs.value, parameters.neededSolids.value]).toEqual([6, 6])
     expect(parameters.lessMicrolitres.value).toBeLessThan(parameters.moreMicrolitres.value)
