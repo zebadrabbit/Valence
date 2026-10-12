@@ -97,6 +97,14 @@ describe('the reactions primer: how its text is drawn', () => {
   it('gives the four patterns in letters as the record stores them', () => {
     for (const kind of reactionsData.kinds) expect(shown('kinds'), kind.id).toContain(kind.pattern)
   })
+
+  it('names the chemical that softens hard water by a double replacement, as its source does, and not "a water softener", which is read as the kind that leaves no solid', () => {
+    // The source has sodium phosphate bringing the calcium of hard water down as a solid, in some softeners that are sold. A softener that swaps ions on a resin leaves no solid, and is not what the source speaks of.
+    expect(shown('kinds')).toContain('Sodium phosphate softens hard water that way: it trades partners with the calcium compound dissolved in the water, and the calcium comes out as a solid.')
+    expect(all).not.toMatch(/a water softener/i)
+    const [, softening] = paragraphs.find(([where]) => where === 'kinds[1]')!
+    expect(softening.support).toMatch(/sodium phosphate .* solid calcium phosphate/)
+  })
 })
 
 describe('the reactions primer: what it keeps back', () => {

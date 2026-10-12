@@ -77,11 +77,11 @@ export const REACTIONS_PRIMER: readonly PrimerSection[] = [
       ),
       paragraph(
         { label: 'Changing places', terms: ['single replacement', 'double replacement'] },
-        'In a single replacement an element takes the place of another in a compound: A + BC → AC + B. In a double replacement two compounds trade partners: AB + CD → AD + CB. A water softener works that way: it trades partners with the calcium in hard water, and the calcium comes out as a solid.',
+        'In a single replacement an element takes the place of another in a compound: A + BC → AC + B. In a double replacement two compounds trade partners: AB + CD → AD + CB. Sodium phosphate softens hard water that way: it trades partners with the calcium compound dissolved in the water, and the calcium comes out as a solid.',
         [
           [SINGLE, 'under the heading Single-Replacement Reactions', 'this is the pattern in letters of a single replacement, in which one element takes the place of a like one in a compound.'],
           [DOUBLE, 'under the heading Double-Replacement Reactions', 'this is the pattern in letters of a double replacement, in which the ions of two compounds change places.'],
-          [MANUAL, TYPES, 'a double replacement that takes the calcium out of hard water as a solid is used in some water softeners.'],
+          [MANUAL, TYPES, 'sodium phosphate trades ions with the calcium of hard water and brings it down as solid calcium phosphate, and some softeners that are sold work by that reaction.'],
         ],
         'no everyday case of a single replacement was found in a source that was read, and none is given.',
       ),
