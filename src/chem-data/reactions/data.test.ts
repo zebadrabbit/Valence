@@ -158,13 +158,27 @@ describe('reactionsCitations', () => {
     expect(ids('peroxide')).toContain('flinn-sds-398.5')
   })
 
-  it('keeps back, until the station is done, what would say only the answers: every source it then leaves out is one of a kind, an equation, the order or a note', () => {
+  it('keeps back, until the station is done, every source of an answer: what is seen afterwards, the formulas on the tiles, a kind, an equation, the catalyst, the order and the notes', () => {
     for (const station of STATION_IDS) {
       const before = ids(station, false)
       const after = ids(station)
       expect(after, station).toEqual(expect.arrayContaining(before))
+      expect(after.length, station).toBeGreaterThan(before.length)
       const labels = reactionsCitations(reactionsData, station, sources, false).flatMap((c) => c.covers)
-      expect(labels.filter((label) => /kind of reaction$|^The equation|order|Notes|catalyst/.test(label)), station).toEqual([])
+      expect(labels.filter((label) => /kind of reaction$|^The equation|order|Notes|catalyst|afterwards|tiles/.test(label)), station).toEqual([])
+    }
+  })
+
+  it('lists before a station is done only what is alike at every station or is on its bench, so that the name of no page says which reaction it is', () => {
+    // The four pages on the kinds stand at every station with one label, and no other page of a list is about a reaction.
+    const kinds = reactionsData.kinds.map((kind) => kind.sourceId)
+    for (const station of STATION_IDS) {
+      const listed = reactionsCitations(reactionsData, station, sources, false)
+      expect(listed.filter((c) => kinds.includes(c.source.id)).map((c) => c.covers), station).toEqual(kinds.map(() => ['The four kinds of reaction and their patterns']))
+      for (const { source, covers } of listed.filter((c) => !kinds.includes(c.source.id))) {
+        expect(covers.every((label) => /: the substance$|: hazard classification$|: hazards as it is used here$|^What the (liquid|metal) looks like/.test(label)), `${station}: ${covers.join(', ')}`).toBe(true)
+        expect(source.citation, station).not.toMatch(/Combination|Decomposition|Replacement|Displacement|Catalys|Reactivity Series|Air or Oxygen/i)
+      }
     }
     expect(() => reactionsCitations(reactionsData, 'nothing' as never, sources)).toThrow(/no station "nothing"/)
   })

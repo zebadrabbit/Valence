@@ -150,6 +150,8 @@ describe('the description in words of every picture (spec 24.5, last item)', () 
     expect(LOOKS.map((look) => lookLabel('tube', look, false))).toEqual(['Look at the metal', 'Look at the liquid', 'Look for any solid', 'Glance at the strip in the flame', 'Feel the tube'])
     expect([lookLabel('flame', 'solid', false), lookLabel('flame', 'solid', true), lookLabel('tube', 'touch', true)]).toEqual(['Look at what is left', 'Look at what is left, looked at', 'Feel the tube, felt'])
     expect(lookPart('tube', 'metal')).toBe('the metal')
+    // A strip that has not been held in the flame is not said to be in it, nor to be glanced at.
+    expect([lookLabel('flame', 'flame', false, false), lookLabel('flame', 'flame', true, false), lookPart('flame', 'flame', false), lookPart('flame', 'flame'), lookLabel('flame', 'solid', false, false)]).toEqual(['Look at the strip', 'Look at the strip, looked at', 'the strip', 'the strip in the flame', 'Look at the tongs'])
     // The words of a look are the record's, handed over by the view once the part has been looked at; none says what a thing is.
     for (const station of data.stations) for (const vessel of station.vessels) for (const look of vessel.looks) for (const said of [look.before, look.after]) expect(said, `${station.id} ${vessel.id}`).not.toMatch(WHAT_IT_IS)
   })
@@ -430,7 +432,7 @@ describe('every sentence of the page', () => {
     const made = [
       ...STATION_IDS.flatMap((id) => [stationName(data, id), stationLetter(data, id), ...benchLines(data, id), ...data.stations.find((s) => s.id === id)!.vessels.map((v) => vesselName(data, id, v.id))]),
       ...pictures.map((p) => vesselText(p.shows)),
-      ...(['tube', 'flame'] as const).flatMap((drawn) => LOOKS.flatMap((look) => [lookLabel(drawn, look, false), lookLabel(drawn, look, true)])),
+      ...(['tube', 'flame'] as const).flatMap((drawn) => LOOKS.flatMap((look) => [lookLabel(drawn, look, false), lookLabel(drawn, look, true), lookLabel(drawn, look, false, false)])),
       ...FIELDS.flatMap((field) => [fieldLabel('tube', field), fieldLabel('flame', field), ...data.choices[field].map((choice) => choiceLabel(field, choice)), mismatchText([field]), checkedText([field])]),
       mismatchText(['coating', 'liquid']),
       checkedText([]),

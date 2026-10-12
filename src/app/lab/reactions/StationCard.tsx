@@ -238,7 +238,7 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
             <span aria-hidden="true" className={looked ? ROLE.done : undefined}>
               {looked ? '✓' : '○'}{' '}
             </span>
-            {lookPart(drawnOf(vessel), at)}: {looked ? (at === 'touch' ? PAGE_TEXT.felt : PAGE_TEXT.lookedAt) : PAGE_TEXT.notLookedAt}
+            {lookPart(drawnOf(vessel), at, vessel.shows.light !== null)}: {looked ? (at === 'touch' ? PAGE_TEXT.felt : PAGE_TEXT.lookedAt) : PAGE_TEXT.notLookedAt}
           </li>
         ))}
       </ul>

@@ -93,25 +93,25 @@ export function vesselShort(data: ReactionsData, stationId: StationId, vesselId:
 // ---------------------------------------------------------------------------
 // Looking, and the description in words of every picture
 
-/** The part of a vessel a look is at, as its button names it. A solid is looked for in a tube; where a strip burned it is what is left. */
-export function lookPart(drawn: VesselShows['drawn'], look: Look): string {
+/** The part of a vessel a look is at, as its button names it. A solid is looked for in a tube; where a strip burned it is what is left. `lit` is whether the strip has been held in the flame: until it has, the two parts are the strip, beside the burner, and the tongs that hold it. */
+export function lookPart(drawn: VesselShows['drawn'], look: Look, lit = true): string {
   switch (look) {
     case 'metal':
       return 'the metal'
     case 'liquid':
       return 'the liquid'
     case 'solid':
-      return drawn === 'flame' ? 'what is left' : 'any solid'
+      return drawn !== 'flame' ? 'any solid' : lit ? 'what is left' : 'the tongs'
     case 'flame':
-      return 'the strip in the flame'
+      return lit ? 'the strip in the flame' : 'the strip'
     case 'touch':
       return 'the tube'
   }
 }
-/** "Look at the metal", "Look for any solid", "Glance at the strip in the flame", "Feel the tube"; with ", looked at" once it has been. */
-export function lookLabel(drawn: VesselShows['drawn'], look: Look, looked: boolean): string {
-  const verb = look === 'touch' ? 'Feel' : look === 'flame' ? 'Glance at' : look === 'solid' && drawn === 'tube' ? 'Look for' : 'Look at'
-  return `${verb} ${lookPart(drawn, look)}${looked ? `, ${look === 'touch' ? PAGE_TEXT.felt : PAGE_TEXT.lookedAt}` : ''}`
+/** "Look at the metal", "Look for any solid", "Look at the strip" and, once it burns, "Glance at the strip in the flame", "Feel the tube"; with ", looked at" once it has been. */
+export function lookLabel(drawn: VesselShows['drawn'], look: Look, looked: boolean, lit = true): string {
+  const verb = look === 'touch' ? 'Feel' : look === 'flame' && lit ? 'Glance at' : look === 'solid' && drawn === 'tube' ? 'Look for' : 'Look at'
+  return `${verb} ${lookPart(drawn, look, lit)}${looked ? `, ${look === 'touch' ? PAGE_TEXT.felt : PAGE_TEXT.lookedAt}` : ''}`
 }
 
 const liquidWords = (colour: string) => (colour === 'colourless' ? 'colourless' : colour)
@@ -500,7 +500,7 @@ export const RECORD_TEXT = {
   order: 'Order',
 } as const
 
-export const SOURCES_TEXT = 'What this station shows, its hazards, the kinds of reaction and the formulas on the tiles each rest on a source that was read. The sources of the answers are listed once the station counts.'
+export const SOURCES_TEXT = 'What this station shows, its hazards, the kinds of reaction and the formulas on the tiles each rest on a source that was read. The sources of what is seen afterwards, of the tiles and of the answers are listed once the station counts.'
 
 /** Every station's name, for the list. */
 export const stationNames = (data: ReactionsData): { id: StationId; name: string }[] => STATION_IDS.map((id) => ({ id, name: stationName(data, id) }))

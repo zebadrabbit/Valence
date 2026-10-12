@@ -41,7 +41,7 @@ export const REACTIONS_PRIMER: readonly PrimerSection[] = [
     paragraphs: [
       paragraph(
         { label: 'Where to start' },
-        'This primer has six cards. Read four of them before you go to the bench, in this order: What a reaction is; The four kinds; Equations and balancing; Safety. The other two can wait until a station sends you to them.',
+        'This primer has six cards. Read four of them before you go to the bench, in this order: What a reaction is; The four kinds; Equations and balancing; Safety. The other two can wait until you want them.',
         [],
         "which cards to read first, and in what order, is this lab's advice. Between them the four say what to look for, what the four kinds are, how an equation is read and balanced, and what on the bench can hurt.",
       ),

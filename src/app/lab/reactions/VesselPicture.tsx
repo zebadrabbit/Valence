@@ -187,7 +187,7 @@ export function VesselPicture({ name, shows, scene, full, narrow = false, short 
           <button
             key={at}
             {...looking(at)}
-            aria-label={lookLabel(shows.drawn, at, looked)}
+            aria-label={lookLabel(shows.drawn, at, looked, shows.light !== null)}
             style={place}
             // The edge is dashed until the part has been looked at, and whole while it is being looked at; the list beside the picture says the same in words.
             className={`absolute flex cursor-pointer items-center justify-center rounded-xs border-2 outline-offset-2 outline-[#18181b] focus-visible:outline-3 ${open === at ? `border-[#18181b] ${EDGE_HALO}` : looked ? 'border-transparent' : `border-dashed border-[#3f3f46]/60 ${EDGE_HALO}`}`}

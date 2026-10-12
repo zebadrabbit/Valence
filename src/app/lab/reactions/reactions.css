@@ -171,6 +171,14 @@
 }
 
 /*
+ * A hint stands under the button that records. Open, the hit area of its summary reaches upward (lab.css): it then
+ * stands far enough under that button that the area does not lie over it.
+ */
+.reactions-station section > details[open] {
+  margin-top: 1rem;
+}
+
+/*
  * A choice of this lab's forms is drawn with a little less room either side of its words than the shell gives one,
  * so that the choices of a field stand in as few rows as they can. It is as tall as before.
  */
