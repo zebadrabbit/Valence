@@ -203,16 +203,15 @@ export function NotebookPage({ data, m, part, view, guided, can, act, headingRef
         {name && part !== 'reading' && (
           <>
             <Candidates data={data} part={part} />
-            <ol start={numbers.length + 1} className="grid w-full list-decimal pl-6">
-              <li>
-                {over ? (
-                  <Row data={data} m={m} entry={name} figures={false} />
-                ) : (
-                  // A form of its own for each mode: whether a choice follows is said in one and not in the other.
-                  <NameEntry key={String(guided)} data={data} m={m} part={part} entry={name} guided={guided} enter={enter} />
-                )}
-              </li>
-            </ol>
+            {/* In line with the entries over it, and with no number: the form's question stands over its choices, where a number would stand beside them. */}
+            <div className="w-full pl-6">
+              {over ? (
+                <Row data={data} m={m} entry={name} figures={false} />
+              ) : (
+                // A form of its own for each mode: whether a choice follows is said in one and not in the other.
+                <NameEntry key={String(guided)} data={data} m={m} part={part} entry={name} guided={guided} enter={enter} />
+              )}
+            </div>
           </>
         )}
         {!over && worked.some((entry) => entry.value !== null) && <p className="text-muted-foreground">{PAGE_TEXT.changeNote}</p>}

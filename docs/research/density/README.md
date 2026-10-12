@@ -118,8 +118,12 @@ Every page and sheet but the periodic table's copy: the manifests give each one'
 
 ## The engine
 
-`src/engine/density/`, with the two rounding rules in `src/engine/figures.ts`. The stored record's entry is `lab:measurement-and-density`, version 1 (`src/density-version.test.ts`). The sentences of the page are in `src/app/lab/density/messages.ts`. The lab has no page yet.
+`src/engine/density/`, with the two rounding rules in `src/engine/figures.ts`. The stored record's entry is `lab:measurement-and-density`, version 1 (`src/density-version.test.ts`). The sentences of the page are in `src/app/lab/density/messages.ts`.
+
+## The page
+
+`src/app/lab/density/`, at `#/lab/measurement-and-density`, built on 2026-10-12. Design spec, section 22.7, says the page point by point, each place it is other than 22.2 and 22.3 or than the calorimetry lab's page, how far apart the marks of each closer look are drawn, and how long each page is, measured. Two of its points bear on this record. The closer look of the millimetre ruler shows the engine's stretch and, where that holds no numbered mark, as much more as reaches the nearer one, at most two marks; the engine is as it was. And the balance's display shows 0.00 g with nothing on its pan, where the engine has no figure. The page's builder changed no engine file, no stored value and no parameter, and added seven words to the page's sentences, each with a test.
 
 ## What nobody checked
 
-No person has worked the lab, and no chemistry instructor has read the record, the primer or the notes. No page exists, so nothing was looked at in a browser.
+No person has worked the lab, and no chemistry instructor has read the record, the primer or the notes. The page was looked at in headless Chromium, by script, by the AI coding assistant that built it; the page for institutional reviewers says what was run and measured and what was not. The lab's one deep review has not been held.

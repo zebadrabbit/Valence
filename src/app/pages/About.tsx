@@ -220,6 +220,25 @@ export function About() {
             product in hand and the laboratory's own rules.
           </p>
           <p className="mb-2">
+            The measurement and density lab takes the densities of its ethanol from Lange's Handbook of Chemistry and
+            those of its sodium chloride solutions and of its four metals from the CRC Handbook of Chemistry and
+            Physics, each as a data page of Wikipedia transcribes the handbook's table; neither handbook was itself
+            read. The density of water at 20 °C is from the NIST Chemistry WebBook, and the melting point of ice from
+            Wikipedia's article on the Celsius scale. Each density is stored to three significant figures, the
+            liquids' at 20 °C and by mass, the metals' for near room temperature, which is all their source says.
+            How near a reading must be to count, how a liquid's level looks from above or from below, how much water
+            clings to wet pieces or splashes out, and every length, volume and mass set out are Valence's own. The
+            hazard statements of the two liquids and the three metals an unknown may be are those of Flinn
+            Scientific's safety data sheets, the ethanol's being a sheet for denatured ethyl alcohol, and the notes
+            under them rest also on sheets of Fisher Scientific and of Ward's Science and on records of NOAA's
+            database of chemicals. The documents were read on the dates their citations give, and no copy of them
+            is kept but the table of the elements' densities, which the periodic table uses too. The lab's primer
+            also rests on a page of Purdue University on significant figures and on articles of Wikipedia; it
+            quotes none of its sources. No scale of this lab was read at a bench. None of these publishers is
+            connected with Valence or has reviewed it. At a real bench, follow the label and the safety data sheet
+            of the product in hand and the laboratory's own rules.
+          </p>
+          <p className="mb-2">
             The mechanism timeline takes its enthalpies and free energies of formation from the NBS tables of chemical
             thermodynamic properties of 1982, as NIST serves them; the acid constant of the carbonic acid molecule,
             how long that molecule lasts and the timescales of its two middle steps from a paper in the Journal of
