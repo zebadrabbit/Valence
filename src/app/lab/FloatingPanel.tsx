@@ -11,11 +11,19 @@ const STEP = 16
 // a stored preference if anyone asks for a panel to come back in the same place tomorrow.
 const leftAt = new Map<string, { x: number; y: number }>()
 
+/** What can take focus in a panel: its grip and close button, and what it holds that is shown. */
+const STOPS = 'button, [href], input, select, textarea, summary, [tabindex]:not([tabindex="-1"])'
+
 /**
  * A button that opens a panel floating over the page, and the panel: a learner looks something up or works a sum
  * without leaving the lab. The panel is not modal, so the bench stays usable under it. It is moved by dragging its
  * grip or with the arrow keys on it, stays inside the window, also when the window is made smaller, and is closed by its own button, by the button that
  * opened it, or by Escape, which puts focus back on that button.
+ *
+ * The panel is drawn at the end of the page, so in the page's own order Tab would reach it only after everything
+ * else. Opening it puts focus on the panel, and the keyboard takes it as if it stood just after its button: Tab from
+ * the button goes into it, Tab from its last control goes on to what follows the button, and Shift+Tab from its top
+ * goes back to the button.
  *
  * `width` and `height` are the panel's size in pixels, the height an estimate until it is drawn, when the panel is
  * placed again by the height it has; `fromRight` is how far from the right of the window it first opens, under the
@@ -76,7 +84,34 @@ export function FloatingPanel({
     setOpen(true)
     // The height handed in is an estimate, and a long panel is no taller than the window lets it be: once it is
     // drawn, it is brought inside the window by the size it has.
-    requestAnimationFrame(() => moveTo(next.x, next.y))
+    requestAnimationFrame(() => {
+      moveTo(next.x, next.y)
+      panel.current?.focus({ preventScroll: true })
+    })
+  }
+  const stops = () => [...(panel.current?.querySelectorAll<HTMLElement>(STOPS) ?? [])].filter((el) => !el.matches(':disabled') && el.checkVisibility())
+  // Tab and Shift+Tab across the panel's edges, as if it stood just after its button.
+  const tabOut = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== 'Tab') return
+    const list = stops()
+    const at = document.activeElement
+    if (event.shiftKey && (at === panel.current || at === list[0])) {
+      event.preventDefault()
+      opener.current?.focus()
+    } else if (!event.shiftKey && (at === list.at(-1) || list.length === 0)) {
+      // The browser's own Tab goes on from the button, to what follows it.
+      opener.current?.focus()
+    }
+  }
+  const tabIn = (event: KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === 'Escape' && open) close()
+    if (event.key === 'Tab' && !event.shiftKey && open) {
+      const first = stops()[0]
+      if (first) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
   }
   const close = () => {
     setOpen(false)
@@ -100,7 +135,7 @@ export function FloatingPanel({
   return (
     <>
       {/* Drawn small; lab.css lays a finger's hit area over it, and over the grip and the close button. */}
-      <Button ref={opener} type="button" variant="outline" size="sm" className="lab-tap" aria-expanded={open} onClick={() => (open ? close() : show())} onKeyDown={(event) => event.key === 'Escape' && open && close()}>
+      <Button ref={opener} type="button" variant="outline" size="sm" className="lab-tap" aria-expanded={open} onClick={() => (open ? close() : show())} onKeyDown={tabIn}>
         {icon}
         {name}
       </Button>
@@ -110,10 +145,12 @@ export function FloatingPanel({
             ref={panel}
             role="dialog"
             aria-label={name}
+            tabIndex={-1}
             style={{ left: at.x, top: at.y, width }}
-            className="fixed z-50 grid max-h-[calc(100vh-1rem)] max-w-[calc(100vw-1rem)] gap-2 overflow-auto rounded-lg border bg-card p-2 text-sm text-card-foreground shadow-lg"
+            className="fixed z-50 grid max-h-[calc(100vh-1rem)] max-w-[calc(100vw-1rem)] gap-2 overflow-auto rounded-lg border bg-card p-2 text-sm text-card-foreground shadow-lg outline-none focus-visible:ring-2 focus-visible:ring-ring"
             onKeyDown={(event) => {
               if (event.key === 'Escape') close()
+              tabOut(event)
             }}
           >
             <div className="flex items-center gap-1">
