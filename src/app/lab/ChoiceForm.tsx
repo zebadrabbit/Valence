@@ -103,6 +103,10 @@ export function ChoiceForm({ questions, recorded, judged: found, held, refusal, 
         if (!next.wrong?.length) setChanging(false)
         setJudged(next.wrong ? next.wrong.length === 0 : null)
         say(next.text, next.wrong === null)
+        // The marks and what is said of the answers come above the button, which has focus: it is kept in the window.
+        requestAnimationFrame(() => {
+          if (document.activeElement === focus.button.current) focus.button.current?.scrollIntoView?.({ block: 'nearest' })
+        })
       }}
     >
       {lines !== null && (

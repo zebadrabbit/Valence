@@ -58,6 +58,9 @@ export function useEntryFocus(editable: boolean) {
       field.current?.select()
     }
     if (!editable && active instanceof HTMLInputElement && active.form !== null && active.form === button.current?.form) button.current?.focus()
+    // An entry that is made folds, and its button moves up the page with focus on it: it is kept in the window, clear
+    // of the tab bar that stays at the window's top (lab.css gives it the room as a scroll margin).
+    if (!editable && document.activeElement === button.current) button.current?.scrollIntoView?.({ block: 'nearest' })
   }, [editable])
   return { field, button }
 }
