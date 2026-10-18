@@ -291,7 +291,7 @@ describe("the page's own wording", () => {
   })
 
   it('tells a learner to explore the picture, says of each part whether it has been looked at, and names the closed list for what it holds', () => {
-    expect(PAGE_TEXT.explore).toBe('Hover over or tap each part of the tube to look at it.')
+    expect(PAGE_TEXT.explore).toBe('Point at each part of the tube, or tap it or move to it with the keyboard, to look at it.')
     expect([PAGE_TEXT.lookedAt, PAGE_TEXT.notLookedAt]).toEqual(['looked at', 'not looked at yet'])
     expect(BENCH_TEXT.expected).toBe('What a correct observation holds')
     expect(PAGE_TEXT.challengeHidden).toBe('In Challenge, the hints and what a correct observation holds come once you have recorded your own observation.')

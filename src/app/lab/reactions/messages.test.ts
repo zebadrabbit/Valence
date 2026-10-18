@@ -417,7 +417,7 @@ describe("the builder's words, and the page's own that were added with its scree
   })
 
   it('say what to do with a picture and nothing of what it shows, name a picture, and say why two answers for the order cannot be recorded', () => {
-    expect(PAGE_TEXT.explore).toBe('Hover over or tap each part of a picture to look at it.')
+    expect(PAGE_TEXT.explore).toBe('Point at each part of a picture, or tap it or move to it with the keyboard, to look at it.')
     expect([PAGE_TEXT.picture('The tube'), PAGE_TEXT.whileBurning, PAGE_TEXT.afterwards, PAGE_TEXT.inWords, PAGE_TEXT.oneAtATime]).toEqual(['The tube, drawn', 'While it burns', 'Afterwards', 'The picture in words', 'One at a time'])
     expect(ORDER_TEXT.sameMetal).toBe('The most active and the least active cannot be the same metal.')
     expect([PAGE_TEXT.previous('A'), PAGE_TEXT.next('B'), KIND_TEXT.record]).toEqual(['Previous: A', 'Next: B', 'Record the kind'])

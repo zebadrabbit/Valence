@@ -164,7 +164,7 @@ Text, measured for every piece on the Lab tab at eleven stages in both themes: t
 - **Every tile goes in as (aq),** a metal and a gas too, as in the aqueous reactions lab.
 - **Station A's notes say that zinc is the more active of zinc and copper,** which is part of the order station C asks for. They are shown once station A counts.
 - **The picture in words says "Bubbles rise off the metal, slowly."** where the look says "from the metal".
-- **"Hover over or tap each part of a picture"** says nothing of the keyboard, by which focus on a part looks at it.
+- **"Hover over or tap each part of a picture"** said nothing of the keyboard, by which focus on a part looks at it. Changed on 2026-10-18 by the accessibility sweep to "Point at each part of a picture, or tap it or move to it with the keyboard, to look at it.", the form the calorimetry, freezing, clock, flame, mixing and hot and cold labs use; the aqueous, cations, Le Chatelier and red cabbage labs took the same change.
 - **Under a tube the heading "What is seen" is of the same level as the tube's name.**
 
 ### What a beginner is not told before the notes

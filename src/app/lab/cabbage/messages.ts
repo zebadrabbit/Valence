@@ -153,7 +153,7 @@ export const SAMPLE_TEXT = {
   look: 'Look at the liquid',
   byEye: 'By eye',
   /** Beside the tube's picture, on how to look at it. */
-  explore: 'Hover over or tap the liquid to look at it.',
+  explore: 'Point at the liquid, or tap it or move to it with the keyboard, to look at it.',
   /** Beside the small scale, on how to choose a tube of it. */
   pick: 'Press a tube of the scale to choose it.',
   record: 'Record the estimate',

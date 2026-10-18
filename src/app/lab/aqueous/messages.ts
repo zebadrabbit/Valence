@@ -248,7 +248,7 @@ export const PAGE_TEXT = {
   liquidLayer: 'liquid',
   solidLayer: 'solid',
   /** Beside the picture once the tube is mixed: what to do with it. It is the picture's description too. */
-  explore: 'Hover over or tap each part of the tube to look at it.',
+  explore: 'Point at each part of the tube, or tap it or move to it with the keyboard, to look at it.',
   /** After the name of a part of the tube, in the list beside the picture and in the name of the part's button. */
   lookedAt: 'looked at',
   notLookedAt: 'not looked at yet',
