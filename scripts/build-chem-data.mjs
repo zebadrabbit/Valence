@@ -1074,7 +1074,7 @@ function descriptionSources(retrieved) {
     {
       id: 'iupac-periodic-table',
       url: 'https://iupac.org/what-we-do/periodic-table-of-elements/',
-      citation: `International Union of Pure and Applied Chemistry (IUPAC). Periodic Table of Elements, the section "Group 3" (${retrieved}).`,
+      citation: `International Union of Pure and Applied Chemistry (IUPAC). Periodic Table of Elements, the section "Group 3" (${retrieved}; read again on 2026-10-17, when the section still put the question as open and the page gave 2022-09-12 as the date it was last changed).`,
     },
     {
       id: 'rsc-periodic-table',
