@@ -55,11 +55,38 @@ describe('architecture lint rules', () => {
     ])
   })
 
+  it('rejects performance.now in src/engine, as well as in src/mechanisms', async () => {
+    expect(await ruleIds('export const t = () => performance.now()\n', 'src/engine/x.ts')).toEqual(['no-restricted-properties'])
+    expect(await ruleIds('export const t = () => { const { now } = performance; return now() }\n', 'src/engine/x.ts')).toEqual(['no-restricted-properties'])
+  })
+
   it('rejects new Date() in src/engine but allows new Date(ms)', async () => {
     expect(await ruleIds('export const d = () => new Date()\n', 'src/engine/x.ts')).toEqual([
       'no-restricted-syntax',
     ])
     expect(await ruleIds('export const d = (ms: number) => new Date(ms)\n', 'src/engine/x.ts')).toEqual([])
+  })
+
+  // Date() without new is the time now as a string, whatever it is given.
+  it('rejects Date() called without new, with or without an argument, in src/engine and src/mechanisms', async () => {
+    for (const filePath of ['src/engine/x.ts', 'src/mechanisms/x.ts']) {
+      expect(await ruleIds('export const d = () => Date()\n', filePath)).toEqual(['no-restricted-syntax'])
+      expect(await ruleIds('export const d = (ms: number) => Date(ms)\n', filePath)).toEqual(['no-restricted-syntax'])
+    }
+  })
+
+  it('rejects Math, the clock and performance reached through globalThis or self in src/engine and src/mechanisms', async () => {
+    for (const filePath of ['src/engine/x.ts', 'src/mechanisms/x.test.ts']) {
+      for (const code of [
+        'export const r = () => globalThis.Math.random()\n',
+        'export const t = () => globalThis.Date.now()\n',
+        'export const d = () => new self.Date()\n',
+        'export const t = () => globalThis.performance.now()\n',
+      ]) {
+        expect([filePath, code, await ruleIds(code, filePath)]).toEqual([filePath, code, ['no-restricted-properties']])
+      }
+    }
+    expect(await ruleIds('export const t = () => globalThis.Date.now()\n', 'src/app/x.ts')).toEqual([])
   })
 
   it('rejects document in src/chem-data and window in src/mechanisms', async () => {
@@ -124,6 +151,19 @@ describe('architecture lint rules', () => {
       'no-restricted-properties',
     ])
   })
+
+  it.each(['src/engine/x.ts', 'src/chem-data/x.ts', 'src/mechanisms/x.ts', 'src/app/x.tsx', 'src/main.tsx'])(
+    'rejects fetch and XMLHttpRequest reached through globalThis or self in %s',
+    async (filePath) => {
+      for (const code of [
+        'export const get = () => globalThis.fetch("/x")\n',
+        'export const get = () => self.fetch("/x")\n',
+        'export const xhr = () => new globalThis.XMLHttpRequest()\n',
+      ]) {
+        expect([code, await ruleIds(code, filePath)]).toEqual([code, ['no-restricted-properties']])
+      }
+    },
+  )
 
   it('applies the same rules to test files in src/engine', async () => {
     expect(await ruleIds('export const r = () => Math.random()\n', 'src/engine/x.test.ts')).toEqual([
