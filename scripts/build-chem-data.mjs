@@ -484,8 +484,11 @@ function buildElements() {
   // superseded is kept there as history (xenon's first six lines): that element's lines are picked, as for the
   // periodic table's cards, by the rule from NIST's saved response, and the entry's source is no longer cited.
   const spectra = readJson('emission-lines.json')
+  // A sentence written by hand on which lines are shown may say more than which lines they are (sodium's says what
+  // the D lines light): `selectionSourceIds` names its sources, each with a row of `selectionSupport` on what it says.
   const byHand = spectra.elements.filter((x) => !x.superseded)
-  sources.push(...spectra.sources.filter((source) => byHand.some((x) => x.sourceId === source.id)).map(({ id, url, citation }) => ({ id, url, citation })))
+  const citedBy = (x) => [x.sourceId, ...(x.selectionSourceIds ?? [])]
+  sources.push(...spectra.sources.filter((source) => byHand.some((x) => citedBy(x).includes(source.id))).map(({ id, url, citation }) => ({ id, url, citation })))
   const allowed = new Set(sources.map((s) => s.id))
   const emission = (symbol, name) => {
     const entry = spectra.elements.find((x) => x.symbol === symbol)
@@ -500,7 +503,12 @@ function buildElements() {
       return { value: line.wavelengthNm, sourceId: entry.sourceId, published: line.valueAsPublished, ...(line.transition ? { transition: line.transition } : {}) }
     })
     if (lines.some((line, i) => i > 0 && line.value >= lines[i - 1].value)) fail(`element ${symbol}: emission lines are not longest first`)
-    return { emission: { selection: entry.selection, ...(entry.note ? { note: entry.note } : {}), lines } }
+    const selectionSourceIds = entry.selectionSourceIds ?? []
+    const supported = (entry.selectionSupport ?? []).map((row) => row.sourceId)
+    if (selectionSourceIds.join() !== supported.join()) fail(`element ${symbol}: the sources of the sentence on the lines shown are not those of its rows of support, in order`)
+    for (const row of entry.selectionSupport ?? []) if (typeof row.prints !== 'string' || typeof row.where !== 'string') fail(`element ${symbol}: a row of support for the sentence on the lines shown needs what its source prints and where`)
+    for (const id of selectionSourceIds) if (!allowed.has(id)) fail(`element ${symbol}: unexpected source "${id}" for the sentence on the lines shown`)
+    return { emission: { selection: entry.selection, ...(selectionSourceIds.length > 0 ? { selectionSourceIds } : {}), ...(entry.note ? { note: entry.note } : {}), lines } }
   }
 
   const elements = file.elements.map((e) => {

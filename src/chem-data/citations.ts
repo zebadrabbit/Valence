@@ -35,10 +35,14 @@ export function citations(entries: readonly Entry[], sources: readonly Source[])
   return result
 }
 
-/** What a drawn emission spectrum cites: its lines, and the note shown with every spectrum. */
+/** What a drawn emission spectrum cites: its lines, the sentence on which are shown where it says more, and the note shown with every spectrum. */
 function emissionEntries(emission: Emission | undefined): Entry[] {
   if (!emission) return []
-  return [...emission.lines.map((line): Entry => ['Emission lines', line.sourceId]), ...EMISSION_SCOPE_NOTE.sourceIds.map((id): Entry => ['What the emission spectrum leaves out', id])]
+  return [
+    ...emission.lines.map((line): Entry => ['Emission lines', line.sourceId]),
+    ...(emission.selectionSourceIds ?? []).map((id): Entry => ['Lines shown', id]),
+    ...EMISSION_SCOPE_NOTE.sourceIds.map((id): Entry => ['What the emission spectrum leaves out', id]),
+  ]
 }
 
 /** The sources of every stored value the atom card shows for an element, and of the colour its atoms are drawn in. */

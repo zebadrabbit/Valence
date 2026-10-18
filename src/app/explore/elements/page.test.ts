@@ -545,6 +545,7 @@ describe('the element card', () => {
     expect(sodium).toContain(escaped(CARD_DERIVED))
     expect(cites(card('H'), 'Emission lines', source('nist-asd-lines-h'))).toBe(true)
     expect(cites(sodium, 'Emission lines', source('nist-asd-lines-na'))).toBe(true)
+    for (const id of ['hyperphysics-sodium-spectrum', 'hyperphysics-flame-colors', 'wikipedia-sodium-vapor-lamp']) expect(cites(sodium, 'Lines shown', source(id))).toBe(true)
     // An element whose lines the rule picked cites the database once for all of them; one with no spectrum cites it for the sentence that says so.
     const iron = card('Fe')
     expect(cites(iron, 'Emission lines', source('nist-asd-lines-neutral'))).toBe(true)

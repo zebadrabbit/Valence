@@ -25,6 +25,16 @@ Verified inputs for the molecule explorer (spec section 6). Gathered on 2026-10-
 
 The six were replaced the same day by the six that rule picks, by relative intensity, on the periodic table and in the molecule explorer. The entry stays in the file as the record of what was shown before, with two changes: it is marked `superseded`, with the date and the correction, and the field is renamed `transitionProbabilityAsPublished`. The build reads nothing from a superseded entry but the mark, and no longer writes its source to the app. Hydrogen's and sodium's entries were checked against the saved responses at the same time: their `relativeIntensityAsPublished` values are what NIST prints as relative intensities.
 
+## Added 2026-10-17: the sources of sodium's sentence
+
+Sodium's sentence on the lines shown says that the two D lines give a sodium lamp and a sodium flame their yellow colour. NIST's table gives the lines and nothing of lamps, flames or colours, and until this date the sentence cited nothing more. It now names three sources in `selectionSourceIds`, each with a row of `selectionSupport` in this project's words, and the atom card and the periodic table's card list them under "Lines shown". The build checks that the two lists name the same sources and that each is in the file's list of sources.
+
+- HyperPhysics's page on the sodium spectrum: the D lines outshine every other line, so that for practical purposes the light of glowing sodium is theirs, and a sodium lamp's spectrum is the doublet. It names no colour.
+- HyperPhysics's page on flame colours, which the flame test lab had read: a sodium flame's light looks like other sodium lights and comes mainly from the D lines. It too names no colour in words. Fetched again and found to be the file that lab read; its citation is that lab's, so the two are listed once.
+- Wikipedia's article on the sodium-vapor lamp, at revision 1380507591: a low-pressure lamp's light is very nearly of one colour, about 589.0 and 589.6 nm, and is yellow; a caption calls the yellow band of its spectrum the D-line emission. The article calls the light yellow-orange in its opening paragraph; the sentence says yellow, as the article's history section and caption do.
+
+Each site's robots file was asked for first: HyperPhysics has none, and Wikipedia's leaves `/wiki/` addresses open. No page is kept.
+
 ## Conventions decided after this research
 
 `expected.json` records the research as gathered. Two project decisions differ from it; the spec (sections 6.1 and 6.3) is the authority:

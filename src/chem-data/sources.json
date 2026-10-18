@@ -45,6 +45,21 @@
     "citation": "Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, Lines Data for Na I: observed wavelengths in air, 400 to 700 nm (retrieved 2026-10-04). National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F"
   },
   {
+    "id": "hyperphysics-sodium-spectrum",
+    "url": "http://hyperphysics.phy-astr.gsu.edu/hbase/quantum/sodium.html",
+    "citation": "Nave, C. R. HyperPhysics: Sodium Spectrum. Georgia State University; read and not kept (retrieved 2026-10-17)."
+  },
+  {
+    "id": "hyperphysics-flame-colors",
+    "url": "http://hyperphysics.phy-astr.gsu.edu/hbase/Chemical/flame.html",
+    "citation": "Nave, C. R. HyperPhysics: Flame Colors as Chemical Indicators. Georgia State University; read and not kept (retrieved 2026-10-08)."
+  },
+  {
+    "id": "wikipedia-sodium-vapor-lamp",
+    "url": "https://en.wikipedia.org/wiki/Sodium-vapor_lamp?oldid=1380507591",
+    "citation": "Wikipedia, Sodium-vapor lamp, revision 1380507591 of 2026-10-16; a secondary source, read and not kept (retrieved 2026-10-17)."
+  },
+  {
     "id": "cccbdb-water",
     "url": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7732185",
     "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Hoy, A.R.; Bunker, P.R., J. Mol. Spectrosc. 74, 1-8 (1979) (doi:10.1016/0022-2852(79)90019-5)"
@@ -1168,11 +1183,6 @@
     "id": "gallitto-2017-bunsen-burner",
     "url": "https://arxiv.org/abs/1712.08737",
     "citation": "Agliolo Gallitto, A.; Pace, V.; Zingales, R. Multidisciplinary learning at the University scientific museums: the Bunsen burner. Museologia Scientifica 2017, 11, 103-107. Read as the authors' copy at arXiv, 1712.08737, linked here; read and not kept (retrieved 2026-10-08)."
-  },
-  {
-    "id": "hyperphysics-flame-colors",
-    "url": "http://hyperphysics.phy-astr.gsu.edu/hbase/Chemical/flame.html",
-    "citation": "Nave, C. R. HyperPhysics: Flame Colors as Chemical Indicators. Georgia State University; read and not kept (retrieved 2026-10-08)."
   },
   {
     "id": "hope-flame-test-prelab",
