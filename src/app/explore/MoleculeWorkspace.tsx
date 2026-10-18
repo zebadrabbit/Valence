@@ -43,10 +43,10 @@ export function MoleculeWorkspace({ molecule }: { molecule: Molecule }) {
         </div>
         <div className="flex items-center gap-2 text-sm">
           <label htmlFor={levelId}>Valence display level</label>
-          {/* The same preference as on the Settings page. */}
+          {/* The same preference as on the Settings page. Its focus ring is an outline: WebKit draws no shadow on a native select. */}
           <select
             id={levelId}
-            className="h-8 rounded-md border bg-background px-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="h-8 rounded-md border bg-background px-2 text-sm focus-visible:outline-ring focus-visible:outline-offset-0"
             aria-describedby={levelHintId}
             value={level}
             onChange={(e) => updatePrefs({ valenceLevel: Number(e.target.value) as Prefs['valenceLevel'] })}
