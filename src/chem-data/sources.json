@@ -2425,6 +2425,21 @@
     "citation": "Wikipedia, Van 't Hoff factor, revision 1315827894 of 2025-10-08; a secondary source, read and not kept (retrieved 2026-10-12)."
   },
   {
+    "id": "archer-nacl-1992",
+    "url": "https://srd.nist.gov/jpcrdreprint/1.555915.pdf",
+    "citation": "Archer, D. G. Thermodynamic Properties of the NaCl+H2O System. II. Thermodynamic Properties of NaCl(aq), NaCl·2H2O(cr), and Phase Equilibria. J. Phys. Chem. Ref. Data 1992, 21 (4), 793–829. https://doi.org/10.1063/1.555915 Read as the reprint NIST serves, linked here; read and not kept (retrieved 2026-10-18)."
+  },
+  {
+    "id": "archer-kcl-1999",
+    "url": "https://srd.nist.gov/jpcrdreprint/1.556034.pdf",
+    "citation": "Archer, D. G. Thermodynamic Properties of the KCl+H2O System. J. Phys. Chem. Ref. Data 1999, 28 (1), 1–17. https://doi.org/10.1063/1.556034 Read as the reprint NIST serves, linked here; read and not kept (retrieved 2026-10-18)."
+  },
+  {
+    "id": "archer-nabr-1991",
+    "url": "https://srd.nist.gov/jpcrdreprint/1.555888.pdf",
+    "citation": "Archer, D. G. Thermodynamic Properties of the NaBr+H2O System. J. Phys. Chem. Ref. Data 1991, 20 (3), 509. https://doi.org/10.1063/1.555888 Read as the reprint NIST serves, linked here; read and not kept (retrieved 2026-10-18)."
+  },
+  {
     "id": "flinn-sds-420",
     "url": "https://www.flinnsci.com/sds_420-isopropyl-alcohol/sds_420",
     "citation": "Flinn Scientific, Inc. Safety Data Sheet: Isopropyl Alcohol, SDS number sds_420; revision date June 26, 2015 (read on 2026-10-12; no copy is kept)."

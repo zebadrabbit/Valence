@@ -592,7 +592,7 @@ describe('the scripted learner', () => {
 // How near a careful learner comes over seeds 1 to 100, in percent of the stored figure: the least and the most.
 const NEAR = {
   unknown: { acetone: [-0.31, 0.38], ethanol: [-0.37, 0.28], 'propan-2-ol': [-0.5, 0.5] },
-  particles: { urea: [-0.6, 1], nacl: [-0.55, 0.55], kcl: [-0.5, 0.5], nabr: [-0.5, 0.5] },
+  particles: { urea: [-0.6, 1], nacl: [-0.55, 0.55], kcl: [-0.56, 0.56], nabr: [-0.54, 0.54] },
 }
 // The same with every entry worked every way the rounding rule allows.
 const WORST: Record<'unknown' | 'particles', number[]> = { unknown: [-0.5, 0.5], particles: [-0.6, 1] }

@@ -46,7 +46,6 @@
           "fields": [
             "parts[particles].notes[0]",
             "parts[particles].notes[1]",
-            "parts[particles].notes[2]",
             "primer"
           ],
           "prints": "ion pairing",
@@ -198,6 +197,96 @@
           ],
           "prints": "12.011",
           "where": "The same kept copy, the row for carbon again, for the note's two molar masses: with the weights of hydrogen and oxygen it gives acetone 58.08 g/mol and 2-propanol 60.10 g/mol, which are 2.02 g/mol apart, 3.5% of the smaller. The rest of the note is the lab's own: what its model takes as simpler than a bench."
+        }
+      ]
+    },
+    {
+      "id": "archer-nacl-1992",
+      "url": "https://srd.nist.gov/jpcrdreprint/1.555915.pdf",
+      "citation": "Archer, D. G. Thermodynamic Properties of the NaCl+H2O System. II. Thermodynamic Properties of NaCl(aq), NaCl·2H2O(cr), and Phase Equilibria. J. Phys. Chem. Ref. Data 1992, 21 (4), 793–829. https://doi.org/10.1063/1.555915 Read as the reprint NIST serves, linked here; read and not kept (retrieved 2026-10-18).",
+      "fetchedSha256": "a814e0cee1b80352619a12324e4355d4253a50ca9fcc86be26b3d32865c098f5",
+      "supports": [
+        {
+          "fields": [
+            "osmotic[nacl-0.5].molality"
+          ],
+          "prints": "0.5",
+          "where": "Table 9, on page 819: the osmotic coefficient as the equations give it, by temperature and molality. The heading of the second column of figures, a molality in mol/kg."
+        },
+        {
+          "fields": [
+            "osmotic[nacl-0.5].kelvin"
+          ],
+          "prints": "273.15",
+          "where": "Table 9, on page 819: the osmotic coefficient as the equations give it, by temperature and molality. The first row, the temperature in kelvin, at 0.1 MPa."
+        },
+        {
+          "fields": [
+            "osmotic[nacl-0.5].osmoticCoefficient",
+            "parts[particles].notes[2]"
+          ],
+          "prints": "0.9108",
+          "where": "Table 9, on page 819: the osmotic coefficient as the equations give it, by temperature and molality. The figure in that row and column. An evaluation by NIST's electrolyte data centre: one set of equations fitted to published measurements of many kinds, freezing points among them. Twice this figure is 1.82, the count the handbook's freezing point of the 3% solution gives; the row is there to show that the two ways agree. The tables were read in the reprint's text and the figures checked by eye on the page."
+        }
+      ]
+    },
+    {
+      "id": "archer-kcl-1999",
+      "url": "https://srd.nist.gov/jpcrdreprint/1.556034.pdf",
+      "citation": "Archer, D. G. Thermodynamic Properties of the KCl+H2O System. J. Phys. Chem. Ref. Data 1999, 28 (1), 1–17. https://doi.org/10.1063/1.556034 Read as the reprint NIST serves, linked here; read and not kept (retrieved 2026-10-18).",
+      "fetchedSha256": "c303071cb92489f36ffe88da78ed526045a6d0f7f1aec5a6a8ed438f0611b669",
+      "supports": [
+        {
+          "fields": [
+            "osmotic[kcl-0.5].molality"
+          ],
+          "prints": "0.5",
+          "where": "Table 7, on page 9: the osmotic coefficient as the equations give it, by temperature and molality. The heading of the second column of figures, a molality in mol/kg."
+        },
+        {
+          "fields": [
+            "osmotic[kcl-0.5].kelvin"
+          ],
+          "prints": "273.15",
+          "where": "Table 7, on page 9: the osmotic coefficient as the equations give it, by temperature and molality. The first row, the temperature in kelvin, at 0.1 MPa."
+        },
+        {
+          "fields": [
+            "osmotic[kcl-0.5].osmoticCoefficient",
+            "parts[particles].notes[2]"
+          ],
+          "prints": "0.8907",
+          "where": "Table 7, on page 9: the osmotic coefficient as the equations give it, by temperature and molality. The figure in that row and column. The summary says that the equations were fitted to published measurements between about 260 K and 420 K, and Table 3 lists among them measured freezing points. The figure was checked by eye on the page."
+        }
+      ]
+    },
+    {
+      "id": "archer-nabr-1991",
+      "url": "https://srd.nist.gov/jpcrdreprint/1.555888.pdf",
+      "citation": "Archer, D. G. Thermodynamic Properties of the NaBr+H2O System. J. Phys. Chem. Ref. Data 1991, 20 (3), 509. https://doi.org/10.1063/1.555888 Read as the reprint NIST serves, linked here; read and not kept (retrieved 2026-10-18).",
+      "fetchedSha256": "9e919f259e122fbf172649aa2d0b29e7b38d80e470b85dedcba3a7b0da7543e7",
+      "supports": [
+        {
+          "fields": [
+            "osmotic[nabr-0.5].molality"
+          ],
+          "prints": "0.5",
+          "where": "Table A-5 of the appendix, on page 541: the osmotic coefficient of the solution as the equations give it, by temperature, pressure and molality. The heading of the second column of figures, a molality in mol/kg."
+        },
+        {
+          "fields": [
+            "osmotic[nabr-0.5].kelvin"
+          ],
+          "prints": "273.15",
+          "where": "Table A-5 of the appendix, on page 541: the osmotic coefficient of the solution as the equations give it, by temperature, pressure and molality. The first row, the temperature in kelvin, at 0.1 MPa."
+        },
+        {
+          "fields": [
+            "osmotic[nabr-0.5].osmoticCoefficient",
+            "parts[particles].notes[2]"
+          ],
+          "prints": "0.926",
+          "where": "Table A-5 of the appendix, on page 541: the osmotic coefficient of the solution as the equations give it, by temperature, pressure and molality. The figure in that row and column. The summary says that the equations were fitted to experimental results between about 260 K and 623 K, and the text works osmotic coefficients from measured freezing-point depressions among them. The coefficient is printed to three figures here, where the potassium chloride table prints four. The figure was checked by eye on the page; the text taken out of the scan misreads some others in the same row."
         }
       ]
     }

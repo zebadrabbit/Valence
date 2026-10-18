@@ -2040,9 +2040,9 @@ function buildDensity(earlierSources) {
 //
 // The record is authored in docs/research/freezing/freezing.json: the three liquids the unknown may be, urea and
 // the three salts, each with its composition, its molar mass worked out from the atomic weights, and the particles
-// each formula unit gives (the ideal, or a measured figure with the row it is worked out from); the water with its
-// freezing point constant; the atomic weights; the measured freezing points of solutions that were found; the
-// three parts with the notes shown when each is done; and the model's parameters. Every source is in
+// each formula unit gives (the ideal, or a measured or evaluated figure with the row it is worked out from); the
+// water with its freezing point constant; the atomic weights; the measured freezing points of solutions that were
+// found, and the osmotic coefficients of the salts' solutions that an evaluation gives; the three parts with the notes shown when each is done; and the model's parameters. Every source is in
 // sources/MANIFEST.json, each row of which names the stored values it supports, and the build holds the record to
 // those rows as it does the aqueous lab's. No source has a copy in this lab's folder: the atomic weights are held
 // to the periodic table's record. What the record works out is worked out again here, and its numbers are held to
@@ -2052,7 +2052,7 @@ function buildDensity(earlierSources) {
 // density lab's are: every record is this lab's own, none being the same thing in the same form as another lab's,
 // though eight of the documents behind them are ones the iodination of acetone, flame test and density labs list.
 
-const FREEZING_KEYS = ['reagents', 'water', 'atomicWeights', 'measured', 'parts', 'parameters']
+const FREEZING_KEYS = ['reagents', 'water', 'atomicWeights', 'measured', 'osmotic', 'parts', 'parameters']
 const FREEZING_REAGENTS = ['acetone', 'ethanol', 'propan-2-ol', 'urea', 'nacl', 'kcl', 'nabr']
 const FREEZING_PARTS = ['water', 'unknown', 'particles']
 

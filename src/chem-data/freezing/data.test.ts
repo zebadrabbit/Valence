@@ -50,13 +50,15 @@ describe('freezingData', () => {
     for (const reagent of freezingData.reagents) expect(reagent.molarMass.working, reagent.id).toContain(`${reagent.molarMass.value.toFixed(2)} g/mol`)
   })
 
-  it('says of each solute whether its count of particles is the ideal or a measured figure, and of the ideal salts that a real one gives less', () => {
+  it('says of each solute whether its count of particles is the ideal, a measured figure or an evaluated one, and gives no salt the ideal', () => {
+    const opening = { ideal: /^The ideal: /, measured: /^Measured: /, osmotic: /^Evaluated: / }
     for (const reagent of freezingData.reagents) {
       const { particles } = reagent
-      expect(particles.note, reagent.id).toMatch(particles.kind === 'ideal' ? /^The ideal: / : /^Measured: /)
-      if (particles.kind === 'ideal' && particles.ideal === 2) expect(particles.note, reagent.id).toMatch(/No measured freezing point of its solutions was found .* a real solution gives a little less\.$/)
+      expect(particles.note, reagent.id).toMatch(opening[particles.kind])
+      if (particles.ideal === 2) expect(particles.kind, reagent.id).not.toBe('ideal')
     }
     expect(freezingData.measured.map((row) => [row.id, row.massPercent.published, row.freezingPoint.published, row.ratio.value])).toEqual([['nacl-2', '2', '-1.19', 1.83], ['nacl-3', '3', '-1.79', 1.82], ['ethanol-2.5', '2.5', '-1', 1]])
+    expect(freezingData.osmotic.map((row) => [row.id, row.osmoticCoefficient.published, row.ratio.value])).toEqual([['nacl-0.5', '0.9108', 1.82], ['kcl-0.5', '0.8907', 1.78], ['nabr-0.5', '0.926', 1.85]])
   })
 
   it('names the unknown and says how it looks without saying which it is, and gives every liquid it may be the same look', () => {
@@ -88,7 +90,8 @@ describe('freezingData', () => {
     expect(notes(1)).toMatch(/takes each molecule as one particle and the solution as ideal/)
     expect(notes(1)).toMatch(/2\.5% ethanol by mass freezing at −1 °C, to the one figure it prints, and the ideal gives −1\.04 °C\. None was found for acetone or 2-propanol\./)
     expect(notes(2)).toMatch(/a measured figure, 1\.82\. A handbook table has water with 3% sodium chloride by mass freezing at −1\.79 °C, where two whole particles would give −1\.97 °C\./)
-    expect(notes(2)).toMatch(/For potassium chloride and sodium bromide no measured freezing point was found in a source that could be read, so the lab uses 2, the ideal\. That is more than a real salt gives/)
+    expect(notes(2)).toMatch(/For potassium chloride the lab uses 1\.78 and for sodium bromide 1\.85, each a little under two as well\./)
+    expect(notes(2)).toMatch(/sodium chloride comes to the same 1\.82 as its freezing point gives/)
     // The figures the notes give are the record's own.
     const [, row] = freezingData.measured
     expect(row!.idealFall.value * 2).toBeCloseTo(1.97, 2)

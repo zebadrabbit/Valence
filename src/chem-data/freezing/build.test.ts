@@ -87,11 +87,21 @@ describe('the measured freezing points', () => {
     expect(() => checkMeasured(edited((r) => void (r.measured[2]!.ratio.figures = 3)))).toThrow(/prints the freezing point to 1 figures/)
   })
 
-  it('hold the count of particles of sodium chloride to its row, and every other count to the ideal it is marked as', () => {
+  it('hold the count of particles of sodium chloride to its row, of the other two salts to theirs, and every other count to the ideal it is marked as', () => {
     expect(() => checkMeasured(edited((r) => void (r.reagents[4]!.particles.value = 1.9)))).toThrow(/reagents\[nacl\].particles: 1.9 is not the ratio of the row "nacl-3"/)
-    expect(() => checkMeasured(edited((r) => void (r.reagents[5]!.particles.value = 1.9)))).toThrow(/reagents\[kcl\].particles: a count marked as the ideal/)
+    expect(() => checkMeasured(edited((r) => void (r.reagents[5]!.particles.value = 1.9)))).toThrow(/reagents\[kcl\].particles: 1.9 is not the ratio of the row "kcl-0.5"/)
+    expect(() => checkMeasured(edited((r) => void (r.reagents[3]!.particles.value = 1.1)))).toThrow(/reagents\[urea\].particles: a count marked as the ideal/)
     expect(() => checkMeasured(edited((r) => void (r.reagents[4]!.particles.measuredId = 'ethanol-2.5')))).toThrow(/no measured row "ethanol-2.5" of this reagent/)
-    expect(input.reagents.map((r) => [r.id, r.particles.kind, r.particles.value])).toEqual([['acetone', 'ideal', 1], ['ethanol', 'ideal', 1], ['propan-2-ol', 'ideal', 1], ['urea', 'ideal', 1], ['nacl', 'measured', 1.82], ['kcl', 'ideal', 2], ['nabr', 'ideal', 2]])
+    expect(() => checkMeasured(edited((r) => void (r.reagents[6]!.particles.osmoticId = 'kcl-0.5')))).toThrow(/reagents\[nabr\].particles: no osmotic row "kcl-0.5" of this reagent/)
+    expect(input.reagents.map((r) => [r.id, r.particles.kind, r.particles.value])).toEqual([['acetone', 'ideal', 1], ['ethanol', 'ideal', 1], ['propan-2-ol', 'ideal', 1], ['urea', 'ideal', 1], ['nacl', 'measured', 1.82], ['kcl', 'osmotic', 1.78], ['nabr', 'osmotic', 1.85]])
+  })
+
+  it('work each osmotic coefficient into a count of particles, and give sodium chloride the count its freezing point gives', () => {
+    expect(input.osmotic.map((r) => [r.id, r.kelvin.published, r.molality.published, r.osmoticCoefficient.published, r.ratio.value])).toEqual([['nacl-0.5', '273.15', '0.5', '0.9108', 1.82], ['kcl-0.5', '273.15', '0.5', '0.8907', 1.78], ['nabr-0.5', '273.15', '0.5', '0.926', 1.85]])
+    // The two ways agree for the one salt both are found for: twice its osmotic coefficient, and its measured freezing point.
+    expect(input.osmotic[0]!.ratio.value).toBe(input.measured[1]!.ratio.value)
+    expect(() => checkMeasured(edited((r) => void (r.osmotic[1]!.ratio.value = 1.8)))).toThrow(/osmotic\[kcl-0.5\].ratio: 1.8 is not 1.78/)
+    expect(() => checkMeasured(edited((r) => void (r.osmotic[2]!.working = 'Twice the coefficient.')))).toThrow(/osmotic\[nabr-0.5\]: the working does not show 0.926/)
   })
 })
 
@@ -108,9 +118,9 @@ describe('the numbers of spec 23.3 and 23.6, by number', () => {
 
   it('leave ice in every careful run, keep three figures in every fall, and level within seven presses', () => {
     const all = { ...numbers.liquids, ...numbers.solutes }
-    expect(Object.fromEntries(Object.entries(all).map(([id, n]) => [id, [n.smallestFall, n.largestFall]]))).toEqual({ acetone: [1.09, 1.46], ethanol: [1.37, 1.84], 'propan-2-ol': [1.06, 1.41], urea: [1.53, 1.85], nacl: [1.45, 1.8], kcl: [1.59, 1.98], nabr: [1.59, 1.98] })
-    expect(Math.min(...Object.values(all).map((n) => n.leastIceMg))).toBe(16439)
-    expect(Math.min(...Object.values(all).map((n) => n.leastIceAtLastStepMg))).toBe(14039)
+    expect(Object.fromEntries(Object.entries(all).map(([id, n]) => [id, [n.smallestFall, n.largestFall]]))).toEqual({ acetone: [1.09, 1.46], ethanol: [1.37, 1.84], 'propan-2-ol': [1.06, 1.41], urea: [1.53, 1.85], nacl: [1.45, 1.8], kcl: [1.42, 1.77], nabr: [1.47, 1.83] })
+    expect(Math.min(...Object.values(all).map((n) => n.leastIceMg))).toBe(16599)
+    expect(Math.min(...Object.values(all).map((n) => n.leastIceAtLastStepMg))).toBe(14199)
     expect(Math.max(...Object.values(all).map((n) => n.mostSteps))).toBe(14)
   })
 

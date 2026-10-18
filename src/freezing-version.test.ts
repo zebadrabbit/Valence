@@ -27,7 +27,7 @@ describe('the freezing point depression lab', () => {
       state: createLab(1, 'guided'),
     }).toEqual({
       entry: 'lab:freezing-point-depression',
-      version: 1,
+      version: 2,
       model: {
         kfE2: 186,
         liquids: [
@@ -38,8 +38,8 @@ describe('the freezing point depression lab', () => {
         solutes: [
           { id: 'urea', molarMassE2: 6006, particlesE2: 100, idealParticles: 1 },
           { id: 'nacl', molarMassE2: 5844, particlesE2: 182, idealParticles: 2 },
-          { id: 'kcl', molarMassE2: 7455, particlesE2: 200, idealParticles: 2 },
-          { id: 'nabr', molarMassE2: 10289, particlesE2: 200, idealParticles: 2 },
+          { id: 'kcl', molarMassE2: 7455, particlesE2: 178, idealParticles: 2 },
+          { id: 'nabr', molarMassE2: 10289, particlesE2: 185, idealParticles: 2 },
         ],
         stepSeconds: 30,
         runOnSteps: 2,

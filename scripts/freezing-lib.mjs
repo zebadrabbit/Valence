@@ -62,8 +62,9 @@ export function worked(record, row) {
 /**
  * Throws unless every row of measured freezing points is worked out as stored (the molality and the fall of one
  * particle to three significant figures, the ratio to the figures the source prints for the freezing point, with
- * the figures used in the working), and every reagent's count of particles is what its record says it is: the
- * ideal, a whole number; or the ratio of the row it names, at three figures.
+ * the figures used in the working), every row of osmotic coefficients likewise (the ideal count times the
+ * coefficient, to three figures), and every reagent's count of particles is what its record says it is: the ideal,
+ * a whole number; or the ratio of the row it names, at three figures.
  */
 export function checkMeasured(record) {
   for (const row of record.measured) {
@@ -78,14 +79,34 @@ export function checkMeasured(record) {
       if (!row.working.includes(figure)) throw new Error(`${where}: the working does not show ${figure}`)
     }
   }
+  // An osmotic coefficient is the fall a solution gives over the fall its ions would give if each counted whole,
+  // so the count of particles is the ideal count times it. The source prints the coefficient near the freezing
+  // point and at about the bench's strength; the row stores that temperature and molality as printed.
+  for (const row of record.osmotic) {
+    const where = `osmotic[${row.id}]`
+    const reagent = record.reagents.find((r) => r.id === row.reagentId)
+    if (!reagent) throw new Error(`${where}: no reagent "${row.reagentId}"`)
+    const ratio = reagent.particles.ideal * row.osmoticCoefficient.value
+    if (row.ratio.figures !== 3 || toFigures(ratio, 3) !== row.ratio.value) throw new Error(`${where}.ratio: ${row.ratio.value} is not ${toFigures(ratio, 3)}, the ideal count times the coefficient at three figures`)
+    for (const figure of [row.osmoticCoefficient.published, row.molality.published, row.kelvin.published, String(reagent.particles.ideal), String(row.ratio.value)]) {
+      if (!row.working.includes(figure)) throw new Error(`${where}: the working does not show ${figure}`)
+    }
+  }
   for (const reagent of record.reagents) {
     const where = `reagents[${reagent.id}].particles`
     const { particles } = reagent
     if (!Number.isInteger(particles.ideal) || particles.ideal < 1) throw new Error(`${where}: the ideal count is a whole number of particles`)
     if (particles.kind === 'ideal') {
-      if (particles.value !== particles.ideal || particles.measuredId !== undefined) throw new Error(`${where}: a count marked as the ideal is the ideal count, and names no measured row`)
+      if (particles.value !== particles.ideal || particles.measuredId !== undefined || particles.osmoticId !== undefined) throw new Error(`${where}: a count marked as the ideal is the ideal count, and names no measured row`)
       continue
     }
+    if (particles.kind === 'osmotic') {
+      const row = record.osmotic.find((r) => r.id === particles.osmoticId && r.reagentId === reagent.id)
+      if (!row || particles.measuredId !== undefined) throw new Error(`${where}: no osmotic row "${particles.osmoticId}" of this reagent`)
+      if (row.ratio.value !== particles.value) throw new Error(`${where}: ${particles.value} is not the ratio of the row "${row.id}", ${row.ratio.value}`)
+      continue
+    }
+    if (particles.osmoticId !== undefined) throw new Error(`${where}: a measured count names no osmotic row`)
     const row = record.measured.find((r) => r.id === particles.measuredId && r.reagentId === reagent.id)
     if (!row) throw new Error(`${where}: no measured row "${particles.measuredId}" of this reagent`)
     if (row.ratio.figures !== 3 || row.ratio.value !== particles.value) throw new Error(`${where}: ${particles.value} is not the ratio of the row "${row.id}" at three figures, ${row.ratio.value}`)
