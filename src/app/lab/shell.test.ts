@@ -677,8 +677,9 @@ describe("the note under a bottle's hazards", () => {
     for (const { classifiedAs, hazards, solid } of older) {
       const paragraphs = hazards.note.value.split('\n\n')
       expect(paragraphs).toHaveLength(3)
-      expect(hazards.note.moreSourceIds).toBeUndefined()
       const html = renderToStaticMarkup(createElement(Hazards, { classifiedAs, hazards, sources, solid }))
+      // Every document under the note is listed, the third and any after it too (some aqueous notes rest on four or five since 2026-10-18).
+      expect(hrefs(html)).toEqual([...new Set([hazards.sourceId, hazards.note.sourceId, ...(hazards.note.alsoSourceId === undefined ? [] : [hazards.note.alsoSourceId]), ...(hazards.note.moreSourceIds ?? [])])].map((id) => escaped(sourceUrl(id))))
       expect(noteOf(html, solid ? '<h4 class="font-medium">As it is used here</h4>' : heading)).toBe(paragraphs.map((paragraph) => `<p>${escaped(paragraph)}</p>`).join(''))
     }
   })

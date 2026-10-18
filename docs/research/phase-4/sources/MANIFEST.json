@@ -424,7 +424,7 @@
             "species[hydrogen-ion].enthalpyOfFormation"
           ],
           "prints": "0",
-          "where": "Page 2-38, Table 2:H (hydrogen), the row for H+ in the state ao, the standard state in water: the column of the standard enthalpy of formation at 298.15 K, in kJ/mol."
+          "where": "Page 2-38, Table 2:H (hydrogen), the row for H+ in the state ao, the standard state in water: the column of the standard enthalpies of formation at 298.15 K, in kJ/mol."
         },
         {
           "fields": [

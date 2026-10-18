@@ -16,8 +16,12 @@
           "H290: May be corrosive to metals"
         ],
         "note": {
-          "value": "The acid on this bench is 1 mol/L hydrochloric acid; the statements above are those of the concentrated acid it is made from. The same supplier's sheet for 0.1 M to 2.4 M keeps Danger and, under H314, says that it burns the skin severely and damages the eyes; under H335, that it may irritate the airways; under H303, that it may be harmful if swallowed.\n\nWhat this lab goes by: that sheet. It calls for eye protection, gloves and protective clothing, and a fume hood or a well-ventilated room. The eyes are to be rinsed with water for several minutes, contact lenses out if easily done, and the rinsing kept up, and a poison centre or a doctor called at once; splashed clothing comes off at once and the skin is rinsed.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
-          "sourceId": "flinn-sds-395.2"
+          "value": "The acid on this bench is 1 mol/L hydrochloric acid; the statements above are those of the concentrated acid it is made from. The same supplier's sheet for 0.1 M to 2.4 M keeps Danger and, under H314, says that it burns the skin severely and damages the eyes; under H335, that it may irritate the airways; under H303, that it may be harmful if swallowed.\n\nStricter, and what this lab goes by: a second supplier's sheet for weaker, 0.5 M acid asks more at the eyewash: eyes are flushed for 15 minutes or more and a doctor is seen at once. NOAA's record adds 15 minutes more where no doctor has come. The first sheet calls for eye protection, gloves and protective clothing, and a fume hood or a well-ventilated room; splashed clothing comes off at once.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-395.2",
+          "alsoSourceId": "wards-sds-hh0093",
+          "moreSourceIds": [
+            "noaa-cameo-3598"
+          ]
         },
         "sourceId": "flinn-sds-395"
       },

@@ -22,6 +22,8 @@ const [lib] = Object.values(import.meta.glob<Lib>('../../../scripts/titration-li
 const { QUOTED_RUN, unpackHashes, quotedRuns } = lib!
 
 type Fingerprint = { retrieved: string; runWords: number; sources: string[]; hashes: string }
+// Since 2026-10-18 the fingerprint also holds the thirteen documents that later labs read and this lab's notes now
+// rest on too, made from the copies those labs saved (docs/research/phase-4/sources/README.md).
 const [fingerprint] = Object.values(import.meta.glob<Fingerprint>('../../../docs/research/phase-4/sources/quotation-fingerprint.json', { eager: true, import: 'default' }))
 const pages = unpackHashes(fingerprint?.hashes ?? '')
 const paragraphs = AQUEOUS_PRIMER.flatMap((s) => s.paragraphs.map((paragraph, i) => ({ where: `${s.id}[${i}]`, ...paragraph })))

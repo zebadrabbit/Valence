@@ -62,14 +62,14 @@
           "where": "Section 2, the last of the five hazard classes it lists; the third and the fourth are irritation of the skin (H315) and serious irritation of the eyes (H319). The note says that the solid irritates the skin, the eyes and the airways."
         },
         {
-          "field": "nh4no3-0.5m.hazards.note",
+          "field": "nh4no3-0.5m.notCarried",
           "prints": "P220",
-          "where": "Section 7: the precautionary statement that the substance is kept and stored away from clothing and from what burns, with P221 on not mixing it with what burns. The note says that the sheet keeps it away from anything that burns."
+          "where": "Read and not carried. Section 7: the precautionary statement that the substance is kept and stored away from clothing and from what burns, with P221 on not mixing it with what burns. Why: the note is held to 160 words, and gives NOAA's line on clothing as a fire risk, which comes of the same hazard."
         },
         {
-          "field": "nh4no3-0.5m.hazards.note",
+          "field": "nh4no3-0.5m.notCarried",
           "prints": "P271",
-          "where": "Sections 7 and 8: the precautionary statement that the substance is used only in a hood or where the air is well changed."
+          "where": "Read and not carried. Sections 7 and 8: the precautionary statement that the substance is used only in a hood or where the air is well changed. Why: it is for the solid and its dust; the bench holds a dilute solution, and the note is held to 160 words."
         },
         {
           "field": "nh4no3-0.5m.hazards.note",
@@ -165,7 +165,7 @@
         {
           "field": "bacl2-0.5m.hazards.note",
           "prints": "Toxic if swallowed (H301)",
-          "where": "Section 2, the first of the two hazard classes it lists: category 3, for acute toxicity by mouth. The note's second paragraph gives the code, and the next, as the stricter than the sheet for the solution."
+          "where": "Section 2, the first of the two hazard classes it lists: category 3, for acute toxicity by mouth. The note's second paragraph points to it and to the next, the statements over the note, as the stricter than the sheet for the solution."
         },
         {
           "field": "bacl2-0.5m.hazards.note",
@@ -193,7 +193,7 @@
         {
           "field": "bacl2-0.5m.hazards.note",
           "prints": "Less than 1 M",
-          "where": "The sheet's title, after the words Barium Chloride Solution: the strengths the sheet is for. The solution on the bench is 0.5 M, inside this range, so the note's first paragraph rests on this sheet; its second, on the sheet for the solid (`flinn-sds-94`), which is the stricter. The supplier lists no other sheet for a solution of barium chloride."
+          "where": "The sheet's title, after the words Barium Chloride Solution: the strengths the sheet is for. The solution on the bench is 0.5 M, inside this range, so the note's first paragraph rests on this sheet; its second, on the sheet for the solid (`flinn-sds-94`), a second supplier's sheet for a 0.1 M solution, a third's for the solid and NOAA's record, which are the stricter. The supplier lists no other sheet for a solution of barium chloride."
         },
         {
           "field": "bacl2-0.5m.hazards.note",
@@ -414,7 +414,7 @@
         {
           "field": "cocl2-0.5m.hazards.note",
           "prints": "P311",
-          "where": "Section 4, its first line: a poison centre or a doctor is called. The line does not say at once, and the note does not."
+          "where": "Section 4, its first line: a poison centre or a doctor is called. The line does not say at once; the note gives the second and third suppliers' call at once, for swallowing."
         },
         {
           "field": "cocl2-0.5m.hazards.note",
@@ -424,7 +424,7 @@
         {
           "field": "cocl2-0.5m.hazards.note",
           "prints": "SECTION 4 — FIRST AID MEASURES",
-          "where": "The heading of section 4. Under it the sheet has lines for breathing in, for the skin and for swallowing, and none for the eyes: the words for rinsing the eyes that the supplier's other sheets carry are not on this one. The note says that the sheet prints no first aid for the eyes."
+          "where": "The heading of section 4. Under it the sheet has lines for breathing in, for the skin and for swallowing, and none for the eyes: the words for rinsing the eyes that the supplier's other sheets carry are not on this one. The note gives the first aid for the eyes of the second and third suppliers' sheets for the solid, which have a line for them."
         },
         {
           "field": "cocl2-0.5m.hazards.note",
@@ -457,7 +457,7 @@
         {
           "field": "cocl2-0.5m.hazards.note",
           "prints": "May cause cancer (H350)",
-          "where": "Section 2, the first of the four hazard classes it lists: category 1, for causing cancer. The note says what this statement and the three after it are, in the project's words and without their codes, which are the codes of four of the statements over the note."
+          "where": "Section 2, the first of the four hazard classes it lists: category 1, for causing cancer. The note says that this sheet keeps four of the statements over the note: this one and the three after it."
         },
         {
           "field": "cocl2-0.5m.hazards.note",
@@ -502,7 +502,7 @@
         {
           "field": "cocl2-0.5m.hazards.note",
           "prints": "SECTION 4 — FIRST AID MEASURES",
-          "where": "The heading of section 4. Under it this sheet too has lines for breathing in, for the skin and for swallowing, and none for the eyes. The supplier's sheet for the 2.5% solution does carry the usual words for rinsing the eyes; it is not a source of the record, and whether the note should give them from it is for the owner."
+          "where": "The heading of section 4. Under it this sheet too has lines for breathing in, for the skin and for swallowing, and none for the eyes. The note gives the first aid for the eyes of the second and third suppliers' sheets for the solid, which ask 15 minutes or more. The supplier's sheet for the 2.5% solution, which is not a source of the record, carries the usual words for rinsing the eyes."
         }
       ]
     },
@@ -568,7 +568,7 @@
         {
           "field": "cuso4-0.5m.hazards.note",
           "prints": "0.5 M - 1.5 M",
-          "where": "The sheet's title, after the words Copper(II) Sulfate Solution: the strengths the sheet is for. The solution on the bench is 0.5 M, the first strength this title takes in, so the note's first paragraph rests on this sheet; its second, on the sheet for the solid (`flinn-sds-285`), which is the stricter. The supplier's other sheet for a solution of the salt alone in water is for 0.1 M or less (sds_286.1) and finds no hazard; nothing lies between the two sheets at 0.5 M, and that one is not a source of the record."
+          "where": "The sheet's title, after the words Copper(II) Sulfate Solution: the strengths the sheet is for. The solution on the bench is 0.5 M, the first strength this title takes in, so the note's first paragraph rests on this sheet; its second, on the sheet for the solid (`flinn-sds-285`) and NOAA's record of the solid, which are the stricter. The supplier's other sheet for a solution of the salt alone in water is for 0.1 M or less (sds_286.1) and finds no hazard; nothing lies between the two sheets at 0.5 M, and that one is not a source of the record."
         },
         {
           "field": "cuso4-0.5m.hazards.note",
@@ -900,7 +900,7 @@
         {
           "field": "hcl-6m.hazards.note",
           "prints": "6 M - 12 M (Concentrated)",
-          "where": "The sheet's title, after the words Hydrochloric Acid: the strengths the sheet is for. The acid on the bench is 6 M, the first strength this title takes in; the supplier's sheet below it stops at 5.9 M. So the sheet for this strength is the one the bottle's statements come from, and the note's first paragraph rests on it; its second rests on the sheet just below (`flinn-sds-395.1`), which has a class this one does not."
+          "where": "The sheet's title, after the words Hydrochloric Acid: the strengths the sheet is for. The acid on the bench is 6 M, the first strength this title takes in; the supplier's sheet below it stops at 5.9 M. So the sheet for this strength is the one the bottle's statements come from, and the note's first paragraph rests on it; its second rests on the sheet just below (`flinn-sds-395.1`), which has a class this one does not, and on a second supplier's sheet for weaker acid and NOAA's record of the acid, which ask more after a splash in the eyes."
         },
         {
           "field": "hcl-6m.hazards.note",
@@ -978,7 +978,7 @@
         {
           "field": "hcl-3m.hazards.note",
           "prints": "2.5 M - 5.9 M",
-          "where": "The sheet's title, after the words Hydrochloric Acid Solution: the strengths the sheet is for. The acid on the bench is 3 M, inside this range, so the note rests on this sheet alone."
+          "where": "The sheet's title, after the words Hydrochloric Acid Solution: the strengths the sheet is for. The acid on the bench is 3 M, inside this range, so the note's first paragraph rests on this sheet; its second, on a second supplier's sheet for weaker acid and NOAA's record of the acid, which ask more after a splash in the eyes."
         },
         {
           "field": "hcl-3m.hazards.note",
@@ -1071,7 +1071,7 @@
         {
           "field": "hcl-1m.hazards.note",
           "prints": "0.1 M - 2.4 M",
-          "where": "The sheet's title, after the words Hydrochloric Acid Solution: the strengths the sheet is for. The acid on the bench is 1 M, well inside this range, so the note rests on this sheet alone."
+          "where": "The sheet's title, after the words Hydrochloric Acid Solution: the strengths the sheet is for. The acid on the bench is 1 M, well inside this range, so the note's first paragraph rests on this sheet; its second, on a second supplier's sheet for weaker acid and NOAA's record of the acid, which ask more after a splash in the eyes."
         },
         {
           "field": "hcl-1m.hazards.note",
@@ -1463,7 +1463,7 @@
         {
           "field": "agno3-0.1m.hazards.note",
           "prints": "Toxic to aquatic species.",
-          "where": "Section 12, the one line on ecology. The sheet gives no hazard class for the environment and says nothing of drains."
+          "where": "Section 12, the one line on ecology. The sheet gives no hazard class for the environment and says nothing of drains; the note's class for water life is the second supplier's."
         },
         {
           "field": "agno3-0.1m.notCarried",
@@ -1481,7 +1481,7 @@
         {
           "field": "agno3-0.1m.hazards.note",
           "prints": "0.2 M or Less",
-          "where": "The sheet's title, after the words Silver Nitrate Solution: the strengths the sheet is for. The solution on the bench is 0.1 M, inside this range, so the note's first paragraph rests on this sheet; its second, on the sheet for the solid (`flinn-sds-691`), which is the stricter. The supplier's next sheet is for 0.3 M to 1 M and gives Danger."
+          "where": "The sheet's title, after the words Silver Nitrate Solution: the strengths the sheet is for. The solution on the bench is 0.1 M, inside this range, so the note's first paragraph rests on this sheet; its second, on the sheet for the solid (`flinn-sds-691`), a second supplier's sheet for a 0.1 M solution and a third supplier's sheet for the solid, which are the stricter. The supplier's next sheet is for 0.3 M to 1 M and gives Danger."
         },
         {
           "field": "agno3-0.1m.hazards.note",
@@ -1516,7 +1516,7 @@
         {
           "field": "agno3-0.1m.hazards.note",
           "prints": "Toxic to aquatic species.",
-          "where": "Section 12, the one line on ecology, as the sheet for the solid has it. The sheet gives no hazard class for the environment and says nothing of drains. The note says that both sheets call silver nitrate toxic to water life, and gives no method of disposal."
+          "where": "Section 12, the one line on ecology, as the sheet for the solid has it. The sheet gives no hazard class for the environment and says nothing of drains. The note gives the second supplier's class for water life, H400, which this line bears out, and gives no method of disposal."
         },
         {
           "field": "agno3-0.1m.hazards.note",
@@ -1847,6 +1847,340 @@
           "field": "naoh-6m.hazards.note",
           "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
           "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 10, is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and by local regulations, and to ask the laboratory's supervisor. The sheet for 6.1 M to 19 M names the same method."
+        }
+      ]
+    },
+    {
+      "id": "wards-sds-ss0180",
+      "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=662fa074b63b4913f680cea55e813fe43f883c36&vid=662fa074b63b4913f680cea55e813fe43f883c36&prid=original&clid=SAPDAM",
+      "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Silver Nitrate, 0.1 Molar (0.1 Normal) Solution, SDS No. SS0180; revision date October 25, 2024 (read on 2026-10-09; no copy is kept).",
+      "fetchedSha256": "7a0e7b5932bef1f38a59468fdb18f0838b2338e6a6f210806a7b8745d967adc0",
+      "supports": [
+        {
+          "field": "agno3-0.1m.hazards.note",
+          "prints": "SILVER NITRATE, 0.1 MOLAR (0.1 NORMAL) SOLUTION",
+          "where": "The product named at the head of the sheet, whose number is SDS No. SS0180, of two suppliers of one company; the English pages were read. It is a sheet for a solution of the strength on this bench: section 3 gives silver nitrate at 1.7%. Read for the Group I cations lab on 2026-10-09; the copy saved then was checked against the hash recorded here and read again for this lab on 2026-10-18, and was not fetched again."
+        },
+        {
+          "field": "agno3-0.1m.hazards.note",
+          "prints": "H400: Very toxic to aquatic life.",
+          "where": "Section 2, the last of the three hazard statements, with the pictogram for the environment; the first two are the skin and the eyes, as the first supplier's sheet for this strength has them. The first supplier's sheets give no class for water life. The note gives the code, says the statement in the project's words, and keeps the solution out of drains and waterways, as the Group I cations lab's note does: this sheet classes the solution as very toxic to water life, and section 15 lists silver nitrate under a federal rule on hazardous waste. It gives no method of disposal."
+        },
+        {
+          "field": "agno3-0.1m.hazards.note",
+          "prints": "First aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: contact lenses are taken out and the eyes flushed with water for 15 minutes or more, and medical attention got at once; for swallowing, a doctor or a poison centre called at once. The first supplier's sheet for this strength gives several minutes for the eyes. The note gives the 15 minutes, the doctor at once and the call at once as what this lab goes by."
+        },
+        {
+          "field": "agno3-0.1m.notCarried",
+          "prints": "Ecological information",
+          "where": "Read and not carried. The heading of section 12, and its last line: that harm to the environment cannot be ruled out where the product is handled or disposed of carelessly. Why: the line is on every sheet of this supplier that was read, whatever the substance; the class for water life above it is carried."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-agno3",
+      "url": "https://www.fishersci.com/store/msds?partNumber=S18125&productDescription=SILVER+NITRATE&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Silver nitrate, catalogue number S181; revision 8 of 18 December 2025 (read on 2026-10-09; no copy is kept).",
+      "fetchedSha256": "b4385b822ed3c74592bdf9827dc5a5042509cbaff9b44b6b155a92118271da74",
+      "supports": [
+        {
+          "field": "agno3-0.1m.hazards.note",
+          "prints": "May damage the unborn child",
+          "where": "Section 2, the last of the five hazard statements, printed without codes; the class is toxicity to reproduction, category 1B. The sheet is for the solid, with the CAS number 7761-88-8, and is made to the United States standard of 2024. Neither of the first supplier's sheets has such a class. The note says that this sheet adds harm to an unborn child, as the Group I cations lab's note does. Read for the Group I cations lab on 2026-10-09; the copy saved then was checked against the hash recorded here and read again for this lab on 2026-10-18, and was not fetched again."
+        },
+        {
+          "field": "agno3-0.1m.notCarried",
+          "prints": "4. First-aid measures",
+          "where": "Read and not carried. The heading of section 4, with the first aid of the solid: 15 minutes or more for the eyes and a doctor at once, soap and water for the skin, a doctor at once if any is swallowed. Section 2 also lists irritation of the airways, of the solid's dust. Why: for the eyes and for swallowing it agrees with what the note carries from the sheet for a solution of this strength, and the note is held to 160 words."
+        }
+      ]
+    },
+    {
+      "id": "wards-sds-bb0041",
+      "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition/id_81f5f0062a518f58aba7cc5425e6e592e345956b/vid_81f5f0062a518f58aba7cc5425e6e592e345956b/prid_original/clid_SAPDAM",
+      "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Barium Chloride, 0.1 Molar Solution, SDS No. BB0041; revision date January 31, 2018 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "1b52651eb2b51a0b9b6f6d39d00d57e950fdf98c48286fca2a1c72e7d7d1da02",
+      "supports": [
+        {
+          "field": "bacl2-0.5m.hazards.note",
+          "prints": "BARIUM CHLORIDE, 0.1 MOLAR SOLUTION",
+          "where": "The product named at the head of the sheet, whose number is SDS No. BB0041, of two suppliers of one company; the English pages were read. It is a sheet for a 0.1 M solution, weaker than the 0.5 M on this bench: what it asks is taken to hold at least as much here, as the types of reactions lab takes a sheet for a weaker solution of calcium chloride. The same supplier's sheet for 0.2 M, read for the flame test lab, prints the same first aid; it is not a source of this record. Read for the flame test lab on 2026-10-08; the copy saved then was checked against the hash recorded here and read again for this lab on 2026-10-18, and was not fetched again."
+        },
+        {
+          "field": "bacl2-0.5m.hazards.note",
+          "prints": "P260: Do not breathe mist/vapours/spray.",
+          "where": "Section 2, the first of the precautionary statements. The first supplier's sheet for the solution prints none in its section 2. The note says that the mist is not breathed. The sheet's H302 is not given: the statements over the note, of the solid, have the graver H301."
+        },
+        {
+          "field": "bacl2-0.5m.hazards.note",
+          "prints": "First Aid Measures",
+          "where": "The heading of section 4. Under it, for the eyes: contact lenses are taken out and the eyes flushed with water for 15 minutes or more, and medical attention got at once; for swallowing, a doctor or a poison centre is called at once. The note gives both as what this lab goes by, as the flame test lab's note does for its 0.1 M solution."
+        },
+        {
+          "field": "bacl2-0.5m.hazards.note",
+          "prints": "Accidental Release Measures",
+          "where": "The heading of section 6: runoff is kept from storm sewers and from ditches that lead to waterways. The line is on every sheet of this supplier that was read; the note carries it, as keeping the solution out of drains and waterways, because barium chloride is toxic and barium is regulated, as the flame test lab's note does: section 15 lists the code D005 for barium chloride under a federal rule on hazardous waste, and NOAA's record has barium compounds on a list of the Environmental Protection Agency. It gives no method of disposal."
+        },
+        {
+          "field": "bacl2-0.5m.notCarried",
+          "prints": "SKIN ABSORPTION",
+          "where": "Read and not carried. Section 4, the line for the skin: contaminated clothing off and the skin flushed with mild soap and water. Why: the note is held to 160 words; of this sheet's first aid it gives the eyes and swallowing, as the flame test lab's note does."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-bacl2-dihydrate",
+      "url": "https://www.fishersci.com/store/msds?partNumber=B34500&productDescription=BARIUM+CHLORIDE+DIHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Barium chloride dihydrate, catalogue numbers B33 and B34; revision 7 of 18 December 2025 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "9b56ffc4b988a5955a161f7133bdfab1c4185f696baeb044d5761e5926dbd00b",
+      "supports": [
+        {
+          "field": "bacl2-0.5m.hazards.note",
+          "prints": "Causes serious eye irritation",
+          "where": "Section 2, the second of the three hazard statements, printed without codes; the other two are those of the first supplier's sheet for the solid. The sheet is for the solid dihydrate, with the CAS number 10326-27-9. The first supplier's sheets have no statement for the eyes; the note says that this sheet adds one, for the solid. Read for the flame test lab on 2026-10-08; the copy saved then was checked against the hash recorded here and read again for this lab on 2026-10-18, and was not fetched again."
+        },
+        {
+          "field": "bacl2-0.5m.notCarried",
+          "prints": "4. First-aid measures",
+          "where": "Read and not carried. The heading of section 4, with the first aid of the solid; section 7 has the solid handled only in a fume hood. Why: it is the first aid and the handling of the solid, whose dust is the concern; the note gives the first aid of the sheet for a solution, as the flame test lab's note does."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-19847",
+      "url": "https://cameochemicals.noaa.gov/chemical/19847",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Barium Chloride Dihydrate (chemical 19847); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-08; no copy is kept).",
+      "fetchedSha256": "34e15d92eb7a8ffe31a37f7a1e0d8277c03c069855043581358f8a13d2774943",
+      "supports": [
+        {
+          "field": "bacl2-0.5m.hazards.note",
+          "prints": "Barium Compounds",
+          "where": "The field Regulatory Information, in the table headed EPA Consolidated List of Lists: the one row, credited to the EPA List of Lists, 2024. The record is of the solid dihydrate. The note says that the record has barium compounds on that list, as one of its reasons for keeping the solution out of drains and waterways. Read for the flame test lab on 2026-10-08; the copy saved then was checked against the hash recorded here and read again for this lab on 2026-10-18, and was not fetched again."
+        },
+        {
+          "field": "bacl2-0.5m.notCarried",
+          "prints": "20 to 30 minutes",
+          "where": "Read and not carried. The field First Aid, under EYES: flushing for this long while a hospital or a poison centre is called. Why: as the flame test lab has it, it is the database's standing first-aid text for the undiluted chemical, and no sheet for a solution of barium chloride asks for it; the note gives the second supplier's 15 minutes and the doctor at once."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-20049",
+      "url": "https://cameochemicals.noaa.gov/chemical/20049",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Copper Sulfate Pentahydrate (chemical 20049); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept).",
+      "fetchedSha256": "7ad72a302f8829ed0de8ee54eff77a31bd7363e9a63c027233d57caf24928c8e",
+      "supports": [
+        {
+          "field": "cuso4-0.5m.hazards.note",
+          "prints": "COPPER SULFATE PENTAHYDRATE",
+          "where": "The page's title, under the words Chemical Datasheet: a record of the solid, not of a solution. Read for the types of reactions lab on 2026-10-12; the copy saved then was checked against the hash recorded here and read again for this lab on 2026-10-18, and was not fetched again."
+        },
+        {
+          "field": "cuso4-0.5m.hazards.note",
+          "prints": "First Aid",
+          "where": "The name of the field. For the eyes: they are flushed with water or salt water for 20 minutes to 30, with a hospital or a poison centre called meanwhile. For the skin: it is flooded with water at once, the wet clothing taken off, and then washed with soap and water. The supplier's sheets give several minutes for the eyes; the note gives these as what this lab goes by, as the types of reactions lab's note does for its 1 M solution."
+        },
+        {
+          "field": "cuso4-0.5m.notCarried",
+          "prints": "Reactivity Profile",
+          "where": "Read and not carried. The name of the field: the salt does not go with finely powdered metals or with magnesium, and corrodes steel and iron. Why: no powdered metal is on this bench, the magnesium is used at another station, and the note is held to 160 words."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-98",
+      "url": "https://cameochemicals.noaa.gov/chemical/98",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Ammonium Nitrate (chemical 98); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-09; no copy is kept).",
+      "fetchedSha256": "fcb356f842e644d5236987ef00b1651e3a1c3337c5d24597656dd3322df9aa56",
+      "supports": [
+        {
+          "field": "nh4no3-0.5m.hazards.note",
+          "prints": "Contaminated clothing may be a fire risk when dry.",
+          "where": "The field First Aid, its last sentence, credited to a guide for emergencies of 2024, the one for oxidizers. It is carried, as the calorimetry lab carries it, because ammonium nitrate is an oxidiser by every document read and because a splash of its solution dries on a sleeve to the solid. The note gives it in its own words, beside the second supplier's line on taking such clothing off and washing it. Read for the calorimetry lab on 2026-10-09; the copy saved then was checked against the hash recorded here and read again for this lab on 2026-10-18, and was not fetched again."
+        },
+        {
+          "field": "nh4no3-0.5m.notCarried",
+          "prints": "Strong Oxidizing Agent",
+          "where": "Read and not carried. The field Reactivity Alerts, whose other entry is the word Explosive. Why: the hazard of explosion is of the dry solid, heated, shut in or mixed with what burns, which the calorimetry lab's bench weighs out; this bench holds a solution of about 4%, and the note gives the solid's oxidiser from the statements over it."
+        }
+      ]
+    },
+    {
+      "id": "wards-sds-aa0295",
+      "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=9c057dd07513669c1178f356251b1e62ec5e9b74&vid=9c057dd07513669c1178f356251b1e62ec5e9b74&prid=original&clid=SAPDAM",
+      "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Ammonium Nitrate, SDS No. AA0295; revision date June 11, 2024 (read on 2026-10-09; no copy is kept).",
+      "fetchedSha256": "2d5bc9b5d39aa67372cfb14e51892f67e916846a2629fd0f3239f9ce20b14599",
+      "supports": [
+        {
+          "field": "nh4no3-0.5m.hazards.note",
+          "prints": "P362+P364: Take off contaminated clothing and wash it before reuse.",
+          "where": "Section 2, among the precautionary statements, on a sheet for the solid at 100%, of two suppliers of one company; the English pages were read. The note gives it beside NOAA's line on clothing as a fire risk. Read for the calorimetry lab on 2026-10-09; the copy saved then was checked against the hash recorded here and read again for this lab on 2026-10-18, and was not fetched again."
+        },
+        {
+          "field": "nh4no3-0.5m.hazards.note",
+          "prints": "First aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: contact lenses are taken out and the eyes flushed with water for 15 minutes or more, and medical attention got at once. The supplier's sheets give several minutes. The note gives the 15 minutes and the doctor at once as what this lab goes by, as the calorimetry lab's note does."
+        },
+        {
+          "field": "nh4no3-0.5m.notCarried",
+          "prints": "INGESTION:",
+          "where": "Read and not carried. Section 4, the line for swallowing: a doctor or a poison centre called at once. Why: the note is held to 160 words and gives this sheet's line for the eyes, as the calorimetry lab's note does."
+        }
+      ]
+    },
+    {
+      "id": "wards-sds-cc0349",
+      "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=dbd3d49c322cc4ff5e1ab6d2ff5e2dc05a77cd7f&vid=dbd3d49c322cc4ff5e1ab6d2ff5e2dc05a77cd7f&prid=original&clid=SAPDAM",
+      "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Cobalt(II) Chloride, Hexahydrate, SDS No. CC0349; revision date July 25, 2024 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "2718580d32083682ec8dbcb66007f113c07f38707923e987d7ca1e80aacfe68b",
+      "supports": [
+        {
+          "field": "cocl2-0.5m.hazards.note",
+          "prints": "COBALT(II) CHLORIDE, HEXAHYDRATE",
+          "where": "The product named at the head of the sheet, whose number is SDS No. CC0349, of two suppliers of one company; the English pages were read. It is a sheet for the solid hexahydrate at 100%, by whose sheets the solution on this bench is handled, the supplier having none for a solution this strong. Read for the Le Chatelier's principle lab on 2026-10-10; the copy saved then was checked against the hash recorded here and read again for this lab on 2026-10-18, and was not fetched again."
+        },
+        {
+          "field": "cocl2-0.5m.hazards.note",
+          "prints": "H314: Causes severe skin burns and eye damage.",
+          "where": "Section 2, the second of the eight hazard statements, with the pictogram for corrosives; the sheet stores and ships the solid as a corrosive. Neither the first supplier's sheet nor the third's has a class for burns of the skin or damage to the eyes, and this sheet's own first aid speaks of irritation. The Le Chatelier's principle lab carries the class as the stricter, and the note does the same for the solution handled by the solid's sheets; whether the class should be carried is the question its research record sets out for the owner."
+        },
+        {
+          "field": "cocl2-0.5m.hazards.note",
+          "prints": "H410: Very toxic to aquatic life with long lasting effects.",
+          "where": "Section 2, the last of the eight hazard statements, with the pictogram for the environment and figures in section 12 of 1.6 mg/L and less. The note gives the code, says that the salt is very toxic to water life, and keeps the solution out of drains and waterways, which this sheet's section 6 asks and its class for the environment carries. It gives no method of disposal."
+        },
+        {
+          "field": "cocl2-0.5m.hazards.note",
+          "prints": "First aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: contact lenses are taken out and the eyes flushed with water for 15 minutes or more, and medical attention got at once; for swallowing, a doctor or a poison centre called at once. The first supplier's two sheets have no line for the eyes. The note gives the 15 minutes, the doctor at once and the call at once, as the Le Chatelier's principle lab's note does."
+        },
+        {
+          "field": "cocl2-0.5m.notCarried",
+          "prints": "P284: Wear respiratory protection.",
+          "where": "Read and not carried. Section 2, among the precautionary statements. Why: the same sheet says otherwise in section 8, that no protection for breathing should be needed in ordinary handling."
+        }
+      ]
+    },
+    {
+      "id": "fisher-sds-cocl2-hexahydrate",
+      "url": "https://www.fishersci.com/store/msds?partNumber=C371100&productDescription=COBALT+CHLORIDE+HEXAHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
+      "citation": "Fisher Scientific Company. Safety Data Sheet: Cobalt(II) chloride hexahydrate, catalogue number C371; revision 6 of 18 December 2025 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "700a658e1d7be889826de7bdf7b24bd23e1ede8206c0b7f07f81e532e2dadd8d",
+      "supports": [
+        {
+          "field": "cocl2-0.5m.hazards.note",
+          "prints": "Harmful if swallowed or if inhaled",
+          "where": "Section 2, the last of the six hazard statements, printed without codes; the sheet is for the solid hexahydrate, made to the United States standard of 2024. The first supplier's sheet has the class for swallowing alone. The note says that this sheet adds harm if the salt is breathed in. Read for the Le Chatelier's principle lab on 2026-10-10; the copy saved then was checked against the hash recorded here and read again for this lab on 2026-10-18, and was not fetched again."
+        },
+        {
+          "field": "cocl2-0.5m.hazards.note",
+          "prints": "Use only under a chemical fume hood.",
+          "where": "Section 7, in its line for handling, and again in section 8. The first supplier's sheets allow a hood or a well-aired room. The note says that this sheet has it handled only in a fume hood."
+        },
+        {
+          "field": "cocl2-0.5m.hazards.note",
+          "prints": "4. First-aid measures",
+          "where": "The heading of section 4. Under it: medical attention at once; the eyes rinsed with plenty of water, under the lids too, for 15 minutes or more; the skin washed for 15 minutes or more; for swallowing, a doctor or a poison centre called at once. The note gives the 15 minutes for the eyes and the skin and the doctor at once."
+        },
+        {
+          "field": "cocl2-0.5m.notCarried",
+          "prints": "May cause cancer by inhalation",
+          "where": "Read and not carried. Section 2, the fourth of the six hazard statements; the fifth is harm to fertility. Why: both are narrower than the first supplier's statements over the note, of cancer by any way and of harm to fertility or an unborn child."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-6949",
+      "url": "https://cameochemicals.noaa.gov/chemical/6949",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Magnesium (chemical 6949); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept).",
+      "fetchedSha256": "920c155c5caf316afc4230f4d159685daa180640b7efa709678cca5ae6ca9af0",
+      "supports": [
+        {
+          "field": "mg.hazards.note",
+          "prints": "MAGNESIUM",
+          "where": "The page's title, under the words Chemical Datasheet: a record of the metal, a light silvery metal. Read for the types of reactions lab on 2026-10-12; the copy saved then was checked against the hash recorded here and read again for this lab on 2026-10-18, and was not fetched again."
+        },
+        {
+          "field": "mg.hazards.note",
+          "prints": "Fire Extinguishing Agents Not to Be Used:",
+          "where": "The field for firefighting, the start of its first line: water, foam, carbon dioxide and agents that hold a halogen. The supplier's sheet rules out water alone. The note says that a magnesium fire is never fought with water, foam or a carbon dioxide extinguisher, as the types of reactions lab's note does."
+        },
+        {
+          "field": "mg.notCarried",
+          "prints": "Reactivity Profile",
+          "where": "Read and not carried. The name of the field: that the metal reacts with dilute acids and sets hydrogen free. Why: what the ribbon gives off in acid is what station 10 shows, and no note may say it before the station counts; the note says that a piece goes into acid on purpose, as the experiment."
+        },
+        {
+          "field": "mg.notCarried",
+          "prints": "Behavior in Fire: Forms dense white smoke. Flame is very bright. (USCG, 1999)",
+          "where": "Read and not carried. The field Fire Hazard. Why: nothing is burned on this bench."
+        }
+      ]
+    },
+    {
+      "id": "wards-sds-hh0093",
+      "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=bfc5350df252e745fef34a139b6c2dcb3a156f9a&vid=bfc5350df252e745fef34a139b6c2dcb3a156f9a&prid=original&clid=SAPDAM",
+      "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Hydrochloric Acid, 0.5 Molar (0.5 Normal) Solution, SDS No. HH0093; revision date August 22, 2024 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "606c5f05625ebfcaedc6de87aac50d0a2dcf575cb9b4d45bb2fd5075322a74b3",
+      "supports": [
+        {
+          "field": "hcl-1m.hazards.note",
+          "prints": "First aid measures",
+          "where": "The heading of section 4, on a sheet for 0.5 M acid of two suppliers of one company; the English pages were read. Read for the Le Chatelier's principle lab on 2026-10-10; the copy saved then was checked against the hash recorded here and read again for this lab on 2026-10-18, and was not fetched again. Under it, for the eyes: contact lenses are taken out and the eyes flushed with water for 15 minutes or more, and medical attention got at once. The sheet is for acid weaker than the 1 M on this bench, and what it asks is taken to hold at least as much here; the first supplier's sheet gives several minutes. The note gives the 15 minutes and the doctor at once as what this lab goes by, as the Le Chatelier's principle lab's note does for its 0.3 M acid."
+        },
+        {
+          "field": "hcl-3m.hazards.note",
+          "prints": "First aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: contact lenses are taken out and the eyes flushed with water for 15 minutes or more, and medical attention got at once. The sheet is for acid weaker than the 3 M on this bench, and what it asks is taken to hold at least as much here; the first supplier's sheet gives several minutes. The note gives the 15 minutes and the doctor at once as what this lab goes by, as the Le Chatelier's principle lab's note does for its 0.3 M acid."
+        },
+        {
+          "field": "hcl-6m.hazards.note",
+          "prints": "First aid measures",
+          "where": "The heading of section 4. Under it, for the eyes: contact lenses are taken out and the eyes flushed with water for 15 minutes or more, and medical attention got at once. The sheet is for acid weaker than the 6 M on this bench, and what it asks is taken to hold at least as much here; the first supplier's sheet gives several minutes. The note gives the 15 minutes and the doctor at once as what this lab goes by, as the Le Chatelier's principle lab's note does for its 0.3 M acid."
+        },
+        {
+          "field": "hcl-1m.notCarried",
+          "prints": "Signal word: WARNING",
+          "where": "Read and not carried. Section 2: the sheet classes the 0.5 M acid as an irritant of the skin and the eyes. Why: on the hazard the first supplier's sheet for each strength on this bench is the stricter; the same holds for the 3 M and the 6 M acid."
+        },
+        {
+          "field": "hcl-3m.notCarried",
+          "prints": "Incompatible materials:",
+          "where": "Read and not carried. Section 10, the label of its list, which begins with metals and bases; section 5 says that the acid on metals gives off hydrogen. Why: the 3 M acid meets magnesium on purpose at station 10, and what comes off is what that station shows; the same holds for the 1 M and the 6 M acid, the second of which meets a base at station 8. No note may say what a station shows before it counts."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-3598",
+      "url": "https://cameochemicals.noaa.gov/chemical/3598",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Hydrochloric Acid, Solution (chemical 3598); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-10; no copy is kept).",
+      "fetchedSha256": "a811d5510907e72c6cd03641bae01f8b07bdd47c2f246b1af36fb544a038c068",
+      "supports": [
+        {
+          "field": "hcl-1m.hazards.note",
+          "prints": "continue flushing for another 15 min. if physician does not arrive promptly",
+          "where": "The field First Aid, under EYES, a text the page credits to the Coast Guard, 1999, on a record of hydrochloric acid in water with no strength given. Read for the Le Chatelier's principle lab on 2026-10-10; the copy saved then was checked against the hash recorded here and read again for this lab on 2026-10-18, and was not fetched again. First the eyes are flushed with plenty of water for 15 minutes or more, with medical attention; then these words. The note says that the record adds 15 minutes more where no doctor has come, as the Le Chatelier's principle lab's note does."
+        },
+        {
+          "field": "hcl-3m.hazards.note",
+          "prints": "continue flushing for another 15 min. if physician does not arrive promptly",
+          "where": "The field First Aid, under EYES. First the eyes are flushed with plenty of water for 15 minutes or more, with medical attention; then these words. The note says that the record adds 15 minutes more where no doctor has come, as the Le Chatelier's principle lab's note does."
+        },
+        {
+          "field": "hcl-6m.hazards.note",
+          "prints": "continue flushing for another 15 min. if physician does not arrive promptly",
+          "where": "The field First Aid, under EYES. First the eyes are flushed with plenty of water for 15 minutes or more, with medical attention; then these words. The note says that the record adds 15 minutes more where no doctor has come, as the Le Chatelier's principle lab's note does."
+        },
+        {
+          "field": "hcl-6m.notCarried",
+          "prints": "Reacts violently with acetic anhydride, 2-aminoethanol, ammonium hydroxide",
+          "where": "Read and not carried. The field Reactivity Profile, which goes on to name sodium hydroxide among some twenty substances, and says in an earlier sentence that the acid gives off heat with bases. Why: the 6 M acid meets the 6 M base on purpose at station 8, and whether its tube warms is what that station asks; no note may say so before it counts. The station's caution says that the tube is hot once it is."
+        },
+        {
+          "field": "hcl-3m.notCarried",
+          "prints": "to generate flammable hydrogen gas",
+          "where": "Read and not carried. The field Reactivity Profile, the end of its sentence on metals. Why: the 3 M acid meets magnesium on purpose at station 10, and what comes off is what that station shows; the same holds for the other two strengths, in the labs that show them."
         }
       ]
     }

@@ -75,7 +75,8 @@ describe('aqueousData', () => {
       expect(words(value), reagent.id).toBeLessThanOrEqual(160)
       expect(paragraphs[1], reagent.id).toMatch(/^(Stricter, and what this lab goes by|What this lab goes by): /)
       expect(paragraphs[2], reagent.id).toBe("How any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.")
-      expect(value, reagent.id).not.toMatch(/\bdrains?\b|\bsinks?\b|\btrash\b|neutrali[sz]e|\bpour/i)
+      // The one thing a note may say of drains is the later labs' warning, kept out of drains and waterways, which is no method of disposal.
+      expect(value.replace('kept out of drains and waterways', ''), reagent.id).not.toMatch(/\bdrains?\b|\bsinks?\b|\btrash\b|neutrali[sz]e|\bpour/i)
       expect(value, reagent.id).not.toMatch(/Flinn|Ward|Fisher|Avantor/)
     }
   })
@@ -85,7 +86,7 @@ describe('aqueousData', () => {
     // The one colour a note names is of the calcium carbonate as it stands in its bottle, which the bottle's tile shows too.
     for (const reagent of aqueousData.reagents) {
       const said = `${reagent.classifiedAs} ${reagent.hazards.note.value}`.replace('a white powder', 'a powder')
-      expect(said, reagent.id).not.toMatch(/hydrogen\b(?! chloride)|carbon dioxide|ammonia|\bgas\b|bubbl|fizz|precipitat|cloud|\bwarm|\bhot\b(?! surfaces)|\bheat(?!, and hot surfaces| and hot surfaces)|temperature|exotherm|pink|blue|green|brown|orange|yellow|white|colour/i)
+      expect(said, reagent.id).not.toMatch(/hydrogen\b(?! chloride)|carbon dioxide(?! extinguisher)|ammonia|\bgas\b|bubbl|fizz|precipitat|cloud|\bwarm|\bhot\b(?! surfaces)|\bheat(?!, and hot surfaces| and hot surfaces)|temperature|exotherm|pink|blue|green|brown|orange|yellow|white|colour/i)
     }
   })
 
@@ -195,7 +196,7 @@ describe('stationCitations', () => {
       expect(new Set(listed.map((c) => c.source.id)).size, station.id).toBe(listed.length)
       for (const reagentId of station.reagentIds) {
         const { hazards } = aqueousData.reagents.find((r) => r.id === reagentId)!
-        for (const id of [hazards.sourceId, hazards.note.sourceId, ...(hazards.note.alsoSourceId === undefined ? [] : [hazards.note.alsoSourceId])]) expect(listed.map((c) => c.source.id), station.id).toContain(id)
+        for (const id of [hazards.sourceId, hazards.note.sourceId, ...(hazards.note.alsoSourceId === undefined ? [] : [hazards.note.alsoSourceId]), ...(hazards.note.moreSourceIds ?? [])]) expect(listed.map((c) => c.source.id), station.id).toContain(id)
       }
       for (const note of station.notes) expect(listed.find((c) => c.source.id === note.sourceId)!.covers).toContain('Notes on this station')
     }

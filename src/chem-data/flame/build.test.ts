@@ -176,7 +176,8 @@ describe('mergeHazards, on the flame record', () => {
 describe('the sources the lab adds', () => {
   const earlier: Listed[] = allSources.filter((s) => !sources.some((own) => own.id === s.id) && !sheets.some((sheet) => sheet.id === s.id))
   const emission = allSources.find((s) => s.id === 'nist-asd-lines-neutral')!
-  const aqueousSheets = allSources.filter((s) => ['flinn-sds-94', 'flinn-sds-94.01'].includes(s.id))
+  // Since 2026-10-18 the aqueous lab's barium chloride note rests on the three documents this lab read for its own as well.
+  const aqueousSheets = allSources.filter((s) => ['flinn-sds-94', 'flinn-sds-94.01', 'wards-sds-bb0041', 'fisher-sds-bacl2-dihydrate', 'noaa-cameo-19847'].includes(s.id))
 
   it('lists once a source another lab lists too: the emission spectra\'s tables and the two sheets the aqueous lab read', () => {
     const own = newSources(sources, [...earlier, emission, ...aqueousSheets], 'flame MANIFEST.json')

@@ -173,6 +173,8 @@ export function stationCitations(data: AqueousData, stationId: string, sources: 
         ...(r.appearance ? [[`${r.name}: appearance`, r.appearance.sourceId] as const] : []),
         [`${r.name}: hazard classification`, r.hazards.sourceId],
         ...also(`${r.name}: hazards at the strength used`, r.hazards.note),
+        // A note that rests on more than two documents (since 2026-10-18) lists the third and any after it too.
+        ...(r.hazards.note.moreSourceIds ?? []).map((id): Entry => [`${r.name}: hazards at the strength used`, id]),
       ]),
       ...species.map((s): Entry => ['Formulas, charges and states of the species', s.sourceId]),
       ...species.flatMap((s): Entry[] => (s.solutionColor ? [['Colours of the ions in solution', s.solutionColor.sourceId]] : [])),

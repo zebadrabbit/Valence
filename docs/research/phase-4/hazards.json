@@ -73,9 +73,12 @@
         "H315+H319: Causes skin and serious eye irritation"
       ],
       "note": {
-        "value": "The solution on this bench is 0.5 mol/L copper(II) sulfate; the statements above are those of the solid it is made from. The same supplier's sheet for solutions of 0.5 M to 1.5 M gives Warning, with H302, harmful if swallowed, and H315 with H320, irritation of the skin and the eyes. It calls for eye protection, gloves and protective clothing, and no eating, drinking or smoking while it is used.\n\nStricter, and what this lab goes by: the solid's sheet, which is graver on swallowing: toxic, H301. If any is swallowed, the mouth is rinsed and a poison centre or a doctor called at once. Anyone exposed, or worried that they were, gets medical advice. The eyes are to be rinsed with water for several minutes, and medical advice got if they stay sore.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "value": "The solution on this bench is 0.5 mol/L copper(II) sulfate; the statements above are those of the solid it is made from. The same supplier's sheet for solutions of 0.5 M to 1.5 M gives Warning, with H302, harmful if swallowed, and H315 with H320, irritation of the skin and the eyes. It calls for eye protection, gloves and protective clothing, and no eating, drinking or smoking while it is used.\n\nStricter, and what this lab goes by: the solid's sheet, which is graver on swallowing: toxic, H301. If any is swallowed, a poison centre or a doctor is called at once. By NOAA's record of the solid, eyes are flushed with water for 20 to 30 minutes, with a hospital or poison centre called meanwhile, and skin flooded with water, then washed with soap.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
         "sourceId": "flinn-sds-286",
-        "alsoSourceId": "flinn-sds-285"
+        "alsoSourceId": "flinn-sds-285",
+        "moreSourceIds": [
+          "noaa-cameo-20049"
+        ]
       },
       "sourceId": "flinn-sds-285"
     }
@@ -110,9 +113,14 @@
         "H332: Harmful if inhaled"
       ],
       "note": {
-        "value": "The solution on this bench is 0.5 mol/L barium chloride. The same supplier's sheet for solutions under 1 M gives Warning, with H303 and H333: possible harm if swallowed or breathed in. Yet its section on toxicology calls barium chloride highly toxic, harming the heart, the nerves and the kidneys among other organs. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: the statements above, of the solid: toxic if swallowed, H301, and harmful if breathed in, H332. Its sheet asks for a hood or a well-ventilated room, and a poison centre or a doctor called at once. If any is swallowed, the mouth is rinsed first. The eyes are to be rinsed with water for several minutes; skin is washed with plenty of water.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "value": "The solution on this bench is 0.5 mol/L barium chloride. The same supplier's sheet for solutions under 1 M gives Warning, with H303 and H333: possible harm if swallowed or breathed in. Yet it calls the salt highly toxic. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: the statements above, of the solid, whose sheet asks for a hood or a well-ventilated room. A second supplier's sheet for a weaker, 0.1 M solution asks: no breathing of its mist; eyes flushed for 15 minutes or more and a doctor at once; if any is swallowed, a doctor or a poison centre at once. A third's adds, for the solid, serious eye irritation. NOAA's record has barium compounds on the EPA's list: the solution is kept out of drains and waterways.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
         "sourceId": "flinn-sds-94.01",
-        "alsoSourceId": "flinn-sds-94"
+        "alsoSourceId": "flinn-sds-94",
+        "moreSourceIds": [
+          "wards-sds-bb0041",
+          "fisher-sds-bacl2-dihydrate",
+          "noaa-cameo-19847"
+        ]
       },
       "sourceId": "flinn-sds-94"
     }
@@ -129,9 +137,13 @@
         "H360: May damage fertility or the unborn child"
       ],
       "note": {
-        "value": "The solution on this bench is 0.5 mol/L cobalt(II) chloride, about 12 g of the hexahydrate in 100 mL. The same supplier's strongest sheet for a solution, at 10%, keeps Danger and four of the statements above: cancer, allergy of skin or airways, damage to genes, and harm to fertility or an unborn child. It calls for eye protection, gloves and protective clothing, and a fume hood or a well-ventilated room.\n\nStricter, and what this lab goes by: the solid's sheet, whose statements above add H302, harmful if swallowed. Both sheets ask for breathing protection where the air is poor, a call to a poison centre or doctor, skin rinsed with water for several minutes, and splashed clothing washed and kept at work. Neither sheet prints any first aid for a splash in the eyes.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "value": "The solution on this bench is 0.5 mol/L cobalt(II) chloride, about 12 g of the hexahydrate in 100 mL. The same supplier's strongest sheet for a solution, at 10%, keeps Danger and four of the statements above. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: the sheets for the solid, by which this solution is handled. The supplier's adds H302, harmful if swallowed. A second supplier's classes the solid as corrosive, H314, and as H410, very toxic to water life: it is kept out of drains and waterways. A third's adds harm if breathed in, and a fume hood only. Eyes and skin are flushed for 15 minutes or more and a doctor is seen at once; if any is swallowed, a doctor or a poison centre at once.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
         "sourceId": "flinn-sds-255",
-        "alsoSourceId": "flinn-sds-255.51"
+        "alsoSourceId": "flinn-sds-255.51",
+        "moreSourceIds": [
+          "wards-sds-cc0349",
+          "fisher-sds-cocl2-hexahydrate"
+        ]
       },
       "sourceId": "flinn-sds-255"
     }
@@ -148,9 +160,13 @@
         "H335: May cause respiratory irritation"
       ],
       "note": {
-        "value": "The solution on this bench is 0.5 mol/L ammonium nitrate, about 4%, at the foot of the range of the same supplier's one sheet for the solution. That sheet prints no signal word and no hazard statement, and has every laboratory chemical treated with caution all the same. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: the statements above, of the solid: an oxidiser, which irritates the skin, the eyes and the airways. Its sheet keeps it away from anything that burns, and asks for a hood or a well-ventilated room. Both sheets keep it from strong acids, from reducing agents, from metal powders and from organic matter. The eyes are to be rinsed with water for several minutes; skin is washed with plenty of water.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "value": "The solution on this bench is 0.5 mol/L ammonium nitrate, about 4%, at the foot of the range of the same supplier's one sheet for the solution. That sheet prints no signal word and no hazard statement, and has every laboratory chemical treated with caution all the same. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: the statements above, of the solid: an oxidiser, which irritates the skin, the eyes and the airways. Both of the supplier's sheets keep it from strong acids, reducing agents, metal powders and organic matter. By NOAA's record, clothing it gets on can be a fire risk once dry: a second supplier's sheet has such clothing taken off and washed, and the eyes flushed for 15 minutes or more and a doctor seen at once.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
         "sourceId": "flinn-sds-61.5",
-        "alsoSourceId": "flinn-sds-61"
+        "alsoSourceId": "flinn-sds-61",
+        "moreSourceIds": [
+          "noaa-cameo-98",
+          "wards-sds-aa0295"
+        ]
       },
       "sourceId": "flinn-sds-61"
     }
@@ -177,8 +193,12 @@
         "H290: May be corrosive to metals"
       ],
       "note": {
-        "value": "The acid on this bench is 1 mol/L hydrochloric acid; the statements above are those of the concentrated acid it is made from. The same supplier's sheet for 0.1 M to 2.4 M keeps Danger and, under H314, says that it burns the skin severely and damages the eyes; under H335, that it may irritate the airways; under H303, that it may be harmful if swallowed.\n\nWhat this lab goes by: that sheet. It calls for eye protection, gloves and protective clothing, and a fume hood or a well-ventilated room. The eyes are to be rinsed with water for several minutes, contact lenses out if easily done, and the rinsing kept up, and a poison centre or a doctor called at once; splashed clothing comes off at once and the skin is rinsed.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
-        "sourceId": "flinn-sds-395.2"
+        "value": "The acid on this bench is 1 mol/L hydrochloric acid; the statements above are those of the concentrated acid it is made from. The same supplier's sheet for 0.1 M to 2.4 M keeps Danger and, under H314, says that it burns the skin severely and damages the eyes; under H335, that it may irritate the airways; under H303, that it may be harmful if swallowed.\n\nStricter, and what this lab goes by: a second supplier's sheet for weaker, 0.5 M acid asks more at the eyewash: eyes are flushed for 15 minutes or more and a doctor is seen at once. NOAA's record adds 15 minutes more where no doctor has come. The first sheet calls for eye protection, gloves and protective clothing, and a fume hood or a well-ventilated room; splashed clothing comes off at once.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-395.2",
+        "alsoSourceId": "wards-sds-hh0093",
+        "moreSourceIds": [
+          "noaa-cameo-3598"
+        ]
       },
       "sourceId": "flinn-sds-395"
     }
@@ -193,8 +213,12 @@
         "H290: May be corrosive to metals"
       ],
       "note": {
-        "value": "The acid on this bench is 3 mol/L hydrochloric acid; the statements above are those of the concentrated acid it is made from. The same supplier's sheet for 2.5 M to 5.9 M keeps Danger and, under H314 and H318, says that it burns the skin and the eyes severely; it adds H335, that it may irritate the airways.\n\nWhat this lab goes by: that sheet. It calls for eye protection, gloves and protective clothing, a fume hood or a well-ventilated room, and no breathing of its mist or spray. A poison centre or a doctor is called at once. The eyes are to be rinsed with water for several minutes, contact lenses out if easily done, and the rinsing kept up; splashed clothing comes off at once and the skin is rinsed.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
-        "sourceId": "flinn-sds-395.1"
+        "value": "The acid on this bench is 3 mol/L hydrochloric acid; the statements above are those of the concentrated acid it is made from. The same supplier's sheet for 2.5 M to 5.9 M keeps Danger: under H314 and H318, it burns the skin and the eyes severely, and it adds H335, that it may irritate the airways. It calls for eye protection, gloves and protective clothing, a fume hood or a well-ventilated room, and no breathing of its mist or spray.\n\nStricter, and what this lab goes by: a second supplier's sheet for weaker, 0.5 M acid asks more at the eyewash: eyes are flushed for 15 minutes or more and a doctor is seen at once. NOAA's record adds 15 minutes more where no doctor has come. Splashed clothing comes off at once.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-395.1",
+        "alsoSourceId": "wards-sds-hh0093",
+        "moreSourceIds": [
+          "noaa-cameo-3598"
+        ]
       },
       "sourceId": "flinn-sds-395"
     }
@@ -209,9 +233,13 @@
         "H290: May be corrosive to metals"
       ],
       "note": {
-        "value": "The acid on this bench is 6 mol/L hydrochloric acid, the weakest that the sheet above is for, so its statements apply as they stand: under H314 and H318, it burns the skin and the eyes severely. The sheet calls for eye protection, gloves and protective clothing, a fume hood or a well-ventilated room, and no breathing of its mist or spray.\n\nStricter, and what this lab goes by: the same supplier's sheet for 2.5 M to 5.9 M, just under this strength, adds H335: the acid may irritate the airways. Both have a poison centre or a doctor called at once. The eyes are to be rinsed with water for several minutes, contact lenses out if easily done, and the rinsing kept up; splashed clothing comes off at once and the skin is rinsed.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "value": "The acid on this bench is 6 mol/L hydrochloric acid, the weakest that the sheet above is for, so its statements apply as they stand: under H314 and H318, it burns the skin and the eyes severely. The sheet calls for eye protection, gloves and protective clothing, a fume hood or a well-ventilated room, and no breathing of its mist or spray.\n\nStricter, and what this lab goes by: the same supplier's sheet for 2.5 M to 5.9 M, just under this strength, adds H335: the acid may irritate the airways. A second supplier's sheet for weaker, 0.5 M acid asks more at the eyewash: eyes are flushed for 15 minutes or more and a doctor is seen at once. NOAA's record adds 15 minutes more where no doctor has come. Splashed clothing comes off at once.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
         "sourceId": "flinn-sds-395",
-        "alsoSourceId": "flinn-sds-395.1"
+        "alsoSourceId": "flinn-sds-395.1",
+        "moreSourceIds": [
+          "wards-sds-hh0093",
+          "noaa-cameo-3598"
+        ]
       },
       "sourceId": "flinn-sds-395"
     }
@@ -226,9 +254,13 @@
         "H314: Causes severe skin burns and eye damage"
       ],
       "note": {
-        "value": "The solution on this bench is 0.1 mol/L silver nitrate; the statements above are those of the solid it is made from. The same supplier's sheet for solutions of 0.2 M or less gives Warning, with H315 and H319: it irritates the skin and seriously irritates the eyes. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: the solid's sheet. It has a poison centre or a doctor called at once, and splashed clothing taken off at once and the skin rinsed. If any is swallowed, both sheets have the mouth rinsed, no one made to vomit, and the call made at once. The eyes are to be rinsed with water for several minutes. Both sheets call it toxic to water life.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "value": "The solution on this bench is 0.1 mol/L silver nitrate; the statements above are those of the solid it is made from. The same supplier's sheet for solutions of 0.2 M or less gives Warning, with H315 and H319: it irritates the skin and seriously irritates the eyes. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: a second supplier's sheet for a 0.1 M solution adds H400, very toxic to water life: it is kept out of drains and waterways. Eyes are flushed for 15 minutes or more and a doctor is seen at once; if any is swallowed, a doctor or a poison centre at once. The first supplier's sheet for the solid has splashed clothing off at once, and a third's adds harm to an unborn child.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
         "sourceId": "flinn-sds-692",
-        "alsoSourceId": "flinn-sds-691"
+        "alsoSourceId": "flinn-sds-691",
+        "moreSourceIds": [
+          "wards-sds-ss0180",
+          "fisher-sds-agno3"
+        ]
       },
       "sourceId": "flinn-sds-691"
     }
@@ -241,8 +273,9 @@
         "H228: Flammable solid"
       ],
       "note": {
-        "value": "The magnesium on this bench is a short piece of ribbon. The supplier's sheet for the metal as turnings or ribbon gives Danger and one statement, under H228: it is a solid that burns readily. The sheet keeps it from flames, sparks, heat and hot surfaces, and from water and acids: at this bench a short piece goes into acid on purpose, as the experiment. It calls for eye protection, gloves and protective clothing.\n\nWhat this lab goes by: that sheet, the one document read for it here. Burning magnesium is put out with dry sand or a class D extinguisher, and never with water, with which it reacts violently. The eyes are to be rinsed with water for several minutes; skin is washed with plenty of water. Its dust is irritating.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
-        "sourceId": "flinn-sds-468"
+        "value": "The magnesium on this bench is a short piece of ribbon. The supplier's sheet for the metal as turnings or ribbon gives Danger and one statement, under H228: it is a solid that burns readily. The sheet keeps it from flames, sparks, heat and hot surfaces, and from water and acids: at this bench a short piece goes into acid on purpose, as the experiment. It calls for eye protection, gloves and protective clothing.\n\nStricter, and what this lab goes by: NOAA's record, which has a magnesium fire never fought with water, foam or a carbon dioxide extinguisher: dry sand or a class D extinguisher is used. The sheet says that the metal reacts violently with water. It has the eyes rinsed with water for several minutes and skin washed with plenty of water; its dust is irritating.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+        "sourceId": "flinn-sds-468",
+        "alsoSourceId": "noaa-cameo-6949"
       },
       "sourceId": "flinn-sds-468"
     }

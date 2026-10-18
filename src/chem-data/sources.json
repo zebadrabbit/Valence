@@ -1105,6 +1105,71 @@
     "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Hydroxide Solution 0.3 M - 6.0 M, SDS number sds_735; revision date December 3, 2018 (read on 2026-10-06; no copy is kept)."
   },
   {
+    "id": "wards-sds-ss0180",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=662fa074b63b4913f680cea55e813fe43f883c36&vid=662fa074b63b4913f680cea55e813fe43f883c36&prid=original&clid=SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Silver Nitrate, 0.1 Molar (0.1 Normal) Solution, SDS No. SS0180; revision date October 25, 2024 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-agno3",
+    "url": "https://www.fishersci.com/store/msds?partNumber=S18125&productDescription=SILVER+NITRATE&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Silver nitrate, catalogue number S181; revision 8 of 18 December 2025 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-bb0041",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition/id_81f5f0062a518f58aba7cc5425e6e592e345956b/vid_81f5f0062a518f58aba7cc5425e6e592e345956b/prid_original/clid_SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Barium Chloride, 0.1 Molar Solution, SDS No. BB0041; revision date January 31, 2018 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-bacl2-dihydrate",
+    "url": "https://www.fishersci.com/store/msds?partNumber=B34500&productDescription=BARIUM+CHLORIDE+DIHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Barium chloride dihydrate, catalogue numbers B33 and B34; revision 7 of 18 December 2025 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-19847",
+    "url": "https://cameochemicals.noaa.gov/chemical/19847",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Barium Chloride Dihydrate (chemical 19847); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-20049",
+    "url": "https://cameochemicals.noaa.gov/chemical/20049",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Copper Sulfate Pentahydrate (chemical 20049); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-98",
+    "url": "https://cameochemicals.noaa.gov/chemical/98",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Ammonium Nitrate (chemical 98); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-aa0295",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=9c057dd07513669c1178f356251b1e62ec5e9b74&vid=9c057dd07513669c1178f356251b1e62ec5e9b74&prid=original&clid=SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Ammonium Nitrate, SDS No. AA0295; revision date June 11, 2024 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-cc0349",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=dbd3d49c322cc4ff5e1ab6d2ff5e2dc05a77cd7f&vid=dbd3d49c322cc4ff5e1ab6d2ff5e2dc05a77cd7f&prid=original&clid=SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Cobalt(II) Chloride, Hexahydrate, SDS No. CC0349; revision date July 25, 2024 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-cocl2-hexahydrate",
+    "url": "https://www.fishersci.com/store/msds?partNumber=C371100&productDescription=COBALT+CHLORIDE+HEXAHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Cobalt(II) chloride hexahydrate, catalogue number C371; revision 6 of 18 December 2025 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-6949",
+    "url": "https://cameochemicals.noaa.gov/chemical/6949",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Magnesium (chemical 6949); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-hh0093",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=bfc5350df252e745fef34a139b6c2dcb3a156f9a&vid=bfc5350df252e745fef34a139b6c2dcb3a156f9a&prid=original&clid=SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Hydrochloric Acid, 0.5 Molar (0.5 Normal) Solution, SDS No. HH0093; revision date August 22, 2024 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-3598",
+    "url": "https://cameochemicals.noaa.gov/chemical/3598",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Hydrochloric Acid, Solution (chemical 3598); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-10; no copy is kept)."
+  },
+  {
     "id": "pines-2016",
     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5747581/",
     "citation": "Pines, D.; Ditkovich, J.; Mukra, T.; Miller, Y.; Kiefer, P. M.; Daschakraborty, S.; Hynes, J. T.; Pines, E. How Acidic Is Carbonic Acid? J. Phys. Chem. B 2016, 120, 2440-2451. (https://doi.org/10.1021/acs.jpcb.5b12428) Read as the authors' manuscript in PubMed Central (PMC5747581), linked here, fetched as XML through the National Center for Biotechnology Information's E-utilities, which carries the text, the tables and the captions of the figures but not the figures; the text read in full and not kept (retrieved 2026-10-07)."
@@ -1218,21 +1283,6 @@
     "id": "flinn-sds-785",
     "url": "https://www.flinnsci.com/sds_785-strontium-chloride-solution/sds_785",
     "citation": "Flinn Scientific, Inc. Safety Data Sheet: Strontium Chloride Solution, SDS number sds_785; revision date January 16, 2014 (read on 2026-10-08; no copy is kept)."
-  },
-  {
-    "id": "wards-sds-bb0041",
-    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition/id_81f5f0062a518f58aba7cc5425e6e592e345956b/vid_81f5f0062a518f58aba7cc5425e6e592e345956b/prid_original/clid_SAPDAM",
-    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Barium Chloride, 0.1 Molar Solution, SDS No. BB0041; revision date January 31, 2018 (read on 2026-10-08; no copy is kept)."
-  },
-  {
-    "id": "fisher-sds-bacl2-dihydrate",
-    "url": "https://www.fishersci.com/store/msds?partNumber=B34500&productDescription=BARIUM+CHLORIDE+DIHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
-    "citation": "Fisher Scientific Company. Safety Data Sheet: Barium chloride dihydrate, catalogue numbers B33 and B34; revision 7 of 18 December 2025 (read on 2026-10-08; no copy is kept)."
-  },
-  {
-    "id": "noaa-cameo-19847",
-    "url": "https://cameochemicals.noaa.gov/chemical/19847",
-    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Barium Chloride Dihydrate (chemical 19847); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-08; no copy is kept)."
   },
   {
     "id": "flinn-sds-196",
@@ -1385,19 +1435,9 @@
     "citation": "Brown, P. Doc Brown's Chemistry, advanced level revision notes: Experimental methods for determining enthalpy changes; read and not kept (retrieved 2026-10-09)."
   },
   {
-    "id": "wards-sds-aa0295",
-    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=9c057dd07513669c1178f356251b1e62ec5e9b74&vid=9c057dd07513669c1178f356251b1e62ec5e9b74&prid=original&clid=SAPDAM",
-    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Ammonium Nitrate, SDS No. AA0295; revision date June 11, 2024 (read on 2026-10-09; no copy is kept)."
-  },
-  {
     "id": "fisher-sds-nh4no3",
     "url": "https://www.fishersci.com/store/msds?partNumber=A676500&productDescription=AMMONIUM+NITRATE&vendorId=VN00033897&countryCode=US&language=en",
     "citation": "Fisher Scientific Company. Safety Data Sheet: Ammonium nitrate, catalogue number A676; revision 7 of 18 December 2025 (read on 2026-10-09; no copy is kept)."
-  },
-  {
-    "id": "noaa-cameo-98",
-    "url": "https://cameochemicals.noaa.gov/chemical/98",
-    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Ammonium Nitrate (chemical 98); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-09; no copy is kept)."
   },
   {
     "id": "flinn-sds-34",
@@ -1635,16 +1675,6 @@
     "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Nitric Acid, Other Than Red Fuming (chemical 19337); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-09; no copy is kept)."
   },
   {
-    "id": "wards-sds-ss0180",
-    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=662fa074b63b4913f680cea55e813fe43f883c36&vid=662fa074b63b4913f680cea55e813fe43f883c36&prid=original&clid=SAPDAM",
-    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Silver Nitrate, 0.1 Molar (0.1 Normal) Solution, SDS No. SS0180; revision date October 25, 2024 (read on 2026-10-09; no copy is kept)."
-  },
-  {
-    "id": "fisher-sds-agno3",
-    "url": "https://www.fishersci.com/store/msds?partNumber=S18125&productDescription=SILVER+NITRATE&vendorId=VN00033897&countryCode=US&language=en",
-    "citation": "Fisher Scientific Company. Safety Data Sheet: Silver nitrate, catalogue number S181; revision 8 of 18 December 2025 (read on 2026-10-09; no copy is kept)."
-  },
-  {
     "id": "noaa-cameo-4443",
     "url": "https://cameochemicals.noaa.gov/chemical/4443",
     "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Silver Nitrate (chemical 4443); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-09; no copy is kept)."
@@ -1835,11 +1865,6 @@
     "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Lead Nitrate, 0.5 Molar Solution, SDS No. LL0131; revision date September 5, 2024 (read on 2026-10-10; no copy is kept)."
   },
   {
-    "id": "wards-sds-hh0093",
-    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=bfc5350df252e745fef34a139b6c2dcb3a156f9a&vid=bfc5350df252e745fef34a139b6c2dcb3a156f9a&prid=original&clid=SAPDAM",
-    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Hydrochloric Acid, 0.5 Molar (0.5 Normal) Solution, SDS No. HH0093; revision date August 22, 2024 (read on 2026-10-10; no copy is kept)."
-  },
-  {
     "id": "wards-sds-hh0171",
     "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=aced1021014843694fb0cfc914dca243b32fccf3&vid=aced1021014843694fb0cfc914dca243b32fccf3&prid=original&clid=SAPDAM",
     "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Hydrochloric Acid, 36.5-38%, SDS No. HH0171; revision date August 23, 2024 (read on 2026-10-10; no copy is kept)."
@@ -1848,11 +1873,6 @@
     "id": "fisher-sds-hydrochloric-acid",
     "url": "https://www.fishersci.com/store/msds?partNumber=A144212&productDescription=HYDROCHLORIC+ACID&vendorId=VN00033897&countryCode=US&language=en",
     "citation": "Fisher Scientific Company. Safety Data Sheet: Hydrochloric Acid, catalogue numbers A144, A144C, A144P, A144S and A144SI; revision 9 of 18 December 2025 (read on 2026-10-10; no copy is kept)."
-  },
-  {
-    "id": "noaa-cameo-3598",
-    "url": "https://cameochemicals.noaa.gov/chemical/3598",
-    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Hydrochloric Acid, Solution (chemical 3598); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-10; no copy is kept)."
   },
   {
     "id": "noaa-cameo-19288",
@@ -1873,16 +1893,6 @@
     "id": "fisher-sds-methyl-violet-2b",
     "url": "https://www.fishersci.com/store/msds?partNumber=AC415070250&productDescription=METHYL+VIOLET+2B&vendorId=VN00032119&countryCode=US&language=en",
     "citation": "Acros Organics, Fisher Scientific Company. Safety Data Sheet: Methyl Violet 2B, catalogue number AC41507; revision 6 of 19 December 2025 (read on 2026-10-10; no copy is kept)."
-  },
-  {
-    "id": "wards-sds-cc0349",
-    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=dbd3d49c322cc4ff5e1ab6d2ff5e2dc05a77cd7f&vid=dbd3d49c322cc4ff5e1ab6d2ff5e2dc05a77cd7f&prid=original&clid=SAPDAM",
-    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Cobalt(II) Chloride, Hexahydrate, SDS No. CC0349; revision date July 25, 2024 (read on 2026-10-10; no copy is kept)."
-  },
-  {
-    "id": "fisher-sds-cocl2-hexahydrate",
-    "url": "https://www.fishersci.com/store/msds?partNumber=C371100&productDescription=COBALT+CHLORIDE+HEXAHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
-    "citation": "Fisher Scientific Company. Safety Data Sheet: Cobalt(II) chloride hexahydrate, catalogue number C371; revision 6 of 18 December 2025 (read on 2026-10-10; no copy is kept)."
   },
   {
     "id": "flinn-sds-862",
@@ -2508,16 +2518,6 @@
     "id": "birk-calcium",
     "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Calcium_Ions_(Ca)",
     "citation": "Birk, J. P. Characteristic Reactions of Calcium Ions (Ca²⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-12)."
-  },
-  {
-    "id": "noaa-cameo-20049",
-    "url": "https://cameochemicals.noaa.gov/chemical/20049",
-    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Copper Sulfate Pentahydrate (chemical 20049); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept)."
-  },
-  {
-    "id": "noaa-cameo-6949",
-    "url": "https://cameochemicals.noaa.gov/chemical/6949",
-    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Magnesium (chemical 6949); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept)."
   },
   {
     "id": "flinn-sds-398.5",
