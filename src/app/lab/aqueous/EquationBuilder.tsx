@@ -73,6 +73,8 @@ export function EquationBuilder({ data, form, palette, judged, counts, held, ref
       refusal={refusal}
       onEnter={(entry) => found(onEnter(entry))}
       text={TEXT}
+      // The tiles and a term's controls stand over the row: in a card 768 px wide the row takes a second line as a tile goes in, and under it the bank moved about 50 px under the hand.
+      toolsFirst
     />
   )
 }

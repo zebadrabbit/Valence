@@ -616,9 +616,13 @@ describe('an equation builder', () => {
     expect(empty).toContain(`<span id="${rowLabel}" class="font-medium ${ROLE.entry}">${PAGE_TEXT.yourEquation}:</span>`)
     expect(buttons(BANK.exec(empty)![1]!).map(({ name }) => name)).toEqual(['FeCl3', 'NaOH', 'Fe(OH)3', 'NaCl', 'Fe3+', 'Cl−', 'Na+', 'OH−', 'Fe(OH)2', 'H2O'])
     expect(empty).toContain(`>${PAGE_TEXT.slotHelp}</p>`)
-    // The order a reader and the Tab key meet them in: the slots, then the bank, then Check.
-    expect(empty.indexOf('data-row')).toBeLessThan(empty.indexOf(PAGE_TEXT.slotHelp))
-    expect(empty.indexOf(PAGE_TEXT.slotHelp)).toBeLessThan(empty.indexOf('Substances to choose from'))
+    // The order a reader and the Tab key meet them in: the bank, how to fill the row (or a term's controls), the
+    // slots, then Check. The bank and that line stand over the row, so that they keep their place under the hand as
+    // the row takes a second line in a narrow card.
+    expect(empty.indexOf('Substances to choose from')).toBeGreaterThan(-1)
+    expect(empty.indexOf('Substances to choose from')).toBeLessThan(empty.indexOf(PAGE_TEXT.slotHelp))
+    expect(empty.indexOf(PAGE_TEXT.slotHelp)).toBeLessThan(empty.indexOf('data-row'))
+    expect(empty.indexOf('data-row')).toBeLessThan(empty.indexOf(`>${BENCH_TEXT.check}<`))
     const check = buttons(empty).at(-1)!
     expect(check.name).toBe(BENCH_TEXT.check)
     // Nothing is built yet, so a press of Check is told why: the button is unavailable and still focusable.
