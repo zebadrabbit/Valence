@@ -607,9 +607,12 @@ describe('the hazards of a bottle', () => {
 
   it('on the acid shows the note on the strength used and three sources: the classification, and the two under the note', () => {
     const html = draw(hcl)
-    expect(html).toContain(`>${escaped(hcl.hazards.note.value)}</p>`)
-    expect(html.indexOf('At the strength used here')).toBeLessThan(html.indexOf(escaped(hcl.hazards.note.value)))
-    expect(html.indexOf(escaped(hcl.hazards.note.value))).toBeLessThan(html.indexOf('>Sources</summary>'))
+    // The note is three short paragraphs (spec 5.2), each drawn whole, between its heading and the sources.
+    const paragraphs = hcl.hazards.note.value.split('\n\n')
+    expect(paragraphs).toHaveLength(3)
+    for (const paragraph of paragraphs) expect(html).toContain(`<p>${escaped(paragraph)}</p>`)
+    expect(html.indexOf('At the strength used here')).toBeLessThan(html.indexOf(escaped(paragraphs[0]!)))
+    expect(html.indexOf(escaped(paragraphs[2]!))).toBeLessThan(html.indexOf('>Sources</summary>'))
     expect(hrefs(html)).toEqual(['flinn-sds-395', 'flinn-sds-395.2', 'flinn-sds-395.3'].map(sourceUrl))
     expect(hcl.hazards.note.alsoSourceId).toBe('flinn-sds-395.3')
   })
@@ -627,7 +630,7 @@ describe('the hazards of a bottle', () => {
     expect(statements(html)).toEqual(indicator.hazards.statements)
     expect(headings(html)[0]).toBe(escaped(indicator.classifiedAs))
     expect(headings(html)[0]).toContain('pure substance')
-    expect(html).toContain(`>${escaped(indicator.hazards.note.value)}</p>`)
+    for (const paragraph of indicator.hazards.note.value.split('\n\n')) expect(html).toContain(`<p>${escaped(paragraph)}</p>`)
   })
 
   it('draws a line that begins with two codes as it is stored, whatever the bottle', () => {
@@ -643,7 +646,7 @@ describe('the hazards of a bottle', () => {
     expect(html).toContain(`<p>${HAZARDS_TEXT.none}</p>`)
     expect(html).not.toContain('Signal word:')
     expect(html).not.toContain('<ul class="grid list-disc')
-    expect(html).toContain(`>${escaped(caco3.hazards.note.value)}</p>`)
+    for (const paragraph of caco3.hazards.note.value.split('\n\n')) expect(html).toContain(`<p>${escaped(paragraph)}</p>`)
     expect(hrefs(html)).toEqual([sourceUrl('flinn-sds-195')])
   })
 
@@ -659,16 +662,24 @@ describe('the hazards of a bottle', () => {
 
 describe("the note under a bottle's hazards", () => {
   const heading = '<h4 class="font-medium">At the strength used here</h4>'
-  const noteOf = (html: string) => html.slice(html.indexOf(heading) + heading.length, html.indexOf('<details>', 1))
+  const noteOf = (html: string, at = heading) => html.slice(html.indexOf(at) + at.length, html.indexOf('<details>', 1))
 
-  it('is one paragraph, as it was, where its text holds no blank line: every bottle of the titration lab and of the aqueous reactions lab', () => {
+  it('is one paragraph where its text holds no blank line', () => {
+    const { hazards } = titrationData.bottles.naoh
+    const one = { ...hazards, note: { ...hazards.note, value: 'A dilute solution. It irritates the eyes.' } }
+    const html = renderToStaticMarkup(createElement(Hazards, { classifiedAs: 'Hazards of a solution', hazards: one, sources }))
+    expect(html).toContain('</h4><p>A dilute solution. It irritates the eyes.</p><details>')
+  })
+
+  it('is drawn as its three short paragraphs on every bottle of the titration lab and of the aqueous reactions lab, whose notes took that form on 2026-10-18', () => {
     const older = [...Object.values(titrationData.bottles).map((bottle) => ({ ...bottle, solid: false })), ...aqueousData.reagents.map((r) => ({ classifiedAs: r.classifiedAs ?? r.name, hazards: r.hazards, solid: r.form !== 'solution' }))]
     expect(older).toHaveLength(3 + aqueousData.reagents.length)
     for (const { classifiedAs, hazards, solid } of older) {
-      expect(hazards.note.value).not.toContain('\n')
+      const paragraphs = hazards.note.value.split('\n\n')
+      expect(paragraphs).toHaveLength(3)
       expect(hazards.note.moreSourceIds).toBeUndefined()
       const html = renderToStaticMarkup(createElement(Hazards, { classifiedAs, hazards, sources, solid }))
-      expect(html).toContain(`</h4><p>${escaped(hazards.note.value)}</p><details>`)
+      expect(noteOf(html, solid ? '<h4 class="font-medium">As it is used here</h4>' : heading)).toBe(paragraphs.map((paragraph) => `<p>${escaped(paragraph)}</p>`).join(''))
     }
   })
 
