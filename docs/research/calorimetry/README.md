@@ -74,6 +74,12 @@ The quotation fingerprint that `src/chem-data/calorimetry/quotation.test.ts` com
 
     node scripts/fingerprint-sources.mjs <folder of saved pages> 2026-10-09 docs/research/calorimetry/sources
 
+## The hazard notes since 2026-10-18
+
+The five notes of this lab's own were longer than the 160 words the later labs' notes keep to (spec 5.2): solid ammonium nitrate's 166 words, aluminium's 192, iron's 183, zinc's 204 and tin's 189. They were cut on 2026-10-18 to 160, 160, 154, 160 and 160, in the same three paragraphs and from the same documents. What was taken out is words, not what the documents ask: each metal's note now says in its first sentence that the piece is heated in boiling water on purpose, where each said it again in its second paragraph; tin's no longer adds that the powder is another matter after NOAA's line on the powder; and the mass of each piece, about 50 g for all four, is in the lab's bench and not in the notes. Two manifest rows were reworded to match (aluminium's line on fine powder and water, and NOAA's line on tin powder). No signal word, statement or heading changed. The two bottles this lab carries from the aqueous reactions lab, the 1 M acid and base, took the same form that day with that lab's notes.
+
+The four metals' tiles stand together until a run of part 3 counts, so a test holds each metal's note to the same first sentence, which names no mass. The lab's no-quotation test now covers the seven notes, the headings over their statements and the hazard manifest's rows, as the later labs' tests do.
+
 ## What nobody checked
 
 No chemist has read the record, the notes or the primer. The scanned tables were read by one reader, by eye.

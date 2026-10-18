@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import hazardManifest from '../../../docs/research/calorimetry/sources/hazard-manifest.json'
 import manifest from '../../../docs/research/calorimetry/sources/MANIFEST.json'
 import { calorimetryData } from './data'
 import { CALORIMETRY_PRIMER } from './primer'
@@ -9,9 +10,10 @@ import { CALORIMETRY_PRIMER } from './primer'
 // rationales of the model's parameters, and the manifest's own account of where each figure is. The pages are not
 // kept, and neither is the fingerprint of them this compares against: see docs/research/calorimetry/README.md,
 // and ../titration/quotation.test.ts for how the check works and what it cannot say. Where the fingerprint is
-// absent, as in CI, the cases that need it are skipped and the run says so. The reagents' hazard notes and the
-// hazard manifests' rows are written apart from this lab's record and are not checked here. What a manifest row
-// gives as printed (`prints`) is data and is left out.
+// absent, as in CI, the cases that need it are skipped and the run says so. Since 2026-10-18 the reagents' hazard
+// notes, the headings over their statements and this lab's hazard manifest's rows are checked too: the notes of
+// the two bottles the aqueous reactions lab's records stand for are held to this lab's fingerprint as well as to
+// that lab's test. What a manifest row gives as printed (`prints`) is data and is left out.
 type Lib = {
   QUOTED_RUN: number
   unpackHashes(base64: string): Set<number>
@@ -39,14 +41,18 @@ const written: [string, string][] = [
   ['the note on the density of water', calorimetryData.water.density.note],
   ...calorimetryData.reagents.flatMap((r): [string, string][] => (r.form === 'metal' ? [[`${r.id}, the working of its specific heat`, r.specificHeat.working]] : [])),
   ...Object.entries(calorimetryData.parameters).map(([key, parameter]): [string, string] => [`the rationale of ${key}`, parameter.rationale]),
+  ...calorimetryData.reagents.flatMap((r): [string, string][] => [[`${r.id}, the heading over its statements`, r.classifiedAs], [`${r.id}, its hazard note`, r.hazards.note.value]]),
 ]
-const located: [string, string][] = manifest.sources.flatMap((s) => s.supports.map((row, i): [string, string] => [`${s.id}, row ${i + 1}`, row.where]))
+const located: [string, string][] = [
+  ...manifest.sources.flatMap((s) => s.supports.map((row, i): [string, string] => [`${s.id}, row ${i + 1}`, row.where])),
+  ...hazardManifest.sources.flatMap((s) => s.supports.map((row, i): [string, string] => [`hazards: ${s.id}, row ${i + 1}`, row.where])),
+]
 
 describe('no quotation: what there is to check', () => {
-  it("is the primer, the notes, the workings, the rationales and the manifest's rows", () => {
+  it("is the primer, the notes, the workings, the rationales, the hazard notes and the two manifests' rows", () => {
     expect(QUOTED_RUN).toBe(6)
-    expect(written.length).toBeGreaterThan(150)
-    expect(located.length).toBe(manifest.sources.reduce((n, s) => n + s.supports.length, 0))
+    expect(written.length).toBeGreaterThan(160)
+    expect(located.length).toBe([...manifest.sources, ...hazardManifest.sources].reduce((n, s) => n + s.supports.length, 0))
     expect(located.length).toBeGreaterThan(45)
   })
 })
