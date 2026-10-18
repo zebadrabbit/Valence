@@ -78,7 +78,7 @@
         {
           "sourceId": "hyperphysics-sodium-spectrum",
           "prints": "Sodium Spectrum",
-          "where": "The heading of the page's first section. Under it: the two D lines, at 588.9950 and 589.5924 nm, from the 3p to the 3s levels, outshine every other line of sodium; the brightest visible line besides them has under one percent of the stronger D line's intensity, so that for practical purposes the light of glowing sodium is the D lines' light. A later section of the same page compares a sodium doublet with the spectrum of a sodium lamp. The page gives no colour. Read on 2026-10-17, after asking for the site's robots file, which it does not have."
+          "where": "The heading of the page's first section. Under it: the two D lines (588.9950 nm and 589.5924 nm, an electron falling from 3p to 3s) outshine every other line of sodium; the brightest visible line besides them has under one percent of the stronger D line's intensity, so that for practical purposes the light of glowing sodium is the D lines' light. A later section of the same page compares a sodium doublet with the spectrum of a sodium lamp. The page gives no colour. Read on 2026-10-17, after asking for the site's robots file, which it does not have."
         },
         {
           "sourceId": "hyperphysics-flame-colors",
