@@ -361,6 +361,20 @@ describe('the stylesheet', () => {
     expect(VALUE_INSETS).toEqual([3, selectedBorder + 1])
   })
 
+  it('lets a cell grow as tall as its lines, so that a minimum font size set in the browser does not cut the value', () => {
+    // A min-height on the cell would hold it to the height its width gives it, or 44 px, and cut a taller line.
+    const cell = /\.pt-cell\s*\{([^}]*)\}/.exec(rules)?.[1] ?? ''
+    expect(cell).toMatch(/aspect-ratio:/)
+    expect(cell).not.toMatch(/min-height|(^|[;\s])height:/)
+    // The 44 px floor is a box behind the lines, over every row of the cell's one column.
+    expect(rules).toMatch(/\.pt-cell::before\s*\{[^}]*grid-area:\s*1 \/ 1 \/ -1 \/ -1;[^}]*min-height:\s*calc\(2\.75rem - 2 \* max\(3px, var\(--bw\)\)\)/)
+    // Each line in its own row of that column, and the value's row at least its line, which it would otherwise cut.
+    for (const [line, row] of [['number', 1], ['symbol', 2], ['name', 3], ['value', 4]] as const) {
+      expect([line, new RegExp(`\\.pt-${line}\\s*\\{[^}]*grid-area:\\s*${row} \\/ 1;`).test(rules)]).toEqual([line, true])
+    }
+    expect(cell).toMatch(/grid-template-rows:\s*auto 1fr auto minmax\(min-content, auto\)/)
+  })
+
   it('keeps the focus outline of a cell clear of the edge of the box the table scrolls in', () => {
     const outline = /\.pt-cell:focus-visible\s*\{[^}]*outline:\s*(\d+)px[^}]*outline-offset:\s*(\d+)px/.exec(rules)
     const margin = /\.pt-cell\s*\{[^}]*scroll-margin:\s*(\d+)px/.exec(rules)
