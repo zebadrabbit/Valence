@@ -177,12 +177,14 @@ describe('the sources the lab adds', () => {
   const earlier: Listed[] = allSources.filter((s) => !sources.some((own) => own.id === s.id) && !sheets.some((sheet) => sheet.id === s.id))
   const emission = allSources.find((s) => s.id === 'nist-asd-lines-neutral')!
   const aqueousSheets = allSources.filter((s) => ['flinn-sds-94', 'flinn-sds-94.01'].includes(s.id))
+  // Sodium's emission spectrum, which is built first, cites this lab's page on flame colours for what lights a sodium flame.
+  const sodiumSpectrum = allSources.find((s) => s.id === 'hyperphysics-flame-colors')!
 
-  it('lists once a source another lab lists too: the emission spectra\'s tables and the two sheets the aqueous lab read', () => {
-    const own = newSources(sources, [...earlier, emission, ...aqueousSheets], 'flame MANIFEST.json')
-    expect(sources.length - own.length).toBe(2)
-    expect(own.some((s) => s.id === 'nist-asd-lines-neutral' || s.id === 'flinn-sds-94.01')).toBe(false)
-    const added = newSources(sheets, [...earlier, emission, ...aqueousSheets, ...own], 'flame hazard-manifest.json')
+  it('lists once a source another lab lists too: the emission spectra\'s tables, the page on flame colours, and the two sheets the aqueous lab read', () => {
+    const own = newSources(sources, [...earlier, emission, sodiumSpectrum, ...aqueousSheets], 'flame MANIFEST.json')
+    expect(sources.length - own.length).toBe(3)
+    expect(own.some((s) => ['nist-asd-lines-neutral', 'hyperphysics-flame-colors', 'flinn-sds-94.01'].includes(s.id))).toBe(false)
+    const added = newSources(sheets, [...earlier, emission, sodiumSpectrum, ...aqueousSheets, ...own], 'flame hazard-manifest.json')
     // The six solution sheets are in both of this lab's manifests, written alike, and are listed from the first; the solid barium chloride's sheet is the aqueous lab's.
     const shared = sheets.filter((sheet) => sources.some((s) => s.id === sheet.id) || aqueousSheets.some((s) => s.id === sheet.id)).map((sheet) => sheet.id)
     expect(shared).toEqual(expect.arrayContaining(['flinn-sds-94.01', 'flinn-sds-197', 'flinn-sds-281.1', 'flinn-sds-622', 'flinn-sds-722', 'flinn-sds-785']))

@@ -26,7 +26,7 @@ export const ACTIVITIES = [
   // src/density-version.test.ts pins what a stored lab is judged against to this entry and this version.
   { entry: ENTRY.density, version: 1, kind: 'Lab', title: 'Measurement and density', to: '/lab/measurement-and-density' },
   // src/freezing-version.test.ts pins what a stored lab is judged against to this entry and this version.
-  { entry: ENTRY.freezing, version: 1, kind: 'Lab', title: 'Freezing point depression', to: '/lab/freezing-point-depression' },
+  { entry: ENTRY.freezing, version: 2, kind: 'Lab', title: 'Freezing point depression', to: '/lab/freezing-point-depression' },
   // src/reactions-version.test.ts pins what a stored lab is judged against to this entry and this version.
   { entry: ENTRY.reactions, version: 1, kind: 'Lab', title: 'Types of reactions', to: '/lab/types-of-reactions' },
   // src/mixing-version.test.ts pins what a stored lab is judged against to this entry and this version.

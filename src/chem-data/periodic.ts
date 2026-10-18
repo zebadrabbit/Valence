@@ -455,7 +455,7 @@ export const GROUP_3_NOTE: Description = description(
         'https://doi.org/10.1515/ci-2021-0115',
         'the second paragraph, and the closing paragraphs of “A very brief history of forms of the periodic table” with Figures 1 to 3',
         'the task group found no objective way to choose between lanthanum and actinium and lutetium and lawrencium for group 3, held that IUPAC should therefore rule on what is a matter of convention, and suggested as a compromise the table of its Figure 2, which has lutetium and lawrencium in group 3.',
-      )} That IUPAC has not ruled since rests on its own page, cited above, which still puts the question as open.`,
+      )} That IUPAC has not ruled since rests on its own page, cited above, which still puts the question as open: read on 2026-10-03, and again on 2026-10-17.`,
     ],
   ],
 )

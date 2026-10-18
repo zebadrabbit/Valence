@@ -484,8 +484,11 @@ function buildElements() {
   // superseded is kept there as history (xenon's first six lines): that element's lines are picked, as for the
   // periodic table's cards, by the rule from NIST's saved response, and the entry's source is no longer cited.
   const spectra = readJson('emission-lines.json')
+  // A sentence written by hand on which lines are shown may say more than which lines they are (sodium's says what
+  // the D lines light): `selectionSourceIds` names its sources, each with a row of `selectionSupport` on what it says.
   const byHand = spectra.elements.filter((x) => !x.superseded)
-  sources.push(...spectra.sources.filter((source) => byHand.some((x) => x.sourceId === source.id)).map(({ id, url, citation }) => ({ id, url, citation })))
+  const citedBy = (x) => [x.sourceId, ...(x.selectionSourceIds ?? [])]
+  sources.push(...spectra.sources.filter((source) => byHand.some((x) => citedBy(x).includes(source.id))).map(({ id, url, citation }) => ({ id, url, citation })))
   const allowed = new Set(sources.map((s) => s.id))
   const emission = (symbol, name) => {
     const entry = spectra.elements.find((x) => x.symbol === symbol)
@@ -500,7 +503,12 @@ function buildElements() {
       return { value: line.wavelengthNm, sourceId: entry.sourceId, published: line.valueAsPublished, ...(line.transition ? { transition: line.transition } : {}) }
     })
     if (lines.some((line, i) => i > 0 && line.value >= lines[i - 1].value)) fail(`element ${symbol}: emission lines are not longest first`)
-    return { emission: { selection: entry.selection, ...(entry.note ? { note: entry.note } : {}), lines } }
+    const selectionSourceIds = entry.selectionSourceIds ?? []
+    const supported = (entry.selectionSupport ?? []).map((row) => row.sourceId)
+    if (selectionSourceIds.join() !== supported.join()) fail(`element ${symbol}: the sources of the sentence on the lines shown are not those of its rows of support, in order`)
+    for (const row of entry.selectionSupport ?? []) if (typeof row.prints !== 'string' || typeof row.where !== 'string') fail(`element ${symbol}: a row of support for the sentence on the lines shown needs what its source prints and where`)
+    for (const id of selectionSourceIds) if (!allowed.has(id)) fail(`element ${symbol}: unexpected source "${id}" for the sentence on the lines shown`)
+    return { emission: { selection: entry.selection, ...(selectionSourceIds.length > 0 ? { selectionSourceIds } : {}), ...(entry.note ? { note: entry.note } : {}), lines } }
   }
 
   const elements = file.elements.map((e) => {
@@ -1073,7 +1081,7 @@ function descriptionSources(retrieved) {
     {
       id: 'iupac-periodic-table',
       url: 'https://iupac.org/what-we-do/periodic-table-of-elements/',
-      citation: `International Union of Pure and Applied Chemistry (IUPAC). Periodic Table of Elements, the section "Group 3" (${retrieved}).`,
+      citation: `International Union of Pure and Applied Chemistry (IUPAC). Periodic Table of Elements, the section "Group 3" (${retrieved}; read again on 2026-10-17, when the section still put the question as open and the page gave 2022-09-12 as the date it was last changed).`,
     },
     {
       id: 'rsc-periodic-table',
@@ -2031,9 +2039,9 @@ function buildDensity(earlierSources) {
 //
 // The record is authored in docs/research/freezing/freezing.json: the three liquids the unknown may be, urea and
 // the three salts, each with its composition, its molar mass worked out from the atomic weights, and the particles
-// each formula unit gives (the ideal, or a measured figure with the row it is worked out from); the water with its
-// freezing point constant; the atomic weights; the measured freezing points of solutions that were found; the
-// three parts with the notes shown when each is done; and the model's parameters. Every source is in
+// each formula unit gives (the ideal, or a measured or evaluated figure with the row it is worked out from); the
+// water with its freezing point constant; the atomic weights; the measured freezing points of solutions that were
+// found, and the osmotic coefficients of the salts' solutions that an evaluation gives; the three parts with the notes shown when each is done; and the model's parameters. Every source is in
 // sources/MANIFEST.json, each row of which names the stored values it supports, and the build holds the record to
 // those rows as it does the aqueous lab's. No source has a copy in this lab's folder: the atomic weights are held
 // to the periodic table's record. What the record works out is worked out again here, and its numbers are held to
@@ -2043,7 +2051,7 @@ function buildDensity(earlierSources) {
 // density lab's are: every record is this lab's own, none being the same thing in the same form as another lab's,
 // though eight of the documents behind them are ones the iodination of acetone, flame test and density labs list.
 
-const FREEZING_KEYS = ['reagents', 'water', 'atomicWeights', 'measured', 'parts', 'parameters']
+const FREEZING_KEYS = ['reagents', 'water', 'atomicWeights', 'measured', 'osmotic', 'parts', 'parameters']
 const FREEZING_REAGENTS = ['acetone', 'ethanol', 'propan-2-ol', 'urea', 'nacl', 'kcl', 'nabr']
 const FREEZING_PARTS = ['water', 'unknown', 'particles']
 

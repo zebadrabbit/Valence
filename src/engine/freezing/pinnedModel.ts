@@ -14,8 +14,8 @@ export const PINNED_MODEL: FreezingModel = {
   solutes: [
     { id: 'urea', molarMassE2: 6006, particlesE2: 100, idealParticles: 1 },
     { id: 'nacl', molarMassE2: 5844, particlesE2: 182, idealParticles: 2 }, // measured: 1.79 °C at 3% by mass
-    { id: 'kcl', molarMassE2: 7455, particlesE2: 200, idealParticles: 2 },
-    { id: 'nabr', molarMassE2: 10289, particlesE2: 200, idealParticles: 2 },
+    { id: 'kcl', molarMassE2: 7455, particlesE2: 178, idealParticles: 2 }, // evaluated: twice the osmotic coefficient 0.8907 at 0.5 mol/kg, 273.15 K
+    { id: 'nabr', molarMassE2: 10289, particlesE2: 185, idealParticles: 2 }, // evaluated: twice the osmotic coefficient 0.926 at 0.5 mol/kg, 273.15 K
   ],
   stepSeconds: 30,
   runOnSteps: 2,

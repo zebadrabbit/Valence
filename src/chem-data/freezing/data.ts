@@ -5,9 +5,10 @@ import data from './freezing.json'
 // The freezing point depression lab's record (spec 23): the three liquids the unknown may be, urea and the three
 // salts, each with its hazards, its molar mass and the particles each formula unit gives; the water with its
 // freezing point constant; the atomic weights the molar masses are worked out from; the measured freezing points
-// of solutions that a source gives; the three parts with the notes shown when each is done; and the model's
-// parameters. It is its own file and is not part of the registry, so only the lab loads it. Like the other labs'
-// schemas, this one keeps to the zod features schema.ts already uses.
+// of solutions that a source gives, and the osmotic coefficients of the salts' solutions that an evaluation gives;
+// the three parts with the notes shown when each is done; and the model's parameters. It is its own file and is not
+// part of the registry, so only the lab loads it. Like the other labs' schemas, this one keeps to the zod features
+// schema.ts already uses.
 
 const id = z.string().min(1)
 const text = z.string().min(1)
@@ -21,10 +22,11 @@ const workedOut = z.strictObject({ value: positive, unit: text, working: text })
 
 /**
  * The particles each formula unit gives in water (spec 23.3). `ideal` is the whole number the formula gives: one
- * for a molecule, two for these salts. `value` is what the model uses: the ideal, marked as such, or a measured
- * figure, with the row of `measured` it is worked out from. `note` says which in a sentence.
+ * for a molecule, two for these salts. `value` is what the model uses: the ideal, marked as such; a measured
+ * figure, with the row of `measured` it is worked out from; or an evaluated one, with the row of `osmotic` it is
+ * worked out from. `note` says which in a sentence.
  */
-const particles = z.strictObject({ value: positive, ideal: z.number().int().positive(), kind: z.enum(['ideal', 'measured']), measuredId: id.optional(), note: text })
+const particles = z.strictObject({ value: positive, ideal: z.number().int().positive(), kind: z.enum(['ideal', 'measured', 'osmotic']), measuredId: id.optional(), osmoticId: id.optional(), note: text })
 
 // The record sourceId covers the name, the formula and what the thing looks like. The hazards are merged in by the build from this lab's hazards.json.
 const reagentSchema = z.strictObject({
@@ -58,6 +60,20 @@ const measuredSchema = z.strictObject({
   working: text,
 })
 
+/**
+ * An osmotic coefficient of a solution in water as an evaluation prints it, at a stated molality and temperature,
+ * and the count of particles it gives: the ideal count times the coefficient, to three figures.
+ */
+const osmoticSchema = z.strictObject({
+  id,
+  reagentId: id,
+  molality: citedNumber(positive).extend({ unit: z.literal('mol/kg') }),
+  kelvin: citedNumber(positive),
+  osmoticCoefficient: citedNumber(positive),
+  ratio: z.strictObject({ value: positive, figures: z.literal(3) }),
+  working: text,
+})
+
 const note = cited(text).extend({ alsoSourceId: id.optional(), moreSourceIds: z.array(id).min(1).optional() })
 /** `notes` are shown once the part is done: what the number means, how the ideal stands beside a real solution, and what is taken as simpler than it is. */
 const part = { name: text, notes: z.array(note).min(1) }
@@ -68,6 +84,7 @@ export const freezingSchema = z.strictObject({
   water: z.strictObject({ name: text, formula: text, freezingPointConstant: citedNumber(positive).extend({ unit: text, note: text }), sourceId: id }),
   atomicWeights: z.array(z.strictObject({ id, ...citedNumber(positive).shape })).min(1),
   measured: z.array(measuredSchema),
+  osmotic: z.array(osmoticSchema),
   parts: z.tuple([
     z.strictObject({ id: z.literal('water'), ...part }),
     /** `candidateIds` are the liquids the unknown may be; `unknown` is how it is named and looks before it is identified. */

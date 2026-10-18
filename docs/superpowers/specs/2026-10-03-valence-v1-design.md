@@ -1354,11 +1354,11 @@ A part counts when its technique was right, its readings are the logger's, its e
 
 The engine is pure and deterministic and holds whole numbers. While ice and liquid are both in the cup and it is stirred, the temperature goes to the freezing point of what is dissolved at that moment; ice melts as the solute goes in and as the cup takes heat from the room, slowly with the lid on, and the solution grows a little more dilute as it does, which the graph shows as a slow creep after the fall. If the ice runs out the temperature climbs toward the room's.
 
-The freezing point's fall is the constant for water times the molality times the particles each formula unit gives. For the unknown liquids and for urea that is one, the ideal, said as one. For each salt it is a measured figure at about the strength used where a source that can be read gives one, and otherwise two, the ideal, said to be the ideal and to be more than a real salt gives. The amounts are seeded, and chosen so that the three liquids can be told apart at the figures the instruments give.
+The freezing point's fall is the constant for water times the molality times the particles each formula unit gives. For the unknown liquids and for urea that is one, the ideal, said as one. For each salt it is a figure from measurements at about the strength used where a source that can be read gives one, and otherwise two, the ideal, said to be the ideal and to be more than a real salt gives. Sodium chloride's is worked from a measured freezing point; potassium chloride's and sodium bromide's, since 2026-10-18, are twice the osmotic coefficient that NIST's evaluations of each salt give near the freezing point and at about the bench's strength, which worked the same way gives sodium chloride the same figure. The amounts are seeded, and chosen so that the three liquids can be told apart at the figures the instruments give.
 
 ### 23.4 Data
 
-The freezing point constant of water; the molar masses of the three liquids, urea and the three salts; the measured freezing points of solutions of each where a source gives them. Hazards by 5.2 for the three liquids, urea and the three salts, sharing other labs' records for the same thing in the same form.
+The freezing point constant of water; the molar masses of the three liquids, urea and the three salts; the measured freezing points of solutions of each where a source gives them, and the osmotic coefficients an evaluation gives for the salts. Hazards by 5.2 for the three liquids, urea and the three salts, sharing other labs' records for the same thing in the same form.
 
 ### 23.5 Primer
 

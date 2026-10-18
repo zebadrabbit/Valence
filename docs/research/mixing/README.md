@@ -82,6 +82,23 @@ Which liquid is on top is stored nowhere. The build and the engine work it out f
 6. The hazard note: the supplier's sheet lists acids among what the alcohol is kept from, and this bench puts it in a tube with vinegar. The note says so and gives no opinion.
 7. Whether "Epsom salt" is a fair salt-like thing for part 3, and "cooking grease" a fair oily one.
 
+## Rubbing alcohol at 70% with a vegetable oil: what was found on 2026-10-18
+
+Looked for because the pair's outcome rests on a handout for alcohol of 75% or more (item 1 above). The record was not changed: no source read says what 70% rubbing alcohol does with an oil.
+
+**What was read.** Two United States patents, read as the scanned copies the patent office serves, whose page images were read by eye (they carry no text layer). They are not peer reviewed, but each describes, as known practice, how hot aqueous 2-propanol is used to take the oil out of soybeans, cottonseed and other seeds.
+
+- Youn, K. C.; Wilpers, D. J. Process for oilseed extraction with an isopropanol-based solvent. US Patent 4,298,540, November 3, 1981 (https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/4298540). Columns 1 to 3 and 5. The seeds are extracted at about 60 to 95 °C with 2-propanol and water of about 91% by volume, which the patent equates with about 88% by mass. The extract, cooled to about 5 to 40 °C, separates into two liquids: a lower one rich in the oil and an upper one rich in the alcohol, with a little of the alcohol staying in the oil's layer. The patent says that the oils dissolve less in the alcohol the more water it holds, and that a solvent under about 75% by mass of 2-propanol does not take out enough oil.
+- Grimsby, F. N. Oilseed extraction process. US Patent 4,456,556, June 26, 1984 (https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/4456556). Column 1: more water in a 2-propanol solvent lowers how much seed oil it dissolves at a given temperature, for which it cites Rao, R. K.; Arnold, L. K. *J. Am. Oil Chem. Soc.* 1957, 34, 401–404, which was not read.
+
+A third patent of the same company, US 4,457,869, was read in part and adds nothing to these. The patent office's server has no robots file.
+
+**What it comes to for the bench.** A mixture of the alcohol and water is weaker by mass than by volume (the patent's 91% by volume is 88% by mass), so rubbing alcohol at 70% by volume is well under the 75% by mass below which the first patent says a solvent takes out too little oil in the hot extraction. By both patents, more water means less oil dissolved. Alcohol stronger than rubbing alcohol already makes two layers with seed oils between 5 and 40 °C, the oil underneath. So the lab's outcome, two layers with the rubbing alcohol on top, agrees with what was read, and the reasoning to 70% is short. But it is reasoning: neither patent nor any other source read tried 70%, a bottle from a shop, a refined cooking oil, or a tube shaken and left to stand. The patents' extracts also hold free fatty acids and other matter from the seeds, which the first patent says make the oil more soluble.
+
+**What is still not known.** How long a shaken tube of the two takes to clear, and whether it stays cloudy; how much of each liquid goes into the other; which layer is larger. A refined vegetable oil at room temperature with 70% rubbing alcohol was found in no measurement.
+
+**Not read.** The measurements behind the patents (Harris and others on 2-propanol and cottonseed oil, *J. Am. Oil Chem. Soc.* 1947 to 1950; Rao and Arnold 1957): the searches made found no open copy. A paper of measured liquid-liquid equilibria of crude sesame oil with 2-propanol and water from 283 to 333 K, in the *Journal of Chemical Thermodynamics*, was seen only as a search result. Three open pages were refused to this reader and not asked again: an Oxford journal's article on soybean oil extraction (a challenge page), an article of the journal *OCL* on rapeseed (refused), and an article in PubMed Central on walnut press-cake (a challenge page). Each site's robots file was read first and none closes these pages.
+
 ## Read and not used
 
 - The supplier's sheet for 2-propanol alone (sds_420) and NOAA's record of 2-propanol were read for the freezing point depression lab. The second is under this lab's hazard note; the first is not used here.
