@@ -30,6 +30,11 @@ export default defineConfig({
     // The lazy 3D chunk (three and @react-three/fiber) is a little over 900 kB minified and does
     // not tree-shake further. Raise the limit so the warning keeps its meaning for other chunks.
     chunkSizeWarningLimit: 1000,
+    modulePreload: {
+      // A lazy chunk that imports from the entry chunk would preload the entry again, which index.html has already
+      // loaded. Chromium says nothing; WebKit warns in the console that the preload was never used.
+      resolveDependencies: (_, deps) => deps.filter((dep) => !/^assets\/index-[^/]+\.js$/.test(dep)),
+    },
   },
   test: {
     environment: 'node',
