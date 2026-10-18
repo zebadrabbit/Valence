@@ -250,9 +250,10 @@ describe('the lab, its parts and its bench', () => {
     for (const text of Object.values(MOLECULE_LINK)) expect(text).toMatch(/^Look at .+ in the explorer$/)
   })
 
-  it('gives the rubbing alcohol the heading over its own hazards, and everything else the shared note', () => {
+  it('gives the rubbing alcohol and the mineral oil the heading over their own hazards, and everything else the shared note', () => {
     expect(hazardsText(data, data.liquids[1]!)).toEqual({ shared: false, text: "Hazards of 2-propanol (isopropyl alcohol) of 40% to 90% in water, from a supplier's safety data sheet" })
-    for (const item of [...data.liquids.filter((l) => l.id !== 'rubbing-alcohol'), ...data.solids]) expect(hazardsText(data, item as { reagentId?: string }), item.id).toEqual({ shared: true, text: data.sharedNote.value })
+    expect(hazardsText(data, data.liquids[4]!)).toEqual({ shared: false, text: "Hazards of mineral oil, from a supplier's safety data sheet" })
+    for (const item of [...data.liquids.filter((l) => l.id !== 'rubbing-alcohol' && l.id !== 'mineral-oil'), ...data.solids]) expect(hazardsText(data, item as { reagentId?: string }), item.id).toEqual({ shared: true, text: data.sharedNote.value })
   })
 })
 
