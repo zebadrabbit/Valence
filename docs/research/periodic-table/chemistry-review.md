@@ -4,6 +4,8 @@ Reviewed 2026-10-03, before anything is built. Reviewed: `docs/superpowers/specs
 
 Every number below comes from a script in this folder run against the download, or from a page fetched today and saved under `sources/`. Where something could not be checked, section 7 says so. Nothing in the repository was modified.
 
+On 2026-10-17 the passages of OpenStax Chemistry 2e that this review quoted were put in this project's words, each with where it is, so that the repository quotes no source and makes no claim about OpenStax's licence. Nothing else in the review was changed for that reason.
+
 ## 0. What changes the plan
 
 Eleven items are wrong chemistry or a wrong test expectation as the plan stands. Each is detailed in the numbered section shown.
@@ -64,8 +66,8 @@ Both are defensible and both give correct block sizes. Evidence, all fetched tod
 | IUPAC project 2015-039-2-200 page | The project "will deliver a recommendation"; end date 31 Dec 2021. No recommendation is shown on the page |
 | Scerri, "Provisional Report on Discussions on Group 3 of the Periodic Table", Chemistry International 43(1), 31 to 34 (2021) | "There is no objective means to adjudicate" between the two; it is "one of convention". The report suggests "a compromise could be reached" on Sc, Y, Lu, Lr because that table (1) shows the elements in order of atomic number, (2) avoids splitting the d block into two uneven parts, and (3) shows all blocks 2, 6, 10 and 14 wide. This is rule A. It is a provisional report, not an IUPAC ruling |
 | PubChem element pages (the app's own source) | Lutetium: group "3 - Lanthanide". Lawrencium: group "3 - Actinide". Lanthanum and actinium: no group number. This is rule A |
-| OpenStax Chemistry 2e, section 19.1 | "The f-block elements are the elements Ce through Lu ... and the elements Th through Lr". Lanthanum is "the first member of the third transition series". This is rule B |
-| OpenStax Chemistry 2e, section 6.4 | "Lanthanum and actinium ... are included and used to name the series, even though they are transition metals with no f electrons." Rule B |
+| OpenStax Chemistry 2e, section 19.1 | The passage on the transition series puts cerium to lutetium and thorium to lawrencium in the f block, and makes lanthanum, by its configuration, the first element of the third transition series. This is rule B |
+| OpenStax Chemistry 2e, section 6.4 | The passage on the f series counts lanthanum and actinium in the two series, which are named after them, though it calls them transition metals without f electrons. Rule B |
 | IUPAC Red Book 2005, IR-3.5 | "The elements of groups 3-12 are the d-block elements"; says nothing on which elements sit below yttrium |
 
 Ground-state configurations do not settle it. Lanthanum (`[Xe]6s2 5d1`) and actinium have no f electron, which looks like rule B; but thorium (`[Rn]7s2 6d2`) has none either and everyone calls it f block. Lutetium (`[Xe]6s2 4f14 5d1`) has a full f subshell and one d electron, exactly like hafnium's pattern, which looks like rule A.
@@ -200,7 +202,7 @@ Which show a clean trend with PubChem's numbers:
 
 PubChem's column is the van der Waals radius. Its page labels it so, and the plan's own facts table says so. The spec and plan call it "atomic radius" throughout.
 
-The textbook trend is "radius falls across a period and rises down a group", taught with covalent radii (OpenStax 6.5: "We will use the covalent radius"). With PubChem's column:
+The textbook trend is "radius falls across a period and rises down a group", taught with covalent radii (OpenStax 6.5 says it uses the covalent radius). With PubChem's column:
 
 | Period | Values (pm) | Steps against the trend |
 | --- | --- | --- |
@@ -255,8 +257,8 @@ Seven of the ten are pure position: alkali metal is group 1 without hydrogen; al
 
 | Element(s) | PubChem | Elsewhere | Verdict |
 | --- | --- | --- | --- |
-| Hydrogen | Nonmetal | OpenStax: nonmetal; "properties similar to both group 1 and group 17" | Fine. Correctly not an alkali metal |
-| Zn, Cd, Hg, Cn | Transition metal | IUPAC Red Book: group 12 "not always included". OpenStax 2.5 footnote: "Per the IUPAC definition, group 12 elements are not transition metals". OpenStax 18.1 calls them "representative metals, or post-transition metals" | Acceptable; needs a note |
+| Hydrogen | Nonmetal | OpenStax: nonmetal, with properties like those of group 1 and of group 17 | Fine. Correctly not an alkali metal |
+| Zn, Cd, Hg, Cn | Transition metal | IUPAC Red Book: group 12 "not always included". OpenStax 2.5, in a footnote: by IUPAC's definition the elements of group 12 are not transition metals. OpenStax 18.1 calls them "representative metals, or post-transition metals" | Acceptable; needs a note |
 | Polonium | Metalloid | OpenStax Figure 2.26: metal. PubChem's own polonium page: "Metal". OpenStax 18.3 lists six metalloids and omits it | Needs a note. PubChem disagrees with itself here |
 | Astatine | Halogen | OpenStax Figure 2.26: metalloid. PubChem's own astatine page: "Semi-metal" | Fine as a group name; mention in the metalloid note |
 | The metalloid set | B Si Ge As Sb Te Po (7) | OpenStax 18.3 text: B Si Ge As Sb Te (6). OpenStax Figure 2.26: those six plus At (7) | The spec's planned note covers this; name polonium and astatine in it |
@@ -283,11 +285,11 @@ PubChem's page calls this display "Chemical Group / Family" and offers a separat
 
 Fetched and read in full. It supports:
 
-- The words "period" and "group": "seven horizontal rows, called periods or series, and 18 vertical columns, called groups".
+- The words "period" and "group": the table's seven rows are periods (or series) and its 18 columns groups.
 - Six family names: **alkali metals** (group 1 "except hydrogen"), **alkaline earth metals** (group 2), **pnictogens** (group 15), **chalcogens** (group 16), **halogens** (group 17), **noble gases** (group 18, "also known as inert gases").
 - One behaviour each for groups 1 and 2 (compounds with hydrogen in 1:1 and 1:2 ratios).
 - Main-group elements (groups 1, 2, 13 to 18), transition metals (3 to 12, with a footnote on group 12), inner transition metals (the two bottom rows).
-- Hydrogen as "a unique, nonmetallic element with properties similar to both group 1 and group 17 elements".
+- Hydrogen as a nonmetal unlike any other element, with properties like those of group 1 and of group 17.
 
 It does **not** support: any sentence about an individual period; anything about blocks (the words s-block, p-block, d-block, f-block do not appear); anything about groups 3 to 14 individually; any shared property of groups 15 to 18 beyond the name.
 
@@ -368,7 +370,7 @@ The script confirms each subshell list has exactly the capacity of its period (2
 
 The last sentence of the f-block text is checked by script: under rule A the only elements with no electron in the subshell their block is named for are La, Ac and Th.
 
-Two sentences in OpenStax 6.4 should not be reused. It says copper, silver and gold "are not technically transition elements"; under the IUPAC definition they are (Cu²⁺ has an incomplete d subshell). And its definition of valence electrons for transition metals ("those added after the last noble gas configuration") would count hafnium's 4f¹⁴. The drafts above say "outer s and d electrons" instead.
+Two sentences in OpenStax 6.4 should not be reused. It says copper, silver and gold "are not technically transition elements"; under the IUPAC definition they are (Cu²⁺ has an incomplete d subshell). And its definition of valence electrons for transition metals (every electron beyond the configuration of the preceding noble gas) would count hafnium's 4f¹⁴. The drafts above say "outer s and d electrons" instead.
 
 ## 6. Element card (spec 7)
 
@@ -378,7 +380,7 @@ Scripts: `categories.py` sections D to G, `masses.py`, `curated.py`, `pubchem_re
 
 The spec shows every empty PubChem field as "not measured". That is a claim about the state of science the app has no source for, and for several classes of field it is false:
 
-- **Electronegativity** (23 empty). OpenStax 7.2: electronegativity "is a dimensionless quantity that is calculated, not measured". Helium, neon and argon have no Pauling value because the scale is built from bond energies and they form no stable bonds. Promethium, europium, terbium and ytterbium are simply not listed.
+- **Electronegativity** (23 empty). OpenStax 7.2: electronegativity has no unit and is worked out, not measured. Helium, neon and argon have no Pauling value because the scale is built from bond energies and they form no stable bonds. Promethium, europium, terbium and ytterbium are simply not listed.
 - **Electron affinity** (61 empty). Among atomic numbers 1 to 86, thirty are empty. Sixteen of them are in groups 2, 12 and 18, plus nitrogen and manganese: atoms with filled or half-filled subshells, the cases OpenStax 6.5 explains as exceptions. PubChem's own pages give helium, nitrogen and neon a value of 0 or a negative number, meaning the negative ion is not stable; that is a known result, not a missing measurement. The other fourteen are lanthanides and hafnium, which PubChem just does not list.
 - **Density, melting point** of the superheavy elements: here "not measured" is true.
 

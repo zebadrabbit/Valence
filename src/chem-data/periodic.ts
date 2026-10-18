@@ -1,5 +1,6 @@
 import data from './periodic-table.json'
 import { periodicTableSchema, type PeriodicElement } from './schema'
+import sources from './sources.json'
 import { located } from './support'
 
 /**
@@ -82,15 +83,21 @@ export function shellsFromConfiguration(text: string): number[] {
  */
 export type Description = { name?: string; text: string; sourceIds: string[]; support: string }
 
-// A source and the passage read there. "…" marks words left out and square brackets mark words put in.
-// Only OpenStax Chemistry 2e, which is licensed CC BY 4.0, is quoted at length, and lines of PubChem's pages.
-// A passage of any other source is given by `located`.
+// A source and what was read there. No source is quoted: a passage is given by `located`, which says where it is
+// and, in this project's own words, what it establishes. The lines of PubChem's pages and table are the one
+// exception: they are given as they read, being labels and values and not prose.
 export type Passage = readonly [sourceId: string, passage: string]
 
 // `located` is in support.ts, where a file that needs nothing else of this one can take it. It is still exported here.
 export { located }
 
-const openstax = (section: string) => `openstax-chem2e-${section}`
+/** A passage of a section of OpenStax Chemistry 2e, at the address its citation in sources.json gives. */
+export function openstaxPassage(section: string, where: string, establishes: string): Passage {
+  const id = `openstax-chem2e-${section}`
+  const url = sources.find((s) => s.id === id)?.url
+  if (!url) throw new Error(`the descriptions cite an unknown source "${id}"`)
+  return [id, located(url, `section ${section}, ${where}`, establishes)]
+}
 const RED_BOOK = 'iupac-red-book-2005'
 const IUPAC_TABLE = 'iupac-periodic-table'
 const RSC = 'rsc-periodic-table'
@@ -129,18 +136,21 @@ const RED_BOOK_GROUP_NAMES: Passage = [
   RED_BOOK,
   located(RED_BOOK_URL, RED_BOOK_SECTION, 'a group may be named after its first element, with the boron group and the titanium group as examples.'),
 ]
-const OPENSTAX_FAMILY_NAMES: Passage = [
-  openstax('2.5'),
-  '“Other groups with specific names are the pnictogens (group 15), chalcogens (group 16), halogens (group 17), and the noble gases (group 18, also known as inert gases). The groups can also be referred to by the first element of the group: For example, the chalcogens can be called the oxygen group or oxygen family.”',
-]
-const OPENSTAX_VALENCE_SHELLS: Passage = [
-  openstax('18.4'),
-  '“For example, members of group 15 have five valence electrons and require only three additional electrons to fill their valence shells. … The elements of group 16 require only two additional electrons. … The halogens form diatomic molecules in which each atom is involved in only one bond. This provides the electron required necessary to complete the octet on the halogen atom.”',
-]
-const OPENSTAX_TRANSITION_SERIES: Passage = [
-  openstax('19.1'),
-  '“The d-block elements are divided into the first transition series (the elements Sc through Cu), the second transition series (the elements Y through Ag), and the third transition series (the element La and the elements Hf through Au). Actinium, Ac, is the first member of the fourth transition series, which also includes Rf through Rg. The f-block elements are the elements Ce through Lu, which constitute the lanthanide series (or lanthanoid series), and the elements Th through Lr, which constitute the actinide series (or actinoid series). Because lanthanum behaves very much like the lanthanide elements, it is considered a lanthanide element, even though its electron configuration makes it the first member of the third transition series. Similarly, the behavior of actinium means it is part of the actinide series, although its electron configuration makes it the first member of the fourth transition series.”',
-]
+const OPENSTAX_FAMILY_NAMES: Passage = openstaxPassage(
+  '2.5',
+  'the passage on the groups that have names of their own',
+  'groups 15 to 18 have names of their own, the pnictogens, chalcogens, halogens and noble gases, and the noble gases are also called the inert gases; and that a group can also be named after its first element, so that the chalcogens are also known as the oxygen group or family.',
+)
+const OPENSTAX_VALENCE_SHELLS: Passage = openstaxPassage(
+  '18.4',
+  'the passage on the valence electrons of groups 15, 16 and 17',
+  'an atom of group 15 has five valence electrons and needs three more for a full valence shell; that an atom of group 16 needs two more; and that in the two-atom molecule of a halogen each atom takes part in a single bond, which gives it the one electron that completes its octet.',
+)
+const OPENSTAX_TRANSITION_SERIES: Passage = openstaxPassage(
+  '19.1',
+  'the passage on the transition series and on the lanthanide and actinide series',
+  'the d block divides into transition series: scandium to copper, yttrium to silver, and lanthanum with hafnium to gold, with actinium heading a fourth series that also takes in rutherfordium to roentgenium; that cerium to lutetium, of the f block, make up the lanthanide series and thorium to lawrencium the actinide series; and that lanthanum and actinium, which are each the first member of a transition series by electron configuration, are counted as a lanthanide and an actinide because of how they behave.',
+)
 const IUPAC_GROUP_3: Passage = [
   IUPAC_TABLE,
   located(
@@ -158,10 +168,14 @@ type Group = { name?: string; text: (members: string[]) => string; passages: Pas
 // "The iron group" is also used for iron, cobalt and nickel, so group 8's text says which is meant.
 const transitionGroup = (group: number): Group => ({
   text: (members) =>
-    `The ${members[0]} group${group === 8 ? ' (group 8)' : ''}: ${list(members)}. They are transition metals, and each atom has ${group} electrons in its outer s and d subshells. Transition metals form compounds in a wide range of oxidation states.`,
+    `The ${members[0]} group${group === 8 ? ' (group 8)' : ''}: ${list(members)}. They are transition metals, and each atom has ${group} electrons in its outer s and d subshells. Transition metals form compounds in many different oxidation states.`,
   passages: [
     RED_BOOK_GROUP_NAMES,
-    [openstax('19.1'), '“As shown in Figure 19.2, the d-block elements in groups 3–11 are transition elements. … Transition metals can form compounds with a wide range of oxidation states.”'],
+    openstaxPassage(
+      '19.1',
+      'Figure 19.2 and the passage on the oxidation states of transition metals',
+      'the elements of groups 3 to 11 in the d block are transition elements, and that transition metals form compounds in many different oxidation states.',
+    ),
   ],
   derived: S_AND_D_COUNT,
 })
@@ -170,13 +184,14 @@ const GROUPS: Record<number, Group> = {
   1: {
     name: 'Hydrogen and the alkali metals',
     text: (members) =>
-      `Hydrogen and the alkali metals: ${list(members.slice(1))}. Hydrogen is a nonmetal, not an alkali metal. Each atom has 1 valence electron, and an alkali metal loses it easily to form a 1+ ion. The alkali metals are soft, very reactive metals that react with water to give hydrogen gas and a basic solution.`,
+      `Hydrogen and the alkali metals: ${list(members.slice(1))}. Hydrogen is a nonmetal, not an alkali metal. Each atom has 1 valence electron, and an alkali metal loses it easily to form a 1+ ion. The alkali metals are soft, very reactive metals that react with water, releasing hydrogen gas and leaving a basic solution.`,
     passages: [
-      [
-        openstax('18.1'),
-        '“The alkali metals lithium, sodium, potassium, rubidium, cesium, and francium constitute group 1 of the periodic table. Although hydrogen is in group 1 (and also in group 17), it is a nonmetal and deserves separate consideration later in this chapter. … This combination makes it very easy to remove the single electron in the outermost (valence) shell of each. The easy loss of this valence electron means that these metals readily form stable cations with a charge of 1+. … The solid alkali metals are very soft … The alkali metals all react vigorously with water to form hydrogen gas and a basic solution of the metal hydroxide. … These metals are so reactive that it is necessary to avoid contact with both moisture and oxygen in the air.”',
-      ],
-      [openstax('2.5'), '“These elements (except hydrogen) are known as alkali metals, and they all have similar chemical properties.”'],
+      openstaxPassage(
+        '18.1',
+        'the passage on the alkali metals',
+        'the alkali metals, lithium to francium, make up group 1; that hydrogen sits in group 1 (and in group 17 as well) but is a nonmetal, taken up separately; that each alkali metal gives up its one valence electron very easily and so readily forms stable ions of charge 1+; that the solid metals are very soft; that all of them react vigorously with water, releasing hydrogen and leaving a basic solution of the hydroxide; and that they are reactive enough to have to be kept away from moisture and from the oxygen of the air.',
+      ),
+      openstaxPassage('2.5', 'the passage on group 1', 'the members of group 1 other than hydrogen are called the alkali metals and are alike in their chemistry.'),
     ],
     derived: VALENCE_COUNT,
   },
@@ -186,10 +201,11 @@ const GROUPS: Record<number, Group> = {
     text: (members) =>
       `${capital(list(members))}. Each atom has 2 valence electrons and readily loses both, so these metals have an oxidation state of +2 in their compounds. They are reactive metals, though less so than the alkali metals.`,
     passages: [
-      [
-        openstax('18.1'),
-        '“The alkaline earth metals (beryllium, magnesium, calcium, strontium, barium, and radium) constitute group 2 of the periodic table. … The higher ionization energy makes the alkaline earth metals less reactive than the alkali metals; however, they are still very reactive elements. … In chemical reactions, these metals readily lose both valence electrons to form compounds in which they exhibit an oxidation state of 2+.”',
-      ],
+      openstaxPassage(
+        '18.1',
+        'the passage on the alkaline earth metals',
+        'the alkaline earth metals, beryllium to radium, make up group 2; that their higher ionization energies leave them less reactive than group 1, though still very reactive; and that in reactions they readily give up both valence electrons, forming compounds in which their oxidation state is 2+.',
+      ),
     ],
     derived: VALENCE_COUNT,
   },
@@ -211,23 +227,25 @@ const GROUPS: Record<number, Group> = {
     text: (members) =>
       `${capital(list(members))}. Each atom has a full d subshell and 2 outer s electrons. Zinc, cadmium and mercury lose those 2 electrons to form 2+ ions, and mercury also has an oxidation state of +1 in some compounds. Group 12 is not always counted among the transition metals.`,
     passages: [
-      [
-        openstax('18.1'),
-        '“The d orbitals fill with the elements in group 11; therefore, the elements in group 12 qualify as representative elements because the last electron enters an s orbital. … Group 12 contains the four elements zinc, cadmium, mercury, and copernicium. Each of these elements has two electrons in its outer shell … When atoms of these metals form cations with a charge of 2+, where the two outer electrons are lost, they have pseudo-noble gas electron configurations. Mercury is sometimes an exception because it also exhibits an oxidation state of 1+ …”',
-      ],
+      openstaxPassage(
+        '18.1',
+        'the passage on group 12',
+        'the d orbitals are filled by group 11, so that the elements of group 12, whose last electron goes into an s orbital, count as representative elements; that the group holds four elements, zinc to copernicium, each having two outer-shell electrons; that when these metals lose those two electrons as ions of charge 2+ they are left with pseudo-noble gas configurations; and that mercury also shows an oxidation state of 1+.',
+      ),
       RED_BOOK_BLOCKS,
     ],
     derived: S_AND_D_COUNT,
   },
   13: {
     text: (members) =>
-      `The boron group: ${list(members)}. Each atom has 3 valence electrons. Boron is a metalloid; aluminum, gallium, indium and thallium are metals. Aluminum usually has an oxidation state of +3 in its compounds; gallium, indium and thallium show +3 and also +1.`,
+      `The boron group: ${list(members)}. Each atom has 3 valence electrons. Boron is a metalloid; aluminum, gallium, indium and thallium are metals. In its compounds aluminum usually has the oxidation state +3; gallium, indium and thallium show +3 and also +1.`,
     passages: [
       RED_BOOK_GROUP_NAMES,
-      [
-        openstax('18.1'),
-        '“Group 13 contains the metalloid boron and the metals aluminum, gallium, indium, and thallium. … Aluminum normally uses all of its valence electrons when it reacts, giving compounds in which it has an oxidation state of 3+. … These three elements [gallium, indium, and thallium] exhibit not only the expected oxidation state of 3+ from the three valence electrons but also an oxidation state (in this case, 1+) that is two below the expected value.”',
-      ],
+      openstaxPassage(
+        '18.1',
+        'the passage on group 13',
+        'boron, in group 13, is a metalloid and aluminum, gallium, indium and thallium are metals; that aluminum normally reacts using all its valence electrons, so that its compounds have it in oxidation state 3+; and that gallium, indium and thallium show, besides the 3+ their three valence electrons lead one to expect, an oxidation state of 1+, two below it.',
+      ),
     ],
     derived: VALENCE_COUNT,
   },
@@ -236,10 +254,11 @@ const GROUPS: Record<number, Group> = {
       `The carbon group: ${list(members)}. Each atom has 4 valence electrons. Carbon is a nonmetal, silicon and germanium are metalloids, and tin and lead are metals. Tin and lead form 2+ ions, and also compounds in which their oxidation state is +4.`,
     passages: [
       RED_BOOK_GROUP_NAMES,
-      [
-        openstax('18.1'),
-        '“The metallic members of group 14 are tin, lead, and flerovium. Carbon is a typical nonmetal. The remaining elements of the group, silicon and germanium, are examples of semimetals or metalloids. Tin and lead form the stable divalent cations, Sn²⁺ and Pb²⁺, with oxidation states two below the group oxidation state of 4+. … Tin and lead also form covalent compounds with a formal 4+-oxidation state.”',
-      ],
+      openstaxPassage(
+        '18.1',
+        'the passage on group 14',
+        "in group 14 tin, lead and flerovium are the metals, carbon is a nonmetal, and silicon and germanium are metalloids; that tin and lead form stable ions of charge 2+, Sn²⁺ and Pb²⁺, two below the group's oxidation state of 4+; and that they also make covalent compounds in which their formal oxidation state is 4+.",
+      ),
     ],
     derived: VALENCE_COUNT,
   },
@@ -250,7 +269,7 @@ const GROUPS: Record<number, Group> = {
     passages: [
       OPENSTAX_FAMILY_NAMES,
       OPENSTAX_VALENCE_SHELLS,
-      [openstax('18.1'), '“Bismuth, the heaviest member of group 15, is a less reactive metal than the other representative metals.”'],
+      openstaxPassage('18.1', 'the passage on bismuth', 'bismuth, the heaviest of the group 15 elements, is a metal, though less reactive than the other metals among the representative elements.'),
     ],
     derived: `${VALENCE_COUNT}; and nonmetal, metalloid and metal, as the categories PubChem lists`,
   },
@@ -266,12 +285,13 @@ const GROUPS: Record<number, Group> = {
     text: (members) =>
       `${capital(list(members))}. Each atom has 7 valence electrons, 1 short of a full valence shell. Fluorine, chlorine, bromine and iodine form two-atom molecules; they are too reactive to occur free in nature, and are found as halide ions.`,
     passages: [
-      [
-        openstax('18.11'),
-        '“The elements in group 17 are the halogens. These are the elements fluorine, chlorine, bromine, iodine, and astatine. These elements are too reactive to occur freely in nature, but their compounds are widely distributed. … All of the halogens occur in seawater as halide ions.”',
-      ],
+      openstaxPassage(
+        '18.11',
+        'the passages on which elements the halogens are and on where they occur',
+        'the halogens, fluorine to astatine, make up group 17; that they react too readily to be found uncombined in nature, though their compounds are widespread; and that every halogen is present in seawater as the halide ion.',
+      ),
       OPENSTAX_VALENCE_SHELLS,
-      [openstax('6.4'), '“… and the halogens fluorine and chlorine each have seven valence electrons.”'],
+      openstaxPassage('6.4', 'the passage on the valence electrons of fluorine and chlorine', 'fluorine and chlorine, both halogens, have seven valence electrons apiece.'),
     ],
     derived: VALENCE_COUNT,
   },
@@ -280,10 +300,11 @@ const GROUPS: Record<number, Group> = {
     text: (members) =>
       `${capital(list(members))}. Their atoms have filled valence shells: 2 electrons in helium and 8 in the others. Helium to radon are gases at room temperature, with very low melting and boiling points. They were assumed to be unreactive until 1962; krypton and xenon form compounds with fluorine.`,
     passages: [
-      [
-        openstax('18.12'),
-        '“The elements in group 18 are the noble gases (helium, neon, argon, krypton, xenon, and radon). They earned the name “noble” because they were assumed to be nonreactive since they have filled valence shells. In 1962, … proved this assumption to be false. … The boiling points and melting points of the noble gases are extremely low relative to those of other substances of comparable atomic or molecular masses. … Krypton forms a difluoride, KrF₂, which is thermally unstable at room temperature. Stable compounds of xenon form when xenon reacts with fluorine.”',
-      ],
+      openstaxPassage(
+        '18.12',
+        'the passages on the name of the noble gases, on their melting and boiling points and on the compounds of krypton and xenon',
+        'the noble gases, helium to radon, make up group 18, and were named noble because their filled valence shells led to the assumption that they did not react, an assumption shown wrong in 1962; that they melt and boil at temperatures far lower than other substances of similar atomic or molecular mass; that the difluoride of krypton, KrF₂, is not stable at room temperature; and that xenon forms stable compounds by reacting with fluorine.',
+      ),
     ],
     derived: 'the electrons in the outermost shell of each configuration PubChem lists; and gas, as the standard state PubChem lists for helium to radon',
   },
@@ -331,10 +352,11 @@ export function describePeriod(period: number): Description {
       `. Across the period the ${list(subshells)} ${fill}.`,
     ].join(''),
     [
-      [
-        openstax('6.4'),
-        '“Beginning with hydrogen, and continuing across the periods of the periodic table, we add one proton at a time to the nucleus and one electron to the proper subshell until we have described the electron configurations of all the elements. … The filling order simply begins at hydrogen and includes each subshell as you proceed in increasing Z order. For example, after filling the 3p block up to Ar, we see the orbital will be 4s (K, Ca), followed by the 3d orbitals. … Note that for three series of elements, scandium (Sc) through copper (Cu), yttrium (Y) through silver (Ag), and lanthanum (La) through gold (Au), a total of 10 d electrons are successively added to the (n – 1) shell next to the n shell to bring that (n – 1) shell from 8 to 18 electrons. For two series, lanthanum (La) through lutetium (Lu) and actinium (Ac) through lawrencium (Lr), 14 f electrons … are successively added to the (n – 2) shell to bring that shell from 18 electrons to a total of 32 electrons.”',
-      ],
+      openstaxPassage(
+        '6.4',
+        'the passage on the order in which subshells fill across the periods',
+        'electron configurations are built up from hydrogen onward, adding a proton to the nucleus and an electron to the proper subshell at each step, the subshells being taken in order of increasing atomic number; that once 3p is full at argon, 4s fills next (potassium and calcium) and then 3d; that across scandium to copper, yttrium to silver and lanthanum to gold, 10 d electrons go one by one into the shell below the outermost, taking it from 8 to 18 electrons; and that across lanthanum to lutetium and actinium to lawrencium, 14 f electrons go one by one into the shell two below the outermost, taking it from 18 to 32 electrons.',
+      ),
     ],
     'the size of the period, its first and last elements, the elements drawn below, and the subshells, which are those the noble gas ending the period has beyond the one before it',
   )
@@ -358,7 +380,7 @@ export function describeBlock(block: Block): Description {
             'the s block holds the alkali metals and the alkaline earth metals, and also hydrogen and helium, which are nonmetals and gases; that its elements have their valence electrons in s orbitals; and that it is two columns wide because an s subshell holds at most two electrons.',
           ),
         ],
-        [openstax('6.4'), '“Following hydrogen is the noble gas helium, which has an atomic number of 2. … The second electron also goes into the 1s orbital and fills that orbital.”'],
+        openstaxPassage('6.4', 'the passage on helium', 'in helium, the noble gas that comes after hydrogen with atomic number 2, the second electron also enters the 1s orbital, which it fills.'),
       ],
       `${derived}; and that every configuration PubChem lists for the block has its outermost electrons in an s subshell`,
     )
@@ -369,10 +391,11 @@ export function describeBlock(block: Block): Description {
       [
         RED_BOOK_BLOCKS,
         [RSC, located(RSC_URL, 'the note on the p block, under “Blocks”', 'the p block holds nonmetals, metalloids and metals, and that a p subshell holds at most six electrons.')],
-        [
-          openstax('6.4'),
-          '“Main group elements (sometimes called representative elements) are those in which the last electron added enters an s or a p orbital in the outermost shell … This category includes all the nonmetallic elements, as well as many metals and the metalloids.”',
-        ],
+        openstaxPassage(
+          '6.4',
+          'the passage on main group elements',
+          'the main group (or representative) elements are those whose last electron enters an s or p orbital of the outermost shell, and that they include all the nonmetals, many metals and the metalloids.',
+        ),
       ],
       `${derived}; and nonmetal, metalloid and metal, as the categories PubChem lists`,
     )
@@ -383,7 +406,11 @@ export function describeBlock(block: Block): Description {
       [
         RED_BOOK_BLOCKS,
         OPENSTAX_TRANSITION_SERIES,
-        [openstax('6.4'), '“This subshell is filled to its capacity with 10 electrons (remember that for l = 2 [d orbitals], there are 2l + 1 = 5 values of ml, meaning that there are five d orbitals that have a combined capacity of 10 electrons).”'],
+        openstaxPassage(
+          '6.4',
+          'the passage on how many electrons a d subshell holds',
+          'a d subshell is full at 10 electrons, since for l = 2 the quantum number ml takes five values (2l + 1), giving five d orbitals that between them hold 10.',
+        ),
       ],
       derived,
     )
@@ -394,12 +421,13 @@ export function describeBlock(block: Block): Description {
       `${capital(rows.map((row) => `${row[0]} to ${row.at(-1)}`).join(' and '))}: ${count}, 14 in each row because an f subshell holds 14 electrons. They have no group number and are drawn in two rows below the main table. They are also called the inner transition metals. Lanthanum and actinium, the first of the lanthanides and of the actinides, are counted in the d block: see the note on group 3. Thorium is in this block although its atom has no 5f electron in its ground state.`,
       [
         RED_BOOK_BLOCKS,
-        [openstax('19.1'), '“The f-block elements, also called inner transition metals (the lanthanides and actinides), …”'],
+        openstaxPassage('19.1', 'the passage on the f-block elements', 'the elements of the f block, the lanthanides and the actinides, are also known as the inner transition metals.'),
         OPENSTAX_TRANSITION_SERIES,
-        [
-          openstax('6.4'),
-          '“For two series, lanthanum (La) through lutetium (Lu) and actinium (Ac) through lawrencium (Lr), 14 f electrons (l = 3, 2l + 1 = 7 ml values; thus, seven orbitals with a combined capacity of 14 electrons) are successively added to the (n – 2) shell … Lanthanum and actinium, because of their similarities to the other members of the series, are included and used to name the series, even though they are transition metals with no f electrons.”',
-        ],
+        openstaxPassage(
+          '6.4',
+          'the passage on the lanthanide and actinide series',
+          'across lanthanum to lutetium and actinium to lawrencium, 14 f electrons are added one by one to the shell two below the outermost, an f subshell having seven orbitals (l = 3 gives seven values of ml) that between them hold 14 electrons; and that lanthanum and actinium are counted in these series, and give them their names, because they resemble the other members, although they are transition metals and have no f electrons.',
+        ),
       ],
       `${derived}, and the first and last element of each row; and that thorium's is the only configuration PubChem lists for the block with no electron in the f subshell being filled ([Rn]7s2 6d2)`,
     )
@@ -460,11 +488,12 @@ export const CATEGORY_NOTES: readonly Description[] = [
   description(
     'Fluorine, chlorine, bromine, iodine and the noble gases helium to radon are nonmetals too; PubChem lists them under their family names.',
     [
-      [
-        openstax('18.4'),
-        '“Under normal conditions, more than half of the nonmetals are gases, one is a liquid, and the rest include some of the softest and hardest of solids. … The noble gases are all monatomic, whereas the other nonmetal gases—hydrogen, nitrogen, oxygen, fluorine, and chlorine—normally exist as the diatomic molecules H₂, N₂, O₂, F₂, and Cl₂. The other halogens are also diatomic; Br₂ is a liquid and I₂ exists as a solid under normal conditions.”',
-      ],
-      [openstax('18.12'), '“The elements in group 18 are the noble gases (helium, neon, argon, krypton, xenon, and radon).”'],
+      openstaxPassage(
+        '18.4',
+        'the passage on the states of the nonmetals in ordinary conditions',
+        'the nonmetals are mostly gases in ordinary conditions, with one liquid among them; that the noble gases are single atoms, while the other nonmetals that are gases, fluorine and chlorine among them, are two-atom molecules; and that the remaining halogens, bromine (a liquid) and iodine (a solid), are two-atom molecules too.',
+      ),
+      openstaxPassage('18.12', 'the passage on which elements group 18 holds', 'the noble gases make up group 18, from helium down to radon.'),
     ],
     'the family PubChem lists each of the ten under',
   ),
@@ -472,10 +501,11 @@ export const CATEGORY_NOTES: readonly Description[] = [
   description(
     "Sources differ on which elements are metalloids. OpenStax Chemistry 2e lists six: boron, silicon, germanium, arsenic, antimony and tellurium. PubChem's table adds polonium, which PubChem's own page for polonium classes as a metal.",
     [
-      [
-        openstax('18.3'),
-        '“A series of six elements called the metalloids separate the metals from the nonmetals in the periodic table. The metalloids are boron, silicon, germanium, arsenic, antimony, and tellurium.”',
-      ],
+      openstaxPassage(
+        '18.3',
+        'the passage on which elements are the metalloids',
+        'six elements, the metalloids, stand between the metals and the nonmetals in the table: boron, silicon, germanium, arsenic, antimony, tellurium.',
+      ),
       [PUBCHEM_PAGES, 'the line “Element Classification” on the page for polonium reads “Metal”.'],
     ],
     "the seven elements PubChem's table lists as metalloids",

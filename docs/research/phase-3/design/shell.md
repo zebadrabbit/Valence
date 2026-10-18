@@ -2,6 +2,8 @@
 
 Key `shell`. 2026-10-04. Design for planning; nothing here is app code. No tracked file was changed (`git status` is clean).
 
+On 2026-10-18 seven of the draft support lines of section 7 that were given as not quoted, but repeated eight words or more running of the OpenStax section they rest on, were given the wording the shipped primer (`src/chem-data/titration/primer.ts`) has for the same passage. Nothing else in this design was changed for that reason.
+
 Everything in this folder:
 
 - `design.md`: this file.
@@ -695,7 +697,7 @@ An acid is a substance that gives hydronium ions, H₃O⁺, when it dissolves in
 
 Hydrochloric acid is hydrogen chloride, HCl, dissolved in water. It is a strong acid: practically every HCl molecule passes a hydrogen ion to a water molecule, which leaves a hydronium ion and a chloride ion, Cl⁻. Sodium hydroxide, NaOH, is a strong base: in water it separates completely into sodium ions, Na⁺, and hydroxide ions.
 
-- *Rests on:* openstax-chem2e-4.2: not quoted; see section 4.2, under “Acid-Base Reactions”, https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions. It establishes that virtually every HCl molecule that dissolves in water reacts with it to give hydronium and chloride ions, which makes HCl a strong acid; and that NaOH dissociates essentially completely into sodium and hydroxide ions, which makes it a strong base.
+- *Rests on:* openstax-chem2e-4.2: not quoted; see section 4.2, under “Acid-Base Reactions”, https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions. It establishes that HCl is a strong acid, since nearly all of the HCl that dissolves gives up its hydrogen ion to water and leaves hydronium and chloride ions; and that NaOH dissolves and dissociates into sodium and hydroxide ions, as the ionic hydroxides that are strong bases do.
 
 When the two solutions meet, hydronium ions and hydroxide ions join to make water. This is a neutralisation: an acid and a base react to give water and a salt. Here the salt is sodium chloride, NaCl, which stays dissolved. One HCl reacts with exactly one NaOH.
 
@@ -712,7 +714,7 @@ Chemists count particles in moles. A mole is a fixed number of particles, about 
 
 The concentration of a solution says how much of a substance is dissolved in a given volume of it. Molarity, written M, is the number of moles of the dissolved substance in one litre of solution. A 0.1 M solution of HCl has 0.1 mole of HCl in every litre.
 
-- *Rests on:* openstax-chem2e-3.3: not quoted; see section 3.3, under “Solutions”, https://openstax.org/books/chemistry-2e/pages/3-3-molarity. It establishes that molarity is defined as the number of moles of solute in exactly one liter of solution.
+- *Rests on:* openstax-chem2e-3.3: not quoted; see section 3.3, under “Solutions”, https://openstax.org/books/chemistry-2e/pages/3-3-molarity. It establishes that the molarity of a solution is how many moles of solute one litre of it holds.
 
 So the moles in a measured volume are the molarity times the volume in litres. 25.00 mL is 0.02500 L, so 25.00 mL of 0.1000 M HCl holds 0.1000 × 0.02500 = 0.002500 mole of HCl.
 
@@ -751,7 +753,7 @@ The equivalence point is the moment when exactly enough NaOH has been added to r
 
 The endpoint is what is actually measured: the burette reading at which the indicator changes colour and you stop. A well-chosen indicator puts the endpoint so close to the equivalence point that the difference does not matter.
 
-- *Rests on:* openstax-chem2e-4.5: not quoted; see section 4.5, under “Titration”, https://openstax.org/books/chemistry-2e/pages/4-5-quantitative-chemical-analysis. It establishes that the volume of titrant actually measured is called the end point, and that a properly designed titration makes the difference between the end point and the equivalence point negligible.
+- *Rests on:* openstax-chem2e-4.5: not quoted; see section 4.5, under “Titration”, https://openstax.org/books/chemistry-2e/pages/4-5-quantitative-chemical-analysis. It establishes that the end point is the name for the titrant volume that is in fact measured, and that in a properly designed titration the two volumes differ by a negligible amount.
 
 #### 6. Why phenolphthalein
 
@@ -762,7 +764,7 @@ pH is a scale for how acidic or basic a solution is. At 25 °C a pH below 7 is a
 
 When a strong acid is titrated with a strong base, the pH of the flask climbs slowly at first and then leaps from acidic to basic over a very small addition around the equivalence point. The colour change of phenolphthalein lies inside that leap, so the first lasting pink appears almost exactly at the equivalence point.
 
-- *Rests on:* openstax-chem2e-14.7: not quoted; see section 14.7, under “Acid-Base Indicators”, the paragraph on Figure 14.20, https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations. It establishes that in the titration of a strong acid with a strong base the colour-change interval of phenolphthalein lies within the steep rise in pH around the equivalence point, which gives a sharp colour change and an accurate end point.
+- *Rests on:* openstax-chem2e-14.7: not quoted; see section 14.7, under “Acid-Base Indicators”, the paragraph on Figure 14.20, https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations. It establishes that when a strong base is run into a strong acid, the colour-change interval of phenolphthalein lies within the steep rise in pH around the equivalence point, which gives a sharp colour change.
 
 Where a drop of NaOH lands, the solution turns pink for a moment and then clears as swirling mixes it with acid from the rest of the flask. The closer the flask is to the endpoint, the longer the pink takes to fade. The endpoint is the first faint pink that stays after swirling. A deep pink means the endpoint has been passed.
 
@@ -796,13 +798,13 @@ A burette is a long, narrow glass tube with a scale along it and a tap, called t
 
 The surface of the liquid is curved. The curve is called the meniscus. Read the lowest point of the meniscus, with your eye level with it; looking from above or from below shifts the reading.
 
-- *Rests on:* openstax-chem2e-1.5: not quoted; see section 1.5, under “Significant Figures in Measurement”, https://openstax.org/books/chemistry-2e/pages/1-5-measurement-uncertainty-accuracy-and-precision. It establishes that a volume is read at the bottom of the meniscus, the lowest point of the curved surface of the liquid.
+- *Rests on:* openstax-chem2e-1.5: not quoted; see section 1.5, under “Significant Figures in Measurement”, https://openstax.org/books/chemistry-2e/pages/1-5-measurement-uncertainty-accuracy-and-precision. It establishes that a volume is read where the liquid's curved surface, the meniscus, is lowest.
 - *Rests on:* seely-buret: “When reading a buret it is important that your line of sight be in a direction perpendicular to the buret column.”
 
 This burette is marked every 0.1 mL. Judge how far the meniscus sits between two marks, in tenths of the gap, and write the reading to 0.01 mL: 1.20, not 1.2. The last digit is an estimate, and it still counts.
 
 - *Rests on:* openstax-chem2e-1.5: not quoted; see section 1.5, under “Significant Figures in Measurement”, https://openstax.org/books/chemistry-2e/pages/1-5-measurement-uncertainty-accuracy-and-precision. It establishes that a reading is made by mentally dividing the gap between two marks into tenths and estimating the last digit, and that this uncertain last digit is one of the measurement’s significant figures.
-- *Rests on:* openstax-chem2e-4.5: not quoted; see section 4.5, the caption of Figure 4.16, https://openstax.org/books/chemistry-2e/pages/4-5-quantitative-chemical-analysis. It establishes that a typical buret permits volume measurements to the nearest 0.01 mL.
+- *Rests on:* openstax-chem2e-4.5: not quoted; see section 4.5, the caption of Figure 4.16, https://openstax.org/books/chemistry-2e/pages/4-5-quantitative-chemical-analysis. It establishes that volumes can be measured to within 0.01 mL on an ordinary buret.
 - *Rests on:* seely-buret: “A 50 mL buret can be read to ±0.01 mL, but in order to be able to interpolate to the last digit, the perpendicular line of sight must be followed with meticulous care.”
 - *Rests on:* This lab: the burette is graduated every 0.1 mL (spec 7.1).
 
@@ -815,7 +817,7 @@ Glassware is washed with water, and some water stays behind on the inside. A wet
 
 The flask is different. It only has to be clean; it may be wet, and distilled water may be added to it during the titration. Water changes the concentration of the acid in the flask but not the number of moles of acid there, and it is the moles that the NaOH has to match.
 
-- *Rests on:* openstax-chem2e-3.3: not quoted; see section 3.3, under “Dilution of Solutions”, https://openstax.org/books/chemistry-2e/pages/3-3-molarity. It establishes that diluting a solution lowers its concentration but does not change the amount of solute in it.
+- *Rests on:* openstax-chem2e-3.3: not quoted; see section 3.3, under “Dilution of Solutions”, https://openstax.org/books/chemistry-2e/pages/3-3-molarity. It establishes that diluting a solution lowers its concentration and leaves the amount of solute as it was.
 
 Air can be trapped in the burette tip, below the stopcock. It has to be pushed out before the first reading, by running a little NaOH through the tip. If the bubble comes out during the titration instead, NaOH takes its place, and the burette reads more than was delivered to the flask.
 

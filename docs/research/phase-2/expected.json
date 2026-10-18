@@ -33053,7 +33053,7 @@
   "sourceClaimsConfirmed": [
    {
     "source": "openstax-chem2e-8.4",
-    "confirmed": "Table 8.3 valence configurations of N2 and O2 match valenceConfiguration strings and level order exactly; text: sigma-p above pi-p for Li through N; O2, F2, Ne2 negligible s-p mixing; Example 8.6 is the O2 diagram; 'N2 has a bond order of 3 and is diamagnetic'; O2 two unpaired electrons; Figure 8.37 exists",
+    "confirmed": "Table 8.3 valence configurations of N2 and O2 match valenceConfiguration strings and level order exactly; text: sigma-p above pi-p for Li through N; O2, F2, Ne2 negligible s-p mixing; Example 8.6 is the O2 diagram; N2 bond order 3 and diamagnetic; O2 two unpaired electrons; Figure 8.37 exists",
     "claims": 8
    },
    {
@@ -33173,7 +33173,7 @@
     "item": "hybridizationByStericNumberOnly on the 14 resonance-override atoms (field meaning)",
     "was": "Field name and the terminal-atoms convention imply 'hybridization from the steric number alone'; the 14 override atoms have stericNumber 4 but the field reads sp2",
     "shouldBe": "Values kept; convention text now states the field uses effectiveStericNumber (override applied). Added withoutResonanceOverride {stericNumber 4, electronGeometry tetrahedral, geometry, hybridization sp3} to each of the 14 atoms so the no-override alternative (the OpenStax Chemistry 2e Example 7.16 treatment) can be tested.",
-    "evidence": "build_expected.py line 327-328 sets the field from HYB_BY_SN[eff_sn]. OpenStax 7.6 Example 7.16 (https://openstax.org/books/chemistry-2e/pages/7-6-molecular-structure-and-polarity) re-fetched: 'oxygen (OH)—four regions of electron density; tetrahedral ... two bonds, two lone pairs; bent (109°)'."
+    "evidence": "build_expected.py line 327-328 sets the field from HYB_BY_SN[eff_sn]. OpenStax 7.6 Example 7.16 (https://openstax.org/books/chemistry-2e/pages/7-6-molecular-structure-and-polarity) re-fetched: it gives the O-H oxygen four regions of electron density, a tetrahedral electron-pair geometry, and, with two bonds and two lone pairs, a bent shape at 109°."
    },
    {
     "item": "sources[iupac-os-2016].usedFor (citation URL does not contain the value)",
@@ -33197,7 +33197,7 @@
     "item": "conventions[terminal-atoms].why, claim that textbooks split on halogen hybridization",
     "was": "'...while other texts write sp3' stated as fact",
     "shouldBe": "Marked as not backed by a fetched source. The 'not assigned (terminal atom)' recommendation is unaffected because it does not depend on that claim.",
-    "evidence": "OpenStax 8.1 re-fetched: 'the overlap of an s orbital and a p orbital (as in HCl)' supports the first half only. No source in the file, and none I fetched, states a terminal halogen is sp3."
+    "evidence": "OpenStax 8.1 re-fetched: its description of HCl as an s orbital overlapping a p orbital supports the first half only. No source in the file, and none I fetched, states a terminal halogen is sp3."
    },
    {
     "item": "molecules[alanine].notes",

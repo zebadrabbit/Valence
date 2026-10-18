@@ -249,17 +249,17 @@ describe('every sentence of the card', () => {
     }
   })
 
-  // As in periodic.test.ts: OpenStax is CC BY 4.0, and PubChem's own labels are not another publisher's prose.
-  const QUOTABLE = /^(openstax-chem2e-[\d.]+|pubchem-element-pages|pubchem-periodic-table)$/
+  // As in periodic.test.ts: PubChem's own labels are not another publisher's prose. OpenStax is located, as every other source is.
+  const QUOTABLE = /^(pubchem-element-pages|pubchem-periodic-table)$/
 
-  it('quotes only OpenStax and PubChem; any other source is located, or described with nothing of its own in quotation marks', () => {
+  it('quotes only PubChem; any other source is located, or described with nothing of its own in quotation marks', () => {
     const others = all.flatMap(([what, note]) =>
       note.support
         .split('\n')
         .map((line) => /^([a-z0-9.-]+): (.*)$/.exec(line))
         .flatMap((match) => (match && !QUOTABLE.test(match[1]!) ? [[what, match[1]!, match[2]!] as const] : [])),
     )
-    expect(new Set(others.map(([, id]) => id))).toEqual(new Set(['mantina-2009', 'nist-asd-ie-all', 'ciaaw-abridged-2024', 'iupac-periodic-table', 'rsc-periodic-table', 'iupac-group-3-report-2021']))
+    expect(new Set(others.map(([, id]) => id))).toEqual(new Set(['mantina-2009', 'openstax-chem2e-6.5', 'nist-asd-ie-all', 'ciaaw-abridged-2024', 'iupac-periodic-table', 'openstax-chem2e-19.1', 'rsc-periodic-table', 'iupac-group-3-report-2021']))
     for (const [what, id, passage] of others) {
       if (passage.startsWith('not quoted; ')) {
         expect([what, id, passage]).toEqual([what, id, expect.stringMatching(/^not quoted; see .+, https:\/\/\S+\. It establishes that .+\.$/)])
@@ -270,7 +270,8 @@ describe('every sentence of the card', () => {
         expect([what, id, passage]).toEqual([what, id, expect.not.stringMatching(/[“”"]/)])
       }
     }
-    expect(others.length).toBe(1 + 2 + 3 + 34 + 2)
+    // The radius note, the electron affinity note, the two ionization notes, the group 3 pointer, the isotope masses, the curated radii.
+    expect(others.length).toBe(1 + 1 + 2 + 4 + 34 + 2)
   })
 
   it('is a whole sentence, with at least one known source and the passage behind each source', () => {

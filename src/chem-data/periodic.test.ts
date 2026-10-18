@@ -945,15 +945,16 @@ describe('group, period and block descriptions', () => {
     ['the card note on electron affinity', ELECTRON_AFFINITY_NOTE] as const,
   ]
 
-  // The sources whose words may be copied: OpenStax is CC BY 4.0, and PubChem's own labels and this project's files are not another
-  // publisher's prose. Every other source is located and put in this project's words (see `located`).
-  const QUOTABLE = /^(openstax-chem2e-[\d.]+|pubchem-element-pages|pubchem-periodic-table)$/
+  // The sources whose lines may be given as they read: PubChem's own labels and values, which are not another publisher's
+  // prose. Every other source, OpenStax included, is located and put in this project's words (see `located`).
+  const QUOTABLE = /^(pubchem-element-pages|pubchem-periodic-table)$/
   const supportLines = (description: { support: string }) =>
     description.support.split('\n').map((line) => /^([a-z0-9.-]+): (.*)$/.exec(line) ?? /^(Counted from this table): (.*)$/.exec(line)!)
 
-  it('quotes only OpenStax and PubChem; any other source is located, with its address and what it establishes, and not quoted', () => {
+  it('quotes no source; every passage but a line of PubChem is located, with its address and what it establishes', () => {
     const located = all.flatMap(([what, description]) => supportLines(description).filter(([, id]) => id !== 'Counted from this table' && !QUOTABLE.test(id!)).map(([, id, passage]) => [what, id!, passage!] as const))
-    expect(new Set(located.map(([, id]) => id))).toEqual(new Set(['iupac-red-book-2005', 'iupac-periodic-table', 'rsc-periodic-table', 'iupac-group-3-report-2021']))
+    const openstax = ['2.5', '6.4', '6.5', '18.1', '18.3', '18.4', '18.11', '18.12', '19.1'].map((section) => `openstax-chem2e-${section}`)
+    expect(new Set(located.map(([, id]) => id))).toEqual(new Set(['iupac-red-book-2005', 'iupac-periodic-table', 'rsc-periodic-table', 'iupac-group-3-report-2021', ...openstax]))
     for (const [what, id, passage] of located) {
       // The Royal Society of Chemistry's drawing is described in the group 3 note, not read as a passage.
       if (id === 'rsc-periodic-table' && passage.startsWith('the table is drawn with')) continue
@@ -962,14 +963,19 @@ describe('group, period and block descriptions', () => {
       for (const [, quoted] of passage.matchAll(/“([^”]*)”/g)) expect([what, id, quoted!.split(' ').length]).toEqual([what, id, expect.toSatisfy((words: number) => words <= 10)])
     }
     // 4 groups named after their first element twice over (the Red Book and the pages of their heaviest members), and so on: every one is checked above.
-    expect(located.length).toBeGreaterThan(30)
+    expect(located.length).toBeGreaterThan(50)
+    // An OpenStax passage is located at the address its citation gives.
+    for (const [what, id, passage] of located.filter(([, id]) => id.startsWith('openstax-'))) {
+      expect([what, id, passage]).toEqual([what, id, expect.stringMatching(new RegExp(`^not quoted; see section ${id.slice('openstax-chem2e-'.length).replace('.', '\\.')}, .+, ${sourceOf(id)!.url.replace(/[.]/g, '\\.')}\\. `))])
+    }
   })
 
-  it('gives the licence of OpenStax Chemistry 2e in every citation of it, since its passages are quoted', () => {
+  it('says nothing about the licence of OpenStax Chemistry 2e in any citation of it, and gives its address', () => {
     const openstax = registry.sources.filter((source) => source.id.startsWith('openstax-'))
     expect(openstax.length).toBe(10)
     for (const source of openstax) {
-      expect([source.id, source.citation]).toEqual([source.id, expect.stringContaining('Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction')])
+      expect([source.id, source.citation]).toEqual([source.id, expect.not.stringMatching(/licen[cs]|CC BY|creativecommons/i)])
+      expect([source.id, source.citation]).toEqual([source.id, expect.stringMatching(/Access for free at https:\/\/openstax\.org\/books\/chemistry-2e\/pages\/1-introduction$/)])
     }
   })
 
@@ -1262,8 +1268,8 @@ describe('the legend', () => {
     // Astatine, tennessine and oganesson are left out: the passage does not speak of them.
     expect(text).not.toMatch(/astatine|tennessine|oganesson/i)
     expect(sourceIds).toEqual(['openstax-chem2e-18.4', 'openstax-chem2e-18.12'])
-    expect(support).toContain('the other nonmetal gases—hydrogen, nitrogen, oxygen, fluorine, and chlorine')
-    expect(support).toContain('The other halogens are also diatomic; Br₂ is a liquid and I₂ exists as a solid')
+    expect(support).toContain('fluorine and chlorine among them, are two-atom molecules')
+    expect(support).toContain('the remaining halogens, bromine (a liquid) and iodine (a solid), are two-atom molecules too')
   })
 
   it("names the six metalloids of the textbook and the one PubChem's table adds, which its own page calls a metal", () => {
@@ -1275,8 +1281,8 @@ describe('the legend', () => {
     expect(text).toContain("PubChem's table adds polonium, which PubChem's own page for polonium classes as a metal.")
     expect(pageLines('Po', 'Element Classification').map((line) => line.text)).toEqual(['Metal'])
     expect(sourceIds).toEqual(['openstax-chem2e-18.3', 'pubchem-element-pages'])
-    expect(support).toContain('The metalloids are boron, silicon, germanium, arsenic, antimony, and tellurium.')
-    expect(sourceOf('openstax-chem2e-18.3')?.citation).toMatch(/Section 18\.3 Structure and General Properties of the Metalloids \(retrieved 2026-10-03\)\. Licensed under CC BY 4\.0 /)
+    expect(support).toContain(`the metalloids, stand between the metals and the nonmetals in the table: ${six.join(', ')}.`)
+    expect(sourceOf('openstax-chem2e-18.3')?.citation).toMatch(/Section 18\.3 Structure and General Properties of the Metalloids \(retrieved 2026-10-03\)\. Access for free at /)
   })
 
   it('says that group 12 is shown with the transition metals and is not always counted among them', () => {

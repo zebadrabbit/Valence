@@ -305,7 +305,7 @@ describe('the titration primer: what each paragraph rests on', () => {
     expect(openstax.length).toBe(7)
     for (const s of openstax) {
       expect([s.id, /CC BY|licen[sc]ed/i.test(s.citation)]).toEqual([s.id, false])
-      // An id beginning "openstax-" is a source the periodic table quotes, with its licence in the citation (periodic.test.ts).
+      // An id beginning "openstax-" is a source the periodic table cites (periodic.test.ts).
       expect([s.id, s.id.startsWith('openstax-')]).toEqual([s.id, false])
     }
   })
