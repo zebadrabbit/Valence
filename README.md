@@ -1,8 +1,17 @@
-# Valence
+<h1 align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/media-kit/logos/valence-logo-on-dark.svg">
+    <img src="docs/media-kit/logos/valence-logo.svg" alt="Valence" width="320">
+  </picture>
+</h1>
 
 An independent, browser-based molecule explorer and virtual general-chemistry lab for self-directed learners.
 
 Valence recreates common general-chemistry bench labs so that anyone can do them, understand the chemistry and check their own results. It is a personal learning project with no connection to any school.
+
+**Try it in your browser:** https://firetailfab.com/valence/#/
+
+[![The red cabbage pH lab: a rack of thirteen buffers, each tube a different colour from red at pH 1 to yellow at pH 13](docs/media-kit/screenshots/valence-lab-red-cabbage.png)](https://firetailfab.com/valence/#/)
 
 ## What's in it
 
@@ -12,6 +21,13 @@ Valence recreates common general-chemistry bench labs so that anyone can do them
 - **A mechanism timeline.** Hydrochloric acid and sodium hydrogen carbonate followed atom by atom through seven chapters, in a 3D scene that can be played, stepped through or scrubbed. A panel draws free energy and enthalpy along the way and says which values are cited, which are derived and which are only drawn. In Challenge mode it asks what happens next before each step.
 
 There are no accounts: progress is saved in the browser.
+
+| | |
+|---|---|
+| ![Caffeine in the molecule explorer, as a ball-and-stick model with its lone pairs drawn as dots](docs/media-kit/screenshots/valence-explorer-caffeine.png) | ![The periodic table coloured by chemical family, with copper selected](docs/media-kit/screenshots/valence-periodic-table.png) |
+| Molecule explorer: caffeine | Periodic table |
+| ![The titration lab's bench: bottles, a pipette, a burette over a flask, and a close view of the meniscus](docs/media-kit/screenshots/valence-lab-titration.png) | ![The mechanism timeline at its proton-transfer step, with the energy panel open](docs/media-kit/screenshots/valence-mechanism-timeline.png) |
+| Titration lab | Mechanism timeline |
 
 ## The labs
 
@@ -87,6 +103,7 @@ The safety data sheets and many of the other pages were read and not kept, so th
 - Build records of the [aqueous reactions lab](docs/research/phase-4/build-record.md) and the [flame test lab](docs/research/flame/build-record.md), and [the chemistry review held before the titration lab's screens were built](docs/research/phase-3/gate-a.md).
 - [Original design document](Chem%20Lab%20Explorer%20-%20Design%20Document.md): the full vision, including labs planned after v1.
 - [Information for institutional reviewers](docs/for-institutions.md): facts for IT, privacy, accessibility, procurement, curriculum and lab safety.
+- [Media kit](docs/media-kit/README.md): logos, screenshots, descriptions and colours for writing about Valence.
 
 ## Development
 
