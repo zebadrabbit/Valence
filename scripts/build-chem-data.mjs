@@ -66,7 +66,7 @@ import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import process from 'node:process'
 import { parseSdf } from './parse-sdf.mjs'
-import { checkConfiguration, noteProblem, parseCiaawAbridged, parseNistIe, parsePubChem } from './periodic-table-lib.mjs'
+import { checkConfiguration, ciaawAbridgedRows, noteProblem, parseNistIe, parsePubChem } from './periodic-table-lib.mjs'
 import { checkReagents, checkSupported, mergeHazards, newSources } from './aqueous-lib.mjs'
 import { buildMechanism } from './mechanism-lib.mjs'
 import { observedLines, parseNistLines, spectrumFromSaved } from './emission-lib.mjs'
@@ -1118,7 +1118,7 @@ function periodicSources(manifest) {
     },
     {
       id: CIAAW_RADIOACTIVE_ID,
-      url: saved('ciaaw-radioactive-elements.html').url,
+      url: saved('ciaaw-radioactive-elements-extract.json').url,
       citation: `IUPAC Commission on Isotopic Abundances and Atomic Weights (CIAAW), Radioactive elements: the most stable known isotopes of the radioactive elements, compiled from the NUBASE2020 evaluation (${retrieved}).`,
     },
     ...descriptionSources(retrieved),
@@ -1205,8 +1205,8 @@ function buildPeriodicTable(otherSourceIds) {
     if ((labels[column]?.unit ?? '') !== PERIODIC_UNITS[field]) fail(`PubChem labels ${column} with the unit "${labels[column]?.unit}", not "${PERIODIC_UNITS[field]}"`)
   }
 
-  const ciaaw = parseCiaawAbridged(read('sources/ciaaw-abridged-atomic-weights.html'))
-  if (ciaaw.title !== CIAAW_TITLE || ciaaw.rows.length !== 118) fail(`the saved CIAAW page is not "${CIAAW_TITLE}" with 118 rows`)
+  const ciaaw = ciaawAbridgedRows(JSON.parse(read('sources/ciaaw-abridged-atomic-weights-extract.json')))
+  if (ciaaw.title !== CIAAW_TITLE || ciaaw.rows.length !== 118) fail(`the CIAAW extract is not "${CIAAW_TITLE}" with 118 rows`)
   const nistText = read('sources/nist-asd-ie-neutral.txt')
   if (!nistText.includes('Ionization Energy (eV)')) fail('the saved NIST file does not give the ionization energy in eV')
   const nist = parseNistIe(nistText)

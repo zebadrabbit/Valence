@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest'
 import crossCheck from '../../docs/research/periodic-table/cross-check.md?raw'
 import decisions from '../../docs/research/periodic-table/decisions.json'
 import download from '../../docs/research/periodic-table/pubchem-periodic-table.json'
-import ciaawPage from '../../docs/research/periodic-table/sources/ciaaw-abridged-atomic-weights.html?raw'
-import radioactivePage from '../../docs/research/periodic-table/sources/ciaaw-radioactive-elements.html?raw'
+import ciaawWeights from '../../docs/research/periodic-table/sources/ciaaw-abridged-atomic-weights-extract.json'
+import radioactiveElements from '../../docs/research/periodic-table/sources/ciaaw-radioactive-elements-extract.json'
 import nistFile from '../../docs/research/periodic-table/sources/nist-asd-ie-neutral.txt?raw'
 import elementPages from '../../docs/research/periodic-table/sources/pubchem-element-pages-extract.json?raw'
 import pagePassages from '../../docs/research/periodic-table/sources/pubchem-element-pages-passages.json'
@@ -59,11 +59,11 @@ type PageLine = { heading: string; name: string | null; text: string; source: st
 const savedPages = JSON.parse(elementPages) as Record<string, { title: string; lines: PageLine[] }>
 const pageLines = (symbol: string, heading: string) => savedPages[element(symbol).atomicNumber]!.lines.filter((line) => line.heading === heading)
 const passages = (symbol: string, heading?: string) =>
-  ((pagePassages as Record<string, { passages: { heading: string; source: string; text: string }[] }>)[element(symbol).atomicNumber]?.passages ?? [])
+  ((pagePassages as Record<string, { passages: { heading: string; source: string; says: string }[] }>)[element(symbol).atomicNumber]?.passages ?? [])
     .filter((passage) => heading === undefined || passage.heading === heading)
-    .map((passage) => passage.text)
+    .map((passage) => passage.says)
 type Lib = {
-  parseCiaawRadioactive(html: string): Map<number, { a: number }[]>
+  ciaawRadioactive(extract: unknown): Map<number, { a: number }[]>
   parseDensitiesPage(wikitext: string): { symbol: string; form: string | null; values: Record<string, string> }[]
 }
 const [lib] = Object.values(import.meta.glob<Lib>('../../scripts/periodic-table-lib.mjs', { eager: true }))
@@ -363,14 +363,14 @@ describe('the periodic table data', () => {
     })
   })
 
-  it('holds every CIAAW weight and NIST energy exactly as the saved copies print them', () => {
-    const literal = (text: string) => text.replace(/[.[\]()]/g, '\\$&')
+  it('holds every CIAAW weight and NIST energy exactly as the saved extract and copy print them', () => {
     const nistLines = nistFile.split('\n')
     for (const e of periodicTable) {
-      // <tr><td>3</td><td>Li</td><td>...lithium...</td><td>&nbsp;&nbsp;6.94 &plusmn; 0.06</td>...; a dash where there is no weight.
-      const weight = e.atomicMass.kind === 'standard-atomic-weight' ? `${literal(e.atomicMass.published)} &plusmn; ` : '&mdash;<'
-      const row = new RegExp(`<tr><td>${e.atomicNumber}</td><td>${e.symbol}</td><td>.*?</td><td>(&nbsp;)*${weight}`)
-      expect([e.symbol, row.test(ciaawPage)]).toEqual([e.symbol, true])
+      // The extract's row for lithium prints "6.94 ± 0.06"; a dash where there is no weight.
+      const row = ciaawWeights.rows[e.atomicNumber - 1]!
+      expect([e.symbol, row.z, row.symbol]).toEqual([e.symbol, e.atomicNumber, e.symbol])
+      const weight = e.atomicMass.kind === 'standard-atomic-weight' ? row.printed.startsWith(`${e.atomicMass.published} ± `) : row.printed === '—'
+      expect([e.symbol, weight]).toEqual([e.symbol, true])
       // "3"	"Li I"	"0"	...	"5.391714996"	...: one line per neutral atom, hydrogen to hassium.
       const lines = nistLines.filter((line) => line.startsWith(`"${e.atomicNumber}"\t"${e.symbol} I"\t"0"\t`))
       expect([e.symbol, lines.length]).toEqual([e.symbol, e.ionizationEnergy ? 1 : 0])
@@ -494,16 +494,16 @@ describe('the periodic table data', () => {
       expect(authored.filter((note) => note.valueAbsent).map((note) => note.row)).toEqual(['electronAffinity'])
     })
 
-    it("rests each note that reports the prose of PubChem's pages on sentences kept from those pages", () => {
-      // The year or temperature each note states, and words of the kept sentence it reports.
+    it("rests each note that reports the prose of PubChem's pages on the sentences recorded from those pages", () => {
+      // The year or temperature each note states, and words of what the recorded sentence it reports says.
       const reported = [
-        ['He', 'meltingPoint', [], 'remains liquid down to absolute zero at ordinary pressures, but will readily solidify by increasing the pressure'],
-        ['As', 'meltingPoint', ['887'], 'In order to form liquid arsenic, the atmospheric pressure must be increased.'],
-        ['Al', 'yearDiscovered', ['1825'], 'The ancient Greeks and Romans used alum'],
-        ['Ca', 'yearDiscovered', ['1808'], 'lime was prepared by the Romans'],
-        ['F', 'yearDiscovered', ['1670', '1886'], 'The first recorded use of a fluorine compound dates to around 1670'],
-        ['Si', 'yearDiscovered', ['1854', '1824'], 'Crystalline silicon was first prepared'],
-        ['Fr', 'electronegativity', [], 'No weighable quantity of the element has been prepared or isolated.'],
+        ['He', 'meltingPoint', [], 'stays liquid down to absolute zero, and raising the pressure solidifies it'],
+        ['As', 'meltingPoint', ['887'], 'it becomes liquid only under raised pressure'],
+        ['Al', 'yearDiscovered', ['1825'], 'Alum served the ancient Greeks and Romans'],
+        ['Ca', 'yearDiscovered', ['1808'], 'The Romans made lime'],
+        ['F', 'yearDiscovered', ['1670', '1886'], 'A fluorine compound was first recorded in use around 1670'],
+        ['Si', 'yearDiscovered', ['1854', '1824'], 'first made the crystalline form'],
+        ['Fr', 'electronegativity', [], 'No amount of francium large enough to weigh has been prepared or isolated.'],
       ] as const
       for (const [symbol, row, stated, words] of reported) {
         const [note] = notesOn(symbol, row)
@@ -515,9 +515,9 @@ describe('the periodic table data', () => {
       }
       expect(notesOn('He', 'meltingPoint')[0]?.text).toContain('it stays liquid however far it is cooled')
       // PubChem's page gives 28 atmospheres for arsenic and other tabulations about 36; the note states neither.
-      expect(passages('As').join(' ')).toContain('At 28 times standard atmospheric pressure')
+      expect(passages('As').join(' ')).toContain('under 28 times standard atmospheric pressure')
       expect(notesOn('As', 'meltingPoint')[0]?.text).not.toMatch(/28|36|atmospheres/)
-      expect(notesOn('F', 'yearDiscovered')[0]?.text).toMatch(/^PubChem's fluorine page dates the first recorded use of a fluorine compound to about 1670/)
+      expect(notesOn('F', 'yearDiscovered')[0]?.text).toMatch(/^PubChem's fluorine page says that a fluorine compound was first recorded in use about 1670/)
     })
 
     it("converts the second figure on PubChem's carbon page, and says which form of phosphorus its figures are for", () => {
@@ -600,7 +600,7 @@ describe('the periodic table data', () => {
     })
 
     it("says that CIAAW's list of the most stable isotopes gives another isotope for darmstadtium, copernicium and oganesson", () => {
-      const listed = lib!.parseCiaawRadioactive(radioactivePage)
+      const listed = lib!.ciaawRadioactive(radioactiveElements)
       expect(listed.size).toBe(34)
       const massNumbers = (e: PeriodicElement) => (listed.get(e.atomicNumber) ?? []).map((isotope) => isotope.a)
       const differing = periodicTable.filter((e) => e.atomicMass.kind === 'isotope-mass' && !massNumbers(e).includes(e.atomicMass.massNumber))
@@ -635,7 +635,7 @@ describe('the periodic table data', () => {
             sourceId: 'pubchem-element-pages',
           },
         ])
-        expect([symbol, passages(symbol, 'Uses')]).toEqual([symbol, [expect.stringMatching(/small amounts|only a few atoms/)]])
+        expect([symbol, passages(symbol, 'Uses')]).toEqual([symbol, [expect.stringMatching(/small amounts|few atoms/)]])
       }
       // The other notes on a state: the six below, and the three where a boiling point on the page speaks against it.
       expect(symbolsWhere((e) => noteRows(e.symbol).includes('standardState'))).toEqual(['At', 'Fr', 'Fm', 'Md', 'No', 'Lr', ...unmarked, 'Cn', 'Fl', 'Og'])
@@ -690,10 +690,10 @@ describe('the periodic table data', () => {
         expect([symbol, passages(symbol, 'Uses')]).toEqual([symbol, [expect.stringMatching(/small amounts|tiny amounts/)]])
       }
       // What the pages say beyond "small amounts". Mendelevium, nobelium and lawrencium are heavier than fermium.
-      expect(passages('At').join(' ')).toContain('A total of 0.05 micrograms')
-      expect(passages('Fr').join(' ')).toContain('No weighable quantity of the element has been prepared or isolated.')
-      expect(passages('Fm').join(' ')).toContain('Fermium metal has not been prepared')
-      expect(passages('Fm').join(' ')).toContain('the heaviest element that can be prepared in macroscopic quantities')
+      expect(passages('At').join(' ')).toContain('0.05 micrograms in all')
+      expect(passages('Fr').join(' ')).toContain('No amount of francium large enough to weigh has been prepared or isolated.')
+      expect(passages('Fm').join(' ')).toContain('No fermium metal has been prepared')
+      expect(passages('Fm').join(' ')).toContain('the heaviest of which a macroscopic amount can be prepared')
       for (const symbol of ['Md', 'No', 'Lr']) expect(element(symbol).atomicNumber).toBeGreaterThan(element('Fm').atomicNumber)
     })
 

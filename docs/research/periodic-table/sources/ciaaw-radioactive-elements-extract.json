@@ -1,0 +1,254 @@
+{
+ "rows": [
+  {
+   "z": 43,
+   "symbol": "Tc",
+   "massNumbers": [
+    97,
+    98
+   ]
+  },
+  {
+   "z": 61,
+   "symbol": "Pm",
+   "massNumbers": [
+    145
+   ]
+  },
+  {
+   "z": 84,
+   "symbol": "Po",
+   "massNumbers": [
+    209
+   ]
+  },
+  {
+   "z": 85,
+   "symbol": "At",
+   "massNumbers": [
+    210
+   ]
+  },
+  {
+   "z": 86,
+   "symbol": "Rn",
+   "massNumbers": [
+    222
+   ]
+  },
+  {
+   "z": 87,
+   "symbol": "Fr",
+   "massNumbers": [
+    223
+   ]
+  },
+  {
+   "z": 88,
+   "symbol": "Ra",
+   "massNumbers": [
+    226
+   ]
+  },
+  {
+   "z": 89,
+   "symbol": "Ac",
+   "massNumbers": [
+    227
+   ]
+  },
+  {
+   "z": 93,
+   "symbol": "Np",
+   "massNumbers": [
+    237
+   ]
+  },
+  {
+   "z": 94,
+   "symbol": "Pu",
+   "massNumbers": [
+    244
+   ]
+  },
+  {
+   "z": 95,
+   "symbol": "Am",
+   "massNumbers": [
+    243
+   ]
+  },
+  {
+   "z": 96,
+   "symbol": "Cm",
+   "massNumbers": [
+    247
+   ]
+  },
+  {
+   "z": 97,
+   "symbol": "Bk",
+   "massNumbers": [
+    247
+   ]
+  },
+  {
+   "z": 98,
+   "symbol": "Cf",
+   "massNumbers": [
+    251
+   ]
+  },
+  {
+   "z": 99,
+   "symbol": "Es",
+   "massNumbers": [
+    252
+   ]
+  },
+  {
+   "z": 100,
+   "symbol": "Fm",
+   "massNumbers": [
+    257
+   ]
+  },
+  {
+   "z": 101,
+   "symbol": "Md",
+   "massNumbers": [
+    258
+   ]
+  },
+  {
+   "z": 102,
+   "symbol": "No",
+   "massNumbers": [
+    259
+   ]
+  },
+  {
+   "z": 103,
+   "symbol": "Lr",
+   "massNumbers": [
+    262,
+    266
+   ]
+  },
+  {
+   "z": 104,
+   "symbol": "Rf",
+   "massNumbers": [
+    267
+   ]
+  },
+  {
+   "z": 105,
+   "symbol": "Db",
+   "massNumbers": [
+    268
+   ]
+  },
+  {
+   "z": 106,
+   "symbol": "Sg",
+   "massNumbers": [
+    269,
+    271
+   ]
+  },
+  {
+   "z": 107,
+   "symbol": "Bh",
+   "massNumbers": [
+    270,
+    274
+   ]
+  },
+  {
+   "z": 108,
+   "symbol": "Hs",
+   "massNumbers": [
+    269,
+    270
+   ]
+  },
+  {
+   "z": 109,
+   "symbol": "Mt",
+   "massNumbers": [
+    277,
+    278
+   ]
+  },
+  {
+   "z": 110,
+   "symbol": "Ds",
+   "massNumbers": [
+    281
+   ]
+  },
+  {
+   "z": 111,
+   "symbol": "Rg",
+   "massNumbers": [
+    282
+   ]
+  },
+  {
+   "z": 112,
+   "symbol": "Cn",
+   "massNumbers": [
+    285
+   ]
+  },
+  {
+   "z": 113,
+   "symbol": "Nh",
+   "massNumbers": [
+    285,
+    286
+   ]
+  },
+  {
+   "z": 114,
+   "symbol": "Fl",
+   "massNumbers": [
+    289,
+    290
+   ]
+  },
+  {
+   "z": 115,
+   "symbol": "Mc",
+   "massNumbers": [
+    288,
+    289,
+    290
+   ]
+  },
+  {
+   "z": 116,
+   "symbol": "Lv",
+   "massNumbers": [
+    291,
+    292,
+    293
+   ]
+  },
+  {
+   "z": 117,
+   "symbol": "Ts",
+   "massNumbers": [
+    294
+   ]
+  },
+  {
+   "z": 118,
+   "symbol": "Og",
+   "massNumbers": [
+    294
+   ]
+  }
+ ]
+}

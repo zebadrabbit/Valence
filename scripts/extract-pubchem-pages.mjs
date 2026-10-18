@@ -1,6 +1,6 @@
 // Reduces what was downloaded from PubChem's element pages to the parts the build and the
-// cross-check read, so the committed copies stay small: the property lines of every page, the
-// sentences of prose that notes rest on, and the unit labels. Run once after downloading:
+// cross-check read, so the committed copies stay small: the property lines of every page, where the
+// sentences of prose that notes rest on are and what they say, and the unit labels. Run once after downloading:
 //
 //   node scripts/extract-pubchem-pages.mjs <folder of element-<Z>.json> <ptable.min.js> <output folder>
 //
@@ -23,27 +23,40 @@ const HEADINGS = [
   'Element Period Number', 'Element Group Number', 'Density', 'Melting Point', 'Boiling Point',
 ]
 
-// Sentences from the pages' prose (history, description, uses) that a note in decisions.json rests on, since the
-// property lines above do not hold them. Each: atomic number, section heading, the start of the source PubChem
-// cites, and the sentences as printed, or a pattern for them. The script stops if a page no longer holds one.
-const SMALL_AMOUNTS = /^(Due to the small amounts produced|Since only (small|tiny) amounts of \w+ have ever been produced|Since only a few atoms of \w+ have ever been made)[^.]*\./
+// The sentences of the pages' prose (history, description, uses) that a note in decisions.json rests on, since the
+// property lines above do not hold them. The sentences are not kept: their text is Jefferson Lab's, Los Alamos's or
+// CIAAW's, whose terms for copying it could not be read or are not stated. Each entry gives the atomic number, the
+// section heading, the start of the source PubChem credits, a short pattern that finds the one sentence meant, and
+// what that sentence says in this project's words, which is what the passages file records with the heading and the
+// source. The script stops if a page no longer holds exactly one such sentence.
+const AMOUNTS = /small amounts|tiny amounts|a few atoms/
 const CIAAW = 'IUPAC Commission on Isotopic Abundances and Atomic Weights'
 const PASSAGES = [
-  [2, 'Description', 'Los Alamos', 'It is the only liquid that cannot be solidified by lowering the temperature. It remains liquid down to absolute zero at ordinary pressures, but will readily solidify by increasing the pressure.'],
-  [9, 'History', 'Jefferson Lab', 'The first recorded use of a fluorine compound dates to around 1670 to a set of instructions for etching glass that called for Bohemian emerald (CaF2).'],
-  [9, 'History', CIAAW, 'It was discovered in hydrofluoric acid by the Swedish pharmacist and chemist Carl-Wilhelm Scheele in 1771, but it was not isolated until 1886 by the French pharmacist and chemist Henri Moissan.'],
-  [13, 'History', 'Los Alamos', 'The ancient Greeks and Romans used alum as an astringent and as a mordant in dyeing.'],
-  [13, 'History', CIAAW, 'In 1825, the Danish physicist, Hans Christian Oersted, isolated impure aluminium.'],
-  [14, 'History', CIAAW, 'Amorphous silicon was discovered by the Swedish chemist Jöns Jacob Berzelius in 1824. Crystalline silicon was first prepared by the French chemist Henri Sainte-Claire Deville in 1854.'],
-  [20, 'History', 'Los Alamos', 'Though lime was prepared by the Romans in the first century under the name calx, the metal was not discovered until 1808.'],
-  [20, 'History', 'Jefferson Lab', 'Metallic calcium was first isolated by Sir Humphry Davy in 1808 through the electrolysis of a mixture of lime (CaO) and mercuric oxide (HgO).'],
-  [33, 'Uses', 'Jefferson Lab', 'When heated at standard atmospheric pressure, arsenic changes directly from a solid to a gas, or sublimates, at a temperature of 887 K. In order to form liquid arsenic, the atmospheric pressure must be increased. At 28 times standard atmospheric pressure, arsenic melts at a temperature of 1090 K.'],
-  [85, 'History', 'Jefferson Lab', 'A total of 0.05 micrograms (0.00000005 grams) of astatine have been produced to date.'],
-  [87, 'History', 'Los Alamos', 'No weighable quantity of the element has been prepared or isolated.'],
-  [100, 'Description', 'Los Alamos', 'Fermium is the heaviest synthetic element that can be formed by neutron bombardment of lighter elements, and hence the heaviest element that can be prepared in macroscopic quantities.'],
-  [100, 'Description', 'Los Alamos', 'Fermium metal has not been prepared, however measurements have been made on fermium alloys with rare earth metals and a number of predictions have been made.'],
-  // What each page says of how much of the element has been made: astatine, francium, and fermium to meitnerium.
-  ...[85, 87, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109].map((z) => [z, 'Uses', 'Jefferson Lab', SMALL_AMOUNTS]),
+  [2, 'Description', 'Los Alamos', /absolute zero/, 'Helium is the one liquid that cooling alone does not freeze: at ordinary pressure it stays liquid down to absolute zero, and raising the pressure solidifies it readily.'],
+  [9, 'History', 'Jefferson Lab', /\b1670\b/, 'A fluorine compound was first recorded in use around 1670, in instructions for etching glass with Bohemian emerald (CaF2).'],
+  [9, 'History', CIAAW, /\b1886\b/, 'Carl-Wilhelm Scheele found fluorine in hydrofluoric acid in 1771, and Henri Moissan first isolated it in 1886.'],
+  [13, 'History', 'Los Alamos', /\balum\b/, 'Alum served the ancient Greeks and Romans as an astringent and, in dyeing, as a mordant.'],
+  [13, 'History', CIAAW, /\b1825\b/, 'Impure aluminium was first isolated in 1825, by Hans Christian Oersted, a Danish physicist.'],
+  [14, 'History', CIAAW, /1824[\s\S]*1854/, 'Jöns Jacob Berzelius found silicon, in its amorphous form, in 1824, and Henri Sainte-Claire Deville first made the crystalline form in 1854.'],
+  [20, 'History', 'Los Alamos', /\bcalx\b/, 'The Romans made lime, which they called calx, in the first century, but the metal was found only in 1808.'],
+  [20, 'History', 'Jefferson Lab', /\b1808\b/, 'Humphry Davy first isolated calcium metal in 1808, by electrolysing lime (CaO) mixed with mercuric oxide (HgO).'],
+  [33, 'Uses', 'Jefferson Lab', /1090 K/, 'At standard atmospheric pressure arsenic sublimes, passing from solid straight to gas at 887 K; it becomes liquid only under raised pressure, and under 28 times standard atmospheric pressure it melts, at 1090 K.'],
+  [85, 'History', 'Jefferson Lab', /0\.05 micrograms/, 'The astatine made so far comes to 0.05 micrograms in all (0.00000005 g).'],
+  [87, 'History', 'Los Alamos', /weighable/, 'No amount of francium large enough to weigh has been prepared or isolated.'],
+  [100, 'Description', 'Los Alamos', /macroscopic/, 'Fermium is the heaviest element that bombarding lighter elements with neutrons can make, and so the heaviest of which a macroscopic amount can be prepared.'],
+  [100, 'Description', 'Los Alamos', /alloys/, 'No fermium metal has been prepared, though fermium alloyed with rare earth metals has been measured, and several predictions have been made.'],
+  [85, 'Uses', 'Jefferson Lab', AMOUNTS, 'Astatine has been produced only in small amounts and is short-lived, so it has no use beyond basic research.'],
+  [87, 'Uses', 'Jefferson Lab', AMOUNTS, 'Francium has been produced only in small amounts and is short-lived, so it has no use beyond basic research.'],
+  [100, 'Uses', 'Jefferson Lab', AMOUNTS, 'Fermium has been produced only in small amounts and is short-lived, so it has no use beyond basic research.'],
+  [101, 'Uses', 'Jefferson Lab', AMOUNTS, 'Mendelevium has been produced only in small amounts, so it has no use beyond basic research.'],
+  [102, 'Uses', 'Jefferson Lab', AMOUNTS, 'Nobelium has been produced only in tiny amounts, so it has no use beyond basic research.'],
+  [103, 'Uses', 'Jefferson Lab', AMOUNTS, 'Lawrencium has been produced only in tiny amounts, so it has no use beyond basic research.'],
+  [104, 'Uses', 'Jefferson Lab', AMOUNTS, 'Rutherfordium has been produced only in small amounts and is short-lived, so it has no use beyond basic research.'],
+  [105, 'Uses', 'Jefferson Lab', AMOUNTS, 'Dubnium has been produced only in small amounts and is short-lived, so it has no use beyond basic research.'],
+  [106, 'Uses', 'Jefferson Lab', AMOUNTS, 'So few atoms of seaborgium have been made that it has no use beyond basic research.'],
+  [107, 'Uses', 'Jefferson Lab', AMOUNTS, 'So few atoms of bohrium have been made that it has no use beyond basic research.'],
+  [108, 'Uses', 'Jefferson Lab', AMOUNTS, 'Hassium has been produced only in small amounts, so it has no use beyond basic research.'],
+  [109, 'Uses', 'Jefferson Lab', AMOUNTS, 'Meitnerium has been produced only in small amounts, so it has no use beyond basic research.'],
 ]
 
 const out = {}
@@ -58,12 +71,10 @@ for (let z = 1; z <= 118; z++) {
       (info.Value?.StringWithMarkup ?? []).map((s) => ({ heading: section.TOCHeading, source: sources.get(info.ReferenceNumber) ?? '', text: s.String })),
     ),
   )
-  for (const [, heading, source, wanted] of PASSAGES.filter(([number]) => number === z)) {
-    const found = prose
-      .filter((p) => p.heading === heading && p.source.startsWith(source))
-      .flatMap((p) => (typeof wanted === 'string' ? (p.text.includes(wanted) ? [{ ...p, text: wanted }] : []) : (wanted.exec(p.text) ?? []).slice(0, 1).map((text) => ({ ...p, text }))))
+  for (const [, heading, source, pattern, says] of PASSAGES.filter(([number]) => number === z)) {
+    const found = prose.filter((p) => p.heading === heading && p.source.startsWith(source) && pattern.test(p.text))
     if (found.length !== 1) throw new Error(`element ${z}: expected one "${heading}" passage from ${source}, found ${found.length}`)
-    ;(passages[z] ??= { title: record.RecordTitle, passages: [] }).passages.push(found[0])
+    ;(passages[z] ??= { title: record.RecordTitle, passages: [] }).passages.push({ heading, source: found[0].source, says })
   }
   const walk = (section) => {
     if (HEADINGS.includes(section.TOCHeading)) {

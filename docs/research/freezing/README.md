@@ -17,7 +17,7 @@ The inputs the freezing point depression lab is built from (spec section 23), wh
 | Value | Stored | Source |
 | --- | --- | --- |
 | Freezing point constant of water | 1.86 °C·kg/mol, printed as 1.86 K·kg/mol | Wikipedia's article Freezing-point depression, revision 1336114117, its table of cryoscopic constants; the table gives the figure a reference of its own, to Aylward and Findlay, *SI Chemical Data*, 5th ed., p 202, which was not read |
-| Atomic weights of H, C, N, O, Na, Cl, K, Br | 1.0080, 12.011, 14.007, 15.999, 22.990, 35.45, 39.098, 79.904 | CIAAW's abridged standard atomic weights 2024, from the copy the periodic table keeps; the build holds each to the periodic table's record |
+| Atomic weights of H, C, N, O, Na, Cl, K, Br | 1.0080, 12.011, 14.007, 15.999, 22.990, 35.45, 39.098, 79.904 | CIAAW's abridged standard atomic weights 2024, from the extract the periodic table keeps; the build holds each to the periodic table's record |
 | Molar masses | acetone 58.08, ethanol 46.07, 2-propanol 60.10, urea 60.06, sodium chloride 58.44, potassium chloride 74.55, sodium bromide 102.89 g/mol | Worked out from those weights, to two decimals, with the working stored; the build works each out again |
 | Sodium chloride in water, 2% by mass | freezes at −1.19 °C | The CRC Handbook's table of the properties of mixtures of water and sodium chloride, 86th ed., as Wikipedia's Sodium chloride (data page), revision 1379379503, transcribes it; the handbook was not read |
 | Sodium chloride in water, 3% by mass | freezes at −1.79 °C | The same table |
@@ -74,7 +74,7 @@ Guided warns before each: of the lid and the stirrer when the logger is started 
 
 - **The constant** was read in a Wikipedia article, at the address the site leaves open (`/wiki/Title?oldid=…`), at the revision recorded. The book its table cites for water was not read.
 - **The two handbook tables** were read through Wikipedia's data pages, which transcribe them; neither handbook was read. Both pages are ones the measurement and density lab read on the same day: their saved copies were checked against the hashes that lab recorded and read again for the column of freezing temperatures, which that lab did not use, and were not fetched again. So was the article Thermometer.
-- **The atomic weights** are the copy the periodic table keeps.
+- **The atomic weights** are from the extract of CIAAW's table that the periodic table keeps.
 - **The primer's sources** are the article on freezing-point depression, the article on the van 't Hoff factor and the article on the thermometer, with six of the supplier's sheets for its safety card. No page of OpenStax was fetched, and no site's search was used.
 - **The hazards** follow the rule of spec 5.2: the default supplier's sheet for each substance, and one or two other documents. Three sheets were read new (isopropyl alcohol, urea, sodium bromide), with NOAA's records of isopropanol and of urea. For acetone, ethanol, sodium chloride and potassium chloride the documents are ones the iodination of acetone, density and flame test labs had read; their saved pages were checked against the hashes those labs recorded and read again, and none was fetched again. Each record is this lab's own: no other lab has the same thing in the same form (acetone there is a 4 M solution, ethanol a 95% liquid in a cylinder, the two chlorides solutions).
 
