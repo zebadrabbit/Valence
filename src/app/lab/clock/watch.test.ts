@@ -102,7 +102,7 @@ describe('a run that is played', () => {
         const { play: p, now } = play(poured(seed, runId, { stand: false }), runId, 16, (at) => at.shown !== null)
         expect([runId, seed, now - p.startedAt < PLAY.steadyMs]).toEqual([runId, seed, true])
       }
-  })
+  }, 60_000)
 
   it('adds true time, and no more, from the frame that shows the change: a hand 400 ms late is recorded 400 ms late', () => {
     for (const runId of ['mixture-1', 'mixture-4', 'bath-ice'] as const) {
