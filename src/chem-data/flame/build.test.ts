@@ -157,10 +157,10 @@ describe('mergeHazards, on the flame record', () => {
     const rows = sheets.find((sheet) => sheet.id === note.alsoSourceId)!.supports
     expect(rows.filter((row) => row.prints === 'INGESTION').map((row) => row.field)).toEqual(['bacl2-0.1m.hazards.note'])
     for (const row of rows.filter((row) => row.field.endsWith('.notCarried'))) expect(row.where, row.prints).not.toMatch(/For swallowing/)
-    // Six notes, each of three short paragraphs; the longest is barium's.
+    // Six notes, each of three short paragraphs of 160 words at most (spec 5.2): barium's and copper's were 192 and 180 words until 2026-10-18.
     for (const entry of Object.values(hazards as Record<string, Entry>)) {
       expect(entry.hazards.note.value.split('\n\n')).toHaveLength(3)
-      expect(entry.hazards.note.value.split(/\s+/).length).toBeLessThanOrEqual(195)
+      expect(entry.hazards.note.value.split(/\s+/).length).toBeLessThanOrEqual(160)
     }
   })
 
