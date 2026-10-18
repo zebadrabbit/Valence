@@ -205,7 +205,8 @@ describe("the bottles' hazards", () => {
     expect(() => withSharedHazards({ ...copy(hazards), 'hcl-6m': all['hcl-6m']! } as Record<string, Entry>, aqueousHazards as Record<string, Entry>, SHARED)).toThrow(/"hcl-6m" carries another lab's record and has no entry here/)
     // A sheet both labs read is this lab's entry of it, written as the other lab has it: the two sheets for silver nitrate.
     const twice = hazardManifest.sources.filter((sheet) => aqueousHazardManifest.sources.some((other) => other.id === sheet.id))
-    expect(twice.map((sheet) => sheet.id)).toEqual(['flinn-sds-691', 'flinn-sds-692'])
+    // Since 2026-10-18 the aqueous lab's silver nitrate note rests on this lab's two stricter sheets as well.
+    expect(twice.map((sheet) => sheet.id)).toEqual(['flinn-sds-691', 'flinn-sds-692', 'wards-sds-ss0180', 'fisher-sds-agno3'])
     for (const sheet of twice) {
       const theirs = aqueousHazardManifest.sources.find((other) => other.id === sheet.id)!
       expect([sheet.url, sheet.citation], sheet.id).toEqual([theirs.url, theirs.citation])
@@ -255,7 +256,8 @@ describe("the bottles' hazards", () => {
   it('give no method of disposal under any bottle', () => {
     for (const reagent of stored.reagents) {
       expect(reagent.hazards.note.value, reagent.id).not.toMatch(/down the (sink|drain)|neutrali[sz]e it|pour it/i)
-      if (reagent.id !== 'hcl-6m') expect(reagent.hazards.note.value, reagent.id).toContain("How any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.")
+      // The 6 M acid's record, the aqueous reactions lab's, has ended as this lab's do since 2026-10-18.
+      expect(reagent.hazards.note.value, reagent.id).toContain("How any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.")
     }
   })
 })

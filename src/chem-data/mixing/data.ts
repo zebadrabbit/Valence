@@ -2,7 +2,8 @@ import { z } from 'zod'
 import { cited, citedNumber, hazardsSchema, param } from '../schema'
 import data from './mixing.json'
 
-// The polarity and mixing lab's record (spec 25): the one bottle that is a laboratory chemical, with its hazards;
+// The polarity and mixing lab's record (spec 25): the two bottles with hazards of their own, the rubbing alcohol and,
+// since 2026-10-18, the mineral oil;
 // the five liquids, each with what it holds, what it looks like, its density, its family for the rule and the
 // molecule of the explorer's library it links to; the two solids; each pair of liquids on the bench with whether
 // the two mix, and each solid in a liquid with whether it dissolves, each with what it rests on and the note shown
@@ -44,7 +45,8 @@ export const PART_IDS = ['liquids', 'solids', 'rule'] as const
 const liquidId = z.enum(LIQUID_IDS)
 const solidId = z.enum(SOLID_IDS)
 
-// The bottle that is a laboratory chemical on this bench (spec 25.3). `holds` says in words what is in it. The
+// A bottle on this bench with hazards of its own (spec 25.3): the rubbing alcohol, and the mineral oil since
+// 2026-10-18. `holds` says in words what is in it. The
 // hazards are merged in by the build from the lab's hazards.json, which is written apart.
 const reagentSchema = z.strictObject({
   id,
@@ -118,14 +120,14 @@ const questionSchema = z.strictObject({
 const partSchema = <Id extends string>(partId: Id) => z.strictObject({ id: z.literal(partId), name: text, notes: z.array(citedText).min(1) })
 
 export const mixingSchema = z.strictObject({
-  reagents: z.array(reagentSchema).length(1),
+  reagents: z.array(reagentSchema).length(2),
   liquids: z.array(liquidSchema).length(LIQUID_IDS.length),
   solids: z.array(solidSchema).length(SOLID_IDS.length),
   pairs: z.array(pairSchema).min(1),
   solidInLiquid: z.array(solidTubeSchema).min(1),
   offBench: z.array(offBenchSchema),
   rule: z.strictObject({ questions: z.array(questionSchema).length(QUESTION_IDS.length) }),
-  /** The note of everything on the bench but the rubbing alcohol (spec 25.3): the red cabbage pH lab's, copied in by the build. */
+  /** The note of everything on the bench but the two bottles (spec 25.3): the red cabbage pH lab's, copied in by the build. */
   sharedNote: param(text),
   parts: z.tuple([partSchema('liquids'), partSchema('solids'), partSchema('rule')]),
   parameters: z.strictObject({

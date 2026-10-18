@@ -339,7 +339,7 @@
         {
           "field": "aluminium-piece.hazards.note",
           "prints": "Heat is generated when fine powder and dust are mixed with water.",
-          "where": "Section 9, after the line that the metal does not dissolve in water. Section 10 says it again in a few words and names no form: that contact with water gives off heat. The note gives the fuller line, with the forms it names. Section 9 gives the melting point as 660 °C. At this bench the piece is heated in boiling water on purpose, as the experiment; that is this project's statement, not the sheet's."
+          "where": "Section 9, after the line that the metal does not dissolve in water. Section 10 says it again in a few words and names no form: that contact with water gives off heat. The note gives it in fewer words, of the powder. Section 9 gives the melting point as 660 °C. At this bench the piece is heated in boiling water on purpose, as the experiment; that is this project's statement, not the sheet's."
         },
         {
           "field": "aluminium-piece.hazards.note",
@@ -1142,7 +1142,7 @@
         {
           "field": "tin-piece.hazards.note",
           "prints": "Stable in massive form in air, but oxidizes (corrodes) in air as a powder, especially in the presence of water.",
-          "where": "The field Reactivity Profile, its second sentence. The note says that the record has the powder, unlike the massive metal, corrode in air, and that the powder is another matter."
+          "where": "The field Reactivity Profile, its second sentence. The note says that the record has the powder, unlike the solid metal, corrode in air."
         },
         {
           "field": "tin-piece.hazards.note",

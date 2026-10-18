@@ -128,20 +128,32 @@ describe('mixingData', () => {
     expect(rule.questions.map((q) => q.id)).toEqual([...QUESTION_IDS])
   })
 
-  it("gives the rubbing alcohol the one hazards record, and everything else the red cabbage pH lab's note for foods, word for word", () => {
-    expect(reagents.map((r) => r.id)).toEqual(['rubbing-alcohol'])
-    expect(liquids.filter((l) => reagentOf(mixingData, l)).map((l) => l.id)).toEqual(['rubbing-alcohol'])
+  it("gives the rubbing alcohol and, since 2026-10-18, the mineral oil a hazards record each, and everything else the red cabbage pH lab's note for foods, word for word", () => {
+    expect(reagents.map((r) => r.id)).toEqual(['rubbing-alcohol', 'mineral-oil'])
+    expect(liquids.filter((l) => reagentOf(mixingData, l)).map((l) => l.id)).toEqual(['rubbing-alcohol', 'mineral-oil'])
     expect(reagentOf(mixingData, solidOf(mixingData, 'salt') as { reagentId?: string })).toBeUndefined()
     expect(mixingData.sharedNote.value).toBe(cabbageData.sharedNote.value)
     expect(mixingData.sharedNote.rationale).not.toBe(cabbageData.sharedNote.rationale)
   })
 
-  it('keeps the hazard note to three short paragraphs of 160 words at most, the last of which gives no method of disposal (spec 5.2)', () => {
-    const note = reagents[0]!.hazards.note.value
-    expect(note.split('\n\n')).toHaveLength(3)
-    expect(words(note)).toBeLessThanOrEqual(160)
-    expect(note.split('\n\n')[2]).toBe("How any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.")
+  it('keeps each hazard note to three short paragraphs of 160 words at most, the second on what is stricter and the last giving no method of disposal (spec 5.2)', () => {
+    for (const reagent of reagents) {
+      const note = reagent.hazards.note.value
+      expect(note.split('\n\n'), reagent.id).toHaveLength(3)
+      expect(words(note), reagent.id).toBeLessThanOrEqual(160)
+      expect(note.split('\n\n')[1], reagent.id).toMatch(/^Stricter, and what this lab goes by: /)
+      expect(note.split('\n\n')[2], reagent.id).toBe("How any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.")
+      expect(note, reagent.id).not.toMatch(BRANDS)
+    }
     expect(reagents[0]!.hazards.statements.map((s) => s.split(':')[0])).toEqual(['H225', 'H316', 'H319', 'H336'])
+    // The mineral oil's sheet classes it as no hazard; the stricter is NOAA's record of it.
+    expect([reagents[1]!.hazards.signalWord, reagents[1]!.hazards.statements]).toEqual(['None', []])
+  })
+
+  it("says in the mineral oil's tile nothing that a tube asks: whether it mixes, dissolves or floats, or how dense it is (spec 25.5)", () => {
+    const said = `${reagents[1]!.classifiedAs} ${reagents[1]!.holds} ${reagents[1]!.hazards.note.value}`
+    expect(said).not.toMatch(/soluble|dissolv|\bmix(es|ed|ing)?\b|layer|float|sink|dense|density|specific gravity|polar|water-|on top|insoluble/i)
+    expect(said.match(/\bwater\b/g) ?? []).toHaveLength(2)
   })
 
   it('writes short notes for a learner, and names no maker, supplier or site in them', () => {
@@ -177,7 +189,7 @@ describe('the sources of a tube and of a part', () => {
   it('lists nothing before a tube counts but the documents behind the hazards of a bottle in it, so no source names an answer (spec 25.5)', () => {
     for (const tubeId of [...PAIR_IDS, ...SOLID_TUBE_IDS]) {
       const before = ids(mixingTubeCitations(mixingData, tubeId, sources))
-      expect(before, tubeId).toEqual(tubeId.includes('rubbing-alcohol') ? ['flinn-sds-420.5', 'noaa-cameo-946'] : [])
+      expect(before, tubeId).toEqual([...(tubeId.includes('rubbing-alcohol') ? ['flinn-sds-420.5', 'noaa-cameo-946'] : []), ...(tubeId.includes('mineral-oil') ? ['flinn-sds-529', 'noaa-cameo-12191'] : [])])
     }
   })
 
@@ -194,8 +206,8 @@ describe('the sources of a tube and of a part', () => {
     expect(() => mixingTubeCitations(mixingData, 'rubbing-alcohol+mineral-oil' as 'water+vinegar', sources)).toThrow()
   })
 
-  it("lists for a part, before it is done, only the rubbing alcohol's hazards; and then its notes and, for part 3, the families and the two answers", () => {
-    for (const partId of PART_IDS) expect(ids(mixingPartCitations(mixingData, partId, sources)), partId).toEqual(['flinn-sds-420.5', 'noaa-cameo-946'])
+  it("lists for a part, before it is done, only the hazards of the two bottles; and then its notes and, for part 3, the families and the two answers", () => {
+    for (const partId of PART_IDS) expect(ids(mixingPartCitations(mixingData, partId, sources)), partId).toEqual(['flinn-sds-420.5', 'noaa-cameo-946', 'flinn-sds-529', 'noaa-cameo-12191'])
     const ruleDone = mixingPartCitations(mixingData, 'rule', sources, true)
     expect(ruleDone.flatMap((c) => c.covers).filter((label) => label.endsWith(': its family'))).toHaveLength(9)
     expect(ruleDone.flatMap((c) => c.covers)).toContain('The two questions')

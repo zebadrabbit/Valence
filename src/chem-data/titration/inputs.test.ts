@@ -27,6 +27,8 @@ type Manifest = {
 }
 
 const input: Input = inputFile
+/** The whole of a sheet's first aid for a splash in the eyes, as a note gives it: rinsing for several minutes, contact lenses out, and the rinsing kept up (Gate A, B1). */
+const EYES_IN_A_NOTE = /rinsed with water for several minutes, (contact )?lenses out( if easily done)?, and the rinsing kept up/
 const manifest: Manifest = manifestFile
 
 // Optional, untracked: see registry.test.ts.
@@ -332,17 +334,18 @@ describe('the titration inputs: bottles', () => {
     expect(to).toBeLessThan(30000)
   })
 
-  it("says in the HCl bottle's note what each of the two sheets gives, that the bench's acid sits at the line between them, and that it is handled as the stricter one says", () => {
+  it("says in the HCl bottle's note what each of the two sheets gives, that the bench's acid sits at the line between them, and that it goes by the stricter one", () => {
     const { value } = input.bottles.hcl.hazards.note
-    expect(value).toMatch(/Its label reads between 0\.0850 and 0\.1050 mol\/L/)
-    expect(value).toMatch(/this acid sits at the line between two of them/)
-    // Each sheet by the strengths in its title, with its signal word and every one of its codes.
-    const [under, over] = value.split('The sheet for 0.1 M to 2.4 M').map((part, i) => (i === 0 ? part.slice(part.indexOf('The sheet for less than 0.1 M')) : part.slice(0, part.indexOf('Handle this acid'))))
-    expect(under).toMatch(/^The sheet for less than 0\.1 M gives the signal word Warning and two statements/)
-    expect(under!.match(/H\d{3}/g)).toEqual(['H303', 'H313', 'H333', 'H315', 'H320'])
-    expect(over).toMatch(/^ gives the signal word Danger and three statements/)
-    expect(over!.match(/H\d{3}/g)).toEqual(['H314', 'H335', 'H303'])
-    expect(value).toMatch(/Handle this acid as the stricter sheet says, the one that gives Danger\./)
+    const [bench, stricter] = value.split('\n\n')
+    expect(bench).toMatch(/its label reads between 0\.0850 and 0\.1050 mol\/L/)
+    expect(bench).toMatch(/this acid sits at the line between two of them/)
+    // Each sheet by the strengths in its title, with its signal word and every one of its codes: the milder in the
+    // first paragraph, and in the second the stricter, which the paragraph says is what the lab goes by.
+    const under = bench!.slice(bench!.indexOf('The sheet for less than 0.1 M'))
+    expect(under).toMatch(/^The sheet for less than 0\.1 M gives Warning: /)
+    expect(under.match(/H\d{3}/g)).toEqual(['H303', 'H313', 'H333', 'H315', 'H320'])
+    expect(stricter).toMatch(/^Stricter, and what this lab goes by: the sheet for 0\.1 M to 2\.4 M, which gives Danger: /)
+    expect(stricter!.match(/H\d{3}/g)).toEqual(['H314', 'H335', 'H303'])
     // It does not make the acid sound milder than the stricter sheet does.
     expect(value).not.toMatch(/mild|not Danger|harmless|only an? irritant|weak|safe\b/i)
     expect(value).not.toMatch(/hazard communication standard|15 minutes/)
@@ -358,10 +361,10 @@ describe('the titration inputs: bottles', () => {
   it("gives in the acid's and the base's notes the whole of what their sheets say for a splash in the eyes, and has a row for it under each of the three sheets", () => {
     // Gate A, B1. Each of the three sheets goes on, after the rinsing for several minutes, to the contact lenses and to
     // more rinsing. A note that stopped at the several minutes gave a shorter first aid than its sheet does.
-    const EYES = 'a splash in the eyes is to be rinsed with water for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up'
+    // The words are shorter since the notes took the three paragraphs of spec 5.2 (2026-10-18); what is said is not.
     for (const key of ['hcl', 'naoh'] as const) {
       const { value } = input.bottles[key].hazards.note
-      expect([key, value.includes(EYES), value.match(/several minutes/g)]).toEqual([key, true, ['several minutes']])
+      expect([key, EYES_IN_A_NOTE.test(value), value.match(/several minutes/g)]).toEqual([key, true, ['several minutes']])
     }
     for (const id of Object.keys(TITLE)) {
       const rows = source(id)!.supports.filter((row) => row.prints === 'P305+P351+P338')
@@ -425,16 +428,34 @@ describe('the titration inputs: bottles', () => {
     expect(input.bottles.indicator.hazards.note.value).toMatch(/is taken to be a 0\.5% \(w\/v\) solution in 50% alcohol/)
   })
 
-  it('repeats the by-mass figure of each note that states one', () => {
+  it('gives no by-mass figure in a note, and says in the rows that print a percentage what the strength on the bench is by mass', () => {
     // 0.1 mol/L times the molar mass, in g/L, taking the density as 1.00 g/mL, so a tenth of it is the percentage.
     // The molar masses are sums of the abridged atomic weights the periodic table stores (H 1.0080, Cl 35.45;
     // Na 22.990, O 15.999).
     const percent = (molarMass: number) => ((0.1 * molarMass) / 10).toFixed(1)
     expect(percent(36.458)).toBe('0.4')
     expect(percent(39.997)).toBe('0.4')
-    expect(bottles.filter(([, b]) => b.hazards.note.value.includes('by mass')).map(([key]) => key)).toEqual(['hcl', 'naoh'])
-    expect(input.bottles.hcl.hazards.note.value).toContain(`about ${percent(36.458)}% hydrogen chloride by mass (worked out`)
-    expect(input.bottles.naoh.hazards.note.value).toContain(`about ${percent(39.997)}% sodium hydroxide by mass (worked out`)
+    expect(bottles.filter(([, b]) => /by mass|%\s+(hydrogen chloride|sodium hydroxide)/.test(b.hazards.note.value)).map(([key]) => key)).toEqual([])
+    for (const [id, prints] of [['flinn-sds-395.3', '<2%>'], ['flinn-sds-735.2', '0.4-1.1%']] as const) {
+      const where = source(id)!.supports.find((row) => row.prints === prints)!.where
+      expect([id, where.includes(`about ${percent(id === 'flinn-sds-395.3' ? 36.458 : 39.997)}% by mass`), /the note gives no percentage/.test(where)]).toEqual([id, true, true])
+    }
+  })
+
+  it('writes each note in the three short paragraphs of spec 5.2: the bench and its sheet, what the lab goes by, and disposal left to the laboratory', () => {
+    for (const [key, { hazards }] of bottles) {
+      const paragraphs = hazards.note.value.split('\n\n')
+      expect([key, paragraphs.length]).toEqual([key, 3])
+      expect([key, hazards.note.value.split(/\s+/).length <= 160]).toEqual([key, true])
+      expect([key, /^(Stricter, and what this lab goes by|What this lab goes by): /.test(paragraphs[1]!)]).toEqual([key, true])
+      expect([key, paragraphs[2]]).toEqual([key, "How any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor."])
+      expect([key, /\bdrains?\b|\bsinks?\b|\btrash\b|neutrali[sz]e|\bpour/i.test(hazards.note.value), /Flinn|Ricca|Fisher|Ward/.test(hazards.note.value)]).toEqual([key, false, false])
+      // Each sheet under the note says what its section on disposal holds, and that the note gives no method.
+      for (const id of [hazards.note.sourceId, ...(hazards.note.alsoSourceId === undefined ? [] : [hazards.note.alsoSourceId])]) {
+        const row = source(id)!.supports.find((r) => r.field === `bottles.${key}.hazards.note` && /^SECTION 13/i.test(r.prints))
+        expect([key, id, /The note gives no method of disposal/.test(row?.where ?? '')]).toEqual([key, id, true])
+      }
+    }
   })
 })
 

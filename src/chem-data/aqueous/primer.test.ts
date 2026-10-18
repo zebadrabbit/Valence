@@ -165,12 +165,13 @@ describe('the aqueous primer: what each paragraph rests on', () => {
     const withRow = manifest.sources.filter((s) => s.supports.some((row) => row.fields.includes('primer'))).map((s) => s.id)
     const own = [...cited].filter((id) => manifest.sources.some((s) => s.id === id))
     expect([...own].sort()).toEqual([...withRow].sort())
-    const ofReagents = new Set(aqueousData.reagents.flatMap((r) => [r.hazards.sourceId, r.hazards.note.sourceId, ...(r.hazards.note.alsoSourceId ? [r.hazards.note.alsoSourceId] : [])]))
+    const ofReagents = new Set(aqueousData.reagents.flatMap((r) => [r.hazards.sourceId, r.hazards.note.sourceId, ...(r.hazards.note.alsoSourceId ? [r.hazards.note.alsoSourceId] : []), ...(r.hazards.note.moreSourceIds ?? [])]))
     const borrowed = 'flowers-chem2e-4.2'
     expect(TITRATION_PRIMER[0]!.paragraphs[1]!.sourceIds).toEqual([borrowed])
     const rest = [...cited].filter((id) => !own.includes(id) && id !== borrowed)
     expect(cited.has(borrowed)).toBe(true)
-    expect(rest.length).toBe(18)
+    // Eighteen of the supplier's sheets, and since 2026-10-18 the six stricter documents the card on a splash names.
+    expect(rest.length).toBe(24)
     for (const id of rest) {
       expect(sheets.some((s) => s.id === id), id).toBe(true)
       expect(ofReagents.has(id), id).toBe(true)
@@ -451,15 +452,23 @@ describe('the aqueous primer: what it has to say', () => {
     expect(last.text.endsWith(rule)).toBe(true)
     expect(TITRATION_PRIMER.find((s) => s.id === 'safety')!.paragraphs[1]!.text.endsWith(rule)).toBe(true)
     expect(last.support).toMatch(/This lab: .*is the owner's statement of the rule where they work \(2026-10-05\); no source was read for it/)
-    // What the card says of the sheets is what the notes under the bottles say: rinsing for several minutes for the
-    // eyes on every bottle but one, a number of minutes on one bottle only, and that not said to be for the eyes.
+    // What the card says is what the notes under the bottles say. Since 2026-10-18 the notes carry the stricter
+    // documents that later labs read (spec 5.2): six substances' notes give 15 minutes or more for the eyes with a doctor,
+    // or for copper(II) sulfate 20 to 30; the iron(III) chloride note gives its sheets' 15 minutes, not said to be for
+    // the eyes; every other note gives its sheet's several minutes, and none stops short of a time or of the rinsing.
     const { reagents } = aqueousData
     const note = (id: string) => reagents.find((r) => r.id === id)!.hazards.note.value
-    expect(reagents.filter((r) => !/eyes (is|are) to be rinsed (out )?with water for several minutes/.test(r.hazards.note.value)).map((r) => r.id)).toEqual(['cocl2-0.5m'])
-    expect(note('cocl2-0.5m')).toContain('Neither sheet prints any first aid for a splash in the eyes.')
-    expect(reagents.filter((r) => /\d+ minutes/.test(r.hazards.note.value)).map((r) => r.id)).toEqual(['fecl3-0.5m'])
+    const stricter = ['cuso4-0.5m', 'bacl2-0.5m', 'cocl2-0.5m', 'nh4no3-0.5m', 'hcl-1m', 'hcl-3m', 'hcl-6m', 'agno3-0.1m']
+    for (const id of stricter.filter((one) => one !== 'cuso4-0.5m')) expect(note(id), id).toMatch(/[Ee]yes (and skin )?(are )?flushed for 15 minutes or more and a doctor (is )?seen at once|eyes flushed for 15 minutes or more and a doctor (seen )?at once/)
+    expect(note('cuso4-0.5m')).toMatch(/eyes are flushed with water for 20 to 30 minutes/)
+    expect(reagents.filter((r) => !stricter.includes(r.id) && !/eyes (is|are) to be rinsed (out )?with water for several minutes|eyes rinsed with water for several minutes/.test(r.hazards.note.value)).map((r) => r.id)).toEqual([])
+    expect(reagents.filter((r) => /\d+ minutes/.test(r.hazards.note.value)).map((r) => r.id).sort()).toEqual(['fecl3-0.5m', ...stricter].sort())
     expect(note('fecl3-0.5m')).toContain('kept up for 15 minutes or more, without saying whether that is for the skin or for the eyes')
-    expect(last.text).toMatch(/none gives a number of minutes for the eyes.*iron\(III\) chloride solution.*15 minutes or more, without saying what is to be flushed.*cobalt chloride print no first aid for the eyes/)
-    expect(last.sourceIds).toEqual(['flinn-sds-339', 'flinn-sds-339.01', 'flinn-sds-255', 'flinn-sds-255.51'])
+    expect(last.text).toMatch(/with no number of minutes; its two sheets for iron\(III\) chloride solution also ask for flushing for 15 minutes or more without saying what is flushed, and its two for cobalt chloride give no first aid for the eyes\./)
+    expect(last.text).toMatch(/For the acid at its three strengths and for silver nitrate, barium chloride, cobalt chloride and ammonium nitrate, a second supplier's sheet asks for 15 minutes or more of flushing and a doctor at once; for copper\(II\) sulfate a government record asks 20 to 30 minutes\./)
+    expect(last.sourceIds).toEqual(['flinn-sds-339', 'flinn-sds-339.01', 'flinn-sds-255', 'flinn-sds-255.51', 'wards-sds-hh0093', 'wards-sds-ss0180', 'wards-sds-bb0041', 'wards-sds-cc0349', 'wards-sds-aa0295', 'noaa-cameo-20049'])
+    // Each of those documents is under the note of the bottle the card names it for.
+    const under = (id: string) => { const n = reagents.find((r) => r.id === id)!.hazards.note; return [n.sourceId, n.alsoSourceId, ...(n.moreSourceIds ?? [])] }
+    for (const [doc, id] of [['wards-sds-hh0093', 'hcl-1m'], ['wards-sds-ss0180', 'agno3-0.1m'], ['wards-sds-bb0041', 'bacl2-0.5m'], ['wards-sds-cc0349', 'cocl2-0.5m'], ['wards-sds-aa0295', 'nh4no3-0.5m'], ['noaa-cameo-20049', 'cuso4-0.5m']] as const) expect(under(id), doc).toContain(doc)
   })
 })

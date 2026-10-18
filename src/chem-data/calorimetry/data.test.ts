@@ -65,6 +65,20 @@ describe('calorimetryData', () => {
     for (const m of candidatesOf(calorimetryData)) expect([m.hazards.signalWord, m.hazards.statements], m.id).toEqual(['None', []])
   })
 
+  it('writes every hazard note in the three short paragraphs of spec 5.2, of 160 words at most, its own and the two of the aqueous reactions lab it carries: what is stricter second, and disposal left to the laboratory last', () => {
+    for (const r of calorimetryData.reagents) {
+      const { value } = r.hazards.note
+      const paragraphs = value.split('\n\n')
+      expect(paragraphs, r.id).toHaveLength(3)
+      expect(value.split(/\s+/).length, r.id).toBeLessThanOrEqual(160)
+      expect(paragraphs[1], r.id).toMatch(/^(Stricter, and what this lab goes by|What this lab goes by): /)
+      expect(paragraphs[2], r.id).toBe("How any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.")
+      expect(value, r.id).not.toMatch(/Flinn|Ward|Fisher|Avantor|ESPI/)
+    }
+    // The four metals are shown together until a run of part 3 counts, so no note says which of them the piece is: each says the same of its piece.
+    for (const m of candidatesOf(calorimetryData)) expect(m.hazards.note.value, m.id).toMatch(new RegExp(`^The ${m.name.toLowerCase()} (on this bench|here) is a solid piece, not [a-z ]+, heated in boiling water on purpose\\.`))
+  })
+
   it('names the three parts and what goes into each cup', () => {
     expect(calorimetryData.parts.map((p) => p.id)).toEqual([...PART_IDS])
     expect(calorimetryData.parts.map((p) => `${p.name}: ${p.amounts.map((a) => ('shown' in a ? `${a.shown} ${a.unit} ${a.reagentId}` : `about ${a.about} ${a.unit} ${a.reagentId}`)).join(', ')}`)).toEqual([

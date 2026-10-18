@@ -45,8 +45,12 @@
           "H290: May be corrosive to metals"
         ],
         "note": {
-          "value": "The acid on this bench is 1 mol/L, which is about 3.6% hydrogen chloride by mass (worked out from the molarity, not read from a source). The same supplier's sheet for hydrochloric acid solutions of 0.1 M to 2.4 M, which covers this strength, gives the signal word Danger and three statements: under H314, that the solution burns the skin severely and damages the eyes; under H335, that it may irritate the airways; and under H303, that it may be harmful if swallowed. The sheet calls for eye protection, gloves and protective clothing, and for working in a fume hood or a well-ventilated room. It says that a splash in the eyes is to be rinsed with water for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up, and that a poison centre or a doctor is to be called at once. After a splash on the skin, it says, the wet clothing is to come off at once and the skin be rinsed with water.",
-          "sourceId": "flinn-sds-395.2"
+          "value": "The acid on this bench is 1 mol/L hydrochloric acid; the statements above are those of the concentrated acid it is made from. The same supplier's sheet for 0.1 M to 2.4 M keeps Danger and, under H314, says that it burns the skin severely and damages the eyes; under H335, that it may irritate the airways; under H303, that it may be harmful if swallowed.\n\nStricter, and what this lab goes by: a second supplier's sheet for weaker, 0.5 M acid asks more at the eyewash: eyes are flushed for 15 minutes or more and a doctor is seen at once. NOAA's record adds 15 minutes more where no doctor has come. The first sheet calls for eye protection, gloves and protective clothing, and a fume hood or a well-ventilated room; splashed clothing comes off at once.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-395.2",
+          "alsoSourceId": "wards-sds-hh0093",
+          "moreSourceIds": [
+            "noaa-cameo-3598"
+          ]
         },
         "sourceId": "flinn-sds-395"
       },

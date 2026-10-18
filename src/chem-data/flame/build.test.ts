@@ -157,10 +157,10 @@ describe('mergeHazards, on the flame record', () => {
     const rows = sheets.find((sheet) => sheet.id === note.alsoSourceId)!.supports
     expect(rows.filter((row) => row.prints === 'INGESTION').map((row) => row.field)).toEqual(['bacl2-0.1m.hazards.note'])
     for (const row of rows.filter((row) => row.field.endsWith('.notCarried'))) expect(row.where, row.prints).not.toMatch(/For swallowing/)
-    // Six notes, each of three short paragraphs; the longest is barium's.
+    // Six notes, each of three short paragraphs of 160 words at most (spec 5.2): barium's and copper's were 192 and 180 words until 2026-10-18.
     for (const entry of Object.values(hazards as Record<string, Entry>)) {
       expect(entry.hazards.note.value.split('\n\n')).toHaveLength(3)
-      expect(entry.hazards.note.value.split(/\s+/).length).toBeLessThanOrEqual(195)
+      expect(entry.hazards.note.value.split(/\s+/).length).toBeLessThanOrEqual(160)
     }
   })
 
@@ -176,7 +176,8 @@ describe('mergeHazards, on the flame record', () => {
 describe('the sources the lab adds', () => {
   const earlier: Listed[] = allSources.filter((s) => !sources.some((own) => own.id === s.id) && !sheets.some((sheet) => sheet.id === s.id))
   const emission = allSources.find((s) => s.id === 'nist-asd-lines-neutral')!
-  const aqueousSheets = allSources.filter((s) => ['flinn-sds-94', 'flinn-sds-94.01'].includes(s.id))
+  // Since 2026-10-18 the aqueous lab's barium chloride note rests on the three documents this lab read for its own as well.
+  const aqueousSheets = allSources.filter((s) => ['flinn-sds-94', 'flinn-sds-94.01', 'wards-sds-bb0041', 'fisher-sds-bacl2-dihydrate', 'noaa-cameo-19847'].includes(s.id))
   // Sodium's emission spectrum, which is built first, cites this lab's page on flame colours for what lights a sodium flame.
   const sodiumSpectrum = allSources.find((s) => s.id === 'hyperphysics-flame-colors')!
 

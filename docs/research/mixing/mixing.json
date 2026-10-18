@@ -5,6 +5,12 @@
       "name": "Rubbing alcohol",
       "holds": "2-Propanol (isopropyl alcohol), about 70% by volume, in water",
       "form": "liquid"
+    },
+    {
+      "id": "mineral-oil",
+      "name": "Mineral oil",
+      "holds": "A mixture of oily hydrocarbons",
+      "form": "liquid"
     }
   ],
   "liquids": [
@@ -131,7 +137,8 @@
         "reason": "The record lists mineral oil in the group of saturated hydrocarbons and says that it does not dissolve in water; the textbook page says that oil made of hydrocarbons is non-polar.",
         "sourceId": "noaa-cameo-12191",
         "alsoSourceId": "ck12-liquid-liquid-solutions"
-      }
+      },
+      "reagentId": "mineral-oil"
     }
   ],
   "solids": [

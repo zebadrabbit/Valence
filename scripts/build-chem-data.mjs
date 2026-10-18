@@ -2168,7 +2168,7 @@ function buildReactions(earlierSources) {
 // all: it is the red cabbage pH lab's, copied from that lab's record.
 
 const MIXING_KEYS = ['reagents', 'liquids', 'solids', 'pairs', 'solidInLiquid', 'offBench', 'rule', 'sharedNote', 'parts', 'parameters']
-const MIXING_REAGENTS = ['rubbing-alcohol']
+const MIXING_REAGENTS = ['rubbing-alcohol', 'mineral-oil']
 const MIXING_LIQUIDS = ['water', 'rubbing-alcohol', 'vinegar', 'vegetable-oil', 'mineral-oil']
 const MIXING_SOLIDS = ['salt', 'sugar']
 const MIXING_PARTS = ['liquids', 'solids', 'rule']
@@ -2182,7 +2182,7 @@ function buildMixing(earlierSources, molecules) {
   const hazardManifest = json('sources/hazard-manifest.json')
 
   onlyKeys(input, MIXING_KEYS, 'mixing.json')
-  if (input.reagents.map((r) => r.id).join() !== MIXING_REAGENTS.join()) fail('mixing.json: the one reagent is the rubbing alcohol (spec 25.3)')
+  if (input.reagents.map((r) => r.id).join() !== MIXING_REAGENTS.join()) fail('mixing.json: the reagents are the rubbing alcohol and the mineral oil (spec 25.3), in that order')
   if (input.liquids.map((l) => l.id).join() !== MIXING_LIQUIDS.join()) fail('mixing.json: the liquids are not the five of spec 25.1, in their order')
   if (input.solids.map((s) => s.id).join() !== MIXING_SOLIDS.join()) fail('mixing.json: the solids are not the two of spec 25.1, in their order')
   if (input.parts.map((p) => p.id).join() !== MIXING_PARTS.join()) fail('mixing.json: the parts are not the three of spec 25.1, in their order')
