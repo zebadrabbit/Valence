@@ -442,8 +442,8 @@ describe('the not-saving notice: what sessionStore tells onPersistent, in order'
 })
 
 describe('NOT_SAVING_TEXT', () => {
-  it('is the sentence Settings showed before the lab page shared it, word for word', () => {
-    expect(NOT_SAVING_TEXT).toBe('This browser is not allowing Valence to save data. Your progress and settings will last only until you close this tab.')
+  it('says that what is done lasts only until the page is reloaded or the tab closed: the store is then in memory, which a reload empties', () => {
+    expect(NOT_SAVING_TEXT).toBe('This browser is not allowing Valence to save data. Your progress and settings will last only until you reload this page or close this tab.')
   })
 })
 

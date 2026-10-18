@@ -268,7 +268,7 @@ export const PAGE_TEXT = {
   challengeHidden: 'In Challenge, the hints and what a correct observation holds come once you have recorded your own observation.',
   yourEquation: 'Your equation',
   palette: 'Substances to choose from',
-  /** Under the row of slots, until a slot holds something: how the row is filled. */
+  /** Under the bank and over the row of slots, until a slot holds something: how the row is filled. */
   slotHelp: 'A substance you tap goes into the active slot, the one with the thick outline. Tap a slot to make it active. You can also drag.',
   /** A substance pressed while no slot is active: every slot of a template is full. */
   full: 'Every slot is full. To change one, tap it and then a substance.',
@@ -315,7 +315,7 @@ export const SLOT_TEXT = {
   takenOut: (formula: string, side: Side) => `${formula} is taken out of the ${side === 'reactants' ? 'reactants' : 'products'}.`,
   coefficient: (formula: string, coefficient: number) => `${formula}: coefficient ${coefficient}.`,
   state: (formula: string, state: State) => `${formula}: state (${state}), ${STATE_NAME[state]}.`,
-  /** The name of the group of a term's coefficient, state and way out, under the row: "Reactant 2: OH⁻". */
+  /** The name of the group of a term's coefficient, state and way out, over the row: "Reactant 2: OH⁻". */
   term: (formula: string, at: At) => `${upper(slotName(at))}: ${formula}`,
   active: (at: At) => `${upper(slotName(at))} is the active slot.`,
   noneActive: 'No slot is active: every slot is full.',
