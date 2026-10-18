@@ -24,3 +24,12 @@ describe('Settings, the not-saving notice', () => {
     expect(page(true)).not.toContain(NOT_SAVING_TEXT)
   })
 })
+
+describe('Settings, the hint on System', () => {
+  it('stands under the two choices that offer System and over the valence display level, which does not', () => {
+    const html = page(true)
+    const hint = html.indexOf("System follows your operating system&#x27;s setting.")
+    expect(hint).toBeGreaterThan(html.lastIndexOf('<option value="system">'))
+    expect(hint).toBeLessThan(html.indexOf('Valence display level'))
+  })
+})

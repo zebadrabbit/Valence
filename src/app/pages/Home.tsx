@@ -3,18 +3,26 @@ import { useAppState } from '@/app/AppState'
 import { PageHeader } from '@/app/PageHeader'
 import { ACTIVITIES, activityStatus, hasPage, STATUS_LABEL } from '@/app/activities'
 import { SHELL_TEXT } from '@/app/lab/shellText'
+import { NOT_SAVING_TEXT } from '@/app/progress/storage'
 import { ELEMENT_INDEX } from '@/chem-data/elementIndex'
 import { LIBRARY_INDEX } from '@/chem-data/libraryIndex'
 
 export function Home() {
-  const { store } = useAppState()
+  const { store, persistent } = useAppState()
 
   return (
     <>
       <PageHeader title="Home" />
+      {!persistent && (
+        <p role="status" className="mb-6 max-w-prose rounded-md border p-3 text-sm">
+          {NOT_SAVING_TEXT}
+        </p>
+      )}
       <p className="mb-6 max-w-prose text-muted-foreground">
-        Valence is a molecule explorer and virtual general-chemistry lab. No account is needed; your progress is saved
-        in this browser. Search in the menu (Ctrl+K, or ⌘K on a Mac) jumps to any molecule, element, lab or page.
+        {/* That progress is saved is said only while it is: otherwise the notice above says how long it lasts. */}
+        Valence is a molecule explorer and virtual general-chemistry lab. No account is needed
+        {persistent ? '; your progress is saved in this browser.' : '.'} Search in the menu (Ctrl+K, or ⌘K on a Mac) jumps
+        to any molecule, element, lab or page.
       </p>
       <ul className="grid max-w-3xl gap-3">
         <li className="rounded-lg border bg-card p-4">

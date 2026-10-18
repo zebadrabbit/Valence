@@ -125,7 +125,7 @@ export function sessionStore(browser: { store: KeyValueStore; persistent: boolea
 
 /** The not-saving notice, held once so that every page that shows it says the same sentence. */
 export const NOT_SAVING_TEXT =
-  'This browser is not allowing Valence to save data. Your progress and settings will last only until you close this tab.'
+  'This browser is not allowing Valence to save data. Your progress and settings will last only until you reload this page or close this tab.'
 
 /**
  * The entries a load has set aside in this session, by the store they were in, until something is saved under them
