@@ -160,6 +160,9 @@ describe('the real chem-data registry', () => {
     expect(sodium.selection).toContain('D lines')
     // Sodium is a silvery metal. What is yellow is its light: a sodium lamp, or a flame with sodium in it.
     expect(sodium.selection).toBe('The two D lines, which give a sodium lamp, and a flame that holds sodium, their yellow colour. NIST lists other, weaker lines of the neutral atom between 400 and 700 nm.')
+    // That the D lines are what lights a sodium lamp and a sodium flame, and that the light is yellow, is not in NIST's table.
+    expect(sodium.selectionSourceIds).toEqual(['hyperphysics-sodium-spectrum', 'hyperphysics-flame-colors', 'wikipedia-sodium-vapor-lamp'])
+    for (const id of sodium.selectionSourceIds!) expect(registry.sources.map((s) => s.id)).toContain(id)
     expect(sodium.note).toContain('too close to draw separately')
     // Only an element whose lines overlap on the strip carries a note. Two of xenon's are 0.7 nm apart, and its note is the build's.
     expect(registry.elements.find((e) => e.symbol === 'H')!.emission!.note).toBeUndefined()

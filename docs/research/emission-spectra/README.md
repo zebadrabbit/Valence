@@ -14,7 +14,7 @@ One rule, in `scripts/emission-lib.mjs`, applied by the build to every element b
 
 Ties are never cut, because any way of choosing among lines NIST rates the same would be this project's choice and not NIST's. So 34 elements show more than six lines. For plutonium, curium, berkelium and californium NIST gives every line the same intensity, and all of them are shown: 49, 27, 25 and 13.
 
-Hydrogen and sodium keep the lines and sentences written for them by hand in `docs/research/phase-2/emission-lines.json`. The build checks that each of their wavelengths is printed, digit for digit, in the saved response.
+Hydrogen and sodium keep the lines and sentences written for them by hand in `docs/research/phase-2/emission-lines.json`. The build checks that each of their wavelengths is printed, digit for digit, in the saved response. Sodium's sentence says what the D lines light, which NIST's table does not; since 2026-10-17 it cites three more sources for that (`../phase-2/README.md`, "Added 2026-10-17").
 
 Hydrogen, sodium and xenon are also shown on the atom cards of the molecule explorer, from `src/chem-data/elements.json`. The build writes the same spectrum to both files, and a test holds them equal: hydrogen's and sodium's by hand, xenon's by the rule.
 

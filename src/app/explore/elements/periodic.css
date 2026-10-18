@@ -147,7 +147,8 @@
 }
 
 /* A cell: the link to an element, a little wider than it is tall and never under 44 px either way. --bw is
-   the border width; the padding takes up the difference, so the text does not move when the border changes. */
+   the border width; the padding takes up the difference, so the text does not move when the border changes.
+   Its lines are the rows of a grid: the number, the symbol in the middle of the room left, the name and the value. */
 .pt-cell {
   --bw: 1px;
   aspect-ratio: 6 / 5;
@@ -155,10 +156,12 @@
   border: var(--bw) solid var(--pt-edge);
   border-radius: 4px;
   color: var(--foreground);
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  /* The value's row is at least its line: the value hides what overflows it, so its own height would not hold the
+     row open, and the line would be cut inside it. */
+  grid-template-rows: auto 1fr auto minmax(min-content, auto);
   line-height: 1.15;
-  min-height: 2.75rem;
   padding: max(0px, calc(3px - var(--bw)));
   /* When a key brings a cell into view, room for its focus outline (3 px, 2 px away) inside the edge of the
      scrolling box and of the window; ElementGrids.tsx uses the same figure. */
@@ -166,6 +169,15 @@
   text-align: center;
   /* Stated, so that the 44 px floor on the height cannot widen the cell beyond its column. */
   width: 100%;
+}
+/* The 44 px floor, as a box behind the lines. A min-height on the cell would hold it to the height its width gives
+   it, or 44 px, and no taller: where a minimum font size set in the browser makes the lines taller than that, the
+   value was pushed out of the cell's foot and cut. With no min-height of its own the cell is also never shorter
+   than its lines, and at the type sizes here they fit in it, so the cell is as it was. */
+.pt-cell::before {
+  content: '';
+  grid-area: 1 / 1 / -1 / -1;
+  min-height: calc(2.75rem - 2 * max(3px, var(--bw)));
 }
 .pt-cell:hover {
   border-color: var(--foreground);
@@ -182,25 +194,30 @@
 .pt-number {
   font-size: clamp(0.625rem, 0.7cqi, 0.875rem);
   font-variant-numeric: tabular-nums;
+  /* Each line in its row and all in the one column: placed by itself, a line would go beside the box, not over it. */
+  grid-area: 1 / 1;
   text-align: left;
 }
 .pt-symbol {
   font-size: clamp(1rem, 1.35cqi, 1.75rem);
   font-weight: 600;
+  grid-area: 2 / 1;
   margin-block: auto;
 }
 .pt-name {
   display: none;
   font-size: clamp(0.6875rem, 0.62cqi, 0.875rem);
+  grid-area: 3 / 1;
 }
 /* The digits are the source's. Where they do not all fit on the line, ElementGrids.tsx prints the value rounded
    to as many as fit; the whole value is in the cell's name, the readout, the list and the card. The ellipsis is
    for what rounding cannot help: at the type sizes here every rounded value fits, but a minimum font size set in
-   the browser can leave room for less. At 15 px and more the line itself is cut, so the mark is not seen either;
-   that is a known limit, stated in docs/for-institutions.md. */
+   the browser can leave room for less. The cell grows taller for the larger type (.pt-cell::before), so the line
+   is not cut and the mark is seen; docs/for-institutions.md says what was tried. */
 .pt-value {
   font-size: clamp(0.5625rem, 0.7cqi, 0.75rem);
   font-variant-numeric: tabular-nums;
+  grid-area: 4 / 1;
   min-height: 1.1em;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -235,6 +252,11 @@
   margin: 0 min(0px, calc(var(--bw) - 3px)) min(0px, calc(var(--bw) - 3px));
   min-height: clamp(0.75rem, 0.9cqi, 1rem);
 }
+/* A line with nothing to see in it, so that with a minimum font size set in the browser the hatched cell is as tall
+   as a cell whose value has the larger type. At the type sizes here the min-height above is the taller. */
+.pt-cell[data-trend='none'] .pt-value::before {
+  content: '\200b';
+}
 
 /* Forced colours remove a gradient, which would leave an element with no value marked only by the lack of a
    number. Opting these two boxes out keeps the hatching, drawn in the system's own text colour. */
@@ -265,11 +287,11 @@
   border-style: double;
 }
 .pt-cell[aria-current] .pt-number {
-  align-self: flex-start;
   background: var(--foreground);
   border-radius: 2px;
   color: var(--background);
   font-weight: 700;
+  justify-self: start;
   padding: 0 3px;
 }
 /* The double border leaves the selected cell 2 px less than a cell has above and below. In the smallest cell with a

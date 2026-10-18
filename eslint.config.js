@@ -32,10 +32,18 @@ const NETWORK_PROPERTIES = [
   // On any object, so that window.navigator.sendBeacon and a destructured sendBeacon are caught too.
   { property: 'sendBeacon', message: NO_NETWORK },
 ]
+const NO_RANDOM = 'engine/ and mechanisms/ are deterministic: in engine/, use the seeded RNG passed in.'
 const NONDETERMINISM_PROPERTIES = [
-  { object: 'Math', property: 'random', message: 'engine/ and mechanisms/ are deterministic: in engine/, use the seeded RNG passed in.' },
+  { object: 'Math', property: 'random', message: NO_RANDOM },
   { object: 'Date', property: 'now', message: NO_CLOCK },
   { object: 'performance', property: 'now', message: NO_CLOCK },
+  // globalThis.Date.now() and new self.Date() are the clock too, and the rules above look only at a bare Date,
+  // performance or Math. (window is a banned global in these folders already.)
+  ...['globalThis', 'self'].flatMap((object) => [
+    { object, property: 'Math', message: NO_RANDOM },
+    { object, property: 'Date', message: NO_CLOCK },
+    { object, property: 'performance', message: NO_CLOCK },
+  ]),
 ]
 
 const NO_THREE_PATHS = [{ name: 'three', message: NO_EAGER_THREE }]

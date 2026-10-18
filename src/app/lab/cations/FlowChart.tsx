@@ -37,6 +37,7 @@ function TileWords({ data, tile }: { data: CationsData; tile: string }) {
   return (
     <span className="grid text-left leading-tight">
       <span className="font-medium">{name}</span>
+      {/* A space, which the grid does not draw, so that the two lines are two words apart in the tile's text and not run together ("chlorideAgCl"). */}{' '}
       <span className="text-xs">{tileLabel(data, tile).slice(name.length + 2)}</span>
     </span>
   )

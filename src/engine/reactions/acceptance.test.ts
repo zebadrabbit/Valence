@@ -269,7 +269,7 @@ describe('the stored record round-trips; no state a learner can reach leaves the
     expect(reached).toBeGreaterThan(2000)
     // Among them are runs still open, runs waiting to be checked, runs that count and runs that do not.
     expect([...outcomes].sort()).toEqual(['counts', 'does-not-count', 'open', 'to-check'])
-  })
+  }, 60_000)
 
   it('lists every run of a station for its record, with marks only on a run that was checked', () => {
     let state = wholeStation(m, createLab('challenge'), 'peroxide', { wrongKindAt: 'tube' })

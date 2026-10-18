@@ -71,8 +71,13 @@
           "H290: May be corrosive to metals"
         ],
         "note": {
-          "value": "The acid on this bench is 6 mol/L, which is about 20% hydrogen chloride by mass (worked out from the molarity and a density of about 1.1 g/mL, not read from a source). The sheet the statements above come from is for acid of 6 M to 12 M, so it covers this acid, the least concentrated it is for, and the statements apply to it as they stand. The sheet gives the signal word Danger and three statements: under H314 and H318, that the acid burns the skin and the eyes severely and damages them; under H332 and H302, that it is harmful if it is swallowed or breathed in; and under H290, that it may corrode metals. The sheet calls for eye protection, gloves and protective clothing, and for working in a fume hood or a well-ventilated room, and says that the mist, the vapour or the spray of the acid is not to be breathed. It says that a poison centre or a doctor is to be called at once. It says that a splash in the eyes is to be rinsed with water for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up. After a splash on the skin or the hair, it says, the wet clothing is to come off at once and the skin be rinsed with water.",
-          "sourceId": "flinn-sds-395"
+          "value": "The acid on this bench is 6 mol/L hydrochloric acid, the weakest that the sheet above is for, so its statements apply as they stand: under H314 and H318, it burns the skin and the eyes severely. The sheet calls for eye protection, gloves and protective clothing, a fume hood or a well-ventilated room, and no breathing of its mist or spray.\n\nStricter, and what this lab goes by: the same supplier's sheet for 2.5 M to 5.9 M, just under this strength, adds H335: the acid may irritate the airways. A second supplier's sheet for weaker, 0.5 M acid asks more at the eyewash: eyes are flushed for 15 minutes or more and a doctor is seen at once. NOAA's record adds 15 minutes more where no doctor has come. Splashed clothing comes off at once.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
+          "sourceId": "flinn-sds-395",
+          "alsoSourceId": "flinn-sds-395.1",
+          "moreSourceIds": [
+            "wards-sds-hh0093",
+            "noaa-cameo-3598"
+          ]
         },
         "sourceId": "flinn-sds-395"
       },
@@ -222,7 +227,7 @@
           "H290: May be corrosive to metals"
         ],
         "note": {
-          "value": "The solution on this bench is 6 mol/L, which is about 20% sodium hydroxide by mass (worked out from the molarity and a density of about 1.2 g/mL, not read from a source). It is at the very top of the same supplier's sheet for sodium hydroxide solutions of 0.3 M to 6.0 M; the next sheet begins at 6.1 M and runs to 19 M. Both give the signal word Danger and, under the code H314, the statement that the solution burns the skin severely and damages the eyes. The sheet that begins at 6.1 M adds a second statement, under H290: the solution may corrode metals. Handle this solution as the stricter sheet says, the one that begins at 6.1 M. Both sheets call for eye protection, gloves and protective clothing, and say that the mist, the vapour or the spray of the solution is not to be breathed. Both say that a poison centre or a doctor is to be called at once. They say that a splash in the eyes is to be rinsed with water for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up, and that after a splash on the skin or the hair the wet clothing is to come off at once and the skin be rinsed with water.",
+          "value": "The solution on this bench is 6 mol/L sodium hydroxide; the statements above are the solid's. The same supplier's sheet for 0.3 M to 6.0 M, which ends at this strength, keeps Danger and, under H314, says that it burns the skin severely and damages the eyes. It calls for eye protection, gloves and protective clothing, and its mist or spray is not breathed.\n\nStricter, and what this lab goes by: the sheet for 6.1 M to 19 M, which begins just above it, adds H290: the solution may corrode metals. Both have a poison centre or a doctor called at once. The eyes are to be rinsed with water for several minutes, contact lenses out if easily done, and the rinsing kept up; splashed clothing comes off at once and the skin is rinsed.\n\nHow any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.",
           "sourceId": "flinn-sds-735",
           "alsoSourceId": "flinn-sds-734.1"
         },

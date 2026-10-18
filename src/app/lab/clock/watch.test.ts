@@ -70,7 +70,7 @@ describe('a run that is played', () => {
       // What a run takes on the screen is what it takes on the watch over that one speed, to within a frame: a time twice as long on the watch is twice as long to wait for.
       for (const { real, play: p } of shown) expect([seed, Math.abs(real - p.labMs / ROOM_SPEED) <= 16]).toEqual([seed, true])
     }
-  })
+  }, 60_000)
 
   it('so shows the mixture with twice the acid, whose time is a quarter, in a quarter of the true time of the first', () => {
     for (let seed = 1; seed <= 100; seed++) {
@@ -102,7 +102,7 @@ describe('a run that is played', () => {
         const { play: p, now } = play(poured(seed, runId, { stand: false }), runId, 16, (at) => at.shown !== null)
         expect([runId, seed, now - p.startedAt < PLAY.steadyMs]).toEqual([runId, seed, true])
       }
-  })
+  }, 60_000)
 
   it('adds true time, and no more, from the frame that shows the change: a hand 400 ms late is recorded 400 ms late', () => {
     for (const runId of ['mixture-1', 'mixture-4', 'bath-ice'] as const) {

@@ -101,7 +101,7 @@ export function MixingRecord({ data, m, state }: { data: MixingData; m: MixingMo
       {rule.open && (
         <>
           <section className="grid gap-1">
-            <h3 className="font-medium">{RECORD_TEXT.sorting}</h3>
+            <h2 className="font-medium">{RECORD_TEXT.sorting}</h2>
             <ul className="grid gap-0.5">
               {rule.sorted.map((one) => (
                 <li key={one.liquid}>
@@ -112,7 +112,7 @@ export function MixingRecord({ data, m, state }: { data: MixingData; m: MixingMo
             </ul>
           </section>
           <section className="grid gap-1">
-            <h3 className="font-medium">{RECORD_TEXT.questions}</h3>
+            <h2 className="font-medium">{RECORD_TEXT.questions}</h2>
             <ul className="grid max-w-[75ch] gap-1">
               {rule.questions.map((question) => (
                 <li key={question.id}>

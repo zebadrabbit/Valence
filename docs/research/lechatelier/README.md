@@ -124,6 +124,28 @@ The page has one rule the engine does not: it sends an action only from the dist
 10. **Standard states.** Every check uses concentrations where the constants are for activities. In 6 M sodium hydroxide and 6 M ammonia that is rough. The margins, 5.4 and 3.8 times, are not wide enough to cover it with certainty.
 11. **"Magnesium forms no complex ion".** The page read says that the magnesium ion rarely forms complex ions; the tables have a row for MgOH⁺ and none for an ion that would dissolve the hydroxide in base. The notes say that it forms none that would hold it dissolved.
 
+## Open for the owner: whether solid cobalt(II) chloride is corrosive
+
+Looked at again on 2026-10-18, for the hazard records of the older labs, and left as it is: the rules of spec 5.2 do not settle it, so nothing was changed.
+
+**What the record does.** The bottle is the solid hexahydrate, and its statements are those of the default supplier's sheet for that solid (`flinn-sds-255`): Danger, with H350, H302, H317+H334, H341 and H360, and no class for corrosion. The note's second paragraph says that a second supplier's sheet (`wards-sds-cc0349`) classes the solid as corrosive, H314, and as H410, very toxic to water life, and goes by both: the solid is kept out of drains and waterways, and eyes and skin are flushed for 15 minutes or more with a doctor at once. That supplier's row in `sources/hazard-manifest.json` gives the reason: the sheet's classification, its pictogram, its storage code and its class for shipping all say corrosive, and the lines of its first aid that speak of irritation name no class.
+
+**The documents read for this solid** (each in the copy saved when it was read, checked against its hash, on 2026-10-18):
+
+- The default supplier's sheet for the solid (`flinn-sds-255`), which is the form on the bench: no class for the skin or the eyes; its first aid has no line for the eyes at all.
+- A third supplier's sheet for the hexahydrate (`fisher-sds-cocl2-hexahydrate`), made to the United States standard of 2024: six statements, none for corrosion of the skin or damage to the eyes.
+- NOAA's record of cobalt chloride (`noaa-cameo-8439`): it irritates the eyes and may bring a rash; it names no class.
+- The second supplier's sheet (`wards-sds-cc0349`), for the hexahydrate at 100%: section 2 classes it as corrosive to the skin (category 1A) and seriously damaging to the eyes (category 1), with H314 and the pictogram for corrosives; its head puts it with corrosives for storage, and section 14 ships it as a corrosive solid, acidic, class 8. But section 4 heads its lines for the eyes and the skin with irritation, not burns; section 11 has no data for corrosion or irritation of the skin or for damage to the eyes, and says of the eyes that it causes irritation or burns; and section 9 gives the solid an odour of hydrochloric acid.
+- The default supplier's sheet for cobalt chloride in acid (`flinn-sds-255.6`, 7% of the salt in 14% hydrochloric acid, read for the primer): it gives H314 and H335, which come with the acid.
+
+**The form on the bench.** The bottle is the solid, which the default supplier's sheet does not class as corrosive. In the tube it is dissolved in 12 M acid, and that liquid is corrosive in any case: the 12 M acid's tile says so, and so does the sheet for the salt in acid.
+
+**Why the rules do not settle it.** Spec 5.2 takes the stricter document's class where what it says is about the substance, and this sheet is about the solid on the bench. It does not carry a statement that the same sheet contradicts. Whether this sheet's first aid and its toxicology, which speak of irritation and have no data, contradict its classification, or only fall short of it, is the question. As built, the record reads them as falling short, and carries the class. Read the other way, the note would lose its first clause on H314 and keep H410, the drains and the first aid, and a row of what was read and not carried would say why.
+
+**What turns on it.** The solid as it is handled here, and the aqueous reactions lab's 0.5 M cobalt chloride solution, about 12 g of the hexahydrate in 100 mL, which is handled by the sheets for the solid: since the second pass of 2026-10-18 its note carries the same two stricter sheets, the corrosive class among them, and would lose that clause with this one. A solution that strong of a corrosive solid may be corrosive too by the usual rule for mixtures (this project's reasoning, not a document's).
+
+**For a chemist.** The European Union's harmonised classification of cobalt dichloride may say whether the salt is corrosive; it was not checked. An attempt to read it at the European Chemicals Agency (echa.europa.eu) on 2026-10-18 stopped at the first request: the site answered the request for its robots file with a refusal (HTTP 403) and a page that challenges automated readers, so nothing more was asked of it. A solution of the salt in water is weakly acidic, and the second supplier's note of a smell of hydrochloric acid may mean that its classification reflects acid in its product rather than the salt.
+
 ## Tried and not read
 
 One site, a university's courseware with a table of indicators, refused the request for its robots file, and was not asked again. PubChem's data service is closed to automated readers by its robots file and was not asked. No page of OpenStax was fetched, and no page of Wikipedia.
@@ -222,7 +244,7 @@ None of these was changed.
 - **The edge of a part on the colour between blue and yellow** is 2.2 to 1 in the ink and 2.4 in the light line, the least of the six liquids (1 above). With the ink at its full strength it would be 3.7. It is the shared tube's look in three labs, and the list beside the picture and the button's name say the same in words.
 - **The line of a liquid's surface and the grain of a solid are under 3 to 1,** as the cations lab's review left them: the line is 2.2 to 2.5 against the three pale liquids and 1.1 against the blue, which is itself 9.2 to 1 against the card.
 - **The faint words of a button that cannot be used now** are 3.7 to 1 in the light theme and 4.9 in the dark. It is the shared control's look in every lab.
-- **Two of the ten hazard notes do not end as the other eight do.** The 6 M hydrochloric acid and the sodium hydroxide carry the aqueous reactions lab's records unchanged, which have no sentence on disposal; the eight written for this lab end with it, and the primer's safety card says it of every bottle.
+- **Two of the ten hazard notes did not end as the other eight do.** The 6 M hydrochloric acid and the sodium hydroxide carry the aqueous reactions lab's records unchanged, which had no sentence on disposal. Since 2026-10-18 those two records are in the form of this lab's own, three short paragraphs ending with that sentence, so all ten end alike; the primer's safety card says it of every bottle.
 - **In Guided, what Challenge recorded at a disturbance that is done still stands** (6 above), and Guided's own check then says that the run does not count, and where.
 - **For a chemist, beside the eleven things above:** after the first portion of acid the indicator's tube is at 0.72 M hydrogen ion, pH 0.14, in a range that runs from 0.0 to 1.6. The build's margin holds, 1.39 times from the yellow end, but a real tube that near the end would look nearer yellow than half way, and the picture draws the colour half way.
 

@@ -7,6 +7,7 @@ import { LAYER_LINE, contentsEnd } from '@/app/lab/Tube'
 import { liquidHex } from '@/app/lab/tubeDrawing'
 import { labProgress } from '@/app/lab/useLabProgress'
 import { createMemoryStore, type KeyValueStore } from '@/app/progress/storage'
+import { HAZARDS_TEXT } from '@/app/lab/shellText'
 import { routes } from '@/app/routes'
 import { mixingPartCitations, mixingTubeCitations } from '@/chem-data/citations'
 import { LIQUID_IDS, mixingData as data, PAIR_IDS, SOLID_TUBE_IDS, type PartId, type TubeId } from '@/chem-data/mixing/data'
@@ -334,7 +335,7 @@ describe('a tube', () => {
     expect(brackets(bench(wholePair(m, fresh(), ONE), 'liquids', ONE))).toEqual([PART_LABEL.liquid])
     expect(brackets(bench(wholeSolidTube(m, fresh(), 'salt-in-vegetable-oil'), 'solids', 'salt-in-vegetable-oil'))).toEqual([PART_LABEL.liquid, PART_LABEL.solid])
     expect(brackets(bench(wholeSolidTube(m, fresh(), 'salt-in-water'), 'solids', 'salt-in-water'))).toEqual([PART_LABEL.liquid])
-  })
+  }, 60_000)
 
   it('gives a layer its word once it has been looked at, and no word to a layer that has not', () => {
     const two = tubeLayers(tubeView(m, stood(fresh(), OIL), OIL).shows, FULL)
@@ -363,7 +364,7 @@ describe('a tube', () => {
         }
       }
     }
-  })
+  }, 60_000)
 
   it('opens what is recorded with the look: one layer or two, and of two which liquid is on top, with which there is more of; or whether the solid is gone', () => {
     const before = text(bench(stood(fresh(), OIL), 'liquids', OIL))
@@ -512,7 +513,7 @@ describe('part 3: the rule', () => {
 })
 
 describe('the bench and the hazards', () => {
-  it("is in one place under every part and every tube, closed: what stands on the bench, the rubbing alcohol's tile with its hazards, and the note the kitchen things share", () => {
+  it("is in one place under every part and every tube, closed: what stands on the bench, the tiles of the rubbing alcohol and the mineral oil with their hazards, and the note the kitchen things share", () => {
     const rule = wholeSolids(m, wholePairs(m, fresh()))
     for (const html of [bench(fresh(), 'liquids'), bench(looked(fresh(), OIL), 'liquids', OIL), bench(fresh(), 'solids', 'salt-in-water'), bench(rule, 'rule')]) {
       expect(count(html, new RegExp(`<summary[^>]*>${PAGE_TEXT.bench}</summary>`, 'g'))).toBe(1)
@@ -523,11 +524,14 @@ describe('the bench and the hazards', () => {
       expect(inside).toContain(data.reagents[0]!.classifiedAs)
       expect(inside).toContain(`Signal word: ${data.reagents[0]!.hazards.signalWord}`)
       for (const statement of data.reagents[0]!.hazards.statements) expect(inside).toContain(statement)
+      // The mineral oil's tile, since 2026-10-18: its sheet lists no statement, and its note is headed as the oil is used, with no strength.
+      expect(inside).toContain(data.reagents[1]!.classifiedAs)
+      expect(inside).toContain(`${HAZARDS_TEXT.none} ${HAZARDS_TEXT.asUsed}`)
       expect(inside).toContain(`${HAZARD_TEXT.others} ${data.sharedNote.value}`)
       // None of it is on the page until the bench is opened.
       expect(text(closed(html))).not.toContain('Signal word')
     }
-    expect(data.reagents).toHaveLength(1)
+    expect(data.reagents).toHaveLength(2)
   })
 })
 

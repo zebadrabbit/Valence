@@ -149,7 +149,7 @@
             "leadChloride.atomicWeights[Pb]"
           ],
           "prints": "207.2",
-          "where": "The copy kept for the periodic table, docs/research/periodic-table/sources/ciaaw-abridged-atomic-weights.html, the row for lead (82, Pb): the abridged standard atomic weight. The build holds the stored figure to the periodic table's record, which it holds to this copy."
+          "where": "The extract of the page that the periodic table keeps, docs/research/periodic-table/sources/ciaaw-abridged-atomic-weights-extract.json, the row for lead (82, Pb): the abridged standard atomic weight. The build holds the stored figure to the periodic table's record, which it holds to this extract."
         },
         {
           "fields": [

@@ -160,8 +160,9 @@ function PartNotes({ data, part }: { data: MixingData; part: PartId }) {
 
 /**
  * The bench, one place that every part and every tube has: what stands on it, in words; what each thing is, with the
- * way to its molecule in the explorer where the library holds it; the rubbing alcohol's tile with its hazards,
- * closed; and the one note that everything else on the bench shares (spec 25.3).
+ * way to its molecule in the explorer where the library holds it; the tiles of the rubbing alcohol and the mineral
+ * oil with their hazards, closed; and the one note that everything else on the bench shares (spec 25.3). The mineral
+ * oil is the oil itself, with no strength, so its note is headed as it is used.
  */
 function Bench({ data, sources }: { data: MixingData; sources: readonly Source[] }) {
   return (
@@ -185,7 +186,7 @@ function Bench({ data, sources }: { data: MixingData; sources: readonly Source[]
         {data.reagents.map((reagent) => (
           <BottleTile key={reagent.id} name={reagent.name} lines={reagent.name.split(' ').slice(0, 2)} rows={[]}>
             <p>{reagent.holds}</p>
-            <Hazards classifiedAs={reagent.classifiedAs} hazards={reagent.hazards} sources={sources} />
+            <Hazards classifiedAs={reagent.classifiedAs} hazards={reagent.hazards} sources={sources} solid={reagent.id === 'mineral-oil'} />
           </BottleTile>
         ))}
       </div>

@@ -45,6 +45,21 @@
     "citation": "Kramida, A., Ralchenko, Yu., Reader, J., and NIST ASD Team. NIST Atomic Spectra Database, Lines Data for Na I: observed wavelengths in air, 400 to 700 nm (retrieved 2026-10-04). National Institute of Standards and Technology. https://doi.org/10.18434/T4W30F"
   },
   {
+    "id": "hyperphysics-sodium-spectrum",
+    "url": "http://hyperphysics.phy-astr.gsu.edu/hbase/quantum/sodium.html",
+    "citation": "Nave, C. R. HyperPhysics: Sodium Spectrum. Georgia State University; read and not kept (retrieved 2026-10-17)."
+  },
+  {
+    "id": "hyperphysics-flame-colors",
+    "url": "http://hyperphysics.phy-astr.gsu.edu/hbase/Chemical/flame.html",
+    "citation": "Nave, C. R. HyperPhysics: Flame Colors as Chemical Indicators. Georgia State University; read and not kept (retrieved 2026-10-08)."
+  },
+  {
+    "id": "wikipedia-sodium-vapor-lamp",
+    "url": "https://en.wikipedia.org/wiki/Sodium-vapor_lamp?oldid=1380507591",
+    "citation": "Wikipedia, Sodium-vapor lamp, revision 1380507591 of 2026-10-16; a secondary source, read and not kept (retrieved 2026-10-17)."
+  },
+  {
     "id": "cccbdb-water",
     "url": "https://cccbdb.nist.gov/expgeom2x.asp?casno=7732185",
     "citation": "NIST CCCBDB, Standard Reference Database 101, experimental geometry page (retrieved 2026-10-03), citing: Hoy, A.R.; Bunker, P.R., J. Mol. Spectrosc. 74, 1-8 (1979) (doi:10.1016/0022-2852(79)90019-5)"
@@ -572,7 +587,7 @@
   {
     "id": "openstax-chem2e-8.4",
     "url": "https://openstax.org/books/chemistry-2e/pages/8-4-molecular-orbital-theory",
-    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 8.4 Molecular Orbital Theory (Figure 8.37, Table 8.3, Example 8.6). Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 8.4 Molecular Orbital Theory (Figure 8.37, Table 8.3, Example 8.6). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
   },
   {
     "id": "pubchem-periodic-table",
@@ -591,7 +606,7 @@
   },
   {
     "id": "handbook-densities-wikipedia",
-    "url": "https://en.wikipedia.org/w/index.php?title=Densities_of_the_elements_(data_page)&oldid=1258326075",
+    "url": "https://en.wikipedia.org/wiki/Densities_of_the_elements_(data_page)?oldid=1258326075",
     "citation": "Lide, D. R., Ed. CRC Handbook of Chemistry and Physics, 84th ed.; CRC Press: Boca Raton, FL, 2003; Section 4, Physical Constants of Inorganic Compounds. Dean, J. A., Ed. Lange's Handbook of Chemistry, 15th ed.; McGraw-Hill: New York, 1999; Table 3.2. Neither handbook was read: their densities were taken from a secondary transcription, Wikipedia's Densities of the elements (data page), revision 1258326075, linked here (retrieved 2026-10-03)."
   },
   {
@@ -602,47 +617,47 @@
   {
     "id": "openstax-chem2e-2.5",
     "url": "https://openstax.org/books/chemistry-2e/pages/2-5-the-periodic-table",
-    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 2.5 The Periodic Table (retrieved 2026-10-03). Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 2.5 The Periodic Table (retrieved 2026-10-03). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
   },
   {
     "id": "openstax-chem2e-6.4",
     "url": "https://openstax.org/books/chemistry-2e/pages/6-4-electronic-structure-of-atoms-electron-configurations",
-    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 6.4 Electronic Structure of Atoms (Electron Configurations) (retrieved 2026-10-03). Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 6.4 Electronic Structure of Atoms (Electron Configurations) (retrieved 2026-10-03). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
   },
   {
     "id": "openstax-chem2e-6.5",
     "url": "https://openstax.org/books/chemistry-2e/pages/6-5-periodic-variations-in-element-properties",
-    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 6.5 Periodic Variations in Element Properties (retrieved 2026-10-03). Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 6.5 Periodic Variations in Element Properties (retrieved 2026-10-03). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
   },
   {
     "id": "openstax-chem2e-18.1",
     "url": "https://openstax.org/books/chemistry-2e/pages/18-1-periodicity",
-    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 18.1 Periodicity (retrieved 2026-10-03). Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 18.1 Periodicity (retrieved 2026-10-03). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
   },
   {
     "id": "openstax-chem2e-18.3",
     "url": "https://openstax.org/books/chemistry-2e/pages/18-3-structure-and-general-properties-of-the-metalloids",
-    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 18.3 Structure and General Properties of the Metalloids (retrieved 2026-10-03). Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 18.3 Structure and General Properties of the Metalloids (retrieved 2026-10-03). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
   },
   {
     "id": "openstax-chem2e-18.4",
     "url": "https://openstax.org/books/chemistry-2e/pages/18-4-structure-and-general-properties-of-the-nonmetals",
-    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 18.4 Structure and General Properties of the Nonmetals (retrieved 2026-10-03). Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 18.4 Structure and General Properties of the Nonmetals (retrieved 2026-10-03). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
   },
   {
     "id": "openstax-chem2e-18.11",
     "url": "https://openstax.org/books/chemistry-2e/pages/18-11-occurrence-preparation-and-properties-of-halogens",
-    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 18.11 Occurrence, Preparation, and Properties of Halogens (retrieved 2026-10-03). Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 18.11 Occurrence, Preparation, and Properties of Halogens (retrieved 2026-10-03). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
   },
   {
     "id": "openstax-chem2e-18.12",
     "url": "https://openstax.org/books/chemistry-2e/pages/18-12-occurrence-preparation-and-properties-of-the-noble-gases",
-    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 18.12 Occurrence, Preparation, and Properties of the Noble Gases (retrieved 2026-10-03). Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 18.12 Occurrence, Preparation, and Properties of the Noble Gases (retrieved 2026-10-03). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
   },
   {
     "id": "openstax-chem2e-19.1",
     "url": "https://openstax.org/books/chemistry-2e/pages/19-1-occurrence-preparation-and-properties-of-transition-metals-and-their-compounds",
-    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 19.1 Occurrence, Preparation, and Properties of Transition Metals and Their Compounds (retrieved 2026-10-03). Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
+    "citation": "Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019; Section 19.1 Occurrence, Preparation, and Properties of Transition Metals and Their Compounds (retrieved 2026-10-03). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction"
   },
   {
     "id": "iupac-red-book-2005",
@@ -652,7 +667,7 @@
   {
     "id": "iupac-periodic-table",
     "url": "https://iupac.org/what-we-do/periodic-table-of-elements/",
-    "citation": "International Union of Pure and Applied Chemistry (IUPAC). Periodic Table of Elements, the section \"Group 3\" (retrieved 2026-10-03)."
+    "citation": "International Union of Pure and Applied Chemistry (IUPAC). Periodic Table of Elements, the section \"Group 3\" (retrieved 2026-10-03; read again on 2026-10-17, when the section still put the question as open and the page gave 2022-09-12 as the date it was last changed)."
   },
   {
     "id": "rsc-periodic-table",
@@ -691,7 +706,7 @@
   },
   {
     "id": "perrin-1982-wikipedia",
-    "url": "https://en.wikipedia.org/w/index.php?title=Carbonic_acid&oldid=1376246456",
+    "url": "https://en.wikipedia.org/wiki/Carbonic_acid?oldid=1376246456",
     "citation": "Perrin, D. D., Ed. Ionisation Constants of Inorganic Acids and Bases in Aqueous Solution, 2nd ed.; IUPAC Chemical Data Series 29; Pergamon: Oxford, 1982. The book was not read: the two constants were taken from a secondary transcription, Wikipedia's article Carbonic acid, revision 1376246456 of 2026-09-23, linked here, whose infobox cites the book's entry for carbonic acid (retrieved 2026-10-04)."
   },
   {
@@ -701,7 +716,7 @@
   },
   {
     "id": "drop-unit-wikipedia",
-    "url": "https://en.wikipedia.org/w/index.php?title=Drop_(unit)&oldid=1314848686",
+    "url": "https://en.wikipedia.org/wiki/Drop_(unit)?oldid=1314848686",
     "citation": "Wikipedia contributors. Drop (unit); Wikipedia, revision 1314848686 of 2025-10-03, linked here (retrieved 2026-10-04)."
   },
   {
@@ -816,7 +831,7 @@
   },
   {
     "id": "wikipedia-burette",
-    "url": "https://en.wikipedia.org/w/index.php?title=Burette&oldid=1367898253",
+    "url": "https://en.wikipedia.org/wiki/Burette?oldid=1367898253",
     "citation": "Wikipedia contributors. Burette; Wikipedia, revision 1367898253 of 2026-08-05, linked here; read and not kept (retrieved 2026-10-04)."
   },
   {
@@ -946,37 +961,37 @@
   },
   {
     "id": "wikipedia-copper-ii-carbonate",
-    "url": "https://en.wikipedia.org/w/index.php?title=Copper(II)_carbonate&oldid=1339207964",
+    "url": "https://en.wikipedia.org/wiki/Copper(II)_carbonate?oldid=1339207964",
     "citation": "Wikipedia, Copper(II) carbonate, revision 1339207964 of 2026-02-19; a secondary source, read and not kept (retrieved 2026-10-06)."
   },
   {
     "id": "wikipedia-basic-copper-carbonate",
-    "url": "https://en.wikipedia.org/w/index.php?title=Basic_copper_carbonate&oldid=1350776409",
+    "url": "https://en.wikipedia.org/wiki/Basic_copper_carbonate?oldid=1350776409",
     "citation": "Wikipedia, Basic copper carbonate, revision 1350776409 of 2026-04-23; a secondary source, read and not kept (retrieved 2026-10-06)."
   },
   {
     "id": "wikipedia-nickel-ii-carbonate",
-    "url": "https://en.wikipedia.org/w/index.php?title=Nickel(II)_carbonate&oldid=1313977670",
+    "url": "https://en.wikipedia.org/wiki/Nickel(II)_carbonate?oldid=1313977670",
     "citation": "Wikipedia, Nickel(II) carbonate, revision 1313977670 of 2025-09-29; a secondary source, read and not kept (retrieved 2026-10-06)."
   },
   {
     "id": "wikipedia-carbon-dioxide",
-    "url": "https://en.wikipedia.org/w/index.php?title=Carbon_dioxide&oldid=1377189480",
+    "url": "https://en.wikipedia.org/wiki/Carbon_dioxide?oldid=1377189480",
     "citation": "Wikipedia, Carbon dioxide, revision 1377189480 of 2026-09-28; a secondary source, read and not kept (retrieved 2026-10-06)."
   },
   {
     "id": "wikipedia-calcium-carbonate",
-    "url": "https://en.wikipedia.org/w/index.php?title=Calcium_carbonate&oldid=1378195553",
+    "url": "https://en.wikipedia.org/wiki/Calcium_carbonate?oldid=1378195553",
     "citation": "Wikipedia, Calcium carbonate, revision 1378195553 of 2026-10-03; a secondary source, read and not kept (retrieved 2026-10-06)."
   },
   {
     "id": "wikipedia-litmus",
-    "url": "https://en.wikipedia.org/w/index.php?title=Litmus&oldid=1376875886",
+    "url": "https://en.wikipedia.org/wiki/Litmus?oldid=1376875886",
     "citation": "Wikipedia, Litmus, revision 1376875886 of 2026-09-26; a secondary source, read and not kept (retrieved 2026-10-06)."
   },
   {
     "id": "wikipedia-splint",
-    "url": "https://en.wikipedia.org/w/index.php?title=Splint_(laboratory_equipment)&oldid=1296681077",
+    "url": "https://en.wikipedia.org/wiki/Splint_(laboratory_equipment)?oldid=1296681077",
     "citation": "Wikipedia, Splint (laboratory equipment), revision 1296681077 of 2025-06-21; a secondary source, read and not kept (retrieved 2026-10-06)."
   },
   {
@@ -1105,6 +1120,71 @@
     "citation": "Flinn Scientific, Inc. Safety Data Sheet: Sodium Hydroxide Solution 0.3 M - 6.0 M, SDS number sds_735; revision date December 3, 2018 (read on 2026-10-06; no copy is kept)."
   },
   {
+    "id": "wards-sds-ss0180",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=662fa074b63b4913f680cea55e813fe43f883c36&vid=662fa074b63b4913f680cea55e813fe43f883c36&prid=original&clid=SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Silver Nitrate, 0.1 Molar (0.1 Normal) Solution, SDS No. SS0180; revision date October 25, 2024 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-agno3",
+    "url": "https://www.fishersci.com/store/msds?partNumber=S18125&productDescription=SILVER+NITRATE&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Silver nitrate, catalogue number S181; revision 8 of 18 December 2025 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-bb0041",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition/id_81f5f0062a518f58aba7cc5425e6e592e345956b/vid_81f5f0062a518f58aba7cc5425e6e592e345956b/prid_original/clid_SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Barium Chloride, 0.1 Molar Solution, SDS No. BB0041; revision date January 31, 2018 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-bacl2-dihydrate",
+    "url": "https://www.fishersci.com/store/msds?partNumber=B34500&productDescription=BARIUM+CHLORIDE+DIHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Barium chloride dihydrate, catalogue numbers B33 and B34; revision 7 of 18 December 2025 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-19847",
+    "url": "https://cameochemicals.noaa.gov/chemical/19847",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Barium Chloride Dihydrate (chemical 19847); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-08; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-20049",
+    "url": "https://cameochemicals.noaa.gov/chemical/20049",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Copper Sulfate Pentahydrate (chemical 20049); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-98",
+    "url": "https://cameochemicals.noaa.gov/chemical/98",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Ammonium Nitrate (chemical 98); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-aa0295",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=9c057dd07513669c1178f356251b1e62ec5e9b74&vid=9c057dd07513669c1178f356251b1e62ec5e9b74&prid=original&clid=SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Ammonium Nitrate, SDS No. AA0295; revision date June 11, 2024 (read on 2026-10-09; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-cc0349",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=dbd3d49c322cc4ff5e1ab6d2ff5e2dc05a77cd7f&vid=dbd3d49c322cc4ff5e1ab6d2ff5e2dc05a77cd7f&prid=original&clid=SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Cobalt(II) Chloride, Hexahydrate, SDS No. CC0349; revision date July 25, 2024 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "fisher-sds-cocl2-hexahydrate",
+    "url": "https://www.fishersci.com/store/msds?partNumber=C371100&productDescription=COBALT+CHLORIDE+HEXAHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
+    "citation": "Fisher Scientific Company. Safety Data Sheet: Cobalt(II) chloride hexahydrate, catalogue number C371; revision 6 of 18 December 2025 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-6949",
+    "url": "https://cameochemicals.noaa.gov/chemical/6949",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Magnesium (chemical 6949); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept)."
+  },
+  {
+    "id": "wards-sds-hh0093",
+    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=bfc5350df252e745fef34a139b6c2dcb3a156f9a&vid=bfc5350df252e745fef34a139b6c2dcb3a156f9a&prid=original&clid=SAPDAM",
+    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Hydrochloric Acid, 0.5 Molar (0.5 Normal) Solution, SDS No. HH0093; revision date August 22, 2024 (read on 2026-10-10; no copy is kept)."
+  },
+  {
+    "id": "noaa-cameo-3598",
+    "url": "https://cameochemicals.noaa.gov/chemical/3598",
+    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Hydrochloric Acid, Solution (chemical 3598); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-10; no copy is kept)."
+  },
+  {
     "id": "pines-2016",
     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5747581/",
     "citation": "Pines, D.; Ditkovich, J.; Mukra, T.; Miller, Y.; Kiefer, P. M.; Daschakraborty, S.; Hynes, J. T.; Pines, E. How Acidic Is Carbonic Acid? J. Phys. Chem. B 2016, 120, 2440-2451. (https://doi.org/10.1021/acs.jpcb.5b12428) Read as the authors' manuscript in PubMed Central (PMC5747581), linked here, fetched as XML through the National Center for Biotechnology Information's E-utilities, which carries the text, the tables and the captions of the figures but not the figures; the text read in full and not kept (retrieved 2026-10-07)."
@@ -1170,11 +1250,6 @@
     "citation": "Agliolo Gallitto, A.; Pace, V.; Zingales, R. Multidisciplinary learning at the University scientific museums: the Bunsen burner. Museologia Scientifica 2017, 11, 103-107. Read as the authors' copy at arXiv, 1712.08737, linked here; read and not kept (retrieved 2026-10-08)."
   },
   {
-    "id": "hyperphysics-flame-colors",
-    "url": "http://hyperphysics.phy-astr.gsu.edu/hbase/Chemical/flame.html",
-    "citation": "Nave, C. R. HyperPhysics: Flame Colors as Chemical Indicators. Georgia State University; read and not kept (retrieved 2026-10-08)."
-  },
-  {
     "id": "hope-flame-test-prelab",
     "url": "https://chem.libretexts.org/Courses/Hope_College/General_Chemistry_Labs/Pre-Lab_Materials/Flame_Test",
     "citation": "Hope College. General Chemistry Labs, Pre-Lab Materials: Flame Test; LibreTexts; read and not kept (retrieved 2026-10-08)."
@@ -1218,21 +1293,6 @@
     "id": "flinn-sds-785",
     "url": "https://www.flinnsci.com/sds_785-strontium-chloride-solution/sds_785",
     "citation": "Flinn Scientific, Inc. Safety Data Sheet: Strontium Chloride Solution, SDS number sds_785; revision date January 16, 2014 (read on 2026-10-08; no copy is kept)."
-  },
-  {
-    "id": "wards-sds-bb0041",
-    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition/id_81f5f0062a518f58aba7cc5425e6e592e345956b/vid_81f5f0062a518f58aba7cc5425e6e592e345956b/prid_original/clid_SAPDAM",
-    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Barium Chloride, 0.1 Molar Solution, SDS No. BB0041; revision date January 31, 2018 (read on 2026-10-08; no copy is kept)."
-  },
-  {
-    "id": "fisher-sds-bacl2-dihydrate",
-    "url": "https://www.fishersci.com/store/msds?partNumber=B34500&productDescription=BARIUM+CHLORIDE+DIHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
-    "citation": "Fisher Scientific Company. Safety Data Sheet: Barium chloride dihydrate, catalogue numbers B33 and B34; revision 7 of 18 December 2025 (read on 2026-10-08; no copy is kept)."
-  },
-  {
-    "id": "noaa-cameo-19847",
-    "url": "https://cameochemicals.noaa.gov/chemical/19847",
-    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Barium Chloride Dihydrate (chemical 19847); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-08; no copy is kept)."
   },
   {
     "id": "flinn-sds-196",
@@ -1385,19 +1445,9 @@
     "citation": "Brown, P. Doc Brown's Chemistry, advanced level revision notes: Experimental methods for determining enthalpy changes; read and not kept (retrieved 2026-10-09)."
   },
   {
-    "id": "wards-sds-aa0295",
-    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=9c057dd07513669c1178f356251b1e62ec5e9b74&vid=9c057dd07513669c1178f356251b1e62ec5e9b74&prid=original&clid=SAPDAM",
-    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Ammonium Nitrate, SDS No. AA0295; revision date June 11, 2024 (read on 2026-10-09; no copy is kept)."
-  },
-  {
     "id": "fisher-sds-nh4no3",
     "url": "https://www.fishersci.com/store/msds?partNumber=A676500&productDescription=AMMONIUM+NITRATE&vendorId=VN00033897&countryCode=US&language=en",
     "citation": "Fisher Scientific Company. Safety Data Sheet: Ammonium nitrate, catalogue number A676; revision 7 of 18 December 2025 (read on 2026-10-09; no copy is kept)."
-  },
-  {
-    "id": "noaa-cameo-98",
-    "url": "https://cameochemicals.noaa.gov/chemical/98",
-    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Ammonium Nitrate (chemical 98); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-09; no copy is kept)."
   },
   {
     "id": "flinn-sds-34",
@@ -1635,16 +1685,6 @@
     "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Nitric Acid, Other Than Red Fuming (chemical 19337); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-09; no copy is kept)."
   },
   {
-    "id": "wards-sds-ss0180",
-    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=662fa074b63b4913f680cea55e813fe43f883c36&vid=662fa074b63b4913f680cea55e813fe43f883c36&prid=original&clid=SAPDAM",
-    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Silver Nitrate, 0.1 Molar (0.1 Normal) Solution, SDS No. SS0180; revision date October 25, 2024 (read on 2026-10-09; no copy is kept)."
-  },
-  {
-    "id": "fisher-sds-agno3",
-    "url": "https://www.fishersci.com/store/msds?partNumber=S18125&productDescription=SILVER+NITRATE&vendorId=VN00033897&countryCode=US&language=en",
-    "citation": "Fisher Scientific Company. Safety Data Sheet: Silver nitrate, catalogue number S181; revision 8 of 18 December 2025 (read on 2026-10-09; no copy is kept)."
-  },
-  {
     "id": "noaa-cameo-4443",
     "url": "https://cameochemicals.noaa.gov/chemical/4443",
     "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Silver Nitrate (chemical 4443); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-09; no copy is kept)."
@@ -1835,11 +1875,6 @@
     "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Lead Nitrate, 0.5 Molar Solution, SDS No. LL0131; revision date September 5, 2024 (read on 2026-10-10; no copy is kept)."
   },
   {
-    "id": "wards-sds-hh0093",
-    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=bfc5350df252e745fef34a139b6c2dcb3a156f9a&vid=bfc5350df252e745fef34a139b6c2dcb3a156f9a&prid=original&clid=SAPDAM",
-    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Hydrochloric Acid, 0.5 Molar (0.5 Normal) Solution, SDS No. HH0093; revision date August 22, 2024 (read on 2026-10-10; no copy is kept)."
-  },
-  {
     "id": "wards-sds-hh0171",
     "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=aced1021014843694fb0cfc914dca243b32fccf3&vid=aced1021014843694fb0cfc914dca243b32fccf3&prid=original&clid=SAPDAM",
     "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Hydrochloric Acid, 36.5-38%, SDS No. HH0171; revision date August 23, 2024 (read on 2026-10-10; no copy is kept)."
@@ -1848,11 +1883,6 @@
     "id": "fisher-sds-hydrochloric-acid",
     "url": "https://www.fishersci.com/store/msds?partNumber=A144212&productDescription=HYDROCHLORIC+ACID&vendorId=VN00033897&countryCode=US&language=en",
     "citation": "Fisher Scientific Company. Safety Data Sheet: Hydrochloric Acid, catalogue numbers A144, A144C, A144P, A144S and A144SI; revision 9 of 18 December 2025 (read on 2026-10-10; no copy is kept)."
-  },
-  {
-    "id": "noaa-cameo-3598",
-    "url": "https://cameochemicals.noaa.gov/chemical/3598",
-    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Hydrochloric Acid, Solution (chemical 3598); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-10; no copy is kept)."
   },
   {
     "id": "noaa-cameo-19288",
@@ -1873,16 +1903,6 @@
     "id": "fisher-sds-methyl-violet-2b",
     "url": "https://www.fishersci.com/store/msds?partNumber=AC415070250&productDescription=METHYL+VIOLET+2B&vendorId=VN00032119&countryCode=US&language=en",
     "citation": "Acros Organics, Fisher Scientific Company. Safety Data Sheet: Methyl Violet 2B, catalogue number AC41507; revision 6 of 19 December 2025 (read on 2026-10-10; no copy is kept)."
-  },
-  {
-    "id": "wards-sds-cc0349",
-    "url": "https://digitalassets.avantorsciences.com/adaptivemedia/rendition?id=dbd3d49c322cc4ff5e1ab6d2ff5e2dc05a77cd7f&vid=dbd3d49c322cc4ff5e1ab6d2ff5e2dc05a77cd7f&prid=original&clid=SAPDAM",
-    "citation": "Ward's Science and Boreal Science. Safety Data Sheet: Cobalt(II) Chloride, Hexahydrate, SDS No. CC0349; revision date July 25, 2024 (read on 2026-10-10; no copy is kept)."
-  },
-  {
-    "id": "fisher-sds-cocl2-hexahydrate",
-    "url": "https://www.fishersci.com/store/msds?partNumber=C371100&productDescription=COBALT+CHLORIDE+HEXAHYDRATE&vendorId=VN00033897&countryCode=US&language=en",
-    "citation": "Fisher Scientific Company. Safety Data Sheet: Cobalt(II) chloride hexahydrate, catalogue number C371; revision 6 of 18 December 2025 (read on 2026-10-10; no copy is kept)."
   },
   {
     "id": "flinn-sds-862",
@@ -2415,6 +2435,21 @@
     "citation": "Wikipedia, Van 't Hoff factor, revision 1315827894 of 2025-10-08; a secondary source, read and not kept (retrieved 2026-10-12)."
   },
   {
+    "id": "archer-nacl-1992",
+    "url": "https://srd.nist.gov/jpcrdreprint/1.555915.pdf",
+    "citation": "Archer, D. G. Thermodynamic Properties of the NaCl+H2O System. II. Thermodynamic Properties of NaCl(aq), NaCl·2H2O(cr), and Phase Equilibria. J. Phys. Chem. Ref. Data 1992, 21 (4), 793–829. https://doi.org/10.1063/1.555915 Read as the reprint NIST serves, linked here; read and not kept (retrieved 2026-10-18)."
+  },
+  {
+    "id": "archer-kcl-1999",
+    "url": "https://srd.nist.gov/jpcrdreprint/1.556034.pdf",
+    "citation": "Archer, D. G. Thermodynamic Properties of the KCl+H2O System. J. Phys. Chem. Ref. Data 1999, 28 (1), 1–17. https://doi.org/10.1063/1.556034 Read as the reprint NIST serves, linked here; read and not kept (retrieved 2026-10-18)."
+  },
+  {
+    "id": "archer-nabr-1991",
+    "url": "https://srd.nist.gov/jpcrdreprint/1.555888.pdf",
+    "citation": "Archer, D. G. Thermodynamic Properties of the NaBr+H2O System. J. Phys. Chem. Ref. Data 1991, 20 (3), 509. https://doi.org/10.1063/1.555888 Read as the reprint NIST serves, linked here; read and not kept (retrieved 2026-10-18)."
+  },
+  {
     "id": "flinn-sds-420",
     "url": "https://www.flinnsci.com/sds_420-isopropyl-alcohol/sds_420",
     "citation": "Flinn Scientific, Inc. Safety Data Sheet: Isopropyl Alcohol, SDS number sds_420; revision date June 26, 2015 (read on 2026-10-12; no copy is kept)."
@@ -2508,16 +2543,6 @@
     "id": "birk-calcium",
     "url": "https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Qualitative_Analysis/Characteristic_Reactions_of_Select_Metal_Ions/Characteristic_Reactions_of_Calcium_Ions_(Ca)",
     "citation": "Birk, J. P. Characteristic Reactions of Calcium Ions (Ca²⁺). In Supplemental Modules (Analytical Chemistry): Qualitative Analysis, Characteristic Reactions of Select Metal Ions; LibreTexts; read and not kept (retrieved 2026-10-12)."
-  },
-  {
-    "id": "noaa-cameo-20049",
-    "url": "https://cameochemicals.noaa.gov/chemical/20049",
-    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Copper Sulfate Pentahydrate (chemical 20049); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept)."
-  },
-  {
-    "id": "noaa-cameo-6949",
-    "url": "https://cameochemicals.noaa.gov/chemical/6949",
-    "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Magnesium (chemical 6949); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept)."
   },
   {
     "id": "flinn-sds-398.5",

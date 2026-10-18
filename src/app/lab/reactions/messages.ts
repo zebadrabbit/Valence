@@ -464,7 +464,7 @@ export const PAGE_TEXT = {
   /** In the list of a picture's parts, after a part's name. */
   notLookedAt: 'not looked at yet',
   /** In a picture, under its drawing, while no part is looked at: what to do with it. It is the picture's description, and says nothing of what is seen. */
-  explore: 'Hover over or tap each part of a picture to look at it.',
+  explore: 'Point at each part of a picture, or tap it or move to it with the keyboard, to look at it.',
   /** Over the choice of what is asked now, where a station has several tubes: each tube's kind and equation, and the order. */
   oneAtATime: 'One at a time',
   /** A closed disclosure that holds the whole of what the pictures show, in words. */

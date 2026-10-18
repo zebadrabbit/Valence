@@ -226,7 +226,7 @@
     {
       "symbols": ["F"],
       "row": "yearDiscovered",
-      "text": "PubChem's fluorine page dates the first recorded use of a fluorine compound to about 1670, and says the element was not isolated until 1886.",
+      "text": "PubChem's fluorine page says that a fluorine compound was first recorded in use about 1670, and that the element was first isolated in 1886.",
       "sourceId": "pubchem-element-pages"
     },
     {

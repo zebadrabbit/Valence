@@ -6,7 +6,7 @@ The inputs the freezing point depression lab is built from (spec section 23), wh
 
 | File | What it is |
 | --- | --- |
-| `freezing.json` | The lab's record: the three liquids the unknown may be, urea and the three salts, each with its composition, its molar mass and the particles each formula unit gives; the freezing point constant of water; the eight atomic weights; three measured freezing points of solutions; the three parts with the notes shown when each is done; and the model's twenty-four parameters, each with its rationale |
+| `freezing.json` | The lab's record: the three liquids the unknown may be, urea and the three salts, each with its composition, its molar mass and the particles each formula unit gives; the freezing point constant of water; the eight atomic weights; three measured freezing points of solutions; three osmotic coefficients of the salts' solutions (since 2026-10-18); the three parts with the notes shown when each is done; and the model's twenty-four parameters, each with its rationale |
 | `sources/MANIFEST.json` | Every source of that record and of the primer (`src/chem-data/freezing/primer.ts`): its address, its citation, and rows that say what it prints and where, each naming the stored values it supports |
 | `hazards.json` | The hazards of the seven things on the bench: for each, the heading over its statements, the signal word, the statements and the note |
 | `sources/hazard-manifest.json` | The thirteen documents behind those hazards, with rows that say what each prints, and what was read and not carried |
@@ -17,11 +17,14 @@ The inputs the freezing point depression lab is built from (spec section 23), wh
 | Value | Stored | Source |
 | --- | --- | --- |
 | Freezing point constant of water | 1.86 °C·kg/mol, printed as 1.86 K·kg/mol | Wikipedia's article Freezing-point depression, revision 1336114117, its table of cryoscopic constants; the table gives the figure a reference of its own, to Aylward and Findlay, *SI Chemical Data*, 5th ed., p 202, which was not read |
-| Atomic weights of H, C, N, O, Na, Cl, K, Br | 1.0080, 12.011, 14.007, 15.999, 22.990, 35.45, 39.098, 79.904 | CIAAW's abridged standard atomic weights 2024, from the copy the periodic table keeps; the build holds each to the periodic table's record |
+| Atomic weights of H, C, N, O, Na, Cl, K, Br | 1.0080, 12.011, 14.007, 15.999, 22.990, 35.45, 39.098, 79.904 | CIAAW's abridged standard atomic weights 2024, from the extract the periodic table keeps; the build holds each to the periodic table's record |
 | Molar masses | acetone 58.08, ethanol 46.07, 2-propanol 60.10, urea 60.06, sodium chloride 58.44, potassium chloride 74.55, sodium bromide 102.89 g/mol | Worked out from those weights, to two decimals, with the working stored; the build works each out again |
 | Sodium chloride in water, 2% by mass | freezes at −1.19 °C | The CRC Handbook's table of the properties of mixtures of water and sodium chloride, 86th ed., as Wikipedia's Sodium chloride (data page), revision 1379379503, transcribes it; the handbook was not read |
 | Sodium chloride in water, 3% by mass | freezes at −1.79 °C | The same table |
 | Ethanol in water, 2.5% by mass | freezes at −1 °C | Lange's Handbook, 10th ed., as Wikipedia's Ethanol (data page), revision 1341104734, transcribes it; the handbook was not read |
+| Sodium chloride, 0.5 mol/kg at 273.15 K | osmotic coefficient 0.9108 | Archer, *J. Phys. Chem. Ref. Data* 21, 793 (1992), Table 9: NIST's evaluation of the NaCl + H₂O system, read as the reprint NIST serves (added 2026-10-18) |
+| Potassium chloride, 0.5 mol/kg at 273.15 K | osmotic coefficient 0.8907 | Archer, *J. Phys. Chem. Ref. Data* 28, 1 (1999), Table 7: the same for KCl + H₂O |
+| Sodium bromide, 0.5 mol/kg at 273.15 K | osmotic coefficient 0.926 | Archer, *J. Phys. Chem. Ref. Data* 20, 509 (1991), Table A-5: the same for NaBr + H₂O |
 
 ### The particles each formula unit gives
 
@@ -30,7 +33,8 @@ The inputs the freezing point depression lab is built from (spec section 23), wh
 | Acetone, ethanol, 2-propanol | 1 | The ideal. For ethanol one measured figure stands beside it in the notes: the 2.5% row gives 1 ÷ 1.04, which is 1 to the one figure the table prints. No measured freezing point was found for a solution of acetone or of 2-propanol |
 | Urea | 1 | The ideal. No measured freezing point was found |
 | Sodium chloride | 1.82 | Measured: the 3% row, 0.529 mol/kg, where one particle for each formula unit would give 0.984 °C and the table prints 1.79 °C. The bench's solutions are 2.4% to 3.1% by mass. The 2% row gives 1.83, and the rows for 1%, 4% and 5% give 1.84, 1.82 and 1.82 |
-| Potassium chloride, sodium bromide | 2 | The ideal, marked as the ideal: no measured freezing point of their solutions was found in a source that could be read. The notes and the page say that this is more than a real salt gives |
+| Potassium chloride | 1.78 | Evaluated, since 2026-10-18: twice the osmotic coefficient NIST's evaluation gives for 0.5 mol/kg at 273.15 K, 2 × 0.8907. Until then it was 2, the ideal |
+| Sodium bromide | 1.85 | Evaluated, the same way: 2 × 0.926. Until 2026-10-18 it was 2, the ideal |
 
 ## The parameters, and the numbers over seeds 1 to 100
 
@@ -43,7 +47,7 @@ All twenty-four are model parameters with rationales in the record; none is a ci
 - **The amounts.** The unknown is 3.60 to 4.50 g, whichever liquid it is. Urea is 5.25 to 5.90 g, sodium chloride 2.66 to 3.08 g, potassium chloride 3.39 to 3.93 g, sodium bromide 4.67 to 5.42 g.
 - **The tolerances.** A molar mass counts within 1.5% of the stored one, a count of particles within 3%.
 
-**By the build, over the seeded amounts** (three first readings, five masses of water and up to ten masses of solute for each solute, each with a careful run strained when it levels and again three presses later): every fall is from 1.06 to 1.98 °C, so it has three figures; 16.4 g or more of ice is left when the cup is strained, and 14.0 g or more at the logger's last reading with the lid on; a careful run levels within 14 readings, seven presses. With the result worked on unrounded numbers and half a unit of the third figure added for each rounded entry on the way, a bound on every chain the rounding rule allows, a careful learner is within 0.70% for acetone, 0.60% for ethanol and 0.72% for 2-propanol, and within 1.25% for urea, 0.92% for sodium chloride, 0.88% for potassium chloride and 0.86% for sodium bromide.
+**By the build, over the seeded amounts** (three first readings, five masses of water and up to ten masses of solute for each solute, each with a careful run strained when it levels and again three presses later): every fall is from 1.06 to 1.85 °C, so it has three figures; 16.5 g or more of ice is left when the cup is strained, and 14.1 g or more at the logger's last reading with the lid on; a careful run levels within 14 readings, seven presses. With the result worked on unrounded numbers and half a unit of the third figure added for each rounded entry on the way, a bound on every chain the rounding rule allows, a careful learner is within 0.70% for acetone, 0.60% for ethanol and 0.72% for 2-propanol, and within 1.25% for urea, 0.92% for sodium chloride, 0.92% for potassium chloride and 0.90% for sodium bromide.
 
 **How the three liquids are told apart.** Acetone and 2-propanol are 2.02 g/mol apart, 3.48% of the smaller, so a result nearer the wrong one is 1.74% out. The tolerance, 1.5%, is under the 1.7% at which the two allowances would meet; the build refuses 1.8%. Ethanol is 26% from acetone.
 
@@ -56,7 +60,8 @@ All twenty-four are model parameters with rationales in the record; none is a ci
 | 2-Propanol | −0.50% | +0.50% |
 | Urea, count of particles against the stored one | −0.6% | +1.0% |
 | Sodium chloride | −0.55% | +0.55% |
-| Potassium chloride, sodium bromide | −0.5% | +0.5% |
+| Potassium chloride | −0.56% | +0.56% |
+| Sodium bromide | −0.54% | +0.54% |
 | Part 2, every value Guided takes for each entry | −0.5% | +0.5% |
 | Part 3, every value Guided takes for each entry | −0.6% | +1.0% |
 
@@ -74,7 +79,7 @@ Guided warns before each: of the lid and the stirrer when the logger is started 
 
 - **The constant** was read in a Wikipedia article, at the address the site leaves open (`/wiki/Title?oldid=…`), at the revision recorded. The book its table cites for water was not read.
 - **The two handbook tables** were read through Wikipedia's data pages, which transcribe them; neither handbook was read. Both pages are ones the measurement and density lab read on the same day: their saved copies were checked against the hashes that lab recorded and read again for the column of freezing temperatures, which that lab did not use, and were not fetched again. So was the article Thermometer.
-- **The atomic weights** are the copy the periodic table keeps.
+- **The atomic weights** are from the extract of CIAAW's table that the periodic table keeps.
 - **The primer's sources** are the article on freezing-point depression, the article on the van 't Hoff factor and the article on the thermometer, with six of the supplier's sheets for its safety card. No page of OpenStax was fetched, and no site's search was used.
 - **The hazards** follow the rule of spec 5.2: the default supplier's sheet for each substance, and one or two other documents. Three sheets were read new (isopropyl alcohol, urea, sodium bromide), with NOAA's records of isopropanol and of urea. For acetone, ethanol, sodium chloride and potassium chloride the documents are ones the iodination of acetone, density and flame test labs had read; their saved pages were checked against the hashes those labs recorded and read again, and none was fetched again. Each record is this lab's own: no other lab has the same thing in the same form (acetone there is a 4 M solution, ethanol a 95% liquid in a cylinder, the two chlorides solutions).
 
@@ -90,7 +95,7 @@ Guided warns before each: of the lid and the stirrer when the logger is started 
 
 ## What could not be sourced, or only in part
 
-- **Measured freezing points of solutions of potassium chloride, sodium bromide, urea, acetone and 2-propanol.** None was found in a source that could be read. One web search was made for a transcription of the handbook's table of the properties of solutions; it gave problem sets and teaching pages and no table. The two salts are stored as 2 and the other three as 1, each marked as the ideal.
+- **Measured freezing points of solutions of potassium chloride, sodium bromide, urea, acetone and 2-propanol.** None was found in a source that could be read. One web search was made for a transcription of the handbook's table of the properties of solutions; it gave problem sets and teaching pages and no table. Urea and the two liquids are stored as 1, each marked as the ideal. The two salts were stored as 2, the ideal, until 2026-10-18, and since then as figures evaluated from measurements (see the section of that date): the freezing points themselves are still not read, only an evaluation fitted to them and to other measurements.
 - **Ethanol's one row** is printed to a whole degree, so it says only that a real solution of that strength is at the ideal to one figure.
 - **The freezing point constant** rests on a secondary transcription of a book's table. The same article gives the heat of melting of ice, 333.6 J/g, which with the specific heat of water is where the rounded 80 gram-degrees of one parameter comes from; that figure is a model parameter and cites nothing.
 - **Sodium bromide's hazards** rest on the supplier's sheet alone. NOAA's list of names under the letter S, in the copy the clock reaction lab saved on 2026-10-09, has no record of it, and no second supplier's sheet was looked for.
@@ -98,7 +103,7 @@ Guided warns before each: of the lid and the stirrer when the logger is started 
 
 ## What a chemist should look at
 
-- **One count of particles is measured and two are the ideal.** A learner who picks sodium chloride is held to 1.82 and one who picks potassium chloride or sodium bromide to 2.00, though real solutions of those two at this strength give about as much under two as sodium chloride does. The notes say so. A handbook's rows for the two would put this right.
+- **The three salts' counts come two ways.** Sodium chloride's 1.82 is worked from a handbook's freezing point; potassium chloride's 1.78 and sodium bromide's 1.85, since 2026-10-18, from osmotic coefficients that NIST's evaluations give at 273.15 K and 0.5 mol/kg. The same kind of evaluation gives sodium chloride 1.82 too, so the two ways agree where both can be had; a handbook's freezing points for the other two would be a direct check.
 - **1.82 is used at every strength of the bench**, and the liquids' and urea's 1 likewise: the model has no change of the count with strength.
 - **The constant is used as it stands** for solutions of 0.4 to 1.0 mol/kg, 2.4% to 6% by mass, where a real solution is no longer dilute.
 - **The three liquids are taken as pure and as not evaporating.** Acetone in particular is volatile. Real ethanol and 2-propanol on a shelf hold water.
@@ -124,7 +129,7 @@ Every page and sheet but the periodic table's copy: the manifests give each one'
 
 ## The engine
 
-`src/engine/freezing/`, on the shared figures of `src/engine/figures.ts`. Nothing was lifted out of the calorimetry lab's engine: the cup's recurrence, the readings to a hundredth of a degree and the stored shape are this lab's own, and the calorimetry lab's files are untouched. The build's checks step a copy of the cup in `scripts/freezing-lib.mjs`, which a test holds to the engine's, reading for reading. The stored record's entry is `lab:freezing-point-depression`, version 1 (`src/freezing-version.test.ts`), and the lab is the eleventh of the activities. The sentences of the page are in `src/app/lab/freezing/messages.ts`.
+`src/engine/freezing/`, on the shared figures of `src/engine/figures.ts`. Nothing was lifted out of the calorimetry lab's engine: the cup's recurrence, the readings to a hundredth of a degree and the stored shape are this lab's own, and the calorimetry lab's files are untouched. The build's checks step a copy of the cup in `scripts/freezing-lib.mjs`, which a test holds to the engine's, reading for reading. The stored record's entry is `lab:freezing-point-depression`, version 2 since 2026-10-18 and 1 before (`src/freezing-version.test.ts`), and the lab is the eleventh of the activities. The sentences of the page are in `src/app/lab/freezing/messages.ts`.
 
 ## What nobody checked
 
@@ -211,3 +216,24 @@ The graph in words gives the first reading, the reading the solute went in after
 - **No chemistry instructor** has read the record, the primer, the notes or the hazard notes. For one to decide: whether paired ions is the reason to give for a count under two; whether two salts held to the ideal beside one that is measured is fair to a learner who picks them; and the points under "What a chemist should look at".
 - The documents four of the hazard notes share with earlier labs were not read again, and nothing was fetched.
 - The page with its text enlarged, at 200% zoom, in a high-contrast mode, or at a width between the two tried.
+
+## Changed on 2026-10-18: potassium chloride and sodium bromide
+
+Asked for by the owner's list of open chemistry questions. Until this date the lab held a learner who chose potassium chloride or sodium bromide to 2.00 particles for each formula unit, the ideal, since no measured freezing point of their solutions had been read, while sodium chloride had a measured 1.82.
+
+**What was read.** NIST's critical evaluations of the three salts in water, each a set of equations fitted to published measurements of many kinds (freezing points among them, from about 260 K up), read as the reprints NIST serves at `srd.nist.gov/jpcrdreprint/`, whose site has no robots file:
+
+- Archer, D. G. *J. Phys. Chem. Ref. Data* 1992, 21, 793. Table 9 gives sodium chloride's osmotic coefficient at 273 K and 0.5 mol/kg as 0.9108.
+- Archer, D. G. *J. Phys. Chem. Ref. Data* 1999, 28, 1. Table 7 gives potassium chloride's at 273.15 K and 0.5 mol/kg as 0.8907, and at 298.15 K as 0.9000.
+- Archer, D. G. *J. Phys. Chem. Ref. Data* 1991, 20, 509. Table A-5 gives sodium bromide's at 273.15 K, 0.1 MPa and 0.5 mol/kg as 0.926.
+
+Each figure was read in the text taken out of the reprint and checked by eye on the page, since that text misreads some figures of the scanned tables. NBS's older evaluation at 25 °C only (Hamer and Wu, *J. Phys. Chem. Ref. Data* 1972, 1, 1047, also read as NIST's reprint) gives potassium chloride 0.900 at 0.5 mol/kg, as Archer's table does at 298.15 K; it was read as a check and is not cited by the record.
+
+**How a count follows.** The osmotic coefficient is the fall a salt's solution gives over the fall it would give if every ion counted whole, so the count of particles is two times it. Worked so, sodium chloride's 0.9108 gives 1.82, the very figure the handbook's freezing point of a 3% solution (0.529 mol/kg) gives: the two ways agree to the three figures stored. Potassium chloride's 0.8907 gives 1.78 and sodium bromide's 0.926 gives 1.85. The coefficients are those of 0.5 mol/kg, about the middle of the bench's strengths, and of 273.15 K, within two degrees of where the solutions freeze. The record keeps them as rows of `osmotic`, with the source's digits, and the build works each count out again and refuses one that does not follow; sodium chloride's row is there to show the agreement and no model uses it.
+
+**What changes for the learner.** A run with potassium chloride is now held to 1.78 and one with sodium bromide to 1.85, each within the same 3%. The same amounts of salt give a smaller fall than before, about 11% smaller for potassium chloride and 7.5% for sodium bromide: over the seeded amounts, falls of 1.42 to 1.77 °C and 1.47 to 1.83 °C where they were 1.59 to 1.98 °C. A careful learner is within 0.56% and 0.54% of the stored figures at seeds 1 to 100. A learner's result is worked from the learner's own fall, so it comes out near the new figures as it came out near 2 before; the notes of part 3 now give both figures and where they come from, where they said that 2 was the ideal and more than a real salt gives. The page's sentences come from the record, so the line that gives what a result was held to now gives 1.78 or 1.85 with a sentence that says the figure is evaluated.
+
+**The stored record.** The stored entry `lab:freezing-point-depression` is now version 2 (`src/app/activities.ts`, `src/freezing-version.test.ts`). A lab saved at version 1 is set aside under a backup key when the page is opened, and the lab starts afresh: it would otherwise be judged again against the new figures.
+
+**Still open.** Sodium chloride's figure is still the handbook's freezing point, and the other two are an evaluation's, at one strength; a handbook's or a paper's measured freezing points for potassium chloride and sodium bromide would be a direct check. The count is used at every strength of the bench, as before.
+

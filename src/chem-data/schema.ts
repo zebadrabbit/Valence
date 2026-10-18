@@ -145,11 +145,12 @@ export const stationSchema = z.strictObject({
 // The record sourceId covers symbol, name and atomic number. Radii are in Å.
 /**
  * Emission lines of the isolated atom in a discharge lamp: wavelengths in nm, in air, longest first.
- * `selection` says which of the source's lines were chosen. `note` is shown under the strip, where the strip
- * cannot show what the table does.
+ * `selection` says which of the source's lines were chosen. Where it says more, `selectionSourceIds` names the
+ * sources of that. `note` is shown under the strip, where the strip cannot show what the table does.
  */
 export const emissionSchema = z.strictObject({
   selection: text,
+  selectionSourceIds: z.array(id).min(1).optional(),
   note: text.optional(),
   lines: z.array(citedNumber(z.number().positive()).extend({ transition: text.optional() })).min(1),
 })

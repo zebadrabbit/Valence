@@ -24,7 +24,7 @@ No source has a copy in this folder. Three sources are shared with other labs an
 | Specific heat of iron | 0.449 J/(g·°C) | 25.10 over 55.845 |
 | Specific heat of zinc | 0.388 J/(g·°C) | 25.40 over 65.38 |
 | Specific heat of tin | 0.227 J/(g·°C) | 26.99, white tin, over 118.71 |
-| Molar masses of the four metals | as above | CIAAW abridged standard atomic weights, the copy kept for the periodic table |
+| Molar masses of the four metals | as above | CIAAW abridged standard atomic weights, the extract kept for the periodic table |
 | Molar mass of ammonium nitrate | 80.044 g/mol | PubChem's table, the copy kept for the aqueous reactions lab |
 | Specific heat of water | 4.18 J/(g·°C) | NIST Chemistry WebBook, which prints 4.1813 J/(g·K) at 25 °C and 0.1 MPa |
 | Density of water | 1.00 g/mL | The same page, which prints 0.99705 g/mL |
@@ -73,6 +73,12 @@ Every source. A value read from a page that is not kept rests on what the manife
 The quotation fingerprint that `src/chem-data/calorimetry/quotation.test.ts` compares the lab's words against is not kept either, for the reason `../phase-3/sources/README.md` gives. `scripts/fingerprint-sources.mjs` writes it to `sources/`, where `.gitignore` lists it, from pages saved outside the repository:
 
     node scripts/fingerprint-sources.mjs <folder of saved pages> 2026-10-09 docs/research/calorimetry/sources
+
+## The hazard notes since 2026-10-18
+
+The five notes of this lab's own were longer than the 160 words the later labs' notes keep to (spec 5.2): solid ammonium nitrate's 166 words, aluminium's 192, iron's 183, zinc's 204 and tin's 189. They were cut on 2026-10-18 to 160, 160, 154, 160 and 160, in the same three paragraphs and from the same documents. What was taken out is words, not what the documents ask: each metal's note now says in its first sentence that the piece is heated in boiling water on purpose, where each said it again in its second paragraph; tin's no longer adds that the powder is another matter after NOAA's line on the powder; and the mass of each piece, about 50 g for all four, is in the lab's bench and not in the notes. Two manifest rows were reworded to match (aluminium's line on fine powder and water, and NOAA's line on tin powder). No signal word, statement or heading changed. The two bottles this lab carries from the aqueous reactions lab, the 1 M acid and base, took the same form that day with that lab's notes.
+
+The four metals' tiles stand together until a run of part 3 counts, so a test holds each metal's note to the same first sentence, which names no mass. The lab's no-quotation test now covers the seven notes, the headings over their statements and the hazard manifest's rows, as the later labs' tests do.
 
 ## What nobody checked
 

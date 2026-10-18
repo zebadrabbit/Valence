@@ -76,7 +76,7 @@
     },
     {
       "id": "perrin-1982-wikipedia",
-      "url": "https://en.wikipedia.org/w/index.php?title=Carbonic_acid&oldid=1376246456",
+      "url": "https://en.wikipedia.org/wiki/Carbonic_acid?oldid=1376246456",
       "citation": "Perrin, D. D., Ed. Ionisation Constants of Inorganic Acids and Bases in Aqueous Solution, 2nd ed.; IUPAC Chemical Data Series 29; Pergamon: Oxford, 1982. The book was not read: the two constants were taken from a secondary transcription, Wikipedia's article Carbonic acid, revision 1376246456 of 2026-09-23, linked here, whose infobox cites the book's entry for carbonic acid (retrieved 2026-10-04).",
       "file": "wikipedia-carbonic-acid-1376246456.json",
       "sha256": "8560a47cb792ec967da3f25057418538402186e55ad3301b37d91a8f18225f81",
@@ -117,7 +117,7 @@
     },
     {
       "id": "drop-unit-wikipedia",
-      "url": "https://en.wikipedia.org/w/index.php?title=Drop_(unit)&oldid=1314848686",
+      "url": "https://en.wikipedia.org/wiki/Drop_(unit)?oldid=1314848686",
       "citation": "Wikipedia contributors. Drop (unit); Wikipedia, revision 1314848686 of 2025-10-03, linked here (retrieved 2026-10-04).",
       "file": "wikipedia-drop-unit-1314848686.json",
       "sha256": "092e901047eebaf7fa1de3faff3d48cbf4cbd6433b1935616e298fbd4d8ea259",
@@ -258,7 +258,7 @@
         {
           "field": "bottles.hcl.hazards.note",
           "prints": "2-10%",
-          "where": "Section 3, the concentration column, in the row for hydrochloric acid, the rest being water. The sheet does not say on what basis the percentage is. Taken by mass, 2% is about 0.55 mol/L (worked out as the note's 0.4% is), so the table starts well above the 0.1 M of the sheet's own title, and above every value of this bottle's label. The note follows the titles, which put the label on both sides of the line between the two sheets, and does not use this figure."
+          "where": "Section 3, the concentration column, in the row for hydrochloric acid, the rest being water. The sheet does not say on what basis the percentage is. Taken by mass, 2% is about 0.55 mol/L (worked out from the formula weight, not read here), so the table starts well above the 0.1 M of the sheet's own title, and above every value of this bottle's label. The note follows the titles, which put the label on both sides of the line between the two sheets, and does not use this figure."
         },
         {
           "field": "bottles.hcl.hazards.note",
@@ -279,6 +279,11 @@
           "field": "bottles.hcl.hazards.note",
           "prints": "P310",
           "where": "Section 4, straight after the codes for the eyes: a poison centre or a doctor is to be called at once. The same section says that after contact with the skin or the hair the clothing that was wetted is taken off at once and the skin rinsed with water."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 24b, is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and by local regulations, and to ask the laboratory's supervisor."
         },
         {
           "field": "primer",
@@ -321,7 +326,7 @@
         {
           "field": "bottles.hcl.hazards.note",
           "prints": "<2%>",
-          "where": "Section 3, the concentration column, in the row for hydrochloric acid, the rest being water; it is printed so, with both brackets. The note's 0.4% is worked out from the molarity and not read here."
+          "where": "Section 3, the concentration column, in the row for hydrochloric acid, the rest being water; it is printed so, with both brackets. An acid of 0.1 mol/L is about 0.4% by mass, worked out from the molarity and not read here; the note gives no percentage."
         },
         {
           "field": "bottles.hcl.hazards.note",
@@ -332,6 +337,11 @@
           "field": "bottles.hcl.hazards.note",
           "prints": "P305+P351+P338",
           "where": "Section 4, under the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that. The sheet gives no number of minutes. The same section says that skin is to be washed with plenty of water, and that medical advice is to be sought if irritation of the eyes lasts or irritation of the skin sets in. The acid's note gives the first aid of the stricter sheet (`flinn-sds-395.2`); the primer's safety card says what this sheet and the other two have in common."
+        },
+        {
+          "field": "bottles.hcl.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 24b, is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and by local regulations, and to ask the laboratory's supervisor. The sheet for 0.1 M to 2.4 M names the same method."
         },
         {
           "field": "primer",
@@ -412,7 +422,7 @@
         {
           "field": "bottles.naoh.hazards.note",
           "prints": "0.4-1.1%",
-          "where": "Section 3, the concentration column, in the row for sodium hydroxide, the rest being water. The sheet does not say on what basis the percentage is. The note's 0.4% is worked out from the molarity and not read here; it is the foot of this range."
+          "where": "Section 3, the concentration column, in the row for sodium hydroxide, the rest being water. The sheet does not say on what basis the percentage is. A solution of 0.1 mol/L is about 0.4% by mass, worked out from the molarity and not read here, which is the foot of this range; the note gives no percentage."
         },
         {
           "field": "bottles.naoh.hazards.note",
@@ -423,6 +433,11 @@
           "field": "bottles.naoh.hazards.note",
           "prints": "P305+P351+P338",
           "where": "Section 4, under the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that. The sheet gives no number of minutes. The same section says that skin is to be washed with plenty of water, and that medical advice is to be sought if irritation of the eyes lasts or irritation of the skin sets in."
+        },
+        {
+          "field": "bottles.naoh.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 10, is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and by local regulations, and to ask the laboratory's supervisor."
         },
         {
           "field": "primer",
@@ -533,6 +548,11 @@
           "field": "bottles.indicator.hazards.note",
           "prints": "P280",
           "where": "Section 2.2, prevention: protective gloves and eye protection."
+        },
+        {
+          "field": "bottles.indicator.hazards.note",
+          "prints": "SECTION 13: Disposal Considerations",
+          "where": "The heading of section 13. Under it, at 13.1 on ways of treating waste, the sheet says that no data are available. The note gives no method of disposal: it says that disposal is decided by the laboratory's own rules and by local regulations, and to ask the laboratory's supervisor."
         },
         {
           "field": "primer",
@@ -699,7 +719,7 @@
     },
     {
       "id": "wikipedia-burette",
-      "url": "https://en.wikipedia.org/w/index.php?title=Burette&oldid=1367898253",
+      "url": "https://en.wikipedia.org/wiki/Burette?oldid=1367898253",
       "citation": "Wikipedia contributors. Burette; Wikipedia, revision 1367898253 of 2026-08-05, linked here; read and not kept (retrieved 2026-10-04).",
       "supports": [
         {

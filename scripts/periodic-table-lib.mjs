@@ -61,7 +61,8 @@ export function parsePubChem(json) {
 }
 
 // ---------------------------------------------------------------------------
-// CIAAW abridged standard atomic weights (saved HTML page)
+// CIAAW abridged standard atomic weights. The page is not kept: scripts/extract-ciaaw-pages.mjs reads it with the
+// parsers below and writes the extracts that the build and the cross-check read (ciaawAbridgedRows, ciaawRadioactive).
 
 const unescape = (s) =>
   s
@@ -72,24 +73,26 @@ const unescape = (s) =>
     .replace(/<[^>]+>/g, '')
     .trim()
 
+/** A weight as the table prints it ("1.0080 ± 0.0002", or a dash), split into value and uncertainty; both null for a dash. */
+function splitWeight(text) {
+  const v = /^([\d.]+)\s*±\s*([\d.]+)$/.exec(text)
+  return { value: v ? v[1] : null, uncertainty: v ? v[2] : null }
+}
+
 export function parseCiaawAbridged(html) {
   const title = /Abridged Standard Atomic Weights \d{4}/.exec(html)?.[0] ?? null
   const rows = []
   const re = /<tr><td>(\d+)<\/td><td>(\w+)<\/td><td>(.*?)<\/td><td>(.*?)<\/td><td>(.*?)<\/td><\/tr>/g
   for (const m of html.matchAll(re)) {
     const text = unescape(m[4])
-    const v = /^([\d.]+)\s*±\s*([\d.]+)$/.exec(text)
-    rows.push({
-      z: Number(m[1]),
-      symbol: m[2],
-      name: unescape(m[3]),
-      text,
-      value: v ? v[1] : null,
-      uncertainty: v ? v[2] : null,
-      notes: unescape(m[5]).split(/\s+/).filter(Boolean),
-    })
+    rows.push({ z: Number(m[1]), symbol: m[2], name: unescape(m[3]), text, ...splitWeight(text), notes: unescape(m[5]).split(/\s+/).filter(Boolean) })
   }
   return { title, rows }
+}
+
+/** The abridged table as its extract holds it, in the shape parseCiaawAbridged gives. */
+export function ciaawAbridgedRows(extract) {
+  return { title: extract.title, rows: extract.rows.map(({ z, symbol, name, printed, notes }) => ({ z, symbol, name, text: printed, ...splitWeight(printed), notes })) }
 }
 
 // CIAAW "Radioactive elements" page: most stable known isotopes (from NUBASE2020).
@@ -106,6 +109,11 @@ export function parseCiaawRadioactive(html) {
     }
   }
   return out
+}
+
+/** The list of radioactive elements as its extract holds it, in the shape parseCiaawRadioactive gives, without the half-lives. */
+export function ciaawRadioactive(extract) {
+  return new Map(extract.rows.map(({ z, massNumbers }) => [z, massNumbers.map((a) => ({ a }))]))
 }
 
 // ---------------------------------------------------------------------------

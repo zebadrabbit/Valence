@@ -66,7 +66,7 @@ import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import process from 'node:process'
 import { parseSdf } from './parse-sdf.mjs'
-import { checkConfiguration, noteProblem, parseCiaawAbridged, parseNistIe, parsePubChem } from './periodic-table-lib.mjs'
+import { checkConfiguration, ciaawAbridgedRows, noteProblem, parseNistIe, parsePubChem } from './periodic-table-lib.mjs'
 import { checkReagents, checkSupported, mergeHazards, newSources } from './aqueous-lib.mjs'
 import { buildMechanism } from './mechanism-lib.mjs'
 import { observedLines, parseNistLines, spectrumFromSaved } from './emission-lib.mjs'
@@ -484,8 +484,11 @@ function buildElements() {
   // superseded is kept there as history (xenon's first six lines): that element's lines are picked, as for the
   // periodic table's cards, by the rule from NIST's saved response, and the entry's source is no longer cited.
   const spectra = readJson('emission-lines.json')
+  // A sentence written by hand on which lines are shown may say more than which lines they are (sodium's says what
+  // the D lines light): `selectionSourceIds` names its sources, each with a row of `selectionSupport` on what it says.
   const byHand = spectra.elements.filter((x) => !x.superseded)
-  sources.push(...spectra.sources.filter((source) => byHand.some((x) => x.sourceId === source.id)).map(({ id, url, citation }) => ({ id, url, citation })))
+  const citedBy = (x) => [x.sourceId, ...(x.selectionSourceIds ?? [])]
+  sources.push(...spectra.sources.filter((source) => byHand.some((x) => citedBy(x).includes(source.id))).map(({ id, url, citation }) => ({ id, url, citation })))
   const allowed = new Set(sources.map((s) => s.id))
   const emission = (symbol, name) => {
     const entry = spectra.elements.find((x) => x.symbol === symbol)
@@ -500,7 +503,12 @@ function buildElements() {
       return { value: line.wavelengthNm, sourceId: entry.sourceId, published: line.valueAsPublished, ...(line.transition ? { transition: line.transition } : {}) }
     })
     if (lines.some((line, i) => i > 0 && line.value >= lines[i - 1].value)) fail(`element ${symbol}: emission lines are not longest first`)
-    return { emission: { selection: entry.selection, ...(entry.note ? { note: entry.note } : {}), lines } }
+    const selectionSourceIds = entry.selectionSourceIds ?? []
+    const supported = (entry.selectionSupport ?? []).map((row) => row.sourceId)
+    if (selectionSourceIds.join() !== supported.join()) fail(`element ${symbol}: the sources of the sentence on the lines shown are not those of its rows of support, in order`)
+    for (const row of entry.selectionSupport ?? []) if (typeof row.prints !== 'string' || typeof row.where !== 'string') fail(`element ${symbol}: a row of support for the sentence on the lines shown needs what its source prints and where`)
+    for (const id of selectionSourceIds) if (!allowed.has(id)) fail(`element ${symbol}: unexpected source "${id}" for the sentence on the lines shown`)
+    return { emission: { selection: entry.selection, ...(selectionSourceIds.length > 0 ? { selectionSourceIds } : {}), ...(entry.note ? { note: entry.note } : {}), lines } }
   }
 
   const elements = file.elements.map((e) => {
@@ -940,10 +948,9 @@ function buildMolecules(elements) {
 // Molecular orbital diagrams
 
 const MO_SOURCE_ID = 'openstax-chem2e-8.4'
-// OpenStax Chemistry 2e is licensed CC BY 4.0, which is what lets the descriptions in src/chem-data/periodic.ts keep
-// the passages read there. Every citation of the book carries the licence and the attribution OpenStax asks for.
-const OPENSTAX_LICENCE =
-  'Licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction'
+// Every citation of OpenStax Chemistry 2e here ends with the book's address. It says nothing about the book's licence,
+// and nothing in the repository quotes the book: its passages are given by where they are and what they establish.
+const OPENSTAX_ACCESS = 'Access for free at https://openstax.org/books/chemistry-2e/pages/1-introduction'
 // The research file spells the labels out; the app shows the symbols.
 const MO_LABELS = { sigma2s: 'σ2s', 'sigma*2s': 'σ*2s', sigma2p: 'σ2p', 'sigma*2p': 'σ*2p', pi2p: 'π2p', 'pi*2p': 'π*2p' }
 
@@ -963,7 +970,7 @@ function buildMoDiagrams(molecules) {
   const research = expected.mo
   if (research.map((d) => d.id).join() !== 'oxygen,nitrogen') fail('expected.json: expected MO diagrams for oxygen and nitrogen')
   const [{ sourceUrl: url, citation }] = research
-  if (!citation.includes('OpenStax')) fail('expected.json: the MO diagrams are expected to cite OpenStax, whose licence line is added below')
+  if (!citation.includes('OpenStax')) fail('expected.json: the MO diagrams are expected to cite OpenStax, whose address line is added below')
   const diagrams = research.map((d) => {
     if (!molecules.some((m) => m.id === d.id)) fail(`MO diagram ${d.id}: not in the library`)
     if (d.sourceUrl !== url || d.citation !== citation) fail(`MO diagram ${d.id}: expected one source for both diagrams`)
@@ -983,7 +990,7 @@ function buildMoDiagrams(molecules) {
       sourceId: MO_SOURCE_ID,
     }
   })
-  return { diagrams, sources: [{ id: MO_SOURCE_ID, url, citation: `${citation} ${OPENSTAX_LICENCE}` }] }
+  return { diagrams, sources: [{ id: MO_SOURCE_ID, url, citation: `${citation} ${OPENSTAX_ACCESS}` }] }
 }
 
 // ---------------------------------------------------------------------------
@@ -1043,9 +1050,9 @@ const PUBCHEM = 'PubChem [Internet]. Bethesda (MD): National Library of Medicine
 
 // What the group, period and block descriptions, the group 3 note and the legend notes in src/chem-data/periodic.ts cite, and
 // (section 6.5) the element card's sentence on electron affinity in src/chem-data/periodicCard.ts. Each
-// page was read on the retrieval date of the saved downloads. Beside the sentence it supports, there, is the passage
-// read (OpenStax, which is CC BY 4.0, and lines of PubChem's pages) or, for any other source, where the passage
-// is and what it establishes in this project's words. The pages themselves are not saved.
+// page was read on the retrieval date of the saved downloads. Beside the sentence it supports, there, is where the
+// passage is and what it establishes in this project's words; only lines of PubChem's pages are given as they read.
+// No passage is quoted, and the pages themselves are not saved.
 const OPENSTAX = 'Flowers, P.; Theopold, K.; Langley, R.; Robinson, W. R. Chemistry 2e; OpenStax: Houston, TX, 2019;'
 const OPENSTAX_SECTIONS = [
   ['2.5', 'The Periodic Table', '2-5-the-periodic-table'],
@@ -1064,7 +1071,7 @@ function descriptionSources(retrieved) {
     ...OPENSTAX_SECTIONS.map(([section, title, page]) => ({
       id: `openstax-chem2e-${section}`,
       url: `https://openstax.org/books/chemistry-2e/pages/${page}`,
-      citation: `${OPENSTAX} Section ${section} ${title} (${retrieved}). ${OPENSTAX_LICENCE}`,
+      citation: `${OPENSTAX} Section ${section} ${title} (${retrieved}). ${OPENSTAX_ACCESS}`,
     })),
     {
       id: 'iupac-red-book-2005',
@@ -1074,7 +1081,7 @@ function descriptionSources(retrieved) {
     {
       id: 'iupac-periodic-table',
       url: 'https://iupac.org/what-we-do/periodic-table-of-elements/',
-      citation: `International Union of Pure and Applied Chemistry (IUPAC). Periodic Table of Elements, the section "Group 3" (${retrieved}).`,
+      citation: `International Union of Pure and Applied Chemistry (IUPAC). Periodic Table of Elements, the section "Group 3" (${retrieved}; read again on 2026-10-17, when the section still put the question as open and the page gave 2022-09-12 as the date it was last changed).`,
     },
     {
       id: 'rsc-periodic-table',
@@ -1114,12 +1121,12 @@ function periodicSources(manifest) {
     },
     {
       id: DENSITIES_ID,
-      url: `https://en.wikipedia.org/w/index.php?title=Densities_of_the_elements_(data_page)&oldid=${revision}`,
+      url: `https://en.wikipedia.org/wiki/Densities_of_the_elements_(data_page)?oldid=${revision}`,
       citation: `Lide, D. R., Ed. CRC Handbook of Chemistry and Physics, 84th ed.; CRC Press: Boca Raton, FL, 2003; Section 4, Physical Constants of Inorganic Compounds. Dean, J. A., Ed. Lange's Handbook of Chemistry, 15th ed.; McGraw-Hill: New York, 1999; Table 3.2. Neither handbook was read: their densities were taken from a secondary transcription, Wikipedia's Densities of the elements (data page), revision ${revision}, linked here (${retrieved}).`,
     },
     {
       id: CIAAW_RADIOACTIVE_ID,
-      url: saved('ciaaw-radioactive-elements.html').url,
+      url: saved('ciaaw-radioactive-elements-extract.json').url,
       citation: `IUPAC Commission on Isotopic Abundances and Atomic Weights (CIAAW), Radioactive elements: the most stable known isotopes of the radioactive elements, compiled from the NUBASE2020 evaluation (${retrieved}).`,
     },
     ...descriptionSources(retrieved),
@@ -1206,8 +1213,8 @@ function buildPeriodicTable(otherSourceIds) {
     if ((labels[column]?.unit ?? '') !== PERIODIC_UNITS[field]) fail(`PubChem labels ${column} with the unit "${labels[column]?.unit}", not "${PERIODIC_UNITS[field]}"`)
   }
 
-  const ciaaw = parseCiaawAbridged(read('sources/ciaaw-abridged-atomic-weights.html'))
-  if (ciaaw.title !== CIAAW_TITLE || ciaaw.rows.length !== 118) fail(`the saved CIAAW page is not "${CIAAW_TITLE}" with 118 rows`)
+  const ciaaw = ciaawAbridgedRows(JSON.parse(read('sources/ciaaw-abridged-atomic-weights-extract.json')))
+  if (ciaaw.title !== CIAAW_TITLE || ciaaw.rows.length !== 118) fail(`the CIAAW extract is not "${CIAAW_TITLE}" with 118 rows`)
   const nistText = read('sources/nist-asd-ie-neutral.txt')
   if (!nistText.includes('Ionization Energy (eV)')) fail('the saved NIST file does not give the ionization energy in eV')
   const nist = parseNistIe(nistText)
@@ -2032,9 +2039,9 @@ function buildDensity(earlierSources) {
 //
 // The record is authored in docs/research/freezing/freezing.json: the three liquids the unknown may be, urea and
 // the three salts, each with its composition, its molar mass worked out from the atomic weights, and the particles
-// each formula unit gives (the ideal, or a measured figure with the row it is worked out from); the water with its
-// freezing point constant; the atomic weights; the measured freezing points of solutions that were found; the
-// three parts with the notes shown when each is done; and the model's parameters. Every source is in
+// each formula unit gives (the ideal, or a measured or evaluated figure with the row it is worked out from); the
+// water with its freezing point constant; the atomic weights; the measured freezing points of solutions that were
+// found, and the osmotic coefficients of the salts' solutions that an evaluation gives; the three parts with the notes shown when each is done; and the model's parameters. Every source is in
 // sources/MANIFEST.json, each row of which names the stored values it supports, and the build holds the record to
 // those rows as it does the aqueous lab's. No source has a copy in this lab's folder: the atomic weights are held
 // to the periodic table's record. What the record works out is worked out again here, and its numbers are held to
@@ -2044,7 +2051,7 @@ function buildDensity(earlierSources) {
 // density lab's are: every record is this lab's own, none being the same thing in the same form as another lab's,
 // though eight of the documents behind them are ones the iodination of acetone, flame test and density labs list.
 
-const FREEZING_KEYS = ['reagents', 'water', 'atomicWeights', 'measured', 'parts', 'parameters']
+const FREEZING_KEYS = ['reagents', 'water', 'atomicWeights', 'measured', 'osmotic', 'parts', 'parameters']
 const FREEZING_REAGENTS = ['acetone', 'ethanol', 'propan-2-ol', 'urea', 'nacl', 'kcl', 'nabr']
 const FREEZING_PARTS = ['water', 'unknown', 'particles']
 
@@ -2161,7 +2168,7 @@ function buildReactions(earlierSources) {
 // all: it is the red cabbage pH lab's, copied from that lab's record.
 
 const MIXING_KEYS = ['reagents', 'liquids', 'solids', 'pairs', 'solidInLiquid', 'offBench', 'rule', 'sharedNote', 'parts', 'parameters']
-const MIXING_REAGENTS = ['rubbing-alcohol']
+const MIXING_REAGENTS = ['rubbing-alcohol', 'mineral-oil']
 const MIXING_LIQUIDS = ['water', 'rubbing-alcohol', 'vinegar', 'vegetable-oil', 'mineral-oil']
 const MIXING_SOLIDS = ['salt', 'sugar']
 const MIXING_PARTS = ['liquids', 'solids', 'rule']
@@ -2175,7 +2182,7 @@ function buildMixing(earlierSources, molecules) {
   const hazardManifest = json('sources/hazard-manifest.json')
 
   onlyKeys(input, MIXING_KEYS, 'mixing.json')
-  if (input.reagents.map((r) => r.id).join() !== MIXING_REAGENTS.join()) fail('mixing.json: the one reagent is the rubbing alcohol (spec 25.3)')
+  if (input.reagents.map((r) => r.id).join() !== MIXING_REAGENTS.join()) fail('mixing.json: the reagents are the rubbing alcohol and the mineral oil (spec 25.3), in that order')
   if (input.liquids.map((l) => l.id).join() !== MIXING_LIQUIDS.join()) fail('mixing.json: the liquids are not the five of spec 25.1, in their order')
   if (input.solids.map((s) => s.id).join() !== MIXING_SOLIDS.join()) fail('mixing.json: the solids are not the two of spec 25.1, in their order')
   if (input.parts.map((p) => p.id).join() !== MIXING_PARTS.join()) fail('mixing.json: the parts are not the three of spec 25.1, in their order')

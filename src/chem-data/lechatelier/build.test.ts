@@ -324,7 +324,9 @@ describe('withSharedSheets', () => {
   const inBoth = own.filter((s) => other.some((o) => o.id === s.id)).map((s) => s.id)
 
   it('lists a document both labs read once, with the rows of the shared bottles after its own', () => {
-    expect(inBoth).toEqual(['flinn-sds-395', 'flinn-sds-395.2', 'flinn-sds-255'])
+    // Since 2026-10-18 the aqueous lab's notes rest on four of this lab's documents too: the 0.5 M acid's sheet and NOAA's
+    // record of the acid, under its three acids, and the two stricter sheets for the cobalt salt, under its solution.
+    expect(inBoth).toEqual(['flinn-sds-395', 'flinn-sds-395.2', 'wards-sds-hh0093', 'noaa-cameo-3598', 'flinn-sds-255', 'wards-sds-cc0349', 'fisher-sds-cocl2-hexahydrate'])
     expect(new Set(sheets.map((s) => s.id)).size).toBe(sheets.length)
     const acid = sheets.find((s) => s.id === 'flinn-sds-395')!
     const mine = own.find((s) => s.id === 'flinn-sds-395')!

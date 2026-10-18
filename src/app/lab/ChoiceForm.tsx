@@ -103,6 +103,10 @@ export function ChoiceForm({ questions, recorded, judged: found, held, refusal, 
         if (!next.wrong?.length) setChanging(false)
         setJudged(next.wrong ? next.wrong.length === 0 : null)
         say(next.text, next.wrong === null)
+        // The marks and what is said of the answers come above the button, which has focus: it is kept in the window.
+        requestAnimationFrame(() => {
+          if (document.activeElement === focus.button.current) focus.button.current?.scrollIntoView?.({ block: 'nearest' })
+        })
       }}
     >
       {lines !== null && (
@@ -136,10 +140,15 @@ export function ChoiceForm({ questions, recorded, judged: found, held, refusal, 
                     value={value}
                     checked={shown[id] === value}
                     aria-describedby={describedBy}
-                    onChange={() => {
+                    onChange={(event) => {
                       setDraft({ ...draft, [id]: value })
                       setJudged(null)
                       say('')
+                      // The line above the choices that says to look again goes as one is chosen, and the choice with focus moves up: it is kept clear of the tab bar.
+                      const chosen = event.currentTarget
+                      requestAnimationFrame(() => {
+                        if (document.activeElement === chosen) chosen.scrollIntoView?.({ block: 'nearest' })
+                      })
                     }}
                   />
                   {choice}

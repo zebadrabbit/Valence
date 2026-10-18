@@ -406,8 +406,8 @@ export const tubeNote = (data: MixingData, tubeId: TubeId): string => (isPairId(
 export const partNotes = (data: MixingData, partId: PartId): string[] => data.parts.find((p) => p.id === partId)!.notes.map((note) => note.value)
 
 /**
- * What stands under the heading for hazards of a thing on the bench: for the rubbing alcohol, the heading over its
- * statements; for anything else, the one note the kitchen things share (spec 25.3).
+ * What stands under the heading for hazards of a thing on the bench: for the rubbing alcohol and the mineral oil, the
+ * heading over its statements; for anything else, the one note the kitchen things share (spec 25.3).
  */
 export function hazardsText(data: MixingData, item: { reagentId?: string | undefined }): { shared: boolean; text: string } {
   const reagent = reagentOf(data, item)

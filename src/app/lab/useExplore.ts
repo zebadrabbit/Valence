@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 /**
  * A picture that is explored: which of its parts is being looked at, and what makes a part's button look. A mouse
@@ -10,21 +10,31 @@ import { useEffect, useState } from 'react'
  */
 export function useExplore<Part extends string>(onLook: (part: Part) => void) {
   const [open, setOpen] = useState<Part | null>(null)
+  // The part open now, kept at once: two events of one look (a pointer's arrival and the focus of its press, or the
+  // focus and then the click of a tap) can come before the page is drawn again with the first one's `open`.
+  const looking = useRef<Part | null>(null)
   useEffect(() => {
     if (open === null) return
     const away = (event: PointerEvent) => {
-      if (!(event.target instanceof Element && event.target.closest('[data-part]'))) setOpen(null)
+      if (!(event.target instanceof Element && event.target.closest('[data-part]'))) {
+        looking.current = null
+        setOpen(null)
+      }
     }
     document.addEventListener('pointerdown', away)
     return () => document.removeEventListener('pointerdown', away)
   }, [open])
   const show = (part: Part) => {
     // Focus and then the click of one tap, or a press on a part already open, is one look and is said once.
-    if (open === part) return
+    if (looking.current === part) return
+    looking.current = part
     setOpen(part)
     onLook(part)
   }
-  const close = (part: Part) => setOpen((now) => (now === part ? null : now))
+  const close = (part: Part) => {
+    if (looking.current === part) looking.current = null
+    setOpen((now) => (now === part ? null : now))
+  }
   return {
     open,
     /** What a part's button is given, beside its name and its place. */

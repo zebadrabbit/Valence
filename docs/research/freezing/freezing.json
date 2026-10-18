@@ -136,10 +136,11 @@
         "working": "39.098 + 35.45 = 74.548 g/mol, from the standard atomic weights of potassium and chlorine; stored to two decimals as 74.55 g/mol."
       },
       "particles": {
-        "value": 2,
+        "value": 1.78,
         "ideal": 2,
-        "kind": "ideal",
-        "note": "The ideal: each formula unit is taken as two dissolved particles, one ion of each kind. No measured freezing point of its solutions was found in a source that could be read; a real solution gives a little less."
+        "kind": "osmotic",
+        "osmoticId": "kcl-0.5",
+        "note": "Evaluated: twice the osmotic coefficient that an evaluation of many measurements on its solutions gives for 0.5 mol/kg at 273.15 K, near the freezing point and at about the strength of the bench. Worked the same way, the same kind of evaluation gives sodium chloride the 1.82 its freezing point gives. The model uses it at every strength of the bench."
       },
       "appearance": "a white solid",
       "sourceId": "flinn-sds-621"
@@ -159,10 +160,11 @@
         "working": "22.990 + 79.904 = 102.894 g/mol, from the standard atomic weights of sodium and bromine; stored to two decimals as 102.89 g/mol."
       },
       "particles": {
-        "value": 2,
+        "value": 1.85,
         "ideal": 2,
-        "kind": "ideal",
-        "note": "The ideal: each formula unit is taken as two dissolved particles, one ion of each kind. No measured freezing point of its solutions was found in a source that could be read; a real solution gives a little less."
+        "kind": "osmotic",
+        "osmoticId": "nabr-0.5",
+        "note": "Evaluated: twice the osmotic coefficient that an evaluation of many measurements on its solutions gives for 0.5 mol/kg at 273.15 K, near the freezing point and at about the strength of the bench. Worked the same way, the same kind of evaluation gives sodium chloride the 1.82 its freezing point gives. The model uses it at every strength of the bench."
       },
       "appearance": "a white solid",
       "sourceId": "flinn-sds-714"
@@ -316,6 +318,83 @@
       "working": "2.5 g in every 100 g of solution is 2.5 g in 97.5 g of water: 2.5 ÷ 97.5 × 1000 ÷ 46.07 g/mol = 0.55657 mol/kg, 0.557 to three figures. With one particle for each formula unit that molality would lower the freezing point by 1.86 × 0.55657 = 1.03521 °C, 1.04 to three figures. The fall printed is 1 °C, and 1 ÷ 1.03521 = 0.9660, which is 1 to the one figure the fall is printed to. No model uses this row: it stands beside the ideal in the notes."
     }
   ],
+  "osmotic": [
+    {
+      "id": "nacl-0.5",
+      "reagentId": "nacl",
+      "molality": {
+        "value": 0.5,
+        "published": "0.5",
+        "unit": "mol/kg",
+        "sourceId": "archer-nacl-1992"
+      },
+      "kelvin": {
+        "value": 273.15,
+        "published": "273.15",
+        "sourceId": "archer-nacl-1992"
+      },
+      "osmoticCoefficient": {
+        "value": 0.9108,
+        "published": "0.9108",
+        "sourceId": "archer-nacl-1992"
+      },
+      "ratio": {
+        "value": 1.82,
+        "figures": 3
+      },
+      "working": "The evaluation's osmotic coefficient for 0.5 mol/kg at 273.15 K is 0.9108. Each formula unit gives two ions, and 2 × 0.9108 = 1.8216, which is 1.82 to three figures: the same as the handbook's freezing point of the 3% solution gives. No model uses this row; it shows that a count worked this way agrees with one worked from a measured freezing point."
+    },
+    {
+      "id": "kcl-0.5",
+      "reagentId": "kcl",
+      "molality": {
+        "value": 0.5,
+        "published": "0.5",
+        "unit": "mol/kg",
+        "sourceId": "archer-kcl-1999"
+      },
+      "kelvin": {
+        "value": 273.15,
+        "published": "273.15",
+        "sourceId": "archer-kcl-1999"
+      },
+      "osmoticCoefficient": {
+        "value": 0.8907,
+        "published": "0.8907",
+        "sourceId": "archer-kcl-1999"
+      },
+      "ratio": {
+        "value": 1.78,
+        "figures": 3
+      },
+      "working": "The evaluation's osmotic coefficient for 0.5 mol/kg at 273.15 K is 0.8907. Each formula unit gives two ions, and 2 × 0.8907 = 1.7814, stored as 1.78: three figures, as the count of sodium chloride is stored. This is the count of particles the model gives potassium chloride."
+    },
+    {
+      "id": "nabr-0.5",
+      "reagentId": "nabr",
+      "molality": {
+        "value": 0.5,
+        "published": "0.5",
+        "unit": "mol/kg",
+        "sourceId": "archer-nabr-1991"
+      },
+      "kelvin": {
+        "value": 273.15,
+        "published": "273.15",
+        "sourceId": "archer-nabr-1991"
+      },
+      "osmoticCoefficient": {
+        "value": 0.926,
+        "published": "0.926",
+        "sourceId": "archer-nabr-1991"
+      },
+      "ratio": {
+        "value": 1.85,
+        "figures": 3
+      },
+      "working": "The evaluation's osmotic coefficient for 0.5 mol/kg at 273.15 K is 0.926. Each formula unit gives two ions, and 2 × 0.926 = 1.852, stored as 1.85: three figures, as the source prints the coefficient. This is the count of particles the model gives sodium bromide."
+    }
+  ],
   "parts": [
     {
       "id": "water",
@@ -384,8 +463,12 @@
           "alsoSourceId": "wikipedia-van-t-hoff-factor"
         },
         {
-          "value": "For potassium chloride and sodium bromide no measured freezing point was found in a source that could be read, so the lab uses 2, the ideal. That is more than a real salt gives: a real bench would find a little under two for them as well. Taken as simpler than it is: each solid dissolves at once, at the temperature of the cup.",
-          "sourceId": "wikipedia-van-t-hoff-factor"
+          "value": "For potassium chloride the lab uses 1.78 and for sodium bromide 1.85, each a little under two as well. They come from evaluations of many measurements on each salt's solutions near 0 °C, at about the strength used here; worked the same way, sodium chloride comes to the same 1.82 as its freezing point gives. Taken as simpler than it is: each solid dissolves at once, at the temperature of the cup.",
+          "sourceId": "archer-kcl-1999",
+          "alsoSourceId": "archer-nabr-1991",
+          "moreSourceIds": [
+            "archer-nacl-1992"
+          ]
         }
       ]
     }

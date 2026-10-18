@@ -120,8 +120,9 @@ describe('reactionsData', () => {
     expect(Object.keys(reactionsData.choices).sort()).toEqual([...FIELDS].sort())
   })
 
-  it('keeps every hazard note of its own to three short paragraphs of 160 words at most, the last on disposal and never a procedure (spec 5.2)', () => {
-    for (const [id, entry] of Object.entries(ownHazards)) {
+  it('keeps every hazard note to three short paragraphs of 160 words at most, the last on disposal and never a procedure (spec 5.2): its own, and since 2026-10-18 the two it shares with the aqueous reactions lab', () => {
+    const shared = ['hcl-1m', 'fecl3-0.5m'] as const
+    for (const [id, entry] of [...Object.entries(ownHazards), ...shared.map((one) => [one, aqueousHazards[one]] as const)]) {
       const paragraphs = entry.hazards.note.value.split('\n\n')
       expect(paragraphs.length, id).toBe(3)
       expect(words(entry.hazards.note.value), id).toBeLessThanOrEqual(160)

@@ -144,13 +144,14 @@ function PaletteBody({ onChoose }: { onChoose(to: string): void }) {
             <span className="min-w-0 flex-1 sm:flex sm:items-center sm:gap-2">
               <span className="block min-w-0 flex-1">
                 <span className="font-medium">{item.label}</span>
+                {/* Grey on the page's ground; on the grey ground of the option Enter opens that grey measured 4.34 to 1 in the light theme, too faint: there it is the text's own colour, as in a lab's paged list. */}
                 {item.formula && (
-                  <span className="ml-2 text-muted-foreground">
+                  <span className={`ml-2 ${i === active ? 'text-foreground' : 'text-muted-foreground'}`}>
                     <FormulaParts parts={formulaParts(item.formula, item.charge)} />
                   </span>
                 )}
               </span>
-              <span className="block shrink-0 text-xs text-muted-foreground">{item.kind}</span>
+              <span className={`block shrink-0 text-xs ${i === active ? 'text-foreground' : 'text-muted-foreground'}`}>{item.kind}</span>
             </span>
             {/* The arrow and the bar on the left, not the shading alone, mark the option Enter will open. */}
             <CornerDownLeft aria-hidden="true" className={`size-3.5 shrink-0 ${i === active ? '' : 'invisible'}`} />

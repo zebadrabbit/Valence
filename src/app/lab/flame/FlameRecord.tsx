@@ -74,7 +74,7 @@ export function FlameRecord({ data, state }: { data: FlameData; state: FlameStat
         </table>
       </div>
       <section className="grid max-w-prose gap-1">
-        <h3 className="font-medium">{CLOSING.heading}</h3>
+        <h2 className="font-medium">{CLOSING.heading}</h2>
         <p>{CLOSING.question}</p>
         <p>
           {RECORD_TEXT.answer}:{' '}

@@ -13,7 +13,8 @@ import { TableLegend } from './TableLegend'
 import { HighlightDescription, TableNotes } from './TableNotes'
 import { TRENDS, type TrendProperty } from './trend'
 
-const SELECT = 'h-8 min-w-0 rounded-md border bg-background px-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring'
+// The focus ring is an outline, not a ring drawn with a shadow: WebKit draws no shadow on a native select.
+const SELECT = 'h-8 min-w-0 rounded-md border bg-background px-2 text-sm focus-visible:outline-ring focus-visible:outline-offset-0'
 const TREND_PROPERTIES = Object.keys(TRENDS) as TrendProperty[]
 const HIGHLIGHTS = HIGHLIGHT_CHOICES.flatMap((set) => set.choices)
 

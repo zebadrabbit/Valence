@@ -139,7 +139,11 @@ export function DisturbanceCard({ data, m, system, mode, view, disturbance: d, c
   useLayoutEffect(() => {
     if (was.current === d.status) return
     was.current = d.status
-    if (d.status === 'done' && document.activeElement === document.body) notesRef.current?.focus()
+    if (d.status === 'done' && document.activeElement === document.body) {
+      notesRef.current?.focus()
+      // Firefox moves the window to what takes focus only when none of it is in view, so notes whose head is above the window stay there.
+      notesRef.current?.scrollIntoView({ block: 'nearest' })
+    }
   }, [d.status])
 
   /** A part of the tube is looked at: stored the first time, where this is the disturbance the system has reached and the engine takes it, and said each time. A disturbance that is done can still be looked at. */

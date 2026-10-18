@@ -56,6 +56,8 @@ export function Settings() {
           value={prefs.reducedMotion}
           onChange={(reducedMotion) => updatePrefs({ reducedMotion })}
         />
+        {/* Under the two choices that offer System, and over the one that does not. */}
+        <p className="text-sm text-muted-foreground">For dark mode and reduced motion, System follows your operating system's setting.</p>
         <div className="flex items-center justify-between gap-4">
           <label htmlFor={levelId}>Valence display level</label>
           <select
@@ -71,7 +73,6 @@ export function Settings() {
             ))}
           </select>
         </div>
-        <p className="text-sm text-muted-foreground">System follows your operating system's setting.</p>
       </section>
 
       <section aria-labelledby="progress-heading" className="grid max-w-md gap-3">
@@ -88,6 +89,8 @@ export function Settings() {
           </Button>
           <Button
             variant="destructive"
+            // The theme's red on its own pale red measured 4.0 to 1 in the light theme: a darker red of the same hue there.
+            className="text-red-700 dark:text-destructive"
             onClick={() => {
               if (window.confirm('Clear all Valence progress and settings in this browser? This cannot be undone.')) {
                 resetAll()

@@ -374,7 +374,7 @@ describe('the equation of a station', () => {
     expect(station).not.toContain('data-place')
   })
 
-  it('leaves the aqueous reactions lab its own order: the shared builder puts the row first, then the line of a term\'s controls, then the tiles, unless it is told otherwise; told, the tiles and that line are over the row', () => {
+  it('has the shared builder put the row first, then the line of a term\'s controls, then the tiles, unless it is told otherwise; told, as this lab and the aqueous reactions lab tell it, the tiles and that line are over the row', () => {
     const drawn = (toolsFirst: boolean) => draw(createElement(EquationBuilder, { heading: 'H', palette: ['a'], formula: (id: string) => id, states: ['aq'], recorded: null, counts: null, held: null, refusal: () => null, onEnter: () => ({ ok: null, text: '' }), text: BUILDER_TEXT, toolsFirst }))
     const order = (html: string) => ['data-row', escaped(BUILDER_TEXT.slotHelp), `aria-label="${BUILDER_TEXT.palette}"`].map((piece) => html.indexOf(piece))
     const [row, line, bank] = order(drawn(false))

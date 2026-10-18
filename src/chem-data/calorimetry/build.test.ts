@@ -101,9 +101,10 @@ describe("the reagents' hazards", () => {
     for (const id of SHARED) expect(all[id]).toEqual((aqueousHazards as Record<string, Entry>)[id])
     expect(() => withSharedHazards({ ...copy(hazards), 'hcl-1m': all['hcl-1m']! } as Record<string, Entry>, aqueousHazards as Record<string, Entry>, SHARED)).toThrow(/"hcl-1m" carries another lab's record and has no entry here/)
     expect(() => withSharedHazards(copy(hazards) as Record<string, Entry>, {}, SHARED)).toThrow(/the other lab's hazards.json has no entry for "hcl-1m"/)
-    // A sheet both labs read is this lab's entry of it: the two sheets for ammonium nitrate.
+    // A document both labs read is this lab's entry of it: the two sheets for ammonium nitrate, and since 2026-10-18 the
+    // second supplier's sheet and NOAA's record of it, which the aqueous lab's note on its solution now rests on too.
     const twice = hazardManifest.sources.filter((sheet) => aqueousHazardManifest.sources.some((other) => other.id === sheet.id)).map((sheet) => sheet.id)
-    expect(twice).toEqual(['flinn-sds-61', 'flinn-sds-61.5'])
+    expect(twice).toEqual(['flinn-sds-61', 'flinn-sds-61.5', 'wards-sds-aa0295', 'noaa-cameo-98'])
     expect(sheets.length).toBe(hazardManifest.sources.length + aqueousHazardManifest.sources.length - twice.length)
     for (const id of twice) expect(sheets.find((sheet) => sheet.id === id)).toBe(hazardManifest.sources.find((sheet) => sheet.id === id))
   })
@@ -173,7 +174,7 @@ describe('checkSupported, on this record', () => {
 describe('the sources the lab adds', () => {
   const earlier: Listed[] = allSources.filter((s) => !sources.some((own) => own.id === s.id) && !hazardManifest.sources.some((sheet) => sheet.id === s.id))
   const shared = ['nbs-tables-1982', 'ciaaw-abridged-2024', 'pubchem-aqueous-reagents']
-  const before = [...earlier, ...allSources.filter((s) => shared.includes(s.id) || ['flinn-sds-61', 'flinn-sds-61.5'].includes(s.id))]
+  const before = [...earlier, ...allSources.filter((s) => shared.includes(s.id) || ['flinn-sds-61', 'flinn-sds-61.5', 'wards-sds-aa0295', 'noaa-cameo-98'].includes(s.id))]
 
   it("lists once a source another lab lists too: the NBS tables, the atomic weights, PubChem's table, and the two sheets for ammonium nitrate", () => {
     const own = newSources(sources, before, 'calorimetry MANIFEST.json')

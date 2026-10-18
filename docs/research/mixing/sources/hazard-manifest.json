@@ -1,6 +1,6 @@
 {
   "retrieved": "2026-10-12",
-  "about": "The documents behind the hazards of the polarity and mixing lab's one bottle that is a laboratory chemical, the rubbing alcohol (hazards.json), and behind the safety card of its primer. Both were read and neither is kept. The supplier's sheet is the one for 2-propanol of 40% to 90% in water, the strength on this bench, fetched and read on the retrieved date; the lab's own manifest lists it too, for the density and the look it prints. The government record of the alcohol itself was read for the freezing point depression lab: its saved page was checked against the hash recorded here and read again, and was not fetched again. The water, the vinegar, the two oils, the salt and the sugar have no record: they share the red cabbage pH lab's note for foods on a bench.",
+  "about": "The documents behind the hazards of the polarity and mixing lab's one bottle that is a laboratory chemical, the rubbing alcohol (hazards.json), and behind the safety card of its primer. Both were read and neither is kept. The supplier's sheet is the one for 2-propanol of 40% to 90% in water, the strength on this bench, fetched and read on the retrieved date; the lab's own manifest lists it too, for the density and the look it prints. The government record of the alcohol itself was read for the freezing point depression lab: its saved page was checked against the hash recorded here and read again, and was not fetched again. The mineral oil has a record of its own since 2026-10-18 (the supplier's sheet for it and NOAA's record of it, both of which the lab's own manifest lists for other values; each saved page was checked against its recorded hash and read again, and neither was fetched again). The water, the vinegar, the vegetable oil, the salt and the sugar have no record: they share the red cabbage pH lab's note for foods on a bench.",
   "sources": [
     {
       "id": "flinn-sds-420.5",
@@ -105,6 +105,102 @@
           "field": "primer.safety",
           "prints": "Vapors are heavier than air",
           "where": "The field General Description: what the primer's safety card says of the vapour."
+        }
+      ]
+    },
+    {
+      "id": "flinn-sds-529",
+      "url": "https://www.flinnsci.com/sds_529-mineral-oil/sds_529",
+      "citation": "Flinn Scientific, Inc. Safety Data Sheet: Mineral Oil, SDS number sds_529; revision date March 25, 2014 (read on 2026-10-12; no copy is kept).",
+      "fetchedSha256": "2a6a7bb70aa43170070a96c1e26de112da1781ecbb00834d5677f1c82b37a3d2",
+      "supports": [
+        {
+          "field": "mineral-oil.classifiedAs",
+          "prints": "Mineral Oil",
+          "where": "The sheet's title, before the words Safety Data Sheet. Section 3 lists one component, mineral oil, with the CAS number 8042-47-5 and, for its formula and its formula weight, a mixture of oils; section 9 describes an oily liquid with no colour and no smell. So the sheet is for the oil itself, which is what is on this bench. The lab's own manifest lists this sheet too, for what the oil looks like and for one outcome; the page saved when it was read for this lab on 2026-10-12 was checked against the hash recorded here and read again on 2026-10-18, and was not fetched again."
+        },
+        {
+          "field": "mineral-oil.hazards",
+          "prints": "March 25, 2014",
+          "where": "Under the title, after the words Revision Date, and again at the foot of the sheet: the revision that was read. The sheet does not say which rule its classification is made under."
+        },
+        {
+          "field": "mineral-oil.hazards.signalWord",
+          "prints": "",
+          "where": "The sheet prints no signal word under its title, where its sheets for classed substances print one, and no pictogram. Section 2 says that the chemical is counted as not hazardous under the classifications of the hazard communication standard, and that every laboratory chemical is treated with caution all the same. The record stores None and no statement."
+        },
+        {
+          "field": "mineral-oil.hazards.note",
+          "prints": "not for topical use",
+          "where": "Section 2, its last sentence: the oil is not for the skin, since it has been stored with chemicals that are not food. Section 9 says the same at its end. The note gives both in its own words."
+        },
+        {
+          "field": "mineral-oil.hazards.note",
+          "prints": "Avoid contact with eyes and clothing.",
+          "where": "Section 8, its first sentence, with the washing of hands after handling; the section names nothing to be worn and gives a limit for the mist of the oil in workplace air, which the note does not give. The note says that the sheet keeps the oil from eyes and clothing."
+        },
+        {
+          "field": "mineral-oil.hazards.note",
+          "prints": "Combustible liquid.",
+          "where": "Section 5, its first line; the second says that the oil heated until it breaks down may give off toxic fumes. Section 6 has a spill cleaned off with care because the oil is slippery. The note calls the oil combustible and a spill slippery. This bench has no flame."
+        },
+        {
+          "field": "mineral-oil.hazards.note",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that. For the skin: it is washed with plenty of water. For swallowing: vomiting is not brought on, and a poison centre or a doctor is called if the person feels unwell; under breathing in, a poison centre or a doctor is called at once if the oil has gone into the lungs. The note gives the eyes, the vomiting and the call at once for the lungs; for the skin it gives NOAA's soap and water."
+        },
+        {
+          "field": "mineral-oil.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 18b, is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and by local regulations, and to ask the laboratory's supervisor."
+        },
+        {
+          "field": "mineral-oil.notCarried",
+          "prints": "Insoluble in acids and water.",
+          "where": "Read and not carried. Section 9, after what the oil dissolves in, which is many organic solvents; the same section gives its specific gravity. Why: whether the oil mixes with water, with vinegar and with the other oil, and which liquid is on top, is what parts 1 and 2 ask, and no tile or note may say it before a tube counts (spec 25.5). The lab's own manifest cites the line for those tubes, whose notes say it once they count."
+        }
+      ]
+    },
+    {
+      "id": "noaa-cameo-12191",
+      "url": "https://cameochemicals.noaa.gov/chemical/12191",
+      "citation": "National Oceanic and Atmospheric Administration, Office of Response and Restoration. CAMEO Chemicals, chemical datasheet: Mineral Oil (chemical 12191); CAMEO Chemicals version 3.1.0 rev 1 (read on 2026-10-12; no copy is kept).",
+      "fetchedSha256": "613d35e1cba04dc777d0d620a06ba2e3c42a0e8b2cbfd195a44e6a8b40274a28",
+      "supports": [
+        {
+          "field": "mineral-oil.hazards.note",
+          "prints": "MINERAL OIL",
+          "where": "The page's title, under the words Chemical Datasheet. Its table of identifiers gives the CAS number 8012-95-1, where the supplier's sheet gives 8042-47-5: both are numbers for mineral oil, the second for the white oil sold for the laboratory. The lab's own manifest lists this record too, for the oil's density and family; the page saved when it was read for this lab on 2026-10-12 was checked against the hash recorded here and read again on 2026-10-18, and was not fetched again."
+        },
+        {
+          "field": "mineral-oil.hazards.note",
+          "prints": "This compound is a mild eye irritant.",
+          "where": "The field Health Hazard, under its second heading, on acute and chronic hazards, a text the page credits to the National Toxicology Program, 1992. The supplier's sheet gives the oil no class at all: on the eyes this record is the stricter, and the note says that it calls the oil mildly irritating to them."
+        },
+        {
+          "field": "mineral-oil.hazards.note",
+          "prints": "aspiration pneumonia",
+          "where": "The field Health Hazard, under its first heading, on symptoms, from the same text: that breathing in the vapour or droplets of the oil can bring this on, and that the oil can cause dermatitis of more than one kind, among other effects on the skin. The note says both in its own words, and keeps the oil off the skin."
+        },
+        {
+          "field": "mineral-oil.hazards.note",
+          "prints": "PREVENT SKIN CONTACT",
+          "where": "The field Protective Clothing, an excerpt the page takes from a pocket guide of a federal institute, 2024, for a mist of mineral oil: protective clothing is worn so that the oil does not touch the skin, and skin it gets on is washed at once. The field First Aid, from the same guide, has skin it gets on washed with soap and water. The note has the oil kept off the skin and washed off with soap and water."
+        },
+        {
+          "field": "mineral-oil.notCarried",
+          "prints": "Flammable. Insoluble in water.",
+          "where": "Read and not carried. The field Air & Water Reactions. Why: the first word is contradicted by the same record, whose field Fire Hazard calls the oil combustible and whose diamond rates it 1 of 4 for fire, a liquid that must be heated before it will catch; the note calls it combustible, as the supplier's sheet does. The rest says whether the oil mixes with water, which is what parts 1 and 2 ask (spec 25.5)."
+        },
+        {
+          "field": "mineral-oil.notCarried",
+          "prints": "No recommendation is made specifying the need for eye protection.",
+          "where": "Read and not carried. The field Protective Clothing, the line for the eyes in the excerpt from the federal pocket guide. Why: it is the milder of two lines of the same record on the eyes; the field Health Hazard calls the oil a mild irritant of them, and the note goes by that."
+        },
+        {
+          "field": "mineral-oil.notCarried",
+          "prints": "Reactivity Profile",
+          "where": "Read and not carried. The name of the field: that the oil may not go with strong oxidising agents, with nitric acid named, and is otherwise mostly unreactive. Why: no strong oxidising agent is on this bench."
         }
       ]
     }

@@ -5,7 +5,7 @@
    {
     "heading": "Description",
     "source": "Los Alamos National Laboratory, U.S. Department of Energy",
-    "text": "It is the only liquid that cannot be solidified by lowering the temperature. It remains liquid down to absolute zero at ordinary pressures, but will readily solidify by increasing the pressure."
+    "says": "Helium is the one liquid that cooling alone does not freeze: at ordinary pressure it stays liquid down to absolute zero, and raising the pressure solidifies it readily."
    }
   ]
  },
@@ -15,12 +15,12 @@
    {
     "heading": "History",
     "source": "Jefferson Lab, U.S. Department of Energy",
-    "text": "The first recorded use of a fluorine compound dates to around 1670 to a set of instructions for etching glass that called for Bohemian emerald (CaF2)."
+    "says": "A fluorine compound was first recorded in use around 1670, in instructions for etching glass with Bohemian emerald (CaF2)."
    },
    {
     "heading": "History",
     "source": "IUPAC Commission on Isotopic Abundances and Atomic Weights (CIAAW)",
-    "text": "It was discovered in hydrofluoric acid by the Swedish pharmacist and chemist Carl-Wilhelm Scheele in 1771, but it was not isolated until 1886 by the French pharmacist and chemist Henri Moissan."
+    "says": "Carl-Wilhelm Scheele found fluorine in hydrofluoric acid in 1771, and Henri Moissan first isolated it in 1886."
    }
   ]
  },
@@ -30,12 +30,12 @@
    {
     "heading": "History",
     "source": "Los Alamos National Laboratory, U.S. Department of Energy",
-    "text": "The ancient Greeks and Romans used alum as an astringent and as a mordant in dyeing."
+    "says": "Alum served the ancient Greeks and Romans as an astringent and, in dyeing, as a mordant."
    },
    {
     "heading": "History",
     "source": "IUPAC Commission on Isotopic Abundances and Atomic Weights (CIAAW)",
-    "text": "In 1825, the Danish physicist, Hans Christian Oersted, isolated impure aluminium."
+    "says": "Impure aluminium was first isolated in 1825, by Hans Christian Oersted, a Danish physicist."
    }
   ]
  },
@@ -45,7 +45,7 @@
    {
     "heading": "History",
     "source": "IUPAC Commission on Isotopic Abundances and Atomic Weights (CIAAW)",
-    "text": "Amorphous silicon was discovered by the Swedish chemist Jöns Jacob Berzelius in 1824. Crystalline silicon was first prepared by the French chemist Henri Sainte-Claire Deville in 1854."
+    "says": "Jöns Jacob Berzelius found silicon, in its amorphous form, in 1824, and Henri Sainte-Claire Deville first made the crystalline form in 1854."
    }
   ]
  },
@@ -55,12 +55,12 @@
    {
     "heading": "History",
     "source": "Los Alamos National Laboratory, U.S. Department of Energy",
-    "text": "Though lime was prepared by the Romans in the first century under the name calx, the metal was not discovered until 1808."
+    "says": "The Romans made lime, which they called calx, in the first century, but the metal was found only in 1808."
    },
    {
     "heading": "History",
     "source": "Jefferson Lab, U.S. Department of Energy",
-    "text": "Metallic calcium was first isolated by Sir Humphry Davy in 1808 through the electrolysis of a mixture of lime (CaO) and mercuric oxide (HgO)."
+    "says": "Humphry Davy first isolated calcium metal in 1808, by electrolysing lime (CaO) mixed with mercuric oxide (HgO)."
    }
   ]
  },
@@ -70,7 +70,7 @@
    {
     "heading": "Uses",
     "source": "Jefferson Lab, U.S. Department of Energy",
-    "text": "When heated at standard atmospheric pressure, arsenic changes directly from a solid to a gas, or sublimates, at a temperature of 887 K. In order to form liquid arsenic, the atmospheric pressure must be increased. At 28 times standard atmospheric pressure, arsenic melts at a temperature of 1090 K."
+    "says": "At standard atmospheric pressure arsenic sublimes, passing from solid straight to gas at 887 K; it becomes liquid only under raised pressure, and under 28 times standard atmospheric pressure it melts, at 1090 K."
    }
   ]
  },
@@ -80,12 +80,12 @@
    {
     "heading": "History",
     "source": "Jefferson Lab, U.S. Department of Energy",
-    "text": "A total of 0.05 micrograms (0.00000005 grams) of astatine have been produced to date."
+    "says": "The astatine made so far comes to 0.05 micrograms in all (0.00000005 g)."
    },
    {
     "heading": "Uses",
     "source": "Jefferson Lab, U.S. Department of Energy",
-    "text": "Due to the small amounts produced and its short half-life, there are currently no uses for astatine outside of basic scientific research."
+    "says": "Astatine has been produced only in small amounts and is short-lived, so it has no use beyond basic research."
    }
   ]
  },
@@ -95,12 +95,12 @@
    {
     "heading": "History",
     "source": "Los Alamos National Laboratory, U.S. Department of Energy",
-    "text": "No weighable quantity of the element has been prepared or isolated."
+    "says": "No amount of francium large enough to weigh has been prepared or isolated."
    },
    {
     "heading": "Uses",
     "source": "Jefferson Lab, U.S. Department of Energy",
-    "text": "Due to the small amounts produced and its short half-life, there are currently no uses for francium outside of basic scientific research."
+    "says": "Francium has been produced only in small amounts and is short-lived, so it has no use beyond basic research."
    }
   ]
  },
@@ -110,17 +110,17 @@
    {
     "heading": "Description",
     "source": "Los Alamos National Laboratory, U.S. Department of Energy",
-    "text": "Fermium is the heaviest synthetic element that can be formed by neutron bombardment of lighter elements, and hence the heaviest element that can be prepared in macroscopic quantities."
+    "says": "Fermium is the heaviest element that bombarding lighter elements with neutrons can make, and so the heaviest of which a macroscopic amount can be prepared."
    },
    {
     "heading": "Description",
     "source": "Los Alamos National Laboratory, U.S. Department of Energy",
-    "text": "Fermium metal has not been prepared, however measurements have been made on fermium alloys with rare earth metals and a number of predictions have been made."
+    "says": "No fermium metal has been prepared, though fermium alloyed with rare earth metals has been measured, and several predictions have been made."
    },
    {
     "heading": "Uses",
     "source": "Jefferson Lab, U.S. Department of Energy",
-    "text": "Due to the small amounts produced and its short half-life, there are currently no uses for fermium outside of basic scientific research."
+    "says": "Fermium has been produced only in small amounts and is short-lived, so it has no use beyond basic research."
    }
   ]
  },
@@ -130,7 +130,7 @@
    {
     "heading": "Uses",
     "source": "Jefferson Lab, U.S. Department of Energy",
-    "text": "Since only small amounts of mendelevium have ever been produced, it currently has no uses outside of basic scientific research."
+    "says": "Mendelevium has been produced only in small amounts, so it has no use beyond basic research."
    }
   ]
  },
@@ -140,7 +140,7 @@
    {
     "heading": "Uses",
     "source": "Jefferson Lab, U.S. Department of Energy",
-    "text": "Since only tiny amounts of nobelium have ever been produced, there are currently no uses for it outside of basic scientific research."
+    "says": "Nobelium has been produced only in tiny amounts, so it has no use beyond basic research."
    }
   ]
  },
@@ -150,7 +150,7 @@
    {
     "heading": "Uses",
     "source": "Jefferson Lab, U.S. Department of Energy",
-    "text": "Since only tiny amounts of lawrencium have ever been produced, there are currently no uses for it outside of basic scientific research."
+    "says": "Lawrencium has been produced only in tiny amounts, so it has no use beyond basic research."
    }
   ]
  },
@@ -160,7 +160,7 @@
    {
     "heading": "Uses",
     "source": "Jefferson Lab, U.S. Department of Energy",
-    "text": "Due to the small amounts produced and its short half-life, there are currently no uses for rutherfordium outside of basic scientific research."
+    "says": "Rutherfordium has been produced only in small amounts and is short-lived, so it has no use beyond basic research."
    }
   ]
  },
@@ -170,7 +170,7 @@
    {
     "heading": "Uses",
     "source": "Jefferson Lab, U.S. Department of Energy",
-    "text": "Due to the small amounts produced and its short half-life, there are currently no uses for dubnium outside of basic scientific research."
+    "says": "Dubnium has been produced only in small amounts and is short-lived, so it has no use beyond basic research."
    }
   ]
  },
@@ -180,7 +180,7 @@
    {
     "heading": "Uses",
     "source": "Jefferson Lab, U.S. Department of Energy",
-    "text": "Since only a few atoms of seaborgium have ever been made, there are currently no uses for seaborgium outside of basic scientific research."
+    "says": "So few atoms of seaborgium have been made that it has no use beyond basic research."
    }
   ]
  },
@@ -190,7 +190,7 @@
    {
     "heading": "Uses",
     "source": "Jefferson Lab, U.S. Department of Energy",
-    "text": "Since only a few atoms of bohrium have ever been made, there are currently no uses for bohrium outside of basic scientific research."
+    "says": "So few atoms of bohrium have been made that it has no use beyond basic research."
    }
   ]
  },
@@ -200,7 +200,7 @@
    {
     "heading": "Uses",
     "source": "Jefferson Lab, U.S. Department of Energy",
-    "text": "Since only small amounts of hassium have ever been produced, it currently has no uses outside of basic scientific research."
+    "says": "Hassium has been produced only in small amounts, so it has no use beyond basic research."
    }
   ]
  },
@@ -210,7 +210,7 @@
    {
     "heading": "Uses",
     "source": "Jefferson Lab, U.S. Department of Energy",
-    "text": "Since only small amounts of meitnerium have ever been produced, it currently has no uses outside of basic scientific research."
+    "says": "Meitnerium has been produced only in small amounts, so it has no use beyond basic research."
    }
   ]
  }

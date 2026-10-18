@@ -168,8 +168,8 @@ describe("the build's checks of the mixing lab's bench", () => {
 })
 
 describe("the build's checks of the rubbing alcohol's hazards", () => {
-  it('merges the one record, held to the rows of the hazard manifest', () => {
-    expect(mergeHazards(input.reagents, hazards, sheets).map((r) => r.id)).toEqual(['rubbing-alcohol'])
+  it('merges the two records, the rubbing alcohol\'s and, since 2026-10-18, the mineral oil\'s, held to the rows of the hazard manifest', () => {
+    expect(mergeHazards(input.reagents, hazards, sheets).map((r) => r.id)).toEqual(['rubbing-alcohol', 'mineral-oil'])
   })
 
   it('refuses a statement the sheet does not print, a signal word it does not print, and a note with no row under it', () => {

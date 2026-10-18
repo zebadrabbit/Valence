@@ -35,10 +35,14 @@ export function citations(entries: readonly Entry[], sources: readonly Source[])
   return result
 }
 
-/** What a drawn emission spectrum cites: its lines, and the note shown with every spectrum. */
+/** What a drawn emission spectrum cites: its lines, the sentence on which are shown where it says more, and the note shown with every spectrum. */
 function emissionEntries(emission: Emission | undefined): Entry[] {
   if (!emission) return []
-  return [...emission.lines.map((line): Entry => ['Emission lines', line.sourceId]), ...EMISSION_SCOPE_NOTE.sourceIds.map((id): Entry => ['What the emission spectrum leaves out', id])]
+  return [
+    ...emission.lines.map((line): Entry => ['Emission lines', line.sourceId]),
+    ...(emission.selectionSourceIds ?? []).map((id): Entry => ['Lines shown', id]),
+    ...EMISSION_SCOPE_NOTE.sourceIds.map((id): Entry => ['What the emission spectrum leaves out', id]),
+  ]
 }
 
 /** The sources of every stored value the atom card shows for an element, and of the colour its atoms are drawn in. */
@@ -173,6 +177,8 @@ export function stationCitations(data: AqueousData, stationId: string, sources: 
         ...(r.appearance ? [[`${r.name}: appearance`, r.appearance.sourceId] as const] : []),
         [`${r.name}: hazard classification`, r.hazards.sourceId],
         ...also(`${r.name}: hazards at the strength used`, r.hazards.note),
+        // A note that rests on more than two documents (since 2026-10-18) lists the third and any after it too.
+        ...(r.hazards.note.moreSourceIds ?? []).map((id): Entry => [`${r.name}: hazards at the strength used`, id]),
       ]),
       ...species.map((s): Entry => ['Formulas, charges and states of the species', s.sourceId]),
       ...species.flatMap((s): Entry[] => (s.solutionColor ? [['Colours of the ions in solution', s.solutionColor.sourceId]] : [])),

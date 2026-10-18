@@ -84,6 +84,10 @@ The quotation fingerprint that `src/chem-data/flame/quotation.test.ts` compares 
 
     node scripts/fingerprint-sources.mjs <folder of saved pages> 2026-10-08 docs/research/flame/sources
 
+## The hazard notes since 2026-10-18
+
+Two of the six notes were longer than the 160 words the later labs' notes keep to (spec 5.2): barium chloride's, 192 words, and copper(II) chloride's, 180. Both were cut to 160 on 2026-10-18 in the same three paragraphs, from the same documents, with nothing they said taken out: the words are fewer. One row was reworded to match (NOAA's passage on a spill of copper chloride, which the note no longer calls a spill). The other four notes, 147 to 149 words, are as they were. The lab's no-quotation test now covers the six notes, the headings over their statements and the hazard manifest's rows, as the later labs' tests do.
+
 ## What nobody checked
 
 No chemist has read the record, the notes or the primer. The scanned paper was read by one reader, by eye.
