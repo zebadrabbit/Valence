@@ -255,7 +255,8 @@ describe("the bottles' hazards", () => {
   it('give no method of disposal under any bottle', () => {
     for (const reagent of stored.reagents) {
       expect(reagent.hazards.note.value, reagent.id).not.toMatch(/down the (sink|drain)|neutrali[sz]e it|pour it/i)
-      if (reagent.id !== 'hcl-6m') expect(reagent.hazards.note.value, reagent.id).toContain("How any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.")
+      // The 6 M acid's record, the aqueous reactions lab's, has ended as this lab's do since 2026-10-18.
+      expect(reagent.hazards.note.value, reagent.id).toContain("How any of it is disposed of is decided by the laboratory's own rules and by local regulations; ask the laboratory's supervisor.")
     }
   })
 })

@@ -50,6 +50,36 @@
           "field": "nh4no3-0.5m.hazards.statements[4]",
           "prints": "May cause respiratory irritation (H335)",
           "where": "Section 2, the last of the five hazard classes it lists: category 3, for toxicity to one organ after a single exposure, here irritation of the airways. The section prints no other hazard code. Beside the first class and the last it prints a precautionary statement each, with codes that begin with P: those are not hazard statements and are not carried into the record."
+        },
+        {
+          "field": "nh4no3-0.5m.hazards.note",
+          "prints": "May intensify fire; oxidizer (H272)",
+          "where": "Section 2, the first of the five hazard classes it lists: category 3, for oxidising solids. The note's second paragraph calls the substance an oxidiser, as the stricter than the sheet for the solution, which lists no class at all."
+        },
+        {
+          "field": "nh4no3-0.5m.hazards.note",
+          "prints": "May cause respiratory irritation (H335)",
+          "where": "Section 2, the last of the five hazard classes it lists; the third and the fourth are irritation of the skin (H315) and serious irritation of the eyes (H319). The note says that the solid irritates the skin, the eyes and the airways."
+        },
+        {
+          "field": "nh4no3-0.5m.hazards.note",
+          "prints": "P220",
+          "where": "Section 7: the precautionary statement that the substance is kept and stored away from clothing and from what burns, with P221 on not mixing it with what burns. The note says that the sheet keeps it away from anything that burns."
+        },
+        {
+          "field": "nh4no3-0.5m.hazards.note",
+          "prints": "P271",
+          "where": "Sections 7 and 8: the precautionary statement that the substance is used only in a hood or where the air is well changed."
+        },
+        {
+          "field": "nh4no3-0.5m.hazards.note",
+          "prints": "SECTION 10 — STABILITY AND REACTIVITY",
+          "where": "The heading of section 10. Under it the sheet names the four kinds of substance that the sheet for the solution names: the note says that both sheets keep it from them."
+        },
+        {
+          "field": "nh4no3-0.5m.notCarried",
+          "prints": "SECTION 5 — FIRE FIGHTING MEASURES",
+          "where": "Read and not carried. The heading of section 5. Under it the sheet says that the solid may explode when shut in and very hot, or when it meets reducing agents; section 10 says that it is not to be ground in a mortar, as it may be set off by a blow. Why: they are of the dry solid, and the bench holds a dilute solution of it; the note keeps the solution from reducing agents and from anything that burns, as both sheets do."
         }
       ]
     },
@@ -88,6 +118,11 @@
           "field": "nh4no3-0.5m.hazards.note",
           "prints": "SECTION 10 — STABILITY AND REACTIVITY",
           "where": "The heading of section 10. Under it the sheet names four kinds of substance the solution is to be kept from; the note gives them in another order and in its own words."
+        },
+        {
+          "field": "nh4no3-0.5m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 26b, is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and by local regulations, and to ask the laboratory's supervisor."
         }
       ]
     },
@@ -126,6 +161,26 @@
           "field": "bacl2-0.5m.hazards.statements[1]",
           "prints": "Harmful if inhaled (H332)",
           "where": "Section 2, the last of the two hazard classes it lists: category 4, for acute toxicity by breathing in. The section prints no other hazard code. Beside each class it prints one precautionary statement, with a code that begins with P: those are not hazard statements and are not carried into the record."
+        },
+        {
+          "field": "bacl2-0.5m.hazards.note",
+          "prints": "Toxic if swallowed (H301)",
+          "where": "Section 2, the first of the two hazard classes it lists: category 3, for acute toxicity by mouth. The note's second paragraph gives the code, and the next, as the stricter than the sheet for the solution."
+        },
+        {
+          "field": "bacl2-0.5m.hazards.note",
+          "prints": "Harmful if inhaled (H332)",
+          "where": "Section 2, the last of the two hazard classes it lists: category 4, for acute toxicity by breathing in."
+        },
+        {
+          "field": "bacl2-0.5m.hazards.note",
+          "prints": "P271",
+          "where": "Sections 7 and 8: the precautionary statement that the substance is used only in a hood or where the air is well changed. The sheet for the solution does not print it."
+        },
+        {
+          "field": "bacl2-0.5m.hazards.note",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "The heading of section 4. Its first line, with no code, has a poison centre or a doctor called at once, where the sheet for the solution has the call made if the person feels unwell; for swallowing it has the mouth rinsed and the call made at once (P301+P310+P330). For the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up. For the skin: it is washed with plenty of water."
         }
       ]
     },
@@ -138,7 +193,7 @@
         {
           "field": "bacl2-0.5m.hazards.note",
           "prints": "Less than 1 M",
-          "where": "The sheet's title, after the words Barium Chloride Solution: the strengths the sheet is for. The solution on the bench is 0.5 M, inside this range, so the note rests on this sheet alone. The supplier lists no other sheet for a solution of barium chloride."
+          "where": "The sheet's title, after the words Barium Chloride Solution: the strengths the sheet is for. The solution on the bench is 0.5 M, inside this range, so the note's first paragraph rests on this sheet; its second, on the sheet for the solid (`flinn-sds-94`), which is the stricter. The supplier lists no other sheet for a solution of barium chloride."
         },
         {
           "field": "bacl2-0.5m.hazards.note",
@@ -158,7 +213,7 @@
         {
           "field": "bacl2-0.5m.hazards.note",
           "prints": "2.5-24.0%",
-          "where": "Section 3, the concentration column, in the row for barium chloride, which the formula column gives as the dihydrate, formula weight 244.28; the rest is water. The sheet does not say on what basis the percentage is. Counted as the dihydrate, 0.5 mol/L is about 122 g in a litre, about 12 g in each 100 mL (worked out, not read here), inside this range. The note's 10% counts the salt without its water."
+          "where": "Section 3, the concentration column, in the row for barium chloride, which the formula column gives as the dihydrate, formula weight 244.28; the rest is water. The sheet does not say on what basis the percentage is. Counted as the dihydrate, 0.5 mol/L is about 122 g in a litre, about 12 g in each 100 mL (worked out, not read here), inside this range. Counted without its water the salt is about 10% of the solution by mass (worked out, not read here); the note gives no percentage."
         },
         {
           "field": "bacl2-0.5m.hazards.note",
@@ -174,6 +229,11 @@
           "field": "bacl2-0.5m.hazards.note",
           "prints": "SECTION 4 — FIRST AID MEASURES",
           "where": "The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that; the sheet prints no code beside this and gives no number of minutes. For the skin: it is washed with plenty of water. For swallowing: the mouth is rinsed and a poison centre or a doctor is called if the person feels unwell; the section's first line says the same of any exposure, with the code P312."
+        },
+        {
+          "field": "bacl2-0.5m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 27h, is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and by local regulations, and to ask the laboratory's supervisor."
         }
       ]
     },
@@ -240,8 +300,13 @@
         },
         {
           "field": "caco3.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 26a, is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and by local regulations, and to ask the laboratory's supervisor."
+        },
+        {
+          "field": "caco3.notCarried",
           "prints": "carbon dioxide",
-          "where": "Section 9, the line on what the substance dissolves in: acids, with this gas given off. Section 10 lists acids among what the substance is to be kept from."
+          "where": "Read and not carried. Section 9, the line on what the substance dissolves in: acids, with this gas given off. Section 10 lists acids among what the substance is to be kept from, with strong oxidisers, magnesium and aluminium. Why: what the powder does in acid is what station 7 shows, and no note may say it before the station counts; the note said it until 2026-10-18. A little of the powder meets the 1 M acid there on purpose, as the experiment; no oxidiser and no aluminium is on this bench, and the magnesium is at another station."
         }
       ]
     },
@@ -314,12 +379,12 @@
         {
           "field": "cocl2-0.5m.hazards.note",
           "prints": "May cause cancer (H350)",
-          "where": "Section 2, the first of the five hazard classes it lists: category 1, for causing cancer; the sheet gives the category no letter and lists this class first. The note gives the code and says the statement in the project's words."
+          "where": "Section 2, the first of the five hazard classes it lists: category 1, for causing cancer; the sheet gives the category no letter and lists this class first. The note does not repeat this statement or the three after it: they are the statements over the note, and the note says that the solution is handled by this sheet."
         },
         {
           "field": "cocl2-0.5m.hazards.note",
           "prints": "Harmful if swallowed (H302)",
-          "where": "Section 2, the second of the five hazard classes it lists: category 4, for acute toxicity by mouth."
+          "where": "Section 2, the second of the five hazard classes it lists: category 4, for acute toxicity by mouth. The note's second paragraph gives the code as the one this sheet adds to the four of the sheet for the 10% solution."
         },
         {
           "field": "cocl2-0.5m.hazards.note",
@@ -360,6 +425,11 @@
           "field": "cocl2-0.5m.hazards.note",
           "prints": "SECTION 4 — FIRST AID MEASURES",
           "where": "The heading of section 4. Under it the sheet has lines for breathing in, for the skin and for swallowing, and none for the eyes: the words for rinsing the eyes that the supplier's other sheets carry are not on this one. The note says that the sheet prints no first aid for the eyes."
+        },
+        {
+          "field": "cocl2-0.5m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 27f, is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and by local regulations, and to ask the laboratory's supervisor. The sheet for the 10% solution names the same method."
         }
       ]
     },
@@ -387,7 +457,7 @@
         {
           "field": "cocl2-0.5m.hazards.note",
           "prints": "May cause cancer (H350)",
-          "where": "Section 2, the first of the four hazard classes it lists: category 1, for causing cancer. The note gives the code and says the statement in the project's words."
+          "where": "Section 2, the first of the four hazard classes it lists: category 1, for causing cancer. The note says what this statement and the three after it are, in the project's words and without their codes, which are the codes of four of the statements over the note."
         },
         {
           "field": "cocl2-0.5m.hazards.note",
@@ -471,6 +541,21 @@
           "field": "cuso4-0.5m.hazards.statements[1]",
           "prints": "Causes skin and serious eye irritation (H315+H319)",
           "where": "Section 2, the last of the two hazard classes it lists: categories 2 and 2A, for irritation of the skin and of the eyes, which the sheet prints as one class with one statement and a pair of codes. The section prints no other hazard code, and none for harm to water life. Beside the first class it prints one precautionary statement, with a code that begins with P: that is not a hazard statement and is not carried into the record."
+        },
+        {
+          "field": "cuso4-0.5m.hazards.note",
+          "prints": "Toxic if swallowed (H301)",
+          "where": "Section 2, the first of the two hazard classes it lists: category 3, for acute toxicity by mouth, graver than the category 4 of the sheet for the solution. The note's second paragraph gives the code and says that this sheet is the graver on swallowing."
+        },
+        {
+          "field": "cuso4-0.5m.hazards.note",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "The heading of section 4. Under it, first, medical advice for anyone exposed or concerned (P308+P313). For the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up, with medical advice if irritation of the eyes lasts (P337+P313). For swallowing: the mouth is rinsed and a poison centre or a doctor is called at once (P301+P330+P310), where the sheet for the solution has the call made only if the person feels unwell."
+        },
+        {
+          "field": "cuso4-0.5m.notCarried",
+          "prints": "SECTION 10 — STABILITY AND REACTIVITY",
+          "where": "Read and not carried. The heading of section 10. Under it the sheet keeps the salt from finely powdered metals and from heat, and says that it corrodes steel. Why: the note is held to 160 words and gives what protects a person at the bench; no powdered metal is on this bench, and the solution is not heated here."
         }
       ]
     },
@@ -483,7 +568,7 @@
         {
           "field": "cuso4-0.5m.hazards.note",
           "prints": "0.5 M - 1.5 M",
-          "where": "The sheet's title, after the words Copper(II) Sulfate Solution: the strengths the sheet is for. The solution on the bench is 0.5 M, the first strength this title takes in, so the note rests on this sheet alone. The supplier's other sheet for a solution of the salt alone in water is for 0.1 M or less (sds_286.1) and finds no hazard; nothing lies between the two sheets at 0.5 M, and that one is not a source of the record."
+          "where": "The sheet's title, after the words Copper(II) Sulfate Solution: the strengths the sheet is for. The solution on the bench is 0.5 M, the first strength this title takes in, so the note's first paragraph rests on this sheet; its second, on the sheet for the solid (`flinn-sds-285`), which is the stricter. The supplier's other sheet for a solution of the salt alone in water is for 0.1 M or less (sds_286.1) and finds no hazard; nothing lies between the two sheets at 0.5 M, and that one is not a source of the record."
         },
         {
           "field": "cuso4-0.5m.hazards.note",
@@ -529,6 +614,11 @@
           "field": "cuso4-0.5m.hazards.note",
           "prints": "P312",
           "where": "Section 4, its first line, and again in the line for swallowing, after the rinsing of the mouth: a poison centre or a doctor is called if the person feels unwell. In the line for swallowing the sheet prints the code as part of the group P302+P301+P312."
+        },
+        {
+          "field": "cuso4-0.5m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 26b, is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and by local regulations, and to ask the laboratory's supervisor."
         }
       ]
     },
@@ -614,7 +704,7 @@
         {
           "field": "fecl3-0.5m.hazards.note",
           "prints": "25-60%",
-          "where": "Section 3, the concentration column, in the row for iron(III) chloride, which the formula column gives as the hexahydrate, formula weight 270.32; the rest is water. The sheet does not say on what basis the percentage is. Counted as the hexahydrate, 0.5 mol/L is about 135 g in a litre, about 13.5 g in each 100 mL (worked out, as the note's 8% is), which is under this range and over the 2.7% of the other sheet."
+          "where": "Section 3, the concentration column, in the row for iron(III) chloride, which the formula column gives as the hexahydrate, formula weight 270.32; the rest is water. The sheet does not say on what basis the percentage is. Counted as the hexahydrate, 0.5 mol/L is about 135 g in a litre, about 13.5 g in each 100 mL (worked out, not read here), which is under this range and over the 2.7% of the other sheet."
         },
         {
           "field": "fecl3-0.5m.hazards.note",
@@ -635,6 +725,11 @@
           "field": "fecl3-0.5m.hazards.note",
           "prints": "at least 15 minutes",
           "where": "Section 4, the sentence after those two codes, on flushing with water at once: the only length of time the section gives. The sentence does not say what is flushed, and the note says that it does not."
+        },
+        {
+          "field": "fecl3-0.5m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 26b, is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and by local regulations, and to ask the laboratory's supervisor. The sheet for 0.1 M or less names the same method."
         }
       ]
     },
@@ -805,7 +900,7 @@
         {
           "field": "hcl-6m.hazards.note",
           "prints": "6 M - 12 M (Concentrated)",
-          "where": "The sheet's title, after the words Hydrochloric Acid: the strengths the sheet is for. The acid on the bench is 6 M, the first strength this title takes in; the supplier's sheet below it stops at 5.9 M. So the sheet for this strength is the one the bottle's statements come from, and the note rests on it and on no other."
+          "where": "The sheet's title, after the words Hydrochloric Acid: the strengths the sheet is for. The acid on the bench is 6 M, the first strength this title takes in; the supplier's sheet below it stops at 5.9 M. So the sheet for this strength is the one the bottle's statements come from, and the note's first paragraph rests on it; its second rests on the sheet just below (`flinn-sds-395.1`), which has a class this one does not."
         },
         {
           "field": "hcl-6m.hazards.note",
@@ -835,7 +930,7 @@
         {
           "field": "hcl-6m.hazards.note",
           "prints": "20-38%",
-          "where": "Section 3, the concentration column, in the row for hydrochloric acid, the rest being water. The sheet does not say on what basis the percentage is. The note's 20% for 6 mol/L is worked out, with a density of about 1.1 g/mL that was not read from a source, and is the foot of this range."
+          "where": "Section 3, the concentration column, in the row for hydrochloric acid, the rest being water. The sheet does not say on what basis the percentage is. 6 mol/L is about 20% by mass, worked out with a density of about 1.1 g/mL that was not read from a source, the foot of this range; the note gives no percentage."
         },
         {
           "field": "hcl-6m.hazards.note",
@@ -861,6 +956,16 @@
           "field": "hcl-6m.hazards.note",
           "prints": "P305+P351+P338",
           "where": "Section 4, under the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that. The sheet gives no number of minutes for the eyes. The same section says that after contact with the skin or the hair the clothing that was wetted is taken off at once and the skin rinsed with water (P303+P361+P353)."
+        },
+        {
+          "field": "hcl-6m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 24b, is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and by local regulations, and to ask the laboratory's supervisor. The sheet for 2.5 M to 5.9 M names the same method."
+        },
+        {
+          "field": "hcl-6m.notCarried",
+          "prints": "Produces heat when diluted with water.",
+          "where": "Read and not carried. Section 10, the last sentence of its first line. Why: at station 8 this acid meets the 6 M base, and whether the tube warms is what the station asks; no note may say so before the station counts. The station's caution says that the tube is hot once it is, and the bench adds no water to the acid."
         }
       ]
     },
@@ -908,7 +1013,7 @@
         {
           "field": "hcl-3m.hazards.note",
           "prints": "7.5-20%",
-          "where": "Section 3, the concentration column, in the row for hydrochloric acid, the rest being water. The sheet does not say on what basis the percentage is. The note's figure for 3 mol/L, a little over 10%, is worked out from the molarity and not read here; it is inside this range."
+          "where": "Section 3, the concentration column, in the row for hydrochloric acid, the rest being water. The sheet does not say on what basis the percentage is. 3 mol/L is a little over 10% by mass, worked out from the molarity and not read here, inside this range; the note gives no percentage."
         },
         {
           "field": "hcl-3m.hazards.note",
@@ -929,6 +1034,31 @@
           "field": "hcl-3m.hazards.note",
           "prints": "P305+P351+P338",
           "where": "Section 4, under the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that. The sheet gives no number of minutes for the eyes. The same section says that after contact with the skin or the hair the clothing that was wetted is taken off at once and the skin rinsed with water (P303+P361+P353)."
+        },
+        {
+          "field": "hcl-3m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 24b, is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and by local regulations, and to ask the laboratory's supervisor."
+        },
+        {
+          "field": "hcl-6m.hazards.note",
+          "prints": "2.5 M - 5.9 M",
+          "where": "The sheet's title, after the words Hydrochloric Acid Solution: the strengths the sheet is for, which stop just under the 6 M of the bench's acid. The note's second paragraph rests on it as the stricter on one hazard than the sheet for 6 M to 12 M, which has no class for the airways."
+        },
+        {
+          "field": "hcl-6m.hazards.note",
+          "prints": "May cause respiratory irritation (H335)",
+          "where": "Section 2, the second of the four hazard classes it lists: category 3, for toxicity to one organ after a single exposure, here irritation of the airways. The sheet for 6 M to 12 M prints no such class."
+        },
+        {
+          "field": "hcl-6m.hazards.note",
+          "prints": "P310",
+          "where": "Section 4, its first line: a poison centre or a doctor is to be called at once, as the sheet for 6 M to 12 M has it."
+        },
+        {
+          "field": "hcl-6m.hazards.note",
+          "prints": "P305+P351+P338",
+          "where": "Section 4, under the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that; the same section has the clothing that was wetted taken off at once and the skin rinsed with water (P303+P361+P353). It reads as the section of the sheet for 6 M to 12 M does."
         }
       ]
     },
@@ -971,7 +1101,7 @@
         {
           "field": "hcl-1m.hazards.note",
           "prints": "2-10%",
-          "where": "Section 3, the concentration column, in the row for hydrochloric acid, the rest being water. The sheet does not say on what basis the percentage is. Taken by mass, 2% is about 0.55 mol/L, so the table starts above the 0.1 M of the sheet's own title; the 3.6% of the acid on the bench is inside the table's range as well as the title's."
+          "where": "Section 3, the concentration column, in the row for hydrochloric acid, the rest being water. The sheet does not say on what basis the percentage is. Taken by mass, 2% is about 0.55 mol/L, so the table starts above the 0.1 M of the sheet's own title; 1 mol/L is about 3.6% by mass (worked out, not read here), inside the table's range as well as the title's; the note gives no percentage."
         },
         {
           "field": "hcl-1m.hazards.note",
@@ -992,6 +1122,11 @@
           "field": "hcl-1m.hazards.note",
           "prints": "P310",
           "where": "Section 4, straight after the codes for the eyes: a poison centre or a doctor is to be called at once. The same section says that after contact with the skin or the hair the clothing that was wetted is taken off at once and the skin rinsed with water."
+        },
+        {
+          "field": "hcl-1m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 24b, is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and by local regulations, and to ask the laboratory's supervisor."
         }
       ]
     },
@@ -1070,6 +1205,11 @@
           "field": "mg.hazards.note",
           "prints": "Irritating dust",
           "where": "Section 11, after the label for acute effects: the two words the sheet has there."
+        },
+        {
+          "field": "mg.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 26a, is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and by local regulations, and to ask the laboratory's supervisor."
         }
       ]
     },
@@ -1152,7 +1292,7 @@
         {
           "field": "nicl2-0.5m.hazards.note",
           "prints": "Toxic if swallowed or inhaled (H301+H331)",
-          "where": "Section 2, the first of the seven hazard classes it lists: category 3, for acute toxicity by mouth and by breathing in, which the sheet prints as one class with one statement and a pair of codes. The note gives the codes and says the statement in the project's words."
+          "where": "Section 2, the first of the seven hazard classes it lists: category 3, for acute toxicity by mouth and by breathing in, which the sheet prints as one class with one statement and a pair of codes. The note does not repeat this statement or the six after it: they are the statements over the note, and the note says that the solution is handled by this sheet."
         },
         {
           "field": "nicl2-0.5m.hazards.note",
@@ -1203,6 +1343,11 @@
           "field": "nicl2-0.5m.hazards.note",
           "prints": "SECTION 4 — FIRST AID MEASURES",
           "where": "The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up; then medical advice if irritation of the eyes lasts. For the skin: it is rinsed with water for several minutes, under the code P351, with medical advice if irritation or a rash sets in (P333+P313). For swallowing: the mouth is rinsed and a poison centre or a doctor is called at once (P301+P330+P310). In this section of the sheet the codes beside the eyes are out of step with the sentences: P337+P313, the code for irritation that lasts, stands after the rinsing, and P301+P310, a code for swallowing, stands after the advice on irritation that lasts. The note gives the sentences and none of those codes."
+        },
+        {
+          "field": "nicl2-0.5m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 27f, is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and by local regulations, and to ask the laboratory's supervisor. The sheet for the solution names the same method."
         }
       ]
     },
@@ -1230,7 +1375,7 @@
         {
           "field": "nicl2-0.5m.hazards.note",
           "prints": "May be harmful if swallowed (H303)",
-          "where": "Section 2, the first of the five hazard classes it lists: category 5, for acute toxicity by mouth. The note gives the code and says the statement in the project's words."
+          "where": "Section 2, the first of the five hazard classes it lists: category 5, for acute toxicity by mouth. The note does not name this statement or the next: it gives the three gravest of the five, H350, H360 and H372, each with its code and in the project's words."
         },
         {
           "field": "nicl2-0.5m.hazards.note",
@@ -1256,6 +1401,11 @@
           "field": "nicl2-0.5m.hazards.note",
           "prints": "3% or less",
           "where": "Section 3, the concentration column, in the row for nickel chloride, which the formula column gives as the hexahydrate, formula weight 237.72; the rest is water. The sheet does not say on what basis the percentage is. Counted as the hexahydrate, 0.5 mol/L is about 119 g in a litre, about 12 g in each 100 mL (worked out, not read here), about four times the top of this range: 3 g in each 100 mL is about 0.13 mol/L. So this sheet does not cover the solution on the bench, and the note says so, gives what the sheet prints for its weaker solution, and rests the handling on the solid's sheet."
+        },
+        {
+          "field": "nicl2-0.5m.hazards.note",
+          "prints": "SECTION 8 — EXPOSURE CONTROLS, PERSONAL PROTECTION",
+          "where": "The heading of section 8. Under it the sheet calls for eye protection, gloves and protective clothing, and for washing the hands after handling; it prints no code beside either."
         }
       ]
     },
@@ -1299,6 +1449,26 @@
           "field": "agno3-0.1m.hazards.statements[2]",
           "prints": "Causes severe skin burns and eye damage (H314)",
           "where": "Section 2, the last of the three hazard classes it lists: category 1, for corrosion or irritation of the skin. The section prints no other hazard code, and none for harm to water life. Beside the first two classes it prints a precautionary statement each, with codes that begin with P: those are not hazard statements and are not carried into the record."
+        },
+        {
+          "field": "agno3-0.1m.hazards.note",
+          "prints": "P310",
+          "where": "Section 4, its first line: a poison centre or a doctor is to be called at once, where the sheet for the solution has the call made if the person feels unwell, but for swallowing."
+        },
+        {
+          "field": "agno3-0.1m.hazards.note",
+          "prints": "P303+P361+P353",
+          "where": "Section 4, under the skin: all the clothing that was wetted is taken off at once and the skin rinsed with water, where the sheet for the solution has the skin washed. For swallowing: the mouth is rinsed, vomiting is not brought on, and a doctor or a poison centre is called at once, as the sheet for the solution has it too."
+        },
+        {
+          "field": "agno3-0.1m.hazards.note",
+          "prints": "Toxic to aquatic species.",
+          "where": "Section 12, the one line on ecology. The sheet gives no hazard class for the environment and says nothing of drains."
+        },
+        {
+          "field": "agno3-0.1m.notCarried",
+          "prints": "SECTION 10 — STABILITY AND REACTIVITY",
+          "where": "Read and not carried. The heading of section 10. Under it the sheet calls the substance an oxidiser and keeps it from strong reducing agents, from ammonia and strong bases, from alcohols and from magnesium; section 5 says that with ammonia it forms compounds that a blow can set off. Why: the note is held to 160 words and gives what protects a person who meets the solution at the bench; at this bench the silver nitrate meets only the cobalt chloride solution."
         }
       ]
     },
@@ -1311,7 +1481,7 @@
         {
           "field": "agno3-0.1m.hazards.note",
           "prints": "0.2 M or Less",
-          "where": "The sheet's title, after the words Silver Nitrate Solution: the strengths the sheet is for. The solution on the bench is 0.1 M, inside this range, so the note rests on this sheet alone. The supplier's next sheet is for 0.3 M to 1 M and gives Danger."
+          "where": "The sheet's title, after the words Silver Nitrate Solution: the strengths the sheet is for. The solution on the bench is 0.1 M, inside this range, so the note's first paragraph rests on this sheet; its second, on the sheet for the solid (`flinn-sds-691`), which is the stricter. The supplier's next sheet is for 0.3 M to 1 M and gives Danger."
         },
         {
           "field": "agno3-0.1m.hazards.note",
@@ -1331,7 +1501,7 @@
         {
           "field": "agno3-0.1m.hazards.note",
           "prints": "5% or less",
-          "where": "Section 3, the concentration column, in the row for silver nitrate, formula weight 169.87; the row for water beside it prints 98%+, which does not add up with this figure. The sheet does not say on what basis the percentage is. 0.2 mol/L is about 34 g in a litre, about 3.4 g in each 100 mL, so the table reaches higher than the title does. The note's 1.7% is worked out from the molarity and not read here; it is inside the range on either reading."
+          "where": "Section 3, the concentration column, in the row for silver nitrate, formula weight 169.87; the row for water beside it prints 98%+, which does not add up with this figure. The sheet does not say on what basis the percentage is. 0.2 mol/L is about 34 g in a litre, about 3.4 g in each 100 mL, so the table reaches higher than the title does. 0.1 mol/L is about 1.7% by mass, worked out from the molarity and not read here, inside the range on either reading; the note gives no percentage."
         },
         {
           "field": "agno3-0.1m.hazards.note",
@@ -1342,6 +1512,16 @@
           "field": "agno3-0.1m.hazards.note",
           "prints": "P305+P351+P338",
           "where": "Section 4, under the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that. The sheet gives no number of minutes for the eyes. After it the section prints P337+P313, medical advice if irritation of the eyes lasts. For the skin it prints P302+P352, washing with plenty of water, and P332+P313, medical advice if irritation sets in. For swallowing it says, with no code, that the mouth is rinsed, that vomiting is not brought on, and that a doctor or a poison centre is called at once."
+        },
+        {
+          "field": "agno3-0.1m.hazards.note",
+          "prints": "Toxic to aquatic species.",
+          "where": "Section 12, the one line on ecology, as the sheet for the solid has it. The sheet gives no hazard class for the environment and says nothing of drains. The note says that both sheets call silver nitrate toxic to water life, and gives no method of disposal."
+        },
+        {
+          "field": "agno3-0.1m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 11, is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and by local regulations, and to ask the laboratory's supervisor. The sheet for the solid names the same method."
         }
       ]
     },
@@ -1385,6 +1565,16 @@
           "field": "na2co3-0.5m.hazards.statements[2]",
           "prints": "Causes serious eye irritation (H319)",
           "where": "Section 2, the last of the three hazard classes it lists: category 2A, for serious damage to the eyes or irritation of them. The section prints no other hazard code, no precautionary statement and no other sentence."
+        },
+        {
+          "field": "na2co3-0.5m.hazards.note",
+          "prints": "Causes serious eye irritation (H319)",
+          "where": "Section 2, the last of the three hazard classes it lists: category 2A, for serious damage to the eyes or irritation of them. The sheet for the solution has no class for the eyes, so the note's second paragraph has the solution handled as the solid for them: this sheet is the stricter."
+        },
+        {
+          "field": "na2co3-0.5m.hazards.note",
+          "prints": "SECTION 4 — FIRST AID MEASURES",
+          "where": "The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up, with medical advice if irritation of the eyes lasts (P337+P313), which the sheet for the solution does not print. For the skin: it is washed with plenty of water, with medical advice if irritation sets in (P332+P313)."
         }
       ]
     },
@@ -1412,7 +1602,7 @@
         {
           "field": "na2co3-0.5m.hazards.note",
           "prints": "Causes mild skin irritation (H316)",
-          "where": "Section 2, the one hazard class it lists: category 3, for corrosion or irritation of the skin. The note gives the code and says the statement in the project's words. The section prints no other hazard code, no precautionary statement and no other sentence. It has no class for the eyes, where the sheet for the solid (`flinn-sds-716`) has H319; the note says so without naming that code."
+          "where": "Section 2, the one hazard class it lists: category 3, for corrosion or irritation of the skin. The note gives the code and says the statement in the project's words. The section prints no other hazard code, no precautionary statement and no other sentence. It has no class for the eyes, where the sheet for the solid (`flinn-sds-716`) has H319; the note says so, names that code, and has the solution handled as the solid: the stricter, from the sheet for the solid."
         },
         {
           "field": "na2co3-0.5m.hazards.note",
@@ -1428,6 +1618,11 @@
           "field": "na2co3-0.5m.hazards.note",
           "prints": "SECTION 4 — FIRST AID MEASURES",
           "where": "The heading of section 4. Under it, for the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that; the sheet prints no code beside this and gives no number of minutes. For the skin: it is washed with plenty of water. After that the section prints P332+P313: medical advice if irritation of the skin sets in. It has no such line for the eyes."
+        },
+        {
+          "field": "na2co3-0.5m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 26b, is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and by local regulations, and to ask the laboratory's supervisor."
         }
       ]
     },
@@ -1581,7 +1776,7 @@
         {
           "field": "naoh-1m.hazards.note",
           "prints": "1.2-24%",
-          "where": "Section 3, the concentration column, in the row for sodium hydroxide, the rest being water. The sheet does not say on what basis the percentage is; 0.3 mol/L is 12 g in a litre and 6.0 mol/L is 240 g, so the range reads as grams in each 100 mL. The note's 4% is worked out from the molarity and not read here."
+          "where": "Section 3, the concentration column, in the row for sodium hydroxide, the rest being water. The sheet does not say on what basis the percentage is; 0.3 mol/L is 12 g in a litre and 6.0 mol/L is 240 g, so the range reads as grams in each 100 mL. 1 mol/L is about 4% by mass, worked out from the molarity and not read here; the note gives no percentage."
         },
         {
           "field": "naoh-1m.hazards.note",
@@ -1597,6 +1792,16 @@
           "field": "naoh-1m.hazards.note",
           "prints": "P305+P351+P338",
           "where": "Section 4, under the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that. The sheet gives no number of minutes for the eyes. The same section says that after contact with the skin or the hair the clothing that was wetted is taken off at once and the skin rinsed with water (P303+P361+P353)."
+        },
+        {
+          "field": "naoh-1m.hazards.note",
+          "prints": "P301+P330+P331",
+          "where": "Section 4, for swallowing: the mouth is rinsed and vomiting is not brought on."
+        },
+        {
+          "field": "naoh-1m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 10, is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and by local regulations, and to ask the laboratory's supervisor."
         },
         {
           "field": "naoh-6m.hazards.note",
@@ -1621,7 +1826,7 @@
         {
           "field": "naoh-6m.hazards.note",
           "prints": "1.2-24%",
-          "where": "Section 3, the concentration column, in the row for sodium hydroxide, the rest being water. The sheet does not say on what basis the percentage is; 6.0 mol/L is 240 g in a litre, so the top of the range reads as grams in each 100 mL. By mass the same solution is about 20%, the figure the note gives, worked out with a density of about 1.2 g/mL that was not read from a source."
+          "where": "Section 3, the concentration column, in the row for sodium hydroxide, the rest being water. The sheet does not say on what basis the percentage is; 6.0 mol/L is 240 g in a litre, so the top of the range reads as grams in each 100 mL. By mass the same solution is about 20%, worked out with a density of about 1.2 g/mL that was not read from a source; the note gives no percentage."
         },
         {
           "field": "naoh-6m.hazards.note",
@@ -1637,6 +1842,11 @@
           "field": "naoh-6m.hazards.note",
           "prints": "P305+P351+P338",
           "where": "Section 4, under the eyes: they are rinsed with water for several minutes, contact lenses are taken out if they are worn and come out easily, and the rinsing is kept up after that. The sheet gives no number of minutes for the eyes. The same section says that after contact with the skin or the hair the clothing that was wetted is taken off at once and the skin rinsed with water (P303+P361+P353)."
+        },
+        {
+          "field": "naoh-6m.hazards.note",
+          "prints": "SECTION 13 — DISPOSAL CONSIDERATIONS",
+          "where": "The heading of section 13. Under it the sheet says that the federal, state and local rules that may apply are to be looked at first, and that one of the supplier's own numbered methods, number 10, is one option. The note gives no method of disposal, this one or another: it says that disposal is decided by the laboratory's own rules and by local regulations, and to ask the laboratory's supervisor. The sheet for 6.1 M to 19 M names the same method."
         }
       ]
     }

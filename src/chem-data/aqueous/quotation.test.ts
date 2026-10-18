@@ -1,16 +1,18 @@
 import { describe, expect, it } from 'vitest'
+import hazardManifest from '../../../docs/research/phase-4/sources/hazard-manifest.json'
 import manifest from '../../../docs/research/phase-4/sources/MANIFEST.json'
 import { aqueousData } from './data'
 import { AQUEOUS_PRIMER } from './primer'
 
 // No quotation: what this lab writes shares no run of six consecutive words with a page it rests on. That is the
 // primer (what it shows, the label at the head of a paragraph included, and what each paragraph says it rests on),
-// the stations' notes and hints, the two cautions, and the manifest's own account of where each figure is. The
+// the stations' notes and hints, the two cautions, the reagents' hazard notes and the headings over their statements,
+// and the two manifests' own account of where each figure is. The
 // pages are not kept, and neither is the fingerprint of them this compares against: see
 // docs/research/phase-4/sources/README.md, and ../titration/quotation.test.ts for how the check works and what it
 // cannot say. Where the fingerprint is absent, as in CI, the cases that need it are skipped and the run says so.
-// The reagents' hazard notes and the hazard manifest's rows are written apart from this lab's record and are not
-// checked here. What a manifest row gives as printed (`prints`) is data and is left out.
+// The hazard notes and the hazard manifest's rows have been checked here since the notes took the form of spec 5.2
+// (2026-10-18). What a manifest row gives as printed (`prints`) is data and is left out.
 type Lib = {
   QUOTED_RUN: number
   unpackHashes(base64: string): Set<number>
@@ -37,14 +39,18 @@ const written: [string, string][] = [
   ['the caution on smelling a tube', aqueousData.cautions.sniffing.value],
   ['the caution on a hot tube', aqueousData.cautions.hotTube.value],
   ...Object.entries(aqueousData.constants).map(([key, constant]): [string, string] => [`the note on ${key}`, constant.note ?? '']),
+  ...aqueousData.reagents.flatMap((reagent): [string, string][] => [[`${reagent.id}, the heading over its statements`, reagent.classifiedAs!], [`${reagent.id}, its hazard note`, reagent.hazards.note.value]]),
 ]
-const located: [string, string][] = manifest.sources.flatMap((s) => s.supports.map((row, i): [string, string] => [`${s.id}, row ${i + 1}`, row.where]))
+const located: [string, string][] = [
+  ...manifest.sources.flatMap((s) => s.supports.map((row, i): [string, string] => [`${s.id}, row ${i + 1}`, row.where])),
+  ...hazardManifest.sources.flatMap((s) => s.supports.map((row, i): [string, string] => [`hazards: ${s.id}, row ${i + 1}`, row.where])),
+]
 
 describe('no quotation: what there is to check', () => {
-  it('is the primer, the notes, the hints, the cautions and the manifest\'s rows', () => {
+  it('is the primer, the notes, the hints, the cautions, the hazard notes and the two manifests\' rows', () => {
     expect(QUOTED_RUN).toBe(6)
-    expect(written.length).toBeGreaterThan(150)
-    expect(located.length).toBe(manifest.sources.reduce((n, s) => n + s.supports.length, 0))
+    expect(written.length).toBeGreaterThan(180)
+    expect(located.length).toBe([...manifest.sources, ...hazardManifest.sources].reduce((n, s) => n + s.supports.length, 0))
     expect(located.length).toBeGreaterThan(65)
   })
 })
@@ -53,7 +59,7 @@ describe.skipIf(fingerprint === undefined)('no quotation, against the fingerprin
   it('has a fingerprint of every page the lab rests on that has words to take: all but the scanned tables, which were read as images', () => {
     expect(fingerprint!.runWords).toBe(6)
     expect(pages.size).toBeGreaterThan(60000)
-    const cited = new Set([...manifest.sources.map((s) => s.id), ...paragraphs.flatMap((p) => p.sourceIds), aqueousData.cautions.hotTube.sourceId, aqueousData.cautions.hotTube.alsoSourceId!])
+    const cited = new Set([...manifest.sources.map((s) => s.id), ...hazardManifest.sources.map((s) => s.id), ...paragraphs.flatMap((p) => p.sourceIds), aqueousData.cautions.hotTube.sourceId, aqueousData.cautions.hotTube.alsoSourceId!])
     expect([...cited].filter((id) => !fingerprint!.sources.includes(id))).toEqual(['nbs-tables-1982'])
   })
 
