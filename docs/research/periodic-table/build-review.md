@@ -2,6 +2,8 @@
 
 Reviewer key: `build`. 2026-10-03. Reviewed `docs/superpowers/plans/2026-10-03-periodic-table.md` against `docs/superpowers/specs/2026-10-03-periodic-table-design.md` and the code it builds on.
 
+On 2026-10-18 two sentence-length quotations of the ARIA Authoring Practices Guide (APG) in section 2.3 were put in this project's words; its short fragments are left as the review recorded them.
+
 No tracked file was changed and nothing was committed (`git status` is clean; the real build still emits `index-CZF3etaO.js` and `index-BGdXs2AH.css`, byte for byte). Everything here was produced in `.superpowers/tools/periodic-research/build/`.
 
 ## How the evidence was produced
@@ -134,9 +136,9 @@ A real table is also the least code for the gaps: empty cells take their place w
 
 ### 2.3 The rest of the specification
 
-- **`aria-rowindex`, `aria-colindex`, `aria-rowcount`, `aria-colcount`: none.** APG: they apply "if there are conditions where some rows or columns are hidden or not present in the DOM". Every row and column is in the DOM. APG warns that inconsistent values "could have devastating effects on assistive technology behavior".
+- **`aria-rowindex`, `aria-colindex`, `aria-rowcount`, `aria-colcount`: none.** APG: they are for a grid some of whose rows or columns are hidden or missing from the DOM. Every row and column is in the DOM. APG warns that inconsistent values "could have devastating effects on assistive technology behavior".
 - **`aria-selected`: none.** The grid has no selection model. **`aria-activedescendant`: none.** Real focus moves.
-- **Focus goes on the link, not the cell.** APG's first "optimal" combination: "A cell contains one widget whose operation does not require arrow keys and grid navigation keys set focus on that widget."
+- **Focus goes on the link, not the cell.** APG's first "optimal" combination is a cell holding one widget that needs no arrow keys of its own, with the grid's navigation keys putting focus on that widget.
 - **Roving tabindex:** the link of one element has `tabIndex={0}`, the other 117 have `-1`. The stop is the cell last focused, else the selected element, else hydrogen. Reset it to the selected element when focus leaves the grid; in the prototype it stayed on fluorine after the palette opened gold.
 - **Enter:** nothing to write. It is a link; the browser follows it. Do not call `preventDefault` on Enter. Space does nothing.
 - **Selected element:** render the cell as `NavLink`. It sets `aria-current="page"` by itself when its address is the current one (confirmed). That value is the accurate one: the link points at the page being shown.

@@ -14,13 +14,12 @@
    "id": "so2-lewis",
    "topic": "(a) SO2 Lewis structure",
    "choice": "RECOMMENDED: octet-obeying resonance form. S1 (formal charge +1, one lone pair) double-bonded to O1 (two lone pairs, 0) and single-bonded to O2 (three lone pairs, -1). Both S-O bonds carry the resonance note (effective order 1.5). S: oxidation state +4, steric number 3, bent, sp2.",
-   "why": "OpenStax Chemistry 2e Example 8.4 draws exactly these two resonance structures (verified from the figure description: S with one lone pair and a positive sign, single-bonded O with three lone pairs and a negative sign, the other O double-bonded). The Purdue/Bodner general chemistry review also presents SO2 as two resonance structures differing in which O holds the double bond. The alternative (O=S=O, zero formal charges, 10 electrons on S) is the \"minimise formal charge\" convention that texts such as Brown et al. apply to sulfate; it gives the same oxidation state (+4), steric number (3), geometry (bent) and hybridization (sp2), so only the stored bond orders, lone pairs, formal charges and the resonance note differ. The octet form is preferred because it predicts the observed equal S-O bonds via resonance without invoking d orbitals, and it is what the cited open textbook shows. Verification addendum: the competing O=S=O convention is shown for SO2 itself in a McMaster University general chemistry lecture slide (source mcmaster-chem1a3-so2), and PubChem CID 1119 stores SO2 as O=S=O; a learner who has seen that form should be told both are in use. Note the McMaster slide says each atom 'has an octet' in O=S=O, which is not correct for S (10 electrons).",
+   "why": "OpenStax Chemistry 2e Example 8.4 draws exactly these two resonance structures (verified from the figure description: S with one lone pair and a positive sign, single-bonded O with three lone pairs and a negative sign, the other O double-bonded). The Purdue/Bodner general chemistry review also presents SO2 as two resonance structures differing in which O holds the double bond. The alternative (O=S=O, zero formal charges, 10 electrons on S) is the \"minimise formal charge\" convention that texts such as Brown et al. apply to sulfate; it gives the same oxidation state (+4), steric number (3), geometry (bent) and hybridization (sp2), so only the stored bond orders, lone pairs, formal charges and the resonance note differ. The octet form is preferred because it predicts the observed equal S-O bonds via resonance without invoking d orbitals, and it is what the cited open textbook shows. Verification addendum: the competing O=S=O convention is the form PubChem CID 1119 stores for SO2 itself; a learner who has seen that form should be told both are in use. None of the pages cited here was recorded as drawing SO2 itself that way.",
    "sources": [
     "openstax-chem2e-8.3",
     "purdue-lewis",
     "wikipedia-so2",
-    "libretexts-brown-8.7",
-    "mcmaster-chem1a3-so2"
+    "libretexts-brown-8.7"
    ]
   },
   {
@@ -318,16 +317,10 @@
    "usedFor": "statement that the IUPAC simple estimate of the ionic approximation uses Allen electronegativities; Allen values H 2.300, B 2.051, C 2.544, N 3.066, O 3.610, F 4.193, P 2.253, S 2.589, Cl 2.869, Xe 2.582; full reference Karen, McArdle, Takats, Pure Appl. Chem. 2016, 88(8), 831-839"
   },
   {
-   "id": "mcmaster-chem1a3-so2",
-   "url": "https://chemistry.mcmaster.ca/~aph/chem1a3/lectures/lec07/tsld022.htm",
-   "citation": "McMaster University, Chem 1A3 lecture 7 slide 'Sulfur Dioxide, SO2'",
-   "usedFor": "a general chemistry lecture that shows the competing convention for SO2 itself: 'A BETTER representation of SO2 is made by forming 2 double bonds O = S = O ... formal charge = 0'"
-  },
-  {
    "id": "psu-chem110-delocalized-pi",
    "url": "https://oer.hax.psu.edu/kms723/sites/chem110/lesson-1/hybridization/delocalized-pi-bonding",
    "citation": "Penn State, Chemistry 110 open course, 'Delocalized pi bonding'",
-   "usedFor": "general chemistry statement of the resonance override: amide H-N-H angle 121.6 degrees, trigonal planar from sp2 hybridization with the lone pair in the remaining p orbital; 'If electrons on an atom are delocalized (involved in resonance), they will be in a p orbital. That means the atom must be sp2 or sp hybridized.'"
+   "usedFor": "general chemistry statement of the resonance override: amide H-N-H angle 121.6 degrees, trigonal planar from sp2 hybridization with the lone pair in the remaining p orbital; and the general rule that an atom whose electrons are delocalized by resonance holds them in a p orbital, so that it is sp2 or sp hybridized"
   }
  ],
  "electronegativityUsed": {
@@ -33053,7 +33046,7 @@
   "sourceClaimsConfirmed": [
    {
     "source": "openstax-chem2e-8.4",
-    "confirmed": "Table 8.3 valence configurations of N2 and O2 match valenceConfiguration strings and level order exactly; text: sigma-p above pi-p for Li through N; O2, F2, Ne2 negligible s-p mixing; Example 8.6 is the O2 diagram; 'N2 has a bond order of 3 and is diamagnetic'; O2 two unpaired electrons; Figure 8.37 exists",
+    "confirmed": "Table 8.3 valence configurations of N2 and O2 match valenceConfiguration strings and level order exactly; text: sigma-p above pi-p for Li through N; O2, F2, Ne2 negligible s-p mixing; Example 8.6 is the O2 diagram; N2 bond order 3 and diamagnetic; O2 two unpaired electrons; Figure 8.37 exists",
     "claims": 8
    },
    {
@@ -33173,31 +33166,31 @@
     "item": "hybridizationByStericNumberOnly on the 14 resonance-override atoms (field meaning)",
     "was": "Field name and the terminal-atoms convention imply 'hybridization from the steric number alone'; the 14 override atoms have stericNumber 4 but the field reads sp2",
     "shouldBe": "Values kept; convention text now states the field uses effectiveStericNumber (override applied). Added withoutResonanceOverride {stericNumber 4, electronGeometry tetrahedral, geometry, hybridization sp3} to each of the 14 atoms so the no-override alternative (the OpenStax Chemistry 2e Example 7.16 treatment) can be tested.",
-    "evidence": "build_expected.py line 327-328 sets the field from HYB_BY_SN[eff_sn]. OpenStax 7.6 Example 7.16 (https://openstax.org/books/chemistry-2e/pages/7-6-molecular-structure-and-polarity) re-fetched: 'oxygen (OH)—four regions of electron density; tetrahedral ... two bonds, two lone pairs; bent (109°)'."
+    "evidence": "build_expected.py line 327-328 sets the field from HYB_BY_SN[eff_sn]. OpenStax 7.6 Example 7.16 (https://openstax.org/books/chemistry-2e/pages/7-6-molecular-structure-and-polarity) re-fetched: it gives the O-H oxygen four regions of electron density, a tetrahedral electron-pair geometry, and, with two bonds and two lone pairs, a bent shape at 109°."
    },
    {
     "item": "sources[iupac-os-2016].usedFor (citation URL does not contain the value)",
     "was": "oxidation state = charge after ionic approximation of heteronuclear bonds; IUPAC uses Allen electronegativities, the spec uses Pauling (found via search result and the Wikipedia Oxidation state page; the Gold Book page itself returned HTTP 403 to curl)",
     "shouldBe": "oxidation state defined via the ionic approximation of bonds; publication details (PAC Aug 2016, 88(8), pp. 831-839; doi:10.1515/pac-2015-1204). This page names only the corresponding author (Pavel Karen) and does NOT mention Allen electronegativities; that statement and the full author list are verified from wikipedia-oxidation-state. The paper itself and the Gold Book entry were not readable (De Gruyter returned an empty HTTP 202, Gold Book HTTP 403). Added source wikipedia-oxidation-state.",
-    "evidence": "Re-fetched https://iupac.org/recommendation/comprehensive-definition-of-oxidation-state/ : text contains 'ionic approximation' and '88(8), pp. 831-839; doi:10.1515/pac-2015-1204' but no occurrence of 'Allen', 'McArdle' or 'Takats'. https://en.wikipedia.org/wiki/Oxidation_state contains 'for a simple estimate for the ionic approximation, we can use Allen electronegativities' and the Allen table; my script confirmed Allen and Pauling give the same direction for all 11 heteronuclear bond types in the library."
+    "evidence": "Re-fetched https://iupac.org/recommendation/comprehensive-definition-of-oxidation-state/ : text contains 'ionic approximation' and '88(8), pp. 831-839; doi:10.1515/pac-2015-1204' but no occurrence of 'Allen', 'McArdle' or 'Takats'. https://en.wikipedia.org/wiki/Oxidation_state says that Allen electronegativities can serve for a rough estimate in the ionic approximation, and gives the Allen table; my script confirmed Allen and Pauling give the same direction for all 11 heteronuclear bond types in the library."
    },
    {
     "item": "conventions[so2-lewis]: evidence for the competing expanded-octet form",
     "was": "Competing convention documented only by analogy with sulfate (LibreTexts Brown 8.7); stated gap 'no general chemistry page found that draws SO2 as O=S=O'",
-    "shouldBe": "Added source mcmaster-chem1a3-so2 and an addendum; recommendation (octet resonance form, S +1 / O -1, S oxidation state +4, bent, sp2) unchanged.",
-    "evidence": "Fetched https://chemistry.mcmaster.ca/~aph/chem1a3/lectures/lec07/tsld022.htm : 'A BETTER representation of SO2 is made by forming 2 double bonds O = S = O Each atom has - OCTET - formal charge = 0'. PubChem CID 1119 SMILES is O=S=O. OpenStax 8.3 Example 8.4 alt text re-fetched and matches the stored structure exactly."
+    "shouldBe": "Added an addendum resting on PubChem CID 1119; recommendation (octet resonance form, S +1 / O -1, S oxidation state +4, bent, sp2) unchanged. A university's lecture slide that draws SO2 as O=S=O was cited here as well until 2026-10-18, when it was dropped: the project cites no institution's course page, and PubChem's record carries the point the addendum makes. The gap the slide filled, a general chemistry page that draws SO2 itself as O=S=O, is open again.",
+    "evidence": "PubChem CID 1119 SMILES is O=S=O. OpenStax 8.3 Example 8.4 alt text re-fetched and matches the stored structure exactly."
    },
    {
     "item": "conventions[resonance-override]: source for amide/urea N = sp2",
     "was": "No fetched source said the amide N is sp2 in those words (stated gap); sp2 label was an inference from OpenStax Organic 24.3/26.4",
     "shouldBe": "Added source psu-chem110-delocalized-pi, which states it outright; values unchanged.",
-    "evidence": "Fetched https://oer.hax.psu.edu/kms723/sites/chem110/lesson-1/hybridization/delocalized-pi-bonding : 'The bond angles are about 120 degrees. This corresponds to a trigonal planar geometry which results from sp^2 hybridization ... That orbital holds the lone pair ... If electrons on an atom are delocalized (involved in resonance), they will be in a p orbital. That means the atom must be sp^2 or sp hybridized.'"
+    "evidence": "Fetched https://oer.hax.psu.edu/kms723/sites/chem110/lesson-1/hybridization/delocalized-pi-bonding : the page gives the amide's bond angles as about 120 degrees, a trigonal planar shape that it puts down to sp2 hybridization with the lone pair in the p orbital left over, and says that an atom whose electrons are delocalized by resonance holds them in a p orbital, so that it is sp2 or sp hybridized."
    },
    {
     "item": "conventions[terminal-atoms].why, claim that textbooks split on halogen hybridization",
     "was": "'...while other texts write sp3' stated as fact",
     "shouldBe": "Marked as not backed by a fetched source. The 'not assigned (terminal atom)' recommendation is unaffected because it does not depend on that claim.",
-    "evidence": "OpenStax 8.1 re-fetched: 'the overlap of an s orbital and a p orbital (as in HCl)' supports the first half only. No source in the file, and none I fetched, states a terminal halogen is sp3."
+    "evidence": "OpenStax 8.1 re-fetched: its description of HCl as an s orbital overlapping a p orbital supports the first half only. No source in the file, and none I fetched, states a terminal halogen is sp3."
    },
    {
     "item": "molecules[alanine].notes",
@@ -33216,7 +33209,7 @@
   "reviewerConcerns": [
    "Carboxylic/ester/carbonic O-H oxygens (8 atoms) shown as sp2 with trigonal-planar electron geometry contradicts the project's own general chemistry text (OpenStax Chemistry 2e Example 7.16: tetrahedral, bent 109 degrees). This is the value most likely to draw an instructor objection. It follows spec 6.3; the owner should decide, and the no-override values are in withoutResonanceOverride.",
    "Terminal O- atoms (5 atoms: SO2 O2, both zwitterion O2, HCO3- O2) and terminal O/N of CO2, O2, N2 are given a hybridization by analogy with formaldehyde O (Purdue) and the carboxylic O (Smith); no fetched source assigns these specific atoms.",
-   "SO2: both conventions are in real use (OpenStax octet form; McMaster and PubChem O=S=O). The stored form is defensible and matches the cited text.",
+   "SO2: both conventions are in real use (OpenStax octet form; PubChem O=S=O). The stored form is defensible and matches the cited text.",
    "MO labels: OpenStax writes the antibonding star after the subscript (sigma 2s*) and keeps axis subscripts (sigma 2px, pi 2py, pi 2pz); the file writes sigma*2s and drops the axes. Notation only.",
    "hypervalent label string differs between the task brief ('sp3d (textbook label)') and spec 6.3 ('sp3d (textbook label; real d-orbital involvement is negligible)'); tests should fix one."
   ],

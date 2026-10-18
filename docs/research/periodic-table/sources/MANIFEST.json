@@ -3,8 +3,8 @@
   "about": "Every copy read for the cross-check on the retrieval date. This folder holds only some of them; the rest were not kept, and docs/research/periodic-table/cross-check.md (sections 9 and 11) records what was found in them. README.md in this folder gives the attribution the Wikipedia copy requires.",
   "files": [
     {
-      "file": "ciaaw-abridged-atomic-weights.html",
-      "what": "CIAAW Abridged Standard Atomic Weights 2024",
+      "file": "ciaaw-abridged-atomic-weights-extract.json",
+      "what": "Extract of CIAAW's page Abridged Standard Atomic Weights 2024: each element's atomic number, symbol and name, its standard atomic weight as printed (value ± uncertainty, or a dash) and the footnote letters beside it. Written by extract-ciaaw-pages.mjs from the page as retrieved; the page itself is not kept",
       "url": "https://www.ciaaw.org/abridged-atomic-weights.htm",
       "role": "primary"
     },
@@ -15,8 +15,8 @@
       "role": "primary"
     },
     {
-      "file": "ciaaw-radioactive-elements.html",
-      "what": "CIAAW list of the most stable known isotope of each element without a standard atomic weight",
+      "file": "ciaaw-radioactive-elements-extract.json",
+      "what": "Extract of CIAAW's list of the most stable known isotope of each element without a standard atomic weight: each element's atomic number and symbol and the mass numbers listed for it. Written by extract-ciaaw-pages.mjs from the page as retrieved; the page itself is not kept",
       "url": "https://www.ciaaw.org/radioactive-elements.htm",
       "role": "primary"
     },
@@ -47,31 +47,31 @@
     {
       "file": "wikipedia-electronegativities-data-page.wikitext",
       "what": "Wikipedia, Electronegativities of the elements (data page), revision 1365095191",
-      "url": "https://en.wikipedia.org/w/index.php?title=Electronegativities_of_the_elements_(data_page)&action=raw",
+      "url": "https://en.wikipedia.org/wiki/Electronegativities_of_the_elements_(data_page)?oldid=1365095191",
       "role": "transcription"
     },
     {
       "file": "wikipedia-atomic-radii-data-page.wikitext",
       "what": "Wikipedia, Atomic radii of the elements (data page), revision 1372859669",
-      "url": "https://en.wikipedia.org/w/index.php?title=Atomic_radii_of_the_elements_(data_page)&action=raw",
+      "url": "https://en.wikipedia.org/wiki/Atomic_radii_of_the_elements_(data_page)?oldid=1372859669",
       "role": "transcription"
     },
     {
       "file": "wikipedia-melting-points-of-the-elements-data-page.wikitext",
       "what": "Wikipedia, Melting points of the elements (data page), revision 1337535216",
-      "url": "https://en.wikipedia.org/w/index.php?title=Melting_points_of_the_elements_(data_page)&action=raw",
+      "url": "https://en.wikipedia.org/wiki/Melting_points_of_the_elements_(data_page)?oldid=1337535216",
       "role": "transcription"
     },
     {
       "file": "wikipedia-boiling-points-of-the-elements-data-page.wikitext",
       "what": "Wikipedia, Boiling points of the elements (data page), revision 1337535288",
-      "url": "https://en.wikipedia.org/w/index.php?title=Boiling_points_of_the_elements_(data_page)&action=raw",
+      "url": "https://en.wikipedia.org/wiki/Boiling_points_of_the_elements_(data_page)?oldid=1337535288",
       "role": "transcription"
     },
     {
       "file": "wikipedia-densities-of-the-elements-data-page.wikitext",
       "what": "Wikipedia, Densities of the elements (data page), revision 1258326075",
-      "url": "https://en.wikipedia.org/w/index.php?title=Densities_of_the_elements_(data_page)&action=raw",
+      "url": "https://en.wikipedia.org/wiki/Densities_of_the_elements_(data_page)?oldid=1258326075",
       "role": "transcription"
     },
     {
@@ -82,7 +82,7 @@
     },
     {
       "file": "pubchem-element-pages-passages.json",
-      "what": "Sentences from the history, description and uses text of PubChem's element pages that notes in decisions.json rest on, each with the source PubChem cites (selected by extract-pubchem-pages.mjs)",
+      "what": "Where the sentences are, in the history, description and uses text of PubChem's element pages, that notes in decisions.json rest on: each by its element, heading and the source PubChem credits, with what it says in this project's words (recorded by extract-pubchem-pages.mjs). The sentences themselves, which are Jefferson Lab's, Los Alamos's or CIAAW's, are not kept",
       "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/element/<Z>/JSON",
       "role": "pubchem"
     },

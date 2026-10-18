@@ -24,7 +24,7 @@ No source has a copy in this folder. Three sources are shared with other labs an
 | Specific heat of iron | 0.449 J/(g·°C) | 25.10 over 55.845 |
 | Specific heat of zinc | 0.388 J/(g·°C) | 25.40 over 65.38 |
 | Specific heat of tin | 0.227 J/(g·°C) | 26.99, white tin, over 118.71 |
-| Molar masses of the four metals | as above | CIAAW abridged standard atomic weights, the copy kept for the periodic table |
+| Molar masses of the four metals | as above | CIAAW abridged standard atomic weights, the extract kept for the periodic table |
 | Molar mass of ammonium nitrate | 80.044 g/mol | PubChem's table, the copy kept for the aqueous reactions lab |
 | Specific heat of water | 4.18 J/(g·°C) | NIST Chemistry WebBook, which prints 4.1813 J/(g·K) at 25 °C and 0.1 MPa |
 | Density of water | 1.00 g/mL | The same page, which prints 0.99705 g/mL |

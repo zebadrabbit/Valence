@@ -198,7 +198,7 @@
             "reagents[aluminium-piece].molarMass"
           ],
           "prints": "26.982",
-          "where": "The copy kept for the periodic table, docs/research/periodic-table/sources/ciaaw-abridged-atomic-weights.html, the row for aluminium (13, Al): the abridged standard atomic weight, printed with an uncertainty of 0.001. The molar mass in g/mol is the same number. The build holds the stored figure to the periodic table's record, which it holds to this copy."
+          "where": "The extract of the page that the periodic table keeps, docs/research/periodic-table/sources/ciaaw-abridged-atomic-weights-extract.json, the row for aluminium (13, Al): the abridged standard atomic weight, printed with an uncertainty of 0.001. The molar mass in g/mol is the same number. The build holds the stored figure to the periodic table's record, which it holds to this extract."
         },
         {
           "fields": [

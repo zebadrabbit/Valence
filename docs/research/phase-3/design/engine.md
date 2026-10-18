@@ -2,6 +2,8 @@
 
 Key: `engine`. 2026-10-04. Design for planning, not app code. Nothing tracked was changed.
 
+On 2026-10-18 the one whole sentence this design quoted from a source, the Wikipedia article's on the volume of a drop (section 2.4), was put in this project's words. The short fragments it quotes as what a source prints are left as they were.
+
 Everything quoted as a number in this file was produced by the prototype in `proto/` and is pasted from `out/`. The prototype is the design below, written out and run: 101 Vitest tests pass under Vitest 5.0.3 on Node 24.21, it type-checks under the app's strict options, and every engine file passes the repository's ESLint config when linted as a file in `src/engine/`.
 
 ## 0. Read this first
@@ -238,7 +240,7 @@ The schema keeps to zod features `schema.ts` already uses (`strictObject`, `enum
 | Atmospheric CO₂ | 425.62 ppm, year 2025 | "2025   425.62     0.05", "mole fraction in dry air", "File Creation: Sat Sep  5 03:55:32 2026", and "the data presented for the last year are subject to change" | `noaa-gml-co2-annmean-gl`: NOAA Global Monitoring Laboratory, global annual mean |
 | Carbonic acid pK_a1, pK_a2 | 6.35, 10.33 | Infobox: "pK_a1 = 3.75 (25 °C; anhydrous)", "pK_a1 = 6.35 (hydrous)", "pK_a2 = 10.33", each cited to Perrin 1982. 6.35 is the apparent constant for dissolved CO₂, the species the model holds | `perrin-1982-wikipedia`: Perrin, D. D., Ed. *Ionisation Constants of Inorganic Acids and Bases in Aqueous Solution*, 2nd ed.; Pergamon, 1982. Not read; taken from Wikipedia, Carbonic acid, revision 1376246456 |
 | Phenolphthalein molar mass | 318.3 g/mol | `"MolecularWeight": "318.3"`, `"MolecularFormula": "C20H14O4"` | `pubchem-cid-4764` |
-| Drop volume | 0.05 mL | "Pharmacists have since moved to metric measurements, with a drop being rounded to exactly 0.05 mL (50 μL, that is, 20 drops per milliliter)." | `drop-unit-wikipedia`: Wikipedia, Drop (unit), revision 1314848686 |
+| Drop volume | 0.05 mL | The article says that pharmacists now use metric measures, in which a drop is rounded to exactly 0.05 mL (50 μL, or 20 drops to the millilitre). | `drop-unit-wikipedia`: Wikipedia, Drop (unit), revision 1314848686 |
 | Indicator strength | 0.5 g per 100 mL | **Not read.** Every catalogue page tried refused a script (section 9) | `ricca-5600` is a placeholder; the owner chooses (section 8) |
 | HCl hazards | Danger; H314, H335 | PubChem CID 313 carries two candidate entries. Safe Work Australia, "hydrochloric acid": H314 "Causes severe skin burns and eye damage", H335 "May cause respiratory irritation". EU CLP, "hydrogen chloride" (the gas): H314, H331 "Toxic if inhaled" | `pubchem-cid-313` |
 | NaOH hazards | Danger; H314 | EU CLP, "sodium hydroxide; caustic soda": H314 | `pubchem-cid-14798` |

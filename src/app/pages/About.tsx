@@ -34,9 +34,9 @@ export function About() {
           </h2>
           <p className="mb-2">
             Every chemistry value in Valence has a cited source. The values of the molecule explorer were curated by
-            hand and are checked by automated tests. The periodic table is built by a script from saved copies of its
-            sources, which were compared with each other; where a value needs a caution, the element's card carries a
-            note.
+            hand and are checked by automated tests. The periodic table is built by a script from saved copies and
+            extracts of its sources, which were compared with each other; where a value needs a caution, the element's
+            card carries a note.
           </p>
           <p className="mb-2">
             Valence relies on data published by PubChem (National Library of Medicine, National Center for

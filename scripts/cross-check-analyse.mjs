@@ -6,7 +6,7 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import {
-  agreement, decimals, parsePubChem, parseCiaawAbridged, parseCiaawRadioactive, parseDensitiesPage, parseNistIe, parseConfiguration,
+  agreement, decimals, parsePubChem, ciaawAbridgedRows, ciaawRadioactive, parseDensitiesPage, parseNistIe, parseConfiguration,
   shellCounts, electronCount, position,
 } from './periodic-table-lib.mjs'
 
@@ -41,9 +41,9 @@ export function analyse({ pubchemPath, sourcesDir, decisionsPath, curatedPath, l
 
   // -------------------------------------------------------------------------
   // 1. Atomic mass against CIAAW
-  const ciaaw = parseCiaawAbridged(read('ciaaw-abridged-atomic-weights.html'))
-  if (ciaaw.rows.length !== 118) throw new Error(`CIAAW page: expected 118 rows, parsed ${ciaaw.rows.length}`)
-  const radioactive = parseCiaawRadioactive(read('ciaaw-radioactive-elements.html'))
+  const ciaaw = ciaawAbridgedRows(JSON.parse(read('ciaaw-abridged-atomic-weights-extract.json')))
+  if (ciaaw.rows.length !== 118) throw new Error(`CIAAW extract: expected 118 rows, read ${ciaaw.rows.length}`)
+  const radioactive = ciaawRadioactive(JSON.parse(read('ciaaw-radioactive-elements-extract.json')))
   // The isotope each mass belongs to was found against AME2020 (cross-check-recorded.md) and is named in decisions.json.
   const isotopes = JSON.parse(readFileSync(decisionsPath, 'utf8')).isotopeMasses
   R.ciaawTitle = ciaaw.title

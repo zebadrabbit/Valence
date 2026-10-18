@@ -4,6 +4,8 @@ Reviewed 2026-10-03, before anything is built. Reviewed: `docs/superpowers/specs
 
 Every number below comes from a script in this folder run against the download, or from a page fetched today and saved under `sources/`. Where something could not be checked, section 7 says so. Nothing in the repository was modified.
 
+On 2026-10-17 the passages of OpenStax Chemistry 2e that this review quoted were put in this project's words, each with where it is, so that the repository quotes no source and makes no claim about OpenStax's licence. On 2026-10-18 the same was done for the sentence-length quotations of the IUPAC task group's report, IUPAC's periodic table page and the Red Book, and for the history text of seven PubChem element pages (CIAAW's) that Appendix G printed; the short fragments of them are left as the review recorded them. Nothing else in the review was changed for that reason.
+
 ## 0. What changes the plan
 
 Eleven items are wrong chemistry or a wrong test expectation as the plan stands. Each is detailed in the numbered section shown.
@@ -50,7 +52,7 @@ The plan's tests say `La (6, null, f, ...)` and `Lu (6, null, f, ...)`. Applied 
 | A: La to Yb and Ac to No are f; Lu and Lr are d | 14 | 36 | 40 | 28 | s2 f14 d10 p6 |
 | B: La and Ac are d; Ce to Lu and Th to Lr are f | 14 | 36 | 40 | 28 | s2 d1 f14 d9 p6 |
 
-A block is as wide as its subshell is large: 2, 6, 10, 14. A 15-wide f block is the error; a learner who highlights "block f", counts 15, and then reads that an f subshell holds 14 electrons has been taught a contradiction. The IUPAC task group says the same of this layout: it "appears to contain two rows of 15 elements, and thereby violates the simple one-to-one correspondence between orbital capacity" and "a student looking at the table ... is bound to wonder whether there is some scientific reason for making the f-block have a width of 15 elements" (Scerri 2021, fetched).
+A block is as wide as its subshell is large: 2, 6, 10, 14. A 15-wide f block is the error; a learner who highlights "block f", counts 15, and then reads that an f subshell holds 14 electrons has been taught a contradiction. The IUPAC task group says the same of this layout: its two rows of 15 break the match between the number of elements in a block and the electrons its orbitals hold, and a student who sees an f block 15 wide will wonder whether there is a scientific reason for it (Scerri 2021, fetched).
 
 The layout itself (15-element detached rows, group 3 holding only scandium and yttrium) is fine and common. OpenStax Figure 2.26 draws exactly this, and so does the table IUPAC publishes. The fix is in the block function only.
 
@@ -60,13 +62,13 @@ Both are defensible and both give correct block sizes. Evidence, all fetched tod
 
 | Source | What it says |
 | --- | --- |
-| IUPAC periodic table page | "Will group 3 consist of Sc, Y, Lu, and Lr or, will it consist of Sc, Y, La and Ac?" The question is presented as open. Lanthanoids are La to Lu and actinoids Ac to Lr (15 each) |
+| IUPAC periodic table page | It asks whether group 3 is scandium, yttrium, lutetium and lawrencium, or scandium, yttrium, lanthanum and actinium. The question is presented as open. Lanthanoids are La to Lu and actinoids Ac to Lr (15 each) |
 | IUPAC project 2015-039-2-200 page | The project "will deliver a recommendation"; end date 31 Dec 2021. No recommendation is shown on the page |
 | Scerri, "Provisional Report on Discussions on Group 3 of the Periodic Table", Chemistry International 43(1), 31 to 34 (2021) | "There is no objective means to adjudicate" between the two; it is "one of convention". The report suggests "a compromise could be reached" on Sc, Y, Lu, Lr because that table (1) shows the elements in order of atomic number, (2) avoids splitting the d block into two uneven parts, and (3) shows all blocks 2, 6, 10 and 14 wide. This is rule A. It is a provisional report, not an IUPAC ruling |
 | PubChem element pages (the app's own source) | Lutetium: group "3 - Lanthanide". Lawrencium: group "3 - Actinide". Lanthanum and actinium: no group number. This is rule A |
-| OpenStax Chemistry 2e, section 19.1 | "The f-block elements are the elements Ce through Lu ... and the elements Th through Lr". Lanthanum is "the first member of the third transition series". This is rule B |
-| OpenStax Chemistry 2e, section 6.4 | "Lanthanum and actinium ... are included and used to name the series, even though they are transition metals with no f electrons." Rule B |
-| IUPAC Red Book 2005, IR-3.5 | "The elements of groups 3-12 are the d-block elements"; says nothing on which elements sit below yttrium |
+| OpenStax Chemistry 2e, section 19.1 | The passage on the transition series puts cerium to lutetium and thorium to lawrencium in the f block, and makes lanthanum, by its configuration, the first element of the third transition series. This is rule B |
+| OpenStax Chemistry 2e, section 6.4 | The passage on the f series counts lanthanum and actinium in the two series, which are named after them, though it calls them transition metals without f electrons. Rule B |
+| IUPAC Red Book 2005, IR-3.5 | Groups 3 to 12 are the d block; says nothing on which elements sit below yttrium |
 
 Ground-state configurations do not settle it. Lanthanum (`[Xe]6s2 5d1`) and actinium have no f electron, which looks like rule B; but thorium (`[Rn]7s2 6d2`) has none either and everyone calls it f block. Lutetium (`[Xe]6s2 4f14 5d1`) has a full f subshell and one d electron, exactly like hafnium's pattern, which looks like rule A.
 
@@ -200,7 +202,7 @@ Which show a clean trend with PubChem's numbers:
 
 PubChem's column is the van der Waals radius. Its page labels it so, and the plan's own facts table says so. The spec and plan call it "atomic radius" throughout.
 
-The textbook trend is "radius falls across a period and rises down a group", taught with covalent radii (OpenStax 6.5: "We will use the covalent radius"). With PubChem's column:
+The textbook trend is "radius falls across a period and rises down a group", taught with covalent radii (OpenStax 6.5 says it uses the covalent radius). With PubChem's column:
 
 | Period | Values (pm) | Steps against the trend |
 | --- | --- | --- |
@@ -255,8 +257,8 @@ Seven of the ten are pure position: alkali metal is group 1 without hydrogen; al
 
 | Element(s) | PubChem | Elsewhere | Verdict |
 | --- | --- | --- | --- |
-| Hydrogen | Nonmetal | OpenStax: nonmetal; "properties similar to both group 1 and group 17" | Fine. Correctly not an alkali metal |
-| Zn, Cd, Hg, Cn | Transition metal | IUPAC Red Book: group 12 "not always included". OpenStax 2.5 footnote: "Per the IUPAC definition, group 12 elements are not transition metals". OpenStax 18.1 calls them "representative metals, or post-transition metals" | Acceptable; needs a note |
+| Hydrogen | Nonmetal | OpenStax: nonmetal, with properties like those of group 1 and of group 17 | Fine. Correctly not an alkali metal |
+| Zn, Cd, Hg, Cn | Transition metal | IUPAC Red Book: group 12 "not always included". OpenStax 2.5, in a footnote: by IUPAC's definition the elements of group 12 are not transition metals. OpenStax 18.1 calls them "representative metals, or post-transition metals" | Acceptable; needs a note |
 | Polonium | Metalloid | OpenStax Figure 2.26: metal. PubChem's own polonium page: "Metal". OpenStax 18.3 lists six metalloids and omits it | Needs a note. PubChem disagrees with itself here |
 | Astatine | Halogen | OpenStax Figure 2.26: metalloid. PubChem's own astatine page: "Semi-metal" | Fine as a group name; mention in the metalloid note |
 | The metalloid set | B Si Ge As Sb Te Po (7) | OpenStax 18.3 text: B Si Ge As Sb Te (6). OpenStax Figure 2.26: those six plus At (7) | The spec's planned note covers this; name polonium and astatine in it |
@@ -283,11 +285,11 @@ PubChem's page calls this display "Chemical Group / Family" and offers a separat
 
 Fetched and read in full. It supports:
 
-- The words "period" and "group": "seven horizontal rows, called periods or series, and 18 vertical columns, called groups".
+- The words "period" and "group": the table's seven rows are periods (or series) and its 18 columns groups.
 - Six family names: **alkali metals** (group 1 "except hydrogen"), **alkaline earth metals** (group 2), **pnictogens** (group 15), **chalcogens** (group 16), **halogens** (group 17), **noble gases** (group 18, "also known as inert gases").
 - One behaviour each for groups 1 and 2 (compounds with hydrogen in 1:1 and 1:2 ratios).
 - Main-group elements (groups 1, 2, 13 to 18), transition metals (3 to 12, with a footnote on group 12), inner transition metals (the two bottom rows).
-- Hydrogen as "a unique, nonmetallic element with properties similar to both group 1 and group 17 elements".
+- Hydrogen as a nonmetal unlike any other element, with properties like those of group 1 and of group 17.
 
 It does **not** support: any sentence about an individual period; anything about blocks (the words s-block, p-block, d-block, f-block do not appear); anything about groups 3 to 14 individually; any shared property of groups 15 to 18 beyond the name.
 
@@ -368,7 +370,7 @@ The script confirms each subshell list has exactly the capacity of its period (2
 
 The last sentence of the f-block text is checked by script: under rule A the only elements with no electron in the subshell their block is named for are La, Ac and Th.
 
-Two sentences in OpenStax 6.4 should not be reused. It says copper, silver and gold "are not technically transition elements"; under the IUPAC definition they are (Cu²⁺ has an incomplete d subshell). And its definition of valence electrons for transition metals ("those added after the last noble gas configuration") would count hafnium's 4f¹⁴. The drafts above say "outer s and d electrons" instead.
+Two sentences in OpenStax 6.4 should not be reused. It says copper, silver and gold "are not technically transition elements"; under the IUPAC definition they are (Cu²⁺ has an incomplete d subshell). And its definition of valence electrons for transition metals (every electron beyond the configuration of the preceding noble gas) would count hafnium's 4f¹⁴. The drafts above say "outer s and d electrons" instead.
 
 ## 6. Element card (spec 7)
 
@@ -378,7 +380,7 @@ Scripts: `categories.py` sections D to G, `masses.py`, `curated.py`, `pubchem_re
 
 The spec shows every empty PubChem field as "not measured". That is a claim about the state of science the app has no source for, and for several classes of field it is false:
 
-- **Electronegativity** (23 empty). OpenStax 7.2: electronegativity "is a dimensionless quantity that is calculated, not measured". Helium, neon and argon have no Pauling value because the scale is built from bond energies and they form no stable bonds. Promethium, europium, terbium and ytterbium are simply not listed.
+- **Electronegativity** (23 empty). OpenStax 7.2: electronegativity has no unit and is worked out, not measured. Helium, neon and argon have no Pauling value because the scale is built from bond energies and they form no stable bonds. Promethium, europium, terbium and ytterbium are simply not listed.
 - **Electron affinity** (61 empty). Among atomic numbers 1 to 86, thirty are empty. Sixteen of them are in groups 2, 12 and 18, plus nitrogen and manganese: atoms with filled or half-filled subshells, the cases OpenStax 6.5 explains as exceptions. PubChem's own pages give helium, nitrogen and neon a value of 0 or a negative number, meaning the negative ion is not stable; that is a known result, not a missing measurement. The other fourteen are lanthanides and hafnium, which PubChem just does not list.
 - **Density, melting point** of the superheavy elements: here "not measured" is true.
 
@@ -1244,13 +1246,13 @@ OpenStax figure entries read: 118
   "Ancient" (13): C Al S Ca Fe Cu As Ag Sn Sb Au Hg Pb
   empty: none
   earliest dated: P 1669, F 1670, Co 1735, Pt 1735, Zn 1746, Ni 1751, Bi 1753, H 1766
-  Al table "Ancient" | PubChem record (CIAAW text): The name derives from the Latin, alum and alumen for "stringent" because the early Romans called any substance with a stringent taste alum. The element was known in prehistoric times. In 1825, the Danish physicist, Hans Christian Oersted, isolated impure aluminium. The pure metal was first isolated by the German chemist Friedric
-  Ca table "Ancient" | PubChem record (CIAAW text): The name derives from the Latin calx for "lime" (CaO) or "limestone" (CaCO3) in which it was found. It was first isolated by British chemist Humphry Davy in 1808 with help from the Swedish chemist Jöns Jacob Berzelius and the Swedish court physician M. M. af Pontin.
-  F  table "1670" | PubChem record (CIAAW text): The name derives from the Latin fluere for "flow" or "flux" because fluorite (CaF2) was used as a flux in metallurgy owing to its low melting point. It was discovered in hydrofluoric acid by the Swedish pharmacist and chemist Carl-Wilhelm Scheele in 1771, but it was not isolated until 1886 by the French pharmacist and chemist He
-  Si table "1854" | PubChem record (CIAAW text): The name derives from the Latin silex and silicis for "flint". Amorphous silicon was discovered by the Swedish chemist Jöns Jacob Berzelius in 1824. Crystalline silicon was first prepared by the French chemist Henri Sainte-Claire Deville in 1854.
-  Zn table "1746" | PubChem record (CIAAW text): The name derives from the German zink of unknown origin. It was first used in prehistoric times, where its compounds were used for healing wounds and sore eyes and for making brass. Zinc was recognized as a metal as early as 1374.
-  Bi table "1753" | PubChem record (CIAAW text): The name derives from the German weisse masse for "white mass" from the colour of its oxides. The ancients did not distinguish bismuth from lead. The French chemist Claude-Francois Geoffroy showed that bismuth was distinct from lead in 1753.
-  He table "1868" | PubChem record (CIAAW text): The name derives from the Greek helios for "sun". The element was discovered by spectroscopy during a solar eclipse in the sun's chromosphere by the French astronomer Pierre-Jules-Cesar Janssen in 1868. It was independently discovered and named helium by the English astronomer Joseph Norman Lockyer. / Helium was thought to be on
+  Al table "Ancient" | PubChem record (CIAAW text), in this project's words: the name comes from the Latin for alum; the element was known in prehistoric times; impure aluminium was isolated by Hans Christian Oersted in 1825, and the pure metal later by a German chemist (the line is cut short here)
+  Ca table "Ancient" | PubChem record (CIAAW text), in this project's words: the name comes from the Latin calx (lime, limestone); Humphry Davy first isolated the element in 1808, helped by Jöns Jacob Berzelius and the Swedish court physician M. M. af Pontin
+  F  table "1670" | PubChem record (CIAAW text), in this project's words: the name comes from the Latin fluere (to flow), fluorite having served as a flux in metallurgy; Carl-Wilhelm Scheele found the element in hydrofluoric acid in 1771, and a French pharmacist and chemist first isolated it in 1886 (the line is cut short here)
+  Si table "1854" | PubChem record (CIAAW text), in this project's words: the name comes from the Latin for flint; Jöns Jacob Berzelius found amorphous silicon in 1824, and Henri Sainte-Claire Deville first made crystalline silicon in 1854
+  Zn table "1746" | PubChem record (CIAAW text), in this project's words: the name comes from the German zink, of unknown origin; zinc compounds served in prehistoric times to heal wounds and sore eyes and to make brass, and zinc was known as a metal by 1374
+  Bi table "1753" | PubChem record (CIAAW text), in this project's words: the name comes from the German for white mass, after the colour of its oxides; the ancients did not tell bismuth from lead, and Claude-Francois Geoffroy showed in 1753 that the two differ
+  He table "1868" | PubChem record (CIAAW text), in this project's words: the name comes from the Greek helios (sun); Pierre-Jules-Cesar Janssen found the element by spectroscopy in the sun's chromosphere during a solar eclipse in 1868, and Joseph Norman Lockyer found and named it independently (the line goes on)
 ```
 
 ## Appendix E. Counting claims in the descriptions: `descriptions_check.py`

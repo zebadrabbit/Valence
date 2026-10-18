@@ -1,4 +1,4 @@
-import { CATEGORY_HEADING, description, GROUP_3_NOTE, located, type Description } from './periodic'
+import { CATEGORY_HEADING, description, GROUP_3_NOTE, located, openstaxPassage, type Description } from './periodic'
 import type { Element, PeriodicElement } from './schema'
 
 // What the element card of the periodic table says beyond the values themselves (periodic table spec 5.1, 5.3
@@ -115,10 +115,11 @@ export const ELECTRON_AFFINITY_NOTE: Description = description(
   "PubChem gives the energy released when the atom gains an electron, so a positive value means energy is given out. Some textbooks give the energy change instead, which has the opposite sign. PubChem's values are from a compilation published in 1990.",
   [
     ['pubchem-periodic-table', 'the page describes the column as “the energy released when an additional electron is attached to a neutral atom to form a singly charged negative ion”.'],
-    [
-      'openstax-chem2e-6.5',
-      '“The electron affinity (EA) is the energy change for the process of adding an electron to a gaseous atom to form an anion (negative ion). … You can see that many of these elements have negative values of EA, which means that energy is released when the gaseous atom accepts an electron.”',
-    ],
+    openstaxPassage(
+      '6.5',
+      'the passage on electron affinity',
+      'the electron affinity is the energy change when a gaseous atom gains an electron and becomes a negative ion, and that many elements have a negative electron affinity, meaning energy is given out as the atom takes up the electron.',
+    ),
     [
       'pubchem-element-pages',
       'each page attributes its electron affinity to “R.T Myers, J. Chem. Edu., 1990, 67(4), 307” (recorded in docs/research/periodic-table/units.md, section 2; the kept extract of the pages holds the values but not the attribution, and the paper was not read).',
