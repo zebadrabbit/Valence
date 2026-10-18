@@ -76,11 +76,14 @@ const isProblem = (blocked: Blocked): blocked is Problem => blocked in PROBLEM_T
 /** The order of the metals, among the things a station of several tubes asks one at a time: no vessel has this id. */
 const ORDER = ':order'
 
-/** One question of a vessel, named by its heading. `folded` is for one whose answer is recorded and stands as a line beside "Change": the line says what it is of, so the heading is then a screen reader's alone, and the sheet is as short as the line, with what is said of the answer in the same row where there is the width (reactions.css). */
-function Sheet({ heading, folded = false, children }: { heading: string; folded?: boolean; children: ReactNode }) {
+/**
+ * One question of a vessel, named by its heading. `folded` is for one whose answer is recorded and stands as a line beside "Change": the line says what it is of, so the heading is then a screen reader's alone, and the sheet is as short as the line, with what is said of the answer in the same row where there is the width (reactions.css).
+ * `of` is the vessel's name where a station has several: three tubes' "What is seen" would otherwise be three regions of one name.
+ */
+function Sheet({ heading, of, folded = false, children }: { heading: string; of?: string | undefined; folded?: boolean; children: ReactNode }) {
   const headingId = useId()
   return (
-    <section aria-labelledby={headingId} className={folded ? 'reactions-folded' : SHEET}>
+    <section {...(of === undefined ? { 'aria-labelledby': headingId } : { 'aria-label': `${of}: ${heading}` })} className={folded ? 'reactions-folded' : SHEET}>
       <h4 id={headingId} className={folded ? 'sr-only' : 'font-semibold'}>
         {heading}
       </h4>
@@ -252,7 +255,7 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
       if (vessel.observation === null) return null
       // Under one of several tubes the sentence on what was found has no room: it would run into the next tube's. Each line there has its own mark, a tick too, and the sentence is a screen reader's.
       return (
-        <Sheet heading={OBSERVATION_TEXT.heading}>
+        <Sheet heading={OBSERVATION_TEXT.heading} of={several ? name(vessel) : undefined}>
           <ul className="grid gap-0.5">
             {observationLines(drawn, fields, vessel.observation, several).map((line, at) => (
               <li key={line}>
@@ -272,7 +275,7 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
     // Where several tubes stand in a row, what opens their questions is said once, under the row.
     if (several && !vessel.observationOpen && vessel.observation === null) return null
     return (
-      <Sheet heading={OBSERVATION_TEXT.heading} folded={vessel.observation !== null && (vessel.wrongFields === null || vessel.wrongFields.length === 0)}>
+      <Sheet heading={OBSERVATION_TEXT.heading} of={several ? name(vessel) : undefined} folded={vessel.observation !== null && (vessel.wrongFields === null || vessel.wrongFields.length === 0)}>
         {/* Until it opens it is one line that says what opens it. */}
         {!vessel.observationOpen && vessel.observation === null ? (
           <p className={`max-w-prose ${ROLE.held}`}>{view.acted ? OBSERVATION_TEXT.lookFirst : OBSERVATION_TEXT.actFirst}</p>
@@ -320,7 +323,7 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
     if (checked) {
       return (
         vessel.kind !== null && (
-          <Sheet heading={KIND_TEXT.heading}>
+          <Sheet heading={KIND_TEXT.heading} of={several ? name(vessel) : undefined}>
             <p>
               {KIND_LABEL[vessel.kind]} {vessel.kindRight !== null && <Found ok={vessel.kindRight}>{vessel.kindRight ? KIND_TEXT.right : KIND_TEXT.wrong}</Found>}
             </p>
@@ -329,7 +332,7 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
       )
     }
     return (
-      <Sheet heading={KIND_TEXT.heading} folded={vessel.kind !== null && vessel.kindRight !== false}>
+      <Sheet heading={KIND_TEXT.heading} of={several ? name(vessel) : undefined} folded={vessel.kind !== null && vessel.kindRight !== false}>
         <ChoiceForm
           key={mode}
           questions={[{ id: 'kind', label: KIND_TEXT.question, choices: kindChoices(data).map((choice) => ({ value: choice.value, label: kindChoiceLabel(choice) })), waits: null }]}
@@ -362,7 +365,7 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
     if (vessel.kind === null) return null
     if (vessel.kind === 'none') {
       return (
-        <Sheet heading={EQUATION_TEXT.heading}>
+        <Sheet heading={EQUATION_TEXT.heading} of={several ? name(vessel) : undefined}>
           <p className="max-w-prose">{EQUATION_TEXT.nothingToWrite}</p>
         </Sheet>
       )
@@ -371,7 +374,7 @@ export function StationCard({ data, stationId, mode, view, counted, full, can, w
     if (checked) {
       return (
         recorded !== null && (
-          <Sheet heading={EQUATION_TEXT.heading}>
+          <Sheet heading={EQUATION_TEXT.heading} of={several ? name(vessel) : undefined}>
             <p className={`text-base ${ROLE.value}`}>
               <EquationLine entry={{ noReaction: false, ...recorded.built }} formula={formula} noReaction="" />
             </p>

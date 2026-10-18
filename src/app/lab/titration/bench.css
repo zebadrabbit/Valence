@@ -68,6 +68,15 @@
   align-items: start;
   grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
 }
+/*
+ * A tile's button stands just above its Hazards disclosure, whose summary has a finger's hit area (lab.css) that
+ * reaches up over the button's lower half once the disclosure is open: a press there opened or closed the hazards
+ * and not the button. The buttons are laid over that area, so a press on a button is the button's.
+ */
+.bench-shelf button {
+  position: relative;
+  z-index: 1;
+}
 .bench-stand-group {
   grid-area: stand;
   min-width: 0;
