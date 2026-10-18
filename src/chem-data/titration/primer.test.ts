@@ -544,23 +544,25 @@ describe('the titration primer: what it has to say', () => {
     // at the several minutes was read as the whole instruction.
     const EYES = 'a splash in the eyes is to be rinsed with water for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up'
     expect(text).toContain(`All three sheets call for eye protection, gloves and protective clothing. All three say that ${EYES}, and that a splash on the skin is to be washed off with water.`)
+    // The notes say the same in fewer words since they took the three paragraphs of spec 5.2 (2026-10-18).
+    const NOTE_EYES = /rinsed with water for several minutes, (contact )?lenses out( if easily done)?, and the rinsing kept up/
     for (const note of [hcl.hazards.note.value, naoh.hazards.note.value]) {
       expect(note).toMatch(/eye protection, gloves and protective clothing/)
-      expect(note).toContain(EYES)
+      expect(note).toMatch(NOTE_EYES)
     }
     // Nowhere does the rinsing end at the several minutes: not on the card, in a note, or in what the card says each sheet establishes.
-    const rinsings = [text, hcl.hazards.note.value, naoh.hazards.note.value, ...support.split('\n').slice(0, 3)]
-    for (const said of rinsings) {
+    for (const said of [text, ...support.split('\n').slice(0, 3)]) {
       expect([said, said.match(/several minutes/g)?.length]).toEqual([said, 1])
       expect([said, /for several minutes, with contact lenses taken out if that is easily done, and the rinsing then kept up/.test(said)]).toEqual([said, true])
     }
+    for (const said of [hcl.hazards.note.value, naoh.hazards.note.value]) expect([said, said.match(/several minutes/g)?.length, NOTE_EYES.test(said)]).toEqual([said, 1, true])
     // The card tells the learner to treat the acid as the stricter sheet says, so it also says what that sheet asks for beyond
     // what the three share (Gate A, B2): the call at once after a splash in the eyes, the wetted clothing off at once, and the
     // hood or well-ventilated room. Without them a learner who read the card and not the note had a milder response to the
     // acid than the sheet they were told to follow. It is the paragraph's last sentence, after what the three sheets share.
     expect(text).toMatch(/washed off with water\. For the acid, the stricter sheet also says to call a poison centre or a doctor at once after a splash in the eyes, to take off at once any clothing the acid has wetted, and to work in a fume hood or a well-ventilated room\. The sheets give no time for the rinsing\./)
     // Each of the three is in the acid's note, which gives them as that sheet's, and in what the card says that sheet establishes.
-    for (const said of [/a poison centre or a doctor is to be called at once/, /the wet clothing is to come off at once/, /a fume hood or a well-ventilated room/]) expect([String(said), said.test(hcl.hazards.note.value)]).toEqual([String(said), true])
+    for (const said of [/a poison centre or a doctor called at once/, /clothing off at once/, /a hood or a well-ventilated room/]) expect([String(said), said.test(hcl.hazards.note.value)]).toEqual([String(said), true])
     const ofTheStricter = support.split('\n')[1]!
     for (const said of [/a poison centre or a doctor called at once/, /the wetted clothing is to come off at once/, /in a hood or a well-ventilated room/]) expect([String(said), said.test(ofTheStricter)]).toEqual([String(said), true])
     // The other two sheets ask for none of the three, and the card's lines for them claim none.
