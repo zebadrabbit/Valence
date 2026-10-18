@@ -56,9 +56,14 @@ export function Layout() {
             to={to}
             end={to === '/'}
             title={expanded ? undefined : label}
+            // The active page has a bar at its left edge as well: its shade alone is close to the rail's in both themes,
+            // and in the collapsed rail, where there is no label to be bold, it was all there was. A border, so that
+            // forced colours keep it.
             className={({ isActive }) =>
               `flex h-9 items-center gap-2 rounded-md px-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-                isActive ? 'bg-sidebar-accent font-medium' : 'hover:bg-sidebar-accent/60'
+                isActive
+                  ? 'relative bg-sidebar-accent font-medium before:absolute before:inset-y-2 before:left-0.5 before:rounded-full before:border-l-3 before:border-sidebar-foreground'
+                  : 'hover:bg-sidebar-accent/60'
               }`
             }
           >
