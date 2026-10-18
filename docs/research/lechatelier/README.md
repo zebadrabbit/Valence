@@ -144,7 +144,7 @@ Looked at again on 2026-10-18, for the hazard records of the older labs, and lef
 
 **What turns on it.** The solid as it is handled here, and the aqueous reactions lab's 0.5 M cobalt chloride solution, about 12 g of the hexahydrate in 100 mL, which is handled by the sheets for the solid: since the second pass of 2026-10-18 its note carries the same two stricter sheets, the corrosive class among them, and would lose that clause with this one. A solution that strong of a corrosive solid may be corrosive too by the usual rule for mixtures (this project's reasoning, not a document's).
 
-**For a chemist.** The European Union's harmonised classification of cobalt dichloride may say whether the salt is corrosive; it was not read for this project. A solution of the salt in water is weakly acidic, and the second supplier's note of a smell of hydrochloric acid may mean that its classification reflects acid in its product rather than the salt.
+**For a chemist.** The European Union's harmonised classification of cobalt dichloride may say whether the salt is corrosive; it was not checked. An attempt to read it at the European Chemicals Agency (echa.europa.eu) on 2026-10-18 stopped at the first request: the site answered the request for its robots file with a refusal (HTTP 403) and a page that challenges automated readers, so nothing more was asked of it. A solution of the salt in water is weakly acidic, and the second supplier's note of a smell of hydrochloric acid may mean that its classification reflects acid in its product rather than the salt.
 
 ## Tried and not read
 
