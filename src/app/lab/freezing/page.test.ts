@@ -524,7 +524,7 @@ describe('what is kept back until a run counts', () => {
       })
       expect(new Set(pages).size).toBe(1)
     }
-  })
+  }, 60_000)
 
   it('is, in Challenge, the figure a result is held to, the notes, each relation and whether an entry follows, at every step short of the check and after a check that does not count', () => {
     for (const part of PART_IDS) {

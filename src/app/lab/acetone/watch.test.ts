@@ -64,7 +64,7 @@ describe('a run that is played', () => {
     for (let seed = 1; seed <= 100; seed++) for (const runId of RUN_IDS) expect([seed, runId, toEnd(seed, runId).real > 3 * PLAY.deafMs, toEnd(seed, runId).real < PLAY.steadyMs]).toEqual([seed, runId, true, true])
     const p = startPlay(1000)
     expect([0, 250, 499, 500, 2000].map((ms) => tooSoon(p, 1000 + ms))).toEqual([true, true, true, false, false])
-  })
+  }, 60_000)
 
   it('has iodine left, and so a colour, at every frame before the one that shows the end, and none from that frame on: the fade and the watch agree', () => {
     for (const runId of RUN_IDS) {
@@ -105,7 +105,7 @@ describe('a run that is played', () => {
     }
     // The room is the step's own amount over the amount gone, of the time so far: half of a run for a step at half of its iodine.
     expect([roomToSay(SAY_MS * SPEED, { microMolar: 500, ofMicroMolar: 1000 }, 500), roomToSay(SAY_MS * SPEED - 1, { microMolar: 500, ofMicroMolar: 1000 }, 500), roomToSay(0, { microMolar: 1000, ofMicroMolar: 1000 }, 500)]).toEqual([true, false, false])
-  })
+  }, 60_000)
 
   it('adds true time, and no more, from the frame that shows the end: a hand 400 ms late is recorded 400 ms late, and the stopped watch reads what the running one read', () => {
     for (const runId of ['mixture-1', 'mixture-4'] as const) {

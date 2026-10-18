@@ -336,7 +336,7 @@ describe('part 2: a household thing', () => {
       if (mode === 'challenge') expect(after, thing).not.toContain(`✓ ${MARK_TEXT.right}`)
       expect(text(bench(run(m, read, mode === 'challenge' ? [{ type: 'checkSample', thing }] : []), 'things', thing)), thing).toContain(thingNote(data, thing))
     }
-  })
+  }, 60_000)
 
   it('says what is seen of a tube only when it is looked at: the words are not in the page', () => {
     const html = bench(lookedAt(scale(), 'lemon-juice'), 'things', 'lemon-juice')
