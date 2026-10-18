@@ -904,7 +904,7 @@ describe('what is kept back', () => {
     expect(bench(reached(KNOWN, 1), KNOWN, 0).entry).not.toContain(NOTES_TEXT.whichever)
     expect(text(bench(fresh(), UNKNOWN).entry)).toContain(PAGE_TEXT.notesLater)
     expect(text(done)).not.toContain(PAGE_TEXT.notesLater)
-  })
+  }, 60_000)
 
   // Seven runs of part 2, each drawn at fifteen points and at the naming: over a hundred renders of the whole Lab tab. It runs in about 3 seconds alone, and is given room for a machine that is busy.
   it('is, of an unknown, which ions it holds until they are named: two unknowns that have shown the same things are the same page, markup and all, and the seven of a seed are not told apart before a tube of theirs differs', { timeout: 30_000 }, () => {

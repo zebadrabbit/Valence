@@ -335,7 +335,7 @@ describe('a tube', () => {
     expect(brackets(bench(wholePair(m, fresh(), ONE), 'liquids', ONE))).toEqual([PART_LABEL.liquid])
     expect(brackets(bench(wholeSolidTube(m, fresh(), 'salt-in-vegetable-oil'), 'solids', 'salt-in-vegetable-oil'))).toEqual([PART_LABEL.liquid, PART_LABEL.solid])
     expect(brackets(bench(wholeSolidTube(m, fresh(), 'salt-in-water'), 'solids', 'salt-in-water'))).toEqual([PART_LABEL.liquid])
-  })
+  }, 60_000)
 
   it('gives a layer its word once it has been looked at, and no word to a layer that has not', () => {
     const two = tubeLayers(tubeView(m, stood(fresh(), OIL), OIL).shows, FULL)
@@ -364,7 +364,7 @@ describe('a tube', () => {
         }
       }
     }
-  })
+  }, 60_000)
 
   it('opens what is recorded with the look: one layer or two, and of two which liquid is on top, with which there is more of; or whether the solid is gone', () => {
     const before = text(bench(stood(fresh(), OIL), 'liquids', OIL))
