@@ -88,6 +88,8 @@ export function Settings() {
           </Button>
           <Button
             variant="destructive"
+            // The theme's red on its own pale red measured 4.0 to 1 in the light theme: a darker red of the same hue there.
+            className="text-red-700 dark:text-destructive"
             onClick={() => {
               if (window.confirm('Clear all Valence progress and settings in this browser? This cannot be undone.')) {
                 resetAll()
