@@ -76,7 +76,7 @@
     },
     {
       "id": "perrin-1982-wikipedia",
-      "url": "https://en.wikipedia.org/w/index.php?title=Carbonic_acid&oldid=1376246456",
+      "url": "https://en.wikipedia.org/wiki/Carbonic_acid?oldid=1376246456",
       "citation": "Perrin, D. D., Ed. Ionisation Constants of Inorganic Acids and Bases in Aqueous Solution, 2nd ed.; IUPAC Chemical Data Series 29; Pergamon: Oxford, 1982. The book was not read: the two constants were taken from a secondary transcription, Wikipedia's article Carbonic acid, revision 1376246456 of 2026-09-23, linked here, whose infobox cites the book's entry for carbonic acid (retrieved 2026-10-04).",
       "file": "wikipedia-carbonic-acid-1376246456.json",
       "sha256": "8560a47cb792ec967da3f25057418538402186e55ad3301b37d91a8f18225f81",
@@ -117,7 +117,7 @@
     },
     {
       "id": "drop-unit-wikipedia",
-      "url": "https://en.wikipedia.org/w/index.php?title=Drop_(unit)&oldid=1314848686",
+      "url": "https://en.wikipedia.org/wiki/Drop_(unit)?oldid=1314848686",
       "citation": "Wikipedia contributors. Drop (unit); Wikipedia, revision 1314848686 of 2025-10-03, linked here (retrieved 2026-10-04).",
       "file": "wikipedia-drop-unit-1314848686.json",
       "sha256": "092e901047eebaf7fa1de3faff3d48cbf4cbd6433b1935616e298fbd4d8ea259",
@@ -699,7 +699,7 @@
     },
     {
       "id": "wikipedia-burette",
-      "url": "https://en.wikipedia.org/w/index.php?title=Burette&oldid=1367898253",
+      "url": "https://en.wikipedia.org/wiki/Burette?oldid=1367898253",
       "citation": "Wikipedia contributors. Burette; Wikipedia, revision 1367898253 of 2026-08-05, linked here; read and not kept (retrieved 2026-10-04).",
       "supports": [
         {

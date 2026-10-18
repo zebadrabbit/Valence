@@ -13,10 +13,12 @@ The copies are as they were downloaded and are not edited by hand.
 ## Attribution
 
 `wikipedia-carbonic-acid-1376246456.json` holds the source text of the Wikipedia article "Carbonic acid" at revision 1376246456, unchanged:
-<https://en.wikipedia.org/w/index.php?title=Carbonic_acid&oldid=1376246456>.
+<https://en.wikipedia.org/wiki/Carbonic_acid?oldid=1376246456>.
 `wikipedia-drop-unit-1314848686.json` holds the source text of the Wikipedia article "Drop (unit)" at revision 1314848686, unchanged:
-<https://en.wikipedia.org/w/index.php?title=Drop_(unit)&oldid=1314848686>.
+<https://en.wikipedia.org/wiki/Drop_(unit)?oldid=1314848686>.
 Each is the work of Wikipedia's contributors, whose names are in the article's history, and is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License (<https://creativecommons.org/licenses/by-sa/4.0/>). That licence covers these two files, not the rest of the repository.
+
+The two copies were fetched through the MediaWiki API, and the manifest first gave the three Wikipedia pages this lab cites (these two and the article Burette) at `/w/index.php` addresses; Wikipedia's robots file closes `/w/` to automated readers and leaves `/wiki/` open. On 2026-10-18, with that file read first, each of the three was read once at `/wiki/Title?oldid=…`, at the revision recorded; each page said it was that revision, of the date recorded, and printed what the manifest says it prints (6.35 and 10.33 in the carbonic acid infobox's acidity line, 0.05 mL for the drop, the heading Burette reading). The addresses above and in the manifest are those.
 
 Neither page is a primary source. The carbonic acid page is kept because the two stored acid constants were read there and nowhere else: its infobox cites a handbook that was not read. The database file of the U.S. Geological Survey's PHREEQC program was read afterwards to check them, and is listed in the manifest and not kept. The drop page is kept because the 0.05 mL drop was read only there.
 

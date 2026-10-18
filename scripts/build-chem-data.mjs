@@ -1113,7 +1113,7 @@ function periodicSources(manifest) {
     },
     {
       id: DENSITIES_ID,
-      url: `https://en.wikipedia.org/w/index.php?title=Densities_of_the_elements_(data_page)&oldid=${revision}`,
+      url: `https://en.wikipedia.org/wiki/Densities_of_the_elements_(data_page)?oldid=${revision}`,
       citation: `Lide, D. R., Ed. CRC Handbook of Chemistry and Physics, 84th ed.; CRC Press: Boca Raton, FL, 2003; Section 4, Physical Constants of Inorganic Compounds. Dean, J. A., Ed. Lange's Handbook of Chemistry, 15th ed.; McGraw-Hill: New York, 1999; Table 3.2. Neither handbook was read: their densities were taken from a secondary transcription, Wikipedia's Densities of the elements (data page), revision ${revision}, linked here (${retrieved}).`,
     },
     {
