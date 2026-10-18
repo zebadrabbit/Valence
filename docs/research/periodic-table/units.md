@@ -186,7 +186,7 @@ PubChem's Citation Guidelines ask for this general reference: Kim S, Chen J, Che
 
 | Source | Used for (in the download) | Licence note on PubChem |
 | --- | --- | --- |
-| Jefferson Lab, U.S. Department of Energy | Melting point, boiling point, density, standard state, ionization energy, most oxidation states | "Please see citation and linking information: https://education.jlab.org/faq/index.html". That FAQ (archived copy) says information may be used "as long as you properly credit where the information came from" and names "Thomas Jefferson National Accelerator Facility - Office of Science Education" as the author |
+| Jefferson Lab, U.S. Department of Energy | Melting point, boiling point, density, standard state, ionization energy, most oxidation states | "Please see citation and linking information: https://education.jlab.org/faq/index.html". That FAQ (archived copy) lets its information be used on condition that Jefferson Lab is credited as its source, and names "Thomas Jefferson National Accelerator Facility - Office of Science Education" as the author |
 | Los Alamos National Laboratory, U.S. Department of Energy | Van der Waals radius, electron configuration, some oxidation states | None stated |
 | IUPAC Commission on Isotopic Abundances and Atomic Weights (CIAAW) | Basis of atomic mass (84 elements) | Links to ciaaw.org/bylaws.htm, which contains no licence terms. Description carries "Copyright © 2020 International Union of Pure and Applied Chemistry" |
 | Atomic Mass Data Center, IAEA | Basis of atomic mass (34 elements) | Links to a disclaimer: consensus values, accuracy not guaranteed |

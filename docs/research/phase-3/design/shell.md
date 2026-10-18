@@ -2,7 +2,7 @@
 
 Key `shell`. 2026-10-04. Design for planning; nothing here is app code. No tracked file was changed (`git status` is clean).
 
-On 2026-10-18 seven of the draft support lines of section 7 that were given as not quoted, but repeated eight words or more running of the OpenStax section they rest on, were given the wording the shipped primer (`src/chem-data/titration/primer.ts`) has for the same passage. Nothing else in this design was changed for that reason.
+On 2026-10-18 seven of the draft support lines of section 7 that were given as not quoted, but repeated eight words or more running of the OpenStax section they rest on, were given the wording the shipped primer (`src/chem-data/titration/primer.ts`) has for the same passage. So were three more that did the same with a page of Harvey's Analytical Chemistry 2.1, Seely's page on the pipet and the Wikipedia article on the burette. The quotations of Seely's page on the buret are left: section 7.1 records that the page puts itself in the public domain. Nothing else in this design was changed for that reason.
 
 Everything in this folder:
 
@@ -794,7 +794,7 @@ For example, with 0.1200 M HCl, an initial reading of 0.50 mL and a final readin
 A burette is a long, narrow glass tube with a scale along it and a tap, called the stopcock, at the bottom. Its scale starts at 0.00 mL at the top and the numbers increase downward, so the reading grows as solution runs out. The volume delivered is the final reading minus the initial reading; the burette does not need to start at zero.
 
 - *Rests on:* harvey-ac21-9.1: not quoted; see section 9.1, under “The Buret”, https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Analytical_Chemistry_2.1_by_David_Harvey/Analytical_Chemistry_2.1_(Harvey)/09%3A_Titrimetric_Methods/9.01%3A_Overview_of_Titrimetry. It establishes that a buret is a long, narrow graduated tube with a stopcock for dispensing the titrant.
-- *Rests on:* wikipedia-burette: not quoted; see the article’s opening section, https://en.wikipedia.org/w/index.php?title=Burette&oldid=1367898253. It establishes that a burette is graduated from the top downward, so that the volume dispensed is the difference between the starting and the final reading.
+- *Rests on:* wikipedia-burette: not quoted; see the article’s opening section, https://en.wikipedia.org/w/index.php?title=Burette&oldid=1367898253. It establishes that a burette is graduated from the top downward, so that the volume dispensed is found by taking the first reading from the last.
 
 The surface of the liquid is curved. The curve is called the meniscus. Read the lowest point of the meniscus, with your eye level with it; looking from above or from below shifts the reading.
 
@@ -812,8 +812,8 @@ This burette is marked every 0.1 mL. Judge how far the meniscus sits between two
 
 Glassware is washed with water, and some water stays behind on the inside. A wet burette dilutes the NaOH poured into it; a wet pipette dilutes the HCl drawn into it. Either way, the solution that is measured is weaker than the solution in the bottle. So before use the burette is rinsed with a little of the NaOH solution, which is called conditioning it, and the pipette is rinsed with a little of the HCl solution. The rinsings go to waste.
 
-- *Rests on:* harvey-ac21-2.4: not quoted; see section 2.4, under “Equipment for Measuring Volume”, https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Analytical_Chemistry_2.1_by_David_Harvey/Analytical_Chemistry_2.1_(Harvey)/02%3A_Basic_Tools_of_Analytical_Chemistry/2.04%3A_Basic_Equipment. It establishes that before use a pipet is rinsed with several small portions of the solution to be measured, to remove any liquid left in it.
-- *Rests on:* seely-pipet: not quoted; see the paragraphs on cleaning volumetric glassware, before the pipet is first used, https://chem.libretexts.org/Ancillary_Materials/Demos_Techniques_and_Experiments/General_Lab_Techniques/Use_of_a_Volumetric_Pipet. It establishes that volumetric pipets and burets that are still wet from cleaning must be rinsed with small portions of the solution to be measured before they are used.
+- *Rests on:* harvey-ac21-2.4: not quoted; see section 2.4, under “Equipment for Measuring Volume”, https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Analytical_Chemistry_2.1_by_David_Harvey/Analytical_Chemistry_2.1_(Harvey)/02%3A_Basic_Tools_of_Analytical_Chemistry/2.04%3A_Basic_Equipment. It establishes that before use a pipet is rinsed several times with a little of the solution it is to measure, to remove any liquid left in it.
+- *Rests on:* seely-pipet: not quoted; see the paragraphs on cleaning volumetric glassware, before the pipet is first used, https://chem.libretexts.org/Ancillary_Materials/Demos_Techniques_and_Experiments/General_Lab_Techniques/Use_of_a_Volumetric_Pipet. It establishes that volumetric pipets and burets that are still wet from cleaning are rinsed, before they are used, with a little of the solution they are to measure.
 
 The flask is different. It only has to be clean; it may be wet, and distilled water may be added to it during the titration. Water changes the concentration of the acid in the flask but not the number of moles of acid there, and it is the moles that the NaOH has to match.
 

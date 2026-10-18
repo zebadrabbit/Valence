@@ -4,7 +4,7 @@ Reviewed 2026-10-03, before anything is built. Reviewed: `docs/superpowers/specs
 
 Every number below comes from a script in this folder run against the download, or from a page fetched today and saved under `sources/`. Where something could not be checked, section 7 says so. Nothing in the repository was modified.
 
-On 2026-10-17 the passages of OpenStax Chemistry 2e that this review quoted were put in this project's words, each with where it is, so that the repository quotes no source and makes no claim about OpenStax's licence. Nothing else in the review was changed for that reason.
+On 2026-10-17 the passages of OpenStax Chemistry 2e that this review quoted were put in this project's words, each with where it is, so that the repository quotes no source and makes no claim about OpenStax's licence. On 2026-10-18 the same was done for the sentence-length quotations of the IUPAC task group's report, IUPAC's periodic table page and the Red Book; the short fragments of them are left as the review recorded them. Nothing else in the review was changed for that reason.
 
 ## 0. What changes the plan
 
@@ -52,7 +52,7 @@ The plan's tests say `La (6, null, f, ...)` and `Lu (6, null, f, ...)`. Applied 
 | A: La to Yb and Ac to No are f; Lu and Lr are d | 14 | 36 | 40 | 28 | s2 f14 d10 p6 |
 | B: La and Ac are d; Ce to Lu and Th to Lr are f | 14 | 36 | 40 | 28 | s2 d1 f14 d9 p6 |
 
-A block is as wide as its subshell is large: 2, 6, 10, 14. A 15-wide f block is the error; a learner who highlights "block f", counts 15, and then reads that an f subshell holds 14 electrons has been taught a contradiction. The IUPAC task group says the same of this layout: it "appears to contain two rows of 15 elements, and thereby violates the simple one-to-one correspondence between orbital capacity" and "a student looking at the table ... is bound to wonder whether there is some scientific reason for making the f-block have a width of 15 elements" (Scerri 2021, fetched).
+A block is as wide as its subshell is large: 2, 6, 10, 14. A 15-wide f block is the error; a learner who highlights "block f", counts 15, and then reads that an f subshell holds 14 electrons has been taught a contradiction. The IUPAC task group says the same of this layout: its two rows of 15 break the match between the number of elements in a block and the electrons its orbitals hold, and a student who sees an f block 15 wide will wonder whether there is a scientific reason for it (Scerri 2021, fetched).
 
 The layout itself (15-element detached rows, group 3 holding only scandium and yttrium) is fine and common. OpenStax Figure 2.26 draws exactly this, and so does the table IUPAC publishes. The fix is in the block function only.
 
@@ -62,13 +62,13 @@ Both are defensible and both give correct block sizes. Evidence, all fetched tod
 
 | Source | What it says |
 | --- | --- |
-| IUPAC periodic table page | "Will group 3 consist of Sc, Y, Lu, and Lr or, will it consist of Sc, Y, La and Ac?" The question is presented as open. Lanthanoids are La to Lu and actinoids Ac to Lr (15 each) |
+| IUPAC periodic table page | It asks whether group 3 is scandium, yttrium, lutetium and lawrencium, or scandium, yttrium, lanthanum and actinium. The question is presented as open. Lanthanoids are La to Lu and actinoids Ac to Lr (15 each) |
 | IUPAC project 2015-039-2-200 page | The project "will deliver a recommendation"; end date 31 Dec 2021. No recommendation is shown on the page |
 | Scerri, "Provisional Report on Discussions on Group 3 of the Periodic Table", Chemistry International 43(1), 31 to 34 (2021) | "There is no objective means to adjudicate" between the two; it is "one of convention". The report suggests "a compromise could be reached" on Sc, Y, Lu, Lr because that table (1) shows the elements in order of atomic number, (2) avoids splitting the d block into two uneven parts, and (3) shows all blocks 2, 6, 10 and 14 wide. This is rule A. It is a provisional report, not an IUPAC ruling |
 | PubChem element pages (the app's own source) | Lutetium: group "3 - Lanthanide". Lawrencium: group "3 - Actinide". Lanthanum and actinium: no group number. This is rule A |
 | OpenStax Chemistry 2e, section 19.1 | The passage on the transition series puts cerium to lutetium and thorium to lawrencium in the f block, and makes lanthanum, by its configuration, the first element of the third transition series. This is rule B |
 | OpenStax Chemistry 2e, section 6.4 | The passage on the f series counts lanthanum and actinium in the two series, which are named after them, though it calls them transition metals without f electrons. Rule B |
-| IUPAC Red Book 2005, IR-3.5 | "The elements of groups 3-12 are the d-block elements"; says nothing on which elements sit below yttrium |
+| IUPAC Red Book 2005, IR-3.5 | Groups 3 to 12 are the d block; says nothing on which elements sit below yttrium |
 
 Ground-state configurations do not settle it. Lanthanum (`[Xe]6s2 5d1`) and actinium have no f electron, which looks like rule B; but thorium (`[Rn]7s2 6d2`) has none either and everyone calls it f block. Lutetium (`[Xe]6s2 4f14 5d1`) has a full f subshell and one d electron, exactly like hafnium's pattern, which looks like rule A.
 

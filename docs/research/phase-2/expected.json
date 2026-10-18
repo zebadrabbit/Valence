@@ -321,13 +321,13 @@
    "id": "mcmaster-chem1a3-so2",
    "url": "https://chemistry.mcmaster.ca/~aph/chem1a3/lectures/lec07/tsld022.htm",
    "citation": "McMaster University, Chem 1A3 lecture 7 slide 'Sulfur Dioxide, SO2'",
-   "usedFor": "a general chemistry lecture that shows the competing convention for SO2 itself: 'A BETTER representation of SO2 is made by forming 2 double bonds O = S = O ... formal charge = 0'"
+   "usedFor": "a general chemistry lecture that shows the competing convention for SO2 itself: the slide prefers O=S=O, with two double bonds and a formal charge of zero on every atom"
   },
   {
    "id": "psu-chem110-delocalized-pi",
    "url": "https://oer.hax.psu.edu/kms723/sites/chem110/lesson-1/hybridization/delocalized-pi-bonding",
    "citation": "Penn State, Chemistry 110 open course, 'Delocalized pi bonding'",
-   "usedFor": "general chemistry statement of the resonance override: amide H-N-H angle 121.6 degrees, trigonal planar from sp2 hybridization with the lone pair in the remaining p orbital; 'If electrons on an atom are delocalized (involved in resonance), they will be in a p orbital. That means the atom must be sp2 or sp hybridized.'"
+   "usedFor": "general chemistry statement of the resonance override: amide H-N-H angle 121.6 degrees, trigonal planar from sp2 hybridization with the lone pair in the remaining p orbital; and the general rule that an atom whose electrons are delocalized by resonance holds them in a p orbital, so that it is sp2 or sp hybridized"
   }
  ],
  "electronegativityUsed": {
@@ -33179,19 +33179,19 @@
     "item": "sources[iupac-os-2016].usedFor (citation URL does not contain the value)",
     "was": "oxidation state = charge after ionic approximation of heteronuclear bonds; IUPAC uses Allen electronegativities, the spec uses Pauling (found via search result and the Wikipedia Oxidation state page; the Gold Book page itself returned HTTP 403 to curl)",
     "shouldBe": "oxidation state defined via the ionic approximation of bonds; publication details (PAC Aug 2016, 88(8), pp. 831-839; doi:10.1515/pac-2015-1204). This page names only the corresponding author (Pavel Karen) and does NOT mention Allen electronegativities; that statement and the full author list are verified from wikipedia-oxidation-state. The paper itself and the Gold Book entry were not readable (De Gruyter returned an empty HTTP 202, Gold Book HTTP 403). Added source wikipedia-oxidation-state.",
-    "evidence": "Re-fetched https://iupac.org/recommendation/comprehensive-definition-of-oxidation-state/ : text contains 'ionic approximation' and '88(8), pp. 831-839; doi:10.1515/pac-2015-1204' but no occurrence of 'Allen', 'McArdle' or 'Takats'. https://en.wikipedia.org/wiki/Oxidation_state contains 'for a simple estimate for the ionic approximation, we can use Allen electronegativities' and the Allen table; my script confirmed Allen and Pauling give the same direction for all 11 heteronuclear bond types in the library."
+    "evidence": "Re-fetched https://iupac.org/recommendation/comprehensive-definition-of-oxidation-state/ : text contains 'ionic approximation' and '88(8), pp. 831-839; doi:10.1515/pac-2015-1204' but no occurrence of 'Allen', 'McArdle' or 'Takats'. https://en.wikipedia.org/wiki/Oxidation_state says that Allen electronegativities can serve for a rough estimate in the ionic approximation, and gives the Allen table; my script confirmed Allen and Pauling give the same direction for all 11 heteronuclear bond types in the library."
    },
    {
     "item": "conventions[so2-lewis]: evidence for the competing expanded-octet form",
     "was": "Competing convention documented only by analogy with sulfate (LibreTexts Brown 8.7); stated gap 'no general chemistry page found that draws SO2 as O=S=O'",
     "shouldBe": "Added source mcmaster-chem1a3-so2 and an addendum; recommendation (octet resonance form, S +1 / O -1, S oxidation state +4, bent, sp2) unchanged.",
-    "evidence": "Fetched https://chemistry.mcmaster.ca/~aph/chem1a3/lectures/lec07/tsld022.htm : 'A BETTER representation of SO2 is made by forming 2 double bonds O = S = O Each atom has - OCTET - formal charge = 0'. PubChem CID 1119 SMILES is O=S=O. OpenStax 8.3 Example 8.4 alt text re-fetched and matches the stored structure exactly."
+    "evidence": "Fetched https://chemistry.mcmaster.ca/~aph/chem1a3/lectures/lec07/tsld022.htm : the slide calls O=S=O, with two double bonds and a formal charge of zero on every atom, the better way to draw SO2, and says that each atom has an octet. PubChem CID 1119 SMILES is O=S=O. OpenStax 8.3 Example 8.4 alt text re-fetched and matches the stored structure exactly."
    },
    {
     "item": "conventions[resonance-override]: source for amide/urea N = sp2",
     "was": "No fetched source said the amide N is sp2 in those words (stated gap); sp2 label was an inference from OpenStax Organic 24.3/26.4",
     "shouldBe": "Added source psu-chem110-delocalized-pi, which states it outright; values unchanged.",
-    "evidence": "Fetched https://oer.hax.psu.edu/kms723/sites/chem110/lesson-1/hybridization/delocalized-pi-bonding : 'The bond angles are about 120 degrees. This corresponds to a trigonal planar geometry which results from sp^2 hybridization ... That orbital holds the lone pair ... If electrons on an atom are delocalized (involved in resonance), they will be in a p orbital. That means the atom must be sp^2 or sp hybridized.'"
+    "evidence": "Fetched https://oer.hax.psu.edu/kms723/sites/chem110/lesson-1/hybridization/delocalized-pi-bonding : the page gives the amide's bond angles as about 120 degrees, a trigonal planar shape that it puts down to sp2 hybridization with the lone pair in the p orbital left over, and says that an atom whose electrons are delocalized by resonance holds them in a p orbital, so that it is sp2 or sp hybridized."
    },
    {
     "item": "conventions[terminal-atoms].why, claim that textbooks split on halogen hybridization",
